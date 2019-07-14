@@ -127,161 +127,161 @@ namespace GISharp.Lib.Gio
         static FileIface()
         {
             System.Int32 dupOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Dup));
-            RegisterVirtualMethod(dupOffset, DupFactory.Create);
+            RegisterVirtualMethod(dupOffset, DupMarshal.Create);
             System.Int32 hashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Hash));
-            RegisterVirtualMethod(hashOffset, HashFactory.Create);
+            RegisterVirtualMethod(hashOffset, HashMarshal.Create);
             System.Int32 equalOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Equal));
-            RegisterVirtualMethod(equalOffset, EqualFactory.Create);
+            RegisterVirtualMethod(equalOffset, EqualMarshal.Create);
             System.Int32 isNativeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.IsNative));
-            RegisterVirtualMethod(isNativeOffset, IsNativeFactory.Create);
+            RegisterVirtualMethod(isNativeOffset, IsNativeMarshal.Create);
             System.Int32 hasUriSchemeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.HasUriScheme));
-            RegisterVirtualMethod(hasUriSchemeOffset, HasUriSchemeFactory.Create);
+            RegisterVirtualMethod(hasUriSchemeOffset, HasUriSchemeMarshal.Create);
             System.Int32 getUriSchemeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetUriScheme));
-            RegisterVirtualMethod(getUriSchemeOffset, GetUriSchemeFactory.Create);
+            RegisterVirtualMethod(getUriSchemeOffset, GetUriSchemeMarshal.Create);
             System.Int32 getBasenameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetBasename));
-            RegisterVirtualMethod(getBasenameOffset, GetBasenameFactory.Create);
+            RegisterVirtualMethod(getBasenameOffset, GetBasenameMarshal.Create);
             System.Int32 getPathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetPath));
-            RegisterVirtualMethod(getPathOffset, GetPathFactory.Create);
+            RegisterVirtualMethod(getPathOffset, GetPathMarshal.Create);
             System.Int32 getUriOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetUri));
-            RegisterVirtualMethod(getUriOffset, GetUriFactory.Create);
+            RegisterVirtualMethod(getUriOffset, GetUriMarshal.Create);
             System.Int32 getParseNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetParseName));
-            RegisterVirtualMethod(getParseNameOffset, GetParseNameFactory.Create);
+            RegisterVirtualMethod(getParseNameOffset, GetParseNameMarshal.Create);
             System.Int32 getParentOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetParent));
-            RegisterVirtualMethod(getParentOffset, GetParentFactory.Create);
+            RegisterVirtualMethod(getParentOffset, GetParentMarshal.Create);
             System.Int32 prefixMatchesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PrefixMatches));
-            RegisterVirtualMethod(prefixMatchesOffset, PrefixMatchesFactory.Create);
+            RegisterVirtualMethod(prefixMatchesOffset, PrefixMatchesMarshal.Create);
             System.Int32 getRelativePathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetRelativePath));
-            RegisterVirtualMethod(getRelativePathOffset, GetRelativePathFactory.Create);
+            RegisterVirtualMethod(getRelativePathOffset, GetRelativePathMarshal.Create);
             System.Int32 resolveRelativePathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ResolveRelativePath));
-            RegisterVirtualMethod(resolveRelativePathOffset, ResolveRelativePathFactory.Create);
+            RegisterVirtualMethod(resolveRelativePathOffset, ResolveRelativePathMarshal.Create);
             System.Int32 getChildForDisplayNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetChildForDisplayName));
-            RegisterVirtualMethod(getChildForDisplayNameOffset, GetChildForDisplayNameFactory.Create);
+            RegisterVirtualMethod(getChildForDisplayNameOffset, GetChildForDisplayNameMarshal.Create);
             System.Int32 enumerateChildrenAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.EnumerateChildrenAsync));
-            RegisterVirtualMethod(enumerateChildrenAsyncOffset, EnumerateChildrenAsyncFactory.Create);
+            RegisterVirtualMethod(enumerateChildrenAsyncOffset, EnumerateChildrenAsyncMarshal.Create);
             System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfo));
-            RegisterVirtualMethod(queryInfoOffset, QueryInfoFactory.Create);
+            RegisterVirtualMethod(queryInfoOffset, QueryInfoMarshal.Create);
             System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoAsync));
-            RegisterVirtualMethod(queryInfoAsyncOffset, QueryInfoAsyncFactory.Create);
+            RegisterVirtualMethod(queryInfoAsyncOffset, QueryInfoAsyncMarshal.Create);
             System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoFinish));
-            RegisterVirtualMethod(queryInfoFinishOffset, QueryInfoFinishFactory.Create);
+            RegisterVirtualMethod(queryInfoFinishOffset, QueryInfoFinishMarshal.Create);
             System.Int32 queryFilesystemInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryFilesystemInfo));
-            RegisterVirtualMethod(queryFilesystemInfoOffset, QueryFilesystemInfoFactory.Create);
+            RegisterVirtualMethod(queryFilesystemInfoOffset, QueryFilesystemInfoMarshal.Create);
             System.Int32 queryFilesystemInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryFilesystemInfoAsync));
-            RegisterVirtualMethod(queryFilesystemInfoAsyncOffset, QueryFilesystemInfoAsyncFactory.Create);
+            RegisterVirtualMethod(queryFilesystemInfoAsyncOffset, QueryFilesystemInfoAsyncMarshal.Create);
             System.Int32 queryFilesystemInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryFilesystemInfoFinish));
-            RegisterVirtualMethod(queryFilesystemInfoFinishOffset, QueryFilesystemInfoFinishFactory.Create);
+            RegisterVirtualMethod(queryFilesystemInfoFinishOffset, QueryFilesystemInfoFinishMarshal.Create);
             System.Int32 findEnclosingMountAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.FindEnclosingMountAsync));
-            RegisterVirtualMethod(findEnclosingMountAsyncOffset, FindEnclosingMountAsyncFactory.Create);
+            RegisterVirtualMethod(findEnclosingMountAsyncOffset, FindEnclosingMountAsyncMarshal.Create);
             System.Int32 setDisplayNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetDisplayName));
-            RegisterVirtualMethod(setDisplayNameOffset, SetDisplayNameFactory.Create);
+            RegisterVirtualMethod(setDisplayNameOffset, SetDisplayNameMarshal.Create);
             System.Int32 setDisplayNameAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetDisplayNameAsync));
-            RegisterVirtualMethod(setDisplayNameAsyncOffset, SetDisplayNameAsyncFactory.Create);
+            RegisterVirtualMethod(setDisplayNameAsyncOffset, SetDisplayNameAsyncMarshal.Create);
             System.Int32 setDisplayNameFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetDisplayNameFinish));
-            RegisterVirtualMethod(setDisplayNameFinishOffset, SetDisplayNameFinishFactory.Create);
+            RegisterVirtualMethod(setDisplayNameFinishOffset, SetDisplayNameFinishMarshal.Create);
             System.Int32 querySettableAttributesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QuerySettableAttributes));
-            RegisterVirtualMethod(querySettableAttributesOffset, QuerySettableAttributesFactory.Create);
+            RegisterVirtualMethod(querySettableAttributesOffset, QuerySettableAttributesMarshal.Create);
             System.Int32 queryWritableNamespacesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryWritableNamespaces));
-            RegisterVirtualMethod(queryWritableNamespacesOffset, QueryWritableNamespacesFactory.Create);
+            RegisterVirtualMethod(queryWritableNamespacesOffset, QueryWritableNamespacesMarshal.Create);
             System.Int32 setAttributeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetAttribute));
-            RegisterVirtualMethod(setAttributeOffset, SetAttributeFactory.Create);
+            RegisterVirtualMethod(setAttributeOffset, SetAttributeMarshal.Create);
             System.Int32 setAttributesFromInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetAttributesFromInfo));
-            RegisterVirtualMethod(setAttributesFromInfoOffset, SetAttributesFromInfoFactory.Create);
+            RegisterVirtualMethod(setAttributesFromInfoOffset, SetAttributesFromInfoMarshal.Create);
             System.Int32 setAttributesAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetAttributesAsync));
-            RegisterVirtualMethod(setAttributesAsyncOffset, SetAttributesAsyncFactory.Create);
+            RegisterVirtualMethod(setAttributesAsyncOffset, SetAttributesAsyncMarshal.Create);
             System.Int32 setAttributesFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetAttributesFinish));
-            RegisterVirtualMethod(setAttributesFinishOffset, SetAttributesFinishFactory.Create);
+            RegisterVirtualMethod(setAttributesFinishOffset, SetAttributesFinishMarshal.Create);
             System.Int32 readFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReadFn));
-            RegisterVirtualMethod(readFnOffset, ReadFnFactory.Create);
+            RegisterVirtualMethod(readFnOffset, ReadFnMarshal.Create);
             System.Int32 readAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReadAsync));
-            RegisterVirtualMethod(readAsyncOffset, ReadAsyncFactory.Create);
+            RegisterVirtualMethod(readAsyncOffset, ReadAsyncMarshal.Create);
             System.Int32 readFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReadFinish));
-            RegisterVirtualMethod(readFinishOffset, ReadFinishFactory.Create);
+            RegisterVirtualMethod(readFinishOffset, ReadFinishMarshal.Create);
             System.Int32 appendToOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AppendTo));
-            RegisterVirtualMethod(appendToOffset, AppendToFactory.Create);
+            RegisterVirtualMethod(appendToOffset, AppendToMarshal.Create);
             System.Int32 appendToAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AppendToAsync));
-            RegisterVirtualMethod(appendToAsyncOffset, AppendToAsyncFactory.Create);
+            RegisterVirtualMethod(appendToAsyncOffset, AppendToAsyncMarshal.Create);
             System.Int32 appendToFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AppendToFinish));
-            RegisterVirtualMethod(appendToFinishOffset, AppendToFinishFactory.Create);
+            RegisterVirtualMethod(appendToFinishOffset, AppendToFinishMarshal.Create);
             System.Int32 createOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Create));
-            RegisterVirtualMethod(createOffset, CreateFactory.Create);
+            RegisterVirtualMethod(createOffset, CreateMarshal.Create);
             System.Int32 createAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateAsync));
-            RegisterVirtualMethod(createAsyncOffset, CreateAsyncFactory.Create);
+            RegisterVirtualMethod(createAsyncOffset, CreateAsyncMarshal.Create);
             System.Int32 createFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateFinish));
-            RegisterVirtualMethod(createFinishOffset, CreateFinishFactory.Create);
+            RegisterVirtualMethod(createFinishOffset, CreateFinishMarshal.Create);
             System.Int32 replaceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Replace));
-            RegisterVirtualMethod(replaceOffset, ReplaceFactory.Create);
+            RegisterVirtualMethod(replaceOffset, ReplaceMarshal.Create);
             System.Int32 replaceAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceAsync));
-            RegisterVirtualMethod(replaceAsyncOffset, ReplaceAsyncFactory.Create);
+            RegisterVirtualMethod(replaceAsyncOffset, ReplaceAsyncMarshal.Create);
             System.Int32 replaceFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceFinish));
-            RegisterVirtualMethod(replaceFinishOffset, ReplaceFinishFactory.Create);
+            RegisterVirtualMethod(replaceFinishOffset, ReplaceFinishMarshal.Create);
             System.Int32 deleteFileOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.DeleteFile));
-            RegisterVirtualMethod(deleteFileOffset, DeleteFileFactory.Create);
+            RegisterVirtualMethod(deleteFileOffset, DeleteFileMarshal.Create);
             System.Int32 deleteFileAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.DeleteFileAsync));
-            RegisterVirtualMethod(deleteFileAsyncOffset, DeleteFileAsyncFactory.Create);
+            RegisterVirtualMethod(deleteFileAsyncOffset, DeleteFileAsyncMarshal.Create);
             System.Int32 deleteFileFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.DeleteFileFinish));
-            RegisterVirtualMethod(deleteFileFinishOffset, DeleteFileFinishFactory.Create);
+            RegisterVirtualMethod(deleteFileFinishOffset, DeleteFileFinishMarshal.Create);
             System.Int32 trashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Trash));
-            RegisterVirtualMethod(trashOffset, TrashFactory.Create);
+            RegisterVirtualMethod(trashOffset, TrashMarshal.Create);
             System.Int32 trashAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.TrashAsync));
-            RegisterVirtualMethod(trashAsyncOffset, TrashAsyncFactory.Create);
+            RegisterVirtualMethod(trashAsyncOffset, TrashAsyncMarshal.Create);
             System.Int32 trashFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.TrashFinish));
-            RegisterVirtualMethod(trashFinishOffset, TrashFinishFactory.Create);
+            RegisterVirtualMethod(trashFinishOffset, TrashFinishMarshal.Create);
             System.Int32 makeDirectoryOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MakeDirectory));
-            RegisterVirtualMethod(makeDirectoryOffset, MakeDirectoryFactory.Create);
+            RegisterVirtualMethod(makeDirectoryOffset, MakeDirectoryMarshal.Create);
             System.Int32 makeDirectoryAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MakeDirectoryAsync));
-            RegisterVirtualMethod(makeDirectoryAsyncOffset, MakeDirectoryAsyncFactory.Create);
+            RegisterVirtualMethod(makeDirectoryAsyncOffset, MakeDirectoryAsyncMarshal.Create);
             System.Int32 makeDirectoryFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MakeDirectoryFinish));
-            RegisterVirtualMethod(makeDirectoryFinishOffset, MakeDirectoryFinishFactory.Create);
+            RegisterVirtualMethod(makeDirectoryFinishOffset, MakeDirectoryFinishMarshal.Create);
             System.Int32 makeSymbolicLinkOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MakeSymbolicLink));
-            RegisterVirtualMethod(makeSymbolicLinkOffset, MakeSymbolicLinkFactory.Create);
+            RegisterVirtualMethod(makeSymbolicLinkOffset, MakeSymbolicLinkMarshal.Create);
             System.Int32 copyOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Copy));
-            RegisterVirtualMethod(copyOffset, CopyFactory.Create);
+            RegisterVirtualMethod(copyOffset, CopyMarshal.Create);
             System.Int32 copyAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CopyAsync));
-            RegisterVirtualMethod(copyAsyncOffset, CopyAsyncFactory.Create);
+            RegisterVirtualMethod(copyAsyncOffset, CopyAsyncMarshal.Create);
             System.Int32 copyFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CopyFinish));
-            RegisterVirtualMethod(copyFinishOffset, CopyFinishFactory.Create);
+            RegisterVirtualMethod(copyFinishOffset, CopyFinishMarshal.Create);
             System.Int32 moveOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Move));
-            RegisterVirtualMethod(moveOffset, MoveFactory.Create);
+            RegisterVirtualMethod(moveOffset, MoveMarshal.Create);
             System.Int32 mountMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MountMountableFinish));
-            RegisterVirtualMethod(mountMountableFinishOffset, MountMountableFinishFactory.Create);
+            RegisterVirtualMethod(mountMountableFinishOffset, MountMountableFinishMarshal.Create);
             System.Int32 unmountMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.UnmountMountableFinish));
-            RegisterVirtualMethod(unmountMountableFinishOffset, UnmountMountableFinishFactory.Create);
+            RegisterVirtualMethod(unmountMountableFinishOffset, UnmountMountableFinishMarshal.Create);
             System.Int32 ejectMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.EjectMountableFinish));
-            RegisterVirtualMethod(ejectMountableFinishOffset, EjectMountableFinishFactory.Create);
+            RegisterVirtualMethod(ejectMountableFinishOffset, EjectMountableFinishMarshal.Create);
             System.Int32 mountEnclosingVolumeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MountEnclosingVolumeFinish));
-            RegisterVirtualMethod(mountEnclosingVolumeFinishOffset, MountEnclosingVolumeFinishFactory.Create);
+            RegisterVirtualMethod(mountEnclosingVolumeFinishOffset, MountEnclosingVolumeFinishMarshal.Create);
             System.Int32 openReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OpenReadwrite));
-            RegisterVirtualMethod(openReadwriteOffset, OpenReadwriteFactory.Create);
+            RegisterVirtualMethod(openReadwriteOffset, OpenReadwriteMarshal.Create);
             System.Int32 openReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OpenReadwriteAsync));
-            RegisterVirtualMethod(openReadwriteAsyncOffset, OpenReadwriteAsyncFactory.Create);
+            RegisterVirtualMethod(openReadwriteAsyncOffset, OpenReadwriteAsyncMarshal.Create);
             System.Int32 openReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OpenReadwriteFinish));
-            RegisterVirtualMethod(openReadwriteFinishOffset, OpenReadwriteFinishFactory.Create);
+            RegisterVirtualMethod(openReadwriteFinishOffset, OpenReadwriteFinishMarshal.Create);
             System.Int32 createReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateReadwrite));
-            RegisterVirtualMethod(createReadwriteOffset, CreateReadwriteFactory.Create);
+            RegisterVirtualMethod(createReadwriteOffset, CreateReadwriteMarshal.Create);
             System.Int32 createReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateReadwriteAsync));
-            RegisterVirtualMethod(createReadwriteAsyncOffset, CreateReadwriteAsyncFactory.Create);
+            RegisterVirtualMethod(createReadwriteAsyncOffset, CreateReadwriteAsyncMarshal.Create);
             System.Int32 createReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateReadwriteFinish));
-            RegisterVirtualMethod(createReadwriteFinishOffset, CreateReadwriteFinishFactory.Create);
+            RegisterVirtualMethod(createReadwriteFinishOffset, CreateReadwriteFinishMarshal.Create);
             System.Int32 replaceReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceReadwrite));
-            RegisterVirtualMethod(replaceReadwriteOffset, ReplaceReadwriteFactory.Create);
+            RegisterVirtualMethod(replaceReadwriteOffset, ReplaceReadwriteMarshal.Create);
             System.Int32 replaceReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceReadwriteAsync));
-            RegisterVirtualMethod(replaceReadwriteAsyncOffset, ReplaceReadwriteAsyncFactory.Create);
+            RegisterVirtualMethod(replaceReadwriteAsyncOffset, ReplaceReadwriteAsyncMarshal.Create);
             System.Int32 replaceReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceReadwriteFinish));
-            RegisterVirtualMethod(replaceReadwriteFinishOffset, ReplaceReadwriteFinishFactory.Create);
+            RegisterVirtualMethod(replaceReadwriteFinishOffset, ReplaceReadwriteFinishMarshal.Create);
             System.Int32 startMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.StartMountableFinish));
-            RegisterVirtualMethod(startMountableFinishOffset, StartMountableFinishFactory.Create);
+            RegisterVirtualMethod(startMountableFinishOffset, StartMountableFinishMarshal.Create);
             System.Int32 stopMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.StopMountableFinish));
-            RegisterVirtualMethod(stopMountableFinishOffset, StopMountableFinishFactory.Create);
+            RegisterVirtualMethod(stopMountableFinishOffset, StopMountableFinishMarshal.Create);
             System.Int32 unmountMountableWithOperationFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.UnmountMountableWithOperationFinish));
-            RegisterVirtualMethod(unmountMountableWithOperationFinishOffset, UnmountMountableWithOperationFinishFactory.Create);
+            RegisterVirtualMethod(unmountMountableWithOperationFinishOffset, UnmountMountableWithOperationFinishMarshal.Create);
             System.Int32 ejectMountableWithOperationFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.EjectMountableWithOperationFinish));
-            RegisterVirtualMethod(ejectMountableWithOperationFinishOffset, EjectMountableWithOperationFinishFactory.Create);
+            RegisterVirtualMethod(ejectMountableWithOperationFinishOffset, EjectMountableWithOperationFinishMarshal.Create);
             System.Int32 pollMountableOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PollMountable));
-            RegisterVirtualMethod(pollMountableOffset, PollMountableFactory.Create);
+            RegisterVirtualMethod(pollMountableOffset, PollMountableMarshal.Create);
             System.Int32 pollMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PollMountableFinish));
-            RegisterVirtualMethod(pollMountableFinishOffset, PollMountableFinishFactory.Create);
+            RegisterVirtualMethod(pollMountableFinishOffset, PollMountableFinishMarshal.Create);
             System.Int32 measureDiskUsageFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MeasureDiskUsageFinish));
-            RegisterVirtualMethod(measureDiskUsageFinishOffset, MeasureDiskUsageFinishFactory.Create);
+            RegisterVirtualMethod(measureDiskUsageFinishOffset, MeasureDiskUsageFinishMarshal.Create);
         }
 
         public delegate GISharp.Lib.Gio.IFile Dup();
@@ -295,9 +295,9 @@ namespace GISharp.Lib.Gio
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="Dup"/> methods.
+        /// Class for marshalling <see cref="Dup"/> methods.
         /// </summary>
-        public static class DupFactory
+        public static class DupMarshal
         {
             public static unsafe UnmanagedDup Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -334,9 +334,9 @@ System.IntPtr file);
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="Hash"/> methods.
+        /// Class for marshalling <see cref="Hash"/> methods.
         /// </summary>
-        public static class HashFactory
+        public static class HashMarshal
         {
             public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -376,9 +376,9 @@ System.IntPtr file1,
 System.IntPtr file2);
 
         /// <summary>
-        /// Factory for creating <see cref="Equal"/> methods.
+        /// Class for marshalling <see cref="Equal"/> methods.
         /// </summary>
-        public static class EqualFactory
+        public static class EqualMarshal
         {
             public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -416,9 +416,9 @@ System.IntPtr file2);
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="IsNative"/> methods.
+        /// Class for marshalling <see cref="IsNative"/> methods.
         /// </summary>
-        public static class IsNativeFactory
+        public static class IsNativeMarshal
         {
             public static unsafe UnmanagedIsNative Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -458,9 +458,9 @@ System.IntPtr file,
 System.IntPtr uriScheme);
 
         /// <summary>
-        /// Factory for creating <see cref="HasUriScheme"/> methods.
+        /// Class for marshalling <see cref="HasUriScheme"/> methods.
         /// </summary>
-        public static class HasUriSchemeFactory
+        public static class HasUriSchemeMarshal
         {
             public static unsafe UnmanagedHasUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -498,9 +498,9 @@ System.IntPtr uriScheme);
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="GetUriScheme"/> methods.
+        /// Class for marshalling <see cref="GetUriScheme"/> methods.
         /// </summary>
-        public static class GetUriSchemeFactory
+        public static class GetUriSchemeMarshal
         {
             public static unsafe UnmanagedGetUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -537,9 +537,9 @@ System.IntPtr file);
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="GetBasename"/> methods.
+        /// Class for marshalling <see cref="GetBasename"/> methods.
         /// </summary>
-        public static class GetBasenameFactory
+        public static class GetBasenameMarshal
         {
             public static unsafe UnmanagedGetBasename Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -576,9 +576,9 @@ System.IntPtr file);
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="GetPath"/> methods.
+        /// Class for marshalling <see cref="GetPath"/> methods.
         /// </summary>
-        public static class GetPathFactory
+        public static class GetPathMarshal
         {
             public static unsafe UnmanagedGetPath Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -615,9 +615,9 @@ System.IntPtr file);
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="GetUri"/> methods.
+        /// Class for marshalling <see cref="GetUri"/> methods.
         /// </summary>
-        public static class GetUriFactory
+        public static class GetUriMarshal
         {
             public static unsafe UnmanagedGetUri Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -654,9 +654,9 @@ System.IntPtr file);
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="GetParseName"/> methods.
+        /// Class for marshalling <see cref="GetParseName"/> methods.
         /// </summary>
-        public static class GetParseNameFactory
+        public static class GetParseNameMarshal
         {
             public static unsafe UnmanagedGetParseName Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -693,9 +693,9 @@ System.IntPtr file);
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="GetParent"/> methods.
+        /// Class for marshalling <see cref="GetParent"/> methods.
         /// </summary>
-        public static class GetParentFactory
+        public static class GetParentMarshal
         {
             public static unsafe UnmanagedGetParent Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -735,9 +735,9 @@ System.IntPtr prefix,
 System.IntPtr file);
 
         /// <summary>
-        /// Factory for creating <see cref="PrefixMatches"/> methods.
+        /// Class for marshalling <see cref="PrefixMatches"/> methods.
         /// </summary>
-        public static class PrefixMatchesFactory
+        public static class PrefixMatchesMarshal
         {
             public static unsafe UnmanagedPrefixMatches Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -778,9 +778,9 @@ System.IntPtr parent,
 System.IntPtr descendant);
 
         /// <summary>
-        /// Factory for creating <see cref="GetRelativePath"/> methods.
+        /// Class for marshalling <see cref="GetRelativePath"/> methods.
         /// </summary>
-        public static class GetRelativePathFactory
+        public static class GetRelativePathMarshal
         {
             public static unsafe UnmanagedGetRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -821,9 +821,9 @@ System.IntPtr file,
 System.IntPtr relativePath);
 
         /// <summary>
-        /// Factory for creating <see cref="ResolveRelativePath"/> methods.
+        /// Class for marshalling <see cref="ResolveRelativePath"/> methods.
         /// </summary>
-        public static class ResolveRelativePathFactory
+        public static class ResolveRelativePathMarshal
         {
             public static unsafe UnmanagedResolveRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -867,9 +867,9 @@ System.IntPtr displayName,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="GetChildForDisplayName"/> methods.
+        /// Class for marshalling <see cref="GetChildForDisplayName"/> methods.
         /// </summary>
-        public static class GetChildForDisplayNameFactory
+        public static class GetChildForDisplayNameMarshal
         {
             public static unsafe UnmanagedGetChildForDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -923,19 +923,19 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:6 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="EnumerateChildrenAsync"/> methods.
+        /// Class for marshalling <see cref="EnumerateChildrenAsync"/> methods.
         /// </summary>
-        public static class EnumerateChildrenAsyncFactory
+        public static class EnumerateChildrenAsyncMarshal
         {
             public static unsafe UnmanagedEnumerateChildrenAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedEnumerateChildrenAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedEnumerateChildrenAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -943,7 +943,7 @@ System.IntPtr userData);
                         var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doEnumerateChildrenAsync = (EnumerateChildrenAsync)methodInfo.CreateDelegate(typeof(EnumerateChildrenAsync), file);
                         doEnumerateChildrenAsync(attributes, flags, ioPriority, callback, cancellable);
@@ -981,9 +981,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryInfo"/> methods.
+        /// Class for marshalling <see cref="QueryInfo"/> methods.
         /// </summary>
-        public static class QueryInfoFactory
+        public static class QueryInfoMarshal
         {
             public static unsafe UnmanagedQueryInfo Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1039,19 +1039,19 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:6 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryInfoAsync"/> methods.
+        /// Class for marshalling <see cref="QueryInfoAsync"/> methods.
         /// </summary>
-        public static class QueryInfoAsyncFactory
+        public static class QueryInfoAsyncMarshal
         {
             public static unsafe UnmanagedQueryInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedQueryInfoAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedQueryInfoAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -1059,7 +1059,7 @@ System.IntPtr userData);
                         var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryInfoAsync = (QueryInfoAsync)methodInfo.CreateDelegate(typeof(QueryInfoAsync), file);
                         doQueryInfoAsync(attributes, flags, ioPriority, callback, cancellable);
@@ -1091,9 +1091,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryInfoFinish"/> methods.
+        /// Class for marshalling <see cref="QueryInfoFinish"/> methods.
         /// </summary>
-        public static class QueryInfoFinishFactory
+        public static class QueryInfoFinishMarshal
         {
             public static unsafe UnmanagedQueryInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1144,9 +1144,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryFilesystemInfo"/> methods.
+        /// Class for marshalling <see cref="QueryFilesystemInfo"/> methods.
         /// </summary>
-        public static class QueryFilesystemInfoFactory
+        public static class QueryFilesystemInfoMarshal
         {
             public static unsafe UnmanagedQueryFilesystemInfo Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1198,26 +1198,26 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryFilesystemInfoAsync"/> methods.
+        /// Class for marshalling <see cref="QueryFilesystemInfoAsync"/> methods.
         /// </summary>
-        public static class QueryFilesystemInfoAsyncFactory
+        public static class QueryFilesystemInfoAsyncMarshal
         {
             public static unsafe UnmanagedQueryFilesystemInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedQueryFilesystemInfoAsync(System.IntPtr file_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedQueryFilesystemInfoAsync(System.IntPtr file_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryFilesystemInfoAsync = (QueryFilesystemInfoAsync)methodInfo.CreateDelegate(typeof(QueryFilesystemInfoAsync), file);
                         doQueryFilesystemInfoAsync(attributes, ioPriority, callback, cancellable);
@@ -1249,9 +1249,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryFilesystemInfoFinish"/> methods.
+        /// Class for marshalling <see cref="QueryFilesystemInfoFinish"/> methods.
         /// </summary>
-        public static class QueryFilesystemInfoFinishFactory
+        public static class QueryFilesystemInfoFinishMarshal
         {
             public static unsafe UnmanagedQueryFilesystemInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1299,25 +1299,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="FindEnclosingMountAsync"/> methods.
+        /// Class for marshalling <see cref="FindEnclosingMountAsync"/> methods.
         /// </summary>
-        public static class FindEnclosingMountAsyncFactory
+        public static class FindEnclosingMountAsyncMarshal
         {
             public static unsafe UnmanagedFindEnclosingMountAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedFindEnclosingMountAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedFindEnclosingMountAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doFindEnclosingMountAsync = (FindEnclosingMountAsync)methodInfo.CreateDelegate(typeof(FindEnclosingMountAsync), file);
                         doFindEnclosingMountAsync(ioPriority, callback, cancellable);
@@ -1352,9 +1352,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="SetDisplayName"/> methods.
+        /// Class for marshalling <see cref="SetDisplayName"/> methods.
         /// </summary>
-        public static class SetDisplayNameFactory
+        public static class SetDisplayNameMarshal
         {
             public static unsafe UnmanagedSetDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1406,26 +1406,26 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="SetDisplayNameAsync"/> methods.
+        /// Class for marshalling <see cref="SetDisplayNameAsync"/> methods.
         /// </summary>
-        public static class SetDisplayNameAsyncFactory
+        public static class SetDisplayNameAsyncMarshal
         {
             public static unsafe UnmanagedSetDisplayNameAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedSetDisplayNameAsync(System.IntPtr file_, System.IntPtr displayName_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedSetDisplayNameAsync(System.IntPtr file_, System.IntPtr displayName_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_, -1);
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doSetDisplayNameAsync = (SetDisplayNameAsync)methodInfo.CreateDelegate(typeof(SetDisplayNameAsync), file);
                         doSetDisplayNameAsync(displayName, ioPriority, callback, cancellable);
@@ -1457,9 +1457,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="SetDisplayNameFinish"/> methods.
+        /// Class for marshalling <see cref="SetDisplayNameFinish"/> methods.
         /// </summary>
-        public static class SetDisplayNameFinishFactory
+        public static class SetDisplayNameFinishMarshal
         {
             public static unsafe UnmanagedSetDisplayNameFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1507,9 +1507,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="QuerySettableAttributes"/> methods.
+        /// Class for marshalling <see cref="QuerySettableAttributes"/> methods.
         /// </summary>
-        public static class QuerySettableAttributesFactory
+        public static class QuerySettableAttributesMarshal
         {
             public static unsafe UnmanagedQuerySettableAttributes Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1557,9 +1557,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryWritableNamespaces"/> methods.
+        /// Class for marshalling <see cref="QueryWritableNamespaces"/> methods.
         /// </summary>
-        public static class QueryWritableNamespacesFactory
+        public static class QueryWritableNamespacesMarshal
         {
             public static unsafe UnmanagedQueryWritableNamespaces Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1619,9 +1619,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="SetAttribute"/> methods.
+        /// Class for marshalling <see cref="SetAttribute"/> methods.
         /// </summary>
-        public static class SetAttributeFactory
+        public static class SetAttributeMarshal
         {
             public static unsafe UnmanagedSetAttribute Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1678,9 +1678,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="SetAttributesFromInfo"/> methods.
+        /// Class for marshalling <see cref="SetAttributesFromInfo"/> methods.
         /// </summary>
-        public static class SetAttributesFromInfoFactory
+        public static class SetAttributesFromInfoMarshal
         {
             public static unsafe UnmanagedSetAttributesFromInfo Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1735,19 +1735,19 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:6 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="SetAttributesAsync"/> methods.
+        /// Class for marshalling <see cref="SetAttributesAsync"/> methods.
         /// </summary>
-        public static class SetAttributesAsyncFactory
+        public static class SetAttributesAsyncMarshal
         {
             public static unsafe UnmanagedSetAttributesAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedSetAttributesAsync(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedSetAttributesAsync(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -1755,7 +1755,7 @@ System.IntPtr userData);
                         var info = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(info_, GISharp.Runtime.Transfer.None)!;
                         var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doSetAttributesAsync = (SetAttributesAsync)methodInfo.CreateDelegate(typeof(SetAttributesAsync), file);
                         doSetAttributesAsync(info, flags, ioPriority, callback, cancellable);
@@ -1790,9 +1790,9 @@ out System.IntPtr info,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="SetAttributesFinish"/> methods.
+        /// Class for marshalling <see cref="SetAttributesFinish"/> methods.
         /// </summary>
-        public static class SetAttributesFinishFactory
+        public static class SetAttributesFinishMarshal
         {
             public static unsafe UnmanagedSetAttributesFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1841,9 +1841,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="ReadFn"/> methods.
+        /// Class for marshalling <see cref="ReadFn"/> methods.
         /// </summary>
-        public static class ReadFnFactory
+        public static class ReadFnMarshal
         {
             public static unsafe UnmanagedReadFn Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1891,25 +1891,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="ReadAsync"/> methods.
+        /// Class for marshalling <see cref="ReadAsync"/> methods.
         /// </summary>
-        public static class ReadAsyncFactory
+        public static class ReadAsyncMarshal
         {
             public static unsafe UnmanagedReadAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedReadAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedReadAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doReadAsync = (ReadAsync)methodInfo.CreateDelegate(typeof(ReadAsync), file);
                         doReadAsync(ioPriority, callback, cancellable);
@@ -1941,9 +1941,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="ReadFinish"/> methods.
+        /// Class for marshalling <see cref="ReadFinish"/> methods.
         /// </summary>
-        public static class ReadFinishFactory
+        public static class ReadFinishMarshal
         {
             public static unsafe UnmanagedReadFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -1994,9 +1994,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="AppendTo"/> methods.
+        /// Class for marshalling <see cref="AppendTo"/> methods.
         /// </summary>
-        public static class AppendToFactory
+        public static class AppendToMarshal
         {
             public static unsafe UnmanagedAppendTo Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2048,26 +2048,26 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="AppendToAsync"/> methods.
+        /// Class for marshalling <see cref="AppendToAsync"/> methods.
         /// </summary>
-        public static class AppendToAsyncFactory
+        public static class AppendToAsyncMarshal
         {
             public static unsafe UnmanagedAppendToAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedAppendToAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedAppendToAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doAppendToAsync = (AppendToAsync)methodInfo.CreateDelegate(typeof(AppendToAsync), file);
                         doAppendToAsync(flags, ioPriority, callback, cancellable);
@@ -2099,9 +2099,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="AppendToFinish"/> methods.
+        /// Class for marshalling <see cref="AppendToFinish"/> methods.
         /// </summary>
-        public static class AppendToFinishFactory
+        public static class AppendToFinishMarshal
         {
             public static unsafe UnmanagedAppendToFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2152,9 +2152,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Create"/> methods.
+        /// Class for marshalling <see cref="Create"/> methods.
         /// </summary>
-        public static class CreateFactory
+        public static class CreateMarshal
         {
             public static unsafe UnmanagedCreate Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2206,26 +2206,26 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="CreateAsync"/> methods.
+        /// Class for marshalling <see cref="CreateAsync"/> methods.
         /// </summary>
-        public static class CreateAsyncFactory
+        public static class CreateAsyncMarshal
         {
             public static unsafe UnmanagedCreateAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCreateAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedCreateAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCreateAsync = (CreateAsync)methodInfo.CreateDelegate(typeof(CreateAsync), file);
                         doCreateAsync(flags, ioPriority, callback, cancellable);
@@ -2257,9 +2257,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="CreateFinish"/> methods.
+        /// Class for marshalling <see cref="CreateFinish"/> methods.
         /// </summary>
-        public static class CreateFinishFactory
+        public static class CreateFinishMarshal
         {
             public static unsafe UnmanagedCreateFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2316,9 +2316,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Replace"/> methods.
+        /// Class for marshalling <see cref="Replace"/> methods.
         /// </summary>
-        public static class ReplaceFactory
+        public static class ReplaceMarshal
         {
             public static unsafe UnmanagedReplace Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2378,19 +2378,19 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:7 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:7 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="ReplaceAsync"/> methods.
+        /// Class for marshalling <see cref="ReplaceAsync"/> methods.
         /// </summary>
-        public static class ReplaceAsyncFactory
+        public static class ReplaceAsyncMarshal
         {
             public static unsafe UnmanagedReplaceAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedReplaceAsync(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedReplaceAsync(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -2399,7 +2399,7 @@ System.IntPtr userData);
                         var makeBackup = (System.Boolean)makeBackup_;
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doReplaceAsync = (ReplaceAsync)methodInfo.CreateDelegate(typeof(ReplaceAsync), file);
                         doReplaceAsync(etag, makeBackup, flags, ioPriority, callback, cancellable);
@@ -2431,9 +2431,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="ReplaceFinish"/> methods.
+        /// Class for marshalling <see cref="ReplaceFinish"/> methods.
         /// </summary>
-        public static class ReplaceFinishFactory
+        public static class ReplaceFinishMarshal
         {
             public static unsafe UnmanagedReplaceFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2481,9 +2481,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="DeleteFile"/> methods.
+        /// Class for marshalling <see cref="DeleteFile"/> methods.
         /// </summary>
-        public static class DeleteFileFactory
+        public static class DeleteFileMarshal
         {
             public static unsafe UnmanagedDeleteFile Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2530,25 +2530,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="DeleteFileAsync"/> methods.
+        /// Class for marshalling <see cref="DeleteFileAsync"/> methods.
         /// </summary>
-        public static class DeleteFileAsyncFactory
+        public static class DeleteFileAsyncMarshal
         {
             public static unsafe UnmanagedDeleteFileAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedDeleteFileAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedDeleteFileAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doDeleteFileAsync = (DeleteFileAsync)methodInfo.CreateDelegate(typeof(DeleteFileAsync), file);
                         doDeleteFileAsync(ioPriority, callback, cancellable);
@@ -2580,9 +2580,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="DeleteFileFinish"/> methods.
+        /// Class for marshalling <see cref="DeleteFileFinish"/> methods.
         /// </summary>
-        public static class DeleteFileFinishFactory
+        public static class DeleteFileFinishMarshal
         {
             public static unsafe UnmanagedDeleteFileFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2629,9 +2629,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Trash"/> methods.
+        /// Class for marshalling <see cref="Trash"/> methods.
         /// </summary>
-        public static class TrashFactory
+        public static class TrashMarshal
         {
             public static unsafe UnmanagedTrash Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2678,25 +2678,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="TrashAsync"/> methods.
+        /// Class for marshalling <see cref="TrashAsync"/> methods.
         /// </summary>
-        public static class TrashAsyncFactory
+        public static class TrashAsyncMarshal
         {
             public static unsafe UnmanagedTrashAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedTrashAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedTrashAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doTrashAsync = (TrashAsync)methodInfo.CreateDelegate(typeof(TrashAsync), file);
                         doTrashAsync(ioPriority, callback, cancellable);
@@ -2728,9 +2728,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="TrashFinish"/> methods.
+        /// Class for marshalling <see cref="TrashFinish"/> methods.
         /// </summary>
-        public static class TrashFinishFactory
+        public static class TrashFinishMarshal
         {
             public static unsafe UnmanagedTrashFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2777,9 +2777,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="MakeDirectory"/> methods.
+        /// Class for marshalling <see cref="MakeDirectory"/> methods.
         /// </summary>
-        public static class MakeDirectoryFactory
+        public static class MakeDirectoryMarshal
         {
             public static unsafe UnmanagedMakeDirectory Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2826,25 +2826,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="MakeDirectoryAsync"/> methods.
+        /// Class for marshalling <see cref="MakeDirectoryAsync"/> methods.
         /// </summary>
-        public static class MakeDirectoryAsyncFactory
+        public static class MakeDirectoryAsyncMarshal
         {
             public static unsafe UnmanagedMakeDirectoryAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedMakeDirectoryAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedMakeDirectoryAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doMakeDirectoryAsync = (MakeDirectoryAsync)methodInfo.CreateDelegate(typeof(MakeDirectoryAsync), file);
                         doMakeDirectoryAsync(ioPriority, callback, cancellable);
@@ -2876,9 +2876,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="MakeDirectoryFinish"/> methods.
+        /// Class for marshalling <see cref="MakeDirectoryFinish"/> methods.
         /// </summary>
-        public static class MakeDirectoryFinishFactory
+        public static class MakeDirectoryFinishMarshal
         {
             public static unsafe UnmanagedMakeDirectoryFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2928,9 +2928,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="MakeSymbolicLink"/> methods.
+        /// Class for marshalling <see cref="MakeSymbolicLink"/> methods.
         /// </summary>
-        public static class MakeSymbolicLinkFactory
+        public static class MakeSymbolicLinkMarshal
         {
             public static unsafe UnmanagedMakeSymbolicLink Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -2981,7 +2981,7 @@ GISharp.Lib.Gio.FileCopyFlags flags,
 System.IntPtr cancellable,
 /* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:call closure:5 direction:in */
-GISharp.Lib.Gio.UnmanagedFileProgressCallback? progressCallback,
+System.IntPtr progressCallback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr progressCallbackData,
@@ -2990,20 +2990,20 @@ System.IntPtr progressCallbackData,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Copy"/> methods.
+        /// Class for marshalling <see cref="Copy"/> methods.
         /// </summary>
-        public static class CopyFactory
+        public static class CopyMarshal
         {
             public static unsafe UnmanagedCopy Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedCopy(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedFileProgressCallback? progressCallback_, System.IntPtr progressCallbackData_, ref System.IntPtr error_)
+                GISharp.Runtime.Boolean unmanagedCopy(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, ref System.IntPtr error_)
                 {
                     try
                     {
                         var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(source_, GISharp.Runtime.Transfer.None)!;
                         var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(destination_, GISharp.Runtime.Transfer.None)!;
                         var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_;
-                        var progressCallback = progressCallback_ == null ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackFactory.Create(progressCallback_, progressCallbackData_);
+                        var progressCallback = progressCallback_ == null ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCopy = (Copy)methodInfo.CreateDelegate(typeof(Copy), source);
                         doCopy(destination, flags, progressCallback, cancellable);
@@ -3048,25 +3048,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:6 direction:in */
-GISharp.Lib.Gio.UnmanagedFileProgressCallback? progressCallback,
+System.IntPtr progressCallback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
 System.IntPtr progressCallbackData,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:8 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:7 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="CopyAsync"/> methods.
+        /// Class for marshalling <see cref="CopyAsync"/> methods.
         /// </summary>
-        public static class CopyAsyncFactory
+        public static class CopyAsyncMarshal
         {
             public static unsafe UnmanagedCopyAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCopyAsync(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedFileProgressCallback? progressCallback_, System.IntPtr progressCallbackData_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedCopyAsync(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -3074,8 +3074,8 @@ System.IntPtr userData);
                         var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(destination_, GISharp.Runtime.Transfer.None)!;
                         var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var progressCallback = progressCallback_ == null ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackFactory.Create(progressCallback_, progressCallbackData_);
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var progressCallback = progressCallback_ == null ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCopyAsync = (CopyAsync)methodInfo.CreateDelegate(typeof(CopyAsync), source);
                         doCopyAsync(destination, flags, ioPriority, progressCallback, callback, cancellable);
@@ -3107,9 +3107,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="CopyFinish"/> methods.
+        /// Class for marshalling <see cref="CopyFinish"/> methods.
         /// </summary>
-        public static class CopyFinishFactory
+        public static class CopyFinishMarshal
         {
             public static unsafe UnmanagedCopyFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3159,7 +3159,7 @@ GISharp.Lib.Gio.FileCopyFlags flags,
 System.IntPtr cancellable,
 /* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:call closure:5 direction:in */
-GISharp.Lib.Gio.UnmanagedFileProgressCallback? progressCallback,
+System.IntPtr progressCallback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr progressCallbackData,
@@ -3168,20 +3168,20 @@ System.IntPtr progressCallbackData,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Move"/> methods.
+        /// Class for marshalling <see cref="Move"/> methods.
         /// </summary>
-        public static class MoveFactory
+        public static class MoveMarshal
         {
             public static unsafe UnmanagedMove Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedMove(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedFileProgressCallback? progressCallback_, System.IntPtr progressCallbackData_, ref System.IntPtr error_)
+                GISharp.Runtime.Boolean unmanagedMove(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, ref System.IntPtr error_)
                 {
                     try
                     {
                         var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(source_, GISharp.Runtime.Transfer.None)!;
                         var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(destination_, GISharp.Runtime.Transfer.None)!;
                         var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_;
-                        var progressCallback = progressCallback_ == null ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackFactory.Create(progressCallback_, progressCallbackData_);
+                        var progressCallback = progressCallback_ == null ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doMove = (Move)methodInfo.CreateDelegate(typeof(Move), source);
                         doMove(destination, flags, progressCallback, cancellable);
@@ -3220,9 +3220,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="MountMountableFinish"/> methods.
+        /// Class for marshalling <see cref="MountMountableFinish"/> methods.
         /// </summary>
-        public static class MountMountableFinishFactory
+        public static class MountMountableFinishMarshal
         {
             public static unsafe UnmanagedMountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3270,9 +3270,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="UnmountMountableFinish"/> methods.
+        /// Class for marshalling <see cref="UnmountMountableFinish"/> methods.
         /// </summary>
-        public static class UnmountMountableFinishFactory
+        public static class UnmountMountableFinishMarshal
         {
             public static unsafe UnmanagedUnmountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3319,9 +3319,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="EjectMountableFinish"/> methods.
+        /// Class for marshalling <see cref="EjectMountableFinish"/> methods.
         /// </summary>
-        public static class EjectMountableFinishFactory
+        public static class EjectMountableFinishMarshal
         {
             public static unsafe UnmanagedEjectMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3368,9 +3368,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="MountEnclosingVolumeFinish"/> methods.
+        /// Class for marshalling <see cref="MountEnclosingVolumeFinish"/> methods.
         /// </summary>
-        public static class MountEnclosingVolumeFinishFactory
+        public static class MountEnclosingVolumeFinishMarshal
         {
             public static unsafe UnmanagedMountEnclosingVolumeFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3417,9 +3417,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="OpenReadwrite"/> methods.
+        /// Class for marshalling <see cref="OpenReadwrite"/> methods.
         /// </summary>
-        public static class OpenReadwriteFactory
+        public static class OpenReadwriteMarshal
         {
             public static unsafe UnmanagedOpenReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3467,25 +3467,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="OpenReadwriteAsync"/> methods.
+        /// Class for marshalling <see cref="OpenReadwriteAsync"/> methods.
         /// </summary>
-        public static class OpenReadwriteAsyncFactory
+        public static class OpenReadwriteAsyncMarshal
         {
             public static unsafe UnmanagedOpenReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedOpenReadwriteAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedOpenReadwriteAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doOpenReadwriteAsync = (OpenReadwriteAsync)methodInfo.CreateDelegate(typeof(OpenReadwriteAsync), file);
                         doOpenReadwriteAsync(ioPriority, callback, cancellable);
@@ -3517,9 +3517,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="OpenReadwriteFinish"/> methods.
+        /// Class for marshalling <see cref="OpenReadwriteFinish"/> methods.
         /// </summary>
-        public static class OpenReadwriteFinishFactory
+        public static class OpenReadwriteFinishMarshal
         {
             public static unsafe UnmanagedOpenReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3570,9 +3570,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="CreateReadwrite"/> methods.
+        /// Class for marshalling <see cref="CreateReadwrite"/> methods.
         /// </summary>
-        public static class CreateReadwriteFactory
+        public static class CreateReadwriteMarshal
         {
             public static unsafe UnmanagedCreateReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3624,26 +3624,26 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="CreateReadwriteAsync"/> methods.
+        /// Class for marshalling <see cref="CreateReadwriteAsync"/> methods.
         /// </summary>
-        public static class CreateReadwriteAsyncFactory
+        public static class CreateReadwriteAsyncMarshal
         {
             public static unsafe UnmanagedCreateReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCreateReadwriteAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedCreateReadwriteAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCreateReadwriteAsync = (CreateReadwriteAsync)methodInfo.CreateDelegate(typeof(CreateReadwriteAsync), file);
                         doCreateReadwriteAsync(flags, ioPriority, callback, cancellable);
@@ -3675,9 +3675,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="CreateReadwriteFinish"/> methods.
+        /// Class for marshalling <see cref="CreateReadwriteFinish"/> methods.
         /// </summary>
-        public static class CreateReadwriteFinishFactory
+        public static class CreateReadwriteFinishMarshal
         {
             public static unsafe UnmanagedCreateReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3734,9 +3734,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="ReplaceReadwrite"/> methods.
+        /// Class for marshalling <see cref="ReplaceReadwrite"/> methods.
         /// </summary>
-        public static class ReplaceReadwriteFactory
+        public static class ReplaceReadwriteMarshal
         {
             public static unsafe UnmanagedReplaceReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3796,19 +3796,19 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:7 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:7 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="ReplaceReadwriteAsync"/> methods.
+        /// Class for marshalling <see cref="ReplaceReadwriteAsync"/> methods.
         /// </summary>
-        public static class ReplaceReadwriteAsyncFactory
+        public static class ReplaceReadwriteAsyncMarshal
         {
             public static unsafe UnmanagedReplaceReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedReplaceReadwriteAsync(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedReplaceReadwriteAsync(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -3817,7 +3817,7 @@ System.IntPtr userData);
                         var makeBackup = (System.Boolean)makeBackup_;
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doReplaceReadwriteAsync = (ReplaceReadwriteAsync)methodInfo.CreateDelegate(typeof(ReplaceReadwriteAsync), file);
                         doReplaceReadwriteAsync(etag, makeBackup, flags, ioPriority, callback, cancellable);
@@ -3849,9 +3849,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="ReplaceReadwriteFinish"/> methods.
+        /// Class for marshalling <see cref="ReplaceReadwriteFinish"/> methods.
         /// </summary>
-        public static class ReplaceReadwriteFinishFactory
+        public static class ReplaceReadwriteFinishMarshal
         {
             public static unsafe UnmanagedReplaceReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3899,9 +3899,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="StartMountableFinish"/> methods.
+        /// Class for marshalling <see cref="StartMountableFinish"/> methods.
         /// </summary>
-        public static class StartMountableFinishFactory
+        public static class StartMountableFinishMarshal
         {
             public static unsafe UnmanagedStartMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3948,9 +3948,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="StopMountableFinish"/> methods.
+        /// Class for marshalling <see cref="StopMountableFinish"/> methods.
         /// </summary>
-        public static class StopMountableFinishFactory
+        public static class StopMountableFinishMarshal
         {
             public static unsafe UnmanagedStopMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -3997,9 +3997,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="UnmountMountableWithOperationFinish"/> methods.
+        /// Class for marshalling <see cref="UnmountMountableWithOperationFinish"/> methods.
         /// </summary>
-        public static class UnmountMountableWithOperationFinishFactory
+        public static class UnmountMountableWithOperationFinishMarshal
         {
             public static unsafe UnmanagedUnmountMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -4046,9 +4046,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="EjectMountableWithOperationFinish"/> methods.
+        /// Class for marshalling <see cref="EjectMountableWithOperationFinish"/> methods.
         /// </summary>
-        public static class EjectMountableWithOperationFinishFactory
+        public static class EjectMountableWithOperationFinishMarshal
         {
             public static unsafe UnmanagedEjectMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -4092,24 +4092,24 @@ System.IntPtr file,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:3 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="PollMountable"/> methods.
+        /// Class for marshalling <see cref="PollMountable"/> methods.
         /// </summary>
-        public static class PollMountableFactory
+        public static class PollMountableMarshal
         {
             public static unsafe UnmanagedPollMountable Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedPollMountable(System.IntPtr file_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedPollMountable(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doPollMountable = (PollMountable)methodInfo.CreateDelegate(typeof(PollMountable), file);
                         doPollMountable(callback, cancellable);
@@ -4141,9 +4141,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="PollMountableFinish"/> methods.
+        /// Class for marshalling <see cref="PollMountableFinish"/> methods.
         /// </summary>
-        public static class PollMountableFinishFactory
+        public static class PollMountableFinishMarshal
         {
             public static unsafe UnmanagedPollMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -4199,9 +4199,9 @@ out System.UInt64 numFiles,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="MeasureDiskUsageFinish"/> methods.
+        /// Class for marshalling <see cref="MeasureDiskUsageFinish"/> methods.
         /// </summary>
-        public static class MeasureDiskUsageFinishFactory
+        public static class MeasureDiskUsageFinishMarshal
         {
             public static unsafe UnmanagedMeasureDiskUsageFinish Create(System.Reflection.MethodInfo methodInfo)
             {

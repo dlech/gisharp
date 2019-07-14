@@ -23,11 +23,11 @@ namespace GISharp.Lib.Gio
         static ApplicationCommandLineClass()
         {
             System.Int32 printLiteralOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PrintLiteral));
-            RegisterVirtualMethod(printLiteralOffset, PrintLiteralFactory.Create);
+            RegisterVirtualMethod(printLiteralOffset, PrintLiteralMarshal.Create);
             System.Int32 printerrLiteralOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PrinterrLiteral));
-            RegisterVirtualMethod(printerrLiteralOffset, PrinterrLiteralFactory.Create);
+            RegisterVirtualMethod(printerrLiteralOffset, PrinterrLiteralMarshal.Create);
             System.Int32 getStdinOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStdin));
-            RegisterVirtualMethod(getStdinOffset, GetStdinFactory.Create);
+            RegisterVirtualMethod(getStdinOffset, GetStdinMarshal.Create);
         }
 
         public delegate void PrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message);
@@ -44,9 +44,9 @@ System.IntPtr cmdline,
 System.IntPtr message);
 
         /// <summary>
-        /// Factory for creating <see cref="PrintLiteral"/> methods.
+        /// Class for marshalling <see cref="PrintLiteral"/> methods.
         /// </summary>
-        public static class PrintLiteralFactory
+        public static class PrintLiteralMarshal
         {
             public static unsafe UnmanagedPrintLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -83,9 +83,9 @@ System.IntPtr cmdline,
 System.IntPtr message);
 
         /// <summary>
-        /// Factory for creating <see cref="PrinterrLiteral"/> methods.
+        /// Class for marshalling <see cref="PrinterrLiteral"/> methods.
         /// </summary>
-        public static class PrinterrLiteralFactory
+        public static class PrinterrLiteralMarshal
         {
             public static unsafe UnmanagedPrinterrLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -119,9 +119,9 @@ System.IntPtr message);
 System.IntPtr cmdline);
 
         /// <summary>
-        /// Factory for creating <see cref="GetStdin"/> methods.
+        /// Class for marshalling <see cref="GetStdin"/> methods.
         /// </summary>
-        public static class GetStdinFactory
+        public static class GetStdinMarshal
         {
             public static unsafe UnmanagedGetStdin Create(System.Reflection.MethodInfo methodInfo)
             {

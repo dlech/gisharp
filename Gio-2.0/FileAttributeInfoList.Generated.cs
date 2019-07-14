@@ -129,7 +129,8 @@ namespace GISharp.Lib.Gio
         /// <see cref="FileAttributeInfoFlags"/> for the attribute.
         /// </param>
         public unsafe void Add(System.String name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
-        {using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
+        {
+            using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
             Add((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, type, flags);
         }
 
@@ -218,7 +219,8 @@ namespace GISharp.Lib.Gio
         /// attribute isn't found.
         /// </returns>
         public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(System.String name)
-        {using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
+        {
+            using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
             return Lookup((GISharp.Lib.GLib.UnownedUtf8)nameUtf8);
         }
 

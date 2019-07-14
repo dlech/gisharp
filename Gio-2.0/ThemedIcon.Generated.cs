@@ -224,7 +224,8 @@ namespace GISharp.Lib.Gio
         /// name of icon to append to list of icons from within <paramref name="icon"/>.
         /// </param>
         public unsafe void AppendName(System.String iconname)
-        {using var iconnameUtf8 = new GISharp.Lib.GLib.Utf8(iconname);
+        {
+            using var iconnameUtf8 = new GISharp.Lib.GLib.Utf8(iconname);
             AppendName((GISharp.Lib.GLib.UnownedUtf8)iconnameUtf8);
         }
 
@@ -316,7 +317,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.18")]
         public unsafe void PrependName(System.String iconname)
-        {using var iconnameUtf8 = new GISharp.Lib.GLib.Utf8(iconname);
+        {
+            using var iconnameUtf8 = new GISharp.Lib.GLib.Utf8(iconname);
             PrependName((GISharp.Lib.GLib.UnownedUtf8)iconnameUtf8);
         }
 

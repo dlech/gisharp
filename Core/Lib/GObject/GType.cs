@@ -19,15 +19,15 @@ namespace GISharp.Lib.GObject
     /// A numerical value which represents the unique identifier of a registered
     /// type.
     /// </summary>
-    [GType ("GType", IsProxyForUnmanagedType = true)]
-    [DebuggerDisplay ("{Name}")]
+    [GType("GType", IsProxyForUnmanagedType = true)]
+    [DebuggerDisplay("{Name}")]
     public struct GType
     {
         static readonly Quark managedTypeQuark = Quark.FromString("gisharp-gtype-managed-type-quark");
         static readonly Dictionary<Type, GType> typeMap;
         static object mapLock;
 
-        #pragma warning disable 414
+#pragma warning disable 414
         // There is an unfortunate bug that g_type_add_interface_static() will
         // fail to install properties because class_init of GObject has not
         // been run yet to create the param spec pool.
@@ -39,13 +39,13 @@ namespace GISharp.Lib.GObject
         //
         // Since the GISharp.Lib.GObject.Object class depends on GType, we have to
         // use pinvoke directly.
-        static readonly IntPtr eternalObject = GObject.Object.g_object_newv (Object, 0, IntPtr.Zero);
-        #pragma warning restore 414
+        static readonly IntPtr eternalObject = GObject.Object.g_object_newv(Object, 0, IntPtr.Zero);
+#pragma warning restore 414
 
-        static GType ()
+        static GType()
         {
-            typeMap = new Dictionary<Type, GType> ();
-            mapLock = new object ();
+            typeMap = new Dictionary<Type, GType>();
+            mapLock = new object();
 
             // add the built-in fundamental types
             lock (mapLock) {
@@ -121,8 +121,8 @@ namespace GISharp.Lib.GObject
                 gtype[managedTypeQuark] = typeof(IntPtr);
 
                 gtype = Boxed;
-                typeMap.Add(typeof (Boxed), gtype);
-                gtype[managedTypeQuark] = typeof (Boxed);
+                typeMap.Add(typeof(Boxed), gtype);
+                gtype[managedTypeQuark] = typeof(Boxed);
 
                 gtype = Param;
                 typeMap.Add(typeof(ParamSpec), gtype);
@@ -184,9 +184,9 @@ namespace GISharp.Lib.GObject
         // typedef gsize GType;
         readonly UIntPtr value;
 
-        GType (uint value)
+        GType(uint value)
         {
-            this.value = new UIntPtr (value);
+            this.value = new UIntPtr(value);
         }
 
         /// <summary>
@@ -195,7 +195,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Invalid {
             get {
-                return new GType ();
+                return new GType();
             }
         }
 
@@ -205,7 +205,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType None {
             get {
-                return new GType (1 << FundamentalShift);
+                return new GType(1 << FundamentalShift);
             }
         }
 
@@ -214,7 +214,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Interface {
             get {
-                return new GType (2 << FundamentalShift);
+                return new GType(2 << FundamentalShift);
             }
         }
 
@@ -228,7 +228,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public static GType Char {
             get {
-                return new GType (3 << FundamentalShift);
+                return new GType(3 << FundamentalShift);
             }
         }
 
@@ -237,7 +237,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType UChar {
             get {
-                return new GType (4 << FundamentalShift);
+                return new GType(4 << FundamentalShift);
             }
         }
 
@@ -246,7 +246,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Boolean {
             get {
-                return new GType (5 << FundamentalShift);
+                return new GType(5 << FundamentalShift);
             }
         }
 
@@ -255,7 +255,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Int {
             get {
-                return new GType (6 << FundamentalShift);
+                return new GType(6 << FundamentalShift);
             }
         }
 
@@ -264,7 +264,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType UInt {
             get {
-                return new GType (7 << FundamentalShift);
+                return new GType(7 << FundamentalShift);
             }
         }
 
@@ -273,7 +273,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Long {
             get {
-                return new GType (8 << FundamentalShift);
+                return new GType(8 << FundamentalShift);
             }
         }
 
@@ -282,7 +282,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType ULong {
             get {
-                return new GType (9 << FundamentalShift);
+                return new GType(9 << FundamentalShift);
             }
         }
 
@@ -291,7 +291,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Int64 {
             get {
-                return new GType (10 << FundamentalShift);
+                return new GType(10 << FundamentalShift);
             }
         }
 
@@ -300,7 +300,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType UInt64 {
             get {
-                return new GType (11 << FundamentalShift);
+                return new GType(11 << FundamentalShift);
             }
         }
 
@@ -309,7 +309,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Enum {
             get {
-                return new GType (12 << FundamentalShift);
+                return new GType(12 << FundamentalShift);
             }
         }
 
@@ -318,7 +318,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Flags {
             get {
-                return new GType (13 << FundamentalShift);
+                return new GType(13 << FundamentalShift);
             }
         }
 
@@ -327,7 +327,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Float {
             get {
-                return new GType (14 << FundamentalShift);
+                return new GType(14 << FundamentalShift);
             }
         }
 
@@ -336,7 +336,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Double {
             get {
-                return new GType (15 << FundamentalShift);
+                return new GType(15 << FundamentalShift);
             }
         }
 
@@ -345,7 +345,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType String {
             get {
-                return new GType (16 << FundamentalShift);
+                return new GType(16 << FundamentalShift);
             }
         }
 
@@ -354,7 +354,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Pointer {
             get {
-                return new GType (17 << FundamentalShift);
+                return new GType(17 << FundamentalShift);
             }
         }
 
@@ -363,7 +363,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Boxed {
             get {
-                return new GType (18 << FundamentalShift);
+                return new GType(18 << FundamentalShift);
             }
         }
 
@@ -372,7 +372,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Param {
             get {
-                return new GType (19 << FundamentalShift);
+                return new GType(19 << FundamentalShift);
             }
         }
 
@@ -381,7 +381,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GType Object {
             get {
-                return new GType (20 << FundamentalShift);
+                return new GType(20 << FundamentalShift);
             }
         }
 
@@ -397,31 +397,31 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public static GType Variant {
             get {
-                return new GType (21 << FundamentalShift);
+                return new GType(21 << FundamentalShift);
             }
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_gtype_get_type ();
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_gtype_get_type();
 
         /// <summary>
         /// The type for GType.
         /// </summary>
         public static GType Type {
             get {
-                return g_gtype_get_type ();
+                return g_gtype_get_type();
             }
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_checksum_get_type ();
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_checksum_get_type();
 
         /// <summary>
         /// The GType for a boxed type holding a GChecksum.
         /// </summary>
         public static GType Checksum {
             get {
-                return g_checksum_get_type ();
+                return g_checksum_get_type();
             }
         }
 
@@ -435,10 +435,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// fundamental type ID
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
-        static extern GType g_type_fundamental (
+        static extern GType g_type_fundamental(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType typeId);
@@ -453,7 +453,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public GType Fundamental {
             get {
-                return g_type_fundamental (this);
+                return g_type_fundamental(this);
             }
         }
 
@@ -477,7 +477,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsAbstract {
             get {
-                return g_type_test_flags (this, TypeFlags.Abstract);
+                return g_type_test_flags(this, TypeFlags.Abstract);
             }
         }
 
@@ -513,7 +513,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public bool IsValueType {
             get {
-                return g_type_check_is_value_type (this);
+                return g_type_check_is_value_type(this);
             }
         }
 
@@ -522,7 +522,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public bool IsClassed {
             get {
-                return g_type_test_flags (this, TypeFlags.Classed);
+                return g_type_test_flags(this, TypeFlags.Classed);
             }
         }
 
@@ -535,7 +535,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsInstantiatable {
             get {
-                return g_type_test_flags (this, TypeFlags.Instantiatable);
+                return g_type_test_flags(this, TypeFlags.Instantiatable);
             }
         }
 
@@ -548,7 +548,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsDerivable {
             get {
-                return g_type_test_flags (this, TypeFlags.Derivable);
+                return g_type_test_flags(this, TypeFlags.Derivable);
             }
         }
 
@@ -561,7 +561,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsDeepDerivable {
             get {
-                return g_type_test_flags (this, TypeFlags.DeepDerivable);
+                return g_type_test_flags(this, TypeFlags.DeepDerivable);
             }
         }
 
@@ -578,21 +578,21 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsInterface {
             get {
-                return g_type_fundamental (this) == Interface;
+                return g_type_fundamental(this) == Interface;
             }
         }
 
-        public static bool operator == (GType a, GType b)
+        public static bool operator ==(GType a, GType b)
         {
             return a.value == b.value;
         }
 
-        public static bool operator != (GType a, GType b)
+        public static bool operator !=(GType a, GType b)
         {
             return a.value != b.value;
         }
 
-        public override bool Equals (object obj)
+        public override bool Equals(object obj)
         {
             if (obj is GType) {
                 return this == (GType)obj;
@@ -600,12 +600,12 @@ namespace GISharp.Lib.GObject
             return false;
         }
 
-        public override int GetHashCode ()
+        public override int GetHashCode()
         {
-            return value.GetHashCode ();
+            return value.GetHashCode();
         }
 
-        public override string ToString ()
+        public override string ToString()
         {
             return (string?)Name ?? "invalid";
         }
@@ -623,10 +623,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// static type name or %NULL
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_type_name (
+        static extern IntPtr g_type_name(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type);
@@ -639,7 +639,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public NullableUnownedUtf8 Name {
             get {
-                var ret_ = g_type_name (this);
+                var ret_ = g_type_name(this);
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -655,10 +655,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the parent type
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
-        static extern GType g_type_parent (
+        static extern GType g_type_parent(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type);
@@ -673,7 +673,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public GType Parent {
             get {
-                var ret = g_type_parent (this);
+                var ret = g_type_parent(this);
                 return ret;
             }
         }
@@ -694,7 +694,7 @@ namespace GISharp.Lib.GObject
         /// Newly allocated
         ///     and 0-terminated array of child types, free with g_free()
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="GType*">
             <type name="GType" type="GType" managed-name="GType" />
             </array> */
@@ -725,9 +725,9 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_type_is_a(GType type, GType is_a_type);
 
-        public bool IsA (GType type)
+        public bool IsA(GType type)
         {
-            var ret = g_type_is_a (this, type);
+            var ret = g_type_is_a(this, type);
             return ret;
         }
 
@@ -743,10 +743,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// corresponding type ID or 0
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
-        static extern GType g_type_from_name (
+        static extern GType g_type_from_name(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
@@ -807,23 +807,23 @@ namespace GISharp.Lib.GObject
         /// an underscore (‘_’). Subsequent characters can be letters, numbers
         /// or any of ‘-_+’.
         /// </remarks>
-        public static void AssertGTypeName (string name)
+        public static void AssertGTypeName(string name)
         {
             if (name.Length < 3) {
-                var message = string.Format ($"The name '{name}' is too short.", nameof (name));
-                throw new InvalidGTypeNameException (message);
+                var message = string.Format($"The name '{name}' is too short.", nameof(name));
+                throw new InvalidGTypeNameException(message);
             }
-            if (Regex.IsMatch (name[0].ToString (), "[^A-Za-z_]")) {
-                var message = string.Format ($"The name '{name}' must start with letter or underscore.", nameof (name));
-                throw new InvalidGTypeNameException (message);
+            if (Regex.IsMatch(name[0].ToString(), "[^A-Za-z_]")) {
+                var message = string.Format($"The name '{name}' must start with letter or underscore.", nameof(name));
+                throw new InvalidGTypeNameException(message);
             }
-            if (Regex.IsMatch (name, "[^0-9A-Za-z_\\-\\+]")) {
-                var message = string.Format ($"The name '{name}' contains an invalid character.", nameof (name));
-                throw new InvalidGTypeNameException (message);
+            if (Regex.IsMatch(name, "[^0-9A-Za-z_\\-\\+]")) {
+                var message = string.Format($"The name '{name}' contains an invalid character.", nameof(name));
+                throw new InvalidGTypeNameException(message);
             }
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static unsafe extern GType g_type_register_static(
             GType parentType,
             IntPtr typeName,
@@ -845,29 +845,29 @@ namespace GISharp.Lib.GObject
             var typeName_ = typeNameUtf8.Handle;
             var handle = GCHandle.Alloc(info, GCHandleType.Pinned);
             var info_ = (TypeInfo*)handle.AddrOfPinnedObject();
-            var ret = g_type_register_static (parentType, typeName_, info_, flags);
+            var ret = g_type_register_static(parentType, typeName_, info_, flags);
 
             return ret;
         }
 
-        static void MapPropertyInfo (GType gtype, Type type)
+        static void MapPropertyInfo(GType gtype, Type type)
         {
             // type registration has not been completed here, so have to get the
             // object class the hard way by not using our nice wrapper class
-            var objClassPtr = TypeClass.g_type_class_ref (gtype);
+            var objClassPtr = TypeClass.g_type_class_ref(gtype);
             try {
-                foreach (var pspec in ObjectClass.ListProperties (objClassPtr)) {
-                    var prop = type.GetProperties (BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
+                foreach (var pspec in ObjectClass.ListProperties(objClassPtr)) {
+                    var prop = type.GetProperties(BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
                         .SingleOrDefault(p => p.TryGetGPropertyName() == pspec.Name);
                     if (prop == null) {
                         var message = $"Could not find matching property for \"{pspec.Name}\" in type {type.FullName}";
-                        throw new ArgumentException (message, nameof(type));
+                        throw new ArgumentException(message, nameof(type));
                     }
                     pspec[ObjectClass.managedClassPropertyInfoQuark] = prop;
                 }
             }
             finally {
-                TypeClass.g_type_class_unref (objClassPtr);
+                TypeClass.g_type_class_unref(objClassPtr);
             }
         }
 
@@ -878,23 +878,23 @@ namespace GISharp.Lib.GObject
         /// <remarks>
         /// This is meant to be called from that static constructor of a type.
         /// </remarks>
-        static GType Register (Type type)
+        static GType Register(Type type)
         {
             lock (mapLock) {
-                if (typeMap.ContainsKey (type)) {
-                    throw new ArgumentException ("This type is already registered.", nameof (type));
+                if (typeMap.ContainsKey(type)) {
+                    throw new ArgumentException("This type is already registered.", nameof(type));
                 }
 
-                var gtypeAttribute = type.GetCustomAttributes ()
-                    .OfType<GTypeAttribute> ().SingleOrDefault ();
+                var gtypeAttribute = type.GetCustomAttributes()
+                    .OfType<GTypeAttribute>().SingleOrDefault();
                 if (gtypeAttribute == null) {
                     // if the type is not decorated with GTypeAttribute, then we
                     // register it as a boxed type.
-                    var name = type.GetGTypeName ();
-                    AssertGTypeName (name);
-                    var gtype = GObject.Boxed.Register (name, GObject.Boxed.CopyManagedTypeDelegate, GObject.Boxed.FreeManagedTypeDelegate);
+                    var name = type.GetGTypeName();
+                    AssertGTypeName(name);
+                    var gtype = GObject.Boxed.Register(name, GObject.Boxed.CopyManagedTypeDelegate, GObject.Boxed.FreeManagedTypeDelegate);
 
-                    typeMap.Add (type, gtype);
+                    typeMap.Add(type, gtype);
                     gtype[managedTypeQuark] = type;
 
                     return gtype;
@@ -906,52 +906,54 @@ namespace GISharp.Lib.GObject
                     // actual implementation.
                     var implementationType = type;
                     if (type.IsEnum) {
-                        implementationType = type.Assembly.GetType (type.FullName + "Extensions") ?? implementationType;
-                    } else if (type.IsInterface) {
-                        var nameWithoutIPrefix = type.FullName.Remove (type.FullName.LastIndexOf ('.') + 1, 1);
-                        implementationType = type.Assembly.GetType (nameWithoutIPrefix) ?? implementationType;
-                    } else if (type.IsGenericType) {
+                        implementationType = type.Assembly.GetType(type.FullName + "Extensions") ?? implementationType;
+                    }
+                    else if (type.IsInterface) {
+                        var nameWithoutIPrefix = type.FullName.Remove(type.FullName.LastIndexOf('.') + 1, 1);
+                        implementationType = type.Assembly.GetType(nameWithoutIPrefix) ?? implementationType;
+                    }
+                    else if (type.IsGenericType) {
                         implementationType = type.BaseType;
                     }
                     var gtypeField = implementationType.GetField("_GType",
                                        System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
                     if (gtypeField == null) {
                         var message = $"Could not find _GType field for {implementationType.FullName}.";
-                        throw new ArgumentException (message, nameof (type));
+                        throw new ArgumentException(message, nameof(type));
                     }
                     var gtype = (GType)gtypeField.GetValue(null);
                     if (gtype == Invalid) {
-                        throw new InvalidOperationException ("Something bad happend while registering wrapped type.");
+                        throw new InvalidOperationException("Something bad happend while registering wrapped type.");
                     }
 
                     if (gtype.Fundamental == GType.Object) {
-                        MapPropertyInfo (gtype, type);
+                        MapPropertyInfo(gtype, type);
                     }
 
-                    typeMap.Add (type, gtype);
+                    typeMap.Add(type, gtype);
                     gtype[managedTypeQuark] = type;
 
                     return gtype;
                 }
 
-                var gtypeName = type.GetGTypeName ();
-                AssertGTypeName (gtypeName);
+                var gtypeName = type.GetGTypeName();
+                AssertGTypeName(gtypeName);
                 if (type.IsClass) {
-                    if (!type.IsSubclassOf (typeof(Object))) {
-                        var message = string.Format ("Class does not inherit from {0}",
+                    if (!type.IsSubclassOf(typeof(Object))) {
+                        var message = string.Format("Class does not inherit from {0}",
                                           typeof(Object).FullName);
-                        throw new ArgumentException (message, nameof (type));
+                        throw new ArgumentException(message, nameof(type));
                     }
-                    var parentGType = type.BaseType.GetGType ();
-                    var parentTypeclass = TypeClass.Get (parentGType);
+                    var parentGType = type.BaseType.GetGType();
+                    var parentTypeclass = TypeClass.Get(parentGType);
                     var parentTypeInfo = ObjectClass.GetTypeInfo(type);
 
                     TypeFlags flags = default(TypeFlags);
                     // TODO: do we need to set any flags?
 
-                    var gtype = RegisterStatic (parentGType, gtypeName, parentTypeInfo, flags);
+                    var gtype = RegisterStatic(parentGType, gtypeName, parentTypeInfo, flags);
                     if (gtype == Invalid) {
-                        throw new InvalidOperationException ("Something bad happend while registering object.");
+                        throw new InvalidOperationException("Something bad happend while registering object.");
                     }
 
                     // Install interfaces
@@ -963,26 +965,26 @@ namespace GISharp.Lib.GObject
                     // if interface B inherits interface A, B.GetInterfaces ().Length
                     // will be greater than A.GetInterfaces ().Length because it
                     // includes A in addition to all of A's interfaces.
-                    var ifaces = type.GetInterfaces ().OrderBy (i => i.GetInterfaces ().Length);
+                    var ifaces = type.GetInterfaces().OrderBy(i => i.GetInterfaces().Length);
                     foreach (var ifaceType in ifaces) {
-                        var ifaceMap = type.GetInterfaceMap (ifaceType);
+                        var ifaceMap = type.GetInterfaceMap(ifaceType);
                         if (ifaceMap.TargetType != type) {
                             // only interested in interfaces that are actually
                             // implemented by this type and not inherited
                             continue;
                         }
-                        var gtypeAttr = ifaceType.GetCustomAttribute<GTypeAttribute> ();
+                        var gtypeAttr = ifaceType.GetCustomAttribute<GTypeAttribute>();
                         if (gtypeAttr == null) {
                             // only care about interfaces registered with the
                             // GObject type system
                             continue;
                         }
-                        var ifaceGType = ifaceType.GetGType ();
+                        var ifaceGType = ifaceType.GetGType();
                         var prereqs = TypeInterface.GetPrerequisites(ifaceGType);
                         foreach (var p in prereqs.Span) {
-                            if (!GType.TypeOf (p).IsAssignableFrom (type)) {
+                            if (!GType.TypeOf(p).IsAssignableFrom(type)) {
                                 var message = $"Type {type.FullName} is missing prerequisite {ifaceType.FullName} ({p})";
-                                throw new ArgumentException (message, nameof(type));
+                                throw new ArgumentException(message, nameof(type));
                             }
                         }
 
@@ -990,51 +992,52 @@ namespace GISharp.Lib.GObject
                         AddInterfaceStatic(gtype, ifaceGType, interfaceInfo);
                     }
 
-                    MapPropertyInfo (gtype, type);
+                    MapPropertyInfo(gtype, type);
 
-                    typeMap.Add (type, gtype);
+                    typeMap.Add(type, gtype);
                     gtype[managedTypeQuark] = type;
 
                     return gtype;
                 }
                 if (type.IsEnum) {
-                    var underlyingType = type.GetEnumUnderlyingType ();
+                    var underlyingType = type.GetEnumUnderlyingType();
                     if (underlyingType != typeof(int) && underlyingType != typeof(uint)) {
-                        throw new ArgumentException ("GType enums must be int/uint", nameof (type));
+                        throw new ArgumentException("GType enums must be int/uint", nameof(type));
                     }
-                    var values = (int[])type.GetEnumValues ();
-                    var names = type.GetEnumNames ();
-                    var flagsAttribute = type.GetCustomAttributes ()
-                        .OfType<FlagsAttribute> ().SingleOrDefault ();
+                    var values = (int[])type.GetEnumValues();
+                    var names = type.GetEnumNames();
+                    var flagsAttribute = type.GetCustomAttributes()
+                        .OfType<FlagsAttribute>().SingleOrDefault();
                     if (flagsAttribute == null) {
                         var gtypeValues = new EnumValue[values.Length + 1];
                         for (int i = 0; i < values.Length; i++) {
-                            var enumValueField = type.GetField (names[i]);
-                            var enumValueAttr = enumValueField.GetCustomAttributes ()
-                                .OfType<EnumValueAttribute> ()
-                                .SingleOrDefault ();
+                            var enumValueField = type.GetField(names[i]);
+                            var enumValueAttr = enumValueField.GetCustomAttributes()
+                                .OfType<EnumValueAttribute>()
+                                .SingleOrDefault();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
                             var enumValue = new EnumValue(values[i], valueName, valueNick);
                             gtypeValues[i] = enumValue;
                         }
-                        var gtype = GObject.Enum.RegisterStatic (gtypeName, gtypeValues);
+                        var gtype = GObject.Enum.RegisterStatic(gtypeName, gtypeValues);
                         if (gtype == Invalid) {
-                            throw new InvalidOperationException ("Something bad happend while registering enum.");
+                            throw new InvalidOperationException("Something bad happend while registering enum.");
                         }
 
-                        typeMap.Add (type, gtype);
+                        typeMap.Add(type, gtype);
                         gtype[managedTypeQuark] = type;
 
                         return gtype;
-                    } else {
+                    }
+                    else {
                         var gtypeValues = new FlagsValue[values.Length + 1];
                         for (int i = 0; i < values.Length; i++) {
-                            var enumValueField = type.GetField (names[i]);
+                            var enumValueField = type.GetField(names[i]);
                             var enumValueAttr = enumValueField
-                                .GetCustomAttributes ()
-                                .OfType<EnumValueAttribute> ()
-                                .SingleOrDefault ();
+                                .GetCustomAttributes()
+                                .OfType<EnumValueAttribute>()
+                                .SingleOrDefault();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
                             var flagValue = new FlagsValue((uint)values[i], valueName, valueNick);
@@ -1042,56 +1045,57 @@ namespace GISharp.Lib.GObject
                         }
                         var gtype = GObject.Flags.RegisterStatic(gtypeName, gtypeValues);
                         if (gtype == Invalid) {
-                            throw new InvalidOperationException ("Something bad happend while registering flags.");
+                            throw new InvalidOperationException("Something bad happend while registering flags.");
                         }
 
-                        typeMap.Add (type, gtype);
+                        typeMap.Add(type, gtype);
                         gtype[managedTypeQuark] = type;
 
                         return gtype;
                     }
                 }
             }
-            throw new NotImplementedException ();
+            throw new NotImplementedException();
         }
 
-        public static GType TypeOf (Type type)
+        public static GType TypeOf(Type type)
         {
             lock (mapLock) {
-                if (typeMap.ContainsKey (type)) {
+                if (typeMap.ContainsKey(type)) {
                     return typeMap[type];
                 }
 
-                var ret = Register (type);
+                var ret = Register(type);
 
                 return ret;
             }
         }
 
-        public static GType TypeOf<T> ()
+        public static GType TypeOf<T>()
         {
-            return TypeOf (typeof(T));
+            return TypeOf(typeof(T));
         }
 
-        public static explicit operator GType (Type type)
+        public static explicit operator GType(Type type)
         {
             try {
-                return TypeOf (type);
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Could not get GType from type.", ex);
+                return TypeOf(type);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Could not get GType from type.", ex);
             }
         }
 
-        public static Type TypeOf (GType type)
+        public static Type TypeOf(GType type)
         {
             lock (mapLock) {
                 if (g_type_get_qdata(type, managedTypeQuark) == IntPtr.Zero) {
                     Type? matchingType = null;
                     foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
                         matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
-                            .FirstOrDefault (t => t.GetCustomAttributes ()
-                                .OfType<GTypeAttribute> ()
-                                .Any (a => a.Name == type.Name));
+                            .FirstOrDefault(t => t.GetCustomAttributes()
+                               .OfType<GTypeAttribute>()
+                               .Any(a => a.Name == type.Name));
                         if (matchingType != null) {
                             break;
                         }
@@ -1099,21 +1103,22 @@ namespace GISharp.Lib.GObject
                     if (matchingType == null) {
                         // TODO: More specific exception type
                         var message = $"Could not find type for GType '{type.Name}' in loaded assemblies.";
-                        throw new Exception (message);
+                        throw new Exception(message);
                     }
-                    Register (matchingType);
+                    Register(matchingType);
                 }
 
                 return (Type)type[managedTypeQuark]!;
             }
         }
 
-        public static explicit operator Type (GType type)
+        public static explicit operator Type(GType type)
         {
             try {
-                return TypeOf (type);
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Could not get type from GType.", ex);
+                return TypeOf(type);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Could not get type from GType.", ex);
             }
         }
 
@@ -1133,10 +1138,10 @@ namespace GISharp.Lib.GObject
         /// a user provided structure that is
         ///     filled in with constant values upon success
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_type_query (
+        static extern void g_type_query(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type,
@@ -1147,10 +1152,10 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Queries the type system for information about a specific type.
         /// </summary>
-        public TypeQuery Query ()
+        public TypeQuery Query()
         {
             TypeQuery query;
-            g_type_query (this, out query);
+            g_type_query(this, out query);
 
             return query;
         }
@@ -1170,10 +1175,10 @@ namespace GISharp.Lib.GObject
         /// #GInterfaceInfo structure for this
         ///        (@instance_type, @interface_type) combination
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_type_add_interface_static (
+        static extern void g_type_add_interface_static(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType instanceType,
@@ -1199,17 +1204,17 @@ namespace GISharp.Lib.GObject
         /// #GInterfaceInfo structure for this
         ///        (@instance_type, @interface_type) combination
         /// </param>
-        static void AddInterfaceStatic (GType instanceType, GType interfaceType, InterfaceInfo info)
+        static void AddInterfaceStatic(GType instanceType, GType interfaceType, InterfaceInfo info)
         {
             // making a copy of info in unmanged memory that will never be freed
-            var infoPtr = GMarshal.Alloc (Marshal.SizeOf<InterfaceInfo> ());
-            Marshal.StructureToPtr<InterfaceInfo> (info, infoPtr, false);
+            var infoPtr = GMarshal.Alloc(Marshal.SizeOf<InterfaceInfo>());
+            Marshal.StructureToPtr<InterfaceInfo>(info, infoPtr, false);
 
             // also make sure the delegates are never GCed.
-            GCHandle.Alloc (info.InterfaceInit);
-            GCHandle.Alloc (info.InterfaceFinalize);
+            GCHandle.Alloc(info.InterfaceInit);
+            GCHandle.Alloc(info.InterfaceFinalize);
 
-            g_type_add_interface_static (instanceType, interfaceType, infoPtr);
+            g_type_add_interface_static(instanceType, interfaceType, infoPtr);
         }
 
         /// <summary>
@@ -1230,7 +1235,7 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the data, or %NULL if no data was found
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         static extern IntPtr g_type_get_qdata(
@@ -1253,7 +1258,7 @@ namespace GISharp.Lib.GObject
         /// <param name="data">
         /// the data
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_type_set_qdata(
@@ -1276,8 +1281,7 @@ namespace GISharp.Lib.GObject
         /// <value>
         /// the data
         /// </value>
-        public object? this[Quark quark]
-        {
+        public object? this[Quark quark] {
             get {
                 var ret_ = g_type_get_qdata(this, quark);
                 if (ret_ == IntPtr.Zero) {
@@ -1455,7 +1459,7 @@ namespace GISharp.Lib.GObject
             IntPtr checkData,
             /* <type name="TypeInterfaceCheckFunc" type="GTypeInterfaceCheckFunc" managed-name="TypeInterfaceCheckFunc" /> */
             /* transfer-ownership:none */
-            UnmanagedTypeInterfaceCheckFunc checkFunc);
+            IntPtr checkFunc);
 
         /// <summary>
         /// Adds a function to be called after an interface vtable is
@@ -1477,10 +1481,12 @@ namespace GISharp.Lib.GObject
         ///     is initialized
         /// </param>
         [Since ("2.4")]
-        public static void AddInterfaceCheck(IntPtr checkData, TypeInterfaceCheckFunc checkFunc)
+        public static IDisposable AddInterfaceCheck(TypeInterfaceCheckFunc checkFunc)
         {
-            var checkFunc_ = TypeInterfaceCheckFuncFactory.Create(checkFunc, false);
-            g_type_add_interface_check(checkData, checkFunc_);
+            var (checkFunc_, destroy_, checkData_) = TypeInterfaceCheckFuncMarshal.ToPointer(checkFunc, CallbackScope.Notified);
+            g_type_add_interface_check(checkData_, checkFunc_);
+
+            return new RemoveInterfaceCheck(checkFunc_, destroy_, checkData_);
         }
 
         /// <summary>
@@ -2507,30 +2513,35 @@ namespace GISharp.Lib.GObject
             IntPtr checkData,
             /* <type name="TypeInterfaceCheckFunc" type="GTypeInterfaceCheckFunc" managed-name="TypeInterfaceCheckFunc" /> */
             /* transfer-ownership:none */
-            UnmanagedTypeInterfaceCheckFunc checkFunc);
+            IntPtr checkFunc);
 
-        /// <summary>
-        /// Removes an interface check function added with
-        /// g_type_add_interface_check().
-        /// </summary>
-        /// <param name="checkData">
-        /// callback data passed to g_type_add_interface_check()
-        /// </param>
-        /// <param name="checkFunc">
-        /// callback function passed to g_type_add_interface_check()
-        /// </param>
-        [Since ("2.4")]
-        public static void RemoveInterfaceCheck(IntPtr checkData, TypeInterfaceCheckFunc checkFunc)
+
+        private class RemoveInterfaceCheck : IDisposable
         {
-            var checkFunc_ = TypeInterfaceCheckFuncFactory.Create(checkFunc, false);
-            g_type_remove_interface_check(checkData, checkFunc_);
+            private readonly IntPtr checkFunc_;
+            private readonly IntPtr destroy_;
+            private readonly IntPtr checkData_;
+
+            public RemoveInterfaceCheck(IntPtr checkFunc_, IntPtr destroy_, IntPtr checkData_)
+            {
+                this.checkFunc_ = checkFunc_;
+                this.destroy_ = destroy_;
+                this.checkData_ = checkData_;
+            }
+
+            public void Dispose()
+            {
+                g_type_remove_interface_check(checkData_, checkFunc_);
+                var destroy = Marshal.GetDelegateForFunctionPointer<UnmanagedDestroyNotify>(destroy_);
+                destroy(checkData_);
+            }
         }
 #endif
     }
 
     public class InvalidGTypeNameException : Exception
     {
-        public InvalidGTypeNameException (string message) : base (message)
+        public InvalidGTypeNameException(string message) : base(message)
         {
         }
     }
@@ -2545,10 +2556,10 @@ namespace GISharp.Lib.GObject
         /// <exception cref="ArgumentException">
         /// Thrown if <paramref name="type"/> is not decorated with <see cref="GTypeAttribute"/>
         /// </exception>
-        public static string GetGTypeName (this Type type)
+        public static string GetGTypeName(this Type type)
         {
-            var gtypeAttr = type.GetCustomAttributes ()
-                .OfType<GTypeAttribute> ().SingleOrDefault ();
+            var gtypeAttr = type.GetCustomAttributes()
+                .OfType<GTypeAttribute>().SingleOrDefault();
 
             var ret = gtypeAttr?.Name ?? type.ToString()
                 .Replace('.', '-')
@@ -2560,24 +2571,27 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        public static Type GetGTypeStruct (this Type type)
+        public static Type GetGTypeStruct(this Type type)
         {
             Type gtypeStructType;
-            var gtypeStructAttr = type.GetCustomAttribute<GTypeStructAttribute> (true);
+            var gtypeStructAttr = type.GetCustomAttribute<GTypeStructAttribute>(true);
             if (gtypeStructAttr == null) {
                 if (type.IsEnum) {
                     // GTypeStructAttribute is not needed on Enums/Flags
-                    var flagsAttr = type.GetCustomAttribute<FlagsAttribute> ();
+                    var flagsAttr = type.GetCustomAttribute<FlagsAttribute>();
                     if (flagsAttr == null) {
                         gtypeStructType = typeof(EnumClass);
-                    } else {
+                    }
+                    else {
                         gtypeStructType = typeof(FlagsClass);
                     }
-                } else {
-                    var message = $"Type '{type.FullName}' does not have have GTypeStructAttribute";
-                    throw new ArgumentException (message, nameof (type));
                 }
-            } else {
+                else {
+                    var message = $"Type '{type.FullName}' does not have have GTypeStructAttribute";
+                    throw new ArgumentException(message, nameof(type));
+                }
+            }
+            else {
                 gtypeStructType = gtypeStructAttr.GTypeStruct;
             }
 
@@ -2588,9 +2602,9 @@ namespace GISharp.Lib.GObject
             return gtypeStructType;
         }
 
-        public static Type GetGTypeStruct (this GType type)
+        public static Type GetGTypeStruct(this GType type)
         {
-            return GType.TypeOf (type).GetGTypeStruct ();
+            return GType.TypeOf(type).GetGTypeStruct();
         }
 
         /// <summary>
@@ -2604,9 +2618,9 @@ namespace GISharp.Lib.GObject
         /// <exception cref="ArgumentException">
         /// Thrown if <paramref name="type"/> is not decorated with <see cref="GTypeAttribute"/>
         /// </exception>
-        public static GType GetGType (this Type type)
+        public static GType GetGType(this Type type)
         {
-            return GType.TypeOf (type);
+            return GType.TypeOf(type);
         }
 
         /// <summary>
@@ -2620,12 +2634,12 @@ namespace GISharp.Lib.GObject
         /// <exception cref="ArgumentException">
         /// Thrown if the Type of <paramref name="obj"/> is not decorated with <see cref="GTypeAttribute"/>
         /// </exception>
-        public static GType GetGType (this object obj)
+        public static GType GetGType(this object obj)
         {
-            return GType.TypeOf (obj.GetType ());
+            return GType.TypeOf(obj.GetType());
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_type_default_interface_peek (GType type);
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_type_default_interface_peek(GType type);
     }
 }

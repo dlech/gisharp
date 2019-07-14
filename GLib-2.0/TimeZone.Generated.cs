@@ -368,7 +368,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         static unsafe System.IntPtr New(System.String? identifier)
-        {using var identifierUtf8 = identifier == null ? null : new GISharp.Lib.GLib.Utf8(identifier);
+        {
+            using var identifierUtf8 = identifier == null ? null : new GISharp.Lib.GLib.Utf8(identifier);
             return New((GISharp.Lib.GLib.NullableUnownedUtf8)identifierUtf8);
         }
 

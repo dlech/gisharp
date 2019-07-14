@@ -38,22 +38,22 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the ID (greater than 0) of the event source.
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern uint g_idle_add_full (
+        static extern uint g_idle_add_full(
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:2 destroy:3 */
-            UnmanagedSourceFunc function,
+            IntPtr function,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            UnmanagedDestroyNotify? notify);
+            IntPtr notify);
 
         /// <summary>
         /// Adds a function to be called whenever there are no higher priority
@@ -77,9 +77,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the ID (greater than 0) of the event source.
         /// </returns>
-        public static uint Add (SourceFunc function, int priority = Priority.DefaultIdle)
+        public static uint Add(SourceFunc function, int priority = Priority.DefaultIdle)
         {
-            var (function_, notify_, data_) = SourceFuncFactory.Create(function, CallbackScope.Notified);
+            var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
             var ret = g_idle_add_full(priority, function_, data_, notify_);
             return ret;
         }

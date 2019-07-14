@@ -54,10 +54,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the ID (greater than 0) of the event source.
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern uint g_timeout_add_full (
+        static extern uint g_timeout_add_full(
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority,
@@ -66,13 +66,13 @@ namespace GISharp.Lib.GLib
             uint interval,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            UnmanagedSourceFunc function,
+            IntPtr function,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            UnmanagedDestroyNotify? notify);
+            IntPtr notify);
 
         /// <summary>
         /// Sets a function to be called at regular intervals, with the given
@@ -110,10 +110,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the ID (greater than 0) of the event source.
         /// </returns>
-        public static uint Add (uint interval, SourceFunc function, int priority = Priority.Default)
+        public static uint Add(uint interval, SourceFunc function, int priority = Priority.Default)
         {
-            var (function_, notify_, data_) = SourceFuncFactory.Create(function, CallbackScope.Notified);
-            var ret = g_timeout_add_full (priority, interval, function_, data_, notify_);
+            var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
+            var ret = g_timeout_add_full(priority, interval, function_, data_, notify_);
             return ret;
         }
 
@@ -175,11 +175,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the ID (greater than 0) of the event source.
         /// </returns>
-        [Since ("2.14")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.14")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern uint g_timeout_add_seconds_full (
+        static extern uint g_timeout_add_seconds_full(
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority,
@@ -188,13 +188,13 @@ namespace GISharp.Lib.GLib
             uint interval,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            UnmanagedSourceFunc function,
+            IntPtr function,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            UnmanagedDestroyNotify? notify);
+            IntPtr notify);
 
         /// <summary>
         /// Sets a function to be called at regular intervals, with <paramref name="priority"/>.
@@ -245,11 +245,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the ID (greater than 0) of the event source.
         /// </returns>
-        [Since ("2.14")]
-        public static uint AddSeconds (uint interval, SourceFunc function, int priority = Priority.Default)
+        [Since("2.14")]
+        public static uint AddSeconds(uint interval, SourceFunc function, int priority = Priority.Default)
         {
-            var (function_, notify_, data_) = SourceFuncFactory.Create(function, CallbackScope.Notified);
-            var ret = g_timeout_add_seconds_full (priority, interval, function_, data_, notify_);
+            var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
+            var ret = g_timeout_add_seconds_full(priority, interval, function_, data_, notify_);
             return ret;
         }
     }

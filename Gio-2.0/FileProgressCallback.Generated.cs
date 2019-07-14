@@ -29,37 +29,33 @@ namespace GISharp.Lib.Gio
     public delegate void FileProgressCallback(System.Int64 currentNumBytes, System.Int64 totalNumBytes);
 
     /// <summary>
-    /// Factory for creating <see cref="FileProgressCallback"/> methods.
+    /// Class for marshalling <see cref="FileProgressCallback"/> methods.
     /// </summary>
-    public static class FileProgressCallbackFactory
+    public static class FileProgressCallbackMarshal
     {
-        unsafe class UserData
+        class UserData
         {
             public readonly GISharp.Lib.Gio.FileProgressCallback ManagedDelegate;
-            public readonly GISharp.Lib.Gio.UnmanagedFileProgressCallback UnmanagedDelegate;
-            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
             public readonly GISharp.Runtime.CallbackScope Scope;
 
-            public UserData(GISharp.Lib.Gio.FileProgressCallback managedDelegate, GISharp.Lib.Gio.UnmanagedFileProgressCallback unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            public UserData(GISharp.Lib.Gio.FileProgressCallback managedDelegate, GISharp.Runtime.CallbackScope scope)
             {
                 ManagedDelegate = managedDelegate;
-                UnmanagedDelegate = unmanagedDelegate;
-                DestroyDelegate = destroyDelegate;
                 Scope = scope;
             }
         }
 
-        public static GISharp.Lib.Gio.FileProgressCallback Create(GISharp.Lib.Gio.UnmanagedFileProgressCallback callback, System.IntPtr userData)
+        public static GISharp.Lib.Gio.FileProgressCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
-            unsafe void callback_(System.Int64 currentNumBytes, System.Int64 totalNumBytes)
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileProgressCallback>(callback_);
+            unsafe void managedCallback(System.Int64 currentNumBytes, System.Int64 totalNumBytes)
             {
-                var userData_  =  userData ;
-                var currentNumBytes_  =  ( System . Int64 ) currentNumBytes ;
-                var totalNumBytes_  =  ( System . Int64 ) totalNumBytes ;
-                callback(currentNumBytes_, totalNumBytes_, userData_);
+                var currentNumBytes_ = (System.Int64)currentNumBytes;
+                var totalNumBytes_ = (System.Int64)totalNumBytes;
+                unmanagedCallback(currentNumBytes_, totalNumBytes_, userData_);
             }
 
-            return callback_;
+            return managedCallback;
         }
 
         /// <summary>
@@ -69,8 +65,8 @@ namespace GISharp.Lib.Gio
         /// <param name="method">The managed method to wrap.</param>
         /// <param name="scope">The lifetime scope of the callback.</param>
         /// <returns>
-        /// A tuple containing the unmanaged callback, the unmanaged
-        /// notify function and a pointer to the user data.
+        /// A tuple containing a pointer to the unmanaged callback, a pointer to the
+        /// unmanaged notify function and a pointer to the user data.
         /// </returns>
         /// <remarks>
         /// This function is used to marshal managed callbacks to unmanged
@@ -80,11 +76,16 @@ namespace GISharp.Lib.Gio
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static unsafe (GISharp.Lib.Gio.UnmanagedFileProgressCallback, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.Gio.FileProgressCallback callback, GISharp.Runtime.CallbackScope scope)
+        public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToPointer(GISharp.Lib.Gio.FileProgressCallback? callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
+            if (callback == null)
+            {
+                return default;
+            }
+
+            var userData = new UserData(callback, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-            return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
+            return (callback_, destroy_, userData_);
         }
 
         static unsafe void UnmanagedCallback(System.Int64 currentNumBytes_, System.Int64 totalNumBytes_, System.IntPtr userData_)
@@ -107,6 +108,9 @@ namespace GISharp.Lib.Gio
             }
         }
 
+        static readonly GISharp.Lib.Gio.UnmanagedFileProgressCallback UnmanagedCallbackDelegate = UnmanagedCallback;
+        static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
+
         static void Destroy(System.IntPtr userData_)
         {
             try
@@ -119,5 +123,8 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
+
+        static readonly GISharp.Lib.GLib.UnmanagedDestroyNotify UnmanagedDestroyDelegate = Destroy;
+        static readonly System.IntPtr destroy_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedDestroyDelegate);
     }
 }

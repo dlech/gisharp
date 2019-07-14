@@ -128,7 +128,7 @@ namespace GISharp.Lib.GLib
 
         public void SetCallback(SourceFunc func)
         {
-            SetCallback<SourceFunc, UnmanagedSourceFunc>(func, SourceFuncFactory.Create);
+            SetCallback<SourceFunc>(func, SourceFuncMarshal.ToPointer);
         }
     }
 }

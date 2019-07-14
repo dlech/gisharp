@@ -47,11 +47,18 @@ namespace GISharp.Lib.Gio
             var flags_ = flags;
             var ioPriority_ = ioPriority;
             var cancellable_ = cancellable?.Handle ?? IntPtr.Zero;
-            var (progressCallback_, progressCallbackDestroy_, progressCallbackData_) = progressCallback == null ?
-                default : FileProgressCallbackFactory.Create(progressCallback, CallbackScope.Notified);
-            var progressCallbackDestroy = new System.Action(() => progressCallbackDestroy_(progressCallbackData_));
+            var (progressCallback_, progressCallbackDestroy_, progressCallbackData_) = FileProgressCallbackMarshal.ToPointer(progressCallback, CallbackScope.Notified);
+
+            // no parameter in g_file_copy_async() for destroy function, so we
+            // attach it to the TaskCompletionSource
+            var progressCallbackDestroy = default(System.Action);
+            if (progressCallbackDestroy_ != IntPtr.Zero) {
+                var destroy = Marshal.GetDelegateForFunctionPointer<UnmanagedDestroyNotify>(progressCallbackDestroy_);
+                progressCallbackDestroy = () => destroy(progressCallbackData_);
+            }
+
             var completionSource = new TaskCompletionSource<Unit>(progressCallbackDestroy);
-            var callback_ = copyAsyncCallbackDelegate;
+            var callback_ = copyAsyncCallback_;
             var userData_ = (IntPtr)GCHandle.Alloc(completionSource);
             g_file_copy_async(source_, destination_, flags_, ioPriority_, cancellable_, progressCallback_, progressCallbackData_, callback_, userData_);
             return completionSource.Task;
@@ -64,7 +71,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (TaskCompletionSource<Unit>)userData.Target;
                 userData.Free();
                 var progressCallbackDestroy = (System.Action)completionSource.Task.AsyncState;
-                progressCallbackDestroy();
+                progressCallbackDestroy?.Invoke();
                 var error_ = IntPtr.Zero;
                 g_file_copy_finish(file_, res_, ref error_);
                 if (error_ != IntPtr.Zero) {
@@ -80,5 +87,6 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly UnmanagedAsyncReadyCallback copyAsyncCallbackDelegate = CopyFinish;
+        static readonly IntPtr copyAsyncCallback_ = Marshal.GetFunctionPointerForDelegate(copyAsyncCallbackDelegate);
     }
 }

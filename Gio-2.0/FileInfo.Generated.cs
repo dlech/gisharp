@@ -300,7 +300,8 @@ namespace GISharp.Lib.Gio
         ///    When you're done with the string it must be freed with g_free().
         /// </returns>
         public unsafe GISharp.Lib.GLib.Utf8 GetAttributeAsString(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeAsString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -358,7 +359,8 @@ namespace GISharp.Lib.Gio
         /// the boolean value contained within the attribute.
         /// </returns>
         public unsafe System.Boolean GetAttributeBoolean(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeBoolean((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -419,7 +421,8 @@ namespace GISharp.Lib.Gio
         /// <c>null</c> otherwise.
         /// </returns>
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeByteString(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeByteString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -519,7 +522,8 @@ namespace GISharp.Lib.Gio
         ///      <c>false</c> otherwise.
         /// </returns>
         public unsafe System.Boolean TryGetAttributeData(System.String attribute, out GISharp.Lib.Gio.FileAttributeType type, out System.IntPtr valuePp, out GISharp.Lib.Gio.FileAttributeStatus status)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return TryGetAttributeData((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8,out type,out valuePp,out status);
         }
 
@@ -580,7 +584,8 @@ namespace GISharp.Lib.Gio
         /// a signed 32-bit integer from the attribute.
         /// </returns>
         public unsafe System.Int32 GetAttributeInt32(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeInt32((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -641,7 +646,8 @@ namespace GISharp.Lib.Gio
         /// a signed 64-bit integer from the attribute.
         /// </returns>
         public unsafe System.Int64 GetAttributeInt64(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeInt64((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -702,7 +708,8 @@ namespace GISharp.Lib.Gio
         /// <c>null</c> otherwise.
         /// </returns>
         public unsafe GISharp.Lib.GObject.Object GetAttributeObject(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeObject((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -760,7 +767,8 @@ namespace GISharp.Lib.Gio
         ///    <see cref="FileAttributeStatus.Unset"/> if the key is invalid.
         /// </returns>
         public unsafe GISharp.Lib.Gio.FileAttributeStatus GetAttributeStatus(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeStatus((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -821,7 +829,8 @@ namespace GISharp.Lib.Gio
         /// <c>null</c> otherwise.
         /// </returns>
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeString(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -887,7 +896,8 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe GISharp.Lib.GLib.Strv GetAttributeStringv(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeStringv((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -945,7 +955,8 @@ namespace GISharp.Lib.Gio
         /// <see cref="FileAttributeType.Invalid"/> if the key is not set.
         /// </returns>
         public unsafe GISharp.Lib.Gio.FileAttributeType GetAttributeType(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeType((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -1006,7 +1017,8 @@ namespace GISharp.Lib.Gio
         /// an unsigned 32-bit integer from the attribute.
         /// </returns>
         public unsafe System.UInt32 GetAttributeUint32(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeUint32((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -1067,7 +1079,8 @@ namespace GISharp.Lib.Gio
         /// a unsigned 64-bit integer from the attribute.
         /// </returns>
         public unsafe System.UInt64 GetAttributeUint64(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeUint64((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -1639,7 +1652,8 @@ namespace GISharp.Lib.Gio
         ///     <c>false</c> otherwise.
         /// </returns>
         public unsafe System.Boolean HasAttribute(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return HasAttribute((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -1703,7 +1717,8 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Boolean HasNamespace(System.String nameSpace)
-        {using var nameSpaceUtf8 = new GISharp.Lib.GLib.Utf8(nameSpace);
+        {
+            using var nameSpaceUtf8 = new GISharp.Lib.GLib.Utf8(nameSpace);
             return HasNamespace((GISharp.Lib.GLib.UnownedUtf8)nameSpaceUtf8);
         }
 
@@ -1769,7 +1784,8 @@ namespace GISharp.Lib.Gio
         /// types for the given <paramref name="nameSpace"/>, or <c>null</c> on error.
         /// </returns>
         public unsafe GISharp.Lib.GLib.Strv? ListAttributes(System.String? nameSpace)
-        {using var nameSpaceUtf8 = nameSpace == null ? null : new GISharp.Lib.GLib.Utf8(nameSpace);
+        {
+            using var nameSpaceUtf8 = nameSpace == null ? null : new GISharp.Lib.GLib.Utf8(nameSpace);
             return ListAttributes((GISharp.Lib.GLib.NullableUnownedUtf8)nameSpaceUtf8);
         }
 
@@ -1813,7 +1829,8 @@ namespace GISharp.Lib.Gio
         /// a file attribute key.
         /// </param>
         public unsafe void RemoveAttribute(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             RemoveAttribute((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -1886,7 +1903,8 @@ namespace GISharp.Lib.Gio
         /// pointer to the value
         /// </param>
         public unsafe void SetAttribute(System.String attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttribute((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, type, valueP);
         }
 
@@ -1946,7 +1964,8 @@ namespace GISharp.Lib.Gio
         /// a boolean value.
         /// </param>
         public unsafe void SetAttributeBoolean(System.String attribute, System.Boolean attrValue)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeBoolean((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
@@ -2006,7 +2025,9 @@ namespace GISharp.Lib.Gio
         /// a byte string.
         /// </param>
         public unsafe void SetAttributeByteString(System.String attribute, System.String attrValue)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);using var attrValueUtf8 = new GISharp.Lib.GLib.Utf8(attrValue);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            using var attrValueUtf8 = new GISharp.Lib.GLib.Utf8(attrValue);
             SetAttributeByteString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, (GISharp.Lib.GLib.UnownedUtf8)attrValueUtf8);
         }
 
@@ -2066,7 +2087,8 @@ namespace GISharp.Lib.Gio
         /// a signed 32-bit integer
         /// </param>
         public unsafe void SetAttributeInt32(System.String attribute, System.Int32 attrValue)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeInt32((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
@@ -2126,7 +2148,8 @@ namespace GISharp.Lib.Gio
         /// int64 value to set attribute to.
         /// </param>
         public unsafe void SetAttributeInt64(System.String attribute, System.Int64 attrValue)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeInt64((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
@@ -2219,7 +2242,8 @@ namespace GISharp.Lib.Gio
         /// a #GObject.
         /// </param>
         public unsafe void SetAttributeObject(System.String attribute, GISharp.Lib.GObject.Object attrValue)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeObject((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
@@ -2308,7 +2332,8 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Boolean SetAttributeStatus(System.String attribute, GISharp.Lib.Gio.FileAttributeStatus status)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return SetAttributeStatus((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, status);
         }
 
@@ -2368,7 +2393,9 @@ namespace GISharp.Lib.Gio
         /// a UTF-8 string.
         /// </param>
         public unsafe void SetAttributeString(System.String attribute, System.String attrValue)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);using var attrValueUtf8 = new GISharp.Lib.GLib.Utf8(attrValue);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            using var attrValueUtf8 = new GISharp.Lib.GLib.Utf8(attrValue);
             SetAttributeString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, (GISharp.Lib.GLib.UnownedUtf8)attrValueUtf8);
         }
 
@@ -2439,7 +2466,8 @@ namespace GISharp.Lib.Gio
         /// a <c>null</c> terminated array of UTF-8 strings.
         /// </param>
         public unsafe void SetAttributeStringv(System.String attribute, GISharp.Lib.GLib.Strv attrValue)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeStringv((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
@@ -2499,7 +2527,8 @@ namespace GISharp.Lib.Gio
         /// an unsigned 32-bit integer.
         /// </param>
         public unsafe void SetAttributeUint32(System.String attribute, System.UInt32 attrValue)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeUint32((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
@@ -2559,7 +2588,8 @@ namespace GISharp.Lib.Gio
         /// an unsigned 64-bit integer.
         /// </param>
         public unsafe void SetAttributeUint64(System.String attribute, System.UInt64 attrValue)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeUint64((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, attrValue);
         }
 
@@ -2606,7 +2636,8 @@ namespace GISharp.Lib.Gio
         /// a content type. See [GContentType][gio-GContentType]
         /// </param>
         private unsafe void SetContentType(System.String contentType)
-        {using var contentTypeUtf8 = new GISharp.Lib.GLib.Utf8(contentType);
+        {
+            using var contentTypeUtf8 = new GISharp.Lib.GLib.Utf8(contentType);
             SetContentType((GISharp.Lib.GLib.UnownedUtf8)contentTypeUtf8);
         }
 
@@ -2653,7 +2684,8 @@ namespace GISharp.Lib.Gio
         /// a string containing a display name.
         /// </param>
         private unsafe void SetDisplayName(System.String displayName)
-        {using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
+        {
+            using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
             SetDisplayName((GISharp.Lib.GLib.UnownedUtf8)displayNameUtf8);
         }
 
@@ -2700,7 +2732,8 @@ namespace GISharp.Lib.Gio
         /// a string containing an edit name.
         /// </param>
         private unsafe void SetEditName(System.String editName)
-        {using var editNameUtf8 = new GISharp.Lib.GLib.Utf8(editName);
+        {
+            using var editNameUtf8 = new GISharp.Lib.GLib.Utf8(editName);
             SetEditName((GISharp.Lib.GLib.UnownedUtf8)editNameUtf8);
         }
 
@@ -3064,7 +3097,8 @@ namespace GISharp.Lib.Gio
         /// a static string containing a path to a symlink target.
         /// </param>
         private unsafe void SetSymlinkTarget(System.String symlinkTarget)
-        {using var symlinkTargetUtf8 = new GISharp.Lib.GLib.Utf8(symlinkTarget);
+        {
+            using var symlinkTargetUtf8 = new GISharp.Lib.GLib.Utf8(symlinkTarget);
             SetSymlinkTarget((GISharp.Lib.GLib.UnownedUtf8)symlinkTargetUtf8);
         }
 

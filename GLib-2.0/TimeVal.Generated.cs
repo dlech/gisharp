@@ -112,7 +112,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public static unsafe System.Boolean TryFromIso8601(System.String isoDate, out GISharp.Lib.GLib.TimeVal time)
-        {using var isoDateUtf8 = new GISharp.Lib.GLib.Utf8(isoDate);
+        {
+            using var isoDateUtf8 = new GISharp.Lib.GLib.Utf8(isoDate);
             return TryFromIso8601((GISharp.Lib.GLib.UnownedUtf8)isoDateUtf8,out time);
         }
 

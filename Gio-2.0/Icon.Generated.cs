@@ -201,7 +201,8 @@ namespace GISharp.Lib.Gio
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.20")]
         public static unsafe GISharp.Lib.Gio.IIcon NewForString(System.String str)
-        {using var strUtf8 = new GISharp.Lib.GLib.Utf8(str);
+        {
+            using var strUtf8 = new GISharp.Lib.GLib.Utf8(str);
             return NewForString((GISharp.Lib.GLib.UnownedUtf8)strUtf8);
         }
 

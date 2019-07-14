@@ -88,7 +88,8 @@ namespace GISharp.Lib.Gio
         }
 
         static unsafe System.IntPtr New(System.String attributes)
-        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+        {
+            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
             return New((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8);
         }
 
@@ -198,7 +199,8 @@ namespace GISharp.Lib.Gio
         /// in the given <paramref name="ns"/>, <c>false</c> otherwise.
         /// </returns>
         public unsafe System.Boolean EnumerateNamespace(System.String ns)
-        {using var nsUtf8 = new GISharp.Lib.GLib.Utf8(ns);
+        {
+            using var nsUtf8 = new GISharp.Lib.GLib.Utf8(ns);
             return EnumerateNamespace((GISharp.Lib.GLib.UnownedUtf8)nsUtf8);
         }
 
@@ -292,7 +294,8 @@ namespace GISharp.Lib.Gio
         /// <c>true</c> if <paramref name="attribute"/> matches <paramref name="matcher"/>. <c>false</c> otherwise.
         /// </returns>
         public unsafe System.Boolean Matches(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return Matches((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
@@ -350,7 +353,8 @@ namespace GISharp.Lib.Gio
         /// <c>true</c> if the matcher only matches <paramref name="attribute"/>. <c>false</c> otherwise.
         /// </returns>
         public unsafe System.Boolean MatchesOnly(System.String attribute)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return MatchesOnly((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 

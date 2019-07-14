@@ -244,7 +244,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe System.Boolean Contains(System.String key)
-        {using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return Contains((GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -360,7 +361,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void Insert(System.String key, GISharp.Lib.GLib.Variant value)
-        {using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             Insert((GISharp.Lib.GLib.UnownedUtf8)keyUtf8, value);
         }
 
@@ -464,7 +466,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe GISharp.Lib.GLib.Variant Lookup(System.String key, GISharp.Lib.GLib.VariantType? expectedType = null)
-        {using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return Lookup((GISharp.Lib.GLib.UnownedUtf8)keyUtf8, expectedType);
         }
 
@@ -545,7 +548,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe System.Boolean Remove(System.String key)
-        {using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return Remove((GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 

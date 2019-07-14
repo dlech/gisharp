@@ -27,11 +27,11 @@ namespace GISharp.Lib.Gio
         static IconIface()
         {
             System.Int32 hashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Hash));
-            RegisterVirtualMethod(hashOffset, HashFactory.Create);
+            RegisterVirtualMethod(hashOffset, HashMarshal.Create);
             System.Int32 equalOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Equal));
-            RegisterVirtualMethod(equalOffset, EqualFactory.Create);
+            RegisterVirtualMethod(equalOffset, EqualMarshal.Create);
             System.Int32 serializeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Serialize));
-            RegisterVirtualMethod(serializeOffset, SerializeFactory.Create);
+            RegisterVirtualMethod(serializeOffset, SerializeMarshal.Create);
         }
 
         public delegate System.UInt32 Hash();
@@ -45,9 +45,9 @@ namespace GISharp.Lib.Gio
 System.IntPtr icon);
 
         /// <summary>
-        /// Factory for creating <see cref="Hash"/> methods.
+        /// Class for marshalling <see cref="Hash"/> methods.
         /// </summary>
-        public static class HashFactory
+        public static class HashMarshal
         {
             public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -87,9 +87,9 @@ System.IntPtr icon1,
 System.IntPtr icon2);
 
         /// <summary>
-        /// Factory for creating <see cref="Equal"/> methods.
+        /// Class for marshalling <see cref="Equal"/> methods.
         /// </summary>
-        public static class EqualFactory
+        public static class EqualMarshal
         {
             public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -127,9 +127,9 @@ System.IntPtr icon2);
 System.IntPtr icon);
 
         /// <summary>
-        /// Factory for creating <see cref="Serialize"/> methods.
+        /// Class for marshalling <see cref="Serialize"/> methods.
         /// </summary>
-        public static class SerializeFactory
+        public static class SerializeMarshal
         {
             public static unsafe UnmanagedSerialize Create(System.Reflection.MethodInfo methodInfo)
             {

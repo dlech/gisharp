@@ -294,7 +294,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
-        /* <type name="GObject.Callback" type="GCallback" managed-name="System.Delegate" /> */
+        /* <type name="CancellableSourceFunc" type="GCallback" managed-name="UnmanagedCancellableSourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:1 destroy:2 direction:in */
         System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -302,7 +302,45 @@ namespace GISharp.Lib.Gio
         System.IntPtr data,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        GISharp.Lib.GLib.UnmanagedDestroyNotify? dataDestroyFunc);
+        System.IntPtr dataDestroyFunc);
+
+        /// <summary>
+        /// Convenience function to connect to the <see cref="Cancellable"/>::cancelled
+        /// signal. Also handles the race condition that may happen
+        /// if the cancellable is cancelled right before connecting.
+        /// </summary>
+        /// <remarks>
+        /// <paramref name="callback"/> is called at most once, either directly at the
+        /// time of the connect if <paramref name="cancellable"/> is already cancelled,
+        /// or when <paramref name="cancellable"/> is cancelled in some thread.
+        /// 
+        /// <paramref name="dataDestroyFunc"/> will be called when the handler is
+        /// disconnected, or immediately if the cancellable is already
+        /// cancelled.
+        /// 
+        /// See <see cref="Cancellable"/>::cancelled for details on how to use this.
+        /// 
+        /// Since GLib 2.40, the lock protecting <paramref name="cancellable"/> is not held when
+        /// <paramref name="callback"/> is invoked.  This lifts a restriction in place for
+        /// earlier GLib versions which now makes it easier to write cleanup
+        /// code that unconditionally invokes e.g. <see cref="Cancellable.Cancel"/>.
+        /// </remarks>
+        /// <param name="callback">
+        /// The #GCallback to connect.
+        /// </param>
+        /// <returns>
+        /// The id of the signal handler or 0 if <paramref name="cancellable"/> has already
+        ///          been cancelled.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        public unsafe System.UInt64 Connect(GISharp.Lib.Gio.CancellableSourceFunc callback)
+        {
+            var cancellable_ = Handle;
+            var (callback_, dataDestroyFunc_, data_) = GISharp.Lib.Gio.CancellableSourceFuncMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Notified);
+            var ret_ = g_cancellable_connect(cancellable_,callback_,data_,dataDestroyFunc_);
+            var ret = (System.UInt64)ret_;
+            return ret;
+        }
 
         /// <summary>
         /// Disconnects a handler from a cancellable instance similar to

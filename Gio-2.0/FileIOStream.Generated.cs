@@ -231,7 +231,8 @@ namespace GISharp.Lib.Gio
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(System.String attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+        {
+            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
             return QueryInfo((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, cancellable);
         }
 
@@ -283,7 +284,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -314,7 +315,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
-            var callback_ = queryInfoAsyncCallbackDelegate;
+            var callback_ = queryInfoAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_io_stream_query_info_async(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -340,7 +341,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(System.String attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+        {
+            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
             return QueryInfoAsync((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, ioPriority, cancellable);
         }
 
@@ -400,6 +402,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback queryInfoAsyncCallbackDelegate = QueryInfoFinish;
+        static readonly System.IntPtr queryInfoAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(queryInfoAsyncCallbackDelegate);
 
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedCanSeek))]
         protected virtual unsafe System.Boolean DoCanSeek()
@@ -516,7 +519,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var attributes_ = attributes.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedQueryInfoAsync>(_GType)!(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
         }

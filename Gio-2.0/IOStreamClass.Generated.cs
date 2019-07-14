@@ -29,15 +29,15 @@ namespace GISharp.Lib.Gio
         static IOStreamClass()
         {
             System.Int32 getInputStreamOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetInputStream));
-            RegisterVirtualMethod(getInputStreamOffset, GetInputStreamFactory.Create);
+            RegisterVirtualMethod(getInputStreamOffset, GetInputStreamMarshal.Create);
             System.Int32 getOutputStreamOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetOutputStream));
-            RegisterVirtualMethod(getOutputStreamOffset, GetOutputStreamFactory.Create);
+            RegisterVirtualMethod(getOutputStreamOffset, GetOutputStreamMarshal.Create);
             System.Int32 closeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseFn));
-            RegisterVirtualMethod(closeFnOffset, CloseFnFactory.Create);
+            RegisterVirtualMethod(closeFnOffset, CloseFnMarshal.Create);
             System.Int32 closeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseAsync));
-            RegisterVirtualMethod(closeAsyncOffset, CloseAsyncFactory.Create);
+            RegisterVirtualMethod(closeAsyncOffset, CloseAsyncMarshal.Create);
             System.Int32 closeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseFinish));
-            RegisterVirtualMethod(closeFinishOffset, CloseFinishFactory.Create);
+            RegisterVirtualMethod(closeFinishOffset, CloseFinishMarshal.Create);
         }
 
         public delegate GISharp.Lib.Gio.InputStream GetInputStream();
@@ -51,9 +51,9 @@ namespace GISharp.Lib.Gio
 System.IntPtr stream);
 
         /// <summary>
-        /// Factory for creating <see cref="GetInputStream"/> methods.
+        /// Class for marshalling <see cref="GetInputStream"/> methods.
         /// </summary>
-        public static class GetInputStreamFactory
+        public static class GetInputStreamMarshal
         {
             public static unsafe UnmanagedGetInputStream Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -90,9 +90,9 @@ System.IntPtr stream);
 System.IntPtr stream);
 
         /// <summary>
-        /// Factory for creating <see cref="GetOutputStream"/> methods.
+        /// Class for marshalling <see cref="GetOutputStream"/> methods.
         /// </summary>
-        public static class GetOutputStreamFactory
+        public static class GetOutputStreamMarshal
         {
             public static unsafe UnmanagedGetOutputStream Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -135,9 +135,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="CloseFn"/> methods.
+        /// Class for marshalling <see cref="CloseFn"/> methods.
         /// </summary>
-        public static class CloseFnFactory
+        public static class CloseFnMarshal
         {
             public static unsafe UnmanagedCloseFn Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -184,25 +184,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="CloseAsync"/> methods.
+        /// Class for marshalling <see cref="CloseAsync"/> methods.
         /// </summary>
-        public static class CloseAsyncFactory
+        public static class CloseAsyncMarshal
         {
             public static unsafe UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCloseAsync = (CloseAsync)methodInfo.CreateDelegate(typeof(CloseAsync), stream);
                         doCloseAsync(ioPriority, callback, cancellable);
@@ -234,9 +234,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="CloseFinish"/> methods.
+        /// Class for marshalling <see cref="CloseFinish"/> methods.
         /// </summary>
-        public static class CloseFinishFactory
+        public static class CloseFinishMarshal
         {
             public static unsafe UnmanagedCloseFinish Create(System.Reflection.MethodInfo methodInfo)
             {

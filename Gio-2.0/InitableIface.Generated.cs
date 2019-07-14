@@ -23,7 +23,7 @@ namespace GISharp.Lib.Gio
         static InitableIface()
         {
             System.Int32 initOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Init));
-            RegisterVirtualMethod(initOffset, InitFactory.Create);
+            RegisterVirtualMethod(initOffset, InitMarshal.Create);
         }
 
         public delegate void Init(GISharp.Lib.Gio.Cancellable? cancellable = null);
@@ -43,9 +43,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Init"/> methods.
+        /// Class for marshalling <see cref="Init"/> methods.
         /// </summary>
-        public static class InitFactory
+        public static class InitMarshal
         {
             public static unsafe UnmanagedInit Create(System.Reflection.MethodInfo methodInfo)
             {

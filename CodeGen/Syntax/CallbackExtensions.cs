@@ -45,7 +45,7 @@ namespace GISharp.CodeGen.Syntax
             var girTrivia = TriviaList(callback.ReturnValue.GetGirXmlTrivia(),
                 EndOfLine("\n"), callback.ReturnValue.GetAnnotationTrivia());
 
-             // get parameters, injecting some comments along the way
+            // get parameters, injecting some comments along the way
             var parameterList = ParameterList(SeparatedList(callback.Parameters
                 .Select(x => x.GetParameter()
                     .WithLeadingTrivia(TriviaList(x.GetGirXmlTrivia(), EndOfLine("\n"),
@@ -69,8 +69,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var tryStatement = TryStatement();
 
-            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "out"))
-            {
+            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "out")) {
                 var marshalStatements = arg.GetMarshalUnmanagedToManagedStatements();
                 tryStatement = tryStatement.AddBlockStatements(marshalStatements);
             }
@@ -178,7 +177,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddCatches(CatchClause()
                     .WithDeclaration(CatchDeclaration(catchType, ParseToken("ex")))
                     .WithBlock(Block(ParseStatement(catchStatement))));
-            
+
             foreach (var p in callback.Parameters.Where(x => x.Direction == "out")) {
                 var unmanagedType = p.Type.UnmanagedType;
                 if (unmanagedType.IsPointer) {
@@ -198,9 +197,9 @@ namespace GISharp.CodeGen.Syntax
 
         static IEnumerable<StatementSyntax> GetCallbackTryStatements(this Callback callback)
         {
-            foreach(var arg in callback.ManagedParameters) {
+            foreach (var arg in callback.ManagedParameters) {
                 foreach (var s in arg.GetMarshalUnmanagedToManagedStatements()) {
-                yield return s;
+                    yield return s;
                 }
             }
 
@@ -230,7 +229,7 @@ namespace GISharp.CodeGen.Syntax
                 foreach (var s in callback.ReturnValue.GetMarshalManagedToUnmanagedStatements()) {
                     yield return s;
                 }
-                yield return ReturnStatement(ParseExpression("ret_"));;
+                yield return ReturnStatement(ParseExpression("ret_")); ;
             }
         }
 
@@ -258,12 +257,12 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# class declaration for the factory class of a GIR callback
         /// </summary>
-        public static ClassDeclarationSyntax GetDelegateFactoryDeclaration(this Callback callback)
+        public static ClassDeclarationSyntax GetDelegateMarshalDeclaration(this Callback callback)
         {
-            var identifier = callback.ManagedName + "Factory";
+            var identifier = callback.ManagedName + "Marshal";
             var syntax = ClassDeclaration(identifier)
                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
-               .WithLeadingTrivia(callback.GetFactoryDocumentationCommentTrivia());
+               .WithLeadingTrivia(callback.GetDelegateMarshalDocumentationCommentTrivia());
             return syntax;
         }
 
@@ -271,13 +270,13 @@ namespace GISharp.CodeGen.Syntax
         /// Gets the C# delegate factory class members for a GIR callback of a
         /// virtual method
         /// </summary>
-        public static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodDelegateFactoryMembers(this Callback callback)
+        public static SyntaxList<MemberDeclarationSyntax> GetVirtualMethodDelegateMarshalMembers(this Callback callback)
         {
             return List<MemberDeclarationSyntax>()
-                .Add(callback.GetVirtualMethodDelegateFactoryUnmangedCreateMethod());
+                .Add(callback.GetVirtualMethodDelegateMarshalToPointerMethod());
         }
 
-        static MethodDeclarationSyntax GetVirtualMethodDelegateFactoryUnmangedCreateMethod(this Callback callback)
+        static MethodDeclarationSyntax GetVirtualMethodDelegateMarshalToPointerMethod(this Callback callback)
         {
             var type = ParseTypeName("Unmanaged" + callback.ManagedName);
             var methodInfoParam = Parameter(ParseToken("methodInfo"))
@@ -302,7 +301,7 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets the C# delegate factory class members for a GIR callback
         /// </summary>
-        public static SyntaxList<MemberDeclarationSyntax> GetCallbackDelegateFactoryMembers(this Callback callback)
+        public static SyntaxList<MemberDeclarationSyntax> GetCallbackDelegateMarshalClassMembers(this Callback callback)
         {
             var list = List<MemberDeclarationSyntax>();
 
@@ -314,34 +313,18 @@ namespace GISharp.CodeGen.Syntax
             var managedDelegateField = FieldDeclaration(VariableDeclaration(managedDelegateFieldType)
                     .AddVariables(VariableDeclarator(managedDelegateFieldToken)))
                 .AddModifiers(Token(PublicKeyword), Token(ReadOnlyKeyword));
-            
-            var unmanagedDelegateFieldToken = ParseToken("UnmanagedDelegate");
-            var unmanagedDelegateParamToken = ParseToken(unmanagedDelegateFieldToken.Text.ToCamelCase());
-            var unmanagedDelegateFieldType = callback.GetQualifiedName(true);
-            var unmanagedDelegateField = FieldDeclaration(VariableDeclaration(unmanagedDelegateFieldType)
-                    .AddVariables(VariableDeclarator(unmanagedDelegateFieldToken)))
-                .AddModifiers(Token(PublicKeyword), Token(ReadOnlyKeyword));
-            
-            var notifyFieldToken = ParseToken("DestroyDelegate");
-            var notifyParamToken = ParseToken(notifyFieldToken.Text.ToCamelCase());
-            var notifyFieldType = typeof(UnmanagedDestroyNotify).ToSyntax();
-            var notifyField = FieldDeclaration(VariableDeclaration(notifyFieldType)
-                    .AddVariables(VariableDeclarator(notifyFieldToken)))
-                .AddModifiers(Token(PublicKeyword), Token(ReadOnlyKeyword));
-            
+
             var scopeFieldToken = ParseToken("Scope");
             var scopeParamToken = ParseToken(scopeFieldToken.Text.ToCamelCase());
             var scopeFieldType = typeof(CallbackScope).ToSyntax();
             var scopeField = FieldDeclaration(VariableDeclaration(scopeFieldType)
                     .AddVariables(VariableDeclarator(scopeFieldToken)))
                 .AddModifiers(Token(PublicKeyword), Token(ReadOnlyKeyword));
-            
+
             var constructor = ConstructorDeclaration("UserData")
                 .AddModifiers(Token(PublicKeyword))
                 .AddParameterListParameters(
                     Parameter(managedDelegateParamToken).WithType(managedDelegateField.Declaration.Type),
-                    Parameter(unmanagedDelegateParamToken).WithType(unmanagedDelegateField.Declaration.Type),
-                    Parameter(notifyParamToken).WithType(notifyField.Declaration.Type),
                     Parameter(scopeParamToken).WithType(scopeField.Declaration.Type)
                 )
                 .WithBody(Block())
@@ -350,44 +333,33 @@ namespace GISharp.CodeGen.Syntax
                         IdentifierName(managedDelegateFieldToken),
                         IdentifierName(managedDelegateParamToken))),
                     ExpressionStatement(AssignmentExpression(SimpleAssignmentExpression,
-                        IdentifierName(unmanagedDelegateFieldToken),
-                        IdentifierName(unmanagedDelegateParamToken))),
-                    ExpressionStatement(AssignmentExpression(SimpleAssignmentExpression,
-                        IdentifierName(notifyFieldToken),
-                        IdentifierName(notifyParamToken))),
-                    ExpressionStatement(AssignmentExpression(SimpleAssignmentExpression,
                         IdentifierName(scopeFieldToken),
                         IdentifierName(scopeParamToken)))
                 );
 
             var dataClass = ClassDeclaration("UserData")
-                .AddModifiers(Token(UnsafeKeyword))
-                .AddMembers(managedDelegateField, unmanagedDelegateField, notifyField, scopeField, constructor);
+                .AddMembers(managedDelegateField, scopeField, constructor);
             list = list.Add(dataClass);
 
-            // emit Create() method for unmanged>managed
+            // emit FromPointer() method for unmanged>managed
 
-            var createUserDataType = typeof(IntPtr).FullName;
-            var createMethodParams = $"({unmanagedDelegateFieldType} callback, {createUserDataType} userData)";
-            var createReturnType = managedDelegateFieldType;
-            var createMethod = MethodDeclaration(createReturnType, "Create")
+            var fromPointerMethodParams = $"({typeof(IntPtr)} callback_, {typeof(IntPtr)} userData_)";
+            var fromPointerReturnType = managedDelegateFieldType;
+            var fromPointerMethod = MethodDeclaration(fromPointerReturnType, "FromPointer")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
-                .WithParameterList(ParseParameterList(createMethodParams))
-                .WithBody(Block(callback.GetFactoryCreateMethodStatements()));
-            list = list.Add(createMethod);
+                .WithParameterList(ParseParameterList(fromPointerMethodParams))
+                .WithBody(Block(callback.GetMarshalFromPointerMethodStatements()));
+            list = list.Add(fromPointerMethod);
 
-            // emit Create() method for managed>unmanaged
+            // emit ToPointer() method for managed>unmanaged
 
-            var create2MethodParams = $"({managedDelegateFieldType} callback, {scopeFieldType} scope)";
-            var create2ReturnType = ParseTypeName(string.Format("({0}, {1}, {2})",
-                unmanagedDelegateFieldType,
-                typeof(UnmanagedDestroyNotify),
-                typeof(IntPtr)));
-            var create2Method = MethodDeclaration(create2ReturnType, "Create")
+            var toPointerMethodParams = $"({managedDelegateFieldType}? callback, {scopeFieldType} scope)";
+            var toPointerReturnType = ParseTypeName(string.Format("({0} callback_, {0} notify_, {0} userData_)", typeof(IntPtr)));
+            var create2Method = MethodDeclaration(toPointerReturnType, "ToPointer")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
-                .WithParameterList(ParseParameterList(create2MethodParams))
-                .WithBody(Block(callback.GetFactoryCreate2MethodStatements()))
-                .WithLeadingTrivia(callback.GetFactoryCreate2MethodDocumentationCommentTrivia());
+                .WithParameterList(ParseParameterList(toPointerMethodParams))
+                .WithBody(Block(callback.GetMarshalToPointerMethodStatements()))
+                .WithLeadingTrivia(callback.GetMarshalToPointerMethodDocumentationCommentTrivia());
             list = list.Add(create2Method);
 
             // emit unmanaged callback method
@@ -398,6 +370,25 @@ namespace GISharp.CodeGen.Syntax
                 .WithParameterList(callback.Parameters.GetParameterList())
                 .WithBody(Block(callback.GetCallbackStatements()));
             list = list.Add(callbackMethod);
+
+            var callbackDelegateVariable = VariableDeclarator("UnmanagedCallbackDelegate")
+                    .WithInitializer(EqualsValueClause(IdentifierName(callbackMethod.Identifier)));
+            var callbackDelegateField = FieldDeclaration(VariableDeclaration(callback.GetQualifiedName(true))
+                .AddVariables(callbackDelegateVariable))
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+            list = list.Add(callbackDelegateField);
+
+            var callbackMarshalToPointerExpression = ParseExpression(string.Format(
+                "{0}.{1}({2})",
+                typeof(Marshal),
+                nameof(Marshal.GetFunctionPointerForDelegate),
+                callbackDelegateVariable.Identifier
+            ));
+            var callbackPointer = FieldDeclaration(VariableDeclaration(ParseTypeName(typeof(IntPtr).FullName))
+                .AddVariables(VariableDeclarator("callback_")
+                    .WithInitializer(EqualsValueClause(callbackMarshalToPointerExpression))))
+                    .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+            list = list.Add(callbackPointer);
 
             // emit destroy notify method
 
@@ -423,35 +414,67 @@ namespace GISharp.CodeGen.Syntax
 
             list = list.Add(destroyMethod);
 
+            var destroyDelegateVariable = VariableDeclarator("UnmanagedDestroyDelegate")
+                    .WithInitializer(EqualsValueClause(IdentifierName(destroyMethod.Identifier)));
+            var destroyDelegateField = FieldDeclaration(VariableDeclaration(ParseTypeName(typeof(UnmanagedDestroyNotify).FullName))
+                .AddVariables(destroyDelegateVariable))
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+            list = list.Add(destroyDelegateField);
+
+            var destroyMarshalToPointerExpression = ParseExpression(string.Format(
+                "{0}.{1}({2})",
+                typeof(Marshal),
+                nameof(Marshal.GetFunctionPointerForDelegate),
+                destroyDelegateVariable.Identifier
+            ));
+            var destroyPointer = FieldDeclaration(VariableDeclaration(ParseTypeName(typeof(IntPtr).FullName))
+                .AddVariables(VariableDeclarator("destroy_")
+                    .WithInitializer(EqualsValueClause(destroyMarshalToPointerExpression))))
+                    .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+            list = list.Add(destroyPointer);
+
             return list;
         }
 
-        static IEnumerable<StatementSyntax> GetFactoryCreateMethodStatements(this Callback callback)
+        static IEnumerable<StatementSyntax> GetMarshalFromPointerMethodStatements(this Callback callback)
         {
+            var marshalToPointerExpression = ParseExpression(string.Format(
+                "{0}.{1}<{2}>(callback_)",
+                typeof(Marshal),
+                nameof(Marshal.GetDelegateForFunctionPointer),
+                callback.GetQualifiedName(true)
+            ));
+            yield return LocalDeclarationStatement(VariableDeclaration(IdentifierName("var"))
+                .AddVariables(VariableDeclarator("unmanagedCallback")
+                    .WithInitializer(EqualsValueClause(marshalToPointerExpression))));
+
             var userDataParam = callback.Parameters.Single(x => x.ClosureIndex >= 0);
-            var userDataExpression = ParseExpression($"var {userDataParam.ManagedName}_ = userData");
-            var body = Block(callback.GetInvokeStatements("callback")
-                .Prepend(ExpressionStatement(userDataExpression)))
-                .NormalizeWhitespace(); // FIXME: this messes up the whitespace, but if we omit it, the block ends up on one line
+            if (userDataParam.ManagedName != "userData") {
+                yield return ParseStatement($"var {userDataParam.ManagedName}_ = userData_;\n");
+            }
 
             var paramList = callback.ManagedParameters.GetParameterList();
 
             // remove default values
             paramList = paramList.WithParameters(SeparatedList(paramList.Parameters
-                .Select(x => x.WithDefault(default(EqualsValueClauseSyntax)))));
+                .Select(x => x.WithDefault(default))));
 
             var returnType = callback.ReturnValue.GetManagedTypeName();
-            yield return LocalFunctionStatement(returnType, "callback_")
+            yield return LocalFunctionStatement(returnType, "managedCallback")
                 .AddModifiers(Token(UnsafeKeyword))
                 .WithParameterList(paramList)
-                .WithBody(body);
+                .WithBody(Block(callback.GetInvokeStatements("unmanagedCallback")
+                    .Select(x => x.WithTrailingTrivia(EndOfLine("\n")))));
 
-            yield return ReturnStatement(ParseExpression("callback_"));
+            yield return ReturnStatement(ParseExpression("managedCallback"));
         }
 
-        static IEnumerable<StatementSyntax> GetFactoryCreate2MethodStatements(this Callback callback)
+        static IEnumerable<StatementSyntax> GetMarshalToPointerMethodStatements(this Callback callback)
         {
-            yield return ParseStatement("var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);\n");
+            yield return IfStatement(ParseExpression("callback == null"),
+                Block(ReturnStatement(ParseExpression("default"))));
+
+            yield return ParseStatement("var userData = new UserData(callback, scope);\n");
 
             var gcHandleStatement = string.Format("var userData_ = ({0}){1}.{2}(userData);\n",
                 typeof(IntPtr),
@@ -459,21 +482,21 @@ namespace GISharp.CodeGen.Syntax
                 nameof(GCHandle.Alloc));
             yield return ParseStatement(gcHandleStatement);
 
-            const string returnExpression = "(userData.UnmanagedDelegate, userData.DestroyDelegate, userData_)";
+            const string returnExpression = "(callback_, destroy_, userData_)";
             yield return ReturnStatement(ParseExpression(returnExpression));
         }
 
-        static SyntaxTriviaList GetFactoryDocumentationCommentTrivia(this Callback callback)
+        static SyntaxTriviaList GetDelegateMarshalDocumentationCommentTrivia(this Callback callback)
         {
             const string template = @"/// <summary>
-/// Factory for creating <see cref=""{0}""/> methods.
+/// Class for marshalling <see cref=""{0}""/> methods.
 /// </summary>
 ";
             var comments = string.Format(template, callback.ManagedName);
             return ParseLeadingTrivia(comments);
         }
 
-        static SyntaxTriviaList GetFactoryCreate2MethodDocumentationCommentTrivia(this Callback callback)
+        static SyntaxTriviaList GetMarshalToPointerMethodDocumentationCommentTrivia(this Callback callback)
         {
             const string template = @"/// <summary>
 /// Wraps a <see cref=""{0}""/> in an anonymous method that can
@@ -482,8 +505,8 @@ namespace GISharp.CodeGen.Syntax
 /// <param name=""method"">The managed method to wrap.</param>
 /// <param name=""scope"">The lifetime scope of the callback.</param>
 /// <returns>
-/// A tuple containing the unmanaged callback, the unmanaged
-/// notify function and a pointer to the user data.
+/// A tuple containing a pointer to the unmanaged callback, a pointer to the
+/// unmanaged notify function and a pointer to the user data.
 /// </returns>
 /// <remarks>
 /// This function is used to marshal managed callbacks to unmanged
@@ -494,8 +517,7 @@ namespace GISharp.CodeGen.Syntax
 /// function should be ignored.
 /// </remarks>
 ";
-
-            var comments = string.Format(template, 
+            var comments = string.Format(template,
                 callback.ManagedName,
                 typeof(CallbackScope),
                 nameof(CallbackScope.Call),

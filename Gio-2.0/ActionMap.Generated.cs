@@ -192,7 +192,8 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
-        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+        {
+            using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
             return LookupAction(actionMap, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
         }
 
@@ -254,7 +255,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
-        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+        {
+            using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
             RemoveAction(actionMap, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
         }
     }

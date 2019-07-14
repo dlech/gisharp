@@ -28,23 +28,23 @@ namespace GISharp.Lib.Gio
         static FileIOStreamClass()
         {
             System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Tell));
-            RegisterVirtualMethod(tellOffset, TellFactory.Create);
+            RegisterVirtualMethod(tellOffset, TellMarshal.Create);
             System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CanSeek));
-            RegisterVirtualMethod(canSeekOffset, CanSeekFactory.Create);
+            RegisterVirtualMethod(canSeekOffset, CanSeekMarshal.Create);
             System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Seek));
-            RegisterVirtualMethod(seekOffset, SeekFactory.Create);
+            RegisterVirtualMethod(seekOffset, SeekMarshal.Create);
             System.Int32 canTruncateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CanTruncate));
-            RegisterVirtualMethod(canTruncateOffset, CanTruncateFactory.Create);
+            RegisterVirtualMethod(canTruncateOffset, CanTruncateMarshal.Create);
             System.Int32 truncateFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.TruncateFn));
-            RegisterVirtualMethod(truncateFnOffset, TruncateFnFactory.Create);
+            RegisterVirtualMethod(truncateFnOffset, TruncateFnMarshal.Create);
             System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfo));
-            RegisterVirtualMethod(queryInfoOffset, QueryInfoFactory.Create);
+            RegisterVirtualMethod(queryInfoOffset, QueryInfoMarshal.Create);
             System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoAsync));
-            RegisterVirtualMethod(queryInfoAsyncOffset, QueryInfoAsyncFactory.Create);
+            RegisterVirtualMethod(queryInfoAsyncOffset, QueryInfoAsyncMarshal.Create);
             System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoFinish));
-            RegisterVirtualMethod(queryInfoFinishOffset, QueryInfoFinishFactory.Create);
+            RegisterVirtualMethod(queryInfoFinishOffset, QueryInfoFinishMarshal.Create);
             System.Int32 getEtagOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetEtag));
-            RegisterVirtualMethod(getEtagOffset, GetEtagFactory.Create);
+            RegisterVirtualMethod(getEtagOffset, GetEtagMarshal.Create);
         }
 
         public delegate System.Int64 Tell();
@@ -58,9 +58,9 @@ namespace GISharp.Lib.Gio
 System.IntPtr stream);
 
         /// <summary>
-        /// Factory for creating <see cref="Tell"/> methods.
+        /// Class for marshalling <see cref="Tell"/> methods.
         /// </summary>
-        public static class TellFactory
+        public static class TellMarshal
         {
             public static unsafe UnmanagedTell Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -97,9 +97,9 @@ System.IntPtr stream);
 System.IntPtr stream);
 
         /// <summary>
-        /// Factory for creating <see cref="CanSeek"/> methods.
+        /// Class for marshalling <see cref="CanSeek"/> methods.
         /// </summary>
-        public static class CanSeekFactory
+        public static class CanSeekMarshal
         {
             public static unsafe UnmanagedCanSeek Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -148,9 +148,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Seek"/> methods.
+        /// Class for marshalling <see cref="Seek"/> methods.
         /// </summary>
-        public static class SeekFactory
+        public static class SeekMarshal
         {
             public static unsafe UnmanagedSeek Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -193,9 +193,9 @@ ref System.IntPtr error);
 System.IntPtr stream);
 
         /// <summary>
-        /// Factory for creating <see cref="CanTruncate"/> methods.
+        /// Class for marshalling <see cref="CanTruncate"/> methods.
         /// </summary>
-        public static class CanTruncateFactory
+        public static class CanTruncateMarshal
         {
             public static unsafe UnmanagedCanTruncate Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -241,9 +241,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="TruncateFn"/> methods.
+        /// Class for marshalling <see cref="TruncateFn"/> methods.
         /// </summary>
-        public static class TruncateFnFactory
+        public static class TruncateFnMarshal
         {
             public static unsafe UnmanagedTruncateFn Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -294,9 +294,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryInfo"/> methods.
+        /// Class for marshalling <see cref="QueryInfo"/> methods.
         /// </summary>
-        public static class QueryInfoFactory
+        public static class QueryInfoMarshal
         {
             public static unsafe UnmanagedQueryInfo Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -348,26 +348,26 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryInfoAsync"/> methods.
+        /// Class for marshalling <see cref="QueryInfoAsync"/> methods.
         /// </summary>
-        public static class QueryInfoAsyncFactory
+        public static class QueryInfoAsyncMarshal
         {
             public static unsafe UnmanagedQueryInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedQueryInfoAsync(System.IntPtr stream_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedQueryInfoAsync(System.IntPtr stream_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileIOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryInfoAsync = (QueryInfoAsync)methodInfo.CreateDelegate(typeof(QueryInfoAsync), stream);
                         doQueryInfoAsync(attributes, ioPriority, callback, cancellable);
@@ -399,9 +399,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="QueryInfoFinish"/> methods.
+        /// Class for marshalling <see cref="QueryInfoFinish"/> methods.
         /// </summary>
-        public static class QueryInfoFinishFactory
+        public static class QueryInfoFinishMarshal
         {
             public static unsafe UnmanagedQueryInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -443,9 +443,9 @@ ref System.IntPtr error);
 System.IntPtr stream);
 
         /// <summary>
-        /// Factory for creating <see cref="GetEtag"/> methods.
+        /// Class for marshalling <see cref="GetEtag"/> methods.
         /// </summary>
-        public static class GetEtagFactory
+        public static class GetEtagMarshal
         {
             public static unsafe UnmanagedGetEtag Create(System.Reflection.MethodInfo methodInfo)
             {

@@ -45,7 +45,7 @@ namespace GISharp.CodeGen.Syntax
         public static ClassDeclarationSyntax GetClassDeclaration(this Record record)
         {
             var identifier = record.ManagedName;
-            
+
             var syntax = ClassDeclaration(identifier)
                 .AddModifiers(Token(PublicKeyword), Token(SealedKeyword), Token(PartialKeyword))
                 .WithBaseList(record.GetBaseList())
@@ -134,8 +134,7 @@ namespace GISharp.CodeGen.Syntax
             var list = TokenList(Token(PublicKeyword));
 
             if (record.IsGTypeStructFor != null &&
-                record.BaseType == typeof(TypeInterface))
-            {
+                record.BaseType == typeof(TypeInterface)) {
                 // interfaces cannot be inherited
                 list = list.Add(Token(SealedKeyword));
             }
@@ -167,13 +166,13 @@ namespace GISharp.CodeGen.Syntax
             list = list.Add(record.GetGTypeStructStaticConstructor());
 
             // emit the unmanaged delegate types for callback fields
- 
+
             foreach (var f in record.Fields.Where(x => x.Callback != null)) {
                 try {
                     list = list.Add(f.Callback.GetManagedDeclaration())
                         .Add(f.Callback.GetUnmanagedDeclaration())
-                        .Add(f.Callback.GetDelegateFactoryDeclaration()
-                            .WithMembers(f.Callback.GetVirtualMethodDelegateFactoryMembers()));
+                        .Add(f.Callback.GetDelegateMarshalDeclaration()
+                            .WithMembers(f.Callback.GetVirtualMethodDelegateMarshalMembers()));
                 }
                 catch (Exception ex) {
                     f.LogException(ex);

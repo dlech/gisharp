@@ -32,31 +32,31 @@ namespace GISharp.Lib.Gio
         static ActionGroupInterface()
         {
             System.Int32 hasActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.HasAction));
-            RegisterVirtualMethod(hasActionOffset, HasActionFactory.Create);
+            RegisterVirtualMethod(hasActionOffset, HasActionMarshal.Create);
             System.Int32 listActionsOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ListActions));
-            RegisterVirtualMethod(listActionsOffset, ListActionsFactory.Create);
+            RegisterVirtualMethod(listActionsOffset, ListActionsMarshal.Create);
             System.Int32 getActionEnabledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionEnabled));
-            RegisterVirtualMethod(getActionEnabledOffset, GetActionEnabledFactory.Create);
+            RegisterVirtualMethod(getActionEnabledOffset, GetActionEnabledMarshal.Create);
             System.Int32 getActionParameterTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionParameterType));
-            RegisterVirtualMethod(getActionParameterTypeOffset, GetActionParameterTypeFactory.Create);
+            RegisterVirtualMethod(getActionParameterTypeOffset, GetActionParameterTypeMarshal.Create);
             System.Int32 getActionStateTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionStateType));
-            RegisterVirtualMethod(getActionStateTypeOffset, GetActionStateTypeFactory.Create);
+            RegisterVirtualMethod(getActionStateTypeOffset, GetActionStateTypeMarshal.Create);
             System.Int32 getActionStateHintOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionStateHint));
-            RegisterVirtualMethod(getActionStateHintOffset, GetActionStateHintFactory.Create);
+            RegisterVirtualMethod(getActionStateHintOffset, GetActionStateHintMarshal.Create);
             System.Int32 getActionStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionState));
-            RegisterVirtualMethod(getActionStateOffset, GetActionStateFactory.Create);
+            RegisterVirtualMethod(getActionStateOffset, GetActionStateMarshal.Create);
             System.Int32 changeActionStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ChangeActionState));
-            RegisterVirtualMethod(changeActionStateOffset, ChangeActionStateFactory.Create);
+            RegisterVirtualMethod(changeActionStateOffset, ChangeActionStateMarshal.Create);
             System.Int32 activateActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActivateAction));
-            RegisterVirtualMethod(activateActionOffset, ActivateActionFactory.Create);
+            RegisterVirtualMethod(activateActionOffset, ActivateActionMarshal.Create);
             System.Int32 actionAddedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActionAdded));
-            RegisterVirtualMethod(actionAddedOffset, ActionAddedFactory.Create);
+            RegisterVirtualMethod(actionAddedOffset, ActionAddedMarshal.Create);
             System.Int32 actionRemovedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActionRemoved));
-            RegisterVirtualMethod(actionRemovedOffset, ActionRemovedFactory.Create);
+            RegisterVirtualMethod(actionRemovedOffset, ActionRemovedMarshal.Create);
             System.Int32 actionEnabledChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActionEnabledChanged));
-            RegisterVirtualMethod(actionEnabledChangedOffset, ActionEnabledChangedFactory.Create);
+            RegisterVirtualMethod(actionEnabledChangedOffset, ActionEnabledChangedMarshal.Create);
             System.Int32 actionStateChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActionStateChanged));
-            RegisterVirtualMethod(actionStateChangedOffset, ActionStateChangedFactory.Create);
+            RegisterVirtualMethod(actionStateChangedOffset, ActionStateChangedMarshal.Create);
         }
 
         public delegate System.Boolean HasAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
@@ -73,9 +73,9 @@ System.IntPtr actionGroup,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="HasAction"/> methods.
+        /// Class for marshalling <see cref="HasAction"/> methods.
         /// </summary>
-        public static class HasActionFactory
+        public static class HasActionMarshal
         {
             public static unsafe UnmanagedHasAction Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -115,9 +115,9 @@ System.IntPtr actionName);
 System.IntPtr actionGroup);
 
         /// <summary>
-        /// Factory for creating <see cref="ListActions"/> methods.
+        /// Class for marshalling <see cref="ListActions"/> methods.
         /// </summary>
-        public static class ListActionsFactory
+        public static class ListActionsMarshal
         {
             public static unsafe UnmanagedListActions Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -157,9 +157,9 @@ System.IntPtr actionGroup,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="GetActionEnabled"/> methods.
+        /// Class for marshalling <see cref="GetActionEnabled"/> methods.
         /// </summary>
-        public static class GetActionEnabledFactory
+        public static class GetActionEnabledMarshal
         {
             public static unsafe UnmanagedGetActionEnabled Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -200,9 +200,9 @@ System.IntPtr actionGroup,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="GetActionParameterType"/> methods.
+        /// Class for marshalling <see cref="GetActionParameterType"/> methods.
         /// </summary>
-        public static class GetActionParameterTypeFactory
+        public static class GetActionParameterTypeMarshal
         {
             public static unsafe UnmanagedGetActionParameterType Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -243,9 +243,9 @@ System.IntPtr actionGroup,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="GetActionStateType"/> methods.
+        /// Class for marshalling <see cref="GetActionStateType"/> methods.
         /// </summary>
-        public static class GetActionStateTypeFactory
+        public static class GetActionStateTypeMarshal
         {
             public static unsafe UnmanagedGetActionStateType Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -286,9 +286,9 @@ System.IntPtr actionGroup,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="GetActionStateHint"/> methods.
+        /// Class for marshalling <see cref="GetActionStateHint"/> methods.
         /// </summary>
-        public static class GetActionStateHintFactory
+        public static class GetActionStateHintMarshal
         {
             public static unsafe UnmanagedGetActionStateHint Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -329,9 +329,9 @@ System.IntPtr actionGroup,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="GetActionState"/> methods.
+        /// Class for marshalling <see cref="GetActionState"/> methods.
         /// </summary>
-        public static class GetActionStateFactory
+        public static class GetActionStateMarshal
         {
             public static unsafe UnmanagedGetActionState Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -375,9 +375,9 @@ System.IntPtr actionName,
 System.IntPtr value);
 
         /// <summary>
-        /// Factory for creating <see cref="ChangeActionState"/> methods.
+        /// Class for marshalling <see cref="ChangeActionState"/> methods.
         /// </summary>
-        public static class ChangeActionStateFactory
+        public static class ChangeActionStateMarshal
         {
             public static unsafe UnmanagedChangeActionState Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -418,9 +418,9 @@ System.IntPtr actionName,
 System.IntPtr parameter);
 
         /// <summary>
-        /// Factory for creating <see cref="ActivateAction"/> methods.
+        /// Class for marshalling <see cref="ActivateAction"/> methods.
         /// </summary>
-        public static class ActivateActionFactory
+        public static class ActivateActionMarshal
         {
             public static unsafe UnmanagedActivateAction Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -458,9 +458,9 @@ System.IntPtr actionGroup,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="ActionAdded"/> methods.
+        /// Class for marshalling <see cref="ActionAdded"/> methods.
         /// </summary>
-        public static class ActionAddedFactory
+        public static class ActionAddedMarshal
         {
             public static unsafe UnmanagedActionAdded Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -497,9 +497,9 @@ System.IntPtr actionGroup,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="ActionRemoved"/> methods.
+        /// Class for marshalling <see cref="ActionRemoved"/> methods.
         /// </summary>
-        public static class ActionRemovedFactory
+        public static class ActionRemovedMarshal
         {
             public static unsafe UnmanagedActionRemoved Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -539,9 +539,9 @@ System.IntPtr actionName,
 GISharp.Runtime.Boolean enabled);
 
         /// <summary>
-        /// Factory for creating <see cref="ActionEnabledChanged"/> methods.
+        /// Class for marshalling <see cref="ActionEnabledChanged"/> methods.
         /// </summary>
-        public static class ActionEnabledChangedFactory
+        public static class ActionEnabledChangedMarshal
         {
             public static unsafe UnmanagedActionEnabledChanged Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -582,9 +582,9 @@ System.IntPtr actionName,
 System.IntPtr state);
 
         /// <summary>
-        /// Factory for creating <see cref="ActionStateChanged"/> methods.
+        /// Class for marshalling <see cref="ActionStateChanged"/> methods.
         /// </summary>
-        public static class ActionStateChangedFactory
+        public static class ActionStateChangedMarshal
         {
             public static unsafe UnmanagedActionStateChanged Create(System.Reflection.MethodInfo methodInfo)
             {

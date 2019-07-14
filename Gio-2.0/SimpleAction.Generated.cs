@@ -155,7 +155,8 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr New(System.String name, GISharp.Lib.GLib.VariantType? parameterType)
-        {using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
+        {
+            using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
             return New((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType);
         }
 
@@ -295,7 +296,8 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr NewStateful(System.String name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
-        {using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
+        {
+            using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
             return NewStateful((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType, state);
         }
 

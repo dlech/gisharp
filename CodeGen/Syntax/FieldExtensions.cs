@@ -70,9 +70,9 @@ namespace GISharp.CodeGen.Syntax
 
         static ExpressionSyntax GetRegisterVirtualFunctionExpression(this Field field)
         {
-            var offsetName = field.ManagedName.ToCamelCase() + "Offset";
-            var factoryName = field.Callback.ManagedName + "Factory";
-            var expression = $"RegisterVirtualMethod({offsetName}, {factoryName}.Create)";
+            var offset = field.ManagedName.ToCamelCase() + "Offset";
+            var marshal = field.Callback.ManagedName + "Marshal";
+            var expression = $"RegisterVirtualMethod({offset}, {marshal}.Create)";
             return ParseExpression(expression);
         }
 

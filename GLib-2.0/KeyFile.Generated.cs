@@ -382,7 +382,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Boolean GetBoolean(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetBoolean((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -510,7 +512,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Runtime.CArray<GISharp.Runtime.Boolean> GetBooleanList(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetBooleanList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -618,7 +622,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetComment(System.String? groupName, System.String key)
-        {using var groupNameUtf8 = groupName == null ? null : new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = groupName == null ? null : new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetComment((GISharp.Lib.GLib.NullableUnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -732,7 +738,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe System.Double GetDouble(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetDouble((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -860,7 +868,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe GISharp.Runtime.CArray<System.Double> GetDoubleList(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetDoubleList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -1006,7 +1016,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int64 GetInt64(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetInt64((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -1123,7 +1135,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Int32 GetInteger(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetInteger((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -1254,7 +1268,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Runtime.CArray<System.Int32> GetIntegerList(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetIntegerList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -1354,7 +1370,8 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetKeys(System.String groupName)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
             return GetKeys((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8);
         }
 
@@ -1468,7 +1485,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe GISharp.Lib.GLib.Utf8? GetLocaleForKey(System.String groupName, System.String key, System.String? locale)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);using var localeUtf8 = locale == null ? null : new GISharp.Lib.GLib.Utf8(locale);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            using var localeUtf8 = locale == null ? null : new GISharp.Lib.GLib.Utf8(locale);
             return GetLocaleForKey((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, (GISharp.Lib.GLib.NullableUnownedUtf8)localeUtf8);
         }
 
@@ -1610,7 +1630,10 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetLocaleString(System.String groupName, System.String key, System.String? locale)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);using var localeUtf8 = locale == null ? null : new GISharp.Lib.GLib.Utf8(locale);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            using var localeUtf8 = locale == null ? null : new GISharp.Lib.GLib.Utf8(locale);
             return GetLocaleString((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, (GISharp.Lib.GLib.NullableUnownedUtf8)localeUtf8);
         }
 
@@ -1769,7 +1792,10 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetLocaleStringList(System.String groupName, System.String key, System.String? locale)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);using var localeUtf8 = locale == null ? null : new GISharp.Lib.GLib.Utf8(locale);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            using var localeUtf8 = locale == null ? null : new GISharp.Lib.GLib.Utf8(locale);
             return GetLocaleStringList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, (GISharp.Lib.GLib.NullableUnownedUtf8)localeUtf8);
         }
 
@@ -1919,7 +1945,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetString(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetString((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -2041,7 +2069,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetStringList(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetStringList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -2140,7 +2170,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.UInt64 GetUint64(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetUint64((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -2254,7 +2286,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetValue(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             return GetValue((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -2315,7 +2349,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Boolean HasGroup(System.String groupName)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
             return HasGroup((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8);
         }
 
@@ -2477,7 +2512,8 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void LoadFromData(System.String data, System.Int32 length, GISharp.Lib.GLib.KeyFileFlags flags)
-        {using var dataUtf8 = new GISharp.Lib.GLib.Utf8(data);
+        {
+            using var dataUtf8 = new GISharp.Lib.GLib.Utf8(data);
             LoadFromData((GISharp.Lib.GLib.UnownedUtf8)dataUtf8, length, flags);
         }
 
@@ -2835,7 +2871,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveComment(System.String? groupName, System.String? key)
-        {using var groupNameUtf8 = groupName == null ? null : new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = key == null ? null : new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = groupName == null ? null : new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = key == null ? null : new GISharp.Lib.GLib.Utf8(key);
             RemoveComment((GISharp.Lib.GLib.NullableUnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.NullableUnownedUtf8)keyUtf8);
         }
 
@@ -2906,7 +2944,8 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveGroup(System.String groupName)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
             RemoveGroup((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8);
         }
 
@@ -2987,7 +3026,9 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveKey(System.String groupName, System.String key)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             RemoveKey((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
@@ -3070,7 +3111,8 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void SaveToFile(System.String filename)
-        {using var filenameUtf8 = new GISharp.Lib.GLib.Utf8(filename);
+        {
+            using var filenameUtf8 = new GISharp.Lib.GLib.Utf8(filename);
             SaveToFile((GISharp.Lib.GLib.UnownedUtf8)filenameUtf8);
         }
 
@@ -3146,7 +3188,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetBoolean(System.String groupName, System.String key, System.Boolean value)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             SetBoolean((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, value);
         }
 
@@ -3233,7 +3277,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetBooleanList(System.String groupName, System.String key, System.ReadOnlySpan<GISharp.Runtime.Boolean> list)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             SetBooleanList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, list);
         }
 
@@ -3351,7 +3397,10 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetComment(System.String? groupName, System.String? key, System.String comment)
-        {using var groupNameUtf8 = groupName == null ? null : new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = key == null ? null : new GISharp.Lib.GLib.Utf8(key);using var commentUtf8 = new GISharp.Lib.GLib.Utf8(comment);
+        {
+            using var groupNameUtf8 = groupName == null ? null : new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = key == null ? null : new GISharp.Lib.GLib.Utf8(key);
+            using var commentUtf8 = new GISharp.Lib.GLib.Utf8(comment);
             SetComment((GISharp.Lib.GLib.NullableUnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.NullableUnownedUtf8)keyUtf8, (GISharp.Lib.GLib.UnownedUtf8)commentUtf8);
         }
 
@@ -3427,7 +3476,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetDouble(System.String groupName, System.String key, System.Double value)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             SetDouble((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, value);
         }
 
@@ -3511,7 +3562,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetDoubleList(System.String groupName, System.String key, System.ReadOnlySpan<System.Double> list)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             SetDoubleList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, list);
         }
 
@@ -3587,7 +3640,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe void SetInt64(System.String groupName, System.String key, System.Int64 value)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             SetInt64((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, value);
         }
 
@@ -3663,7 +3718,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetInteger(System.String groupName, System.String key, System.Int32 value)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             SetInteger((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, value);
         }
 
@@ -3747,7 +3804,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetIntegerList(System.String groupName, System.String key, System.ReadOnlySpan<System.Int32> list)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             SetIntegerList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, list);
         }
 
@@ -3875,7 +3934,11 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetLocaleString(System.String groupName, System.String key, System.String locale, System.String @string)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);using var localeUtf8 = new GISharp.Lib.GLib.Utf8(locale);using var @stringUtf8 = new GISharp.Lib.GLib.Utf8(@string);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            using var localeUtf8 = new GISharp.Lib.GLib.Utf8(locale);
+            using var @stringUtf8 = new GISharp.Lib.GLib.Utf8(@string);
             SetLocaleString((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, (GISharp.Lib.GLib.UnownedUtf8)localeUtf8, (GISharp.Lib.GLib.UnownedUtf8)@stringUtf8);
         }
 
@@ -3975,7 +4038,10 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetLocaleStringList(System.String groupName, System.String key, System.String locale, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);using var localeUtf8 = new GISharp.Lib.GLib.Utf8(locale);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            using var localeUtf8 = new GISharp.Lib.GLib.Utf8(locale);
             SetLocaleStringList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, (GISharp.Lib.GLib.UnownedUtf8)localeUtf8, list);
         }
 
@@ -4060,7 +4126,10 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetString(System.String groupName, System.String key, System.String @string)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);using var @stringUtf8 = new GISharp.Lib.GLib.Utf8(@string);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            using var @stringUtf8 = new GISharp.Lib.GLib.Utf8(@string);
             SetString((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, (GISharp.Lib.GLib.UnownedUtf8)@stringUtf8);
         }
 
@@ -4147,7 +4216,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetStringList(System.String groupName, System.String key, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             SetStringList((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, list);
         }
 
@@ -4223,7 +4294,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe void SetUint64(System.String groupName, System.String key, System.UInt64 value)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
             SetUint64((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, value);
         }
 
@@ -4314,7 +4387,10 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetValue(System.String groupName, System.String key, System.String value)
-        {using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);using var valueUtf8 = new GISharp.Lib.GLib.Utf8(value);
+        {
+            using var groupNameUtf8 = new GISharp.Lib.GLib.Utf8(groupName);
+            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
+            using var valueUtf8 = new GISharp.Lib.GLib.Utf8(value);
             SetValue((GISharp.Lib.GLib.UnownedUtf8)groupNameUtf8, (GISharp.Lib.GLib.UnownedUtf8)keyUtf8, (GISharp.Lib.GLib.UnownedUtf8)valueUtf8);
         }
 

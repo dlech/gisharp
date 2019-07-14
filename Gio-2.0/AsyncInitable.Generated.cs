@@ -240,7 +240,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -280,7 +280,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GObject.Object>();
-            var callback_ = newAsyncCallbackDelegate;
+            var callback_ = newAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_async_initable_newv_async(objectType_, nParameters_, parameters_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -361,7 +361,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -421,7 +421,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
-            var callback_ = initAsyncCallbackDelegate;
+            var callback_ = initAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_async_initable_init_async(initable_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -483,6 +483,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback initAsyncCallbackDelegate = InitFinish;
+        static readonly System.IntPtr initAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(initAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes the async construction for the various g_async_initable_new
@@ -541,5 +542,6 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback newAsyncCallbackDelegate = NewFinish;
+        static readonly System.IntPtr newAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(newAsyncCallbackDelegate);
     }
 }

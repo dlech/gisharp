@@ -33,29 +33,29 @@ namespace GISharp.Lib.Gio
         static ApplicationClass()
         {
             System.Int32 startupOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Startup));
-            RegisterVirtualMethod(startupOffset, StartupFactory.Create);
+            RegisterVirtualMethod(startupOffset, StartupMarshal.Create);
             System.Int32 activateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Activate));
-            RegisterVirtualMethod(activateOffset, ActivateFactory.Create);
+            RegisterVirtualMethod(activateOffset, ActivateMarshal.Create);
             System.Int32 openOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Open));
-            RegisterVirtualMethod(openOffset, OpenFactory.Create);
+            RegisterVirtualMethod(openOffset, OpenMarshal.Create);
             System.Int32 commandLineOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CommandLine));
-            RegisterVirtualMethod(commandLineOffset, CommandLineFactory.Create);
+            RegisterVirtualMethod(commandLineOffset, CommandLineMarshal.Create);
             System.Int32 localCommandLineOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.LocalCommandLine));
-            RegisterVirtualMethod(localCommandLineOffset, TryLocalCommandLineFactory.Create);
+            RegisterVirtualMethod(localCommandLineOffset, TryLocalCommandLineMarshal.Create);
             System.Int32 beforeEmitOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.BeforeEmit));
-            RegisterVirtualMethod(beforeEmitOffset, BeforeEmitFactory.Create);
+            RegisterVirtualMethod(beforeEmitOffset, BeforeEmitMarshal.Create);
             System.Int32 afterEmitOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AfterEmit));
-            RegisterVirtualMethod(afterEmitOffset, AfterEmitFactory.Create);
+            RegisterVirtualMethod(afterEmitOffset, AfterEmitMarshal.Create);
             System.Int32 addPlatformDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AddPlatformData));
-            RegisterVirtualMethod(addPlatformDataOffset, AddPlatformDataFactory.Create);
+            RegisterVirtualMethod(addPlatformDataOffset, AddPlatformDataMarshal.Create);
             System.Int32 quitMainloopOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QuitMainloop));
-            RegisterVirtualMethod(quitMainloopOffset, QuitMainloopFactory.Create);
+            RegisterVirtualMethod(quitMainloopOffset, QuitMainloopMarshal.Create);
             System.Int32 runMainloopOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.RunMainloop));
-            RegisterVirtualMethod(runMainloopOffset, RunMainloopFactory.Create);
+            RegisterVirtualMethod(runMainloopOffset, RunMainloopMarshal.Create);
             System.Int32 shutdownOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Shutdown));
-            RegisterVirtualMethod(shutdownOffset, ShutdownFactory.Create);
+            RegisterVirtualMethod(shutdownOffset, ShutdownMarshal.Create);
             System.Int32 handleLocalOptionsOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.HandleLocalOptions));
-            RegisterVirtualMethod(handleLocalOptionsOffset, HandleLocalOptionsFactory.Create);
+            RegisterVirtualMethod(handleLocalOptionsOffset, HandleLocalOptionsMarshal.Create);
         }
 
         public delegate void Startup();
@@ -69,9 +69,9 @@ namespace GISharp.Lib.Gio
 System.IntPtr application);
 
         /// <summary>
-        /// Factory for creating <see cref="Startup"/> methods.
+        /// Class for marshalling <see cref="Startup"/> methods.
         /// </summary>
-        public static class StartupFactory
+        public static class StartupMarshal
         {
             public static unsafe UnmanagedStartup Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -104,9 +104,9 @@ System.IntPtr application);
 System.IntPtr application);
 
         /// <summary>
-        /// Factory for creating <see cref="Activate"/> methods.
+        /// Class for marshalling <see cref="Activate"/> methods.
         /// </summary>
-        public static class ActivateFactory
+        public static class ActivateMarshal
         {
             public static unsafe UnmanagedActivate Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -150,9 +150,9 @@ System.Int32 nFiles,
 System.IntPtr hint);
 
         /// <summary>
-        /// Factory for creating <see cref="Open"/> methods.
+        /// Class for marshalling <see cref="Open"/> methods.
         /// </summary>
-        public static class OpenFactory
+        public static class OpenMarshal
         {
             public static unsafe UnmanagedOpen Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -190,9 +190,9 @@ System.IntPtr application,
 System.IntPtr commandLine);
 
         /// <summary>
-        /// Factory for creating <see cref="CommandLine"/> methods.
+        /// Class for marshalling <see cref="CommandLine"/> methods.
         /// </summary>
-        public static class CommandLineFactory
+        public static class CommandLineMarshal
         {
             public static unsafe UnmanagedCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -238,9 +238,9 @@ ref System.IntPtr arguments,
 out System.Int32 exitStatus);
 
         /// <summary>
-        /// Factory for creating <see cref="TryLocalCommandLine"/> methods.
+        /// Class for marshalling <see cref="TryLocalCommandLine"/> methods.
         /// </summary>
-        public static class TryLocalCommandLineFactory
+        public static class TryLocalCommandLineMarshal
         {
             public static unsafe UnmanagedTryLocalCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -284,9 +284,9 @@ System.IntPtr application,
 System.IntPtr platformData);
 
         /// <summary>
-        /// Factory for creating <see cref="BeforeEmit"/> methods.
+        /// Class for marshalling <see cref="BeforeEmit"/> methods.
         /// </summary>
-        public static class BeforeEmitFactory
+        public static class BeforeEmitMarshal
         {
             public static unsafe UnmanagedBeforeEmit Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -323,9 +323,9 @@ System.IntPtr application,
 System.IntPtr platformData);
 
         /// <summary>
-        /// Factory for creating <see cref="AfterEmit"/> methods.
+        /// Class for marshalling <see cref="AfterEmit"/> methods.
         /// </summary>
-        public static class AfterEmitFactory
+        public static class AfterEmitMarshal
         {
             public static unsafe UnmanagedAfterEmit Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -362,9 +362,9 @@ System.IntPtr application,
 System.IntPtr builder);
 
         /// <summary>
-        /// Factory for creating <see cref="AddPlatformData"/> methods.
+        /// Class for marshalling <see cref="AddPlatformData"/> methods.
         /// </summary>
-        public static class AddPlatformDataFactory
+        public static class AddPlatformDataMarshal
         {
             public static unsafe UnmanagedAddPlatformData Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -398,9 +398,9 @@ System.IntPtr builder);
 System.IntPtr application);
 
         /// <summary>
-        /// Factory for creating <see cref="QuitMainloop"/> methods.
+        /// Class for marshalling <see cref="QuitMainloop"/> methods.
         /// </summary>
-        public static class QuitMainloopFactory
+        public static class QuitMainloopMarshal
         {
             public static unsafe UnmanagedQuitMainloop Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -433,9 +433,9 @@ System.IntPtr application);
 System.IntPtr application);
 
         /// <summary>
-        /// Factory for creating <see cref="RunMainloop"/> methods.
+        /// Class for marshalling <see cref="RunMainloop"/> methods.
         /// </summary>
-        public static class RunMainloopFactory
+        public static class RunMainloopMarshal
         {
             public static unsafe UnmanagedRunMainloop Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -468,9 +468,9 @@ System.IntPtr application);
 System.IntPtr application);
 
         /// <summary>
-        /// Factory for creating <see cref="Shutdown"/> methods.
+        /// Class for marshalling <see cref="Shutdown"/> methods.
         /// </summary>
-        public static class ShutdownFactory
+        public static class ShutdownMarshal
         {
             public static unsafe UnmanagedShutdown Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -506,9 +506,9 @@ System.IntPtr application,
 System.IntPtr options);
 
         /// <summary>
-        /// Factory for creating <see cref="HandleLocalOptions"/> methods.
+        /// Class for marshalling <see cref="HandleLocalOptions"/> methods.
         /// </summary>
-        public static class HandleLocalOptionsFactory
+        public static class HandleLocalOptionsMarshal
         {
             public static unsafe UnmanagedHandleLocalOptions Create(System.Reflection.MethodInfo methodInfo)
             {

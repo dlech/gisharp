@@ -167,81 +167,81 @@ namespace GISharp.CodeGen.Reflection
 
             var type = default(System.Type);
             switch (typeName) {
-                // basic/fundamental types
-                case "none":
-                    type = typeof(void);
-                    break;
-                case "gboolean":
-                    type = typeof(Runtime.Boolean);
-                    break;
-                case "gchar":
-                case "gint8":
-                    type = typeof(sbyte);
-                    break;
-                case "guchar":
-                case "guint8":
-                    type = typeof(byte);
-                    break;
-                case "gshort":
-                case "gint16":
-                    type = typeof(short);
-                    break;
-                case "gushort":
-                case "guint16":
-                    type = typeof(ushort);
-                    break;
-                case "gunichar2":
-                    type = typeof(char);
-                    break;
-                case "gint":
-                case "gint32":
-                    type = typeof(int);
-                    break;
-                case "guint":
-                case "guint32":
-                case "gunichar":
-                    type = typeof(uint);
-                    break;
-                case "glong":
-                    type = typeof(CLong);
-                    break;
-                case "gulong":
-                    type = typeof(CULong);
-                    break;
-                case "gint64":
-                case "goffset":
-                    type = typeof(long);
-                    break;
-                case "guint64":
-                    type = typeof(ulong);
-                    break;
-                case "gfloat":
-                    type = typeof(float);
-                    break;
-                case "gdouble":
-                    type = typeof(double);
-                    break;
-                case "gintptr":
-                case "gssize":
-                    type = typeof(IntPtr);
-                    break;
-                case "guintptr":
-                case "gsize":
-                    type = typeof(UIntPtr);
-                    break;
-                case "GType":
-                    type = typeof(GType);
-                    break;
-                case "gpointer":
-                case "gconstpointer":
-                case "filename":
-                case "utf8":
-                // we get null for C arrays
-                case null:
-                    return typeof(IntPtr);
-                case "va_list":
-                    // va_list should be filtered out, but just in case...
-                    throw new NotSupportedException("va_list is not supported");
+            // basic/fundamental types
+            case "none":
+                type = typeof(void);
+                break;
+            case "gboolean":
+                type = typeof(Runtime.Boolean);
+                break;
+            case "gchar":
+            case "gint8":
+                type = typeof(sbyte);
+                break;
+            case "guchar":
+            case "guint8":
+                type = typeof(byte);
+                break;
+            case "gshort":
+            case "gint16":
+                type = typeof(short);
+                break;
+            case "gushort":
+            case "guint16":
+                type = typeof(ushort);
+                break;
+            case "gunichar2":
+                type = typeof(char);
+                break;
+            case "gint":
+            case "gint32":
+                type = typeof(int);
+                break;
+            case "guint":
+            case "guint32":
+            case "gunichar":
+                type = typeof(uint);
+                break;
+            case "glong":
+                type = typeof(CLong);
+                break;
+            case "gulong":
+                type = typeof(CULong);
+                break;
+            case "gint64":
+            case "goffset":
+                type = typeof(long);
+                break;
+            case "guint64":
+                type = typeof(ulong);
+                break;
+            case "gfloat":
+                type = typeof(float);
+                break;
+            case "gdouble":
+                type = typeof(double);
+                break;
+            case "gintptr":
+            case "gssize":
+                type = typeof(IntPtr);
+                break;
+            case "guintptr":
+            case "gsize":
+                type = typeof(UIntPtr);
+                break;
+            case "GType":
+                type = typeof(GType);
+                break;
+            case "gpointer":
+            case "gconstpointer":
+            case "filename":
+            case "utf8":
+            // we get null for C arrays
+            case null:
+                return typeof(IntPtr);
+            case "va_list":
+                // va_list should be filtered out, but just in case...
+                throw new NotSupportedException("va_list is not supported");
             }
 
             if (type != null) {
@@ -258,16 +258,12 @@ namespace GISharp.CodeGen.Reflection
 
             var isDelegate = false;
 
-            if (node.ParentNode is Gir.GIArg arg) {
+            if (node.ParentNode is GIArg arg) {
                 isDelegate = arg.Scope != null;
             }
 
             if (isDelegate) {
-                if (typeName == "GISharp.Lib.GObject.Callback") {
-                    return typeof(IntPtr);
-                }
-                var index = typeName.LastIndexOf('.') + 1;
-                typeName = typeName.Substring(0, index) + "Unmanaged" + typeName.Substring(index);
+                return typeof(IntPtr);
             }
 
             // assuming this is a value type
@@ -316,7 +312,7 @@ namespace GISharp.CodeGen.Reflection
             if (girType == null) {
                 throw new NotSupportedException($"Unknown GIR node type: {typeNode.GetType().Name}");
             }
- 
+
             return girType;
         }
 
@@ -436,39 +432,39 @@ namespace GISharp.CodeGen.Reflection
             throw new NotSupportedException();
         }
 
-        public override EventInfo GetEvent (string name, System.Reflection.BindingFlags bindingAttr)
+        public override EventInfo GetEvent(string name, System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotSupportedException();
         }
 
-        public override EventInfo[] GetEvents (System.Reflection.BindingFlags bindingAttr)
+        public override EventInfo[] GetEvents(System.Reflection.BindingFlags bindingAttr)
         {
             return type.Signals.Select(x => new GirEventInfo(x, this)).ToArray();
         }
 
-        public override FieldInfo GetField (string name, System.Reflection.BindingFlags bindingAttr)
+        public override FieldInfo GetField(string name, System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotSupportedException();
         }
 
-        public override FieldInfo[] GetFields (System.Reflection.BindingFlags bindingAttr)
+        public override FieldInfo[] GetFields(System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotSupportedException();
         }
 
-        public override MemberInfo[] GetMembers (System.Reflection.BindingFlags bindingAttr)
+        public override MemberInfo[] GetMembers(System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotSupportedException();
         }
 
-        protected override MethodInfo GetMethodImpl (string name, System.Reflection.BindingFlags bindingAttr,
+        protected override MethodInfo GetMethodImpl(string name, System.Reflection.BindingFlags bindingAttr,
             Binder binder, CallingConventions callConvention, System.Type[] types,
             ParameterModifier[] modifiers)
         {
             throw new NotSupportedException();
         }
 
-        public override MethodInfo[] GetMethods (System.Reflection.BindingFlags bindingAttr)
+        public override MethodInfo[] GetMethods(System.Reflection.BindingFlags bindingAttr)
         {
             // TODO: create GirFunctionInfo and GirMethodInfo and return them as well
             return type.VirtualMethods.Select(x => new GirVirtualMethodInfo(x))
@@ -485,7 +481,7 @@ namespace GISharp.CodeGen.Reflection
             throw new NotSupportedException();
         }
 
-        public override PropertyInfo[] GetProperties (System.Reflection.BindingFlags bindingAttr)
+        public override PropertyInfo[] GetProperties(System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotSupportedException();
         }
@@ -503,7 +499,7 @@ namespace GISharp.CodeGen.Reflection
             throw new NotSupportedException();
         }
 
-        protected override TypeAttributes GetAttributeFlagsImpl ()
+        protected override TypeAttributes GetAttributeFlagsImpl()
         {
             var flags = default(TypeAttributes);
             return flags;
@@ -521,12 +517,12 @@ namespace GISharp.CodeGen.Reflection
 
         protected override bool IsPrimitiveImpl() => false;
 
-        public override ConstructorInfo[] GetConstructors (System.Reflection.BindingFlags bindingAttr)
+        public override ConstructorInfo[] GetConstructors(System.Reflection.BindingFlags bindingAttr)
         {
             throw new NotSupportedException();
         }
 
-        public override object InvokeMember (string name, System.Reflection.BindingFlags invokeAttr,
+        public override object InvokeMember(string name, System.Reflection.BindingFlags invokeAttr,
             Binder binder, object target, object[] args, ParameterModifier[] modifiers,
             System.Globalization.CultureInfo culture, string[] namedParameters)
         {
@@ -535,7 +531,7 @@ namespace GISharp.CodeGen.Reflection
 
         public override Assembly Assembly {
             get {
-                return Assembly.GetExecutingAssembly ();
+                return Assembly.GetExecutingAssembly();
             }
         }
 
@@ -549,7 +545,7 @@ namespace GISharp.CodeGen.Reflection
 
         public override string FullName {
             get {
-                return string.Format ("{0}.{1}", Namespace, Name);
+                return string.Format("{0}.{1}", Namespace, Name);
             }
         }
 
@@ -568,7 +564,7 @@ namespace GISharp.CodeGen.Reflection
 
         public override string Namespace {
             get {
-                return string.Format ("{0}.{1}",
+                return string.Format("{0}.{1}",
                     MainClass.parentNamespace,
                     type.Namespace.Name);
             }

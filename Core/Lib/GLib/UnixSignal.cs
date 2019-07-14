@@ -30,11 +30,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// An ID (greater than 0) for the event source
         /// </returns>
-        [Since ("2.30")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.30")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern uint g_unix_signal_add_full (
+        static extern uint g_unix_signal_add_full(
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority,
@@ -43,13 +43,13 @@ namespace GISharp.Lib.GLib
             int signum,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            UnmanagedSourceFunc handler,
+            IntPtr handler,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            UnmanagedDestroyNotify notify);
+            IntPtr notify);
 
         /// <summary>
         /// A convenience function for <see cref="UnixSignalSource.#ctor"/>, which
@@ -69,11 +69,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// An ID (greater than 0) for the event source
         /// </returns>
-        [Since ("2.30")]
-        public static uint Add (int priority, int signum, SourceFunc handler)
+        [Since("2.30")]
+        public static uint Add(int priority, int signum, SourceFunc handler)
         {
-            var (handler_, notify_, userData_) = SourceFuncFactory.Create(handler, CallbackScope.Notified);
-            var ret = g_unix_signal_add_full (priority, signum, handler_, userData_, notify_);
+            var (handler_, notify_, userData_) = SourceFuncMarshal.ToPointer(handler, CallbackScope.Notified);
+            var ret = g_unix_signal_add_full(priority, signum, handler_, userData_, notify_);
             return ret;
         }
     }

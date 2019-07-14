@@ -23,11 +23,11 @@ namespace GISharp.Lib.Gio
         static AsyncResultIface()
         {
             System.Int32 getUserDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetUserData));
-            RegisterVirtualMethod(getUserDataOffset, GetUserDataFactory.Create);
+            RegisterVirtualMethod(getUserDataOffset, GetUserDataMarshal.Create);
             System.Int32 getSourceObjectOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetSourceObject));
-            RegisterVirtualMethod(getSourceObjectOffset, GetSourceObjectFactory.Create);
+            RegisterVirtualMethod(getSourceObjectOffset, GetSourceObjectMarshal.Create);
             System.Int32 isTaggedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.IsTagged));
-            RegisterVirtualMethod(isTaggedOffset, IsTaggedFactory.Create);
+            RegisterVirtualMethod(isTaggedOffset, IsTaggedMarshal.Create);
         }
 
         public delegate System.IntPtr GetUserData();
@@ -41,9 +41,9 @@ namespace GISharp.Lib.Gio
 System.IntPtr res);
 
         /// <summary>
-        /// Factory for creating <see cref="GetUserData"/> methods.
+        /// Class for marshalling <see cref="GetUserData"/> methods.
         /// </summary>
-        public static class GetUserDataFactory
+        public static class GetUserDataMarshal
         {
             public static unsafe UnmanagedGetUserData Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -80,9 +80,9 @@ System.IntPtr res);
 System.IntPtr res);
 
         /// <summary>
-        /// Factory for creating <see cref="GetSourceObject"/> methods.
+        /// Class for marshalling <see cref="GetSourceObject"/> methods.
         /// </summary>
-        public static class GetSourceObjectFactory
+        public static class GetSourceObjectMarshal
         {
             public static unsafe UnmanagedGetSourceObject Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -122,9 +122,9 @@ System.IntPtr res,
 System.IntPtr sourceTag);
 
         /// <summary>
-        /// Factory for creating <see cref="IsTagged"/> methods.
+        /// Class for marshalling <see cref="IsTagged"/> methods.
         /// </summary>
-        public static class IsTaggedFactory
+        public static class IsTaggedMarshal
         {
             public static unsafe UnmanagedIsTagged Create(System.Reflection.MethodInfo methodInfo)
             {

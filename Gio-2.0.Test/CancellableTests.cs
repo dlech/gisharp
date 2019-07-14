@@ -85,7 +85,7 @@ namespace GISharp.Test.Gio
         {
             using (var c = new Cancellable()) {
                 var handlerInvoked = false;
-                var handler = new Cancellable.CancelledCallback(_ => handlerInvoked = true);
+                var handler = new CancellableSourceFunc(_ => handlerInvoked = true);
                 var id = c.Connect(handler);
                 c.Cancel();
                 Assert.That(handlerInvoked, Is.True);

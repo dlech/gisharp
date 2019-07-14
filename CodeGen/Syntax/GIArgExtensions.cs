@@ -185,14 +185,8 @@ namespace GISharp.CodeGen.Syntax
                 var userDataArg = arg.Callable.Parameters.RegularParameters.ElementAt(arg.ClosureIndex);
                 var userData = userDataArg.ManagedName;
                 var scope = $"{typeof(CallbackScope)}.{arg.Scope.ToPascalCase()}";
-                var factory = $"{type}Factory";
-                var getter = $"{factory}.Create({arg.ManagedName}, {scope})";
-                if (arg.IsNullable) {
-                    var callbackType = arg.Type.UnmanagedType.ToSyntax();
-                    var destroyType = typeof(UnmanagedDestroyNotify).ToSyntax();
-                    var defaultValues = $"(default({callbackType}), default({destroyType}), default(System.IntPtr))";
-                    getter = $"{arg.ManagedName} == null ? {defaultValues} : {getter}";
-                }
+                var marshal = $"{type}Marshal";
+                var getter = $"{marshal}.ToPointer({arg.ManagedName}, {scope})";
                 var identifiers = $"{arg.ManagedName}_, {destroy}_, {userData}_";
                 expressions.Add(ParseExpression($"({identifiers}) = {getter}"));
             }
@@ -283,8 +277,8 @@ namespace GISharp.CodeGen.Syntax
             else if (type.IsDelegate()) {
                 var userDataArg = arg.Callable.Parameters.ElementAt(arg.ClosureIndex);
                 var userData = userDataArg.ManagedName;
-                var factory = $"{arg.Type.ManagedType}Factory";
-                var getter = $"{factory}.Create({arg.ManagedName}_, {userData}_)";
+                var marshal = $"{arg.Type.ManagedType}Marshal";
+                var getter = $"{marshal}.FromPointer({arg.ManagedName}_, {userData}_)";
                 if (arg.IsNullable) {
                     var callbackType = arg.Type.ManagedType.ToSyntax();
                     var defaultValue = $"default({callbackType})";

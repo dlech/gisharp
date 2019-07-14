@@ -2316,7 +2316,8 @@ namespace GISharp.Lib.Gio
         ///     Free the returned object with g_object_unref().
         /// </returns>
         public static unsafe GISharp.Lib.Gio.IFile NewForUri(System.String uri)
-        {using var uriUtf8 = new GISharp.Lib.GLib.Utf8(uri);
+        {
+            using var uriUtf8 = new GISharp.Lib.GLib.Utf8(uri);
             return NewForUri((GISharp.Lib.GLib.UnownedUtf8)uriUtf8);
         }
 
@@ -2459,7 +2460,8 @@ namespace GISharp.Lib.Gio
         /// a new <see cref="IFile"/>.
         /// </returns>
         public static unsafe GISharp.Lib.Gio.IFile ParseName(System.String parseName)
-        {using var parseNameUtf8 = new GISharp.Lib.GLib.Utf8(parseName);
+        {
+            using var parseNameUtf8 = new GISharp.Lib.GLib.Utf8(parseName);
             return ParseName((GISharp.Lib.GLib.UnownedUtf8)parseNameUtf8);
         }
 
@@ -2627,7 +2629,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -2663,7 +2665,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileOutputStream>();
-            var callback_ = appendToAsyncCallbackDelegate;
+            var callback_ = appendToAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_append_to_async(file_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -2726,6 +2728,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback appendToAsyncCallbackDelegate = AppendToFinish;
+        static readonly System.IntPtr appendToAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(appendToAsyncCallbackDelegate);
 
         /// <summary>
         /// Copies the file @source to the location specified by @destination.
@@ -2814,7 +2817,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:call closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedFileProgressCallback? progressCallback,
+        System.IntPtr progressCallback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr progressCallbackData,
@@ -2890,11 +2893,12 @@ namespace GISharp.Lib.Gio
             var source_ = source.Handle;
             var destination_ = destination.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
-            var (progressCallback_, destroy_, progressCallbackData_) = progressCallback == null ? (default(GISharp.Lib.Gio.UnmanagedFileProgressCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.FileProgressCallbackFactory.Create(progressCallback, GISharp.Runtime.CallbackScope.Call);
+            var (progressCallback_, destroy_, progressCallbackData_) = GISharp.Lib.Gio.FileProgressCallbackMarshal.ToPointer(progressCallback, GISharp.Runtime.CallbackScope.Call);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             g_file_copy(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_,ref error_);
-            destroy_?.Invoke(progressCallbackData_);
+            var destroy = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedDestroyNotify>(destroy_);
+            destroy?.Invoke(progressCallbackData_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2965,13 +2969,13 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:5 direction:in */
-        GISharp.Lib.Gio.UnmanagedFileProgressCallback? progressCallback,
+        System.IntPtr progressCallback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
         System.IntPtr progressCallbackData,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:7 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:6 direction:in */
         System.IntPtr userData);
@@ -3264,7 +3268,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -3301,7 +3305,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileOutputStream>();
-            var callback_ = createAsyncCallbackDelegate;
+            var callback_ = createAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_create_async(file_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -3363,6 +3367,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback createAsyncCallbackDelegate = CreateFinish;
+        static readonly System.IntPtr createAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(createAsyncCallbackDelegate);
 
         /// <summary>
         /// Creates a new file and returns a stream for reading and
@@ -3541,7 +3546,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -3579,7 +3584,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileIOStream>();
-            var callback_ = createReadwriteAsyncCallbackDelegate;
+            var callback_ = createReadwriteAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_create_readwrite_async(file_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -3642,6 +3647,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback createReadwriteAsyncCallbackDelegate = CreateReadwriteFinish;
+        static readonly System.IntPtr createReadwriteAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(createReadwriteAsyncCallbackDelegate);
 
         /// <summary>
         /// Deletes a file. If the @file is a directory, it will only be
@@ -3749,7 +3755,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -3776,7 +3782,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
-            var callback_ = deleteAsyncCallbackDelegate;
+            var callback_ = deleteAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_delete_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -3836,6 +3842,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback deleteAsyncCallbackDelegate = DeleteFinish;
+        static readonly System.IntPtr deleteAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(deleteAsyncCallbackDelegate);
 
         /// <summary>
         /// Duplicates a #GFile handle. This operation does not duplicate
@@ -4301,7 +4308,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static GISharp.Lib.Gio.IFile GetChildForDisplayName(this GISharp.Lib.Gio.IFile file, System.String displayName)
-        {using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
+        {
+            using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
             return GetChildForDisplayName(file, (GISharp.Lib.GLib.UnownedUtf8)displayNameUtf8);
         }
 
@@ -4823,7 +4831,8 @@ namespace GISharp.Lib.Gio
         ///     not supported, or <see cref="IFile"/> is invalid.
         /// </returns>
         public unsafe static System.Boolean HasUriScheme(this GISharp.Lib.Gio.IFile file, System.String uriScheme)
-        {using var uriSchemeUtf8 = new GISharp.Lib.GLib.Utf8(uriScheme);
+        {
+            using var uriSchemeUtf8 = new GISharp.Lib.GLib.Utf8(uriScheme);
             return HasUriScheme(file, (GISharp.Lib.GLib.UnownedUtf8)uriSchemeUtf8);
         }
 
@@ -5067,7 +5076,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:2 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -5097,7 +5106,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.Utf8>>();
-            var callback_ = loadBytesAsyncCallbackDelegate;
+            var callback_ = loadBytesAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_load_bytes_async(file_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -5175,6 +5184,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback loadBytesAsyncCallbackDelegate = LoadBytesFinish;
+        static readonly System.IntPtr loadBytesAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(loadBytesAsyncCallbackDelegate);
 
         /// <summary>
         /// Loads the content of the file into memory. The data is always
@@ -5324,7 +5334,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:2 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -5356,7 +5366,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Runtime.CArray<System.Byte>,GISharp.Lib.GLib.Utf8>>();
-            var callback_ = loadContentsAsyncCallbackDelegate;
+            var callback_ = loadContentsAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_load_contents_async(file_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -5444,6 +5454,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback loadContentsAsyncCallbackDelegate = LoadContentsFinish;
+        static readonly System.IntPtr loadContentsAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(loadContentsAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes an asynchronous partial load operation that was started
@@ -5660,7 +5671,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -5685,7 +5696,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
-            var callback_ = makeDirectoryAsyncCallbackDelegate;
+            var callback_ = makeDirectoryAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_make_directory_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -5746,6 +5757,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback makeDirectoryAsyncCallbackDelegate = MakeDirectoryFinish;
+        static readonly System.IntPtr makeDirectoryAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(makeDirectoryAsyncCallbackDelegate);
 
         /// <summary>
         /// Creates a directory and any parent directories that may not
@@ -6215,7 +6227,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:call closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedFileProgressCallback? progressCallback,
+        System.IntPtr progressCallback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr progressCallbackData,
@@ -6288,11 +6300,12 @@ namespace GISharp.Lib.Gio
             var source_ = source.Handle;
             var destination_ = destination.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
-            var (progressCallback_, destroy_, progressCallbackData_) = progressCallback == null ? (default(GISharp.Lib.Gio.UnmanagedFileProgressCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.FileProgressCallbackFactory.Create(progressCallback, GISharp.Runtime.CallbackScope.Call);
+            var (progressCallback_, destroy_, progressCallbackData_) = GISharp.Lib.Gio.FileProgressCallbackMarshal.ToPointer(progressCallback, GISharp.Runtime.CallbackScope.Call);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             g_file_move(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_,ref error_);
-            destroy_?.Invoke(progressCallbackData_);
+            var destroy = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedDestroyNotify>(destroy_);
+            destroy?.Invoke(progressCallbackData_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6442,7 +6455,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -6475,7 +6488,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileIOStream>();
-            var callback_ = openReadwriteAsyncCallbackDelegate;
+            var callback_ = openReadwriteAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_open_readwrite_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -6538,6 +6551,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback openReadwriteAsyncCallbackDelegate = OpenReadwriteFinish;
+        static readonly System.IntPtr openReadwriteAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(openReadwriteAsyncCallbackDelegate);
 
         /// <summary>
         /// Exactly like g_file_get_path(), but caches the result via
@@ -6629,7 +6643,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:2 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -6660,7 +6674,7 @@ namespace GISharp.Lib.Gio
         public unsafe static void PollMountable(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             g_file_poll_mountable(file_, cancellable_, callback_, userData_);
         }
@@ -7062,7 +7076,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static GISharp.Lib.Gio.FileInfo QueryFilesystemInfo(this GISharp.Lib.Gio.IFile file, System.String attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+        {
+            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
             return QueryFilesystemInfo(file, (GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, cancellable);
         }
 
@@ -7120,7 +7135,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -7159,7 +7174,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
-            var callback_ = queryFilesystemInfoAsyncCallbackDelegate;
+            var callback_ = queryFilesystemInfoAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_query_filesystem_info_async(file_, attributes_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -7193,7 +7208,8 @@ namespace GISharp.Lib.Gio
         ///     <c>null</c> to ignore
         /// </param>
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryFilesystemInfoAsync(this GISharp.Lib.Gio.IFile file, System.String attributes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+        {
+            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
             return QueryFilesystemInfoAsync(file, (GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, ioPriority, cancellable);
         }
 
@@ -7254,6 +7270,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback queryFilesystemInfoAsyncCallbackDelegate = QueryFilesystemInfoFinish;
+        static readonly System.IntPtr queryFilesystemInfoAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(queryFilesystemInfoAsyncCallbackDelegate);
 
         /// <summary>
         /// Gets the requested information about specified @file.
@@ -7453,7 +7470,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static GISharp.Lib.Gio.FileInfo QueryInfo(this GISharp.Lib.Gio.IFile file, System.String attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+        {
+            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
             return QueryInfo(file, (GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, flags, cancellable);
         }
 
@@ -7515,7 +7533,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -7556,7 +7574,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
-            var callback_ = queryInfoAsyncCallbackDelegate;
+            var callback_ = queryInfoAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_query_info_async(file_, attributes_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -7591,7 +7609,8 @@ namespace GISharp.Lib.Gio
         ///     <c>null</c> to ignore
         /// </param>
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(this GISharp.Lib.Gio.IFile file, System.String attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
+        {
+            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
             return QueryInfoAsync(file, (GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, flags, ioPriority, cancellable);
         }
 
@@ -7652,6 +7671,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback queryInfoAsyncCallbackDelegate = QueryInfoFinish;
+        static readonly System.IntPtr queryInfoAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(queryInfoAsyncCallbackDelegate);
 
         /// <summary>
         /// Obtain the list of settable attributes for the file.
@@ -7948,7 +7968,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -7980,7 +8000,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInputStream>();
-            var callback_ = readAsyncCallbackDelegate;
+            var callback_ = readAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_read_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -8042,6 +8062,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback readAsyncCallbackDelegate = ReadFinish;
+        static readonly System.IntPtr readAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(readAsyncCallbackDelegate);
 
         /// <summary>
         /// Returns an output stream for overwriting the file, possibly
@@ -8290,7 +8311,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static GISharp.Lib.Gio.FileOutputStream Replace(this GISharp.Lib.Gio.IFile file, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
+        {
+            using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
             return Replace(file, (GISharp.Lib.GLib.NullableUnownedUtf8)etagUtf8, makeBackup, flags, cancellable);
         }
 
@@ -8359,7 +8381,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -8405,7 +8427,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileOutputStream>();
-            var callback_ = replaceAsyncCallbackDelegate;
+            var callback_ = replaceAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_replace_async(file_, etag_, makeBackup_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -8444,7 +8466,8 @@ namespace GISharp.Lib.Gio
         ///     <c>null</c> to ignore
         /// </param>
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileOutputStream> ReplaceAsync(this GISharp.Lib.Gio.IFile file, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
+        {
+            using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
             return ReplaceAsync(file, (GISharp.Lib.GLib.NullableUnownedUtf8)etagUtf8, makeBackup, flags, ioPriority, cancellable);
         }
 
@@ -8647,7 +8670,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static void ReplaceContents(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, out GISharp.Lib.GLib.Utf8 newEtag, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
+        {
+            using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
             ReplaceContents(file, contents, (GISharp.Lib.GLib.NullableUnownedUtf8)etagUtf8, makeBackup, flags,out newEtag, cancellable);
         }
 
@@ -8731,7 +8755,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:7 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -8785,7 +8809,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Utf8>();
-            var callback_ = replaceContentsAsyncCallbackDelegate;
+            var callback_ = replaceContentsAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_replace_contents_async(file_, contents_, length_, etag_, makeBackup_, flags_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -8832,7 +8856,8 @@ namespace GISharp.Lib.Gio
         /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
         /// </param>
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.GLib.Utf8> ReplaceContentsAsync(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
+        {
+            using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
             return ReplaceContentsAsync(file, contents, (GISharp.Lib.GLib.NullableUnownedUtf8)etagUtf8, makeBackup, flags, cancellable);
         }
 
@@ -8898,7 +8923,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -8942,7 +8967,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Utf8>();
-            var callback_ = replaceContentsAsyncCallbackDelegate;
+            var callback_ = replaceContentsAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_replace_contents_bytes_async(file_, contents_, etag_, makeBackup_, flags_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -8979,7 +9004,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.GLib.Utf8> ReplaceContentsAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Bytes contents, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
+        {
+            using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
             return ReplaceContentsAsync(file, contents, (GISharp.Lib.GLib.NullableUnownedUtf8)etagUtf8, makeBackup, flags, cancellable);
         }
 
@@ -9047,6 +9073,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback replaceContentsAsyncCallbackDelegate = ReplaceContentsFinish;
+        static readonly System.IntPtr replaceContentsAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(replaceContentsAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes an asynchronous file replace operation started with
@@ -9104,6 +9131,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback replaceAsyncCallbackDelegate = ReplaceFinish;
+        static readonly System.IntPtr replaceAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(replaceAsyncCallbackDelegate);
 
         /// <summary>
         /// Returns an output stream for overwriting the file in readwrite mode,
@@ -9262,7 +9290,8 @@ namespace GISharp.Lib.Gio
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static GISharp.Lib.Gio.FileIOStream ReplaceReadwrite(this GISharp.Lib.Gio.IFile file, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
+        {
+            using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
             return ReplaceReadwrite(file, (GISharp.Lib.GLib.NullableUnownedUtf8)etagUtf8, makeBackup, flags, cancellable);
         }
 
@@ -9333,7 +9362,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -9381,7 +9410,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileIOStream>();
-            var callback_ = replaceReadwriteAsyncCallbackDelegate;
+            var callback_ = replaceReadwriteAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_replace_readwrite_async(file_, etag_, makeBackup_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -9422,7 +9451,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileIOStream> ReplaceReadwriteAsync(this GISharp.Lib.Gio.IFile file, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
+        {
+            using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
             return ReplaceReadwriteAsync(file, (GISharp.Lib.GLib.NullableUnownedUtf8)etagUtf8, makeBackup, flags, ioPriority, cancellable);
         }
 
@@ -9483,6 +9513,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback replaceReadwriteAsyncCallbackDelegate = ReplaceReadwriteFinish;
+        static readonly System.IntPtr replaceReadwriteAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(replaceReadwriteAsyncCallbackDelegate);
 
         /// <summary>
         /// Resolves a relative path for @file to an absolute path.
@@ -9687,7 +9718,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static void SetAttribute(this GISharp.Lib.Gio.IFile file, System.String attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttribute(file, (GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, type, valueP, flags, cancellable);
         }
 
@@ -9822,7 +9854,9 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static void SetAttributeByteString(this GISharp.Lib.Gio.IFile file, System.String attribute, System.String value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);using var valueUtf8 = new GISharp.Lib.GLib.Utf8(value);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            using var valueUtf8 = new GISharp.Lib.GLib.Utf8(value);
             SetAttributeByteString(file, (GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, (GISharp.Lib.GLib.UnownedUtf8)valueUtf8, flags, cancellable);
         }
 
@@ -9954,7 +9988,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static void SetAttributeInt32(this GISharp.Lib.Gio.IFile file, System.String attribute, System.Int32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeInt32(file, (GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, value, flags, cancellable);
         }
 
@@ -10085,7 +10120,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static void SetAttributeInt64(this GISharp.Lib.Gio.IFile file, System.String attribute, System.Int64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeInt64(file, (GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, value, flags, cancellable);
         }
 
@@ -10216,7 +10252,9 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static void SetAttributeString(this GISharp.Lib.Gio.IFile file, System.String attribute, System.String value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);using var valueUtf8 = new GISharp.Lib.GLib.Utf8(value);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+            using var valueUtf8 = new GISharp.Lib.GLib.Utf8(value);
             SetAttributeString(file, (GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, (GISharp.Lib.GLib.UnownedUtf8)valueUtf8, flags, cancellable);
         }
 
@@ -10348,7 +10386,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static void SetAttributeUint32(this GISharp.Lib.Gio.IFile file, System.String attribute, System.UInt32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeUint32(file, (GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, value, flags, cancellable);
         }
 
@@ -10480,7 +10519,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static void SetAttributeUint64(this GISharp.Lib.Gio.IFile file, System.String attribute, System.UInt64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
+        {
+            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             SetAttributeUint64(file, (GISharp.Lib.GLib.UnownedUtf8)attributeUtf8, value, flags, cancellable);
         }
 
@@ -10540,7 +10580,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -10580,7 +10620,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
-            var callback_ = setAttributesAsyncCallbackDelegate;
+            var callback_ = setAttributesAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_set_attributes_async(file_, info_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -10646,6 +10686,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback setAttributesAsyncCallbackDelegate = SetAttributesFinish;
+        static readonly System.IntPtr setAttributesAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(setAttributesAsyncCallbackDelegate);
 
         /// <summary>
         /// Tries to set all attributes in the #GFileInfo on the target
@@ -10890,7 +10931,8 @@ namespace GISharp.Lib.Gio
         /// On error
         /// </exception>
         public unsafe static GISharp.Lib.Gio.IFile SetDisplayName(this GISharp.Lib.Gio.IFile file, System.String displayName, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
+        {
+            using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
             return SetDisplayName(file, (GISharp.Lib.GLib.UnownedUtf8)displayNameUtf8, cancellable);
         }
 
@@ -10945,7 +10987,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -10981,7 +11023,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.IFile>();
-            var callback_ = setDisplayNameAsyncCallbackDelegate;
+            var callback_ = setDisplayNameAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_set_display_name_async(file_, displayName_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -11012,7 +11054,8 @@ namespace GISharp.Lib.Gio
         ///     <c>null</c> to ignore
         /// </param>
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.IFile> SetDisplayNameAsync(this GISharp.Lib.Gio.IFile file, System.String displayName, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
+        {
+            using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
             return SetDisplayNameAsync(file, (GISharp.Lib.GLib.UnownedUtf8)displayNameUtf8, ioPriority, cancellable);
         }
 
@@ -11072,6 +11115,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback setDisplayNameAsyncCallbackDelegate = SetDisplayNameFinish;
+        static readonly System.IntPtr setDisplayNameAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(setDisplayNameAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes a start operation. See g_file_start_mountable() for details.
@@ -11353,7 +11397,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -11378,7 +11422,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
-            var callback_ = trashAsyncCallbackDelegate;
+            var callback_ = trashAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_trash_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -11439,6 +11483,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback trashAsyncCallbackDelegate = TrashFinish;
+        static readonly System.IntPtr trashAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(trashAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes an unmount operation, see g_file_unmount_mountable() for details.

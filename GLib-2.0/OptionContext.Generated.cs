@@ -531,7 +531,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetDescription(System.String? description)
-        {using var descriptionUtf8 = description == null ? null : new GISharp.Lib.GLib.Utf8(description);
+        {
+            using var descriptionUtf8 = description == null ? null : new GISharp.Lib.GLib.Utf8(description);
             SetDescription((GISharp.Lib.GLib.NullableUnownedUtf8)descriptionUtf8);
         }
 
@@ -815,7 +816,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetSummary(System.String? summary)
-        {using var summaryUtf8 = summary == null ? null : new GISharp.Lib.GLib.Utf8(summary);
+        {
+            using var summaryUtf8 = summary == null ? null : new GISharp.Lib.GLib.Utf8(summary);
             SetSummary((GISharp.Lib.GLib.NullableUnownedUtf8)summaryUtf8);
         }
 
@@ -855,13 +857,13 @@ namespace GISharp.Lib.GLib
         System.IntPtr context,
         /* <type name="TranslateFunc" type="GTranslateFunc" managed-name="UnmanagedTranslateFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 direction:in */
-        GISharp.Lib.GLib.UnmanagedTranslateFunc? func,
+        System.IntPtr func,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        GISharp.Lib.GLib.UnmanagedDestroyNotify? destroyNotify);
+        System.IntPtr destroyNotify);
 
         /// <summary>
         /// Sets the function which is used to translate the contexts
@@ -884,7 +886,7 @@ namespace GISharp.Lib.GLib
         public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
             var context_ = Handle;
-            var (func_, destroyNotify_, data_) = func == null ? (default(GISharp.Lib.GLib.UnmanagedTranslateFunc), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.GLib.TranslateFuncFactory.Create(func, GISharp.Runtime.CallbackScope.Notified);
+            var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToPointer(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_context_set_translate_func(context_, func_, data_, destroyNotify_);
         }
 
@@ -934,7 +936,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetTranslationDomain(System.String domain)
-        {using var domainUtf8 = new GISharp.Lib.GLib.Utf8(domain);
+        {
+            using var domainUtf8 = new GISharp.Lib.GLib.Utf8(domain);
             SetTranslationDomain((GISharp.Lib.GLib.UnownedUtf8)domainUtf8);
         }
     }

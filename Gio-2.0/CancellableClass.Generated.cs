@@ -20,7 +20,7 @@ namespace GISharp.Lib.Gio
         static CancellableClass()
         {
             System.Int32 cancelledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Cancelled));
-            RegisterVirtualMethod(cancelledOffset, CancelledFactory.Create);
+            RegisterVirtualMethod(cancelledOffset, CancelledMarshal.Create);
         }
 
         public delegate void Cancelled();
@@ -34,9 +34,9 @@ namespace GISharp.Lib.Gio
 System.IntPtr cancellable);
 
         /// <summary>
-        /// Factory for creating <see cref="Cancelled"/> methods.
+        /// Class for marshalling <see cref="Cancelled"/> methods.
         /// </summary>
-        public static class CancelledFactory
+        public static class CancelledMarshal
         {
             public static unsafe UnmanagedCancelled Create(System.Reflection.MethodInfo methodInfo)
             {

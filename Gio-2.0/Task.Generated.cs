@@ -641,7 +641,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr callbackData);
@@ -682,7 +682,7 @@ namespace GISharp.Lib.Gio
         static unsafe System.IntPtr New(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
-            var (callback_, _, callbackData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_task_new(sourceObject_,cancellable_,callback_,callbackData_);
             return ret_;
@@ -813,7 +813,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr sourceObject,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:2 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr callbackData,
@@ -852,7 +852,7 @@ namespace GISharp.Lib.Gio
         public static unsafe void ReportError(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, System.IntPtr sourceTag, GISharp.Lib.GLib.Error error)
         {
             var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
-            var (callback_, _, callbackData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var sourceTag_ = (System.IntPtr)sourceTag;
             var error_ = error.Take();
             g_task_report_error(sourceObject_, callback_, callbackData_, sourceTag_, error_);
@@ -1608,7 +1608,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr result,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        GISharp.Lib.GLib.UnmanagedDestroyNotify? resultDestroy);
+        System.IntPtr resultDestroy);
 
         /// <summary>
         /// Sets or clears @task's check-cancellable flag. If this is %TRUE
@@ -1899,7 +1899,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr taskData,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        GISharp.Lib.GLib.UnmanagedDestroyNotify? taskDataDestroy);
+        System.IntPtr taskDataDestroy);
 
         GISharp.Lib.GObject.Object? GISharp.Lib.Gio.IAsyncResult.DoGetSourceObject()
         {

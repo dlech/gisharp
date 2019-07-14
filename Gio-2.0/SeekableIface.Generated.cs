@@ -25,15 +25,15 @@ namespace GISharp.Lib.Gio
         static SeekableIface()
         {
             System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Tell));
-            RegisterVirtualMethod(tellOffset, TellFactory.Create);
+            RegisterVirtualMethod(tellOffset, TellMarshal.Create);
             System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CanSeek));
-            RegisterVirtualMethod(canSeekOffset, CanSeekFactory.Create);
+            RegisterVirtualMethod(canSeekOffset, CanSeekMarshal.Create);
             System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Seek));
-            RegisterVirtualMethod(seekOffset, SeekFactory.Create);
+            RegisterVirtualMethod(seekOffset, SeekMarshal.Create);
             System.Int32 canTruncateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CanTruncate));
-            RegisterVirtualMethod(canTruncateOffset, CanTruncateFactory.Create);
+            RegisterVirtualMethod(canTruncateOffset, CanTruncateMarshal.Create);
             System.Int32 truncateFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.TruncateFn));
-            RegisterVirtualMethod(truncateFnOffset, TruncateFnFactory.Create);
+            RegisterVirtualMethod(truncateFnOffset, TruncateFnMarshal.Create);
         }
 
         public delegate System.Int64 Tell();
@@ -47,9 +47,9 @@ namespace GISharp.Lib.Gio
 System.IntPtr seekable);
 
         /// <summary>
-        /// Factory for creating <see cref="Tell"/> methods.
+        /// Class for marshalling <see cref="Tell"/> methods.
         /// </summary>
-        public static class TellFactory
+        public static class TellMarshal
         {
             public static unsafe UnmanagedTell Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -86,9 +86,9 @@ System.IntPtr seekable);
 System.IntPtr seekable);
 
         /// <summary>
-        /// Factory for creating <see cref="CanSeek"/> methods.
+        /// Class for marshalling <see cref="CanSeek"/> methods.
         /// </summary>
-        public static class CanSeekFactory
+        public static class CanSeekMarshal
         {
             public static unsafe UnmanagedCanSeek Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -137,9 +137,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Seek"/> methods.
+        /// Class for marshalling <see cref="Seek"/> methods.
         /// </summary>
-        public static class SeekFactory
+        public static class SeekMarshal
         {
             public static unsafe UnmanagedSeek Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -182,9 +182,9 @@ ref System.IntPtr error);
 System.IntPtr seekable);
 
         /// <summary>
-        /// Factory for creating <see cref="CanTruncate"/> methods.
+        /// Class for marshalling <see cref="CanTruncate"/> methods.
         /// </summary>
-        public static class CanTruncateFactory
+        public static class CanTruncateMarshal
         {
             public static unsafe UnmanagedCanTruncate Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -230,9 +230,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="TruncateFn"/> methods.
+        /// Class for marshalling <see cref="TruncateFn"/> methods.
         /// </summary>
-        public static class TruncateFnFactory
+        public static class TruncateFnMarshal
         {
             public static unsafe UnmanagedTruncateFn Create(System.Reflection.MethodInfo methodInfo)
             {

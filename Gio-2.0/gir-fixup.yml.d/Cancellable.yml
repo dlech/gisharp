@@ -1,11 +1,11 @@
 
 ### Cancellable ###
 
-# requires special handling
+# fix callback function type
 - !set-attribute
-  name: gs:pinvoke-only
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='connect']
+  name: name
+  value: CancellableSourceFunc
+  xpath: gi:repository/gi:namespace/gi:class[@name='Cancellable']/gi:method[@name='connect']/gi:parameters/gi:parameter[@name='callback']/gi:type
 
 # rename to better fit .NET
 - !set-attribute

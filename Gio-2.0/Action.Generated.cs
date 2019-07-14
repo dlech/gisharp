@@ -301,7 +301,8 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe System.Boolean NameIsValid(System.String actionName)
-        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+        {
+            using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
             return NameIsValid((GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
         }
 
@@ -467,7 +468,8 @@ namespace GISharp.Lib.Gio
         /// </exception>
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe void ParseDetailedName(System.String detailedName, out GISharp.Lib.GLib.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
-        {using var detailedNameUtf8 = new GISharp.Lib.GLib.Utf8(detailedName);
+        {
+            using var detailedNameUtf8 = new GISharp.Lib.GLib.Utf8(detailedName);
             ParseDetailedName((GISharp.Lib.GLib.UnownedUtf8)detailedNameUtf8,out actionName,out targetValue);
         }
 
@@ -561,7 +563,8 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe GISharp.Lib.GLib.Utf8 PrintDetailedName(System.String actionName, GISharp.Lib.GLib.Variant? targetValue)
-        {using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
+        {
+            using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
             return PrintDetailedName((GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8, targetValue);
         }
 

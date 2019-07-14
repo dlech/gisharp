@@ -21,11 +21,11 @@ namespace GISharp.Lib.Gio
         static ActionMapInterface()
         {
             System.Int32 lookupActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.LookupAction));
-            RegisterVirtualMethod(lookupActionOffset, LookupActionFactory.Create);
+            RegisterVirtualMethod(lookupActionOffset, LookupActionMarshal.Create);
             System.Int32 addActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AddAction));
-            RegisterVirtualMethod(addActionOffset, AddActionFactory.Create);
+            RegisterVirtualMethod(addActionOffset, AddActionMarshal.Create);
             System.Int32 removeActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.RemoveAction));
-            RegisterVirtualMethod(removeActionOffset, RemoveActionFactory.Create);
+            RegisterVirtualMethod(removeActionOffset, RemoveActionMarshal.Create);
         }
 
         public delegate GISharp.Lib.Gio.IAction LookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
@@ -42,9 +42,9 @@ System.IntPtr actionMap,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="LookupAction"/> methods.
+        /// Class for marshalling <see cref="LookupAction"/> methods.
         /// </summary>
-        public static class LookupActionFactory
+        public static class LookupActionMarshal
         {
             public static unsafe UnmanagedLookupAction Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -85,9 +85,9 @@ System.IntPtr actionMap,
 System.IntPtr action);
 
         /// <summary>
-        /// Factory for creating <see cref="AddAction"/> methods.
+        /// Class for marshalling <see cref="AddAction"/> methods.
         /// </summary>
-        public static class AddActionFactory
+        public static class AddActionMarshal
         {
             public static unsafe UnmanagedAddAction Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -124,9 +124,9 @@ System.IntPtr actionMap,
 System.IntPtr actionName);
 
         /// <summary>
-        /// Factory for creating <see cref="RemoveAction"/> methods.
+        /// Class for marshalling <see cref="RemoveAction"/> methods.
         /// </summary>
-        public static class RemoveActionFactory
+        public static class RemoveActionMarshal
         {
             public static unsafe UnmanagedRemoveAction Create(System.Reflection.MethodInfo methodInfo)
             {

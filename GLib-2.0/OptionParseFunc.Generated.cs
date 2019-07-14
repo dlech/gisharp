@@ -28,43 +28,40 @@ namespace GISharp.Lib.GLib
     public delegate void OptionParseFunc(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group);
 
     /// <summary>
-    /// Factory for creating <see cref="OptionParseFunc"/> methods.
+    /// Class for marshalling <see cref="OptionParseFunc"/> methods.
     /// </summary>
-    public static class OptionParseFuncFactory
+    public static class OptionParseFuncMarshal
     {
-        unsafe class UserData
+        class UserData
         {
             public readonly GISharp.Lib.GLib.OptionParseFunc ManagedDelegate;
-            public readonly GISharp.Lib.GLib.UnmanagedOptionParseFunc UnmanagedDelegate;
-            public readonly GISharp.Lib.GLib.UnmanagedDestroyNotify DestroyDelegate;
             public readonly GISharp.Runtime.CallbackScope Scope;
 
-            public UserData(GISharp.Lib.GLib.OptionParseFunc managedDelegate, GISharp.Lib.GLib.UnmanagedOptionParseFunc unmanagedDelegate, GISharp.Lib.GLib.UnmanagedDestroyNotify destroyDelegate, GISharp.Runtime.CallbackScope scope)
+            public UserData(GISharp.Lib.GLib.OptionParseFunc managedDelegate, GISharp.Runtime.CallbackScope scope)
             {
                 ManagedDelegate = managedDelegate;
-                UnmanagedDelegate = unmanagedDelegate;
-                DestroyDelegate = destroyDelegate;
                 Scope = scope;
             }
         }
 
-        public static GISharp.Lib.GLib.OptionParseFunc Create(GISharp.Lib.GLib.UnmanagedOptionParseFunc callback, System.IntPtr userData)
+        public static GISharp.Lib.GLib.OptionParseFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
-            unsafe void callback_(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group)
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionParseFunc>(callback_);
+            var data_ = userData_;
+            unsafe void managedCallback(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group)
             {
-                var data_  =  userData ;
-                var context_  =  context . Handle ;
-                var group_  =  group . Handle ;
-                var error_  =  System . IntPtr . Zero ;
-                callback(context_, group_, data_,  ref  error_ );
+                var context_ = context.Handle;
+                var group_ = group.Handle;
+                var error_ = System.IntPtr.Zero;
+                unmanagedCallback(context_, group_, data_,ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
-                    var error  =  GISharp . Runtime . Opaque . GetInstance < GISharp . Lib . GLib . Error > ( error_ ,  GISharp . Runtime . Transfer . Full ) ;
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                     throw new GISharp.Runtime.GErrorException(error);
                 }
             }
 
-            return callback_;
+            return managedCallback;
         }
 
         /// <summary>
@@ -74,8 +71,8 @@ namespace GISharp.Lib.GLib
         /// <param name="method">The managed method to wrap.</param>
         /// <param name="scope">The lifetime scope of the callback.</param>
         /// <returns>
-        /// A tuple containing the unmanaged callback, the unmanaged
-        /// notify function and a pointer to the user data.
+        /// A tuple containing a pointer to the unmanaged callback, a pointer to the
+        /// unmanaged notify function and a pointer to the user data.
         /// </returns>
         /// <remarks>
         /// This function is used to marshal managed callbacks to unmanged
@@ -85,11 +82,16 @@ namespace GISharp.Lib.GLib
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static unsafe (GISharp.Lib.GLib.UnmanagedOptionParseFunc, GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr) Create(GISharp.Lib.GLib.OptionParseFunc callback, GISharp.Runtime.CallbackScope scope)
+        public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToPointer(GISharp.Lib.GLib.OptionParseFunc? callback, GISharp.Runtime.CallbackScope scope)
         {
-            var userData = new UserData(callback, UnmanagedCallback, Destroy, scope);
+            if (callback == null)
+            {
+                return default;
+            }
+
+            var userData = new UserData(callback, scope);
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-            return (userData.UnmanagedDelegate, userData.DestroyDelegate, userData_);
+            return (callback_, destroy_, userData_);
         }
 
         static unsafe GISharp.Runtime.Boolean UnmanagedCallback(System.IntPtr context_, System.IntPtr group_, System.IntPtr data_, ref System.IntPtr error_)
@@ -115,6 +117,9 @@ namespace GISharp.Lib.GLib
             return default(GISharp.Runtime.Boolean);
         }
 
+        static readonly GISharp.Lib.GLib.UnmanagedOptionParseFunc UnmanagedCallbackDelegate = UnmanagedCallback;
+        static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
+
         static void Destroy(System.IntPtr userData_)
         {
             try
@@ -127,5 +132,8 @@ namespace GISharp.Lib.GLib
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
+
+        static readonly GISharp.Lib.GLib.UnmanagedDestroyNotify UnmanagedDestroyDelegate = Destroy;
+        static readonly System.IntPtr destroy_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedDestroyDelegate);
     }
 }

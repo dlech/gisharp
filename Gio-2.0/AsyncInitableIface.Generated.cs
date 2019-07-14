@@ -24,9 +24,9 @@ namespace GISharp.Lib.Gio
         static AsyncInitableIface()
         {
             System.Int32 initAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.InitAsync));
-            RegisterVirtualMethod(initAsyncOffset, InitAsyncFactory.Create);
+            RegisterVirtualMethod(initAsyncOffset, InitAsyncMarshal.Create);
             System.Int32 initFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.InitFinish));
-            RegisterVirtualMethod(initFinishOffset, InitFinishFactory.Create);
+            RegisterVirtualMethod(initFinishOffset, InitFinishMarshal.Create);
         }
 
         public delegate void InitAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
@@ -46,25 +46,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="InitAsync"/> methods.
+        /// Class for marshalling <see cref="InitAsync"/> methods.
         /// </summary>
-        public static class InitAsyncFactory
+        public static class InitAsyncMarshal
         {
             public static unsafe UnmanagedInitAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedInitAsync(System.IntPtr initable_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedInitAsync(System.IntPtr initable_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance(initable_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doInitAsync = (InitAsync)methodInfo.CreateDelegate(typeof(InitAsync), initable);
                         doInitAsync(ioPriority, callback, cancellable);
@@ -96,9 +96,9 @@ System.IntPtr res,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="InitFinish"/> methods.
+        /// Class for marshalling <see cref="InitFinish"/> methods.
         /// </summary>
-        public static class InitFinishFactory
+        public static class InitFinishMarshal
         {
             public static unsafe UnmanagedInitFinish Create(System.Reflection.MethodInfo methodInfo)
             {

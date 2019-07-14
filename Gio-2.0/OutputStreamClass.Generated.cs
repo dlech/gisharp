@@ -34,29 +34,29 @@ namespace GISharp.Lib.Gio
         static OutputStreamClass()
         {
             System.Int32 writeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WriteFn));
-            RegisterVirtualMethod(writeFnOffset, WriteFnFactory.Create);
+            RegisterVirtualMethod(writeFnOffset, WriteFnMarshal.Create);
             System.Int32 spliceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Splice));
-            RegisterVirtualMethod(spliceOffset, SpliceFactory.Create);
+            RegisterVirtualMethod(spliceOffset, SpliceMarshal.Create);
             System.Int32 flushOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Flush));
-            RegisterVirtualMethod(flushOffset, FlushFactory.Create);
+            RegisterVirtualMethod(flushOffset, FlushMarshal.Create);
             System.Int32 closeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseFn));
-            RegisterVirtualMethod(closeFnOffset, CloseFnFactory.Create);
+            RegisterVirtualMethod(closeFnOffset, CloseFnMarshal.Create);
             System.Int32 writeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WriteAsync));
-            RegisterVirtualMethod(writeAsyncOffset, WriteAsyncFactory.Create);
+            RegisterVirtualMethod(writeAsyncOffset, WriteAsyncMarshal.Create);
             System.Int32 writeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WriteFinish));
-            RegisterVirtualMethod(writeFinishOffset, WriteFinishFactory.Create);
+            RegisterVirtualMethod(writeFinishOffset, WriteFinishMarshal.Create);
             System.Int32 spliceAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SpliceAsync));
-            RegisterVirtualMethod(spliceAsyncOffset, SpliceAsyncFactory.Create);
+            RegisterVirtualMethod(spliceAsyncOffset, SpliceAsyncMarshal.Create);
             System.Int32 spliceFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SpliceFinish));
-            RegisterVirtualMethod(spliceFinishOffset, SpliceFinishFactory.Create);
+            RegisterVirtualMethod(spliceFinishOffset, SpliceFinishMarshal.Create);
             System.Int32 flushAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.FlushAsync));
-            RegisterVirtualMethod(flushAsyncOffset, FlushAsyncFactory.Create);
+            RegisterVirtualMethod(flushAsyncOffset, FlushAsyncMarshal.Create);
             System.Int32 flushFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.FlushFinish));
-            RegisterVirtualMethod(flushFinishOffset, FlushFinishFactory.Create);
+            RegisterVirtualMethod(flushFinishOffset, FlushFinishMarshal.Create);
             System.Int32 closeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseAsync));
-            RegisterVirtualMethod(closeAsyncOffset, CloseAsyncFactory.Create);
+            RegisterVirtualMethod(closeAsyncOffset, CloseAsyncMarshal.Create);
             System.Int32 closeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseFinish));
-            RegisterVirtualMethod(closeFinishOffset, CloseFinishFactory.Create);
+            RegisterVirtualMethod(closeFinishOffset, CloseFinishMarshal.Create);
         }
 
         public delegate System.Int32 WriteFn(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null);
@@ -84,9 +84,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="WriteFn"/> methods.
+        /// Class for marshalling <see cref="WriteFn"/> methods.
         /// </summary>
-        public static class WriteFnFactory
+        public static class WriteFnMarshal
         {
             public static unsafe UnmanagedWriteFn Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -141,9 +141,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Splice"/> methods.
+        /// Class for marshalling <see cref="Splice"/> methods.
         /// </summary>
-        public static class SpliceFactory
+        public static class SpliceMarshal
         {
             public static unsafe UnmanagedSplice Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -193,9 +193,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="Flush"/> methods.
+        /// Class for marshalling <see cref="Flush"/> methods.
         /// </summary>
-        public static class FlushFactory
+        public static class FlushMarshal
         {
             public static unsafe UnmanagedFlush Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -242,9 +242,9 @@ System.IntPtr cancellable,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="CloseFn"/> methods.
+        /// Class for marshalling <see cref="CloseFn"/> methods.
         /// </summary>
-        public static class CloseFnFactory
+        public static class CloseFnMarshal
         {
             public static unsafe UnmanagedCloseFn Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -299,26 +299,26 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:6 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="WriteAsync"/> methods.
+        /// Class for marshalling <see cref="WriteAsync"/> methods.
         /// </summary>
-        public static class WriteAsyncFactory
+        public static class WriteAsyncMarshal
         {
             public static unsafe UnmanagedWriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedWriteAsync(System.IntPtr stream_, in System.Byte buffer_, System.UIntPtr count_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedWriteAsync(System.IntPtr stream_, in System.Byte buffer_, System.UIntPtr count_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doWriteAsync = (WriteAsync)methodInfo.CreateDelegate(typeof(WriteAsync), stream);
                         doWriteAsync(buffer, ioPriority, callback, cancellable);
@@ -350,9 +350,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="WriteFinish"/> methods.
+        /// Class for marshalling <see cref="WriteFinish"/> methods.
         /// </summary>
-        public static class WriteFinishFactory
+        public static class WriteFinishMarshal
         {
             public static unsafe UnmanagedWriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -406,19 +406,19 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:6 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="SpliceAsync"/> methods.
+        /// Class for marshalling <see cref="SpliceAsync"/> methods.
         /// </summary>
-        public static class SpliceAsyncFactory
+        public static class SpliceAsyncMarshal
         {
             public static unsafe UnmanagedSpliceAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedSpliceAsync(System.IntPtr stream_, System.IntPtr source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedSpliceAsync(System.IntPtr stream_, System.IntPtr source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
@@ -426,7 +426,7 @@ System.IntPtr userData);
                         var source = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(source_, GISharp.Runtime.Transfer.None)!;
                         var flags = (GISharp.Lib.Gio.OutputStreamSpliceFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doSpliceAsync = (SpliceAsync)methodInfo.CreateDelegate(typeof(SpliceAsync), stream);
                         doSpliceAsync(source, flags, ioPriority, callback, cancellable);
@@ -458,9 +458,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="SpliceFinish"/> methods.
+        /// Class for marshalling <see cref="SpliceFinish"/> methods.
         /// </summary>
-        public static class SpliceFinishFactory
+        public static class SpliceFinishMarshal
         {
             public static unsafe UnmanagedSpliceFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -508,25 +508,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="FlushAsync"/> methods.
+        /// Class for marshalling <see cref="FlushAsync"/> methods.
         /// </summary>
-        public static class FlushAsyncFactory
+        public static class FlushAsyncMarshal
         {
             public static unsafe UnmanagedFlushAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedFlushAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedFlushAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doFlushAsync = (FlushAsync)methodInfo.CreateDelegate(typeof(FlushAsync), stream);
                         doFlushAsync(ioPriority, callback, cancellable);
@@ -558,9 +558,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="FlushFinish"/> methods.
+        /// Class for marshalling <see cref="FlushFinish"/> methods.
         /// </summary>
-        public static class FlushFinishFactory
+        public static class FlushFinishMarshal
         {
             public static unsafe UnmanagedFlushFinish Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -607,25 +607,25 @@ System.Int32 ioPriority,
 System.IntPtr cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
 System.IntPtr userData);
 
         /// <summary>
-        /// Factory for creating <see cref="CloseAsync"/> methods.
+        /// Class for marshalling <see cref="CloseAsync"/> methods.
         /// </summary>
-        public static class CloseAsyncFactory
+        public static class CloseAsyncMarshal
         {
             public static unsafe UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback_, System.IntPtr userData_)
+                void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback_, userData_);
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCloseAsync = (CloseAsync)methodInfo.CreateDelegate(typeof(CloseAsync), stream);
                         doCloseAsync(ioPriority, callback, cancellable);
@@ -657,9 +657,9 @@ System.IntPtr result,
 ref System.IntPtr error);
 
         /// <summary>
-        /// Factory for creating <see cref="CloseFinish"/> methods.
+        /// Class for marshalling <see cref="CloseFinish"/> methods.
         /// </summary>
-        public static class CloseFinishFactory
+        public static class CloseFinishMarshal
         {
             public static unsafe UnmanagedCloseFinish Create(System.Reflection.MethodInfo methodInfo)
             {

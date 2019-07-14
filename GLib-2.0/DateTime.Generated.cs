@@ -577,7 +577,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.56")]
         public static unsafe GISharp.Lib.GLib.DateTime? FromIso8601(System.String text, GISharp.Lib.GLib.TimeZone? defaultTz)
-        {using var textUtf8 = new GISharp.Lib.GLib.Utf8(text);
+        {
+            using var textUtf8 = new GISharp.Lib.GLib.Utf8(text);
             return FromIso8601((GISharp.Lib.GLib.UnownedUtf8)textUtf8, defaultTz);
         }
 
@@ -2072,7 +2073,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.Utf8 Format(System.String format)
-        {using var formatUtf8 = new GISharp.Lib.GLib.Utf8(format);
+        {
+            using var formatUtf8 = new GISharp.Lib.GLib.Utf8(format);
             return Format((GISharp.Lib.GLib.UnownedUtf8)formatUtf8);
         }
 

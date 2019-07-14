@@ -229,7 +229,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -259,7 +259,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
-            var callback_ = closeAsyncCallbackDelegate;
+            var callback_ = closeAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_close_async(stream_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -318,6 +318,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback closeAsyncCallbackDelegate = CloseFinish;
+        static readonly System.IntPtr closeAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(closeAsyncCallbackDelegate);
 
         /// <summary>
         /// Forces a write of all user-space buffered data for the given
@@ -428,7 +429,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -455,7 +456,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Unit>();
-            var callback_ = flushAsyncCallbackDelegate;
+            var callback_ = flushAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_flush_async(stream_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -514,6 +515,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback flushAsyncCallbackDelegate = FlushFinish;
+        static readonly System.IntPtr flushAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(flushAsyncCallbackDelegate);
 
         /// <summary>
         /// Checks if an output stream has pending actions.
@@ -800,7 +802,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -835,7 +837,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
-            var callback_ = spliceAsyncCallbackDelegate;
+            var callback_ = spliceAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_splice_async(stream_, source_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -898,6 +900,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback spliceAsyncCallbackDelegate = SpliceFinish;
+        static readonly System.IntPtr spliceAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(spliceAsyncCallbackDelegate);
 
         /// <summary>
         /// Tries to write @count bytes from @buffer into the stream. Will block
@@ -1199,7 +1202,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -1239,7 +1242,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
-            var callback_ = writeAllAsyncCallbackDelegate;
+            var callback_ = writeAllAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_write_all_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -1316,6 +1319,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeAllAsyncCallbackDelegate = WriteAllFinish;
+        static readonly System.IntPtr writeAllAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeAllAsyncCallbackDelegate);
 
         /// <summary>
         /// Request an asynchronous write of @count bytes from @buffer into
@@ -1401,7 +1405,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -1460,7 +1464,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
-            var callback_ = writeAsyncCallbackDelegate;
+            var callback_ = writeAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_write_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -1609,7 +1613,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
-        GISharp.Lib.Gio.UnmanagedAsyncReadyCallback? callback,
+        System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
@@ -1646,7 +1650,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
-            var callback_ = writeBytesAsyncCallbackDelegate;
+            var callback_ = writeBytesAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_output_stream_write_bytes_async(stream_, bytes_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -1706,6 +1710,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeBytesAsyncCallbackDelegate = WriteBytesFinish;
+        static readonly System.IntPtr writeBytesAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeBytesAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes a stream write operation.
@@ -1761,6 +1766,7 @@ namespace GISharp.Lib.Gio
         }
 
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeAsyncCallbackDelegate = WriteFinish;
+        static readonly System.IntPtr writeAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeAsyncCallbackDelegate);
 
         /// <summary>
         /// Requests an asynchronous close of the stream, releasing resources
@@ -1789,7 +1795,7 @@ namespace GISharp.Lib.Gio
         {
             var stream_ = Handle;
             var ioPriority_ = (System.Int32)ioPriority;
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedCloseAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);
         }
@@ -1896,7 +1902,7 @@ namespace GISharp.Lib.Gio
         {
             var stream_ = Handle;
             var ioPriority_ = (System.Int32)ioPriority;
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedFlushAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);
         }
@@ -2000,7 +2006,7 @@ namespace GISharp.Lib.Gio
             var source_ = source.Handle;
             var flags_ = (GISharp.Lib.Gio.OutputStreamSpliceFlags)flags;
             var ioPriority_ = (System.Int32)ioPriority;
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedSpliceAsync>(_GType)!(stream_, source_, flags_, ioPriority_, cancellable_, callback_, userData_);
         }
@@ -2093,7 +2099,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
             var ioPriority_ = (System.Int32)ioPriority;
-            var (callback_, _, userData_) = callback == null ? (default(GISharp.Lib.Gio.UnmanagedAsyncReadyCallback), default(GISharp.Lib.GLib.UnmanagedDestroyNotify), default(System.IntPtr)) : GISharp.Lib.Gio.AsyncReadyCallbackFactory.Create(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWriteAsync>(_GType)!(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
         }

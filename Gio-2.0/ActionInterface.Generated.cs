@@ -26,21 +26,21 @@ namespace GISharp.Lib.Gio
         static ActionInterface()
         {
             System.Int32 getNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetName));
-            RegisterVirtualMethod(getNameOffset, GetNameFactory.Create);
+            RegisterVirtualMethod(getNameOffset, GetNameMarshal.Create);
             System.Int32 getParameterTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetParameterType));
-            RegisterVirtualMethod(getParameterTypeOffset, GetParameterTypeFactory.Create);
+            RegisterVirtualMethod(getParameterTypeOffset, GetParameterTypeMarshal.Create);
             System.Int32 getStateTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateType));
-            RegisterVirtualMethod(getStateTypeOffset, GetStateTypeFactory.Create);
+            RegisterVirtualMethod(getStateTypeOffset, GetStateTypeMarshal.Create);
             System.Int32 getStateHintOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateHint));
-            RegisterVirtualMethod(getStateHintOffset, GetStateHintFactory.Create);
+            RegisterVirtualMethod(getStateHintOffset, GetStateHintMarshal.Create);
             System.Int32 getEnabledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetEnabled));
-            RegisterVirtualMethod(getEnabledOffset, GetEnabledFactory.Create);
+            RegisterVirtualMethod(getEnabledOffset, GetEnabledMarshal.Create);
             System.Int32 getStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetState));
-            RegisterVirtualMethod(getStateOffset, GetStateFactory.Create);
+            RegisterVirtualMethod(getStateOffset, GetStateMarshal.Create);
             System.Int32 changeStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ChangeState));
-            RegisterVirtualMethod(changeStateOffset, ChangeStateFactory.Create);
+            RegisterVirtualMethod(changeStateOffset, ChangeStateMarshal.Create);
             System.Int32 activateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Activate));
-            RegisterVirtualMethod(activateOffset, ActivateFactory.Create);
+            RegisterVirtualMethod(activateOffset, ActivateMarshal.Create);
         }
 
         public delegate GISharp.Lib.GLib.UnownedUtf8 GetName();
@@ -54,9 +54,9 @@ namespace GISharp.Lib.Gio
 System.IntPtr action);
 
         /// <summary>
-        /// Factory for creating <see cref="GetName"/> methods.
+        /// Class for marshalling <see cref="GetName"/> methods.
         /// </summary>
-        public static class GetNameFactory
+        public static class GetNameMarshal
         {
             public static unsafe UnmanagedGetName Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -93,9 +93,9 @@ System.IntPtr action);
 System.IntPtr action);
 
         /// <summary>
-        /// Factory for creating <see cref="GetParameterType"/> methods.
+        /// Class for marshalling <see cref="GetParameterType"/> methods.
         /// </summary>
-        public static class GetParameterTypeFactory
+        public static class GetParameterTypeMarshal
         {
             public static unsafe UnmanagedGetParameterType Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -132,9 +132,9 @@ System.IntPtr action);
 System.IntPtr action);
 
         /// <summary>
-        /// Factory for creating <see cref="GetStateType"/> methods.
+        /// Class for marshalling <see cref="GetStateType"/> methods.
         /// </summary>
-        public static class GetStateTypeFactory
+        public static class GetStateTypeMarshal
         {
             public static unsafe UnmanagedGetStateType Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -171,9 +171,9 @@ System.IntPtr action);
 System.IntPtr action);
 
         /// <summary>
-        /// Factory for creating <see cref="GetStateHint"/> methods.
+        /// Class for marshalling <see cref="GetStateHint"/> methods.
         /// </summary>
-        public static class GetStateHintFactory
+        public static class GetStateHintMarshal
         {
             public static unsafe UnmanagedGetStateHint Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -210,9 +210,9 @@ System.IntPtr action);
 System.IntPtr action);
 
         /// <summary>
-        /// Factory for creating <see cref="GetEnabled"/> methods.
+        /// Class for marshalling <see cref="GetEnabled"/> methods.
         /// </summary>
-        public static class GetEnabledFactory
+        public static class GetEnabledMarshal
         {
             public static unsafe UnmanagedGetEnabled Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -249,9 +249,9 @@ System.IntPtr action);
 System.IntPtr action);
 
         /// <summary>
-        /// Factory for creating <see cref="GetState"/> methods.
+        /// Class for marshalling <see cref="GetState"/> methods.
         /// </summary>
-        public static class GetStateFactory
+        public static class GetStateMarshal
         {
             public static unsafe UnmanagedGetState Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -291,9 +291,9 @@ System.IntPtr action,
 System.IntPtr value);
 
         /// <summary>
-        /// Factory for creating <see cref="ChangeState"/> methods.
+        /// Class for marshalling <see cref="ChangeState"/> methods.
         /// </summary>
-        public static class ChangeStateFactory
+        public static class ChangeStateMarshal
         {
             public static unsafe UnmanagedChangeState Create(System.Reflection.MethodInfo methodInfo)
             {
@@ -330,9 +330,9 @@ System.IntPtr action,
 System.IntPtr parameter);
 
         /// <summary>
-        /// Factory for creating <see cref="Activate"/> methods.
+        /// Class for marshalling <see cref="Activate"/> methods.
         /// </summary>
-        public static class ActivateFactory
+        public static class ActivateMarshal
         {
             public static unsafe UnmanagedActivate Create(System.Reflection.MethodInfo methodInfo)
             {

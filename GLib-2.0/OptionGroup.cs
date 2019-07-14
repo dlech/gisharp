@@ -7,13 +7,12 @@ using GISharp.Runtime;
 using StringList = System.Collections.Generic.List<GISharp.Lib.GLib.Utf8>;
 using ArgList = System.Collections.Generic.List<System.IntPtr>;
 using CallbackList = System.Collections.Generic.List<System.Action>;
-using DestroyList = System.Collections.Generic.List<System.ValueTuple<GISharp.Lib.GLib.UnmanagedDestroyNotify, System.IntPtr>>;
+using DestroyList = System.Collections.Generic.List<(System.IntPtr, System.IntPtr)>;
 
 namespace GISharp.Lib.GLib
 {
     partial class OptionGroup
     {
-        static readonly UnmanagedDestroyNotify destroy_ = DestroyUserData;
         static readonly unsafe UnmanagedOptionParseFunc postParseFunc_ = OnParsed;
 
         // FIXME: we will have problems with userData being null if an
@@ -329,8 +328,7 @@ namespace GISharp.Lib.GLib
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
             var description_ = AllocString(description ?? throw new ArgumentNullException(nameof(description)));
             var argDescription_ = AllocString(argDescription);
-            var (callback_, destroy_, data_) = OptionArgFuncFactory.Create(callback, CallbackScope.Notified);
-            var arg_ = Marshal.GetFunctionPointerForDelegate(callback_);
+            var (callback_, destroy_, data_) = OptionArgFuncMarshal.ToPointer(callback, CallbackScope.Notified);
             userData.DestroyCallbacks.Add((destroy_, data_));
 
             AddEntry(new OptionEntry {
@@ -338,16 +336,18 @@ namespace GISharp.Lib.GLib
                 ShortName = (sbyte)shortName,
                 Flags = (int)flags,
                 Arg = OptionArg.Callback,
-                ArgData = arg_,
+                ArgData = callback_,
                 Description = description_,
                 ArgDescription = argDescription_
             });
         }
 
-        static void DestroyUserData(IntPtr data)
+        static readonly UnmanagedDestroyNotify DestroyUserDataDelegate = DestroyUserData;
+        static readonly IntPtr destroy_ = Marshal.GetFunctionPointerForDelegate(DestroyUserDataDelegate);
+        static void DestroyUserData(IntPtr data_)
         {
             try {
-                var gcHandle = (GCHandle)data;
+                var gcHandle = (GCHandle)data_;
                 var userData = (UserData)gcHandle.Target;
                 gcHandle.Free();
 
@@ -358,7 +358,8 @@ namespace GISharp.Lib.GLib
                     GMarshal.Free(a);
                 }
                 foreach (var d in userData.DestroyCallbacks) {
-                    d.Item1(d.Item2);
+                    var destroy = Marshal.GetDelegateForFunctionPointer<UnmanagedDestroyNotify>(d.Item1);
+                    destroy(d.Item2);
                 }
             }
             catch (Exception ex) {

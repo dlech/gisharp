@@ -321,7 +321,8 @@ namespace GISharp.Lib.Gio
         }
 
         static unsafe System.IntPtr New(System.String? applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
-        {using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
+        {
+            using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
             return New((GISharp.Lib.GLib.NullableUnownedUtf8)applicationIdUtf8, flags);
         }
 
@@ -748,7 +749,8 @@ namespace GISharp.Lib.Gio
         /// <c>true</c> if <paramref name="applicationId"/> is valid
         /// </returns>
         public static unsafe System.Boolean IdIsValid(System.String applicationId)
-        {using var applicationIdUtf8 = new GISharp.Lib.GLib.Utf8(applicationId);
+        {
+            using var applicationIdUtf8 = new GISharp.Lib.GLib.Utf8(applicationId);
             return IdIsValid((GISharp.Lib.GLib.UnownedUtf8)applicationIdUtf8);
         }
 
@@ -944,7 +946,10 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.42")]
         public unsafe void AddMainOption(System.String longName, System.SByte shortName, GISharp.Lib.GLib.OptionFlags flags, GISharp.Lib.GLib.OptionArg arg, System.String description, System.String? argDescription)
-        {using var longNameUtf8 = new GISharp.Lib.GLib.Utf8(longName);using var descriptionUtf8 = new GISharp.Lib.GLib.Utf8(description);using var argDescriptionUtf8 = argDescription == null ? null : new GISharp.Lib.GLib.Utf8(argDescription);
+        {
+            using var longNameUtf8 = new GISharp.Lib.GLib.Utf8(longName);
+            using var descriptionUtf8 = new GISharp.Lib.GLib.Utf8(description);
+            using var argDescriptionUtf8 = argDescription == null ? null : new GISharp.Lib.GLib.Utf8(argDescription);
             AddMainOption((GISharp.Lib.GLib.UnownedUtf8)longNameUtf8, shortName, flags, arg, (GISharp.Lib.GLib.UnownedUtf8)descriptionUtf8, (GISharp.Lib.GLib.NullableUnownedUtf8)argDescriptionUtf8);
         }
 
@@ -1253,7 +1258,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe void BindBusyProperty(GISharp.Lib.GObject.Object @object, System.String property)
-        {using var propertyUtf8 = new GISharp.Lib.GLib.Utf8(property);
+        {
+            using var propertyUtf8 = new GISharp.Lib.GLib.Utf8(property);
             BindBusyProperty(@object, (GISharp.Lib.GLib.UnownedUtf8)propertyUtf8);
         }
 
@@ -1787,7 +1793,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe void Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, System.String hint)
-        {using var hintUtf8 = new GISharp.Lib.GLib.Utf8(hint);
+        {
+            using var hintUtf8 = new GISharp.Lib.GLib.Utf8(hint);
             Open(files, (GISharp.Lib.GLib.UnownedUtf8)hintUtf8);
         }
 
@@ -2298,7 +2305,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetApplicationId(System.String? applicationId)
-        {using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
+        {
+            using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
             SetApplicationId((GISharp.Lib.GLib.NullableUnownedUtf8)applicationIdUtf8);
         }
 
@@ -2492,7 +2500,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe void SetOptionContextDescription(System.String? description)
-        {using var descriptionUtf8 = description == null ? null : new GISharp.Lib.GLib.Utf8(description);
+        {
+            using var descriptionUtf8 = description == null ? null : new GISharp.Lib.GLib.Utf8(description);
             SetOptionContextDescription((GISharp.Lib.GLib.NullableUnownedUtf8)descriptionUtf8);
         }
 
@@ -2560,7 +2569,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe void SetOptionContextParameterString(System.String? parameterString)
-        {using var parameterStringUtf8 = parameterString == null ? null : new GISharp.Lib.GLib.Utf8(parameterString);
+        {
+            using var parameterStringUtf8 = parameterString == null ? null : new GISharp.Lib.GLib.Utf8(parameterString);
             SetOptionContextParameterString((GISharp.Lib.GLib.NullableUnownedUtf8)parameterStringUtf8);
         }
 
@@ -2619,7 +2629,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe void SetOptionContextSummary(System.String? summary)
-        {using var summaryUtf8 = summary == null ? null : new GISharp.Lib.GLib.Utf8(summary);
+        {
+            using var summaryUtf8 = summary == null ? null : new GISharp.Lib.GLib.Utf8(summary);
             SetOptionContextSummary((GISharp.Lib.GLib.NullableUnownedUtf8)summaryUtf8);
         }
 
@@ -2765,7 +2776,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.42")]
         private unsafe void SetResourceBasePath(System.String? resourcePath)
-        {using var resourcePathUtf8 = resourcePath == null ? null : new GISharp.Lib.GLib.Utf8(resourcePath);
+        {
+            using var resourcePathUtf8 = resourcePath == null ? null : new GISharp.Lib.GLib.Utf8(resourcePath);
             SetResourceBasePath((GISharp.Lib.GLib.NullableUnownedUtf8)resourcePathUtf8);
         }
 
@@ -2831,7 +2843,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe void UnbindBusyProperty(GISharp.Lib.GObject.Object @object, System.String property)
-        {using var propertyUtf8 = new GISharp.Lib.GLib.Utf8(property);
+        {
+            using var propertyUtf8 = new GISharp.Lib.GLib.Utf8(property);
             UnbindBusyProperty(@object, (GISharp.Lib.GLib.UnownedUtf8)propertyUtf8);
         }
 
@@ -2956,7 +2969,8 @@ namespace GISharp.Lib.Gio
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void WithdrawNotification(System.String id)
-        {using var idUtf8 = new GISharp.Lib.GLib.Utf8(id);
+        {
+            using var idUtf8 = new GISharp.Lib.GLib.Utf8(id);
             WithdrawNotification((GISharp.Lib.GLib.UnownedUtf8)idUtf8);
         }
 

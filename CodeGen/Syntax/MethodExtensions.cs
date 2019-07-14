@@ -35,7 +35,9 @@ namespace GISharp.CodeGen.Syntax
                 if (method.FinishFor != null) {
                     yield return method.GetFinishMethodDeclaration()
                         .WithBody(Block(method.GetFinishMethodStatements()));
-                    yield return method.GetFinishDelegateField();
+                    foreach (var f in method.GetFinishDelegateField()) {
+                        yield return f;
+                    }
                 }
 
                 if (method.IsRef) {
@@ -95,10 +97,10 @@ namespace GISharp.CodeGen.Syntax
 
         static SyntaxTokenList GetAccessModifiers(this Method method)
         {
-            if ((method.IsHash || method.IsToString)&& !method.IsExtensionMethod) {
+            if ((method.IsHash || method.IsToString) && !method.IsExtensionMethod) {
                 return TokenList(Token(PublicKeyword), Token(OverrideKeyword));
             }
-            
+
             return method.GetCommonAccessModifiers().Add(Token(UnsafeKeyword));
         }
 
@@ -114,7 +116,7 @@ namespace GISharp.CodeGen.Syntax
                 if (method.IsEqual) {
                     // if we have an Equals method, then we implement the IEquatable<T> interface
                     var typeName = string.Concat(typeof(IEquatable<>).FullName.TakeWhile(x => x != '`'));
-                    typeName = string.Format ("{0}<{1}>", typeName, type.ManagedName);
+                    typeName = string.Format("{0}<{1}>", typeName, type.ManagedName);
                     list = list.Add(SimpleBaseType(ParseTypeName(typeName)));
                 }
                 if (method.IsCompare) {
@@ -132,10 +134,10 @@ namespace GISharp.CodeGen.Syntax
             return List(method.GetFinishMethodStatements(method.FinishForFunction, method.CIdentifier));
         }
 
-        static FieldDeclarationSyntax GetFinishDelegateField(this Method method)
+        static IEnumerable<FieldDeclarationSyntax> GetFinishDelegateField(this Method method)
         {
-            var identifier = method.FinishForFunction.ManagedName.ToCamelCase() + "CallbackDelegate";
-            return method.GetFinishDelegateField(identifier);
+            var identifier = method.FinishForFunction.ManagedName.ToCamelCase() + "Callback";
+            return method.GetFinishDelegateFields(identifier);
         }
 
         /// <summary>

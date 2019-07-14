@@ -28,7 +28,7 @@ namespace GISharp.CodeGen.Syntax
         internal static IEnumerable<StatementSyntax> GetInvokeStatements(this GICallable callable, string invokeMethod)
         {
             // might need to do some extra arg checks first
-            
+
             if (callable.HasCustomArgCheck) {
                 var expression = ParseExpression($"Assert{callable.ManagedName}Args");
                 var invocation = InvocationExpression(expression);
@@ -69,12 +69,12 @@ namespace GISharp.CodeGen.Syntax
                 var completionType = returnType.IsGenericType
                     ? typeof(TaskCompletionSource<>).MakeGenericType(returnType.GenericTypeArguments)
                     : typeof(TaskCompletionSource<Unit>);
-                
+
                 var completionVarExpression = $"var completionSource = new {completionType.ToSyntax()}()";
                 yield return ExpressionStatement(ParseExpression(completionVarExpression));
 
                 var callbackArg = callable.Parameters.Single(x => x.Type.CType == "GAsyncReadyCallback");
-                var callbackDelegateName = callable.ManagedName.ToCamelCase() + "CallbackDelegate";
+                var callbackDelegateName = callable.ManagedName.ToCamelCase() + "Callback_";
                 var callbackExpression = $"var {callbackArg.ManagedName}_ = {callbackDelegateName}";
                 yield return ExpressionStatement(ParseExpression(callbackExpression));
 
@@ -106,10 +106,18 @@ namespace GISharp.CodeGen.Syntax
             // free the unmanaged delegate
 
             foreach (var arg in callable.Parameters.Where(x => x.Scope == "call")) {
+                var marshalExpression = ParseExpression(string.Format(
+                    "var destroy = {0}.{1}<{2}>(destroy_)",
+                    typeof(Marshal),
+                    nameof(Marshal.GetDelegateForFunctionPointer),
+                    typeof(UnmanagedDestroyNotify)
+                ));
+                yield return ExpressionStatement(marshalExpression);
+
                 var userDataArg = callable.Parameters.RegularParameters.ElementAt(arg.ClosureIndex);
-                var nullCheck = arg.IsNullable ? "?.Invoke" : "";
-                var expression = ParseExpression($"destroy_{nullCheck}({userDataArg.ManagedName}_)");
-                yield return ExpressionStatement(expression);
+                var nullCheck = arg.IsNullable ? "?.Invoke" : "!.Invoke";
+                var invokeExpression = ParseExpression($"destroy{nullCheck}({userDataArg.ManagedName}_)");
+                yield return ExpressionStatement(invokeExpression);
             }
 
             // Check for GError and throw GErrorException
@@ -163,15 +171,14 @@ namespace GISharp.CodeGen.Syntax
                 var n = p.IsNullable ? $"{p.ManagedName} == null ? null : " : "";
                 var utf8Identifier = ParseToken($"{p.ManagedName}Utf8");
                 var newUtf8 = $"new {typeof(Utf8)}";
-                var usingExpression = ParseExpression($"using var {utf8Identifier} = {n}{newUtf8}({p.ManagedName})");
-                yield return ExpressionStatement(usingExpression);
+                yield return ParseStatement($"using var {utf8Identifier} = {n}{newUtf8}({p.ManagedName});\n");
 
                 var identifier = argList.DescendantNodes().Single(x => x is IdentifierNameSyntax i && i.Identifier.Text == p.ManagedName);
                 var type = p.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
                 var cast = ParseExpression($"({type}){utf8Identifier}");
                 argList = argList.ReplaceNode(identifier, cast);
             }
-            
+
             var expression = InvocationExpression(IdentifierName(callable.ManagedName))
                 .WithArgumentList(argList);
 
@@ -191,7 +198,7 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxTriviaList GetGErrorExceptionDocCommentTrivia(this GICallable callable)
         {
             if (!callable.ThrowsGErrorException) {
-                return default (SyntaxTriviaList);
+                return default(SyntaxTriviaList);
             }
             var builder = new StringBuilder();
             builder.AppendFormat("/// <exception name=\"{0}\">",
@@ -302,14 +309,25 @@ namespace GISharp.CodeGen.Syntax
         /// <summary>
         /// Gets a field declaration for a delegate of an async finish method implementation
         /// </summary>
-        internal static FieldDeclarationSyntax GetFinishDelegateField(this GICallable callable, string identifier)
+        internal static IEnumerable<FieldDeclarationSyntax> GetFinishDelegateFields(this GICallable callable, string identifier)
         {
             var varType = ParseTypeName("GISharp.Lib.Gio.UnmanagedAsyncReadyCallback");
-            var parent = (GIRegisteredType)callable.ParentNode;
             var initializerExpression = ParseExpression(callable.ManagedName);
-            return FieldDeclaration(VariableDeclaration(varType)
-                    .AddVariables(VariableDeclarator(identifier)
+            yield return FieldDeclaration(VariableDeclaration(varType)
+                    .AddVariables(VariableDeclarator(identifier + "Delegate")
                         .WithInitializer(EqualsValueClause(initializerExpression))))
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+
+            var marshalExpression = ParseExpression(string.Format(
+                "{0}.{1}<{2}>({3})",
+                typeof(Marshal),
+                nameof(Marshal.GetFunctionPointerForDelegate),
+                varType,
+                identifier + "Delegate"
+            ));
+            yield return FieldDeclaration(VariableDeclaration(ParseTypeName(typeof(IntPtr).FullName))
+                .AddVariables(VariableDeclarator(identifier + "_")
+                    .WithInitializer(EqualsValueClause(marshalExpression))))
                 .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
         }
     }
