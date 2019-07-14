@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading.Tasks;
 using GISharp.Lib.GLib;
+using Mono.Unix.Native;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
@@ -8,7 +9,7 @@ using static GISharp.TestHelpers;
 namespace GISharp.Test.Core.GLib
 {
     [TestFixture]
-    public class IdleTests
+    public class UnixSignalTests
     {
         [Test]
         public void TestAdd()
@@ -17,16 +18,19 @@ namespace GISharp.Test.Core.GLib
             // so we need to use a lock to ensure exclusive use of the main
             // context.
             lock (MainContextTests.MainContextLock) {
-                var idleInvoked = false;
+                Assert.That(() => UnixSignal.Add(0, () => Source.Remove_), Throws.ArgumentException);
+
+                var callbackInvoked = false;
 
                 using (var mainLoop = new MainLoop()) {
-                    var (id, _) = Idle.Add(() => {
+                    var (id, _) = UnixSignal.Add((int)Signum.SIGINT, () => {
                         mainLoop.Quit();
-                        idleInvoked = true;
+                        callbackInvoked = true;
                         return Source.Remove_;
                     });
 
                     Assert.That(id, Is.Not.Zero);
+                    Syscall.kill(Syscall.getpid(), Signum.SIGINT);
 
                     var source = MainContext.Default.FindSourceById(id);
                     Task.Run(() => {
@@ -35,7 +39,7 @@ namespace GISharp.Test.Core.GLib
                     source.Destroy();
                 }
 
-                Assert.That(idleInvoked, Is.True);
+                Assert.That(callbackInvoked, Is.True);
             }
             AssertNoGLibLog();
         }

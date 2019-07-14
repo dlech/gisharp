@@ -19,6 +19,34 @@ namespace GISharp.Lib.GLib
     [GType("GSource", IsProxyForUnmanagedType = true)]
     public abstract class Source : Boxed
     {
+        public sealed class UserData : IDisposable
+        {
+            internal readonly IntPtr Handle;
+
+            [EditorBrowsable(EditorBrowsableState.Never)]
+            public UserData(IntPtr userData)
+            {
+                Handle = userData;
+            }
+
+            [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+            static extern Runtime.Boolean g_source_remove_by_user_data(
+                IntPtr user_data);
+
+            /// <summary>
+            /// Removes a source from the default main loop context given the
+            /// user data for the callback.
+            /// </summary>
+            /// <remarks>
+            /// If multiple sources exist with the same user data, only one
+            /// will be destroyed.
+            /// </remarks>
+            public void Dispose()
+            {
+                g_source_remove_by_user_data(Handle);
+            }
+        }
+
         internal struct Struct
         {
 #pragma warning disable CS0649
@@ -509,7 +537,7 @@ namespace GISharp.Lib.GLib
             IntPtr source,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            ref PollFD fd);
+            in PollFD fd);
 
         /// <summary>
         /// Adds a file descriptor to the set of file descriptors polled for
@@ -530,9 +558,10 @@ namespace GISharp.Lib.GLib
         /// a <see cref="T:PollFD"/> structure holding information about a file
         /// descriptor to watch.
         /// </param>
-        public void AddPoll(PollFD fd)
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void AddPoll(in PollFD fd)
         {
-            g_source_add_poll(Handle, ref fd);
+            g_source_add_poll(Handle, fd);
         }
 
         /// <summary>
@@ -721,7 +750,7 @@ namespace GISharp.Lib.GLib
         /// Returns the numeric ID for a particular source. The ID of a source
         /// is a positive integer which is unique within a particular main loop
         /// context. The reverse
-        /// mapping from ID to source is done by g_main_context_find_source_by_id().
+        /// mapping from ID to source is done by <see cref="MainContext.FindSourceById(uint)" />).
         /// </summary>
         /// <returns>
         /// the ID (greater than 0) for the source
@@ -1074,15 +1103,14 @@ namespace GISharp.Lib.GLib
             IntPtr childSource);
 
         /// <summary>
-        /// Detaches @child_source from @source and destroys it.
+        /// Detaches <paramref name="childSource" /> from this source and destroys it.
         /// </summary>
         /// <remarks>
-        /// This API is only intended to be used by implementations of #GSource.
-        /// Do not call this API on a #GSource that you did not create.
+        /// This API is only intended to be used by implementations of <see cref="Source" />.
+        /// Do not call this API on a  <see cref="Source" /> that you did not create.
         /// </remarks>
         /// <param name="childSource">
-        /// a #GSource previously passed to
-        ///     g_source_add_child_source().
+        /// a <see cref="Source" /> previously passed to <see cref="AddChildSource" />
         /// </param>
         [Since("2.28")]
         public void RemoveChildSource(Source childSource)
@@ -1115,22 +1143,23 @@ namespace GISharp.Lib.GLib
             IntPtr source,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            ref PollFD fd);
+            in PollFD fd);
 
         /// <summary>
         /// Removes a file descriptor from the set of file descriptors polled for
         /// this source.
         /// </summary>
         /// <remarks>
-        /// This API is only intended to be used by implementations of #GSource.
-        /// Do not call this API on a #GSource that you did not create.
+        /// This API is only intended to be used by implementations of <see cref="Source" />.
+        /// Do not call this API on a <see cref="Source" /> that you did not create.
         /// </remarks>
         /// <param name="fd">
         /// a #GPollFD structure previously passed to g_source_add_poll().
         /// </param>
-        public void RemovePoll(PollFD fd)
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void RemovePoll(in PollFD fd)
         {
-            g_source_remove_poll(Handle, ref fd);
+            g_source_remove_poll(Handle, fd);
         }
 
         /// <summary>
@@ -1172,8 +1201,8 @@ namespace GISharp.Lib.GLib
         /// watched while keeping the same source around.  In the normal case you
         /// will just want to destroy the source.
         /// 
-        /// This API is only intended to be used by implementations of #GSource.
-        /// Do not call this API on a #GSource that you did not create.
+        /// This API is only intended to be used by implementations of <see cref="Source" />.
+        /// Do not call this API on a <see cref="Source" /> that you did not create.
         /// 
         /// As the name suggests, this function is not available on Windows.
         /// </remarks>

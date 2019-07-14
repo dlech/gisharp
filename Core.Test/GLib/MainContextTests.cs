@@ -17,207 +17,221 @@ namespace GISharp.Test.Core.GLib
         /// <remarks>
         /// Tests that use the main context will have have strange interactions
         /// because they can be run concurrently. So, we need a lock object to
-        /// enusre that only one test at at time uses the main context.
+        /// ensure that only one test at at time uses the main context.
         /// </remarks>
-        public static object MainContextLock = new object ();
+        public static object MainContextLock = new object();
 
         [Test]
-        public void TestDefault ()
+        public void TestDefault()
         {
-            Assert.That (MainContext.Default, Is.Not.Null);
+            Assert.That(MainContext.Default, Is.Not.Null);
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestThreadDefault ()
+        public void TestThreadDefault()
         {
-            Assert.That (MainContext.ThreadDefault, Is.Not.Null);
+            Assert.That(MainContext.ThreadDefault, Is.Not.Null);
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestDepth ()
+        public void TestDepth()
         {
-            Assert.That (MainContext.Depth, Is.EqualTo (0));
+            Assert.That(MainContext.Depth, Is.Zero);
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestPoll ()
+        public void TestPoll()
         {
-            var ret = MainContext.Poll (new PollFD[0], 0);
-            Assert.That (ret, Is.EqualTo (0));
+            var ret = MainContext.Poll(new PollFD[0], 0);
+            Assert.That(ret, Is.Zero);
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestAquire ()
+        public void TestAquire()
         {
-            using (var context = new MainContext ()) {
-                var ret = context.Acquire ();
-                Assert.That (ret, Is.True);
+            using (var context = new MainContext()) {
+                var ret = context.Acquire();
+                Assert.That(ret, Is.True);
 
-                var threadAquiredContext = false;
-                Task.Run (() => {
-                    threadAquiredContext = context.Acquire ();
-                }).Wait ();
-                Assert.That (threadAquiredContext, Is.False);
+                var threadAcquiredContext = false;
+                Task.Run(() => {
+                    threadAcquiredContext = context.Acquire();
+                }).Wait();
+                Assert.That(threadAcquiredContext, Is.False);
             }
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestFindSourceById ()
+        public void TestFindSourceById()
         {
-            using (var context = new MainContext ()) {
-                var source = new IdleSource();
-                var id = source.Attach (context);
-                var foundSource = context.FindSourceById (id);
-                Assert.That (foundSource.Handle, Is.EqualTo (source.Handle));
+            using (var context = new MainContext()) {
+                using var source = new IdleSource();
+                var id = source.Attach(context);
+                var foundSource = context.FindSourceById(id);
+                Assert.That(foundSource.Handle, Is.EqualTo(source.Handle));
             }
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestInvoke ()
+        public void TestInvoke()
         {
-            using (var context = new MainContext ())
-            using (var mainLoop = new MainLoop (context)) {
+            using (var context = new MainContext())
+            using (var mainLoop = new MainLoop(context)) {
                 var invoked = false;
-                context.Invoke (() => {
-                    mainLoop.Quit ();
+                context.Invoke(() => {
+                    mainLoop.Quit();
                     invoked = true;
                     return Source.Remove_;
                 });
 
-                Assert.That (invoked, Is.False);
+                Assert.That(invoked, Is.False);
 
-                Task.Run (() => {
-                    context.PushThreadDefault ();
-                    mainLoop.Run ();
-                    context.PopThreadDefault ();
-                }).Wait (100);
+                Task.Run(() => {
+                    context.PushThreadDefault();
+                    mainLoop.Run();
+                    context.PopThreadDefault();
+                }).Wait(100);
 
-                Assert.That (invoked, Is.True);
+                Assert.That(invoked, Is.True);
             }
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestIsOwner ()
+        public void TestIsOwner()
         {
-            using (var context = new MainContext ()) {
-                Assert.That (context.IsOwner, Is.False);
-                context.Acquire ();
-                Assert.That (context.IsOwner, Is.True);
+            using (var context = new MainContext()) {
+                Assert.That(context.IsOwner, Is.False);
+                context.Acquire();
+                Assert.That(context.IsOwner, Is.True);
             }
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestCheckPending ()
+        public void TestCheckPending()
         {
-            using (var context = new MainContext ()) {
-                var pending = context.CheckPending ();
-                Assert.That (pending, Is.False);
+            using (var context = new MainContext()) {
+                var pending = context.CheckPending();
+                Assert.That(pending, Is.False);
             }
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestRelease ()
+        public void TestRelease()
         {
-            using (var context = new MainContext ()) {
-                Assume.That (context.IsOwner, Is.False);
-                var ret = context.Acquire ();
-                Assume.That (ret, Is.True);
-                Assume.That (context.IsOwner, Is.True);
+            using (var context = new MainContext()) {
+                Assume.That(context.IsOwner, Is.False);
+                var ret = context.Acquire();
+                Assume.That(ret, Is.True);
+                Assume.That(context.IsOwner, Is.True);
 
-                context.Release ();
-                Assert.That (context.IsOwner, Is.False);
+                context.Release();
+                Assert.That(context.IsOwner, Is.False);
             }
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestWakeup ()
+        public void TestWakeUp()
         {
-            using (var context = new MainContext ()) {
+            using (var context = new MainContext()) {
                 var awake = false;
-                var task = Task.Run (() => {
-                    context.PushThreadDefault ();
-                    context.Iteration (true);
+                var task = Task.Run(() => {
+                    context.PushThreadDefault();
+                    context.Iteration(true);
                     awake = true;
-                    context.PopThreadDefault ();
+                    context.PopThreadDefault();
                 });
-                context.Wakeup ();
-                task.Wait (100);
-                Assert.That (awake, Is.True);
+                context.WakeUp();
+                task.Wait(100);
+                Assert.That(awake, Is.True);
             }
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestSyncronizationContextPost ()
+        public void TestSynchronizationContextPost()
         {
             var invokedOnMainThread = false;
 
-            var context = new MainContext ();
-            var mainLoop = new MainLoop (context);
-            // use IdleSource to run stuff on the same thread as
-            // the main loop after mainLoop.Run has been called.
-            var source = new IdleSource();
-            source.SetCallback (() => {
-                // this gets the MainLoopSyncronizationContext that was
-                // set when mainLoop.Run was called. If it wasn't set, this
-                // will throw an exception.
-                var x2 = SynchronizationContext.Current;
-                var scheduler = TaskScheduler.FromCurrentSynchronizationContext ();
+            using (var context = new MainContext()) {
+                using var mainLoop = new MainLoop(context);
+                // use IdleSource to run stuff on the same thread as
+                // the main loop after mainLoop.Run has been called.
+                using var source = new IdleSource();
+                source.SetCallback(() => {
+                    // this gets the MainLoopSynchronizationContext that was
+                    // set when mainLoop.Run was called. If it wasn't set, this
+                    // will throw an exception.
+                    var x2 = SynchronizationContext.Current;
+                    var scheduler = TaskScheduler.FromCurrentSynchronizationContext();
 
-                var mainLoopThread = Thread.CurrentThread;
+                    var mainLoopThread = Thread.CurrentThread;
 
-                // start another background thread to that we can try calling back
-                // to the mainLoop thread using the scheduler.
-                // This implicitly calls MainLoopSyncronzationContext.Post()
-                Task.Run (() => {
-                    Assume.That (mainLoopThread, Is.Not.EqualTo (Thread.CurrentThread));
-                    Task.Factory.StartNew (() => {
-                        mainLoop.Quit ();
-                        // NUnit does not catch the error here since it is on another thread.
-                        // But this is OK, we just check invokedOnMainThread later.
-                        Assert.That (mainLoopThread, Is.EqualTo (Thread.CurrentThread));
-                        invokedOnMainThread = true;
-                    },
-                        CancellationToken.None,
-                        TaskCreationOptions.None,
-                        scheduler);
+                    // start another background thread to that we can try calling back
+                    // to the mainLoop thread using the scheduler.
+                    // This implicitly calls MainLoopSynchronizationContext.Post()
+                    Task.Run(() => {
+                        Assume.That(mainLoopThread, Is.Not.EqualTo(Thread.CurrentThread));
+                        Task.Factory.StartNew(() => {
+                            mainLoop.Quit();
+                            // NUnit does not catch the error here since it is on another thread.
+                            // But this is OK, we just check invokedOnMainThread later.
+                            Assert.That(mainLoopThread, Is.EqualTo(Thread.CurrentThread));
+                            invokedOnMainThread = true;
+                        },
+                            CancellationToken.None,
+                            TaskCreationOptions.None,
+                            scheduler);
+                    });
+                    return Source.Remove_;
                 });
-                return Source.Remove_;
-            });
-            source.Attach (context);
+                source.Attach(context);
 
-            var task = Task.Run (() => {
-                context.PushThreadDefault ();
-                mainLoop.Run ();
-                context.PopThreadDefault ();
-            });
-            task.ConfigureAwait (false);
-            var x = SynchronizationContext.Current;
-            task.Wait (100);
-            source.Destroy ();
+                var task = Task.Run(() => {
+                    context.PushThreadDefault();
+                    mainLoop.Run();
+                    context.PopThreadDefault();
+                });
+                task.ConfigureAwait(false);
+                var x = SynchronizationContext.Current;
+                task.Wait(100);
+                source.Destroy();
+            }
 
-            Assert.That (invokedOnMainThread, Is.True);
+            Assert.That(invokedOnMainThread, Is.True);
+
+            AssertNoGLibLog();
+        }
+
+        static PollFD testPollFD = default;
+
+        [Test]
+        public void TestPollFD()
+        {
+            using (var mc = new MainContext()) {
+                mc.AddPoll(testPollFD);
+                mc.RemovePoll(testPollFD);
+            }
 
             AssertNoGLibLog();
         }

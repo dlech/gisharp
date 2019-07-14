@@ -6,6 +6,10 @@ namespace GISharp.Lib.GLib
 {
     public static class UnixSignal
     {
+        const int SIGHUP = 1;
+        const int SIGINT = 2;
+        const int SIGQUIT = 3;
+
         /// <summary>
         /// A convenience function for g_unix_signal_source_new(), which
         /// attaches to the default #GMainContext.  You can remove the watch
@@ -67,14 +71,20 @@ namespace GISharp.Lib.GLib
         /// Callback
         /// </param>
         /// <returns>
-        /// An ID (greater than 0) for the event source
+        /// An ID (greater than 0) for the event source and a <see cref="Source.UserData">
+        /// handle.
         /// </returns>
         [Since("2.30")]
-        public static uint Add(int priority, int signum, SourceFunc handler)
+        public static (uint id, Source.UserData userData) Add(int signum, SourceFunc handler, int priority = Priority.Default)
         {
+            if (signum != SIGHUP && signum != SIGINT && signum != SIGQUIT) {
+                throw new ArgumentException("Only SIGHUP, SIGINT, SIGQUIT allowed", nameof(signum));
+            }
+            // TODO: add check for SIGUSR1, SIGUSR2, SIGWINCH based on runtime version
             var (handler_, notify_, userData_) = SourceFuncMarshal.ToPointer(handler, CallbackScope.Notified);
             var ret = g_unix_signal_add_full(priority, signum, handler_, userData_, notify_);
-            return ret;
+            var sourceHandle = new Source.UserData(userData_);
+            return (ret, sourceHandle);
         }
     }
 }

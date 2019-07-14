@@ -110,11 +110,12 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the ID (greater than 0) of the event source.
         /// </returns>
-        public static uint Add(uint interval, SourceFunc function, int priority = Priority.Default)
+        public static (uint id, Source.UserData handuserDatale) Add(uint interval, SourceFunc function, int priority = Priority.Default)
         {
             var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
             var ret = g_timeout_add_full(priority, interval, function_, data_, notify_);
-            return ret;
+            var userData = new Source.UserData(data_);
+            return (ret, userData);
         }
 
         /// <summary>
@@ -246,11 +247,12 @@ namespace GISharp.Lib.GLib
         /// the ID (greater than 0) of the event source.
         /// </returns>
         [Since("2.14")]
-        public static uint AddSeconds(uint interval, SourceFunc function, int priority = Priority.Default)
+        public static (uint id, Source.UserData userData) AddSeconds(uint interval, SourceFunc function, int priority = Priority.Default)
         {
             var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
             var ret = g_timeout_add_seconds_full(priority, interval, function_, data_, notify_);
-            return ret;
+            var userData = new Source.UserData(data_);
+            return (ret, userData);
         }
     }
 }

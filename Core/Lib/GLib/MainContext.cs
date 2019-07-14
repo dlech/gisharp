@@ -382,10 +382,10 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static extern int g_poll(
+        static unsafe extern int g_poll(
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] PollFD[] fds,
+            PollFD* fds,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint nfds,
@@ -425,10 +425,12 @@ namespace GISharp.Lib.GLib
         /// if the call was interrupted.
         /// </returns>
         [Since("2.20")]
-        public static int Poll(PollFD[] fds, int timeout)
+        public static unsafe int Poll(ReadOnlySpan<PollFD> fds, int timeout)
         {
-            var ret = g_poll(fds, (uint)fds.Length, timeout);
-            return ret;
+            fixed (PollFD* fds_ = fds) {
+                var ret = g_poll(fds_, (uint)fds.Length, timeout);
+                return ret;
+            }
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -515,7 +517,7 @@ namespace GISharp.Lib.GLib
             IntPtr context,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            ref PollFD fd,
+            in PollFD fd,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority);
@@ -534,9 +536,10 @@ namespace GISharp.Lib.GLib
         /// the same as the priority used for <see cref="Source.Attach"/> to ensure that the
         /// file descriptor is polled whenever the results may be needed.
         /// </param>
-        public void AddPoll(PollFD fd, int priority)
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void AddPoll(in PollFD fd, int priority = Priority.Default)
         {
-            g_main_context_add_poll(Handle, ref fd, priority);
+            g_main_context_add_poll(Handle, fd, priority);
         }
 
         /// <summary>
@@ -697,6 +700,56 @@ namespace GISharp.Lib.GLib
         public Source FindSourceById(uint sourceId)
         {
             var ret_ = g_main_context_find_source_by_id(Handle, sourceId);
+            var ret = GetInstance<Source>(ret_, Transfer.None);
+            return ret;
+        }
+
+        /// <summary>
+        /// Finds a source with the given user data for the callback.  If
+        /// multiple sources exist with the same user data, the first
+        /// one found will be returned.
+        /// </summary>
+        /// <param name="context">
+        /// a #GMainContext
+        /// </param>
+        /// <param name="userData">
+        /// the user_data for the callback.
+        /// </param>
+        /// <returns>
+        /// the source, if one was found, otherwise %NULL
+        /// </returns>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe IntPtr g_main_context_find_source_by_user_data(
+        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        IntPtr context,
+        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        IntPtr userData);
+
+        /// <summary>
+        /// Finds a source with the given user data for the callback.
+        /// </summary>
+        /// <remarks>
+        /// If multiple sources exist with the same user data, the first
+        /// one found will be returned.
+        /// </remarks>
+        /// <param name="context">
+        /// a #GMainContext
+        /// </param>
+        /// <param name="userData">
+        /// the user_data for the callback.
+        /// </param>
+        /// <returns>
+        /// the source, if one was found, otherwise <c>null</c>
+        /// </returns>
+        public Source? FindSourceByUserData(Source.UserData userData)
+        {
+            var this_ = Handle;
+            var userData_ = userData.Handle;
+            var ret_ = g_main_context_find_source_by_user_data(this_, userData_);
             var ret = GetInstance<Source>(ret_, Transfer.None);
             return ret;
         }
@@ -1246,7 +1299,7 @@ namespace GISharp.Lib.GLib
             IntPtr context,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            ref PollFD fd);
+            in PollFD fd);
 
         /// <summary>
         /// Removes file descriptor from the set of file descriptors to be
@@ -1255,9 +1308,10 @@ namespace GISharp.Lib.GLib
         /// <param name="fd">
         /// a <see cref="PollFD"/> descriptor previously added with <see cref="AddPoll"/>
         /// </param>
-        public void RemovePoll(PollFD fd)
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void RemovePoll(in PollFD fd)
         {
-            g_main_context_remove_poll(Handle, ref fd);
+            g_main_context_remove_poll(Handle, fd);
         }
 
         /// <summary>
@@ -1360,7 +1414,7 @@ namespace GISharp.Lib.GLib
         ///     g_main_context_wakeup (NULL);
         /// ]|
         /// </remarks>
-        public void Wakeup()
+        public void WakeUp()
         {
             g_main_context_wakeup(Handle);
         }
@@ -1407,7 +1461,7 @@ namespace GISharp.Lib.GLib
 
         public override void Post(SendOrPostCallback d, object state)
         {
-            var source = new IdleSource();
+            using var source = new IdleSource();
             source.SetCallback(() => {
                 d.Invoke(state);
                 return Source.Remove_;

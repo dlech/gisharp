@@ -11,46 +11,73 @@ namespace GISharp.Test.Core.GLib
     public class SourceTests
     {
         [Test]
-        public void TestCurrent ()
+        public void TestCurrent()
         {
             lock (MainContextTests.MainContextLock) {
                 // there is no main loop running, so there should be no current source
-                Assert.That (Source.Current, Is.Null);
+                Assert.That(Source.Current, Is.Null);
 
                 // if we are in a callback, there should be a source.
                 var callbackInvoked = false;
-                Task.Run (() => {
-                    var context = new MainContext ();
-                    context.PushThreadDefault ();
-                    var mainLoop = new MainLoop (context);
-                    var source = new IdleSource();
-                    source.SetCallback (() => {
+                Task.Run(() => {
+                    using var context = new MainContext();
+                    context.PushThreadDefault();
+                    using var mainLoop = new MainLoop(context);
+                    using var source = new IdleSource();
+                    source.SetCallback(() => {
                         try {
-                            Assert.That (Source.Current.Handle, Is.EqualTo (source.Handle));
+                            Assert.That(Source.Current.Handle, Is.EqualTo(source.Handle));
                             callbackInvoked = true;
                             return Source.Remove_;
-                        } finally {
-                            mainLoop.Quit ();
+                        }
+                        finally {
+                            mainLoop.Quit();
                         }
                     });
-                    source.Attach (context);
-                    mainLoop.Run ();
-                    context.PopThreadDefault ();
-                }).Wait (1000);
-                Assert.That (callbackInvoked, Is.True);
+                    source.Attach(context);
+                    mainLoop.Run();
+                    context.PopThreadDefault();
+                }).Wait(1000);
+                Assert.That(callbackInvoked, Is.True);
             }
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestRemove ()
+        public void TestRemove()
         {
             lock (MainContextTests.MainContextLock) {
-                var id = Idle.Add (() => Source.Remove_);
-                Assume.That (MainContext.Default.FindSourceById (id), Is.Not.Null);
-                Source.Remove (id);
-                Assert.That (MainContext.Default.FindSourceById (id), Is.Null);
+                var (id, _) = Idle.Add(() => Source.Remove_);
+                Assume.That(MainContext.Default.FindSourceById(id), Is.Not.Null);
+                Source.Remove(id);
+                Assert.That(MainContext.Default.FindSourceById(id), Is.Null);
+            }
+
+            AssertNoGLibLog();
+        }
+
+        [Test]
+        public void TestRemoveUserData()
+        {
+            lock (MainContextTests.MainContextLock) {
+                var (_, userData) = Idle.Add(() => Source.Remove_);
+                Assume.That(MainContext.Default.FindSourceByUserData(userData), Is.Not.Null);
+                userData.Dispose();
+                Assert.That(MainContext.Default.FindSourceByUserData(userData), Is.Null);
+            }
+
+            AssertNoGLibLog();
+        }
+
+        static PollFD testPollFD = default;
+
+        [Test]
+        public void TestPollFD()
+        {
+            using (var s = new IdleSource()) {
+                s.AddPoll(testPollFD);
+                s.RemovePoll(testPollFD);
             }
 
             AssertNoGLibLog();

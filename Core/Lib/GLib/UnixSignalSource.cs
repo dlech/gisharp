@@ -8,6 +8,10 @@ namespace GISharp.Lib.GLib
 {
     public sealed class UnixSignalSource : Source
     {
+        const int SIGHUP = 1;
+        const int SIGINT = 2;
+        const int SIGQUIT = 3;
+
         /// <summary>
         /// Create a #GSource that will be dispatched upon delivery of the UNIX
         /// signal @signum.  In GLib versions before 2.36, only `SIGHUP`, `SIGINT`,
@@ -84,6 +88,10 @@ namespace GISharp.Lib.GLib
         [Since("2.30")]
         static IntPtr New(int signum)
         {
+            if (signum != SIGHUP && signum != SIGINT && signum != SIGQUIT) {
+                throw new ArgumentException("Only SIGHUP, SIGINT, SIGQUIT allowed", nameof(signum));
+            }
+            // TODO: add check for SIGUSR1, SIGUSR2, SIGWINCH based on runtime version
             var ret = g_unix_signal_source_new(signum);
             return ret;
         }

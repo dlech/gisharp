@@ -75,13 +75,15 @@ namespace GISharp.Lib.GLib
         /// range between <see cref="Priority.DefaultIdle"/> and <see cref="Priority.HighIdle"/>.
         /// </param>
         /// <returns>
-        /// the ID (greater than 0) of the event source.
+        /// the ID (greater than 0) of the event source and a <see cref="Source.UserData" />
+        /// handle.
         /// </returns>
-        public static uint Add(SourceFunc function, int priority = Priority.DefaultIdle)
+        public static (uint id, Source.UserData userData) Add(SourceFunc function, int priority = Priority.DefaultIdle)
         {
             var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
             var ret = g_idle_add_full(priority, function_, data_, notify_);
-            return ret;
+            var userData = new Source.UserData(data_);
+            return (ret, userData);
         }
     }
 }
