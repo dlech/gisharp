@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GLib;
@@ -7,6 +8,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
 {
+    [ExcludeFromCodeCoverage]
     public sealed class ParamSpecPool : Opaque
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -18,43 +20,43 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_param_spec_pool_new(
             Runtime.Boolean type_prefixing);
 
-        static IntPtr New ()
+        static IntPtr New()
         {
-            return g_param_spec_pool_new (false);
+            return g_param_spec_pool_new(false);
         }
 
-        public ParamSpecPool () : this (New (), Transfer.Full)
+        public ParamSpecPool() : this(New(), Transfer.Full)
         {
         }
 
-        [DllImport ("gobject-2.0")]
-        static extern void g_param_spec_pool_insert (
+        [DllImport("gobject-2.0")]
+        static extern void g_param_spec_pool_insert(
             IntPtr pool, // GParamSpecPool*
             IntPtr pspec, // GParamSpec*
             GType owner_type);
 
-        public void Insert (ParamSpec pspec, GType ownerType)
+        public void Insert(ParamSpec pspec, GType ownerType)
         {
             var this_ = Handle;
             var pspec_ = pspec.Handle;
             g_param_spec_pool_insert(this_, pspec_, ownerType);
         }
 
-        [DllImport ("gobject-2.0")]
-        static extern void g_param_spec_pool_remove (
+        [DllImport("gobject-2.0")]
+        static extern void g_param_spec_pool_remove(
             IntPtr pool, // GParamSpecPool*
             IntPtr pspec); // GParamSpec*
 
-        public void Remove (ParamSpec pspec)
+        public void Remove(ParamSpec pspec)
         {
             var this_ = Handle;
             var pspec_ = pspec.Handle;
             g_param_spec_pool_remove(this_, pspec_);
-            GC.KeepAlive (pspec);
+            GC.KeepAlive(pspec);
         }
 
-        [DllImport ("gobject-2.0")]
-        static extern IntPtr /* ParamSpec* */ g_param_spec_pool_lookup (
+        [DllImport("gobject-2.0")]
+        static extern IntPtr /* ParamSpec* */ g_param_spec_pool_lookup(
             IntPtr pool, // GParamSpecPool*
             IntPtr param_name, // const gchar*
             GType owner_type, // GType
@@ -69,8 +71,8 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0")]
-        static extern IntPtr /* ParamSpec** */ g_param_spec_pool_list (
+        [DllImport("gobject-2.0")]
+        static extern IntPtr /* ParamSpec** */ g_param_spec_pool_list(
             IntPtr pool, // GParamSpecPool*
             GType owner_type, // GType
             out uint n_specs_p); // guint*
@@ -82,15 +84,15 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        [DllImport ("gobject-2.0")]
-        static extern IntPtr /* GList* */ g_param_spec_pool_list_owned (
+        [DllImport("gobject-2.0")]
+        static extern IntPtr /* GList* */ g_param_spec_pool_list_owned(
             IntPtr pool, // GParamSpecPool*
             GType owner_type); // GType
 
-        public List<ParamSpec> ListOwned (GType ownerType)
+        public List<ParamSpec> ListOwned(GType ownerType)
         {
-            var retPtr = g_param_spec_pool_list_owned (Handle, ownerType);
-            var ret = GetInstance<List<ParamSpec>> (retPtr, Transfer.Container) ?? new List<ParamSpec> ();
+            var retPtr = g_param_spec_pool_list_owned(Handle, ownerType);
+            var ret = GetInstance<List<ParamSpec>>(retPtr, Transfer.Container) ?? new List<ParamSpec>();
             return ret;
         }
     }

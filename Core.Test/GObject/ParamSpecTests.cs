@@ -377,6 +377,14 @@ namespace GISharp.Test.Core.GObject
             AssertNoGLibLog();
         }
 
+        [Test]
+        public void TestParamSpecOverride ()
+        {
+            Assert.That<string?>(typeof(ParamSpecOverride).GetGType().Name, Is.EqualTo("GParamOverride"));
+
+            AssertNoGLibLog();
+        }
+
         static ParamSpec getItemAt(PtrArray<ParamSpec> array, int index)
         {
             var data_ = Marshal.ReadIntPtr(array.Handle);
