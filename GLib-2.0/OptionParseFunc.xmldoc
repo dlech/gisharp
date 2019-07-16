@@ -1,3 +1,9 @@
 <declaration>
 
+<member name='OptionParseFunc'>
+<summary>
+The type of function that can be called before and after parsing.
+</summary>
+</member>
+
 </declaration>

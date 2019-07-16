@@ -16,6 +16,15 @@
 <member name='Padding'>
 </member>
 
+<member name='PrintLiteral'>
+</member>
+
+<member name='PrinterrLiteral'>
+</member>
+
+<member name='GetStdin'>
+</member>
+
 <member name='ApplicationCommandLineClass'>
 <summary>
 The <see cref="ApplicationCommandLineClass"/>-struct

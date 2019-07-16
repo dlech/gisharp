@@ -1,3 +1,10 @@
 <declaration>
 
+<member name='CancellableSourceFunc'>
+<summary>
+This is the function type of the callback used for the #GSource
+returned by <see cref="M:CancellableSource.#ctor(GISharp.Lib.Gio.Cancellable)"/>.
+</summary>
+</member>
+
 </declaration>

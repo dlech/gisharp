@@ -1,3 +1,10 @@
 <declaration>
 
+<member name='OptionArgFunc'>
+<summary>
+The type of function to be passed as callback for <see cref="OptionArg.Callback"/>
+options.
+</summary>
+</member>
+
 </declaration>

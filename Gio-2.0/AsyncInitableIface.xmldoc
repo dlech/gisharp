@@ -13,6 +13,12 @@ The parent interface.
 <member name='InitFinish'>
 </member>
 
+<member name='InitAsync'>
+</member>
+
+<member name='InitFinish'>
+</member>
+
 <member name='AsyncInitableIface'>
 <summary>
 Provides an interface for asynchronous initializing object such that

@@ -1,3 +1,9 @@
 <declaration>
 
+<member name='OptionErrorFunc'>
+<summary>
+The type of function to be used as callback when a parse error occurs.
+</summary>
+</member>
+
 </declaration>

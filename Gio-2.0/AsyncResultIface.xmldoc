@@ -16,6 +16,15 @@ The parent interface.
 <member name='IsTagged'>
 </member>
 
+<member name='GetUserData'>
+</member>
+
+<member name='GetSourceObject'>
+</member>
+
+<member name='IsTagged'>
+</member>
+
 <member name='AsyncResultIface'>
 <summary>
 Interface definition for <see cref="IAsyncResult"/>.

@@ -30,4 +30,10 @@ Evaluates to a time span of one second.
 </summary>
 </member>
 
+<member name='TimeSpan'>
+<summary>
+A value representing an interval of time, in microseconds.
+</summary>
+</member>
+
 </declaration>

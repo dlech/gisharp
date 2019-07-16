@@ -49,6 +49,21 @@
 <member name='GReserved10'>
 </member>
 
+<member name='GetInputStream'>
+</member>
+
+<member name='GetOutputStream'>
+</member>
+
+<member name='CloseFn'>
+</member>
+
+<member name='CloseAsync'>
+</member>
+
+<member name='CloseFinish'>
+</member>
+
 <member name='IOStreamClass'>
 </member>
 

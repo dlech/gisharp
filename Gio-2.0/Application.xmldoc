@@ -179,10 +179,39 @@ the application flags
 </param>
 </member>
 
+<member name='ActivatedEventArgs'>
+<summary>
+The ::activate signal is emitted on the primary instance when an
+activation occurs. See <see cref="M:Application.Activate()"/>.
+</summary>
+</member>
+
 <member name='Activated'>
 <summary>
 The ::activate signal is emitted on the primary instance when an
 activation occurs. See <see cref="M:Application.Activate()"/>.
+</summary>
+</member>
+
+<member name='CommandLine'>
+<summary>
+a <see cref="ApplicationCommandLine"/> representing the
+    passed commandline
+</summary>
+</member>
+
+<member name='ReturnValue'>
+<returns>
+An integer that is set as the exit status for the calling
+  process. See <see cref="M:ApplicationCommandLine.SetExitStatus(System.Int32)"/>.
+</returns>
+</member>
+
+<member name='CommandLinedEventArgs'>
+<summary>
+The ::command-line signal is emitted on the primary instance when
+a commandline is not handled locally. See <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/> and
+the <see cref="ApplicationCommandLine"/> documentation for more information.
 </summary>
 </member>
 
@@ -194,7 +223,22 @@ the <see cref="ApplicationCommandLine"/> documentation for more information.
 </summary>
 </member>
 
-<member name='HandledLocalOptions'>
+<member name='Options'>
+<summary>
+the options dictionary
+</summary>
+</member>
+
+<member name='ReturnValue'>
+<returns>
+an exit code. If you have handled your options and want
+to exit the process, return a non-negative option, 0 for success,
+and a positive value for failure. To continue, return -1 to let
+the default option processing continue.
+</returns>
+</member>
+
+<member name='HandledLocalOptionsEventArgs'>
 <summary>
 The ::handle-local-options signal is emitted on the local instance
 after the parsing of the commandline options has occurred.
@@ -204,14 +248,14 @@ You can add options to be recognised during commandline option
 parsing using <see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> and
 <see cref="M:Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
 
-Signal handlers can inspect <see cref="HandledLocalOptionsEventArgs.Options"/> (along with values pointed to
+Signal handlers can inspect <see cref="Options"/> (along with values pointed to
 from the <see cref="GLib.OptionEntry.ArgData"/> of an installed #GOptionEntrys) in order to
 decide to perform certain actions, including direct local handling
 (which may be useful for options like --version).
 
 In the event that the application is marked
 <see cref="ApplicationFlags.HandlesCommandLine"/> the "normal processing" will
-send the <see parameref="HandledLocalOptionsEventArgs.Options"/> dictionary to the primary instance where it can be
+send the <see cref="Options"/> dictionary to the primary instance where it can be
 read with <see cref="M:ApplicationCommandLine.GetOptions()"/>.  The signal
 handler can modify the dictionary before returning, and the
 modified dictionary will be sent.
@@ -241,6 +285,72 @@ normally be required.
 </remarks>
 </member>
 
+<member name='HandledLocalOptions'>
+<summary>
+The ::handle-local-options signal is emitted on the local instance
+after the parsing of the commandline options has occurred.
+</summary>
+<remarks>
+You can add options to be recognised during commandline option
+parsing using <see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> and
+<see cref="M:Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
+
+Signal handlers can inspect <see cref="HandledLocalOptionsEventArgs.Options"/> (along with values pointed to
+from the <see cref="GLib.OptionEntry.ArgData"/> of an installed #GOptionEntrys) in order to
+decide to perform certain actions, including direct local handling
+(which may be useful for options like --version).
+
+In the event that the application is marked
+<see cref="ApplicationFlags.HandlesCommandLine"/> the "normal processing" will
+send the <see cref="HandledLocalOptionsEventArgs.Options"/> dictionary to the primary instance where it can be
+read with <see cref="M:ApplicationCommandLine.GetOptions()"/>.  The signal
+handler can modify the dictionary before returning, and the
+modified dictionary will be sent.
+
+In the event that <see cref="ApplicationFlags.HandlesCommandLine"/> is not set,
+"normal processing" will treat the remaining uncollected command
+line arguments as filenames or URIs.  If there are no arguments,
+the application is activated by <see cref="M:Application.Activate()"/>.  One or
+more arguments results in a call to <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GISharp.Lib.Gio.IFile],GISharp.Lib.GLib.Utf8)"/>.
+
+If you want to handle the local commandline arguments for yourself
+by converting them to calls to <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GISharp.Lib.Gio.IFile],GISharp.Lib.GLib.Utf8)"/> or
+<see cref="M:ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
+the application first.  You should probably not call
+<see cref="M:Application.Activate()"/> for yourself, however: just return -1 and
+allow the default handler to do it for you.  This will ensure that
+the `--gapplication-service` switch works properly (i.e. no activation
+in that case).
+
+Note that this signal is emitted from the default implementation of
+local_command_line().  If you override that function and don't
+chain up then this signal will never be emitted.
+
+You can override local_command_line() if you need more powerful
+capabilities than what is provided here, but this should not
+normally be required.
+</remarks>
+</member>
+
+<member name='Files'>
+<summary>
+an array of #GFiles
+</summary>
+</member>
+
+<member name='Hint'>
+<summary>
+a hint provided by the calling instance
+</summary>
+</member>
+
+<member name='OpenedEventArgs'>
+<summary>
+The ::open signal is emitted on the primary instance when there are
+files to open. See <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GISharp.Lib.Gio.IFile],GISharp.Lib.GLib.Utf8)"/> for more information.
+</summary>
+</member>
+
 <member name='Opened'>
 <summary>
 The ::open signal is emitted on the primary instance when there are
@@ -248,10 +358,24 @@ files to open. See <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GIS
 </summary>
 </member>
 
+<member name='ShutdownedEventArgs'>
+<summary>
+The ::shutdown signal is emitted only on the registered primary instance
+immediately after the main loop terminates.
+</summary>
+</member>
+
 <member name='Shutdowned'>
 <summary>
 The ::shutdown signal is emitted only on the registered primary instance
 immediately after the main loop terminates.
+</summary>
+</member>
+
+<member name='StartupedEventArgs'>
+<summary>
+The ::startup signal is emitted on the primary instance immediately
+after registration. See <see cref="M:Application.Register(GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 </member>
 

@@ -22,6 +22,15 @@ The parent interface.
 <member name='Serialize'>
 </member>
 
+<member name='Hash'>
+</member>
+
+<member name='Equal'>
+</member>
+
+<member name='Serialize'>
+</member>
+
 <member name='IconIface'>
 <summary>
 GIconIface is used to implement GIcon types for various

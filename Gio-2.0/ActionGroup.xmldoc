@@ -319,6 +319,70 @@ calls to <see cref="M:ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GI
 </remarks>
 </member>
 
+<member name='ActionName'>
+<summary>
+the name of the action in this action group
+</summary>
+</member>
+
+<member name='ActionAddedEventArgs'>
+<summary>
+Signals that a new action was just added to the group.
+This signal is emitted after the action has been added
+and is now visible.
+</summary>
+</member>
+
+<member name='ActionName'>
+<summary>
+the name of the action in this action group
+</summary>
+</member>
+
+<member name='Enabled'>
+<summary>
+whether the action is enabled or not
+</summary>
+</member>
+
+<member name='ActionEnabledChangedEventArgs'>
+<summary>
+Signals that the enabled status of the named action has changed.
+</summary>
+</member>
+
+<member name='ActionName'>
+<summary>
+the name of the action in this action group
+</summary>
+</member>
+
+<member name='ActionRemovedEventArgs'>
+<summary>
+Signals that an action is just about to be removed from the group.
+This signal is emitted before the action is removed, so the action
+is still visible and can be queried from the signal handler.
+</summary>
+</member>
+
+<member name='ActionName'>
+<summary>
+the name of the action in this action group
+</summary>
+</member>
+
+<member name='Value'>
+<summary>
+the new value of the state
+</summary>
+</member>
+
+<member name='ActionStateChangedEventArgs'>
+<summary>
+Signals that the state of the named action has changed.
+</summary>
+</member>
+
 <member name='ActionAdded(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-added signal on this instance.

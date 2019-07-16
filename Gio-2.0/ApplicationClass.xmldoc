@@ -49,6 +49,42 @@
 <member name='Padding'>
 </member>
 
+<member name='Startup'>
+</member>
+
+<member name='Activate'>
+</member>
+
+<member name='Open'>
+</member>
+
+<member name='CommandLine'>
+</member>
+
+<member name='TryLocalCommandLine'>
+</member>
+
+<member name='BeforeEmit'>
+</member>
+
+<member name='AfterEmit'>
+</member>
+
+<member name='AddPlatformData'>
+</member>
+
+<member name='QuitMainloop'>
+</member>
+
+<member name='RunMainloop'>
+</member>
+
+<member name='Shutdown'>
+</member>
+
+<member name='HandleLocalOptions'>
+</member>
+
 <member name='ApplicationClass'>
 <summary>
 Virtual function table for <see cref="Application"/>.

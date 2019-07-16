@@ -64,6 +64,42 @@
 <member name='GReserved8'>
 </member>
 
+<member name='WriteFn'>
+</member>
+
+<member name='Splice'>
+</member>
+
+<member name='Flush'>
+</member>
+
+<member name='CloseFn'>
+</member>
+
+<member name='WriteAsync'>
+</member>
+
+<member name='WriteFinish'>
+</member>
+
+<member name='SpliceAsync'>
+</member>
+
+<member name='SpliceFinish'>
+</member>
+
+<member name='FlushAsync'>
+</member>
+
+<member name='FlushFinish'>
+</member>
+
+<member name='CloseAsync'>
+</member>
+
+<member name='CloseFinish'>
+</member>
+
 <member name='OutputStreamClass'>
 </member>
 

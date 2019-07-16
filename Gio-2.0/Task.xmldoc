@@ -1,3 +1,1000 @@
 <declaration>
 
+<member name='Completed_'>
+<summary>
+Whether the task has completed, meaning its callback (if set) has been
+invoked. This can only happen after <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>,
+<see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/> or one of the other return functions have been called
+on the task.
+</summary>
+<remarks>
+This property is guaranteed to change from <c>false</c> to <c>true</c> exactly once.
+
+The #GObject::notify signal for this change is emitted in the same main
+context as the task’s callback, immediately after that callback is invoked.
+</remarks>
+</member>
+
+<member name='Cancellable'>
+<summary>
+Gets this instance's <see cref="Cancellable"/>
+</summary>
+</member>
+
+<member name='CheckCancellable'>
+<summary>
+Gets this instance's check-cancellable flag. See
+<see cref="M:Task.SetCheckCancellable(System.Boolean)"/> for more details.
+</summary>
+</member>
+
+<member name='Completed'>
+<summary>
+Gets the value of <see cref="Task"/>:completed. This changes from <c>false</c> to <c>true</c> after
+the task’s callback is invoked, and will return <c>false</c> if called from inside
+the callback.
+</summary>
+</member>
+
+<member name='Context'>
+<summary>
+Gets the #GMainContext that this instance will return its result in (that
+is, the context that was the
+[thread-default main context][g-main-context-push-thread-default]
+at the point when this instance was created).
+</summary>
+<remarks>
+This will always return a non-<c>null</c> value, even if the task's
+context is the default #GMainContext.
+</remarks>
+</member>
+
+<member name='Priority'>
+<summary>
+Gets this instance's priority
+</summary>
+</member>
+
+<member name='ReturnOnCancel'>
+<summary>
+Gets this instance's return-on-cancel flag. See
+<see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> for more details.
+</summary>
+</member>
+
+<member name='SourceObject'>
+<summary>
+Gets the source object from this instance. Like
+<see cref="M:AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)"/>, but does not ref the object.
+</summary>
+</member>
+
+<member name='SourceTag'>
+<summary>
+Gets this instance's source tag. See <see cref="M:Task.SetSourceTag(System.IntPtr)"/>.
+</summary>
+</member>
+
+<member name='TaskData'>
+<summary>
+Gets this instance's `task_data`.
+</summary>
+</member>
+
+<member name='New(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Creates a <see cref="Task"/> acting on <paramref name="sourceObject"/>, which will eventually be
+used to invoke <paramref name="callback"/> in the current
+[thread-default main context][g-main-context-push-thread-default].
+</summary>
+<remarks>
+Call this in the "start" method of your asynchronous method, and
+pass the <see cref="Task"/> around throughout the asynchronous operation. You
+can use <see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> to attach task-specific data to the
+object, which you can retrieve later via <see cref="M:Task.GetTaskData()"/>.
+
+By default, if <paramref name="cancellable"/> is cancelled, then the return value of
+the task will always be <see cref="IOErrorEnum.Cancelled"/>, even if the task had
+already completed before the cancellation. This allows for
+simplified handling in cases where cancellation may imply that
+other objects that the task depends on have been destroyed. If you
+do not want this behavior, you can use
+<see cref="M:Task.SetCheckCancellable(System.Boolean)"/> to change it.
+</remarks>
+<param name="sourceObject">
+the #GObject that owns
+  this task, or <c>null</c>.
+</param>
+<param name="callback">
+a <see cref="AsyncReadyCallback"/>.
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
+</param>
+<returns>
+a <see cref="Task"/>.
+</returns>
+</member>
+
+<member name='Task(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Creates a <see cref="Task"/> acting on <paramref name="sourceObject"/>, which will eventually be
+used to invoke <paramref name="callback"/> in the current
+[thread-default main context][g-main-context-push-thread-default].
+</summary>
+<remarks>
+Call this in the "start" method of your asynchronous method, and
+pass the <see cref="Task"/> around throughout the asynchronous operation. You
+can use <see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> to attach task-specific data to the
+object, which you can retrieve later via <see cref="M:Task.GetTaskData()"/>.
+
+By default, if <paramref name="cancellable"/> is cancelled, then the return value of
+the task will always be <see cref="IOErrorEnum.Cancelled"/>, even if the task had
+already completed before the cancellation. This allows for
+simplified handling in cases where cancellation may imply that
+other objects that the task depends on have been destroyed. If you
+do not want this behavior, you can use
+<see cref="M:Task.SetCheckCancellable(System.Boolean)"/> to change it.
+</remarks>
+<param name="sourceObject">
+the #GObject that owns
+  this task, or <c>null</c>.
+</param>
+<param name="callback">
+a <see cref="AsyncReadyCallback"/>.
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
+</param>
+</member>
+
+<member name='IsValid(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.GObject.Object?)'>
+<summary>
+Checks that <paramref name="result"/> is a <see cref="Task"/>, and that <paramref name="sourceObject"/> is its
+source object (or that <paramref name="sourceObject"/> is <c>null</c> and <paramref name="result"/> has no
+source object). This can be used in g_return_if_fail() checks.
+</summary>
+<param name="result">
+A <see cref="IAsyncResult"/>
+</param>
+<param name="sourceObject">
+the source object
+  expected to be associated with the task
+</param>
+<returns>
+<c>true</c> if <paramref name="result"/> and <paramref name="sourceObject"/> are valid, <c>false</c>
+if not
+</returns>
+</member>
+
+<member name='ReportError(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,System.IntPtr,GISharp.Lib.GLib.Error)'>
+<summary>
+Creates a <see cref="Task"/> and then immediately calls <see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/>
+on it. Use this in the wrapper function of an asynchronous method
+when you want to avoid even calling the virtual method. You can
+then use <see cref="M:AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/> in the finish method wrapper to
+check if the result there is tagged as having been created by the
+wrapper method, and deal with it appropriately if so.
+</summary>
+<remarks>
+See also g_task_report_new_error().
+</remarks>
+<param name="sourceObject">
+the #GObject that owns
+  this task, or <c>null</c>.
+</param>
+<param name="callback">
+a <see cref="AsyncReadyCallback"/>.
+</param>
+<param name="sourceTag">
+an opaque pointer indicating the source of this task
+</param>
+<param name="error">
+error to report
+</param>
+</member>
+
+<member name='GetCancellable()'>
+<summary>
+Gets this instance's <see cref="Cancellable"/>
+</summary>
+<returns>
+this instance's <see cref="Cancellable"/>
+</returns>
+</member>
+
+<member name='GetCheckCancellable()'>
+<summary>
+Gets this instance's check-cancellable flag. See
+<see cref="M:Task.SetCheckCancellable(System.Boolean)"/> for more details.
+</summary>
+</member>
+
+<member name='GetCompleted()'>
+<summary>
+Gets the value of <see cref="Task"/>:completed. This changes from <c>false</c> to <c>true</c> after
+the task’s callback is invoked, and will return <c>false</c> if called from inside
+the callback.
+</summary>
+<returns>
+<c>true</c> if the task has completed, <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='GetContext()'>
+<summary>
+Gets the #GMainContext that this instance will return its result in (that
+is, the context that was the
+[thread-default main context][g-main-context-push-thread-default]
+at the point when this instance was created).
+</summary>
+<remarks>
+This will always return a non-<c>null</c> value, even if the task's
+context is the default #GMainContext.
+</remarks>
+<returns>
+this instance's #GMainContext
+</returns>
+</member>
+
+<member name='GetPriority()'>
+<summary>
+Gets this instance's priority
+</summary>
+<returns>
+this instance's priority
+</returns>
+</member>
+
+<member name='GetReturnOnCancel()'>
+<summary>
+Gets this instance's return-on-cancel flag. See
+<see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> for more details.
+</summary>
+</member>
+
+<member name='GetSourceObject()'>
+<summary>
+Gets the source object from this instance. Like
+<see cref="M:AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)"/>, but does not ref the object.
+</summary>
+<returns>
+this instance's source object, or <c>null</c>
+</returns>
+</member>
+
+<member name='GetSourceTag()'>
+<summary>
+Gets this instance's source tag. See <see cref="M:Task.SetSourceTag(System.IntPtr)"/>.
+</summary>
+<returns>
+this instance's source tag
+</returns>
+</member>
+
+<member name='GetTaskData()'>
+<summary>
+Gets this instance's `task_data`.
+</summary>
+<returns>
+this instance's `task_data`.
+</returns>
+</member>
+
+<member name='HadError()'>
+<summary>
+Tests if this instance resulted in an error.
+</summary>
+<returns>
+<c>true</c> if the task resulted in an error, <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='PropagateBoolean()'>
+<summary>
+Gets the result of this instance as a #gboolean.
+</summary>
+<remarks>
+If the task resulted in an error, or was cancelled, then this will
+instead return <c>false</c> and set this instance.
+
+Since this method transfers ownership of the return value (or
+error) to the caller, you may only call it once.
+</remarks>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
+<member name='PropagateInt()'>
+<summary>
+Gets the result of this instance as an integer (#gssize).
+</summary>
+<remarks>
+If the task resulted in an error, or was cancelled, then this will
+instead return -1 and set this instance.
+
+Since this method transfers ownership of the return value (or
+error) to the caller, you may only call it once.
+</remarks>
+<returns>
+the task result, or -1 on error
+</returns>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
+<member name='PropagatePointer()'>
+<summary>
+Gets the result of this instance as a pointer, and transfers ownership
+of that value to the caller.
+</summary>
+<remarks>
+If the task resulted in an error, or was cancelled, then this will
+instead return <c>null</c> and set this instance.
+
+Since this method transfers ownership of the return value (or
+error) to the caller, you may only call it once.
+</remarks>
+<returns>
+the task result, or <c>null</c> on error
+</returns>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
+<member name='ReturnBoolean(System.Boolean)'>
+<summary>
+Sets this instance's result to this instance and completes the task (see
+<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
+means).
+</summary>
+<param name="result">
+the #gboolean result of a task function.
+</param>
+</member>
+
+<member name='ReturnError(GISharp.Lib.GLib.Error)'>
+<summary>
+Sets this instance's result to this instance (which this instance assumes ownership of)
+and completes the task (see <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more
+discussion of exactly what this means).
+</summary>
+<remarks>
+Note that since the task takes ownership of this instance, and since the
+task may be completed before returning from <see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/>,
+you cannot assume that this instance is still valid after calling this.
+Call g_error_copy() on the error if you need to keep a local copy
+as well.
+
+See also g_task_return_new_error().
+</remarks>
+<param name="error">
+the #GError result of a task function.
+</param>
+</member>
+
+<member name='ReturnErrorIfCancelled()'>
+<summary>
+Checks if this instance's <see cref="Cancellable"/> has been cancelled, and if so, sets
+this instance's error accordingly and completes the task (see
+<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
+means).
+</summary>
+<returns>
+<c>true</c> if this instance has been cancelled, <c>false</c> if not
+</returns>
+</member>
+
+<member name='ReturnInt(System.Int32)'>
+<summary>
+Sets this instance's result to this instance and completes the task (see
+<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
+means).
+</summary>
+<param name="result">
+the integer (#gssize) result of a task function.
+</param>
+</member>
+
+<member name='SetCheckCancellable(System.Boolean)'>
+<summary>
+Sets or clears this instance's check-cancellable flag. If this is <c>true</c>
+(the default), then <see cref="M:Task.PropagatePointer()"/>, etc, and
+<see cref="M:Task.HadError()"/> will check the task's <see cref="Cancellable"/> first, and
+if it has been cancelled, then they will consider the task to have
+returned an "Operation was cancelled" error
+(<see cref="IOErrorEnum.Cancelled"/>), regardless of any other error or return
+value the task may have had.
+</summary>
+<remarks>
+If this instance is <c>false</c>, then the <see cref="Task"/> will not check the
+cancellable itself, and it is up to this instance's owner to do this (eg,
+via <see cref="M:Task.ReturnErrorIfCancelled()"/>).
+
+If you are using <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> as well, then
+you must leave check-cancellable set <c>true</c>.
+</remarks>
+<param name="checkCancellable">
+whether <see cref="Task"/> will check the state of
+  its <see cref="Cancellable"/> for you.
+</param>
+</member>
+
+<member name='SetPriority(System.Int32)'>
+<summary>
+Sets this instance's priority. If you do not call this, it will default to
+%G_PRIORITY_DEFAULT.
+</summary>
+<remarks>
+This will affect the priority of #GSources created with
+g_task_attach_source() and the scheduling of tasks run in threads,
+and can also be explicitly retrieved later via
+<see cref="M:Task.GetPriority()"/>.
+</remarks>
+<param name="priority">
+the [priority][io-priority] of the request
+</param>
+</member>
+
+<member name='SetReturnOnCancel(System.Boolean)'>
+<summary>
+Sets or clears this instance's return-on-cancel flag. This is only
+meaningful for tasks run via g_task_run_in_thread() or
+g_task_run_in_thread_sync().
+</summary>
+<remarks>
+If this instance is <c>true</c>, then cancelling this instance's
+<see cref="Cancellable"/> will immediately cause it to return, as though the
+task's <see cref="TaskThreadFunc"/> had called
+<see cref="M:Task.ReturnErrorIfCancelled()"/> and then returned.
+
+This allows you to create a cancellable wrapper around an
+uninterruptable function. The <see cref="TaskThreadFunc"/> just needs to be
+careful that it does not modify any externally-visible state after
+it has been cancelled. To do that, the thread should call
+<see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> again to (atomically) set
+return-on-cancel <c>false</c> before making externally-visible changes;
+if the task gets cancelled before the return-on-cancel flag could
+be changed, <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> will indicate this by
+returning <c>false</c>.
+
+You can disable and re-enable this flag multiple times if you wish.
+If the task's <see cref="Cancellable"/> is cancelled while return-on-cancel is
+<c>false</c>, then calling <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> to set it <c>true</c>
+again will cause the task to be cancelled at that point.
+
+If the task's <see cref="Cancellable"/> is already cancelled before you call
+g_task_run_in_thread()/g_task_run_in_thread_sync(), then the
+<see cref="TaskThreadFunc"/> will still be run (for consistency), but the task
+will also be completed right away.
+</remarks>
+<param name="returnOnCancel">
+whether the task returns automatically when
+  it is cancelled.
+</param>
+<returns>
+<c>true</c> if this instance's return-on-cancel flag was changed to
+  match this instance. <c>false</c> if this instance has already been
+  cancelled.
+</returns>
+</member>
+
+<member name='SetSourceTag(System.IntPtr)'>
+<summary>
+Sets this instance's source tag. You can use this to tag a task return
+value with a particular pointer (usually a pointer to the function
+doing the tagging) and then later check it using
+<see cref="M:Task.GetSourceTag()"/> (or <see cref="M:AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/>) in the
+task's "finish" function, to figure out if the response came from a
+particular place.
+</summary>
+<param name="sourceTag">
+an opaque pointer indicating the source of this task
+</param>
+</member>
+
+<member name='Task'>
+<summary>
+A <see cref="Task"/> represents and manages a cancellable "task".
+</summary>
+<remarks>
+## Asynchronous operations
+
+The most common usage of <see cref="Task"/> is as a <see cref="IAsyncResult"/>, to
+manage data during an asynchronous operation. You call
+<see cref="M:Task.#ctor(GISharp.Lib.GObject.Object,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/> in the "start" method, followed by
+<see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> and the like if you need to keep some
+additional data associated with the task, and then pass the
+task object around through your asynchronous operation.
+Eventually, you will call a method such as
+<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> or <see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/>, which will
+save the value you give it and then invoke the task's callback
+function in the
+[thread-default main context][g-main-context-push-thread-default]
+where it was created (waiting until the next iteration of the main
+loop first, if necessary). The caller will pass the <see cref="Task"/> back to
+the operation's finish function (as a <see cref="IAsyncResult"/>), and you can
+use <see cref="M:Task.PropagatePointer()"/> or the like to extract the
+return value.
+
+Here is an example for using GTask as a GAsyncResult:
+|[&lt;!-- language="C" --&gt;
+    typedef struct {
+      CakeFrostingType frosting;
+      char *message;
+    } DecorationData;
+
+    static void
+    decoration_data_free (DecorationData *decoration)
+    {
+      g_free (decoration-&gt;message);
+      g_slice_free (DecorationData, decoration);
+    }
+
+    static void
+    baked_cb (Cake     *cake,
+              gpointer  user_data)
+    {
+      GTask *task = user_data;
+      DecorationData *decoration = g_task_get_task_data (task);
+      GError *error = NULL;
+
+      if (cake == NULL)
+        {
+          g_task_return_new_error (task, BAKER_ERROR, BAKER_ERROR_NO_FLOUR,
+                                   "Go to the supermarket");
+          g_object_unref (task);
+          return;
+        }
+
+      if (!cake_decorate (cake, decoration-&gt;frosting, decoration-&gt;message, &amp;error))
+        {
+          g_object_unref (cake);
+          // <see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/> takes ownership of error
+          g_task_return_error (task, error);
+          g_object_unref (task);
+          return;
+        }
+
+      g_task_return_pointer (task, cake, g_object_unref);
+      g_object_unref (task);
+    }
+
+    void
+    baker_bake_cake_async (Baker               *self,
+                           guint                radius,
+                           CakeFlavor           flavor,
+                           CakeFrostingType     frosting,
+                           const char          *message,
+                           GCancellable        *cancellable,
+                           GAsyncReadyCallback  callback,
+                           gpointer             user_data)
+    {
+      GTask *task;
+      DecorationData *decoration;
+      Cake  *cake;
+
+      task = g_task_new (self, cancellable, callback, user_data);
+      if (radius &lt; 3)
+        {
+          g_task_return_new_error (task, BAKER_ERROR, BAKER_ERROR_TOO_SMALL,
+                                   "%ucm radius cakes are silly",
+                                   radius);
+          g_object_unref (task);
+          return;
+        }
+
+      cake = _baker_get_cached_cake (self, radius, flavor, frosting, message);
+      if (cake != NULL)
+        {
+          // _baker_get_cached_cake() returns a reffed cake
+          g_task_return_pointer (task, cake, g_object_unref);
+          g_object_unref (task);
+          return;
+        }
+
+      decoration = g_slice_new (DecorationData);
+      decoration-&gt;frosting = frosting;
+      decoration-&gt;message = g_strdup (message);
+      g_task_set_task_data (task, decoration, (GDestroyNotify) decoration_data_free);
+
+      _baker_begin_cake (self, radius, flavor, cancellable, baked_cb, task);
+    }
+
+    Cake *
+    baker_bake_cake_finish (Baker         *self,
+                            GAsyncResult  *result,
+                            GError       **error)
+    {
+      g_return_val_if_fail (g_task_is_valid (result, self), NULL);
+
+      return g_task_propagate_pointer (G_TASK (result), error);
+    }
+]|
+
+## Chained asynchronous operations
+
+<see cref="Task"/> also tries to simplify asynchronous operations that
+internally chain together several smaller asynchronous
+operations. <see cref="M:Task.GetCancellable()"/>, <see cref="M:Task.GetContext()"/>,
+and <see cref="M:Task.GetPriority()"/> allow you to get back the task's
+<see cref="Cancellable"/>, #GMainContext, and [I/O priority][io-priority]
+when starting a new subtask, so you don't have to keep track
+of them yourself. g_task_attach_source() simplifies the case
+of waiting for a source to fire (automatically using the correct
+#GMainContext and priority).
+
+Here is an example for chained asynchronous operations:
+  |[&lt;!-- language="C" --&gt;
+    typedef struct {
+      Cake *cake;
+      CakeFrostingType frosting;
+      char *message;
+    } BakingData;
+
+    static void
+    decoration_data_free (BakingData *bd)
+    {
+      if (bd-&gt;cake)
+        g_object_unref (bd-&gt;cake);
+      g_free (bd-&gt;message);
+      g_slice_free (BakingData, bd);
+    }
+
+    static void
+    decorated_cb (Cake         *cake,
+                  GAsyncResult *result,
+                  gpointer      user_data)
+    {
+      GTask *task = user_data;
+      GError *error = NULL;
+
+      if (!cake_decorate_finish (cake, result, &amp;error))
+        {
+          g_object_unref (cake);
+          g_task_return_error (task, error);
+          g_object_unref (task);
+          return;
+        }
+
+      // baking_data_free() will drop its ref on the cake, so we have to
+      // take another here to give to the caller.
+      g_task_return_pointer (task, g_object_ref (cake), g_object_unref);
+      g_object_unref (task);
+    }
+
+    static gboolean
+    decorator_ready (gpointer user_data)
+    {
+      GTask *task = user_data;
+      BakingData *bd = g_task_get_task_data (task);
+
+      cake_decorate_async (bd-&gt;cake, bd-&gt;frosting, bd-&gt;message,
+                           g_task_get_cancellable (task),
+                           decorated_cb, task);
+
+      return G_SOURCE_REMOVE;
+    }
+
+    static void
+    baked_cb (Cake     *cake,
+              gpointer  user_data)
+    {
+      GTask *task = user_data;
+      BakingData *bd = g_task_get_task_data (task);
+      GError *error = NULL;
+
+      if (cake == NULL)
+        {
+          g_task_return_new_error (task, BAKER_ERROR, BAKER_ERROR_NO_FLOUR,
+                                   "Go to the supermarket");
+          g_object_unref (task);
+          return;
+        }
+
+      bd-&gt;cake = cake;
+
+      // Bail out now if the user has already cancelled
+      if (g_task_return_error_if_cancelled (task))
+        {
+          g_object_unref (task);
+          return;
+        }
+
+      if (cake_decorator_available (cake))
+        decorator_ready (task);
+      else
+        {
+          GSource *source;
+
+          source = cake_decorator_wait_source_new (cake);
+          // Attach @source to @task's GMainContext and have it call
+          // decorator_ready() when it is ready.
+          g_task_attach_source (task, source, decorator_ready);
+          g_source_unref (source);
+        }
+    }
+
+    void
+    baker_bake_cake_async (Baker               *self,
+                           guint                radius,
+                           CakeFlavor           flavor,
+                           CakeFrostingType     frosting,
+                           const char          *message,
+                           gint                 priority,
+                           GCancellable        *cancellable,
+                           GAsyncReadyCallback  callback,
+                           gpointer             user_data)
+    {
+      GTask *task;
+      BakingData *bd;
+
+      task = g_task_new (self, cancellable, callback, user_data);
+      g_task_set_priority (task, priority);
+
+      bd = g_slice_new0 (BakingData);
+      bd-&gt;frosting = frosting;
+      bd-&gt;message = g_strdup (message);
+      g_task_set_task_data (task, bd, (GDestroyNotify) baking_data_free);
+
+      _baker_begin_cake (self, radius, flavor, cancellable, baked_cb, task);
+    }
+
+    Cake *
+    baker_bake_cake_finish (Baker         *self,
+                            GAsyncResult  *result,
+                            GError       **error)
+    {
+      g_return_val_if_fail (g_task_is_valid (result, self), NULL);
+
+      return g_task_propagate_pointer (G_TASK (result), error);
+    }
+]|
+
+## Asynchronous operations from synchronous ones
+
+You can use g_task_run_in_thread() to turn a synchronous
+operation into an asynchronous one, by running it in a thread.
+When it completes, the result will be dispatched to the
+[thread-default main context][g-main-context-push-thread-default]
+where the <see cref="Task"/> was created.
+
+Running a task in a thread:
+  |[&lt;!-- language="C" --&gt;
+    typedef struct {
+      guint radius;
+      CakeFlavor flavor;
+      CakeFrostingType frosting;
+      char *message;
+    } CakeData;
+
+    static void
+    cake_data_free (CakeData *cake_data)
+    {
+      g_free (cake_data-&gt;message);
+      g_slice_free (CakeData, cake_data);
+    }
+
+    static void
+    bake_cake_thread (GTask         *task,
+                      gpointer       source_object,
+                      gpointer       task_data,
+                      GCancellable  *cancellable)
+    {
+      Baker *self = source_object;
+      CakeData *cake_data = task_data;
+      Cake *cake;
+      GError *error = NULL;
+
+      cake = bake_cake (baker, cake_data-&gt;radius, cake_data-&gt;flavor,
+                        cake_data-&gt;frosting, cake_data-&gt;message,
+                        cancellable, &amp;error);
+      if (cake)
+        g_task_return_pointer (task, cake, g_object_unref);
+      else
+        g_task_return_error (task, error);
+    }
+
+    void
+    baker_bake_cake_async (Baker               *self,
+                           guint                radius,
+                           CakeFlavor           flavor,
+                           CakeFrostingType     frosting,
+                           const char          *message,
+                           GCancellable        *cancellable,
+                           GAsyncReadyCallback  callback,
+                           gpointer             user_data)
+    {
+      CakeData *cake_data;
+      GTask *task;
+
+      cake_data = g_slice_new (CakeData);
+      cake_data-&gt;radius = radius;
+      cake_data-&gt;flavor = flavor;
+      cake_data-&gt;frosting = frosting;
+      cake_data-&gt;message = g_strdup (message);
+      task = g_task_new (self, cancellable, callback, user_data);
+      g_task_set_task_data (task, cake_data, (GDestroyNotify) cake_data_free);
+      g_task_run_in_thread (task, bake_cake_thread);
+      g_object_unref (task);
+    }
+
+    Cake *
+    baker_bake_cake_finish (Baker         *self,
+                            GAsyncResult  *result,
+                            GError       **error)
+    {
+      g_return_val_if_fail (g_task_is_valid (result, self), NULL);
+
+      return g_task_propagate_pointer (G_TASK (result), error);
+    }
+]|
+
+## Adding cancellability to uncancellable tasks
+
+Finally, g_task_run_in_thread() and g_task_run_in_thread_sync()
+can be used to turn an uncancellable operation into a
+cancellable one. If you call <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/>,
+passing <c>true</c>, then if the task's <see cref="Cancellable"/> is cancelled,
+it will return control back to the caller immediately, while
+allowing the task thread to continue running in the background
+(and simply discarding its result when it finally does finish).
+Provided that the task thread is careful about how it uses
+locks and other externally-visible resources, this allows you
+to make "GLib-friendly" asynchronous and cancellable
+synchronous variants of blocking APIs.
+
+Cancelling a task:
+  |[&lt;!-- language="C" --&gt;
+    static void
+    bake_cake_thread (GTask         *task,
+                      gpointer       source_object,
+                      gpointer       task_data,
+                      GCancellable  *cancellable)
+    {
+      Baker *self = source_object;
+      CakeData *cake_data = task_data;
+      Cake *cake;
+      GError *error = NULL;
+
+      cake = bake_cake (baker, cake_data-&gt;radius, cake_data-&gt;flavor,
+                        cake_data-&gt;frosting, cake_data-&gt;message,
+                        &amp;error);
+      if (error)
+        {
+          g_task_return_error (task, error);
+          return;
+        }
+
+      // If the task has already been cancelled, then we don't want to add
+      // the cake to the cake cache. Likewise, we don't  want to have the
+      // task get cancelled in the middle of updating the cache.
+      // <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> will return <c>true</c> here if it managed
+      // to disable return-on-cancel, or <c>false</c> if the task was cancelled
+      // before it could.
+      if (g_task_set_return_on_cancel (task, FALSE))
+        {
+          // If the caller cancels at this point, their
+          // GAsyncReadyCallback won't be invoked until we return,
+          // so we don't have to worry that this code will run at
+          // the same time as that code does. But if there were
+          // other functions that might look at the cake cache,
+          // then we'd probably need a GMutex here as well.
+          baker_add_cake_to_cache (baker, cake);
+          g_task_return_pointer (task, cake, g_object_unref);
+        }
+    }
+
+    void
+    baker_bake_cake_async (Baker               *self,
+                           guint                radius,
+                           CakeFlavor           flavor,
+                           CakeFrostingType     frosting,
+                           const char          *message,
+                           GCancellable        *cancellable,
+                           GAsyncReadyCallback  callback,
+                           gpointer             user_data)
+    {
+      CakeData *cake_data;
+      GTask *task;
+
+      cake_data = g_slice_new (CakeData);
+
+      ...
+
+      task = g_task_new (self, cancellable, callback, user_data);
+      g_task_set_task_data (task, cake_data, (GDestroyNotify) cake_data_free);
+      g_task_set_return_on_cancel (task, TRUE);
+      g_task_run_in_thread (task, bake_cake_thread);
+    }
+
+    Cake *
+    baker_bake_cake_sync (Baker               *self,
+                          guint                radius,
+                          CakeFlavor           flavor,
+                          CakeFrostingType     frosting,
+                          const char          *message,
+                          GCancellable        *cancellable,
+                          GError             **error)
+    {
+      CakeData *cake_data;
+      GTask *task;
+      Cake *cake;
+
+      cake_data = g_slice_new (CakeData);
+
+      ...
+
+      task = g_task_new (self, cancellable, NULL, NULL);
+      g_task_set_task_data (task, cake_data, (GDestroyNotify) cake_data_free);
+      g_task_set_return_on_cancel (task, TRUE);
+      g_task_run_in_thread_sync (task, bake_cake_thread);
+
+      cake = g_task_propagate_pointer (task, error);
+      g_object_unref (task);
+      return cake;
+    }
+]|
+
+## Porting from GSimpleAsyncResult
+
+<see cref="Task"/>'s API attempts to be simpler than #GSimpleAsyncResult's
+in several ways:
+- You can save task-specific data with <see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>, and
+  retrieve it later with <see cref="M:Task.GetTaskData()"/>. This replaces the
+  abuse of g_simple_async_result_set_op_res_gpointer() for the same
+  purpose with #GSimpleAsyncResult.
+- In addition to the task data, <see cref="Task"/> also keeps track of the
+  [priority][io-priority], <see cref="Cancellable"/>, and
+  #GMainContext associated with the task, so tasks that consist of
+  a chain of simpler asynchronous operations will have easy access
+  to those values when starting each sub-task.
+- <see cref="M:Task.ReturnErrorIfCancelled()"/> provides simplified
+  handling for cancellation. In addition, cancellation
+  overrides any other <see cref="Task"/> return value by default, like
+  #GSimpleAsyncResult does when
+  g_simple_async_result_set_check_cancellable() is called.
+  (You can use <see cref="M:Task.SetCheckCancellable(System.Boolean)"/> to turn off that
+  behavior.) On the other hand, g_task_run_in_thread()
+  guarantees that it will always run your
+  `task_func`, even if the task's <see cref="Cancellable"/>
+  is already cancelled before the task gets a chance to run;
+  you can start your `task_func` with a
+  <see cref="M:Task.ReturnErrorIfCancelled()"/> check if you need the
+  old behavior.
+- The "return" methods (eg, <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>)
+  automatically cause the task to be "completed" as well, and
+  there is no need to worry about the "complete" vs "complete
+  in idle" distinction. (<see cref="Task"/> automatically figures out
+  whether the task's callback can be invoked directly, or
+  if it needs to be sent to another #GMainContext, or delayed
+  until the next iteration of the current #GMainContext.)
+- The "finish" functions for <see cref="Task"/> based operations are generally
+  much simpler than #GSimpleAsyncResult ones, normally consisting
+  of only a single call to <see cref="M:Task.PropagatePointer()"/> or the like.
+  Since <see cref="M:Task.PropagatePointer()"/> "steals" the return value from
+  the <see cref="Task"/>, it is not necessary to juggle pointers around to
+  prevent it from being freed twice.
+- With #GSimpleAsyncResult, it was common to call
+  g_simple_async_result_propagate_error() from the
+  `_finish()` wrapper function, and have
+  virtual method implementations only deal with successful
+  returns. This behavior is deprecated, because it makes it
+  difficult for a subclass to chain to a parent class's async
+  methods. Instead, the wrapper function should just be a
+  simple wrapper, and the virtual method should call an
+  appropriate `g_task_propagate_` function.
+  Note that wrapper methods can now use
+  g_async_result_legacy_propagate_error() to do old-style
+  #GSimpleAsyncResult error-returning behavior, and
+  <see cref="M:AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/> to check if a result is tagged as
+  having come from the `_async()` wrapper
+  function (for "short-circuit" results, such as when passing
+  0 to <see cref="M:InputStream.ReadAsync(GISharp.Runtime.CArray`1[System.Byte],System.Int32,GISharp.Lib.Gio.Cancellable)"/>).
+</remarks>
+</member>
+
 </declaration>

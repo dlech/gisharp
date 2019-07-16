@@ -22,6 +22,9 @@
 <member name='GReserved5'>
 </member>
 
+<member name='Cancelled'>
+</member>
+
 <member name='CancellableClass'>
 </member>
 

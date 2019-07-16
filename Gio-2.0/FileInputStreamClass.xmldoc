@@ -37,6 +37,24 @@
 <member name='GReserved5'>
 </member>
 
+<member name='Tell'>
+</member>
+
+<member name='CanSeek'>
+</member>
+
+<member name='Seek'>
+</member>
+
+<member name='QueryInfo'>
+</member>
+
+<member name='QueryInfoAsync'>
+</member>
+
+<member name='QueryInfoFinish'>
+</member>
+
 <member name='FileInputStreamClass'>
 </member>
 

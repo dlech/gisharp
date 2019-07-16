@@ -10,6 +10,9 @@ The parent interface.
 <member name='Init'>
 </member>
 
+<member name='Init'>
+</member>
+
 <member name='InitableIface'>
 <summary>
 Provides an interface for initializing object such that initialization

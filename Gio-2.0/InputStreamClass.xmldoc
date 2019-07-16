@@ -46,6 +46,33 @@
 <member name='GReserved5'>
 </member>
 
+<member name='ReadFn'>
+</member>
+
+<member name='Skip'>
+</member>
+
+<member name='CloseFn'>
+</member>
+
+<member name='ReadAsync'>
+</member>
+
+<member name='ReadFinish'>
+</member>
+
+<member name='SkipAsync'>
+</member>
+
+<member name='SkipFinish'>
+</member>
+
+<member name='CloseAsync'>
+</member>
+
+<member name='CloseFinish'>
+</member>
+
 <member name='InputStreamClass'>
 </member>
 
