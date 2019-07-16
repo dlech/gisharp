@@ -11,7 +11,7 @@
 
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
-    <CoverletOutput>../.coverage/core.info</CoverletOutput>
+    <CoverletOutput>../../.coverage/core.info</CoverletOutput>
     <Include>[Core]*</Include> 
   </PropertyGroup>
 
@@ -27,7 +27,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Core\Core.csproj" />
-    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
+    <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 </Project>
