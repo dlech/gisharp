@@ -2,21 +2,23 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Provides an interface for asynchronous initializing object such that
-    /// initialization may fail.
-    /// </summary>
+    /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='AsyncInitableIface']/*" />
     [GISharp.Runtime.SinceAttribute("2.22")]
     public sealed class AsyncInitableIface : GISharp.Lib.GObject.TypeInterface
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <summary>
-            /// The parent interface.
-            /// </summary>
+            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+
+            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='InitAsync']/*" />
             public System.IntPtr InitAsync;
+
+            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='InitFinish']/*" />
             public System.IntPtr InitFinish;
 #pragma warning restore CS0649
         }
@@ -29,8 +31,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(initFinishOffset, InitFinishMarshal.Create);
         }
 
+        /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='InitAsync']/*" />
         public delegate void InitAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -56,6 +62,9 @@ System.IntPtr userData);
         /// </summary>
         public static class InitAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedInitAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedInitAsync(System.IntPtr initable_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -79,8 +88,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='InitFinish']/*" />
         public delegate void InitFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -100,6 +113,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class InitFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedInitFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedInitFinish(System.IntPtr initable_, System.IntPtr res_, ref System.IntPtr error_)
@@ -128,6 +144,9 @@ ref System.IntPtr error);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public AsyncInitableIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

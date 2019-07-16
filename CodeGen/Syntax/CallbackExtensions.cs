@@ -31,7 +31,8 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(PublicKeyword))
                 .WithAttributeLists(callback.GetCommonAttributeLists())
                 .WithParameterList(parameterList)
-                .WithLeadingTrivia(callback.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(callback.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         /// <summary>
@@ -62,7 +63,11 @@ namespace GISharp.CodeGen.Syntax
                 .WithAttributeLists(callback.GetCommonAttributeLists())
                 .AddAttributeLists(AttributeList().AddAttributes(attr))
                 .WithParameterList(parameterList)
-                .WithLeadingTrivia(callback.Doc.GetDocCommentTrivia(false));
+                .WithLeadingTrivia(callback.Doc?.GetDocCommentTrivia(false) ??
+                    ParseLeadingTrivia(@"/// <summary>
+                    /// Unmanaged callback
+                    /// </summary>
+                    "));
         }
 
         static IEnumerable<StatementSyntax> GetVirtualMethodStatements(this Callback callback)
@@ -284,7 +289,11 @@ namespace GISharp.CodeGen.Syntax
             return MethodDeclaration(type, "Create")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
                 .AddParameterListParameters(methodInfoParam)
-                .WithBody(Block(callback.GetUnmanagedDelegateCreateStatements()));
+                .WithBody(Block(callback.GetUnmanagedDelegateCreateStatements()))
+                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
+                /// Creates an unmanaged delegate from a managed delegate.
+                /// </summary>
+                "));
         }
 
         static IEnumerable<StatementSyntax> GetUnmanagedDelegateCreateStatements(this Callback callback)
@@ -348,7 +357,8 @@ namespace GISharp.CodeGen.Syntax
             var fromPointerMethod = MethodDeclaration(fromPointerReturnType, "FromPointer")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(fromPointerMethodParams))
-                .WithBody(Block(callback.GetMarshalFromPointerMethodStatements()));
+                .WithBody(Block(callback.GetMarshalFromPointerMethodStatements()))
+                .WithLeadingTrivia(callback.GetMarshalFromPointerMethodDocumentationCommentTrivia());
             list = list.Add(fromPointerMethod);
 
             // emit ToPointer() method for managed>unmanaged
@@ -496,13 +506,23 @@ namespace GISharp.CodeGen.Syntax
             return ParseLeadingTrivia(comments);
         }
 
+        static SyntaxTriviaList GetMarshalFromPointerMethodDocumentationCommentTrivia(this Callback callback)
+        {
+            const string template = @"/// <summary>
+/// Marshals an unmanaged pointer to a <see cref=""{0}""/>.
+/// </summary>
+";
+            var comments = string.Format(template, callback.ManagedName);
+            return ParseLeadingTrivia(comments);
+        }
+
         static SyntaxTriviaList GetMarshalToPointerMethodDocumentationCommentTrivia(this Callback callback)
         {
             const string template = @"/// <summary>
 /// Wraps a <see cref=""{0}""/> in an anonymous method that can
 /// be passed to unmanaged code.
 /// </summary>
-/// <param name=""method"">The managed method to wrap.</param>
+/// <param name=""callback"">The managed callback method to wrap.</param>
 /// <param name=""scope"">The lifetime scope of the callback.</param>
 /// <returns>
 /// A tuple containing a pointer to the unmanaged callback, a pointer to the

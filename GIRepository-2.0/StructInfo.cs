@@ -16,7 +16,7 @@ namespace GISharp.Lib.GIRepository
         public InfoDictionary<FieldInfo> Fields {
             get {
                 if (fields == null) {
-                    fields = new InfoDictionary<FieldInfo> (NFields, GetField);
+                    fields = new InfoDictionary<FieldInfo>(NFields, GetField);
                 }
                 return fields;
             }
@@ -27,14 +27,14 @@ namespace GISharp.Lib.GIRepository
         public InfoDictionary<FunctionInfo> Methods {
             get {
                 if (methods == null) {
-                    methods = new InfoDictionary<FunctionInfo> (NMethods, GetMethod);
+                    methods = new InfoDictionary<FunctionInfo>(NMethods, GetMethod);
                 }
                 return methods;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_struct_info_find_method (IntPtr raw, IntPtr name);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_struct_info_find_method(IntPtr raw, IntPtr name);
 
         /// <summary>
         /// Finds the method.
@@ -44,69 +44,70 @@ namespace GISharp.Lib.GIRepository
         /// <remarks>
         /// This seems to be unreliable. It causes a crash when struct is GObject.ObjectClass
         /// and cannot find methods in GObject.Closure
-        [Obsolete ("Not really obsolete, but unreliable.")]
+        /// </remarks>
+        [Obsolete("Not really obsolete, but unreliable.")]
         public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
-            var ret_ = g_struct_info_find_method (Handle, name.Handle);
+            var ret_ = g_struct_info_find_method(Handle, name.Handle);
             var ret = GetInstanceOrNull<FunctionInfo>(ret_);
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern UIntPtr g_struct_info_get_alignment (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern UIntPtr g_struct_info_get_alignment(IntPtr raw);
 
         public ulong Alignment {
             get {
-                return (ulong)g_struct_info_get_alignment (Handle);
+                return (ulong)g_struct_info_get_alignment(Handle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_struct_info_get_field (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_struct_info_get_field(IntPtr raw, int index);
 
-        FieldInfo GetField (int index)
+        FieldInfo GetField(int index)
         {
-            IntPtr raw_ret = g_struct_info_get_field (Handle, index);
+            IntPtr raw_ret = g_struct_info_get_field(Handle, index);
             return GetInstance<FieldInfo>(raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_struct_info_get_method (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_struct_info_get_method(IntPtr raw, int index);
 
-        FunctionInfo GetMethod (int index)
+        FunctionInfo GetMethod(int index)
         {
-            IntPtr raw_ret = g_struct_info_get_method (Handle, index);
+            IntPtr raw_ret = g_struct_info_get_method(Handle, index);
             return GetInstance<FunctionInfo>(raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_struct_info_get_n_fields (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_struct_info_get_n_fields(IntPtr raw);
 
         int NFields {
             get {
-                int raw_ret = g_struct_info_get_n_fields (Handle);
+                int raw_ret = g_struct_info_get_n_fields(Handle);
                 int ret = raw_ret;
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_struct_info_get_n_methods (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_struct_info_get_n_methods(IntPtr raw);
 
         int NMethods {
             get {
-                int raw_ret = g_struct_info_get_n_methods (Handle);
+                int raw_ret = g_struct_info_get_n_methods(Handle);
                 int ret = raw_ret;
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern UIntPtr g_struct_info_get_size (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern UIntPtr g_struct_info_get_size(IntPtr raw);
 
         public ulong Size {
             get {
-                UIntPtr raw_ret = g_struct_info_get_size (Handle);
+                UIntPtr raw_ret = g_struct_info_get_size(Handle);
                 var ret = (ulong)raw_ret;
                 return ret;
             }
@@ -117,7 +118,7 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsForeign {
             get {
-                bool raw_ret = g_struct_info_is_foreign (Handle);
+                bool raw_ret = g_struct_info_is_foreign(Handle);
                 bool ret = raw_ret;
                 return ret;
             }
@@ -128,13 +129,13 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsGTypeStruct {
             get {
-                bool raw_ret = g_struct_info_is_gtype_struct (Handle);
+                bool raw_ret = g_struct_info_is_gtype_struct(Handle);
                 bool ret = raw_ret;
                 return ret;
             }
         }
 
-        public StructInfo (IntPtr raw) : base (raw)
+        public StructInfo(IntPtr raw) : base(raw)
         {
         }
     }

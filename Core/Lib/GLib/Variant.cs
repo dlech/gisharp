@@ -235,6 +235,9 @@ namespace GISharp.Lib.GLib
     {
         IndexedCollection<Variant>? childValues;
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Variant(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {

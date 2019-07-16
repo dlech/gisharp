@@ -23,7 +23,8 @@ namespace GISharp.CodeGen.Syntax
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithModifiers(property.GetCommonAccessModifiers())
                 .WithAttributeLists(property.GetCommonAttributeLists())
-                .WithLeadingTrivia(property.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(property.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             var getter = property.Getter;
             if (getter is Function) {

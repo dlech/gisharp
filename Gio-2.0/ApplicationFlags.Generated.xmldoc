@@ -1,0 +1,79 @@
+<declaration>
+
+<member name='FlagsNone'>
+<summary>
+Default
+</summary>
+</member>
+
+<member name='IsService'>
+<summary>
+Run as a service. In this mode, registration
+     fails if the service is already running, and the application
+     will initially wait up to 10 seconds for an initial activation
+     message to arrive.
+</summary>
+</member>
+
+<member name='IsLauncher'>
+<summary>
+Don't try to become the primary instance.
+</summary>
+</member>
+
+<member name='HandlesOpen'>
+<summary>
+This application handles opening files (in
+    the primary instance). Note that this flag only affects the default
+    implementation of local_command_line(), and has no effect if
+    <see cref="ApplicationFlags.HandlesCommandLine"/> is given.
+    See <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/> for details.
+</summary>
+</member>
+
+<member name='HandlesCommandLine'>
+<summary>
+This application handles command line
+    arguments (in the primary instance). Note that this flag only affect
+    the default implementation of local_command_line().
+    See <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/> for details.
+</summary>
+</member>
+
+<member name='SendEnvironment'>
+<summary>
+Send the environment of the
+    launching process to the primary instance. Set this flag if your
+    application is expected to behave differently depending on certain
+    environment variables. For instance, an editor might be expected
+    to use the `GIT_COMMITTER_NAME` environment variable
+    when editing a git commit message. The environment is available
+    to the <see cref="Application"/>::command-line signal handler, via
+    <see cref="M:ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)"/>.
+</summary>
+</member>
+
+<member name='NonUnique'>
+<summary>
+Make no attempts to do any of the typical
+    single-instance application negotiation, even if the application
+    ID is given.  The application neither attempts to become the
+    owner of the application ID nor does it check if an existing
+    owner already exists.  Everything occurs in the local process.
+</summary>
+</member>
+
+<member name='CanOverrideAppId'>
+<summary>
+Allow users to override the
+    application ID from the command line with `--gapplication-app-id`.
+</summary>
+</member>
+
+<member name='ApplicationFlags'>
+<summary>
+Flags used to define the behaviour of a <see cref="Application"/>.
+</summary>
+</member>
+
+</declaration>

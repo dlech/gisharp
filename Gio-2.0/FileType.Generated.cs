@@ -2,44 +2,29 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Indicates the file's on-disk type.
-    /// </summary>
+    /// <include file="FileType.xmldoc" path="declaration/member[@name='FileType']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileType", IsProxyForUnmanagedType = true)]
     public enum FileType
     {
-        /// <summary>
-        /// File's type is unknown.
-        /// </summary>
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='Unknown']/*" />
         Unknown = 0,
-        /// <summary>
-        /// File handle represents a regular file.
-        /// </summary>
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='Regular']/*" />
         Regular = 1,
-        /// <summary>
-        /// File handle represents a directory.
-        /// </summary>
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='Directory']/*" />
         Directory = 2,
-        /// <summary>
-        /// File handle represents a symbolic link
-        ///    (Unix systems).
-        /// </summary>
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='SymbolicLink']/*" />
         SymbolicLink = 3,
-        /// <summary>
-        /// File is a "special" file, such as a socket, fifo,
-        ///    block device, or character device.
-        /// </summary>
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='Special']/*" />
         Special = 4,
-        /// <summary>
-        /// File is a shortcut (Windows systems).
-        /// </summary>
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='Shortcut']/*" />
         Shortcut = 5,
-        /// <summary>
-        /// File is a mountable location.
-        /// </summary>
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='Mountable']/*" />
         Mountable = 6
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FileType"/>.
+    /// </summary>
     public partial class FileTypeExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_type_get_type();

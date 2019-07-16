@@ -23,7 +23,8 @@ namespace GISharp.CodeGen.Syntax
                 .WithAttributeLists(@class.GetGTypeAttributeLists())
                 .WithModifiers(@class.GetModifiers())
                 .WithBaseList(@class.GetBaseList())
-                .WithLeadingTrivia(@class.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(@class.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         static SyntaxTokenList GetModifiers(this Class @class)
@@ -107,7 +108,11 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(accessModifier)
                 .WithParameterList(parameterList)
                 .WithInitializer(initializer)
-                .WithBody(Block());
+                .WithBody(Block())
+                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
+                /// For internal runtime use only.
+                /// </summary>
+                "));
             return constructor;
         }
 

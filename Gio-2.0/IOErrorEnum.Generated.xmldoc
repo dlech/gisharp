@@ -1,0 +1,358 @@
+<declaration>
+
+<member name='Failed'>
+<summary>
+Generic error condition for when an operation fails
+    and no more specific <see cref="IOErrorEnum"/> value is defined.
+</summary>
+</member>
+
+<member name='NotFound'>
+<summary>
+File not found.
+</summary>
+</member>
+
+<member name='Exists'>
+<summary>
+File already exists.
+</summary>
+</member>
+
+<member name='IsDirectory'>
+<summary>
+File is a directory.
+</summary>
+</member>
+
+<member name='NotDirectory'>
+<summary>
+File is not a directory.
+</summary>
+</member>
+
+<member name='NotEmpty'>
+<summary>
+File is a directory that isn't empty.
+</summary>
+</member>
+
+<member name='NotRegularFile'>
+<summary>
+File is not a regular file.
+</summary>
+</member>
+
+<member name='NotSymbolicLink'>
+<summary>
+File is not a symbolic link.
+</summary>
+</member>
+
+<member name='NotMountableFile'>
+<summary>
+File cannot be mounted.
+</summary>
+</member>
+
+<member name='FilenameTooLong'>
+<summary>
+Filename is too many characters.
+</summary>
+</member>
+
+<member name='InvalidFilename'>
+<summary>
+Filename is invalid or contains invalid characters.
+</summary>
+</member>
+
+<member name='TooManyLinks'>
+<summary>
+File contains too many symbolic links.
+</summary>
+</member>
+
+<member name='NoSpace'>
+<summary>
+No space left on drive.
+</summary>
+</member>
+
+<member name='InvalidArgument'>
+<summary>
+Invalid argument.
+</summary>
+</member>
+
+<member name='PermissionDenied'>
+<summary>
+Permission denied.
+</summary>
+</member>
+
+<member name='NotSupported'>
+<summary>
+Operation (or one of its parameters) not supported
+</summary>
+</member>
+
+<member name='NotMounted'>
+<summary>
+File isn't mounted.
+</summary>
+</member>
+
+<member name='AlreadyMounted'>
+<summary>
+File is already mounted.
+</summary>
+</member>
+
+<member name='Closed'>
+<summary>
+File was closed.
+</summary>
+</member>
+
+<member name='Cancelled'>
+<summary>
+Operation was cancelled. See <see cref="Cancellable"/>.
+</summary>
+</member>
+
+<member name='Pending'>
+<summary>
+Operations are still pending.
+</summary>
+</member>
+
+<member name='ReadOnly'>
+<summary>
+File is read only.
+</summary>
+</member>
+
+<member name='CantCreateBackup'>
+<summary>
+Backup couldn't be created.
+</summary>
+</member>
+
+<member name='WrongEtag'>
+<summary>
+File's Entity Tag was incorrect.
+</summary>
+</member>
+
+<member name='TimedOut'>
+<summary>
+Operation timed out.
+</summary>
+</member>
+
+<member name='WouldRecurse'>
+<summary>
+Operation would be recursive.
+</summary>
+</member>
+
+<member name='Busy'>
+<summary>
+File is busy.
+</summary>
+</member>
+
+<member name='WouldBlock'>
+<summary>
+Operation would block.
+</summary>
+</member>
+
+<member name='HostNotFound'>
+<summary>
+Host couldn't be found (remote operations).
+</summary>
+</member>
+
+<member name='WouldMerge'>
+<summary>
+Operation would merge files.
+</summary>
+</member>
+
+<member name='FailedHandled'>
+<summary>
+Operation failed and a helper program has
+    already interacted with the user. Do not display any error dialog.
+</summary>
+</member>
+
+<member name='TooManyOpenFiles'>
+<summary>
+The current process has too many files
+    open and can't open any more. Duplicate descriptors do count toward
+    this limit.
+</summary>
+</member>
+
+<member name='NotInitialized'>
+<summary>
+The object has not been initialized.
+</summary>
+</member>
+
+<member name='AddressInUse'>
+<summary>
+The requested address is already in use.
+</summary>
+</member>
+
+<member name='PartialInput'>
+<summary>
+Need more input to finish operation.
+</summary>
+</member>
+
+<member name='InvalidData'>
+<summary>
+The input data was invalid.
+</summary>
+</member>
+
+<member name='DbusError'>
+<summary>
+A remote object generated an error that
+    doesn't correspond to a locally registered #GError error
+    domain. Use g_dbus_error_get_remote_error() to extract the D-Bus
+    error name and g_dbus_error_strip_remote_error() to fix up the
+    message so it matches what was received on the wire.
+</summary>
+</member>
+
+<member name='HostUnreachable'>
+<summary>
+Host unreachable.
+</summary>
+</member>
+
+<member name='NetworkUnreachable'>
+<summary>
+Network unreachable.
+</summary>
+</member>
+
+<member name='ConnectionRefused'>
+<summary>
+Connection refused.
+</summary>
+</member>
+
+<member name='ProxyFailed'>
+<summary>
+Connection to proxy server failed.
+</summary>
+</member>
+
+<member name='ProxyAuthFailed'>
+<summary>
+Proxy authentication failed.
+</summary>
+</member>
+
+<member name='ProxyNeedAuth'>
+<summary>
+Proxy server needs authentication.
+</summary>
+</member>
+
+<member name='ProxyNotAllowed'>
+<summary>
+Proxy connection is not allowed by ruleset.
+</summary>
+</member>
+
+<member name='BrokenPipe'>
+<summary>
+Broken pipe.
+</summary>
+</member>
+
+<member name='ConnectionClosed'>
+<summary>
+Connection closed by peer. Note that this
+    is the same code as <see cref="IOErrorEnum.BrokenPipe"/>; before 2.44 some
+    "connection closed" errors returned <see cref="IOErrorEnum.BrokenPipe"/>, but others
+    returned <see cref="IOErrorEnum.Failed"/>. Now they should all return the same
+    value, which has this more logical name.
+</summary>
+</member>
+
+<member name='NotConnected'>
+<summary>
+Transport endpoint is not connected.
+</summary>
+</member>
+
+<member name='MessageTooLarge'>
+<summary>
+Message too large.
+</summary>
+</member>
+
+<member name='IOErrorEnum'>
+<summary>
+Error codes returned by GIO functions.
+</summary>
+<remarks>
+Note that this domain may be extended in future GLib releases. In
+general, new error codes either only apply to new APIs, or else
+replace <see cref="IOErrorEnum.Failed"/> in cases that were not explicitly
+distinguished before. You should therefore avoid writing code like
+|[&lt;!-- language="C" --&gt;
+if (g_error_matches (error, G_IO_ERROR, G_IO_ERROR_FAILED))
+  {
+    // Assume that this is EPRINTERONFIRE
+    ...
+  }
+]|
+but should instead treat all unrecognized error codes the same as
+#G_IO_ERROR_FAILED.
+</remarks>
+</member>
+
+<member name='Quark'>
+<summary>
+Gets the GIO Error Quark.
+</summary>
+</member>
+
+<member name='FromErrno(System.Int32)'>
+<summary>
+Converts errno.h error codes into GIO error codes. The fallback
+value <see cref="IOErrorEnum.Failed"/> is returned for error codes not currently
+handled (but note that future GLib releases may return a more
+specific value instead).
+</summary>
+<remarks>
+As %errno is global and may be modified by intermediate function
+calls, you should save its value as soon as the call which sets it
+</remarks>
+<param name="errno">
+Error number as defined in errno.h.
+</param>
+<returns>
+<see cref="IOErrorEnum"/> value for the given errno.h error number.
+</returns>
+</member>
+
+<member name='GetQuark()'>
+<summary>
+Gets the GIO Error Quark.
+</summary>
+<returns>
+a #GQuark.
+</returns>
+</member>
+
+</declaration>

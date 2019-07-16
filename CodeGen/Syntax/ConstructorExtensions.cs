@@ -75,7 +75,8 @@ namespace GISharp.CodeGen.Syntax
                     .SelectMany(x => x.Doc.GetDocCommentTrivia()))
                 .AddRange(constructor.GetGErrorExceptionDocCommentTrivia());
 
-            syntax = syntax.WithLeadingTrivia(trivia);
+            syntax = syntax.WithLeadingTrivia(trivia)
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
         }

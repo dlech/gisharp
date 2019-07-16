@@ -7,9 +7,9 @@ namespace GISharp.Lib.GLib
     partial class VariantDict
     {
         /// <summary>
-        /// Allocates and initialize a new <see cref="GVariantDict"/>.
+        /// Allocates and initialize a new <see cref="VariantDict"/>.
         /// </summary>
-        public VariantDict(): this(null)
+        public VariantDict() : this(null)
         {
         }
 

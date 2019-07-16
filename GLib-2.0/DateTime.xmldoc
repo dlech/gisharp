@@ -1,0 +1,1355 @@
+<declaration>
+
+<member name='NowLocal'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to this exact instant in the local
+time zone.
+</summary>
+<remarks>
+This is equivalent to calling <see cref="M:DateTime.GetNow(GISharp.Lib.GLib.TimeZone)"/> with the time
+zone returned by <see cref="M:TimeZone.GetLocal()"/>.
+</remarks>
+</member>
+
+<member name='NowUtc'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to this exact instant in UTC.
+</summary>
+<remarks>
+This is equivalent to calling <see cref="M:DateTime.GetNow(GISharp.Lib.GLib.TimeZone)"/> with the time
+zone returned by <see cref="M:TimeZone.GetUtc()"/>.
+</remarks>
+</member>
+
+<member name='DayOfMonth'>
+<summary>
+Retrieves the day of the month represented by this instance in the gregorian
+calendar.
+</summary>
+</member>
+
+<member name='DayOfWeek'>
+<summary>
+Retrieves the ISO 8601 day of the week on which this instance falls (1 is
+Monday, 2 is Tuesday... 7 is Sunday).
+</summary>
+</member>
+
+<member name='DayOfYear'>
+<summary>
+Retrieves the day of the year represented by this instance in the Gregorian
+calendar.
+</summary>
+</member>
+
+<member name='Hour'>
+<summary>
+Retrieves the hour of the day represented by this instance
+</summary>
+</member>
+
+<member name='Microsecond'>
+<summary>
+Retrieves the microsecond of the date represented by this instance
+</summary>
+</member>
+
+<member name='Minute'>
+<summary>
+Retrieves the minute of the hour represented by this instance
+</summary>
+</member>
+
+<member name='Month'>
+<summary>
+Retrieves the month of the year represented by this instance in the Gregorian
+calendar.
+</summary>
+</member>
+
+<member name='Second'>
+<summary>
+Retrieves the second of the minute represented by this instance
+</summary>
+</member>
+
+<member name='Seconds'>
+<summary>
+Retrieves the number of seconds since the start of the last minute,
+including the fractional part.
+</summary>
+</member>
+
+<member name='Timezone'>
+<summary>
+Get the time zone for this this instance.
+</summary>
+</member>
+
+<member name='TimezoneAbbreviation'>
+<summary>
+Determines the time zone abbreviation to be used at the time and in
+the time zone of this instance.
+</summary>
+<remarks>
+For example, in Toronto this is currently "EST" during the winter
+months and "EDT" during the summer months when daylight savings
+time is in effect.
+</remarks>
+</member>
+
+<member name='UtcOffset'>
+<summary>
+Determines the offset to UTC in effect at the time and in the time
+zone of this instance.
+</summary>
+<remarks>
+The offset is the number of microseconds that you add to UTC time to
+arrive at local time for the time zone (ie: negative numbers for time
+zones west of GMT, positive numbers for east).
+
+If this instance represents UTC time, then the offset is always zero.
+</remarks>
+</member>
+
+<member name='WeekNumberingYear'>
+<summary>
+Returns the ISO 8601 week-numbering year in which the week containing
+this instance falls.
+</summary>
+<remarks>
+This function, taken together with <see cref="M:DateTime.GetWeekOfYear()"/> and
+<see cref="M:DateTime.GetDayOfWeek()"/> can be used to determine the full ISO
+week date on which this instance falls.
+
+This is usually equal to the normal Gregorian year (as returned by
+<see cref="M:DateTime.GetYear()"/>), except as detailed below:
+
+For Thursday, the week-numbering year is always equal to the usual
+calendar year.  For other days, the number is such that every day
+within a complete week (Monday to Sunday) is contained within the
+same week-numbering year.
+
+For Monday, Tuesday and Wednesday occurring near the end of the year,
+this may mean that the week-numbering year is one greater than the
+calendar year (so that these days have the same week-numbering year
+as the Thursday occurring early in the next year).
+
+For Friday, Saturday and Sunday occurring near the start of the year,
+this may mean that the week-numbering year is one less than the
+calendar year (so that these days have the same week-numbering year
+as the Thursday occurring late in the previous year).
+
+An equivalent description is that the week-numbering year is equal to
+the calendar year containing the majority of the days in the current
+week (Monday to Sunday).
+
+Note that January 1 0001 in the proleptic Gregorian calendar is a
+Monday, so this function never returns 0.
+</remarks>
+</member>
+
+<member name='WeekOfYear'>
+<summary>
+Returns the ISO 8601 week number for the week containing this instance.
+The ISO 8601 week number is the same for every day of the week (from
+Moday through Sunday).  That can produce some unusual results
+(described below).
+</summary>
+<remarks>
+The first week of the year is week 1.  This is the week that contains
+the first Thursday of the year.  Equivalently, this is the first week
+that has more than 4 of its days falling within the calendar year.
+
+The value 0 is never returned by this function.  Days contained
+within a year but occurring before the first ISO 8601 week of that
+year are considered as being contained in the last week of the
+previous year.  Similarly, the final days of a calendar year may be
+considered as being part of the first ISO 8601 week of the next year
+if 4 or more days of that week are contained within the new year.
+</remarks>
+</member>
+
+<member name='Year'>
+<summary>
+Retrieves the year represented by this instance in the Gregorian calendar.
+</summary>
+</member>
+
+<member name='IsDaylightSavings'>
+<summary>
+Determines if daylight savings time is in effect at the time and in
+the time zone of this instance.
+</summary>
+</member>
+
+<member name='New(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<summary>
+Creates a new <see cref="DateTime"/> corresponding to the given date and time in
+the time zone <paramref name="tz"/>.
+</summary>
+<remarks>
+The <paramref name="year"/> must be between 1 and 9999, <paramref name="month"/> between 1 and 12 and <paramref name="day"/>
+between 1 and 28, 29, 30 or 31 depending on the month and the year.
+
+<paramref name="hour"/> must be between 0 and 23 and <paramref name="minute"/> must be between 0 and 59.
+
+<paramref name="seconds"/> must be at least 0.0 and must be strictly less than 60.0.
+It will be rounded down to the nearest microsecond.
+
+If the given time is not representable in the given time zone (for
+example, 02:30 on March 14th 2010 in Toronto, due to daylight savings
+time) then the time will be rounded up to the nearest existing time
+(in this case, 03:00).  If this matters to you then you should verify
+the return value for containing the same as the numbers you gave.
+
+In the case that the given time is ambiguous in the given time zone
+(for example, 01:30 on November 7th 2010 in Toronto, due to daylight
+savings time) then the time falling within standard (ie:
+non-daylight) time is taken.
+
+It not considered a programmer error for the values to this function
+to be out of range, but in the case that they are, the function will
+return <c>null</c>.
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="tz">
+a <see cref="TimeZone"/>
+</param>
+<param name="year">
+the year component of the date
+</param>
+<param name="month">
+the month component of the date
+</param>
+<param name="day">
+the day component of the date
+</param>
+<param name="hour">
+the hour component of the date
+</param>
+<param name="minute">
+the minute component of the date
+</param>
+<param name="seconds">
+the number of seconds past the minute
+</param>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<summary>
+Creates a new <see cref="DateTime"/> corresponding to the given date and time in
+the time zone <paramref name="tz"/>.
+</summary>
+<remarks>
+The <paramref name="year"/> must be between 1 and 9999, <paramref name="month"/> between 1 and 12 and <paramref name="day"/>
+between 1 and 28, 29, 30 or 31 depending on the month and the year.
+
+<paramref name="hour"/> must be between 0 and 23 and <paramref name="minute"/> must be between 0 and 59.
+
+<paramref name="seconds"/> must be at least 0.0 and must be strictly less than 60.0.
+It will be rounded down to the nearest microsecond.
+
+If the given time is not representable in the given time zone (for
+example, 02:30 on March 14th 2010 in Toronto, due to daylight savings
+time) then the time will be rounded up to the nearest existing time
+(in this case, 03:00).  If this matters to you then you should verify
+the return value for containing the same as the numbers you gave.
+
+In the case that the given time is ambiguous in the given time zone
+(for example, 01:30 on November 7th 2010 in Toronto, due to daylight
+savings time) then the time falling within standard (ie:
+non-daylight) time is taken.
+
+It not considered a programmer error for the values to this function
+to be out of range, but in the case that they are, the function will
+return <c>null</c>.
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="tz">
+a <see cref="TimeZone"/>
+</param>
+<param name="year">
+the year component of the date
+</param>
+<param name="month">
+the month component of the date
+</param>
+<param name="day">
+the day component of the date
+</param>
+<param name="hour">
+the hour component of the date
+</param>
+<param name="minute">
+the minute component of the date
+</param>
+<param name="seconds">
+the number of seconds past the minute
+</param>
+</member>
+
+<member name='FromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeZone?)'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to the given
+[ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
+<paramref name="text"/>. ISO 8601 strings of the form &lt;date&gt;&lt;sep&gt;&lt;time&gt;&lt;tz&gt; are supported.
+</summary>
+<remarks>
+&lt;sep&gt; is the separator and can be either 'T', 't' or ' '.
+
+&lt;date&gt; is in the form:
+
+- `YYYY-MM-DD` - Year/month/day, e.g. 2016-08-24.
+- `YYYYMMDD` - Same as above without dividers.
+- `YYYY-DDD` - Ordinal day where DDD is from 001 to 366, e.g. 2016-237.
+- `YYYYDDD` - Same as above without dividers.
+- `YYYY-Www-D` - Week day where ww is from 01 to 52 and D from 1-7,
+  e.g. 2016-W34-3.
+- `YYYYWwwD` - Same as above without dividers.
+
+&lt;time&gt; is in the form:
+
+- `hh:mm:ss(.sss)` - Hours, minutes, seconds (subseconds), e.g. 22:10:42.123.
+- `hhmmss(.sss)` - Same as above without dividers.
+
+&lt;tz&gt; is an optional timezone suffix of the form:
+
+- `Z` - UTC.
+- `+hh:mm` or `-hh:mm` - Offset from UTC in hours and minutes, e.g. +12:00.
+- `+hh` or `-hh` - Offset from UTC in hours, e.g. +12.
+
+If the timezone is not provided in <paramref name="text"/> it must be provided in <paramref name="defaultTz"/>
+(this field is otherwise ignored).
+
+This call can fail (returning <c>null</c>) if <paramref name="text"/> is not a valid ISO 8601
+formatted string.
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="text">
+an ISO 8601 formatted time string.
+</param>
+<param name="defaultTz">
+a <see cref="TimeZone"/> to use if the text doesn't contain a
+                         timezone, or <c>null</c>.
+</param>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='FromIso8601(System.String,GISharp.Lib.GLib.TimeZone?)'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to the given
+[ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
+<paramref name="text"/>. ISO 8601 strings of the form &lt;date&gt;&lt;sep&gt;&lt;time&gt;&lt;tz&gt; are supported.
+</summary>
+<remarks>
+&lt;sep&gt; is the separator and can be either 'T', 't' or ' '.
+
+&lt;date&gt; is in the form:
+
+- `YYYY-MM-DD` - Year/month/day, e.g. 2016-08-24.
+- `YYYYMMDD` - Same as above without dividers.
+- `YYYY-DDD` - Ordinal day where DDD is from 001 to 366, e.g. 2016-237.
+- `YYYYDDD` - Same as above without dividers.
+- `YYYY-Www-D` - Week day where ww is from 01 to 52 and D from 1-7,
+  e.g. 2016-W34-3.
+- `YYYYWwwD` - Same as above without dividers.
+
+&lt;time&gt; is in the form:
+
+- `hh:mm:ss(.sss)` - Hours, minutes, seconds (subseconds), e.g. 22:10:42.123.
+- `hhmmss(.sss)` - Same as above without dividers.
+
+&lt;tz&gt; is an optional timezone suffix of the form:
+
+- `Z` - UTC.
+- `+hh:mm` or `-hh:mm` - Offset from UTC in hours and minutes, e.g. +12:00.
+- `+hh` or `-hh` - Offset from UTC in hours, e.g. +12.
+
+If the timezone is not provided in <paramref name="text"/> it must be provided in <paramref name="defaultTz"/>
+(this field is otherwise ignored).
+
+This call can fail (returning <c>null</c>) if <paramref name="text"/> is not a valid ISO 8601
+formatted string.
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="text">
+an ISO 8601 formatted time string.
+</param>
+<param name="defaultTz">
+a <see cref="TimeZone"/> to use if the text doesn't contain a
+                         timezone, or <c>null</c>.
+</param>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='FromTimevalLocal(GISharp.Lib.GLib.TimeVal)'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to the given <see cref="TimeVal"/> <paramref name="tv"/> in the
+local time zone.
+</summary>
+<remarks>
+The time contained in a <see cref="TimeVal"/> is always stored in the form of
+seconds elapsed since 1970-01-01 00:00:00 UTC, regardless of the
+local time offset.
+
+This call can fail (returning <c>null</c>) if <paramref name="tv"/> represents a time outside
+of the supported range of <see cref="DateTime"/>.
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="tv">
+a <see cref="TimeVal"/>
+</param>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='FromTimevalUtc(GISharp.Lib.GLib.TimeVal)'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to the given <see cref="TimeVal"/> <paramref name="tv"/> in UTC.
+</summary>
+<remarks>
+The time contained in a <see cref="TimeVal"/> is always stored in the form of
+seconds elapsed since 1970-01-01 00:00:00 UTC.
+
+This call can fail (returning <c>null</c>) if <paramref name="tv"/> represents a time outside
+of the supported range of <see cref="DateTime"/>.
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="tv">
+a <see cref="TimeVal"/>
+</param>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='FromUnixLocal(System.Int64)'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to the given Unix time <paramref name="t"/> in the
+local time zone.
+</summary>
+<remarks>
+Unix time is the number of seconds that have elapsed since 1970-01-01
+00:00:00 UTC, regardless of the local time offset.
+
+This call can fail (returning <c>null</c>) if <paramref name="t"/> represents a time outside
+of the supported range of <see cref="DateTime"/>.
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="t">
+the Unix time
+</param>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='FromUnixUtc(System.Int64)'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to the given Unix time <paramref name="t"/> in UTC.
+</summary>
+<remarks>
+Unix time is the number of seconds that have elapsed since 1970-01-01
+00:00:00 UTC.
+
+This call can fail (returning <c>null</c>) if <paramref name="t"/> represents a time outside
+of the supported range of <see cref="DateTime"/>.
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="t">
+the Unix time
+</param>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='GetLocal(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<summary>
+Creates a new <see cref="DateTime"/> corresponding to the given date and time in
+the local time zone.
+</summary>
+<remarks>
+This call is equivalent to calling <see cref="M:DateTime.#ctor(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)"/> with the time
+zone returned by <see cref="M:TimeZone.GetLocal()"/>.
+</remarks>
+<param name="year">
+the year component of the date
+</param>
+<param name="month">
+the month component of the date
+</param>
+<param name="day">
+the day component of the date
+</param>
+<param name="hour">
+the hour component of the date
+</param>
+<param name="minute">
+the minute component of the date
+</param>
+<param name="seconds">
+the number of seconds past the minute
+</param>
+<returns>
+a <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='GetNow(GISharp.Lib.GLib.TimeZone)'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to this exact instant in the given
+time zone <paramref name="tz"/>.  The time is as accurate as the system allows, to a
+maximum accuracy of 1 microsecond.
+</summary>
+<remarks>
+This function will always succeed unless the system clock is set to
+truly insane values (or unless GLib is still being used after the
+year 9999).
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="tz">
+a <see cref="TimeZone"/>
+</param>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='GetNowLocal()'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to this exact instant in the local
+time zone.
+</summary>
+<remarks>
+This is equivalent to calling <see cref="M:DateTime.GetNow(GISharp.Lib.GLib.TimeZone)"/> with the time
+zone returned by <see cref="M:TimeZone.GetLocal()"/>.
+</remarks>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='GetNowUtc()'>
+<summary>
+Creates a <see cref="DateTime"/> corresponding to this exact instant in UTC.
+</summary>
+<remarks>
+This is equivalent to calling <see cref="M:DateTime.GetNow(GISharp.Lib.GLib.TimeZone)"/> with the time
+zone returned by <see cref="M:TimeZone.GetUtc()"/>.
+</remarks>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='GetUtc(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<summary>
+Creates a new <see cref="DateTime"/> corresponding to the given date and time in
+UTC.
+</summary>
+<remarks>
+This call is equivalent to calling <see cref="M:DateTime.#ctor(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)"/> with the time
+zone returned by <see cref="M:TimeZone.GetUtc()"/>.
+</remarks>
+<param name="year">
+the year component of the date
+</param>
+<param name="month">
+the month component of the date
+</param>
+<param name="day">
+the day component of the date
+</param>
+<param name="hour">
+the hour component of the date
+</param>
+<param name="minute">
+the minute component of the date
+</param>
+<param name="seconds">
+the number of seconds past the minute
+</param>
+<returns>
+a <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='Compare(System.IntPtr,System.IntPtr)'>
+<summary>
+A comparison function for #GDateTimes that is suitable
+as a #GCompareFunc. Both #GDateTimes must be non-<c>null</c>.
+</summary>
+<param name="dt1">
+first <see cref="DateTime"/> to compare
+</param>
+<param name="dt2">
+second <see cref="DateTime"/> to compare
+</param>
+<returns>
+-1, 0 or 1 if <paramref name="dt1"/> is less than, equal to or greater
+  than <paramref name="dt2"/>.
+</returns>
+</member>
+
+<member name='Add(GISharp.Lib.GLib.TimeSpan)'>
+<summary>
+Creates a copy of this instance and adds the specified timespan to the copy.
+</summary>
+<param name="timespan">
+a <see cref="TimeSpan"/>
+</param>
+<returns>
+the newly created <see cref="DateTime"/> which should be freed with
+  <see cref="M:DateTime.Unref()"/>.
+</returns>
+</member>
+
+<member name='AddDays(System.Int32)'>
+<summary>
+Creates a copy of this instance and adds the specified number of days to the
+copy. Add negative values to subtract days.
+</summary>
+<param name="days">
+the number of days
+</param>
+<returns>
+the newly created <see cref="DateTime"/> which should be freed with
+  <see cref="M:DateTime.Unref()"/>.
+</returns>
+</member>
+
+<member name='AddFull(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<summary>
+Creates a new <see cref="DateTime"/> adding the specified values to the current date and
+time in this instance. Add negative values to subtract.
+</summary>
+<param name="years">
+the number of years to add
+</param>
+<param name="months">
+the number of months to add
+</param>
+<param name="days">
+the number of days to add
+</param>
+<param name="hours">
+the number of hours to add
+</param>
+<param name="minutes">
+the number of minutes to add
+</param>
+<param name="seconds">
+the number of seconds to add
+</param>
+<returns>
+the newly created <see cref="DateTime"/> that should be freed with
+  <see cref="M:DateTime.Unref()"/>.
+</returns>
+</member>
+
+<member name='AddHours(System.Int32)'>
+<summary>
+Creates a copy of this instance and adds the specified number of hours.
+Add negative values to subtract hours.
+</summary>
+<param name="hours">
+the number of hours to add
+</param>
+<returns>
+the newly created <see cref="DateTime"/> which should be freed with
+  <see cref="M:DateTime.Unref()"/>.
+</returns>
+</member>
+
+<member name='AddMinutes(System.Int32)'>
+<summary>
+Creates a copy of this instance adding the specified number of minutes.
+Add negative values to subtract minutes.
+</summary>
+<param name="minutes">
+the number of minutes to add
+</param>
+<returns>
+the newly created <see cref="DateTime"/> which should be freed with
+  <see cref="M:DateTime.Unref()"/>.
+</returns>
+</member>
+
+<member name='AddMonths(System.Int32)'>
+<summary>
+Creates a copy of this instance and adds the specified number of months to the
+copy. Add negative values to subtract months.
+</summary>
+<remarks>
+The day of the month of the resulting <see cref="DateTime"/> is clamped to the number
+of days in the updated calendar month. For example, if adding 1 month to
+31st January 2018, the result would be 28th February 2018. In 2020 (a leap
+year), the result would be 29th February.
+</remarks>
+<param name="months">
+the number of months
+</param>
+<returns>
+the newly created <see cref="DateTime"/> which should be freed with
+  <see cref="M:DateTime.Unref()"/>.
+</returns>
+</member>
+
+<member name='AddSeconds(System.Double)'>
+<summary>
+Creates a copy of this instance and adds the specified number of seconds.
+Add negative values to subtract seconds.
+</summary>
+<param name="seconds">
+the number of seconds to add
+</param>
+<returns>
+the newly created <see cref="DateTime"/> which should be freed with
+  <see cref="M:DateTime.Unref()"/>.
+</returns>
+</member>
+
+<member name='AddWeeks(System.Int32)'>
+<summary>
+Creates a copy of this instance and adds the specified number of weeks to the
+copy. Add negative values to subtract weeks.
+</summary>
+<param name="weeks">
+the number of weeks
+</param>
+<returns>
+the newly created <see cref="DateTime"/> which should be freed with
+  <see cref="M:DateTime.Unref()"/>.
+</returns>
+</member>
+
+<member name='AddYears(System.Int32)'>
+<summary>
+Creates a copy of this instance and adds the specified number of years to the
+copy. Add negative values to subtract years.
+</summary>
+<remarks>
+As with <see cref="M:DateTime.AddMonths(System.Int32)"/>, if the resulting date would be 29th
+February on a non-leap year, the day will be clamped to 28th February.
+</remarks>
+<param name="years">
+the number of years
+</param>
+<returns>
+the newly created <see cref="DateTime"/> which should be freed with
+  <see cref="M:DateTime.Unref()"/>.
+</returns>
+</member>
+
+<member name='Difference(GISharp.Lib.GLib.DateTime)'>
+<summary>
+Calculates the difference in time between this instance and this instance.  The
+<see cref="TimeSpan"/> that is returned is effectively this instance - this instance (ie:
+positive if the first parameter is larger).
+</summary>
+<param name="begin">
+a <see cref="DateTime"/>
+</param>
+<returns>
+the difference between the two <see cref="DateTime"/>, as a time
+  span expressed in microseconds.
+</returns>
+</member>
+
+<member name='Format(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Creates a newly allocated string representing the requested this instance.
+</summary>
+<remarks>
+The format strings understood by this function are a subset of the
+strftime() format language as specified by C99.  The \%D, \%U and \%W
+conversions are not supported, nor is the 'E' modifier.  The GNU
+extensions \%k, \%l, \%s and \%P are supported, however, as are the
+'0', '_' and '-' modifiers.
+
+In contrast to strftime(), this function always produces a UTF-8
+string, regardless of the current locale.  Note that the rendering of
+many formats is locale-dependent and may not match the strftime()
+output exactly.
+
+The following format specifiers are supported:
+
+- \%a: the abbreviated weekday name according to the current locale
+- \%A: the full weekday name according to the current locale
+- \%b: the abbreviated month name according to the current locale
+- \%B: the full month name according to the current locale
+- \%c: the preferred date and time representation for the current locale
+- \%C: the century number (year/100) as a 2-digit integer (00-99)
+- \%d: the day of the month as a decimal number (range 01 to 31)
+- \%e: the day of the month as a decimal number (range  1 to 31)
+- \%F: equivalent to `%Y-%m-%d` (the ISO 8601 date format)
+- \%g: the last two digits of the ISO 8601 week-based year as a
+  decimal number (00-99). This works well with \%V and \%u.
+- \%G: the ISO 8601 week-based year as a decimal number. This works
+  well with \%V and \%u.
+- \%h: equivalent to \%b
+- \%H: the hour as a decimal number using a 24-hour clock (range 00 to 23)
+- \%I: the hour as a decimal number using a 12-hour clock (range 01 to 12)
+- \%j: the day of the year as a decimal number (range 001 to 366)
+- \%k: the hour (24-hour clock) as a decimal number (range 0 to 23);
+  single digits are preceded by a blank
+- \%l: the hour (12-hour clock) as a decimal number (range 1 to 12);
+  single digits are preceded by a blank
+- \%m: the month as a decimal number (range 01 to 12)
+- \%M: the minute as a decimal number (range 00 to 59)
+- \%p: either "AM" or "PM" according to the given time value, or the
+  corresponding  strings for the current locale.  Noon is treated as
+  "PM" and midnight as "AM".
+- \%P: like \%p but lowercase: "am" or "pm" or a corresponding string for
+  the current locale
+- \%r: the time in a.m. or p.m. notation
+- \%R: the time in 24-hour notation (\%H:\%M)
+- \%s: the number of seconds since the Epoch, that is, since 1970-01-01
+  00:00:00 UTC
+- \%S: the second as a decimal number (range 00 to 60)
+- \%t: a tab character
+- \%T: the time in 24-hour notation with seconds (\%H:\%M:\%S)
+- \%u: the ISO 8601 standard day of the week as a decimal, range 1 to 7,
+   Monday being 1. This works well with \%G and \%V.
+- \%V: the ISO 8601 standard week number of the current year as a decimal
+  number, range 01 to 53, where week 1 is the first week that has at
+  least 4 days in the new year. See <see cref="M:DateTime.GetWeekOfYear()"/>.
+  This works well with \%G and \%u.
+- \%w: the day of the week as a decimal, range 0 to 6, Sunday being 0.
+  This is not the ISO 8601 standard format -- use \%u instead.
+- \%x: the preferred date representation for the current locale without
+  the time
+- \%X: the preferred time representation for the current locale without
+  the date
+- \%y: the year as a decimal number without the century
+- \%Y: the year as a decimal number including the century
+- \%z: the time zone as an offset from UTC (+hhmm)
+- \%:z: the time zone as an offset from UTC (+hh:mm).
+  This is a gnulib strftime() extension. Since: 2.38
+- \%::z: the time zone as an offset from UTC (+hh:mm:ss). This is a
+  gnulib strftime() extension. Since: 2.38
+- \%:::z: the time zone as an offset from UTC, with : to necessary
+  precision (e.g., -04, +05:30). This is a gnulib strftime() extension. Since: 2.38
+- \%Z: the time zone or name or abbreviation
+- \%\%: a literal \% character
+
+Some conversion specifications can be modified by preceding the
+conversion specifier by one or more modifier characters. The
+following modifiers are supported for many of the numeric
+conversions:
+
+- O: Use alternative numeric symbols, if the current locale supports those.
+- _: Pad a numeric result with spaces. This overrides the default padding
+  for the specifier.
+- -: Do not pad a numeric result. This overrides the default padding
+  for the specifier.
+- 0: Pad a numeric result with zeros. This overrides the default padding
+  for the specifier.
+
+Additionally, when O is used with B, b, or h, it produces the alternative
+form of a month name. The alternative form should be used when the month
+name is used without a day number (e.g., standalone). It is required in
+some languages (Baltic, Slavic, Greek, and more) due to their grammatical
+rules. For other languages there is no difference. \%OB is a GNU and BSD
+strftime() extension expected to be added to the future POSIX specification,
+\%Ob and \%Oh are GNU strftime() extensions. Since: 2.56
+</remarks>
+<param name="format">
+a valid UTF-8 string, containing the format for the
+         <see cref="DateTime"/>
+</param>
+<returns>
+a newly allocated string formatted to the requested format
+    or <c>null</c> in the case that there was an error (such as a format specifier
+    not being supported in the current locale). The string
+    should be freed with g_free().
+</returns>
+</member>
+
+<member name='Format(System.String)'>
+<summary>
+Creates a newly allocated string representing the requested this instance.
+</summary>
+<remarks>
+The format strings understood by this function are a subset of the
+strftime() format language as specified by C99.  The \%D, \%U and \%W
+conversions are not supported, nor is the 'E' modifier.  The GNU
+extensions \%k, \%l, \%s and \%P are supported, however, as are the
+'0', '_' and '-' modifiers.
+
+In contrast to strftime(), this function always produces a UTF-8
+string, regardless of the current locale.  Note that the rendering of
+many formats is locale-dependent and may not match the strftime()
+output exactly.
+
+The following format specifiers are supported:
+
+- \%a: the abbreviated weekday name according to the current locale
+- \%A: the full weekday name according to the current locale
+- \%b: the abbreviated month name according to the current locale
+- \%B: the full month name according to the current locale
+- \%c: the preferred date and time representation for the current locale
+- \%C: the century number (year/100) as a 2-digit integer (00-99)
+- \%d: the day of the month as a decimal number (range 01 to 31)
+- \%e: the day of the month as a decimal number (range  1 to 31)
+- \%F: equivalent to `%Y-%m-%d` (the ISO 8601 date format)
+- \%g: the last two digits of the ISO 8601 week-based year as a
+  decimal number (00-99). This works well with \%V and \%u.
+- \%G: the ISO 8601 week-based year as a decimal number. This works
+  well with \%V and \%u.
+- \%h: equivalent to \%b
+- \%H: the hour as a decimal number using a 24-hour clock (range 00 to 23)
+- \%I: the hour as a decimal number using a 12-hour clock (range 01 to 12)
+- \%j: the day of the year as a decimal number (range 001 to 366)
+- \%k: the hour (24-hour clock) as a decimal number (range 0 to 23);
+  single digits are preceded by a blank
+- \%l: the hour (12-hour clock) as a decimal number (range 1 to 12);
+  single digits are preceded by a blank
+- \%m: the month as a decimal number (range 01 to 12)
+- \%M: the minute as a decimal number (range 00 to 59)
+- \%p: either "AM" or "PM" according to the given time value, or the
+  corresponding  strings for the current locale.  Noon is treated as
+  "PM" and midnight as "AM".
+- \%P: like \%p but lowercase: "am" or "pm" or a corresponding string for
+  the current locale
+- \%r: the time in a.m. or p.m. notation
+- \%R: the time in 24-hour notation (\%H:\%M)
+- \%s: the number of seconds since the Epoch, that is, since 1970-01-01
+  00:00:00 UTC
+- \%S: the second as a decimal number (range 00 to 60)
+- \%t: a tab character
+- \%T: the time in 24-hour notation with seconds (\%H:\%M:\%S)
+- \%u: the ISO 8601 standard day of the week as a decimal, range 1 to 7,
+   Monday being 1. This works well with \%G and \%V.
+- \%V: the ISO 8601 standard week number of the current year as a decimal
+  number, range 01 to 53, where week 1 is the first week that has at
+  least 4 days in the new year. See <see cref="M:DateTime.GetWeekOfYear()"/>.
+  This works well with \%G and \%u.
+- \%w: the day of the week as a decimal, range 0 to 6, Sunday being 0.
+  This is not the ISO 8601 standard format -- use \%u instead.
+- \%x: the preferred date representation for the current locale without
+  the time
+- \%X: the preferred time representation for the current locale without
+  the date
+- \%y: the year as a decimal number without the century
+- \%Y: the year as a decimal number including the century
+- \%z: the time zone as an offset from UTC (+hhmm)
+- \%:z: the time zone as an offset from UTC (+hh:mm).
+  This is a gnulib strftime() extension. Since: 2.38
+- \%::z: the time zone as an offset from UTC (+hh:mm:ss). This is a
+  gnulib strftime() extension. Since: 2.38
+- \%:::z: the time zone as an offset from UTC, with : to necessary
+  precision (e.g., -04, +05:30). This is a gnulib strftime() extension. Since: 2.38
+- \%Z: the time zone or name or abbreviation
+- \%\%: a literal \% character
+
+Some conversion specifications can be modified by preceding the
+conversion specifier by one or more modifier characters. The
+following modifiers are supported for many of the numeric
+conversions:
+
+- O: Use alternative numeric symbols, if the current locale supports those.
+- _: Pad a numeric result with spaces. This overrides the default padding
+  for the specifier.
+- -: Do not pad a numeric result. This overrides the default padding
+  for the specifier.
+- 0: Pad a numeric result with zeros. This overrides the default padding
+  for the specifier.
+
+Additionally, when O is used with B, b, or h, it produces the alternative
+form of a month name. The alternative form should be used when the month
+name is used without a day number (e.g., standalone). It is required in
+some languages (Baltic, Slavic, Greek, and more) due to their grammatical
+rules. For other languages there is no difference. \%OB is a GNU and BSD
+strftime() extension expected to be added to the future POSIX specification,
+\%Ob and \%Oh are GNU strftime() extensions. Since: 2.56
+</remarks>
+<param name="format">
+a valid UTF-8 string, containing the format for the
+         <see cref="DateTime"/>
+</param>
+<returns>
+a newly allocated string formatted to the requested format
+    or <c>null</c> in the case that there was an error (such as a format specifier
+    not being supported in the current locale). The string
+    should be freed with g_free().
+</returns>
+</member>
+
+<member name='GetDayOfMonth()'>
+<summary>
+Retrieves the day of the month represented by this instance in the gregorian
+calendar.
+</summary>
+<returns>
+the day of the month
+</returns>
+</member>
+
+<member name='GetDayOfWeek()'>
+<summary>
+Retrieves the ISO 8601 day of the week on which this instance falls (1 is
+Monday, 2 is Tuesday... 7 is Sunday).
+</summary>
+<returns>
+the day of the week
+</returns>
+</member>
+
+<member name='GetDayOfYear()'>
+<summary>
+Retrieves the day of the year represented by this instance in the Gregorian
+calendar.
+</summary>
+<returns>
+the day of the year
+</returns>
+</member>
+
+<member name='GetHour()'>
+<summary>
+Retrieves the hour of the day represented by this instance
+</summary>
+<returns>
+the hour of the day
+</returns>
+</member>
+
+<member name='GetMicrosecond()'>
+<summary>
+Retrieves the microsecond of the date represented by this instance
+</summary>
+<returns>
+the microsecond of the second
+</returns>
+</member>
+
+<member name='GetMinute()'>
+<summary>
+Retrieves the minute of the hour represented by this instance
+</summary>
+<returns>
+the minute of the hour
+</returns>
+</member>
+
+<member name='GetMonth()'>
+<summary>
+Retrieves the month of the year represented by this instance in the Gregorian
+calendar.
+</summary>
+<returns>
+the month represented by this instance
+</returns>
+</member>
+
+<member name='GetSecond()'>
+<summary>
+Retrieves the second of the minute represented by this instance
+</summary>
+<returns>
+the second represented by this instance
+</returns>
+</member>
+
+<member name='GetSeconds()'>
+<summary>
+Retrieves the number of seconds since the start of the last minute,
+including the fractional part.
+</summary>
+<returns>
+the number of seconds
+</returns>
+</member>
+
+<member name='GetTimezone()'>
+<summary>
+Get the time zone for this this instance.
+</summary>
+<returns>
+the time zone
+</returns>
+</member>
+
+<member name='GetTimezoneAbbreviation()'>
+<summary>
+Determines the time zone abbreviation to be used at the time and in
+the time zone of this instance.
+</summary>
+<remarks>
+For example, in Toronto this is currently "EST" during the winter
+months and "EDT" during the summer months when daylight savings
+time is in effect.
+</remarks>
+<returns>
+the time zone abbreviation. The returned
+         string is owned by the <see cref="DateTime"/> and it should not be
+         modified or freed
+</returns>
+</member>
+
+<member name='GetUtcOffset()'>
+<summary>
+Determines the offset to UTC in effect at the time and in the time
+zone of this instance.
+</summary>
+<remarks>
+The offset is the number of microseconds that you add to UTC time to
+arrive at local time for the time zone (ie: negative numbers for time
+zones west of GMT, positive numbers for east).
+
+If this instance represents UTC time, then the offset is always zero.
+</remarks>
+<returns>
+the number of microseconds that should be added to UTC to
+         get the local time
+</returns>
+</member>
+
+<member name='GetWeekNumberingYear()'>
+<summary>
+Returns the ISO 8601 week-numbering year in which the week containing
+this instance falls.
+</summary>
+<remarks>
+This function, taken together with <see cref="M:DateTime.GetWeekOfYear()"/> and
+<see cref="M:DateTime.GetDayOfWeek()"/> can be used to determine the full ISO
+week date on which this instance falls.
+
+This is usually equal to the normal Gregorian year (as returned by
+<see cref="M:DateTime.GetYear()"/>), except as detailed below:
+
+For Thursday, the week-numbering year is always equal to the usual
+calendar year.  For other days, the number is such that every day
+within a complete week (Monday to Sunday) is contained within the
+same week-numbering year.
+
+For Monday, Tuesday and Wednesday occurring near the end of the year,
+this may mean that the week-numbering year is one greater than the
+calendar year (so that these days have the same week-numbering year
+as the Thursday occurring early in the next year).
+
+For Friday, Saturday and Sunday occurring near the start of the year,
+this may mean that the week-numbering year is one less than the
+calendar year (so that these days have the same week-numbering year
+as the Thursday occurring late in the previous year).
+
+An equivalent description is that the week-numbering year is equal to
+the calendar year containing the majority of the days in the current
+week (Monday to Sunday).
+
+Note that January 1 0001 in the proleptic Gregorian calendar is a
+Monday, so this function never returns 0.
+</remarks>
+<returns>
+the ISO 8601 week-numbering year for this instance
+</returns>
+</member>
+
+<member name='GetWeekOfYear()'>
+<summary>
+Returns the ISO 8601 week number for the week containing this instance.
+The ISO 8601 week number is the same for every day of the week (from
+Moday through Sunday).  That can produce some unusual results
+(described below).
+</summary>
+<remarks>
+The first week of the year is week 1.  This is the week that contains
+the first Thursday of the year.  Equivalently, this is the first week
+that has more than 4 of its days falling within the calendar year.
+
+The value 0 is never returned by this function.  Days contained
+within a year but occurring before the first ISO 8601 week of that
+year are considered as being contained in the last week of the
+previous year.  Similarly, the final days of a calendar year may be
+considered as being part of the first ISO 8601 week of the next year
+if 4 or more days of that week are contained within the new year.
+</remarks>
+<returns>
+the ISO 8601 week number for this instance.
+</returns>
+</member>
+
+<member name='GetYear()'>
+<summary>
+Retrieves the year represented by this instance in the Gregorian calendar.
+</summary>
+<returns>
+the year represented by this instance
+</returns>
+</member>
+
+<member name='GetYmd(System.Int32,System.Int32,System.Int32)'>
+<summary>
+Retrieves the Gregorian day, month, and year of a given <see cref="DateTime"/>.
+</summary>
+<param name="year">
+the return location for the gregorian year, or <c>null</c>.
+</param>
+<param name="month">
+the return location for the month of the year, or <c>null</c>.
+</param>
+<param name="day">
+the return location for the day of the month, or <c>null</c>.
+</param>
+</member>
+
+<member name='GetIsDaylightSavings()'>
+<summary>
+Determines if daylight savings time is in effect at the time and in
+the time zone of this instance.
+</summary>
+<returns>
+<c>true</c> if daylight savings time is in effect
+</returns>
+</member>
+
+<member name='ToLocal()'>
+<summary>
+Creates a new <see cref="DateTime"/> corresponding to the same instant in time as
+this instance, but in the local time zone.
+</summary>
+<remarks>
+This call is equivalent to calling <see cref="M:DateTime.ToTimezone(GISharp.Lib.GLib.TimeZone)"/> with the
+time zone returned by <see cref="M:TimeZone.GetLocal()"/>.
+</remarks>
+<returns>
+the newly created <see cref="DateTime"/>
+</returns>
+</member>
+
+<member name='ToTimeval(GISharp.Lib.GLib.TimeVal)'>
+<summary>
+Stores the instant in time that this instance represents into this instance.
+</summary>
+<remarks>
+The time contained in a <see cref="TimeVal"/> is always stored in the form of
+seconds elapsed since 1970-01-01 00:00:00 UTC, regardless of the time
+zone associated with this instance.
+
+On systems where 'long' is 32bit (ie: all 32bit systems and all
+Windows systems), a <see cref="TimeVal"/> is incapable of storing the entire
+range of values that <see cref="DateTime"/> is capable of expressing.  On those
+systems, this function returns <c>false</c> to indicate that the time is
+out of range.
+
+On systems where 'long' is 64bit, this function never fails.
+</remarks>
+<param name="tv">
+a <see cref="TimeVal"/> to modify
+</param>
+<returns>
+<c>true</c> if successful, else <c>false</c>
+</returns>
+</member>
+
+<member name='ToTimezone(GISharp.Lib.GLib.TimeZone)'>
+<summary>
+Create a new <see cref="DateTime"/> corresponding to the same instant in time as
+this instance, but in the time zone this instance.
+</summary>
+<remarks>
+This call can fail in the case that the time goes out of bounds.  For
+example, converting 0001-01-01 00:00:00 UTC to a time zone west of
+Greenwich will fail (due to the year 0 being out of range).
+
+You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+when you are done with it.
+</remarks>
+<param name="tz">
+the new <see cref="TimeZone"/>
+</param>
+<returns>
+a new <see cref="DateTime"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='ToUnix()'>
+<summary>
+Gives the Unix time corresponding to this instance, rounding down to the
+nearest second.
+</summary>
+<remarks>
+Unix time is the number of seconds that have elapsed since 1970-01-01
+00:00:00 UTC, regardless of the time zone associated with this instance.
+</remarks>
+<returns>
+the Unix time corresponding to this instance
+</returns>
+</member>
+
+<member name='ToUtc()'>
+<summary>
+Creates a new <see cref="DateTime"/> corresponding to the same instant in time as
+this instance, but in UTC.
+</summary>
+<remarks>
+This call is equivalent to calling <see cref="M:DateTime.ToTimezone(GISharp.Lib.GLib.TimeZone)"/> with the
+time zone returned by <see cref="M:TimeZone.GetUtc()"/>.
+</remarks>
+<returns>
+the newly created <see cref="DateTime"/>
+</returns>
+</member>
+
+<member name='Equals(GISharp.Lib.GLib.DateTime)'>
+<summary>
+Checks to see if this instance and this instance are equal.
+</summary>
+<remarks>
+Equal here means that they represent the same moment after converting
+them to the same time zone.
+</remarks>
+<param name="dt2">
+a <see cref="DateTime"/>
+</param>
+<returns>
+<c>true</c> if this instance and this instance are equal
+</returns>
+</member>
+
+<member name='GetHashCode()'>
+<summary>
+Hashes this instance into a #guint, suitable for use within #GHashTable.
+</summary>
+<returns>
+a #guint containing the hash
+</returns>
+</member>
+
+<member name='DateTime'>
+<summary>
+`GDateTime` is an opaque structure whose members
+cannot be accessed directly.
+</summary>
+</member>
+
+</declaration>

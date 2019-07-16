@@ -23,7 +23,8 @@ namespace GISharp.CodeGen.Syntax
             var identifier = record.ManagedName;
             return StructDeclaration(identifier)
                 .AddModifiers(Token(PublicKeyword), Token(PartialKeyword))
-                .WithLeadingTrivia(record.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(record.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         /// <summary>
@@ -49,11 +50,9 @@ namespace GISharp.CodeGen.Syntax
             var syntax = ClassDeclaration(identifier)
                 .AddModifiers(Token(PublicKeyword), Token(SealedKeyword), Token(PartialKeyword))
                 .WithBaseList(record.GetBaseList())
-                .WithAttributeLists(record.GetGTypeAttributeLists());
-
-            if (record.Doc != null) {
-                syntax = syntax.WithLeadingTrivia(record.Doc.GetDocCommentTrivia());
-            }
+                .WithAttributeLists(record.GetGTypeAttributeLists())
+                .WithLeadingTrivia(record.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
         }
@@ -114,7 +113,11 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(PublicKeyword))
                 .WithParameterList(parameterList)
                 .WithInitializer(initializer)
-                .WithBody(Block());
+                .WithBody(Block())
+                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
+                /// For internal runtime use only.
+                /// </summary>
+                "));
             return constructor;
         }
 
@@ -124,7 +127,8 @@ namespace GISharp.CodeGen.Syntax
                 .WithAttributeLists(record.GetGTypeAttributeLists())
                 .WithModifiers(record.GetGTypeStructModifiers())
                 .WithBaseList(record.GetGTypeStructBaseList())
-                .WithLeadingTrivia(record.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(record.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
         }
@@ -210,7 +214,11 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(PublicKeyword))
                 .WithParameterList(paramerList)
                 .WithInitializer(initializer)
-                .WithBody(Block());
+                .WithBody(Block())
+                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
+                /// For internal runtime use only.
+                /// </summary>
+                "));
         }
     }
 }

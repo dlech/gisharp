@@ -1,0 +1,70 @@
+<declaration>
+
+<member name='ParentClass'>
+#pragmawarningdisableCS0649
+</member>
+
+<member name='GetInputStream'>
+</member>
+
+<member name='GetOutputStream'>
+</member>
+
+<member name='CloseFn'>
+</member>
+
+<member name='CloseAsync'>
+</member>
+
+<member name='CloseFinish'>
+</member>
+
+<member name='GReserved1'>
+</member>
+
+<member name='GReserved2'>
+</member>
+
+<member name='GReserved3'>
+</member>
+
+<member name='GReserved4'>
+</member>
+
+<member name='GReserved5'>
+</member>
+
+<member name='GReserved6'>
+</member>
+
+<member name='GReserved7'>
+</member>
+
+<member name='GReserved8'>
+</member>
+
+<member name='GReserved9'>
+</member>
+
+<member name='GReserved10'>
+</member>
+
+<member name='GetInputStream'>
+</member>
+
+<member name='GetOutputStream'>
+</member>
+
+<member name='CloseFn'>
+</member>
+
+<member name='CloseAsync'>
+</member>
+
+<member name='CloseFinish'>
+</member>
+
+<member name='IOStreamClass'>
+</member>
+
+</declaration>

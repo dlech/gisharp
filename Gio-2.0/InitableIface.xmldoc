@@ -1,0 +1,20 @@
+<declaration>
+
+<member name='GIface'>
+#pragmawarningdisableCS0649
+<summary>
+The parent interface.
+</summary>
+</member>
+
+<member name='Init'>
+</member>
+
+<member name='InitableIface'>
+<summary>
+Provides an interface for initializing object such that initialization
+may fail.
+</summary>
+</member>
+
+</declaration>

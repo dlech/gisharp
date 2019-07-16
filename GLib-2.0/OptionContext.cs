@@ -44,6 +44,7 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        /// <inheritdoc />
         protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {

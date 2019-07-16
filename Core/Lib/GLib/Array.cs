@@ -22,6 +22,9 @@ namespace GISharp.Lib.GLib
 
         public unsafe int Length => (int)((Struct*)Handle)->Len;
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected Array(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -571,6 +574,9 @@ namespace GISharp.Lib.GLib
     [GType("GArray", IsProxyForUnmanagedType = true)]
     public sealed class Array<T> : Array, IReadOnlyList<T>, IList<T> where T : unmanaged
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Array(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {

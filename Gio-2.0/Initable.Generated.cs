@@ -2,94 +2,21 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// <see cref="IInitable"/> is implemented by objects that can fail during
-    /// initialization. If an object implements this interface then
-    /// it must be initialized as the first thing after construction,
-    /// either via <see cref="Initable.Init"/> or <see cref="AsyncInitable.InitAsync"/>
-    /// (the latter is only available if it also implements <see cref="IAsyncInitable"/>).
-    /// </summary>
-    /// <remarks>
-    /// If the object is not initialized, or initialization returns with an
-    /// error, then all operations on the object except g_object_ref() and
-    /// g_object_unref() are considered to be invalid, and have undefined
-    /// behaviour. They will often fail with g_critical() or g_warning(), but
-    /// this must not be relied on.
-    /// 
-    /// Users of objects implementing this are not intended to use
-    /// the interface method directly, instead it will be used automatically
-    /// in various ways. For C applications you generally just call
-    /// g_initable_new() directly, or indirectly via a foo_thing_new() wrapper.
-    /// This will call <see cref="Initable.Init"/> under the cover, returning <c>null</c> and
-    /// setting a #GError on failure (at which point the instance is
-    /// unreferenced).
-    /// 
-    /// For bindings in languages where the native constructor supports
-    /// exceptions the binding could check for objects implemention %GInitable
-    /// during normal construction and automatically initialize them, throwing
-    /// an exception on failure.
-    /// </remarks>
+    /// <include file="Initable.xmldoc" path="declaration/member[@name='IInitable']/*" />
     [GISharp.Runtime.SinceAttribute("2.22")]
     [GISharp.Runtime.GTypeAttribute("GInitable", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(InitableIface))]
     public partial interface IInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <summary>
-        /// Initializes the object implementing the interface.
-        /// </summary>
-        /// <remarks>
-        /// This method is intended for language bindings. If writing in C,
-        /// g_initable_new() should typically be used instead.
-        /// 
-        /// The object must be initialized before any real use after initial
-        /// construction, either with this function or <see cref="AsyncInitable.InitAsync"/>.
-        /// 
-        /// Implementations may also support cancellation. If <paramref name="cancellable"/> is not <c>null</c>,
-        /// then initialization can be cancelled by triggering the cancellable object
-        /// from another thread. If the operation was cancelled, the error
-        /// <see cref="IOErrorEnum.Cancelled"/> will be returned. If <paramref name="cancellable"/> is not <c>null</c> and
-        /// the object doesn't support cancellable initialization the error
-        /// <see cref="IOErrorEnum.NotSupported"/> will be returned.
-        /// 
-        /// If the object is not initialized, or initialization returns with an
-        /// error, then all operations on the object except g_object_ref() and
-        /// g_object_unref() are considered to be invalid, and have undefined
-        /// behaviour. See the [introduction][ginitable] for more details.
-        /// 
-        /// Callers should not assume that a class which implements <see cref="IInitable"/> can be
-        /// initialized multiple times, unless the class explicitly documents itself as
-        /// supporting this. Generally, a class’ implementation of init() can assume
-        /// (and assert) that it will only be called once. Previously, this documentation
-        /// recommended all <see cref="IInitable"/> implementations should be idempotent; that
-        /// recommendation was relaxed in GLib 2.54.
-        /// 
-        /// If a class explicitly supports being initialized multiple times, it is
-        /// recommended that the method is idempotent: multiple calls with the same
-        /// arguments should return the same results. Only the first call initializes
-        /// the object; further calls return the result of the first call.
-        /// 
-        /// One reason why a class might need to support idempotent initialization is if
-        /// it is designed to be used via the singleton pattern, with a
-        /// #GObjectClass.constructor that sometimes returns an existing instance.
-        /// In this pattern, a caller would expect to be able to call <see cref="Initable.Init"/>
-        /// on the result of g_object_new(), regardless of whether it is in fact a new
-        /// instance.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if successful. If an error has occurred, this function will
-        ///     return <c>false</c> and set <paramref name="error"/> appropriately if present.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="Initable.xmldoc" path="declaration/member[@name='DoInit(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(InitableIface.UnmanagedInit))]
         void DoInit(GISharp.Lib.Gio.Cancellable? cancellable = null);
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="IInitable"/>
+    /// </summary>
     public static partial class Initable
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_initable_get_type();
@@ -216,56 +143,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Initializes the object implementing the interface.
-        /// </summary>
-        /// <remarks>
-        /// This method is intended for language bindings. If writing in C,
-        /// g_initable_new() should typically be used instead.
-        /// 
-        /// The object must be initialized before any real use after initial
-        /// construction, either with this function or <see cref="AsyncInitable.InitAsync"/>.
-        /// 
-        /// Implementations may also support cancellation. If <paramref name="cancellable"/> is not <c>null</c>,
-        /// then initialization can be cancelled by triggering the cancellable object
-        /// from another thread. If the operation was cancelled, the error
-        /// <see cref="IOErrorEnum.Cancelled"/> will be returned. If <paramref name="cancellable"/> is not <c>null</c> and
-        /// the object doesn't support cancellable initialization the error
-        /// <see cref="IOErrorEnum.NotSupported"/> will be returned.
-        /// 
-        /// If the object is not initialized, or initialization returns with an
-        /// error, then all operations on the object except g_object_ref() and
-        /// g_object_unref() are considered to be invalid, and have undefined
-        /// behaviour. See the [introduction][ginitable] for more details.
-        /// 
-        /// Callers should not assume that a class which implements <see cref="IInitable"/> can be
-        /// initialized multiple times, unless the class explicitly documents itself as
-        /// supporting this. Generally, a class’ implementation of init() can assume
-        /// (and assert) that it will only be called once. Previously, this documentation
-        /// recommended all <see cref="IInitable"/> implementations should be idempotent; that
-        /// recommendation was relaxed in GLib 2.54.
-        /// 
-        /// If a class explicitly supports being initialized multiple times, it is
-        /// recommended that the method is idempotent: multiple calls with the same
-        /// arguments should return the same results. Only the first call initializes
-        /// the object; further calls return the result of the first call.
-        /// 
-        /// One reason why a class might need to support idempotent initialization is if
-        /// it is designed to be used via the singleton pattern, with a
-        /// #GObjectClass.constructor that sometimes returns an existing instance.
-        /// In this pattern, a caller would expect to be able to call <see cref="Initable.Init"/>
-        /// on the result of g_object_new(), regardless of whether it is in fact a new
-        /// instance.
-        /// </remarks>
-        /// <param name="initable">
-        /// a <see cref="IInitable"/>.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="Initable.xmldoc" path="declaration/member[@name='Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void Init(this GISharp.Lib.Gio.IInitable initable, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {

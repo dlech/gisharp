@@ -2,21 +2,15 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// A `GOptionGroup` struct defines the options in a single
-    /// group. The struct has only private fields and should not be directly accessed.
-    /// </summary>
-    /// <remarks>
-    /// All options in a group share the same translation function. Libraries which
-    /// need to parse commandline options are expected to provide a function for
-    /// getting a `GOptionGroup` holding their options, which
-    /// the application can then add to its <see cref="OptionContext"/>.
-    /// </remarks>
+    /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup']/*" />
     [GISharp.Runtime.GTypeAttribute("GOptionGroup", IsProxyForUnmanagedType = true)]
     public sealed partial class OptionGroup : GISharp.Lib.GObject.Boxed
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_option_group_get_type();
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public OptionGroup(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -115,6 +109,11 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr group);
+
+        /// <summary>
+        /// Takes ownership of the unmanaged pointer without freeing it.
+        /// The managed object can no longer be used (will throw disposed exception).
+        /// </summary>
         public override System.IntPtr Take() => g_option_group_ref(Handle);
 
         /// <summary>
@@ -190,18 +189,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr destroyNotify);
 
-        /// <summary>
-        /// Sets the function which is used to translate user-visible strings,
-        /// for `--help` output. Different groups can use different
-        /// #GTranslateFuncs. If <paramref name="func"/> is <c>null</c>, strings are not translated.
-        /// </summary>
-        /// <remarks>
-        /// If you are using gettext(), you only need to set the translation
-        /// domain, see <see cref="OptionGroup.SetTranslationDomain"/>.
-        /// </remarks>
-        /// <param name="func">
-        /// the <see cref="TranslateFunc"/>, or <c>null</c>
-        /// </param>
+        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
@@ -232,13 +220,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr domain);
 
-        /// <summary>
-        /// A convenience function to use gettext() for translating
-        /// user-visible strings.
-        /// </summary>
-        /// <param name="domain">
-        /// the domain to use
-        /// </param>
+        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
@@ -247,13 +229,7 @@ namespace GISharp.Lib.GLib
             g_option_group_set_translation_domain(group_, domain_);
         }
 
-        /// <summary>
-        /// A convenience function to use gettext() for translating
-        /// user-visible strings.
-        /// </summary>
-        /// <param name="domain">
-        /// the domain to use
-        /// </param>
+        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='SetTranslationDomain(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetTranslationDomain(System.String domain)
         {

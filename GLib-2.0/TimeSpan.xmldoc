@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='Day'>
+<summary>
+Evaluates to a time span of one day.
+</summary>
+</member>
+
+<member name='Hour'>
+<summary>
+Evaluates to a time span of one hour.
+</summary>
+</member>
+
+<member name='Millisecond'>
+<summary>
+Evaluates to a time span of one millisecond.
+</summary>
+</member>
+
+<member name='Minute'>
+<summary>
+Evaluates to a time span of one minute.
+</summary>
+</member>
+
+<member name='Second'>
+<summary>
+Evaluates to a time span of one second.
+</summary>
+</member>
+
+</declaration>

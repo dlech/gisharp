@@ -1,0 +1,28 @@
+<declaration>
+
+<member name='name'>
+#pragmawarningdisableCS0649
+<summary>
+the name of the attribute.
+</summary>
+</member>
+
+<member name='Type'>
+<summary>
+the <see cref="FileAttributeType"/> type of the attribute.
+</summary>
+</member>
+
+<member name='Flags'>
+<summary>
+a set of <see cref="FileAttributeInfoFlags"/>.
+</summary>
+</member>
+
+<member name='FileAttributeInfo'>
+<summary>
+Information about a specific attribute.
+</summary>
+</member>
+
+</declaration>

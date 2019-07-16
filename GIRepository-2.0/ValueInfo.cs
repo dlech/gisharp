@@ -11,8 +11,8 @@ namespace GISharp.Lib.GIRepository
     /// </summary>
     public sealed class ValueInfo : BaseInfo
     {
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern long g_value_info_get_value (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern long g_value_info_get_value(IntPtr raw);
 
         /// <summary>
         /// Gets the value.
@@ -24,21 +24,30 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public long Value {
             get {
-                return g_value_info_get_value (Handle);
+                return g_value_info_get_value(Handle);
             }
         }
 
-        public static explicit operator int (ValueInfo info)
+        /// <summary>
+        /// Converts to an integer
+        /// </summary>
+        public static explicit operator int(ValueInfo info)
         {
             return (int)info.Value;
         }
 
-        public static explicit operator uint (ValueInfo info)
+        /// <summary>
+        /// Converts to an unsigned integer
+        /// </summary>
+        public static explicit operator uint(ValueInfo info)
         {
             return (uint)info.Value;
         }
 
-        public ValueInfo (IntPtr raw) : base (raw)
+        /// <summary>
+        /// For internal use only.
+        /// </summary>
+        public ValueInfo(IntPtr raw) : base(raw)
         {
         }
     }

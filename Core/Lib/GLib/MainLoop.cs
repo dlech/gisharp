@@ -14,6 +14,9 @@ namespace GISharp.Lib.GLib
     [GType ("GMainLoop", IsProxyForUnmanagedType = true)]
     public sealed class MainLoop : Boxed
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public MainLoop(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {

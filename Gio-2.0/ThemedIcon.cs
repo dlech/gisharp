@@ -61,7 +61,7 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static System.IntPtr NewFromNames(string[] iconNames)
+        static IntPtr NewFromNames(string[] iconNames)
         {
             if (iconNames == null) {
                 throw new ArgumentNullException(nameof(iconNames));
@@ -87,21 +87,25 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        /// <inheritdoc />
         public bool Equals(IIcon other)
         {
             return Icon.Equals(this, other);
         }
 
+        /// <inheritdoc />
         public override bool Equals(object obj)
         {
             return Icon.Equals(this, obj as IIcon);
         }
 
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             return Icon.GetHashCode(this);
         }
 
+        /// <inheritdoc />
         public override string ToString()
         {
             return Icon.ToString(this)!;

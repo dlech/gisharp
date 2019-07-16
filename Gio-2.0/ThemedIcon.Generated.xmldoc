@@ -1,0 +1,133 @@
+<declaration>
+
+<member name='Name'>
+<summary>
+The icon name.
+</summary>
+</member>
+
+<member name='Names_'>
+<summary>
+A <c>null</c>-terminated array of icon names.
+</summary>
+</member>
+
+<member name='UseDefaultFallbacks'>
+<summary>
+Whether to use the default fallbacks found by shortening the icon name
+at '-' characters. If the "names" array has more than one element,
+ignores any past the first.
+</summary>
+<remarks>
+For example, if the icon name was "gnome-dev-cdrom-audio", the array
+would become
+|[&lt;!-- language="C" --&gt;
+{
+  "gnome-dev-cdrom-audio",
+  "gnome-dev-cdrom",
+  "gnome-dev",
+  "gnome",
+  NULL
+};
+]|
+</remarks>
+</member>
+
+<member name='Names'>
+<summary>
+Gets the names of icons from within this instance.
+</summary>
+</member>
+
+<member name='New(GISharp.Lib.GLib.UnownedUtf8)'>
+</member>
+
+<member name='NewFromNames(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+</member>
+
+<member name='ThemedIcon(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<summary>
+Creates a new themed icon for <paramref name="iconnames"/>.
+</summary>
+<param name="iconnames">
+an array of strings containing icon names.
+</param>
+</member>
+
+<member name='NewWithDefaultFallbacks(GISharp.Lib.GLib.UnownedUtf8)'>
+</member>
+
+<member name='AppendName(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Append a name to the list of icons from within this instance.
+</summary>
+<remarks>
+Note that doing so invalidates the hash computed by prior calls
+to <see cref="M:Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
+</remarks>
+<param name="iconname">
+name of icon to append to list of icons from within this instance.
+</param>
+</member>
+
+<member name='AppendName(System.String)'>
+<summary>
+Append a name to the list of icons from within this instance.
+</summary>
+<remarks>
+Note that doing so invalidates the hash computed by prior calls
+to <see cref="M:Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
+</remarks>
+<param name="iconname">
+name of icon to append to list of icons from within this instance.
+</param>
+</member>
+
+<member name='GetNames()'>
+<summary>
+Gets the names of icons from within this instance.
+</summary>
+<returns>
+a list of icon names.
+</returns>
+</member>
+
+<member name='PrependName(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Prepend a name to the list of icons from within this instance.
+</summary>
+<remarks>
+Note that doing so invalidates the hash computed by prior calls
+to <see cref="M:Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
+</remarks>
+<param name="iconname">
+name of icon to prepend to list of icons from within this instance.
+</param>
+</member>
+
+<member name='PrependName(System.String)'>
+<summary>
+Prepend a name to the list of icons from within this instance.
+</summary>
+<remarks>
+Note that doing so invalidates the hash computed by prior calls
+to <see cref="M:Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
+</remarks>
+<param name="iconname">
+name of icon to prepend to list of icons from within this instance.
+</param>
+</member>
+
+<member name='ThemedIcon'>
+<summary>
+<see cref="ThemedIcon"/> is an implementation of <see cref="IIcon"/> that supports icon themes.
+<see cref="ThemedIcon"/> contains a list of all of the icons present in an icon
+theme, so that icons can be looked up quickly. <see cref="ThemedIcon"/> does
+not provide actual pixmaps for icons, just the icon names.
+Ideally something like gtk_icon_theme_choose_icon() should be used to
+resolve the list of names so that fallback icons work nicely with
+themes that inherit other themes.
+</summary>
+</member>
+
+</declaration>

@@ -2,25 +2,58 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
+    /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='FileIOStreamClass']/*" />
     public class FileIOStreamClass : GISharp.Lib.Gio.IOStreamClass
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
             public GISharp.Lib.Gio.IOStreamClass.Struct ParentClass;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='Tell']/*" />
             public System.IntPtr Tell;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='CanSeek']/*" />
             public System.IntPtr CanSeek;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='Seek']/*" />
             public System.IntPtr Seek;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='CanTruncate']/*" />
             public System.IntPtr CanTruncate;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='TruncateFn']/*" />
             public System.IntPtr TruncateFn;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='QueryInfo']/*" />
             public System.IntPtr QueryInfo;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='QueryInfoAsync']/*" />
             public System.IntPtr QueryInfoAsync;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='QueryInfoFinish']/*" />
             public System.IntPtr QueryInfoFinish;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='GetEtag']/*" />
             public System.IntPtr GetEtag;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='GReserved1']/*" />
             public System.IntPtr GReserved1;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='GReserved2']/*" />
             public System.IntPtr GReserved2;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='GReserved3']/*" />
             public System.IntPtr GReserved3;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
             public System.IntPtr GReserved4;
+
+            /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='GReserved5']/*" />
             public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }
@@ -47,8 +80,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(getEtagOffset, GetEtagMarshal.Create);
         }
 
+        /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='Tell']/*" />
         public delegate System.Int64 Tell();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:out */
@@ -62,6 +99,9 @@ System.IntPtr stream);
         /// </summary>
         public static class TellMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedTell Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Int64 unmanagedTell(System.IntPtr stream_)
@@ -86,8 +126,12 @@ System.IntPtr stream);
             }
         }
 
+        /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='CanSeek']/*" />
         public delegate System.Boolean CanSeek();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -101,6 +145,9 @@ System.IntPtr stream);
         /// </summary>
         public static class CanSeekMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCanSeek Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCanSeek(System.IntPtr stream_)
@@ -125,8 +172,12 @@ System.IntPtr stream);
             }
         }
 
+        /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='Seek']/*" />
         public delegate void Seek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -152,6 +203,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class SeekMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSeek Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedSeek(System.IntPtr stream_, System.Int64 offset_, GISharp.Lib.GLib.SeekType type_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -182,8 +236,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='CanTruncate']/*" />
         public delegate System.Boolean CanTruncate();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -197,6 +255,9 @@ System.IntPtr stream);
         /// </summary>
         public static class CanTruncateMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCanTruncate Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCanTruncate(System.IntPtr stream_)
@@ -221,8 +282,12 @@ System.IntPtr stream);
             }
         }
 
+        /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='TruncateFn']/*" />
         public delegate void TruncateFn(System.Int64 size, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -245,6 +310,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class TruncateFnMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedTruncateFn Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedTruncateFn(System.IntPtr stream_, System.Int64 size_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -274,8 +342,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='QueryInfo']/*" />
         public delegate GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -298,6 +370,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class QueryInfoMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryInfo Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedQueryInfo(System.IntPtr stream_, System.IntPtr attributes_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -328,8 +403,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='QueryInfoAsync']/*" />
         public delegate void QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -358,6 +437,9 @@ System.IntPtr userData);
         /// </summary>
         public static class QueryInfoAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedQueryInfoAsync(System.IntPtr stream_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -382,8 +464,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='QueryInfoFinish']/*" />
         public delegate GISharp.Lib.Gio.FileInfo QueryInfoFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -403,6 +489,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class QueryInfoFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedQueryInfoFinish(System.IntPtr stream_, System.IntPtr result_, ref System.IntPtr error_)
@@ -432,8 +521,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIOStreamClass.xmldoc" path="declaration/member[@name='GetEtag']/*" />
         public delegate GISharp.Lib.GLib.Utf8 GetEtag();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -447,6 +540,9 @@ System.IntPtr stream);
         /// </summary>
         public static class GetEtagMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetEtag Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetEtag(System.IntPtr stream_)
@@ -471,6 +567,9 @@ System.IntPtr stream);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public FileIOStreamClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

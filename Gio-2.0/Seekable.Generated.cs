@@ -2,122 +2,35 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// <see cref="ISeekable"/> is implemented by streams (implementations of
-    /// <see cref="InputStream"/> or <see cref="OutputStream"/>) that support seeking.
-    /// </summary>
-    /// <remarks>
-    /// Seekable streams largely fall into two categories: resizable and
-    /// fixed-size.
-    /// 
-    /// <see cref="ISeekable"/> on fixed-sized streams is approximately the same as POSIX
-    /// lseek() on a block device (for example: attmepting to seek past the
-    /// end of the device is an error).  Fixed streams typically cannot be
-    /// truncated.
-    /// 
-    /// <see cref="ISeekable"/> on resizable streams is approximately the same as POSIX
-    /// lseek() on a normal file.  Seeking past the end and writing data will
-    /// usually cause the stream to resize by introducing zero bytes.
-    /// </remarks>
+    /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable']/*" />
     [GISharp.Runtime.GTypeAttribute("GSeekable", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(SeekableIface))]
     public partial interface ISeekable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <summary>
-        /// Tests if the stream supports the <see cref="SeekableIface"/>.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if <paramref name="seekable"/> can be seeked. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='DoCanSeek()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedCanSeek))]
         System.Boolean DoCanSeek();
 
-        /// <summary>
-        /// Tests if the length of the stream can be adjusted with
-        /// <see cref="Seekable.Truncate"/>.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if the stream can be truncated, <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='DoCanTruncate()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedCanTruncate))]
         System.Boolean DoCanTruncate();
 
-        /// <summary>
-        /// Seeks in the stream by the given <paramref name="offset"/>, modified by <paramref name="type"/>.
-        /// </summary>
-        /// <remarks>
-        /// Attempting to seek past the end of the stream will have different
-        /// results depending on if the stream is fixed-sized or resizable.  If
-        /// the stream is resizable then seeking past the end and then writing
-        /// will result in zeros filling the empty space.  Seeking past the end
-        /// of a resizable stream and reading will result in EOF.  Seeking past
-        /// the end of a fixed-sized stream will fail.
-        /// 
-        /// Any operation that would result in a negative offset will fail.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="offset">
-        /// a #goffset.
-        /// </param>
-        /// <param name="type">
-        /// a #GSeekType.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if successful. If an error
-        ///     has occurred, this function will return <c>false</c> and set <paramref name="error"/>
-        ///     appropriately if present.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedSeek))]
         void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Tells the current position within the stream.
-        /// </summary>
-        /// <returns>
-        /// the offset from the beginning of the buffer.
-        /// </returns>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='DoTell()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedTell))]
         System.Int64 DoTell();
 
-        /// <summary>
-        /// Sets the length of the stream to <paramref name="offset"/>. If the stream was previously
-        /// larger than <paramref name="offset"/>, the extra data is discarded. If the stream was
-        /// previouly shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
-        /// operation was partially finished when the operation was cancelled the
-        /// partial result will be returned, without an error.
-        /// </remarks>
-        /// <param name="offset">
-        /// new length for <paramref name="seekable"/>, in bytes.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if successful. If an error
-        ///     has occurred, this function will return <c>false</c> and set <paramref name="error"/>
-        ///     appropriately if present.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedTruncateFn))]
         void DoTruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null);
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="ISeekable"/>
+    /// </summary>
     public static partial class Seekable
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_seekable_get_type();
@@ -144,15 +57,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr seekable);
 
-        /// <summary>
-        /// Tests if the stream supports the <see cref="SeekableIface"/>.
-        /// </summary>
-        /// <param name="seekable">
-        /// a <see cref="ISeekable"/>.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="seekable"/> can be seeked. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='CanSeek(GISharp.Lib.Gio.ISeekable)']/*" />
         public unsafe static System.Boolean CanSeek(this GISharp.Lib.Gio.ISeekable seekable)
         {
             var seekable_ = seekable.Handle;
@@ -179,16 +84,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr seekable);
 
-        /// <summary>
-        /// Tests if the length of the stream can be adjusted with
-        /// <see cref="Seekable.Truncate"/>.
-        /// </summary>
-        /// <param name="seekable">
-        /// a <see cref="ISeekable"/>.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the stream can be truncated, <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='CanTruncate(GISharp.Lib.Gio.ISeekable)']/*" />
         public unsafe static System.Boolean CanTruncate(this GISharp.Lib.Gio.ISeekable seekable)
         {
             var seekable_ = seekable.Handle;
@@ -254,38 +150,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Seeks in the stream by the given <paramref name="offset"/>, modified by <paramref name="type"/>.
-        /// </summary>
-        /// <remarks>
-        /// Attempting to seek past the end of the stream will have different
-        /// results depending on if the stream is fixed-sized or resizable.  If
-        /// the stream is resizable then seeking past the end and then writing
-        /// will result in zeros filling the empty space.  Seeking past the end
-        /// of a resizable stream and reading will result in EOF.  Seeking past
-        /// the end of a fixed-sized stream will fail.
-        /// 
-        /// Any operation that would result in a negative offset will fail.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="seekable">
-        /// a <see cref="ISeekable"/>.
-        /// </param>
-        /// <param name="offset">
-        /// a #goffset.
-        /// </param>
-        /// <param name="type">
-        /// a #GSeekType.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='Seek(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Seek(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var seekable_ = seekable.Handle;
@@ -318,15 +183,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr seekable);
 
-        /// <summary>
-        /// Tells the current position within the stream.
-        /// </summary>
-        /// <param name="seekable">
-        /// a <see cref="ISeekable"/>.
-        /// </param>
-        /// <returns>
-        /// the offset from the beginning of the buffer.
-        /// </returns>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='Tell(GISharp.Lib.Gio.ISeekable)']/*" />
         public unsafe static System.Int64 Tell(this GISharp.Lib.Gio.ISeekable seekable)
         {
             var seekable_ = seekable.Handle;
@@ -381,30 +238,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets the length of the stream to <paramref name="offset"/>. If the stream was previously
-        /// larger than <paramref name="offset"/>, the extra data is discarded. If the stream was
-        /// previouly shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
-        /// operation was partially finished when the operation was cancelled the
-        /// partial result will be returned, without an error.
-        /// </remarks>
-        /// <param name="seekable">
-        /// a <see cref="ISeekable"/>.
-        /// </param>
-        /// <param name="offset">
-        /// new length for <paramref name="seekable"/>, in bytes.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Truncate(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var seekable_ = seekable.Handle;

@@ -8,6 +8,9 @@ namespace GISharp.Lib.Gio
 {
     partial class FileAttributeInfoList : IReadOnlyList<FileAttributeInfo>
     {
+        /// <summary>
+        /// Gets the <see cref="FileAttributeInfo"/> at the specified index.
+        /// </summary>
         public unsafe FileAttributeInfo this[int index] {
             get {
                 if (index >= Count) {
@@ -24,12 +27,14 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public int Count => Marshal.PtrToStructure<Struct>(Handle).NInfos;
 
-        public IEnumerator<FileAttributeInfo> GetEnumerator()
+        private IEnumerator<FileAttributeInfo> GetEnumerator()
         {
             for (int i = 0; i < Count; i++) {
                 yield return this[i];
             }
         }
+
+        IEnumerator<FileAttributeInfo> IEnumerable<FileAttributeInfo>.GetEnumerator() => GetEnumerator();
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }

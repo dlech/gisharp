@@ -9,10 +9,7 @@ namespace GISharp.Lib.GLib
     /// is destroyed. It is passed the pointer to the data element and
     /// should free any memory and resources allocated for it.
     /// </summary>
-    /// <param name="data">
-    /// the data element.
-    /// </param>
-    public delegate void DestroyNotify<T>(T data) where T : Opaque;
+    public delegate void DestroyNotify();
 
     /// <summary>
     /// Specifies the type of function which is called when a data element

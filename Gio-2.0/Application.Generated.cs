@@ -2,123 +2,7 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// A <see cref="Application"/> is the foundation of an application.  It wraps some
-    /// low-level platform-specific services and is intended to act as the
-    /// foundation for higher-level application classes such as
-    /// #GtkApplication or #MxApplication.  In general, you should not use
-    /// this class outside of a higher level framework.
-    /// </summary>
-    /// <remarks>
-    /// GApplication provides convenient life cycle management by maintaining
-    /// a "use count" for the primary application instance. The use count can
-    /// be changed using <see cref="Application.Hold"/> and <see cref="Application.Release"/>. If
-    /// it drops to zero, the application exits. Higher-level classes such as
-    /// #GtkApplication employ the use count to ensure that the application
-    /// stays alive as long as it has any opened windows.
-    /// 
-    /// Another feature that GApplication (optionally) provides is process
-    /// uniqueness. Applications can make use of this functionality by
-    /// providing a unique application ID. If given, only one application
-    /// with this ID can be running at a time per session. The session
-    /// concept is platform-dependent, but corresponds roughly to a graphical
-    /// desktop login. When your application is launched again, its
-    /// arguments are passed through platform communication to the already
-    /// running program. The already running instance of the program is
-    /// called the "primary instance"; for non-unique applications this is
-    /// the always the current instance. On Linux, the D-Bus session bus
-    /// is used for communication.
-    /// 
-    /// The use of <see cref="Application"/> differs from some other commonly-used
-    /// uniqueness libraries (such as libunique) in important ways. The
-    /// application is not expected to manually register itself and check
-    /// if it is the primary instance. Instead, the main() function of a
-    /// <see cref="Application"/> should do very little more than instantiating the
-    /// application instance, possibly connecting signal handlers, then
-    /// calling <see cref="Application.Run"/>. All checks for uniqueness are done
-    /// internally. If the application is the primary instance then the
-    /// startup signal is emitted and the mainloop runs. If the application
-    /// is not the primary instance then a signal is sent to the primary
-    /// instance and <see cref="Application.Run"/> promptly returns. See the code
-    /// examples below.
-    /// 
-    /// If used, the expected form of an application identifier is the same as
-    /// that of of a
-    /// [D-Bus well-known bus name](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
-    /// Examples include: `com.example.MyApp`, `org.example.internal_apps.Calculator`,
-    /// `org._7_zip.Archiver`.
-    /// For details on valid application identifiers, see <see cref="Application.IdIsValid"/>.
-    /// 
-    /// On Linux, the application identifier is claimed as a well-known bus name
-    /// on the user's session bus.  This means that the uniqueness of your
-    /// application is scoped to the current session.  It also means that your
-    /// application may provide additional services (through registration of other
-    /// object paths) at that bus name.  The registration of these object paths
-    /// should be done with the shared GDBus session bus.  Note that due to the
-    /// internal architecture of GDBus, method calls can be dispatched at any time
-    /// (even if a main loop is not running).  For this reason, you must ensure that
-    /// any object paths that you wish to register are registered before <see cref="Application"/>
-    /// attempts to acquire the bus name of your application (which happens in
-    /// <see cref="Application.Register"/>).  Unfortunately, this means that you cannot use
-    /// <see cref="Application.GetIsRemote"/> to decide if you want to register object paths.
-    /// 
-    /// GApplication also implements the <see cref="IActionGroup"/> and <see cref="IActionMap"/>
-    /// interfaces and lets you easily export actions by adding them with
-    /// <see cref="ActionMap.AddAction"/>. When invoking an action by calling
-    /// <see cref="ActionGroup.ActivateAction"/> on the application, it is always
-    /// invoked in the primary instance. The actions are also exported on
-    /// the session bus, and GIO provides the #GDBusActionGroup wrapper to
-    /// conveniently access them remotely. GIO provides a #GDBusMenuModel wrapper
-    /// for remote access to exported #GMenuModels.
-    /// 
-    /// There is a number of different entry points into a GApplication:
-    /// 
-    /// - via 'Activate' (i.e. just starting the application)
-    /// 
-    /// - via 'Open' (i.e. opening some files)
-    /// 
-    /// - by handling a command-line
-    /// 
-    /// - via activating an action
-    /// 
-    /// The <see cref="Application"/>::startup signal lets you handle the application
-    /// initialization for all of these in a single place.
-    /// 
-    /// Regardless of which of these entry points is used to start the
-    /// application, GApplication passes some "platform data from the
-    /// launching instance to the primary instance, in the form of a
-    /// #GVariant dictionary mapping strings to variants. To use platform
-    /// data, override the <paramref name="beforeEmit"/> or <paramref name="afterEmit"/> virtual functions
-    /// in your <see cref="Application"/> subclass. When dealing with
-    /// <see cref="ApplicationCommandLine"/> objects, the platform data is
-    /// directly available via <see cref="ApplicationCommandLine.GetCwd"/>,
-    /// <see cref="ApplicationCommandLine.GetEnvironment"/> and
-    /// <see cref="ApplicationCommandLine.GetPlatformData"/>.
-    /// 
-    /// As the name indicates, the platform data may vary depending on the
-    /// operating system, but it always includes the current directory (key
-    /// "cwd"), and optionally the environment (ie the set of environment
-    /// variables and their values) of the calling process (key "environ").
-    /// The environment is only added to the platform data if the
-    /// <see cref="ApplicationFlags.SendEnvironment"/> flag is set. <see cref="Application"/> subclasses
-    /// can add their own platform data by overriding the <paramref name="addPlatformData"/>
-    /// virtual function. For instance, #GtkApplication adds startup notification
-    /// data in this way.
-    /// 
-    /// To parse commandline arguments you may handle the
-    /// <see cref="Application"/>::command-line signal or override the local_command_line()
-    /// vfunc, to parse them in either the primary instance or the local instance,
-    /// respectively.
-    /// 
-    /// For an example of opening files with a GApplication, see
-    /// [gapplication-example-open.c](https://git.gnome.org/browse/glib/tree/gio/tests/gapplication-example-open.c).
-    /// 
-    /// For an example of using actions with GApplication, see
-    /// [gapplication-example-actions.c](https://git.gnome.org/browse/glib/tree/gio/tests/gapplication-example-actions.c).
-    /// 
-    /// For an example of using extra D-Bus hooks with GApplication, see
-    /// [gapplication-example-dbushooks.c](https://git.gnome.org/browse/glib/tree/gio/tests/gapplication-example-dbushooks.c).
-    /// </remarks>
+    /// <include file="Application.xmldoc" path="declaration/member[@name='Application']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
     [GISharp.Runtime.GTypeAttribute("GApplication", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ApplicationClass))]
@@ -126,137 +10,92 @@ namespace GISharp.Lib.Gio
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_application_get_type();
 
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe protected new struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="Application.xmldoc" path="declaration/member[@name='ParentInstance']/*" />
             public GISharp.Lib.GObject.Object.Struct ParentInstance;
+
+            /// <include file="Application.xmldoc" path="declaration/member[@name='Priv']/*" />
             public System.IntPtr Priv;
 #pragma warning restore CS0649
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='ActionGroup']/*" />
         [GISharp.Runtime.GPropertyAttribute("action-group")]
         public GISharp.Lib.Gio.IActionGroup? ActionGroup { set => SetProperty("action-group", value); }
+
+        /// <include file="Application.xmldoc" path="declaration/member[@name='ApplicationId_']/*" />
         [GISharp.Runtime.GPropertyAttribute("application-id", Construct = GISharp.Runtime.GPropertyConstruct.Yes)]
         public GISharp.Lib.GLib.Utf8? ApplicationId_ { get => (GISharp.Lib.GLib.Utf8?)GetProperty("application-id")!; set => SetProperty("application-id", value); }
+
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Flags_']/*" />
         [GISharp.Runtime.GPropertyAttribute("flags")]
         public GISharp.Lib.Gio.ApplicationFlags Flags_ { get => (GISharp.Lib.Gio.ApplicationFlags)GetProperty("flags")!; set => SetProperty("flags", value); }
+
+        /// <include file="Application.xmldoc" path="declaration/member[@name='InactivityTimeout_']/*" />
         [GISharp.Runtime.GPropertyAttribute("inactivity-timeout")]
         public System.UInt32 InactivityTimeout_ { get => (System.UInt32)GetProperty("inactivity-timeout")!; set => SetProperty("inactivity-timeout", value); }
 
-        /// <summary>
-        /// Whether the application is currently marked as busy through
-        /// <see cref="Application.MarkBusy"/> or <see cref="Application.BindBusyProperty"/>.
-        /// </summary>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='IsBusy_']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         [GISharp.Runtime.GPropertyAttribute("is-busy")]
         public System.Boolean IsBusy_ { get => (System.Boolean)GetProperty("is-busy")!; }
+
+        /// <include file="Application.xmldoc" path="declaration/member[@name='IsRegistered_']/*" />
         [GISharp.Runtime.GPropertyAttribute("is-registered")]
         public System.Boolean IsRegistered_ { get => (System.Boolean)GetProperty("is-registered")!; }
+
+        /// <include file="Application.xmldoc" path="declaration/member[@name='IsRemote_']/*" />
         [GISharp.Runtime.GPropertyAttribute("is-remote")]
         public System.Boolean IsRemote_ { get => (System.Boolean)GetProperty("is-remote")!; }
+
+        /// <include file="Application.xmldoc" path="declaration/member[@name='ResourceBasePath_']/*" />
         [GISharp.Runtime.GPropertyAttribute("resource-base-path")]
         public GISharp.Lib.GLib.Utf8? ResourceBasePath_ { get => (GISharp.Lib.GLib.Utf8?)GetProperty("resource-base-path")!; set => SetProperty("resource-base-path", value); }
 
-        /// <summary>
-        /// Returns the default <see cref="Application"/> instance for this process.
-        /// </summary>
-        /// <remarks>
-        /// Normally there is only one <see cref="Application"/> per process and it becomes
-        /// the default when it is created.  You can exercise more control over
-        /// this by using <see cref="Application.SetDefault"/>.
-        /// 
-        /// If there is no default application then <c>null</c> is returned.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Default']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public static GISharp.Lib.Gio.Application Default { get => GetDefault(); }
 
-        /// <summary>
-        /// Gets the unique identifier for <paramref name="application"/>.
-        /// </summary>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='ApplicationId']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Lib.GLib.NullableUnownedUtf8 ApplicationId { get => GetApplicationId(); set => SetApplicationId(value); }
 
-        /// <summary>
-        /// Gets the D-Bus object path being used by the application, or <c>null</c>.
-        /// </summary>
-        /// <remarks>
-        /// If <see cref="Application"/> is using its D-Bus backend then this function will
-        /// return the D-Bus object path that <see cref="Application"/> is using.  If the
-        /// application is the primary instance then there is an object published
-        /// at this path.  If the application is not the primary instance then
-        /// the result of this function is undefined.
-        /// 
-        /// If <see cref="Application"/> is not using D-Bus then this function will return
-        /// <c>null</c>.  This includes the situation where the D-Bus backend would
-        /// normally be in use but we were unable to connect to the bus.
-        /// 
-        /// This function must not be called before the application has been
-        /// registered.  See <see cref="Application.GetIsRegistered"/>.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DbusObjectPath']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         public GISharp.Lib.GLib.UnownedUtf8 DbusObjectPath { get => GetDbusObjectPath(); }
 
-        /// <summary>
-        /// Gets the flags for <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="ApplicationFlags"/>.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Flags']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Lib.Gio.ApplicationFlags Flags { get => GetFlags(); set => SetFlags(value); }
 
-        /// <summary>
-        /// Gets the current inactivity timeout for the application.
-        /// </summary>
-        /// <remarks>
-        /// This is the amount of time (in milliseconds) after the last call to
-        /// <see cref="Application.Release"/> before the application stops running.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='InactivityTimeout']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public System.UInt32 InactivityTimeout { get => GetInactivityTimeout(); set => SetInactivityTimeout(value); }
 
-        /// <summary>
-        /// Gets the application's current busy state, as set through
-        /// <see cref="Application.MarkBusy"/> or <see cref="Application.BindBusyProperty"/>.
-        /// </summary>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='IsBusy']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public System.Boolean IsBusy { get => GetIsBusy(); }
 
-        /// <summary>
-        /// Checks if <paramref name="application"/> is registered.
-        /// </summary>
-        /// <remarks>
-        /// An application is registered if <see cref="Application.Register"/> has been
-        /// successfully called.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='IsRegistered']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public System.Boolean IsRegistered { get => GetIsRegistered(); }
 
-        /// <summary>
-        /// Checks if <paramref name="application"/> is remote.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="application"/> is remote then it means that another instance of
-        /// application already exists (the 'primary' instance).  Calls to
-        /// perform actions on <paramref name="application"/> will result in the actions being
-        /// performed by the primary instance.
-        /// 
-        /// The value of this property cannot be accessed before
-        /// <see cref="Application.Register"/> has been called.  See
-        /// <see cref="Application.GetIsRegistered"/>.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='IsRemote']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public System.Boolean IsRemote { get => GetIsRemote(); }
 
-        /// <summary>
-        /// Gets the resource base path of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="Application.SetResourceBasePath"/> for more information.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='ResourceBasePath']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         public GISharp.Lib.GLib.NullableUnownedUtf8 ResourceBasePath { get => GetResourceBasePath(); set => SetResourceBasePath(value); }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public Application(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -292,6 +131,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationFlags flags);
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)']/*" />
         static unsafe System.IntPtr New(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
         {
             var applicationId_ = applicationId.Handle;
@@ -300,56 +140,31 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <summary>
-        /// Creates a new <see cref="Application"/> instance.
-        /// </summary>
-        /// <remarks>
-        /// If non-<c>null</c>, the application id must be valid.  See
-        /// <see cref="Application.IdIsValid"/>.
-        /// 
-        /// If no application ID is given then some features of <see cref="Application"/>
-        /// (most notably application uniqueness) will be disabled.
-        /// </remarks>
-        /// <param name="applicationId">
-        /// the application id
-        /// </param>
-        /// <param name="flags">
-        /// the application flags
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)']/*" />
         public Application(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags) : this(New(applicationId, flags), GISharp.Runtime.Transfer.Full)
         {
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='New(System.String?,GISharp.Lib.Gio.ApplicationFlags)']/*" />
         static unsafe System.IntPtr New(System.String? applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
         {
             using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
             return New((GISharp.Lib.GLib.NullableUnownedUtf8)applicationIdUtf8, flags);
         }
 
-        /// <summary>
-        /// Creates a new <see cref="Application"/> instance.
-        /// </summary>
-        /// <remarks>
-        /// If non-<c>null</c>, the application id must be valid.  See
-        /// <see cref="Application.IdIsValid"/>.
-        /// 
-        /// If no application ID is given then some features of <see cref="Application"/>
-        /// (most notably application uniqueness) will be disabled.
-        /// </remarks>
-        /// <param name="applicationId">
-        /// the application id
-        /// </param>
-        /// <param name="flags">
-        /// the application flags
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application(System.String?,GISharp.Lib.Gio.ApplicationFlags)']/*" />
         public Application(System.String? applicationId, GISharp.Lib.Gio.ApplicationFlags flags) : this(New(applicationId, flags), GISharp.Runtime.Transfer.Full)
         {
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='ActivatedEventArgs']/*" />
         public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
             public ActivatedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
@@ -358,21 +173,24 @@ namespace GISharp.Lib.Gio
 
         readonly GISharp.Runtime.GSignalManager<ActivatedEventArgs> activatedSignalManager = new GISharp.Runtime.GSignalManager<ActivatedEventArgs>("activate", _GType);
 
-        /// <summary>
-        /// The ::activate signal is emitted on the primary instance when an
-        /// activation occurs. See <see cref="Application.Activate"/>.
-        /// </summary>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Activated']/*" />
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<ActivatedEventArgs> Activated { add => activatedSignalManager.Add(this, value); remove => activatedSignalManager.Remove(value); }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLinedEventArgs']/*" />
         public sealed class CommandLinedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
+            /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLine']/*" />
             public GISharp.Lib.Gio.ApplicationCommandLine CommandLine => (GISharp.Lib.Gio.ApplicationCommandLine)args[1];
 
+            /// <include file="Application.xmldoc" path="declaration/member[@name='ReturnValue']/*" />
             public System.Int32 ReturnValue { get; set; }
 
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
             public CommandLinedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
@@ -381,86 +199,51 @@ namespace GISharp.Lib.Gio
 
         readonly GISharp.Runtime.GSignalManager<CommandLinedEventArgs> commandLinedSignalManager = new GISharp.Runtime.GSignalManager<CommandLinedEventArgs>("command-line", _GType);
 
-        /// <summary>
-        /// The ::command-line signal is emitted on the primary instance when
-        /// a commandline is not handled locally. See <see cref="Application.Run"/> and
-        /// the <see cref="ApplicationCommandLine"/> documentation for more information.
-        /// </summary>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLined']/*" />
         [GISharp.Runtime.GSignalAttribute("command-line", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<CommandLinedEventArgs> CommandLined { add => commandLinedSignalManager.Add(this, value); remove => commandLinedSignalManager.Remove(value); }
 
-        public sealed class HandleLocalOptionsedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="Application.xmldoc" path="declaration/member[@name='HandledLocalOptionsEventArgs']/*" />
+        public sealed class HandledLocalOptionsEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
+            /// <include file="Application.xmldoc" path="declaration/member[@name='Options']/*" />
             public GISharp.Lib.GLib.VariantDict Options => (GISharp.Lib.GLib.VariantDict)args[1];
 
+            /// <include file="Application.xmldoc" path="declaration/member[@name='ReturnValue']/*" />
             public System.Int32 ReturnValue { get; set; }
 
-            public HandleLocalOptionsedEventArgs(params System.Object[] args)
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
+            public HandledLocalOptionsEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<HandleLocalOptionsedEventArgs> handleLocalOptionsedSignalManager = new GISharp.Runtime.GSignalManager<HandleLocalOptionsedEventArgs>("handle-local-options", _GType);
+        readonly GISharp.Runtime.GSignalManager<HandledLocalOptionsEventArgs> handledLocalOptionsSignalManager = new GISharp.Runtime.GSignalManager<HandledLocalOptionsEventArgs>("handle-local-options", _GType);
 
-        /// <summary>
-        /// The ::handle-local-options signal is emitted on the local instance
-        /// after the parsing of the commandline options has occurred.
-        /// </summary>
-        /// <remarks>
-        /// You can add options to be recognised during commandline option
-        /// parsing using <see cref="Application.AddMainOptionEntries"/> and
-        /// <see cref="Application.AddOptionGroup"/>.
-        /// 
-        /// Signal handlers can inspect <paramref name="options"/> (along with values pointed to
-        /// from the <paramref name="argData"/> of an installed #GOptionEntrys) in order to
-        /// decide to perform certain actions, including direct local handling
-        /// (which may be useful for options like --version).
-        /// 
-        /// In the event that the application is marked
-        /// <see cref="ApplicationFlags.HandlesCommandLine"/> the "normal processing" will
-        /// send the <paramref name="options"/> dictionary to the primary instance where it can be
-        /// read with <see cref="ApplicationCommandLine.GetOptions"/>.  The signal
-        /// handler can modify the dictionary before returning, and the
-        /// modified dictionary will be sent.
-        /// 
-        /// In the event that <see cref="ApplicationFlags.HandlesCommandLine"/> is not set,
-        /// "normal processing" will treat the remaining uncollected command
-        /// line arguments as filenames or URIs.  If there are no arguments,
-        /// the application is activated by <see cref="Application.Activate"/>.  One or
-        /// more arguments results in a call to <see cref="Application.Open"/>.
-        /// 
-        /// If you want to handle the local commandline arguments for yourself
-        /// by converting them to calls to <see cref="Application.Open"/> or
-        /// <see cref="ActionGroup.ActivateAction"/> then you must be sure to register
-        /// the application first.  You should probably not call
-        /// <see cref="Application.Activate"/> for yourself, however: just return -1 and
-        /// allow the default handler to do it for you.  This will ensure that
-        /// the `--gapplication-service` switch works properly (i.e. no activation
-        /// in that case).
-        /// 
-        /// Note that this signal is emitted from the default implementation of
-        /// local_command_line().  If you override that function and don't
-        /// chain up then this signal will never be emitted.
-        /// 
-        /// You can override local_command_line() if you need more powerful
-        /// capabilities than what is provided here, but this should not
-        /// normally be required.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='HandledLocalOptions']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         [GISharp.Runtime.GSignalAttribute("handle-local-options", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<HandleLocalOptionsedEventArgs> HandleLocalOptionsed { add => handleLocalOptionsedSignalManager.Add(this, value); remove => handleLocalOptionsedSignalManager.Remove(value); }
+        public event System.EventHandler<HandledLocalOptionsEventArgs> HandledLocalOptions { add => handledLocalOptionsSignalManager.Add(this, value); remove => handledLocalOptionsSignalManager.Remove(value); }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='OpenedEventArgs']/*" />
         public sealed class OpenedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
+            /// <include file="Application.xmldoc" path="declaration/member[@name='Files']/*" />
             public GISharp.Runtime.CPtrArray<GISharp.Lib.Gio.IFile> Files => (GISharp.Runtime.CPtrArray<GISharp.Lib.Gio.IFile>)args[1];
 
+            /// <include file="Application.xmldoc" path="declaration/member[@name='Hint']/*" />
             public GISharp.Lib.GLib.Utf8 Hint => (GISharp.Lib.GLib.Utf8)args[2];
 
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
             public OpenedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
@@ -469,17 +252,18 @@ namespace GISharp.Lib.Gio
 
         readonly GISharp.Runtime.GSignalManager<OpenedEventArgs> openedSignalManager = new GISharp.Runtime.GSignalManager<OpenedEventArgs>("open", _GType);
 
-        /// <summary>
-        /// The ::open signal is emitted on the primary instance when there are
-        /// files to open. See <see cref="Application.Open"/> for more information.
-        /// </summary>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Opened']/*" />
         [GISharp.Runtime.GSignalAttribute("open", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<OpenedEventArgs> Opened { add => openedSignalManager.Add(this, value); remove => openedSignalManager.Remove(value); }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='ShutdownedEventArgs']/*" />
         public sealed class ShutdownedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
             public ShutdownedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
@@ -488,17 +272,18 @@ namespace GISharp.Lib.Gio
 
         readonly GISharp.Runtime.GSignalManager<ShutdownedEventArgs> shutdownedSignalManager = new GISharp.Runtime.GSignalManager<ShutdownedEventArgs>("shutdown", _GType);
 
-        /// <summary>
-        /// The ::shutdown signal is emitted only on the registered primary instance
-        /// immediately after the main loop terminates.
-        /// </summary>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Shutdowned']/*" />
         [GISharp.Runtime.GSignalAttribute("shutdown", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<ShutdownedEventArgs> Shutdowned { add => shutdownedSignalManager.Add(this, value); remove => shutdownedSignalManager.Remove(value); }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='StartupedEventArgs']/*" />
         public sealed class StartupedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
             public StartupedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
@@ -507,27 +292,28 @@ namespace GISharp.Lib.Gio
 
         readonly GISharp.Runtime.GSignalManager<StartupedEventArgs> startupedSignalManager = new GISharp.Runtime.GSignalManager<StartupedEventArgs>("startup", _GType);
 
-        /// <summary>
-        /// The ::startup signal is emitted on the primary instance immediately
-        /// after registration. See <see cref="Application.Register"/>.
-        /// </summary>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Startuped']/*" />
         [GISharp.Runtime.GSignalAttribute("startup", When = GISharp.Runtime.EmissionStage.First)]
         public event System.EventHandler<StartupedEventArgs> Startuped { add => startupedSignalManager.Add(this, value); remove => startupedSignalManager.Remove(value); }
 
         readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionAddedEventArgs> actionAddedSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionAddedEventArgs>("action-added", _GType);
 
+        /// <inheritdoc />
         public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionAddedEventArgs> ActionAdded { add => actionAddedSignalManager.Add(this, value); remove => actionAddedSignalManager.Remove(value); }
 
         readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedEventArgs> actionEnabledChangedSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedEventArgs>("action-enabled-changed", _GType);
 
+        /// <inheritdoc />
         public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedEventArgs> ActionEnabledChanged { add => actionEnabledChangedSignalManager.Add(this, value); remove => actionEnabledChangedSignalManager.Remove(value); }
 
         readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionRemovedEventArgs> actionRemovedSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionRemovedEventArgs>("action-removed", _GType);
 
+        /// <inheritdoc />
         public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionRemovedEventArgs> ActionRemoved { add => actionRemovedSignalManager.Add(this, value); remove => actionRemovedSignalManager.Remove(value); }
 
         readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionStateChangedEventArgs> actionStateChangedSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionStateChangedEventArgs>("action-state-changed", _GType);
 
+        /// <inheritdoc />
         public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionStateChangedEventArgs> ActionStateChanged { add => actionStateChangedSignalManager.Add(this, value); remove => actionStateChangedSignalManager.Remove(value); }
 
         /// <summary>
@@ -549,19 +335,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:out */
         static extern unsafe System.IntPtr g_application_get_default();
 
-        /// <summary>
-        /// Returns the default <see cref="Application"/> instance for this process.
-        /// </summary>
-        /// <remarks>
-        /// Normally there is only one <see cref="Application"/> per process and it becomes
-        /// the default when it is created.  You can exercise more control over
-        /// this by using <see cref="Application.SetDefault"/>.
-        /// 
-        /// If there is no default application then <c>null</c> is returned.
-        /// </remarks>
-        /// <returns>
-        /// the default application for this process, or <c>null</c>
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='GetDefault()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         private static unsafe GISharp.Lib.Gio.Application GetDefault()
         {
@@ -632,60 +406,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr applicationId);
 
-        /// <summary>
-        /// Checks if <paramref name="applicationId"/> is a valid application identifier.
-        /// </summary>
-        /// <remarks>
-        /// A valid ID is required for calls to <see cref="Application.New"/> and
-        /// <see cref="Application.SetApplicationId"/>.
-        /// 
-        /// Application identifiers follow the same format as
-        /// [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
-        /// For convenience, the restrictions on application identifiers are
-        /// reproduced here:
-        /// 
-        /// - Application identifiers are composed of 1 or more elements separated by a
-        ///   period (`.`) character. All elements must contain at least one character.
-        /// 
-        /// - Each element must only contain the ASCII characters `[A-Z][a-z][0-9]_-`,
-        ///   with `-` discouraged in new application identifiers. Each element must not
-        ///   begin with a digit.
-        /// 
-        /// - Application identifiers must contain at least one `.` (period) character
-        ///   (and thus at least two elements).
-        /// 
-        /// - Application identifiers must not begin with a `.` (period) character.
-        /// 
-        /// - Application identifiers must not exceed 255 characters.
-        /// 
-        /// Note that the hyphen (`-`) character is allowed in application identifiers,
-        /// but is problematic or not allowed in various specifications and APIs that
-        /// refer to D-Bus, such as
-        /// [Flatpak application IDs](http://docs.flatpak.org/en/latest/introduction.html#identifiers),
-        /// the
-        /// [`DBusActivatable` interface in the Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus),
-        /// and the convention that an application's "main" interface and object path
-        /// resemble its application identifier and bus name. To avoid situations that
-        /// require special-case handling, it is recommended that new application
-        /// identifiers consistently replace hyphens with underscores.
-        /// 
-        /// Like D-Bus interface names, application identifiers should start with the
-        /// reversed DNS domain name of the author of the interface (in lower-case), and
-        /// it is conventional for the rest of the application identifier to consist of
-        /// words run together, with initial capital letters.
-        /// 
-        /// As with D-Bus interface names, if the author's DNS domain name contains
-        /// hyphen/minus characters they should be replaced by underscores, and if it
-        /// contains leading digits they should be escaped by prepending an underscore.
-        /// For example, if the owner of 7-zip.org used an application identifier for an
-        /// archiving application, it might be named `org._7_zip.Archiver`.
-        /// </remarks>
-        /// <param name="applicationId">
-        /// a potential application identifier
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="applicationId"/> is valid
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='IdIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static unsafe System.Boolean IdIsValid(GISharp.Lib.GLib.UnownedUtf8 applicationId)
         {
             var applicationId_ = applicationId.Handle;
@@ -694,60 +415,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Checks if <paramref name="applicationId"/> is a valid application identifier.
-        /// </summary>
-        /// <remarks>
-        /// A valid ID is required for calls to <see cref="Application.New"/> and
-        /// <see cref="Application.SetApplicationId"/>.
-        /// 
-        /// Application identifiers follow the same format as
-        /// [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
-        /// For convenience, the restrictions on application identifiers are
-        /// reproduced here:
-        /// 
-        /// - Application identifiers are composed of 1 or more elements separated by a
-        ///   period (`.`) character. All elements must contain at least one character.
-        /// 
-        /// - Each element must only contain the ASCII characters `[A-Z][a-z][0-9]_-`,
-        ///   with `-` discouraged in new application identifiers. Each element must not
-        ///   begin with a digit.
-        /// 
-        /// - Application identifiers must contain at least one `.` (period) character
-        ///   (and thus at least two elements).
-        /// 
-        /// - Application identifiers must not begin with a `.` (period) character.
-        /// 
-        /// - Application identifiers must not exceed 255 characters.
-        /// 
-        /// Note that the hyphen (`-`) character is allowed in application identifiers,
-        /// but is problematic or not allowed in various specifications and APIs that
-        /// refer to D-Bus, such as
-        /// [Flatpak application IDs](http://docs.flatpak.org/en/latest/introduction.html#identifiers),
-        /// the
-        /// [`DBusActivatable` interface in the Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus),
-        /// and the convention that an application's "main" interface and object path
-        /// resemble its application identifier and bus name. To avoid situations that
-        /// require special-case handling, it is recommended that new application
-        /// identifiers consistently replace hyphens with underscores.
-        /// 
-        /// Like D-Bus interface names, application identifiers should start with the
-        /// reversed DNS domain name of the author of the interface (in lower-case), and
-        /// it is conventional for the rest of the application identifier to consist of
-        /// words run together, with initial capital letters.
-        /// 
-        /// As with D-Bus interface names, if the author's DNS domain name contains
-        /// hyphen/minus characters they should be replaced by underscores, and if it
-        /// contains leading digits they should be escaped by prepending an underscore.
-        /// For example, if the owner of 7-zip.org used an application identifier for an
-        /// archiving application, it might be named `org._7_zip.Archiver`.
-        /// </remarks>
-        /// <param name="applicationId">
-        /// a potential application identifier
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="applicationId"/> is valid
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='IdIsValid(System.String)']/*" />
         public static unsafe System.Boolean IdIsValid(System.String applicationId)
         {
             using var applicationIdUtf8 = new GISharp.Lib.GLib.Utf8(applicationId);
@@ -780,15 +448,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Activates the application.
-        /// </summary>
-        /// <remarks>
-        /// In essence, this results in the <see cref="Application"/>::activate signal being
-        /// emitted in the primary instance.
-        /// 
-        /// The application must be registered before calling this function.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Activate()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe void Activate()
         {
@@ -861,41 +521,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr argDescription);
 
-        /// <summary>
-        /// Add an option to be handled by <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// Calling this function is the equivalent of calling
-        /// <see cref="Application.AddMainOptionEntries"/> with a single #GOptionEntry
-        /// that has its arg_data member set to <c>null</c>.
-        /// 
-        /// The parsed arguments will be packed into a #GVariantDict which
-        /// is passed to <see cref="Application"/>::handle-local-options. If
-        /// <see cref="ApplicationFlags.HandlesCommandLine"/> is set, then it will also
-        /// be sent to the primary instance. See
-        /// <see cref="Application.AddMainOptionEntries"/> for more details.
-        /// 
-        /// See #GOptionEntry for more documentation of the arguments.
-        /// </remarks>
-        /// <param name="longName">
-        /// the long name of an option used to specify it in a commandline
-        /// </param>
-        /// <param name="shortName">
-        /// the short name of an option
-        /// </param>
-        /// <param name="flags">
-        /// flags from #GOptionFlags
-        /// </param>
-        /// <param name="arg">
-        /// the type of the option, as a #GOptionArg
-        /// </param>
-        /// <param name="description">
-        /// the description for the option in `--help` output
-        /// </param>
-        /// <param name="argDescription">
-        /// the placeholder to use for the extra argument
-        ///    parsed by the option in `--help` output
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='AddMainOption(GISharp.Lib.GLib.UnownedUtf8,System.SByte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         public unsafe void AddMainOption(GISharp.Lib.GLib.UnownedUtf8 longName, System.SByte shortName, GISharp.Lib.GLib.OptionFlags flags, GISharp.Lib.GLib.OptionArg arg, GISharp.Lib.GLib.UnownedUtf8 description, GISharp.Lib.GLib.NullableUnownedUtf8 argDescription)
         {
@@ -909,41 +535,7 @@ namespace GISharp.Lib.Gio
             g_application_add_main_option(application_, longName_, shortName_, flags_, arg_, description_, argDescription_);
         }
 
-        /// <summary>
-        /// Add an option to be handled by <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// Calling this function is the equivalent of calling
-        /// <see cref="Application.AddMainOptionEntries"/> with a single #GOptionEntry
-        /// that has its arg_data member set to <c>null</c>.
-        /// 
-        /// The parsed arguments will be packed into a #GVariantDict which
-        /// is passed to <see cref="Application"/>::handle-local-options. If
-        /// <see cref="ApplicationFlags.HandlesCommandLine"/> is set, then it will also
-        /// be sent to the primary instance. See
-        /// <see cref="Application.AddMainOptionEntries"/> for more details.
-        /// 
-        /// See #GOptionEntry for more documentation of the arguments.
-        /// </remarks>
-        /// <param name="longName">
-        /// the long name of an option used to specify it in a commandline
-        /// </param>
-        /// <param name="shortName">
-        /// the short name of an option
-        /// </param>
-        /// <param name="flags">
-        /// flags from #GOptionFlags
-        /// </param>
-        /// <param name="arg">
-        /// the type of the option, as a #GOptionArg
-        /// </param>
-        /// <param name="description">
-        /// the description for the option in `--help` output
-        /// </param>
-        /// <param name="argDescription">
-        /// the placeholder to use for the extra argument
-        ///    parsed by the option in `--help` output
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='AddMainOption(System.String,System.SByte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,System.String,System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         public unsafe void AddMainOption(System.String longName, System.SByte shortName, GISharp.Lib.GLib.OptionFlags flags, GISharp.Lib.GLib.OptionArg arg, System.String description, System.String? argDescription)
         {
@@ -1031,67 +623,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         in GISharp.Lib.GLib.OptionEntry entries);
 
-        /// <summary>
-        /// Adds main option entries to be handled by <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// This function is comparable to g_option_context_add_main_entries().
-        /// 
-        /// After the commandline arguments are parsed, the
-        /// <see cref="Application"/>::handle-local-options signal will be emitted.  At this
-        /// point, the application can inspect the values pointed to by <paramref name="argData"/>
-        /// in the given #GOptionEntrys.
-        /// 
-        /// Unlike #GOptionContext, <see cref="Application"/> supports giving a <c>null</c>
-        /// <paramref name="argData"/> for a non-callback #GOptionEntry.  This results in the
-        /// argument in question being packed into a #GVariantDict which is also
-        /// passed to <see cref="Application"/>::handle-local-options, where it can be
-        /// inspected and modified.  If <see cref="ApplicationFlags.HandlesCommandLine"/> is
-        /// set, then the resulting dictionary is sent to the primary instance,
-        /// where <see cref="ApplicationCommandLine.GetOptions"/> will return it.
-        /// This "packing" is done according to the type of the argument --
-        /// booleans for normal flags, strings for strings, bytestrings for
-        /// filenames, etc.  The packing only occurs if the flag is given (ie: we
-        /// do not pack a "false" #GVariant in the case that a flag is missing).
-        /// 
-        /// In general, it is recommended that all commandline arguments are
-        /// parsed locally.  The options dictionary should then be used to
-        /// transmit the result of the parsing to the primary instance, where
-        /// g_variant_dict_lookup() can be used.  For local options, it is
-        /// possible to either use <paramref name="argData"/> in the usual way, or to consult (and
-        /// potentially remove) the option from the options dictionary.
-        /// 
-        /// This function is new in GLib 2.40.  Before then, the only real choice
-        /// was to send all of the commandline arguments (options and all) to the
-        /// primary instance for handling.  <see cref="Application"/> ignored them completely
-        /// on the local side.  Calling this function "opts in" to the new
-        /// behaviour, and in particular, means that unrecognised options will be
-        /// treated as errors.  Unrecognised options have never been ignored when
-        /// <see cref="ApplicationFlags.HandlesCommandLine"/> is unset.
-        /// 
-        /// If <see cref="Application"/>::handle-local-options needs to see the list of
-        /// filenames, then the use of %G_OPTION_REMAINING is recommended.  If
-        /// <paramref name="argData"/> is <c>null</c> then %G_OPTION_REMAINING can be used as a key into
-        /// the options dictionary.  If you do use %G_OPTION_REMAINING then you
-        /// need to handle these arguments for yourself because once they are
-        /// consumed, they will no longer be visible to the default handling
-        /// (which treats them as filenames to be opened).
-        /// 
-        /// It is important to use the proper GVariant format when retrieving
-        /// the options with g_variant_dict_lookup():
-        /// - for %G_OPTION_ARG_NONE, use b
-        /// - for %G_OPTION_ARG_STRING, use &amp;s
-        /// - for %G_OPTION_ARG_INT, use i
-        /// - for %G_OPTION_ARG_INT64, use x
-        /// - for %G_OPTION_ARG_DOUBLE, use d
-        /// - for %G_OPTION_ARG_FILENAME, use ^ay
-        /// - for %G_OPTION_ARG_STRING_ARRAY, use &amp;as
-        /// - for %G_OPTION_ARG_FILENAME_ARRAY, use ^aay
-        /// </remarks>
-        /// <param name="entries">
-        /// a
-        ///           <c>null</c>-terminated list of #GOptionEntrys
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='AddMainOptionEntries(System.ReadOnlySpan&lt;GISharp.Lib.GLib.OptionEntry&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void AddMainOptionEntries(System.ReadOnlySpan<GISharp.Lib.GLib.OptionEntry> entries)
         {
@@ -1145,37 +677,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:in */
         System.IntPtr group);
 
-        /// <summary>
-        /// Adds a #GOptionGroup to the commandline handling of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// This function is comparable to g_option_context_add_group().
-        /// 
-        /// Unlike <see cref="Application.AddMainOptionEntries"/>, this function does
-        /// not deal with <c>null</c> <paramref name="argData"/> and never transmits options to the
-        /// primary instance.
-        /// 
-        /// The reason for that is because, by the time the options arrive at the
-        /// primary instance, it is typically too late to do anything with them.
-        /// Taking the GTK option group as an example: GTK will already have been
-        /// initialised by the time the <see cref="Application"/>::command-line handler runs.
-        /// In the case that this is not the first-running instance of the
-        /// application, the existing instance may already have been running for
-        /// a very long time.
-        /// 
-        /// This means that the options from #GOptionGroup are only really usable
-        /// in the case that the instance of the application being run is the
-        /// first instance.  Passing options like `--display=` or `--gdk-debug=`
-        /// on future runs will have no effect on the existing primary instance.
-        /// 
-        /// Calling this function will cause the options in the supplied option
-        /// group to be parsed, but it does not cause you to be "opted in" to the
-        /// new functionality whereby unrecognised options are rejected even if
-        /// <see cref="ApplicationFlags.HandlesCommandLine"/> was given.
-        /// </remarks>
-        /// <param name="group">
-        /// a #GOptionGroup
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='AddOptionGroup(GISharp.Lib.GLib.OptionGroup)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void AddOptionGroup(GISharp.Lib.GLib.OptionGroup group)
         {
@@ -1217,21 +719,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr property);
 
-        /// <summary>
-        /// Marks <paramref name="application"/> as busy (see <see cref="Application.MarkBusy"/>) while
-        /// <paramref name="property"/> on <paramref name="<paramref name="<paramref name="@object"/>"/>"/> is <c>true</c>.
-        /// </summary>
-        /// <remarks>
-        /// The binding holds a reference to <paramref name="application"/> while it is active, but
-        /// not to <paramref name="<paramref name="<paramref name="@object"/>"/>"/>. Instead, the binding is destroyed when <paramref name="<paramref name="<paramref name="@object"/>"/>"/> is
-        /// finalized.
-        /// </remarks>
-        /// <param name="object">
-        /// a #GObject
-        /// </param>
-        /// <param name="property">
-        /// the name of a boolean property of <paramref name="@object"/>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe void BindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.UnownedUtf8 property)
         {
@@ -1241,21 +729,7 @@ namespace GISharp.Lib.Gio
             g_application_bind_busy_property(application_, @object_, property_);
         }
 
-        /// <summary>
-        /// Marks <paramref name="application"/> as busy (see <see cref="Application.MarkBusy"/>) while
-        /// <paramref name="property"/> on <paramref name="<paramref name="<paramref name="@object"/>"/>"/> is <c>true</c>.
-        /// </summary>
-        /// <remarks>
-        /// The binding holds a reference to <paramref name="application"/> while it is active, but
-        /// not to <paramref name="<paramref name="<paramref name="@object"/>"/>"/>. Instead, the binding is destroyed when <paramref name="<paramref name="<paramref name="@object"/>"/>"/> is
-        /// finalized.
-        /// </remarks>
-        /// <param name="object">
-        /// a #GObject
-        /// </param>
-        /// <param name="property">
-        /// the name of a boolean property of <paramref name="@object"/>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='BindBusyProperty(GISharp.Lib.GObject.Object,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe void BindBusyProperty(GISharp.Lib.GObject.Object @object, System.String property)
         {
@@ -1281,12 +755,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Gets the unique identifier for <paramref name="application"/>.
-        /// </summary>
-        /// <returns>
-        /// the identifier for <paramref name="application"/>, owned by <paramref name="application"/>
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='GetApplicationId()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetApplicationId()
         {
@@ -1328,26 +797,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Gets the D-Bus object path being used by the application, or <c>null</c>.
-        /// </summary>
-        /// <remarks>
-        /// If <see cref="Application"/> is using its D-Bus backend then this function will
-        /// return the D-Bus object path that <see cref="Application"/> is using.  If the
-        /// application is the primary instance then there is an object published
-        /// at this path.  If the application is not the primary instance then
-        /// the result of this function is undefined.
-        /// 
-        /// If <see cref="Application"/> is not using D-Bus then this function will return
-        /// <c>null</c>.  This includes the situation where the D-Bus backend would
-        /// normally be in use but we were unable to connect to the bus.
-        /// 
-        /// This function must not be called before the application has been
-        /// registered.  See <see cref="Application.GetIsRegistered"/>.
-        /// </remarks>
-        /// <returns>
-        /// the object path, or <c>null</c>
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='GetDbusObjectPath()']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetDbusObjectPath()
         {
@@ -1378,15 +828,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Gets the flags for <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="ApplicationFlags"/>.
-        /// </remarks>
-        /// <returns>
-        /// the flags for <paramref name="application"/>
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='GetFlags()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Lib.Gio.ApplicationFlags GetFlags()
         {
@@ -1418,16 +860,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Gets the current inactivity timeout for the application.
-        /// </summary>
-        /// <remarks>
-        /// This is the amount of time (in milliseconds) after the last call to
-        /// <see cref="Application.Release"/> before the application stops running.
-        /// </remarks>
-        /// <returns>
-        /// the timeout, in milliseconds
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='GetInactivityTimeout()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.UInt32 GetInactivityTimeout()
         {
@@ -1456,13 +889,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Gets the application's current busy state, as set through
-        /// <see cref="Application.MarkBusy"/> or <see cref="Application.BindBusyProperty"/>.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if <paramref name="application"/> is currenty marked as busy
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='GetIsBusy()']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         private unsafe System.Boolean GetIsBusy()
         {
@@ -1494,16 +921,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Checks if <paramref name="application"/> is registered.
-        /// </summary>
-        /// <remarks>
-        /// An application is registered if <see cref="Application.Register"/> has been
-        /// successfully called.
-        /// </remarks>
-        /// <returns>
-        /// <c>true</c> if <paramref name="application"/> is registered
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='GetIsRegistered()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.Boolean GetIsRegistered()
         {
@@ -1541,22 +959,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Checks if <paramref name="application"/> is remote.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="application"/> is remote then it means that another instance of
-        /// application already exists (the 'primary' instance).  Calls to
-        /// perform actions on <paramref name="application"/> will result in the actions being
-        /// performed by the primary instance.
-        /// 
-        /// The value of this property cannot be accessed before
-        /// <see cref="Application.Register"/> has been called.  See
-        /// <see cref="Application.GetIsRegistered"/>.
-        /// </remarks>
-        /// <returns>
-        /// <c>true</c> if <paramref name="application"/> is remote
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='GetIsRemote()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.Boolean GetIsRemote()
         {
@@ -1587,15 +990,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Gets the resource base path of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="Application.SetResourceBasePath"/> for more information.
-        /// </remarks>
-        /// <returns>
-        /// the base resource path, if one is set
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='GetResourceBasePath()']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetResourceBasePath()
         {
@@ -1626,16 +1021,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Increases the use count of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// Use this function to indicate that the application has a reason to
-        /// continue to run.  For example, <see cref="Application.Hold"/> is called by GTK+
-        /// when a toplevel window is on the screen.
-        /// 
-        /// To cancel the hold, call <see cref="Application.Release"/>.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Hold()']/*" />
         public unsafe void Hold()
         {
             var application_ = Handle;
@@ -1667,19 +1053,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Increases the busy count of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// Use this function to indicate that the application is busy, for instance
-        /// while a long running operation is pending.
-        /// 
-        /// The busy state will be exposed to other processes, so a session shell will
-        /// use that information to indicate the state to the user (e.g. with a
-        /// spinner).
-        /// 
-        /// To cancel the busy indication, use <see cref="Application.UnmarkBusy"/>.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='MarkBusy()']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public unsafe void MarkBusy()
         {
@@ -1736,29 +1110,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr hint);
 
-        /// <summary>
-        /// Opens the given files.
-        /// </summary>
-        /// <remarks>
-        /// In essence, this results in the <see cref="Application"/>::open signal being emitted
-        /// in the primary instance.
-        /// 
-        /// <paramref name="nFiles"/> must be greater than zero.
-        /// 
-        /// <paramref name="hint"/> is simply passed through to the ::open signal.  It is
-        /// intended to be used by applications that have multiple modes for
-        /// opening files (eg: "view" vs "edit", etc).  Unless you have a need
-        /// for this functionality, you should use "".
-        /// 
-        /// The application must be registered before calling this function
-        /// and it must have the <see cref="ApplicationFlags.HandlesOpen"/> flag set.
-        /// </remarks>
-        /// <param name="files">
-        /// an array of #GFiles to open
-        /// </param>
-        /// <param name="hint">
-        /// a hint (or ""), but never <c>null</c>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Open(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe void Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
         {
@@ -1768,29 +1120,7 @@ namespace GISharp.Lib.Gio
             g_application_open(application_, files_, nFiles_, hint_);
         }
 
-        /// <summary>
-        /// Opens the given files.
-        /// </summary>
-        /// <remarks>
-        /// In essence, this results in the <see cref="Application"/>::open signal being emitted
-        /// in the primary instance.
-        /// 
-        /// <paramref name="nFiles"/> must be greater than zero.
-        /// 
-        /// <paramref name="hint"/> is simply passed through to the ::open signal.  It is
-        /// intended to be used by applications that have multiple modes for
-        /// opening files (eg: "view" vs "edit", etc).  Unless you have a need
-        /// for this functionality, you should use "".
-        /// 
-        /// The application must be registered before calling this function
-        /// and it must have the <see cref="ApplicationFlags.HandlesOpen"/> flag set.
-        /// </remarks>
-        /// <param name="files">
-        /// an array of #GFiles to open
-        /// </param>
-        /// <param name="hint">
-        /// a hint (or ""), but never <c>null</c>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Open(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe void Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, System.String hint)
         {
@@ -1826,22 +1156,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Immediately quits the application.
-        /// </summary>
-        /// <remarks>
-        /// Upon return to the mainloop, <see cref="Application.Run"/> will return,
-        /// calling only the 'shutdown' function before doing so.
-        /// 
-        /// The hold count is ignored.
-        /// Take care if your code has called <see cref="Application.Hold"/> on the application and
-        /// is therefore still expecting it to exist.
-        /// (Note that you may have called <see cref="Application.Hold"/> indirectly, for example
-        /// through gtk_application_add_window().)
-        /// 
-        /// The result of calling <see cref="Application.Run"/> again after it returns is
-        /// unspecified.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Quit()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe void Quit()
         {
@@ -1909,45 +1224,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Attempts registration of the application.
-        /// </summary>
-        /// <remarks>
-        /// This is the point at which the application discovers if it is the
-        /// primary instance or merely acting as a remote for an already-existing
-        /// primary instance.  This is implemented by attempting to acquire the
-        /// application identifier as a unique bus name on the session bus using
-        /// GDBus.
-        /// 
-        /// If there is no application ID or if <see cref="ApplicationFlags.NonUnique"/> was
-        /// given, then this process will always become the primary instance.
-        /// 
-        /// Due to the internal architecture of GDBus, method calls can be
-        /// dispatched at any time (even if a main loop is not running).  For
-        /// this reason, you must ensure that any object paths that you wish to
-        /// register are registered before calling this function.
-        /// 
-        /// If the application has already been registered then <c>true</c> is
-        /// returned with no work performed.
-        /// 
-        /// The <see cref="Application"/>::startup signal is emitted if registration succeeds
-        /// and <paramref name="application"/> is the primary instance (including the non-unique
-        /// case).
-        /// 
-        /// In the event of an error (such as <paramref name="cancellable"/> being cancelled, or a
-        /// failure to connect to the session bus), <c>false</c> is returned and <paramref name="error"/>
-        /// is set appropriately.
-        /// 
-        /// Note: the return value of this function is not an indicator that this
-        /// instance is or is not the primary instance of the application.  See
-        /// <see cref="Application.GetIsRemote"/> for that.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// a <see cref="Cancellable"/>, or <c>null</c>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Register(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe void Register(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -1982,15 +1259,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Decrease the use count of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// When the use count reaches zero, the application will stop running.
-        /// 
-        /// Never call this function except to cancel the effect of a previous
-        /// call to <see cref="Application.Hold"/>.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Release()']/*" />
         public unsafe void Release()
         {
             var application_ = Handle;
@@ -2105,91 +1374,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         in System.IntPtr argv);
 
-        /// <summary>
-        /// Runs the application.
-        /// </summary>
-        /// <remarks>
-        /// This function is intended to be run from main() and its return value
-        /// is intended to be returned by main(). Although you are expected to pass
-        /// the <paramref name="argc"/>, <paramref name="argv"/> parameters from main() to this function, it is possible
-        /// to pass <c>null</c> if <paramref name="argv"/> is not available or commandline handling is not
-        /// required.  Note that on Windows, <paramref name="argc"/> and <paramref name="argv"/> are ignored, and
-        /// g_win32_get_command_line() is called internally (for proper support
-        /// of Unicode commandline arguments).
-        /// 
-        /// <see cref="Application"/> will attempt to parse the commandline arguments.  You
-        /// can add commandline flags to the list of recognised options by way of
-        /// <see cref="Application.AddMainOptionEntries"/>.  After this, the
-        /// <see cref="Application"/>::handle-local-options signal is emitted, from which the
-        /// application can inspect the values of its #GOptionEntrys.
-        /// 
-        /// <see cref="Application"/>::handle-local-options is a good place to handle options
-        /// such as `--version`, where an immediate reply from the local process is
-        /// desired (instead of communicating with an already-running instance).
-        /// A <see cref="Application"/>::handle-local-options handler can stop further processing
-        /// by returning a non-negative value, which then becomes the exit status of
-        /// the process.
-        /// 
-        /// What happens next depends on the flags: if
-        /// <see cref="ApplicationFlags.HandlesCommandLine"/> was specified then the remaining
-        /// commandline arguments are sent to the primary instance, where a
-        /// <see cref="Application"/>::command-line signal is emitted.  Otherwise, the
-        /// remaining commandline arguments are assumed to be a list of files.
-        /// If there are no files listed, the application is activated via the
-        /// <see cref="Application"/>::activate signal.  If there are one or more files, and
-        /// <see cref="ApplicationFlags.HandlesOpen"/> was specified then the files are opened
-        /// via the <see cref="Application"/>::open signal.
-        /// 
-        /// If you are interested in doing more complicated local handling of the
-        /// commandline then you should implement your own <see cref="Application"/> subclass
-        /// and override local_command_line(). In this case, you most likely want
-        /// to return <c>true</c> from your local_command_line() implementation to
-        /// suppress the default handling. See
-        /// [gapplication-example-cmdline2.c][gapplication-example-cmdline2]
-        /// for an example.
-        /// 
-        /// If, after the above is done, the use count of the application is zero
-        /// then the exit status is returned immediately.  If the use count is
-        /// non-zero then the default main context is iterated until the use count
-        /// falls to zero, at which point 0 is returned.
-        /// 
-        /// If the <see cref="ApplicationFlags.IsService"/> flag is set, then the service will
-        /// run for as much as 10 seconds with a use count of zero while waiting
-        /// for the message that caused the activation to arrive.  After that,
-        /// if the use count falls to zero the application will exit immediately,
-        /// except in the case that <see cref="Application.SetInactivityTimeout"/> is in
-        /// use.
-        /// 
-        /// This function sets the prgname (g_set_prgname()), if not already set,
-        /// to the basename of argv[0].
-        /// 
-        /// Much like g_main_loop_run(), this function will acquire the main context
-        /// for the duration that the application is running.
-        /// 
-        /// Since 2.40, applications that are not explicitly flagged as services
-        /// or launchers (ie: neither <see cref="ApplicationFlags.IsService"/> or
-        /// <see cref="ApplicationFlags.IsLauncher"/> are given as flags) will check (from the
-        /// default handler for local_command_line) if "--gapplication-service"
-        /// was given in the command line.  If this flag is present then normal
-        /// commandline processing is interrupted and the
-        /// <see cref="ApplicationFlags.IsService"/> flag is set.  This provides a "compromise"
-        /// solution whereby running an application directly from the commandline
-        /// will invoke it in the normal way (which can be useful for debugging)
-        /// while still allowing applications to be D-Bus activated in service
-        /// mode.  The D-Bus service file should invoke the executable with
-        /// "--gapplication-service" as the sole commandline argument.  This
-        /// approach is suitable for use by most graphical applications but
-        /// should not be used from applications like editors that need precise
-        /// control over when processes invoked via the commandline will exit and
-        /// what their exit status will be.
-        /// </remarks>
-        /// <param name="argv">
-        /// 
-        ///     the argv from main(), or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// the exit status
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Run(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe System.Int32 Run(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> argv)
         {
@@ -2224,13 +1409,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr actionGroup);
 
-        /// <summary>
-        /// This used to be how actions were associated with a <see cref="Application"/>.
-        /// Now there is <see cref="IActionMap"/> for that.
-        /// </summary>
-        /// <param name="actionGroup">
-        /// a <see cref="IActionGroup"/>, or <c>null</c>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetActionGroup(GISharp.Lib.Gio.IActionGroup?)']/*" />
         [System.ObsoleteAttribute("Use the #GActionMap interface instead.  Never ever\nmix use of this API with use of #GActionMap on the same @application\nor things will go very badly wrong.  This function is known to\nintroduce buggy behaviour (ie: signals not emitted on changes to the\naction group), so you should really use #GActionMap instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.32")]
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -2269,19 +1448,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr applicationId);
 
-        /// <summary>
-        /// Sets the unique identifier for <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// The application id can only be modified if <paramref name="application"/> has not yet
-        /// been registered.
-        /// 
-        /// If non-<c>null</c>, the application id must be valid.  See
-        /// <see cref="Application.IdIsValid"/>.
-        /// </remarks>
-        /// <param name="applicationId">
-        /// the identifier for <paramref name="application"/>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId)
         {
@@ -2290,19 +1457,7 @@ namespace GISharp.Lib.Gio
             g_application_set_application_id(application_, applicationId_);
         }
 
-        /// <summary>
-        /// Sets the unique identifier for <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// The application id can only be modified if <paramref name="application"/> has not yet
-        /// been registered.
-        /// 
-        /// If non-<c>null</c>, the application id must be valid.  See
-        /// <see cref="Application.IdIsValid"/>.
-        /// </remarks>
-        /// <param name="applicationId">
-        /// the identifier for <paramref name="application"/>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetApplicationId(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetApplicationId(System.String? applicationId)
         {
@@ -2331,15 +1486,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Sets or unsets the default application for the process, as returned
-        /// by <see cref="Application.GetDefault"/>.
-        /// </summary>
-        /// <remarks>
-        /// This function does not take its own reference on <paramref name="application"/>.  If
-        /// <paramref name="application"/> is destroyed then the default application will revert
-        /// back to <c>null</c>.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetDefault()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe void SetDefault()
         {
@@ -2374,18 +1521,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationFlags flags);
 
-        /// <summary>
-        /// Sets the flags for <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// The flags can only be modified if <paramref name="application"/> has not yet been
-        /// registered.
-        /// 
-        /// See <see cref="ApplicationFlags"/>.
-        /// </remarks>
-        /// <param name="flags">
-        /// the flags for <paramref name="application"/>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetFlags(GISharp.Lib.Gio.ApplicationFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetFlags(GISharp.Lib.Gio.ApplicationFlags flags)
         {
@@ -2423,20 +1559,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.UInt32 inactivityTimeout);
 
-        /// <summary>
-        /// Sets the current inactivity timeout for the application.
-        /// </summary>
-        /// <remarks>
-        /// This is the amount of time (in milliseconds) after the last call to
-        /// <see cref="Application.Release"/> before the application stops running.
-        /// 
-        /// This call has no side effects of its own.  The value set here is only
-        /// used for next time <see cref="Application.Release"/> drops the use count to
-        /// zero.  Any timeouts currently in progress are not impacted.
-        /// </remarks>
-        /// <param name="inactivityTimeout">
-        /// the timeout, in milliseconds
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetInactivityTimeout(System.UInt32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetInactivityTimeout(System.UInt32 inactivityTimeout)
         {
@@ -2470,16 +1593,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr description);
 
-        /// <summary>
-        /// Adds a description to the <paramref name="application"/> option context.
-        /// </summary>
-        /// <remarks>
-        /// See g_option_context_set_description() for more information.
-        /// </remarks>
-        /// <param name="description">
-        /// a string to be shown in `--help` output
-        ///  after the list of options, or <c>null</c>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetOptionContextDescription(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe void SetOptionContextDescription(GISharp.Lib.GLib.NullableUnownedUtf8 description)
         {
@@ -2488,16 +1602,7 @@ namespace GISharp.Lib.Gio
             g_application_set_option_context_description(application_, description_);
         }
 
-        /// <summary>
-        /// Adds a description to the <paramref name="application"/> option context.
-        /// </summary>
-        /// <remarks>
-        /// See g_option_context_set_description() for more information.
-        /// </remarks>
-        /// <param name="description">
-        /// a string to be shown in `--help` output
-        ///  after the list of options, or <c>null</c>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetOptionContextDescription(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe void SetOptionContextDescription(System.String? description)
         {
@@ -2533,19 +1638,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameterString);
 
-        /// <summary>
-        /// Sets the parameter string to be used by the commandline handling of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// This function registers the argument to be passed to g_option_context_new()
-        /// when the internal #GOptionContext of <paramref name="application"/> is created.
-        /// 
-        /// See g_option_context_new() for more information about <paramref name="parameterString"/>.
-        /// </remarks>
-        /// <param name="parameterString">
-        /// a string which is displayed
-        ///   in the first line of `--help` output, after the usage summary `programname [OPTION...]`.
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetOptionContextParameterString(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe void SetOptionContextParameterString(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString)
         {
@@ -2554,19 +1647,7 @@ namespace GISharp.Lib.Gio
             g_application_set_option_context_parameter_string(application_, parameterString_);
         }
 
-        /// <summary>
-        /// Sets the parameter string to be used by the commandline handling of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// This function registers the argument to be passed to g_option_context_new()
-        /// when the internal #GOptionContext of <paramref name="application"/> is created.
-        /// 
-        /// See g_option_context_new() for more information about <paramref name="parameterString"/>.
-        /// </remarks>
-        /// <param name="parameterString">
-        /// a string which is displayed
-        ///   in the first line of `--help` output, after the usage summary `programname [OPTION...]`.
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetOptionContextParameterString(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe void SetOptionContextParameterString(System.String? parameterString)
         {
@@ -2599,16 +1680,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr summary);
 
-        /// <summary>
-        /// Adds a summary to the <paramref name="application"/> option context.
-        /// </summary>
-        /// <remarks>
-        /// See g_option_context_set_summary() for more information.
-        /// </remarks>
-        /// <param name="summary">
-        /// a string to be shown in `--help` output
-        ///  before the list of options, or <c>null</c>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetOptionContextSummary(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe void SetOptionContextSummary(GISharp.Lib.GLib.NullableUnownedUtf8 summary)
         {
@@ -2617,16 +1689,7 @@ namespace GISharp.Lib.Gio
             g_application_set_option_context_summary(application_, summary_);
         }
 
-        /// <summary>
-        /// Adds a summary to the <paramref name="application"/> option context.
-        /// </summary>
-        /// <remarks>
-        /// See g_option_context_set_summary() for more information.
-        /// </remarks>
-        /// <param name="summary">
-        /// a string to be shown in `--help` output
-        ///  before the list of options, or <c>null</c>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetOptionContextSummary(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe void SetOptionContextSummary(System.String? summary)
         {
@@ -2688,45 +1751,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr resourcePath);
 
-        /// <summary>
-        /// Sets (or unsets) the base resource path of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// The path is used to automatically load various [application
-        /// resources][gresource] such as menu layouts and action descriptions.
-        /// The various types of resources will be found at fixed names relative
-        /// to the given base path.
-        /// 
-        /// By default, the resource base path is determined from the application
-        /// ID by prefixing '/' and replacing each '.' with '/'.  This is done at
-        /// the time that the <see cref="Application"/> object is constructed.  Changes to
-        /// the application ID after that point will not have an impact on the
-        /// resource base path.
-        /// 
-        /// As an example, if the application has an ID of "org.example.app" then
-        /// the default resource base path will be "/org/example/app".  If this
-        /// is a #GtkApplication (and you have not manually changed the path)
-        /// then Gtk will then search for the menus of the application at
-        /// "/org/example/app/gtk/menus.ui".
-        /// 
-        /// See #GResource for more information about adding resources to your
-        /// application.
-        /// 
-        /// You can disable automatic resource loading functionality by setting
-        /// the path to <c>null</c>.
-        /// 
-        /// Changing the resource base path once the application is running is
-        /// not recommended.  The point at which the resource path is consulted
-        /// for forming paths for various purposes is unspecified.  When writing
-        /// a sub-class of <see cref="Application"/> you should either set the
-        /// <see cref="Application"/>:resource-base-path property at construction time, or call
-        /// this function during the instance initialization. Alternatively, you
-        /// can call this function in the <see cref="ApplicationClass"/>.startup virtual function,
-        /// before chaining up to the parent implementation.
-        /// </remarks>
-        /// <param name="resourcePath">
-        /// the resource path to use
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetResourceBasePath(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         private unsafe void SetResourceBasePath(GISharp.Lib.GLib.NullableUnownedUtf8 resourcePath)
         {
@@ -2735,45 +1760,7 @@ namespace GISharp.Lib.Gio
             g_application_set_resource_base_path(application_, resourcePath_);
         }
 
-        /// <summary>
-        /// Sets (or unsets) the base resource path of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// The path is used to automatically load various [application
-        /// resources][gresource] such as menu layouts and action descriptions.
-        /// The various types of resources will be found at fixed names relative
-        /// to the given base path.
-        /// 
-        /// By default, the resource base path is determined from the application
-        /// ID by prefixing '/' and replacing each '.' with '/'.  This is done at
-        /// the time that the <see cref="Application"/> object is constructed.  Changes to
-        /// the application ID after that point will not have an impact on the
-        /// resource base path.
-        /// 
-        /// As an example, if the application has an ID of "org.example.app" then
-        /// the default resource base path will be "/org/example/app".  If this
-        /// is a #GtkApplication (and you have not manually changed the path)
-        /// then Gtk will then search for the menus of the application at
-        /// "/org/example/app/gtk/menus.ui".
-        /// 
-        /// See #GResource for more information about adding resources to your
-        /// application.
-        /// 
-        /// You can disable automatic resource loading functionality by setting
-        /// the path to <c>null</c>.
-        /// 
-        /// Changing the resource base path once the application is running is
-        /// not recommended.  The point at which the resource path is consulted
-        /// for forming paths for various purposes is unspecified.  When writing
-        /// a sub-class of <see cref="Application"/> you should either set the
-        /// <see cref="Application"/>:resource-base-path property at construction time, or call
-        /// this function during the instance initialization. Alternatively, you
-        /// can call this function in the <see cref="ApplicationClass"/>.startup virtual function,
-        /// before chaining up to the parent implementation.
-        /// </remarks>
-        /// <param name="resourcePath">
-        /// the resource path to use
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='SetResourceBasePath(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         private unsafe void SetResourceBasePath(System.String? resourcePath)
         {
@@ -2810,17 +1797,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr property);
 
-        /// <summary>
-        /// Destroys a binding between <paramref name="property"/> and the busy state of
-        /// <paramref name="application"/> that was previously created with
-        /// <see cref="Application.BindBusyProperty"/>.
-        /// </summary>
-        /// <param name="object">
-        /// a #GObject
-        /// </param>
-        /// <param name="property">
-        /// the name of a boolean property of <paramref name="@object"/>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='UnbindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe void UnbindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.UnownedUtf8 property)
         {
@@ -2830,17 +1807,7 @@ namespace GISharp.Lib.Gio
             g_application_unbind_busy_property(application_, @object_, property_);
         }
 
-        /// <summary>
-        /// Destroys a binding between <paramref name="property"/> and the busy state of
-        /// <paramref name="application"/> that was previously created with
-        /// <see cref="Application.BindBusyProperty"/>.
-        /// </summary>
-        /// <param name="object">
-        /// a #GObject
-        /// </param>
-        /// <param name="property">
-        /// the name of a boolean property of <paramref name="@object"/>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='UnbindBusyProperty(GISharp.Lib.GObject.Object,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe void UnbindBusyProperty(GISharp.Lib.GObject.Object @object, System.String property)
         {
@@ -2870,16 +1837,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <summary>
-        /// Decreases the busy count of <paramref name="application"/>.
-        /// </summary>
-        /// <remarks>
-        /// When the busy count reaches zero, the new state will be propagated
-        /// to other processes.
-        /// 
-        /// This function must only be called to cancel the effect of a previous
-        /// call to <see cref="Application.MarkBusy"/>.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='UnmarkBusy()']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public unsafe void UnmarkBusy()
         {
@@ -2921,25 +1879,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr id);
 
-        /// <summary>
-        /// Withdraws a notification that was sent with
-        /// g_application_send_notification().
-        /// </summary>
-        /// <remarks>
-        /// This call does nothing if a notification with <paramref name="id"/> doesn't exist or
-        /// the notification was never sent.
-        /// 
-        /// This function works even for notifications sent in previous
-        /// executions of this application, as long <paramref name="id"/> is the same as it was for
-        /// the sent notification.
-        /// 
-        /// Note that notifications are dismissed when the user clicks on one
-        /// of the buttons in a notification or triggers its default action, so
-        /// there is no need to explicitly withdraw the notification in that case.
-        /// </remarks>
-        /// <param name="id">
-        /// id of a previously sent notification
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='WithdrawNotification(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void WithdrawNotification(GISharp.Lib.GLib.UnownedUtf8 id)
         {
@@ -2948,25 +1888,7 @@ namespace GISharp.Lib.Gio
             g_application_withdraw_notification(application_, id_);
         }
 
-        /// <summary>
-        /// Withdraws a notification that was sent with
-        /// g_application_send_notification().
-        /// </summary>
-        /// <remarks>
-        /// This call does nothing if a notification with <paramref name="id"/> doesn't exist or
-        /// the notification was never sent.
-        /// 
-        /// This function works even for notifications sent in previous
-        /// executions of this application, as long <paramref name="id"/> is the same as it was for
-        /// the sent notification.
-        /// 
-        /// Note that notifications are dismissed when the user clicks on one
-        /// of the buttons in a notification or triggers its default action, so
-        /// there is no need to explicitly withdraw the notification in that case.
-        /// </remarks>
-        /// <param name="id">
-        /// id of a previously sent notification
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='WithdrawNotification(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void WithdrawNotification(System.String id)
         {
@@ -2974,15 +1896,7 @@ namespace GISharp.Lib.Gio
             WithdrawNotification((GISharp.Lib.GLib.UnownedUtf8)idUtf8);
         }
 
-        /// <summary>
-        /// Activates the application.
-        /// </summary>
-        /// <remarks>
-        /// In essence, this results in the <see cref="Application"/>::activate signal being
-        /// emitted in the primary instance.
-        /// 
-        /// The application must be registered before calling this function.
-        /// </remarks>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoActivate()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedActivate))]
         protected virtual unsafe void DoActivate()
@@ -2991,6 +1905,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedActivate>(_GType)!(application_);
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoAddPlatformData(GISharp.Lib.GLib.VariantBuilder)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedAddPlatformData))]
         protected virtual unsafe void DoAddPlatformData(GISharp.Lib.GLib.VariantBuilder builder)
         {
@@ -2999,6 +1914,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedAddPlatformData>(_GType)!(application_, builder_);
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoAfterEmit(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedAfterEmit))]
         protected virtual unsafe void DoAfterEmit(GISharp.Lib.GLib.Variant platformData)
         {
@@ -3007,6 +1923,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedAfterEmit>(_GType)!(application_, platformData_);
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoBeforeEmit(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedBeforeEmit))]
         protected virtual unsafe void DoBeforeEmit(GISharp.Lib.GLib.Variant platformData)
         {
@@ -3015,6 +1932,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedBeforeEmit>(_GType)!(application_, platformData_);
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoCommandLine(GISharp.Lib.Gio.ApplicationCommandLine)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedCommandLine))]
         protected virtual unsafe System.Int32 DoCommandLine(GISharp.Lib.Gio.ApplicationCommandLine commandLine)
         {
@@ -3025,6 +1943,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoHandleLocalOptions(GISharp.Lib.GLib.VariantDict)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedHandleLocalOptions))]
         protected virtual unsafe System.Int32 DoHandleLocalOptions(GISharp.Lib.GLib.VariantDict options)
         {
@@ -3035,28 +1954,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// This virtual function is always invoked in the local instance. It
-        /// gets passed a pointer to a <c>null</c>-terminated copy of <paramref name="argv"/> and is
-        /// expected to remove arguments that it handled (shifting up remaining
-        /// arguments).
-        /// </summary>
-        /// <remarks>
-        /// The last argument to local_command_line() is a pointer to the <paramref name="status"/>
-        /// variable which can used to set the exit status that is returned from
-        /// <see cref="Application.Run"/>.
-        /// 
-        /// See <see cref="Application.Run"/> for more details on <see cref="Application"/> startup.
-        /// </remarks>
-        /// <param name="arguments">
-        /// array of command line arguments
-        /// </param>
-        /// <param name="exitStatus">
-        /// exit status to fill after processing the command line.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the commandline has been completely handled
-        /// </returns>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoTryLocalCommandLine(GISharp.Lib.GLib.Strv,System.Int32)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedTryLocalCommandLine))]
         protected virtual unsafe System.Boolean DoTryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out System.Int32 exitStatus)
         {
@@ -3069,29 +1967,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Opens the given files.
-        /// </summary>
-        /// <remarks>
-        /// In essence, this results in the <see cref="Application"/>::open signal being emitted
-        /// in the primary instance.
-        /// 
-        /// <paramref name="nFiles"/> must be greater than zero.
-        /// 
-        /// <paramref name="hint"/> is simply passed through to the ::open signal.  It is
-        /// intended to be used by applications that have multiple modes for
-        /// opening files (eg: "view" vs "edit", etc).  Unless you have a need
-        /// for this functionality, you should use "".
-        /// 
-        /// The application must be registered before calling this function
-        /// and it must have the <see cref="ApplicationFlags.HandlesOpen"/> flag set.
-        /// </remarks>
-        /// <param name="files">
-        /// an array of #GFiles to open
-        /// </param>
-        /// <param name="hint">
-        /// a hint (or ""), but never <c>null</c>
-        /// </param>
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoOpen(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedOpen))]
         protected virtual unsafe void DoOpen(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
@@ -3102,6 +1978,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedOpen>(_GType)!(application_, files_, nFiles_, hint_);
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoQuitMainloop()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedQuitMainloop))]
         protected virtual unsafe void DoQuitMainloop()
         {
@@ -3109,6 +1986,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedQuitMainloop>(_GType)!(application_);
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoRunMainloop()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedRunMainloop))]
         protected virtual unsafe void DoRunMainloop()
         {
@@ -3116,6 +1994,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedRunMainloop>(_GType)!(application_);
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoShutdown()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedShutdown))]
         protected virtual unsafe void DoShutdown()
         {
@@ -3123,6 +2002,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedShutdown>(_GType)!(application_);
         }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoStartup()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedStartup))]
         protected virtual unsafe void DoStartup()
         {

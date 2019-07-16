@@ -1,0 +1,21 @@
+<declaration>
+
+<member name='None'>
+<summary>
+No flags set.
+</summary>
+</member>
+
+<member name='NoFollowSymlinks'>
+<summary>
+Don't follow symlinks.
+</summary>
+</member>
+
+<member name='FileQueryInfoFlags'>
+<summary>
+Flags used when querying a <see cref="FileInfo"/>.
+</summary>
+</member>
+
+</declaration>

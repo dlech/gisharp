@@ -1,0 +1,355 @@
+<declaration>
+
+<member name='Description'>
+<summary>
+Returns the description. See <see cref="M:OptionContext.SetDescription(GISharp.Lib.GLib.Utf8)"/>.
+</summary>
+</member>
+
+<member name='HelpEnabled'>
+<summary>
+Returns whether automatic `--help` generation
+is turned on for this instance. See <see cref="M:OptionContext.SetHelpEnabled(System.Boolean)"/>.
+</summary>
+</member>
+
+<member name='IgnoreUnknownOptions'>
+<summary>
+Returns whether unknown options are ignored or not. See
+<see cref="M:OptionContext.SetIgnoreUnknownOptions(System.Boolean)"/>.
+</summary>
+</member>
+
+<member name='MainGroup'>
+<summary>
+Returns a pointer to the main group of this instance.
+</summary>
+</member>
+
+<member name='StrictPosix'>
+<summary>
+Returns whether strict POSIX code is enabled.
+</summary>
+<remarks>
+See <see cref="M:OptionContext.SetStrictPosix(System.Boolean)"/> for more information.
+</remarks>
+</member>
+
+<member name='Summary'>
+<summary>
+Returns the summary. See <see cref="M:OptionContext.SetSummary(GISharp.Lib.GLib.Utf8)"/>.
+</summary>
+</member>
+
+<member name='New(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<summary>
+Creates a new option context.
+</summary>
+<remarks>
+The <paramref name="parameterString"/> can serve multiple purposes. It can be used
+to add descriptions for "rest" arguments, which are not parsed by
+the <see cref="OptionContext"/>, typically something like "FILES" or
+"FILE1 FILE2...". If you are using #G_OPTION_REMAINING for
+collecting "rest" arguments, GLib handles this automatically by
+using the <see cref="OptionEntry.ArgDescription"/> of the corresponding <see cref="OptionEntry"/> in
+the usage summary.
+
+Another usage is to give a short summary of the program
+functionality, like " - frob the strings", which will be displayed
+in the same line as the usage. For a longer description of the
+program functionality that should be displayed as a paragraph
+below the usage line, use <see cref="M:OptionContext.SetSummary(GISharp.Lib.GLib.Utf8)"/>.
+
+Note that the <paramref name="parameterString"/> is translated using the
+function set with <see cref="M:OptionContext.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc)"/>, so
+it should normally be passed untranslated.
+</remarks>
+<param name="parameterString">
+a string which is displayed in
+   the first line of `--help` output, after the usage summary
+   `programname [OPTION...]`
+</param>
+<returns>
+a newly created <see cref="OptionContext"/>, which must be
+   freed with <see cref="M:OptionContext.Free()"/> after use.
+</returns>
+</member>
+
+<member name='AddGroup(GISharp.Lib.GLib.OptionGroup)'>
+<summary>
+Adds a <see cref="OptionGroup"/> to the this instance, so that parsing with this instance
+will recognize the options in the group. Note that this will take
+ownership of the this instance and thus the this instance should not be freed.
+</summary>
+<param name="group">
+the group to add
+</param>
+</member>
+
+<member name='GetDescription()'>
+<summary>
+Returns the description. See <see cref="M:OptionContext.SetDescription(GISharp.Lib.GLib.Utf8)"/>.
+</summary>
+<returns>
+the description
+</returns>
+</member>
+
+<member name='GetHelp(System.Boolean,GISharp.Lib.GLib.OptionGroup?)'>
+<summary>
+Returns a formatted, translated help text for the given context.
+To obtain the text produced by `--help`, call
+`g_option_context_get_help (context, TRUE, NULL)`.
+To obtain the text produced by `--help-all`, call
+`g_option_context_get_help (context, FALSE, NULL)`.
+To obtain the help text for an option group, call
+`g_option_context_get_help (context, FALSE, group)`.
+</summary>
+<param name="mainHelp">
+if <c>true</c>, only include the main group
+</param>
+<param name="group">
+the <see cref="OptionGroup"/> to create help for, or <c>null</c>
+</param>
+<returns>
+A newly allocated string containing the help text
+</returns>
+</member>
+
+<member name='GetHelpEnabled()'>
+<summary>
+Returns whether automatic `--help` generation
+is turned on for this instance. See <see cref="M:OptionContext.SetHelpEnabled(System.Boolean)"/>.
+</summary>
+<returns>
+<c>true</c> if automatic help generation is turned on.
+</returns>
+</member>
+
+<member name='GetIgnoreUnknownOptions()'>
+<summary>
+Returns whether unknown options are ignored or not. See
+<see cref="M:OptionContext.SetIgnoreUnknownOptions(System.Boolean)"/>.
+</summary>
+<returns>
+<c>true</c> if unknown options are ignored.
+</returns>
+</member>
+
+<member name='GetMainGroup()'>
+<summary>
+Returns a pointer to the main group of this instance.
+</summary>
+<returns>
+the main group of this instance, or <c>null</c> if
+ this instance doesn't have a main group. Note that group belongs to
+ this instance and should not be modified or freed.
+</returns>
+</member>
+
+<member name='GetStrictPosix()'>
+<summary>
+Returns whether strict POSIX code is enabled.
+</summary>
+<remarks>
+See <see cref="M:OptionContext.SetStrictPosix(System.Boolean)"/> for more information.
+</remarks>
+<returns>
+<c>true</c> if strict POSIX is enabled, <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='GetSummary()'>
+<summary>
+Returns the summary. See <see cref="M:OptionContext.SetSummary(GISharp.Lib.GLib.Utf8)"/>.
+</summary>
+<returns>
+the summary
+</returns>
+</member>
+
+<member name='SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<summary>
+Adds a string to be displayed in `--help` output after the list
+of options. This text often includes a bug reporting address.
+</summary>
+<remarks>
+Note that the summary is translated (see
+<see cref="M:OptionContext.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc)"/>).
+</remarks>
+<param name="description">
+a string to be shown in `--help` output
+  after the list of options, or <c>null</c>
+</param>
+</member>
+
+<member name='SetDescription(System.String?)'>
+<summary>
+Adds a string to be displayed in `--help` output after the list
+of options. This text often includes a bug reporting address.
+</summary>
+<remarks>
+Note that the summary is translated (see
+<see cref="M:OptionContext.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc)"/>).
+</remarks>
+<param name="description">
+a string to be shown in `--help` output
+  after the list of options, or <c>null</c>
+</param>
+</member>
+
+<member name='SetHelpEnabled(System.Boolean)'>
+<summary>
+Enables or disables automatic generation of `--help` output.
+By default, g_option_context_parse() recognizes `--help`, `-h`,
+`-?`, `--help-all` and `--help-groupname` and creates suitable
+output to stdout.
+</summary>
+<param name="helpEnabled">
+<c>true</c> to enable `--help`, <c>false</c> to disable it
+</param>
+</member>
+
+<member name='SetIgnoreUnknownOptions(System.Boolean)'>
+<summary>
+Sets whether to ignore unknown options or not. If an argument is
+ignored, it is left in the this instance array after parsing. By default,
+g_option_context_parse() treats unknown options as error.
+</summary>
+<remarks>
+This setting does not affect non-option arguments (i.e. arguments
+which don't start with a dash). But note that GOption cannot reliably
+determine whether a non-option belongs to a preceding unknown option.
+</remarks>
+<param name="ignoreUnknown">
+<c>true</c> to ignore unknown options, <c>false</c> to produce
+   an error when unknown options are met
+</param>
+</member>
+
+<member name='SetMainGroup(GISharp.Lib.GLib.OptionGroup)'>
+<summary>
+Sets a <see cref="OptionGroup"/> as main group of the this instance.
+This has the same effect as calling <see cref="M:OptionContext.AddGroup(GISharp.Lib.GLib.OptionGroup)"/>,
+the only difference is that the options in the main group are
+treated differently when generating `--help` output.
+</summary>
+<param name="group">
+the group to set as main group
+</param>
+</member>
+
+<member name='SetStrictPosix(System.Boolean)'>
+<summary>
+Sets strict POSIX mode.
+</summary>
+<remarks>
+By default, this mode is disabled.
+
+In strict POSIX mode, the first non-argument parameter encountered
+(eg: filename) terminates argument processing.  Remaining arguments
+are treated as non-options and are not attempted to be parsed.
+
+If strict POSIX mode is disabled then parsing is done in the GNU way
+where option arguments can be freely mixed with non-options.
+
+As an example, consider "ls foo -l".  With GNU style parsing, this
+will list "foo" in long mode.  In strict POSIX style, this will list
+the files named "foo" and "-l".
+
+It may be useful to force strict POSIX mode when creating "verb
+style" command line tools.  For example, the "gsettings" command line
+tool supports the global option "--schemadir" as well as many
+subcommands ("get", "set", etc.) which each have their own set of
+arguments.  Using strict POSIX mode will allow parsing the global
+options up to the verb name while leaving the remaining options to be
+parsed by the relevant subcommand (which can be determined by
+examining the verb name, which should be present in argv[1] after
+parsing).
+</remarks>
+<param name="strictPosix">
+the new value
+</param>
+</member>
+
+<member name='SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<summary>
+Adds a string to be displayed in `--help` output before the list
+of options. This is typically a summary of the program functionality.
+</summary>
+<remarks>
+Note that the summary is translated (see
+<see cref="M:OptionContext.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc)"/> and
+<see cref="M:OptionContext.SetTranslationDomain(GISharp.Lib.GLib.Utf8)"/>).
+</remarks>
+<param name="summary">
+a string to be shown in `--help` output
+ before the list of options, or <c>null</c>
+</param>
+</member>
+
+<member name='SetSummary(System.String?)'>
+<summary>
+Adds a string to be displayed in `--help` output before the list
+of options. This is typically a summary of the program functionality.
+</summary>
+<remarks>
+Note that the summary is translated (see
+<see cref="M:OptionContext.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc)"/> and
+<see cref="M:OptionContext.SetTranslationDomain(GISharp.Lib.GLib.Utf8)"/>).
+</remarks>
+<param name="summary">
+a string to be shown in `--help` output
+ before the list of options, or <c>null</c>
+</param>
+</member>
+
+<member name='SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)'>
+<summary>
+Sets the function which is used to translate the contexts
+user-visible strings, for `--help` output. If this instance is <c>null</c>,
+strings are not translated.
+</summary>
+<remarks>
+Note that option groups have their own translation functions,
+this function only affects the this instance (see <see cref="M:OptionContext.#ctor(GISharp.Lib.GLib.Utf8)"/>),
+the summary (see <see cref="M:OptionContext.SetSummary(GISharp.Lib.GLib.Utf8)"/>) and the description
+(see <see cref="M:OptionContext.SetDescription(GISharp.Lib.GLib.Utf8)"/>).
+
+If you are using gettext(), you only need to set the translation
+domain, see <see cref="M:OptionContext.SetTranslationDomain(GISharp.Lib.GLib.Utf8)"/>.
+</remarks>
+<param name="func">
+the <see cref="TranslateFunc"/>, or <c>null</c>
+</param>
+</member>
+
+<member name='SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+A convenience function to use gettext() for translating
+user-visible strings.
+</summary>
+<param name="domain">
+the domain to use
+</param>
+</member>
+
+<member name='SetTranslationDomain(System.String)'>
+<summary>
+A convenience function to use gettext() for translating
+user-visible strings.
+</summary>
+<param name="domain">
+the domain to use
+</param>
+</member>
+
+<member name='OptionContext'>
+<summary>
+A `GOptionContext` struct defines which options
+are accepted by the commandline option parser. The struct has only private
+fields and should not be directly accessed.
+</summary>
+</member>
+
+</declaration>

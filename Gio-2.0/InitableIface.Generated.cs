@@ -2,20 +2,20 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Provides an interface for initializing object such that initialization
-    /// may fail.
-    /// </summary>
+    /// <include file="InitableIface.xmldoc" path="declaration/member[@name='InitableIface']/*" />
     [GISharp.Runtime.SinceAttribute("2.22")]
     public sealed class InitableIface : GISharp.Lib.GObject.TypeInterface
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <summary>
-            /// The parent interface.
-            /// </summary>
+            /// <include file="InitableIface.xmldoc" path="declaration/member[@name='GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+
+            /// <include file="InitableIface.xmldoc" path="declaration/member[@name='Init']/*" />
             public System.IntPtr Init;
 #pragma warning restore CS0649
         }
@@ -26,8 +26,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(initOffset, InitMarshal.Create);
         }
 
+        /// <include file="InitableIface.xmldoc" path="declaration/member[@name='Init']/*" />
         public delegate void Init(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -47,6 +51,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class InitMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedInit Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedInit(System.IntPtr initable_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -75,6 +82,9 @@ ref System.IntPtr error);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public InitableIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

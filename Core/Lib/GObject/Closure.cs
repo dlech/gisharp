@@ -83,6 +83,9 @@ namespace GISharp.Lib.GObject
 
         IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Closure(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {

@@ -68,6 +68,9 @@ namespace GISharp.Lib.GLib
 #pragma warning restore CS0649
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected Source(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {

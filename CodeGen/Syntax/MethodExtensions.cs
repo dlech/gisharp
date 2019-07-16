@@ -48,12 +48,17 @@ namespace GISharp.CodeGen.Syntax
                     var takeOverride = MethodDeclaration(takeReturnType, "Take")
                         .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
                         .WithExpressionBody(ArrowExpressionClause(takeExpression))
-                        .WithSemicolonToken(Token(SemicolonToken));
+                        .WithSemicolonToken(Token(SemicolonToken))
+                        .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
+                        /// Takes ownership of the unmanaged pointer without freeing it.
+                        /// The managed object can no longer be used (will throw disposed exception).
+                        /// </summary>
+                        "));
                     yield return takeOverride;
                 }
             }
 
-            return List<MemberDeclarationSyntax>(getMembers());
+            return List(getMembers());
         }
 
         /// <summary>
@@ -90,7 +95,8 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(triviaParameters.SelectMany(x => x.Doc.GetDocCommentTrivia()))
                 .AddRange(method.GetGErrorExceptionDocCommentTrivia());
 
-            syntax = syntax.WithLeadingTrivia(trivia);
+            syntax = syntax.WithLeadingTrivia(trivia)
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
         }

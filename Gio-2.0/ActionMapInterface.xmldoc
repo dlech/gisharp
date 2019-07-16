@@ -1,0 +1,22 @@
+<declaration>
+
+<member name='GIface'>
+#pragmawarningdisableCS0649
+</member>
+
+<member name='LookupAction'>
+</member>
+
+<member name='AddAction'>
+</member>
+
+<member name='RemoveAction'>
+</member>
+
+<member name='ActionMapInterface'>
+<summary>
+The virtual function table for <see cref="IActionMap"/>.
+</summary>
+</member>
+
+</declaration>

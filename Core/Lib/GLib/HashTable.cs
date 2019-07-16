@@ -19,6 +19,9 @@ namespace GISharp.Lib.GLib
         protected readonly static ConditionalWeakTable<Delegate, UnmanagedHashFunc> HashFuncTable;
         protected readonly static ConditionalWeakTable<Delegate, UnmanagedEqualFunc> KeyEqualFuncTable;
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected HashTable(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -786,6 +789,9 @@ namespace GISharp.Lib.GLib
         where TKey : Opaque?
         where TValue : Opaque?
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public HashTable (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
@@ -869,7 +875,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Calls the given function for key/value pairs in the <see cref="HashTable`2"/>
+        /// Calls the given function for key/value pairs in the <see cref="HashTable{K,V}"/>
         /// until <paramref name="predicate"/> returns <c>true</c>. The function
         /// is passed the key and value of each pair. The
         /// hash table may not be modified while iterating over it (you can't
@@ -1156,22 +1162,22 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Removes a key and its associated value from a <see cref="HashTable{K,V}"/>  without
-        /// calling the key and value destroy functions.
-        /// </summary>
-        /// <param name="key">
-        /// the key to remove
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the key was found and removed from the <see cref="HashTable{K,V}"/>
-        /// </returns>
-        //public bool Steal (TKey key)
-        //{
+        // /// <summary>
+        // /// Removes a key and its associated value from a <see cref="HashTable{K,V}"/>  without
+        // /// calling the key and value destroy functions.
+        // /// </summary>
+        // /// <param name="key">
+        // /// the key to remove
+        // /// </param>
+        // /// <returns>
+        // /// <c>true</c> if the key was found and removed from the <see cref="HashTable{K,V}"/>
+        // /// </returns>
+        // public bool Steal (TKey key)
+        // {
         //    var this_ = Handle;
         //    var key_ = key?.Handle ?? IntPtr.Zero;
         //    var ret = g_hash_table_steal(this_, key_);
         //    return ret;
-        //}
+        // }
     }
 }

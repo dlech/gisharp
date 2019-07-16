@@ -1,0 +1,84 @@
+<declaration>
+
+<member name='DoGetSourceObject()'>
+<summary>
+Gets the source object from a <see cref="IAsyncResult"/>.
+</summary>
+<returns>
+a new reference to the source
+   object for the this instance, or <c>null</c> if there is none.
+</returns>
+</member>
+
+<member name='DoGetUserData()'>
+<summary>
+Gets the user data from a <see cref="IAsyncResult"/>.
+</summary>
+<returns>
+the user data for this instance.
+</returns>
+</member>
+
+<member name='DoIsTagged(System.IntPtr)'>
+<summary>
+Checks if this instance has the given this instance (generally a function
+pointer indicating the function this instance was created by).
+</summary>
+<param name="sourceTag">
+an application-defined tag
+</param>
+<returns>
+<c>true</c> if this instance has the indicated this instance, <c>false</c> if
+  not.
+</returns>
+</member>
+
+<member name='IAsyncResult'>
+<summary>
+Provides a base class for implementing asynchronous function results.
+</summary>
+</member>
+
+<member name='GetSourceObject(GISharp.Lib.Gio.IAsyncResult)'>
+<summary>
+Gets the source object from a <see cref="IAsyncResult"/>.
+</summary>
+<param name="res">
+a <see cref="IAsyncResult"/>
+</param>
+<returns>
+a new reference to the source
+   object for the this instance, or <c>null</c> if there is none.
+</returns>
+</member>
+
+<member name='GetUserData(GISharp.Lib.Gio.IAsyncResult)'>
+<summary>
+Gets the user data from a <see cref="IAsyncResult"/>.
+</summary>
+<param name="res">
+a <see cref="IAsyncResult"/>.
+</param>
+<returns>
+the user data for this instance.
+</returns>
+</member>
+
+<member name='IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)'>
+<summary>
+Checks if this instance has the given this instance (generally a function
+pointer indicating the function this instance was created by).
+</summary>
+<param name="res">
+a <see cref="IAsyncResult"/>
+</param>
+<param name="sourceTag">
+an application-defined tag
+</param>
+<returns>
+<c>true</c> if this instance has the indicated this instance, <c>false</c> if
+  not.
+</returns>
+</member>
+
+</declaration>

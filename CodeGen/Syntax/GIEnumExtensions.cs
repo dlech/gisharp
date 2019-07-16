@@ -20,7 +20,8 @@ namespace GISharp.CodeGen.Syntax
             return EnumDeclaration(@enum.ManagedName)
                 .AddModifiers(Token(PublicKeyword))
                 .WithAttributeLists(@enum.GetEnumAttributeLists())
-                .WithLeadingTrivia(@enum.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(@enum.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         static SyntaxList<AttributeListSyntax> GetEnumAttributeLists(this GIEnum @enum)
@@ -49,7 +50,8 @@ namespace GISharp.CodeGen.Syntax
         public static SeparatedSyntaxList<EnumMemberDeclarationSyntax> GetEnumMembers(this GIEnum @enum)
         {
             var members = @enum.Members.Select(x => x.GetDeclaration()
-                .WithLeadingTrivia(x.Doc.GetDocCommentTrivia()));
+                .WithLeadingTrivia(x.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc")));
             return SeparatedList(members);
         }
 
@@ -62,7 +64,11 @@ namespace GISharp.CodeGen.Syntax
                 (@enum.ErrorDomain == null ? "Extensions" : "Domain");
 
             return ClassDeclaration(name)
-                .AddModifiers(Token(PublicKeyword), Token(PartialKeyword));
+                .AddModifiers(Token(PublicKeyword), Token(PartialKeyword))
+                .WithLeadingTrivia(ParseLeadingTrivia(string.Format(@"/// <summary>
+                /// Extension methods for <see cref=""{0}""/>.
+                /// </summary>
+                ", @enum.ManagedName)));
         }
 
         /// <summary>

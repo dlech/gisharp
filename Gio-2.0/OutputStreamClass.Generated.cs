@@ -2,31 +2,76 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
+    /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='OutputStreamClass']/*" />
     public class OutputStreamClass : GISharp.Lib.GObject.ObjectClass
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteFn']/*" />
             public System.IntPtr WriteFn;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Splice']/*" />
             public System.IntPtr Splice;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Flush']/*" />
             public System.IntPtr Flush;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseFn']/*" />
             public System.IntPtr CloseFn;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteAsync']/*" />
             public System.IntPtr WriteAsync;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteFinish']/*" />
             public System.IntPtr WriteFinish;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='SpliceAsync']/*" />
             public System.IntPtr SpliceAsync;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='SpliceFinish']/*" />
             public System.IntPtr SpliceFinish;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='FlushAsync']/*" />
             public System.IntPtr FlushAsync;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='FlushFinish']/*" />
             public System.IntPtr FlushFinish;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseAsync']/*" />
             public System.IntPtr CloseAsync;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseFinish']/*" />
             public System.IntPtr CloseFinish;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved1']/*" />
             public System.IntPtr GReserved1;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved2']/*" />
             public System.IntPtr GReserved2;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved3']/*" />
             public System.IntPtr GReserved3;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
             public System.IntPtr GReserved4;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved5']/*" />
             public System.IntPtr GReserved5;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved6']/*" />
             public System.IntPtr GReserved6;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved7']/*" />
             public System.IntPtr GReserved7;
+
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved8']/*" />
             public System.IntPtr GReserved8;
 #pragma warning restore CS0649
         }
@@ -59,8 +104,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(closeFinishOffset, CloseFinishMarshal.Create);
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteFn']/*" />
         public delegate System.Int32 WriteFn(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
@@ -88,6 +137,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class WriteFnMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedWriteFn Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedWriteFn(System.IntPtr stream_, in System.Byte buffer_, System.UIntPtr count_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -118,8 +170,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Splice']/*" />
         public delegate System.Int32 Splice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
@@ -145,6 +201,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class SpliceMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSplice Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedSplice(System.IntPtr stream_, System.IntPtr source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -176,8 +235,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Flush']/*" />
         public delegate void Flush(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -197,6 +260,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class FlushMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedFlush Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedFlush(System.IntPtr stream_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -225,8 +291,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseFn']/*" />
         public delegate void CloseFn(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -246,6 +316,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CloseFnMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCloseFn Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCloseFn(System.IntPtr stream_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -274,8 +347,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteAsync']/*" />
         public delegate void WriteAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -309,6 +386,9 @@ System.IntPtr userData);
         /// </summary>
         public static class WriteAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedWriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedWriteAsync(System.IntPtr stream_, in System.Byte buffer_, System.UIntPtr count_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -333,8 +413,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteFinish']/*" />
         public delegate System.Int32 WriteFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
@@ -354,6 +438,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class WriteFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedWriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedWriteFinish(System.IntPtr stream_, System.IntPtr result_, ref System.IntPtr error_)
@@ -383,8 +470,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='SpliceAsync']/*" />
         public delegate void SpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -416,6 +507,9 @@ System.IntPtr userData);
         /// </summary>
         public static class SpliceAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSpliceAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedSpliceAsync(System.IntPtr stream_, System.IntPtr source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -441,8 +535,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='SpliceFinish']/*" />
         public delegate System.Int32 SpliceFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
@@ -462,6 +560,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class SpliceFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSpliceFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedSpliceFinish(System.IntPtr stream_, System.IntPtr result_, ref System.IntPtr error_)
@@ -491,8 +592,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='FlushAsync']/*" />
         public delegate void FlushAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -518,6 +623,9 @@ System.IntPtr userData);
         /// </summary>
         public static class FlushAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedFlushAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedFlushAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -541,8 +649,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='FlushFinish']/*" />
         public delegate void FlushFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -562,6 +674,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class FlushFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedFlushFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedFlushFinish(System.IntPtr stream_, System.IntPtr result_, ref System.IntPtr error_)
@@ -590,8 +705,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseAsync']/*" />
         public delegate void CloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -617,6 +736,9 @@ System.IntPtr userData);
         /// </summary>
         public static class CloseAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -640,8 +762,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseFinish']/*" />
         public delegate void CloseFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -661,6 +787,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CloseFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCloseFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCloseFinish(System.IntPtr stream_, System.IntPtr result_, ref System.IntPtr error_)
@@ -689,6 +818,9 @@ ref System.IntPtr error);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public OutputStreamClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

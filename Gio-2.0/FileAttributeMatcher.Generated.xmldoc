@@ -1,0 +1,207 @@
+<declaration>
+
+<member name='New(GISharp.Lib.GLib.UnownedUtf8)'>
+</member>
+
+<member name='FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Creates a new file attribute matcher, which matches attributes
+against a given string. <see cref="FileAttributeMatcher"/>s are reference
+counted structures, and are created with a reference count of 1. If
+the number of references falls to 0, the <see cref="FileAttributeMatcher"/> is
+automatically destroyed.
+</summary>
+<remarks>
+The <paramref name="attribute"/> string should be formatted with specific keys separated
+from namespaces with a double colon. Several "namespace::key" strings may be
+concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
+The wildcard "*" may be used to match all keys and namespaces, or
+"namespace::*" will match all keys in a given namespace.
+
+## Examples of file attribute matcher strings and results
+
+- `"*"`: matches all attributes.
+- `"standard::is-hidden"`: matches only the key is-hidden in the
+  standard namespace.
+- `"standard::type,unix::*"`: matches the type key in the standard
+  namespace and all keys in the unix namespace.
+</remarks>
+<param name="attributes">
+an attribute string to match.
+</param>
+</member>
+
+<member name='New(System.String)'>
+</member>
+
+<member name='FileAttributeMatcher(System.String)'>
+<summary>
+Creates a new file attribute matcher, which matches attributes
+against a given string. <see cref="FileAttributeMatcher"/>s are reference
+counted structures, and are created with a reference count of 1. If
+the number of references falls to 0, the <see cref="FileAttributeMatcher"/> is
+automatically destroyed.
+</summary>
+<remarks>
+The <paramref name="attribute"/> string should be formatted with specific keys separated
+from namespaces with a double colon. Several "namespace::key" strings may be
+concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
+The wildcard "*" may be used to match all keys and namespaces, or
+"namespace::*" will match all keys in a given namespace.
+
+## Examples of file attribute matcher strings and results
+
+- `"*"`: matches all attributes.
+- `"standard::is-hidden"`: matches only the key is-hidden in the
+  standard namespace.
+- `"standard::type,unix::*"`: matches the type key in the standard
+  namespace and all keys in the unix namespace.
+</remarks>
+<param name="attributes">
+an attribute string to match.
+</param>
+</member>
+
+<member name='EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Checks if the matcher will match all of the keys in a given namespace.
+This will always return <c>true</c> if a wildcard character is in use (e.g. if
+matcher was created with "standard::*" and this instance is "standard", or if matcher was created
+using "*" and namespace is anything.)
+</summary>
+<remarks>
+TODO: this is awkwardly worded.
+</remarks>
+<param name="ns">
+a string containing a file attribute namespace.
+</param>
+<returns>
+<c>true</c> if the matcher matches all of the entries
+in the given this instance, <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='EnumerateNamespace(System.String)'>
+<summary>
+Checks if the matcher will match all of the keys in a given namespace.
+This will always return <c>true</c> if a wildcard character is in use (e.g. if
+matcher was created with "standard::*" and this instance is "standard", or if matcher was created
+using "*" and namespace is anything.)
+</summary>
+<remarks>
+TODO: this is awkwardly worded.
+</remarks>
+<param name="ns">
+a string containing a file attribute namespace.
+</param>
+<returns>
+<c>true</c> if the matcher matches all of the entries
+in the given this instance, <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='EnumerateNext()'>
+<summary>
+Gets the next matched attribute from a <see cref="FileAttributeMatcher"/>.
+</summary>
+<returns>
+a string containing the next attribute or <c>null</c> if
+no more attribute exist.
+</returns>
+</member>
+
+<member name='Matches(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Checks if an attribute will be matched by an attribute matcher. If
+the matcher was created with the "*" matching string, this function
+will always return <c>true</c>.
+</summary>
+<param name="attribute">
+a file attribute key.
+</param>
+<returns>
+<c>true</c> if this instance matches this instance. <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='Matches(System.String)'>
+<summary>
+Checks if an attribute will be matched by an attribute matcher. If
+the matcher was created with the "*" matching string, this function
+will always return <c>true</c>.
+</summary>
+<param name="attribute">
+a file attribute key.
+</param>
+<returns>
+<c>true</c> if this instance matches this instance. <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Checks if a attribute matcher only matches a given attribute. Always
+returns <c>false</c> if "*" was used when creating the matcher.
+</summary>
+<param name="attribute">
+a file attribute key.
+</param>
+<returns>
+<c>true</c> if the matcher only matches this instance. <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='MatchesOnly(System.String)'>
+<summary>
+Checks if a attribute matcher only matches a given attribute. Always
+returns <c>false</c> if "*" was used when creating the matcher.
+</summary>
+<param name="attribute">
+a file attribute key.
+</param>
+<returns>
+<c>true</c> if the matcher only matches this instance. <c>false</c> otherwise.
+</returns>
+</member>
+
+<member name='Subtract(GISharp.Lib.Gio.FileAttributeMatcher)'>
+<summary>
+Subtracts all attributes of this instance from this instance and returns
+a matcher that supports those attributes.
+</summary>
+<remarks>
+Note that currently it is not possible to remove a single
+attribute when the this instance matches the whole namespace - or remove
+a namespace or attribute when the matcher matches everything. This
+is a limitation of the current implementation, but may be fixed
+in the future.
+</remarks>
+<param name="subtract">
+The matcher to subtract
+</param>
+<returns>
+A file attribute matcher matching all attributes of
+    this instance that are not matched by this instance
+</returns>
+</member>
+
+<member name='ToString()'>
+<summary>
+Prints what the matcher is matching against. The format will be
+equal to the format passed to <see cref="M:FileAttributeMatcher.#ctor(GISharp.Lib.GLib.Utf8)"/>.
+The output however, might not be identical, as the matcher may
+decide to use a different order or omit needless parts.
+</summary>
+<returns>
+a string describing the attributes the matcher matches
+  against or <c>null</c> if this instance was <c>null</c>.
+</returns>
+</member>
+
+<member name='FileAttributeMatcher'>
+<summary>
+Determines if a string matches a file attribute.
+</summary>
+</member>
+
+</declaration>

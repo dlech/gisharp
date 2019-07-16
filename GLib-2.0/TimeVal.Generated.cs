@@ -2,41 +2,28 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// Represents a precise time, with seconds and microseconds.
-    /// Similar to the struct timeval returned by the gettimeofday()
-    /// UNIX system call.
-    /// </summary>
-    /// <remarks>
-    /// GLib is attempting to unify around the use of 64bit integers to
-    /// represent microsecond-precision time. As such, this type will be
-    /// removed from a future version of GLib.
-    /// </remarks>
+    /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal']/*" />
     public partial struct TimeVal
     {
 #pragma warning disable CS0649
-        /// <summary>
-        /// seconds
-        /// </summary>
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TvSec']/*" />
         public GISharp.Runtime.CLong TvSec;
 
-        /// <summary>
-        /// microseconds
-        /// </summary>
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TvUsec']/*" />
         public GISharp.Runtime.CLong TvUsec;
-
-#pragma warning restore CS0649 /// <summary>
-                               /// Converts a string containing an ISO 8601 encoded date and time
-                               /// to a #GTimeVal and puts it into @time_.
-                               /// </summary>
-                               /// <remarks>
-                               /// @iso_date must include year, month, day, hours, minutes, and
-                               /// seconds. It can optionally include fractions of a second and a time
-                               /// zone indicator. (In the absence of any time zone indication, the
-                               /// timestamp is assumed to be in local time.)
-                               /// 
-                               /// Any leading or trailing space in @iso_date is ignored.
-                               /// </remarks>
+#pragma warning restore CS0649
+        /// <summary>
+        /// Converts a string containing an ISO 8601 encoded date and time
+        /// to a #GTimeVal and puts it into @time_.
+        /// </summary>
+        /// <remarks>
+        /// @iso_date must include year, month, day, hours, minutes, and
+        /// seconds. It can optionally include fractions of a second and a time
+        /// zone indicator. (In the absence of any time zone indication, the
+        /// timestamp is assumed to be in local time.)
+        /// 
+        /// Any leading or trailing space in @iso_date is ignored.
+        /// </remarks>
         /// <param name="isoDate">
         /// an ISO 8601 encoded date string
         /// </param>
@@ -58,27 +45,7 @@ namespace GISharp.Lib.GLib
         /* direction:out caller-allocates:1 transfer-ownership:none */
         out GISharp.Lib.GLib.TimeVal time);
 
-        /// <summary>
-        /// Converts a string containing an ISO 8601 encoded date and time
-        /// to a <see cref="TimeVal"/> and puts it into <paramref name="time"/>.
-        /// </summary>
-        /// <remarks>
-        /// <paramref name="isoDate"/> must include year, month, day, hours, minutes, and
-        /// seconds. It can optionally include fractions of a second and a time
-        /// zone indicator. (In the absence of any time zone indication, the
-        /// timestamp is assumed to be in local time.)
-        /// 
-        /// Any leading or trailing space in <paramref name="isoDate"/> is ignored.
-        /// </remarks>
-        /// <param name="isoDate">
-        /// an ISO 8601 encoded date string
-        /// </param>
-        /// <param name="time">
-        /// a <see cref="TimeVal"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the conversion was successful.
-        /// </returns>
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeVal)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public static unsafe System.Boolean TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
         {
@@ -89,27 +56,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Converts a string containing an ISO 8601 encoded date and time
-        /// to a <see cref="TimeVal"/> and puts it into <paramref name="time"/>.
-        /// </summary>
-        /// <remarks>
-        /// <paramref name="isoDate"/> must include year, month, day, hours, minutes, and
-        /// seconds. It can optionally include fractions of a second and a time
-        /// zone indicator. (In the absence of any time zone indication, the
-        /// timestamp is assumed to be in local time.)
-        /// 
-        /// Any leading or trailing space in <paramref name="isoDate"/> is ignored.
-        /// </remarks>
-        /// <param name="isoDate">
-        /// an ISO 8601 encoded date string
-        /// </param>
-        /// <param name="time">
-        /// a <see cref="TimeVal"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the conversion was successful.
-        /// </returns>
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TryFromIso8601(System.String,GISharp.Lib.GLib.TimeVal)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public static unsafe System.Boolean TryFromIso8601(System.String isoDate, out GISharp.Lib.GLib.TimeVal time)
         {
@@ -138,13 +85,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong microseconds);
 
-        /// <summary>
-        /// Adds the given number of microseconds to <paramref name="time"/>. <paramref name="microseconds"/> can
-        /// also be negative to decrease the value of <paramref name="time"/>.
-        /// </summary>
-        /// <param name="microseconds">
-        /// number of microseconds to add to <paramref name="time"/>
-        /// </param>
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='Add(System.Int64)']/*" />
         public unsafe void Add(System.Int64 microseconds)
         {
             var time_ = this;
@@ -197,39 +138,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         in GISharp.Lib.GLib.TimeVal time);
 
-        /// <summary>
-        /// Converts <paramref name="time"/> into an RFC 3339 encoded string, relative to the
-        /// Coordinated Universal Time (UTC). This is one of the many formats
-        /// allowed by ISO 8601.
-        /// </summary>
-        /// <remarks>
-        /// ISO 8601 allows a large number of date/time formats, with or without
-        /// punctuation and optional elements. The format returned by this function
-        /// is a complete date and time, with optional punctuation included, the
-        /// UTC time zone represented as "Z", and the <paramref name="tvUsec"/> part included if
-        /// and only if it is nonzero, i.e. either
-        /// "YYYY-MM-DDTHH:MM:SSZ" or "YYYY-MM-DDTHH:MM:SS.fffffZ".
-        /// 
-        /// This corresponds to the Internet date/time format defined by
-        /// [RFC 3339](https://www.ietf.org/rfc/rfc3339.txt),
-        /// and to either of the two most-precise formats defined by
-        /// the W3C Note
-        /// [Date and Time Formats](http://www.w3.org/TR/NOTE-datetime-19980827).
-        /// Both of these documents are profiles of ISO 8601.
-        /// 
-        /// Use <see cref="DateTime.Format"/> or g_strdup_printf() if a different
-        /// variation of ISO 8601 format is required.
-        /// 
-        /// If <paramref name="time"/> represents a date which is too large to fit into a `struct tm`,
-        /// <c>null</c> will be returned. This is platform dependent, but it is safe to assume
-        /// years up to 3000 are supported. The return value of <see cref="TimeVal.ToIso8601"/>
-        /// has been nullable since GLib 2.54; before then, GLib would crash under the
-        /// same conditions.
-        /// </remarks>
-        /// <returns>
-        /// a newly allocated string containing an ISO 8601 date,
-        ///    or <c>null</c> if <paramref name="time"/> was too large
-        /// </returns>
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='ToIso8601()']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe GISharp.Lib.GLib.Utf8? ToIso8601()
         {

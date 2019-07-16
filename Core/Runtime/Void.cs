@@ -33,8 +33,14 @@ namespace GISharp.Runtime
         /// <inheritdoc />
         public override int GetHashCode() => 0;
 
+        /// <summary>
+        /// Test if two <see cref="Void" />s are equal. Always returns <c>true</c>.
+        /// </summary>
         public static bool operator ==(Void a, Void b) => true;
 
+        /// <summary>
+        /// Test if two <see cref="Void" />s are not equal. Always returns <c>false</c>.
+        /// </summary>
         public static bool operator !=(Void a, Void b) => false;
     }
 }

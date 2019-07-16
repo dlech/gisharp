@@ -11,6 +11,9 @@ namespace GISharp.Lib.GObject
     /// </summary>
     sealed class InitiallyUnownedClass : ObjectClass
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public InitiallyUnownedClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

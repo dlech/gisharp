@@ -1,0 +1,39 @@
+<declaration>
+
+<member name='None'>
+<summary>
+No flags set.
+</summary>
+</member>
+
+<member name='ReportAnyError'>
+<summary>
+Report any error encountered
+  while traversing the directory tree.  Normally errors are only
+  reported for the toplevel file.
+</summary>
+</member>
+
+<member name='ApparentSize'>
+<summary>
+Tally usage based on apparent file
+  sizes.  Normally, the block-size is used, if available, as this is a
+  more accurate representation of disk space used.
+  Compare with `du --apparent-size`.
+</summary>
+</member>
+
+<member name='NoCrossMountPoint'>
+<summary>
+Do not cross mount point boundaries.
+  Compare with `du -x`.
+</summary>
+</member>
+
+<member name='FileMeasureFlags'>
+<summary>
+Flags that can be used with g_file_measure_disk_usage().
+</summary>
+</member>
+
+</declaration>

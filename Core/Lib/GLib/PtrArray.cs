@@ -14,42 +14,45 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Contains the public fields of a pointer array.
     /// </summary>
-    [GType ("GPtrArray", IsProxyForUnmanagedType = true)]
+    [GType("GPtrArray", IsProxyForUnmanagedType = true)]
     public abstract class PtrArray : Boxed
     {
-        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
-        static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
+        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
+        static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Len));
 
         struct Struct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             public IntPtr Data;
             public uint Len;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
-        protected unsafe void* Data_ => (Struct*)Marshal.ReadIntPtr(Handle, (int)dataOffset);
+        private protected unsafe void* Data_ => (Struct*)Marshal.ReadIntPtr(Handle, (int)dataOffset);
 
         /// <summary>
         /// number of pointers in the array
         /// </summary>
-        protected uint Len => (uint)Marshal.ReadInt32(Handle, (int)lenOffset);
+        private protected uint Len => (uint)Marshal.ReadInt32(Handle, (int)lenOffset);
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected PtrArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
+        private protected PtrArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_ptr_array_ref (IntPtr array);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_ref(IntPtr array);
 
         public override IntPtr Take() => g_ptr_array_ref(Handle);
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_unref (IntPtr array);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_unref(IntPtr array);
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_ptr_array_get_type ();
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_ptr_array_get_type();
 
         static readonly GType _GType = g_ptr_array_get_type();
 
@@ -59,19 +62,19 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the new #GPtrArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_ptr_array_new ();
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_new();
 
-        static IntPtr New ()
+        static IntPtr New()
         {
-            var ret = g_ptr_array_new ();
+            var ret = g_ptr_array_new();
             return ret;
         }
 
         /// <summary>
         /// Creates a new <see cref="PtrArray"/>.
         /// </summary>
-        protected PtrArray () : this (New (), Transfer.Full)
+        private protected PtrArray() : this(New(), Transfer.Full)
         {
         }
 
@@ -87,11 +90,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the new #GPtrArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_ptr_array_sized_new (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_sized_new(
             uint reservedSize);
 
-        static IntPtr SizedNew (int reservedSize)
+        static IntPtr SizedNew(int reservedSize)
         {
             if (reservedSize < 0) {
                 throw new ArgumentOutOfRangeException(nameof(reservedSize));
@@ -100,7 +103,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        protected PtrArray(int reservedSize) : this(SizedNew(reservedSize), Transfer.Full)
+        private protected PtrArray(int reservedSize) : this(SizedNew(reservedSize), Transfer.Full)
         {
         }
 
@@ -123,9 +126,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// A new #GPtrArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.30")]
-        static extern IntPtr g_ptr_array_new_full (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.30")]
+        static extern IntPtr g_ptr_array_new_full(
             uint reservedSize,
             UnmanagedDestroyNotify elementFreeFunc);
 
@@ -138,7 +141,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
         // IMPORTANT: elementFreeFunc cannot be allowed to be GCed
-        protected PtrArray(int reservedSize, UnmanagedDestroyNotify elementFreeFunc)
+        private protected PtrArray(int reservedSize, UnmanagedDestroyNotify elementFreeFunc)
             : this(NewFull(reservedSize, elementFreeFunc), Transfer.Full)
         {
         }
@@ -178,9 +181,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// A new #GPtrArray
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        static extern IntPtr g_ptr_array_new_with_free_func (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.22")]
+        static extern IntPtr g_ptr_array_new_with_free_func(
             UnmanagedDestroyNotify elementFreeFunc);
 
         /// <summary>
@@ -193,8 +196,8 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the pointer to add
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_add (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_add(
             IntPtr array,
             IntPtr data);
 
@@ -205,7 +208,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the pointer to add
         /// </param>
-        protected void Add (IntPtr data)
+        private protected void Add(IntPtr data)
         {
             g_ptr_array_add(Handle, data);
         }
@@ -222,9 +225,9 @@ namespace GISharp.Lib.GLib
         /// <param name="userData">
         /// user data to pass to the function
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.4")]
-        static extern void g_ptr_array_foreach (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.4")]
+        static extern void g_ptr_array_foreach(
             IntPtr array,
             UnmanagedFunc func,
             IntPtr userData);
@@ -252,8 +255,8 @@ namespace GISharp.Lib.GLib
         /// the pointer array if @freeSeg is %FALSE, otherwise %NULL.
         ///     The pointer array should be freed using g_free().
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_ptr_array_free (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_free(
             IntPtr array,
             bool freeSeg);
 
@@ -278,9 +281,9 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the pointer to add.
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.40")]
-        static extern void g_ptr_array_insert (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.40")]
+        static extern void g_ptr_array_insert(
             IntPtr array,
             int index,
             IntPtr data);
@@ -295,8 +298,8 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the pointer to add.
         /// </param>
-        [Since ("2.40")]
-        protected void Insert (int index, IntPtr data)
+        [Since("2.40")]
+        private protected void Insert(int index, IntPtr data)
         {
             g_ptr_array_insert(Handle, index, data);
         }
@@ -329,7 +332,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes the first occurrence of the given pointer from the pointer
         /// array. The following elements are moved down one place. If this array
-        /// has a non-<c>null</c> <see cref="DestroyNotify{T}"/>  function it is called for the
+        /// has a non-<c>null</c> <see cref="DestroyNotify"/>  function it is called for the
         /// removed element.
         /// </summary>
         /// <remarks>
@@ -343,7 +346,7 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if the pointer is removed, <c>false</c> if the pointer
         ///     is not found in the array
         /// </returns>
-        protected bool Remove (IntPtr data)
+        private protected bool Remove(IntPtr data)
         {
             var ret = g_ptr_array_remove(Handle, data);
             return ret;
@@ -379,7 +382,7 @@ namespace GISharp.Lib.GLib
         /// array. The last element in the array is used to fill in the space,
         /// so this function does not preserve the order of the array. But it
         /// is faster than g_ptr_array_remove(). If this array has a non-<c>null</c>
-        /// <see cref="DestroyNotify{T}"/> function it is called for the removed element.
+        /// <see cref="DestroyNotify"/> function it is called for the removed element.
         /// </summary>
         /// <remarks>
         /// It returns <c>true</c> if the pointer was removed, or <c>false</c> if the
@@ -391,7 +394,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if the pointer was found in the array
         /// </returns>
-        protected bool RemoveFast (IntPtr data)
+        private protected bool RemoveFast(IntPtr data)
         {
             var ret = g_ptr_array_remove_fast(Handle, data);
             return ret;
@@ -412,15 +415,15 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the pointer which was removed
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_ptr_array_remove_index (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_remove_index(
             IntPtr array,
             uint index);
 
         /// <summary>
         /// Removes the pointer at the given index from the pointer array.
         /// The following elements are moved down one place. If this array has
-        /// a non-<c>null</c> <see cref="DestroyNotify{T}"/> function it is called for the removed
+        /// a non-<c>null</c> <see cref="DestroyNotify"/> function it is called for the removed
         /// element.
         /// </summary>
         /// <param name="index">
@@ -429,7 +432,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the pointer which was removed
         /// </returns>
-        protected IntPtr RemoveAt(int index)
+        private protected IntPtr RemoveAt(int index)
         {
             if (index < 0 || index >= Len) {
                 throw new ArgumentOutOfRangeException(nameof(index));
@@ -454,8 +457,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the pointer which was removed
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_ptr_array_remove_index_fast (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_ptr_array_remove_index_fast(
             IntPtr array,
             uint index);
 
@@ -464,7 +467,7 @@ namespace GISharp.Lib.GLib
         /// The last element in the array is used to fill in the space, so
         /// this function does not preserve the order of the array. But it
         /// is faster than g_ptr_array_remove_index(). If this array has a non-<c>null</c>
-        /// <see cref="DestroyNotify{T}"/> function it is called for the removed element.
+        /// <see cref="DestroyNotify"/> function it is called for the removed element.
         /// </summary>
         /// <param name="index">
         /// the index of the pointer to remove
@@ -472,7 +475,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the pointer which was removed
         /// </returns>
-        protected IntPtr RemoveAtFast(int index)
+        private protected IntPtr RemoveAtFast(int index)
         {
             var this_ = Handle;
             if (index < 0 || index >= Len) {
@@ -500,9 +503,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the @array
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.4")]
-        static extern IntPtr g_ptr_array_remove_range (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.4")]
+        static extern IntPtr g_ptr_array_remove_range(
             IntPtr array,
             uint index,
             uint length);
@@ -510,7 +513,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes the given number of pointers starting at the given index
         /// from a <see cref="PtrArray{T}"/>. The following elements are moved to close the
-        /// gap. If this array has a non-<c>null</c> <see cref="DestroyNotify{T}"/> function it is
+        /// gap. If this array has a non-<c>null</c> <see cref="DestroyNotify"/> function it is
         /// called for the removed elements.
         /// </summary>
         /// <param name="index">
@@ -519,18 +522,18 @@ namespace GISharp.Lib.GLib
         /// <param name="length">
         /// the number of pointers to remove
         /// </param>
-        [Since ("2.4")]
-        public void RemoveRange (int index, int length)
+        [Since("2.4")]
+        public void RemoveRange(int index, int length)
         {
             var this_ = Handle;
             if (index < 0) {
-                throw new ArgumentOutOfRangeException (nameof (index));
+                throw new ArgumentOutOfRangeException(nameof(index));
             }
             if (length < 0) {
-                throw new ArgumentOutOfRangeException (nameof (length));
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
             if (index + length > Len) {
-                throw new ArgumentException ("index + length exceeds Count.");
+                throw new ArgumentException("index + length exceeds Count.");
             }
             g_ptr_array_remove_range(this_, (uint)index, (uint)length);
         }
@@ -547,9 +550,9 @@ namespace GISharp.Lib.GLib
         /// A function to free elements with
         ///     destroy @array or %NULL
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since ("2.22")]
-        static extern void g_ptr_array_set_free_func (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.22")]
+        static extern void g_ptr_array_set_free_func(
             IntPtr array,
             UnmanagedDestroyNotify elementFreeFunc);
 
@@ -563,9 +566,9 @@ namespace GISharp.Lib.GLib
         ///     destroy this array or <c>null</c>
         /// </param>
         [Since("2.22")]
-        protected void SetFreeFunc(UnmanagedDestroyNotify elementFreeFunc)
+        private protected void SetFreeFunc(UnmanagedDestroyNotify elementFreeFunc)
         {
-           g_ptr_array_set_free_func(Handle, elementFreeFunc);
+            g_ptr_array_set_free_func(Handle, elementFreeFunc);
         }
 
         /// <summary>
@@ -580,25 +583,25 @@ namespace GISharp.Lib.GLib
         /// <param name="length">
         /// the new length of the pointer array
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_set_size (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_set_size(
             IntPtr array,
             int length);
 
         /// <summary>
         /// Sets the size of the array. When making the array larger,
         /// newly-added elements will be set to <c>null</c>. When making it smaller,
-        /// if this array has a non-<c>null</c> <see cref="DestroyNotify{T}"/> function then it will be
+        /// if this array has a non-<c>null</c> <see cref="DestroyNotify"/> function then it will be
         /// called for the removed elements.
         /// </summary>
         /// <param name="length">
         /// the new length of the pointer array
         /// </param>
-        public void SetSize (int length)
+        public void SetSize(int length)
         {
             var this_ = Handle;
             if (length < 0) {
-                throw new ArgumentOutOfRangeException (nameof (length));
+                throw new ArgumentOutOfRangeException(nameof(length));
             }
             g_ptr_array_set_size(this_, length);
         }
@@ -622,8 +625,8 @@ namespace GISharp.Lib.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_sort (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_sort(
             IntPtr array,
             UnmanagedCompareFunc compareFunc);
 
@@ -639,20 +642,20 @@ namespace GISharp.Lib.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        protected void Sort (Comparison<IntPtr> compareFunc)
+        private protected void Sort(Comparison<IntPtr> compareFunc)
         {
             var this_ = Handle;
             UnmanagedCompareFunc compareFunc_ = (a, b) => {
-                var x = Marshal.ReadIntPtr (a);
-                var y = Marshal.ReadIntPtr (b);
-                var compareFuncRet = compareFunc (x, y);
+                var x = Marshal.ReadIntPtr(a);
+                var y = Marshal.ReadIntPtr(b);
+                var compareFuncRet = compareFunc(x, y);
                 return compareFuncRet;
             };
             g_ptr_array_sort(this_, compareFunc_);
-            GC.KeepAlive (compareFunc_);
+            GC.KeepAlive(compareFunc_);
         }
 
-        protected void Sort(UnmanagedCompareFunc compareFunc)
+        private protected void Sort(UnmanagedCompareFunc compareFunc)
         {
             g_ptr_array_sort(Handle, compareFunc);
         }
@@ -677,8 +680,8 @@ namespace GISharp.Lib.GLib
         /// <param name="userData">
         /// data to pass to @compareFunc
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_sort_with_data (
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_ptr_array_sort_with_data(
             IntPtr array,
             UnmanagedCompareDataFunc compareFunc,
             IntPtr userData);
@@ -732,7 +735,7 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @needle is one of the elements of @haystack
         /// </returns>
         [Since("2.54")]
-        protected unsafe bool Find(IntPtr needle, out int index)
+        private protected unsafe bool Find(IntPtr needle, out int index)
         {
             uint index_;
             var ret = g_ptr_array_find(Handle, needle, &index_);
@@ -747,7 +750,8 @@ namespace GISharp.Lib.GLib
         static readonly Func<IntPtr, IntPtr> elementCopyFunc;
         static readonly UnmanagedDestroyNotify elementFreeFunc;
 
-        static PtrArray() {
+        static PtrArray()
+        {
             var methods = typeof(T).GetMethods(Static | NonPublic);
 
             var copyMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayCopyFuncAttribute), false));
@@ -771,7 +775,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The array "owns" the elements in the GLib sense.
         /// </remarks>
-        public PtrArray(): this(0)
+        public PtrArray() : this(0)
         {
         }
 
@@ -789,6 +793,9 @@ namespace GISharp.Lib.GLib
             OwnsElements = true;
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public PtrArray(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
@@ -804,7 +811,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the pointer to add
         /// </param>
-        public void Add (T data)
+        public void Add(T data)
         {
             var data_ = data.Handle;
             if (OwnsElements) {
@@ -826,8 +833,8 @@ namespace GISharp.Lib.GLib
         /// <exception cref="ArgumentOutOfRangeException">
         /// If <paramref name="index"/> is &lt; 0 or &gt; <see cref="PtrArray.Len"/>
         /// </exception>
-        [Since ("2.40")]
-        public void Insert (int index, T data)
+        [Since("2.40")]
+        public void Insert(int index, T data)
         {
             if (index < 0 || index > Len) {
                 throw new ArgumentOutOfRangeException(nameof(index));
@@ -842,7 +849,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes the first occurrence of the given pointer from the pointer
         /// array. The following elements are moved down one place. If this array
-        /// has a non-<c>null</c> <see cref="DestroyNotify{T}"/>  function it is called for the
+        /// has a non-<c>null</c> <see cref="DestroyNotify"/>  function it is called for the
         /// removed element.
         /// </summary>
         /// <remarks>
@@ -856,7 +863,7 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if the pointer is removed, <c>false</c> if the pointer
         ///     is not found in the array
         /// </returns>
-        public bool Remove (T data)
+        public bool Remove(T data)
         {
             var data_ = data.Handle;
             return Remove(data_);
@@ -865,7 +872,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes the pointer at the given index from the pointer array.
         /// The following elements are moved down one place. If this array has
-        /// a non-<c>null</c> <see cref="DestroyNotify{T}"/> function it is called for the removed
+        /// a non-<c>null</c> <see cref="DestroyNotify"/> function it is called for the removed
         /// element.
         /// </summary>
         /// <param name="index">
@@ -881,7 +888,7 @@ namespace GISharp.Lib.GLib
         /// array. The last element in the array is used to fill in the space,
         /// so this function does not preserve the order of the array. But it
         /// is faster than g_ptr_array_remove(). If this array has a non-<c>null</c>
-        /// <see cref="DestroyNotify{T}"/> function it is called for the removed element.
+        /// <see cref="DestroyNotify"/> function it is called for the removed element.
         /// </summary>
         /// <remarks>
         /// It returns <c>true</c> if the pointer was removed, or <c>false</c> if the
@@ -893,7 +900,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if the pointer was found in the array
         /// </returns>
-        public bool RemoveFast (T data)
+        public bool RemoveFast(T data)
         {
             var data_ = data.Handle;
             return RemoveFast(data_);
@@ -904,7 +911,7 @@ namespace GISharp.Lib.GLib
         /// The last element in the array is used to fill in the space, so
         /// this function does not preserve the order of the array. But it
         /// is faster than <see cref="RemoveAt"/>. If this array has a non-<c>null</c>
-        /// <see cref="DestroyNotify{T}"/> function it is called for the removed element.
+        /// <see cref="DestroyNotify"/> function it is called for the removed element.
         /// </summary>
         /// <param name="index">
         /// the index of the pointer to remove
@@ -926,15 +933,15 @@ namespace GISharp.Lib.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        public void Sort (Comparison<T> compareFunc)
+        public void Sort(Comparison<T> compareFunc)
         {
             Comparison<IntPtr> compareFunc_ = (a, b) => {
-                var x = GetInstance<T> (a, Transfer.None);
-                var y = GetInstance<T> (b, Transfer.None);
-                var compareFuncRet = compareFunc (x, y);
+                var x = GetInstance<T>(a, Transfer.None);
+                var y = GetInstance<T>(b, Transfer.None);
+                var compareFuncRet = compareFunc(x, y);
                 return compareFuncRet;
             };
-            Sort (compareFunc_);
+            Sort(compareFunc_);
         }
 
         public T this[int index] {
@@ -968,7 +975,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <returns>The index or -1 if <paramref name="data"/> was not found.</returns>
         /// <param name="data">Data.</param>
-        public int IndexOf (T data)
+        public int IndexOf(T data)
         {
             var data_ = data.Handle;
             for (int i = 0; i < Len; i++) {
@@ -983,9 +990,9 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes all pointers from the array.
         /// </summary>
-        public void Clear ()
+        public void Clear()
         {
-            SetSize (0);
+            SetSize(0);
         }
 
         /// <summary>
@@ -994,18 +1001,18 @@ namespace GISharp.Lib.GLib
         /// <returns><c>true</c> if <paramref name="data"/> was found, otherwise
         /// <c>false</c>.</returns>
         /// <param name="data">The item to search for.</param>
-        public bool Contains (T data)
+        public bool Contains(T data)
         {
-            return IndexOf (data) >= 0;
+            return IndexOf(data) >= 0;
         }
 
-        public void CopyTo (T[] array, int arrayIndex)
+        public void CopyTo(T[] array, int arrayIndex)
         {
             if (arrayIndex < 0) {
-                throw new ArgumentOutOfRangeException (nameof (arrayIndex));
+                throw new ArgumentOutOfRangeException(nameof(arrayIndex));
             }
             if (Len > array.Length - arrayIndex) {
-                throw new ArgumentException ("Destination array is not long enough.");
+                throw new ArgumentException("Destination array is not long enough.");
             }
             for (int i = 0; i < Len; i++) {
                 array[i + arrayIndex] = this[i];

@@ -31,6 +31,9 @@ namespace GISharp.Lib.GLib
 
         public unsafe Span<byte> Data => new Span<byte>(Data_.ToPointer(), (int)Len);
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ByteArray(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {

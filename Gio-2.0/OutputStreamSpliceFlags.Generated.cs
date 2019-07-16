@@ -2,29 +2,22 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// GOutputStreamSpliceFlags determine how streams should be spliced.
-    /// </summary>
+    /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='OutputStreamSpliceFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GOutputStreamSpliceFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
     public enum OutputStreamSpliceFlags
     {
-        /// <summary>
-        /// Do not close either stream.
-        /// </summary>
+        /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// Close the source stream after
-        ///     the splice.
-        /// </summary>
+        /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='CloseSource']/*" />
         CloseSource = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <summary>
-        /// Close the target stream after
-        ///     the splice.
-        /// </summary>
+        /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='CloseTarget']/*" />
         CloseTarget = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="OutputStreamSpliceFlags"/>.
+    /// </summary>
     public partial class OutputStreamSpliceFlagsExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_output_stream_splice_flags_get_type();

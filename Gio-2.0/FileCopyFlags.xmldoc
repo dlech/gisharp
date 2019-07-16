@@ -1,0 +1,51 @@
+<declaration>
+
+<member name='None'>
+<summary>
+No flags set.
+</summary>
+</member>
+
+<member name='Overwrite'>
+<summary>
+Overwrite any existing files
+</summary>
+</member>
+
+<member name='Backup'>
+<summary>
+Make a backup of any existing files.
+</summary>
+</member>
+
+<member name='NoFollowSymlinks'>
+<summary>
+Don't follow symlinks.
+</summary>
+</member>
+
+<member name='AllMetadata'>
+<summary>
+Copy all file metadata instead of just default set used for copy (see <see cref="FileInfo"/>).
+</summary>
+</member>
+
+<member name='NoFallbackForMove'>
+<summary>
+Don't use copy and delete fallback if native move not supported.
+</summary>
+</member>
+
+<member name='TargetDefaultPerms'>
+<summary>
+Leaves target file with default perms, instead of setting the source file perms.
+</summary>
+</member>
+
+<member name='FileCopyFlags'>
+<summary>
+Flags used when copying or moving files.
+</summary>
+</member>
+
+</declaration>

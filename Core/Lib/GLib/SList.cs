@@ -21,6 +21,9 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected SList(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
@@ -905,6 +908,9 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public SList (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

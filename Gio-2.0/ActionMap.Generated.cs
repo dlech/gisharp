@@ -2,68 +2,30 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// The GActionMap interface is implemented by <see cref="IActionGroup"/>
-    /// implementations that operate by containing a number of
-    /// named <see cref="IAction"/> instances, such as #GSimpleActionGroup.
-    /// </summary>
-    /// <remarks>
-    /// One useful application of this interface is to map the
-    /// names of actions from various action groups to unique,
-    /// prefixed names (e.g. by prepending "app." or "win.").
-    /// This is the motivation for the 'Map' part of the interface
-    /// name.
-    /// </remarks>
+    /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap']/*" />
     [GISharp.Runtime.GTypeAttribute("GActionMap", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionMapInterface))]
     public partial interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <summary>
-        /// Adds an action to the <paramref name="actionMap"/>.
-        /// </summary>
-        /// <remarks>
-        /// If the action map already contains an action with the same name
-        /// as <paramref name="action"/> then the old action is dropped from the action map.
-        /// 
-        /// The action map takes its own reference on <paramref name="action"/>.
-        /// </remarks>
-        /// <param name="action">
-        /// a <see cref="IAction"/>
-        /// </param>
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='DoAddAction(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedAddAction))]
         void DoAddAction(GISharp.Lib.Gio.IAction action);
 
-        /// <summary>
-        /// Looks up the action with the name <paramref name="actionName"/> in <paramref name="actionMap"/>.
-        /// </summary>
-        /// <remarks>
-        /// If no such action exists, returns <c>null</c>.
-        /// </remarks>
-        /// <param name="actionName">
-        /// the name of an action
-        /// </param>
-        /// <returns>
-        /// a <see cref="IAction"/>, or <c>null</c>
-        /// </returns>
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='DoLookupAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedLookupAction))]
         GISharp.Lib.Gio.IAction DoLookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
-        /// <summary>
-        /// Removes the named action from the action map.
-        /// </summary>
-        /// <remarks>
-        /// If no action of this name is in the map then nothing happens.
-        /// </remarks>
-        /// <param name="actionName">
-        /// the name of the action
-        /// </param>
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedRemoveAction))]
         void DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="IActionMap"/>
+    /// </summary>
     public static partial class ActionMap
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_action_map_get_type();
@@ -100,21 +62,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
-        /// <summary>
-        /// Adds an action to the <paramref name="actionMap"/>.
-        /// </summary>
-        /// <remarks>
-        /// If the action map already contains an action with the same name
-        /// as <paramref name="action"/> then the old action is dropped from the action map.
-        /// 
-        /// The action map takes its own reference on <paramref name="action"/>.
-        /// </remarks>
-        /// <param name="actionMap">
-        /// a <see cref="IActionMap"/>
-        /// </param>
-        /// <param name="action">
-        /// a <see cref="IAction"/>
-        /// </param>
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static void AddAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.Gio.IAction action)
         {
@@ -150,21 +98,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
-        /// <summary>
-        /// Looks up the action with the name <paramref name="actionName"/> in <paramref name="actionMap"/>.
-        /// </summary>
-        /// <remarks>
-        /// If no such action exists, returns <c>null</c>.
-        /// </remarks>
-        /// <param name="actionMap">
-        /// a <see cref="IActionMap"/>
-        /// </param>
-        /// <param name="actionName">
-        /// the name of an action
-        /// </param>
-        /// <returns>
-        /// a <see cref="IAction"/>, or <c>null</c>
-        /// </returns>
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
@@ -175,21 +109,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Looks up the action with the name <paramref name="actionName"/> in <paramref name="actionMap"/>.
-        /// </summary>
-        /// <remarks>
-        /// If no such action exists, returns <c>null</c>.
-        /// </remarks>
-        /// <param name="actionMap">
-        /// a <see cref="IActionMap"/>
-        /// </param>
-        /// <param name="actionName">
-        /// the name of an action
-        /// </param>
-        /// <returns>
-        /// a <see cref="IAction"/>, or <c>null</c>
-        /// </returns>
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='LookupAction(GISharp.Lib.Gio.IActionMap,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
         {
@@ -221,18 +141,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
-        /// <summary>
-        /// Removes the named action from the action map.
-        /// </summary>
-        /// <remarks>
-        /// If no action of this name is in the map then nothing happens.
-        /// </remarks>
-        /// <param name="actionMap">
-        /// a <see cref="IActionMap"/>
-        /// </param>
-        /// <param name="actionName">
-        /// the name of the action
-        /// </param>
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
@@ -241,18 +150,7 @@ namespace GISharp.Lib.Gio
             g_action_map_remove_action(actionMap_, actionName_);
         }
 
-        /// <summary>
-        /// Removes the named action from the action map.
-        /// </summary>
-        /// <remarks>
-        /// If no action of this name is in the map then nothing happens.
-        /// </remarks>
-        /// <param name="actionMap">
-        /// a <see cref="IActionMap"/>
-        /// </param>
-        /// <param name="actionName">
-        /// the name of the action
-        /// </param>
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='RemoveAction(GISharp.Lib.Gio.IActionMap,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
         {

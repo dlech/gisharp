@@ -17,10 +17,7 @@ namespace GISharp.Lib.GLib
     /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
     System.IntPtr data);
 
-    /// <summary>
-    /// The type of functions which are used to translate user-visible
-    /// strings, for &lt;option&gt;--help&lt;/option&gt; output.
-    /// </summary>
+    /// <include file="TranslateFunc.xmldoc" path="declaration/member[@name='TranslateFunc']/*" />
     public delegate GISharp.Lib.GLib.UnownedUtf8 TranslateFunc(GISharp.Lib.GLib.UnownedUtf8 str);
 
     /// <summary>
@@ -40,6 +37,9 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="TranslateFunc"/>.
+        /// </summary>
         public static GISharp.Lib.GLib.TranslateFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedTranslateFunc>(callback_);
@@ -59,7 +59,7 @@ namespace GISharp.Lib.GLib
         /// Wraps a <see cref="TranslateFunc"/> in an anonymous method that can
         /// be passed to unmanaged code.
         /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="callback">The managed callback method to wrap.</param>
         /// <param name="scope">The lifetime scope of the callback.</param>
         /// <returns>
         /// A tuple containing a pointer to the unmanaged callback, a pointer to the

@@ -1,0 +1,53 @@
+<declaration>
+
+<member name='Unknown'>
+<summary>
+File's type is unknown.
+</summary>
+</member>
+
+<member name='Regular'>
+<summary>
+File handle represents a regular file.
+</summary>
+</member>
+
+<member name='Directory'>
+<summary>
+File handle represents a directory.
+</summary>
+</member>
+
+<member name='SymbolicLink'>
+<summary>
+File handle represents a symbolic link
+   (Unix systems).
+</summary>
+</member>
+
+<member name='Special'>
+<summary>
+File is a "special" file, such as a socket, fifo,
+   block device, or character device.
+</summary>
+</member>
+
+<member name='Shortcut'>
+<summary>
+File is a shortcut (Windows systems).
+</summary>
+</member>
+
+<member name='Mountable'>
+<summary>
+File is a mountable location.
+</summary>
+</member>
+
+<member name='FileType'>
+<summary>
+Indicates the file's on-disk type.
+</summary>
+</member>
+
+</declaration>

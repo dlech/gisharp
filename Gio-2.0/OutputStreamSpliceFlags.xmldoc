@@ -1,0 +1,29 @@
+<declaration>
+
+<member name='None'>
+<summary>
+Do not close either stream.
+</summary>
+</member>
+
+<member name='CloseSource'>
+<summary>
+Close the source stream after
+    the splice.
+</summary>
+</member>
+
+<member name='CloseTarget'>
+<summary>
+Close the target stream after
+    the splice.
+</summary>
+</member>
+
+<member name='OutputStreamSpliceFlags'>
+<summary>
+GOutputStreamSpliceFlags determine how streams should be spliced.
+</summary>
+</member>
+
+</declaration>

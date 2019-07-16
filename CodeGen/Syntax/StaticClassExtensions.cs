@@ -18,7 +18,9 @@ namespace GISharp.CodeGen.Syntax
         {
             var identifier = staticClass.ManagedName;
             return ClassDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword));
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword))
+                .WithLeadingTrivia(staticClass.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         /// <summary>

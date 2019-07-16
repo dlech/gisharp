@@ -26,6 +26,9 @@ namespace GISharp.Lib.GObject
             #pragma warning restore CS0649
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecOverride (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

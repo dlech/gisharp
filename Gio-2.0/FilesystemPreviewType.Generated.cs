@@ -2,28 +2,21 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Indicates a hint from the file system whether files should be
-    /// previewed in a file manager. Returned as the value of the key
-    /// #G_FILE_ATTRIBUTE_FILESYSTEM_USE_PREVIEW.
-    /// </summary>
+    /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='FilesystemPreviewType']/*" />
     [GISharp.Runtime.GTypeAttribute("GFilesystemPreviewType", IsProxyForUnmanagedType = true)]
     public enum FilesystemPreviewType
     {
-        /// <summary>
-        /// Only preview files if user has explicitly requested it.
-        /// </summary>
+        /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='IfAlways']/*" />
         IfAlways = 0,
-        /// <summary>
-        /// Preview files if user has requested preview of "local" files.
-        /// </summary>
+        /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='IfLocal']/*" />
         IfLocal = 1,
-        /// <summary>
-        /// Never preview files.
-        /// </summary>
+        /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='Never']/*" />
         Never = 2
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FilesystemPreviewType"/>.
+    /// </summary>
     public partial class FilesystemPreviewTypeExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_filesystem_preview_type_get_type();

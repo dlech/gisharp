@@ -2,14 +2,15 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Determines if a string matches a file attribute.
-    /// </summary>
+    /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileAttributeMatcher", IsProxyForUnmanagedType = true)]
     public sealed partial class FileAttributeMatcher : GISharp.Lib.GObject.Boxed
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_matcher_get_type();
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public FileAttributeMatcher(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -51,6 +52,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attributes);
 
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 attributes)
         {
             var attributes_ = attributes.Handle;
@@ -58,66 +60,19 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <summary>
-        /// Creates a new file attribute matcher, which matches attributes
-        /// against a given string. <see cref="FileAttributeMatcher"/>s are reference
-        /// counted structures, and are created with a reference count of 1. If
-        /// the number of references falls to 0, the <see cref="FileAttributeMatcher"/> is
-        /// automatically destroyed.
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="attribute"/> string should be formatted with specific keys separated
-        /// from namespaces with a double colon. Several "namespace::key" strings may be
-        /// concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
-        /// The wildcard "*" may be used to match all keys and namespaces, or
-        /// "namespace::*" will match all keys in a given namespace.
-        /// 
-        /// ## Examples of file attribute matcher strings and results
-        /// 
-        /// - `"*"`: matches all attributes.
-        /// - `"standard::is-hidden"`: matches only the key is-hidden in the
-        ///   standard namespace.
-        /// - `"standard::type,unix::*"`: matches the type key in the standard
-        ///   namespace and all keys in the unix namespace.
-        /// </remarks>
-        /// <param name="attributes">
-        /// an attribute string to match.
-        /// </param>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8 attributes) : this(New(attributes), GISharp.Runtime.Transfer.Full)
         {
         }
 
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='New(System.String)']/*" />
         static unsafe System.IntPtr New(System.String attributes)
         {
             using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
             return New((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8);
         }
 
-        /// <summary>
-        /// Creates a new file attribute matcher, which matches attributes
-        /// against a given string. <see cref="FileAttributeMatcher"/>s are reference
-        /// counted structures, and are created with a reference count of 1. If
-        /// the number of references falls to 0, the <see cref="FileAttributeMatcher"/> is
-        /// automatically destroyed.
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="attribute"/> string should be formatted with specific keys separated
-        /// from namespaces with a double colon. Several "namespace::key" strings may be
-        /// concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
-        /// The wildcard "*" may be used to match all keys and namespaces, or
-        /// "namespace::*" will match all keys in a given namespace.
-        /// 
-        /// ## Examples of file attribute matcher strings and results
-        /// 
-        /// - `"*"`: matches all attributes.
-        /// - `"standard::is-hidden"`: matches only the key is-hidden in the
-        ///   standard namespace.
-        /// - `"standard::type,unix::*"`: matches the type key in the standard
-        ///   namespace and all keys in the unix namespace.
-        /// </remarks>
-        /// <param name="attributes">
-        /// an attribute string to match.
-        /// </param>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher(System.String)']/*" />
         public FileAttributeMatcher(System.String attributes) : this(New(attributes), GISharp.Runtime.Transfer.Full)
         {
         }
@@ -157,22 +112,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr ns);
 
-        /// <summary>
-        /// Checks if the matcher will match all of the keys in a given namespace.
-        /// This will always return <c>true</c> if a wildcard character is in use (e.g. if
-        /// matcher was created with "standard::*" and <paramref name="ns"/> is "standard", or if matcher was created
-        /// using "*" and namespace is anything.)
-        /// </summary>
-        /// <remarks>
-        /// TODO: this is awkwardly worded.
-        /// </remarks>
-        /// <param name="ns">
-        /// a string containing a file attribute namespace.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the matcher matches all of the entries
-        /// in the given <paramref name="ns"/>, <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Boolean EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8 ns)
         {
             var matcher_ = Handle;
@@ -182,22 +122,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Checks if the matcher will match all of the keys in a given namespace.
-        /// This will always return <c>true</c> if a wildcard character is in use (e.g. if
-        /// matcher was created with "standard::*" and <paramref name="ns"/> is "standard", or if matcher was created
-        /// using "*" and namespace is anything.)
-        /// </summary>
-        /// <remarks>
-        /// TODO: this is awkwardly worded.
-        /// </remarks>
-        /// <param name="ns">
-        /// a string containing a file attribute namespace.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the matcher matches all of the entries
-        /// in the given <paramref name="ns"/>, <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='EnumerateNamespace(System.String)']/*" />
         public unsafe System.Boolean EnumerateNamespace(System.String ns)
         {
             using var nsUtf8 = new GISharp.Lib.GLib.Utf8(ns);
@@ -222,13 +147,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr matcher);
 
-        /// <summary>
-        /// Gets the next matched attribute from a <see cref="FileAttributeMatcher"/>.
-        /// </summary>
-        /// <returns>
-        /// a string containing the next attribute or <c>null</c> if
-        /// no more attribute exist.
-        /// </returns>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='EnumerateNext()']/*" />
         public unsafe GISharp.Lib.GLib.UnownedUtf8 EnumerateNext()
         {
             var matcher_ = Handle;
@@ -262,17 +181,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <summary>
-        /// Checks if an attribute will be matched by an attribute matcher. If
-        /// the matcher was created with the "*" matching string, this function
-        /// will always return <c>true</c>.
-        /// </summary>
-        /// <param name="attribute">
-        /// a file attribute key.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="attribute"/> matches <paramref name="matcher"/>. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='Matches(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Boolean Matches(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var matcher_ = Handle;
@@ -282,17 +191,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Checks if an attribute will be matched by an attribute matcher. If
-        /// the matcher was created with the "*" matching string, this function
-        /// will always return <c>true</c>.
-        /// </summary>
-        /// <param name="attribute">
-        /// a file attribute key.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="attribute"/> matches <paramref name="matcher"/>. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='Matches(System.String)']/*" />
         public unsafe System.Boolean Matches(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -323,16 +222,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <summary>
-        /// Checks if a attribute matcher only matches a given attribute. Always
-        /// returns <c>false</c> if "*" was used when creating the matcher.
-        /// </summary>
-        /// <param name="attribute">
-        /// a file attribute key.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the matcher only matches <paramref name="attribute"/>. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Boolean MatchesOnly(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var matcher_ = Handle;
@@ -342,16 +232,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Checks if a attribute matcher only matches a given attribute. Always
-        /// returns <c>false</c> if "*" was used when creating the matcher.
-        /// </summary>
-        /// <param name="attribute">
-        /// a file attribute key.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the matcher only matches <paramref name="attribute"/>. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='MatchesOnly(System.String)']/*" />
         public unsafe System.Boolean MatchesOnly(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -374,6 +255,11 @@ namespace GISharp.Lib.Gio
         /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr matcher);
+
+        /// <summary>
+        /// Takes ownership of the unmanaged pointer without freeing it.
+        /// The managed object can no longer be used (will throw disposed exception).
+        /// </summary>
         public override System.IntPtr Take() => g_file_attribute_matcher_ref(Handle);
 
         /// <summary>
@@ -408,24 +294,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr subtract);
 
-        /// <summary>
-        /// Subtracts all attributes of <paramref name="subtract"/> from <paramref name="matcher"/> and returns
-        /// a matcher that supports those attributes.
-        /// </summary>
-        /// <remarks>
-        /// Note that currently it is not possible to remove a single
-        /// attribute when the <paramref name="matcher"/> matches the whole namespace - or remove
-        /// a namespace or attribute when the matcher matches everything. This
-        /// is a limitation of the current implementation, but may be fixed
-        /// in the future.
-        /// </remarks>
-        /// <param name="subtract">
-        /// The matcher to subtract
-        /// </param>
-        /// <returns>
-        /// A file attribute matcher matching all attributes of
-        ///     <paramref name="matcher"/> that are not matched by <paramref name="subtract"/>
-        /// </returns>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='Subtract(GISharp.Lib.Gio.FileAttributeMatcher)']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeMatcher Subtract(GISharp.Lib.Gio.FileAttributeMatcher subtract)
         {
             var matcher_ = Handle;
@@ -457,16 +326,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr matcher);
 
-        /// <summary>
-        /// Prints what the matcher is matching against. The format will be
-        /// equal to the format passed to <see cref="FileAttributeMatcher.New"/>.
-        /// The output however, might not be identical, as the matcher may
-        /// decide to use a different order or omit needless parts.
-        /// </summary>
-        /// <returns>
-        /// a string describing the attributes the matcher matches
-        ///   against or <c>null</c> if <paramref name="matcher"/> was <c>null</c>.
-        /// </returns>
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='ToString()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public override System.String ToString()
         {

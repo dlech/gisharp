@@ -2,27 +2,22 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Flags specifying the behaviour of an attribute.
-    /// </summary>
+    /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='FileAttributeInfoFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileAttributeInfoFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
     public enum FileAttributeInfoFlags
     {
-        /// <summary>
-        /// no flags set.
-        /// </summary>
+        /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// copy the attribute values when the file is copied.
-        /// </summary>
+        /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='CopyWithFile']/*" />
         CopyWithFile = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <summary>
-        /// copy the attribute values when the file is moved.
-        /// </summary>
+        /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='CopyWhenMoved']/*" />
         CopyWhenMoved = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FileAttributeInfoFlags"/>.
+    /// </summary>
     public partial class FileAttributeInfoFlagsExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_info_flags_get_type();

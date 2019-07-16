@@ -1,0 +1,69 @@
+<declaration>
+
+<member name='Invalid'>
+<summary>
+indicates an invalid or uninitalized type.
+</summary>
+</member>
+
+<member name='String'>
+<summary>
+a null terminated UTF8 string.
+</summary>
+</member>
+
+<member name='ByteString'>
+<summary>
+a zero terminated string of non-zero bytes.
+</summary>
+</member>
+
+<member name='Boolean'>
+<summary>
+a boolean value.
+</summary>
+</member>
+
+<member name='Uint32'>
+<summary>
+an unsigned 4-byte/32-bit integer.
+</summary>
+</member>
+
+<member name='Int32'>
+<summary>
+a signed 4-byte/32-bit integer.
+</summary>
+</member>
+
+<member name='Uint64'>
+<summary>
+an unsigned 8-byte/64-bit integer.
+</summary>
+</member>
+
+<member name='Int64'>
+<summary>
+a signed 8-byte/64-bit integer.
+</summary>
+</member>
+
+<member name='Object'>
+<summary>
+a #GObject.
+</summary>
+</member>
+
+<member name='StringArray'>
+<summary>
+a <c>null</c> terminated char **.
+</summary>
+</member>
+
+<member name='FileAttributeType'>
+<summary>
+The data types for file attributes.
+</summary>
+</member>
+
+</declaration>

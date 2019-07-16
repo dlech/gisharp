@@ -2,17 +2,34 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
+    /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='CancellableClass']/*" />
     public class CancellableClass : GISharp.Lib.GObject.ObjectClass
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Cancelled']/*" />
             public System.IntPtr Cancelled;
+
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved1']/*" />
             public System.IntPtr GReserved1;
+
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved2']/*" />
             public System.IntPtr GReserved2;
+
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved3']/*" />
             public System.IntPtr GReserved3;
+
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
             public System.IntPtr GReserved4;
+
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved5']/*" />
             public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }
@@ -23,8 +40,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(cancelledOffset, CancelledMarshal.Create);
         }
 
+        /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Cancelled']/*" />
         public delegate void Cancelled();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -38,6 +59,9 @@ System.IntPtr cancellable);
         /// </summary>
         public static class CancelledMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCancelled Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCancelled(System.IntPtr cancellable_)
@@ -58,6 +82,9 @@ System.IntPtr cancellable);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public CancellableClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

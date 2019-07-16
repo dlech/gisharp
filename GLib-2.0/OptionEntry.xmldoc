@@ -1,0 +1,82 @@
+<declaration>
+
+<member name='LongName'>
+#pragmawarningdisableCS0649
+<summary>
+The long name of an option can be used to specify it
+    in a commandline as `--long_name`. Every option must have a
+    long name. To resolve conflicts if multiple option groups contain
+    the same long name, it is also possible to specify the option as
+    `--groupname-long_name`.
+</summary>
+</member>
+
+<member name='ShortName'>
+<summary>
+If an option has a short name, it can be specified
+    `-short_name` in a commandline. <see cref="ShortName"/> must be a printable
+    ASCII character different from '-', or zero if the option has no
+    short name.
+</summary>
+</member>
+
+<member name='Flags'>
+<summary>
+Flags from <see cref="OptionFlags"/>
+</summary>
+</member>
+
+<member name='Arg'>
+<summary>
+The type of the option, as a <see cref="OptionArg"/>
+</summary>
+</member>
+
+<member name='ArgData'>
+<summary>
+If the <see cref="Arg"/> type is <see cref="OptionArg.Callback"/>, then <see cref="ArgData"/>
+    must point to a <see cref="OptionArgFunc"/> callback function, which will be
+    called to handle the extra argument. Otherwise, <see cref="ArgData"/> is a
+    pointer to a location to store the value, the required type of
+    the location depends on the <see cref="Arg"/> type:
+    - <see cref="OptionArg.None"/>: %gboolean
+    - <see cref="OptionArg.String"/>: %gchar*
+    - <see cref="OptionArg.Int"/>: %gint
+    - <see cref="OptionArg.Filename"/>: %gchar*
+    - <see cref="OptionArg.StringArray"/>: %gchar**
+    - <see cref="OptionArg.FilenameArray"/>: %gchar**
+    - <see cref="OptionArg.Double"/>: %gdouble
+    If <see cref="Arg"/> type is <see cref="OptionArg.String"/> or <see cref="OptionArg.Filename"/>,
+    the location will contain a newly allocated string if the option
+    was given. That string needs to be freed by the callee using g_free().
+    Likewise if <see cref="Arg"/> type is <see cref="OptionArg.StringArray"/> or
+    <see cref="OptionArg.FilenameArray"/>, the data should be freed using g_strfreev().
+</summary>
+</member>
+
+<member name='Description'>
+<summary>
+the description for the option in `--help`
+    output. The <see cref="Description"/> is translated using the <see cref="TranslateFunc"/>
+    of the group, see <see cref="M:OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.Utf8)"/>.
+</summary>
+</member>
+
+<member name='ArgDescription'>
+<summary>
+The placeholder to use for the extra argument parsed
+    by the option in `--help` output. The <see cref="ArgDescription"/> is translated
+    using the <see cref="TranslateFunc"/> of the group, see
+    <see cref="M:OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.Utf8)"/>.
+</summary>
+</member>
+
+<member name='OptionEntry'>
+<summary>
+A GOptionEntry struct defines a single option. To have an effect, they
+must be added to a <see cref="OptionGroup"/> with g_option_context_add_main_entries()
+or <see cref="M:OptionGroup.AddEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/>.
+</summary>
+</member>
+
+</declaration>

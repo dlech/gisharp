@@ -2,23 +2,14 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// An enumeration specifying the base position for a
-    /// g_io_channel_seek_position() operation.
-    /// </summary>
+    /// <include file="SeekType.xmldoc" path="declaration/member[@name='SeekType']/*" />
     public enum SeekType
     {
-        /// <summary>
-        /// the current position in the file.
-        /// </summary>
+        /// <include file="SeekType.xmldoc" path="declaration/member[@name='Current']/*" />
         Current = 0,
-        /// <summary>
-        /// the start of the file.
-        /// </summary>
+        /// <include file="SeekType.xmldoc" path="declaration/member[@name='Start']/*" />
         Start = 1,
-        /// <summary>
-        /// the end of the file.
-        /// </summary>
+        /// <include file="SeekType.xmldoc" path="declaration/member[@name='End']/*" />
         End = 2
     }
 }

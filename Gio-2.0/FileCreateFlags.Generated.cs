@@ -2,36 +2,23 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Flags used when an operation may create a file.
-    /// </summary>
+    /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='FileCreateFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileCreateFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
     public enum FileCreateFlags
     {
-        /// <summary>
-        /// No flags set.
-        /// </summary>
+        /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// Create a file that can only be
-        ///    accessed by the current user.
-        /// </summary>
+        /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='Private']/*" />
         Private = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <summary>
-        /// Replace the destination
-        ///    as if it didn't exist before. Don't try to keep any old
-        ///    permissions, replace instead of following links. This
-        ///    is generally useful if you're doing a "copy over"
-        ///    rather than a "save new version of" replace operation.
-        ///    You can think of it as "unlink destination" before
-        ///    writing to it, although the implementation may not
-        ///    be exactly like that.
-        /// </summary>
+        /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='ReplaceDestination']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         ReplaceDestination = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FileCreateFlags"/>.
+    /// </summary>
     public partial class FileCreateFlagsExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_create_flags_get_type();

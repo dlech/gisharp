@@ -1,0 +1,42 @@
+<declaration>
+
+<member name='GIface'>
+#pragmawarningdisableCS0649
+<summary>
+The parent interface.
+</summary>
+</member>
+
+<member name='Hash'>
+</member>
+
+<member name='Equal'>
+</member>
+
+<member name='ToTokens'>
+</member>
+
+<member name='FromTokens'>
+</member>
+
+<member name='Serialize'>
+</member>
+
+<member name='Hash'>
+</member>
+
+<member name='Equal'>
+</member>
+
+<member name='Serialize'>
+</member>
+
+<member name='IconIface'>
+<summary>
+GIconIface is used to implement GIcon types for various
+different systems. See <see cref="ThemedIcon"/> and #GLoadableIcon for
+examples of how to implement this interface.
+</summary>
+</member>
+
+</declaration>

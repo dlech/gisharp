@@ -2,57 +2,27 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// The <see cref="OptionArg"/> enum values determine which type of extra argument the
-    /// options expect to find. If an option expects an extra argument, it can
-    /// be specified in several ways; with a short option: `-x arg`, with a long
-    /// option: `--name arg` or combined in a single argument: `--name=arg`.
-    /// </summary>
+    /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg']/*" />
     public enum OptionArg
     {
-        /// <summary>
-        /// No extra argument. This is useful for simple flags.
-        /// </summary>
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0,
-        /// <summary>
-        /// The option takes a string argument.
-        /// </summary>
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='String']/*" />
         String = 1,
-        /// <summary>
-        /// The option takes an integer argument.
-        /// </summary>
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Int']/*" />
         Int = 2,
-        /// <summary>
-        /// The option provides a callback (of type
-        ///     <see cref="OptionArgFunc"/>) to parse the extra argument.
-        /// </summary>
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Callback']/*" />
         Callback = 3,
-        /// <summary>
-        /// The option takes a filename as argument.
-        /// </summary>
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Filename']/*" />
         Filename = 4,
-        /// <summary>
-        /// The option takes a string argument, multiple
-        ///     uses of the option are collected into an array of strings.
-        /// </summary>
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='StringArray']/*" />
         StringArray = 5,
-        /// <summary>
-        /// The option takes a filename as argument,
-        ///     multiple uses of the option are collected into an array of strings.
-        /// </summary>
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='FilenameArray']/*" />
         FilenameArray = 6,
-        /// <summary>
-        /// The option takes a double argument. The argument
-        ///     can be formatted either for the user's locale or for the "C" locale.
-        /// </summary>
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Double']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         Double = 7,
-        /// <summary>
-        /// The option takes a 64-bit integer. Like
-        ///     <see cref="OptionArg.Int"/> but for larger numbers. The number can be in
-        ///     decimal base, or in hexadecimal (when prefixed with `0x`, for
-        ///     example, `0xffffffff`).
-        /// </summary>
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Int64']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         Int64 = 8
     }

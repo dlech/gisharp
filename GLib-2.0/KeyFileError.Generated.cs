@@ -2,41 +2,30 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// Error codes returned by key file parsing.
-    /// </summary>
+    /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileError']/*" />
     [GISharp.Runtime.GErrorDomainAttribute("g-key-file-error-quark")]
     public enum KeyFileError
     {
-        /// <summary>
-        /// the text being parsed was in
-        ///     an unknown encoding
-        /// </summary>
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='UnknownEncoding']/*" />
         UnknownEncoding = 0,
-        /// <summary>
-        /// document was ill-formed
-        /// </summary>
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='Parse']/*" />
         Parse = 1,
-        /// <summary>
-        /// the file was not found
-        /// </summary>
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='NotFound']/*" />
         NotFound = 2,
-        /// <summary>
-        /// a requested key was not found
-        /// </summary>
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyNotFound']/*" />
         KeyNotFound = 3,
-        /// <summary>
-        /// a requested group was not found
-        /// </summary>
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='GroupNotFound']/*" />
         GroupNotFound = 4,
-        /// <summary>
-        /// a value could not be parsed
-        /// </summary>
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='InvalidValue']/*" />
         InvalidValue = 5
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="KeyFileError"/>.
+    /// </summary>
     public partial class KeyFileErrorDomain
     {
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -44,6 +33,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:out */
         static extern unsafe GISharp.Lib.GLib.Quark g_key_file_error_quark();
 
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='GetQuark()']/*" />
         private static unsafe GISharp.Lib.GLib.Quark GetQuark()
         {
             var ret_ = g_key_file_error_quark();

@@ -22,12 +22,7 @@ namespace GISharp.Lib.Gio
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr callbackData);
 
-    /// <summary>
-    /// When loading the partial contents of a file with g_file_load_partial_contents_async(),
-    /// it may become necessary to determine if any more data from the file should be loaded.
-    /// A <see cref="FileReadMoreCallback"/> function facilitates this by returning <c>true</c> if more data
-    /// should be read, or <c>false</c> otherwise.
-    /// </summary>
+    /// <include file="FileReadMoreCallback.xmldoc" path="declaration/member[@name='FileReadMoreCallback']/*" />
     public delegate System.Boolean FileReadMoreCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize);
 
     /// <summary>
@@ -47,6 +42,9 @@ namespace GISharp.Lib.Gio
             }
         }
 
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="FileReadMoreCallback"/>.
+        /// </summary>
         public static GISharp.Lib.Gio.FileReadMoreCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileReadMoreCallback>(callback_);
@@ -67,7 +65,7 @@ namespace GISharp.Lib.Gio
         /// Wraps a <see cref="FileReadMoreCallback"/> in an anonymous method that can
         /// be passed to unmanaged code.
         /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="callback">The managed callback method to wrap.</param>
         /// <param name="scope">The lifetime scope of the callback.</param>
         /// <returns>
         /// A tuple containing a pointer to the unmanaged callback, a pointer to the

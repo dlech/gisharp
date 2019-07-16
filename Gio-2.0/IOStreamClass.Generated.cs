@@ -2,26 +2,61 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
+    /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='IOStreamClass']/*" />
     public class IOStreamClass : GISharp.Lib.GObject.ObjectClass
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GetInputStream']/*" />
             public System.IntPtr GetInputStream;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GetOutputStream']/*" />
             public System.IntPtr GetOutputStream;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='CloseFn']/*" />
             public System.IntPtr CloseFn;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='CloseAsync']/*" />
             public System.IntPtr CloseAsync;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='CloseFinish']/*" />
             public System.IntPtr CloseFinish;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved1']/*" />
             public System.IntPtr GReserved1;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved2']/*" />
             public System.IntPtr GReserved2;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved3']/*" />
             public System.IntPtr GReserved3;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
             public System.IntPtr GReserved4;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved5']/*" />
             public System.IntPtr GReserved5;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved6']/*" />
             public System.IntPtr GReserved6;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved7']/*" />
             public System.IntPtr GReserved7;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved8']/*" />
             public System.IntPtr GReserved8;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved9']/*" />
             public System.IntPtr GReserved9;
+
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved10']/*" />
             public System.IntPtr GReserved10;
 #pragma warning restore CS0649
         }
@@ -40,8 +75,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(closeFinishOffset, CloseFinishMarshal.Create);
         }
 
+        /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GetInputStream']/*" />
         public delegate GISharp.Lib.Gio.InputStream GetInputStream();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
@@ -55,6 +94,9 @@ System.IntPtr stream);
         /// </summary>
         public static class GetInputStreamMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetInputStream Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetInputStream(System.IntPtr stream_)
@@ -79,8 +121,12 @@ System.IntPtr stream);
             }
         }
 
+        /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GetOutputStream']/*" />
         public delegate GISharp.Lib.Gio.OutputStream GetOutputStream();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
@@ -94,6 +140,9 @@ System.IntPtr stream);
         /// </summary>
         public static class GetOutputStreamMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetOutputStream Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetOutputStream(System.IntPtr stream_)
@@ -118,8 +167,12 @@ System.IntPtr stream);
             }
         }
 
+        /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='CloseFn']/*" />
         public delegate void CloseFn(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -139,6 +192,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CloseFnMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCloseFn Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCloseFn(System.IntPtr stream_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -167,8 +223,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='CloseAsync']/*" />
         public delegate void CloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -194,6 +254,9 @@ System.IntPtr userData);
         /// </summary>
         public static class CloseAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCloseAsync(System.IntPtr stream_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -217,8 +280,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='CloseFinish']/*" />
         public delegate void CloseFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -238,6 +305,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CloseFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCloseFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCloseFinish(System.IntPtr stream_, System.IntPtr result_, ref System.IntPtr error_)
@@ -266,6 +336,9 @@ ref System.IntPtr error);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public IOStreamClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

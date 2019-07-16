@@ -2,24 +2,31 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// GIconIface is used to implement GIcon types for various
-    /// different systems. See <see cref="ThemedIcon"/> and #GLoadableIcon for
-    /// examples of how to implement this interface.
-    /// </summary>
+    /// <include file="IconIface.xmldoc" path="declaration/member[@name='IconIface']/*" />
     public sealed class IconIface : GISharp.Lib.GObject.TypeInterface
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <summary>
-            /// The parent interface.
-            /// </summary>
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Hash']/*" />
             public System.IntPtr Hash;
+
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Equal']/*" />
             public System.IntPtr Equal;
+
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='ToTokens']/*" />
             public System.IntPtr ToTokens;
+
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='FromTokens']/*" />
             public System.IntPtr FromTokens;
+
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Serialize']/*" />
             public System.IntPtr Serialize;
 #pragma warning restore CS0649
         }
@@ -34,8 +41,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(serializeOffset, SerializeMarshal.Create);
         }
 
+        /// <include file="IconIface.xmldoc" path="declaration/member[@name='Hash']/*" />
         public delegate System.UInt32 Hash();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:out */
@@ -49,6 +60,9 @@ System.IntPtr icon);
         /// </summary>
         public static class HashMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.UInt32 unmanagedHash(System.IntPtr icon_)
@@ -73,8 +87,12 @@ System.IntPtr icon);
             }
         }
 
+        /// <include file="IconIface.xmldoc" path="declaration/member[@name='Equal']/*" />
         public delegate System.Boolean Equal(GISharp.Lib.Gio.IIcon? icon2);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -91,6 +109,9 @@ System.IntPtr icon2);
         /// </summary>
         public static class EqualMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedEqual(System.IntPtr icon1_, System.IntPtr icon2_)
@@ -116,8 +137,12 @@ System.IntPtr icon2);
             }
         }
 
+        /// <include file="IconIface.xmldoc" path="declaration/member[@name='Serialize']/*" />
         public delegate GISharp.Lib.GLib.Variant Serialize();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -131,6 +156,9 @@ System.IntPtr icon);
         /// </summary>
         public static class SerializeMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSerialize Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedSerialize(System.IntPtr icon_)
@@ -155,6 +183,9 @@ System.IntPtr icon);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public IconIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

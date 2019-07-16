@@ -56,6 +56,9 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_error_copy(IntPtr error);
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Error(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {

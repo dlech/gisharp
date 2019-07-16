@@ -1,0 +1,55 @@
+<declaration>
+
+<member name='GIface'>
+#pragmawarningdisableCS0649
+</member>
+
+<member name='HasAction'>
+</member>
+
+<member name='ListActions'>
+</member>
+
+<member name='GetActionEnabled'>
+</member>
+
+<member name='GetActionParameterType'>
+</member>
+
+<member name='GetActionStateType'>
+</member>
+
+<member name='GetActionStateHint'>
+</member>
+
+<member name='GetActionState'>
+</member>
+
+<member name='ChangeActionState'>
+</member>
+
+<member name='ActivateAction'>
+</member>
+
+<member name='ActionAdded'>
+</member>
+
+<member name='ActionRemoved'>
+</member>
+
+<member name='ActionEnabledChanged'>
+</member>
+
+<member name='ActionStateChanged'>
+</member>
+
+<member name='QueryAction'>
+</member>
+
+<member name='ActionGroupInterface'>
+<summary>
+The virtual function table for <see cref="IActionGroup"/>.
+</summary>
+</member>
+
+</declaration>

@@ -38,7 +38,8 @@ namespace GISharp.CodeGen.Syntax
             var syntax = FieldDeclaration(variableDeclaration)
                 .WithModifiers(field.GetCommonAccessModifiers())
                 .WithAttributeLists(field.GetCommonAttributeLists())
-                .WithLeadingTrivia(field.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(field.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
         }
@@ -96,11 +97,16 @@ namespace GISharp.CodeGen.Syntax
             var lastMember = structMembers.Last();
             structMembers = structMembers.Replace(lastMember, lastMember
                 .WithTrailingTrivia(lastMember.GetTrailingTrivia()
-                    .Append(Trivia(warningRestore))));
+                    .Append(Trivia(warningRestore))
+                    .Append(EndOfLine("\r\n"))));
 
             return StructDeclaration("Struct")
                 .AddModifiers(Token(UnsafeKeyword))
-                .WithMembers(structMembers);
+                .WithMembers(structMembers)
+                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
+                /// Unmanaged data structure
+                /// </summary>
+                "));
         }
     }
 }

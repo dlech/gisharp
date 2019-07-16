@@ -22,9 +22,7 @@ namespace GISharp.Lib.GLib
     /* direction:inout transfer-ownership:full */
     ref System.IntPtr error);
 
-    /// <summary>
-    /// The type of function to be used as callback when a parse error occurs.
-    /// </summary>
+    /// <include file="OptionErrorFunc.xmldoc" path="declaration/member[@name='OptionErrorFunc']/*" />
     public delegate void OptionErrorFunc(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group);
 
     /// <summary>
@@ -44,6 +42,9 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="OptionErrorFunc"/>.
+        /// </summary>
         public static GISharp.Lib.GLib.OptionErrorFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionErrorFunc>(callback_);
@@ -68,7 +69,7 @@ namespace GISharp.Lib.GLib
         /// Wraps a <see cref="OptionErrorFunc"/> in an anonymous method that can
         /// be passed to unmanaged code.
         /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="callback">The managed callback method to wrap.</param>
         /// <param name="scope">The lifetime scope of the callback.</param>
         /// <returns>
         /// A tuple containing a pointer to the unmanaged callback, a pointer to the

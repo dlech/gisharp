@@ -2,48 +2,30 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Flags used to set what a #GFileMonitor will watch for.
-    /// </summary>
+    /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='FileMonitorFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileMonitorFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
     public enum FileMonitorFlags
     {
-        /// <summary>
-        /// No flags set.
-        /// </summary>
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// Watch for mount events.
-        /// </summary>
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='WatchMounts']/*" />
         WatchMounts = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <summary>
-        /// Pair DELETED and CREATED events caused
-        ///   by file renames (moves) and send a single G_FILE_MONITOR_EVENT_MOVED
-        ///   event instead (NB: not supported on all backends; the default
-        ///   behaviour -without specifying this flag- is to send single DELETED
-        ///   and CREATED events). use
-        ///   <see cref="FileMonitorFlags.WatchMoves"/> instead.
-        /// </summary>
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='SendMoved']/*" />
         [System.ObsoleteAttribute]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.46")]
         SendMoved = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <summary>
-        /// Watch for changes to the file made
-        ///   via another hard link.
-        /// </summary>
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='WatchHardLinks']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         WatchHardLinks = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <summary>
-        /// Watch for rename operations on a
-        ///   monitored directory.  This causes %G_FILE_MONITOR_EVENT_RENAMED,
-        ///   %G_FILE_MONITOR_EVENT_MOVED_IN and %G_FILE_MONITOR_EVENT_MOVED_OUT
-        ///   events to be emitted when possible.
-        /// </summary>
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='WatchMoves']/*" />
         [GISharp.Runtime.SinceAttribute("2.46")]
         WatchMoves = 0b0000_0000_0000_0000_0000_0000_0000_1000
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FileMonitorFlags"/>.
+    /// </summary>
     public partial class FileMonitorFlagsExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_monitor_flags_get_type();

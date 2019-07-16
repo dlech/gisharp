@@ -35,94 +35,201 @@ namespace GISharp.Lib.GObject
         static readonly UnmanagedNotify managedNotifyDelegate = ManagedNotify;
         static readonly IntPtr managedNotifyPtr = Marshal.GetFunctionPointerForDelegate(managedNotifyDelegate);
 
+        /// <summary>
+        /// The unmanaged data structure
+        /// </summary>
         new protected struct Struct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
+#pragma warning disable CS0169
+            /// <summary>
+            /// The parent type class
+            /// </summary>
             public TypeClass.Struct GTypeClass;
 
-            public IntPtr ConstructProperties;
+            IntPtr constructProperties;
 
             /* seldom overidden */
+            /// <summary>
+            /// <see cref="UnmanagedConstructor"/>
+            /// </summary>
             public IntPtr OnConstructor;
             /* overridable methods */
+            /// <summary>
+            /// <see cref="UnmanagedSetProperty"/>
+            /// </summary>
             public IntPtr OnSetProperty;
+            /// <summary>
+            /// <see cref="UnmanagedGetProperty"/>
+            /// </summary>
             public IntPtr OnGetProperty;
+            /// <summary>
+            /// <see cref="UnmanagedDispose"/>
+            /// </summary>
             public IntPtr OnDispose;
+            /// <summary>
+            /// <see cref="UnmanagedFinalize"/>
+            /// </summary>
             public IntPtr OnFinalize;
             /* seldom overidden */
+            /// <summary>
+            /// <see cref="UnmanagedDispatchPropertiesChanged"/>
+            /// </summary>
             public IntPtr OnDispatchPropertiesChanged;
             /* signals */
+            /// <summary>
+            /// <see cref="UnmanagedNotify"/>
+            /// </summary>
             public IntPtr OnNotify;
 
             /* called when done constructing */
+            /// <summary>
+            /// <see cref="UnmanagedConstructed"/>
+            /// </summary>
             public IntPtr OnConstructed;
 
-            public UIntPtr Flags;
-            public IntPtr Dummy0;
-            public IntPtr Dummy1;
-            public IntPtr Dummy2;
-            public IntPtr Dummy3;
-            public IntPtr Dummy4;
-            public IntPtr Dummy5;
-            #pragma warning restore CS0649
+            UIntPtr flags;
+            IntPtr dummy0;
+            IntPtr dummy1;
+            IntPtr dummy2;
+            IntPtr dummy3;
+            IntPtr dummy4;
+            IntPtr dummy5;
+#pragma warning restore CS0169
+#pragma warning restore CS0649
         }
 
+        /// <summary>
+        /// the constructor function is called by g_object_new() to complete
+        /// the object initialization after all the construction properties are
+        /// set. The first thing a constructor implementation must do is chain
+        /// up to the constructor of the parent class. Overriding constructor
+        /// should be rarely needed, e.g. to handle construct properties, or to
+        /// implement singletons.
+        /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate IntPtr UnmanagedConstructor(GType type, uint nConstructProperties, IntPtr constructProperties);
 
+        /// <summary>
+        /// <see cref="UnmanagedConstructor"/>
+        /// </summary>
         public UnmanagedConstructor OnConstructor =>
             GMarshal.GetVirtualMethodDelegate<UnmanagedConstructor>(Handle, onConstructedOffset)!;
 
+        /// <summary>
+        /// the generic setter for all properties of this type. Should be
+        /// overridden for every type with properties. If implementations of
+        /// set_property don't emit property change notification explicitly,
+        /// this will be done implicitly by the type system. However, if the
+        /// notify signal is emitted explicitly, the type system will not emit
+        /// it a second time.
+        /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedSetProperty(IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
 
+        /// <summary>
+        /// <see cref="UnmanagedSetProperty"/>
+        /// </summary>
         public UnmanagedSetProperty OnSetProperty =>
             GMarshal.GetVirtualMethodDelegate<UnmanagedSetProperty>(Handle, onSetPropertyOffset)!;
 
+        /// <summary>
+        /// the generic getter for all properties of this type. Should be
+        /// overridden for every type with properties.
+        /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedGetProperty(IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
 
+        /// <summary>
+        /// <see cref="UnmanagedGetProperty"/>
+        /// </summary>
         public UnmanagedGetProperty OnGetProperty =>
             GMarshal.GetVirtualMethodDelegate<UnmanagedGetProperty>(Handle, onGetPropertyOffset)!;
 
+        /// <summary>
+        /// the dispose function is supposed to drop all references to other
+        /// objects, but keep the instance otherwise intact, so that client
+        /// method invocations still work. It may be run multiple times (due
+        /// to reference loops). Before returning, dispose should chain up to
+        /// the dispose method of the parent class.
+        /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedDispose(IntPtr @object);
 
+        /// <summary>
+        /// <see cref="UnmanagedDispose"/>
+        /// </summary>
         public UnmanagedDispose OnDispose =>
             GMarshal.GetVirtualMethodDelegate<UnmanagedDispose>(Handle, onDisposeOffset)!;
 
+        /// <summary>
+        /// instance finalization function, should finish the finalization of
+        /// the instance begun in dispose and chain up to the finalize method
+        /// of the parent class.
+        /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedFinalize(IntPtr @object);
 
+        /// <summary>
+        /// <see cref="UnmanagedFinalize"/>
+        /// </summary>
         public UnmanagedFinalize OnFinalize =>
             GMarshal.GetVirtualMethodDelegate<UnmanagedFinalize>(Handle, onFinalizeOffset)!;
 
+        /// <summary>
+        /// emits property change notification for a bunch of properties.
+        /// Overriding dispatch_properties_changed should be rarely needed.
+        /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedDispatchPropertiesChanged(IntPtr @object, uint nPspecs, IntPtr pspec);
 
+        /// <summary>
+        /// <see cref="UnmanagedDispatchPropertiesChanged"/>
+        /// </summary>
         public UnmanagedDispatchPropertiesChanged OnDispatchPropertiesChanged =>
             GMarshal.GetVirtualMethodDelegate<UnmanagedDispatchPropertiesChanged>(Handle, onDispatchPropertiesChangedOffset)!;
 
+        /// <summary>
+        /// the class closure for the notify signal
+        /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedNotify(IntPtr @object, IntPtr pspec);
 
+        /// <summary>
+        /// <see cref="UnmanagedNotify"/>
+        /// </summary>
         public UnmanagedNotify OnNotify =>
             GMarshal.GetVirtualMethodDelegate<UnmanagedNotify>(Handle, onNotifyOffset)!;
 
+        /// <summary>
+        /// the constructed function is called by g_object_new() as the final
+        /// step of the object creation process. At the point of the call, all
+        /// construction properties have been set on the object. The purpose of
+        /// this call is to allow for object initialisation steps that can only
+        /// be performed after construction properties have been set. constructed
+        /// implementors should chain up to the constructed call of their parent
+        /// class to allow it to complete its initialisation.
+        /// </summary>
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate void UnmanagedConstructed(IntPtr @object);
 
+        /// <summary>
+        /// <see cref="UnmanagedConstructed"/>
+        /// </summary>
         public UnmanagedConstructed OnConstructed =>
             GMarshal.GetVirtualMethodDelegate<UnmanagedConstructed>(Handle, onConstructedOffset)!;
 
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ObjectClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public ObjectClass(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 
         internal static readonly Quark managedClassPropertyInfoQuark =
-            Quark.FromString ("gisharp-object-class-managed-class-property-info-quark");
+            Quark.FromString("gisharp-object-class-managed-class-property-info-quark");
 
         /// <summary>
         /// Gets the type info for registering a managed class with the GObject
@@ -132,8 +239,8 @@ namespace GISharp.Lib.GObject
         /// <param name="type">The managed type to register.</param>
         internal static TypeInfo GetTypeInfo(Type type)
         {
-            var parentGType = type.BaseType.GetGType ();
-            var parentTypeQuery = parentGType.Query ();
+            var parentGType = type.BaseType.GetGType();
+            var parentTypeQuery = parentGType.Query();
             var ret = new TypeInfo {
                 ClassSize = (ushort)parentTypeQuery.ClassSize,
                 ClassInit = Marshal.GetFunctionPointerForDelegate(InitManagedClassDelegate),
@@ -172,7 +279,7 @@ namespace GISharp.Lib.GObject
                 // Install Properties
 
                 uint propId = 1; // propId 0 is used internally, so we start with 1
-                foreach (var propInfo in type.GetProperties ()) {
+                foreach (var propInfo in type.GetProperties()) {
                     GPropertyAttribute? gPropertyAttr = propInfo.GetCustomAttribute<GPropertyAttribute>(true);
                     if (gPropertyAttr == null) {
                         // maybe the property is declared in an interface
@@ -236,71 +343,90 @@ namespace GISharp.Lib.GObject
                     var propertyGType = (GType)propInfo.PropertyType;
                     var fundamentalGType = propertyGType.Fundamental;
                     if (fundamentalGType == GType.Boolean) {
-                        pspec = new ParamSpecBoolean (name, nick, blurb, (bool)(defaultValue ?? default(bool)), flags);
-                    } else if (fundamentalGType == GType.Boxed) {
-                        pspec = new ParamSpecBoxed (name, nick, blurb, propertyGType, flags);
-                    } else if (fundamentalGType == GType.Char) {
-                        pspec = new ParamSpecChar (name, nick, blurb, sbyte.MinValue, sbyte.MaxValue, (sbyte)(defaultValue ?? default(sbyte)), flags);
-                    } else if (fundamentalGType == GType.UChar) {
-                        pspec = new ParamSpecUChar (name, nick, blurb, byte.MinValue, byte.MaxValue, (byte)(defaultValue ?? default(byte)), flags);
-                    } else if (fundamentalGType == GType.Double) {
-                        pspec = new ParamSpecDouble (name, nick, blurb, double.MinValue, double.MaxValue, (double)(defaultValue ?? default(double)), flags);
-                    } else if (fundamentalGType == GType.Float) {
-                        pspec = new ParamSpecFloat (name, nick, blurb, float.MinValue, float.MaxValue, (float)(defaultValue ?? default(float)), flags);
-                    } else if (fundamentalGType == GType.Enum) {
-                        pspec = new ParamSpecEnum (name, nick, blurb, propertyGType, (System.Enum)defaultValue!, flags);
-                    } else if (fundamentalGType == GType.Flags) {
-                        pspec = new ParamSpecFlags (name, nick, blurb, propertyGType, (System.Enum)defaultValue!, flags);
-                    } else if (fundamentalGType == GType.Int) {
-                        pspec = new ParamSpecInt (name, nick, blurb, int.MinValue, int.MaxValue, (int)(defaultValue ?? default(int)), flags);
-                    } else if (fundamentalGType == GType.UInt) {
-                        pspec = new ParamSpecUInt (name, nick, blurb, uint.MinValue, uint.MaxValue, (uint)(defaultValue ?? default(uint)), flags);
-                    } else if (fundamentalGType == GType.Int64) {
-                        pspec = new ParamSpecInt64 (name, nick, blurb, long.MinValue, long.MaxValue, (long)(defaultValue ?? default(long)), flags);
-                    } else if (fundamentalGType == GType.UInt64) {
-                        pspec = new ParamSpecUInt64 (name, nick, blurb, ulong.MinValue, ulong.MaxValue, (ulong)(defaultValue ?? default(ulong)), flags);
-                    } else if (fundamentalGType == GType.Long) {
+                        pspec = new ParamSpecBoolean(name, nick, blurb, (bool)(defaultValue ?? default(bool)), flags);
+                    }
+                    else if (fundamentalGType == GType.Boxed) {
+                        pspec = new ParamSpecBoxed(name, nick, blurb, propertyGType, flags);
+                    }
+                    else if (fundamentalGType == GType.Char) {
+                        pspec = new ParamSpecChar(name, nick, blurb, sbyte.MinValue, sbyte.MaxValue, (sbyte)(defaultValue ?? default(sbyte)), flags);
+                    }
+                    else if (fundamentalGType == GType.UChar) {
+                        pspec = new ParamSpecUChar(name, nick, blurb, byte.MinValue, byte.MaxValue, (byte)(defaultValue ?? default(byte)), flags);
+                    }
+                    else if (fundamentalGType == GType.Double) {
+                        pspec = new ParamSpecDouble(name, nick, blurb, double.MinValue, double.MaxValue, (double)(defaultValue ?? default(double)), flags);
+                    }
+                    else if (fundamentalGType == GType.Float) {
+                        pspec = new ParamSpecFloat(name, nick, blurb, float.MinValue, float.MaxValue, (float)(defaultValue ?? default(float)), flags);
+                    }
+                    else if (fundamentalGType == GType.Enum) {
+                        pspec = new ParamSpecEnum(name, nick, blurb, propertyGType, (System.Enum)defaultValue!, flags);
+                    }
+                    else if (fundamentalGType == GType.Flags) {
+                        pspec = new ParamSpecFlags(name, nick, blurb, propertyGType, (System.Enum)defaultValue!, flags);
+                    }
+                    else if (fundamentalGType == GType.Int) {
+                        pspec = new ParamSpecInt(name, nick, blurb, int.MinValue, int.MaxValue, (int)(defaultValue ?? default(int)), flags);
+                    }
+                    else if (fundamentalGType == GType.UInt) {
+                        pspec = new ParamSpecUInt(name, nick, blurb, uint.MinValue, uint.MaxValue, (uint)(defaultValue ?? default(uint)), flags);
+                    }
+                    else if (fundamentalGType == GType.Int64) {
+                        pspec = new ParamSpecInt64(name, nick, blurb, long.MinValue, long.MaxValue, (long)(defaultValue ?? default(long)), flags);
+                    }
+                    else if (fundamentalGType == GType.UInt64) {
+                        pspec = new ParamSpecUInt64(name, nick, blurb, ulong.MinValue, ulong.MaxValue, (ulong)(defaultValue ?? default(ulong)), flags);
+                    }
+                    else if (fundamentalGType == GType.Long) {
                         pspec = new ParamSpecLong(name, nick, blurb, clong.MinValue, clong.MaxValue, (clong)(defaultValue ?? default(clong)), flags);
-                    } else if (fundamentalGType == GType.ULong) {
+                    }
+                    else if (fundamentalGType == GType.ULong) {
                         pspec = new ParamSpecULong(name, nick, blurb, culong.MinValue, culong.MaxValue, (culong)(defaultValue ?? default(culong)), flags);
-                    } else if (fundamentalGType == GType.Object) {
-                        pspec = new ParamSpecObject (name, nick, blurb, propertyGType, flags);
+                    }
+                    else if (fundamentalGType == GType.Object) {
+                        pspec = new ParamSpecObject(name, nick, blurb, propertyGType, flags);
                     }
                     // TODO: do we need this one?
-    //                else if (fundamentalGType == GType.Param) {
-    //                    pspec = new ParamSpecParam (name, nick, blurb, ?, flags);
-    //                }
+                    //                else if (fundamentalGType == GType.Param) {
+                    //                    pspec = new ParamSpecParam (name, nick, blurb, ?, flags);
+                    //                }
                     else if (fundamentalGType == GType.Pointer) {
-                        pspec = new ParamSpecPointer (name, nick, blurb, flags);
-                    } else if (fundamentalGType == GType.String) {
-                        pspec = new ParamSpecString (name, nick, blurb, (string?)defaultValue, flags);
-                    } else if (fundamentalGType == GType.Type) {
-                        pspec = new ParamSpecGType (name, nick, blurb, propertyGType, flags);
-                    } else if (fundamentalGType == GType.Variant) {
+                        pspec = new ParamSpecPointer(name, nick, blurb, flags);
+                    }
+                    else if (fundamentalGType == GType.String) {
+                        pspec = new ParamSpecString(name, nick, blurb, (string?)defaultValue, flags);
+                    }
+                    else if (fundamentalGType == GType.Type) {
+                        pspec = new ParamSpecGType(name, nick, blurb, propertyGType, flags);
+                    }
+                    else if (fundamentalGType == GType.Variant) {
                         // TODO: need to pass variant type using attribute?
                         // for now, always using any type
                         var variantType = VariantType.Any;
-                        pspec = new ParamSpecVariant (name, nick, blurb, variantType, defaultValue == null ? null : (Variant)defaultValue, flags);
-                    } else {
+                        pspec = new ParamSpecVariant(name, nick, blurb, variantType, defaultValue == null ? null : (Variant)defaultValue, flags);
+                    }
+                    else {
                         // TODO: Need more specific exception
-                        throw new Exception ("unhandled GType");
+                        throw new Exception("unhandled GType");
                     }
 
-                    var methodInfo = propInfo.GetAccessors ().First ();
-                    if (methodInfo.GetBaseDefinition () != methodInfo || propInfo.TryGetMatchingInterfacePropertyInfo () != null) {
+                    var methodInfo = propInfo.GetAccessors().First();
+                    if (methodInfo.GetBaseDefinition() != methodInfo || propInfo.TryGetMatchingInterfacePropertyInfo() != null) {
                         // if this type did not declare the property, the we know
                         // we are overriding a property from a base class or interface
-                        var namePtr = GMarshal.StringToUtf8Ptr (name);
+                        var namePtr = GMarshal.StringToUtf8Ptr(name);
                         g_object_class_override_property(class_, propId, namePtr);
-                        GMarshal.Free (namePtr);
-                    } else {
+                        GMarshal.Free(namePtr);
+                    }
+                    else {
                         g_object_class_install_property(class_, propId, pspec.Handle);
-                        GC.KeepAlive (pspec);
+                        GC.KeepAlive(pspec);
                     }
                     propId++;
                 }
 
-                foreach (var eventInfo in type.GetEvents ()) {
+                foreach (var eventInfo in type.GetEvents()) {
                     if (eventInfo.DeclaringType != type) {
                         // only register events declared in this type
                         continue;
@@ -356,12 +482,12 @@ namespace GISharp.Lib.GObject
 
                     // figure out the parameter types
 
-                    var methodInfo = eventInfo.EventHandlerType.GetMethod ("Invoke");
-                    var returnGType = methodInfo.ReturnType.GetGType ();
-                    var parameters = methodInfo.GetParameters ();
+                    var methodInfo = eventInfo.EventHandlerType.GetMethod("Invoke");
+                    var returnGType = methodInfo.ReturnType.GetGType();
+                    var parameters = methodInfo.GetParameters();
                     var parameterGTypes = new GType[parameters.Length];
                     for (int i = 0; i < parameters.Length; i++) {
-                        parameterGTypes[i] = parameters[i].ParameterType.GetGType ();
+                        parameterGTypes[i] = parameters[i].ParameterType.GetGType();
                     }
 
                     // create a closure that will be called when the signal is emitted
@@ -392,7 +518,7 @@ namespace GISharp.Lib.GObject
                 }
             }
             catch (Exception ex) {
-                ex.LogUnhandledException ();
+                ex.LogUnhandledException();
             }
         }
 
@@ -403,10 +529,10 @@ namespace GISharp.Lib.GObject
                 var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None)!;
 
                 var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark]!;
-                propInfo.SetValue (obj, value.Get ());
+                propInfo.SetValue(obj, value.Get());
             }
             catch (Exception ex) {
-                ex.LogUnhandledException ();
+                ex.LogUnhandledException();
             }
         }
 
@@ -417,21 +543,22 @@ namespace GISharp.Lib.GObject
                 var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None)!;
 
                 var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark]!;
-                value.Set (propInfo.GetValue (obj));
+                value.Set(propInfo.GetValue(obj));
             }
             catch (Exception ex) {
-                ex.LogUnhandledException ();
+                ex.LogUnhandledException();
             }
         }
 
-        static void ManagedNotify (IntPtr object_, IntPtr pspec_)
+        static void ManagedNotify(IntPtr object_, IntPtr pspec_)
         {
             try {
                 var obj = Object.GetInstance(object_, Transfer.None)!;
                 var pspec = ParamSpec.GetInstance(pspec_, Transfer.None)!;
                 obj.OnNotify(pspec);
-            } catch (Exception ex) {
-                ex.LogUnhandledException ();
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
             }
         }
 
@@ -448,10 +575,10 @@ namespace GISharp.Lib.GObject
         /// the #GParamSpec for the property, or
         ///          %NULL if the class doesn't have a property of that name
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_object_class_find_property (
+        static extern IntPtr g_object_class_find_property(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
             IntPtr oclass,
@@ -567,8 +694,8 @@ namespace GISharp.Lib.GObject
         /// the #GParamSpecs array
         ///   defining the new properties
         /// </param>
-        [Since ("2.26")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_object_class_install_properties(
@@ -652,7 +779,7 @@ namespace GISharp.Lib.GObject
         /// the #GParamSpecs array
         ///   defining the new properties
         /// </param>
-        [Since ("2.26")]
+        [Since("2.26")]
         public unsafe void InstallProperties(UnownedCPtrArray<ParamSpec> pspecs)
         {
             var this_ = Handle;
@@ -683,10 +810,10 @@ namespace GISharp.Lib.GObject
         /// <param name="pspec">
         /// the #GParamSpec for the new property
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_object_class_install_property (
+        static extern void g_object_class_install_property(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
             IntPtr oclass,
@@ -716,10 +843,10 @@ namespace GISharp.Lib.GObject
         /// <param name="pspec">
         /// the #GParamSpec for the new property
         /// </param>
-        public void InstallProperty (uint propertyId, ParamSpec pspec)
+        public void InstallProperty(uint propertyId, ParamSpec pspec)
         {
-            g_object_class_install_property (Handle, propertyId, pspec.Handle);
-            GC.KeepAlive (pspec);
+            g_object_class_install_property(Handle, propertyId, pspec.Handle);
+            GC.KeepAlive(pspec);
         }
 
         /// <summary>
@@ -735,12 +862,12 @@ namespace GISharp.Lib.GObject
         /// an array of
         ///          #GParamSpec* which should be freed after use
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="0" type="GParamSpec**">
                <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" />
            </array> */
         /* transfer-ownership:container */
-        static extern IntPtr g_object_class_list_properties (
+        static extern IntPtr g_object_class_list_properties(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
             IntPtr oclass,
@@ -762,7 +889,7 @@ namespace GISharp.Lib.GObject
 
         internal static CPtrArray<ParamSpec> ListProperties(IntPtr handle)
         {
-            var ret_ = g_object_class_list_properties (handle, out var nProperties_);
+            var ret_ = g_object_class_list_properties(handle, out var nProperties_);
             var ret = CPtrArray.GetInstance<ParamSpec>(ret_, (int)nProperties_, Transfer.Container);
             return ret;
         }
@@ -796,11 +923,11 @@ namespace GISharp.Lib.GObject
         /// the name of a property registered in a parent class or
         ///  in an interface of this class.
         /// </param>
-        [Since ("2.4")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.4")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_object_class_override_property (
+        static extern void g_object_class_override_property(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
             IntPtr oclass,
@@ -818,7 +945,7 @@ namespace GISharp.Lib.GObject
     /// </summary>
     struct ObjectConstructParam
     {
-        #pragma warning disable CS0649
+#pragma warning disable CS0649
         /// <summary>
         /// the GParamSpec of the construct parameter
         /// </summary>
@@ -828,6 +955,6 @@ namespace GISharp.Lib.GObject
         /// the value to set the parameter to
         /// </summary>
         public IntPtr Value;
-        #pragma warning restore CS0649
+#pragma warning restore CS0649
     }
 }

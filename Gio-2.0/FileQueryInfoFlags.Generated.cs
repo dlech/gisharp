@@ -2,23 +2,20 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Flags used when querying a <see cref="FileInfo"/>.
-    /// </summary>
+    /// <include file="FileQueryInfoFlags.xmldoc" path="declaration/member[@name='FileQueryInfoFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileQueryInfoFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
     public enum FileQueryInfoFlags
     {
-        /// <summary>
-        /// No flags set.
-        /// </summary>
+        /// <include file="FileQueryInfoFlags.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// Don't follow symlinks.
-        /// </summary>
+        /// <include file="FileQueryInfoFlags.xmldoc" path="declaration/member[@name='NoFollowSymlinks']/*" />
         NoFollowSymlinks = 0b0000_0000_0000_0000_0000_0000_0000_0001
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FileQueryInfoFlags"/>.
+    /// </summary>
     public partial class FileQueryInfoFlagsExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_query_info_flags_get_type();

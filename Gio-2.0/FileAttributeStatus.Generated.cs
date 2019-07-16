@@ -2,26 +2,21 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Used by <see cref="File.SetAttributesFromInfo"/> when setting file attributes.
-    /// </summary>
+    /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='FileAttributeStatus']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileAttributeStatus", IsProxyForUnmanagedType = true)]
     public enum FileAttributeStatus
     {
-        /// <summary>
-        /// Attribute value is unset (empty).
-        /// </summary>
+        /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='Unset']/*" />
         Unset = 0,
-        /// <summary>
-        /// Attribute value is set.
-        /// </summary>
+        /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='Set']/*" />
         Set = 1,
-        /// <summary>
-        /// Indicates an error in setting the value.
-        /// </summary>
+        /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='ErrorSetting']/*" />
         ErrorSetting = 2
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FileAttributeStatus"/>.
+    /// </summary>
     public partial class FileAttributeStatusExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_status_get_type();

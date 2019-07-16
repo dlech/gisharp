@@ -2,8 +2,12 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
+    /// <include file="ThemedIconClass.xmldoc" path="declaration/member[@name='ThemedIconClass']/*" />
     public sealed partial class ThemedIconClass : GISharp.Lib.GObject.ObjectClass
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public ThemedIconClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {

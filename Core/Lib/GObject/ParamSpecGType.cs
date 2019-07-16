@@ -25,6 +25,9 @@ namespace GISharp.Lib.GObject
 
         public GType IsAType => Marshal.PtrToStructure<GType>(Handle + (int)isATypeOffset);
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecGType (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
@@ -62,6 +65,10 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="ParamSpecGType"/> instance specifying a
+        /// <see cref="GType.Type"/> property.
+        /// </summary>
         public ParamSpecGType (string name, string nick, string blurb, GType isAType, ParamFlags flags)
             : this (New (name, nick, blurb, isAType, flags), Transfer.None)
         {

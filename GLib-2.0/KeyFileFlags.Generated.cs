@@ -2,29 +2,15 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// Flags which influence the parsing.
-    /// </summary>
+    /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeyFileFlags']/*" />
     [System.FlagsAttribute]
     public enum KeyFileFlags
     {
-        /// <summary>
-        /// No flags, default behaviour
-        /// </summary>
+        /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// Use this flag if you plan to write the
-        ///     (possibly modified) contents of the key file back to a file;
-        ///     otherwise all comments will be lost when the key file is
-        ///     written back.
-        /// </summary>
+        /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeepComments']/*" />
         KeepComments = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <summary>
-        /// Use this flag if you plan to write the
-        ///     (possibly modified) contents of the key file back to a file;
-        ///     otherwise only the translations for the current language will be
-        ///     written back.
-        /// </summary>
+        /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeepTranslations']/*" />
         KeepTranslations = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 }

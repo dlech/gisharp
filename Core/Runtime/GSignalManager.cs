@@ -7,12 +7,18 @@ using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Runtime
 {
+    /// <summary>
+    /// Class for wiring GSignals to C# events.
+    /// </summary>
     public class GSignalManager<TEventArgs> where TEventArgs : GSignalEventArgs
     {
         readonly ConcurrentDictionary<EventHandler<TEventArgs>, SignalHandler> notifiedHandlers =
             new ConcurrentDictionary<EventHandler<TEventArgs>, SignalHandler>();
         readonly uint notifySignalId;
 
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
         public GSignalManager(string signalName, GType type)
         {
             notifySignalId = Signal.TryLookup(signalName, type);

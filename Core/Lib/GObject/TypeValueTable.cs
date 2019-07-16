@@ -12,6 +12,9 @@ namespace GISharp.Lib.GObject
     /// </summary>
     public sealed class TypeValueTable : Opaque
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TypeValueTable(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {

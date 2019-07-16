@@ -19,38 +19,81 @@ namespace GISharp.Runtime
         /// </summary>
         public static readonly CULong MaxValue = new CULong(maxValue);
 
+        /// <summary>
+        /// Add
+        /// </summary>
         public static CULong operator +(CULong a, CULong b) => new CULong(a.value + b.value);
 
+        /// <summary>
+        /// Subtract
+        /// </summary>
         public static CULong operator -(CULong a, CULong b) => new CULong(a.value - b.value);
 
+        /// <summary>
+        /// Multiply
+        /// </summary>
         public static CULong operator *(CULong a, CULong b) => new CULong(a.value * b.value);
 
+        /// <summary>
+        /// Divide
+        /// </summary>
         public static CULong operator /(CULong a, CULong b) => new CULong(a.value / b.value);
 
+        /// <summary>
+        /// Modulo
+        /// </summary>
         public static CULong operator %(CULong a, CULong b) => new CULong(a.value % b.value);
 
+        /// <summary>
+        /// Bitwise shift left
+        /// </summary>
         public static CULong operator <<(CULong a, int b) => new CULong(a.value << b);
 
+        /// <summary>
+        /// Bitwise shift right
+        /// </summary>
         public static CULong operator >>(CULong a, int b) => new CULong(a.value >> b);
 
+        /// <summary>
+        /// Tests if less than
+        /// </summary>
         public static bool operator <(CULong a, CULong b) => a.value < b.value;
 
+        /// <summary>
+        /// Tests if greater than
+        /// </summary>
         public static bool operator >(CULong a, CULong b) => a.value > b.value;
 
+        /// <summary>
+        /// Tests if less than or equal to
+        /// </summary>
         public static bool operator <=(CULong a, CULong b) => a.value <= b.value;
 
+        /// <summary>
+        /// Tests if greater than or equal to
+        /// </summary>
         public static bool operator >=(CULong a, CULong b) => a.value >= b.value;
 
+        /// <summary>
+        /// Converts from uint
+        /// </summary>
         public static implicit operator CULong(uint n) => new CULong(n);
 
+        /// <summary>
+        /// Converts to ulong
+        /// </summary>
         public static implicit operator ulong(CULong n) => n.value;
 
+        /// <inheritdoc />
         public bool Equals(CULong other) => value.Equals(other.value);
 
+        /// <inheritdoc />
         public bool Equals(uint other) => value.Equals(other);
 
+        /// <inheritdoc />
         public bool Equals(ulong other) => value.Equals(other);
 
+        /// <inheritdoc />
         public override bool Equals(object obj)
         {
             if (obj is CULong culong) {
@@ -59,8 +102,10 @@ namespace GISharp.Runtime
             return value.Equals(obj);
         }
 
+        /// <inheritdoc />
         public override int GetHashCode() => value.GetHashCode();
 
+        /// <inheritdoc />
         public override string ToString() => value.ToString();
     }
 }

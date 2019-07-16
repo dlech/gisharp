@@ -88,7 +88,7 @@ namespace GISharp.Lib.GLib
         /// timeout is recalculated based on the current time and the given interval
         /// (it does not try to 'catch up' time lost in delays).
         /// 
-        /// This internally creates a main loop source using <see cref="TimeoutSource.#ctor"/>
+        /// This internally creates a main loop source using <see cref="M:TimeoutSource.#ctor"/>
         /// and attaches it to the global <see cref="MainContext"/> using <see cref="Source.Attach"/>, so
         /// the callback will be invoked in whichever thread is running that main
         /// context. You can do these steps manually if you need greater control or to

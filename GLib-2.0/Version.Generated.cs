@@ -2,36 +2,16 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
+    /// <include file="Version.xmldoc" path="declaration/member[@name='Version']/*" />
     public static partial class Version
     {
-        /// <summary>
-        /// The major version number of the GLib library.
-        /// </summary>
-        /// <remarks>
-        /// Like #glib_major_version, but from the headers used at
-        /// application compile time, rather than from the library
-        /// linked against at application run time.
-        /// </remarks>
+        /// <include file="Version.xmldoc" path="declaration/member[@name='major']/*" />
         private const System.Int32 major = 2;
 
-        /// <summary>
-        /// The minor version number of the GLib library.
-        /// </summary>
-        /// <remarks>
-        /// Like #gtk_minor_version, but from the headers used at
-        /// application compile time, rather than from the library
-        /// linked against at application run time.
-        /// </remarks>
+        /// <include file="Version.xmldoc" path="declaration/member[@name='minor']/*" />
         private const System.Int32 minor = 58;
 
-        /// <summary>
-        /// The micro version number of the GLib library.
-        /// </summary>
-        /// <remarks>
-        /// Like #gtk_micro_version, but from the headers used at
-        /// application compile time, rather than from the library
-        /// linked against at application run time.
-        /// </remarks>
+        /// <include file="Version.xmldoc" path="declaration/member[@name='micro']/*" />
         private const System.Int32 micro = 2;
 
         /// <summary>
@@ -81,38 +61,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.UInt32 requiredMicro);
 
-        /// <summary>
-        /// Checks that the GLib library in use is compatible with the
-        /// given version. Generally you would pass in the constants
-        /// #GLIB_MAJOR_VERSION, #GLIB_MINOR_VERSION, #GLIB_MICRO_VERSION
-        /// as the three arguments to this function; that produces
-        /// a check that the library in use is compatible with
-        /// the version of GLib the application or module was compiled
-        /// against.
-        /// </summary>
-        /// <remarks>
-        /// Compatibility is defined by two things: first the version
-        /// of the running library is newer than the version
-        /// <paramref name="requiredMajor"/>.required_minor.<paramref name="requiredMicro"/>. Second
-        /// the running library must be binary compatible with the
-        /// version <paramref name="requiredMajor"/>.required_minor.<paramref name="requiredMicro"/>
-        /// (same major version.)
-        /// </remarks>
-        /// <param name="requiredMajor">
-        /// the required major version
-        /// </param>
-        /// <param name="requiredMinor">
-        /// the required minor version
-        /// </param>
-        /// <param name="requiredMicro">
-        /// the required micro version
-        /// </param>
-        /// <returns>
-        /// <c>null</c> if the GLib library is compatible with the
-        ///     given version, or a string describing the version mismatch.
-        ///     The returned string is owned by GLib and must not be modified
-        ///     or freed.
-        /// </returns>
+        /// <include file="Version.xmldoc" path="declaration/member[@name='Check(System.UInt32,System.UInt32,System.UInt32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public static unsafe GISharp.Lib.GLib.NullableUnownedUtf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
         {

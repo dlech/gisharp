@@ -2,8 +2,12 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
+    /// <include file="CancellableSource.xmldoc" path="declaration/member[@name='CancellableSource']/*" />
     public sealed partial class CancellableSource : GISharp.Lib.GLib.Source
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public CancellableSource(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -36,24 +40,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
-        /// <summary>
-        /// Creates a source that triggers if <paramref name="cancellable"/> is cancelled and
-        /// calls its callback of type <see cref="CancellableSourceFunc"/>. This is
-        /// primarily useful for attaching to another (non-cancellable) source
-        /// with g_source_add_child_source() to add cancellability to it.
-        /// </summary>
-        /// <remarks>
-        /// For convenience, you can call this with a <c>null</c> <see cref="Cancellable"/>,
-        /// in which case the source will never trigger.
-        /// 
-        /// The new #GSource will hold a reference to the <see cref="Cancellable"/>.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// a <see cref="Cancellable"/>, or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// the new #GSource.
-        /// </returns>
+        /// <include file="CancellableSource.xmldoc" path="declaration/member[@name='New(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr New(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -62,21 +49,7 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <summary>
-        /// Creates a source that triggers if <paramref name="cancellable"/> is cancelled and
-        /// calls its callback of type <see cref="CancellableSourceFunc"/>. This is
-        /// primarily useful for attaching to another (non-cancellable) source
-        /// with g_source_add_child_source() to add cancellability to it.
-        /// </summary>
-        /// <remarks>
-        /// For convenience, you can call this with a <c>null</c> <see cref="Cancellable"/>,
-        /// in which case the source will never trigger.
-        /// 
-        /// The new #GSource will hold a reference to the <see cref="Cancellable"/>.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// a <see cref="Cancellable"/>, or <c>null</c>
-        /// </param>
+        /// <include file="CancellableSource.xmldoc" path="declaration/member[@name='CancellableSource(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public CancellableSource(GISharp.Lib.Gio.Cancellable? cancellable = null) : this(New(cancellable), GISharp.Runtime.Transfer.Full)
         {

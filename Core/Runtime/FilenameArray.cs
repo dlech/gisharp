@@ -19,15 +19,27 @@ namespace GISharp.Runtime
     /// </summary>
     public sealed class FilenameArray : Opaque, IReadOnlyList<Filename>
     {
+        /// <summary>
+        /// Gets the number of elements in the array.
+        /// </summary>
         public int Count => throw new NotImplementedException();
 
+        /// <summary>
+        /// Gets the filename at the specified index.
+        /// </summary>
         public Filename this[int index] => throw new NotImplementedException();
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FilenameArray(IntPtr handle, Transfer ownership) : this(handle, -1, ownership)
         {
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FilenameArray(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
         {
@@ -49,6 +61,9 @@ namespace GISharp.Runtime
             return ptr;
         }
 
+        /// <summary>
+        /// Creates a new array with the specified file names.
+        /// </summary>
         public FilenameArray(params string[] filenames) : this(New(filenames), filenames.Length, Transfer.Full)
         {
         }
@@ -56,6 +71,7 @@ namespace GISharp.Runtime
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_strfreev(IntPtr strv);
 
+        /// <inheritdoc />
         protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
@@ -64,6 +80,9 @@ namespace GISharp.Runtime
             base.Dispose(disposing);
         }
 
+        /// <summary>
+        /// Gets a ref to the unmanaged pointer.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe ref readonly IntPtr GetPinnableReference()
         {

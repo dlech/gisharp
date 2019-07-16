@@ -2,51 +2,34 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// GFileIOStream provides io streams that both read and write to the same
-    /// file handle.
-    /// </summary>
-    /// <remarks>
-    /// GFileIOStream implements <see cref="ISeekable"/>, which allows the io
-    /// stream to jump to arbitrary positions in the file and to truncate
-    /// the file, provided the filesystem of the file supports these
-    /// operations.
-    /// 
-    /// To find the position of a file io stream, use
-    /// <see cref="Seekable.Tell"/>.
-    /// 
-    /// To find out if a file io stream supports seeking, use <see cref="Seekable.CanSeek"/>.
-    /// To position a file io stream, use <see cref="Seekable.Seek"/>.
-    /// To find out if a file io stream supports truncating, use
-    /// <see cref="Seekable.CanTruncate"/>. To truncate a file io
-    /// stream, use <see cref="Seekable.Truncate"/>.
-    /// 
-    /// The default implementation of all the <see cref="FileIOStream"/> operations
-    /// and the implementation of <see cref="ISeekable"/> just call into the same operations
-    /// on the output stream.
-    /// </remarks>
+    /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileIOStream", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileIOStreamClass))]
     public partial class FileIOStream : GISharp.Lib.Gio.IOStream, GISharp.Lib.Gio.ISeekable
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_io_stream_get_type();
 
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe protected new struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='ParentInstance']/*" />
             public GISharp.Lib.Gio.IOStream.Struct ParentInstance;
+
+            /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='Priv']/*" />
             public System.IntPtr Priv;
 #pragma warning restore CS0649
         }
 
-        /// <summary>
-        /// Gets the entity tag for the file when it has been written.
-        /// This must be called after the stream has been written
-        /// and closed, as the etag can change while writing.
-        /// </summary>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='Etag']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public GISharp.Lib.GLib.Utf8 Etag { get => GetEtag(); }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public FileIOStream(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -77,14 +60,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Gets the entity tag for the file when it has been written.
-        /// This must be called after the stream has been written
-        /// and closed, as the etag can change while writing.
-        /// </summary>
-        /// <returns>
-        /// the entity tag for the stream.
-        /// </returns>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='GetEtag()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe GISharp.Lib.GLib.Utf8 GetEtag()
         {
@@ -147,38 +123,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Queries a file io stream for the given <paramref name="attributes"/>.
-        /// This function blocks while querying the stream. For the asynchronous
-        /// version of this function, see <see cref="FileIOStream.QueryInfoAsync"/>.
-        /// While the stream is blocked, the stream will set the pending flag
-        /// internally, and any other operations on the stream will fail with
-        /// <see cref="IOErrorEnum.Pending"/>.
-        /// </summary>
-        /// <remarks>
-        /// Can fail if the stream was already closed (with <paramref name="error"/> being set to
-        /// <see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <paramref name="error"/> being
-        /// set to <see cref="IOErrorEnum.Pending"/>), or if querying info is not supported for
-        /// the stream's interface (with <paramref name="error"/> being set to <see cref="IOErrorEnum.NotSupported"/>). I
-        /// all cases of failure, <c>null</c> will be returned.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set, and <c>null</c> will
-        /// be returned.
-        /// </remarks>
-        /// <param name="attributes">
-        /// a file attribute query string.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInfo"/> for the <paramref name="stream"/>, or <c>null</c> on error.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -197,38 +142,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Queries a file io stream for the given <paramref name="attributes"/>.
-        /// This function blocks while querying the stream. For the asynchronous
-        /// version of this function, see <see cref="FileIOStream.QueryInfoAsync"/>.
-        /// While the stream is blocked, the stream will set the pending flag
-        /// internally, and any other operations on the stream will fail with
-        /// <see cref="IOErrorEnum.Pending"/>.
-        /// </summary>
-        /// <remarks>
-        /// Can fail if the stream was already closed (with <paramref name="error"/> being set to
-        /// <see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <paramref name="error"/> being
-        /// set to <see cref="IOErrorEnum.Pending"/>), or if querying info is not supported for
-        /// the stream's interface (with <paramref name="error"/> being set to <see cref="IOErrorEnum.NotSupported"/>). I
-        /// all cases of failure, <c>null</c> will be returned.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set, and <c>null</c> will
-        /// be returned.
-        /// </remarks>
-        /// <param name="attributes">
-        /// a file attribute query string.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInfo"/> for the <paramref name="stream"/>, or <c>null</c> on error.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='QueryInfo(System.String,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(System.String attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -289,24 +203,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously queries the <paramref name="stream"/> for a <see cref="FileInfo"/>. When completed,
-        /// <paramref name="callback"/> will be called with a <see cref="IAsyncResult"/> which can be used to
-        /// finish the operation with <see cref="FileIOStream.QueryInfoFinish"/>.
-        /// </summary>
-        /// <remarks>
-        /// For the synchronous version of this function, see
-        /// <see cref="FileIOStream.QueryInfo"/>.
-        /// </remarks>
-        /// <param name="attributes">
-        /// a file attribute query string.
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][gio-GIOScheduler] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -321,24 +218,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <summary>
-        /// Asynchronously queries the <paramref name="stream"/> for a <see cref="FileInfo"/>. When completed,
-        /// <paramref name="callback"/> will be called with a <see cref="IAsyncResult"/> which can be used to
-        /// finish the operation with <see cref="FileIOStream.QueryInfoFinish"/>.
-        /// </summary>
-        /// <remarks>
-        /// For the synchronous version of this function, see
-        /// <see cref="FileIOStream.QueryInfo"/>.
-        /// </remarks>
-        /// <param name="attributes">
-        /// a file attribute query string.
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][gio-GIOScheduler] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='QueryInfoAsync(System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(System.String attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -404,6 +284,7 @@ namespace GISharp.Lib.Gio
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback queryInfoAsyncCallbackDelegate = QueryInfoFinish;
         static readonly System.IntPtr queryInfoAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(queryInfoAsyncCallbackDelegate);
 
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoCanSeek()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedCanSeek))]
         protected virtual unsafe System.Boolean DoCanSeek()
         {
@@ -413,6 +294,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoCanTruncate()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedCanTruncate))]
         protected virtual unsafe System.Boolean DoCanTruncate()
         {
@@ -422,14 +304,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Gets the entity tag for the file when it has been written.
-        /// This must be called after the stream has been written
-        /// and closed, as the etag can change while writing.
-        /// </summary>
-        /// <returns>
-        /// the entity tag for the stream.
-        /// </returns>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoGetEtag()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedGetEtag))]
         protected virtual unsafe GISharp.Lib.GLib.Utf8 DoGetEtag()
@@ -440,38 +315,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Queries a file io stream for the given <paramref name="attributes"/>.
-        /// This function blocks while querying the stream. For the asynchronous
-        /// version of this function, see <see cref="FileIOStream.QueryInfoAsync"/>.
-        /// While the stream is blocked, the stream will set the pending flag
-        /// internally, and any other operations on the stream will fail with
-        /// <see cref="IOErrorEnum.Pending"/>.
-        /// </summary>
-        /// <remarks>
-        /// Can fail if the stream was already closed (with <paramref name="error"/> being set to
-        /// <see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <paramref name="error"/> being
-        /// set to <see cref="IOErrorEnum.Pending"/>), or if querying info is not supported for
-        /// the stream's interface (with <paramref name="error"/> being set to <see cref="IOErrorEnum.NotSupported"/>). I
-        /// all cases of failure, <c>null</c> will be returned.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set, and <c>null</c> will
-        /// be returned.
-        /// </remarks>
-        /// <param name="attributes">
-        /// a file attribute query string.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInfo"/> for the <paramref name="stream"/>, or <c>null</c> on error.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedQueryInfo))]
         protected virtual unsafe GISharp.Lib.Gio.FileInfo DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
@@ -491,27 +335,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Asynchronously queries the <paramref name="stream"/> for a <see cref="FileInfo"/>. When completed,
-        /// <paramref name="callback"/> will be called with a <see cref="IAsyncResult"/> which can be used to
-        /// finish the operation with <see cref="FileIOStream.QueryInfoFinish"/>.
-        /// </summary>
-        /// <remarks>
-        /// For the synchronous version of this function, see
-        /// <see cref="FileIOStream.QueryInfo"/>.
-        /// </remarks>
-        /// <param name="attributes">
-        /// a file attribute query string.
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][gio-GIOScheduler] of the request
-        /// </param>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedQueryInfoAsync))]
         protected virtual unsafe void DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
@@ -524,19 +348,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedQueryInfoAsync>(_GType)!(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
         }
 
-        /// <summary>
-        /// Finalizes the asynchronous query started
-        /// by <see cref="FileIOStream.QueryInfoAsync"/>.
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>.
-        /// </param>
-        /// <returns>
-        /// A <see cref="FileInfo"/> for the finished query.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedQueryInfoFinish))]
         protected virtual unsafe GISharp.Lib.Gio.FileInfo DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult result)
@@ -555,9 +367,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedSeek))]
         protected virtual unsafe void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -574,6 +384,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoTell()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedTell))]
         protected virtual unsafe System.Int64 DoTell()
         {
@@ -583,9 +394,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedTruncateFn))]
         protected virtual unsafe void DoTruncateFn(System.Int64 size, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {

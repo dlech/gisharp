@@ -24,7 +24,10 @@ namespace GISharp.Lib.GObject
             #pragma warning restore CS0649
         }
 
-        public VariantType VariantType {
+        /// <summary>
+        /// A <see cref="VariantType" /> or <c>null</c>
+        /// </summary>
+        public VariantType? VariantType {
             get {
                 var ret_ = Marshal.ReadIntPtr(Handle, (int)variantTypeOffset);
                 var ret = Opaque.GetInstance<VariantType> (ret_, Transfer.None);
@@ -32,7 +35,10 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        public new Variant DefaultValue {
+        /// <summary>
+        /// A <see cref="Variant" /> or <c>null</c>
+        /// </summary>
+        public new Variant? DefaultValue {
             get {
                 var ret_ = Marshal.ReadIntPtr(Handle, (int)defaultValueOffset);
                 var ret = Opaque.GetInstance<Variant> (ret_, Transfer.None);
@@ -40,6 +46,9 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecVariant (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {
@@ -84,6 +93,17 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="T:ParamSpecVariant" /> instance specifying a
+        /// <see cref="T:Variant" /> property.
+        /// </summary>
+        /// <param name="name">canonical name of the property specified</param>
+        /// <param name="nick">nick name for the property specified</param>
+        /// <param name="blurb">description of the property specified</param>
+        /// <param name="type">a <see cref="VariantType" /></param>
+        /// <param name="defaultValue">a <see cref="Variant" /> of type type to
+        /// use as the default value, or <c>null</c></param>
+        /// <param name="flags">flags for the property specified</param>
         public ParamSpecVariant(string name, string nick, string blurb, VariantType type, Variant? defaultValue, ParamFlags flags)
             : this(New(name, nick, blurb, type, defaultValue, flags), Transfer.None)
         {

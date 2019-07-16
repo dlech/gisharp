@@ -1,0 +1,10 @@
+<declaration>
+
+<member name='TranslateFunc'>
+<summary>
+The type of functions which are used to translate user-visible
+strings, for &lt;option&gt;--help&lt;/option&gt; output.
+</summary>
+</member>
+
+</declaration>

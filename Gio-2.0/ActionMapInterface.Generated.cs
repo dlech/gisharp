@@ -2,18 +2,26 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// The virtual function table for <see cref="IActionMap"/>.
-    /// </summary>
+    /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='ActionMapInterface']/*" />
     [GISharp.Runtime.SinceAttribute("2.32")]
     public sealed class ActionMapInterface : GISharp.Lib.GObject.TypeInterface
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='LookupAction']/*" />
             public System.IntPtr LookupAction;
+
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='AddAction']/*" />
             public System.IntPtr AddAction;
+
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='RemoveAction']/*" />
             public System.IntPtr RemoveAction;
 #pragma warning restore CS0649
         }
@@ -28,8 +36,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(removeActionOffset, RemoveActionMarshal.Create);
         }
 
+        /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='LookupAction']/*" />
         public delegate GISharp.Lib.Gio.IAction LookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
@@ -46,6 +58,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class LookupActionMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedLookupAction Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedLookupAction(System.IntPtr actionMap_, System.IntPtr actionName_)
@@ -71,8 +86,12 @@ System.IntPtr actionName);
             }
         }
 
+        /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='AddAction']/*" />
         public delegate void AddAction(GISharp.Lib.Gio.IAction action);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -89,6 +108,9 @@ System.IntPtr action);
         /// </summary>
         public static class AddActionMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedAddAction Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedAddAction(System.IntPtr actionMap_, System.IntPtr action_)
@@ -110,8 +132,12 @@ System.IntPtr action);
             }
         }
 
+        /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='RemoveAction']/*" />
         public delegate void RemoveAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -128,6 +154,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class RemoveActionMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedRemoveAction Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedRemoveAction(System.IntPtr actionMap_, System.IntPtr actionName_)
@@ -149,6 +178,9 @@ System.IntPtr actionName);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public ActionMapInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

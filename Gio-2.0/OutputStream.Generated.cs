@@ -2,48 +2,37 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// <see cref="OutputStream"/> has functions to write to a stream (<see cref="OutputStream.Write"/>),
-    /// to close a stream (<see cref="OutputStream.Close"/>) and to flush pending writes
-    /// (<see cref="OutputStream.Flush"/>).
-    /// </summary>
-    /// <remarks>
-    /// To copy the content of an input stream to an output stream without
-    /// manually handling the reads and writes, use <see cref="OutputStream.Splice"/>.
-    /// 
-    /// See the documentation for <see cref="IOStream"/> for details of thread safety of
-    /// streaming APIs.
-    /// 
-    /// All of these functions have async variants too.
-    /// </remarks>
+    /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream']/*" />
     [GISharp.Runtime.GTypeAttribute("GOutputStream", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(OutputStreamClass))]
     public abstract partial class OutputStream : GISharp.Lib.GObject.Object
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_output_stream_get_type();
 
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe protected new struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="OutputStream.xmldoc" path="declaration/member[@name='ParentInstance']/*" />
             public GISharp.Lib.GObject.Object.Struct ParentInstance;
+
+            /// <include file="OutputStream.xmldoc" path="declaration/member[@name='Priv']/*" />
             public System.IntPtr Priv;
 #pragma warning restore CS0649
         }
 
-        /// <summary>
-        /// Checks if an output stream has already been closed.
-        /// </summary>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='IsClosed']/*" />
         public System.Boolean IsClosed { get => GetIsClosed(); }
 
-        /// <summary>
-        /// Checks if an output stream is being closed. This can be
-        /// used inside e.g. a flush implementation to see if the
-        /// flush (or other i/o operation) is called from within
-        /// the closing operation.
-        /// </summary>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='IsClosing']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public System.Boolean IsClosing { get => GetIsClosing(); }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         protected OutputStream(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -68,9 +57,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Clears the pending flag on <paramref name="stream"/>.
-        /// </summary>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='ClearPending()']/*" />
         public unsafe void ClearPending()
         {
             var stream_ = Handle;
@@ -135,44 +122,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Closes the stream, releasing resources related to it.
-        /// </summary>
-        /// <remarks>
-        /// Once the stream is closed, all other operations will return <see cref="IOErrorEnum.Closed"/>.
-        /// Closing a stream multiple times will not return an error.
-        /// 
-        /// Closing a stream will automatically flush any outstanding buffers in the
-        /// stream.
-        /// 
-        /// Streams will be automatically closed when the last reference
-        /// is dropped, but you might want to call this function to make sure
-        /// resources are released as early as possible.
-        /// 
-        /// Some streams might keep the backing store of the stream (e.g. a file descriptor)
-        /// open after the stream is closed. See the documentation for the individual
-        /// stream for details.
-        /// 
-        /// On failure the first error that happened will be reported, but the close
-        /// operation will finish as much as possible. A stream that failed to
-        /// close will still return <see cref="IOErrorEnum.Closed"/> for all operations. Still, it
-        /// is important to check and report the error to the user, otherwise
-        /// there might be a loss of data as all data might not be written.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// Cancelling a close will still leave the stream closed, but there some streams
-        /// can use a faster close that doesn't block to e.g. check errors. On
-        /// cancellation (as with any error) there is no guarantee that all written
-        /// data will reach the target.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='Close(GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe void Close(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
@@ -234,25 +184,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Requests an asynchronous close of the stream, releasing resources
-        /// related to it. When the operation is finished <paramref name="callback"/> will be
-        /// called. You can then call <see cref="OutputStream.CloseFinish"/> to get
-        /// the result of the operation.
-        /// </summary>
-        /// <remarks>
-        /// For behaviour details see <see cref="OutputStream.Close"/>.
-        /// 
-        /// The asynchronous methods have a default fallback that uses threads
-        /// to implement asynchronicity, so they are optional for inheriting
-        /// classes. However, if you override one you must override all.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task CloseAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
@@ -358,24 +290,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Forces a write of all user-space buffered data for the given
-        /// <paramref name="stream"/>. Will block during the operation. Closing the stream will
-        /// implicitly cause a flush.
-        /// </summary>
-        /// <remarks>
-        /// This function is optional for inherited classes.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='Flush(GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe void Flush(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
@@ -434,22 +349,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Forces an asynchronous write of all user-space buffered data for
-        /// the given <paramref name="stream"/>.
-        /// For behaviour details see <see cref="OutputStream.Flush"/>.
-        /// </summary>
-        /// <remarks>
-        /// When the operation is finished <paramref name="callback"/> will be
-        /// called. You can then call <see cref="OutputStream.FlushFinish"/> to get the
-        /// result of the operation.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='FlushAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task FlushAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
@@ -534,12 +434,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Checks if an output stream has pending actions.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if <paramref name="stream"/> has pending actions.
-        /// </returns>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='HasPending()']/*" />
         public unsafe System.Boolean HasPending()
         {
             var stream_ = Handle;
@@ -565,12 +460,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Checks if an output stream has already been closed.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if <paramref name="stream"/> is closed. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='GetIsClosed()']/*" />
         private unsafe System.Boolean GetIsClosed()
         {
             var stream_ = Handle;
@@ -600,15 +490,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Checks if an output stream is being closed. This can be
-        /// used inside e.g. a flush implementation to see if the
-        /// flush (or other i/o operation) is called from within
-        /// the closing operation.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if <paramref name="stream"/> is being closed. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='GetIsClosing()']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         private unsafe System.Boolean GetIsClosing()
         {
@@ -643,14 +525,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets <paramref name="stream"/> to have actions pending. If the pending flag is
-        /// already set or <paramref name="stream"/> is closed, it will return <c>false</c> and set
-        /// <paramref name="error"/>.
-        /// </summary>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='SetPending()']/*" />
         public unsafe void SetPending()
         {
             var stream_ = Handle;
@@ -708,28 +583,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Splices an input stream into an output stream.
-        /// </summary>
-        /// <param name="source">
-        /// a <see cref="InputStream"/>.
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="OutputStreamSpliceFlags"/>.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <returns>
-        /// a #gssize containing the size of the data spliced, or
-        ///     -1 if an error occurred. Note that if the number of bytes
-        ///     spliced is greater than %G_MAXSSIZE, then that will be
-        ///     returned, and there is no way to determine the actual number
-        ///     of bytes spliced.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='Splice(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Int32 Splice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
@@ -807,28 +661,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Splices a stream asynchronously.
-        /// When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="OutputStream.SpliceFinish"/> to get the
-        /// result of the operation.
-        /// </summary>
-        /// <remarks>
-        /// For the synchronous, blocking version of this function, see
-        /// <see cref="OutputStream.Splice"/>.
-        /// </remarks>
-        /// <param name="source">
-        /// a <see cref="InputStream"/>.
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="OutputStreamSpliceFlags"/>.
-        /// </param>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='SpliceAsync(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task<System.Int32> SpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
@@ -965,41 +798,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Tries to write <paramref name="count"/> bytes from <paramref name="buffer"/> into the stream. Will block
-        /// during the operation.
-        /// </summary>
-        /// <remarks>
-        /// If count is 0, returns 0 and does nothing. A value of <paramref name="count"/>
-        /// larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
-        /// 
-        /// On success, the number of bytes written to the stream is returned.
-        /// It is not an error if this is not the same as the requested size, as it
-        /// can happen e.g. on a partial I/O error, or if there is not enough
-        /// storage in the stream. All writes block until at least one byte
-        /// is written or an error occurs; 0 is never returned (unless
-        /// <paramref name="count"/> is 0).
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
-        /// operation was partially finished when the operation was cancelled the
-        /// partial result will be returned, without an error.
-        /// 
-        /// On error -1 is returned and <paramref name="error"/> is set accordingly.
-        /// </remarks>
-        /// <param name="buffer">
-        /// the buffer containing the data to write.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
-        /// <returns>
-        /// Number of bytes written, or -1 on error
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='Write(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Int32 Write(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
@@ -1086,41 +885,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Tries to write <paramref name="count"/> bytes from <paramref name="buffer"/> into the stream. Will block
-        /// during the operation.
-        /// </summary>
-        /// <remarks>
-        /// This function is similar to <see cref="OutputStream.Write"/>, except it tries to
-        /// write as many bytes as requested, only stopping on an error.
-        /// 
-        /// On a successful write of <paramref name="count"/> bytes, <c>true</c> is returned, and <paramref name="bytesWritten"/>
-        /// is set to <paramref name="count"/>.
-        /// 
-        /// If there is an error during the operation <c>false</c> is returned and <paramref name="error"/>
-        /// is set to indicate the error status.
-        /// 
-        /// As a special exception to the normal conventions for functions that
-        /// use #GError, if this function returns <c>false</c> (and sets <paramref name="error"/>) then
-        /// <paramref name="bytesWritten"/> will be set to the number of bytes that were
-        /// successfully written before the error was encountered.  This
-        /// functionality is only available from C.  If you need it from another
-        /// language then you must write your own loop around
-        /// <see cref="OutputStream.Write"/>.
-        /// </remarks>
-        /// <param name="buffer">
-        /// the buffer containing the data to write.
-        /// </param>
-        /// <param name="bytesWritten">
-        /// location to store the number of bytes that was
-        ///     written to the stream
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='WriteAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe void WriteAll(System.ReadOnlySpan<System.Byte> buffer, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
@@ -1207,33 +972,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Request an asynchronous write of <paramref name="count"/> bytes from <paramref name="buffer"/> into
-        /// the stream. When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="OutputStream.WriteAllFinish"/> to get the result of the
-        /// operation.
-        /// </summary>
-        /// <remarks>
-        /// This is the asynchronous version of <see cref="OutputStream.WriteAll"/>.
-        /// 
-        /// Call <see cref="OutputStream.WriteAllFinish"/> to collect the result.
-        /// 
-        /// Any outstanding I/O request with higher priority (lower numerical
-        /// value) will be executed before an outstanding request with lower
-        /// priority. Default priority is %G_PRIORITY_DEFAULT.
-        /// 
-        /// Note that no copy of <paramref name="buffer"/> will be made, so it must stay valid
-        /// until <paramref name="callback"/> is called.
-        /// </remarks>
-        /// <param name="buffer">
-        /// the buffer containing the data to write
-        /// </param>
-        /// <param name="ioPriority">
-        /// the io priority of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='WriteAllAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe System.Threading.Tasks.Task<System.Int32> WriteAllAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -1410,53 +1149,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Request an asynchronous write of <paramref name="count"/> bytes from <paramref name="buffer"/> into
-        /// the stream. When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="OutputStream.WriteFinish"/> to get the result of the
-        /// operation.
-        /// </summary>
-        /// <remarks>
-        /// During an async request no other sync and async calls are allowed,
-        /// and will result in <see cref="IOErrorEnum.Pending"/> errors.
-        /// 
-        /// A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a
-        /// <see cref="IOErrorEnum.InvalidArgument"/> error.
-        /// 
-        /// On success, the number of bytes written will be passed to the
-        /// <paramref name="callback"/>. It is not an error if this is not the same as the
-        /// requested size, as it can happen e.g. on a partial I/O error,
-        /// but generally we try to write as many bytes as requested.
-        /// 
-        /// You are guaranteed that this method will never fail with
-        /// <see cref="IOErrorEnum.WouldBlock"/> - if <paramref name="stream"/> can't accept more data, the
-        /// method will just wait until this changes.
-        /// 
-        /// Any outstanding I/O request with higher priority (lower numerical
-        /// value) will be executed before an outstanding request with lower
-        /// priority. Default priority is %G_PRIORITY_DEFAULT.
-        /// 
-        /// The asynchronous methods have a default fallback that uses threads
-        /// to implement asynchronicity, so they are optional for inheriting
-        /// classes. However, if you override one you must override all.
-        /// 
-        /// For the synchronous, blocking version of this function, see
-        /// <see cref="OutputStream.Write"/>.
-        /// 
-        /// Note that no copy of <paramref name="buffer"/> will be made, so it must stay valid
-        /// until <paramref name="callback"/> is called. See <see cref="OutputStream.WriteBytesAsync"/>
-        /// for a #GBytes version that will automatically hold a reference to
-        /// the contents (without copying) for the duration of the call.
-        /// </remarks>
-        /// <param name="buffer">
-        /// the buffer containing the data to write.
-        /// </param>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='WriteAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task<System.Int32> WriteAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
@@ -1516,32 +1209,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// A wrapper function for <see cref="OutputStream.Write"/> which takes a
-        /// #GBytes as input.  This can be more convenient for use by language
-        /// bindings or in other cases where the refcounted nature of #GBytes
-        /// is helpful over a bare pointer interface.
-        /// </summary>
-        /// <remarks>
-        /// However, note that this function may still perform partial writes,
-        /// just like <see cref="OutputStream.Write"/>.  If that occurs, to continue
-        /// writing, you will need to create a new #GBytes containing just the
-        /// remaining bytes, using g_bytes_new_from_bytes(). Passing the same
-        /// #GBytes instance multiple times potentially can result in duplicated
-        /// data in the output stream.
-        /// </remarks>
-        /// <param name="bytes">
-        /// the #GBytes to write
-        /// </param>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
-        /// <returns>
-        /// Number of bytes written, or -1 on error
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='WriteBytes(GISharp.Lib.GLib.Bytes,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Int32 WriteBytes(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
@@ -1618,31 +1286,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// This function is similar to <see cref="OutputStream.WriteAsync"/>, but
-        /// takes a #GBytes as input.  Due to the refcounted nature of #GBytes,
-        /// this allows the stream to avoid taking a copy of the data.
-        /// </summary>
-        /// <remarks>
-        /// However, note that this function may still perform partial writes,
-        /// just like <see cref="OutputStream.WriteAsync"/>. If that occurs, to continue
-        /// writing, you will need to create a new #GBytes containing just the
-        /// remaining bytes, using g_bytes_new_from_bytes(). Passing the same
-        /// #GBytes instance multiple times potentially can result in duplicated
-        /// data in the output stream.
-        /// 
-        /// For the synchronous, blocking version of this function, see
-        /// <see cref="OutputStream.WriteBytes"/>.
-        /// </remarks>
-        /// <param name="bytes">
-        /// The bytes to write
-        /// </param>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='WriteBytesAsync(GISharp.Lib.GLib.Bytes,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task<System.Int32> WriteBytesAsync(GISharp.Lib.GLib.Bytes bytes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = Handle;
@@ -1768,28 +1412,7 @@ namespace GISharp.Lib.Gio
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeAsyncCallbackDelegate = WriteFinish;
         static readonly System.IntPtr writeAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeAsyncCallbackDelegate);
 
-        /// <summary>
-        /// Requests an asynchronous close of the stream, releasing resources
-        /// related to it. When the operation is finished <paramref name="callback"/> will be
-        /// called. You can then call <see cref="OutputStream.CloseFinish"/> to get
-        /// the result of the operation.
-        /// </summary>
-        /// <remarks>
-        /// For behaviour details see <see cref="OutputStream.Close"/>.
-        /// 
-        /// The asynchronous methods have a default fallback that uses threads
-        /// to implement asynchronicity, so they are optional for inheriting
-        /// classes. However, if you override one you must override all.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedCloseAsync))]
         protected virtual unsafe void DoCloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -1800,18 +1423,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedCloseAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);
         }
 
-        /// <summary>
-        /// Closes an output stream.
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if stream was successfully closed, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedCloseFinish))]
         protected virtual unsafe void DoCloseFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -1826,9 +1438,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoCloseFn(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedCloseFn))]
         protected virtual unsafe void DoCloseFn(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -1843,27 +1453,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Forces a write of all user-space buffered data for the given
-        /// <paramref name="stream"/>. Will block during the operation. Closing the stream will
-        /// implicitly cause a flush.
-        /// </summary>
-        /// <remarks>
-        /// This function is optional for inherited classes.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
-        /// <returns>
-        /// <c>true</c> on success, <c>false</c> on error
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoFlush(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedFlush))]
         protected virtual unsafe void DoFlush(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -1878,25 +1468,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Forces an asynchronous write of all user-space buffered data for
-        /// the given <paramref name="stream"/>.
-        /// For behaviour details see <see cref="OutputStream.Flush"/>.
-        /// </summary>
-        /// <remarks>
-        /// When the operation is finished <paramref name="callback"/> will be
-        /// called. You can then call <see cref="OutputStream.FlushFinish"/> to get the
-        /// result of the operation.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoFlushAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedFlushAsync))]
         protected virtual unsafe void DoFlushAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -1907,18 +1479,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedFlushAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);
         }
 
-        /// <summary>
-        /// Finishes flushing an output stream.
-        /// </summary>
-        /// <param name="result">
-        /// a GAsyncResult.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if flush operation succeeded, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoFlushFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedFlushFinish))]
         protected virtual unsafe void DoFlushFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -1933,28 +1494,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Splices an input stream into an output stream.
-        /// </summary>
-        /// <param name="source">
-        /// a <see cref="InputStream"/>.
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="OutputStreamSpliceFlags"/>.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
-        /// <returns>
-        /// a #gssize containing the size of the data spliced, or
-        ///     -1 if an error occurred. Note that if the number of bytes
-        ///     spliced is greater than %G_MAXSSIZE, then that will be
-        ///     returned, and there is no way to determine the actual number
-        ///     of bytes spliced.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoSplice(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedSplice))]
         protected virtual unsafe System.Int32 DoSplice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -1974,31 +1514,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Splices a stream asynchronously.
-        /// When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="OutputStream.SpliceFinish"/> to get the
-        /// result of the operation.
-        /// </summary>
-        /// <remarks>
-        /// For the synchronous, blocking version of this function, see
-        /// <see cref="OutputStream.Splice"/>.
-        /// </remarks>
-        /// <param name="source">
-        /// a <see cref="InputStream"/>.
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="OutputStreamSpliceFlags"/>.
-        /// </param>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/>.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoSpliceAsync(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedSpliceAsync))]
         protected virtual unsafe void DoSpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -2011,21 +1527,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedSpliceAsync>(_GType)!(stream_, source_, flags_, ioPriority_, cancellable_, callback_, userData_);
         }
 
-        /// <summary>
-        /// Finishes an asynchronous stream splice operation.
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>.
-        /// </param>
-        /// <returns>
-        /// a #gssize of the number of bytes spliced. Note that if the
-        ///     number of bytes spliced is greater than %G_MAXSSIZE, then that
-        ///     will be returned, and there is no way to determine the actual
-        ///     number of bytes spliced.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoSpliceFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedSpliceFinish))]
         protected virtual unsafe System.Int32 DoSpliceFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -2043,56 +1545,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Request an asynchronous write of <paramref name="count"/> bytes from <paramref name="buffer"/> into
-        /// the stream. When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="OutputStream.WriteFinish"/> to get the result of the
-        /// operation.
-        /// </summary>
-        /// <remarks>
-        /// During an async request no other sync and async calls are allowed,
-        /// and will result in <see cref="IOErrorEnum.Pending"/> errors.
-        /// 
-        /// A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a
-        /// <see cref="IOErrorEnum.InvalidArgument"/> error.
-        /// 
-        /// On success, the number of bytes written will be passed to the
-        /// <paramref name="callback"/>. It is not an error if this is not the same as the
-        /// requested size, as it can happen e.g. on a partial I/O error,
-        /// but generally we try to write as many bytes as requested.
-        /// 
-        /// You are guaranteed that this method will never fail with
-        /// <see cref="IOErrorEnum.WouldBlock"/> - if <paramref name="stream"/> can't accept more data, the
-        /// method will just wait until this changes.
-        /// 
-        /// Any outstanding I/O request with higher priority (lower numerical
-        /// value) will be executed before an outstanding request with lower
-        /// priority. Default priority is %G_PRIORITY_DEFAULT.
-        /// 
-        /// The asynchronous methods have a default fallback that uses threads
-        /// to implement asynchronicity, so they are optional for inheriting
-        /// classes. However, if you override one you must override all.
-        /// 
-        /// For the synchronous, blocking version of this function, see
-        /// <see cref="OutputStream.Write"/>.
-        /// 
-        /// Note that no copy of <paramref name="buffer"/> will be made, so it must stay valid
-        /// until <paramref name="callback"/> is called. See <see cref="OutputStream.WriteBytesAsync"/>
-        /// for a #GBytes version that will automatically hold a reference to
-        /// the contents (without copying) for the duration of the call.
-        /// </remarks>
-        /// <param name="buffer">
-        /// the buffer containing the data to write.
-        /// </param>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoWriteAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWriteAsync))]
         protected virtual unsafe void DoWriteAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -2104,18 +1557,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWriteAsync>(_GType)!(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
         }
 
-        /// <summary>
-        /// Finishes a stream write operation.
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>.
-        /// </param>
-        /// <returns>
-        /// a #gssize containing the number of bytes written to the stream.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoWriteFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWriteFinish))]
         protected virtual unsafe System.Int32 DoWriteFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -2133,41 +1575,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Tries to write <paramref name="count"/> bytes from <paramref name="buffer"/> into the stream. Will block
-        /// during the operation.
-        /// </summary>
-        /// <remarks>
-        /// If count is 0, returns 0 and does nothing. A value of <paramref name="count"/>
-        /// larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
-        /// 
-        /// On success, the number of bytes written to the stream is returned.
-        /// It is not an error if this is not the same as the requested size, as it
-        /// can happen e.g. on a partial I/O error, or if there is not enough
-        /// storage in the stream. All writes block until at least one byte
-        /// is written or an error occurs; 0 is never returned (unless
-        /// <paramref name="count"/> is 0).
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
-        /// operation was partially finished when the operation was cancelled the
-        /// partial result will be returned, without an error.
-        /// 
-        /// On error -1 is returned and <paramref name="error"/> is set accordingly.
-        /// </remarks>
-        /// <param name="buffer">
-        /// the buffer containing the data to write.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
-        /// <returns>
-        /// Number of bytes written, or -1 on error
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoWriteFn(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWriteFn))]
         protected virtual unsafe System.Int32 DoWriteFn(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {

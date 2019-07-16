@@ -2,38 +2,25 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Flags that can be used with g_file_measure_disk_usage().
-    /// </summary>
+    /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='FileMeasureFlags']/*" />
     [GISharp.Runtime.SinceAttribute("2.38")]
     [GISharp.Runtime.GTypeAttribute("GFileMeasureFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
     public enum FileMeasureFlags
     {
-        /// <summary>
-        /// No flags set.
-        /// </summary>
+        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// Report any error encountered
-        ///   while traversing the directory tree.  Normally errors are only
-        ///   reported for the toplevel file.
-        /// </summary>
+        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='ReportAnyError']/*" />
         ReportAnyError = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <summary>
-        /// Tally usage based on apparent file
-        ///   sizes.  Normally, the block-size is used, if available, as this is a
-        ///   more accurate representation of disk space used.
-        ///   Compare with `du --apparent-size`.
-        /// </summary>
+        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='ApparentSize']/*" />
         ApparentSize = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <summary>
-        /// Do not cross mount point boundaries.
-        ///   Compare with `du -x`.
-        /// </summary>
+        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='NoCrossMountPoint']/*" />
         NoCrossMountPoint = 0b0000_0000_0000_0000_0000_0000_0000_1000
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FileMeasureFlags"/>.
+    /// </summary>
     public partial class FileMeasureFlagsExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_measure_flags_get_type();

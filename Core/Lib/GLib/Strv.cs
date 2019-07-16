@@ -26,6 +26,9 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Strv(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {

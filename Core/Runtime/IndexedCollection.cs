@@ -3,12 +3,18 @@ using System.Collections.Generic;
 
 namespace GISharp.Runtime
 {
+    /// <summary>
+    /// A class for wrapping indexed properties.
+    /// </summary>
     public class IndexedCollection<T> : IReadOnlyList<T>
     {
         Func<int> getCount;
         Func<int, T> getInfoAtIndex;
 
-        public IndexedCollection (Func<int> getCount, Func<int, T> getInfoAtIndex)
+        /// <summary>
+        /// Creates a new instance>
+        /// </summary>
+        public IndexedCollection(Func<int> getCount, Func<int, T> getInfoAtIndex)
         {
             this.getCount = getCount;
             this.getInfoAtIndex = getInfoAtIndex;
@@ -18,12 +24,12 @@ namespace GISharp.Runtime
         /// Gets the metadata entry at the specified index.
         /// </summary>
         /// <param name="index">0-based offset into namespace metadata for entry.</param>
-        public T this [int index] {
+        public T this[int index] {
             get {
                 if (index < 0 || index >= Count) {
-                    throw new IndexOutOfRangeException ();
+                    throw new IndexOutOfRangeException();
                 }
-                return getInfoAtIndex (index);
+                return getInfoAtIndex(index);
             }
         }
 
@@ -32,16 +38,17 @@ namespace GISharp.Runtime
         /// </summary>
         /// <value>The count.</value>
         public int Count {
-            get { return getCount (); }
+            get { return getCount(); }
         }
 
         #region IEnumerable implementation
 
-        public IEnumerator<T> GetEnumerator ()
+        /// <inheritdoc />
+        public IEnumerator<T> GetEnumerator()
         {
-            var count = getCount ();
+            var count = getCount();
             for (int i = 0; i < count; i++) {
-                yield return getInfoAtIndex (i);
+                yield return getInfoAtIndex(i);
             }
         }
 
@@ -49,9 +56,9 @@ namespace GISharp.Runtime
 
         #region IEnumerable implementation
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return GetEnumerator ();
+            return GetEnumerator();
         }
 
         #endregion

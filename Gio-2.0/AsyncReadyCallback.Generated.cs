@@ -26,16 +26,7 @@ namespace GISharp.Lib.Gio
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr userData);
 
-    /// <summary>
-    /// Type definition for a function that will be called back when an asynchronous
-    /// operation within GIO has been completed. <see cref="AsyncReadyCallback"/>
-    /// callbacks from <see cref="Task"/> are guaranteed to be invoked in a later
-    /// iteration of the
-    /// [thread-default main context][g-main-context-push-thread-default]
-    /// where the <see cref="Task"/> was created. All other users of
-    /// <see cref="AsyncReadyCallback"/> must likewise call it asynchronously in a
-    /// later iteration of the main context.
-    /// </summary>
+    /// <include file="AsyncReadyCallback.xmldoc" path="declaration/member[@name='AsyncReadyCallback']/*" />
     public delegate void AsyncReadyCallback(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.IAsyncResult res);
 
     /// <summary>
@@ -55,6 +46,9 @@ namespace GISharp.Lib.Gio
             }
         }
 
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="AsyncReadyCallback"/>.
+        /// </summary>
         public static GISharp.Lib.Gio.AsyncReadyCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(callback_);
@@ -72,7 +66,7 @@ namespace GISharp.Lib.Gio
         /// Wraps a <see cref="AsyncReadyCallback"/> in an anonymous method that can
         /// be passed to unmanaged code.
         /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="callback">The managed callback method to wrap.</param>
         /// <param name="scope">The lifetime scope of the callback.</param>
         /// <returns>
         /// A tuple containing a pointer to the unmanaged callback, a pointer to the

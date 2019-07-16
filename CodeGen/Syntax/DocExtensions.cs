@@ -25,7 +25,7 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxTriviaList GetDocCommentTrivia(this Doc doc, bool extraFixups = true)
         {
             if (doc == null) {
-                return default(SyntaxTriviaList);
+                return default;
             }
 
             var builder = new StringBuilder();
@@ -102,12 +102,34 @@ namespace GISharp.CodeGen.Syntax
                     }
                 }
 
+                // anything that starts with an "@" is probably a paramref
                 var paramRefs = Regex.Matches(text, @"@\w+");
                 foreach (Match p in paramRefs.OrderByDescending(x => x.Value.Length)) {
+                    // if this is an instance parameter, replace it with "this instance'
+                    var callable = doc.Ancestors.OfType<GICallable>().SingleOrDefault();
+                    if (callable == null) {
+                        var property = doc.Ancestors.OfType<ManagedProperty>().SingleOrDefault();
+                        if (property != null) {
+                            callable = property.Getter;
+                        }
+                    }
+                    if (callable != null) {
+                        var instanceParam = callable.Parameters.InstanceParameter;
+                        if (instanceParam != null) {
+                            builder.Replace(p.Value, $"this instance");
+                            continue;
+                        }
+                    }
+                    // otherwise replace it with a paramref element
+                    // TODO: can probably do a better job of detecting @ ref
+                    // to fields/virtual methods and signal callback parameters
+                    // (EventArgs)
                     var name = p.Value.Substring(1).ToCamelCase();
                     builder.Replace(p.Value, $"<paramref name=\"{name}\"/>");
                 }
 
+                // find all references to functions/methods in this namespace
+                // These references look like "prefix_name()"
                 foreach (var prefix in ns.CSymbolPrefixes) {
                     var funcs = Regex.Matches(text, prefix + @"_\w+(?=\(\))");
                     foreach (Match f in funcs) {
@@ -116,7 +138,14 @@ namespace GISharp.CodeGen.Syntax
                             continue;
                         }
                         var parent = (GIBase)callable.ParentNode;
-                        builder.Replace($"{f.Value}()", $"<see cref=\"{parent.GirName}.{callable.ManagedName}\"/>");
+                        var method = callable.ManagedName;
+                        if (callable is Constructor) {
+                            // constructors are special
+                            method = "#ctor";
+                        }
+                        // include parameter types so we don't get conflicts with overloads
+                        method += $"({string.Join(",", callable.ManagedParameters.Select(x => x.Type.ManagedType))})";
+                        builder.Replace($"{f.Value}()", $"<see cref=\"M:{parent.GirName}.{method}\"/>");
                     }
                 }
             }

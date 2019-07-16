@@ -31,7 +31,8 @@ namespace GISharp.CodeGen.Syntax
             var syntax = FieldDeclaration(variableDeclaration)
                 .WithModifiers(constant.GetCommonAccessModifiers().Add(Token(ConstKeyword)))
                 .WithAttributeLists(constant.GetCommonAttributeLists())
-                .WithLeadingTrivia(constant.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(constant.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
         }

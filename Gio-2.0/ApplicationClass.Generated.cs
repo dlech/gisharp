@@ -2,30 +2,62 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Virtual function table for <see cref="Application"/>.
-    /// </summary>
+    /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='ApplicationClass']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
     public class ApplicationClass : GISharp.Lib.GObject.ObjectClass
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Startup']/*" />
             public System.IntPtr Startup;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Activate']/*" />
             public System.IntPtr Activate;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Open']/*" />
             public System.IntPtr Open;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='CommandLine']/*" />
             public System.IntPtr CommandLine;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='LocalCommandLine']/*" />
             public System.IntPtr LocalCommandLine;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='BeforeEmit']/*" />
             public System.IntPtr BeforeEmit;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='AfterEmit']/*" />
             public System.IntPtr AfterEmit;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='AddPlatformData']/*" />
             public System.IntPtr AddPlatformData;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='QuitMainloop']/*" />
             public System.IntPtr QuitMainloop;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='RunMainloop']/*" />
             public System.IntPtr RunMainloop;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Shutdown']/*" />
             public System.IntPtr Shutdown;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='DbusRegister']/*" />
             public System.IntPtr DbusRegister;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='DbusUnregister']/*" />
             public System.IntPtr DbusUnregister;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='HandleLocalOptions']/*" />
             public System.IntPtr HandleLocalOptions;
+
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Padding']/*" />
             public System.IntPtr* Padding;
 #pragma warning restore CS0649
         }
@@ -58,8 +90,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(handleLocalOptionsOffset, HandleLocalOptionsMarshal.Create);
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Startup']/*" />
         public delegate void Startup();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -73,6 +109,9 @@ System.IntPtr application);
         /// </summary>
         public static class StartupMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedStartup Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedStartup(System.IntPtr application_)
@@ -93,8 +132,12 @@ System.IntPtr application);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Activate']/*" />
         public delegate void Activate();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -108,6 +151,9 @@ System.IntPtr application);
         /// </summary>
         public static class ActivateMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedActivate Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedActivate(System.IntPtr application_)
@@ -128,8 +174,12 @@ System.IntPtr application);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Open']/*" />
         public delegate void Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -154,6 +204,9 @@ System.IntPtr hint);
         /// </summary>
         public static class OpenMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedOpen Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedOpen(System.IntPtr application_, in System.IntPtr files_, System.Int32 nFiles_, System.IntPtr hint_)
@@ -176,8 +229,12 @@ System.IntPtr hint);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='CommandLine']/*" />
         public delegate System.Int32 CommandLine(GISharp.Lib.Gio.ApplicationCommandLine commandLine);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
@@ -194,6 +251,9 @@ System.IntPtr commandLine);
         /// </summary>
         public static class CommandLineMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Int32 unmanagedCommandLine(System.IntPtr application_, System.IntPtr commandLine_)
@@ -219,8 +279,12 @@ System.IntPtr commandLine);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='TryLocalCommandLine']/*" />
         public delegate System.Boolean TryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out System.Int32 exitStatus);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -242,6 +306,9 @@ out System.Int32 exitStatus);
         /// </summary>
         public static class TryLocalCommandLineMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedTryLocalCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedTryLocalCommandLine(System.IntPtr application_, ref System.IntPtr arguments_, out System.Int32 exitStatus_)
@@ -270,8 +337,12 @@ out System.Int32 exitStatus);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='BeforeEmit']/*" />
         public delegate void BeforeEmit(GISharp.Lib.GLib.Variant platformData);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -288,6 +359,9 @@ System.IntPtr platformData);
         /// </summary>
         public static class BeforeEmitMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedBeforeEmit Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedBeforeEmit(System.IntPtr application_, System.IntPtr platformData_)
@@ -309,8 +383,12 @@ System.IntPtr platformData);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='AfterEmit']/*" />
         public delegate void AfterEmit(GISharp.Lib.GLib.Variant platformData);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -327,6 +405,9 @@ System.IntPtr platformData);
         /// </summary>
         public static class AfterEmitMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedAfterEmit Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedAfterEmit(System.IntPtr application_, System.IntPtr platformData_)
@@ -348,8 +429,12 @@ System.IntPtr platformData);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='AddPlatformData']/*" />
         public delegate void AddPlatformData(GISharp.Lib.GLib.VariantBuilder builder);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -366,6 +451,9 @@ System.IntPtr builder);
         /// </summary>
         public static class AddPlatformDataMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedAddPlatformData Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedAddPlatformData(System.IntPtr application_, System.IntPtr builder_)
@@ -387,8 +475,12 @@ System.IntPtr builder);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='QuitMainloop']/*" />
         public delegate void QuitMainloop();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -402,6 +494,9 @@ System.IntPtr application);
         /// </summary>
         public static class QuitMainloopMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQuitMainloop Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedQuitMainloop(System.IntPtr application_)
@@ -422,8 +517,12 @@ System.IntPtr application);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='RunMainloop']/*" />
         public delegate void RunMainloop();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -437,6 +536,9 @@ System.IntPtr application);
         /// </summary>
         public static class RunMainloopMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedRunMainloop Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedRunMainloop(System.IntPtr application_)
@@ -457,8 +559,12 @@ System.IntPtr application);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Shutdown']/*" />
         public delegate void Shutdown();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -472,6 +578,9 @@ System.IntPtr application);
         /// </summary>
         public static class ShutdownMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedShutdown Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedShutdown(System.IntPtr application_)
@@ -492,8 +601,12 @@ System.IntPtr application);
             }
         }
 
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='HandleLocalOptions']/*" />
         public delegate System.Int32 HandleLocalOptions(GISharp.Lib.GLib.VariantDict options);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
@@ -510,6 +623,9 @@ System.IntPtr options);
         /// </summary>
         public static class HandleLocalOptionsMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedHandleLocalOptions Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Int32 unmanagedHandleLocalOptions(System.IntPtr application_, System.IntPtr options_)
@@ -535,6 +651,9 @@ System.IntPtr options);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public ApplicationClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

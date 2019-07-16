@@ -74,11 +74,16 @@ namespace GISharp.CodeGen.Syntax
             var trivia = TriviaList()
                 .AddRange(function.Doc.GetDocCommentTrivia())
                 .AddRange(function.ManagedParameters
-                    .SelectMany(x => x.Doc.GetDocCommentTrivia()))
-                .AddRange(function.ReturnValue.Doc.GetDocCommentTrivia())
-                .AddRange(function.GetGErrorExceptionDocCommentTrivia());
+                    .SelectMany(x => x.Doc.GetDocCommentTrivia()));
 
-            syntax = syntax.WithLeadingTrivia(trivia);
+            if (returnType.ToString() != "void") {
+                trivia = trivia.AddRange(function.ReturnValue.Doc.GetDocCommentTrivia());
+            }
+                
+            trivia = trivia.AddRange(function.GetGErrorExceptionDocCommentTrivia());
+
+            syntax = syntax.WithLeadingTrivia(trivia)
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
         }

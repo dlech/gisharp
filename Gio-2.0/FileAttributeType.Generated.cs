@@ -2,55 +2,36 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// The data types for file attributes.
-    /// </summary>
+    /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileAttributeType", IsProxyForUnmanagedType = true)]
     public enum FileAttributeType
     {
-        /// <summary>
-        /// indicates an invalid or uninitalized type.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Invalid']/*" />
         Invalid = 0,
-        /// <summary>
-        /// a null terminated UTF8 string.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='String']/*" />
         String = 1,
-        /// <summary>
-        /// a zero terminated string of non-zero bytes.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='ByteString']/*" />
         ByteString = 2,
-        /// <summary>
-        /// a boolean value.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Boolean']/*" />
         Boolean = 3,
-        /// <summary>
-        /// an unsigned 4-byte/32-bit integer.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Uint32']/*" />
         Uint32 = 4,
-        /// <summary>
-        /// a signed 4-byte/32-bit integer.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Int32']/*" />
         Int32 = 5,
-        /// <summary>
-        /// an unsigned 8-byte/64-bit integer.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Uint64']/*" />
         Uint64 = 6,
-        /// <summary>
-        /// a signed 8-byte/64-bit integer.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Int64']/*" />
         Int64 = 7,
-        /// <summary>
-        /// a #GObject.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Object']/*" />
         Object = 8,
-        /// <summary>
-        /// a <c>null</c> terminated char **.
-        /// </summary>
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='StringArray']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         StringArray = 9
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FileAttributeType"/>.
+    /// </summary>
     public partial class FileAttributeTypeExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_type_get_type();

@@ -20,8 +20,14 @@ namespace GISharp.Runtime
         /// </summary>
         public string? Name { get; }
 
+        /// <summary>
+        /// Property construction flags
+        /// </summary>
         public GPropertyConstruct Construct { get; set; }
 
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
         public GPropertyAttribute(string? name = null)
         {
             Name = name;

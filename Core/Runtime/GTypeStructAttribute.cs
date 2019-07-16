@@ -2,7 +2,10 @@
 
 namespace GISharp.Runtime
 {
-    [AttributeUsage (AttributeTargets.Class | AttributeTargets.Interface, Inherited = true)]
+    /// <summary>
+    /// Attribute for decorating classes that wrap a GType struct.
+    /// </summary>
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Interface, Inherited = true)]
     public sealed class GTypeStructAttribute : Attribute
     {
         /// <summary>
@@ -10,12 +13,15 @@ namespace GISharp.Runtime
         /// code.
         /// </summary>
         /// <remarks>
-        /// This type must be a derivitave of <see cref="GObject.TypeClass"/>
-        /// for objects or <see cref="GObject.TypeInterface"/> for interfaces.
+        /// This type must be a derivative of <see cref="Lib.GObject.TypeClass"/>
+        /// for objects or <see cref="Lib.GObject.TypeInterface"/> for interfaces.
         /// </remarks>
         public Type GTypeStruct { get; private set; }
 
-        public GTypeStructAttribute (Type gtypeStruct)
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        public GTypeStructAttribute(Type gtypeStruct)
         {
             GTypeStruct = gtypeStruct;
         }

@@ -2,96 +2,54 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// GIOStream represents an object that has both read and write streams.
-    /// Generally the two streams act as separate input and output streams,
-    /// but they share some common resources and state. For instance, for
-    /// seekable streams, both streams may use the same position.
-    /// </summary>
-    /// <remarks>
-    /// Examples of <see cref="IOStream"/> objects are #GSocketConnection, which represents
-    /// a two-way network connection; and <see cref="FileIOStream"/>, which represents a
-    /// file handle opened in read-write mode.
-    /// 
-    /// To do the actual reading and writing you need to get the substreams
-    /// with <see cref="IOStream.GetInputStream"/> and <see cref="IOStream.GetOutputStream"/>.
-    /// 
-    /// The <see cref="IOStream"/> object owns the input and the output streams, not the other
-    /// way around, so keeping the substreams alive will not keep the <see cref="IOStream"/>
-    /// object alive. If the <see cref="IOStream"/> object is freed it will be closed, thus
-    /// closing the substreams, so even if the substreams stay alive they will
-    /// always return <see cref="IOErrorEnum.Closed"/> for all operations.
-    /// 
-    /// To close a stream use <see cref="IOStream.Close"/> which will close the common
-    /// stream object and also the individual substreams. You can also close
-    /// the substreams themselves. In most cases this only marks the
-    /// substream as closed, so further I/O on it fails but common state in the
-    /// <see cref="IOStream"/> may still be open. However, some streams may support
-    /// "half-closed" states where one direction of the stream is actually shut down.
-    /// 
-    /// Operations on <see cref="IOStream"/>s cannot be started while another operation on the
-    /// <see cref="IOStream"/> or its substreams is in progress. Specifically, an application can
-    /// read from the <see cref="InputStream"/> and write to the <see cref="OutputStream"/> simultaneously
-    /// (either in separate threads, or as asynchronous operations in the same
-    /// thread), but an application cannot start any <see cref="IOStream"/> operation while there
-    /// is a <see cref="IOStream"/>, <see cref="InputStream"/> or <see cref="OutputStream"/> operation in progress, and
-    /// an application can’t start any <see cref="InputStream"/> or <see cref="OutputStream"/> operation
-    /// while there is a <see cref="IOStream"/> operation in progress.
-    /// 
-    /// This is a product of individual stream operations being associated with a
-    /// given #GMainContext (the thread-default context at the time the operation was
-    /// started), rather than entire streams being associated with a single
-    /// #GMainContext.
-    /// 
-    /// GIO may run operations on <see cref="IOStream"/>s from other (worker) threads, and this
-    /// may be exposed to application code in the behaviour of wrapper streams, such
-    /// as #GBufferedInputStream or #GTlsConnection. With such wrapper APIs,
-    /// application code may only run operations on the base (wrapped) stream when
-    /// the wrapper stream is idle. Note that the semantics of such operations may
-    /// not be well-defined due to the state the wrapper stream leaves the base
-    /// stream in (though they are guaranteed not to crash).
-    /// </remarks>
+    /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream']/*" />
     [GISharp.Runtime.GTypeAttribute("GIOStream", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(IOStreamClass))]
     public abstract partial class IOStream : GISharp.Lib.GObject.Object
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_io_stream_get_type();
 
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe protected new struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="IOStream.xmldoc" path="declaration/member[@name='ParentInstance']/*" />
             public GISharp.Lib.GObject.Object.Struct ParentInstance;
+
+            /// <include file="IOStream.xmldoc" path="declaration/member[@name='Priv']/*" />
             public System.IntPtr Priv;
 #pragma warning restore CS0649
         }
 
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IsClosed_']/*" />
         [GISharp.Runtime.GPropertyAttribute("closed")]
         public System.Boolean IsClosed_ { get => (System.Boolean)GetProperty("closed")!; }
+
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='InputStream_']/*" />
         [GISharp.Runtime.GPropertyAttribute("input-stream")]
         public GISharp.Lib.Gio.InputStream? InputStream_ { get => (GISharp.Lib.Gio.InputStream?)GetProperty("input-stream")!; }
+
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='OutputStream_']/*" />
         [GISharp.Runtime.GPropertyAttribute("output-stream")]
         public GISharp.Lib.Gio.OutputStream? OutputStream_ { get => (GISharp.Lib.Gio.OutputStream?)GetProperty("output-stream")!; }
 
-        /// <summary>
-        /// Gets the input stream for this object. This is used
-        /// for reading.
-        /// </summary>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='InputStream']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public GISharp.Lib.Gio.InputStream InputStream { get => GetInputStream(); }
 
-        /// <summary>
-        /// Gets the output stream for this object. This is used for
-        /// writing.
-        /// </summary>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='OutputStream']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public GISharp.Lib.Gio.OutputStream OutputStream { get => GetOutputStream(); }
 
-        /// <summary>
-        /// Checks if a stream is closed.
-        /// </summary>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IsClosed']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public System.Boolean IsClosed { get => GetIsClosed(); }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         protected IOStream(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -167,9 +125,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Clears the pending flag on <paramref name="stream"/>.
-        /// </summary>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='ClearPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe void ClearPending()
         {
@@ -240,48 +196,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Closes the stream, releasing resources related to it. This will also
-        /// close the individual input and output streams, if they are not already
-        /// closed.
-        /// </summary>
-        /// <remarks>
-        /// Once the stream is closed, all other operations will return
-        /// <see cref="IOErrorEnum.Closed"/>. Closing a stream multiple times will not
-        /// return an error.
-        /// 
-        /// Closing a stream will automatically flush any outstanding buffers
-        /// in the stream.
-        /// 
-        /// Streams will be automatically closed when the last reference
-        /// is dropped, but you might want to call this function to make sure
-        /// resources are released as early as possible.
-        /// 
-        /// Some streams might keep the backing store of the stream (e.g. a file
-        /// descriptor) open after the stream is closed. See the documentation for
-        /// the individual stream for details.
-        /// 
-        /// On failure the first error that happened will be reported, but the
-        /// close operation will finish as much as possible. A stream that failed
-        /// to close will still return <see cref="IOErrorEnum.Closed"/> for all operations.
-        /// Still, it is important to check and report the error to the user,
-        /// otherwise there might be a loss of data as all data might not be written.
-        /// 
-        /// If <paramref name="cancellable"/> is not NULL, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// Cancelling a close will still leave the stream closed, but some streams
-        /// can use a faster close that doesn't block to e.g. check errors.
-        /// 
-        /// The default implementation of this method just calls close on the
-        /// individual input/output streams.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='Close(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe void Close(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -345,25 +260,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Requests an asynchronous close of the stream, releasing resources
-        /// related to it. When the operation is finished <paramref name="callback"/> will be
-        /// called. You can then call <see cref="IOStream.CloseFinish"/> to get
-        /// the result of the operation.
-        /// </summary>
-        /// <remarks>
-        /// For behaviour details see <see cref="IOStream.Close"/>.
-        /// 
-        /// The asynchronous methods have a default fallback that uses threads
-        /// to implement asynchronicity, so they are optional for inheriting
-        /// classes. However, if you override one you must override all.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the io priority of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Threading.Tasks.Task CloseAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -453,14 +350,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Gets the input stream for this object. This is used
-        /// for reading.
-        /// </summary>
-        /// <returns>
-        /// a <see cref="InputStream"/>, owned by the <see cref="IOStream"/>.
-        /// Do not free.
-        /// </returns>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='GetInputStream()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe GISharp.Lib.Gio.InputStream GetInputStream()
         {
@@ -490,14 +380,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Gets the output stream for this object. This is used for
-        /// writing.
-        /// </summary>
-        /// <returns>
-        /// a <see cref="OutputStream"/>, owned by the <see cref="IOStream"/>.
-        /// Do not free.
-        /// </returns>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='GetOutputStream()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe GISharp.Lib.Gio.OutputStream GetOutputStream()
         {
@@ -525,12 +408,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Checks if a stream has pending actions.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if <paramref name="stream"/> has pending actions.
-        /// </returns>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='HasPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Boolean HasPending()
         {
@@ -558,12 +436,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <summary>
-        /// Checks if a stream is closed.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if the stream is closed.
-        /// </returns>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='GetIsClosed()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe System.Boolean GetIsClosed()
         {
@@ -599,14 +472,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets <paramref name="stream"/> to have actions pending. If the pending flag is
-        /// already set or <paramref name="stream"/> is closed, it will return <c>false</c> and set
-        /// <paramref name="error"/>.
-        /// </summary>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='SetPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe void SetPending()
         {
@@ -678,28 +544,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asyncronously splice the output stream of <paramref name="stream1"/> to the input stream of
-        /// <paramref name="stream2"/>, and splice the output stream of <paramref name="stream2"/> to the input stream of
-        /// <paramref name="stream1"/>.
-        /// </summary>
-        /// <remarks>
-        /// When the operation is finished <paramref name="callback"/> will be called.
-        /// You can then call <see cref="IOStream.SpliceFinish"/> to get the
-        /// result of the operation.
-        /// </remarks>
-        /// <param name="stream2">
-        /// a <see cref="IOStream"/>.
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="IOStreamSpliceFlags"/>.
-        /// </param>
-        /// <param name="ioPriority">
-        /// the io priority of the request.
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe System.Threading.Tasks.Task SpliceAsync(GISharp.Lib.Gio.IOStream stream2, GISharp.Lib.Gio.IOStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -715,28 +560,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <summary>
-        /// Requests an asynchronous close of the stream, releasing resources
-        /// related to it. When the operation is finished <paramref name="callback"/> will be
-        /// called. You can then call <see cref="IOStream.CloseFinish"/> to get
-        /// the result of the operation.
-        /// </summary>
-        /// <remarks>
-        /// For behaviour details see <see cref="IOStream.Close"/>.
-        /// 
-        /// The asynchronous methods have a default fallback that uses threads
-        /// to implement asynchronicity, so they are optional for inheriting
-        /// classes. However, if you override one you must override all.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the io priority of the request
-        /// </param>
-        /// <param name="callback">
-        /// callback to call when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional cancellable object
-        /// </param>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedCloseAsync))]
         protected virtual unsafe void DoCloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
@@ -748,18 +572,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<IOStreamClass.UnmanagedCloseAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);
         }
 
-        /// <summary>
-        /// Closes a stream.
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if stream was successfully closed, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedCloseFinish))]
         protected virtual unsafe void DoCloseFinish(GISharp.Lib.Gio.IAsyncResult result)
@@ -775,9 +588,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoCloseFn(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedCloseFn))]
         protected virtual unsafe void DoCloseFn(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -792,14 +603,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Gets the input stream for this object. This is used
-        /// for reading.
-        /// </summary>
-        /// <returns>
-        /// a <see cref="InputStream"/>, owned by the <see cref="IOStream"/>.
-        /// Do not free.
-        /// </returns>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoGetInputStream()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedGetInputStream))]
         protected virtual unsafe GISharp.Lib.Gio.InputStream DoGetInputStream()
@@ -810,14 +614,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Gets the output stream for this object. This is used for
-        /// writing.
-        /// </summary>
-        /// <returns>
-        /// a <see cref="OutputStream"/>, owned by the <see cref="IOStream"/>.
-        /// Do not free.
-        /// </returns>
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoGetOutputStream()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedGetOutputStream))]
         protected virtual unsafe GISharp.Lib.Gio.OutputStream DoGetOutputStream()

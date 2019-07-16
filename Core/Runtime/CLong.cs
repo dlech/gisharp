@@ -19,38 +19,81 @@ namespace GISharp.Runtime
         /// </summary>
         public static readonly CLong MaxValue = new CLong(maxValue);
 
+        /// <summary>
+        /// Add
+        /// </summary>
         public static CLong operator +(CLong a, CLong b) => new CLong(a.value + b.value);
 
+        /// <summary>
+        /// Subtract
+        /// </summary>
         public static CLong operator -(CLong a, CLong b) => new CLong(a.value - b.value);
 
+        /// <summary>
+        /// Multiply
+        /// </summary>
         public static CLong operator *(CLong a, CLong b) => new CLong(a.value * b.value);
 
+        /// <summary>
+        /// Divide
+        /// </summary>
         public static CLong operator /(CLong a, CLong b) => new CLong(a.value / b.value);
 
+        /// <summary>
+        /// Modulo
+        /// </summary>
         public static CLong operator %(CLong a, CLong b) => new CLong(a.value % b.value);
 
+        /// <summary>
+        /// Bitwise shift left
+        /// </summary>
         public static CLong operator <<(CLong a, int b) => new CLong(a.value << b);
 
+        /// <summary>
+        /// Bitwise shift right
+        /// </summary>
         public static CLong operator >>(CLong a, int b) => new CLong(a.value >> b);
 
+        /// <summary>
+        /// Test if less than
+        /// </summary>
         public static bool operator <(CLong a, CLong b) => a.value < b.value;
 
+        /// <summary>
+        /// Test if greater than
+        /// </summary>
         public static bool operator >(CLong a, CLong b) => a.value > b.value;
 
+        /// <summary>
+        /// Test if less than or equal to
+        /// </summary>
         public static bool operator <=(CLong a, CLong b) => a.value <= b.value;
 
+        /// <summary>
+        /// Test if greater than or equal to
+        /// </summary>
         public static bool operator >=(CLong a, CLong b) => a.value >= b.value;
 
+        /// <summary>
+        /// Convert from int
+        /// </summary>
         public static implicit operator CLong(int n) => new CLong(n);
 
+        /// <summary>
+        /// Convert to long
+        /// </summary>
         public static implicit operator long(CLong n) => n.value;
 
+        /// <inheritdoc />
         public bool Equals(CLong other) => value.Equals(other.value);
 
+        /// <inheritdoc />
         public bool Equals(int other) => value.Equals(other);
 
+        /// <inheritdoc />
         public bool Equals(long other) => value.Equals(other);
 
+        /// <inheritdoc />
         public override bool Equals(object obj)
         {
             if (obj is CLong clong) {
@@ -59,8 +102,10 @@ namespace GISharp.Runtime
             return value.Equals(obj);
         }
 
+        /// <inheritdoc />
         public override int GetHashCode() => value.GetHashCode();
 
+        /// <inheritdoc />
         public override string ToString() => value.ToString();
     }
 }

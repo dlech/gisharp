@@ -2,54 +2,36 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// A `GOptionContext` struct defines which options
-    /// are accepted by the commandline option parser. The struct has only private
-    /// fields and should not be directly accessed.
-    /// </summary>
+    /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext']/*" />
     public sealed partial class OptionContext : GISharp.Runtime.Opaque
     {
-        /// <summary>
-        /// Returns the description. See <see cref="OptionContext.SetDescription"/>.
-        /// </summary>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='Description']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Lib.GLib.NullableUnownedUtf8 Description { get => GetDescription(); set => SetDescription(value); }
 
-        /// <summary>
-        /// Returns whether automatic `--help` generation
-        /// is turned on for <paramref name="context"/>. See <see cref="OptionContext.SetHelpEnabled"/>.
-        /// </summary>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='HelpEnabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean HelpEnabled { get => GetHelpEnabled(); set => SetHelpEnabled(value); }
 
-        /// <summary>
-        /// Returns whether unknown options are ignored or not. See
-        /// <see cref="OptionContext.SetIgnoreUnknownOptions"/>.
-        /// </summary>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='IgnoreUnknownOptions']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean IgnoreUnknownOptions { get => GetIgnoreUnknownOptions(); set => SetIgnoreUnknownOptions(value); }
 
-        /// <summary>
-        /// Returns a pointer to the main group of <paramref name="context"/>.
-        /// </summary>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='MainGroup']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.Lib.GLib.OptionGroup MainGroup { get => GetMainGroup(); set => SetMainGroup(value); }
 
-        /// <summary>
-        /// Returns whether strict POSIX code is enabled.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="OptionContext.SetStrictPosix"/> for more information.
-        /// </remarks>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='StrictPosix']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public System.Boolean StrictPosix { get => GetStrictPosix(); set => SetStrictPosix(value); }
 
-        /// <summary>
-        /// Returns the summary. See <see cref="OptionContext.SetSummary"/>.
-        /// </summary>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='Summary']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Lib.GLib.NullableUnownedUtf8 Summary { get => GetSummary(); set => SetSummary(value); }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public OptionContext(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -95,37 +77,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameterString);
 
-        /// <summary>
-        /// Creates a new option context.
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="parameterString"/> can serve multiple purposes. It can be used
-        /// to add descriptions for "rest" arguments, which are not parsed by
-        /// the <see cref="OptionContext"/>, typically something like "FILES" or
-        /// "FILE1 FILE2...". If you are using #G_OPTION_REMAINING for
-        /// collecting "rest" arguments, GLib handles this automatically by
-        /// using the <paramref name="argDescription"/> of the corresponding <see cref="OptionEntry"/> in
-        /// the usage summary.
-        /// 
-        /// Another usage is to give a short summary of the program
-        /// functionality, like " - frob the strings", which will be displayed
-        /// in the same line as the usage. For a longer description of the
-        /// program functionality that should be displayed as a paragraph
-        /// below the usage line, use <see cref="OptionContext.SetSummary"/>.
-        /// 
-        /// Note that the <paramref name="parameterString"/> is translated using the
-        /// function set with <see cref="OptionContext.SetTranslateFunc"/>, so
-        /// it should normally be passed untranslated.
-        /// </remarks>
-        /// <param name="parameterString">
-        /// a string which is displayed in
-        ///    the first line of `--help` output, after the usage summary
-        ///    `programname [OPTION...]`
-        /// </param>
-        /// <returns>
-        /// a newly created <see cref="OptionContext"/>, which must be
-        ///    freed with <see cref="OptionContext.Free"/> after use.
-        /// </returns>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString)
         {
@@ -157,14 +109,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:full direction:in */
         System.IntPtr group);
 
-        /// <summary>
-        /// Adds a <see cref="OptionGroup"/> to the <paramref name="context"/>, so that parsing with <paramref name="context"/>
-        /// will recognize the options in the group. Note that this will take
-        /// ownership of the <paramref name="group"/> and thus the <paramref name="group"/> should not be freed.
-        /// </summary>
-        /// <param name="group">
-        /// the group to add
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='AddGroup(GISharp.Lib.GLib.OptionGroup)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void AddGroup(GISharp.Lib.GLib.OptionGroup group)
         {
@@ -211,12 +156,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <summary>
-        /// Returns the description. See <see cref="OptionContext.SetDescription"/>.
-        /// </summary>
-        /// <returns>
-        /// the description
-        /// </returns>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetDescription()']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetDescription()
         {
@@ -262,24 +202,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr group);
 
-        /// <summary>
-        /// Returns a formatted, translated help text for the given context.
-        /// To obtain the text produced by `--help`, call
-        /// `g_option_context_get_help (context, TRUE, NULL)`.
-        /// To obtain the text produced by `--help-all`, call
-        /// `g_option_context_get_help (context, FALSE, NULL)`.
-        /// To obtain the help text for an option group, call
-        /// `g_option_context_get_help (context, FALSE, group)`.
-        /// </summary>
-        /// <param name="mainHelp">
-        /// if <c>true</c>, only include the main group
-        /// </param>
-        /// <param name="group">
-        /// the <see cref="OptionGroup"/> to create help for, or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// A newly allocated string containing the help text
-        /// </returns>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetHelp(System.Boolean,GISharp.Lib.GLib.OptionGroup?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public unsafe GISharp.Lib.GLib.Utf8 GetHelp(System.Boolean mainHelp, GISharp.Lib.GLib.OptionGroup? group)
         {
@@ -310,13 +233,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <summary>
-        /// Returns whether automatic `--help` generation
-        /// is turned on for <paramref name="context"/>. See <see cref="OptionContext.SetHelpEnabled"/>.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if automatic help generation is turned on.
-        /// </returns>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetHelpEnabled()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe System.Boolean GetHelpEnabled()
         {
@@ -345,13 +262,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <summary>
-        /// Returns whether unknown options are ignored or not. See
-        /// <see cref="OptionContext.SetIgnoreUnknownOptions"/>.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if unknown options are ignored.
-        /// </returns>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetIgnoreUnknownOptions()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe System.Boolean GetIgnoreUnknownOptions()
         {
@@ -381,14 +292,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <summary>
-        /// Returns a pointer to the main group of <paramref name="context"/>.
-        /// </summary>
-        /// <returns>
-        /// the main group of <paramref name="context"/>, or <c>null</c> if
-        ///  <paramref name="context"/> doesn't have a main group. Note that group belongs to
-        ///  <paramref name="context"/> and should not be modified or freed.
-        /// </returns>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetMainGroup()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe GISharp.Lib.GLib.OptionGroup GetMainGroup()
         {
@@ -419,15 +323,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <summary>
-        /// Returns whether strict POSIX code is enabled.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="OptionContext.SetStrictPosix"/> for more information.
-        /// </remarks>
-        /// <returns>
-        /// <c>true</c> if strict POSIX is enabled, <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetStrictPosix()']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         private unsafe System.Boolean GetStrictPosix()
         {
@@ -455,12 +351,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <summary>
-        /// Returns the summary. See <see cref="OptionContext.SetSummary"/>.
-        /// </summary>
-        /// <returns>
-        /// the summary
-        /// </returns>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetSummary()']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetSummary()
         {
@@ -497,18 +388,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr description);
 
-        /// <summary>
-        /// Adds a string to be displayed in `--help` output after the list
-        /// of options. This text often includes a bug reporting address.
-        /// </summary>
-        /// <remarks>
-        /// Note that the summary is translated (see
-        /// <see cref="OptionContext.SetTranslateFunc"/>).
-        /// </remarks>
-        /// <param name="description">
-        /// a string to be shown in `--help` output
-        ///   after the list of options, or <c>null</c>
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8 description)
         {
@@ -517,18 +397,7 @@ namespace GISharp.Lib.GLib
             g_option_context_set_description(context_, description_);
         }
 
-        /// <summary>
-        /// Adds a string to be displayed in `--help` output after the list
-        /// of options. This text often includes a bug reporting address.
-        /// </summary>
-        /// <remarks>
-        /// Note that the summary is translated (see
-        /// <see cref="OptionContext.SetTranslateFunc"/>).
-        /// </remarks>
-        /// <param name="description">
-        /// a string to be shown in `--help` output
-        ///   after the list of options, or <c>null</c>
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetDescription(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetDescription(System.String? description)
         {
@@ -560,15 +429,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean helpEnabled);
 
-        /// <summary>
-        /// Enables or disables automatic generation of `--help` output.
-        /// By default, g_option_context_parse() recognizes `--help`, `-h`,
-        /// `-?`, `--help-all` and `--help-groupname` and creates suitable
-        /// output to stdout.
-        /// </summary>
-        /// <param name="helpEnabled">
-        /// <c>true</c> to enable `--help`, <c>false</c> to disable it
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetHelpEnabled(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe void SetHelpEnabled(System.Boolean helpEnabled)
         {
@@ -606,20 +467,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean ignoreUnknown);
 
-        /// <summary>
-        /// Sets whether to ignore unknown options or not. If an argument is
-        /// ignored, it is left in the <paramref name="argv"/> array after parsing. By default,
-        /// g_option_context_parse() treats unknown options as error.
-        /// </summary>
-        /// <remarks>
-        /// This setting does not affect non-option arguments (i.e. arguments
-        /// which don't start with a dash). But note that GOption cannot reliably
-        /// determine whether a non-option belongs to a preceding unknown option.
-        /// </remarks>
-        /// <param name="ignoreUnknown">
-        /// <c>true</c> to ignore unknown options, <c>false</c> to produce
-        ///    an error when unknown options are met
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetIgnoreUnknownOptions(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe void SetIgnoreUnknownOptions(System.Boolean ignoreUnknown)
         {
@@ -652,15 +500,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:full direction:in */
         System.IntPtr group);
 
-        /// <summary>
-        /// Sets a <see cref="OptionGroup"/> as main group of the <paramref name="context"/>.
-        /// This has the same effect as calling <see cref="OptionContext.AddGroup"/>,
-        /// the only difference is that the options in the main group are
-        /// treated differently when generating `--help` output.
-        /// </summary>
-        /// <param name="group">
-        /// the group to set as main group
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetMainGroup(GISharp.Lib.GLib.OptionGroup)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe void SetMainGroup(GISharp.Lib.GLib.OptionGroup group)
         {
@@ -714,36 +554,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean strictPosix);
 
-        /// <summary>
-        /// Sets strict POSIX mode.
-        /// </summary>
-        /// <remarks>
-        /// By default, this mode is disabled.
-        /// 
-        /// In strict POSIX mode, the first non-argument parameter encountered
-        /// (eg: filename) terminates argument processing.  Remaining arguments
-        /// are treated as non-options and are not attempted to be parsed.
-        /// 
-        /// If strict POSIX mode is disabled then parsing is done in the GNU way
-        /// where option arguments can be freely mixed with non-options.
-        /// 
-        /// As an example, consider "ls foo -l".  With GNU style parsing, this
-        /// will list "foo" in long mode.  In strict POSIX style, this will list
-        /// the files named "foo" and "-l".
-        /// 
-        /// It may be useful to force strict POSIX mode when creating "verb
-        /// style" command line tools.  For example, the "gsettings" command line
-        /// tool supports the global option "--schemadir" as well as many
-        /// subcommands ("get", "set", etc.) which each have their own set of
-        /// arguments.  Using strict POSIX mode will allow parsing the global
-        /// options up to the verb name while leaving the remaining options to be
-        /// parsed by the relevant subcommand (which can be determined by
-        /// examining the verb name, which should be present in argv[1] after
-        /// parsing).
-        /// </remarks>
-        /// <param name="strictPosix">
-        /// the new value
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetStrictPosix(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         private unsafe void SetStrictPosix(System.Boolean strictPosix)
         {
@@ -780,19 +591,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr summary);
 
-        /// <summary>
-        /// Adds a string to be displayed in `--help` output before the list
-        /// of options. This is typically a summary of the program functionality.
-        /// </summary>
-        /// <remarks>
-        /// Note that the summary is translated (see
-        /// <see cref="OptionContext.SetTranslateFunc"/> and
-        /// <see cref="OptionContext.SetTranslationDomain"/>).
-        /// </remarks>
-        /// <param name="summary">
-        /// a string to be shown in `--help` output
-        ///  before the list of options, or <c>null</c>
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8 summary)
         {
@@ -801,19 +600,7 @@ namespace GISharp.Lib.GLib
             g_option_context_set_summary(context_, summary_);
         }
 
-        /// <summary>
-        /// Adds a string to be displayed in `--help` output before the list
-        /// of options. This is typically a summary of the program functionality.
-        /// </summary>
-        /// <remarks>
-        /// Note that the summary is translated (see
-        /// <see cref="OptionContext.SetTranslateFunc"/> and
-        /// <see cref="OptionContext.SetTranslationDomain"/>).
-        /// </remarks>
-        /// <param name="summary">
-        /// a string to be shown in `--help` output
-        ///  before the list of options, or <c>null</c>
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetSummary(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetSummary(System.String? summary)
         {
@@ -865,23 +652,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr destroyNotify);
 
-        /// <summary>
-        /// Sets the function which is used to translate the contexts
-        /// user-visible strings, for `--help` output. If <paramref name="func"/> is <c>null</c>,
-        /// strings are not translated.
-        /// </summary>
-        /// <remarks>
-        /// Note that option groups have their own translation functions,
-        /// this function only affects the <paramref name="parameterString"/> (see <see cref="OptionContext.New"/>),
-        /// the summary (see <see cref="OptionContext.SetSummary"/>) and the description
-        /// (see <see cref="OptionContext.SetDescription"/>).
-        /// 
-        /// If you are using gettext(), you only need to set the translation
-        /// domain, see <see cref="OptionContext.SetTranslationDomain"/>.
-        /// </remarks>
-        /// <param name="func">
-        /// the <see cref="TranslateFunc"/>, or <c>null</c>
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
@@ -912,13 +683,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr domain);
 
-        /// <summary>
-        /// A convenience function to use gettext() for translating
-        /// user-visible strings.
-        /// </summary>
-        /// <param name="domain">
-        /// the domain to use
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
@@ -927,13 +692,7 @@ namespace GISharp.Lib.GLib
             g_option_context_set_translation_domain(context_, domain_);
         }
 
-        /// <summary>
-        /// A convenience function to use gettext() for translating
-        /// user-visible strings.
-        /// </summary>
-        /// <param name="domain">
-        /// the domain to use
-        /// </param>
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetTranslationDomain(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetTranslationDomain(System.String domain)
         {

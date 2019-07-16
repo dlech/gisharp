@@ -1,0 +1,144 @@
+<declaration>
+
+<member name='DoAddAction(GISharp.Lib.Gio.IAction)'>
+<summary>
+Adds an action to the this instance.
+</summary>
+<remarks>
+If the action map already contains an action with the same name
+as this instance then the old action is dropped from the action map.
+
+The action map takes its own reference on this instance.
+</remarks>
+<param name="action">
+a <see cref="IAction"/>
+</param>
+</member>
+
+<member name='DoLookupAction(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Looks up the action with the name this instance in this instance.
+</summary>
+<remarks>
+If no such action exists, returns <c>null</c>.
+</remarks>
+<param name="actionName">
+the name of an action
+</param>
+<returns>
+a <see cref="IAction"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Removes the named action from the action map.
+</summary>
+<remarks>
+If no action of this name is in the map then nothing happens.
+</remarks>
+<param name="actionName">
+the name of the action
+</param>
+</member>
+
+<member name='IActionMap'>
+<summary>
+The GActionMap interface is implemented by <see cref="IActionGroup"/>
+implementations that operate by containing a number of
+named <see cref="IAction"/> instances, such as #GSimpleActionGroup.
+</summary>
+<remarks>
+One useful application of this interface is to map the
+names of actions from various action groups to unique,
+prefixed names (e.g. by prepending "app." or "win.").
+This is the motivation for the 'Map' part of the interface
+name.
+</remarks>
+</member>
+
+<member name='AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)'>
+<summary>
+Adds an action to the this instance.
+</summary>
+<remarks>
+If the action map already contains an action with the same name
+as this instance then the old action is dropped from the action map.
+
+The action map takes its own reference on this instance.
+</remarks>
+<param name="actionMap">
+a <see cref="IActionMap"/>
+</param>
+<param name="action">
+a <see cref="IAction"/>
+</param>
+</member>
+
+<member name='LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Looks up the action with the name this instance in this instance.
+</summary>
+<remarks>
+If no such action exists, returns <c>null</c>.
+</remarks>
+<param name="actionMap">
+a <see cref="IActionMap"/>
+</param>
+<param name="actionName">
+the name of an action
+</param>
+<returns>
+a <see cref="IAction"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='LookupAction(GISharp.Lib.Gio.IActionMap,System.String)'>
+<summary>
+Looks up the action with the name this instance in this instance.
+</summary>
+<remarks>
+If no such action exists, returns <c>null</c>.
+</remarks>
+<param name="actionMap">
+a <see cref="IActionMap"/>
+</param>
+<param name="actionName">
+the name of an action
+</param>
+<returns>
+a <see cref="IAction"/>, or <c>null</c>
+</returns>
+</member>
+
+<member name='RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Removes the named action from the action map.
+</summary>
+<remarks>
+If no action of this name is in the map then nothing happens.
+</remarks>
+<param name="actionMap">
+a <see cref="IActionMap"/>
+</param>
+<param name="actionName">
+the name of the action
+</param>
+</member>
+
+<member name='RemoveAction(GISharp.Lib.Gio.IActionMap,System.String)'>
+<summary>
+Removes the named action from the action map.
+</summary>
+<remarks>
+If no action of this name is in the map then nothing happens.
+</remarks>
+<param name="actionMap">
+a <see cref="IActionMap"/>
+</param>
+<param name="actionName">
+the name of the action
+</param>
+</member>
+
+</declaration>

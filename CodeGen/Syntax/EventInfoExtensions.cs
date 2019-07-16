@@ -36,7 +36,13 @@ namespace GISharp.CodeGen.Syntax
                 .WithSemicolonToken(Token(SemicolonToken));
 
             return EventDeclaration(typeName, info.Name)
-                .AddModifiers(Token(PublicKeyword))
+                .AddModifiers(Token(PublicKeyword)
+                    // Can't add leading trivia to EventDeclaration, so have to
+                    // attach it to public keyword.
+                    // TODO: inheritdoc only makes sense when implementing an
+                    // interface. If info is GirEventInfo, we should be able to
+                    // get docs from the GIR XML
+                    .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\r\n")))
                 .AddAccessorListAccessors(addAccessor, removeAccessor);
         }
 

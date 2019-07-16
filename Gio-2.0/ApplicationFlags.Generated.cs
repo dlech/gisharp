@@ -2,72 +2,35 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Flags used to define the behaviour of a <see cref="Application"/>.
-    /// </summary>
+    /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
     [GISharp.Runtime.GTypeAttribute("GApplicationFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
     public enum ApplicationFlags
     {
-        /// <summary>
-        /// Default
-        /// </summary>
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='FlagsNone']/*" />
         FlagsNone = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// Run as a service. In this mode, registration
-        ///      fails if the service is already running, and the application
-        ///      will initially wait up to 10 seconds for an initial activation
-        ///      message to arrive.
-        /// </summary>
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='IsService']/*" />
         IsService = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <summary>
-        /// Don't try to become the primary instance.
-        /// </summary>
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='IsLauncher']/*" />
         IsLauncher = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <summary>
-        /// This application handles opening files (in
-        ///     the primary instance). Note that this flag only affects the default
-        ///     implementation of local_command_line(), and has no effect if
-        ///     <see cref="ApplicationFlags.HandlesCommandLine"/> is given.
-        ///     See <see cref="Application.Run"/> for details.
-        /// </summary>
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='HandlesOpen']/*" />
         HandlesOpen = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <summary>
-        /// This application handles command line
-        ///     arguments (in the primary instance). Note that this flag only affect
-        ///     the default implementation of local_command_line().
-        ///     See <see cref="Application.Run"/> for details.
-        /// </summary>
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='HandlesCommandLine']/*" />
         HandlesCommandLine = 0b0000_0000_0000_0000_0000_0000_0000_1000,
-        /// <summary>
-        /// Send the environment of the
-        ///     launching process to the primary instance. Set this flag if your
-        ///     application is expected to behave differently depending on certain
-        ///     environment variables. For instance, an editor might be expected
-        ///     to use the `GIT_COMMITTER_NAME` environment variable
-        ///     when editing a git commit message. The environment is available
-        ///     to the <see cref="Application"/>::command-line signal handler, via
-        ///     <see cref="ApplicationCommandLine.GetEnvironmentVariable"/>.
-        /// </summary>
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='SendEnvironment']/*" />
         SendEnvironment = 0b0000_0000_0000_0000_0000_0000_0001_0000,
-        /// <summary>
-        /// Make no attempts to do any of the typical
-        ///     single-instance application negotiation, even if the application
-        ///     ID is given.  The application neither attempts to become the
-        ///     owner of the application ID nor does it check if an existing
-        ///     owner already exists.  Everything occurs in the local process.
-        /// </summary>
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='NonUnique']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         NonUnique = 0b0000_0000_0000_0000_0000_0000_0010_0000,
-        /// <summary>
-        /// Allow users to override the
-        ///     application ID from the command line with `--gapplication-app-id`.
-        /// </summary>
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='CanOverrideAppId']/*" />
         [GISharp.Runtime.SinceAttribute("2.48")]
         CanOverrideAppId = 0b0000_0000_0000_0000_0000_0000_0100_0000
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="ApplicationFlags"/>.
+    /// </summary>
     public partial class ApplicationFlagsExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_application_flags_get_type();

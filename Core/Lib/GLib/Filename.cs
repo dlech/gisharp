@@ -7,6 +7,9 @@ namespace GISharp.Lib.GLib
 {
     public sealed class Filename : Opaque
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Filename(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {

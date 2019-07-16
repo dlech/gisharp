@@ -1,0 +1,48 @@
+<declaration>
+
+<member name='None'>
+<summary>
+No flags set.
+</summary>
+</member>
+
+<member name='WatchMounts'>
+<summary>
+Watch for mount events.
+</summary>
+</member>
+
+<member name='SendMoved'>
+<summary>
+Pair DELETED and CREATED events caused
+  by file renames (moves) and send a single G_FILE_MONITOR_EVENT_MOVED
+  event instead (NB: not supported on all backends; the default
+  behaviour -without specifying this flag- is to send single DELETED
+  and CREATED events). use
+  <see cref="FileMonitorFlags.WatchMoves"/> instead.
+</summary>
+</member>
+
+<member name='WatchHardLinks'>
+<summary>
+Watch for changes to the file made
+  via another hard link.
+</summary>
+</member>
+
+<member name='WatchMoves'>
+<summary>
+Watch for rename operations on a
+  monitored directory.  This causes %G_FILE_MONITOR_EVENT_RENAMED,
+  %G_FILE_MONITOR_EVENT_MOVED_IN and %G_FILE_MONITOR_EVENT_MOVED_OUT
+  events to be emitted when possible.
+</summary>
+</member>
+
+<member name='FileMonitorFlags'>
+<summary>
+Flags used to set what a #GFileMonitor will watch for.
+</summary>
+</member>
+
+</declaration>

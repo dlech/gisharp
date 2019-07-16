@@ -2,29 +2,59 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// The virtual function table for <see cref="IActionGroup"/>.
-    /// </summary>
+    /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionGroupInterface']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
     public sealed class ActionGroupInterface : GISharp.Lib.GObject.TypeInterface
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='HasAction']/*" />
             public System.IntPtr HasAction;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ListActions']/*" />
             public System.IntPtr ListActions;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionEnabled']/*" />
             public System.IntPtr GetActionEnabled;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionParameterType']/*" />
             public System.IntPtr GetActionParameterType;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionStateType']/*" />
             public System.IntPtr GetActionStateType;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionStateHint']/*" />
             public System.IntPtr GetActionStateHint;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionState']/*" />
             public System.IntPtr GetActionState;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ChangeActionState']/*" />
             public System.IntPtr ChangeActionState;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActivateAction']/*" />
             public System.IntPtr ActivateAction;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionAdded']/*" />
             public System.IntPtr ActionAdded;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionRemoved']/*" />
             public System.IntPtr ActionRemoved;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionEnabledChanged']/*" />
             public System.IntPtr ActionEnabledChanged;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionStateChanged']/*" />
             public System.IntPtr ActionStateChanged;
+
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='QueryAction']/*" />
             public System.IntPtr QueryAction;
 #pragma warning restore CS0649
         }
@@ -59,8 +89,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(actionStateChangedOffset, ActionStateChangedMarshal.Create);
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='HasAction']/*" />
         public delegate System.Boolean HasAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -77,6 +111,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class HasActionMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedHasAction Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedHasAction(System.IntPtr actionGroup_, System.IntPtr actionName_)
@@ -102,8 +139,12 @@ System.IntPtr actionName);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ListActions']/*" />
         public delegate GISharp.Lib.GLib.Strv ListActions();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <array type="gchar**" zero-terminated="1" name="GLib.Strv" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
 *   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" />
@@ -119,6 +160,9 @@ System.IntPtr actionGroup);
         /// </summary>
         public static class ListActionsMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedListActions Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedListActions(System.IntPtr actionGroup_)
@@ -143,8 +187,12 @@ System.IntPtr actionGroup);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionEnabled']/*" />
         public delegate System.Boolean GetActionEnabled(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -161,6 +209,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class GetActionEnabledMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetActionEnabled Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedGetActionEnabled(System.IntPtr actionGroup_, System.IntPtr actionName_)
@@ -186,8 +237,12 @@ System.IntPtr actionName);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionParameterType']/*" />
         public delegate GISharp.Lib.GLib.VariantType? GetActionParameterType(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:out */
@@ -204,6 +259,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class GetActionParameterTypeMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetActionParameterType Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetActionParameterType(System.IntPtr actionGroup_, System.IntPtr actionName_)
@@ -229,8 +287,12 @@ System.IntPtr actionName);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionStateType']/*" />
         public delegate GISharp.Lib.GLib.VariantType? GetActionStateType(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:out */
@@ -247,6 +309,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class GetActionStateTypeMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetActionStateType Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetActionStateType(System.IntPtr actionGroup_, System.IntPtr actionName_)
@@ -272,8 +337,12 @@ System.IntPtr actionName);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionStateHint']/*" />
         public delegate GISharp.Lib.GLib.Variant? GetActionStateHint(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
@@ -290,6 +359,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class GetActionStateHintMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetActionStateHint Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetActionStateHint(System.IntPtr actionGroup_, System.IntPtr actionName_)
@@ -315,8 +387,12 @@ System.IntPtr actionName);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionState']/*" />
         public delegate GISharp.Lib.GLib.Variant? GetActionState(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
@@ -333,6 +409,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class GetActionStateMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetActionState Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetActionState(System.IntPtr actionGroup_, System.IntPtr actionName_)
@@ -358,8 +437,12 @@ System.IntPtr actionName);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ChangeActionState']/*" />
         public delegate void ChangeActionState(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant value);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -379,6 +462,9 @@ System.IntPtr value);
         /// </summary>
         public static class ChangeActionStateMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedChangeActionState Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedChangeActionState(System.IntPtr actionGroup_, System.IntPtr actionName_, System.IntPtr value_)
@@ -401,8 +487,12 @@ System.IntPtr value);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActivateAction']/*" />
         public delegate void ActivateAction(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? parameter);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -422,6 +512,9 @@ System.IntPtr parameter);
         /// </summary>
         public static class ActivateActionMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedActivateAction Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedActivateAction(System.IntPtr actionGroup_, System.IntPtr actionName_, System.IntPtr parameter_)
@@ -444,8 +537,12 @@ System.IntPtr parameter);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionAdded']/*" />
         public delegate void ActionAdded(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -462,6 +559,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class ActionAddedMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedActionAdded Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedActionAdded(System.IntPtr actionGroup_, System.IntPtr actionName_)
@@ -483,8 +583,12 @@ System.IntPtr actionName);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionRemoved']/*" />
         public delegate void ActionRemoved(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -501,6 +605,9 @@ System.IntPtr actionName);
         /// </summary>
         public static class ActionRemovedMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedActionRemoved Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedActionRemoved(System.IntPtr actionGroup_, System.IntPtr actionName_)
@@ -522,8 +629,12 @@ System.IntPtr actionName);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionEnabledChanged']/*" />
         public delegate void ActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -543,6 +654,9 @@ GISharp.Runtime.Boolean enabled);
         /// </summary>
         public static class ActionEnabledChangedMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedActionEnabledChanged Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedActionEnabledChanged(System.IntPtr actionGroup_, System.IntPtr actionName_, GISharp.Runtime.Boolean enabled_)
@@ -565,8 +679,12 @@ GISharp.Runtime.Boolean enabled);
             }
         }
 
+        /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionStateChanged']/*" />
         public delegate void ActionStateChanged(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant state);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -586,6 +704,9 @@ System.IntPtr state);
         /// </summary>
         public static class ActionStateChangedMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedActionStateChanged Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedActionStateChanged(System.IntPtr actionGroup_, System.IntPtr actionName_, System.IntPtr state_)
@@ -608,6 +729,9 @@ System.IntPtr state);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public ActionGroupInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

@@ -30,7 +30,8 @@ namespace GISharp.CodeGen.Syntax
                 .WithModifiers(property.GetCommonAccessModifiers())
                 .WithAttributeLists(property.GetAttributeLists())
                 .AddAttributeLists(property.GetGPropertyAttributeList())
-                .WithLeadingTrivia(property.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(property.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             if (property.IsReadable) {
                 var getAccessor = AccessorDeclaration(GetAccessorDeclaration)
@@ -91,7 +92,8 @@ namespace GISharp.CodeGen.Syntax
             var syntax = PropertyDeclaration(type, property.ManagedName)
                 .WithAttributeLists(property.GetCommonAttributeLists())
                 .AddAttributeLists(property.GetGPropertyAttributeList())
-                .WithLeadingTrivia(property.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(property.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             if (property.IsReadable) {
                 var getAccessor = AccessorDeclaration(GetAccessorDeclaration)

@@ -2,20 +2,25 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Interface definition for <see cref="IAsyncResult"/>.
-    /// </summary>
+    /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='AsyncResultIface']/*" />
     public sealed class AsyncResultIface : GISharp.Lib.GObject.TypeInterface
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <summary>
-            /// The parent interface.
-            /// </summary>
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='GetUserData']/*" />
             public System.IntPtr GetUserData;
+
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='GetSourceObject']/*" />
             public System.IntPtr GetSourceObject;
+
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='IsTagged']/*" />
             public System.IntPtr IsTagged;
 #pragma warning restore CS0649
         }
@@ -30,8 +35,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(isTaggedOffset, IsTaggedMarshal.Create);
         }
 
+        /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='GetUserData']/*" />
         public delegate System.IntPtr GetUserData();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
@@ -45,6 +54,9 @@ System.IntPtr res);
         /// </summary>
         public static class GetUserDataMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetUserData Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetUserData(System.IntPtr res_)
@@ -69,8 +81,12 @@ System.IntPtr res);
             }
         }
 
+        /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='GetSourceObject']/*" />
         public delegate GISharp.Lib.GObject.Object? GetSourceObject();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
@@ -84,6 +100,9 @@ System.IntPtr res);
         /// </summary>
         public static class GetSourceObjectMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetSourceObject Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetSourceObject(System.IntPtr res_)
@@ -108,8 +127,12 @@ System.IntPtr res);
             }
         }
 
+        /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='IsTagged']/*" />
         public delegate System.Boolean IsTagged(System.IntPtr sourceTag);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -126,6 +149,9 @@ System.IntPtr sourceTag);
         /// </summary>
         public static class IsTaggedMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedIsTagged Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedIsTagged(System.IntPtr res_, System.IntPtr sourceTag_)
@@ -151,6 +177,9 @@ System.IntPtr sourceTag);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public AsyncResultIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

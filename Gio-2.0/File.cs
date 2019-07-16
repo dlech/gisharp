@@ -17,11 +17,7 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
         /// just like in <see cref="File.Copy"/>. The callback will run in the default main context
-        /// of the thread calling <see cref="File.CopyAsync"/> — the same context as <paramref name="callback"/> is
-        /// run in.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called. You can then call
-        /// <see cref="File.CopyFinish"/> to get the result of the operation.
+        /// of the thread calling <see cref="CopyAsync"/>.
         /// </remarks>
         /// <param name="source">
         /// input <see cref="IFile"/>
@@ -38,6 +34,10 @@ namespace GISharp.Lib.Gio
         /// <param name="cancellable">
         /// optional <see cref="Cancellable"/> object,
         ///     <c>null</c> to ignore
+        /// </param>
+        /// <param name="progressCallback">
+        /// function to callback with progress information, or <c>null</c> if
+        /// progress information is not needed. 
         /// </param>
         public unsafe static Tasks.Task CopyAsync(this IFile source, IFile destination, FileCopyFlags flags, int ioPriority = Priority.Default,
             Cancellable? cancellable = null, FileProgressCallback? progressCallback = null)

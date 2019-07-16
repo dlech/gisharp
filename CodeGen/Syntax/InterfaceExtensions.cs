@@ -19,7 +19,6 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static InterfaceDeclarationSyntax GetInterfaceDeclaration(this Interface @interface)
         {
-            var identifier = @interface.ManagedName;
             var baseTypes = SeparatedList(@interface.Prerequisites.Select(x => x.GetBaseType()));
 
             if (!baseTypes.Any(x => x.ToString().Contains("GInterface"))) {
@@ -27,11 +26,12 @@ namespace GISharp.CodeGen.Syntax
                 baseTypes = baseTypes.Add(SimpleBaseType(typeof(GInterface<Object>).ToSyntax()));
             }
 
-            var syntax = InterfaceDeclaration(identifier)
+            var syntax = InterfaceDeclaration(@interface.ManagedName)
                 .AddModifiers(Token(PublicKeyword), Token(PartialKeyword))
                 .WithBaseList(BaseList(baseTypes))
                 .WithAttributeLists(@interface.GetGTypeAttributeLists())
-                .WithLeadingTrivia(@interface.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(@interface.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             return syntax;
         }
@@ -55,7 +55,11 @@ namespace GISharp.CodeGen.Syntax
             // trim "I" prefix
             var identifier = @interface.ManagedName.Substring(1);
             return ClassDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword));
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword))
+                .WithLeadingTrivia(ParseLeadingTrivia(string.Format(@"/// <summary>
+                /// Extension methods for <see cref=""{0}""/>
+                /// </summary>
+                ", @interface.ManagedName)));
         }
 
         /// <summary>
@@ -74,7 +78,7 @@ namespace GISharp.CodeGen.Syntax
                 members = members.Insert(0, @interface.GetGTypeFieldDeclaration());
             }
 
-            return List<MemberDeclarationSyntax>(members);
+            return List(members);
         }
     }
 }

@@ -18,10 +18,7 @@ namespace GISharp.Lib.Gio
     /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
     System.IntPtr userData);
 
-    /// <summary>
-    /// This is the function type of the callback used for the #GSource
-    /// returned by <see cref="CancellableSource.New"/>.
-    /// </summary>
+    /// <include file="CancellableSourceFunc.xmldoc" path="declaration/member[@name='CancellableSourceFunc']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
     public delegate System.Boolean CancellableSourceFunc(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
@@ -42,6 +39,9 @@ namespace GISharp.Lib.Gio
             }
         }
 
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="CancellableSourceFunc"/>.
+        /// </summary>
         public static GISharp.Lib.Gio.CancellableSourceFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedCancellableSourceFunc>(callback_);
@@ -60,7 +60,7 @@ namespace GISharp.Lib.Gio
         /// Wraps a <see cref="CancellableSourceFunc"/> in an anonymous method that can
         /// be passed to unmanaged code.
         /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="callback">The managed callback method to wrap.</param>
         /// <param name="scope">The lifetime scope of the callback.</param>
         /// <returns>
         /// A tuple containing a pointer to the unmanaged callback, a pointer to the

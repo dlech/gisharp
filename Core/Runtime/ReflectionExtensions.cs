@@ -4,6 +4,9 @@ using System.Reflection;
 
 namespace GISharp.Runtime
 {
+    /// <summary>
+    /// Extension methods for reflection.
+    /// </summary>
     public static class ReflectionExtensions
     {
         /// <summary>
@@ -17,19 +20,19 @@ namespace GISharp.Runtime
         /// <param name="info">The PropertyInfo to check.</param>
         public static PropertyInfo? TryGetMatchingInterfacePropertyInfo(this PropertyInfo info)
         {
-            var accessor = info.GetGetMethod () ?? info.GetSetMethod ();
-            var interfaceMapping = info.DeclaringType.GetInterfaces ()
-                .Select (t => info.DeclaringType.GetInterfaceMap (t))
-                .SingleOrDefault (m => m.TargetMethods.Contains (accessor));
-            if (interfaceMapping.Equals (default(InterfaceMapping))) {
+            var accessor = info.GetGetMethod() ?? info.GetSetMethod();
+            var interfaceMapping = info.DeclaringType.GetInterfaces()
+                .Select(t => info.DeclaringType.GetInterfaceMap(t))
+                .SingleOrDefault(m => m.TargetMethods.Contains(accessor));
+            if (interfaceMapping.Equals(default(InterfaceMapping))) {
                 return null;
             }
 
             MethodInfo match = interfaceMapping.InterfaceMethods
-                .Select ((m, i) => new Tuple<MethodInfo, MethodInfo> (m, interfaceMapping.TargetMethods[i]))
-                .Single (t => t.Item2 == accessor).Item1;
-            var propInfo = interfaceMapping.InterfaceType.GetProperties ()
-                .Single (p => p.GetAccessors ().Contains (match));
+                .Select((m, i) => new Tuple<MethodInfo, MethodInfo>(m, interfaceMapping.TargetMethods[i]))
+                .Single(t => t.Item2 == accessor).Item1;
+            var propInfo = interfaceMapping.InterfaceType.GetProperties()
+                .Single(p => p.GetAccessors().Contains(match));
 
             return propInfo;
         }

@@ -43,7 +43,8 @@ namespace GISharp.CodeGen.Syntax
                 .WithAttributeLists(signal.GetCommonAttributeLists())
                 .AddAttributeLists(signal.GetGSignalAttributeList())
                 .WithSemicolonToken(Token(SemicolonToken))
-                .WithLeadingTrivia(signal.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(signal.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         static AttributeListSyntax GetGSignalAttributeList(this Signal signal)
@@ -90,7 +91,9 @@ namespace GISharp.CodeGen.Syntax
             return ClassDeclaration(name)
                 .AddModifiers(Token(PublicKeyword), Token(SealedKeyword))
                 .AddBaseListTypes(SimpleBaseType(eventArgsType))
-                .WithMembers(List(signal.GetEventArgsMembers()));
+                .WithMembers(List(signal.GetEventArgsMembers()))
+                .WithLeadingTrivia(signal.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         // emits all of the members for an EventArgs declaration
@@ -113,7 +116,9 @@ namespace GISharp.CodeGen.Syntax
                 yield return PropertyDeclaration(propertyType, propertyName)
                     .AddModifiers(Token(PublicKeyword))
                     .WithExpressionBody(ArrowExpressionClause(valueExpression))
-                    .WithSemicolonToken(Token(SemicolonToken));
+                    .WithSemicolonToken(Token(SemicolonToken))
+                    .WithLeadingTrivia(arg.Doc.GetDocCommentTrivia())
+                    .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
             }
 
             // the return parameter is a read/write property (if not void)
@@ -125,7 +130,9 @@ namespace GISharp.CodeGen.Syntax
                     .AddAccessorListAccessors(AccessorDeclaration(GetAccessorDeclaration)
                             .WithSemicolonToken(Token(SemicolonToken)),
                         AccessorDeclaration(SetAccessorDeclaration)
-                            .WithSemicolonToken(Token(SemicolonToken)));
+                            .WithSemicolonToken(Token(SemicolonToken)))
+                    .WithLeadingTrivia(signal.ReturnValue.Doc.GetDocCommentTrivia())
+                    .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
             }
 
             // generate a constructor
@@ -139,7 +146,11 @@ namespace GISharp.CodeGen.Syntax
             yield return ConstructorDeclaration($"{signal.ManagedName}EventArgs")
                 .AddModifiers(Token(PublicKeyword))
                 .WithParameterList(constructorParams)
-                .WithBody(body);
+                .WithBody(body)
+                .WithLeadingTrivia(ParseLeadingTrivia(string.Format(@"/// <summary>
+                /// Creates a new instance.
+                /// </summary>
+                ")));
         }
 
         // Gets an event declaration like:
@@ -169,7 +180,8 @@ namespace GISharp.CodeGen.Syntax
                 .AddAttributeLists(signal.GetGSignalAttributeList())
                 .AddModifiers(signal.GetCommonAccessModifiers().ToArray())
                 .WithAccessorList(accessorList)
-                .WithLeadingTrivia(signal.Doc.GetDocCommentTrivia());
+                .WithLeadingTrivia(signal.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         // generates a field like:

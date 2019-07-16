@@ -2,61 +2,40 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// A <see cref="SimpleAction"/> is the obvious simple implementation of the <see cref="IAction"/>
-    /// interface. This is the easiest way to create an action for purposes of
-    /// adding it to a <see cref="SimpleAction"/>Group.
-    /// </summary>
-    /// <remarks>
-    /// See also #GtkAction.
-    /// </remarks>
+    /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction']/*" />
     [GISharp.Runtime.GTypeAttribute("GSimpleAction", IsProxyForUnmanagedType = true)]
     public sealed partial class SimpleAction : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IAction
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_simple_action_get_type();
 
-        /// <summary>
-        /// If <paramref name="action"/> is currently enabled.
-        /// </summary>
-        /// <remarks>
-        /// If the action is disabled then calls to <see cref="Action.Activate"/> and
-        /// <see cref="Action.ChangeState"/> have no effect.
-        /// </remarks>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Enabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
         public System.Boolean Enabled { get => (System.Boolean)GetProperty("enabled")!; set => SetProperty("enabled", value); }
 
-        /// <summary>
-        /// The name of the action. This is mostly meaningful for identifying
-        /// the action once it has been added to a #GSimpleActionGroup.
-        /// </summary>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Utf8? Name { get => (GISharp.Lib.GLib.Utf8?)GetProperty("name")!; set => SetProperty("name", value); }
 
-        /// <summary>
-        /// The type of the parameter that must be given when activating the
-        /// action.
-        /// </summary>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ParameterType']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("parameter-type", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.VariantType? ParameterType { get => (GISharp.Lib.GLib.VariantType?)GetProperty("parameter-type")!; set => SetProperty("parameter-type", value); }
 
-        /// <summary>
-        /// The state of the action, or <c>null</c> if the action is stateless.
-        /// </summary>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='State']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state", Construct = GISharp.Runtime.GPropertyConstruct.Yes)]
         public GISharp.Lib.GLib.Variant? State { get => (GISharp.Lib.GLib.Variant?)GetProperty("state")!; set => SetProperty("state", value); }
 
-        /// <summary>
-        /// The #GVariantType of the state that the action has, or <c>null</c> if the
-        /// action is stateless.
-        /// </summary>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='StateType']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state-type")]
         public GISharp.Lib.GLib.VariantType? StateType { get => (GISharp.Lib.GLib.VariantType?)GetProperty("state-type")!; }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public SimpleAction(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -91,23 +70,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameterType);
 
-        /// <summary>
-        /// Creates a new action.
-        /// </summary>
-        /// <remarks>
-        /// The created action is stateless. See <see cref="SimpleAction.NewStateful"/> to create
-        /// an action that has state.
-        /// </remarks>
-        /// <param name="name">
-        /// the name of the action
-        /// </param>
-        /// <param name="parameterType">
-        /// the type of parameter that will be passed to
-        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
-        /// </param>
-        /// <returns>
-        /// a new <see cref="SimpleAction"/>
-        /// </returns>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
         {
@@ -117,42 +80,13 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <summary>
-        /// Creates a new action.
-        /// </summary>
-        /// <remarks>
-        /// The created action is stateless. See <see cref="SimpleAction.NewStateful"/> to create
-        /// an action that has state.
-        /// </remarks>
-        /// <param name="name">
-        /// the name of the action
-        /// </param>
-        /// <param name="parameterType">
-        /// the type of parameter that will be passed to
-        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
-        /// </param>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
         }
 
-        /// <summary>
-        /// Creates a new action.
-        /// </summary>
-        /// <remarks>
-        /// The created action is stateless. See <see cref="SimpleAction.NewStateful"/> to create
-        /// an action that has state.
-        /// </remarks>
-        /// <param name="name">
-        /// the name of the action
-        /// </param>
-        /// <param name="parameterType">
-        /// the type of parameter that will be passed to
-        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
-        /// </param>
-        /// <returns>
-        /// a new <see cref="SimpleAction"/>
-        /// </returns>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='New(System.String,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr New(System.String name, GISharp.Lib.GLib.VariantType? parameterType)
         {
@@ -160,20 +94,7 @@ namespace GISharp.Lib.Gio
             return New((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType);
         }
 
-        /// <summary>
-        /// Creates a new action.
-        /// </summary>
-        /// <remarks>
-        /// The created action is stateless. See <see cref="SimpleAction.NewStateful"/> to create
-        /// an action that has state.
-        /// </remarks>
-        /// <param name="name">
-        /// the name of the action
-        /// </param>
-        /// <param name="parameterType">
-        /// the type of parameter that will be passed to
-        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
-        /// </param>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction(System.String,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(System.String name, GISharp.Lib.GLib.VariantType? parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
@@ -216,28 +137,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr state);
 
-        /// <summary>
-        /// Creates a new stateful action.
-        /// </summary>
-        /// <remarks>
-        /// All future state values must have the same #GVariantType as the initial
-        /// <paramref name="state"/>.
-        /// 
-        /// If the <paramref name="state"/> #GVariant is floating, it is consumed.
-        /// </remarks>
-        /// <param name="name">
-        /// the name of the action
-        /// </param>
-        /// <param name="parameterType">
-        /// the type of the parameter that will be passed to
-        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
-        /// </param>
-        /// <param name="state">
-        /// the initial state of the action
-        /// </param>
-        /// <returns>
-        /// a new <see cref="SimpleAction"/>
-        /// </returns>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='NewStateful(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
         {
@@ -248,52 +148,13 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <summary>
-        /// Creates a new stateful action.
-        /// </summary>
-        /// <remarks>
-        /// All future state values must have the same #GVariantType as the initial
-        /// <paramref name="state"/>.
-        /// 
-        /// If the <paramref name="state"/> #GVariant is floating, it is consumed.
-        /// </remarks>
-        /// <param name="name">
-        /// the name of the action
-        /// </param>
-        /// <param name="parameterType">
-        /// the type of the parameter that will be passed to
-        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
-        /// </param>
-        /// <param name="state">
-        /// the initial state of the action
-        /// </param>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
         }
 
-        /// <summary>
-        /// Creates a new stateful action.
-        /// </summary>
-        /// <remarks>
-        /// All future state values must have the same #GVariantType as the initial
-        /// <paramref name="state"/>.
-        /// 
-        /// If the <paramref name="state"/> #GVariant is floating, it is consumed.
-        /// </remarks>
-        /// <param name="name">
-        /// the name of the action
-        /// </param>
-        /// <param name="parameterType">
-        /// the type of the parameter that will be passed to
-        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
-        /// </param>
-        /// <param name="state">
-        /// the initial state of the action
-        /// </param>
-        /// <returns>
-        /// a new <see cref="SimpleAction"/>
-        /// </returns>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='NewStateful(System.String,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr NewStateful(System.String name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
         {
@@ -301,36 +162,23 @@ namespace GISharp.Lib.Gio
             return NewStateful((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType, state);
         }
 
-        /// <summary>
-        /// Creates a new stateful action.
-        /// </summary>
-        /// <remarks>
-        /// All future state values must have the same #GVariantType as the initial
-        /// <paramref name="state"/>.
-        /// 
-        /// If the <paramref name="state"/> #GVariant is floating, it is consumed.
-        /// </remarks>
-        /// <param name="name">
-        /// the name of the action
-        /// </param>
-        /// <param name="parameterType">
-        /// the type of the parameter that will be passed to
-        ///   handlers for the <see cref="SimpleAction"/>::activate signal, or <c>null</c> for no parameter
-        /// </param>
-        /// <param name="state">
-        /// the initial state of the action
-        /// </param>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction(System.String,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(System.String name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
         }
 
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivatedEventArgs']/*" />
         public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
+            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Parameter']/*" />
             public GISharp.Lib.GLib.Variant Parameter => (GISharp.Lib.GLib.Variant)args[1];
 
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
             public ActivatedEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
@@ -339,32 +187,22 @@ namespace GISharp.Lib.Gio
 
         readonly GISharp.Runtime.GSignalManager<ActivatedEventArgs> activatedSignalManager = new GISharp.Runtime.GSignalManager<ActivatedEventArgs>("activate", _GType);
 
-        /// <summary>
-        /// Indicates that the action was just activated.
-        /// </summary>
-        /// <remarks>
-        /// <paramref name="parameter"/> will always be of the expected type, i.e. the parameter type
-        /// specified when the action was created. If an incorrect type is given when
-        /// activating the action, this signal is not emitted.
-        /// 
-        /// Since GLib 2.40, if no handler is connected to this signal then the
-        /// default behaviour for boolean-stated actions with a <c>null</c> parameter
-        /// type is to toggle them via the <see cref="SimpleAction"/>::change-state signal.
-        /// For stateful actions where the state type is equal to the parameter
-        /// type, the default is to forward them directly to
-        /// <see cref="SimpleAction"/>::change-state.  This should allow almost all users
-        /// of <see cref="SimpleAction"/> to connect only one handler or the other.
-        /// </remarks>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Activated']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<ActivatedEventArgs> Activated { add => activatedSignalManager.Add(this, value); remove => activatedSignalManager.Remove(value); }
 
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ChangedStateEventArgs']/*" />
         public sealed class ChangedStateEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
+            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Value']/*" />
             public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[1];
 
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
             public ChangedStateEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
@@ -373,42 +211,7 @@ namespace GISharp.Lib.Gio
 
         readonly GISharp.Runtime.GSignalManager<ChangedStateEventArgs> changedStateSignalManager = new GISharp.Runtime.GSignalManager<ChangedStateEventArgs>("change-state", _GType);
 
-        /// <summary>
-        /// Indicates that the action just received a request to change its
-        /// state.
-        /// </summary>
-        /// <remarks>
-        /// <paramref name="value"/> will always be of the correct state type, i.e. the type of the
-        /// initial state passed to <see cref="SimpleAction.NewStateful"/>. If an incorrect
-        /// type is given when requesting to change the state, this signal is not
-        /// emitted.
-        /// 
-        /// If no handler is connected to this signal then the default
-        /// behaviour is to call <see cref="SimpleAction.SetState"/> to set the state
-        /// to the requested value. If you connect a signal handler then no
-        /// default action is taken. If the state should change then you must
-        /// call <see cref="SimpleAction.SetState"/> from the handler.
-        /// 
-        /// An example of a 'change-state' handler:
-        /// |[&lt;!-- language="C" --&gt;
-        /// static void
-        /// change_volume_state (GSimpleAction *action,
-        ///                      GVariant      *value,
-        ///                      gpointer       user_data)
-        /// {
-        ///   gint requested;
-        /// 
-        ///   requested = g_variant_get_int32 (value);
-        /// 
-        ///   // Volume only goes from 0 to 10
-        ///   if (0 &lt;= requested &amp;&amp; requested &lt;= 10)
-        ///     g_simple_action_set_state (action, value);
-        /// }
-        /// ]|
-        /// 
-        /// The handler need not set the state to the requested value.
-        /// It could set it to any value at all, or take some other action.
-        /// </remarks>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ChangedState']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         [GISharp.Runtime.GSignalAttribute("change-state", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<ChangedStateEventArgs> ChangedState { add => changedStateSignalManager.Add(this, value); remove => changedStateSignalManager.Remove(value); }
@@ -446,19 +249,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean enabled);
 
-        /// <summary>
-        /// Sets the action as enabled or not.
-        /// </summary>
-        /// <remarks>
-        /// An action must be enabled in order to be activated or in order to
-        /// have its state changed from outside callers.
-        /// 
-        /// This should only be called by the implementor of the action.  Users
-        /// of the action should not attempt to modify its enabled flag.
-        /// </remarks>
-        /// <param name="enabled">
-        /// whether the action is enabled
-        /// </param>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SetEnabled(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe void SetEnabled(System.Boolean enabled)
         {
@@ -498,22 +289,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
-        /// <summary>
-        /// Sets the state of the action.
-        /// </summary>
-        /// <remarks>
-        /// This directly updates the 'state' property to the given value.
-        /// 
-        /// This should only be called by the implementor of the action.  Users
-        /// of the action should not attempt to directly modify the 'state'
-        /// property.  Instead, they should call <see cref="Action.ChangeState"/> to
-        /// request the change.
-        /// 
-        /// If the <paramref name="value"/> GVariant is floating, it is consumed.
-        /// </remarks>
-        /// <param name="value">
-        /// the new #GVariant for the state
-        /// </param>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SetState(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         public unsafe void SetState(GISharp.Lib.GLib.Variant value)
         {
@@ -547,16 +323,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr stateHint);
 
-        /// <summary>
-        /// Sets the state hint for the action.
-        /// </summary>
-        /// <remarks>
-        /// See <see cref="Action.GetStateHint"/> for more information about
-        /// action state hints.
-        /// </remarks>
-        /// <param name="stateHint">
-        /// a #GVariant representing the state hint
-        /// </param>
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SetStateHint(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe void SetStateHint(GISharp.Lib.GLib.Variant? stateHint)
         {

@@ -26,7 +26,9 @@ namespace GISharp.Lib.GIRepository
         /// </summary>
         MustNotOverride = 1 << 2,
 
-        //Includes a GError
+        /// <summary>
+        /// includes a GError
+        /// </summary>
         Throws = 1 << 3,
     }
 }

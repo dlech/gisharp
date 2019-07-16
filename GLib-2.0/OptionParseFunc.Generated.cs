@@ -22,9 +22,7 @@ namespace GISharp.Lib.GLib
     /* direction:inout transfer-ownership:full */
     ref System.IntPtr error);
 
-    /// <summary>
-    /// The type of function that can be called before and after parsing.
-    /// </summary>
+    /// <include file="OptionParseFunc.xmldoc" path="declaration/member[@name='OptionParseFunc']/*" />
     public delegate void OptionParseFunc(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group);
 
     /// <summary>
@@ -44,6 +42,9 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="OptionParseFunc"/>.
+        /// </summary>
         public static GISharp.Lib.GLib.OptionParseFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionParseFunc>(callback_);
@@ -68,7 +69,7 @@ namespace GISharp.Lib.GLib
         /// Wraps a <see cref="OptionParseFunc"/> in an anonymous method that can
         /// be passed to unmanaged code.
         /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="callback">The managed callback method to wrap.</param>
         /// <param name="scope">The lifetime scope of the callback.</param>
         /// <returns>
         /// A tuple containing a pointer to the unmanaged callback, a pointer to the

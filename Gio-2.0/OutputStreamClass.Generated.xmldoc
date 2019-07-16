@@ -1,0 +1,106 @@
+<declaration>
+
+<member name='ParentClass'>
+#pragmawarningdisableCS0649
+</member>
+
+<member name='WriteFn'>
+</member>
+
+<member name='Splice'>
+</member>
+
+<member name='Flush'>
+</member>
+
+<member name='CloseFn'>
+</member>
+
+<member name='WriteAsync'>
+</member>
+
+<member name='WriteFinish'>
+</member>
+
+<member name='SpliceAsync'>
+</member>
+
+<member name='SpliceFinish'>
+</member>
+
+<member name='FlushAsync'>
+</member>
+
+<member name='FlushFinish'>
+</member>
+
+<member name='CloseAsync'>
+</member>
+
+<member name='CloseFinish'>
+</member>
+
+<member name='GReserved1'>
+</member>
+
+<member name='GReserved2'>
+</member>
+
+<member name='GReserved3'>
+</member>
+
+<member name='GReserved4'>
+</member>
+
+<member name='GReserved5'>
+</member>
+
+<member name='GReserved6'>
+</member>
+
+<member name='GReserved7'>
+</member>
+
+<member name='GReserved8'>
+</member>
+
+<member name='WriteFn'>
+</member>
+
+<member name='Splice'>
+</member>
+
+<member name='Flush'>
+</member>
+
+<member name='CloseFn'>
+</member>
+
+<member name='WriteAsync'>
+</member>
+
+<member name='WriteFinish'>
+</member>
+
+<member name='SpliceAsync'>
+</member>
+
+<member name='SpliceFinish'>
+</member>
+
+<member name='FlushAsync'>
+</member>
+
+<member name='FlushFinish'>
+</member>
+
+<member name='CloseAsync'>
+</member>
+
+<member name='CloseFinish'>
+</member>
+
+<member name='OutputStreamClass'>
+</member>
+
+</declaration>

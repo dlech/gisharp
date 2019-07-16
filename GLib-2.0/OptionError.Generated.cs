@@ -2,30 +2,24 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// Error codes returned by option parsing.
-    /// </summary>
+    /// <include file="OptionError.xmldoc" path="declaration/member[@name='OptionError']/*" />
     [GISharp.Runtime.GErrorDomainAttribute("g-option-context-error-quark")]
     public enum OptionError
     {
-        /// <summary>
-        /// An option was not known to the parser.
-        ///  This error will only be reported, if the parser hasn't been instructed
-        ///  to ignore unknown options, see <see cref="OptionContext.SetIgnoreUnknownOptions"/>.
-        /// </summary>
+        /// <include file="OptionError.xmldoc" path="declaration/member[@name='UnknownOption']/*" />
         UnknownOption = 0,
-        /// <summary>
-        /// A value couldn't be parsed.
-        /// </summary>
+        /// <include file="OptionError.xmldoc" path="declaration/member[@name='BadValue']/*" />
         BadValue = 1,
-        /// <summary>
-        /// A <see cref="OptionArgFunc"/> callback failed.
-        /// </summary>
+        /// <include file="OptionError.xmldoc" path="declaration/member[@name='Failed']/*" />
         Failed = 2
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="OptionError"/>.
+    /// </summary>
     public partial class OptionErrorDomain
     {
+        /// <include file="OptionError.xmldoc" path="declaration/member[@name='Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -33,6 +27,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:out */
         static extern unsafe GISharp.Lib.GLib.Quark g_option_error_quark();
 
+        /// <include file="OptionError.xmldoc" path="declaration/member[@name='GetQuark()']/*" />
         private static unsafe GISharp.Lib.GLib.Quark GetQuark()
         {
             var ret_ = g_option_error_quark();

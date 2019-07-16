@@ -156,6 +156,9 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TimeoutSource(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {

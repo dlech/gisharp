@@ -1,0 +1,61 @@
+<declaration>
+
+<member name='ParentClass'>
+#pragmawarningdisableCS0649
+</member>
+
+<member name='Tell'>
+</member>
+
+<member name='CanSeek'>
+</member>
+
+<member name='Seek'>
+</member>
+
+<member name='QueryInfo'>
+</member>
+
+<member name='QueryInfoAsync'>
+</member>
+
+<member name='QueryInfoFinish'>
+</member>
+
+<member name='GReserved1'>
+</member>
+
+<member name='GReserved2'>
+</member>
+
+<member name='GReserved3'>
+</member>
+
+<member name='GReserved4'>
+</member>
+
+<member name='GReserved5'>
+</member>
+
+<member name='Tell'>
+</member>
+
+<member name='CanSeek'>
+</member>
+
+<member name='Seek'>
+</member>
+
+<member name='QueryInfo'>
+</member>
+
+<member name='QueryInfoAsync'>
+</member>
+
+<member name='QueryInfoFinish'>
+</member>
+
+<member name='FileInputStreamClass'>
+</member>
+
+</declaration>

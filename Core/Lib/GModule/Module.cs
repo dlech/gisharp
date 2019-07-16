@@ -16,7 +16,7 @@ namespace GISharp.Lib.GModule
     /// <remarks>
     /// To use this class you must first determine whether dynamic loading is
     /// supported on the platform by checking <see cref="Supported"/>.
-    /// If it is, you can open a module with <see cref="#ctor"/>,
+    /// If it is, you can open a module with <see cref="M:#ctor"/>,
     /// find the module's symbols (e.g. function names) with <see cref="GetSymbol"/>,
     /// and later close the module with <see cref="Dispose"/>. <see cref="Name"/>
     /// will return the file name of a currently opened module.
@@ -167,13 +167,13 @@ namespace GISharp.Lib.GModule
         /// <param name="flags">The flags used for opening the module. This can
         /// be the logical OR of any of the <see cref="ModuleFlags"/></param>
         /// <remarks>
-        /// First of all <see cref="#ctor"/> tries to open <paramref name="fileName"/>
+        /// First of all <see cref="M:#ctor"/> tries to open <paramref name="fileName"/>
         /// as a module. If that fails and <paramref name="fileName"/> has the ".la"-suffix
         /// (and is a libtool archive) it tries to open the corresponding module. If
         /// that fails and it doesn't have the proper module suffix for the platform
         /// (<see cref="Suffix"/>), this suffix will be appended and the corresponding
         /// module will be opended. If that fails and <paramref name="fileName"/> doesn't
-        /// have the ".la"-suffix, this suffix is appended and <see cref="#ctor"/> tries
+        /// have the ".la"-suffix, this suffix is appended and <see cref="M:#ctor"/> tries
         /// to open the corresponding module. If eventually that fails as well,
         /// a <see cref="ModuleErrorException"/> is thrown.
         /// </remarks>

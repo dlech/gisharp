@@ -14,6 +14,14 @@ namespace GISharp.Runtime
     /// </summary>
     public abstract class Opaque : IOpaque, IDisposable
     {
+        /// <summary>
+        /// Raw pointer value.
+        /// </summary>
+        /// <remarks>
+        /// This should be treated as write-only by overriding. <see cref="Handle" />
+        /// should be used instead when reading to ensure that the pointer is
+        /// still valid.
+        /// </remarks>
         protected IntPtr handle;
 
         /// <summary>
@@ -29,12 +37,16 @@ namespace GISharp.Runtime
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected Opaque(IntPtr handle, Transfer ownership)
         {
             this.handle = handle;
         }
 
+        /// <inheritdoc />
         ~Opaque ()
         {
             Dispose (false);
@@ -69,16 +81,23 @@ namespace GISharp.Runtime
             GC.SuppressFinalize (this);
         }
 
+        /// <inheritdoc />
         protected virtual void Dispose (bool disposing)
         {
             handle = IntPtr.Zero;
         }
 
+        /// <summary>
+        /// Marshals an unmanged pointer to a managed object.
+        /// </summary>
         public static T GetInstance<T>(IntPtr handle, Transfer ownership) where T : IOpaque?
         {
             return (T)GetInstance(typeof(T), handle, ownership)!;
         }
 
+        /// <summary>
+        /// Marshals an unmanged pointer to a managed object.
+        /// </summary>
         public static IOpaque? GetInstance(Type type, IntPtr handle, Transfer ownership)
         {
             // special case for OpaqueInt so 0 doesn't become null
@@ -119,11 +138,13 @@ namespace GISharp.Runtime
             return (IOpaque)Activator.CreateInstance(type, handle, ownership);
         }
 
+        /// <inheritdoc />
         public override int GetHashCode()
         {
             return handle.GetHashCode();
         }
 
+        /// <inheritdoc />
         public override bool Equals(object obj)
         {
             if (obj is Opaque opaque) {

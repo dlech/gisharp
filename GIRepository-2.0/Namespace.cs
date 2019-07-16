@@ -135,8 +135,8 @@ namespace GISharp.Lib.GIRepository
         /// </summary>
         /// <value>The typelib path.</value>
         /// <remarks>
-        ///  If the typelib for this Namespace was included in a shared
-        /// library, return the special string "<builtin>".
+        /// If the typelib for this <see cref="Namespace"/> was included in a shared
+        /// library, return the special string "&lt;builtin&gt;".
         /// </remarks>
         public NullableUnownedUtf8 TypelibPath {
             get {
@@ -145,7 +145,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <summary>
-        /// Gets the the loaded version associated with this Namespace.
+        /// Gets the the loaded version associated with this <see cref="Namespace"/>.
         /// </summary>
         /// <value>Loaded version.</value>
         public UnownedUtf8 Version {

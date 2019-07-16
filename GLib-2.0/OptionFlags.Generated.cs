@@ -2,61 +2,29 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// Flags which modify individual options.
-    /// </summary>
+    /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags']/*" />
     [System.FlagsAttribute]
     public enum OptionFlags
     {
-        /// <summary>
-        /// No flags.
-        /// </summary>
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='None']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// The option doesn't appear in `--help` output.
-        /// </summary>
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='Hidden']/*" />
         Hidden = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <summary>
-        /// The option appears in the main section of the
-        ///     `--help` output, even if it is defined in a group.
-        /// </summary>
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='InMain']/*" />
         InMain = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <summary>
-        /// For options of the <see cref="OptionArg.None"/> kind, this
-        ///     flag indicates that the sense of the option is reversed.
-        /// </summary>
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='Reverse']/*" />
         Reverse = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <summary>
-        /// For options of the <see cref="OptionArg.Callback"/> kind,
-        ///     this flag indicates that the callback does not take any argument
-        ///     (like a <see cref="OptionArg.None"/> option).
-        /// </summary>
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='NoArg']/*" />
         [GISharp.Runtime.SinceAttribute("2.8")]
         NoArg = 0b0000_0000_0000_0000_0000_0000_0000_1000,
-        /// <summary>
-        /// For options of the <see cref="OptionArg.Callback"/>
-        ///     kind, this flag indicates that the argument should be passed to the
-        ///     callback in the GLib filename encoding rather than UTF-8.
-        /// </summary>
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='Filename']/*" />
         [GISharp.Runtime.SinceAttribute("2.8")]
         Filename = 0b0000_0000_0000_0000_0000_0000_0001_0000,
-        /// <summary>
-        /// For options of the <see cref="OptionArg.Callback"/>
-        ///     kind, this flag indicates that the argument supply is optional.
-        ///     If no argument is given then data of %GOptionParseFunc will be
-        ///     set to NULL.
-        /// </summary>
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionalArg']/*" />
         [GISharp.Runtime.SinceAttribute("2.8")]
         OptionalArg = 0b0000_0000_0000_0000_0000_0000_0010_0000,
-        /// <summary>
-        /// This flag turns off the automatic conflict
-        ///     resolution which prefixes long option names with `groupname-` if
-        ///     there is a conflict. This option should only be used in situations
-        ///     where aliasing is necessary to model some legacy commandline interface.
-        ///     It is not safe to use this option, unless all option groups are under
-        ///     your direct control.
-        /// </summary>
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='NoAlias']/*" />
         [GISharp.Runtime.SinceAttribute("2.8")]
         NoAlias = 0b0000_0000_0000_0000_0000_0000_0100_0000
     }

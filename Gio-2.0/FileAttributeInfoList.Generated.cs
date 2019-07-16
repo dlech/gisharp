@@ -2,30 +2,29 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Acts as a lightweight registry for possible valid file attributes.
-    /// The registry stores Key-Value pair formats as #GFileAttributeInfos.
-    /// </summary>
+    /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileAttributeInfoList", IsProxyForUnmanagedType = true)]
     public sealed partial class FileAttributeInfoList : GISharp.Lib.GObject.Boxed
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_info_list_get_type();
 
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe struct Struct
         {
 #pragma warning disable CS0649
-            /// <summary>
-            /// an array of #GFileAttributeInfos.
-            /// </summary>
+            /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='Infos']/*" />
             public GISharp.Lib.Gio.FileAttributeInfo* Infos;
 
-            /// <summary>
-            /// the number of values in the array.
-            /// </summary>
+            /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='NInfos']/*" />
             public System.Int32 NInfos;
 #pragma warning restore CS0649
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public FileAttributeInfoList(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -42,15 +41,14 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_file_attribute_info_list_new();
 
+        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='New()']/*" />
         static unsafe System.IntPtr New()
         {
             var ret_ = g_file_attribute_info_list_new();
             return ret_;
         }
 
-        /// <summary>
-        /// Creates a new file attribute info list.
-        /// </summary>
+        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList()']/*" />
         public FileAttributeInfoList() : this(New(), GISharp.Runtime.Transfer.Full)
         {
         }
@@ -93,19 +91,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileAttributeInfoFlags flags);
 
-        /// <summary>
-        /// Adds a new attribute with <paramref name="name"/> to the <paramref name="list"/>, setting
-        /// its <paramref name="type"/> and <paramref name="flags"/>.
-        /// </summary>
-        /// <param name="name">
-        /// the name of the attribute to add.
-        /// </param>
-        /// <param name="type">
-        /// the <see cref="FileAttributeType"/> for the attribute.
-        /// </param>
-        /// <param name="flags">
-        /// <see cref="FileAttributeInfoFlags"/> for the attribute.
-        /// </param>
+        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='Add(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)']/*" />
         public unsafe void Add(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
         {
             var list_ = Handle;
@@ -115,19 +101,7 @@ namespace GISharp.Lib.Gio
             g_file_attribute_info_list_add(list_, name_, type_, flags_);
         }
 
-        /// <summary>
-        /// Adds a new attribute with <paramref name="name"/> to the <paramref name="list"/>, setting
-        /// its <paramref name="type"/> and <paramref name="flags"/>.
-        /// </summary>
-        /// <param name="name">
-        /// the name of the attribute to add.
-        /// </param>
-        /// <param name="type">
-        /// the <see cref="FileAttributeType"/> for the attribute.
-        /// </param>
-        /// <param name="flags">
-        /// <see cref="FileAttributeInfoFlags"/> for the attribute.
-        /// </param>
+        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='Add(System.String,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)']/*" />
         public unsafe void Add(System.String name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
         {
             using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
@@ -151,12 +125,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr list);
 
-        /// <summary>
-        /// Makes a duplicate of a file attribute info list.
-        /// </summary>
-        /// <returns>
-        /// a copy of the given <paramref name="list"/>.
-        /// </returns>
+        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='Dup()']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeInfoList Dup()
         {
             var list_ = Handle;
@@ -189,16 +158,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr name);
 
-        /// <summary>
-        /// Gets the file attribute with the name <paramref name="name"/> from <paramref name="list"/>.
-        /// </summary>
-        /// <param name="name">
-        /// the name of the attribute to lookup.
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileAttributeInfo"/> for the <paramref name="name"/>, or <c>null</c> if an
-        /// attribute isn't found.
-        /// </returns>
+        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='Lookup(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(GISharp.Lib.GLib.UnownedUtf8 name)
         {
             var list_ = Handle;
@@ -208,16 +168,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Gets the file attribute with the name <paramref name="name"/> from <paramref name="list"/>.
-        /// </summary>
-        /// <param name="name">
-        /// the name of the attribute to lookup.
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileAttributeInfo"/> for the <paramref name="name"/>, or <c>null</c> if an
-        /// attribute isn't found.
-        /// </returns>
+        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='Lookup(System.String)']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(System.String name)
         {
             using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
@@ -240,6 +191,11 @@ namespace GISharp.Lib.Gio
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" managed-name="FileAttributeInfoList" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr list);
+
+        /// <summary>
+        /// Takes ownership of the unmanaged pointer without freeing it.
+        /// The managed object can no longer be used (will throw disposed exception).
+        /// </summary>
         public override System.IntPtr Take() => g_file_attribute_info_list_ref(Handle);
 
         /// <summary>

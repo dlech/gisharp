@@ -62,7 +62,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that unlike the UNIX default, all sources which have created a
         /// watch will be dispatched, regardless of which underlying thread
-        /// invoked <see cref="UnixSignalSource.#ctor"/>.
+        /// invoked <see cref="M:UnixSignalSource.#ctor"/>.
         /// 
         /// For example, an effective use of this function is to handle <c>SIGTERM</c>
         /// cleanly; flushing any outstanding files, and then calling
@@ -105,7 +105,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that unlike the UNIX default, all sources which have created a
         /// watch will be dispatched, regardless of which underlying thread
-        /// invoked <see cref="UnixSignalSource.#ctor"/>.
+        /// invoked <see cref="M:UnixSignalSource.#ctor"/>.
         /// 
         /// For example, an effective use of this function is to handle <c>SIGTERM</c>
         /// cleanly; flushing any outstanding files, and then calling
@@ -129,6 +129,9 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public UnixSignalSource(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {

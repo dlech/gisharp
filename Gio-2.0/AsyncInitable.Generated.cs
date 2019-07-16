@@ -2,183 +2,26 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// This is the asynchronous version of <see cref="IInitable"/>; it behaves the same
-    /// in all ways except that initialization is asynchronous. For more details
-    /// see the descriptions on <see cref="IInitable"/>.
-    /// </summary>
-    /// <remarks>
-    /// A class may implement both the <see cref="IInitable"/> and <see cref="IAsyncInitable"/> interfaces.
-    /// 
-    /// Users of objects implementing this are not intended to use the interface
-    /// method directly; instead it will be used automatically in various ways.
-    /// For C applications you generally just call g_async_initable_new_async()
-    /// directly, or indirectly via a foo_thing_new_async() wrapper. This will call
-    /// <see cref="AsyncInitable.InitAsync"/> under the cover, calling back with <c>null</c> and
-    /// a set %GError on failure.
-    /// 
-    /// A typical implementation might look something like this:
-    /// 
-    /// |[&lt;!-- language="C" --&gt;
-    /// enum {
-    ///    NOT_INITIALIZED,
-    ///    INITIALIZING,
-    ///    INITIALIZED
-    /// };
-    /// 
-    /// static void
-    /// _foo_ready_cb (Foo *self)
-    /// {
-    ///   GList *l;
-    /// 
-    ///   self-&gt;priv-&gt;state = INITIALIZED;
-    /// 
-    ///   for (l = self-&gt;priv-&gt;init_results; l != NULL; l = l-&gt;next)
-    ///     {
-    ///       GTask *task = l-&gt;data;
-    /// 
-    ///       if (self-&gt;priv-&gt;success)
-    ///         g_task_return_boolean (task, TRUE);
-    ///       else
-    ///         g_task_return_new_error (task, ...);
-    ///       g_object_unref (task);
-    ///     }
-    /// 
-    ///   g_list_free (self-&gt;priv-&gt;init_results);
-    ///   self-&gt;priv-&gt;init_results = NULL;
-    /// }
-    /// 
-    /// static void
-    /// foo_init_async (GAsyncInitable       *initable,
-    ///                 int                   io_priority,
-    ///                 GCancellable         *cancellable,
-    ///                 GAsyncReadyCallback   callback,
-    ///                 gpointer              user_data)
-    /// {
-    ///   Foo *self = FOO (initable);
-    ///   GTask *task;
-    /// 
-    ///   task = g_task_new (initable, cancellable, callback, user_data);
-    /// 
-    ///   switch (self-&gt;priv-&gt;state)
-    ///     {
-    ///       case NOT_INITIALIZED:
-    ///         _foo_get_ready (self);
-    ///         self-&gt;priv-&gt;init_results = g_list_append (self-&gt;priv-&gt;init_results,
-    ///                                                   task);
-    ///         self-&gt;priv-&gt;state = INITIALIZING;
-    ///         break;
-    ///       case INITIALIZING:
-    ///         self-&gt;priv-&gt;init_results = g_list_append (self-&gt;priv-&gt;init_results,
-    ///                                                   task);
-    ///         break;
-    ///       case INITIALIZED:
-    ///         if (!self-&gt;priv-&gt;success)
-    ///           g_task_return_new_error (task, ...);
-    ///         else
-    ///           g_task_return_boolean (task, TRUE);
-    ///         g_object_unref (task);
-    ///         break;
-    ///     }
-    /// }
-    /// 
-    /// static gboolean
-    /// foo_init_finish (GAsyncInitable       *initable,
-    ///                  GAsyncResult         *result,
-    ///                  GError              **error)
-    /// {
-    ///   g_return_val_if_fail (g_task_is_valid (result, initable), FALSE);
-    /// 
-    ///   return g_task_propagate_boolean (G_TASK (result), error);
-    /// }
-    /// 
-    /// static void
-    /// foo_async_initable_iface_init (gpointer g_iface,
-    ///                                gpointer data)
-    /// {
-    ///   GAsyncInitableIface *iface = g_iface;
-    /// 
-    ///   iface-&gt;init_async = foo_init_async;
-    ///   iface-&gt;init_finish = foo_init_finish;
-    /// }
-    /// ]|
-    /// </remarks>
+    /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable']/*" />
     [GISharp.Runtime.SinceAttribute("2.22")]
     [GISharp.Runtime.GTypeAttribute("GAsyncInitable", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncInitableIface))]
     public partial interface IAsyncInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <summary>
-        /// Starts asynchronous initialization of the object implementing the
-        /// interface. This must be done before any real use of the object after
-        /// initial construction. If the object also implements <see cref="IInitable"/> you can
-        /// optionally call <see cref="Initable.Init"/> instead.
-        /// </summary>
-        /// <remarks>
-        /// This method is intended for language bindings. If writing in C,
-        /// g_async_initable_new_async() should typically be used instead.
-        /// 
-        /// When the initialization is finished, <paramref name="callback"/> will be called. You can
-        /// then call <see cref="AsyncInitable.InitFinish"/> to get the result of the
-        /// initialization.
-        /// 
-        /// Implementations may also support cancellation. If <paramref name="cancellable"/> is not
-        /// <c>null</c>, then initialization can be cancelled by triggering the cancellable
-        /// object from another thread. If the operation was cancelled, the error
-        /// <see cref="IOErrorEnum.Cancelled"/> will be returned. If <paramref name="cancellable"/> is not <c>null</c>, and
-        /// the object doesn't support cancellable initialization, the error
-        /// <see cref="IOErrorEnum.NotSupported"/> will be returned.
-        /// 
-        /// As with <see cref="IInitable"/>, if the object is not initialized, or initialization
-        /// returns with an error, then all operations on the object except
-        /// g_object_ref() and g_object_unref() are considered to be invalid, and
-        /// have undefined behaviour. They will often fail with g_critical() or
-        /// g_warning(), but this must not be relied on.
-        /// 
-        /// Callers should not assume that a class which implements <see cref="IAsyncInitable"/> can
-        /// be initialized multiple times; for more information, see <see cref="Initable.Init"/>.
-        /// If a class explicitly supports being initialized multiple times,
-        /// implementation requires yielding all subsequent calls to init_async() on the
-        /// results of the first call.
-        /// 
-        /// For classes that also support the <see cref="IInitable"/> interface, the default
-        /// implementation of this method will run the <see cref="Initable.Init"/> function
-        /// in a thread, so if you want to support asynchronous initialization via
-        /// threads, just implement the <see cref="IAsyncInitable"/> interface without overriding
-        /// any interface methods.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the operation
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='DoInitAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncInitableIface.UnmanagedInitAsync))]
         void DoInitAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes asynchronous initialization and returns the result.
-        /// See <see cref="AsyncInitable.InitAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if successful. If an error has occurred, this function
-        /// will return <c>false</c> and set <paramref name="error"/> appropriately if present.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='DoInitFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncInitableIface.UnmanagedInitFinish))]
         void DoInitFinish(GISharp.Lib.Gio.IAsyncResult res);
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="IAsyncInitable"/>
+    /// </summary>
     public static partial class AsyncInitable
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_async_initable_get_type();
@@ -245,30 +88,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Helper function for constructing <see cref="IAsyncInitable"/> object. This is
-        /// similar to g_object_newv() but also initializes the object asynchronously.
-        /// </summary>
-        /// <remarks>
-        /// When the initialization is finished, <paramref name="callback"/> will be called. You can
-        /// then call <see cref="AsyncInitable.NewFinish"/> to get the new object and check
-        /// for any errors.
-        /// </remarks>
-        /// <param name="objectType">
-        /// a #GType supporting <see cref="IAsyncInitable"/>.
-        /// </param>
-        /// <param name="nParameters">
-        /// the number of parameters in <paramref name="parameters"/>
-        /// </param>
-        /// <param name="parameters">
-        /// the parameters to use to construct the object
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the operation
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='NewAsync(GISharp.Lib.GObject.GType,System.UInt32,GISharp.Lib.GObject.Parameter,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_async_initable_init_async() instead. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
         [GISharp.Runtime.SinceAttribute("2.22")]
@@ -366,54 +186,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Starts asynchronous initialization of the object implementing the
-        /// interface. This must be done before any real use of the object after
-        /// initial construction. If the object also implements <see cref="IInitable"/> you can
-        /// optionally call <see cref="Initable.Init"/> instead.
-        /// </summary>
-        /// <remarks>
-        /// This method is intended for language bindings. If writing in C,
-        /// g_async_initable_new_async() should typically be used instead.
-        /// 
-        /// When the initialization is finished, <paramref name="callback"/> will be called. You can
-        /// then call <see cref="AsyncInitable.InitFinish"/> to get the result of the
-        /// initialization.
-        /// 
-        /// Implementations may also support cancellation. If <paramref name="cancellable"/> is not
-        /// <c>null</c>, then initialization can be cancelled by triggering the cancellable
-        /// object from another thread. If the operation was cancelled, the error
-        /// <see cref="IOErrorEnum.Cancelled"/> will be returned. If <paramref name="cancellable"/> is not <c>null</c>, and
-        /// the object doesn't support cancellable initialization, the error
-        /// <see cref="IOErrorEnum.NotSupported"/> will be returned.
-        /// 
-        /// As with <see cref="IInitable"/>, if the object is not initialized, or initialization
-        /// returns with an error, then all operations on the object except
-        /// g_object_ref() and g_object_unref() are considered to be invalid, and
-        /// have undefined behaviour. They will often fail with g_critical() or
-        /// g_warning(), but this must not be relied on.
-        /// 
-        /// Callers should not assume that a class which implements <see cref="IAsyncInitable"/> can
-        /// be initialized multiple times; for more information, see <see cref="Initable.Init"/>.
-        /// If a class explicitly supports being initialized multiple times,
-        /// implementation requires yielding all subsequent calls to init_async() on the
-        /// results of the first call.
-        /// 
-        /// For classes that also support the <see cref="IInitable"/> interface, the default
-        /// implementation of this method will run the <see cref="Initable.Init"/> function
-        /// in a thread, so if you want to support asynchronous initialization via
-        /// threads, just implement the <see cref="IAsyncInitable"/> interface without overriding
-        /// any interface methods.
-        /// </remarks>
-        /// <param name="initable">
-        /// a <see cref="IAsyncInitable"/>.
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the operation
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-        /// </param>
+        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Threading.Tasks.Task InitAsync(this GISharp.Lib.Gio.IAsyncInitable initable, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {

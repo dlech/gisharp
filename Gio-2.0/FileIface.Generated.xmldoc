@@ -1,0 +1,562 @@
+<declaration>
+
+<member name='GIface'>
+#pragmawarningdisableCS0649
+<summary>
+The parent interface.
+</summary>
+</member>
+
+<member name='Dup'>
+</member>
+
+<member name='Hash'>
+</member>
+
+<member name='Equal'>
+</member>
+
+<member name='IsNative'>
+</member>
+
+<member name='HasUriScheme'>
+</member>
+
+<member name='GetUriScheme'>
+</member>
+
+<member name='GetBasename'>
+</member>
+
+<member name='GetPath'>
+</member>
+
+<member name='GetUri'>
+</member>
+
+<member name='GetParseName'>
+</member>
+
+<member name='GetParent'>
+</member>
+
+<member name='PrefixMatches'>
+</member>
+
+<member name='GetRelativePath'>
+</member>
+
+<member name='ResolveRelativePath'>
+</member>
+
+<member name='GetChildForDisplayName'>
+</member>
+
+<member name='EnumerateChildren'>
+</member>
+
+<member name='EnumerateChildrenAsync'>
+</member>
+
+<member name='EnumerateChildrenFinish'>
+</member>
+
+<member name='QueryInfo'>
+</member>
+
+<member name='QueryInfoAsync'>
+</member>
+
+<member name='QueryInfoFinish'>
+</member>
+
+<member name='QueryFilesystemInfo'>
+</member>
+
+<member name='QueryFilesystemInfoAsync'>
+</member>
+
+<member name='QueryFilesystemInfoFinish'>
+</member>
+
+<member name='FindEnclosingMount'>
+</member>
+
+<member name='FindEnclosingMountAsync'>
+</member>
+
+<member name='FindEnclosingMountFinish'>
+</member>
+
+<member name='SetDisplayName'>
+</member>
+
+<member name='SetDisplayNameAsync'>
+</member>
+
+<member name='SetDisplayNameFinish'>
+</member>
+
+<member name='QuerySettableAttributes'>
+</member>
+
+<member name='QuerySettableAttributesAsync'>
+</member>
+
+<member name='QuerySettableAttributesFinish'>
+</member>
+
+<member name='QueryWritableNamespaces'>
+</member>
+
+<member name='QueryWritableNamespacesAsync'>
+</member>
+
+<member name='QueryWritableNamespacesFinish'>
+</member>
+
+<member name='SetAttribute'>
+</member>
+
+<member name='SetAttributesFromInfo'>
+</member>
+
+<member name='SetAttributesAsync'>
+</member>
+
+<member name='SetAttributesFinish'>
+</member>
+
+<member name='ReadFn'>
+</member>
+
+<member name='ReadAsync'>
+</member>
+
+<member name='ReadFinish'>
+</member>
+
+<member name='AppendTo'>
+</member>
+
+<member name='AppendToAsync'>
+</member>
+
+<member name='AppendToFinish'>
+</member>
+
+<member name='Create'>
+</member>
+
+<member name='CreateAsync'>
+</member>
+
+<member name='CreateFinish'>
+</member>
+
+<member name='Replace'>
+</member>
+
+<member name='ReplaceAsync'>
+</member>
+
+<member name='ReplaceFinish'>
+</member>
+
+<member name='DeleteFile'>
+</member>
+
+<member name='DeleteFileAsync'>
+</member>
+
+<member name='DeleteFileFinish'>
+</member>
+
+<member name='Trash'>
+</member>
+
+<member name='TrashAsync'>
+</member>
+
+<member name='TrashFinish'>
+</member>
+
+<member name='MakeDirectory'>
+</member>
+
+<member name='MakeDirectoryAsync'>
+</member>
+
+<member name='MakeDirectoryFinish'>
+</member>
+
+<member name='MakeSymbolicLink'>
+</member>
+
+<member name='MakeSymbolicLinkAsync'>
+</member>
+
+<member name='MakeSymbolicLinkFinish'>
+</member>
+
+<member name='Copy'>
+</member>
+
+<member name='CopyAsync'>
+</member>
+
+<member name='CopyFinish'>
+</member>
+
+<member name='Move'>
+</member>
+
+<member name='MoveAsync'>
+</member>
+
+<member name='MoveFinish'>
+</member>
+
+<member name='MountMountable'>
+</member>
+
+<member name='MountMountableFinish'>
+</member>
+
+<member name='UnmountMountable'>
+</member>
+
+<member name='UnmountMountableFinish'>
+</member>
+
+<member name='EjectMountable'>
+</member>
+
+<member name='EjectMountableFinish'>
+</member>
+
+<member name='MountEnclosingVolume'>
+</member>
+
+<member name='MountEnclosingVolumeFinish'>
+</member>
+
+<member name='MonitorDir'>
+</member>
+
+<member name='MonitorFile'>
+</member>
+
+<member name='OpenReadwrite'>
+</member>
+
+<member name='OpenReadwriteAsync'>
+</member>
+
+<member name='OpenReadwriteFinish'>
+</member>
+
+<member name='CreateReadwrite'>
+</member>
+
+<member name='CreateReadwriteAsync'>
+</member>
+
+<member name='CreateReadwriteFinish'>
+</member>
+
+<member name='ReplaceReadwrite'>
+</member>
+
+<member name='ReplaceReadwriteAsync'>
+</member>
+
+<member name='ReplaceReadwriteFinish'>
+</member>
+
+<member name='StartMountable'>
+</member>
+
+<member name='StartMountableFinish'>
+</member>
+
+<member name='StopMountable'>
+</member>
+
+<member name='StopMountableFinish'>
+</member>
+
+<member name='SupportsThreadContexts'>
+<summary>
+a boolean that indicates whether the <see cref="IFile"/> implementation supports thread-default contexts. Since 2.22.
+</summary>
+</member>
+
+<member name='UnmountMountableWithOperation'>
+</member>
+
+<member name='UnmountMountableWithOperationFinish'>
+</member>
+
+<member name='EjectMountableWithOperation'>
+</member>
+
+<member name='EjectMountableWithOperationFinish'>
+</member>
+
+<member name='PollMountable'>
+</member>
+
+<member name='PollMountableFinish'>
+</member>
+
+<member name='MeasureDiskUsage'>
+</member>
+
+<member name='MeasureDiskUsageAsync'>
+</member>
+
+<member name='MeasureDiskUsageFinish'>
+</member>
+
+<member name='Dup'>
+</member>
+
+<member name='Hash'>
+</member>
+
+<member name='Equal'>
+</member>
+
+<member name='IsNative'>
+</member>
+
+<member name='HasUriScheme'>
+</member>
+
+<member name='GetUriScheme'>
+</member>
+
+<member name='GetBasename'>
+</member>
+
+<member name='GetPath'>
+</member>
+
+<member name='GetUri'>
+</member>
+
+<member name='GetParseName'>
+</member>
+
+<member name='GetParent'>
+</member>
+
+<member name='PrefixMatches'>
+</member>
+
+<member name='GetRelativePath'>
+</member>
+
+<member name='ResolveRelativePath'>
+</member>
+
+<member name='GetChildForDisplayName'>
+</member>
+
+<member name='EnumerateChildrenAsync'>
+</member>
+
+<member name='QueryInfo'>
+</member>
+
+<member name='QueryInfoAsync'>
+</member>
+
+<member name='QueryInfoFinish'>
+</member>
+
+<member name='QueryFilesystemInfo'>
+</member>
+
+<member name='QueryFilesystemInfoAsync'>
+</member>
+
+<member name='QueryFilesystemInfoFinish'>
+</member>
+
+<member name='FindEnclosingMountAsync'>
+</member>
+
+<member name='SetDisplayName'>
+</member>
+
+<member name='SetDisplayNameAsync'>
+</member>
+
+<member name='SetDisplayNameFinish'>
+</member>
+
+<member name='QuerySettableAttributes'>
+</member>
+
+<member name='QueryWritableNamespaces'>
+</member>
+
+<member name='SetAttribute'>
+</member>
+
+<member name='SetAttributesFromInfo'>
+</member>
+
+<member name='SetAttributesAsync'>
+</member>
+
+<member name='SetAttributesFinish'>
+</member>
+
+<member name='ReadFn'>
+</member>
+
+<member name='ReadAsync'>
+</member>
+
+<member name='ReadFinish'>
+</member>
+
+<member name='AppendTo'>
+</member>
+
+<member name='AppendToAsync'>
+</member>
+
+<member name='AppendToFinish'>
+</member>
+
+<member name='Create'>
+</member>
+
+<member name='CreateAsync'>
+</member>
+
+<member name='CreateFinish'>
+</member>
+
+<member name='Replace'>
+</member>
+
+<member name='ReplaceAsync'>
+</member>
+
+<member name='ReplaceFinish'>
+</member>
+
+<member name='DeleteFile'>
+</member>
+
+<member name='DeleteFileAsync'>
+</member>
+
+<member name='DeleteFileFinish'>
+</member>
+
+<member name='Trash'>
+</member>
+
+<member name='TrashAsync'>
+</member>
+
+<member name='TrashFinish'>
+</member>
+
+<member name='MakeDirectory'>
+</member>
+
+<member name='MakeDirectoryAsync'>
+</member>
+
+<member name='MakeDirectoryFinish'>
+</member>
+
+<member name='MakeSymbolicLink'>
+</member>
+
+<member name='Copy'>
+</member>
+
+<member name='CopyAsync'>
+</member>
+
+<member name='CopyFinish'>
+</member>
+
+<member name='Move'>
+</member>
+
+<member name='MountMountableFinish'>
+</member>
+
+<member name='UnmountMountableFinish'>
+</member>
+
+<member name='EjectMountableFinish'>
+</member>
+
+<member name='MountEnclosingVolumeFinish'>
+</member>
+
+<member name='OpenReadwrite'>
+</member>
+
+<member name='OpenReadwriteAsync'>
+</member>
+
+<member name='OpenReadwriteFinish'>
+</member>
+
+<member name='CreateReadwrite'>
+</member>
+
+<member name='CreateReadwriteAsync'>
+</member>
+
+<member name='CreateReadwriteFinish'>
+</member>
+
+<member name='ReplaceReadwrite'>
+</member>
+
+<member name='ReplaceReadwriteAsync'>
+</member>
+
+<member name='ReplaceReadwriteFinish'>
+</member>
+
+<member name='StartMountableFinish'>
+</member>
+
+<member name='StopMountableFinish'>
+</member>
+
+<member name='UnmountMountableWithOperationFinish'>
+</member>
+
+<member name='EjectMountableWithOperationFinish'>
+</member>
+
+<member name='PollMountable'>
+</member>
+
+<member name='PollMountableFinish'>
+</member>
+
+<member name='MeasureDiskUsageFinish'>
+</member>
+
+<member name='FileIface'>
+<summary>
+An interface for writing VFS file handles.
+</summary>
+</member>
+
+</declaration>

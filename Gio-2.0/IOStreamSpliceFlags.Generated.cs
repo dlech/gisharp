@@ -2,35 +2,25 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// GIOStreamSpliceFlags determine how streams should be spliced.
-    /// </summary>
+    /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='IOStreamSpliceFlags']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
     [GISharp.Runtime.GTypeAttribute("GIOStreamSpliceFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
     public enum IOStreamSpliceFlags
     {
-        /// <summary>
-        /// Do not close either stream.
-        /// </summary>
+        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// Close the first stream after
-        ///     the splice.
-        /// </summary>
+        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='CloseStream1']/*" />
         CloseStream1 = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <summary>
-        /// Close the second stream after
-        ///     the splice.
-        /// </summary>
+        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='CloseStream2']/*" />
         CloseStream2 = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <summary>
-        /// Wait for both splice operations to finish
-        ///     before calling the callback.
-        /// </summary>
+        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='WaitForBoth']/*" />
         WaitForBoth = 0b0000_0000_0000_0000_0000_0000_0000_0100
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="IOStreamSpliceFlags"/>.
+    /// </summary>
     public partial class IOStreamSpliceFlagsExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_io_stream_splice_flags_get_type();

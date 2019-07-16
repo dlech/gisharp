@@ -3,42 +3,63 @@ using GISharp.Lib.GLib;
 
 namespace GISharp.Runtime
 {
+    /// <summary>
+    /// Integer that represents a D-Bus handle.
+    /// </summary>
     public struct DBusHandle
     {
-        int value;
+        readonly int value;
 
-        public DBusHandle (int handle) {
+        /// <summary>
+        /// Creates a new D-Bus object path.
+        /// </summary>
+        public DBusHandle(int handle)
+        {
             value = handle;
         }
 
-        public static implicit operator int (DBusHandle handle)
+        /// <summary>
+        /// Converts a D-bus handle to an integer.
+        /// </summary>
+        public static implicit operator int(DBusHandle handle)
         {
             return handle.value;
         }
 
-        public static implicit operator DBusHandle (int handle)
+        /// <summary>
+        /// Converts an integer to a D-bus handle.
+        /// </summary>
+        public static implicit operator DBusHandle(int handle)
         {
-            return new DBusHandle (handle);
+            return new DBusHandle(handle);
         }
     }
 
+    /// <summary>
+    /// String that represents a D-Bus object path.
+    /// </summary>
     public class DBusObjectPath : IEquatable<DBusObjectPath>
     {
         readonly string value;
 
-        public DBusObjectPath (string path)
+        /// <summary>
+        /// Creates a new D-Bus object path.
+        /// </summary>
+        public DBusObjectPath(string path)
         {
-            if (!Variant.IsObjectPath (path)) {
-                throw new ArgumentException ("Not a valid object path.", nameof (path));
+            if (!Variant.IsObjectPath(path)) {
+                throw new ArgumentException("Not a valid object path.", nameof(path));
             }
             value = path;
         }
 
+        /// <inheritdoc />
         public bool Equals(DBusObjectPath other)
         {
             return value == other.value;
         }
 
+        /// <inheritdoc />
         public override bool Equals(object obj)
         {
             if (obj is DBusObjectPath path) {
@@ -47,48 +68,70 @@ namespace GISharp.Runtime
             return base.Equals(obj);
         }
 
-        public override int GetHashCode ()
+        /// <inheritdoc />
+        public override int GetHashCode()
         {
-            return value.GetHashCode ();
+            return value.GetHashCode();
         }
 
+        /// <summary>
+        /// Tests if two D-Bus object paths are equal.
+        /// </summary>
         public static bool operator ==(DBusObjectPath? one, DBusObjectPath? two)
         {
-            return object.Equals(one, two);
+            return Equals(one, two);
         }
 
+        /// <summary>
+        /// Tests if two D-Bus object paths are not equal.
+        /// </summary>
         public static bool operator !=(DBusObjectPath? one, DBusObjectPath? two)
         {
-            return !object.Equals(one, two);
+            return !Equals(one, two);
         }
 
-        public static implicit operator string (DBusObjectPath path)
+        /// <summary>
+        /// Converts a D-bus object path to a string.
+        /// </summary>
+        public static implicit operator string(DBusObjectPath path)
         {
             return path.value;
         }
 
-        public static implicit operator DBusObjectPath (string path)
+        /// <summary>
+        /// Converts a string to a D-bus object path.
+        /// </summary>
+        public static implicit operator DBusObjectPath(string path)
         {
-            return new DBusObjectPath (path);
+            return new DBusObjectPath(path);
         }
     }
 
+    /// <summary>
+    /// A string that represents a D-Bus signature.
+    /// </summary>
     public class DBusSignature : IEquatable<DBusSignature>
     {
         readonly string value;
 
-        public DBusSignature (string signature)
+        /// <summary>
+        /// Creates a new D-bus signature.
+        /// </summary>
+        public DBusSignature(string signature)
         {
-            if (!Variant.IsSignature (signature)) {
-                throw new ArgumentException ("Not a valid signature.", nameof (signature));
+            if (!Variant.IsSignature(signature)) {
+                throw new ArgumentException("Not a valid signature.", nameof(signature));
             }
             value = signature;
         }
-        public bool Equals (DBusSignature other)
+
+        /// <inheritdoc />
+        public bool Equals(DBusSignature other)
         {
             return value == other.value;
         }
 
+        /// <inheritdoc />
         public override bool Equals(object obj)
         {
             if (obj is DBusSignature signature) {
@@ -97,29 +140,42 @@ namespace GISharp.Runtime
             return base.Equals(obj);
         }
 
-        public override int GetHashCode ()
+        /// <inheritdoc />
+        public override int GetHashCode()
         {
-            return value.GetHashCode ();
+            return value.GetHashCode();
         }
 
+        /// <summary>
+        /// Tests if two D-Bus signatures are equal.
+        /// </summary>
         public static bool operator ==(DBusSignature? one, DBusSignature? two)
         {
-            return object.Equals(one, two);
+            return Equals(one, two);
         }
 
+        /// <summary>
+        /// Tests if two D-Bus signatures are not equal.
+        /// </summary>
         public static bool operator !=(DBusSignature? one, DBusSignature? two)
         {
-            return !object.Equals(one, two);
+            return !Equals(one, two);
         }
 
-        public static implicit operator string (DBusSignature signature)
+        /// <summary>
+        /// Converts a D-bus signature to a string.
+        /// </summary>
+        public static implicit operator string(DBusSignature signature)
         {
             return signature.value;
         }
 
-        public static implicit operator DBusSignature (string signature)
+        /// <summary>
+        /// Converts a string to a D-bus signature.
+        /// </summary>
+        public static implicit operator DBusSignature(string signature)
         {
-            return new DBusSignature (signature);
+            return new DBusSignature(signature);
         }
     }
 }

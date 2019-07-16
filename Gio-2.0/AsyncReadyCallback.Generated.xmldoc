@@ -1,0 +1,16 @@
+<declaration>
+
+<member name='AsyncReadyCallback'>
+<summary>
+Type definition for a function that will be called back when an asynchronous
+operation within GIO has been completed. <see cref="AsyncReadyCallback"/>
+callbacks from <see cref="Task"/> are guaranteed to be invoked in a later
+iteration of the
+[thread-default main context][g-main-context-push-thread-default]
+where the <see cref="Task"/> was created. All other users of
+<see cref="AsyncReadyCallback"/> must likewise call it asynchronously in a
+later iteration of the main context.
+</summary>
+</member>
+
+</declaration>

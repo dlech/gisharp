@@ -4,7 +4,9 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Security;
 using System.Text;
+using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 using Buildalyzer;
@@ -22,6 +24,7 @@ using Microsoft.CodeAnalysis.Workspaces;
 using Mono.Options;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 using Generic = System.Collections.Generic;
 
@@ -39,24 +42,24 @@ namespace GISharp.CodeGen
             Generate,
         }
 
-        static void PrintHelpAndExit (OptionSet options, int exitCode = 0)
+        static void PrintHelpAndExit(OptionSet options, int exitCode = 0)
         {
             var writer = exitCode == 0 ? Console.Out : Console.Error;
             writer.WriteLine("Usage: mono GICodeGen.exe { -c <command> -p <project> [ -g <gir-path> ] [ -f ] | -h | -v }");
-            writer.WriteLine ();
-            options.WriteOptionDescriptions (writer);
-            Environment.Exit (exitCode);
+            writer.WriteLine();
+            options.WriteOptionDescriptions(writer);
+            Environment.Exit(exitCode);
         }
 
-        static void PrintVersionAndExit ()
+        static void PrintVersionAndExit()
         {
-            var assembly = Assembly.GetExecutingAssembly ();
-            var assemblyName = assembly.GetName ();
+            var assembly = Assembly.GetExecutingAssembly();
+            var assemblyName = assembly.GetName();
             Log.Message("{0} v{1}", assemblyName.Name, assemblyName.Version);
-            Environment.Exit (0);
+            Environment.Exit(0);
         }
 
-        public static void Main (string[] args)
+        public static void Main(string[] args)
         {
             string commandArg = null;
             string projectArg = null;
@@ -95,7 +98,7 @@ namespace GISharp.CodeGen
             if (extraArgs.Any()) {
                 var argList = string.Join(", ", extraArgs.ToArray());
                 Console.Error.WriteLine($"Unknown arguments: {argList}");
-                Console.Error.WriteLine ();
+                Console.Error.WriteLine();
                 PrintHelpAndExit(options, 1);
                 return;
             }
@@ -280,11 +283,65 @@ namespace GISharp.CodeGen
             var codeCompileUnits = gir.GetCompilationUnits().ToArray();
             var workspace = new AdhocWorkspace();
 
-            Log.Message($"Writing '*.Generated.cs'...");
+            var slashReplacer = new Regex("^/// ", RegexOptions.Multiline);
+
+            foreach (var f in Directory.GetFiles(projectDirPath, "*.Generated.*")) {
+                File.Delete(f);
+            }
+
+            Log.Message($"Writing '*.Generated.*'...");
             foreach (var (name, unit) in codeCompileUnits) {
+                var docFileName = name + ".xmldoc";
+                var collectedDocs = new StringBuilder();
+                collectedDocs.AppendLine("<declaration>");
+                collectedDocs.AppendLine();
+
+                // Replace all of the public doc comments with an <include>
+                // and dump the XML to a separate file so that it can be fixed
+                // up by hand.
+                SyntaxNode replaceLeadingTrivia(SyntaxNode node, SyntaxNode _)
+                {
+                    var newNode = node.ReplaceNodes(node.ChildNodes(), replaceLeadingTrivia);
+
+                    if (!node.HasAnnotations("extern doc")) {
+                        return newNode;
+                    }
+
+                    var memberName = SecurityElement.Escape(node.GetMemberDeclarationName());
+                    collectedDocs.AppendFormat("<member name='{0}'>", memberName);
+                    collectedDocs.AppendLine();
+                    collectedDocs.Append(slashReplacer.Replace(node.GetLeadingTrivia().ToFullString(), ""));
+                    collectedDocs.AppendLine("</member>");
+                    collectedDocs.AppendLine();
+
+                    // make sure we don't lose other trivia like #pragma
+                    var otherTrivia = node.GetLeadingTrivia().Where(x => x.Kind() != SingleLineDocumentationCommentTrivia);
+                    newNode = newNode.WithLeadingTrivia(otherTrivia.Concat(ParseLeadingTrivia(string.Format(
+                        "/// <include file=\"{0}\" path=\"declaration/member[@name='{1}']/*\" />\r\n",
+                        docFileName,
+                        memberName
+                    ))));
+
+                    return newNode;
+                }
+
+                var modifiedUnit = unit.ReplaceNodes(unit.ChildNodes(), replaceLeadingTrivia);
+                collectedDocs.AppendLine("</declaration>");
+
                 var generatedFilePath = Path.Combine(projectDirPath, name + ".Generated.cs");
                 using (var generatedFile = new StreamWriter(generatedFilePath)) {
-                    Formatter.Format(unit, workspace).WriteTo(generatedFile);
+                    Formatter.Format(modifiedUnit, workspace).WriteTo(generatedFile);
+                }
+
+                var generateDocPath = Path.Combine(projectDirPath, name + ".Generated.xmldoc");
+                using (var generatedFile = new StreamWriter(generateDocPath)) {
+                    generatedFile.Write(collectedDocs.ToString());
+                }
+
+                // create the hand-maintained file only if it doesn't already exist
+                var docPath = Path.Combine(projectDirPath, docFileName);
+                if (!File.Exists(docPath)) {
+                    File.Copy(generateDocPath, docPath);
                 }
             }
 
@@ -294,157 +351,155 @@ namespace GISharp.CodeGen
 
     static class ExtensionMethods
     {
-        #pragma warning disable 0414 // ignore private field not used
+#pragma warning disable 0414 // ignore private field not used
         static readonly XNamespace gi = Globals.CoreNamespace;
         static readonly XNamespace c = Globals.CNamespace;
         static readonly XNamespace glib = Globals.GLibNamespace;
         static readonly XNamespace gs = Globals.GISharpNamespace;
-        #pragma warning restore 0414
+#pragma warning restore 0414
 
         /// <summary>
         /// Converts an object to an appropriate ExpressionSyntax
         /// </summary>
         /// <returns>The expression.</returns>
         /// <param name="obj">Object.</param>
-        public static ExpressionSyntax ToExpression (this object obj)
+        public static ExpressionSyntax ToExpression(this object obj)
         {
             var @bool = obj as bool?;
             if (@bool.HasValue) {
                 if (@bool.Value) {
-                    return LiteralExpression (
-                        SyntaxKind.TrueLiteralExpression,
-                        Token (SyntaxKind.TrueKeyword));
+                    return LiteralExpression(
+                        TrueLiteralExpression,
+                        Token(TrueKeyword));
                 }
-                return LiteralExpression (
-                    SyntaxKind.FalseLiteralExpression,
-                    Token (SyntaxKind.FalseKeyword));
+                return LiteralExpression(
+                    FalseLiteralExpression,
+                    Token(FalseKeyword));
             }
             var @byte = obj as byte?;
             if (@byte.HasValue) {
-                return LiteralExpression (
-                    SyntaxKind.NumericLiteralExpression,
-                    Literal (@byte.Value));
+                return LiteralExpression(
+                    NumericLiteralExpression,
+                    Literal(@byte.Value));
             }
             var @sbyte = obj as sbyte?;
             if (@sbyte.HasValue) {
-                return LiteralExpression (
-                    SyntaxKind.NumericLiteralExpression,
-                    Literal (@sbyte.Value));
+                return LiteralExpression(
+                    NumericLiteralExpression,
+                    Literal(@sbyte.Value));
             }
             var @short = obj as short?;
             if (@short.HasValue) {
-                return LiteralExpression (
-                    SyntaxKind.NumericLiteralExpression,
-                    Literal (@short.Value));
+                return LiteralExpression(
+                    NumericLiteralExpression,
+                    Literal(@short.Value));
             }
             var @ushort = obj as ushort?;
             if (@ushort.HasValue) {
-                return LiteralExpression (
-                    SyntaxKind.NumericLiteralExpression,
-                    Literal (@ushort.Value));
+                return LiteralExpression(
+                    NumericLiteralExpression,
+                    Literal(@ushort.Value));
             }
             var @int = obj as int?;
             if (@int.HasValue) {
-                return LiteralExpression (
-                    SyntaxKind.NumericLiteralExpression,
-                    Literal (@int.Value));
+                return LiteralExpression(
+                    NumericLiteralExpression,
+                    Literal(@int.Value));
             }
             var @uint = obj as uint?;
             if (@uint.HasValue) {
-                return LiteralExpression (
-                    SyntaxKind.NumericLiteralExpression,
-                    Literal (@uint.Value));
+                return LiteralExpression(
+                    NumericLiteralExpression,
+                    Literal(@uint.Value));
             }
             var @long = obj as long?;
             if (@long.HasValue) {
-                return LiteralExpression (
-                    SyntaxKind.NumericLiteralExpression,
-                    Literal (@long.Value));
+                return LiteralExpression(
+                    NumericLiteralExpression,
+                    Literal(@long.Value));
             }
             var @ulong = obj as ulong?;
             if (@ulong.HasValue) {
-                return LiteralExpression (
-                    SyntaxKind.NumericLiteralExpression,
-                    Literal (@ulong.Value));
+                return LiteralExpression(
+                    NumericLiteralExpression,
+                    Literal(@ulong.Value));
             }
-            var str = obj as string;
-            if (str != null) {
-                return LiteralExpression (
-                    SyntaxKind.StringLiteralExpression,
-                    Literal (str));
+            if (obj is string str) {
+                return LiteralExpression(
+                    StringLiteralExpression,
+                    Literal(str));
             }
-            var @enum = obj as Enum;
-            if (@enum != null) {
-                return MemberAccessExpression (
-                    SyntaxKind.SimpleMemberAccessExpression,
-                    ParseExpression (@enum.GetType ().FullName),
-                    IdentifierName (@enum.ToString ()));
+            if (obj is Enum @enum) {
+                return MemberAccessExpression(
+                    SimpleMemberAccessExpression,
+                    ParseExpression(@enum.GetType().FullName),
+                    IdentifierName(@enum.ToString()));
             }
-            var message = string.Format ("Unexpected type '{0}", obj.GetType ().FullName);
-            throw new ArgumentException (message, nameof(obj));
+            var message = string.Format("Unexpected type '{0}", obj.GetType().FullName);
+            throw new ArgumentException(message, nameof(obj));
         }
 
-        public static int GetClosureIndex (this XElement element, bool countInstanceParameter = false)
+        public static int GetClosureIndex(this XElement element, bool countInstanceParameter = false)
         {
-            if (element.Attribute ("closure") == null) {
+            if (element.Attribute("closure") == null) {
                 return -1;
             }
 
-            var index = int.Parse (element.Attribute ("closure").Value);
-            if (countInstanceParameter && element.Parent.Element (gi + "instance-parameter") != null) {
+            var index = int.Parse(element.Attribute("closure").Value);
+            if (countInstanceParameter && element.Parent.Element(gi + "instance-parameter") != null) {
                 index++;
             }
 
             return index;
         }
 
-        public static int GetDestroyIndex (this XElement element, bool countInstanceParameter = false)
+        public static int GetDestroyIndex(this XElement element, bool countInstanceParameter = false)
         {
-            if (element.Attribute ("destroy") == null) {
+            if (element.Attribute("destroy") == null) {
                 return -1;
             }
 
-            var index = int.Parse (element.Attribute ("destroy").Value);
-            if (countInstanceParameter && element.Parent.Element (gi + "instance-parameter") != null) {
+            var index = int.Parse(element.Attribute("destroy").Value);
+            if (countInstanceParameter && element.Parent.Element(gi + "instance-parameter") != null) {
                 index++;
             }
 
             return index;
         }
 
-        public static int GetLengthIndex (this XElement element, bool countInstanceParameter = false)
+        public static int GetLengthIndex(this XElement element, bool countInstanceParameter = false)
         {
-            var arrayElement = element.Element (gi + "array");
-            if (arrayElement == null || arrayElement.Attribute ("length") == null) {
+            var arrayElement = element.Element(gi + "array");
+            if (arrayElement == null || arrayElement.Attribute("length") == null) {
                 return -1;
             }
 
-            var index = int.Parse (arrayElement.Attribute ("length").Value);
-            if (countInstanceParameter && element.Ancestors (gi + "method").Any ()) {
+            var index = int.Parse(arrayElement.Attribute("length").Value);
+            if (countInstanceParameter && element.Ancestors(gi + "method").Any()) {
                 index++;
             }
 
             return index;
         }
 
-        public static int GetFixedSize (this XElement element)
+        public static int GetFixedSize(this XElement element)
         {
-            var arrayElement = element.Element (gi + "array");
-            if (arrayElement == null || arrayElement.Attribute ("fixed-size") == null) {
+            var arrayElement = element.Element(gi + "array");
+            if (arrayElement == null || arrayElement.Attribute("fixed-size") == null) {
                 return -1;
             }
 
-            return int.Parse (arrayElement.Attribute ("fixed-size").Value);
+            return int.Parse(arrayElement.Attribute("fixed-size").Value);
         }
 
-        public static bool GetZeroTerminated (this XElement element)
+        public static bool GetZeroTerminated(this XElement element)
         {
-            var arrayElement = element.Element (gi + "array");
+            var arrayElement = element.Element(gi + "array");
             if (arrayElement == null) {
                 return false;
             }
 
-            return arrayElement.Attribute ("zero-terminated").AsBool ();
+            return arrayElement.Attribute("zero-terminated").AsBool();
         }
     }
 }

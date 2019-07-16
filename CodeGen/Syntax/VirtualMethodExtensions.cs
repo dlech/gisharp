@@ -34,7 +34,8 @@ namespace GISharp.CodeGen.Syntax
                     .AddRange(method.ManagedParameters.RegularParameters
                         .SelectMany(x => x.Doc.GetDocCommentTrivia()))
                     .AddRange(method.ReturnValue.Doc.GetDocCommentTrivia())
-                    .AddRange(method.GetGErrorExceptionDocCommentTrivia()));
+                    .AddRange(method.GetGErrorExceptionDocCommentTrivia()))
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
 
             yield return syntax;
         }
@@ -54,7 +55,8 @@ namespace GISharp.CodeGen.Syntax
                     .AddRange(method.ManagedParameters.RegularParameters
                         .SelectMany(x => x.Doc.GetDocCommentTrivia()))
                     .AddRange(method.ReturnValue.Doc.GetDocCommentTrivia())
-                    .AddRange(method.GetGErrorExceptionDocCommentTrivia()));
+                    .AddRange(method.GetGErrorExceptionDocCommentTrivia()))
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         static SyntaxList<AttributeListSyntax> GetAttributeLists(this VirtualMethod method)

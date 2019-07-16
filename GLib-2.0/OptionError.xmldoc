@@ -1,0 +1,35 @@
+<declaration>
+
+<member name='UnknownOption'>
+<summary>
+An option was not known to the parser.
+ This error will only be reported, if the parser hasn't been instructed
+ to ignore unknown options, see <see cref="M:OptionContext.SetIgnoreUnknownOptions(System.Boolean)"/>.
+</summary>
+</member>
+
+<member name='BadValue'>
+<summary>
+A value couldn't be parsed.
+</summary>
+</member>
+
+<member name='Failed'>
+<summary>
+A <see cref="OptionArgFunc"/> callback failed.
+</summary>
+</member>
+
+<member name='OptionError'>
+<summary>
+Error codes returned by option parsing.
+</summary>
+</member>
+
+<member name='Quark'>
+</member>
+
+<member name='GetQuark()'>
+</member>
+
+</declaration>

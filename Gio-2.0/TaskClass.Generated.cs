@@ -2,8 +2,12 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
+    /// <include file="TaskClass.xmldoc" path="declaration/member[@name='TaskClass']/*" />
     public sealed partial class TaskClass : GISharp.Lib.GObject.ObjectClass
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public TaskClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {

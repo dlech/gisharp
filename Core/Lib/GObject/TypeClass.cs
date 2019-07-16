@@ -17,9 +17,10 @@ namespace GISharp.Lib.GObject
         {
             public readonly int Offset;
             public readonly Func<MethodInfo, Delegate> Create;
-            public readonly Dictionary<IntPtr, Delegate> Overloads =  new Dictionary<IntPtr, Delegate>();
+            public readonly Dictionary<IntPtr, Delegate> Overloads = new Dictionary<IntPtr, Delegate>();
 
-            public VirtualMethodInfo(int offset, Func<MethodInfo, Delegate> create) {
+            public VirtualMethodInfo(int offset, Func<MethodInfo, Delegate> create)
+            {
                 Offset = offset;
                 Create = create;
             }
@@ -32,15 +33,27 @@ namespace GISharp.Lib.GObject
         readonly static Dictionary<Type, VirtualMethodInfo> virtualMethods =
             new Dictionary<Type, VirtualMethodInfo>();
 
+        /// <summary>
+        /// The unmanaged data structure.
+        /// </summary>
         protected struct Struct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
+            /// <summary>
+            /// The GType.
+            /// </summary>
             public GType GType;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
+        /// <summary>
+        /// Gets the GType of this type.
+        /// </summary>
         public GType GType => Marshal.PtrToStructure<GType>(Handle);
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected TypeClass(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
@@ -50,32 +63,39 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        protected override void Dispose (bool disposing)
+        /// <inheritdoc />
+        protected override void Dispose(bool disposing)
         {
             if (Handle != IntPtr.Zero) {
-                g_type_class_unref (Handle);
+                g_type_class_unref(Handle);
             }
-            base.Dispose (disposing);
+            base.Dispose(disposing);
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern void g_type_class_unref (IntPtr gClass);
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern void g_type_class_unref(IntPtr gClass);
 
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        internal static extern IntPtr g_type_class_ref (GType type);
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        internal static extern IntPtr g_type_class_ref(GType type);
 
+        /// <summary>
+        /// Gets the type class for the given GType.
+        /// </summary>
         public static T GetInstance<T>(GType type) where T : TypeClass
         {
             if (!type.IsClassed) {
-                throw new ArgumentException ("GType is not classed", nameof(type));
+                throw new ArgumentException("GType is not classed", nameof(type));
             }
-            var handle = g_type_class_ref (type);
-            var ret = Opaque.GetInstance<T> (handle, Transfer.Full);
+            var handle = g_type_class_ref(type);
+            var ret = GetInstance<T>(handle, Transfer.Full);
             return ret;
         }
 
-        public static TypeClass Get (GType type)
+        /// <summary>
+        /// Gets the type class for the given GType.
+        /// </summary>
+        public static TypeClass Get(GType type)
         {
             return GetInstance<TypeClass>(type);
         }
@@ -99,7 +119,7 @@ namespace GISharp.Lib.GObject
         /// Registers a managed method as an overload of an unmanaged virtual
         /// method.
         /// </summary>
-        /// <param name="class_">Pointer to the unmanaged class instance</summary>
+        /// <param name="class_">Pointer to the unmanaged class instance</param>
         /// <param name="type">The unmanaged delegate type</param>
         /// <param name="methodInfo">The method to install as the overload</param>
         internal static void InstallVirtualMethodOverload(IntPtr class_, Type type, MethodInfo methodInfo)
@@ -114,6 +134,9 @@ namespace GISharp.Lib.GObject
             Marshal.WriteIntPtr(class_, info.Offset, ptr);
         }
 
+        /// <summary>
+        /// Gets a delegate for the unmanaged virtual function pointer.
+        /// </summary>
         public static T? GetUnmanagedVirtualMethod<T>(GType type) where T : Delegate
         {
             var class_ = g_type_class_ref(type);
@@ -143,10 +166,10 @@ namespace GISharp.Lib.GObject
         /// the GTypeClass structure for the given type ID or NULL if the class
         /// does not currently exist.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
         /* transfer-ownership:none */
-        internal static extern IntPtr g_type_class_peek (
+        internal static extern IntPtr g_type_class_peek(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type);
@@ -168,14 +191,14 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the parent class of @g_class
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
         /* transfer-ownership:none */
-        internal static extern IntPtr g_type_class_peek_parent (
+        internal static extern IntPtr g_type_class_peek_parent(
             /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
             IntPtr gClass);
-        
+
 #if THIS_CODE_IS_NOT_COMPILED
         /// <summary>
         /// Registers a private structure for an instantiatable type.

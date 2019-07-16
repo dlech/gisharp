@@ -2,43 +2,30 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Flags used when copying or moving files.
-    /// </summary>
+    /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileCopyFlags", IsProxyForUnmanagedType = true)]
     [System.FlagsAttribute]
     public enum FileCopyFlags
     {
-        /// <summary>
-        /// No flags set.
-        /// </summary>
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <summary>
-        /// Overwrite any existing files
-        /// </summary>
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='Overwrite']/*" />
         Overwrite = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <summary>
-        /// Make a backup of any existing files.
-        /// </summary>
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='Backup']/*" />
         Backup = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <summary>
-        /// Don't follow symlinks.
-        /// </summary>
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='NoFollowSymlinks']/*" />
         NoFollowSymlinks = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <summary>
-        /// Copy all file metadata instead of just default set used for copy (see <see cref="FileInfo"/>).
-        /// </summary>
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='AllMetadata']/*" />
         AllMetadata = 0b0000_0000_0000_0000_0000_0000_0000_1000,
-        /// <summary>
-        /// Don't use copy and delete fallback if native move not supported.
-        /// </summary>
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='NoFallbackForMove']/*" />
         NoFallbackForMove = 0b0000_0000_0000_0000_0000_0000_0001_0000,
-        /// <summary>
-        /// Leaves target file with default perms, instead of setting the source file perms.
-        /// </summary>
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='TargetDefaultPerms']/*" />
         TargetDefaultPerms = 0b0000_0000_0000_0000_0000_0000_0010_0000
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="FileCopyFlags"/>.
+    /// </summary>
     public partial class FileCopyFlagsExtensions
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_copy_flags_get_type();

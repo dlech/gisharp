@@ -40,6 +40,9 @@ namespace GISharp.Lib.GLib
     [GType("GBytes", IsProxyForUnmanagedType = true)]
     public sealed class Bytes : Boxed, IReadOnlyList<byte>, IEquatable<Bytes>, IComparable<Bytes>
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Bytes(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {

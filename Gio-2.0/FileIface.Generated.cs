@@ -2,124 +2,325 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// An interface for writing VFS file handles.
-    /// </summary>
+    /// <include file="FileIface.xmldoc" path="declaration/member[@name='FileIface']/*" />
     public sealed class FileIface : GISharp.Lib.GObject.TypeInterface
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <summary>
-            /// The parent interface.
-            /// </summary>
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Dup']/*" />
             public System.IntPtr Dup;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Hash']/*" />
             public System.IntPtr Hash;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Equal']/*" />
             public System.IntPtr Equal;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='IsNative']/*" />
             public System.IntPtr IsNative;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='HasUriScheme']/*" />
             public System.IntPtr HasUriScheme;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetUriScheme']/*" />
             public System.IntPtr GetUriScheme;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetBasename']/*" />
             public System.IntPtr GetBasename;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetPath']/*" />
             public System.IntPtr GetPath;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetUri']/*" />
             public System.IntPtr GetUri;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetParseName']/*" />
             public System.IntPtr GetParseName;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetParent']/*" />
             public System.IntPtr GetParent;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='PrefixMatches']/*" />
             public System.IntPtr PrefixMatches;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetRelativePath']/*" />
             public System.IntPtr GetRelativePath;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ResolveRelativePath']/*" />
             public System.IntPtr ResolveRelativePath;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetChildForDisplayName']/*" />
             public System.IntPtr GetChildForDisplayName;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EnumerateChildren']/*" />
             public System.IntPtr EnumerateChildren;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EnumerateChildrenAsync']/*" />
             public System.IntPtr EnumerateChildrenAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EnumerateChildrenFinish']/*" />
             public System.IntPtr EnumerateChildrenFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryInfo']/*" />
             public System.IntPtr QueryInfo;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryInfoAsync']/*" />
             public System.IntPtr QueryInfoAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryInfoFinish']/*" />
             public System.IntPtr QueryInfoFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryFilesystemInfo']/*" />
             public System.IntPtr QueryFilesystemInfo;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryFilesystemInfoAsync']/*" />
             public System.IntPtr QueryFilesystemInfoAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryFilesystemInfoFinish']/*" />
             public System.IntPtr QueryFilesystemInfoFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='FindEnclosingMount']/*" />
             public System.IntPtr FindEnclosingMount;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='FindEnclosingMountAsync']/*" />
             public System.IntPtr FindEnclosingMountAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='FindEnclosingMountFinish']/*" />
             public System.IntPtr FindEnclosingMountFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetDisplayName']/*" />
             public System.IntPtr SetDisplayName;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetDisplayNameAsync']/*" />
             public System.IntPtr SetDisplayNameAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetDisplayNameFinish']/*" />
             public System.IntPtr SetDisplayNameFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QuerySettableAttributes']/*" />
             public System.IntPtr QuerySettableAttributes;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QuerySettableAttributesAsync']/*" />
             public System.IntPtr QuerySettableAttributesAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QuerySettableAttributesFinish']/*" />
             public System.IntPtr QuerySettableAttributesFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryWritableNamespaces']/*" />
             public System.IntPtr QueryWritableNamespaces;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryWritableNamespacesAsync']/*" />
             public System.IntPtr QueryWritableNamespacesAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryWritableNamespacesFinish']/*" />
             public System.IntPtr QueryWritableNamespacesFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttribute']/*" />
             public System.IntPtr SetAttribute;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttributesFromInfo']/*" />
             public System.IntPtr SetAttributesFromInfo;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttributesAsync']/*" />
             public System.IntPtr SetAttributesAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttributesFinish']/*" />
             public System.IntPtr SetAttributesFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReadFn']/*" />
             public System.IntPtr ReadFn;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReadAsync']/*" />
             public System.IntPtr ReadAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReadFinish']/*" />
             public System.IntPtr ReadFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='AppendTo']/*" />
             public System.IntPtr AppendTo;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='AppendToAsync']/*" />
             public System.IntPtr AppendToAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='AppendToFinish']/*" />
             public System.IntPtr AppendToFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Create']/*" />
             public System.IntPtr Create;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateAsync']/*" />
             public System.IntPtr CreateAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateFinish']/*" />
             public System.IntPtr CreateFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Replace']/*" />
             public System.IntPtr Replace;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceAsync']/*" />
             public System.IntPtr ReplaceAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceFinish']/*" />
             public System.IntPtr ReplaceFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='DeleteFile']/*" />
             public System.IntPtr DeleteFile;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='DeleteFileAsync']/*" />
             public System.IntPtr DeleteFileAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='DeleteFileFinish']/*" />
             public System.IntPtr DeleteFileFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Trash']/*" />
             public System.IntPtr Trash;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='TrashAsync']/*" />
             public System.IntPtr TrashAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='TrashFinish']/*" />
             public System.IntPtr TrashFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeDirectory']/*" />
             public System.IntPtr MakeDirectory;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeDirectoryAsync']/*" />
             public System.IntPtr MakeDirectoryAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeDirectoryFinish']/*" />
             public System.IntPtr MakeDirectoryFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeSymbolicLink']/*" />
             public System.IntPtr MakeSymbolicLink;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeSymbolicLinkAsync']/*" />
             public System.IntPtr MakeSymbolicLinkAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeSymbolicLinkFinish']/*" />
             public System.IntPtr MakeSymbolicLinkFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Copy']/*" />
             public System.IntPtr Copy;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CopyAsync']/*" />
             public System.IntPtr CopyAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CopyFinish']/*" />
             public System.IntPtr CopyFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Move']/*" />
             public System.IntPtr Move;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MoveAsync']/*" />
             public System.IntPtr MoveAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MoveFinish']/*" />
             public System.IntPtr MoveFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountMountable']/*" />
             public System.IntPtr MountMountable;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountMountableFinish']/*" />
             public System.IntPtr MountMountableFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountable']/*" />
             public System.IntPtr UnmountMountable;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountableFinish']/*" />
             public System.IntPtr UnmountMountableFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountable']/*" />
             public System.IntPtr EjectMountable;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountableFinish']/*" />
             public System.IntPtr EjectMountableFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountEnclosingVolume']/*" />
             public System.IntPtr MountEnclosingVolume;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountEnclosingVolumeFinish']/*" />
             public System.IntPtr MountEnclosingVolumeFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MonitorDir']/*" />
             public System.IntPtr MonitorDir;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MonitorFile']/*" />
             public System.IntPtr MonitorFile;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='OpenReadwrite']/*" />
             public System.IntPtr OpenReadwrite;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='OpenReadwriteAsync']/*" />
             public System.IntPtr OpenReadwriteAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='OpenReadwriteFinish']/*" />
             public System.IntPtr OpenReadwriteFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateReadwrite']/*" />
             public System.IntPtr CreateReadwrite;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateReadwriteAsync']/*" />
             public System.IntPtr CreateReadwriteAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateReadwriteFinish']/*" />
             public System.IntPtr CreateReadwriteFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwrite']/*" />
             public System.IntPtr ReplaceReadwrite;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwriteAsync']/*" />
             public System.IntPtr ReplaceReadwriteAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwriteFinish']/*" />
             public System.IntPtr ReplaceReadwriteFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='StartMountable']/*" />
             public System.IntPtr StartMountable;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='StartMountableFinish']/*" />
             public System.IntPtr StartMountableFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='StopMountable']/*" />
             public System.IntPtr StopMountable;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='StopMountableFinish']/*" />
             public System.IntPtr StopMountableFinish;
 
-            /// <summary>
-            /// a boolean that indicates whether the <see cref="IFile"/> implementation supports thread-default contexts. Since 2.22.
-            /// </summary>
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SupportsThreadContexts']/*" />
             public GISharp.Runtime.Boolean SupportsThreadContexts;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountableWithOperation']/*" />
             public System.IntPtr UnmountMountableWithOperation;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountableWithOperationFinish']/*" />
             public System.IntPtr UnmountMountableWithOperationFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountableWithOperation']/*" />
             public System.IntPtr EjectMountableWithOperation;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountableWithOperationFinish']/*" />
             public System.IntPtr EjectMountableWithOperationFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='PollMountable']/*" />
             public System.IntPtr PollMountable;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='PollMountableFinish']/*" />
             public System.IntPtr PollMountableFinish;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MeasureDiskUsage']/*" />
             public System.IntPtr MeasureDiskUsage;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MeasureDiskUsageAsync']/*" />
             public System.IntPtr MeasureDiskUsageAsync;
+
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MeasureDiskUsageFinish']/*" />
             public System.IntPtr MeasureDiskUsageFinish;
 #pragma warning restore CS0649
         }
@@ -284,8 +485,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(measureDiskUsageFinishOffset, MeasureDiskUsageFinishMarshal.Create);
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='Dup']/*" />
         public delegate GISharp.Lib.Gio.IFile Dup();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -299,6 +504,9 @@ System.IntPtr file);
         /// </summary>
         public static class DupMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedDup Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedDup(System.IntPtr file_)
@@ -323,8 +531,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='Hash']/*" />
         public delegate System.UInt32 Hash();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:out */
@@ -338,6 +550,9 @@ System.IntPtr file);
         /// </summary>
         public static class HashMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.UInt32 unmanagedHash(System.IntPtr file_)
@@ -362,8 +577,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='Equal']/*" />
         public delegate System.Boolean Equal(GISharp.Lib.Gio.IFile file2);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -380,6 +599,9 @@ System.IntPtr file2);
         /// </summary>
         public static class EqualMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedEqual(System.IntPtr file1_, System.IntPtr file2_)
@@ -405,8 +627,12 @@ System.IntPtr file2);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='IsNative']/*" />
         public delegate System.Boolean IsNative();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -420,6 +646,9 @@ System.IntPtr file);
         /// </summary>
         public static class IsNativeMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedIsNative Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedIsNative(System.IntPtr file_)
@@ -444,8 +673,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='HasUriScheme']/*" />
         public delegate System.Boolean HasUriScheme(GISharp.Lib.GLib.UnownedUtf8 uriScheme);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -462,6 +695,9 @@ System.IntPtr uriScheme);
         /// </summary>
         public static class HasUriSchemeMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedHasUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedHasUriScheme(System.IntPtr file_, System.IntPtr uriScheme_)
@@ -487,8 +723,12 @@ System.IntPtr uriScheme);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetUriScheme']/*" />
         public delegate GISharp.Lib.GLib.Utf8 GetUriScheme();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -502,6 +742,9 @@ System.IntPtr file);
         /// </summary>
         public static class GetUriSchemeMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetUriScheme(System.IntPtr file_)
@@ -526,8 +769,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetBasename']/*" />
         public delegate GISharp.Lib.GLib.Utf8 GetBasename();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -541,6 +788,9 @@ System.IntPtr file);
         /// </summary>
         public static class GetBasenameMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetBasename Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetBasename(System.IntPtr file_)
@@ -565,8 +815,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetPath']/*" />
         public delegate GISharp.Lib.GLib.Utf8 GetPath();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -580,6 +834,9 @@ System.IntPtr file);
         /// </summary>
         public static class GetPathMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetPath Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetPath(System.IntPtr file_)
@@ -604,8 +861,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetUri']/*" />
         public delegate GISharp.Lib.GLib.Utf8 GetUri();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -619,6 +880,9 @@ System.IntPtr file);
         /// </summary>
         public static class GetUriMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetUri Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetUri(System.IntPtr file_)
@@ -643,8 +907,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetParseName']/*" />
         public delegate GISharp.Lib.GLib.Utf8 GetParseName();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -658,6 +926,9 @@ System.IntPtr file);
         /// </summary>
         public static class GetParseNameMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetParseName Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetParseName(System.IntPtr file_)
@@ -682,8 +953,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetParent']/*" />
         public delegate GISharp.Lib.Gio.IFile? GetParent();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
@@ -697,6 +972,9 @@ System.IntPtr file);
         /// </summary>
         public static class GetParentMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetParent Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetParent(System.IntPtr file_)
@@ -721,8 +999,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='PrefixMatches']/*" />
         public delegate System.Boolean PrefixMatches(GISharp.Lib.Gio.IFile file);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -739,6 +1021,9 @@ System.IntPtr file);
         /// </summary>
         public static class PrefixMatchesMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedPrefixMatches Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedPrefixMatches(System.IntPtr prefix_, System.IntPtr file_)
@@ -764,8 +1049,12 @@ System.IntPtr file);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetRelativePath']/*" />
         public delegate GISharp.Lib.GLib.Utf8 GetRelativePath(GISharp.Lib.Gio.IFile descendant);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -782,6 +1071,9 @@ System.IntPtr descendant);
         /// </summary>
         public static class GetRelativePathMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetRelativePath(System.IntPtr parent_, System.IntPtr descendant_)
@@ -807,8 +1099,12 @@ System.IntPtr descendant);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='ResolveRelativePath']/*" />
         public delegate GISharp.Lib.Gio.IFile ResolveRelativePath(GISharp.Lib.GLib.Filename relativePath);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -825,6 +1121,9 @@ System.IntPtr relativePath);
         /// </summary>
         public static class ResolveRelativePathMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedResolveRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedResolveRelativePath(System.IntPtr file_, System.IntPtr relativePath_)
@@ -850,8 +1149,12 @@ System.IntPtr relativePath);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetChildForDisplayName']/*" />
         public delegate GISharp.Lib.Gio.IFile GetChildForDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -871,6 +1174,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class GetChildForDisplayNameMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetChildForDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetChildForDisplayName(System.IntPtr file_, System.IntPtr displayName_, ref System.IntPtr error_)
@@ -900,8 +1206,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='EnumerateChildrenAsync']/*" />
         public delegate void EnumerateChildrenAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -933,6 +1243,9 @@ System.IntPtr userData);
         /// </summary>
         public static class EnumerateChildrenAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedEnumerateChildrenAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedEnumerateChildrenAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -958,8 +1271,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryInfo']/*" />
         public delegate GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -985,6 +1302,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class QueryInfoMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryInfo Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedQueryInfo(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -1016,8 +1336,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryInfoAsync']/*" />
         public delegate void QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -1049,6 +1373,9 @@ System.IntPtr userData);
         /// </summary>
         public static class QueryInfoAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedQueryInfoAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -1074,8 +1401,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryInfoFinish']/*" />
         public delegate GISharp.Lib.Gio.FileInfo QueryInfoFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1095,6 +1426,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class QueryInfoFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedQueryInfoFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -1124,8 +1458,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryFilesystemInfo']/*" />
         public delegate GISharp.Lib.Gio.FileInfo QueryFilesystemInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1148,6 +1486,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class QueryFilesystemInfoMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryFilesystemInfo Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedQueryFilesystemInfo(System.IntPtr file_, System.IntPtr attributes_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -1178,8 +1519,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryFilesystemInfoAsync']/*" />
         public delegate void QueryFilesystemInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -1208,6 +1553,9 @@ System.IntPtr userData);
         /// </summary>
         public static class QueryFilesystemInfoAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryFilesystemInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedQueryFilesystemInfoAsync(System.IntPtr file_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -1232,8 +1580,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryFilesystemInfoFinish']/*" />
         public delegate GISharp.Lib.Gio.FileInfo QueryFilesystemInfoFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1253,6 +1605,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class QueryFilesystemInfoFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryFilesystemInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedQueryFilesystemInfoFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -1282,8 +1637,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='FindEnclosingMountAsync']/*" />
         public delegate void FindEnclosingMountAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -1309,6 +1668,9 @@ System.IntPtr userData);
         /// </summary>
         public static class FindEnclosingMountAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedFindEnclosingMountAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedFindEnclosingMountAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -1332,8 +1694,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetDisplayName']/*" />
         public delegate GISharp.Lib.Gio.IFile SetDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1356,6 +1722,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class SetDisplayNameMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSetDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedSetDisplayName(System.IntPtr file_, System.IntPtr displayName_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -1386,8 +1755,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetDisplayNameAsync']/*" />
         public delegate void SetDisplayNameAsync(GISharp.Lib.GLib.UnownedUtf8 displayName, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -1416,6 +1789,9 @@ System.IntPtr userData);
         /// </summary>
         public static class SetDisplayNameAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSetDisplayNameAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedSetDisplayNameAsync(System.IntPtr file_, System.IntPtr displayName_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -1440,8 +1816,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetDisplayNameFinish']/*" />
         public delegate GISharp.Lib.Gio.IFile SetDisplayNameFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1461,6 +1841,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class SetDisplayNameFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSetDisplayNameFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedSetDisplayNameFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -1490,8 +1873,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='QuerySettableAttributes']/*" />
         public delegate GISharp.Lib.Gio.FileAttributeInfoList QuerySettableAttributes(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" managed-name="FileAttributeInfoList" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1511,6 +1898,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class QuerySettableAttributesMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQuerySettableAttributes Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedQuerySettableAttributes(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -1540,8 +1930,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryWritableNamespaces']/*" />
         public delegate GISharp.Lib.Gio.FileAttributeInfoList QueryWritableNamespaces(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" managed-name="FileAttributeInfoList" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1561,6 +1955,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class QueryWritableNamespacesMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedQueryWritableNamespaces Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedQueryWritableNamespaces(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -1590,8 +1987,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttribute']/*" />
         public delegate void SetAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -1623,6 +2024,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class SetAttributeMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSetAttribute Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedSetAttribute(System.IntPtr file_, System.IntPtr attribute_, GISharp.Lib.Gio.FileAttributeType type_, System.IntPtr valueP_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -1655,8 +2059,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttributesFromInfo']/*" />
         public delegate void SetAttributesFromInfo(GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -1682,6 +2090,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class SetAttributesFromInfoMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSetAttributesFromInfo Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedSetAttributesFromInfo(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -1712,8 +2123,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttributesAsync']/*" />
         public delegate void SetAttributesAsync(GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -1745,6 +2160,9 @@ System.IntPtr userData);
         /// </summary>
         public static class SetAttributesAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSetAttributesAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedSetAttributesAsync(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -1770,8 +2188,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttributesFinish']/*" />
         public delegate void SetAttributesFinish(GISharp.Lib.Gio.IAsyncResult result, out GISharp.Lib.Gio.FileInfo info);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -1794,6 +2216,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class SetAttributesFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSetAttributesFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedSetAttributesFinish(System.IntPtr file_, System.IntPtr result_, out System.IntPtr info_, ref System.IntPtr error_)
@@ -1824,8 +2249,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReadFn']/*" />
         public delegate GISharp.Lib.Gio.FileInputStream ReadFn(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1845,6 +2274,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class ReadFnMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedReadFn Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedReadFn(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -1874,8 +2306,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReadAsync']/*" />
         public delegate void ReadAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -1901,6 +2337,9 @@ System.IntPtr userData);
         /// </summary>
         public static class ReadAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedReadAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedReadAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -1924,8 +2363,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReadFinish']/*" />
         public delegate GISharp.Lib.Gio.FileInputStream ReadFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1945,6 +2388,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class ReadFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedReadFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedReadFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -1974,8 +2420,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='AppendTo']/*" />
         public delegate GISharp.Lib.Gio.FileOutputStream AppendTo(GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -1998,6 +2448,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class AppendToMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedAppendTo Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedAppendTo(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -2028,8 +2481,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='AppendToAsync']/*" />
         public delegate void AppendToAsync(GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -2058,6 +2515,9 @@ System.IntPtr userData);
         /// </summary>
         public static class AppendToAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedAppendToAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedAppendToAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -2082,8 +2542,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='AppendToFinish']/*" />
         public delegate GISharp.Lib.Gio.FileOutputStream AppendToFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -2103,6 +2567,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class AppendToFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedAppendToFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedAppendToFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -2132,8 +2599,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='Create']/*" />
         public delegate GISharp.Lib.Gio.FileOutputStream Create(GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -2156,6 +2627,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CreateMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCreate Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedCreate(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -2186,8 +2660,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateAsync']/*" />
         public delegate void CreateAsync(GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -2216,6 +2694,9 @@ System.IntPtr userData);
         /// </summary>
         public static class CreateAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCreateAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCreateAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -2240,8 +2721,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateFinish']/*" />
         public delegate GISharp.Lib.Gio.FileOutputStream CreateFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -2261,6 +2746,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CreateFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCreateFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedCreateFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -2290,8 +2778,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='Replace']/*" />
         public delegate GISharp.Lib.Gio.FileOutputStream Replace(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -2320,6 +2812,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class ReplaceMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedReplace Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedReplace(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -2352,8 +2847,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceAsync']/*" />
         public delegate void ReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -2388,6 +2887,9 @@ System.IntPtr userData);
         /// </summary>
         public static class ReplaceAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedReplaceAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedReplaceAsync(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -2414,8 +2916,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceFinish']/*" />
         public delegate GISharp.Lib.Gio.FileOutputStream ReplaceFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -2435,6 +2941,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class ReplaceFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedReplaceFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedReplaceFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -2464,8 +2973,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='DeleteFile']/*" />
         public delegate void DeleteFile(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -2485,6 +2998,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class DeleteFileMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedDeleteFile Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedDeleteFile(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -2513,8 +3029,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='DeleteFileAsync']/*" />
         public delegate void DeleteFileAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -2540,6 +3060,9 @@ System.IntPtr userData);
         /// </summary>
         public static class DeleteFileAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedDeleteFileAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedDeleteFileAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -2563,8 +3086,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='DeleteFileFinish']/*" />
         public delegate void DeleteFileFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -2584,6 +3111,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class DeleteFileFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedDeleteFileFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedDeleteFileFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -2612,8 +3142,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='Trash']/*" />
         public delegate void Trash(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -2633,6 +3167,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class TrashMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedTrash Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedTrash(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -2661,8 +3198,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='TrashAsync']/*" />
         public delegate void TrashAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -2688,6 +3229,9 @@ System.IntPtr userData);
         /// </summary>
         public static class TrashAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedTrashAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedTrashAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -2711,8 +3255,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='TrashFinish']/*" />
         public delegate void TrashFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -2732,6 +3280,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class TrashFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedTrashFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedTrashFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -2760,8 +3311,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeDirectory']/*" />
         public delegate void MakeDirectory(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -2781,6 +3336,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class MakeDirectoryMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedMakeDirectory Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMakeDirectory(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -2809,8 +3367,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeDirectoryAsync']/*" />
         public delegate void MakeDirectoryAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -2836,6 +3398,9 @@ System.IntPtr userData);
         /// </summary>
         public static class MakeDirectoryAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedMakeDirectoryAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedMakeDirectoryAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -2859,8 +3424,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeDirectoryFinish']/*" />
         public delegate void MakeDirectoryFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -2880,6 +3449,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class MakeDirectoryFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedMakeDirectoryFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMakeDirectoryFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -2908,8 +3480,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeSymbolicLink']/*" />
         public delegate void MakeSymbolicLink(GISharp.Lib.GLib.Filename symlinkValue, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -2932,6 +3508,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class MakeSymbolicLinkMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedMakeSymbolicLink Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMakeSymbolicLink(System.IntPtr file_, System.IntPtr symlinkValue_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -2961,8 +3540,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='Copy']/*" />
         public delegate void Copy(GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -2994,6 +3577,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CopyMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCopy Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCopy(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, ref System.IntPtr error_)
@@ -3025,8 +3611,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='CopyAsync']/*" />
         public delegate void CopyAsync(GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -3064,6 +3654,9 @@ System.IntPtr userData);
         /// </summary>
         public static class CopyAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCopyAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCopyAsync(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, System.IntPtr callback_, System.IntPtr userData_)
@@ -3090,8 +3683,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='CopyFinish']/*" />
         public delegate void CopyFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -3111,6 +3708,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CopyFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCopyFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCopyFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -3139,8 +3739,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='Move']/*" />
         public delegate void Move(GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -3172,6 +3776,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class MoveMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedMove Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMove(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, ref System.IntPtr error_)
@@ -3203,8 +3810,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountMountableFinish']/*" />
         public delegate GISharp.Lib.Gio.IFile MountMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -3224,6 +3835,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class MountMountableFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedMountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedMountMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -3253,8 +3867,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountableFinish']/*" />
         public delegate void UnmountMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -3274,6 +3892,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class UnmountMountableFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedUnmountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedUnmountMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -3302,8 +3923,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountableFinish']/*" />
         public delegate void EjectMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -3323,6 +3948,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class EjectMountableFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedEjectMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedEjectMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -3351,8 +3979,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountEnclosingVolumeFinish']/*" />
         public delegate void MountEnclosingVolumeFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -3372,6 +4004,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class MountEnclosingVolumeFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedMountEnclosingVolumeFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMountEnclosingVolumeFinish(System.IntPtr location_, System.IntPtr result_, ref System.IntPtr error_)
@@ -3400,8 +4035,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='OpenReadwrite']/*" />
         public delegate GISharp.Lib.Gio.FileIOStream OpenReadwrite(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -3421,6 +4060,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class OpenReadwriteMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedOpenReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedOpenReadwrite(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -3450,8 +4092,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='OpenReadwriteAsync']/*" />
         public delegate void OpenReadwriteAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -3477,6 +4123,9 @@ System.IntPtr userData);
         /// </summary>
         public static class OpenReadwriteAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedOpenReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedOpenReadwriteAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -3500,8 +4149,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='OpenReadwriteFinish']/*" />
         public delegate GISharp.Lib.Gio.FileIOStream OpenReadwriteFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -3521,6 +4174,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class OpenReadwriteFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedOpenReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedOpenReadwriteFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -3550,8 +4206,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateReadwrite']/*" />
         public delegate GISharp.Lib.Gio.FileIOStream CreateReadwrite(GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -3574,6 +4234,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CreateReadwriteMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCreateReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedCreateReadwrite(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -3604,8 +4267,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateReadwriteAsync']/*" />
         public delegate void CreateReadwriteAsync(GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -3634,6 +4301,9 @@ System.IntPtr userData);
         /// </summary>
         public static class CreateReadwriteAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCreateReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCreateReadwriteAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -3658,8 +4328,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateReadwriteFinish']/*" />
         public delegate GISharp.Lib.Gio.FileIOStream CreateReadwriteFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -3679,6 +4353,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class CreateReadwriteFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCreateReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedCreateReadwriteFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -3708,8 +4385,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwrite']/*" />
         public delegate GISharp.Lib.Gio.FileIOStream ReplaceReadwrite(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -3738,6 +4419,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class ReplaceReadwriteMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedReplaceReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedReplaceReadwrite(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -3770,8 +4454,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwriteAsync']/*" />
         public delegate void ReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -3806,6 +4494,9 @@ System.IntPtr userData);
         /// </summary>
         public static class ReplaceReadwriteAsyncMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedReplaceReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedReplaceReadwriteAsync(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -3832,8 +4523,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwriteFinish']/*" />
         public delegate GISharp.Lib.Gio.FileIOStream ReplaceReadwriteFinish(GISharp.Lib.Gio.IAsyncResult res);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -3853,6 +4548,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class ReplaceReadwriteFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedReplaceReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedReplaceReadwriteFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
@@ -3882,8 +4580,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='StartMountableFinish']/*" />
         public delegate void StartMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -3903,6 +4605,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class StartMountableFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedStartMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedStartMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -3931,8 +4636,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='StopMountableFinish']/*" />
         public delegate void StopMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -3952,6 +4661,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class StopMountableFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedStopMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedStopMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -3980,8 +4692,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountableWithOperationFinish']/*" />
         public delegate void UnmountMountableWithOperationFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -4001,6 +4717,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class UnmountMountableWithOperationFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedUnmountMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedUnmountMountableWithOperationFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -4029,8 +4748,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountableWithOperationFinish']/*" />
         public delegate void EjectMountableWithOperationFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -4050,6 +4773,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class EjectMountableWithOperationFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedEjectMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedEjectMountableWithOperationFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -4078,8 +4804,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='PollMountable']/*" />
         public delegate void PollMountable(GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -4102,6 +4832,9 @@ System.IntPtr userData);
         /// </summary>
         public static class PollMountableMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedPollMountable Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedPollMountable(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
@@ -4124,8 +4857,12 @@ System.IntPtr userData);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='PollMountableFinish']/*" />
         public delegate void PollMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -4145,6 +4882,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class PollMountableFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedPollMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedPollMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
@@ -4173,8 +4913,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="FileIface.xmldoc" path="declaration/member[@name='MeasureDiskUsageFinish']/*" />
         public delegate void MeasureDiskUsageFinish(GISharp.Lib.Gio.IAsyncResult result, out System.UInt64 diskUsage, out System.UInt64 numDirs, out System.UInt64 numFiles);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -4203,6 +4947,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class MeasureDiskUsageFinishMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedMeasureDiskUsageFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMeasureDiskUsageFinish(System.IntPtr file_, System.IntPtr result_, out System.UInt64 diskUsage_, out System.UInt64 numDirs_, out System.UInt64 numFiles_, ref System.IntPtr error_)
@@ -4237,6 +4984,9 @@ ref System.IntPtr error);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public FileIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

@@ -1,0 +1,157 @@
+<declaration>
+
+<member name='New(GISharp.Lib.GLib.VariantType)'>
+<summary>
+Allocates and initialises a new <see cref="VariantBuilder"/>.
+</summary>
+<remarks>
+You should call <see cref="M:VariantBuilder.Unref()"/> on the return value when it
+is no longer needed.  The memory will not be automatically freed by
+any other call.
+
+In most cases it is easier to place a <see cref="VariantBuilder"/> directly on
+the stack of the calling function and initialise it with
+g_variant_builder_init().
+</remarks>
+<param name="type">
+a container type
+</param>
+<returns>
+a <see cref="VariantBuilder"/>
+</returns>
+</member>
+
+<member name='VariantBuilder(GISharp.Lib.GLib.VariantType)'>
+<summary>
+Allocates and initialises a new <see cref="VariantBuilder"/>.
+</summary>
+<remarks>
+You should call <see cref="M:VariantBuilder.Unref()"/> on the return value when it
+is no longer needed.  The memory will not be automatically freed by
+any other call.
+
+In most cases it is easier to place a <see cref="VariantBuilder"/> directly on
+the stack of the calling function and initialise it with
+g_variant_builder_init().
+</remarks>
+<param name="type">
+a container type
+</param>
+</member>
+
+<member name='Add(GISharp.Lib.GLib.Variant)'>
+<summary>
+Adds this instance to this instance.
+</summary>
+<remarks>
+It is an error to call this function in any way that would create an
+inconsistent value to be constructed.  Some examples of this are
+putting different types of items into an array, putting the wrong
+types or number of items in a tuple, putting more than one value into
+a variant, etc.
+
+If this instance is a floating reference (see g_variant_ref_sink()),
+the this instance instance takes ownership of this instance.
+</remarks>
+<param name="value">
+a #GVariant
+</param>
+</member>
+
+<member name='Close()'>
+<summary>
+Closes the subcontainer inside the given this instance that was opened by
+the most recent call to <see cref="M:VariantBuilder.Open(GISharp.Lib.GLib.VariantType)"/>.
+</summary>
+<remarks>
+It is an error to call this function in any way that would create an
+inconsistent value to be constructed (ie: too few values added to the
+subcontainer).
+</remarks>
+</member>
+
+<member name='End()'>
+<summary>
+Ends the builder process and returns the constructed value.
+</summary>
+<remarks>
+It is not permissible to use this instance in any way after this call
+except for reference counting operations (in the case of a
+heap-allocated <see cref="VariantBuilder"/>) or by reinitialising it with
+g_variant_builder_init() (in the case of stack-allocated). This
+means that for the stack-allocated builders there is no need to
+call g_variant_builder_clear() after the call to
+<see cref="M:VariantBuilder.End()"/>.
+
+It is an error to call this function in any way that would create an
+inconsistent value to be constructed (ie: insufficient number of
+items added to a container with a specific number of children
+required).  It is also an error to call this function if the builder
+was created with an indefinite array or maybe type and no children
+have been added; in this case it is impossible to infer the type of
+the empty array.
+</remarks>
+<returns>
+a new, floating, #GVariant
+</returns>
+</member>
+
+<member name='Open(GISharp.Lib.GLib.VariantType)'>
+<summary>
+Opens a subcontainer inside the given this instance.  When done adding
+items to the subcontainer, <see cref="M:VariantBuilder.Close()"/> must be called. this instance
+is the type of the container: so to build a tuple of several values, this instance
+must include the tuple itself.
+</summary>
+<remarks>
+It is an error to call this function in any way that would cause an
+inconsistent value to be constructed (ie: adding too many values or
+a value of an incorrect type).
+
+Example of building a nested variant:
+|[&lt;!-- language="C" --&gt;
+GVariantBuilder builder;
+guint32 some_number = get_number ();
+g_autoptr (GHashTable) some_dict = get_dict ();
+GHashTableIter iter;
+const gchar *key;
+const GVariant *value;
+g_autoptr (GVariant) output = NULL;
+
+g_variant_builder_init (&amp;builder, G_VARIANT_TYPE ("(ua{sv})"));
+g_variant_builder_add (&amp;builder, "u", some_number);
+g_variant_builder_open (&amp;builder, G_VARIANT_TYPE ("a{sv}"));
+
+g_hash_table_iter_init (&amp;iter, some_dict);
+while (g_hash_table_iter_next (&amp;iter, (gpointer *) &amp;key, (gpointer *) &amp;value))
+  {
+    g_variant_builder_open (&amp;builder, G_VARIANT_TYPE ("{sv}"));
+    g_variant_builder_add (&amp;builder, "s", key);
+    g_variant_builder_add (&amp;builder, "v", value);
+    g_variant_builder_close (&amp;builder);
+  }
+
+g_variant_builder_close (&amp;builder);
+
+output = g_variant_builder_end (&amp;builder);
+]|
+</remarks>
+<param name="type">
+the #GVariantType of the container
+</param>
+</member>
+
+<member name='VariantBuilder'>
+<summary>
+A utility type for constructing container-type #GVariant instances.
+</summary>
+<remarks>
+This is an opaque structure and may only be accessed using the
+following functions.
+
+<see cref="VariantBuilder"/> is not threadsafe in any way.  Do not attempt to
+access it from more than one thread.
+</remarks>
+</member>
+
+</declaration>

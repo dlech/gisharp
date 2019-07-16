@@ -1,0 +1,61 @@
+<declaration>
+
+<member name='GIface'>
+#pragmawarningdisableCS0649
+</member>
+
+<member name='GetName'>
+</member>
+
+<member name='GetParameterType'>
+</member>
+
+<member name='GetStateType'>
+</member>
+
+<member name='GetStateHint'>
+</member>
+
+<member name='GetEnabled'>
+</member>
+
+<member name='GetState'>
+</member>
+
+<member name='ChangeState'>
+</member>
+
+<member name='Activate'>
+</member>
+
+<member name='GetName'>
+</member>
+
+<member name='GetParameterType'>
+</member>
+
+<member name='GetStateType'>
+</member>
+
+<member name='GetStateHint'>
+</member>
+
+<member name='GetEnabled'>
+</member>
+
+<member name='GetState'>
+</member>
+
+<member name='ChangeState'>
+</member>
+
+<member name='Activate'>
+</member>
+
+<member name='ActionInterface'>
+<summary>
+The virtual function table for <see cref="IAction"/>.
+</summary>
+</member>
+
+</declaration>

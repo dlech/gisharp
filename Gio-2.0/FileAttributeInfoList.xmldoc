@@ -1,0 +1,99 @@
+<declaration>
+
+<member name='Infos'>
+#pragmawarningdisableCS0649
+<summary>
+an array of #GFileAttributeInfos.
+</summary>
+</member>
+
+<member name='NInfos'>
+<summary>
+the number of values in the array.
+</summary>
+</member>
+
+<member name='New()'>
+</member>
+
+<member name='FileAttributeInfoList()'>
+<summary>
+Creates a new file attribute info list.
+</summary>
+</member>
+
+<member name='Add(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)'>
+<summary>
+Adds a new attribute with this instance to the this instance, setting
+its this instance and this instance.
+</summary>
+<param name="name">
+the name of the attribute to add.
+</param>
+<param name="type">
+the <see cref="FileAttributeType"/> for the attribute.
+</param>
+<param name="flags">
+<see cref="FileAttributeInfoFlags"/> for the attribute.
+</param>
+</member>
+
+<member name='Add(System.String,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)'>
+<summary>
+Adds a new attribute with this instance to the this instance, setting
+its this instance and this instance.
+</summary>
+<param name="name">
+the name of the attribute to add.
+</param>
+<param name="type">
+the <see cref="FileAttributeType"/> for the attribute.
+</param>
+<param name="flags">
+<see cref="FileAttributeInfoFlags"/> for the attribute.
+</param>
+</member>
+
+<member name='Dup()'>
+<summary>
+Makes a duplicate of a file attribute info list.
+</summary>
+<returns>
+a copy of the given this instance.
+</returns>
+</member>
+
+<member name='Lookup(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Gets the file attribute with the name this instance from this instance.
+</summary>
+<param name="name">
+the name of the attribute to lookup.
+</param>
+<returns>
+a <see cref="FileAttributeInfo"/> for the this instance, or <c>null</c> if an
+attribute isn't found.
+</returns>
+</member>
+
+<member name='Lookup(System.String)'>
+<summary>
+Gets the file attribute with the name this instance from this instance.
+</summary>
+<param name="name">
+the name of the attribute to lookup.
+</param>
+<returns>
+a <see cref="FileAttributeInfo"/> for the this instance, or <c>null</c> if an
+attribute isn't found.
+</returns>
+</member>
+
+<member name='FileAttributeInfoList'>
+<summary>
+Acts as a lightweight registry for possible valid file attributes.
+The registry stores Key-Value pair formats as #GFileAttributeInfos.
+</summary>
+</member>
+
+</declaration>

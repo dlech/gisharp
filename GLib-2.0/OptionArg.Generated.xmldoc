@@ -1,0 +1,73 @@
+<declaration>
+
+<member name='None'>
+<summary>
+No extra argument. This is useful for simple flags.
+</summary>
+</member>
+
+<member name='String'>
+<summary>
+The option takes a string argument.
+</summary>
+</member>
+
+<member name='Int'>
+<summary>
+The option takes an integer argument.
+</summary>
+</member>
+
+<member name='Callback'>
+<summary>
+The option provides a callback (of type
+    <see cref="OptionArgFunc"/>) to parse the extra argument.
+</summary>
+</member>
+
+<member name='Filename'>
+<summary>
+The option takes a filename as argument.
+</summary>
+</member>
+
+<member name='StringArray'>
+<summary>
+The option takes a string argument, multiple
+    uses of the option are collected into an array of strings.
+</summary>
+</member>
+
+<member name='FilenameArray'>
+<summary>
+The option takes a filename as argument,
+    multiple uses of the option are collected into an array of strings.
+</summary>
+</member>
+
+<member name='Double'>
+<summary>
+The option takes a double argument. The argument
+    can be formatted either for the user's locale or for the "C" locale.
+</summary>
+</member>
+
+<member name='Int64'>
+<summary>
+The option takes a 64-bit integer. Like
+    <see cref="OptionArg.Int"/> but for larger numbers. The number can be in
+    decimal base, or in hexadecimal (when prefixed with `0x`, for
+    example, `0xffffffff`).
+</summary>
+</member>
+
+<member name='OptionArg'>
+<summary>
+The <see cref="OptionArg"/> enum values determine which type of extra argument the
+options expect to find. If an option expects an extra argument, it can
+be specified in several ways; with a short option: `-x arg`, with a long
+option: `--name arg` or combined in a single argument: `--name=arg`.
+</summary>
+</member>
+
+</declaration>

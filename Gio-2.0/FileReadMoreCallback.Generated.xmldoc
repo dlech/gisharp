@@ -1,0 +1,12 @@
+<declaration>
+
+<member name='FileReadMoreCallback'>
+<summary>
+When loading the partial contents of a file with g_file_load_partial_contents_async(),
+it may become necessary to determine if any more data from the file should be loaded.
+A <see cref="FileReadMoreCallback"/> function facilitates this by returning <c>true</c> if more data
+should be read, or <c>false</c> otherwise.
+</summary>
+</member>
+
+</declaration>

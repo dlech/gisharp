@@ -17,12 +17,6 @@ namespace GISharp.Runtime
         /// <summary>
         /// The type name that is used in unmanged code.
         /// </summary>
-        /// <remarks>
-        /// If specified, this name will be used as the GType name. Otherwise
-        /// a name will be generated from the fully qualified type name. If
-        /// binding an unmanged type, this must be set to match the existing
-        /// GType name.
-        /// </remarks>
         public string? Name { get; private set; }
 
         /// <summary>
@@ -35,6 +29,17 @@ namespace GISharp.Runtime
         /// </remarks>
         public bool IsProxyForUnmanagedType { get; set; }
 
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="name">The name that is registered with the GType system.
+        /// </param>
+        /// <remarks>
+        /// If specified, this name will be used as the GType name. Otherwise
+        /// a name will be generated from the fully qualified type name. If
+        /// binding an unmanged type, this must be set to match the existing
+        /// GType name.
+        /// </remarks>
         public GTypeAttribute(string? name = null)
         {
             Name = name;

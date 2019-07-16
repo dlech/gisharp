@@ -7,8 +7,14 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
 {
+    /// <summary>
+    /// An opaque structure used as the base of all object interface types.
+    /// </summary>
     public class ObjectInterface : TypeInterface
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ObjectInterface(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {

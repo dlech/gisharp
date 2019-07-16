@@ -2,299 +2,81 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// <see cref="ApplicationCommandLine"/> represents a command-line invocation of
-    /// an application.  It is created by <see cref="Application"/> and emitted
-    /// in the <see cref="Application"/>::command-line signal and virtual function.
-    /// </summary>
-    /// <remarks>
-    /// The class contains the list of arguments that the program was invoked
-    /// with.  It is also possible to query if the commandline invocation was
-    /// local (ie: the current process is running in direct response to the
-    /// invocation) or remote (ie: some other process forwarded the
-    /// commandline to this process).
-    /// 
-    /// The GApplicationCommandLine object can provide the <paramref name="argc"/> and <paramref name="argv"/>
-    /// parameters for use with the #GOptionContext command-line parsing API,
-    /// with the <see cref="ApplicationCommandLine.GetArguments"/> function. See
-    /// [gapplication-example-cmdline3.c][gapplication-example-cmdline3]
-    /// for an example.
-    /// 
-    /// The exit status of the originally-invoked process may be set and
-    /// messages can be printed to stdout or stderr of that process.  The
-    /// lifecycle of the originally-invoked process is tied to the lifecycle
-    /// of this object (ie: the process exits when the last reference is
-    /// dropped).
-    /// 
-    /// The main use for <see cref="ApplicationCommandLine"/> (and the
-    /// <see cref="Application"/>::command-line signal) is 'Emacs server' like use cases:
-    /// You can set the `EDITOR` environment variable to have e.g. git use
-    /// your favourite editor to edit commit messages, and if you already
-    /// have an instance of the editor running, the editing will happen
-    /// in the running instance, instead of opening a new one. An important
-    /// aspect of this use case is that the process that gets started by git
-    /// does not return until the editing is done.
-    /// 
-    /// Normally, the commandline is completely handled in the
-    /// <see cref="Application"/>::command-line handler. The launching instance exits
-    /// once the signal handler in the primary instance has returned, and
-    /// the return value of the signal handler becomes the exit status
-    /// of the launching instance.
-    /// |[&lt;!-- language="C" --&gt;
-    /// static int
-    /// command_line (GApplication            *application,
-    ///               GApplicationCommandLine *cmdline)
-    /// {
-    ///   gchar **argv;
-    ///   gint argc;
-    ///   gint i;
-    /// 
-    ///   argv = g_application_command_line_get_arguments (cmdline, &amp;argc);
-    /// 
-    ///   g_application_command_line_print (cmdline,
-    ///                                     "This text is written back\n"
-    ///                                     "to stdout of the caller\n");
-    /// 
-    ///   for (i = 0; i &lt; argc; i++)
-    ///     g_print ("argument %d: %s\n", i, argv[i]);
-    /// 
-    ///   g_strfreev (argv);
-    /// 
-    ///   return 0;
-    /// }
-    /// ]|
-    /// The complete example can be found here:
-    /// [gapplication-example-cmdline.c](https://git.gnome.org/browse/glib/tree/gio/tests/gapplication-example-cmdline.c)
-    /// 
-    /// In more complicated cases, the handling of the comandline can be
-    /// split between the launcher and the primary instance.
-    /// |[&lt;!-- language="C" --&gt;
-    /// static gboolean
-    ///  test_local_cmdline (GApplication   *application,
-    ///                      gchar        ***arguments,
-    ///                      gint           *exit_status)
-    /// {
-    ///   gint i, j;
-    ///   gchar **argv;
-    /// 
-    ///   argv = *arguments;
-    /// 
-    ///   i = 1;
-    ///   while (argv[i])
-    ///     {
-    ///       if (g_str_has_prefix (argv[i], "--local-"))
-    ///         {
-    ///           g_print ("handling argument %s locally\n", argv[i]);
-    ///           g_free (argv[i]);
-    ///           for (j = i; argv[j]; j++)
-    ///             argv[j] = argv[j + 1];
-    ///         }
-    ///       else
-    ///         {
-    ///           g_print ("not handling argument %s locally\n", argv[i]);
-    ///           i++;
-    ///         }
-    ///     }
-    /// 
-    ///   *exit_status = 0;
-    /// 
-    ///   return FALSE;
-    /// }
-    /// 
-    /// static void
-    /// test_application_class_init (TestApplicationClass *class)
-    /// {
-    ///   G_APPLICATION_CLASS (class)-&gt;local_command_line = test_local_cmdline;
-    /// 
-    ///   ...
-    /// }
-    /// ]|
-    /// In this example of split commandline handling, options that start
-    /// with `--local-` are handled locally, all other options are passed
-    /// to the <see cref="Application"/>::command-line handler which runs in the primary
-    /// instance.
-    /// 
-    /// The complete example can be found here:
-    /// [gapplication-example-cmdline2.c](https://git.gnome.org/browse/glib/tree/gio/tests/gapplication-example-cmdline2.c)
-    /// 
-    /// If handling the commandline requires a lot of work, it may
-    /// be better to defer it.
-    /// |[&lt;!-- language="C" --&gt;
-    /// static gboolean
-    /// my_cmdline_handler (gpointer data)
-    /// {
-    ///   GApplicationCommandLine *cmdline = data;
-    /// 
-    ///   // do the heavy lifting in an idle
-    /// 
-    ///   g_application_command_line_set_exit_status (cmdline, 0);
-    ///   g_object_unref (cmdline); // this releases the application
-    /// 
-    ///   return G_SOURCE_REMOVE;
-    /// }
-    /// 
-    /// static int
-    /// command_line (GApplication            *application,
-    ///               GApplicationCommandLine *cmdline)
-    /// {
-    ///   // keep the application running until we are done with this commandline
-    ///   g_application_hold (application);
-    /// 
-    ///   g_object_set_data_full (G_OBJECT (cmdline),
-    ///                           "application", application,
-    ///                           (GDestroyNotify)g_application_release);
-    /// 
-    ///   g_object_ref (cmdline);
-    ///   g_idle_add (my_cmdline_handler, cmdline);
-    /// 
-    ///   return 0;
-    /// }
-    /// ]|
-    /// In this example the commandline is not completely handled before
-    /// the <see cref="Application"/>::command-line handler returns. Instead, we keep
-    /// a reference to the <see cref="ApplicationCommandLine"/> object and handle it
-    /// later (in this example, in an idle). Note that it is necessary to
-    /// hold the application until you are done with the commandline.
-    /// 
-    /// The complete example can be found here:
-    /// [gapplication-example-cmdline3.c](https://git.gnome.org/browse/glib/tree/gio/tests/gapplication-example-cmdline3.c)
-    /// </remarks>
+    /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine']/*" />
     [GISharp.Runtime.GTypeAttribute("GApplicationCommandLine", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ApplicationCommandLineClass))]
     public partial class ApplicationCommandLine : GISharp.Lib.GObject.Object
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_application_command_line_get_type();
 
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe protected new struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ParentInstance']/*" />
             public GISharp.Lib.GObject.Object.Struct ParentInstance;
+
+            /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Priv']/*" />
             public System.IntPtr Priv;
 #pragma warning restore CS0649
         }
 
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Arguments_']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("arguments", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Variant? Arguments_ { set => SetProperty("arguments", value); }
+
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='IsRemote_']/*" />
         [GISharp.Runtime.GPropertyAttribute("is-remote")]
         public System.Boolean IsRemote_ { get => (System.Boolean)GetProperty("is-remote")!; }
+
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Options_']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("options", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Variant? Options_ { set => SetProperty("options", value); }
+
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='PlatformData_']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("platform-data", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Variant? PlatformData_ { set => SetProperty("platform-data", value); }
 
-        /// <summary>
-        /// Gets the list of arguments that was passed on the command line.
-        /// </summary>
-        /// <remarks>
-        /// The strings in the array may contain non-UTF-8 data on UNIX (such as
-        /// filenames or arguments given in the system locale) but are always in
-        /// UTF-8 on Windows.
-        /// 
-        /// If you wish to use the return value with #GOptionContext, you must
-        /// use g_option_context_parse_strv().
-        /// 
-        /// The return value is <c>null</c>-terminated and should be freed using
-        /// g_strfreev().
-        /// </remarks>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Arguments']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename> Arguments { get => GetArguments(); }
 
-        /// <summary>
-        /// Gets the working directory of the command line invocation.
-        /// The string may contain non-utf8 data.
-        /// </summary>
-        /// <remarks>
-        /// It is possible that the remote application did not send a working
-        /// directory, so this may be <c>null</c>.
-        /// 
-        /// The return value should not be modified or freed and is valid for as
-        /// long as <paramref name="cmdline"/> exists.
-        /// </remarks>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Cwd']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Lib.GLib.Filename? Cwd { get => GetCwd(); }
 
-        /// <summary>
-        /// Gets the contents of the 'environ' variable of the command line
-        /// invocation, as would be returned by g_get_environ(), ie as a
-        /// <c>null</c>-terminated list of strings in the form 'NAME=VALUE'.
-        /// The strings may contain non-utf8 data.
-        /// </summary>
-        /// <remarks>
-        /// The remote application usually does not send an environment.  Use
-        /// <see cref="ApplicationFlags.SendEnvironment"/> to affect that.  Even with this flag
-        /// set it is possible that the environment is still not available (due
-        /// to invocation messages from other applications).
-        /// 
-        /// The return value should not be modified or freed and is valid for as
-        /// long as <paramref name="cmdline"/> exists.
-        /// 
-        /// See <see cref="ApplicationCommandLine.GetEnvironmentVariable"/> if you are only interested
-        /// in the value of a single environment variable.
-        /// </remarks>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Environment']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Runtime.FilenameArray Environment { get => GetEnvironment(); }
 
-        /// <summary>
-        /// Gets the exit status of <paramref name="cmdline"/>.  See
-        /// <see cref="ApplicationCommandLine.SetExitStatus"/> for more information.
-        /// </summary>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ExitStatus']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public System.Int32 ExitStatus { get => GetExitStatus(); set => SetExitStatus(value); }
 
-        /// <summary>
-        /// Determines if <paramref name="cmdline"/> represents a remote invocation.
-        /// </summary>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='IsRemote']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public System.Boolean IsRemote { get => GetIsRemote(); }
 
-        /// <summary>
-        /// Gets the options there were passed to g_application_command_line().
-        /// </summary>
-        /// <remarks>
-        /// If you did not override local_command_line() then these are the same
-        /// options that were parsed according to the #GOptionEntrys added to the
-        /// application with <see cref="Application.AddMainOptionEntries"/> and possibly
-        /// modified from your GApplication::handle-local-options handler.
-        /// 
-        /// If no options were sent then an empty dictionary is returned so that
-        /// you don't need to check for <c>null</c>.
-        /// </remarks>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Options']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public GISharp.Lib.GLib.VariantDict Options { get => GetOptions(); }
 
-        /// <summary>
-        /// Gets the platform data associated with the invocation of <paramref name="cmdline"/>.
-        /// </summary>
-        /// <remarks>
-        /// This is a #GVariant dictionary containing information about the
-        /// context in which the invocation occurred.  It typically contains
-        /// information like the current working directory and the startup
-        /// notification ID.
-        /// 
-        /// For local invocation, it will be <c>null</c>.
-        /// </remarks>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='PlatformData']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Lib.GLib.Variant? PlatformData { get => GetPlatformData(); }
 
-        /// <summary>
-        /// Gets the stdin of the invoking process.
-        /// </summary>
-        /// <remarks>
-        /// The <see cref="InputStream"/> can be used to read data passed to the standard
-        /// input of the invoking process.
-        /// This doesn't work on all platforms.  Presently, it is only available
-        /// on UNIX when using a DBus daemon capable of passing file descriptors.
-        /// If stdin is not available then <c>null</c> will be returned.  In the
-        /// future, support may be expanded to other platforms.
-        /// 
-        /// You must only call this function once per commandline invocation.
-        /// </remarks>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Stdin']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         public GISharp.Lib.Gio.InputStream Stdin { get => GetStdin(); }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public ApplicationCommandLine(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
@@ -335,21 +117,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr arg);
 
-        /// <summary>
-        /// Creates a <see cref="IFile"/> corresponding to a filename that was given as part
-        /// of the invocation of <paramref name="cmdline"/>.
-        /// </summary>
-        /// <remarks>
-        /// This differs from <see cref="File.NewForCommandlineArg"/> in that it
-        /// resolves relative pathnames using the current working directory of
-        /// the invoking process rather than the local process.
-        /// </remarks>
-        /// <param name="arg">
-        /// an argument from <paramref name="cmdline"/>
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/>
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='CreateFileForArg(GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe GISharp.Lib.Gio.IFile CreateFileForArg(GISharp.Lib.GLib.Filename arg)
         {
@@ -398,24 +166,7 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.Int32 argc);
 
-        /// <summary>
-        /// Gets the list of arguments that was passed on the command line.
-        /// </summary>
-        /// <remarks>
-        /// The strings in the array may contain non-UTF-8 data on UNIX (such as
-        /// filenames or arguments given in the system locale) but are always in
-        /// UTF-8 on Windows.
-        /// 
-        /// If you wish to use the return value with #GOptionContext, you must
-        /// use g_option_context_parse_strv().
-        /// 
-        /// The return value is <c>null</c>-terminated and should be freed using
-        /// g_strfreev().
-        /// </remarks>
-        /// <returns>
-        /// 
-        ///      the string array containing the arguments (the argv)
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetArguments()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename> GetArguments()
         {
@@ -451,20 +202,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <summary>
-        /// Gets the working directory of the command line invocation.
-        /// The string may contain non-utf8 data.
-        /// </summary>
-        /// <remarks>
-        /// It is possible that the remote application did not send a working
-        /// directory, so this may be <c>null</c>.
-        /// 
-        /// The return value should not be modified or freed and is valid for as
-        /// long as <paramref name="cmdline"/> exists.
-        /// </remarks>
-        /// <returns>
-        /// the current directory, or <c>null</c>
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetCwd()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Lib.GLib.Filename? GetCwd()
         {
@@ -510,28 +248,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <summary>
-        /// Gets the contents of the 'environ' variable of the command line
-        /// invocation, as would be returned by g_get_environ(), ie as a
-        /// <c>null</c>-terminated list of strings in the form 'NAME=VALUE'.
-        /// The strings may contain non-utf8 data.
-        /// </summary>
-        /// <remarks>
-        /// The remote application usually does not send an environment.  Use
-        /// <see cref="ApplicationFlags.SendEnvironment"/> to affect that.  Even with this flag
-        /// set it is possible that the environment is still not available (due
-        /// to invocation messages from other applications).
-        /// 
-        /// The return value should not be modified or freed and is valid for as
-        /// long as <paramref name="cmdline"/> exists.
-        /// 
-        /// See <see cref="ApplicationCommandLine.GetEnvironmentVariable"/> if you are only interested
-        /// in the value of a single environment variable.
-        /// </remarks>
-        /// <returns>
-        /// 
-        ///     the environment strings, or <c>null</c> if they were not sent
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetEnvironment()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Runtime.FilenameArray GetEnvironment()
         {
@@ -560,13 +277,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <summary>
-        /// Gets the exit status of <paramref name="cmdline"/>.  See
-        /// <see cref="ApplicationCommandLine.SetExitStatus"/> for more information.
-        /// </summary>
-        /// <returns>
-        /// the exit status
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetExitStatus()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.Int32 GetExitStatus()
         {
@@ -594,12 +305,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <summary>
-        /// Determines if <paramref name="cmdline"/> represents a remote invocation.
-        /// </summary>
-        /// <returns>
-        /// <c>true</c> if the invocation was remote
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetIsRemote()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.Boolean GetIsRemote()
         {
@@ -636,21 +342,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <summary>
-        /// Gets the options there were passed to g_application_command_line().
-        /// </summary>
-        /// <remarks>
-        /// If you did not override local_command_line() then these are the same
-        /// options that were parsed according to the #GOptionEntrys added to the
-        /// application with <see cref="Application.AddMainOptionEntries"/> and possibly
-        /// modified from your GApplication::handle-local-options handler.
-        /// 
-        /// If no options were sent then an empty dictionary is returned so that
-        /// you don't need to check for <c>null</c>.
-        /// </remarks>
-        /// <returns>
-        /// a #GVariantDict with the options
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetOptions()']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         private unsafe GISharp.Lib.GLib.VariantDict GetOptions()
         {
@@ -686,20 +378,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <summary>
-        /// Gets the platform data associated with the invocation of <paramref name="cmdline"/>.
-        /// </summary>
-        /// <remarks>
-        /// This is a #GVariant dictionary containing information about the
-        /// context in which the invocation occurred.  It typically contains
-        /// information like the current working directory and the startup
-        /// notification ID.
-        /// 
-        /// For local invocation, it will be <c>null</c>.
-        /// </remarks>
-        /// <returns>
-        /// the platform data, or <c>null</c>
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetPlatformData()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Lib.GLib.Variant? GetPlatformData()
         {
@@ -737,22 +416,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <summary>
-        /// Gets the stdin of the invoking process.
-        /// </summary>
-        /// <remarks>
-        /// The <see cref="InputStream"/> can be used to read data passed to the standard
-        /// input of the invoking process.
-        /// This doesn't work on all platforms.  Presently, it is only available
-        /// on UNIX when using a DBus daemon capable of passing file descriptors.
-        /// If stdin is not available then <c>null</c> will be returned.  In the
-        /// future, support may be expanded to other platforms.
-        /// 
-        /// You must only call this function once per commandline invocation.
-        /// </remarks>
-        /// <returns>
-        /// a <see cref="InputStream"/> for stdin
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetStdin()']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         private unsafe GISharp.Lib.Gio.InputStream GetStdin()
         {
@@ -797,26 +461,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr name);
 
-        /// <summary>
-        /// Gets the value of a particular environment variable of the command
-        /// line invocation, as would be returned by g_getenv().  The strings may
-        /// contain non-utf8 data.
-        /// </summary>
-        /// <remarks>
-        /// The remote application usually does not send an environment.  Use
-        /// <see cref="ApplicationFlags.SendEnvironment"/> to affect that.  Even with this flag
-        /// set it is possible that the environment is still not available (due
-        /// to invocation messages from other applications).
-        /// 
-        /// The return value should not be modified or freed and is valid for as
-        /// long as <paramref name="cmdline"/> exists.
-        /// </remarks>
-        /// <param name="name">
-        /// the environment variable to get
-        /// </param>
-        /// <returns>
-        /// the value of the variable, or <c>null</c> if unset or unsent
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetEnvironmentVariable(GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetEnvironmentVariable(GISharp.Lib.GLib.Filename name)
         {
@@ -869,33 +514,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.Int32 exitStatus);
 
-        /// <summary>
-        /// Sets the exit status that will be used when the invoking process
-        /// exits.
-        /// </summary>
-        /// <remarks>
-        /// The return value of the <see cref="Application"/>::command-line signal is
-        /// passed to this function when the handler returns.  This is the usual
-        /// way of setting the exit status.
-        /// 
-        /// In the event that you want the remote invocation to continue running
-        /// and want to decide on the exit status in the future, you can use this
-        /// call.  For the case of a remote invocation, the remote process will
-        /// typically exit when the last reference is dropped on <paramref name="cmdline"/>.  The
-        /// exit status of the remote process will be equal to the last value
-        /// that was set with this function.
-        /// 
-        /// In the case that the commandline invocation is local, the situation
-        /// is slightly more complicated.  If the commandline invocation results
-        /// in the mainloop running (ie: because the use-count of the application
-        /// increased to a non-zero value) then the application is considered to
-        /// have been 'successful' in a certain sense, and the exit status is
-        /// always zero.  If the application use count is zero, though, the exit
-        /// status of the local <see cref="ApplicationCommandLine"/> is used.
-        /// </remarks>
-        /// <param name="exitStatus">
-        /// the exit status
-        /// </param>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='SetExitStatus(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetExitStatus(System.Int32 exitStatus)
         {
@@ -904,22 +523,7 @@ namespace GISharp.Lib.Gio
             g_application_command_line_set_exit_status(cmdline_, exitStatus_);
         }
 
-        /// <summary>
-        /// Gets the stdin of the invoking process.
-        /// </summary>
-        /// <remarks>
-        /// The <see cref="InputStream"/> can be used to read data passed to the standard
-        /// input of the invoking process.
-        /// This doesn't work on all platforms.  Presently, it is only available
-        /// on UNIX when using a DBus daemon capable of passing file descriptors.
-        /// If stdin is not available then <c>null</c> will be returned.  In the
-        /// future, support may be expanded to other platforms.
-        /// 
-        /// You must only call this function once per commandline invocation.
-        /// </remarks>
-        /// <returns>
-        /// a <see cref="InputStream"/> for stdin
-        /// </returns>
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='DoGetStdin()']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedGetStdin))]
         protected virtual unsafe GISharp.Lib.Gio.InputStream DoGetStdin()
@@ -930,6 +534,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrintLiteral))]
         protected virtual unsafe void DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
@@ -938,6 +543,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrintLiteral>(_GType)!(cmdline_, message_);
         }
 
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrinterrLiteral))]
         protected virtual unsafe void DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {

@@ -2,22 +2,31 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// Provides an interface for implementing seekable functionality on I/O Streams.
-    /// </summary>
+    /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='SeekableIface']/*" />
     public sealed class SeekableIface : GISharp.Lib.GObject.TypeInterface
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <summary>
-            /// The parent interface.
-            /// </summary>
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Tell']/*" />
             public System.IntPtr Tell;
+
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='CanSeek']/*" />
             public System.IntPtr CanSeek;
+
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Seek']/*" />
             public System.IntPtr Seek;
+
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='CanTruncate']/*" />
             public System.IntPtr CanTruncate;
+
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='TruncateFn']/*" />
             public System.IntPtr TruncateFn;
 #pragma warning restore CS0649
         }
@@ -36,8 +45,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(truncateFnOffset, TruncateFnMarshal.Create);
         }
 
+        /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Tell']/*" />
         public delegate System.Int64 Tell();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:out */
@@ -51,6 +64,9 @@ System.IntPtr seekable);
         /// </summary>
         public static class TellMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedTell Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Int64 unmanagedTell(System.IntPtr seekable_)
@@ -75,8 +91,12 @@ System.IntPtr seekable);
             }
         }
 
+        /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='CanSeek']/*" />
         public delegate System.Boolean CanSeek();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -90,6 +110,9 @@ System.IntPtr seekable);
         /// </summary>
         public static class CanSeekMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCanSeek Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCanSeek(System.IntPtr seekable_)
@@ -114,8 +137,12 @@ System.IntPtr seekable);
             }
         }
 
+        /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Seek']/*" />
         public delegate void Seek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -141,6 +168,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class SeekMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedSeek Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedSeek(System.IntPtr seekable_, System.Int64 offset_, GISharp.Lib.GLib.SeekType type_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -171,8 +201,12 @@ ref System.IntPtr error);
             }
         }
 
+        /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='CanTruncate']/*" />
         public delegate System.Boolean CanTruncate();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
@@ -186,6 +220,9 @@ System.IntPtr seekable);
         /// </summary>
         public static class CanTruncateMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedCanTruncate Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCanTruncate(System.IntPtr seekable_)
@@ -210,8 +247,12 @@ System.IntPtr seekable);
             }
         }
 
+        /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='TruncateFn']/*" />
         public delegate void TruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
@@ -234,6 +275,9 @@ ref System.IntPtr error);
         /// </summary>
         public static class TruncateFnMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedTruncateFn Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedTruncateFn(System.IntPtr seekable_, System.Int64 offset_, System.IntPtr cancellable_, ref System.IntPtr error_)
@@ -263,6 +307,9 @@ ref System.IntPtr error);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public SeekableIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

@@ -2,224 +2,123 @@
 #nullable enable
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// The GKeyFile struct contains only private data
-    /// and should not be accessed directly.
-    /// </summary>
+    /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile']/*" />
     [GISharp.Runtime.GTypeAttribute("GKeyFile", IsProxyForUnmanagedType = true)]
     public sealed partial class KeyFile : GISharp.Lib.GObject.Boxed
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_key_file_get_type();
 
-        /// <summary>
-        /// The name of the main group of a desktop entry file, as defined in the
-        /// [Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec).
-        /// Consult the specification for more
-        /// details about the meanings of the keys below.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopGroup']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopGroup = "Desktop Entry";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string list
-        /// giving the available application actions.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyActions']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public const System.String DesktopKeyActions = "Actions";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list
-        /// of strings giving the categories in which the desktop entry
-        /// should be shown in a menu.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyCategories']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyCategories = "Categories";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
-        /// string giving the tooltip for the desktop entry.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyComment']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyComment = "Comment";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean set to true
-        /// if the application is D-Bus activatable.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyDbusActivatable']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public const System.String DesktopKeyDbusActivatable = "DBusActivatable";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
-        /// giving the command line to execute. It is only valid for desktop
-        /// entries with the `Application` type.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyExec']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyExec = "Exec";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
-        /// string giving the generic name of the desktop entry.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyGenericName']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyGenericName = "GenericName";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
-        /// stating whether the desktop entry has been deleted by the user.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyHidden']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyHidden = "Hidden";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
-        /// string giving the name of the icon to be displayed for the desktop
-        /// entry.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyIcon']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyIcon = "Icon";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list
-        /// of strings giving the MIME types supported by this desktop entry.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyMimeType']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyMimeType = "MimeType";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
-        /// string giving the specific name of the desktop entry.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyName']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyName = "Name";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list of
-        /// strings identifying the environments that should not display the
-        /// desktop entry.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyNotShowIn']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyNotShowIn = "NotShowIn";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
-        /// stating whether the desktop entry should be shown in menus.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyNoDisplay']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyNoDisplay = "NoDisplay";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list of
-        /// strings identifying the environments that should display the
-        /// desktop entry.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyOnlyShowIn']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyOnlyShowIn = "OnlyShowIn";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
-        /// containing the working directory to run the program in. It is only
-        /// valid for desktop entries with the `Application` type.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyPath']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyPath = "Path";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
-        /// stating whether the application supports the
-        /// [Startup Notification Protocol Specification](http://www.freedesktop.org/Standards/startup-notification-spec).
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyStartupNotify']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyStartupNotify = "StartupNotify";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is string
-        /// identifying the WM class or name hint of a window that the application
-        /// will create, which can be used to emulate Startup Notification with
-        /// older applications.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyStartupWmClass']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyStartupWmClass = "StartupWMClass";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
-        /// stating whether the program should be run in a terminal window.
-        /// It is only valid for desktop entries with the
-        /// `Application` type.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyTerminal']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyTerminal = "Terminal";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
-        /// giving the file name of a binary on disk used to determine if the
-        /// program is actually installed. It is only valid for desktop entries
-        /// with the `Application` type.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyTryExec']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyTryExec = "TryExec";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
-        /// giving the type of the desktop entry. Usually
-        /// #G_KEY_FILE_DESKTOP_TYPE_APPLICATION,
-        /// #G_KEY_FILE_DESKTOP_TYPE_LINK, or
-        /// #G_KEY_FILE_DESKTOP_TYPE_DIRECTORY.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyType']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyType = "Type";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
-        /// giving the URL to access. It is only valid for desktop entries
-        /// with the `Link` type.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyUrl']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyUrl = "URL";
 
-        /// <summary>
-        /// A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
-        /// giving the version of the Desktop Entry Specification used for
-        /// the desktop entry file.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopKeyVersion']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopKeyVersion = "Version";
 
-        /// <summary>
-        /// The value of the #G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
-        /// entries representing applications.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopTypeApplication']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopTypeApplication = "Application";
 
-        /// <summary>
-        /// The value of the #G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
-        /// entries representing directories.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopTypeDirectory']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopTypeDirectory = "Directory";
 
-        /// <summary>
-        /// The value of the #G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
-        /// entries representing links to documents.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='DesktopTypeLink']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public const System.String DesktopTypeLink = "Link";
 
-        /// <summary>
-        /// Returns all groups in the key file loaded with <paramref name="keyFile"/>.
-        /// The array of returned groups will be <c>null</c>-terminated, so
-        /// <paramref name="length"/> may optionally be <c>null</c>.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='Groups']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.Lib.GLib.Strv Groups { get => GetGroups(); }
 
-        /// <summary>
-        /// Returns the name of the start group of the file.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='StartGroup']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.Lib.GLib.Utf8 StartGroup { get => GetStartGroup(); }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public KeyFile(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
         {
@@ -240,15 +139,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_key_file_new();
 
-        /// <summary>
-        /// Creates a new empty <see cref="KeyFile"/> object. Use
-        /// <see cref="KeyFile.LoadFromFile"/>, <see cref="KeyFile.LoadFromData"/>,
-        /// <see cref="KeyFile.LoadFromDirs"/> or <see cref="KeyFile.LoadFromDataDirs"/> to
-        /// read an existing key file.
-        /// </summary>
-        /// <returns>
-        /// an empty <see cref="KeyFile"/>.
-        /// </returns>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='New()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         static unsafe System.IntPtr New()
         {
@@ -256,12 +147,7 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <summary>
-        /// Creates a new empty <see cref="KeyFile"/> object. Use
-        /// <see cref="KeyFile.LoadFromFile"/>, <see cref="KeyFile.LoadFromData"/>,
-        /// <see cref="KeyFile.LoadFromDirs"/> or <see cref="KeyFile.LoadFromDataDirs"/> to
-        /// read an existing key file.
-        /// </summary>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public KeyFile() : this(New(), GISharp.Runtime.Transfer.Full)
         {
@@ -316,29 +202,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
-        /// boolean.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then <c>false</c> is returned and <paramref name="error"/> is set
-        /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
-        /// associated with <paramref name="key"/> cannot be interpreted as a boolean then <c>false</c>
-        /// is returned and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as a boolean,
-        ///    or <c>false</c> if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Boolean GetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -357,29 +221,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
-        /// boolean.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then <c>false</c> is returned and <paramref name="error"/> is set
-        /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
-        /// associated with <paramref name="key"/> cannot be interpreted as a boolean then <c>false</c>
-        /// is returned and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as a boolean,
-        ///    or <c>false</c> if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetBoolean(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Boolean GetBoolean(System.String groupName, System.String key)
         {
@@ -442,31 +284,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
-        /// booleans.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with <paramref name="key"/> cannot be interpreted as booleans then <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// 
-        ///    the values associated with the key as a list of booleans, or <c>null</c> if the
-        ///    key was not found or could not be parsed. The returned list of booleans
-        ///    should be freed with g_free() when no longer needed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Runtime.CArray<GISharp.Runtime.Boolean> GetBooleanList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -485,31 +303,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
-        /// booleans.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with <paramref name="key"/> cannot be interpreted as booleans then <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// 
-        ///    the values associated with the key as a list of booleans, or <c>null</c> if the
-        ///    key was not found or could not be parsed. The returned list of booleans
-        ///    should be freed with g_free() when no longer needed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetBooleanList(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Runtime.CArray<GISharp.Runtime.Boolean> GetBooleanList(System.String groupName, System.String key)
         {
@@ -560,27 +354,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Retrieves a comment above <paramref name="key"/> from <paramref name="groupName"/>.
-        /// If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be read from above
-        /// <paramref name="groupName"/>. If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then
-        /// <paramref name="comment"/> will be read from above the first group in the file.
-        /// </summary>
-        /// <remarks>
-        /// Note that the returned string includes the '#' comment markers.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name, or <c>null</c>
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// a comment that should be freed with g_free()
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetComment(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -599,27 +373,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Retrieves a comment above <paramref name="key"/> from <paramref name="groupName"/>.
-        /// If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be read from above
-        /// <paramref name="groupName"/>. If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then
-        /// <paramref name="comment"/> will be read from above the first group in the file.
-        /// </summary>
-        /// <remarks>
-        /// Note that the returned string includes the '#' comment markers.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name, or <c>null</c>
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// a comment that should be freed with g_free()
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetComment(System.String?,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetComment(System.String? groupName, System.String key)
         {
@@ -672,29 +426,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
-        /// double. If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then 0.0 is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-        /// with <paramref name="key"/> cannot be interpreted as a double then 0.0 is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as a double, or
-        ///     0.0 if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe System.Double GetDouble(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -713,29 +445,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
-        /// double. If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then 0.0 is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-        /// with <paramref name="key"/> cannot be interpreted as a double then 0.0 is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as a double, or
-        ///     0.0 if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetDouble(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe System.Double GetDouble(System.String groupName, System.String key)
         {
@@ -798,31 +508,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
-        /// doubles.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with <paramref name="key"/> cannot be interpreted as doubles then <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// 
-        ///     the values associated with the key as a list of doubles, or <c>null</c> if the
-        ///     key was not found or could not be parsed. The returned list of doubles
-        ///     should be freed with g_free() when no longer needed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe GISharp.Runtime.CArray<System.Double> GetDoubleList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -841,31 +527,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
-        /// doubles.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with <paramref name="key"/> cannot be interpreted as doubles then <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// 
-        ///     the values associated with the key as a list of doubles, or <c>null</c> if the
-        ///     key was not found or could not be parsed. The returned list of doubles
-        ///     should be freed with g_free() when no longer needed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetDoubleList(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe GISharp.Runtime.CArray<System.Double> GetDoubleList(System.String groupName, System.String key)
         {
@@ -903,15 +565,7 @@ namespace GISharp.Lib.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length);
 
-        /// <summary>
-        /// Returns all groups in the key file loaded with <paramref name="keyFile"/>.
-        /// The array of returned groups will be <c>null</c>-terminated, so
-        /// <paramref name="length"/> may optionally be <c>null</c>.
-        /// </summary>
-        /// <returns>
-        /// a newly-allocated <c>null</c>-terminated array of strings.
-        ///   Use g_strfreev() to free it.
-        /// </returns>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetGroups()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe GISharp.Lib.GLib.Strv GetGroups()
         {
@@ -960,24 +614,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a signed
-        /// 64-bit integer. This is similar to <see cref="KeyFile.GetInteger"/> but can return
-        /// 64-bit results without truncation.
-        /// </summary>
-        /// <param name="groupName">
-        /// a non-<c>null</c> group name
-        /// </param>
-        /// <param name="key">
-        /// a non-<c>null</c> key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as a signed 64-bit integer, or
-        /// 0 if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int64 GetInt64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -996,24 +633,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a signed
-        /// 64-bit integer. This is similar to <see cref="KeyFile.GetInteger"/> but can return
-        /// 64-bit results without truncation.
-        /// </summary>
-        /// <param name="groupName">
-        /// a non-<c>null</c> group name
-        /// </param>
-        /// <param name="key">
-        /// a non-<c>null</c> key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as a signed 64-bit integer, or
-        /// 0 if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetInt64(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int64 GetInt64(System.String groupName, System.String key)
         {
@@ -1067,30 +687,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an
-        /// integer.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then 0 is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-        /// with <paramref name="key"/> cannot be interpreted as an integer, or is out of range
-        /// for a #gint, then 0 is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as an integer, or
-        ///     0 if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Int32 GetInteger(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -1109,30 +706,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an
-        /// integer.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then 0 is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-        /// with <paramref name="key"/> cannot be interpreted as an integer, or is out of range
-        /// for a #gint, then 0 is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as an integer, or
-        ///     0 if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetInteger(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Int32 GetInteger(System.String groupName, System.String key)
         {
@@ -1196,32 +770,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
-        /// integers.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with <paramref name="key"/> cannot be interpreted as integers, or are out of range for
-        /// #gint, then <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// 
-        ///     the values associated with the key as a list of integers, or <c>null</c> if
-        ///     the key was not found or could not be parsed. The returned list of
-        ///     integers should be freed with g_free() when no longer needed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Runtime.CArray<System.Int32> GetIntegerList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -1240,32 +789,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
-        /// integers.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-        /// with <paramref name="key"/> cannot be interpreted as integers, or are out of range for
-        /// #gint, then <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// 
-        ///     the values associated with the key as a list of integers, or <c>null</c> if
-        ///     the key was not found or could not be parsed. The returned list of
-        ///     integers should be freed with g_free() when no longer needed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetIntegerList(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Runtime.CArray<System.Int32> GetIntegerList(System.String groupName, System.String key)
         {
@@ -1317,23 +841,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns all keys for the group name <paramref name="groupName"/>.  The array of
-        /// returned keys will be <c>null</c>-terminated, so <paramref name="length"/> may
-        /// optionally be <c>null</c>. In the event that the <paramref name="groupName"/> cannot
-        /// be found, <c>null</c> is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <returns>
-        /// a newly-allocated <c>null</c>-terminated array of strings.
-        ///     Use g_strfreev() to free it.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetKeys(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetKeys(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
@@ -1351,23 +859,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns all keys for the group name <paramref name="groupName"/>.  The array of
-        /// returned keys will be <c>null</c>-terminated, so <paramref name="length"/> may
-        /// optionally be <c>null</c>. In the event that the <paramref name="groupName"/> cannot
-        /// be found, <c>null</c> is returned and <paramref name="error"/> is set to
-        /// #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <returns>
-        /// a newly-allocated <c>null</c>-terminated array of strings.
-        ///     Use g_strfreev() to free it.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetKeys(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetKeys(System.String groupName)
         {
@@ -1421,31 +913,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr locale);
 
-        /// <summary>
-        /// Returns the actual locale which the result of
-        /// <see cref="KeyFile.GetLocaleString"/> or <see cref="KeyFile.GetLocaleStringList"/>
-        /// came from.
-        /// </summary>
-        /// <remarks>
-        /// If calling <see cref="KeyFile.GetLocaleString"/> or
-        /// <see cref="KeyFile.GetLocaleStringList"/> with exactly the same <paramref name="keyFile"/>,
-        /// <paramref name="groupName"/>, <paramref name="key"/> and <paramref name="locale"/>, the result of those functions will
-        /// have originally been tagged with the locale that is the result of
-        /// this function.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// the locale from the file, or <c>null</c> if the key was not
-        ///   found or the entry in the file was was untranslated
-        /// </returns>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe GISharp.Lib.GLib.Utf8? GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale)
         {
@@ -1458,31 +926,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the actual locale which the result of
-        /// <see cref="KeyFile.GetLocaleString"/> or <see cref="KeyFile.GetLocaleStringList"/>
-        /// came from.
-        /// </summary>
-        /// <remarks>
-        /// If calling <see cref="KeyFile.GetLocaleString"/> or
-        /// <see cref="KeyFile.GetLocaleStringList"/> with exactly the same <paramref name="keyFile"/>,
-        /// <paramref name="groupName"/>, <paramref name="key"/> and <paramref name="locale"/>, the result of those functions will
-        /// have originally been tagged with the locale that is the result of
-        /// this function.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// the locale from the file, or <c>null</c> if the key was not
-        ///   found or the entry in the file was was untranslated
-        /// </returns>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetLocaleForKey(System.String,System.String,System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe GISharp.Lib.GLib.Utf8? GetLocaleForKey(System.String groupName, System.String key, System.String? locale)
         {
@@ -1547,37 +991,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/>
-        /// translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
-        /// <c>null</c> then the current locale is assumed.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
-        /// the lifetime of the <see cref="KeyFile"/>, it must be loaded with
-        /// <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
-        /// 
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set
-        /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
-        /// with <paramref name="key"/> cannot be interpreted or no suitable translation can
-        /// be found then the untranslated value is returned.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// a newly allocated string or <c>null</c> if the specified
-        ///   key cannot be found.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetLocaleString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale)
         {
@@ -1597,37 +1011,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/>
-        /// translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
-        /// <c>null</c> then the current locale is assumed.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
-        /// the lifetime of the <see cref="KeyFile"/>, it must be loaded with
-        /// <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
-        /// 
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set
-        /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
-        /// with <paramref name="key"/> cannot be interpreted or no suitable translation can
-        /// be found then the untranslated value is returned.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// a newly allocated string or <c>null</c> if the specified
-        ///   key cannot be found.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetLocaleString(System.String,System.String,System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetLocaleString(System.String groupName, System.String key, System.String? locale)
         {
@@ -1703,40 +1087,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>
-        /// translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
-        /// <c>null</c> then the current locale is assumed.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
-        /// the lifetime of the <see cref="KeyFile"/>, it must be loaded with
-        /// <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
-        /// 
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set
-        /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
-        /// with <paramref name="key"/> cannot be interpreted or no suitable translations
-        /// can be found then the untranslated values are returned. The
-        /// returned array is <c>null</c>-terminated, so <paramref name="length"/> may optionally
-        /// be <c>null</c>.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// a newly allocated <c>null</c>-terminated string array
-        ///   or <c>null</c> if the key isn't found. The string array should be freed
-        ///   with g_strfreev().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale)
         {
@@ -1756,40 +1107,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>
-        /// translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
-        /// <c>null</c> then the current locale is assumed.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
-        /// the lifetime of the <see cref="KeyFile"/>, it must be loaded with
-        /// <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
-        /// 
-        /// If <paramref name="key"/> cannot be found then <c>null</c> is returned and <paramref name="error"/> is set
-        /// to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
-        /// with <paramref name="key"/> cannot be interpreted or no suitable translations
-        /// can be found then the untranslated values are returned. The
-        /// returned array is <c>null</c>-terminated, so <paramref name="length"/> may optionally
-        /// be <c>null</c>.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// a newly allocated <c>null</c>-terminated string array
-        ///   or <c>null</c> if the key isn't found. The string array should be freed
-        ///   with g_strfreev().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetLocaleStringList(System.String,System.String,System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetLocaleStringList(System.String groupName, System.String key, System.String? locale)
         {
@@ -1817,12 +1135,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr keyFile);
 
-        /// <summary>
-        /// Returns the name of the start group of the file.
-        /// </summary>
-        /// <returns>
-        /// The start group of the key file.
-        /// </returns>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetStartGroup()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe GISharp.Lib.GLib.Utf8 GetStartGroup()
         {
@@ -1877,30 +1190,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the string value associated with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// Unlike <see cref="KeyFile.GetValue"/>, this function handles escape sequences
-        /// like \s.
-        /// </summary>
-        /// <remarks>
-        /// In the event the key cannot be found, <c>null</c> is returned and
-        /// <paramref name="error"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-        /// event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// a newly allocated string or <c>null</c> if the specified
-        ///   key cannot be found.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -1919,30 +1209,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the string value associated with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// Unlike <see cref="KeyFile.GetValue"/>, this function handles escape sequences
-        /// like \s.
-        /// </summary>
-        /// <remarks>
-        /// In the event the key cannot be found, <c>null</c> is returned and
-        /// <paramref name="error"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-        /// event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// a newly allocated string or <c>null</c> if the specified
-        ///   key cannot be found.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetString(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetString(System.String groupName, System.String key)
         {
@@ -2003,29 +1270,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// </summary>
-        /// <remarks>
-        /// In the event the key cannot be found, <c>null</c> is returned and
-        /// <paramref name="error"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-        /// event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// 
-        ///  a <c>null</c>-terminated string array or <c>null</c> if the specified
-        ///  key cannot be found. The array should be freed with g_strfreev().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -2044,29 +1289,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// </summary>
-        /// <remarks>
-        /// In the event the key cannot be found, <c>null</c> is returned and
-        /// <paramref name="error"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-        /// event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// 
-        ///  a <c>null</c>-terminated string array or <c>null</c> if the specified
-        ///  key cannot be found. The array should be freed with g_strfreev().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetStringList(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetStringList(System.String groupName, System.String key)
         {
@@ -2114,24 +1337,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an unsigned
-        /// 64-bit integer. This is similar to <see cref="KeyFile.GetInteger"/> but can return
-        /// large positive results without truncation.
-        /// </summary>
-        /// <param name="groupName">
-        /// a non-<c>null</c> group name
-        /// </param>
-        /// <param name="key">
-        /// a non-<c>null</c> key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as an unsigned 64-bit integer,
-        /// or 0 if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.UInt64 GetUint64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -2150,24 +1356,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an unsigned
-        /// 64-bit integer. This is similar to <see cref="KeyFile.GetInteger"/> but can return
-        /// large positive results without truncation.
-        /// </summary>
-        /// <param name="groupName">
-        /// a non-<c>null</c> group name
-        /// </param>
-        /// <param name="key">
-        /// a non-<c>null</c> key
-        /// </param>
-        /// <returns>
-        /// the value associated with the key as an unsigned 64-bit integer,
-        /// or 0 if the key was not found or could not be parsed.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetUint64(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.UInt64 GetUint64(System.String groupName, System.String key)
         {
@@ -2220,29 +1409,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns the raw value associated with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// Use <see cref="KeyFile.GetString"/> to retrieve an unescaped UTF-8 string.
-        /// </summary>
-        /// <remarks>
-        /// In the event the key cannot be found, <c>null</c> is returned and
-        /// <paramref name="error"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-        /// event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// a newly allocated string or <c>null</c> if the specified
-        ///  key cannot be found.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetValue(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -2261,29 +1428,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Returns the raw value associated with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// Use <see cref="KeyFile.GetString"/> to retrieve an unescaped UTF-8 string.
-        /// </summary>
-        /// <remarks>
-        /// In the event the key cannot be found, <c>null</c> is returned and
-        /// <paramref name="error"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-        /// event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
-        /// and <paramref name="error"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <returns>
-        /// a newly allocated string or <c>null</c> if the specified
-        ///  key cannot be found.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetValue(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetValue(System.String groupName, System.String key)
         {
@@ -2317,16 +1462,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr groupName);
 
-        /// <summary>
-        /// Looks whether the key file has the group <paramref name="groupName"/>.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="groupName"/> is a part of <paramref name="keyFile"/>, <c>false</c>
-        /// otherwise.
-        /// </returns>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='HasGroup(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Boolean HasGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
@@ -2337,16 +1473,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <summary>
-        /// Looks whether the key file has the group <paramref name="groupName"/>.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="groupName"/> is a part of <paramref name="keyFile"/>, <c>false</c>
-        /// otherwise.
-        /// </returns>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='HasGroup(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Boolean HasGroup(System.String groupName)
         {
@@ -2391,19 +1518,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Loads a key file from the data in <paramref name="bytes"/> into an empty <see cref="KeyFile"/> structure.
-        /// If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
-        /// </summary>
-        /// <param name="bytes">
-        /// a #GBytes
-        /// </param>
-        /// <param name="flags">
-        /// flags from <see cref="KeyFileFlags"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='LoadFromBytes(GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.50")]
         public unsafe void LoadFromBytes(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.GLib.KeyFileFlags flags)
         {
@@ -2462,22 +1577,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Loads a key file from memory into an empty <see cref="KeyFile"/> structure.
-        /// If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
-        /// </summary>
-        /// <param name="data">
-        /// key file loaded in memory
-        /// </param>
-        /// <param name="length">
-        /// the length of <paramref name="data"/> in bytes (or (gsize)-1 if data is nul-terminated)
-        /// </param>
-        /// <param name="flags">
-        /// flags from <see cref="KeyFileFlags"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='LoadFromData(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void LoadFromData(GISharp.Lib.GLib.UnownedUtf8 data, System.Int32 length, GISharp.Lib.GLib.KeyFileFlags flags)
         {
@@ -2494,22 +1594,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        /// <summary>
-        /// Loads a key file from memory into an empty <see cref="KeyFile"/> structure.
-        /// If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
-        /// </summary>
-        /// <param name="data">
-        /// key file loaded in memory
-        /// </param>
-        /// <param name="length">
-        /// the length of <paramref name="data"/> in bytes (or (gsize)-1 if data is nul-terminated)
-        /// </param>
-        /// <param name="flags">
-        /// flags from <see cref="KeyFileFlags"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='LoadFromData(System.String,System.Int32,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void LoadFromData(System.String data, System.Int32 length, GISharp.Lib.GLib.KeyFileFlags flags)
         {
@@ -2564,26 +1649,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// This function looks for a key file named <paramref name="file"/> in the paths
-        /// returned from g_get_user_data_dir() and g_get_system_data_dirs(),
-        /// loads the file into <paramref name="keyFile"/> and returns the file's full path in
-        /// <paramref name="fullPath"/>.  If the file could not be loaded then an %error is
-        /// set to either a #GFileError or <see cref="KeyFileError"/>.
-        /// </summary>
-        /// <param name="file">
-        /// a relative path to a filename to open and parse
-        /// </param>
-        /// <param name="fullPath">
-        /// return location for a string containing the full path
-        ///   of the file, or <c>null</c>
-        /// </param>
-        /// <param name="flags">
-        /// flags from <see cref="KeyFileFlags"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='LoadFromDataDirs(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void LoadFromDataDirs(GISharp.Lib.GLib.Filename file, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
         {
@@ -2661,34 +1727,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// This function looks for a key file named <paramref name="file"/> in the paths
-        /// specified in <paramref name="searchDirs"/>, loads the file into <paramref name="keyFile"/> and
-        /// returns the file's full path in <paramref name="fullPath"/>.
-        /// </summary>
-        /// <remarks>
-        /// If the file could not be found in any of the <paramref name="searchDirs"/>,
-        /// <see cref="KeyFileError.NotFound"/> is returned. If
-        /// the file is found but the OS returns an error when opening or reading the
-        /// file, a %G_FILE_ERROR is returned. If there is a problem parsing the file, a
-        /// %G_KEY_FILE_ERROR is returned.
-        /// </remarks>
-        /// <param name="file">
-        /// a relative path to a filename to open and parse
-        /// </param>
-        /// <param name="searchDirs">
-        /// <c>null</c>-terminated array of directories to search
-        /// </param>
-        /// <param name="fullPath">
-        /// return location for a string containing the full path
-        ///   of the file, or <c>null</c>
-        /// </param>
-        /// <param name="flags">
-        /// flags from <see cref="KeyFileFlags"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.FilenameArray,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public unsafe void LoadFromDirs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.FilenameArray searchDirs, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
         {
@@ -2750,26 +1789,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Loads a key file into an empty <see cref="KeyFile"/> structure.
-        /// </summary>
-        /// <remarks>
-        /// If the OS returns an error when opening or reading the file, a
-        /// %G_FILE_ERROR is returned. If there is a problem parsing the file, a
-        /// %G_KEY_FILE_ERROR is returned.
-        /// 
-        /// This function will never return a <see cref="KeyFileError.NotFound"/> error. If the
-        /// <paramref name="file"/> is not found, %G_FILE_ERROR_NOENT is returned.
-        /// </remarks>
-        /// <param name="file">
-        /// the path of a filename to load, in the GLib filename encoding
-        /// </param>
-        /// <param name="flags">
-        /// flags from <see cref="KeyFileFlags"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void LoadFromFile(GISharp.Lib.GLib.Filename file, GISharp.Lib.GLib.KeyFileFlags flags)
         {
@@ -2824,21 +1844,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Removes a comment above <paramref name="key"/> from <paramref name="groupName"/>.
-        /// If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be removed above <paramref name="groupName"/>.
-        /// If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then <paramref name="comment"/> will
-        /// be removed above the first group in the file.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name, or <c>null</c>
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.NullableUnownedUtf8 key)
         {
@@ -2854,21 +1860,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        /// <summary>
-        /// Removes a comment above <paramref name="key"/> from <paramref name="groupName"/>.
-        /// If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be removed above <paramref name="groupName"/>.
-        /// If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then <paramref name="comment"/> will
-        /// be removed above the first group in the file.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name, or <c>null</c>
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='RemoveComment(System.String?,System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveComment(System.String? groupName, System.String? key)
         {
@@ -2908,16 +1900,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Removes the specified group, <paramref name="groupName"/>,
-        /// from the key file.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='RemoveGroup(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
@@ -2932,16 +1915,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        /// <summary>
-        /// Removes the specified group, <paramref name="groupName"/>,
-        /// from the key file.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='RemoveGroup(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveGroup(System.String groupName)
         {
@@ -2985,18 +1959,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Removes <paramref name="key"/> in <paramref name="groupName"/> from the key file.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key name to remove
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='RemoveKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveKey(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -3012,18 +1975,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        /// <summary>
-        /// Removes <paramref name="key"/> in <paramref name="groupName"/> from the key file.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key name to remove
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='RemoveKey(System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveKey(System.String groupName, System.String key)
         {
@@ -3067,20 +2019,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Writes the contents of <paramref name="keyFile"/> to <paramref name="filename"/> using
-        /// g_file_set_contents().
-        /// </summary>
-        /// <remarks>
-        /// This function can fail for any of the reasons that
-        /// g_file_set_contents() may fail.
-        /// </remarks>
-        /// <param name="filename">
-        /// the name of the file to write to
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SaveToFile(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void SaveToFile(GISharp.Lib.GLib.UnownedUtf8 filename)
         {
@@ -3095,20 +2034,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        /// <summary>
-        /// Writes the contents of <paramref name="keyFile"/> to <paramref name="filename"/> using
-        /// g_file_set_contents().
-        /// </summary>
-        /// <remarks>
-        /// This function can fail for any of the reasons that
-        /// g_file_set_contents() may fail.
-        /// </remarks>
-        /// <param name="filename">
-        /// the name of the file to write to
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SaveToFile(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void SaveToFile(System.String filename)
         {
@@ -3150,19 +2076,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean value);
 
-        /// <summary>
-        /// Associates a new boolean value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// <c>true</c> or <c>false</c>
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Boolean value)
         {
@@ -3173,19 +2087,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_boolean(keyFile_, groupName_, key_, value_);
         }
 
-        /// <summary>
-        /// Associates a new boolean value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// <c>true</c> or <c>false</c>
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetBoolean(System.String,System.String,System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetBoolean(System.String groupName, System.String key, System.Boolean value)
         {
@@ -3237,20 +2139,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
 
-        /// <summary>
-        /// Associates a list of boolean values with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="list">
-        /// an array of boolean values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetBooleanList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<GISharp.Runtime.Boolean> list)
         {
@@ -3261,20 +2150,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_boolean_list(keyFile_, groupName_, key_, list_, length_);
         }
 
-        /// <summary>
-        /// Associates a list of boolean values with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="list">
-        /// an array of boolean values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetBooleanList(System.String,System.String,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetBooleanList(System.String groupName, System.String key, System.ReadOnlySpan<GISharp.Runtime.Boolean> list)
         {
@@ -3333,29 +2209,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Places a comment above <paramref name="key"/> from <paramref name="groupName"/>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be written above <paramref name="groupName"/>.
-        /// If both <paramref name="key"/> and <paramref name="groupName"/>  are <c>null</c>, then <paramref name="comment"/> will be
-        /// written above the first group in the file.
-        /// 
-        /// Note that this function prepends a '#' comment marker to
-        /// each line of <paramref name="comment"/>.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name, or <c>null</c>
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="comment">
-        /// a comment
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetComment(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.NullableUnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 comment)
         {
@@ -3372,29 +2226,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        /// <summary>
-        /// Places a comment above <paramref name="key"/> from <paramref name="groupName"/>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be written above <paramref name="groupName"/>.
-        /// If both <paramref name="key"/> and <paramref name="groupName"/>  are <c>null</c>, then <paramref name="comment"/> will be
-        /// written above the first group in the file.
-        /// 
-        /// Note that this function prepends a '#' comment marker to
-        /// each line of <paramref name="comment"/>.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name, or <c>null</c>
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="comment">
-        /// a comment
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetComment(System.String?,System.String?,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetComment(System.String? groupName, System.String? key, System.String comment)
         {
@@ -3438,19 +2270,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Double value);
 
-        /// <summary>
-        /// Associates a new double value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// an double value
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetDouble(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Double value)
         {
@@ -3461,19 +2281,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_double(keyFile_, groupName_, key_, value_);
         }
 
-        /// <summary>
-        /// Associates a new double value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// an double value
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetDouble(System.String,System.String,System.Double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetDouble(System.String groupName, System.String key, System.Double value)
         {
@@ -3524,19 +2332,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
 
-        /// <summary>
-        /// Associates a list of double values with <paramref name="key"/> under
-        /// <paramref name="groupName"/>.  If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="list">
-        /// an array of double values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Double&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetDoubleList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Double> list)
         {
@@ -3547,19 +2343,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_double_list(keyFile_, groupName_, key_, list_, length_);
         }
 
-        /// <summary>
-        /// Associates a list of double values with <paramref name="key"/> under
-        /// <paramref name="groupName"/>.  If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="list">
-        /// an array of double values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetDoubleList(System.String,System.String,System.ReadOnlySpan&lt;System.Double&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetDoubleList(System.String groupName, System.String key, System.ReadOnlySpan<System.Double> list)
         {
@@ -3602,19 +2386,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int64 value);
 
-        /// <summary>
-        /// Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// an integer value
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe void SetInt64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int64 value)
         {
@@ -3625,19 +2397,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_int64(keyFile_, groupName_, key_, value_);
         }
 
-        /// <summary>
-        /// Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// an integer value
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetInt64(System.String,System.String,System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe void SetInt64(System.String groupName, System.String key, System.Int64 value)
         {
@@ -3680,19 +2440,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 value);
 
-        /// <summary>
-        /// Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// an integer value
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetInteger(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int32 value)
         {
@@ -3703,19 +2451,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_integer(keyFile_, groupName_, key_, value_);
         }
 
-        /// <summary>
-        /// Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// an integer value
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetInteger(System.String,System.String,System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetInteger(System.String groupName, System.String key, System.Int32 value)
         {
@@ -3766,19 +2502,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
 
-        /// <summary>
-        /// Associates a list of integer values with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="list">
-        /// an array of integer values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Int32&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetIntegerList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Int32> list)
         {
@@ -3789,19 +2513,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_integer_list(keyFile_, groupName_, key_, list_, length_);
         }
 
-        /// <summary>
-        /// Associates a list of integer values with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="list">
-        /// an array of integer values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetIntegerList(System.String,System.String,System.ReadOnlySpan&lt;System.Int32&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetIntegerList(System.String groupName, System.String key, System.ReadOnlySpan<System.Int32> list)
         {
@@ -3833,14 +2545,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.SByte separator);
 
-        /// <summary>
-        /// Sets the character which is used to separate
-        /// values in lists. Typically ';' or ',' are used
-        /// as separators. The default list separator is ';'.
-        /// </summary>
-        /// <param name="separator">
-        /// the separator
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetListSeparator(System.SByte)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetListSeparator(System.SByte separator)
         {
@@ -3889,22 +2594,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr @string);
 
-        /// <summary>
-        /// Associates a string value for <paramref name="key"/> and <paramref name="locale"/> under <paramref name="groupName"/>.
-        /// If the translation for <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier
-        /// </param>
-        /// <param name="string">
-        /// a string
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetLocaleString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Lib.GLib.UnownedUtf8 @string)
         {
@@ -3916,22 +2606,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_locale_string(keyFile_, groupName_, key_, locale_, @string_);
         }
 
-        /// <summary>
-        /// Associates a string value for <paramref name="key"/> and <paramref name="locale"/> under <paramref name="groupName"/>.
-        /// If the translation for <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier
-        /// </param>
-        /// <param name="string">
-        /// a string
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetLocaleString(System.String,System.String,System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetLocaleString(System.String groupName, System.String key, System.String locale, System.String @string)
         {
@@ -3991,23 +2666,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
 
-        /// <summary>
-        /// Associates a list of string values for <paramref name="key"/> and <paramref name="locale"/> under
-        /// <paramref name="groupName"/>.  If the translation for <paramref name="key"/> cannot be found then
-        /// it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier
-        /// </param>
-        /// <param name="list">
-        /// a <c>null</c>-terminated array of locale string values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
         {
@@ -4019,23 +2678,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_locale_string_list(keyFile_, groupName_, key_, locale_, list_, length_);
         }
 
-        /// <summary>
-        /// Associates a list of string values for <paramref name="key"/> and <paramref name="locale"/> under
-        /// <paramref name="groupName"/>.  If the translation for <paramref name="key"/> cannot be found then
-        /// it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="locale">
-        /// a locale identifier
-        /// </param>
-        /// <param name="list">
-        /// a <c>null</c>-terminated array of locale string values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetLocaleStringList(System.String,System.String,System.String,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetLocaleStringList(System.String groupName, System.String key, System.String locale, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
         {
@@ -4082,22 +2725,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr @string);
 
-        /// <summary>
-        /// Associates a new string value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// If <paramref name="groupName"/> cannot be found then it is created.
-        /// Unlike <see cref="KeyFile.SetValue"/>, this function handles characters
-        /// that need escaping, such as newlines.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="string">
-        /// a string
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 @string)
         {
@@ -4108,22 +2736,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_string(keyFile_, groupName_, key_, @string_);
         }
 
-        /// <summary>
-        /// Associates a new string value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// If <paramref name="groupName"/> cannot be found then it is created.
-        /// Unlike <see cref="KeyFile.SetValue"/>, this function handles characters
-        /// that need escaping, such as newlines.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="string">
-        /// a string
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetString(System.String,System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetString(System.String groupName, System.String key, System.String @string)
         {
@@ -4176,20 +2789,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
 
-        /// <summary>
-        /// Associates a list of string values for <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// If <paramref name="groupName"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="list">
-        /// an array of string values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
         {
@@ -4200,20 +2800,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_string_list(keyFile_, groupName_, key_, list_, length_);
         }
 
-        /// <summary>
-        /// Associates a list of string values for <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// If <paramref name="groupName"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="list">
-        /// an array of string values
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetStringList(System.String,System.String,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetStringList(System.String groupName, System.String key, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
         {
@@ -4256,19 +2843,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.UInt64 value);
 
-        /// <summary>
-        /// Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// an integer value
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.UInt64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe void SetUint64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.UInt64 value)
         {
@@ -4279,19 +2854,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_uint64(keyFile_, groupName_, key_, value_);
         }
 
-        /// <summary>
-        /// Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// If <paramref name="key"/> cannot be found then it is created.
-        /// </summary>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// an integer value
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetUint64(System.String,System.String,System.UInt64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe void SetUint64(System.String groupName, System.String key, System.UInt64 value)
         {
@@ -4339,24 +2902,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
-        /// <summary>
-        /// Associates a new value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then it is created. If <paramref name="groupName"/> cannot
-        /// be found then it is created. To set an UTF-8 string which may contain
-        /// characters that need escaping (such as newlines or spaces), use
-        /// <see cref="KeyFile.SetString"/>.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// a string
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetValue(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 value)
         {
@@ -4367,24 +2913,7 @@ namespace GISharp.Lib.GLib
             g_key_file_set_value(keyFile_, groupName_, key_, value_);
         }
 
-        /// <summary>
-        /// Associates a new value with <paramref name="key"/> under <paramref name="groupName"/>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="key"/> cannot be found then it is created. If <paramref name="groupName"/> cannot
-        /// be found then it is created. To set an UTF-8 string which may contain
-        /// characters that need escaping (such as newlines or spaces), use
-        /// <see cref="KeyFile.SetString"/>.
-        /// </remarks>
-        /// <param name="groupName">
-        /// a group name
-        /// </param>
-        /// <param name="key">
-        /// a key
-        /// </param>
-        /// <param name="value">
-        /// a string
-        /// </param>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='SetValue(System.String,System.String,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetValue(System.String groupName, System.String key, System.String value)
         {
@@ -4430,24 +2959,7 @@ namespace GISharp.Lib.GLib
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// This function outputs <paramref name="keyFile"/> as a string.
-        /// </summary>
-        /// <remarks>
-        /// Note that this function never reports an error,
-        /// so it is safe to pass <c>null</c> as <paramref name="error"/>.
-        /// </remarks>
-        /// <param name="length">
-        /// return location for the length of the
-        ///   returned string, or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// a newly allocated string holding
-        ///   the contents of the <see cref="KeyFile"/>
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='ToData(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 ToData(out System.Int32 length)
         {

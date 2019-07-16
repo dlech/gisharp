@@ -19,18 +19,25 @@ namespace GISharp.Runtime
         [PtrArrayFreeFunc]
         static void DummyFreeFunc(IntPtr handle) { }
 
+        /// <summary>
+        /// Gets the integer value.
+        /// </summary>
         public int Value => (int)Handle;
 
+        /// <inheritdoc />
         public override IntPtr Handle => handle;
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public OpaqueInt(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 
-        static IntPtr New (int value)
+        static IntPtr New(int value)
         {
-            return new IntPtr (value);
+            return new IntPtr(value);
         }
 
         /// <summary>
@@ -41,36 +48,45 @@ namespace GISharp.Runtime
         {
         }
 
-        public static implicit operator int (OpaqueInt instance)
+        /// <summary>
+        /// Converts a pointer to an integer.
+        /// </summary>
+        public static implicit operator int(OpaqueInt instance)
         {
             return instance.Value;
         }
 
-        public static implicit operator OpaqueInt (int value)
+        /// <summary>
+        /// Converts an integer to a pointer.
+        /// </summary>
+        public static implicit operator OpaqueInt(int value)
         {
-            return new OpaqueInt (value);
+            return new OpaqueInt(value);
         }
 
-        public override string ToString ()
+        /// <inheritdoc />
+        public override string ToString()
         {
-            return string.Format ("[OpaqueInt: Value={0}]", Value);
+            return string.Format("[OpaqueInt: Value={0}]", Value);
         }
 
-        public override bool Equals (object obj)
+        /// <inheritdoc />
+        public override bool Equals(object obj)
         {
-            var other = obj as OpaqueInt;
-            if (other == null) {
-                return this == null;
+            if (obj is OpaqueInt other) {
+                return Value == other.Value;
             }
-            return Value == other.Value;
+            return base.Equals(obj);
         }
 
-        public override int GetHashCode ()
+        /// <inheritdoc />
+        public override int GetHashCode()
         {
-            return Value.GetHashCode ();
+            return Value.GetHashCode();
         }
 
-        protected override void Dispose (bool disposing)
+        /// <inheritdoc />
+        protected override void Dispose(bool disposing)
         {
             // there is nothing to free
         }

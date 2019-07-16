@@ -2,6 +2,9 @@ using System;
 
 namespace GISharp.Runtime
 {
+    /// <summary>
+    /// Attribute for decorating methods that wrap a GObject virtual method.
+    /// </summary>
     [AttributeUsage(AttributeTargets.Method)]
     public sealed class GVirtualMethodAttribute : Attribute
     {

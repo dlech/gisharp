@@ -18,7 +18,9 @@ namespace GISharp.CodeGen.Syntax
         {
             var identifier = alias.ManagedName;
             return StructDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(PartialKeyword));
+                .AddModifiers(Token(PublicKeyword), Token(PartialKeyword))
+                .WithLeadingTrivia(alias.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
         /// <summary>

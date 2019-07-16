@@ -1,0 +1,52 @@
+<declaration>
+
+<member name='UnknownEncoding'>
+<summary>
+the text being parsed was in
+    an unknown encoding
+</summary>
+</member>
+
+<member name='Parse'>
+<summary>
+document was ill-formed
+</summary>
+</member>
+
+<member name='NotFound'>
+<summary>
+the file was not found
+</summary>
+</member>
+
+<member name='KeyNotFound'>
+<summary>
+a requested key was not found
+</summary>
+</member>
+
+<member name='GroupNotFound'>
+<summary>
+a requested group was not found
+</summary>
+</member>
+
+<member name='InvalidValue'>
+<summary>
+a value could not be parsed
+</summary>
+</member>
+
+<member name='KeyFileError'>
+<summary>
+Error codes returned by key file parsing.
+</summary>
+</member>
+
+<member name='Quark'>
+</member>
+
+<member name='GetQuark()'>
+</member>
+
+</declaration>

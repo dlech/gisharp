@@ -21,11 +21,7 @@ namespace GISharp.Lib.Gio
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr userData);
 
-    /// <summary>
-    /// When doing file operations that may take a while, such as moving
-    /// a file or copying a file, a progress callback is used to pass how
-    /// far along that operation is to the application.
-    /// </summary>
+    /// <include file="FileProgressCallback.xmldoc" path="declaration/member[@name='FileProgressCallback']/*" />
     public delegate void FileProgressCallback(System.Int64 currentNumBytes, System.Int64 totalNumBytes);
 
     /// <summary>
@@ -45,6 +41,9 @@ namespace GISharp.Lib.Gio
             }
         }
 
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="FileProgressCallback"/>.
+        /// </summary>
         public static GISharp.Lib.Gio.FileProgressCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileProgressCallback>(callback_);
@@ -62,7 +61,7 @@ namespace GISharp.Lib.Gio
         /// Wraps a <see cref="FileProgressCallback"/> in an anonymous method that can
         /// be passed to unmanaged code.
         /// </summary>
-        /// <param name="method">The managed method to wrap.</param>
+        /// <param name="callback">The managed callback method to wrap.</param>
         /// <param name="scope">The lifetime scope of the callback.</param>
         /// <returns>
         /// A tuple containing a pointer to the unmanaged callback, a pointer to the

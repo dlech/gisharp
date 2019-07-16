@@ -11,6 +11,9 @@ namespace GISharp.Lib.GObject
     [ExcludeFromCodeCoverage]
     public sealed class ParamSpecPool : Opaque
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecPool(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {

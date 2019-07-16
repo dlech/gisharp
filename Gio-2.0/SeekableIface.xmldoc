@@ -1,0 +1,31 @@
+<declaration>
+
+<member name='GIface'>
+#pragmawarningdisableCS0649
+<summary>
+The parent interface.
+</summary>
+</member>
+
+<member name='Tell'>
+</member>
+
+<member name='CanSeek'>
+</member>
+
+<member name='Seek'>
+</member>
+
+<member name='CanTruncate'>
+</member>
+
+<member name='TruncateFn'>
+</member>
+
+<member name='SeekableIface'>
+<summary>
+Provides an interface for implementing seekable functionality on I/O Streams.
+</summary>
+</member>
+
+</declaration>

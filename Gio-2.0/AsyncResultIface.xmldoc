@@ -1,0 +1,25 @@
+<declaration>
+
+<member name='GIface'>
+#pragmawarningdisableCS0649
+<summary>
+The parent interface.
+</summary>
+</member>
+
+<member name='GetUserData'>
+</member>
+
+<member name='GetSourceObject'>
+</member>
+
+<member name='IsTagged'>
+</member>
+
+<member name='AsyncResultIface'>
+<summary>
+Interface definition for <see cref="IAsyncResult"/>.
+</summary>
+</member>
+
+</declaration>

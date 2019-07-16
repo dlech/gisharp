@@ -33,6 +33,9 @@ namespace GISharp.Lib.GObject
 
         uint RefCount => (uint)Marshal.ReadInt32(Handle, refCountOffset);
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Object(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {

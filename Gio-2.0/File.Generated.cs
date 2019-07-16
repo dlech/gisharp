@@ -2,2086 +2,353 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// <see cref="IFile"/> is a high level abstraction for manipulating files on a
-    /// virtual file system. <see cref="IFile"/>s are lightweight, immutable objects
-    /// that do no I/O upon creation. It is necessary to understand that
-    /// <see cref="IFile"/> objects do not represent files, merely an identifier for a
-    /// file. All file content I/O is implemented as streaming operations
-    /// (see <see cref="InputStream"/> and <see cref="OutputStream"/>).
-    /// </summary>
-    /// <remarks>
-    /// To construct a <see cref="IFile"/>, you can use:
-    /// - <see cref="File.NewForPath"/> if you have a path.
-    /// - <see cref="File.NewForUri"/> if you have a URI.
-    /// - <see cref="File.NewForCommandlineArg"/> for a command line argument.
-    /// - <see cref="File.NewTmp"/> to create a temporary file from a template.
-    /// - <see cref="File.ParseName"/> from a UTF-8 string gotten from <see cref="File.GetParseName"/>.
-    /// - g_file_new_build_filename() to create a file from path elements.
-    /// 
-    /// One way to think of a <see cref="IFile"/> is as an abstraction of a pathname. For
-    /// normal files the system pathname is what is stored internally, but as
-    /// <see cref="IFile"/>s are extensible it could also be something else that corresponds
-    /// to a pathname in a userspace implementation of a filesystem.
-    /// 
-    /// <see cref="IFile"/>s make up hierarchies of directories and files that correspond to
-    /// the files on a filesystem. You can move through the file system with
-    /// <see cref="IFile"/> using <see cref="File.GetParent"/> to get an identifier for the parent
-    /// directory, <see cref="File.GetChild"/> to get a child within a directory,
-    /// <see cref="File.ResolveRelativePath"/> to resolve a relative path between two
-    /// <see cref="IFile"/>s. There can be multiple hierarchies, so you may not end up at
-    /// the same root if you repeatedly call <see cref="File.GetParent"/> on two different
-    /// files.
-    /// 
-    /// All <see cref="IFile"/>s have a basename (get with <see cref="File.GetBasename"/>). These names
-    /// are byte strings that are used to identify the file on the filesystem
-    /// (relative to its parent directory) and there is no guarantees that they
-    /// have any particular charset encoding or even make any sense at all. If
-    /// you want to use filenames in a user interface you should use the display
-    /// name that you can get by requesting the
-    /// %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME attribute with <see cref="File.QueryInfo"/>.
-    /// This is guaranteed to be in UTF-8 and can be used in a user interface.
-    /// But always store the real basename or the <see cref="IFile"/> to use to actually
-    /// access the file, because there is no way to go from a display name to
-    /// the actual name.
-    /// 
-    /// Using <see cref="IFile"/> as an identifier has the same weaknesses as using a path
-    /// in that there may be multiple aliases for the same file. For instance,
-    /// hard or soft links may cause two different <see cref="IFile"/>s to refer to the same
-    /// file. Other possible causes for aliases are: case insensitive filesystems,
-    /// short and long names on FAT/NTFS, or bind mounts in Linux. If you want to
-    /// check if two <see cref="IFile"/>s point to the same file you can query for the
-    /// %G_FILE_ATTRIBUTE_ID_FILE attribute. Note that <see cref="IFile"/> does some trivial
-    /// canonicalization of pathnames passed in, so that trivial differences in
-    /// the path string used at creation (duplicated slashes, slash at end of
-    /// path, "." or ".." path segments, etc) does not create different <see cref="IFile"/>s.
-    /// 
-    /// Many <see cref="IFile"/> operations have both synchronous and asynchronous versions
-    /// to suit your application. Asynchronous versions of synchronous functions
-    /// simply have _async() appended to their function names. The asynchronous
-    /// I/O functions call a <see cref="AsyncReadyCallback"/> which is then used to finalize
-    /// the operation, producing a GAsyncResult which is then passed to the
-    /// function's matching _finish() operation.
-    /// 
-    /// It is highly recommended to use asynchronous calls when running within a
-    /// shared main loop, such as in the main thread of an application. This avoids
-    /// I/O operations blocking other sources on the main loop from being dispatched.
-    /// Synchronous I/O operations should be performed from worker threads. See the
-    /// [introduction to asynchronous programming section][async-programming] for
-    /// more.
-    /// 
-    /// Some <see cref="IFile"/> operations almost always take a noticeable amount of time, and
-    /// so do not have synchronous analogs. Notable cases include:
-    /// - g_file_mount_mountable() to mount a mountable file.
-    /// - g_file_unmount_mountable_with_operation() to unmount a mountable file.
-    /// - g_file_eject_mountable_with_operation() to eject a mountable file.
-    /// 
-    /// ## Entity Tags # {#gfile-etag}
-    /// 
-    /// One notable feature of <see cref="IFile"/>s are entity tags, or "etags" for
-    /// short. Entity tags are somewhat like a more abstract version of the
-    /// traditional mtime, and can be used to quickly determine if the file
-    /// has been modified from the version on the file system. See the
-    /// HTTP 1.1
-    /// [specification](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)
-    /// for HTTP Etag headers, which are a very similar concept.
-    /// </remarks>
+    /// <include file="File.xmldoc" path="declaration/member[@name='IFile']/*" />
     [GISharp.Runtime.GTypeAttribute("GFile", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileIface))]
     public partial interface IFile : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <summary>
-        /// Gets an output stream for appending data to the file.
-        /// If the file doesn't already exist it is created.
-        /// </summary>
-        /// <remarks>
-        /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-        /// will be made readable only to the current user, to the level that
-        /// is supported on the target filesystem.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// Some file systems don't allow all file names, and may return an
-        /// <see cref="IOErrorEnum.InvalidFilename"/> error. If the file is a directory the
-        /// <see cref="IOErrorEnum.IsDirectory"/> error will be returned. Other errors are
-        /// possible too, and depend on what kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileOutputStream"/>, or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoAppendTo(GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedAppendTo))]
         GISharp.Lib.Gio.FileOutputStream DoAppendTo(GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously opens <paramref name="file"/> for appending.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.AppendTo"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.AppendToFinish"/> to get the result
-        /// of the operation.
-        /// </remarks>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoAppendToAsync(GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedAppendToAsync))]
         void DoAppendToAsync(GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous file append operation started with
-        /// <see cref="File.AppendToAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a valid <see cref="FileOutputStream"/>
-        ///     or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoAppendToFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedAppendToFinish))]
         GISharp.Lib.Gio.FileOutputStream DoAppendToFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Copies the file <paramref name="source"/> to the location specified by <paramref name="destination"/>.
-        /// Can not handle recursive copies of directories.
-        /// </summary>
-        /// <remarks>
-        /// If the flag #G_FILE_COPY_OVERWRITE is specified an already
-        /// existing <paramref name="destination"/> file is overwritten.
-        /// 
-        /// If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
-        /// will be copied as symlinks, otherwise the target of the
-        /// <paramref name="source"/> symlink will be copied.
-        /// 
-        /// If the flag #G_FILE_COPY_ALL_METADATA is specified then all the metadata
-        /// that is possible to copy is copied, not just the default subset (which,
-        /// for instance, does not include the owner, see <see cref="FileInfo"/>).
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// If <paramref name="progressCallback"/> is not <c>null</c>, then the operation can be monitored
-        /// by setting this to a <see cref="FileProgressCallback"/> function.
-        /// <paramref name="progressCallbackData"/> will be passed to this function. It is guaranteed
-        /// that this callback will be called after all data has been transferred with
-        /// the total number of bytes copied during the operation.
-        /// 
-        /// If the <paramref name="source"/> file does not exist, then the <see cref="IOErrorEnum.NotFound"/> error
-        /// is returned, independent on the status of the <paramref name="destination"/>.
-        /// 
-        /// If #G_FILE_COPY_OVERWRITE is not specified and the target exists, then
-        /// the error <see cref="IOErrorEnum.Exists"/> is returned.
-        /// 
-        /// If trying to overwrite a file over a directory, the <see cref="IOErrorEnum.IsDirectory"/>
-        /// error is returned. If trying to overwrite a directory with a directory the
-        /// <see cref="IOErrorEnum.WouldMerge"/> error is returned.
-        /// 
-        /// If the source is a directory and the target does not exist, or
-        /// #G_FILE_COPY_OVERWRITE is specified and the target is a file, then the
-        /// <see cref="IOErrorEnum.WouldRecurse"/> error is returned.
-        /// 
-        /// If you are interested in copying the <see cref="IFile"/> object itself (not the on-disk
-        /// file), see <see cref="File.Dup"/>.
-        /// </remarks>
-        /// <param name="destination">
-        /// destination <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// set of <see cref="FileCopyFlags"/>
-        /// </param>
-        /// <param name="progressCallback">
-        /// function to callback with
-        ///     progress information, or <c>null</c> if progress information is not needed
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// <c>true</c> on success, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoCopy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedCopy))]
         void DoCopy(GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Copies the file <paramref name="source"/> to the location specified by <paramref name="destination"/>
-        /// asynchronously. For details of the behaviour, see <see cref="File.Copy"/>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
-        /// just like in <see cref="File.Copy"/>. The callback will run in the default main context
-        /// of the thread calling <see cref="File.CopyAsync"/> — the same context as <paramref name="callback"/> is
-        /// run in.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called. You can then call
-        /// <see cref="File.CopyFinish"/> to get the result of the operation.
-        /// </remarks>
-        /// <param name="destination">
-        /// destination <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// set of <see cref="FileCopyFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="progressCallback">
-        /// function to callback with progress
-        ///     information, or <c>null</c> if progress information is not needed
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoCopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,System.Int32,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedCopyAsync))]
         void DoCopyAsync(GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes copying the file started with <see cref="File.CopyAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <c>true</c> on success, <c>false</c> on error.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoCopyFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedCopyFinish))]
         void DoCopyFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Creates a new file and returns an output stream for writing to it.
-        /// The file must not already exist.
-        /// </summary>
-        /// <remarks>
-        /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-        /// will be made readable only to the current user, to the level
-        /// that is supported on the target filesystem.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If a file or directory with this name already exists the
-        /// <see cref="IOErrorEnum.Exists"/> error will be returned. Some file systems don't
-        /// allow all file names, and may return an <see cref="IOErrorEnum.InvalidFilename"/>
-        /// error, and if the name is to long <see cref="IOErrorEnum.FilenameTooLong"/> will
-        /// be returned. Other errors are possible too, and depend on what kind
-        /// of filesystem the file is on.
-        /// </remarks>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileOutputStream"/> for the newly created
-        ///     file, or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoCreate(GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedCreate))]
         GISharp.Lib.Gio.FileOutputStream DoCreate(GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously creates a new file and returns an output stream
-        /// for writing to it. The file must not already exist.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.Create"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.CreateFinish"/> to get the result
-        /// of the operation.
-        /// </remarks>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoCreateAsync(GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedCreateAsync))]
         void DoCreateAsync(GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous file create operation started with
-        /// <see cref="File.CreateAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileOutputStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoCreateFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedCreateFinish))]
         GISharp.Lib.Gio.FileOutputStream DoCreateFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Creates a new file and returns a stream for reading and
-        /// writing to it. The file must not already exist.
-        /// </summary>
-        /// <remarks>
-        /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-        /// will be made readable only to the current user, to the level
-        /// that is supported on the target filesystem.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If a file or directory with this name already exists, the
-        /// <see cref="IOErrorEnum.Exists"/> error will be returned. Some file systems don't
-        /// allow all file names, and may return an <see cref="IOErrorEnum.InvalidFilename"/>
-        /// error, and if the name is too long, <see cref="IOErrorEnum.FilenameTooLong"/>
-        /// will be returned. Other errors are possible too, and depend on what
-        /// kind of filesystem the file is on.
-        /// 
-        /// Note that in many non-local file cases read and write streams are
-        /// not supported, so make sure you really need to do read and write
-        /// streaming, rather than just opening for reading or writing.
-        /// </remarks>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileIOStream"/> for the newly created
-        ///     file, or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoCreateReadwrite(GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedCreateReadwrite))]
         GISharp.Lib.Gio.FileIOStream DoCreateReadwrite(GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously creates a new file and returns a stream
-        /// for reading and writing to it. The file must not already exist.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.CreateReadwrite"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.CreateReadwriteFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoCreateReadwriteAsync(GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedCreateReadwriteAsync))]
         void DoCreateReadwriteAsync(GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous file create operation started with
-        /// <see cref="File.CreateReadwriteAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileIOStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoCreateReadwriteFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedCreateReadwriteFinish))]
         GISharp.Lib.Gio.FileIOStream DoCreateReadwriteFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Deletes a file. If the <paramref name="file"/> is a directory, it will only be
-        /// deleted if it is empty. This has the same semantics as g_unlink().
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the file was deleted. <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoDeleteFile(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedDeleteFile))]
         void DoDeleteFile(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously delete a file. If the <paramref name="file"/> is a directory, it will
-        /// only be deleted if it is empty.  This has the same semantics as
-        /// g_unlink().
-        /// </summary>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoDeleteFileAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedDeleteFileAsync))]
         void DoDeleteFileAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes deleting a file started with <see cref="File.DeleteAsync"/>.
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the file was deleted. <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoDeleteFileFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedDeleteFileFinish))]
         void DoDeleteFileFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Duplicates a <see cref="IFile"/> handle. This operation does not duplicate
-        /// the actual file or directory represented by the <see cref="IFile"/>; see
-        /// <see cref="File.Copy"/> if attempting to copy a file.
-        /// </summary>
-        /// <remarks>
-        /// <see cref="File.Dup"/> is useful when a second handle is needed to the same underlying
-        /// file, for use in a separate thread (<see cref="IFile"/> is not thread-safe). For use
-        /// within the same thread, use g_object_ref() to increment the existing object’s
-        /// reference count.
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <returns>
-        /// a new <see cref="IFile"/> that is a duplicate
-        ///     of the given <see cref="IFile"/>.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoDup()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedDup))]
         GISharp.Lib.Gio.IFile DoDup();
 
-        /// <summary>
-        /// Finishes an asynchronous eject operation started by
-        /// g_file_eject_mountable().
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the <paramref name="file"/> was ejected successfully.
-        ///     <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoEjectMountableFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [System.ObsoleteAttribute("Use g_file_eject_mountable_with_operation_finish()\n    instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedEjectMountableFinish))]
         void DoEjectMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Finishes an asynchronous eject operation started by
-        /// g_file_eject_mountable_with_operation().
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the <paramref name="file"/> was ejected successfully.
-        ///     <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoEjectMountableWithOperationFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedEjectMountableWithOperationFinish))]
         void DoEjectMountableWithOperationFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Asynchronously gets the requested information about the files
-        /// in a directory. The result is a #GFileEnumerator object that will
-        /// give out <see cref="FileInfo"/> objects for all the files in the directory.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see g_file_enumerate_children() which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called. You can
-        /// then call g_file_enumerate_children_finish() to get the result of
-        /// the operation.
-        /// </remarks>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call when the
-        ///     request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoEnumerateChildrenAsync(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedEnumerateChildrenAsync))]
         void DoEnumerateChildrenAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Checks if the two given #GFiles refer to the same file.
-        /// </summary>
-        /// <remarks>
-        /// Note that two #GFiles that differ can still refer to the same
-        /// file on the filesystem due to various forms of filename
-        /// aliasing.
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file2">
-        /// the second <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="file1"/> and <paramref name="file2"/> are equal.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoEqual(GISharp.Lib.Gio.IFile)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedEqual))]
         System.Boolean DoEqual(GISharp.Lib.Gio.IFile file2);
 
-        /// <summary>
-        /// Asynchronously gets the mount for the file.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see g_file_find_enclosing_mount() which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call g_file_find_enclosing_mount_finish() to
-        /// get the result of the operation.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoFindEnclosingMountAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedFindEnclosingMountAsync))]
         void DoFindEnclosingMountAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoGetBasename()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetBasename))]
         GISharp.Lib.GLib.Utf8 DoGetBasename();
 
-        /// <summary>
-        /// Gets the child of <paramref name="file"/> for a given <paramref name="displayName"/> (i.e. a UTF-8
-        /// version of the name). If this function fails, it returns <c>null</c>
-        /// and <paramref name="error"/> will be set. This is very useful when constructing a
-        /// <see cref="IFile"/> for a new file and the user entered the filename in the
-        /// user interface, for instance when you select a directory and
-        /// type a filename in the file selector.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="displayName">
-        /// string to a possible child
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> to the specified child, or
-        ///     <c>null</c> if the display name couldn't be converted.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoGetChildForDisplayName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetChildForDisplayName))]
         GISharp.Lib.Gio.IFile DoGetChildForDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName);
 
-        /// <summary>
-        /// Gets the parent directory for the <paramref name="file"/>.
-        /// If the <paramref name="file"/> represents the root directory of the
-        /// file system, then <c>null</c> will be returned.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <returns>
-        /// a <see cref="IFile"/> structure to the
-        ///     parent of the given <see cref="IFile"/> or <c>null</c> if there is no parent. Free
-        ///     the returned object with g_object_unref().
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoGetParent()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetParent))]
         GISharp.Lib.Gio.IFile? DoGetParent();
 
-        /// <summary>
-        /// Gets the parse name of the <paramref name="file"/>.
-        /// A parse name is a UTF-8 string that describes the
-        /// file such that one can get the <see cref="IFile"/> back using
-        /// <see cref="File.ParseName"/>.
-        /// </summary>
-        /// <remarks>
-        /// This is generally used to show the <see cref="IFile"/> as a nice
-        /// full-pathname kind of string in a user interface,
-        /// like in a location entry.
-        /// 
-        /// For local files with names that can safely be converted
-        /// to UTF-8 the pathname is used, otherwise the IRI is used
-        /// (a form of URI that allows UTF-8 characters unescaped).
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <returns>
-        /// a string containing the <see cref="IFile"/>'s parse name.
-        ///     The returned string should be freed with g_free()
-        ///     when no longer needed.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoGetParseName()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetParseName))]
         GISharp.Lib.GLib.Utf8 DoGetParseName();
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoGetPath()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetPath))]
         GISharp.Lib.GLib.Utf8 DoGetPath();
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoGetRelativePath(GISharp.Lib.Gio.IFile)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetRelativePath))]
         GISharp.Lib.GLib.Utf8 DoGetRelativePath(GISharp.Lib.Gio.IFile descendant);
 
-        /// <summary>
-        /// Gets the URI for the <paramref name="file"/>.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <returns>
-        /// a string containing the <see cref="IFile"/>'s URI.
-        ///     The returned string should be freed with g_free()
-        ///     when no longer needed.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoGetUri()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetUri))]
         GISharp.Lib.GLib.Utf8 DoGetUri();
 
-        /// <summary>
-        /// Gets the URI scheme for a <see cref="IFile"/>.
-        /// RFC 3986 decodes the scheme as:
-        /// |[
-        /// URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
-        /// ]|
-        /// Common schemes include "file", "http", "ftp", etc.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <returns>
-        /// a string containing the URI scheme for the given
-        ///     <see cref="IFile"/>. The returned string should be freed with g_free()
-        ///     when no longer needed.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoGetUriScheme()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetUriScheme))]
         GISharp.Lib.GLib.Utf8 DoGetUriScheme();
 
-        /// <summary>
-        /// Checks to see if a <see cref="IFile"/> has a given URI scheme.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="uriScheme">
-        /// a string containing a URI scheme
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <see cref="IFile"/>'s backend supports the
-        ///     given URI scheme, <c>false</c> if URI scheme is <c>null</c>,
-        ///     not supported, or <see cref="IFile"/> is invalid.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoHasUriScheme(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedHasUriScheme))]
         System.Boolean DoHasUriScheme(GISharp.Lib.GLib.UnownedUtf8 uriScheme);
 
-        /// <summary>
-        /// Creates a hash value for a <see cref="IFile"/>.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <returns>
-        /// 0 if <paramref name="file"/> is not a valid <see cref="IFile"/>, otherwise an
-        ///     integer that can be used as hash value for the <see cref="IFile"/>.
-        ///     This function is intended for easily hashing a <see cref="IFile"/> to
-        ///     add to a #GHashTable or similar data structure.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoHash()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedHash))]
         System.UInt32 DoHash();
 
-        /// <summary>
-        /// Checks to see if a file is native to the platform.
-        /// </summary>
-        /// <remarks>
-        /// A native file is one expressed in the platform-native filename format,
-        /// e.g. "C:\Windows" or "/usr/bin/". This does not mean the file is local,
-        /// as it might be on a locally mounted remote filesystem.
-        /// 
-        /// On some systems non-native files may be available using the native
-        /// filesystem via a userspace filesystem (FUSE), in these cases this call
-        /// will return <c>false</c>, but <see cref="File.GetPath"/> will still return a native path.
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <returns>
-        /// <c>true</c> if <paramref name="file"/> is native
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoIsNative()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedIsNative))]
         System.Boolean DoIsNative();
 
-        /// <summary>
-        /// Creates a directory. Note that this will only create a child directory
-        /// of the immediate parent directory of the path or URI given by the <see cref="IFile"/>.
-        /// To recursively create directories, see <see cref="File.MakeDirectoryWithParents"/>.
-        /// This function will fail if the parent directory does not exist, setting
-        /// <paramref name="error"/> to <see cref="IOErrorEnum.NotFound"/>. If the file system doesn't support
-        /// creating directories, this function will fail, setting <paramref name="error"/> to
-        /// <see cref="IOErrorEnum.NotSupported"/>.
-        /// </summary>
-        /// <remarks>
-        /// For a local <see cref="IFile"/> the newly created directory will have the default
-        /// (current) ownership and permissions of the current process.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// <c>true</c> on successful creation, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoMakeDirectory(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMakeDirectory))]
         void DoMakeDirectory(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously creates a directory.
-        /// </summary>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoMakeDirectoryAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMakeDirectoryAsync))]
         void DoMakeDirectoryAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous directory creation, started with
-        /// <see cref="File.MakeDirectoryAsync"/>.
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> on successful directory creation, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoMakeDirectoryFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMakeDirectoryFinish))]
         void DoMakeDirectoryFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Creates a symbolic link named <paramref name="file"/> which contains the string
-        /// <paramref name="symlinkValue"/>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="symlinkValue">
-        /// a string with the path for the target
-        ///     of the new symlink
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// <c>true</c> on the creation of a new symlink, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoMakeSymbolicLink(GISharp.Lib.GLib.Filename,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMakeSymbolicLink))]
         void DoMakeSymbolicLink(GISharp.Lib.GLib.Filename symlinkValue, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Collects the results from an earlier call to
-        /// g_file_measure_disk_usage_async().  See g_file_measure_disk_usage() for
-        /// more information.
-        /// </summary>
-        /// <param name="result">
-        /// the <see cref="IAsyncResult"/> passed to your <see cref="AsyncReadyCallback"/>
-        /// </param>
-        /// <param name="diskUsage">
-        /// the number of bytes of disk space used
-        /// </param>
-        /// <param name="numDirs">
-        /// the number of directories encountered
-        /// </param>
-        /// <param name="numFiles">
-        /// the number of non-directories encountered
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if successful, with the out parameters set.
-        ///          <c>false</c> otherwise, with <paramref name="error"/> set.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoMeasureDiskUsageFinish(GISharp.Lib.Gio.IAsyncResult,System.UInt64,System.UInt64,System.UInt64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMeasureDiskUsageFinish))]
         void DoMeasureDiskUsageFinish(GISharp.Lib.Gio.IAsyncResult result, out System.UInt64 diskUsage, out System.UInt64 numDirs, out System.UInt64 numFiles);
 
-        /// <summary>
-        /// Finishes a mount operation started by g_file_mount_enclosing_volume().
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if successful. If an error has occurred,
-        ///     this function will return <c>false</c> and set <paramref name="error"/>
-        ///     appropriately if present.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoMountEnclosingVolumeFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMountEnclosingVolumeFinish))]
         void DoMountEnclosingVolumeFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Finishes a mount operation. See g_file_mount_mountable() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous mount operation that was started
-        /// with g_file_mount_mountable().
-        /// </remarks>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoMountMountableFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMountMountableFinish))]
         GISharp.Lib.Gio.IFile DoMountMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Tries to move the file or directory <paramref name="source"/> to the location specified
-        /// by <paramref name="destination"/>. If native move operations are supported then this is
-        /// used, otherwise a copy + delete fallback is used. The native
-        /// implementation may support moving directories (for instance on moves
-        /// inside the same filesystem), but the fallback code does not.
-        /// </summary>
-        /// <remarks>
-        /// If the flag #G_FILE_COPY_OVERWRITE is specified an already
-        /// existing <paramref name="destination"/> file is overwritten.
-        /// 
-        /// If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
-        /// will be copied as symlinks, otherwise the target of the
-        /// <paramref name="source"/> symlink will be copied.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// If <paramref name="progressCallback"/> is not <c>null</c>, then the operation can be monitored
-        /// by setting this to a <see cref="FileProgressCallback"/> function.
-        /// <paramref name="progressCallbackData"/> will be passed to this function. It is
-        /// guaranteed that this callback will be called after all data has been
-        /// transferred with the total number of bytes copied during the operation.
-        /// 
-        /// If the <paramref name="source"/> file does not exist, then the <see cref="IOErrorEnum.NotFound"/>
-        /// error is returned, independent on the status of the <paramref name="destination"/>.
-        /// 
-        /// If #G_FILE_COPY_OVERWRITE is not specified and the target exists,
-        /// then the error <see cref="IOErrorEnum.Exists"/> is returned.
-        /// 
-        /// If trying to overwrite a file over a directory, the <see cref="IOErrorEnum.IsDirectory"/>
-        /// error is returned. If trying to overwrite a directory with a directory the
-        /// <see cref="IOErrorEnum.WouldMerge"/> error is returned.
-        /// 
-        /// If the source is a directory and the target does not exist, or
-        /// #G_FILE_COPY_OVERWRITE is specified and the target is a file, then
-        /// the <see cref="IOErrorEnum.WouldRecurse"/> error may be returned (if the native
-        /// move operation isn't available).
-        /// </remarks>
-        /// <param name="destination">
-        /// <see cref="IFile"/> pointing to the destination location
-        /// </param>
-        /// <param name="flags">
-        /// set of <see cref="FileCopyFlags"/>
-        /// </param>
-        /// <param name="progressCallback">
-        /// <see cref="FileProgressCallback"/>
-        ///     function for updates
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// <c>true</c> on successful move, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoMove(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedMove))]
         void DoMove(GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Opens an existing file for reading and writing. The result is
-        /// a <see cref="FileIOStream"/> that can be used to read and write the contents
-        /// of the file.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
-        /// be returned. If the file is a directory, the <see cref="IOErrorEnum.IsDirectory"/>
-        /// error will be returned. Other errors are possible too, and depend on
-        /// what kind of filesystem the file is on. Note that in many non-local
-        /// file cases read and write streams are not supported, so make sure you
-        /// really need to do read and write streaming, rather than just opening
-        /// for reading or writing.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// a <see cref="Cancellable"/>
-        /// </param>
-        /// <returns>
-        /// <see cref="FileIOStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoOpenReadwrite(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedOpenReadwrite))]
         GISharp.Lib.Gio.FileIOStream DoOpenReadwrite(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously opens <paramref name="file"/> for reading and writing.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.OpenReadwrite"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.OpenReadwriteFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoOpenReadwriteAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedOpenReadwriteAsync))]
         void DoOpenReadwriteAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous file read operation started with
-        /// <see cref="File.OpenReadwriteAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileIOStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoOpenReadwriteFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedOpenReadwriteFinish))]
         GISharp.Lib.Gio.FileIOStream DoOpenReadwriteFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Polls a file of type #G_FILE_TYPE_MOUNTABLE.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.MountMountableFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied, or <c>null</c>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoPollMountable(GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedPollMountable))]
         void DoPollMountable(GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes a poll operation. See <see cref="File.PollMountable"/> for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous poll operation that was polled
-        /// with <see cref="File.PollMountable"/>.
-        /// </remarks>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the operation finished successfully. <c>false</c>
-        /// otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoPollMountableFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedPollMountableFinish))]
         void DoPollMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Checks whether <paramref name="file"/> has the prefix specified by <paramref name="prefix"/>.
-        /// </summary>
-        /// <remarks>
-        /// In other words, if the names of initial elements of <paramref name="file"/>'s
-        /// pathname match <paramref name="prefix"/>. Only full pathname elements are matched,
-        /// so a path like /foo is not considered a prefix of /foobar, only
-        /// of /foo/bar.
-        /// 
-        /// A <see cref="IFile"/> is not a prefix of itself. If you want to check for
-        /// equality, use <see cref="File.Equals"/>.
-        /// 
-        /// This call does no I/O, as it works purely on names. As such it can
-        /// sometimes return <c>false</c> even if <paramref name="file"/> is inside a <paramref name="prefix"/> (from a
-        /// filesystem point of view), because the prefix of <paramref name="file"/> is an alias
-        /// of <paramref name="prefix"/>.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the <paramref name="files"/>'s parent, grandparent, etc is <paramref name="prefix"/>,
-        ///     <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoPrefixMatches(GISharp.Lib.Gio.IFile)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedPrefixMatches))]
         System.Boolean DoPrefixMatches(GISharp.Lib.Gio.IFile file);
 
-        /// <summary>
-        /// Similar to <see cref="File.QueryInfo"/>, but obtains information
-        /// about the filesystem the <paramref name="file"/> is on, rather than the file itself.
-        /// For instance the amount of space available and the type of
-        /// the filesystem.
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="attributes"/> value is a string that specifies the attributes
-        /// that should be gathered. It is not an error if it's not possible
-        /// to read a particular requested attribute from a file - it just
-        /// won't be set. <paramref name="attributes"/> should be a comma-separated list of
-        /// attributes or attribute wildcards. The wildcard "*" means all
-        /// attributes, and a wildcard like "filesystem::*" means all attributes
-        /// in the filesystem namespace. The standard namespace for filesystem
-        /// attributes is "filesystem". Common attributes of interest are
-        /// #G_FILE_ATTRIBUTE_FILESYSTEM_SIZE (the total size of the filesystem
-        /// in bytes), #G_FILE_ATTRIBUTE_FILESYSTEM_FREE (number of bytes available),
-        /// and #G_FILE_ATTRIBUTE_FILESYSTEM_TYPE (type of the filesystem).
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
-        /// be returned. Other errors are possible too, and depend on what
-        /// kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInfo"/> or <c>null</c> if there was an error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoQueryFilesystemInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedQueryFilesystemInfo))]
         GISharp.Lib.Gio.FileInfo DoQueryFilesystemInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously gets the requested information about the filesystem
-        /// that the specified <paramref name="file"/> is on. The result is a <see cref="FileInfo"/> object
-        /// that contains key-value attributes (such as type or size for the
-        /// file).
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.QueryFilesystemInfo"/> which is the
-        /// synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called. You can
-        /// then call <see cref="File.QueryInfoFinish"/> to get the result of the
-        /// operation.
-        /// </remarks>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoQueryFilesystemInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedQueryFilesystemInfoAsync))]
         void DoQueryFilesystemInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous filesystem info query.
-        /// See <see cref="File.QueryFilesystemInfoAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <see cref="FileInfo"/> for given <paramref name="file"/>
-        ///     or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoQueryFilesystemInfoFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedQueryFilesystemInfoFinish))]
         GISharp.Lib.Gio.FileInfo DoQueryFilesystemInfoFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Gets the requested information about specified <paramref name="file"/>.
-        /// The result is a <see cref="FileInfo"/> object that contains key-value
-        /// attributes (such as the type or size of the file).
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="attributes"/> value is a string that specifies the file
-        /// attributes that should be gathered. It is not an error if
-        /// it's not possible to read a particular requested attribute
-        /// from a file - it just won't be set. <paramref name="attributes"/> should be a
-        /// comma-separated list of attributes or attribute wildcards.
-        /// The wildcard "*" means all attributes, and a wildcard like
-        /// "standard::*" means all attributes in the standard namespace.
-        /// An example attribute query be "standard::*,owner::user".
-        /// The standard attributes are available as defines, like
-        /// #G_FILE_ATTRIBUTE_STANDARD_NAME.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// For symlinks, normally the information about the target of the
-        /// symlink is returned, rather than information about the symlink
-        /// itself. However if you pass #G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS
-        /// in <paramref name="flags"/> the information about the symlink itself will be returned.
-        /// Also, for symlinks that point to non-existing files the information
-        /// about the symlink itself will be returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
-        /// returned. Other errors are possible too, and depend on what kind of
-        /// filesystem the file is on.
-        /// </remarks>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInfo"/> for the given <paramref name="file"/>, or <c>null</c>
-        ///     on error. Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedQueryInfo))]
         GISharp.Lib.Gio.FileInfo DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously gets the requested information about specified <paramref name="file"/>.
-        /// The result is a <see cref="FileInfo"/> object that contains key-value attributes
-        /// (such as type or size for the file).
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.QueryInfo"/> which is the synchronous
-        /// version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called. You can
-        /// then call <see cref="File.QueryInfoFinish"/> to get the result of the operation.
-        /// </remarks>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call when the
-        ///     request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedQueryInfoAsync))]
         void DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous file info query.
-        /// See <see cref="File.QueryInfoAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <see cref="FileInfo"/> for given <paramref name="file"/>
-        ///     or <c>null</c> on error. Free the returned object with
-        ///     g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedQueryInfoFinish))]
         GISharp.Lib.Gio.FileInfo DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Obtain the list of settable attributes for the file.
-        /// </summary>
-        /// <remarks>
-        /// Returns the type and full attribute name of all the attributes
-        /// that can be set on this file. This doesn't mean setting it will
-        /// always succeed though, you might get an access failure, or some
-        /// specific file may not support a specific attribute.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileAttributeInfoList"/> describing the settable attributes.
-        ///     When you are done with it, release it with
-        ///     <see cref="FileAttributeInfoList.Unref"/>
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoQuerySettableAttributes(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedQuerySettableAttributes))]
         GISharp.Lib.Gio.FileAttributeInfoList DoQuerySettableAttributes(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Obtain the list of attribute namespaces where new attributes
-        /// can be created by a user. An example of this is extended
-        /// attributes (in the "xattr" namespace).
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileAttributeInfoList"/> describing the writable namespaces.
-        ///     When you are done with it, release it with
-        ///     <see cref="FileAttributeInfoList.Unref"/>
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoQueryWritableNamespaces(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedQueryWritableNamespaces))]
         GISharp.Lib.Gio.FileAttributeInfoList DoQueryWritableNamespaces(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously opens <paramref name="file"/> for reading.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.Read"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.ReadFinish"/> to get the result
-        /// of the operation.
-        /// </remarks>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoReadAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedReadAsync))]
         void DoReadAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous file read operation started with
-        /// <see cref="File.ReadAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInputStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoReadFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedReadFinish))]
         GISharp.Lib.Gio.FileInputStream DoReadFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Opens a file for reading. The result is a <see cref="FileInputStream"/> that
-        /// can be used to read the contents of the file.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
-        /// returned. If the file is a directory, the <see cref="IOErrorEnum.IsDirectory"/>
-        /// error will be returned. Other errors are possible too, and depend
-        /// on what kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// a <see cref="Cancellable"/>
-        /// </param>
-        /// <returns>
-        /// <see cref="FileInputStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoReadFn(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedReadFn))]
         GISharp.Lib.Gio.FileInputStream DoReadFn(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Returns an output stream for overwriting the file, possibly
-        /// creating a backup copy of the file first. If the file doesn't exist,
-        /// it will be created.
-        /// </summary>
-        /// <remarks>
-        /// This will try to replace the file in the safest way possible so
-        /// that any errors during the writing will not affect an already
-        /// existing copy of the file. For instance, for local files it
-        /// may write to a temporary file and then atomically rename over
-        /// the destination when the stream is closed.
-        /// 
-        /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-        /// will be made readable only to the current user, to the level that
-        /// is supported on the target filesystem.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If you pass in a non-<c>null</c> <paramref name="etag"/> value and <paramref name="file"/> already exists, then
-        /// this value is compared to the current entity tag of the file, and if
-        /// they differ an <see cref="IOErrorEnum.WrongEtag"/> error is returned. This
-        /// generally means that the file has been changed since you last read
-        /// it. You can get the new etag from <see cref="FileOutputStream.GetEtag"/>
-        /// after you've finished writing and closed the <see cref="FileOutputStream"/>. When
-        /// you load a new file you can use <see cref="FileInputStream.QueryInfo"/> to
-        /// get the etag of the file.
-        /// 
-        /// If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a
-        /// backup of the current file before overwriting it. If this fails
-        /// a <see cref="IOErrorEnum.CantCreateBackup"/> error will be returned. If you
-        /// want to replace anyway, try again with <paramref name="makeBackup"/> set to <c>false</c>.
-        /// 
-        /// If the file is a directory the <see cref="IOErrorEnum.IsDirectory"/> error will
-        /// be returned, and if the file is some other form of non-regular file
-        /// then a <see cref="IOErrorEnum.NotRegularFile"/> error will be returned. Some
-        /// file systems don't allow all file names, and may return an
-        /// <see cref="IOErrorEnum.InvalidFilename"/> error, and if the name is to long
-        /// <see cref="IOErrorEnum.FilenameTooLong"/> will be returned. Other errors are
-        /// possible too, and depend on what kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="etag">
-        /// an optional [entity tag][gfile-etag]
-        ///     for the current <see cref="IFile"/>, or #NULL to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileOutputStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoReplace(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedReplace))]
         GISharp.Lib.Gio.FileOutputStream DoReplace(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously overwrites the file, replacing the contents,
-        /// possibly creating a backup copy of the file first.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.Replace"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.ReplaceFinish"/> to get the result
-        /// of the operation.
-        /// </remarks>
-        /// <param name="etag">
-        /// an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-        ///     or <c>null</c> to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedReplaceAsync))]
         void DoReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous file replace operation started with
-        /// <see cref="File.ReplaceAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileOutputStream"/>, or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoReplaceFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedReplaceFinish))]
         GISharp.Lib.Gio.FileOutputStream DoReplaceFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Returns an output stream for overwriting the file in readwrite mode,
-        /// possibly creating a backup copy of the file first. If the file doesn't
-        /// exist, it will be created.
-        /// </summary>
-        /// <remarks>
-        /// For details about the behaviour, see <see cref="File.Replace"/> which does the
-        /// same thing but returns an output stream only.
-        /// 
-        /// Note that in many non-local file cases read and write streams are not
-        /// supported, so make sure you really need to do read and write streaming,
-        /// rather than just opening for reading or writing.
-        /// </remarks>
-        /// <param name="etag">
-        /// an optional [entity tag][gfile-etag]
-        ///     for the current <see cref="IFile"/>, or #NULL to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileIOStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoReplaceReadwrite(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedReplaceReadwrite))]
         GISharp.Lib.Gio.FileIOStream DoReplaceReadwrite(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously overwrites the file in read-write mode,
-        /// replacing the contents, possibly creating a backup copy
-        /// of the file first.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.ReplaceReadwrite"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.ReplaceReadwriteFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="etag">
-        /// an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-        ///     or <c>null</c> to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedReplaceReadwriteAsync))]
         void DoReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous file replace operation started with
-        /// <see cref="File.ReplaceReadwriteAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileIOStream"/>, or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoReplaceReadwriteFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedReplaceReadwriteFinish))]
         GISharp.Lib.Gio.FileIOStream DoReplaceReadwriteFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Resolves a relative path for <paramref name="file"/> to an absolute path.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="relativePath">
-        /// a given relative path string
-        /// </param>
-        /// <returns>
-        /// <see cref="IFile"/> to the resolved path.
-        ///     <c>null</c> if <paramref name="relativePath"/> is <c>null</c> or if <paramref name="file"/> is invalid.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoResolveRelativePath(GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedResolveRelativePath))]
         GISharp.Lib.Gio.IFile DoResolveRelativePath(GISharp.Lib.GLib.Filename relativePath);
 
-        /// <summary>
-        /// Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="value"/>.
-        /// </summary>
-        /// <remarks>
-        /// Some attributes can be unset by setting <paramref name="type"/> to
-        /// <see cref="FileAttributeType.Invalid"/> and <paramref name="valueP"/> to <c>null</c>.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="type">
-        /// The type of the attribute
-        /// </param>
-        /// <param name="valueP">
-        /// a pointer to the value (or the pointer
-        ///     itself if the type is a pointer type)
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the attribute was set, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoSetAttribute(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedSetAttribute))]
         void DoSetAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously sets the attributes of <paramref name="file"/> with <paramref name="info"/>.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.SetAttributesFromInfo"/>,
-        /// which is the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.SetAttributesFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="info">
-        /// a <see cref="FileInfo"/>
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoSetAttributesAsync(GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedSetAttributesAsync))]
         void DoSetAttributesAsync(GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes setting an attribute started in <see cref="File.SetAttributesAsync"/>.
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <param name="info">
-        /// a <see cref="FileInfo"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the attributes were set correctly, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoSetAttributesFinish(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.Gio.FileInfo)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedSetAttributesFinish))]
         void DoSetAttributesFinish(GISharp.Lib.Gio.IAsyncResult result, out GISharp.Lib.Gio.FileInfo info);
 
-        /// <summary>
-        /// Tries to set all attributes in the <see cref="FileInfo"/> on the target
-        /// values, not stopping on the first error.
-        /// </summary>
-        /// <remarks>
-        /// If there is any error during this operation then <paramref name="error"/> will
-        /// be set to the first error. Error on particular fields are flagged
-        /// by setting the "status" field in the attribute value to
-        /// <see cref="FileAttributeStatus.ErrorSetting"/>, which means you can
-        /// also detect further errors.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="info">
-        /// a <see cref="FileInfo"/>
-        /// </param>
-        /// <param name="flags">
-        /// <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// <c>false</c> if there was any error, <c>true</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoSetAttributesFromInfo(GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedSetAttributesFromInfo))]
         void DoSetAttributesFromInfo(GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Renames <paramref name="file"/> to the specified display name.
-        /// </summary>
-        /// <remarks>
-        /// The display name is converted from UTF-8 to the correct encoding
-        /// for the target filesystem if possible and the <paramref name="file"/> is renamed to this.
-        /// 
-        /// If you want to implement a rename operation in the user interface the
-        /// edit name (#G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) should be used as the
-        /// initial value in the rename widget, and then the result after editing
-        /// should be passed to <see cref="File.SetDisplayName"/>.
-        /// 
-        /// On success the resulting converted filename is returned.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="displayName">
-        /// a string
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> specifying what <paramref name="file"/> was renamed to,
-        ///     or <c>null</c> if there was an error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoSetDisplayName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedSetDisplayName))]
         GISharp.Lib.Gio.IFile DoSetDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously sets the display name for a given <see cref="IFile"/>.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.SetDisplayName"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.SetDisplayNameFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="displayName">
-        /// a string
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoSetDisplayNameAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedSetDisplayNameAsync))]
         void DoSetDisplayNameAsync(GISharp.Lib.GLib.UnownedUtf8 displayName, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes setting a display name started with
-        /// <see cref="File.SetDisplayNameAsync"/>.
-        /// </summary>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoSetDisplayNameFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedSetDisplayNameFinish))]
         GISharp.Lib.Gio.IFile DoSetDisplayNameFinish(GISharp.Lib.Gio.IAsyncResult res);
 
-        /// <summary>
-        /// Finishes a start operation. See g_file_start_mountable() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous start operation that was started
-        /// with g_file_start_mountable().
-        /// </remarks>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the operation finished successfully. <c>false</c>
-        /// otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoStartMountableFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedStartMountableFinish))]
         void DoStartMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Finishes an stop operation, see g_file_stop_mountable() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous stop operation that was started
-        /// with g_file_stop_mountable().
-        /// </remarks>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the operation finished successfully.
-        ///     <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoStopMountableFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedStopMountableFinish))]
         void DoStopMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Sends <paramref name="file"/> to the "Trashcan", if possible. This is similar to
-        /// deleting it, but the user can recover it before emptying the trashcan.
-        /// Not all file systems support trashing, so this call can return the
-        /// <see cref="IOErrorEnum.NotSupported"/> error.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// <c>true</c> on successful trash, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoTrash(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedTrash))]
         void DoTrash(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Asynchronously sends <paramref name="file"/> to the Trash location, if possible.
-        /// </summary>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoTrashAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedTrashAsync))]
         void DoTrashAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <summary>
-        /// Finishes an asynchronous file trashing operation, started with
-        /// <see cref="File.TrashAsync"/>.
-        /// </summary>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> on successful trash, <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoTrashFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedTrashFinish))]
         void DoTrashFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Finishes an unmount operation, see g_file_unmount_mountable() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous unmount operation that was started
-        /// with g_file_unmount_mountable().
-        /// </remarks>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the operation finished successfully.
-        ///     <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoUnmountMountableFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [System.ObsoleteAttribute("Use g_file_unmount_mountable_with_operation_finish()\n    instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedUnmountMountableFinish))]
         void DoUnmountMountableFinish(GISharp.Lib.Gio.IAsyncResult result);
 
-        /// <summary>
-        /// Finishes an unmount operation,
-        /// see g_file_unmount_mountable_with_operation() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous unmount operation that was started
-        /// with g_file_unmount_mountable_with_operation().
-        /// </remarks>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the operation finished successfully.
-        ///     <c>false</c> otherwise.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DoUnmountMountableWithOperationFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedUnmountMountableWithOperationFinish))]
         void DoUnmountMountableWithOperationFinish(GISharp.Lib.Gio.IAsyncResult result);
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="IFile"/>
+    /// </summary>
     public static partial class File
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_get_type();
@@ -2118,30 +385,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr arg);
 
-        /// <summary>
-        /// Creates a <see cref="IFile"/> with the given argument from the command line.
-        /// The value of <paramref name="arg"/> can be either a URI, an absolute path or a
-        /// relative path resolved relative to the current working directory.
-        /// This operation never fails, but the returned object might not
-        /// support any I/O operation if <paramref name="arg"/> points to a malformed path.
-        /// </summary>
-        /// <remarks>
-        /// Note that on Windows, this function expects its argument to be in
-        /// UTF-8 -- not the system code page.  This means that you
-        /// should not use this function with string from argv as it is passed
-        /// to main().  g_win32_get_command_line() will return a UTF-8 version of
-        /// the commandline.  <see cref="Application"/> also uses UTF-8 but
-        /// <see cref="ApplicationCommandLine.CreateFileForArg"/> may be more useful
-        /// for you there.  It is also always possible to use this function with
-        /// #GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
-        /// </remarks>
-        /// <param name="arg">
-        /// a command line string
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/>.
-        ///    Free the returned object with g_object_unref().
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='NewForCommandlineArg(GISharp.Lib.GLib.Filename)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile NewForCommandlineArg(GISharp.Lib.GLib.Filename arg)
         {
             var arg_ = arg.Handle;
@@ -2185,29 +429,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cwd);
 
-        /// <summary>
-        /// Creates a <see cref="IFile"/> with the given argument from the command line.
-        /// </summary>
-        /// <remarks>
-        /// This function is similar to <see cref="File.NewForCommandlineArg"/> except
-        /// that it allows for passing the current working directory as an
-        /// argument instead of using the current working directory of the
-        /// process.
-        /// 
-        /// This is useful if the commandline argument was given in a context
-        /// other than the invocation of the current process.
-        /// 
-        /// See also <see cref="ApplicationCommandLine.CreateFileForArg"/>.
-        /// </remarks>
-        /// <param name="arg">
-        /// a command line string
-        /// </param>
-        /// <param name="cwd">
-        /// the current working directory of the commandline
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/>
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public static unsafe GISharp.Lib.Gio.IFile NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename arg, GISharp.Lib.GLib.Filename cwd)
         {
@@ -2239,19 +461,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr path);
 
-        /// <summary>
-        /// Constructs a <see cref="IFile"/> for a given path. This operation never
-        /// fails, but the returned object might not support any I/O
-        /// operation if <paramref name="path"/> is malformed.
-        /// </summary>
-        /// <param name="path">
-        /// a string containing a relative or absolute path.
-        ///     The string must be encoded in the glib filename encoding.
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/> for the given <paramref name="path"/>.
-        ///   Free the returned object with g_object_unref().
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='NewForPath(GISharp.Lib.GLib.Filename)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile NewForPath(GISharp.Lib.GLib.Filename path)
         {
             var path_ = path.Handle;
@@ -2281,19 +491,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr uri);
 
-        /// <summary>
-        /// Constructs a <see cref="IFile"/> for a given URI. This operation never
-        /// fails, but the returned object might not support any I/O
-        /// operation if <paramref name="uri"/> is malformed or if the uri type is
-        /// not supported.
-        /// </summary>
-        /// <param name="uri">
-        /// a UTF-8 string containing a URI
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/> for the given <paramref name="uri"/>.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='NewForUri(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile NewForUri(GISharp.Lib.GLib.UnownedUtf8 uri)
         {
             var uri_ = uri.Handle;
@@ -2302,19 +500,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Constructs a <see cref="IFile"/> for a given URI. This operation never
-        /// fails, but the returned object might not support any I/O
-        /// operation if <paramref name="uri"/> is malformed or if the uri type is
-        /// not supported.
-        /// </summary>
-        /// <param name="uri">
-        /// a UTF-8 string containing a URI
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/> for the given <paramref name="uri"/>.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='NewForUri(System.String)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile NewForUri(System.String uri)
         {
             using var uriUtf8 = new GISharp.Lib.GLib.Utf8(uri);
@@ -2363,33 +549,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Opens a file in the preferred directory for temporary files (as
-        /// returned by g_get_tmp_dir()) and returns a <see cref="IFile"/> and
-        /// <see cref="FileIOStream"/> pointing to it.
-        /// </summary>
-        /// <remarks>
-        /// <paramref name="tmpl"/> should be a string in the GLib file name encoding
-        /// containing a sequence of six 'X' characters, and containing no
-        /// directory components. If it is <c>null</c>, a default template is used.
-        /// 
-        /// Unlike the other <see cref="IFile"/> constructors, this will return <c>null</c> if
-        /// a temporary file could not be created.
-        /// </remarks>
-        /// <param name="tmpl">
-        /// Template for the file
-        ///   name, as in g_file_open_tmp(), or <c>null</c> for a default template
-        /// </param>
-        /// <param name="iostream">
-        /// on return, a <see cref="FileIOStream"/> for the created file
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/>.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='NewTmp(GISharp.Lib.GLib.Filename?,GISharp.Lib.Gio.FileIOStream)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public static unsafe GISharp.Lib.Gio.IFile NewTmp(GISharp.Lib.GLib.Filename? tmpl, out GISharp.Lib.Gio.FileIOStream iostream)
         {
@@ -2427,18 +587,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr parseName);
 
-        /// <summary>
-        /// Constructs a <see cref="IFile"/> with the given <paramref name="parseName"/> (i.e. something
-        /// given by <see cref="File.GetParseName"/>). This operation never fails,
-        /// but the returned object might not support any I/O operation if
-        /// the <paramref name="parseName"/> cannot be parsed.
-        /// </summary>
-        /// <param name="parseName">
-        /// a file name or path to be parsed
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/>.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ParseName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile ParseName(GISharp.Lib.GLib.UnownedUtf8 parseName)
         {
             var parseName_ = parseName.Handle;
@@ -2447,18 +596,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Constructs a <see cref="IFile"/> with the given <paramref name="parseName"/> (i.e. something
-        /// given by <see cref="File.GetParseName"/>). This operation never fails,
-        /// but the returned object might not support any I/O operation if
-        /// the <paramref name="parseName"/> cannot be parsed.
-        /// </summary>
-        /// <param name="parseName">
-        /// a file name or path to be parsed
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/>.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ParseName(System.String)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile ParseName(System.String parseName)
         {
             using var parseNameUtf8 = new GISharp.Lib.GLib.Utf8(parseName);
@@ -2524,43 +662,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Gets an output stream for appending data to the file.
-        /// If the file doesn't already exist it is created.
-        /// </summary>
-        /// <remarks>
-        /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-        /// will be made readable only to the current user, to the level that
-        /// is supported on the target filesystem.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// Some file systems don't allow all file names, and may return an
-        /// <see cref="IOErrorEnum.InvalidFilename"/> error. If the file is a directory the
-        /// <see cref="IOErrorEnum.IsDirectory"/> error will be returned. Other errors are
-        /// possible too, and depend on what kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileOutputStream"/>, or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='AppendTo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileOutputStream AppendTo(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -2634,30 +736,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously opens <paramref name="file"/> for appending.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.AppendTo"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.AppendToFinish"/> to get the result
-        /// of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='AppendToAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileOutputStream> AppendToAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -2825,69 +904,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Copies the file <paramref name="source"/> to the location specified by <paramref name="destination"/>.
-        /// Can not handle recursive copies of directories.
-        /// </summary>
-        /// <remarks>
-        /// If the flag #G_FILE_COPY_OVERWRITE is specified an already
-        /// existing <paramref name="destination"/> file is overwritten.
-        /// 
-        /// If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
-        /// will be copied as symlinks, otherwise the target of the
-        /// <paramref name="source"/> symlink will be copied.
-        /// 
-        /// If the flag #G_FILE_COPY_ALL_METADATA is specified then all the metadata
-        /// that is possible to copy is copied, not just the default subset (which,
-        /// for instance, does not include the owner, see <see cref="FileInfo"/>).
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// If <paramref name="progressCallback"/> is not <c>null</c>, then the operation can be monitored
-        /// by setting this to a <see cref="FileProgressCallback"/> function.
-        /// <paramref name="progressCallbackData"/> will be passed to this function. It is guaranteed
-        /// that this callback will be called after all data has been transferred with
-        /// the total number of bytes copied during the operation.
-        /// 
-        /// If the <paramref name="source"/> file does not exist, then the <see cref="IOErrorEnum.NotFound"/> error
-        /// is returned, independent on the status of the <paramref name="destination"/>.
-        /// 
-        /// If #G_FILE_COPY_OVERWRITE is not specified and the target exists, then
-        /// the error <see cref="IOErrorEnum.Exists"/> is returned.
-        /// 
-        /// If trying to overwrite a file over a directory, the <see cref="IOErrorEnum.IsDirectory"/>
-        /// error is returned. If trying to overwrite a directory with a directory the
-        /// <see cref="IOErrorEnum.WouldMerge"/> error is returned.
-        /// 
-        /// If the source is a directory and the target does not exist, or
-        /// #G_FILE_COPY_OVERWRITE is specified and the target is a file, then the
-        /// <see cref="IOErrorEnum.WouldRecurse"/> error is returned.
-        /// 
-        /// If you are interested in copying the <see cref="IFile"/> object itself (not the on-disk
-        /// file), see <see cref="File.Dup"/>.
-        /// </remarks>
-        /// <param name="source">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="destination">
-        /// destination <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// set of <see cref="FileCopyFlags"/>
-        /// </param>
-        /// <param name="progressCallback">
-        /// function to callback with
-        ///     progress information, or <c>null</c> if progress information is not needed
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Copy(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var source_ = source.Handle;
@@ -3031,33 +1048,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Copies the file attributes from <paramref name="source"/> to <paramref name="destination"/>.
-        /// </summary>
-        /// <remarks>
-        /// Normally only a subset of the file attributes are copied,
-        /// those that are copies in a normal file copy operation
-        /// (which for instance does not include e.g. owner). However
-        /// if #G_FILE_COPY_ALL_METADATA is specified in <paramref name="flags"/>, then
-        /// all the metadata that is possible to copy is copied. This
-        /// is useful when implementing move by copy + delete source.
-        /// </remarks>
-        /// <param name="source">
-        /// a <see cref="IFile"/> with attributes
-        /// </param>
-        /// <param name="destination">
-        /// a <see cref="IFile"/> to copy attributes to
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCopyFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='CopyAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void CopyAttributes(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var source_ = source.Handle;
@@ -3159,46 +1150,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Creates a new file and returns an output stream for writing to it.
-        /// The file must not already exist.
-        /// </summary>
-        /// <remarks>
-        /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-        /// will be made readable only to the current user, to the level
-        /// that is supported on the target filesystem.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If a file or directory with this name already exists the
-        /// <see cref="IOErrorEnum.Exists"/> error will be returned. Some file systems don't
-        /// allow all file names, and may return an <see cref="IOErrorEnum.InvalidFilename"/>
-        /// error, and if the name is to long <see cref="IOErrorEnum.FilenameTooLong"/> will
-        /// be returned. Other errors are possible too, and depend on what kind
-        /// of filesystem the file is on.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileOutputStream"/> for the newly created
-        ///     file, or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Create(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileOutputStream Create(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -3273,31 +1225,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously creates a new file and returns an output stream
-        /// for writing to it. The file must not already exist.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.Create"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.CreateFinish"/> to get the result
-        /// of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='CreateAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileOutputStream> CreateAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -3431,50 +1359,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Creates a new file and returns a stream for reading and
-        /// writing to it. The file must not already exist.
-        /// </summary>
-        /// <remarks>
-        /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-        /// will be made readable only to the current user, to the level
-        /// that is supported on the target filesystem.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If a file or directory with this name already exists, the
-        /// <see cref="IOErrorEnum.Exists"/> error will be returned. Some file systems don't
-        /// allow all file names, and may return an <see cref="IOErrorEnum.InvalidFilename"/>
-        /// error, and if the name is too long, <see cref="IOErrorEnum.FilenameTooLong"/>
-        /// will be returned. Other errors are possible too, and depend on what
-        /// kind of filesystem the file is on.
-        /// 
-        /// Note that in many non-local file cases read and write streams are
-        /// not supported, so make sure you really need to do read and write
-        /// streaming, rather than just opening for reading or writing.
-        /// </remarks>
-        /// <param name="file">
-        /// a <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileIOStream"/> for the newly created
-        ///     file, or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='CreateReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static GISharp.Lib.Gio.FileIOStream CreateReadwrite(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -3551,31 +1436,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously creates a new file and returns a stream
-        /// for reading and writing to it. The file must not already exist.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.CreateReadwrite"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.CreateReadwriteFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='CreateReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileIOStream> CreateReadwriteAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -3685,25 +1546,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Deletes a file. If the <paramref name="file"/> is a directory, it will only be
-        /// deleted if it is empty. This has the same semantics as g_unlink().
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Delete(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Delete(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -3760,21 +1603,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously delete a file. If the <paramref name="file"/> is a directory, it will
-        /// only be deleted if it is empty.  This has the same semantics as
-        /// g_unlink().
-        /// </summary>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='DeleteAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         public unsafe static System.Threading.Tasks.Task DeleteAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -3872,26 +1701,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Duplicates a <see cref="IFile"/> handle. This operation does not duplicate
-        /// the actual file or directory represented by the <see cref="IFile"/>; see
-        /// <see cref="File.Copy"/> if attempting to copy a file.
-        /// </summary>
-        /// <remarks>
-        /// <see cref="File.Dup"/> is useful when a second handle is needed to the same underlying
-        /// file, for use in a separate thread (<see cref="IFile"/> is not thread-safe). For use
-        /// within the same thread, use g_object_ref() to increment the existing object’s
-        /// reference count.
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// a new <see cref="IFile"/> that is a duplicate
-        ///     of the given <see cref="IFile"/>.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Dup(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile Dup(this GISharp.Lib.Gio.IFile file)
         {
             var file_ = file.Handle;
@@ -3933,19 +1743,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes an asynchronous eject operation started by
-        /// g_file_eject_mountable().
-        /// </summary>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='EjectMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [System.ObsoleteAttribute("Use g_file_eject_mountable_with_operation_finish()\n    instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         public unsafe static void EjectMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
@@ -3993,19 +1791,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes an asynchronous eject operation started by
-        /// g_file_eject_mountable_with_operation().
-        /// </summary>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='EjectMountableWithOperationFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void EjectMountableWithOperationFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -4050,25 +1836,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file2);
 
-        /// <summary>
-        /// Checks if the two given #GFiles refer to the same file.
-        /// </summary>
-        /// <remarks>
-        /// Note that two #GFiles that differ can still refer to the same
-        /// file on the filesystem due to various forms of filename
-        /// aliasing.
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file1">
-        /// the first <see cref="IFile"/>
-        /// </param>
-        /// <param name="file2">
-        /// the second <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="file1"/> and <paramref name="file2"/> are equal.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Equals(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static System.Boolean Equals(this GISharp.Lib.Gio.IFile file1, GISharp.Lib.Gio.IFile file2)
         {
             var file1_ = file1.Handle;
@@ -4110,30 +1878,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Gets the base name (the last component of the path) for a given <see cref="IFile"/>.
-        /// </summary>
-        /// <remarks>
-        /// If called for the top level of a system (such as the filesystem root
-        /// or a uri like sftp://host/) it will return a single directory separator
-        /// (and on Windows, possibly a drive letter).
-        /// 
-        /// The base name is a byte string (not UTF-8). It has no defined encoding
-        /// or rules other than it may not contain zero bytes.  If you want to use
-        /// filenames in a user interface you should use the display name that you
-        /// can get by requesting the %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME
-        /// attribute with <see cref="File.QueryInfo"/>.
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// string containing the <see cref="IFile"/>'s
-        ///     base name, or <c>null</c> if given <see cref="IFile"/> is invalid. The returned string
-        ///     should be freed with g_free() when no longer needed.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetBasename(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Filename? GetBasename(this GISharp.Lib.Gio.IFile file)
         {
             var file_ = file.Handle;
@@ -4173,26 +1918,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr name);
 
-        /// <summary>
-        /// Gets a child of <paramref name="file"/> with basename equal to <paramref name="name"/>.
-        /// </summary>
-        /// <remarks>
-        /// Note that the file with that specific name might not exist, but
-        /// you can still have a <see cref="IFile"/> that points to it. You can use this
-        /// for instance to create that file.
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="name">
-        /// string containing the child's basename
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> to a child specified by <paramref name="name"/>.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetChild(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filename)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile GetChild(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Filename name)
         {
             var file_ = file.Handle;
@@ -4241,31 +1967,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Gets the child of <paramref name="file"/> for a given <paramref name="displayName"/> (i.e. a UTF-8
-        /// version of the name). If this function fails, it returns <c>null</c>
-        /// and <paramref name="error"/> will be set. This is very useful when constructing a
-        /// <see cref="IFile"/> for a new file and the user entered the filename in the
-        /// user interface, for instance when you select a directory and
-        /// type a filename in the file selector.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="displayName">
-        /// string to a possible child
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> to the specified child, or
-        ///     <c>null</c> if the display name couldn't be converted.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetChildForDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile GetChildForDisplayName(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 displayName)
         {
             var file_ = file.Handle;
@@ -4282,31 +1984,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Gets the child of <paramref name="file"/> for a given <paramref name="displayName"/> (i.e. a UTF-8
-        /// version of the name). If this function fails, it returns <c>null</c>
-        /// and <paramref name="error"/> will be set. This is very useful when constructing a
-        /// <see cref="IFile"/> for a new file and the user entered the filename in the
-        /// user interface, for instance when you select a directory and
-        /// type a filename in the file selector.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="displayName">
-        /// string to a possible child
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> to the specified child, or
-        ///     <c>null</c> if the display name couldn't be converted.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetChildForDisplayName(GISharp.Lib.Gio.IFile,System.String)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile GetChildForDisplayName(this GISharp.Lib.Gio.IFile file, System.String displayName)
         {
             using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
@@ -4337,22 +2015,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Gets the parent directory for the <paramref name="file"/>.
-        /// If the <paramref name="file"/> represents the root directory of the
-        /// file system, then <c>null</c> will be returned.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> structure to the
-        ///     parent of the given <see cref="IFile"/> or <c>null</c> if there is no parent. Free
-        ///     the returned object with g_object_unref().
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetParent(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile? GetParent(this GISharp.Lib.Gio.IFile file)
         {
             var file_ = file.Handle;
@@ -4394,31 +2057,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Gets the parse name of the <paramref name="file"/>.
-        /// A parse name is a UTF-8 string that describes the
-        /// file such that one can get the <see cref="IFile"/> back using
-        /// <see cref="File.ParseName"/>.
-        /// </summary>
-        /// <remarks>
-        /// This is generally used to show the <see cref="IFile"/> as a nice
-        /// full-pathname kind of string in a user interface,
-        /// like in a location entry.
-        /// 
-        /// For local files with names that can safely be converted
-        /// to UTF-8 the pathname is used, otherwise the IRI is used
-        /// (a form of URI that allows UTF-8 characters unescaped).
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// a string containing the <see cref="IFile"/>'s parse name.
-        ///     The returned string should be freed with g_free()
-        ///     when no longer needed.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetParseName(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Utf8 GetParseName(this GISharp.Lib.Gio.IFile file)
         {
             var file_ = file.Handle;
@@ -4450,21 +2089,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Gets the local pathname for <see cref="IFile"/>, if one exists. If non-<c>null</c>, this is
-        /// guaranteed to be an absolute, canonical path. It might contain symlinks.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// string containing the <see cref="IFile"/>'s path,
-        ///     or <c>null</c> if no such path exists. The returned string should be freed
-        ///     with g_free() when no longer needed.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetPath(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Filename? GetPath(this GISharp.Lib.Gio.IFile file)
         {
             var file_ = file.Handle;
@@ -4502,24 +2127,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr descendant);
 
-        /// <summary>
-        /// Gets the path for <paramref name="descendant"/> relative to <paramref name="parent"/>.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="parent">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="descendant">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// string with the relative path from
-        ///     <paramref name="descendant"/> to <paramref name="parent"/>, or <c>null</c> if <paramref name="descendant"/> doesn't have <paramref name="parent"/> as
-        ///     prefix. The returned string should be freed with g_free() when
-        ///     no longer needed.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetRelativePath(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Filename? GetRelativePath(this GISharp.Lib.Gio.IFile parent, GISharp.Lib.Gio.IFile descendant)
         {
             var parent_ = parent.Handle;
@@ -4551,20 +2159,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Gets the URI for the <paramref name="file"/>.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// a string containing the <see cref="IFile"/>'s URI.
-        ///     The returned string should be freed with g_free()
-        ///     when no longer needed.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetUri(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Utf8 GetUri(this GISharp.Lib.Gio.IFile file)
         {
             var file_ = file.Handle;
@@ -4600,25 +2195,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Gets the URI scheme for a <see cref="IFile"/>.
-        /// RFC 3986 decodes the scheme as:
-        /// |[
-        /// URI = scheme ":" hier-part [ "?" query ] [ "#" fragment ]
-        /// ]|
-        /// Common schemes include "file", "http", "ftp", etc.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// a string containing the URI scheme for the given
-        ///     <see cref="IFile"/>. The returned string should be freed with g_free()
-        ///     when no longer needed.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetUriScheme(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Utf8 GetUriScheme(this GISharp.Lib.Gio.IFile file)
         {
             var file_ = file.Handle;
@@ -4657,24 +2234,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parent);
 
-        /// <summary>
-        /// Checks if <paramref name="file"/> has a parent, and optionally, if it is <paramref name="parent"/>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="parent"/> is <c>null</c> then this function returns <c>true</c> if <paramref name="file"/> has any
-        /// parent at all.  If <paramref name="parent"/> is non-<c>null</c> then <c>true</c> is only returned
-        /// if <paramref name="file"/> is an immediate child of <paramref name="parent"/>.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="parent">
-        /// the parent to check for, or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="file"/> is an immediate child of <paramref name="parent"/> (or any parent in
-        ///          the case that <paramref name="parent"/> is <c>null</c>).
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='HasParent(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public unsafe static System.Boolean HasParent(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IFile? parent)
         {
@@ -4723,33 +2283,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr prefix);
 
-        /// <summary>
-        /// Checks whether <paramref name="file"/> has the prefix specified by <paramref name="prefix"/>.
-        /// </summary>
-        /// <remarks>
-        /// In other words, if the names of initial elements of <paramref name="file"/>'s
-        /// pathname match <paramref name="prefix"/>. Only full pathname elements are matched,
-        /// so a path like /foo is not considered a prefix of /foobar, only
-        /// of /foo/bar.
-        /// 
-        /// A <see cref="IFile"/> is not a prefix of itself. If you want to check for
-        /// equality, use <see cref="File.Equals"/>.
-        /// 
-        /// This call does no I/O, as it works purely on names. As such it can
-        /// sometimes return <c>false</c> even if <paramref name="file"/> is inside a <paramref name="prefix"/> (from a
-        /// filesystem point of view), because the prefix of <paramref name="file"/> is an alias
-        /// of <paramref name="prefix"/>.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="prefix">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the <paramref name="files"/>'s parent, grandparent, etc is <paramref name="prefix"/>,
-        ///     <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='HasPrefix(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static System.Boolean HasPrefix(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IFile prefix)
         {
             var file_ = file.Handle;
@@ -4787,23 +2321,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr uriScheme);
 
-        /// <summary>
-        /// Checks to see if a <see cref="IFile"/> has a given URI scheme.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="uriScheme">
-        /// a string containing a URI scheme
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <see cref="IFile"/>'s backend supports the
-        ///     given URI scheme, <c>false</c> if URI scheme is <c>null</c>,
-        ///     not supported, or <see cref="IFile"/> is invalid.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='HasUriScheme(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe static System.Boolean HasUriScheme(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 uriScheme)
         {
             var file_ = file.Handle;
@@ -4813,23 +2331,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Checks to see if a <see cref="IFile"/> has a given URI scheme.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="uriScheme">
-        /// a string containing a URI scheme
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <see cref="IFile"/>'s backend supports the
-        ///     given URI scheme, <c>false</c> if URI scheme is <c>null</c>,
-        ///     not supported, or <see cref="IFile"/> is invalid.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='HasUriScheme(GISharp.Lib.Gio.IFile,System.String)']/*" />
         public unsafe static System.Boolean HasUriScheme(this GISharp.Lib.Gio.IFile file, System.String uriScheme)
         {
             using var uriSchemeUtf8 = new GISharp.Lib.GLib.Utf8(uriScheme);
@@ -4859,21 +2361,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Creates a hash value for a <see cref="IFile"/>.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// #gconstpointer to a <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// 0 if <paramref name="file"/> is not a valid <see cref="IFile"/>, otherwise an
-        ///     integer that can be used as hash value for the <see cref="IFile"/>.
-        ///     This function is intended for easily hashing a <see cref="IFile"/> to
-        ///     add to a #GHashTable or similar data structure.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='GetHashCode(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static System.Int32 GetHashCode(this GISharp.Lib.Gio.IFile file)
         {
             var file_ = file.Handle;
@@ -4910,26 +2398,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Checks to see if a file is native to the platform.
-        /// </summary>
-        /// <remarks>
-        /// A native file is one expressed in the platform-native filename format,
-        /// e.g. "C:\Windows" or "/usr/bin/". This does not mean the file is local,
-        /// as it might be on a locally mounted remote filesystem.
-        /// 
-        /// On some systems non-native files may be available using the native
-        /// filesystem via a userspace filesystem (FUSE), in these cases this call
-        /// will return <c>false</c>, but <see cref="File.GetPath"/> will still return a native path.
-        /// 
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="file"/> is native
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='IsNative(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static System.Boolean IsNative(this GISharp.Lib.Gio.IFile file)
         {
             var file_ = file.Handle;
@@ -4986,36 +2455,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Loads the contents of <paramref name="file"/> and returns it as #GBytes.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="file"/> is a resource:// based URI, the resulting bytes will reference the
-        /// embedded resource instead of a copy. Otherwise, this is equivalent to calling
-        /// <see cref="File.LoadContents"/> and g_bytes_new_take().
-        /// 
-        /// For resources, <paramref name="etagOut"/> will be set to <c>null</c>.
-        /// 
-        /// The data contained in the resulting #GBytes is always zero-terminated, but
-        /// this is not included in the #GBytes length. The resulting #GBytes should be
-        /// freed with g_bytes_unref() when no longer in use.
-        /// </remarks>
-        /// <param name="file">
-        /// a <see cref="IFile"/>
-        /// </param>
-        /// <param name="etagOut">
-        /// a location to place the current
-        ///     entity tag for the file, or <c>null</c> if the entity tag is not needed
-        /// </param>
-        /// <param name="cancellable">
-        /// a <see cref="Cancellable"/> or <c>null</c>
-        /// </param>
-        /// <returns>
-        /// a #GBytes or <c>null</c> and <paramref name="error"/> is set
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='LoadBytes(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Utf8?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe static GISharp.Lib.GLib.Bytes LoadBytes(this GISharp.Lib.Gio.IFile file, out GISharp.Lib.GLib.Utf8? etagOut, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -5081,25 +2521,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously loads the contents of <paramref name="file"/> as #GBytes.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="file"/> is a resource:// based URI, the resulting bytes will reference the
-        /// embedded resource instead of a copy. Otherwise, this is equivalent to calling
-        /// <see cref="File.LoadContentsAsync"/> and g_bytes_new_take().
-        /// 
-        /// <paramref name="callback"/> should call <see cref="File.LoadBytesFinish"/> to get the result of this
-        /// asynchronous operation.
-        /// 
-        /// See <see cref="File.LoadBytes"/> for more information.
-        /// </remarks>
-        /// <param name="file">
-        /// a <see cref="IFile"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// a <see cref="Cancellable"/> or <c>null</c>
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='LoadBytesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe static System.Threading.Tasks.Task<System.ValueTuple<GISharp.Lib.GLib.Bytes, GISharp.Lib.GLib.Utf8>> LoadBytesAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -5246,33 +2668,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Loads the content of the file into memory. The data is always
-        /// zero-terminated, but this is not included in the resultant <paramref name="length"/>.
-        /// The returned <paramref name="content"/> should be freed with g_free() when no longer
-        /// needed.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="contents">
-        /// a location to place the contents of the file
-        /// </param>
-        /// <param name="etagOut">
-        /// a location to place the current entity tag for the file,
-        ///    or <c>null</c> if the entity tag is not needed
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='LoadContents(GISharp.Lib.Gio.IFile,GISharp.Runtime.CArray&lt;System.Byte&gt;,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void LoadContents(this GISharp.Lib.Gio.IFile file, out GISharp.Runtime.CArray<System.Byte> contents, out GISharp.Lib.GLib.Utf8 etagOut, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -5339,28 +2735,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Starts an asynchronous load of the <paramref name="file"/>'s contents.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.LoadContents"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the load operation has completed, <paramref name="callback"/> will be called
-        /// with <paramref name="user"/> data. To finish the operation, call
-        /// <see cref="File.LoadContentsFinish"/> with the <see cref="IAsyncResult"/> returned by
-        /// the <paramref name="callback"/>.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='LoadContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<System.ValueTuple<GISharp.Runtime.CArray<System.Byte>, GISharp.Lib.GLib.Utf8>> LoadContentsAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -5512,29 +2887,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes an asynchronous partial load operation that was started
-        /// with g_file_load_partial_contents_async(). The data is always
-        /// zero-terminated, but this is not included in the resultant <paramref name="length"/>.
-        /// The returned <paramref name="content"/> should be freed with g_free() when no longer
-        /// needed.
-        /// </summary>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="res">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <param name="contents">
-        /// a location to place the contents of the file
-        /// </param>
-        /// <param name="etagOut">
-        /// a location to place the current entity tag for the file,
-        ///     or <c>null</c> if the entity tag is not needed
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='LoadPartialContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,GISharp.Runtime.CArray&lt;System.Byte&gt;,GISharp.Lib.GLib.Utf8)']/*" />
         public unsafe static void LoadPartialContentsFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult res, out GISharp.Runtime.CArray<System.Byte> contents, out GISharp.Lib.GLib.Utf8 etagOut)
         {
             var file_ = file.Handle;
@@ -5595,33 +2948,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Creates a directory. Note that this will only create a child directory
-        /// of the immediate parent directory of the path or URI given by the <see cref="IFile"/>.
-        /// To recursively create directories, see <see cref="File.MakeDirectoryWithParents"/>.
-        /// This function will fail if the parent directory does not exist, setting
-        /// <paramref name="error"/> to <see cref="IOErrorEnum.NotFound"/>. If the file system doesn't support
-        /// creating directories, this function will fail, setting <paramref name="error"/> to
-        /// <see cref="IOErrorEnum.NotSupported"/>.
-        /// </summary>
-        /// <remarks>
-        /// For a local <see cref="IFile"/> the newly created directory will have the default
-        /// (current) ownership and permissions of the current process.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='MakeDirectory(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void MakeDirectory(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -5676,19 +3003,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously creates a directory.
-        /// </summary>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='MakeDirectoryAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public unsafe static System.Threading.Tasks.Task MakeDirectoryAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -5804,32 +3119,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Creates a directory and any parent directories that may not
-        /// exist similar to 'mkdir -p'. If the file system does not support
-        /// creating directories, this function will fail, setting <paramref name="error"/> to
-        /// <see cref="IOErrorEnum.NotSupported"/>. If the directory itself already exists,
-        /// this function will fail setting <paramref name="error"/> to <see cref="IOErrorEnum.Exists"/>, unlike
-        /// the similar g_mkdir_with_parents().
-        /// </summary>
-        /// <remarks>
-        /// For a local <see cref="IFile"/> the newly created directories will have the default
-        /// (current) ownership and permissions of the current process.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='MakeDirectoryWithParents(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.18")]
         public unsafe static void MakeDirectoryWithParents(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -5887,29 +3177,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Creates a symbolic link named <paramref name="file"/> which contains the string
-        /// <paramref name="symlinkValue"/>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// a <see cref="IFile"/> with the name of the symlink to create
-        /// </param>
-        /// <param name="symlinkValue">
-        /// a string with the path for the target
-        ///     of the new symlink
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='MakeSymbolicLink(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filename,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void MakeSymbolicLink(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Filename symlinkValue, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -5975,29 +3243,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Collects the results from an earlier call to
-        /// g_file_measure_disk_usage_async().  See g_file_measure_disk_usage() for
-        /// more information.
-        /// </summary>
-        /// <param name="file">
-        /// a <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// the <see cref="IAsyncResult"/> passed to your <see cref="AsyncReadyCallback"/>
-        /// </param>
-        /// <param name="diskUsage">
-        /// the number of bytes of disk space used
-        /// </param>
-        /// <param name="numDirs">
-        /// the number of directories encountered
-        /// </param>
-        /// <param name="numFiles">
-        /// the number of non-directories encountered
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='MeasureDiskUsageFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,System.UInt64,System.UInt64,System.UInt64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public unsafe static void MeasureDiskUsageFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result, out System.UInt64 diskUsage, out System.UInt64 numDirs, out System.UInt64 numFiles)
         {
@@ -6047,18 +3293,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes a mount operation started by g_file_mount_enclosing_volume().
-        /// </summary>
-        /// <param name="location">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='MountEnclosingVolumeFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         public unsafe static void MountEnclosingVolumeFinish(this GISharp.Lib.Gio.IFile location, GISharp.Lib.Gio.IAsyncResult result)
         {
             var location_ = location.Handle;
@@ -6106,26 +3341,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes a mount operation. See g_file_mount_mountable() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous mount operation that was started
-        /// with g_file_mount_mountable().
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='MountMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile MountMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
             var file_ = file.Handle;
@@ -6235,66 +3451,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Tries to move the file or directory <paramref name="source"/> to the location specified
-        /// by <paramref name="destination"/>. If native move operations are supported then this is
-        /// used, otherwise a copy + delete fallback is used. The native
-        /// implementation may support moving directories (for instance on moves
-        /// inside the same filesystem), but the fallback code does not.
-        /// </summary>
-        /// <remarks>
-        /// If the flag #G_FILE_COPY_OVERWRITE is specified an already
-        /// existing <paramref name="destination"/> file is overwritten.
-        /// 
-        /// If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
-        /// will be copied as symlinks, otherwise the target of the
-        /// <paramref name="source"/> symlink will be copied.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// If <paramref name="progressCallback"/> is not <c>null</c>, then the operation can be monitored
-        /// by setting this to a <see cref="FileProgressCallback"/> function.
-        /// <paramref name="progressCallbackData"/> will be passed to this function. It is
-        /// guaranteed that this callback will be called after all data has been
-        /// transferred with the total number of bytes copied during the operation.
-        /// 
-        /// If the <paramref name="source"/> file does not exist, then the <see cref="IOErrorEnum.NotFound"/>
-        /// error is returned, independent on the status of the <paramref name="destination"/>.
-        /// 
-        /// If #G_FILE_COPY_OVERWRITE is not specified and the target exists,
-        /// then the error <see cref="IOErrorEnum.Exists"/> is returned.
-        /// 
-        /// If trying to overwrite a file over a directory, the <see cref="IOErrorEnum.IsDirectory"/>
-        /// error is returned. If trying to overwrite a directory with a directory the
-        /// <see cref="IOErrorEnum.WouldMerge"/> error is returned.
-        /// 
-        /// If the source is a directory and the target does not exist, or
-        /// #G_FILE_COPY_OVERWRITE is specified and the target is a file, then
-        /// the <see cref="IOErrorEnum.WouldRecurse"/> error may be returned (if the native
-        /// move operation isn't available).
-        /// </remarks>
-        /// <param name="source">
-        /// <see cref="IFile"/> pointing to the source location
-        /// </param>
-        /// <param name="destination">
-        /// <see cref="IFile"/> pointing to the destination location
-        /// </param>
-        /// <param name="flags">
-        /// set of <see cref="FileCopyFlags"/>
-        /// </param>
-        /// <param name="progressCallback">
-        /// <see cref="FileProgressCallback"/>
-        ///     function for updates
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Move(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Move(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var source_ = source.Handle;
@@ -6360,38 +3517,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Opens an existing file for reading and writing. The result is
-        /// a <see cref="FileIOStream"/> that can be used to read and write the contents
-        /// of the file.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
-        /// be returned. If the file is a directory, the <see cref="IOErrorEnum.IsDirectory"/>
-        /// error will be returned. Other errors are possible too, and depend on
-        /// what kind of filesystem the file is on. Note that in many non-local
-        /// file cases read and write streams are not supported, so make sure you
-        /// really need to do read and write streaming, rather than just opening
-        /// for reading or writing.
-        /// </remarks>
-        /// <param name="file">
-        /// <see cref="IFile"/> to open
-        /// </param>
-        /// <param name="cancellable">
-        /// a <see cref="Cancellable"/>
-        /// </param>
-        /// <returns>
-        /// <see cref="FileIOStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='OpenReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static GISharp.Lib.Gio.FileIOStream OpenReadwrite(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -6460,27 +3586,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously opens <paramref name="file"/> for reading and writing.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.OpenReadwrite"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.OpenReadwriteFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='OpenReadwriteAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileIOStream> OpenReadwriteAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -6579,23 +3685,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Exactly like <see cref="File.GetPath"/>, but caches the result via
-        /// g_object_set_qdata_full().  This is useful for example in C
-        /// applications which mix `g_file_*` APIs with native ones.  It
-        /// also avoids an extra duplicated string when possible, so will be
-        /// generally more efficient.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// string containing the <see cref="IFile"/>'s path,
-        ///     or <c>null</c> if no such path exists. The returned string is owned by <paramref name="file"/>.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='PeekPath(GISharp.Lib.Gio.IFile)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe static GISharp.Lib.GLib.Filename? PeekPath(this GISharp.Lib.Gio.IFile file)
         {
@@ -6648,28 +3738,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Polls a file of type #G_FILE_TYPE_MOUNTABLE.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.MountMountableFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="callback">
-        /// a <see cref="AsyncReadyCallback"/> to call
-        ///     when the request is satisfied, or <c>null</c>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='PollMountable(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void PollMountable(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -6714,22 +3783,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes a poll operation. See <see cref="File.PollMountable"/> for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous poll operation that was polled
-        /// with <see cref="File.PollMountable"/>.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='PollMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void PollMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -6791,42 +3845,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
-        /// <summary>
-        /// Utility function to check if a particular file exists. This is
-        /// implemented using <see cref="File.QueryInfo"/> and as such does blocking I/O.
-        /// </summary>
-        /// <remarks>
-        /// Note that in many cases it is [racy to first check for file existence](https://en.wikipedia.org/wiki/Time_of_check_to_time_of_use)
-        /// and then execute something based on the outcome of that, because the
-        /// file might have been created or removed in between the operations. The
-        /// general approach to handling that is to not check, but just do the
-        /// operation and handle the errors as they come.
-        /// 
-        /// As an example of race-free checking, take the case of reading a file,
-        /// and if it doesn't exist, creating it. There are two racy versions: read
-        /// it, and on error create it; and: check if it exists, if not create it.
-        /// These can both result in two processes creating the file (with perhaps
-        /// a partially written file as the result). The correct approach is to
-        /// always try to create the file with <see cref="File.Create"/> which will either
-        /// atomically create the file or fail with a <see cref="IOErrorEnum.Exists"/> error.
-        /// 
-        /// However, in many cases an existence check is useful in a user interface,
-        /// for instance to make a menu item sensitive/insensitive, so that you don't
-        /// have to fool users that something is possible and then just show an error
-        /// dialog. If you do this, you should make sure to also handle the errors
-        /// that can happen due to races when you execute the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if the file exists (and can be detected without error),
-        ///     <c>false</c> otherwise (or if cancelled).
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryExists(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Boolean QueryExists(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -6873,28 +3892,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
-        /// <summary>
-        /// Utility function to inspect the <see cref="FileType"/> of a file. This is
-        /// implemented using <see cref="File.QueryInfo"/> and as such does blocking I/O.
-        /// </summary>
-        /// <remarks>
-        /// The primary use case of this method is to check if a file is
-        /// a regular file, directory, or symlink.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/> passed to <see cref="File.QueryInfo"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// The <see cref="FileType"/> of the file and #G_FILE_TYPE_UNKNOWN
-        ///     if the file does not exist
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryFileType(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.18")]
         public unsafe static GISharp.Lib.Gio.FileType QueryFileType(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -6968,51 +3966,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Similar to <see cref="File.QueryInfo"/>, but obtains information
-        /// about the filesystem the <paramref name="file"/> is on, rather than the file itself.
-        /// For instance the amount of space available and the type of
-        /// the filesystem.
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="attributes"/> value is a string that specifies the attributes
-        /// that should be gathered. It is not an error if it's not possible
-        /// to read a particular requested attribute from a file - it just
-        /// won't be set. <paramref name="attributes"/> should be a comma-separated list of
-        /// attributes or attribute wildcards. The wildcard "*" means all
-        /// attributes, and a wildcard like "filesystem::*" means all attributes
-        /// in the filesystem namespace. The standard namespace for filesystem
-        /// attributes is "filesystem". Common attributes of interest are
-        /// #G_FILE_ATTRIBUTE_FILESYSTEM_SIZE (the total size of the filesystem
-        /// in bytes), #G_FILE_ATTRIBUTE_FILESYSTEM_FREE (number of bytes available),
-        /// and #G_FILE_ATTRIBUTE_FILESYSTEM_TYPE (type of the filesystem).
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
-        /// be returned. Other errors are possible too, and depend on what
-        /// kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInfo"/> or <c>null</c> if there was an error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileInfo QueryFilesystemInfo(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -7030,51 +3984,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Similar to <see cref="File.QueryInfo"/>, but obtains information
-        /// about the filesystem the <paramref name="file"/> is on, rather than the file itself.
-        /// For instance the amount of space available and the type of
-        /// the filesystem.
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="attributes"/> value is a string that specifies the attributes
-        /// that should be gathered. It is not an error if it's not possible
-        /// to read a particular requested attribute from a file - it just
-        /// won't be set. <paramref name="attributes"/> should be a comma-separated list of
-        /// attributes or attribute wildcards. The wildcard "*" means all
-        /// attributes, and a wildcard like "filesystem::*" means all attributes
-        /// in the filesystem namespace. The standard namespace for filesystem
-        /// attributes is "filesystem". Common attributes of interest are
-        /// #G_FILE_ATTRIBUTE_FILESYSTEM_SIZE (the total size of the filesystem
-        /// in bytes), #G_FILE_ATTRIBUTE_FILESYSTEM_FREE (number of bytes available),
-        /// and #G_FILE_ATTRIBUTE_FILESYSTEM_TYPE (type of the filesystem).
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
-        /// be returned. Other errors are possible too, and depend on what
-        /// kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInfo"/> or <c>null</c> if there was an error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryFilesystemInfo(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileInfo QueryFilesystemInfo(this GISharp.Lib.Gio.IFile file, System.String attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
@@ -7140,33 +4050,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously gets the requested information about the filesystem
-        /// that the specified <paramref name="file"/> is on. The result is a <see cref="FileInfo"/> object
-        /// that contains key-value attributes (such as type or size for the
-        /// file).
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.QueryFilesystemInfo"/> which is the
-        /// synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called. You can
-        /// then call <see cref="File.QueryInfoFinish"/> to get the result of the
-        /// operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryFilesystemInfoAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -7180,33 +4064,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <summary>
-        /// Asynchronously gets the requested information about the filesystem
-        /// that the specified <paramref name="file"/> is on. The result is a <see cref="FileInfo"/> object
-        /// that contains key-value attributes (such as type or size for the
-        /// file).
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.QueryFilesystemInfo"/> which is the
-        /// synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called. You can
-        /// then call <see cref="File.QueryInfoFinish"/> to get the result of the
-        /// operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryFilesystemInfoAsync(this GISharp.Lib.Gio.IFile file, System.String attributes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
@@ -7345,59 +4203,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Gets the requested information about specified <paramref name="file"/>.
-        /// The result is a <see cref="FileInfo"/> object that contains key-value
-        /// attributes (such as the type or size of the file).
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="attributes"/> value is a string that specifies the file
-        /// attributes that should be gathered. It is not an error if
-        /// it's not possible to read a particular requested attribute
-        /// from a file - it just won't be set. <paramref name="attributes"/> should be a
-        /// comma-separated list of attributes or attribute wildcards.
-        /// The wildcard "*" means all attributes, and a wildcard like
-        /// "standard::*" means all attributes in the standard namespace.
-        /// An example attribute query be "standard::*,owner::user".
-        /// The standard attributes are available as defines, like
-        /// #G_FILE_ATTRIBUTE_STANDARD_NAME.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// For symlinks, normally the information about the target of the
-        /// symlink is returned, rather than information about the symlink
-        /// itself. However if you pass #G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS
-        /// in <paramref name="flags"/> the information about the symlink itself will be returned.
-        /// Also, for symlinks that point to non-existing files the information
-        /// about the symlink itself will be returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
-        /// returned. Other errors are possible too, and depend on what kind of
-        /// filesystem the file is on.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInfo"/> for the given <paramref name="file"/>, or <c>null</c>
-        ///     on error. Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileInfo QueryInfo(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -7416,59 +4222,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Gets the requested information about specified <paramref name="file"/>.
-        /// The result is a <see cref="FileInfo"/> object that contains key-value
-        /// attributes (such as the type or size of the file).
-        /// </summary>
-        /// <remarks>
-        /// The <paramref name="attributes"/> value is a string that specifies the file
-        /// attributes that should be gathered. It is not an error if
-        /// it's not possible to read a particular requested attribute
-        /// from a file - it just won't be set. <paramref name="attributes"/> should be a
-        /// comma-separated list of attributes or attribute wildcards.
-        /// The wildcard "*" means all attributes, and a wildcard like
-        /// "standard::*" means all attributes in the standard namespace.
-        /// An example attribute query be "standard::*,owner::user".
-        /// The standard attributes are available as defines, like
-        /// #G_FILE_ATTRIBUTE_STANDARD_NAME.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// For symlinks, normally the information about the target of the
-        /// symlink is returned, rather than information about the symlink
-        /// itself. However if you pass #G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS
-        /// in <paramref name="flags"/> the information about the symlink itself will be returned.
-        /// Also, for symlinks that point to non-existing files the information
-        /// about the symlink itself will be returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
-        /// returned. Other errors are possible too, and depend on what kind of
-        /// filesystem the file is on.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileInfo"/> for the given <paramref name="file"/>, or <c>null</c>
-        ///     on error. Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryInfo(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileInfo QueryInfo(this GISharp.Lib.Gio.IFile file, System.String attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
@@ -7538,34 +4292,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously gets the requested information about specified <paramref name="file"/>.
-        /// The result is a <see cref="FileInfo"/> object that contains key-value attributes
-        /// (such as type or size for the file).
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.QueryInfo"/> which is the synchronous
-        /// version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called. You can
-        /// then call <see cref="File.QueryInfoFinish"/> to get the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -7580,34 +4307,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <summary>
-        /// Asynchronously gets the requested information about specified <paramref name="file"/>.
-        /// The result is a <see cref="FileInfo"/> object that contains key-value attributes
-        /// (such as type or size for the file).
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.QueryInfo"/> which is the synchronous
-        /// version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called. You can
-        /// then call <see cref="File.QueryInfoFinish"/> to get the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attributes">
-        /// an attribute query string
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryInfoAsync(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(this GISharp.Lib.Gio.IFile file, System.String attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
@@ -7715,34 +4415,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Obtain the list of settable attributes for the file.
-        /// </summary>
-        /// <remarks>
-        /// Returns the type and full attribute name of all the attributes
-        /// that can be set on this file. This doesn't mean setting it will
-        /// always succeed though, you might get an access failure, or some
-        /// specific file may not support a specific attribute.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileAttributeInfoList"/> describing the settable attributes.
-        ///     When you are done with it, release it with
-        ///     <see cref="FileAttributeInfoList.Unref"/>
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QuerySettableAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileAttributeInfoList QuerySettableAttributes(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -7798,31 +4471,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Obtain the list of attribute namespaces where new attributes
-        /// can be created by a user. An example of this is extended
-        /// attributes (in the "xattr" namespace).
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileAttributeInfoList"/> describing the writable namespaces.
-        ///     When you are done with it, release it with
-        ///     <see cref="FileAttributeInfoList.Unref"/>
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='QueryWritableNamespaces(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileAttributeInfoList QueryWritableNamespaces(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -7880,33 +4529,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Opens a file for reading. The result is a <see cref="FileInputStream"/> that
-        /// can be used to read the contents of the file.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
-        /// returned. If the file is a directory, the <see cref="IOErrorEnum.IsDirectory"/>
-        /// error will be returned. Other errors are possible too, and depend
-        /// on what kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="file">
-        /// <see cref="IFile"/> to read
-        /// </param>
-        /// <param name="cancellable">
-        /// a <see cref="Cancellable"/>
-        /// </param>
-        /// <returns>
-        /// <see cref="FileInputStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Read(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileInputStream Read(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -7973,27 +4596,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously opens <paramref name="file"/> for reading.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.Read"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.ReadFinish"/> to get the result
-        /// of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReadAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInputStream> ReadAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -8155,74 +4758,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns an output stream for overwriting the file, possibly
-        /// creating a backup copy of the file first. If the file doesn't exist,
-        /// it will be created.
-        /// </summary>
-        /// <remarks>
-        /// This will try to replace the file in the safest way possible so
-        /// that any errors during the writing will not affect an already
-        /// existing copy of the file. For instance, for local files it
-        /// may write to a temporary file and then atomically rename over
-        /// the destination when the stream is closed.
-        /// 
-        /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-        /// will be made readable only to the current user, to the level that
-        /// is supported on the target filesystem.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If you pass in a non-<c>null</c> <paramref name="etag"/> value and <paramref name="file"/> already exists, then
-        /// this value is compared to the current entity tag of the file, and if
-        /// they differ an <see cref="IOErrorEnum.WrongEtag"/> error is returned. This
-        /// generally means that the file has been changed since you last read
-        /// it. You can get the new etag from <see cref="FileOutputStream.GetEtag"/>
-        /// after you've finished writing and closed the <see cref="FileOutputStream"/>. When
-        /// you load a new file you can use <see cref="FileInputStream.QueryInfo"/> to
-        /// get the etag of the file.
-        /// 
-        /// If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a
-        /// backup of the current file before overwriting it. If this fails
-        /// a <see cref="IOErrorEnum.CantCreateBackup"/> error will be returned. If you
-        /// want to replace anyway, try again with <paramref name="makeBackup"/> set to <c>false</c>.
-        /// 
-        /// If the file is a directory the <see cref="IOErrorEnum.IsDirectory"/> error will
-        /// be returned, and if the file is some other form of non-regular file
-        /// then a <see cref="IOErrorEnum.NotRegularFile"/> error will be returned. Some
-        /// file systems don't allow all file names, and may return an
-        /// <see cref="IOErrorEnum.InvalidFilename"/> error, and if the name is to long
-        /// <see cref="IOErrorEnum.FilenameTooLong"/> will be returned. Other errors are
-        /// possible too, and depend on what kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="etag">
-        /// an optional [entity tag][gfile-etag]
-        ///     for the current <see cref="IFile"/>, or #NULL to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileOutputStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileOutputStream Replace(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -8242,74 +4778,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Returns an output stream for overwriting the file, possibly
-        /// creating a backup copy of the file first. If the file doesn't exist,
-        /// it will be created.
-        /// </summary>
-        /// <remarks>
-        /// This will try to replace the file in the safest way possible so
-        /// that any errors during the writing will not affect an already
-        /// existing copy of the file. For instance, for local files it
-        /// may write to a temporary file and then atomically rename over
-        /// the destination when the stream is closed.
-        /// 
-        /// By default files created are generally readable by everyone,
-        /// but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-        /// will be made readable only to the current user, to the level that
-        /// is supported on the target filesystem.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-        /// by triggering the cancellable object from another thread. If the
-        /// operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-        /// returned.
-        /// 
-        /// If you pass in a non-<c>null</c> <paramref name="etag"/> value and <paramref name="file"/> already exists, then
-        /// this value is compared to the current entity tag of the file, and if
-        /// they differ an <see cref="IOErrorEnum.WrongEtag"/> error is returned. This
-        /// generally means that the file has been changed since you last read
-        /// it. You can get the new etag from <see cref="FileOutputStream.GetEtag"/>
-        /// after you've finished writing and closed the <see cref="FileOutputStream"/>. When
-        /// you load a new file you can use <see cref="FileInputStream.QueryInfo"/> to
-        /// get the etag of the file.
-        /// 
-        /// If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a
-        /// backup of the current file before overwriting it. If this fails
-        /// a <see cref="IOErrorEnum.CantCreateBackup"/> error will be returned. If you
-        /// want to replace anyway, try again with <paramref name="makeBackup"/> set to <c>false</c>.
-        /// 
-        /// If the file is a directory the <see cref="IOErrorEnum.IsDirectory"/> error will
-        /// be returned, and if the file is some other form of non-regular file
-        /// then a <see cref="IOErrorEnum.NotRegularFile"/> error will be returned. Some
-        /// file systems don't allow all file names, and may return an
-        /// <see cref="IOErrorEnum.InvalidFilename"/> error, and if the name is to long
-        /// <see cref="IOErrorEnum.FilenameTooLong"/> will be returned. Other errors are
-        /// possible too, and depend on what kind of filesystem the file is on.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="etag">
-        /// an optional [entity tag][gfile-etag]
-        ///     for the current <see cref="IFile"/>, or #NULL to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileOutputStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Replace(GISharp.Lib.Gio.IFile,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileOutputStream Replace(this GISharp.Lib.Gio.IFile file, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
@@ -8386,38 +4855,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously overwrites the file, replacing the contents,
-        /// possibly creating a backup copy of the file first.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.Replace"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.ReplaceFinish"/> to get the result
-        /// of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="etag">
-        /// an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-        ///     or <c>null</c> to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileOutputStream> ReplaceAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -8433,38 +4871,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <summary>
-        /// Asynchronously overwrites the file, replacing the contents,
-        /// possibly creating a backup copy of the file first.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.Replace"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.ReplaceFinish"/> to get the result
-        /// of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="etag">
-        /// an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-        ///     or <c>null</c> to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceAsync(GISharp.Lib.Gio.IFile,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileOutputStream> ReplaceAsync(this GISharp.Lib.Gio.IFile file, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
@@ -8558,52 +4965,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Replaces the contents of <paramref name="file"/> with <paramref name="contents"/> of <paramref name="length"/> bytes.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="etag"/> is specified (not <c>null</c>), any existing file must have that etag,
-        /// or the error <see cref="IOErrorEnum.WrongEtag"/> will be returned.
-        /// 
-        /// If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a backup
-        /// of <paramref name="file"/>. Internally, it uses <see cref="File.Replace"/>, so will try to replace the
-        /// file contents in the safest way possible. For example, atomic renames are
-        /// used when replacing local files’ contents.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// The returned <paramref name="newEtag"/> can be used to verify that the file hasn't
-        /// changed the next time it is saved over.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="contents">
-        /// a string containing the new contents for <paramref name="file"/>
-        /// </param>
-        /// <param name="etag">
-        /// the old [entity-tag][gfile-etag] for the document,
-        ///     or <c>null</c>
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="newEtag">
-        /// a location to a new [entity tag][gfile-etag]
-        ///      for the document. This should be freed with g_free() when no longer
-        ///      needed, or <c>null</c>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void ReplaceContents(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, out GISharp.Lib.GLib.Utf8 newEtag, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
@@ -8623,52 +4985,7 @@ namespace GISharp.Lib.Gio
             newEtag = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(newEtag_, GISharp.Runtime.Transfer.Full)!;
         }
 
-        /// <summary>
-        /// Replaces the contents of <paramref name="file"/> with <paramref name="contents"/> of <paramref name="length"/> bytes.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="etag"/> is specified (not <c>null</c>), any existing file must have that etag,
-        /// or the error <see cref="IOErrorEnum.WrongEtag"/> will be returned.
-        /// 
-        /// If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a backup
-        /// of <paramref name="file"/>. Internally, it uses <see cref="File.Replace"/>, so will try to replace the
-        /// file contents in the safest way possible. For example, atomic renames are
-        /// used when replacing local files’ contents.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// The returned <paramref name="newEtag"/> can be used to verify that the file hasn't
-        /// changed the next time it is saved over.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="contents">
-        /// a string containing the new contents for <paramref name="file"/>
-        /// </param>
-        /// <param name="etag">
-        /// the old [entity-tag][gfile-etag] for the document,
-        ///     or <c>null</c>
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="newEtag">
-        /// a location to a new [entity tag][gfile-etag]
-        ///      for the document. This should be freed with g_free() when no longer
-        ///      needed, or <c>null</c>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void ReplaceContents(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, out GISharp.Lib.GLib.Utf8 newEtag, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
@@ -8760,46 +5077,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Starts an asynchronous replacement of <paramref name="file"/> with the given
-        /// <paramref name="contents"/> of <paramref name="length"/> bytes. <paramref name="etag"/> will replace the document's
-        /// current entity tag.
-        /// </summary>
-        /// <remarks>
-        /// When this operation has completed, <paramref name="callback"/> will be called with
-        /// <paramref name="userUser"/> data, and the operation can be finalized with
-        /// <see cref="File.ReplaceContentsFinish"/>.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to
-        /// make a backup of <paramref name="file"/>.
-        /// 
-        /// Note that no copy of <paramref name="content"/> will be made, so it must stay valid
-        /// until <paramref name="callback"/> is called. See <see cref="File.ReplaceContentsAsync"/>
-        /// for a #GBytes version that will automatically hold a reference to the
-        /// contents (without copying) for the duration of the call.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="contents">
-        /// string of contents to replace the file with
-        /// </param>
-        /// <param name="etag">
-        /// a new [entity tag][gfile-etag] for the <paramref name="file"/>, or <c>null</c>
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.GLib.Utf8> ReplaceContentsAsync(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
@@ -8815,46 +5093,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <summary>
-        /// Starts an asynchronous replacement of <paramref name="file"/> with the given
-        /// <paramref name="contents"/> of <paramref name="length"/> bytes. <paramref name="etag"/> will replace the document's
-        /// current entity tag.
-        /// </summary>
-        /// <remarks>
-        /// When this operation has completed, <paramref name="callback"/> will be called with
-        /// <paramref name="userUser"/> data, and the operation can be finalized with
-        /// <see cref="File.ReplaceContentsFinish"/>.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// 
-        /// If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to
-        /// make a backup of <paramref name="file"/>.
-        /// 
-        /// Note that no copy of <paramref name="content"/> will be made, so it must stay valid
-        /// until <paramref name="callback"/> is called. See <see cref="File.ReplaceContentsAsync"/>
-        /// for a #GBytes version that will automatically hold a reference to the
-        /// contents (without copying) for the duration of the call.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="contents">
-        /// string of contents to replace the file with
-        /// </param>
-        /// <param name="etag">
-        /// a new [entity tag][gfile-etag] for the <paramref name="file"/>, or <c>null</c>
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.GLib.Utf8> ReplaceContentsAsync(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var etagUtf8 = etag == null ? null : new GISharp.Lib.GLib.Utf8(etag);
@@ -8928,35 +5167,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Same as <see cref="File.ReplaceContentsAsync"/> but takes a #GBytes input instead.
-        /// This function will keep a ref on <paramref name="contents"/> until the operation is done.
-        /// Unlike <see cref="File.ReplaceContentsAsync"/> this allows forgetting about the
-        /// content without waiting for the callback.
-        /// </summary>
-        /// <remarks>
-        /// When this operation has completed, <paramref name="callback"/> will be called with
-        /// <paramref name="userUser"/> data, and the operation can be finalized with
-        /// <see cref="File.ReplaceContentsFinish"/>.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="contents">
-        /// a #GBytes
-        /// </param>
-        /// <param name="etag">
-        /// a new [entity tag][gfile-etag] for the <paramref name="file"/>, or <c>null</c>
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.GLib.Utf8> ReplaceContentsAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Bytes contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -8973,35 +5184,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <summary>
-        /// Same as <see cref="File.ReplaceContentsAsync"/> but takes a #GBytes input instead.
-        /// This function will keep a ref on <paramref name="contents"/> until the operation is done.
-        /// Unlike <see cref="File.ReplaceContentsAsync"/> this allows forgetting about the
-        /// content without waiting for the callback.
-        /// </summary>
-        /// <remarks>
-        /// When this operation has completed, <paramref name="callback"/> will be called with
-        /// <paramref name="userUser"/> data, and the operation can be finalized with
-        /// <see cref="File.ReplaceContentsFinish"/>.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="contents">
-        /// a #GBytes
-        /// </param>
-        /// <param name="etag">
-        /// a new [entity tag][gfile-etag] for the <paramref name="file"/>, or <c>null</c>
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.GLib.Utf8> ReplaceContentsAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Bytes contents, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -9194,43 +5377,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Returns an output stream for overwriting the file in readwrite mode,
-        /// possibly creating a backup copy of the file first. If the file doesn't
-        /// exist, it will be created.
-        /// </summary>
-        /// <remarks>
-        /// For details about the behaviour, see <see cref="File.Replace"/> which does the
-        /// same thing but returns an output stream only.
-        /// 
-        /// Note that in many non-local file cases read and write streams are not
-        /// supported, so make sure you really need to do read and write streaming,
-        /// rather than just opening for reading or writing.
-        /// </remarks>
-        /// <param name="file">
-        /// a <see cref="IFile"/>
-        /// </param>
-        /// <param name="etag">
-        /// an optional [entity tag][gfile-etag]
-        ///     for the current <see cref="IFile"/>, or #NULL to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileIOStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static GISharp.Lib.Gio.FileIOStream ReplaceReadwrite(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -9251,43 +5398,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Returns an output stream for overwriting the file in readwrite mode,
-        /// possibly creating a backup copy of the file first. If the file doesn't
-        /// exist, it will be created.
-        /// </summary>
-        /// <remarks>
-        /// For details about the behaviour, see <see cref="File.Replace"/> which does the
-        /// same thing but returns an output stream only.
-        /// 
-        /// Note that in many non-local file cases read and write streams are not
-        /// supported, so make sure you really need to do read and write streaming,
-        /// rather than just opening for reading or writing.
-        /// </remarks>
-        /// <param name="file">
-        /// a <see cref="IFile"/>
-        /// </param>
-        /// <param name="etag">
-        /// an optional [entity tag][gfile-etag]
-        ///     for the current <see cref="IFile"/>, or #NULL to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="FileIOStream"/> or <c>null</c> on error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceReadwrite(GISharp.Lib.Gio.IFile,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static GISharp.Lib.Gio.FileIOStream ReplaceReadwrite(this GISharp.Lib.Gio.IFile file, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -9367,39 +5478,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously overwrites the file in read-write mode,
-        /// replacing the contents, possibly creating a backup copy
-        /// of the file first.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.ReplaceReadwrite"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.ReplaceReadwriteFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="etag">
-        /// an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-        ///     or <c>null</c> to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileIOStream> ReplaceReadwriteAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -9416,39 +5495,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <summary>
-        /// Asynchronously overwrites the file in read-write mode,
-        /// replacing the contents, possibly creating a backup copy
-        /// of the file first.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.ReplaceReadwrite"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.ReplaceReadwriteFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="etag">
-        /// an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-        ///     or <c>null</c> to ignore
-        /// </param>
-        /// <param name="makeBackup">
-        /// <c>true</c> if a backup should be created
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileCreateFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileIOStream> ReplaceReadwriteAsync(this GISharp.Lib.Gio.IFile file, System.String? etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -9543,23 +5590,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr relativePath);
 
-        /// <summary>
-        /// Resolves a relative path for <paramref name="file"/> to an absolute path.
-        /// </summary>
-        /// <remarks>
-        /// This call does no blocking I/O.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="relativePath">
-        /// a given relative path string
-        /// </param>
-        /// <returns>
-        /// <see cref="IFile"/> to the resolved path.
-        ///     <c>null</c> if <paramref name="relativePath"/> is <c>null</c> or if <paramref name="file"/> is invalid.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='ResolveRelativePath(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filename)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile ResolveRelativePath(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Filename relativePath)
         {
             var file_ = file.Handle;
@@ -9632,40 +5663,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="value"/>.
-        /// </summary>
-        /// <remarks>
-        /// Some attributes can be unset by setting <paramref name="type"/> to
-        /// <see cref="FileAttributeType.Invalid"/> and <paramref name="valueP"/> to <c>null</c>.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="type">
-        /// The type of the attribute
-        /// </param>
-        /// <param name="valueP">
-        /// a pointer to the value (or the pointer
-        ///     itself if the type is a pointer type)
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttribute(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttribute(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -9683,40 +5681,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="value"/>.
-        /// </summary>
-        /// <remarks>
-        /// Some attributes can be unset by setting <paramref name="type"/> to
-        /// <see cref="FileAttributeType.Invalid"/> and <paramref name="valueP"/> to <c>null</c>.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="type">
-        /// The type of the attribute
-        /// </param>
-        /// <param name="valueP">
-        /// a pointer to the value (or the pointer
-        ///     itself if the type is a pointer type)
-        /// </param>
-        /// <param name="flags">
-        /// a set of <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttribute(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttribute(this GISharp.Lib.Gio.IFile file, System.String attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -9779,35 +5744,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.ByteString"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail,
-        /// returning <c>false</c>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a string containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeByteString(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeByteString(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -9824,35 +5761,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.ByteString"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail,
-        /// returning <c>false</c>.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a string containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeByteString(GISharp.Lib.Gio.IFile,System.String,System.String,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeByteString(this GISharp.Lib.Gio.IFile file, System.String attribute, System.String value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -9915,34 +5824,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int32"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a #gint32 containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeInt32(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeInt32(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -9959,34 +5841,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int32"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a #gint32 containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeInt32(GISharp.Lib.Gio.IFile,System.String,System.Int32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeInt32(this GISharp.Lib.Gio.IFile file, System.String attribute, System.Int32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -10047,34 +5902,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int64"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a #guint64 containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeInt64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeInt64(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -10091,34 +5919,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int64"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a #guint64 containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeInt64(GISharp.Lib.Gio.IFile,System.String,System.Int64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeInt64(this GISharp.Lib.Gio.IFile file, System.String attribute, System.Int64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -10179,34 +5980,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.String"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a string containing the attribute's value
-        /// </param>
-        /// <param name="flags">
-        /// <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeString(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeString(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -10223,34 +5997,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.String"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a string containing the attribute's value
-        /// </param>
-        /// <param name="flags">
-        /// <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeString(GISharp.Lib.Gio.IFile,System.String,System.String,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeString(this GISharp.Lib.Gio.IFile file, System.String attribute, System.String value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -10313,34 +6060,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint32"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a #guint32 containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeUint32(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.UInt32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeUint32(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -10357,34 +6077,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint32"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a #guint32 containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeUint32(GISharp.Lib.Gio.IFile,System.String,System.UInt32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeUint32(this GISharp.Lib.Gio.IFile file, System.String attribute, System.UInt32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -10446,34 +6139,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint64"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a #guint64 containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeUint64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.UInt64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeUint64(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -10490,34 +6156,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <summary>
-        /// Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint64"/> to <paramref name="value"/>.
-        /// If <paramref name="attribute"/> is of a different type, this operation will fail.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="attribute">
-        /// a string containing the attribute's name
-        /// </param>
-        /// <param name="value">
-        /// a #guint64 containing the attribute's new value
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributeUint64(GISharp.Lib.Gio.IFile,System.String,System.UInt64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeUint64(this GISharp.Lib.Gio.IFile file, System.String attribute, System.UInt64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -10585,33 +6224,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously sets the attributes of <paramref name="file"/> with <paramref name="info"/>.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.SetAttributesFromInfo"/>,
-        /// which is the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.SetAttributesFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="info">
-        /// a <see cref="FileInfo"/>
-        /// </param>
-        /// <param name="flags">
-        /// a <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> SetAttributesAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -10742,37 +6355,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Tries to set all attributes in the <see cref="FileInfo"/> on the target
-        /// values, not stopping on the first error.
-        /// </summary>
-        /// <remarks>
-        /// If there is any error during this operation then <paramref name="error"/> will
-        /// be set to the first error. Error on particular fields are flagged
-        /// by setting the "status" field in the attribute value to
-        /// <see cref="FileAttributeStatus.ErrorSetting"/>, which means you can
-        /// also detect further errors.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="info">
-        /// a <see cref="FileInfo"/>
-        /// </param>
-        /// <param name="flags">
-        /// <see cref="FileQueryInfoFlags"/>
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributesFromInfo(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -10841,42 +6424,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Renames <paramref name="file"/> to the specified display name.
-        /// </summary>
-        /// <remarks>
-        /// The display name is converted from UTF-8 to the correct encoding
-        /// for the target filesystem if possible and the <paramref name="file"/> is renamed to this.
-        /// 
-        /// If you want to implement a rename operation in the user interface the
-        /// edit name (#G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) should be used as the
-        /// initial value in the rename widget, and then the result after editing
-        /// should be passed to <see cref="File.SetDisplayName"/>.
-        /// 
-        /// On success the resulting converted filename is returned.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="displayName">
-        /// a string
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> specifying what <paramref name="file"/> was renamed to,
-        ///     or <c>null</c> if there was an error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile SetDisplayName(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 displayName, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -10894,42 +6442,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Renames <paramref name="file"/> to the specified display name.
-        /// </summary>
-        /// <remarks>
-        /// The display name is converted from UTF-8 to the correct encoding
-        /// for the target filesystem if possible and the <paramref name="file"/> is renamed to this.
-        /// 
-        /// If you want to implement a rename operation in the user interface the
-        /// edit name (#G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) should be used as the
-        /// initial value in the rename widget, and then the result after editing
-        /// should be passed to <see cref="File.SetDisplayName"/>.
-        /// 
-        /// On success the resulting converted filename is returned.
-        /// 
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="displayName">
-        /// a string
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <returns>
-        /// a <see cref="IFile"/> specifying what <paramref name="file"/> was renamed to,
-        ///     or <c>null</c> if there was an error.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetDisplayName(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile SetDisplayName(this GISharp.Lib.Gio.IFile file, System.String displayName, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
@@ -10992,30 +6505,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously sets the display name for a given <see cref="IFile"/>.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.SetDisplayName"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.SetDisplayNameFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="displayName">
-        /// a string
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetDisplayNameAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.IFile> SetDisplayNameAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 displayName, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -11029,30 +6519,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <summary>
-        /// Asynchronously sets the display name for a given <see cref="IFile"/>.
-        /// </summary>
-        /// <remarks>
-        /// For more details, see <see cref="File.SetDisplayName"/> which is
-        /// the synchronous version of this call.
-        /// 
-        /// When the operation is finished, <paramref name="callback"/> will be called.
-        /// You can then call <see cref="File.SetDisplayNameFinish"/> to get
-        /// the result of the operation.
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="displayName">
-        /// a string
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SetDisplayNameAsync(GISharp.Lib.Gio.IFile,System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.IFile> SetDisplayNameAsync(this GISharp.Lib.Gio.IFile file, System.String displayName, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
@@ -11152,22 +6619,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes a start operation. See g_file_start_mountable() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous start operation that was started
-        /// with g_file_start_mountable().
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='StartMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void StartMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -11217,22 +6669,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes an stop operation, see g_file_stop_mountable() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous stop operation that was started
-        /// with g_file_stop_mountable().
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='StopMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void StopMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
@@ -11268,18 +6705,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
 
-        /// <summary>
-        /// Checks if <paramref name="file"/> supports
-        /// [thread-default contexts][g-main-context-push-thread-default-context].
-        /// If this returns <c>false</c>, you cannot perform asynchronous operations on
-        /// <paramref name="file"/> in a thread that has a thread-default context.
-        /// </summary>
-        /// <param name="file">
-        /// a <see cref="IFile"/>
-        /// </param>
-        /// <returns>
-        /// Whether or not <paramref name="file"/> supports thread-default contexts.
-        /// </returns>
+        /// <include file="File.xmldoc" path="declaration/member[@name='SupportsThreadContexts(GISharp.Lib.Gio.IFile)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Boolean SupportsThreadContexts(this GISharp.Lib.Gio.IFile file)
         {
@@ -11327,27 +6753,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Sends <paramref name="file"/> to the "Trashcan", if possible. This is similar to
-        /// deleting it, but the user can recover it before emptying the trashcan.
-        /// Not all file systems support trashing, so this call can return the
-        /// <see cref="IOErrorEnum.NotSupported"/> error.
-        /// </summary>
-        /// <remarks>
-        /// If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-        /// triggering the cancellable object from another thread. If the operation
-        /// was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-        /// </remarks>
-        /// <param name="file">
-        /// <see cref="IFile"/> to send to trash
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='Trash(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Trash(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var file_ = file.Handle;
@@ -11402,19 +6808,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <summary>
-        /// Asynchronously sends <paramref name="file"/> to the Trash location, if possible.
-        /// </summary>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="ioPriority">
-        /// the [I/O priority][io-priority] of the request
-        /// </param>
-        /// <param name="cancellable">
-        /// optional <see cref="Cancellable"/> object,
-        ///     <c>null</c> to ignore
-        /// </param>
+        /// <include file="File.xmldoc" path="declaration/member[@name='TrashAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public unsafe static System.Threading.Tasks.Task TrashAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -11521,22 +6915,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes an unmount operation, see g_file_unmount_mountable() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous unmount operation that was started
-        /// with g_file_unmount_mountable().
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='UnmountMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [System.ObsoleteAttribute("Use g_file_unmount_mountable_with_operation_finish()\n    instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         public unsafe static void UnmountMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
@@ -11588,23 +6967,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Finishes an unmount operation,
-        /// see g_file_unmount_mountable_with_operation() for details.
-        /// </summary>
-        /// <remarks>
-        /// Finish an asynchronous unmount operation that was started
-        /// with g_file_unmount_mountable_with_operation().
-        /// </remarks>
-        /// <param name="file">
-        /// input <see cref="IFile"/>
-        /// </param>
-        /// <param name="result">
-        /// a <see cref="IAsyncResult"/>
-        /// </param>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="File.xmldoc" path="declaration/member[@name='UnmountMountableWithOperationFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void UnmountMountableWithOperationFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {

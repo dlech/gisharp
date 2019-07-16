@@ -14,6 +14,9 @@ namespace GISharp.Lib.GLib
     [GType("GMainContext", IsProxyForUnmanagedType = true)]
     public sealed class MainContext : Boxed
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public MainContext(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {

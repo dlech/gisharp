@@ -55,6 +55,7 @@ namespace GISharp.Lib.GLib
     /// <remarks>
     /// Errors in this domain will be from the <see cref="ConvertError" />
     /// enumeration. See <see cref="Error" /> for information on error domains.
+    /// </remarks>
     public static class ConvertErrorDomain
     {
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

@@ -16,8 +16,8 @@ namespace GISharp.Lib.GIRepository
         /// </summary>
         public int UnknownOffset = 0xFFFF;
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_vfunc_info_get_flags (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_vfunc_info_get_flags(IntPtr raw);
 
         /// <summary>
         /// Obtain the flags for this virtual function info.
@@ -25,14 +25,14 @@ namespace GISharp.Lib.GIRepository
         /// <value>The flags.</value>
         public VFuncInfoFlags Flags {
             get {
-                int raw_ret = g_vfunc_info_get_flags (Handle);
+                int raw_ret = g_vfunc_info_get_flags(Handle);
                 var ret = (VFuncInfoFlags)raw_ret;
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_vfunc_info_get_invoker (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_vfunc_info_get_invoker(IntPtr raw);
 
         /// <summary>
         /// If this virtual function has an associated invoker method, this method will return it.
@@ -49,8 +49,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_vfunc_info_get_offset (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_vfunc_info_get_offset(IntPtr raw);
 
         /// <summary>
         /// Obtain the offset of the function pointer in the class struct.
@@ -61,14 +61,14 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public int Offset {
             get {
-                int raw_ret = g_vfunc_info_get_offset (Handle);
+                int raw_ret = g_vfunc_info_get_offset(Handle);
                 int ret = raw_ret;
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_vfunc_info_get_signal (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_vfunc_info_get_signal(IntPtr raw);
 
         /// <summary>
         /// Obtain the signal for the virtual function if one is set.
@@ -85,7 +85,10 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        public VFuncInfo (IntPtr raw) : base (raw)
+        /// <summary>
+        /// For internal use only
+        /// </summary>
+        public VFuncInfo(IntPtr raw) : base(raw)
         {
         }
     }

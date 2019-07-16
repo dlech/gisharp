@@ -2,78 +2,28 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// <see cref="IIcon"/> is a very minimal interface for icons. It provides functions
-    /// for checking the equality of two icons, hashing of icons and
-    /// serializing an icon to and from strings.
-    /// </summary>
-    /// <remarks>
-    /// <see cref="IIcon"/> does not provide the actual pixmap for the icon as this is out
-    /// of GIO's scope, however implementations of <see cref="IIcon"/> may contain the name
-    /// of an icon (see <see cref="ThemedIcon"/>), or the path to an icon (see #GLoadableIcon).
-    /// 
-    /// To obtain a hash of a <see cref="IIcon"/>, see <see cref="Icon.GetHashCode"/>.
-    /// 
-    /// To check if two <see cref="IIcon"/>s are equal, see <see cref="Icon.Equals"/>.
-    /// 
-    /// For serializing a <see cref="IIcon"/>, use <see cref="Icon.Serialize"/> and
-    /// <see cref="Icon.Deserialize"/>.
-    /// 
-    /// If you want to consume <see cref="IIcon"/> (for example, in a toolkit) you must
-    /// be prepared to handle at least the three following cases:
-    /// #GLoadableIcon, <see cref="ThemedIcon"/> and #GEmblemedIcon.  It may also make
-    /// sense to have fast-paths for other cases (like handling #GdkPixbuf
-    /// directly, for example) but all compliant <see cref="IIcon"/> implementations
-    /// outside of GIO must implement #GLoadableIcon.
-    /// 
-    /// If your application or library provides one or more <see cref="IIcon"/>
-    /// implementations you need to ensure that your new implementation also
-    /// implements #GLoadableIcon.  Additionally, you must provide an
-    /// implementation of <see cref="Icon.Serialize"/> that gives a result that is
-    /// understood by <see cref="Icon.Deserialize"/>, yielding one of the built-in icon
-    /// types.
-    /// </remarks>
+    /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon']/*" />
     [GISharp.Runtime.GTypeAttribute("GIcon", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(IconIface))]
     public partial interface IIcon : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <summary>
-        /// Checks if two icons are equal.
-        /// </summary>
-        /// <param name="icon2">
-        /// pointer to the second <see cref="IIcon"/>.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="icon1"/> is equal to <paramref name="icon2"/>. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='DoEqual(GISharp.Lib.Gio.IIcon?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedEqual))]
         System.Boolean DoEqual(GISharp.Lib.Gio.IIcon? icon2);
 
-        /// <summary>
-        /// Gets a hash for an icon.
-        /// </summary>
-        /// <returns>
-        /// a #guint containing a hash for the <paramref name="icon"/>, suitable for
-        /// use in a #GHashTable or similar data structure.
-        /// </returns>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='DoHash()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedHash))]
         System.UInt32 DoHash();
 
-        /// <summary>
-        /// Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
-        /// back by calling <see cref="Icon.Deserialize"/> on the returned value.
-        /// As serialization will avoid using raw icon data when possible, it only
-        /// makes sense to transfer the #GVariant between processes on the same machine,
-        /// (as opposed to over the network), and within the same file system namespace.
-        /// </summary>
-        /// <returns>
-        /// a #GVariant, or <c>null</c> when serialization fails.
-        /// </returns>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='DoSerialize()']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedSerialize))]
         GISharp.Lib.GLib.Variant DoSerialize();
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="IIcon"/>
+    /// </summary>
     public static partial class Icon
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_icon_get_type();
@@ -96,15 +46,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
-        /// <summary>
-        /// Deserializes a <see cref="IIcon"/> previously serialized using <see cref="Icon.Serialize"/>.
-        /// </summary>
-        /// <param name="value">
-        /// a #GVariant created with <see cref="Icon.Serialize"/>
-        /// </param>
-        /// <returns>
-        /// a <see cref="IIcon"/>, or <c>null</c> when deserialization fails.
-        /// </returns>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='Deserialize(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe GISharp.Lib.Gio.IIcon Deserialize(GISharp.Lib.GLib.Variant value)
         {
@@ -145,25 +87,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <summary>
-        /// Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
-        /// <paramref name="str"/> is not valid - see <see cref="Icon.ToString"/> for discussion.
-        /// </summary>
-        /// <remarks>
-        /// If your application or library provides one or more <see cref="IIcon"/>
-        /// implementations you need to ensure that each #GType is registered
-        /// with the type system prior to calling <see cref="Icon.NewForString"/>.
-        /// </remarks>
-        /// <param name="str">
-        /// A string obtained via <see cref="Icon.ToString"/>.
-        /// </param>
-        /// <returns>
-        /// An object implementing the <see cref="IIcon"/>
-        ///          interface or <c>null</c> if <paramref name="error"/> is set.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='NewForString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         public static unsafe GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.UnownedUtf8 str)
         {
@@ -180,25 +104,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <summary>
-        /// Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
-        /// <paramref name="str"/> is not valid - see <see cref="Icon.ToString"/> for discussion.
-        /// </summary>
-        /// <remarks>
-        /// If your application or library provides one or more <see cref="IIcon"/>
-        /// implementations you need to ensure that each #GType is registered
-        /// with the type system prior to calling <see cref="Icon.NewForString"/>.
-        /// </remarks>
-        /// <param name="str">
-        /// A string obtained via <see cref="Icon.ToString"/>.
-        /// </param>
-        /// <returns>
-        /// An object implementing the <see cref="IIcon"/>
-        ///          interface or <c>null</c> if <paramref name="error"/> is set.
-        /// </returns>
-        /// <exception name="GISharp.Runtime.GErrorException">
-        /// On error
-        /// </exception>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='NewForString(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         public static unsafe GISharp.Lib.Gio.IIcon NewForString(System.String str)
         {
@@ -229,16 +135,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);
 
-        /// <summary>
-        /// Gets a hash for an icon.
-        /// </summary>
-        /// <param name="icon">
-        /// #gconstpointer to an icon object.
-        /// </param>
-        /// <returns>
-        /// a #guint containing a hash for the <paramref name="icon"/>, suitable for
-        /// use in a #GHashTable or similar data structure.
-        /// </returns>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='GetHashCode(GISharp.Lib.Gio.IIcon)']/*" />
         public unsafe static System.Int32 GetHashCode(this GISharp.Lib.Gio.IIcon icon)
         {
             var icon_ = icon.Handle;
@@ -270,18 +167,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr icon2);
 
-        /// <summary>
-        /// Checks if two icons are equal.
-        /// </summary>
-        /// <param name="icon1">
-        /// pointer to the first <see cref="IIcon"/>.
-        /// </param>
-        /// <param name="icon2">
-        /// pointer to the second <see cref="IIcon"/>.
-        /// </param>
-        /// <returns>
-        /// <c>true</c> if <paramref name="icon1"/> is equal to <paramref name="icon2"/>. <c>false</c> otherwise.
-        /// </returns>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='Equals(GISharp.Lib.Gio.IIcon?,GISharp.Lib.Gio.IIcon?)']/*" />
         public unsafe static System.Boolean Equals(this GISharp.Lib.Gio.IIcon? icon1, GISharp.Lib.Gio.IIcon? icon2)
         {
             var icon1_ = icon1?.Handle ?? System.IntPtr.Zero;
@@ -313,19 +199,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);
 
-        /// <summary>
-        /// Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
-        /// back by calling <see cref="Icon.Deserialize"/> on the returned value.
-        /// As serialization will avoid using raw icon data when possible, it only
-        /// makes sense to transfer the #GVariant between processes on the same machine,
-        /// (as opposed to over the network), and within the same file system namespace.
-        /// </summary>
-        /// <param name="icon">
-        /// a <see cref="IIcon"/>
-        /// </param>
-        /// <returns>
-        /// a #GVariant, or <c>null</c> when serialization fails.
-        /// </returns>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='Serialize(GISharp.Lib.Gio.IIcon)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public unsafe static GISharp.Lib.GLib.Variant Serialize(this GISharp.Lib.Gio.IIcon icon)
         {
@@ -370,32 +244,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);
 
-        /// <summary>
-        /// Generates a textual representation of <paramref name="icon"/> that can be used for
-        /// serialization such as when passing <paramref name="icon"/> to a different process or
-        /// saving it to persistent storage. Use <see cref="Icon.NewForString"/> to
-        /// get <paramref name="icon"/> back from the returned string.
-        /// </summary>
-        /// <remarks>
-        /// The encoding of the returned string is proprietary to <see cref="IIcon"/> except
-        /// in the following two cases
-        /// 
-        /// - If <paramref name="icon"/> is a <see cref="IFile"/>Icon, the returned string is a native path
-        ///   (such as `/path/to/my icon.png`) without escaping
-        ///   if the <see cref="IFile"/> for <paramref name="icon"/> is a native file.  If the file is not
-        ///   native, the returned string is the result of <see cref="File.GetUri"/>
-        ///   (such as `sftp://path/to/my%20icon.png`).
-        /// 
-        /// - If <paramref name="icon"/> is a <see cref="ThemedIcon"/> with exactly one name, the encoding is
-        ///    simply the name (such as `network-server`).
-        /// </remarks>
-        /// <param name="icon">
-        /// a <see cref="IIcon"/>.
-        /// </param>
-        /// <returns>
-        /// An allocated NUL-terminated UTF8 string or
-        /// <c>null</c> if <paramref name="icon"/> can't be serialized. Use g_free() to free.
-        /// </returns>
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='ToString(GISharp.Lib.Gio.IIcon)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         public unsafe static GISharp.Lib.GLib.Utf8? ToString(this GISharp.Lib.Gio.IIcon icon)
         {

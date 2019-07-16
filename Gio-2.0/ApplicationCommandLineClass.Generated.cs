@@ -2,20 +2,29 @@
 #nullable enable
 namespace GISharp.Lib.Gio
 {
-    /// <summary>
-    /// The <see cref="ApplicationCommandLineClass"/>-struct
-    /// contains private data only.
-    /// </summary>
+    /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='ApplicationCommandLineClass']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
     public class ApplicationCommandLineClass : GISharp.Lib.GObject.ObjectClass
     {
+        /// <summary>
+        /// Unmanaged data structure
+        /// </summary>
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='PrintLiteral']/*" />
             public System.IntPtr PrintLiteral;
+
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='PrinterrLiteral']/*" />
             public System.IntPtr PrinterrLiteral;
+
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='GetStdin']/*" />
             public System.IntPtr GetStdin;
+
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Padding']/*" />
             public System.IntPtr* Padding;
 #pragma warning restore CS0649
         }
@@ -30,8 +39,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(getStdinOffset, GetStdinMarshal.Create);
         }
 
+        /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='PrintLiteral']/*" />
         public delegate void PrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -48,6 +61,9 @@ System.IntPtr message);
         /// </summary>
         public static class PrintLiteralMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedPrintLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedPrintLiteral(System.IntPtr cmdline_, System.IntPtr message_)
@@ -69,8 +85,12 @@ System.IntPtr message);
             }
         }
 
+        /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='PrinterrLiteral']/*" />
         public delegate void PrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message);
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -87,6 +107,9 @@ System.IntPtr message);
         /// </summary>
         public static class PrinterrLiteralMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedPrinterrLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedPrinterrLiteral(System.IntPtr cmdline_, System.IntPtr message_)
@@ -108,8 +131,12 @@ System.IntPtr message);
             }
         }
 
+        /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='GetStdin']/*" />
         public delegate GISharp.Lib.Gio.InputStream GetStdin();
 
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
@@ -123,6 +150,9 @@ System.IntPtr cmdline);
         /// </summary>
         public static class GetStdinMarshal
         {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
             public static unsafe UnmanagedGetStdin Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.IntPtr unmanagedGetStdin(System.IntPtr cmdline_)
@@ -147,6 +177,9 @@ System.IntPtr cmdline);
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         public ApplicationCommandLineClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }
