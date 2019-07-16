@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIRepository-2.0", "GIRepos
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIRepository-2.0.Test", "GIRepository-2.0.Test\GIRepository-2.0.Test.csproj", "{746D44D3-A201-4FB6-8697-7609E2C3C70E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGen", "CodeGen\CodeGen.csproj", "{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGen", "tools\CodeGen\CodeGen.csproj", "{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLib-2.0", "GLib-2.0\GLib-2.0.csproj", "{177DD4B3-658C-48DC-AC1E-30E2F170A34F}"
 EndProject
