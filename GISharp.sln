@@ -27,7 +27,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0", "src\GObject-
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0", "src\Gio-2.0\Gio-2.0.csproj", "{8E23D0EC-C98A-4275-8171-07688F5EDDE1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0.Test", "Gio-2.0.Test\Gio-2.0.Test.csproj", "{8441EC25-8A72-407C-85E9-957648FE36E7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Gio-2.0", "test\Test.Gio-2.0\Test.Gio-2.0.csproj", "{8441EC25-8A72-407C-85E9-957648FE36E7}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GI.Dynamic.Playground", "GI.Dynamic.Playground\GI.Dynamic.Playground.csproj", "{61A206E0-B860-4A3D-93CC-046D6FE871BF}"
 EndProject

@@ -11,7 +11,7 @@
 
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
-    <CoverletOutput>../.coverage/gio-2.0.info</CoverletOutput>
+    <CoverletOutput>../../.coverage/gio-2.0.info</CoverletOutput>
     <Include>[Gio-2.0]*</Include> 
   </PropertyGroup>
 
@@ -26,8 +26,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Core\Core.csproj" />
-    <ProjectReference Include="..\src\Gio-2.0\Gio-2.0.csproj" />
-    <ProjectReference Include="..\test\TestHelpers\TestHelpers.csproj" />
+    <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\Gio-2.0\Gio-2.0.csproj" />
+    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 </Project>
