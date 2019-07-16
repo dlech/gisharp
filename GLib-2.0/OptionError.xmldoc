@@ -27,6 +27,9 @@ Error codes returned by option parsing.
 </member>
 
 <member name='Quark'>
+<summary>
+Gets the <see cref="OptionError"/> Quark.
+</summary>
 </member>
 
 </declaration>

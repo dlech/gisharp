@@ -44,6 +44,9 @@ Error codes returned by key file parsing.
 </member>
 
 <member name='Quark'>
+<summary>
+Gets the <see cref="KeyFileError"/> Quark.
+</summary>
 </member>
 
 </declaration>
