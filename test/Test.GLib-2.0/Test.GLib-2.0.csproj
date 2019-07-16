@@ -10,7 +10,7 @@
 
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
-    <CoverletOutput>../.coverage/glib-2.0.info</CoverletOutput>
+    <CoverletOutput>../../.coverage/glib-2.0.info</CoverletOutput>
     <Include>[GLib-2.0]*</Include> 
   </PropertyGroup>
 
@@ -25,8 +25,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Core\Core.csproj" />
-    <ProjectReference Include="..\src\GLib-2.0\GLib-2.0.csproj" />
-    <ProjectReference Include="..\test\TestHelpers\TestHelpers.csproj" />
+    <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\GLib-2.0\GLib-2.0.csproj" />
+    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 </Project>
