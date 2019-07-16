@@ -35,8 +35,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "src\Core\Core.cspro
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHelpers", "TestHelpers\TestHelpers.csproj", "{8E21B314-0DBD-4710-9D4C-65C6A3738B8B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core.Test.Runner", "Core.Test.Runner\Core.Test.Runner.csproj", "{4BB3345D-AF56-412F-8109-EE5AFE97C59A}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -102,12 +100,6 @@ Global
 		{8E21B314-0DBD-4710-9D4C-65C6A3738B8B}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8E21B314-0DBD-4710-9D4C-65C6A3738B8B}.Default|Any CPU.ActiveCfg = Debug|Any CPU
 		{8E21B314-0DBD-4710-9D4C-65C6A3738B8B}.Default|Any CPU.Build.0 = Debug|Any CPU
-		{4BB3345D-AF56-412F-8109-EE5AFE97C59A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BB3345D-AF56-412F-8109-EE5AFE97C59A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4BB3345D-AF56-412F-8109-EE5AFE97C59A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4BB3345D-AF56-412F-8109-EE5AFE97C59A}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4BB3345D-AF56-412F-8109-EE5AFE97C59A}.Default|Any CPU.ActiveCfg = Debug|Any CPU
-		{4BB3345D-AF56-412F-8109-EE5AFE97C59A}.Default|Any CPU.Build.0 = Debug|Any CPU
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		Policies = $0
