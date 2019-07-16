@@ -27,7 +27,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\src\Core\Core.csproj" />
-    <ProjectReference Include="..\Gio-2.0\Gio-2.0.csproj" />
+    <ProjectReference Include="..\src\Gio-2.0\Gio-2.0.csproj" />
     <ProjectReference Include="..\test\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 </Project>

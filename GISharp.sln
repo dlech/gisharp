@@ -25,7 +25,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Core", "test\Test.Core
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0", "src\GObject-2.0\GObject-2.0.csproj", "{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0", "Gio-2.0\Gio-2.0.csproj", "{8E23D0EC-C98A-4275-8171-07688F5EDDE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0", "src\Gio-2.0\Gio-2.0.csproj", "{8E23D0EC-C98A-4275-8171-07688F5EDDE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0.Test", "Gio-2.0.Test\Gio-2.0.Test.csproj", "{8441EC25-8A72-407C-85E9-957648FE36E7}"
 EndProject
