@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
   <ItemGroup>
     <ProjectReference Include="..\src\Core\Core.csproj" />
-    <ProjectReference Include="..\GLib-2.0\GLib-2.0.csproj" />
+    <ProjectReference Include="..\src\GLib-2.0\GLib-2.0.csproj" />
   </ItemGroup>
   <PropertyGroup>
     <TargetFramework>netstandard2.1</TargetFramework>
