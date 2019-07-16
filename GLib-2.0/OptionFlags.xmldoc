@@ -45,9 +45,9 @@ For options of the <see cref="OptionArg.Callback"/>
 <member name='OptionalArg'>
 <summary>
 For options of the <see cref="OptionArg.Callback"/>
-    kind, this flag indicates that the argument supply is optional.
-    If no argument is given then data of %GOptionParseFunc will be
-    set to NULL.
+kind, this flag indicates that the argument supply is optional.
+If no argument is given then data of <see cref="OptionParseFunc"/> will be
+set to <c>null</c>.
 </summary>
 </member>
 

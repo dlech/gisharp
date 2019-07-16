@@ -2006,7 +2006,8 @@ are byte strings that are used to identify the file on the filesystem
 have any particular charset encoding or even make any sense at all. If
 you want to use filenames in a user interface you should use the display
 name that you can get by requesting the
-%G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME attribute with <see cref="M:File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="FileAttribute.StandardDisplayName"/> attribute with
+<see cref="M:File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>.
 This is guaranteed to be in UTF-8 and can be used in a user interface.
 But always store the real basename or the <see cref="IFile"/> to use to actually
 access the file, because there is no way to go from a display name to
@@ -2654,7 +2655,7 @@ or a uri like sftp://host/) it will return a single directory separator
 The base name is a byte string (not UTF-8). It has no defined encoding
 or rules other than it may not contain zero bytes.  If you want to use
 filenames in a user interface you should use the display name that you
-can get by requesting the %G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME
+can get by requesting the <see cref="FileAttribute.StandardDisplayName"/>
 attribute with <see cref="M:File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>.
 
 This call does no blocking I/O.
