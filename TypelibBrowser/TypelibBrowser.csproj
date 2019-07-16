@@ -72,7 +72,7 @@
       <Project>{26BF5EFC-10BF-46BC-A071-11F2B69C2844}</Project>
       <Name>GIRepository-2.0</Name>
     </ProjectReference>
-    <ProjectReference Include="..\Core\Core.csproj">
+    <ProjectReference Include="..\src\Core\Core.csproj">
       <Project>{E3732A37-C368-422B-94DD-3161226D923B}</Project>
       <Name>Core</Name>
     </ProjectReference>
