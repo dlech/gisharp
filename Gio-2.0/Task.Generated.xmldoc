@@ -81,41 +81,6 @@ Gets this instance's `task_data`.
 </summary>
 </member>
 
-<member name='New(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Creates a <see cref="Task"/> acting on <paramref name="sourceObject"/>, which will eventually be
-used to invoke <paramref name="callback"/> in the current
-[thread-default main context][g-main-context-push-thread-default].
-</summary>
-<remarks>
-Call this in the "start" method of your asynchronous method, and
-pass the <see cref="Task"/> around throughout the asynchronous operation. You
-can use <see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> to attach task-specific data to the
-object, which you can retrieve later via <see cref="M:Task.GetTaskData()"/>.
-
-By default, if <paramref name="cancellable"/> is cancelled, then the return value of
-the task will always be <see cref="IOErrorEnum.Cancelled"/>, even if the task had
-already completed before the cancellation. This allows for
-simplified handling in cases where cancellation may imply that
-other objects that the task depends on have been destroyed. If you
-do not want this behavior, you can use
-<see cref="M:Task.SetCheckCancellable(System.Boolean)"/> to change it.
-</remarks>
-<param name="sourceObject">
-the #GObject that owns
-  this task, or <c>null</c>.
-</param>
-<param name="callback">
-a <see cref="AsyncReadyCallback"/>.
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-</param>
-<returns>
-a <see cref="Task"/>.
-</returns>
-</member>
-
 <member name='Task(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Creates a <see cref="Task"/> acting on <paramref name="sourceObject"/>, which will eventually be
@@ -192,93 +157,6 @@ an opaque pointer indicating the source of this task
 <param name="error">
 error to report
 </param>
-</member>
-
-<member name='GetCancellable()'>
-<summary>
-Gets this instance's <see cref="Cancellable"/>
-</summary>
-<returns>
-this instance's <see cref="Cancellable"/>
-</returns>
-</member>
-
-<member name='GetCheckCancellable()'>
-<summary>
-Gets this instance's check-cancellable flag. See
-<see cref="M:Task.SetCheckCancellable(System.Boolean)"/> for more details.
-</summary>
-</member>
-
-<member name='GetCompleted()'>
-<summary>
-Gets the value of <see cref="Task"/>:completed. This changes from <c>false</c> to <c>true</c> after
-the task’s callback is invoked, and will return <c>false</c> if called from inside
-the callback.
-</summary>
-<returns>
-<c>true</c> if the task has completed, <c>false</c> otherwise.
-</returns>
-</member>
-
-<member name='GetContext()'>
-<summary>
-Gets the #GMainContext that this instance will return its result in (that
-is, the context that was the
-[thread-default main context][g-main-context-push-thread-default]
-at the point when this instance was created).
-</summary>
-<remarks>
-This will always return a non-<c>null</c> value, even if the task's
-context is the default #GMainContext.
-</remarks>
-<returns>
-this instance's #GMainContext
-</returns>
-</member>
-
-<member name='GetPriority()'>
-<summary>
-Gets this instance's priority
-</summary>
-<returns>
-this instance's priority
-</returns>
-</member>
-
-<member name='GetReturnOnCancel()'>
-<summary>
-Gets this instance's return-on-cancel flag. See
-<see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> for more details.
-</summary>
-</member>
-
-<member name='GetSourceObject()'>
-<summary>
-Gets the source object from this instance. Like
-<see cref="M:AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)"/>, but does not ref the object.
-</summary>
-<returns>
-this instance's source object, or <c>null</c>
-</returns>
-</member>
-
-<member name='GetSourceTag()'>
-<summary>
-Gets this instance's source tag. See <see cref="M:Task.SetSourceTag(System.IntPtr)"/>.
-</summary>
-<returns>
-this instance's source tag
-</returns>
-</member>
-
-<member name='GetTaskData()'>
-<summary>
-Gets this instance's `task_data`.
-</summary>
-<returns>
-this instance's `task_data`.
-</returns>
 </member>
 
 <member name='HadError()'>
@@ -399,46 +277,6 @@ the integer (#gssize) result of a task function.
 </param>
 </member>
 
-<member name='SetCheckCancellable(System.Boolean)'>
-<summary>
-Sets or clears this instance's check-cancellable flag. If this is <c>true</c>
-(the default), then <see cref="M:Task.PropagatePointer()"/>, etc, and
-<see cref="M:Task.HadError()"/> will check the task's <see cref="Cancellable"/> first, and
-if it has been cancelled, then they will consider the task to have
-returned an "Operation was cancelled" error
-(<see cref="IOErrorEnum.Cancelled"/>), regardless of any other error or return
-value the task may have had.
-</summary>
-<remarks>
-If this instance is <c>false</c>, then the <see cref="Task"/> will not check the
-cancellable itself, and it is up to this instance's owner to do this (eg,
-via <see cref="M:Task.ReturnErrorIfCancelled()"/>).
-
-If you are using <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> as well, then
-you must leave check-cancellable set <c>true</c>.
-</remarks>
-<param name="checkCancellable">
-whether <see cref="Task"/> will check the state of
-  its <see cref="Cancellable"/> for you.
-</param>
-</member>
-
-<member name='SetPriority(System.Int32)'>
-<summary>
-Sets this instance's priority. If you do not call this, it will default to
-%G_PRIORITY_DEFAULT.
-</summary>
-<remarks>
-This will affect the priority of #GSources created with
-g_task_attach_source() and the scheduling of tasks run in threads,
-and can also be explicitly retrieved later via
-<see cref="M:Task.GetPriority()"/>.
-</remarks>
-<param name="priority">
-the [priority][io-priority] of the request
-</param>
-</member>
-
 <member name='SetReturnOnCancel(System.Boolean)'>
 <summary>
 Sets or clears this instance's return-on-cancel flag. This is only
@@ -480,20 +318,6 @@ whether the task returns automatically when
   match this instance. <c>false</c> if this instance has already been
   cancelled.
 </returns>
-</member>
-
-<member name='SetSourceTag(System.IntPtr)'>
-<summary>
-Sets this instance's source tag. You can use this to tag a task return
-value with a particular pointer (usually a pointer to the function
-doing the tagging) and then later check it using
-<see cref="M:Task.GetSourceTag()"/> (or <see cref="M:AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/>) in the
-task's "finish" function, to figure out if the response came from a
-particular place.
-</summary>
-<param name="sourceTag">
-an opaque pointer indicating the source of this task
-</param>
 </member>
 
 <member name='Task'>

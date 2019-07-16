@@ -140,27 +140,6 @@ Checks if an output stream has pending actions.
 </returns>
 </member>
 
-<member name='GetIsClosed()'>
-<summary>
-Checks if an output stream has already been closed.
-</summary>
-<returns>
-<c>true</c> if this instance is closed. <c>false</c> otherwise.
-</returns>
-</member>
-
-<member name='GetIsClosing()'>
-<summary>
-Checks if an output stream is being closed. This can be
-used inside e.g. a flush implementation to see if the
-flush (or other i/o operation) is called from within
-the closing operation.
-</summary>
-<returns>
-<c>true</c> if this instance is being closed. <c>false</c> otherwise.
-</returns>
-</member>
-
 <member name='SetPending()'>
 <summary>
 Sets this instance to have actions pending. If the pending flag is

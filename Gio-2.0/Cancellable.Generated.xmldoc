@@ -38,9 +38,6 @@ Checks if a cancellable job has been cancelled.
 </summary>
 </member>
 
-<member name='New()'>
-</member>
-
 <member name='Cancellable()'>
 <summary>
 Creates a new <see cref="Cancellable"/> object.
@@ -169,16 +166,6 @@ cancellable signal should not do something that can block.
 </remarks>
 </member>
 
-<member name='GetCurrent()'>
-<summary>
-Gets the top cancellable from the stack.
-</summary>
-<returns>
-a <see cref="Cancellable"/> from the top
-of the stack, or <c>null</c> if the stack is empty.
-</returns>
-</member>
-
 <member name='Cancel()'>
 <summary>
 Will set this instance to cancelled, and will emit the
@@ -253,39 +240,6 @@ nothing.
 <param name="handlerId">
 Handler id of the handler to be disconnected, or `0`.
 </param>
-</member>
-
-<member name='GetFd()'>
-<summary>
-Gets the file descriptor for a cancellable job. This can be used to
-implement cancellable operations on Unix systems. The returned fd will
-turn readable when this instance is cancelled.
-</summary>
-<remarks>
-You are not supposed to read from the fd yourself, just check for
-readable status. Reading to unset the readable status is done
-with <see cref="M:Cancellable.Reset()"/>.
-
-After a successful return from this function, you should use
-<see cref="M:Cancellable.ReleaseFd()"/> to free up resources allocated for
-the returned file descriptor.
-
-See also <see cref="M:Cancellable.TryMakePollfd(GISharp.Lib.GLib.PollFD)"/>.
-</remarks>
-<returns>
-A valid file descriptor. %-1 if the file descriptor
-is not supported, or on errors.
-</returns>
-</member>
-
-<member name='GetIsCancelled()'>
-<summary>
-Checks if a cancellable job has been cancelled.
-</summary>
-<returns>
-<c>true</c> if this instance is cancelled,
-FALSE if called with <c>null</c> or if item is not cancelled.
-</returns>
 </member>
 
 <member name='TryMakePollfd(GISharp.Lib.GLib.PollFD)'>

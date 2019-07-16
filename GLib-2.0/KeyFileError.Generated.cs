@@ -33,7 +33,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:out */
         static extern unsafe GISharp.Lib.GLib.Quark g_key_file_error_quark();
 
-        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='GetQuark()']/*" />
         private static unsafe GISharp.Lib.GLib.Quark GetQuark()
         {
             var ret_ = g_key_file_error_quark();

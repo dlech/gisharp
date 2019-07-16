@@ -75,7 +75,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_file_info_new();
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='New()']/*" />
         static unsafe System.IntPtr New()
         {
             var ret_ = g_file_info_new();
@@ -755,7 +754,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetContentType()']/*" />
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetContentType()
         {
             var info_ = Handle;
@@ -784,7 +782,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetDeletionDate()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe GISharp.Lib.GLib.DateTime GetDeletionDate()
         {
@@ -811,7 +808,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetDisplayName()']/*" />
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetDisplayName()
         {
             var info_ = Handle;
@@ -837,7 +833,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetEditName()']/*" />
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetEditName()
         {
             var info_ = Handle;
@@ -864,7 +859,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetEtag()']/*" />
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetEtag()
         {
             var info_ = Handle;
@@ -891,7 +885,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetFileType()']/*" />
         private unsafe GISharp.Lib.Gio.FileType GetFileType()
         {
             var info_ = Handle;
@@ -917,7 +910,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetIcon()']/*" />
         private unsafe GISharp.Lib.Gio.IIcon GetIcon()
         {
             var info_ = Handle;
@@ -943,7 +935,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetIsBackup()']/*" />
         private unsafe System.Boolean GetIsBackup()
         {
             var info_ = Handle;
@@ -969,7 +960,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetIsHidden()']/*" />
         private unsafe System.Boolean GetIsHidden()
         {
             var info_ = Handle;
@@ -995,7 +985,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetIsSymlink()']/*" />
         private unsafe System.Boolean GetIsSymlink()
         {
             var info_ = Handle;
@@ -1050,7 +1039,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetName()']/*" />
         private unsafe GISharp.Lib.GLib.Filename GetName()
         {
             var info_ = Handle;
@@ -1076,7 +1064,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetSize()']/*" />
         private unsafe System.Int64 GetSize()
         {
             var info_ = Handle;
@@ -1103,7 +1090,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetSortOrder()']/*" />
         private unsafe System.Int32 GetSortOrder()
         {
             var info_ = Handle;
@@ -1130,7 +1116,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetSymbolicIcon()']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         private unsafe GISharp.Lib.Gio.IIcon GetSymbolicIcon()
         {
@@ -1157,7 +1142,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetSymlinkTarget()']/*" />
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetSymlinkTarget()
         {
             var info_ = Handle;
@@ -1881,7 +1865,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr contentType);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetContentType(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         private unsafe void SetContentType(GISharp.Lib.GLib.UnownedUtf8 contentType)
         {
             var info_ = Handle;
@@ -1889,7 +1872,6 @@ namespace GISharp.Lib.Gio
             g_file_info_set_content_type(info_, contentType_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetContentType(System.String)']/*" />
         private unsafe void SetContentType(System.String contentType)
         {
             using var contentTypeUtf8 = new GISharp.Lib.GLib.Utf8(contentType);
@@ -1917,7 +1899,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr displayName);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetDisplayName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         private unsafe void SetDisplayName(GISharp.Lib.GLib.UnownedUtf8 displayName)
         {
             var info_ = Handle;
@@ -1925,7 +1906,6 @@ namespace GISharp.Lib.Gio
             g_file_info_set_display_name(info_, displayName_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetDisplayName(System.String)']/*" />
         private unsafe void SetDisplayName(System.String displayName)
         {
             using var displayNameUtf8 = new GISharp.Lib.GLib.Utf8(displayName);
@@ -1953,7 +1933,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr editName);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetEditName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         private unsafe void SetEditName(GISharp.Lib.GLib.UnownedUtf8 editName)
         {
             var info_ = Handle;
@@ -1961,7 +1940,6 @@ namespace GISharp.Lib.Gio
             g_file_info_set_edit_name(info_, editName_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetEditName(System.String)']/*" />
         private unsafe void SetEditName(System.String editName)
         {
             using var editNameUtf8 = new GISharp.Lib.GLib.Utf8(editName);
@@ -1989,7 +1967,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileType type);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetFileType(GISharp.Lib.Gio.FileType)']/*" />
         private unsafe void SetFileType(GISharp.Lib.Gio.FileType type)
         {
             var info_ = Handle;
@@ -2018,7 +1995,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetIcon(GISharp.Lib.Gio.IIcon)']/*" />
         private unsafe void SetIcon(GISharp.Lib.Gio.IIcon icon)
         {
             var info_ = Handle;
@@ -2047,7 +2023,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean isHidden);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetIsHidden(System.Boolean)']/*" />
         private unsafe void SetIsHidden(System.Boolean isHidden)
         {
             var info_ = Handle;
@@ -2076,7 +2051,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean isSymlink);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetIsSymlink(System.Boolean)']/*" />
         private unsafe void SetIsSymlink(System.Boolean isSymlink)
         {
             var info_ = Handle;
@@ -2134,7 +2108,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr name);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetName(GISharp.Lib.GLib.Filename)']/*" />
         private unsafe void SetName(GISharp.Lib.GLib.Filename name)
         {
             var info_ = Handle;
@@ -2163,7 +2136,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.Int64 size);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetSize(System.Int64)']/*" />
         private unsafe void SetSize(System.Int64 size)
         {
             var info_ = Handle;
@@ -2192,7 +2164,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.Int32 sortOrder);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetSortOrder(System.Int32)']/*" />
         private unsafe void SetSortOrder(System.Int32 sortOrder)
         {
             var info_ = Handle;
@@ -2222,7 +2193,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetSymbolicIcon(GISharp.Lib.Gio.IIcon)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         private unsafe void SetSymbolicIcon(GISharp.Lib.Gio.IIcon icon)
         {
@@ -2252,7 +2222,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr symlinkTarget);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetSymlinkTarget(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         private unsafe void SetSymlinkTarget(GISharp.Lib.GLib.UnownedUtf8 symlinkTarget)
         {
             var info_ = Handle;
@@ -2260,7 +2229,6 @@ namespace GISharp.Lib.Gio
             g_file_info_set_symlink_target(info_, symlinkTarget_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetSymlinkTarget(System.String)']/*" />
         private unsafe void SetSymlinkTarget(System.String symlinkTarget)
         {
             using var symlinkTargetUtf8 = new GISharp.Lib.GLib.Utf8(symlinkTarget);

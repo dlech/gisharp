@@ -135,9 +135,6 @@ See <see cref="M:Application.SetResourceBasePath(GISharp.Lib.GLib.Utf8)"/> for m
 </remarks>
 </member>
 
-<member name='New(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)'>
-</member>
-
 <member name='Application(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)'>
 <summary>
 Creates a new <see cref="Application"/> instance.
@@ -155,9 +152,6 @@ the application id
 <param name="flags">
 the application flags
 </param>
-</member>
-
-<member name='New(System.String?,GISharp.Lib.Gio.ApplicationFlags)'>
 </member>
 
 <member name='Application(System.String?,GISharp.Lib.Gio.ApplicationFlags)'>
@@ -384,22 +378,6 @@ after registration. See <see cref="M:Application.Register(GISharp.Lib.Gio.Cancel
 The ::startup signal is emitted on the primary instance immediately
 after registration. See <see cref="M:Application.Register(GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
-</member>
-
-<member name='GetDefault()'>
-<summary>
-Returns the default <see cref="Application"/> instance for this process.
-</summary>
-<remarks>
-Normally there is only one <see cref="Application"/> per process and it becomes
-the default when it is created.  You can exercise more control over
-this by using <see cref="M:Application.SetDefault()"/>.
-
-If there is no default application then <c>null</c> is returned.
-</remarks>
-<returns>
-the default application for this process, or <c>null</c>
-</returns>
 </member>
 
 <member name='IdIsValid(GISharp.Lib.GLib.UnownedUtf8)'>
@@ -738,117 +716,6 @@ the name of a boolean property of this instance
 </param>
 </member>
 
-<member name='GetApplicationId()'>
-<summary>
-Gets the unique identifier for this instance.
-</summary>
-<returns>
-the identifier for this instance, owned by this instance
-</returns>
-</member>
-
-<member name='GetDbusObjectPath()'>
-<summary>
-Gets the D-Bus object path being used by the application, or <c>null</c>.
-</summary>
-<remarks>
-If <see cref="Application"/> is using its D-Bus backend then this function will
-return the D-Bus object path that <see cref="Application"/> is using.  If the
-application is the primary instance then there is an object published
-at this path.  If the application is not the primary instance then
-the result of this function is undefined.
-
-If <see cref="Application"/> is not using D-Bus then this function will return
-<c>null</c>.  This includes the situation where the D-Bus backend would
-normally be in use but we were unable to connect to the bus.
-
-This function must not be called before the application has been
-registered.  See <see cref="M:Application.GetIsRegistered()"/>.
-</remarks>
-<returns>
-the object path, or <c>null</c>
-</returns>
-</member>
-
-<member name='GetFlags()'>
-<summary>
-Gets the flags for this instance.
-</summary>
-<remarks>
-See <see cref="ApplicationFlags"/>.
-</remarks>
-<returns>
-the flags for this instance
-</returns>
-</member>
-
-<member name='GetInactivityTimeout()'>
-<summary>
-Gets the current inactivity timeout for the application.
-</summary>
-<remarks>
-This is the amount of time (in milliseconds) after the last call to
-<see cref="M:Application.Release()"/> before the application stops running.
-</remarks>
-<returns>
-the timeout, in milliseconds
-</returns>
-</member>
-
-<member name='GetIsBusy()'>
-<summary>
-Gets the application's current busy state, as set through
-<see cref="M:Application.MarkBusy()"/> or <see cref="M:Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.Utf8)"/>.
-</summary>
-<returns>
-<c>true</c> if this instance is currenty marked as busy
-</returns>
-</member>
-
-<member name='GetIsRegistered()'>
-<summary>
-Checks if this instance is registered.
-</summary>
-<remarks>
-An application is registered if <see cref="M:Application.Register(GISharp.Lib.Gio.Cancellable)"/> has been
-successfully called.
-</remarks>
-<returns>
-<c>true</c> if this instance is registered
-</returns>
-</member>
-
-<member name='GetIsRemote()'>
-<summary>
-Checks if this instance is remote.
-</summary>
-<remarks>
-If this instance is remote then it means that another instance of
-application already exists (the 'primary' instance).  Calls to
-perform actions on this instance will result in the actions being
-performed by the primary instance.
-
-The value of this property cannot be accessed before
-<see cref="M:Application.Register(GISharp.Lib.Gio.Cancellable)"/> has been called.  See
-<see cref="M:Application.GetIsRegistered()"/>.
-</remarks>
-<returns>
-<c>true</c> if this instance is remote
-</returns>
-</member>
-
-<member name='GetResourceBasePath()'>
-<summary>
-Gets the resource base path of this instance.
-</summary>
-<remarks>
-See <see cref="M:Application.SetResourceBasePath(GISharp.Lib.GLib.Utf8)"/> for more information.
-</remarks>
-<returns>
-the base resource path, if one is set
-</returns>
-</member>
-
 <member name='Hold()'>
 <summary>
 Increases the use count of this instance.
@@ -1101,38 +968,6 @@ a <see cref="IActionGroup"/>, or <c>null</c>
 </param>
 </member>
 
-<member name='SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8)'>
-<summary>
-Sets the unique identifier for this instance.
-</summary>
-<remarks>
-The application id can only be modified if this instance has not yet
-been registered.
-
-If non-<c>null</c>, the application id must be valid.  See
-<see cref="M:Application.IdIsValid(GISharp.Lib.GLib.Utf8)"/>.
-</remarks>
-<param name="applicationId">
-the identifier for this instance
-</param>
-</member>
-
-<member name='SetApplicationId(System.String?)'>
-<summary>
-Sets the unique identifier for this instance.
-</summary>
-<remarks>
-The application id can only be modified if this instance has not yet
-been registered.
-
-If non-<c>null</c>, the application id must be valid.  See
-<see cref="M:Application.IdIsValid(GISharp.Lib.GLib.Utf8)"/>.
-</remarks>
-<param name="applicationId">
-the identifier for this instance
-</param>
-</member>
-
 <member name='SetDefault()'>
 <summary>
 Sets or unsets the default application for the process, as returned
@@ -1143,38 +978,6 @@ This function does not take its own reference on this instance.  If
 this instance is destroyed then the default application will revert
 back to <c>null</c>.
 </remarks>
-</member>
-
-<member name='SetFlags(GISharp.Lib.Gio.ApplicationFlags)'>
-<summary>
-Sets the flags for this instance.
-</summary>
-<remarks>
-The flags can only be modified if this instance has not yet been
-registered.
-
-See <see cref="ApplicationFlags"/>.
-</remarks>
-<param name="flags">
-the flags for this instance
-</param>
-</member>
-
-<member name='SetInactivityTimeout(System.UInt32)'>
-<summary>
-Sets the current inactivity timeout for the application.
-</summary>
-<remarks>
-This is the amount of time (in milliseconds) after the last call to
-<see cref="M:Application.Release()"/> before the application stops running.
-
-This call has no side effects of its own.  The value set here is only
-used for next time <see cref="M:Application.Release()"/> drops the use count to
-zero.  Any timeouts currently in progress are not impacted.
-</remarks>
-<param name="inactivityTimeout">
-the timeout, in milliseconds
-</param>
 </member>
 
 <member name='SetOptionContextDescription(GISharp.Lib.GLib.NullableUnownedUtf8)'>
@@ -1258,90 +1061,6 @@ See g_option_context_set_summary() for more information.
 <param name="summary">
 a string to be shown in `--help` output
  before the list of options, or <c>null</c>
-</param>
-</member>
-
-<member name='SetResourceBasePath(GISharp.Lib.GLib.NullableUnownedUtf8)'>
-<summary>
-Sets (or unsets) the base resource path of this instance.
-</summary>
-<remarks>
-The path is used to automatically load various [application
-resources][gresource] such as menu layouts and action descriptions.
-The various types of resources will be found at fixed names relative
-to the given base path.
-
-By default, the resource base path is determined from the application
-ID by prefixing '/' and replacing each '.' with '/'.  This is done at
-the time that the <see cref="Application"/> object is constructed.  Changes to
-the application ID after that point will not have an impact on the
-resource base path.
-
-As an example, if the application has an ID of "org.example.app" then
-the default resource base path will be "/org/example/app".  If this
-is a #GtkApplication (and you have not manually changed the path)
-then Gtk will then search for the menus of the application at
-"/org/example/app/gtk/menus.ui".
-
-See #GResource for more information about adding resources to your
-application.
-
-You can disable automatic resource loading functionality by setting
-the path to <c>null</c>.
-
-Changing the resource base path once the application is running is
-not recommended.  The point at which the resource path is consulted
-for forming paths for various purposes is unspecified.  When writing
-a sub-class of <see cref="Application"/> you should either set the
-<see cref="Application"/>:resource-base-path property at construction time, or call
-this function during the instance initialization. Alternatively, you
-can call this function in the <see cref="ApplicationClass"/>.startup virtual function,
-before chaining up to the parent implementation.
-</remarks>
-<param name="resourcePath">
-the resource path to use
-</param>
-</member>
-
-<member name='SetResourceBasePath(System.String?)'>
-<summary>
-Sets (or unsets) the base resource path of this instance.
-</summary>
-<remarks>
-The path is used to automatically load various [application
-resources][gresource] such as menu layouts and action descriptions.
-The various types of resources will be found at fixed names relative
-to the given base path.
-
-By default, the resource base path is determined from the application
-ID by prefixing '/' and replacing each '.' with '/'.  This is done at
-the time that the <see cref="Application"/> object is constructed.  Changes to
-the application ID after that point will not have an impact on the
-resource base path.
-
-As an example, if the application has an ID of "org.example.app" then
-the default resource base path will be "/org/example/app".  If this
-is a #GtkApplication (and you have not manually changed the path)
-then Gtk will then search for the menus of the application at
-"/org/example/app/gtk/menus.ui".
-
-See #GResource for more information about adding resources to your
-application.
-
-You can disable automatic resource loading functionality by setting
-the path to <c>null</c>.
-
-Changing the resource base path once the application is running is
-not recommended.  The point at which the resource path is consulted
-for forming paths for various purposes is unspecified.  When writing
-a sub-class of <see cref="Application"/> you should either set the
-<see cref="Application"/>:resource-base-path property at construction time, or call
-this function during the instance initialization. Alternatively, you
-can call this function in the <see cref="ApplicationClass"/>.startup virtual function,
-before chaining up to the parent implementation.
-</remarks>
-<param name="resourcePath">
-the resource path to use
 </param>
 </member>
 

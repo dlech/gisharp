@@ -1,8 +1,5 @@
 <declaration>
 
-<member name='New(GISharp.Lib.GLib.UnownedUtf8)'>
-</member>
-
 <member name='FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Creates a new file attribute matcher, which matches attributes
@@ -29,9 +26,6 @@ The wildcard "*" may be used to match all keys and namespaces, or
 <param name="attributes">
 an attribute string to match.
 </param>
-</member>
-
-<member name='New(System.String)'>
 </member>
 
 <member name='FileAttributeMatcher(System.String)'>

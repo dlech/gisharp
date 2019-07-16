@@ -77,7 +77,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameterString);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString)
         {
@@ -156,7 +155,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetDescription()']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetDescription()
         {
@@ -233,7 +231,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetHelpEnabled()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe System.Boolean GetHelpEnabled()
         {
@@ -262,7 +259,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetIgnoreUnknownOptions()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe System.Boolean GetIgnoreUnknownOptions()
         {
@@ -292,7 +288,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetMainGroup()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe GISharp.Lib.GLib.OptionGroup GetMainGroup()
         {
@@ -323,7 +318,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetStrictPosix()']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         private unsafe System.Boolean GetStrictPosix()
         {
@@ -351,7 +345,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr context);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetSummary()']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetSummary()
         {
@@ -388,7 +381,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr description);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8 description)
         {
@@ -397,7 +389,6 @@ namespace GISharp.Lib.GLib
             g_option_context_set_description(context_, description_);
         }
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetDescription(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetDescription(System.String? description)
         {
@@ -429,7 +420,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean helpEnabled);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetHelpEnabled(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe void SetHelpEnabled(System.Boolean helpEnabled)
         {
@@ -467,7 +457,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean ignoreUnknown);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetIgnoreUnknownOptions(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe void SetIgnoreUnknownOptions(System.Boolean ignoreUnknown)
         {
@@ -500,7 +489,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:full direction:in */
         System.IntPtr group);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetMainGroup(GISharp.Lib.GLib.OptionGroup)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe void SetMainGroup(GISharp.Lib.GLib.OptionGroup group)
         {
@@ -554,7 +542,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean strictPosix);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetStrictPosix(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         private unsafe void SetStrictPosix(System.Boolean strictPosix)
         {
@@ -591,7 +578,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr summary);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8 summary)
         {
@@ -600,7 +586,6 @@ namespace GISharp.Lib.GLib
             g_option_context_set_summary(context_, summary_);
         }
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetSummary(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         private unsafe void SetSummary(System.String? summary)
         {

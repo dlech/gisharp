@@ -82,8 +82,12 @@ namespace GISharp.CodeGen.Syntax
                 
             trivia = trivia.AddRange(function.GetGErrorExceptionDocCommentTrivia());
 
-            syntax = syntax.WithLeadingTrivia(trivia)
-                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
+            // only set "extern doc" if method is public
+            if (syntax.Modifiers.Any(x => x.IsEquivalentTo(Token(PublicKeyword))
+                                       || x.IsEquivalentTo(Token(ProtectedKeyword)))) {
+                syntax = syntax.WithLeadingTrivia(trivia)
+                    .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
+            }
 
             return syntax;
         }

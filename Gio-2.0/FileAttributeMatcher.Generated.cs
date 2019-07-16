@@ -52,7 +52,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attributes);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 attributes)
         {
             var attributes_ = attributes.Handle;
@@ -65,7 +64,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='New(System.String)']/*" />
         static unsafe System.IntPtr New(System.String attributes)
         {
             using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);

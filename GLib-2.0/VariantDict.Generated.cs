@@ -46,7 +46,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr fromAsv);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.Variant? fromAsv)
         {

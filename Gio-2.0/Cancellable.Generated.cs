@@ -59,7 +59,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_cancellable_new();
 
-        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='New()']/*" />
         static unsafe System.IntPtr New()
         {
             var ret_ = g_cancellable_new();
@@ -103,7 +102,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 direction:out */
         static extern unsafe System.IntPtr g_cancellable_get_current();
 
-        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='GetCurrent()']/*" />
         private static unsafe GISharp.Lib.Gio.Cancellable? GetCurrent()
         {
             var ret_ = g_cancellable_get_current();
@@ -294,7 +292,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
-        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='GetFd()']/*" />
         private unsafe System.Int32 GetFd()
         {
             var cancellable_ = Handle;
@@ -321,7 +318,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
-        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='GetIsCancelled()']/*" />
         private unsafe System.Boolean GetIsCancelled()
         {
             var cancellable_ = Handle;

@@ -46,7 +46,4 @@ Error codes returned by key file parsing.
 <member name='Quark'>
 </member>
 
-<member name='GetQuark()'>
-</member>
-
 </declaration>

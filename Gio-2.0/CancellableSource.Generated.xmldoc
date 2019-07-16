@@ -1,26 +1,5 @@
 <declaration>
 
-<member name='New(GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Creates a source that triggers if <paramref name="cancellable"/> is cancelled and
-calls its callback of type <see cref="CancellableSourceFunc"/>. This is
-primarily useful for attaching to another (non-cancellable) source
-with g_source_add_child_source() to add cancellability to it.
-</summary>
-<remarks>
-For convenience, you can call this with a <c>null</c> <see cref="Cancellable"/>,
-in which case the source will never trigger.
-
-The new #GSource will hold a reference to the <see cref="Cancellable"/>.
-</remarks>
-<param name="cancellable">
-a <see cref="Cancellable"/>, or <c>null</c>
-</param>
-<returns>
-the new #GSource.
-</returns>
-</member>
-
 <member name='CancellableSource(GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Creates a source that triggers if <paramref name="cancellable"/> is cancelled and

@@ -1,26 +1,5 @@
 <declaration>
 
-<member name='New(GISharp.Lib.GLib.VariantType)'>
-<summary>
-Allocates and initialises a new <see cref="VariantBuilder"/>.
-</summary>
-<remarks>
-You should call <see cref="M:VariantBuilder.Unref()"/> on the return value when it
-is no longer needed.  The memory will not be automatically freed by
-any other call.
-
-In most cases it is easier to place a <see cref="VariantBuilder"/> directly on
-the stack of the calling function and initialise it with
-g_variant_builder_init().
-</remarks>
-<param name="type">
-a container type
-</param>
-<returns>
-a <see cref="VariantBuilder"/>
-</returns>
-</member>
-
 <member name='VariantBuilder(GISharp.Lib.GLib.VariantType)'>
 <summary>
 Allocates and initialises a new <see cref="VariantBuilder"/>.

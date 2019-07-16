@@ -41,7 +41,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_file_attribute_info_list_new();
 
-        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='New()']/*" />
         static unsafe System.IntPtr New()
         {
             var ret_ = g_file_attribute_info_list_new();

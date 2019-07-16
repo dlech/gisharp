@@ -85,15 +85,6 @@ Checks if an input stream has pending actions.
 </returns>
 </member>
 
-<member name='GetIsClosed()'>
-<summary>
-Checks if an input stream is closed.
-</summary>
-<returns>
-<c>true</c> if the stream is closed.
-</returns>
-</member>
-
 <member name='Read(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to read this instance bytes from the stream into the buffer starting at

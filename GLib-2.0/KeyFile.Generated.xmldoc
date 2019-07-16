@@ -209,18 +209,6 @@ Returns the name of the start group of the file.
 </summary>
 </member>
 
-<member name='New()'>
-<summary>
-Creates a new empty <see cref="KeyFile"/> object. Use
-<see cref="M:KeyFile.LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/>, <see cref="M:KeyFile.LoadFromData(GISharp.Lib.GLib.Utf8,System.Int32,GISharp.Lib.GLib.KeyFileFlags)"/>,
-<see cref="M:KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.FilenameArray,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> or <see cref="M:KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> to
-read an existing key file.
-</summary>
-<returns>
-an empty <see cref="KeyFile"/>.
-</returns>
-</member>
-
 <member name='KeyFile()'>
 <summary>
 Creates a new empty <see cref="KeyFile"/> object. Use
@@ -492,18 +480,6 @@ a key
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>
-</member>
-
-<member name='GetGroups()'>
-<summary>
-Returns all groups in the key file loaded with this instance.
-The array of returned groups will be <c>null</c>-terminated, so
-this instance may optionally be <c>null</c>.
-</summary>
-<returns>
-a newly-allocated <c>null</c>-terminated array of strings.
-  Use g_strfreev() to free it.
-</returns>
 </member>
 
 <member name='GetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
@@ -896,15 +872,6 @@ a newly allocated <c>null</c>-terminated string array
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>
-</member>
-
-<member name='GetStartGroup()'>
-<summary>
-Returns the name of the start group of the file.
-</summary>
-<returns>
-The start group of the key file.
-</returns>
 </member>
 
 <member name='GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>

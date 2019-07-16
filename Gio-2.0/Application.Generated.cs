@@ -131,7 +131,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationFlags flags);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)']/*" />
         static unsafe System.IntPtr New(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
         {
             var applicationId_ = applicationId.Handle;
@@ -145,7 +144,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='New(System.String?,GISharp.Lib.Gio.ApplicationFlags)']/*" />
         static unsafe System.IntPtr New(System.String? applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
         {
             using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
@@ -335,7 +333,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:out */
         static extern unsafe System.IntPtr g_application_get_default();
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='GetDefault()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         private static unsafe GISharp.Lib.Gio.Application GetDefault()
         {
@@ -755,7 +752,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='GetApplicationId()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetApplicationId()
         {
@@ -797,7 +793,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='GetDbusObjectPath()']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetDbusObjectPath()
         {
@@ -828,7 +823,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='GetFlags()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Lib.Gio.ApplicationFlags GetFlags()
         {
@@ -860,7 +854,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='GetInactivityTimeout()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.UInt32 GetInactivityTimeout()
         {
@@ -889,7 +882,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='GetIsBusy()']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         private unsafe System.Boolean GetIsBusy()
         {
@@ -921,7 +913,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='GetIsRegistered()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.Boolean GetIsRegistered()
         {
@@ -959,7 +950,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='GetIsRemote()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.Boolean GetIsRemote()
         {
@@ -990,7 +980,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='GetResourceBasePath()']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetResourceBasePath()
         {
@@ -1448,7 +1437,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr applicationId);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId)
         {
@@ -1457,7 +1445,6 @@ namespace GISharp.Lib.Gio
             g_application_set_application_id(application_, applicationId_);
         }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='SetApplicationId(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetApplicationId(System.String? applicationId)
         {
@@ -1521,7 +1508,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationFlags flags);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='SetFlags(GISharp.Lib.Gio.ApplicationFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetFlags(GISharp.Lib.Gio.ApplicationFlags flags)
         {
@@ -1559,7 +1545,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.UInt32 inactivityTimeout);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='SetInactivityTimeout(System.UInt32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetInactivityTimeout(System.UInt32 inactivityTimeout)
         {
@@ -1751,7 +1736,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr resourcePath);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='SetResourceBasePath(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         private unsafe void SetResourceBasePath(GISharp.Lib.GLib.NullableUnownedUtf8 resourcePath)
         {
@@ -1760,7 +1744,6 @@ namespace GISharp.Lib.Gio
             g_application_set_resource_base_path(application_, resourcePath_);
         }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='SetResourceBasePath(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         private unsafe void SetResourceBasePath(System.String? resourcePath)
         {

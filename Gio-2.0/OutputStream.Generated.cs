@@ -460,7 +460,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='GetIsClosed()']/*" />
         private unsafe System.Boolean GetIsClosed()
         {
             var stream_ = Handle;
@@ -490,7 +489,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='GetIsClosing()']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         private unsafe System.Boolean GetIsClosing()
         {

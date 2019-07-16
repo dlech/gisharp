@@ -40,7 +40,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
 
-        /// <include file="CancellableSource.xmldoc" path="declaration/member[@name='New(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr New(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {

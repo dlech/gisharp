@@ -111,7 +111,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr callbackData);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         static unsafe System.IntPtr New(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -249,7 +248,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='GetCancellable()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe GISharp.Lib.Gio.Cancellable GetCancellable()
         {
@@ -275,7 +273,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='GetCheckCancellable()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.Boolean GetCheckCancellable()
         {
@@ -305,7 +302,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='GetCompleted()']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         private unsafe System.Boolean GetCompleted()
         {
@@ -340,7 +336,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='GetContext()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe GISharp.Lib.GLib.MainContext GetContext()
         {
@@ -368,7 +363,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='GetPriority()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.Int32 GetPriority()
         {
@@ -394,7 +388,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='GetReturnOnCancel()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.Boolean GetReturnOnCancel()
         {
@@ -423,7 +416,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='GetSourceObject()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe GISharp.Lib.GObject.Object? GetSourceObject()
         {
@@ -451,7 +443,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='GetSourceTag()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.IntPtr GetSourceTag()
         {
@@ -479,7 +470,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='GetTaskData()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.IntPtr GetTaskData()
         {
@@ -877,7 +867,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean checkCancellable);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='SetCheckCancellable(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe void SetCheckCancellable(System.Boolean checkCancellable)
         {
@@ -914,7 +903,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.Int32 priority);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='SetPriority(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe void SetPriority(System.Int32 priority)
         {
@@ -1015,7 +1003,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr sourceTag);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='SetSourceTag(System.IntPtr)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe void SetSourceTag(System.IntPtr sourceTag)
         {

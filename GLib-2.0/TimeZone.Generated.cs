@@ -110,7 +110,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr identifier);
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.NullableUnownedUtf8 identifier)
         {
@@ -125,7 +124,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='New(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         static unsafe System.IntPtr New(System.String? identifier)
         {
@@ -162,7 +160,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 seconds);
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='NewOffset(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.58")]
         static unsafe System.IntPtr NewOffset(System.Int32 seconds)
         {
@@ -198,7 +195,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_time_zone_new_local();
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='GetLocal()']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         private static unsafe GISharp.Lib.GLib.TimeZone GetLocal()
         {
@@ -226,7 +222,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_time_zone_new_utc();
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='GetUtc()']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         private static unsafe GISharp.Lib.GLib.TimeZone GetUtc()
         {
@@ -424,7 +419,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr tz);
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='GetIdentifier()']/*" />
         [GISharp.Runtime.SinceAttribute("2.58")]
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetIdentifier()
         {

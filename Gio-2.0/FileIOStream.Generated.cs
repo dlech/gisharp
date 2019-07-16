@@ -60,7 +60,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='GetEtag()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe GISharp.Lib.GLib.Utf8 GetEtag()
         {

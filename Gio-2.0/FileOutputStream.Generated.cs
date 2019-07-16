@@ -58,7 +58,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='GetEtag()']/*" />
         private unsafe GISharp.Lib.GLib.Utf8 GetEtag()
         {
             var stream_ = Handle;

@@ -29,7 +29,4 @@ Error codes returned by option parsing.
 <member name='Quark'>
 </member>
 
-<member name='GetQuark()'>
-</member>
-
 </declaration>

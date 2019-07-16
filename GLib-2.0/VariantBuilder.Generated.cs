@@ -43,7 +43,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr type);
 
-        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.VariantType)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.VariantType type)
         {

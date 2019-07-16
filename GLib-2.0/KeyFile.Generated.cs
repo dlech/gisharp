@@ -139,7 +139,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:full direction:out */
         static extern unsafe System.IntPtr g_key_file_new();
 
-        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='New()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         static unsafe System.IntPtr New()
         {
@@ -565,7 +564,6 @@ namespace GISharp.Lib.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length);
 
-        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetGroups()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe GISharp.Lib.GLib.Strv GetGroups()
         {
@@ -1135,7 +1133,6 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr keyFile);
 
-        /// <include file="KeyFile.xmldoc" path="declaration/member[@name='GetStartGroup()']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe GISharp.Lib.GLib.Utf8 GetStartGroup()
         {

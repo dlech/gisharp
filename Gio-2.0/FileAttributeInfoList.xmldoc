@@ -13,9 +13,6 @@ the number of values in the array.
 </summary>
 </member>
 
-<member name='New()'>
-</member>
-
 <member name='FileAttributeInfoList()'>
 <summary>
 Creates a new file attribute info list.

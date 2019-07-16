@@ -70,7 +70,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameterType);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
         {
@@ -86,7 +85,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='New(System.String,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr New(System.String name, GISharp.Lib.GLib.VariantType? parameterType)
         {
@@ -137,7 +135,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr state);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='NewStateful(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
         {
@@ -154,7 +151,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='NewStateful(System.String,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr NewStateful(System.String name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
         {

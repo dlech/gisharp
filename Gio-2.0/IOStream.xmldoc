@@ -109,43 +109,12 @@ optional cancellable object
 </param>
 </member>
 
-<member name='GetInputStream()'>
-<summary>
-Gets the input stream for this object. This is used
-for reading.
-</summary>
-<returns>
-a <see cref="InputStream"/>, owned by the <see cref="IOStream"/>.
-Do not free.
-</returns>
-</member>
-
-<member name='GetOutputStream()'>
-<summary>
-Gets the output stream for this object. This is used for
-writing.
-</summary>
-<returns>
-a <see cref="OutputStream"/>, owned by the <see cref="IOStream"/>.
-Do not free.
-</returns>
-</member>
-
 <member name='HasPending()'>
 <summary>
 Checks if a stream has pending actions.
 </summary>
 <returns>
 <c>true</c> if this instance has pending actions.
-</returns>
-</member>
-
-<member name='GetIsClosed()'>
-<summary>
-Checks if a stream is closed.
-</summary>
-<returns>
-<c>true</c> if the stream is closed.
 </returns>
 </member>
 

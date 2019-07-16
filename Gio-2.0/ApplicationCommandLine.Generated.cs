@@ -166,7 +166,6 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.Int32 argc);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetArguments()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename> GetArguments()
         {
@@ -202,7 +201,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetCwd()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Lib.GLib.Filename? GetCwd()
         {
@@ -248,7 +246,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetEnvironment()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Runtime.FilenameArray GetEnvironment()
         {
@@ -277,7 +274,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetExitStatus()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.Int32 GetExitStatus()
         {
@@ -305,7 +301,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetIsRemote()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe System.Boolean GetIsRemote()
         {
@@ -342,7 +337,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetOptions()']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         private unsafe GISharp.Lib.GLib.VariantDict GetOptions()
         {
@@ -378,7 +372,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetPlatformData()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe GISharp.Lib.GLib.Variant? GetPlatformData()
         {
@@ -416,7 +409,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr cmdline);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetStdin()']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         private unsafe GISharp.Lib.Gio.InputStream GetStdin()
         {
@@ -514,7 +506,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.Int32 exitStatus);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='SetExitStatus(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         private unsafe void SetExitStatus(System.Int32 exitStatus)
         {

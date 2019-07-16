@@ -346,13 +346,4 @@ Error number as defined in errno.h.
 </returns>
 </member>
 
-<member name='GetQuark()'>
-<summary>
-Gets the GIO Error Quark.
-</summary>
-<returns>
-a #GQuark.
-</returns>
-</member>
-
 </declaration>

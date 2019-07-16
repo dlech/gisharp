@@ -1,28 +1,5 @@
 <declaration>
 
-<member name='New(GISharp.Lib.GLib.Variant?)'>
-<summary>
-Allocates and initialises a new <see cref="VariantDict"/>.
-</summary>
-<remarks>
-You should call <see cref="M:VariantDict.Unref()"/> on the return value when it
-is no longer needed.  The memory will not be automatically freed by
-any other call.
-
-In some cases it may be easier to place a <see cref="VariantDict"/> directly on
-the stack of the calling function and initialise it with
-g_variant_dict_init().  This is particularly useful when you are
-using <see cref="VariantDict"/> to construct a #GVariant.
-</remarks>
-<param name="fromAsv">
-the #GVariant with which to initialise the
-  dictionary
-</param>
-<returns>
-a <see cref="VariantDict"/>
-</returns>
-</member>
-
 <member name='VariantDict(GISharp.Lib.GLib.Variant?)'>
 <summary>
 Allocates and initialises a new <see cref="VariantDict"/>.

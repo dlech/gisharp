@@ -285,7 +285,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="InputStream.xmldoc" path="declaration/member[@name='GetIsClosed()']/*" />
         private unsafe System.Boolean GetIsClosed()
         {
             var stream_ = Handle;

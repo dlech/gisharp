@@ -350,7 +350,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='GetInputStream()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe GISharp.Lib.Gio.InputStream GetInputStream()
         {
@@ -380,7 +379,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='GetOutputStream()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe GISharp.Lib.Gio.OutputStream GetOutputStream()
         {
@@ -436,7 +434,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='GetIsClosed()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe System.Boolean GetIsClosed()
         {

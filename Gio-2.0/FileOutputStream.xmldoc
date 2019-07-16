@@ -15,17 +15,6 @@ and closed, as the etag can change while writing.
 </summary>
 </member>
 
-<member name='GetEtag()'>
-<summary>
-Gets the entity tag for the file when it has been written.
-This must be called after the stream has been written
-and closed, as the etag can change while writing.
-</summary>
-<returns>
-the entity tag for the stream.
-</returns>
-</member>
-
 <member name='QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Queries a file output stream for the given this instance.

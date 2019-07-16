@@ -50,7 +50,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='New(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             var iconname_ = iconname.Handle;
@@ -84,7 +83,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.Int32 len);
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='NewFromNames(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
         static unsafe System.IntPtr NewFromNames(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames)
         {ref readonly var iconnames_ = ref iconnames.GetPinnableReference();
             var len_ = (System.Int32)iconnames.Length;
@@ -129,7 +127,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='NewWithDefaultFallbacks(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         static unsafe System.IntPtr NewWithDefaultFallbacks(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             var iconname_ = iconname.Handle;
@@ -200,7 +197,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='GetNames()']/*" />
         private unsafe GISharp.Lib.GLib.Strv GetNames()
         {
             var icon_ = Handle;

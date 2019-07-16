@@ -176,7 +176,6 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:out */
         static extern unsafe GISharp.Lib.GLib.Quark g_io_error_quark();
 
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='GetQuark()']/*" />
         private static unsafe GISharp.Lib.GLib.Quark GetQuark()
         {
             var ret_ = g_io_error_quark();
