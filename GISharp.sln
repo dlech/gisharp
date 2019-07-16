@@ -5,7 +5,7 @@ VisualStudioVersion = 15.0.26114.2
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIRepository-2.0", "src\GIRepository-2.0\GIRepository-2.0.csproj", "{26BF5EFC-10BF-46BC-A071-11F2B69C2844}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIRepository-2.0.Test", "GIRepository-2.0.Test\GIRepository-2.0.Test.csproj", "{746D44D3-A201-4FB6-8697-7609E2C3C70E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.GIRepository-2.0", "test\Test.GIRepository-2.0\Test.GIRepository-2.0.csproj", "{746D44D3-A201-4FB6-8697-7609E2C3C70E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGen", "tools\CodeGen\CodeGen.csproj", "{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}"
 EndProject

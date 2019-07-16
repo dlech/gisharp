@@ -9,7 +9,7 @@
 
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
-    <CoverletOutput>../.coverage/girepository-2.0.info</CoverletOutput>
+    <CoverletOutput>../../.coverage/girepository-2.0.info</CoverletOutput>
     <Include>[GIRepository-2.0]*</Include> 
     <Exclude>[*]GISharp.Lib.GIRepository.Dynamic.*</Exclude> 
   </PropertyGroup>
@@ -25,7 +25,7 @@
     <PackageReference Include="FluentAssertions" Version="4.19.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\src\GIRepository-2.0\GIRepository-2.0.csproj" />
-    <ProjectReference Include="..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\GIRepository-2.0\GIRepository-2.0.csproj" />
+    <ProjectReference Include="..\..\src\Core\Core.csproj" />
   </ItemGroup>
 </Project>
