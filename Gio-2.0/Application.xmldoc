@@ -515,7 +515,7 @@ Calling this function is the equivalent of calling
 <see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> with a single #GOptionEntry
 that has its arg_data member set to <c>null</c>.
 
-The parsed arguments will be packed into a #GVariantDict which
+The parsed arguments will be packed into a <see cref="GLib.VariantDict"/> which
 is passed to <see cref="Application"/>::handle-local-options. If
 <see cref="ApplicationFlags.HandlesCommandLine"/> is set, then it will also
 be sent to the primary instance. See
@@ -553,7 +553,7 @@ Calling this function is the equivalent of calling
 <see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> with a single #GOptionEntry
 that has its arg_data member set to <c>null</c>.
 
-The parsed arguments will be packed into a #GVariantDict which
+The parsed arguments will be packed into a <see cref="GLib.VariantDict"/> which
 is passed to <see cref="Application"/>::handle-local-options. If
 <see cref="ApplicationFlags.HandlesCommandLine"/> is set, then it will also
 be sent to the primary instance. See
@@ -596,7 +596,7 @@ in the given #GOptionEntrys.
 
 Unlike #GOptionContext, <see cref="Application"/> supports giving a <c>null</c>
 this instance for a non-callback #GOptionEntry.  This results in the
-argument in question being packed into a #GVariantDict which is also
+argument in question being packed into a <see cref="GLib.VariantDict"/> which is also
 passed to <see cref="Application"/>::handle-local-options, where it can be
 inspected and modified.  If <see cref="ApplicationFlags.HandlesCommandLine"/> is
 set, then the resulting dictionary is sent to the primary instance,
@@ -604,7 +604,7 @@ where <see cref="M:ApplicationCommandLine.GetOptions()"/> will return it.
 This "packing" is done according to the type of the argument --
 booleans for normal flags, strings for strings, bytestrings for
 filenames, etc.  The packing only occurs if the flag is given (ie: we
-do not pack a "false" #GVariant in the case that a flag is missing).
+do not pack a "false" <see cref="GLib.Variant"/> in the case that a flag is missing).
 
 In general, it is recommended that all commandline arguments are
 parsed locally.  The options dictionary should then be used to
@@ -1325,7 +1325,7 @@ initialization for all of these in a single place.
 Regardless of which of these entry points is used to start the
 application, GApplication passes some "platform data from the
 launching instance to the primary instance, in the form of a
-#GVariant dictionary mapping strings to variants. To use platform
+<see cref="GLib.Variant"/> dictionary mapping strings to variants. To use platform
 data, override the <see cref="DoBeforeEmit"/> or <see cref="DoAfterEmit"/> virtual functions
 in your <see cref="Application"/> subclass. When dealing with
 <see cref="ApplicationCommandLine"/> objects, the platform data is

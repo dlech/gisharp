@@ -24,14 +24,14 @@ use in a #GHashTable or similar data structure.
 
 <member name='DoSerialize()'>
 <summary>
-Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
+Serializes a <see cref="IIcon"/> into a <see cref="GLib.Variant"/>. An equivalent <see cref="IIcon"/> can be retrieved
 back by calling <see cref="M:Icon.Deserialize(GISharp.Lib.GLib.Variant)"/> on the returned value.
 As serialization will avoid using raw icon data when possible, it only
-makes sense to transfer the #GVariant between processes on the same machine,
+makes sense to transfer the <see cref="GLib.Variant"/> between processes on the same machine,
 (as opposed to over the network), and within the same file system namespace.
 </summary>
 <returns>
-a #GVariant, or <c>null</c> when serialization fails.
+a <see cref="GLib.Variant"/>, or <c>null</c> when serialization fails.
 </returns>
 </member>
 
@@ -74,7 +74,7 @@ types.
 Deserializes a <see cref="IIcon"/> previously serialized using <see cref="M:Icon.Serialize(GISharp.Lib.Gio.IIcon)"/>.
 </summary>
 <param name="value">
-a #GVariant created with <see cref="M:Icon.Serialize(GISharp.Lib.Gio.IIcon)"/>
+a <see cref="GLib.Variant"/> created with <see cref="M:Icon.Serialize(GISharp.Lib.Gio.IIcon)"/>
 </param>
 <returns>
 a <see cref="IIcon"/>, or <c>null</c> when deserialization fails.
@@ -153,17 +153,17 @@ pointer to the second <see cref="IIcon"/>.
 
 <member name='Serialize(GISharp.Lib.Gio.IIcon)'>
 <summary>
-Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
+Serializes a <see cref="IIcon"/> into a <see cref="GLib.Variant"/>. An equivalent <see cref="IIcon"/> can be retrieved
 back by calling <see cref="M:Icon.Deserialize(GISharp.Lib.GLib.Variant)"/> on the returned value.
 As serialization will avoid using raw icon data when possible, it only
-makes sense to transfer the #GVariant between processes on the same machine,
+makes sense to transfer the <see cref="GLib.Variant"/> between processes on the same machine,
 (as opposed to over the network), and within the same file system namespace.
 </summary>
 <param name="icon">
 a <see cref="IIcon"/>
 </param>
 <returns>
-a #GVariant, or <c>null</c> when serialization fails.
+a <see cref="GLib.Variant"/>, or <c>null</c> when serialization fails.
 </returns>
 </member>
 

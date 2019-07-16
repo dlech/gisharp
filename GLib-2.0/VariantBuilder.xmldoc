@@ -33,7 +33,7 @@ If this instance is a floating reference (see g_variant_ref_sink()),
 the this instance instance takes ownership of this instance.
 </remarks>
 <param name="value">
-a #GVariant
+a <see cref="GLib.Variant"/>
 </param>
 </member>
 
@@ -71,7 +71,7 @@ have been added; in this case it is impossible to infer the type of
 the empty array.
 </remarks>
 <returns>
-a new, floating, #GVariant
+a new, floating, <see cref="GLib.Variant"/>
 </returns>
 </member>
 
@@ -116,13 +116,13 @@ output = g_variant_builder_end (&amp;builder);
 ]|
 </remarks>
 <param name="type">
-the #GVariantType of the container
+the <see cref="GLib.VariantType"/> of the container
 </param>
 </member>
 
 <member name='VariantBuilder'>
 <summary>
-A utility type for constructing container-type #GVariant instances.
+A utility type for constructing container-type <see cref="GLib.Variant"/> instances.
 </summary>
 <remarks>
 This is an opaque structure and may only be accessed using the

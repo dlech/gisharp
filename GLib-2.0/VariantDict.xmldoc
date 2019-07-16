@@ -12,10 +12,10 @@ any other call.
 In some cases it may be easier to place a <see cref="VariantDict"/> directly on
 the stack of the calling function and initialise it with
 g_variant_dict_init().  This is particularly useful when you are
-using <see cref="VariantDict"/> to construct a #GVariant.
+using <see cref="VariantDict"/> to construct a <see cref="GLib.Variant"/>.
 </remarks>
 <param name="fromAsv">
-the #GVariant with which to initialise the
+the <see cref="GLib.Variant"/> with which to initialise the
   dictionary
 </param>
 </member>
@@ -46,7 +46,7 @@ the key to lookup in the dictionary
 
 <member name='End()'>
 <summary>
-Returns the current value of this instance as a #GVariant of type
+Returns the current value of this instance as a <see cref="GLib.Variant"/> of type
 %G_VARIANT_TYPE_VARDICT, clearing it in the process.
 </summary>
 <remarks>
@@ -56,7 +56,7 @@ for reference counting operations (in the case of a heap-allocated
 the case of stack-allocated).
 </remarks>
 <returns>
-a new, floating, #GVariant
+a new, floating, <see cref="GLib.Variant"/>
 </returns>
 </member>
 
@@ -109,7 +109,7 @@ value will have this type.
 the key to lookup in the dictionary
 </param>
 <param name="expectedType">
-a #GVariantType, or <c>null</c>
+a <see cref="GLib.VariantType"/>, or <c>null</c>
 </param>
 <returns>
 the value of the dictionary key, or <c>null</c>
@@ -135,7 +135,7 @@ value will have this type.
 the key to lookup in the dictionary
 </param>
 <param name="expectedType">
-a #GVariantType, or <c>null</c>
+a <see cref="GLib.VariantType"/>, or <c>null</c>
 </param>
 <returns>
 the value of the dictionary key, or <c>null</c>
@@ -168,11 +168,11 @@ the key to remove
 
 <member name='VariantDict'>
 <summary>
-<see cref="VariantDict"/> is a mutable interface to #GVariant dictionaries.
+<see cref="VariantDict"/> is a mutable interface to <see cref="GLib.Variant"/> dictionaries.
 </summary>
 <remarks>
 It can be used for doing a sequence of dictionary lookups in an
-efficient way on an existing #GVariant dictionary or it can be used
+efficient way on an existing <see cref="GLib.Variant"/> dictionary or it can be used
 to construct new dictionaries with a hashtable-like interface.  It
 can also be used for taking existing dictionaries and modifying them
 in order to create new ones.
@@ -190,7 +190,7 @@ allocate it with <see cref="M:VariantDict.#ctor(GISharp.Lib.GLib.Variant)"/> and
 and <see cref="M:VariantDict.Unref()"/>.
 
 <see cref="M:VariantDict.End()"/> is used to convert the <see cref="VariantDict"/> back into a
-dictionary-type #GVariant.  When used with stack-allocated instances,
+dictionary-type <see cref="GLib.Variant"/>.  When used with stack-allocated instances,
 this also implicitly frees all associated memory, but for
 heap-allocated instances, you must still call <see cref="M:VariantDict.Unref()"/>
 afterwards.
@@ -203,7 +203,7 @@ Consider the following two examples that do the same thing in each
 style: take an existing dictionary and look up the "count" uint32
 key, adding 1 to it if it is found, or returning an error if the
 key is not found.  Each returns the new dictionary as a floating
-#GVariant.
+<see cref="GLib.Variant"/>.
 
 ## Using a stack-allocated GVariantDict
 

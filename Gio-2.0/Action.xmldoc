@@ -33,7 +33,7 @@ The state of the action, or <c>null</c> if the action is stateless.
 
 <member name='StateType'>
 <summary>
-The #GVariantType of the state that the action has, or <c>null</c> if the
+The <see cref="GLib.VariantType"/> of the state that the action has, or <c>null</c> if the
 action is stateless. This is immutable.
 </summary>
 </member>
@@ -101,11 +101,11 @@ Queries the type of the parameter that must be given when activating
 this instance.
 </summary>
 <remarks>
-When activating the action using <see cref="M:Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>, the #GVariant
+When activating the action using <see cref="M:Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>, the <see cref="GLib.Variant"/>
 given to that function must be of the type returned by this function.
 
 In the case that this function returns <c>null</c>, you must not give any
-#GVariant, but <c>null</c> instead.
+<see cref="GLib.Variant"/>, but <c>null</c> instead.
 </remarks>
 <returns>
 the parameter type
@@ -139,8 +139,8 @@ If <c>null</c> is returned it either means that the action is not stateful
 or that there is no hint about the valid range of values for the
 state of the action.
 
-If a #GVariant array is returned then each item in the array is a
-possible value for the state.  If a #GVariant pair (ie: two-tuple) is
+If a <see cref="GLib.Variant"/> array is returned then each item in the array is a
+possible value for the state.  If a <see cref="GLib.Variant"/> pair (ie: two-tuple) is
 returned then the tuple specifies the inclusive lower and upper bound
 of valid values for the state.
 
@@ -163,10 +163,10 @@ Queries the type of the state of this instance.
 <remarks>
 If the action is stateful (e.g. created with
 <see cref="M:SimpleAction.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>) then this function returns the
-#GVariantType of the state.  This is the type of the initial value
+<see cref="GLib.VariantType"/> of the state.  This is the type of the initial value
 given as the state. All calls to <see cref="M:Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> must give a
-#GVariant of this type and <see cref="M:Action.GetState(GISharp.Lib.Gio.IAction)"/> will return a
-#GVariant of the same type.
+<see cref="GLib.Variant"/> of this type and <see cref="M:Action.GetState(GISharp.Lib.Gio.IAction)"/> will return a
+<see cref="GLib.Variant"/> of the same type.
 
 If the action is not stateful (e.g. created with <see cref="M:SimpleAction.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.VariantType)"/>)
 then this function will return <c>null</c>. In that case, <see cref="M:Action.GetState(GISharp.Lib.Gio.IAction)"/>
@@ -184,12 +184,12 @@ the state type, if the action is stateful
 <remarks>
 The main interface to an action is that it can be activated with
 <see cref="M:Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>.  This results in the 'activate' signal being
-emitted.  An activation has a #GVariant parameter (which may be
+emitted.  An activation has a <see cref="GLib.Variant"/> parameter (which may be
 <c>null</c>).  The correct type for the parameter is determined by a static
 parameter type (which is given at construction time).
 
 An action may optionally have a state, in which case the state may be
-set with <see cref="M:Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>.  This call takes a #GVariant.  The
+set with <see cref="M:Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>.  This call takes a <see cref="GLib.Variant"/>.  The
 correct type for the state is determined by a static state type
 (which is given at construction time).
 
@@ -352,7 +352,7 @@ this function.
 a valid action name
 </param>
 <param name="targetValue">
-a #GVariant target value, or <c>null</c>
+a <see cref="GLib.Variant"/> target value, or <c>null</c>
 </param>
 <returns>
 a detailed format string
@@ -377,7 +377,7 @@ this function.
 a valid action name
 </param>
 <param name="targetValue">
-a #GVariant target value, or <c>null</c>
+a <see cref="GLib.Variant"/> target value, or <c>null</c>
 </param>
 <returns>
 a detailed format string
@@ -459,11 +459,11 @@ Queries the type of the parameter that must be given when activating
 this instance.
 </summary>
 <remarks>
-When activating the action using <see cref="M:Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>, the #GVariant
+When activating the action using <see cref="M:Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>, the <see cref="GLib.Variant"/>
 given to that function must be of the type returned by this function.
 
 In the case that this function returns <c>null</c>, you must not give any
-#GVariant, but <c>null</c> instead.
+<see cref="GLib.Variant"/>, but <c>null</c> instead.
 </remarks>
 <param name="action">
 a <see cref="IAction"/>
@@ -503,8 +503,8 @@ If <c>null</c> is returned it either means that the action is not stateful
 or that there is no hint about the valid range of values for the
 state of the action.
 
-If a #GVariant array is returned then each item in the array is a
-possible value for the state.  If a #GVariant pair (ie: two-tuple) is
+If a <see cref="GLib.Variant"/> array is returned then each item in the array is a
+possible value for the state.  If a <see cref="GLib.Variant"/> pair (ie: two-tuple) is
 returned then the tuple specifies the inclusive lower and upper bound
 of valid values for the state.
 
@@ -530,10 +530,10 @@ Queries the type of the state of this instance.
 <remarks>
 If the action is stateful (e.g. created with
 <see cref="M:SimpleAction.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>) then this function returns the
-#GVariantType of the state.  This is the type of the initial value
+<see cref="GLib.VariantType"/> of the state.  This is the type of the initial value
 given as the state. All calls to <see cref="M:Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> must give a
-#GVariant of this type and <see cref="M:Action.GetState(GISharp.Lib.Gio.IAction)"/> will return a
-#GVariant of the same type.
+<see cref="GLib.Variant"/> of this type and <see cref="M:Action.GetState(GISharp.Lib.Gio.IAction)"/> will return a
+<see cref="GLib.Variant"/> of the same type.
 
 If the action is not stateful (e.g. created with <see cref="M:SimpleAction.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.VariantType)"/>)
 then this function will return <c>null</c>. In that case, <see cref="M:Action.GetState(GISharp.Lib.Gio.IAction)"/>

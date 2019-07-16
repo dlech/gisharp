@@ -32,7 +32,7 @@ The state of the action, or <c>null</c> if the action is stateless.
 
 <member name='StateType'>
 <summary>
-The #GVariantType of the state that the action has, or <c>null</c> if the
+The <see cref="GLib.VariantType"/> of the state that the action has, or <c>null</c> if the
 action is stateless.
 </summary>
 </member>
@@ -76,10 +76,10 @@ the type of parameter that will be passed to
 Creates a new stateful action.
 </summary>
 <remarks>
-All future state values must have the same #GVariantType as the initial
+All future state values must have the same <see cref="GLib.VariantType"/> as the initial
 <paramref name="state"/>.
 
-If the <paramref name="state"/> #GVariant is floating, it is consumed.
+If the <paramref name="state"/> <see cref="GLib.Variant"/> is floating, it is consumed.
 </remarks>
 <param name="name">
 the name of the action
@@ -98,10 +98,10 @@ the initial state of the action
 Creates a new stateful action.
 </summary>
 <remarks>
-All future state values must have the same #GVariantType as the initial
+All future state values must have the same <see cref="GLib.VariantType"/> as the initial
 <paramref name="state"/>.
 
-If the <paramref name="state"/> #GVariant is floating, it is consumed.
+If the <paramref name="state"/> <see cref="GLib.Variant"/> is floating, it is consumed.
 </remarks>
 <param name="name">
 the name of the action
@@ -275,7 +275,7 @@ request the change.
 If the this instance GVariant is floating, it is consumed.
 </remarks>
 <param name="value">
-the new #GVariant for the state
+the new <see cref="GLib.Variant"/> for the state
 </param>
 </member>
 
@@ -288,7 +288,7 @@ See <see cref="M:Action.GetStateHint(GISharp.Lib.Gio.IAction)"/> for more inform
 action state hints.
 </remarks>
 <param name="stateHint">
-a #GVariant representing the state hint
+a <see cref="GLib.Variant"/> representing the state hint
 </param>
 </member>
 

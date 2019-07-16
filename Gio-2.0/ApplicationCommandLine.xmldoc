@@ -104,7 +104,7 @@ you don't need to check for <c>null</c>.
 Gets the platform data associated with the invocation of this instance.
 </summary>
 <remarks>
-This is a #GVariant dictionary containing information about the
+This is a <see cref="GLib.Variant"/> dictionary containing information about the
 context in which the invocation occurred.  It typically contains
 information like the current working directory and the startup
 notification ID.
