@@ -74,11 +74,11 @@
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
-    <ProjectReference Include="..\tools\CodeGen\CodeGen.csproj">
+    <ProjectReference Include="..\..\tools\CodeGen\CodeGen.csproj">
       <Project>{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}</Project>
       <Name>CodeGen</Name>
     </ProjectReference>
-    <ProjectReference Include="..\src\Core\Core.csproj">
+    <ProjectReference Include="..\..\src\Core\Core.csproj">
       <Project>{E3732A37-C368-422B-94DD-3161226D923B}</Project>
       <Name>Core</Name>
     </ProjectReference>
