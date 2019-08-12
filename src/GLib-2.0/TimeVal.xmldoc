@@ -96,10 +96,12 @@ Use <see cref="M:DateTime.Format(GISharp.Lib.GLib.Utf8)"/> or g_strdup_printf() 
 variation of ISO 8601 format is required.
 
 If this instance represents a date which is too large to fit into a `struct tm`,
-<c>null</c> will be returned. This is platform dependent, but it is safe to assume
-years up to 3000 are supported. The return value of <see cref="M:TimeVal.ToIso8601()"/>
-has been nullable since GLib 2.54; before then, GLib would crash under the
-same conditions.
+<c>null</c> will be returned. This is platform dependent. Note also that since
+`GTimeVal` stores the number of seconds as a `glong`, on 32-bit systems it
+is subject to the year 2038 problem.
+
+The return value of <see cref="M:TimeVal.ToIso8601()"/> has been nullable since GLib
+2.54; before then, GLib would crash under the same conditions.
 </remarks>
 <returns>
 a newly allocated string containing an ISO 8601 date,
@@ -116,7 +118,9 @@ UNIX system call.
 <remarks>
 GLib is attempting to unify around the use of 64bit integers to
 represent microsecond-precision time. As such, this type will be
-removed from a future version of GLib.
+removed from a future version of GLib. A consequence of using `glong` for
+`tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038
+problem.
 </remarks>
 </member>
 
