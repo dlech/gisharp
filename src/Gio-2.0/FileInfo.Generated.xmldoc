@@ -867,7 +867,8 @@ Sinze: 2.22
 a file attribute key
 </param>
 <param name="attrValue">
-a <c>null</c> terminated array of UTF-8 strings.
+a <c>null</c>
+  terminated array of UTF-8 strings.
 </param>
 </member>
 
@@ -883,7 +884,8 @@ Sinze: 2.22
 a file attribute key
 </param>
 <param name="attrValue">
-a <c>null</c> terminated array of UTF-8 strings.
+a <c>null</c>
+  terminated array of UTF-8 strings.
 </param>
 </member>
 

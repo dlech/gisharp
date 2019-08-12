@@ -3,6 +3,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream']/*" />
+    [GISharp.Runtime.SinceAttribute("2.22")]
     [GISharp.Runtime.GTypeAttribute("GIOStream", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(IOStreamClass))]
     public abstract partial class IOStream : GISharp.Lib.GObject.Object

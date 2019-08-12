@@ -326,6 +326,34 @@ normally be required.
 </remarks>
 </member>
 
+<member name='ReturnValue'>
+<returns>
+<c>true</c> if the signal has been handled
+</returns>
+</member>
+
+<member name='NameLostEventArgs'>
+<summary>
+The ::name-lost signal is emitted only on the registered primary instance
+when a new instance has taken over. This can only happen if the application
+is using the <see cref="ApplicationFlags.AllowReplacement"/> flag.
+</summary>
+<remarks>
+The default handler for this signal calls <see cref="M:Application.Quit()"/>.
+</remarks>
+</member>
+
+<member name='NameLost'>
+<summary>
+The ::name-lost signal is emitted only on the registered primary instance
+when a new instance has taken over. This can only happen if the application
+is using the <see cref="ApplicationFlags.AllowReplacement"/> flag.
+</summary>
+<remarks>
+The default handler for this signal calls <see cref="M:Application.Quit()"/>.
+</remarks>
+</member>
+
 <member name='Files'>
 <param name="files">
 an array of #GFiles
@@ -1199,6 +1227,9 @@ exit status to fill after processing the command line.
 <returns>
 <c>true</c> if the commandline has been completely handled
 </returns>
+</member>
+
+<member name='DoNameLost()'>
 </member>
 
 <member name='DoOpen(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Lib.GLib.UnownedUtf8)'>

@@ -1724,7 +1724,8 @@ namespace GISharp.Lib.Gio
         /// a file attribute key
         /// </param>
         /// <param name="attrValue">
-        /// a %NULL terminated array of UTF-8 strings.
+        /// a %NULL
+        ///   terminated array of UTF-8 strings.
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
@@ -1736,7 +1737,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute,
-        /* <array zero-terminated="1" type="char**" name="GLib.Strv" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
+        /* <array type="char**" zero-terminated="1" name="GLib.Strv" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
 *   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" />
 * </array> */
         /* transfer-ownership:none direction:in */

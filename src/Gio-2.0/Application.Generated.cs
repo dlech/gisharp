@@ -228,6 +228,30 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("handle-local-options", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<HandledLocalOptionsEventArgs> HandledLocalOptions { add => handledLocalOptionsSignalManager.Add(this, value); remove => handledLocalOptionsSignalManager.Remove(value); }
 
+        /// <include file="Application.xmldoc" path="declaration/member[@name='NameLostEventArgs']/*" />
+        public sealed class NameLostEventArgs : GISharp.Runtime.GSignalEventArgs
+        {
+            readonly System.Object[] args;
+
+            /// <include file="Application.xmldoc" path="declaration/member[@name='ReturnValue']/*" />
+            public System.Boolean ReturnValue { get; set; }
+
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
+            public NameLostEventArgs(params System.Object[] args)
+            {
+                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+            }
+        }
+
+        readonly GISharp.Runtime.GSignalManager<NameLostEventArgs> nameLostSignalManager = new GISharp.Runtime.GSignalManager<NameLostEventArgs>("name-lost", _GType);
+
+        /// <include file="Application.xmldoc" path="declaration/member[@name='NameLost']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [GISharp.Runtime.GSignalAttribute("name-lost", When = GISharp.Runtime.EmissionStage.Last)]
+        public event System.EventHandler<NameLostEventArgs> NameLost { add => nameLostSignalManager.Add(this, value); remove => nameLostSignalManager.Remove(value); }
+
         /// <include file="Application.xmldoc" path="declaration/member[@name='OpenedEventArgs']/*" />
         public sealed class OpenedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
@@ -1946,6 +1970,16 @@ namespace GISharp.Lib.Gio
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedTryLocalCommandLine>(_GType)!(application_,ref arguments_,out var exitStatus_);
             arguments = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(arguments_, GISharp.Runtime.Transfer.Full)!;
             exitStatus = (System.Int32)exitStatus_;
+            var ret = (System.Boolean)ret_;
+            return ret;
+        }
+
+        /// <include file="Application.xmldoc" path="declaration/member[@name='DoNameLost()']/*" />
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedNameLost))]
+        protected virtual unsafe System.Boolean DoNameLost()
+        {
+            var application_ = Handle;
+            var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedNameLost>(_GType)!(application_);
             var ret = (System.Boolean)ret_;
             return ret;
         }

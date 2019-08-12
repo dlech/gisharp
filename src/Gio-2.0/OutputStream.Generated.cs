@@ -1410,6 +1410,511 @@ namespace GISharp.Lib.Gio
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeAsyncCallbackDelegate = WriteFinish;
         static readonly System.IntPtr writeAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeAsyncCallbackDelegate);
 
+        /// <summary>
+        /// Tries to write the bytes contained in the @n_vectors @vectors into the
+        /// stream. Will block during the operation.
+        /// </summary>
+        /// <remarks>
+        /// If @n_vectors is 0 or the sum of all bytes in @vectors is 0, returns 0 and
+        /// does nothing.
+        /// 
+        /// On success, the number of bytes written to the stream is returned.
+        /// It is not an error if this is not the same as the requested size, as it
+        /// can happen e.g. on a partial I/O error, or if there is not enough
+        /// storage in the stream. All writes block until at least one byte
+        /// is written or an error occurs; 0 is never returned (unless
+        /// @n_vectors is 0 or the sum of all bytes in @vectors is 0).
+        /// 
+        /// If @cancellable is not %NULL, then the operation can be cancelled by
+        /// triggering the cancellable object from another thread. If the operation
+        /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned. If an
+        /// operation was partially finished when the operation was cancelled the
+        /// partial result will be returned, without an error.
+        /// 
+        /// Some implementations of g_output_stream_writev() may have limitations on the
+        /// aggregate buffer size, and will return %G_IO_ERROR_INVALID_ARGUMENT if these
+        /// are exceeded. For example, when writing to a local file on UNIX platforms,
+        /// the aggregate buffer size must not exceed %G_MAXSSIZE bytes.
+        /// </remarks>
+        /// <param name="stream">
+        /// a #GOutputStream.
+        /// </param>
+        /// <param name="vectors">
+        /// the buffer containing the #GOutputVectors to write.
+        /// </param>
+        /// <param name="nVectors">
+        /// the number of vectors to write
+        /// </param>
+        /// <param name="bytesWritten">
+        /// location to store the number of bytes that were
+        ///     written to the stream
+        /// </param>
+        /// <param name="cancellable">
+        /// optional cancellable object
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE on success, %FALSE if there was an error
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none skip:1 direction:out */
+        static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev(
+        /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr stream,
+        /* <array length="1" zero-terminated="0" type="const GOutputVector*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
+*   <type name="OutputVector" type="GOutputVector" managed-name="OutputVector" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        in GISharp.Lib.Gio.OutputVector vectors,
+        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.UIntPtr nVectors,
+        /* <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        out System.UIntPtr bytesWritten,
+        /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr cancellable,
+        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        ref System.IntPtr error);
+
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='Writev(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        public unsafe void Writev(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var nVectors_ = (System.UIntPtr)vectors.Length;
+            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var error_ = System.IntPtr.Zero;
+            g_output_stream_writev(stream_, vectors_, nVectors_,out var bytesWritten_, cancellable_,ref error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            bytesWritten = (System.Int32)bytesWritten_;
+        }
+
+        /// <summary>
+        /// Tries to write the bytes contained in the @n_vectors @vectors into the
+        /// stream. Will block during the operation.
+        /// </summary>
+        /// <remarks>
+        /// This function is similar to g_output_stream_writev(), except it tries to
+        /// write as many bytes as requested, only stopping on an error.
+        /// 
+        /// On a successful write of all @n_vectors vectors, %TRUE is returned, and
+        /// @bytes_written is set to the sum of all the sizes of @vectors.
+        /// 
+        /// If there is an error during the operation %FALSE is returned and @error
+        /// is set to indicate the error status.
+        /// 
+        /// As a special exception to the normal conventions for functions that
+        /// use #GError, if this function returns %FALSE (and sets @error) then
+        /// @bytes_written will be set to the number of bytes that were
+        /// successfully written before the error was encountered.  This
+        /// functionality is only available from C. If you need it from another
+        /// language then you must write your own loop around
+        /// g_output_stream_write().
+        /// 
+        /// The content of the individual elements of @vectors might be changed by this
+        /// function.
+        /// </remarks>
+        /// <param name="stream">
+        /// a #GOutputStream.
+        /// </param>
+        /// <param name="vectors">
+        /// the buffer containing the #GOutputVectors to write.
+        /// </param>
+        /// <param name="nVectors">
+        /// the number of vectors to write
+        /// </param>
+        /// <param name="bytesWritten">
+        /// location to store the number of bytes that were
+        ///     written to the stream
+        /// </param>
+        /// <param name="cancellable">
+        /// optional #GCancellable object, %NULL to ignore.
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE on success, %FALSE if there was an error
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none skip:1 direction:out */
+        static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_all(
+        /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr stream,
+        /* <array length="1" zero-terminated="0" type="GOutputVector*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
+*   <type name="OutputVector" type="GOutputVector" managed-name="OutputVector" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        in GISharp.Lib.Gio.OutputVector vectors,
+        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.UIntPtr nVectors,
+        /* <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        out System.UIntPtr bytesWritten,
+        /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr cancellable,
+        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        ref System.IntPtr error);
+
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='WritevAll(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        public unsafe void WritevAll(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var nVectors_ = (System.UIntPtr)vectors.Length;
+            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var error_ = System.IntPtr.Zero;
+            g_output_stream_writev_all(stream_, vectors_, nVectors_,out var bytesWritten_, cancellable_,ref error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            bytesWritten = (System.Int32)bytesWritten_;
+        }
+
+        /// <summary>
+        /// Request an asynchronous write of the bytes contained in the @n_vectors @vectors into
+        /// the stream. When the operation is finished @callback will be called.
+        /// You can then call g_output_stream_writev_all_finish() to get the result of the
+        /// operation.
+        /// </summary>
+        /// <remarks>
+        /// This is the asynchronous version of g_output_stream_writev_all().
+        /// 
+        /// Call g_output_stream_writev_all_finish() to collect the result.
+        /// 
+        /// Any outstanding I/O request with higher priority (lower numerical
+        /// value) will be executed before an outstanding request with lower
+        /// priority. Default priority is %G_PRIORITY_DEFAULT.
+        /// 
+        /// Note that no copy of @vectors will be made, so it must stay valid
+        /// until @callback is called. The content of the individual elements
+        /// of @vectors might be changed by this function.
+        /// </remarks>
+        /// <param name="stream">
+        /// A #GOutputStream
+        /// </param>
+        /// <param name="vectors">
+        /// the buffer containing the #GOutputVectors to write.
+        /// </param>
+        /// <param name="nVectors">
+        /// the number of vectors to write
+        /// </param>
+        /// <param name="ioPriority">
+        /// the I/O priority of the request
+        /// </param>
+        /// <param name="cancellable">
+        /// optional #GCancellable object, %NULL to ignore
+        /// </param>
+        /// <param name="callback">
+        /// callback to call when the request is satisfied
+        /// </param>
+        /// <param name="userData">
+        /// the data to pass to callback function
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
+*   <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" />
+* </type> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_output_stream_writev_all_async(
+        /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr stream,
+        /* <array length="1" zero-terminated="0" type="GOutputVector*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
+*   <type name="OutputVector" type="GOutputVector" managed-name="OutputVector" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        in GISharp.Lib.Gio.OutputVector vectors,
+        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.UIntPtr nVectors,
+        /* <type name="gint" type="int" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.Int32 ioPriority,
+        /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr cancellable,
+        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
+        System.IntPtr callback,
+        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr userData);
+
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='WritevAllAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        public unsafe System.Threading.Tasks.Task<System.Int32> WritevAllAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var nVectors_ = (System.UIntPtr)vectors.Length;
+            var ioPriority_ = (System.Int32)ioPriority;
+            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
+            var callback_ = writevAllAsyncCallback_;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
+            g_output_stream_writev_all_async(stream_, vectors_, nVectors_, ioPriority_, cancellable_, callback_, userData_);
+            return completionSource.Task;
+        }
+
+        /// <summary>
+        /// Finishes an asynchronous stream write operation started with
+        /// g_output_stream_writev_all_async().
+        /// </summary>
+        /// <remarks>
+        /// As a special exception to the normal conventions for functions that
+        /// use #GError, if this function returns %FALSE (and sets @error) then
+        /// @bytes_written will be set to the number of bytes that were
+        /// successfully written before the error was encountered.  This
+        /// functionality is only available from C.  If you need it from another
+        /// language then you must write your own loop around
+        /// g_output_stream_writev_async().
+        /// </remarks>
+        /// <param name="stream">
+        /// a #GOutputStream
+        /// </param>
+        /// <param name="result">
+        /// a #GAsyncResult
+        /// </param>
+        /// <param name="bytesWritten">
+        /// location to store the number of bytes that were written to the stream
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE on success, %FALSE if there was an error
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none skip:1 direction:out */
+        static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_all_finish(
+        /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr stream,
+        /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr result,
+        /* <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        out System.UIntPtr bytesWritten,
+        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        ref System.IntPtr error);
+
+        static unsafe void WritevAllFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr userData_)
+        {
+            try
+            {
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
+                userData.Free();
+                var error_ = System.IntPtr.Zero;
+                g_output_stream_writev_all_finish(stream_, result_,out var bytesWritten_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    return;
+                }
+                var bytesWritten = (System.Int32)bytesWritten_;
+                completionSource.SetResult((bytesWritten));
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writevAllAsyncCallbackDelegate = WritevAllFinish;
+        static readonly System.IntPtr writevAllAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writevAllAsyncCallbackDelegate);
+
+        /// <summary>
+        /// Request an asynchronous write of the bytes contained in @n_vectors @vectors into
+        /// the stream. When the operation is finished @callback will be called.
+        /// You can then call g_output_stream_writev_finish() to get the result of the
+        /// operation.
+        /// </summary>
+        /// <remarks>
+        /// During an async request no other sync and async calls are allowed,
+        /// and will result in %G_IO_ERROR_PENDING errors.
+        /// 
+        /// On success, the number of bytes written will be passed to the
+        /// @callback. It is not an error if this is not the same as the
+        /// requested size, as it can happen e.g. on a partial I/O error,
+        /// but generally we try to write as many bytes as requested.
+        /// 
+        /// You are guaranteed that this method will never fail with
+        /// %G_IO_ERROR_WOULD_BLOCK — if @stream can't accept more data, the
+        /// method will just wait until this changes.
+        /// 
+        /// Any outstanding I/O request with higher priority (lower numerical
+        /// value) will be executed before an outstanding request with lower
+        /// priority. Default priority is %G_PRIORITY_DEFAULT.
+        /// 
+        /// The asynchronous methods have a default fallback that uses threads
+        /// to implement asynchronicity, so they are optional for inheriting
+        /// classes. However, if you override one you must override all.
+        /// 
+        /// For the synchronous, blocking version of this function, see
+        /// g_output_stream_writev().
+        /// 
+        /// Note that no copy of @vectors will be made, so it must stay valid
+        /// until @callback is called.
+        /// </remarks>
+        /// <param name="stream">
+        /// A #GOutputStream.
+        /// </param>
+        /// <param name="vectors">
+        /// the buffer containing the #GOutputVectors to write.
+        /// </param>
+        /// <param name="nVectors">
+        /// the number of vectors to write
+        /// </param>
+        /// <param name="ioPriority">
+        /// the I/O priority of the request.
+        /// </param>
+        /// <param name="cancellable">
+        /// optional #GCancellable object, %NULL to ignore.
+        /// </param>
+        /// <param name="callback">
+        /// callback to call when the request is satisfied
+        /// </param>
+        /// <param name="userData">
+        /// the data to pass to callback function
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task">
+*   <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" />
+* </type> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_output_stream_writev_async(
+        /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr stream,
+        /* <array length="1" zero-terminated="0" type="const GOutputVector*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
+*   <type name="OutputVector" type="GOutputVector" managed-name="OutputVector" />
+* </array> */
+        /* transfer-ownership:none direction:in */
+        in GISharp.Lib.Gio.OutputVector vectors,
+        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.UIntPtr nVectors,
+        /* <type name="gint" type="int" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        System.Int32 ioPriority,
+        /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr cancellable,
+        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
+        System.IntPtr callback,
+        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr userData);
+
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='WritevAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        public unsafe System.Threading.Tasks.Task<System.Int32> WritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var nVectors_ = (System.UIntPtr)vectors.Length;
+            var ioPriority_ = (System.Int32)ioPriority;
+            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
+            var callback_ = writevAsyncCallback_;
+            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
+            g_output_stream_writev_async(stream_, vectors_, nVectors_, ioPriority_, cancellable_, callback_, userData_);
+            return completionSource.Task;
+        }
+
+        /// <summary>
+        /// Finishes a stream writev operation.
+        /// </summary>
+        /// <param name="stream">
+        /// a #GOutputStream.
+        /// </param>
+        /// <param name="result">
+        /// a #GAsyncResult.
+        /// </param>
+        /// <param name="bytesWritten">
+        /// location to store the number of bytes that were written to the stream
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE on success, %FALSE if there was an error
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none skip:1 direction:out */
+        static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_finish(
+        /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr stream,
+        /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr result,
+        /* <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+        out System.UIntPtr bytesWritten,
+        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        ref System.IntPtr error);
+
+        static unsafe void WritevFinish(System.IntPtr stream_, System.IntPtr result_, System.IntPtr userData_)
+        {
+            try
+            {
+                var userData = (System.Runtime.InteropServices.GCHandle)userData_;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
+                userData.Free();
+                var error_ = System.IntPtr.Zero;
+                g_output_stream_writev_finish(stream_, result_,out var bytesWritten_,ref error_);
+                if (error_ != System.IntPtr.Zero)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                    completionSource.SetException(new GISharp.Runtime.GErrorException(error));
+                    return;
+                }
+                var bytesWritten = (System.Int32)bytesWritten_;
+                completionSource.SetResult((bytesWritten));
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+            }
+        }
+
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writevAsyncCallbackDelegate = WritevFinish;
+        static readonly System.IntPtr writevAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writevAsyncCallbackDelegate);
+
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedCloseAsync))]
         protected virtual unsafe void DoCloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
@@ -1590,6 +2095,56 @@ namespace GISharp.Lib.Gio
 
             var ret = (System.Int32)ret_;
             return ret;
+        }
+
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoWritevAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWritevAsync))]
+        protected virtual unsafe void DoWritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var nVectors_ = (System.UIntPtr)vectors.Length;
+            var ioPriority_ = (System.Int32)ioPriority;
+            var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
+            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevAsync>(_GType)!(stream_, vectors_, nVectors_, ioPriority_, cancellable_, callback_, userData_);
+        }
+
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoWritevFinish(GISharp.Lib.Gio.IAsyncResult,System.Int32)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWritevFinish))]
+        protected virtual unsafe void DoWritevFinish(GISharp.Lib.Gio.IAsyncResult result, out System.Int32 bytesWritten)
+        {
+            var stream_ = Handle;
+            var result_ = result.Handle;
+            var error_ = System.IntPtr.Zero;
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFinish>(_GType)!(stream_, result_,out var bytesWritten_,ref error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            bytesWritten = (System.Int32)bytesWritten_;
+        }
+
+        /// <include file="OutputStream.xmldoc" path="declaration/member[@name='DoWritevFn(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWritevFn))]
+        protected virtual unsafe void DoWritevFn(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        {
+            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var nVectors_ = (System.UIntPtr)vectors.Length;
+            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var error_ = System.IntPtr.Zero;
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFn>(_GType)!(stream_, vectors_, nVectors_,out var bytesWritten_, cancellable_,ref error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            bytesWritten = (System.Int32)bytesWritten_;
         }
     }
 }

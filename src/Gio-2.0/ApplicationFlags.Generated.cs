@@ -25,7 +25,13 @@ namespace GISharp.Lib.Gio
         NonUnique = 0b0000_0000_0000_0000_0000_0000_0010_0000,
         /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='CanOverrideAppId']/*" />
         [GISharp.Runtime.SinceAttribute("2.48")]
-        CanOverrideAppId = 0b0000_0000_0000_0000_0000_0000_0100_0000
+        CanOverrideAppId = 0b0000_0000_0000_0000_0000_0000_0100_0000,
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='AllowReplacement']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        AllowReplacement = 0b0000_0000_0000_0000_0000_0000_1000_0000,
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='Replace']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        Replace = 0b0000_0000_0000_0000_0000_0001_0000_0000
     }
 
     /// <summary>

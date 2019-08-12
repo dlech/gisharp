@@ -49,6 +49,21 @@ context is the default #GMainContext.
 </remarks>
 </member>
 
+<member name='Name'>
+<summary>
+Gets or sets this task’s name, used in debugging and profiling. The name defaults to
+<c>null</c>.
+</summary>
+<remarks>
+The task name should describe in a human readable way what the task does.
+For example, ‘Open file’ or ‘Connect to network host’. It is used to set the
+name of the <see cref="GISharp.Lib.GLib.Source"/> used for idle completion of the task.
+
+This function may only be called before the task is first used in a thread
+other than the one it was constructed in.
+</remarks>
+</member>
+
 <member name='Priority'>
 <summary>
 Gets this instance's priority

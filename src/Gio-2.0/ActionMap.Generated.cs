@@ -3,6 +3,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap']/*" />
+    [GISharp.Runtime.SinceAttribute("2.32")]
     [GISharp.Runtime.GTypeAttribute("GActionMap", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionMapInterface))]
     public partial interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>

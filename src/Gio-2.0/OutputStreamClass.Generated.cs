@@ -50,14 +50,14 @@ namespace GISharp.Lib.Gio
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseFinish']/*" />
             public System.IntPtr CloseFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved1']/*" />
-            public System.IntPtr GReserved1;
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevFn']/*" />
+            public System.IntPtr WritevFn;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved2']/*" />
-            public System.IntPtr GReserved2;
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevAsync']/*" />
+            public System.IntPtr WritevAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved3']/*" />
-            public System.IntPtr GReserved3;
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevFinish']/*" />
+            public System.IntPtr WritevFinish;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
             public System.IntPtr GReserved4;
@@ -102,6 +102,12 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(closeAsyncOffset, CloseAsyncMarshal.Create);
             System.Int32 closeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseFinish));
             RegisterVirtualMethod(closeFinishOffset, CloseFinishMarshal.Create);
+            System.Int32 writevFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WritevFn));
+            RegisterVirtualMethod(writevFnOffset, WritevFnMarshal.Create);
+            System.Int32 writevAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WritevAsync));
+            RegisterVirtualMethod(writevAsyncOffset, WritevAsyncMarshal.Create);
+            System.Int32 writevFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WritevFinish));
+            RegisterVirtualMethod(writevFinishOffset, WritevFinishMarshal.Create);
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteFn']/*" />
@@ -815,6 +821,203 @@ ref System.IntPtr error);
                 }
 
                 return unmanagedCloseFinish;
+            }
+        }
+
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevFn']/*" />
+        public delegate void WritevFn(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none skip:1 direction:out */
+        public unsafe delegate GISharp.Runtime.Boolean UnmanagedWritevFn(
+/* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+System.IntPtr stream,
+/* <array length="2" zero-terminated="0" type="const GOutputVector*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
+*   <type name="OutputVector" type="GOutputVector" managed-name="OutputVector" />
+* </array> */
+/* transfer-ownership:none direction:in */
+in GISharp.Lib.Gio.OutputVector vectors,
+/* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+/* transfer-ownership:none direction:in */
+System.UIntPtr nVectors,
+/* <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" /> */
+/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+out System.UIntPtr bytesWritten,
+/* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+/* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+System.IntPtr cancellable,
+/* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+/* direction:inout transfer-ownership:full */
+ref System.IntPtr error);
+
+        /// <summary>
+        /// Class for marshalling <see cref="WritevFn"/> methods.
+        /// </summary>
+        public static class WritevFnMarshal
+        {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
+            public static unsafe UnmanagedWritevFn Create(System.Reflection.MethodInfo methodInfo)
+            {
+                GISharp.Runtime.Boolean unmanagedWritevFn(System.IntPtr stream_, in GISharp.Lib.Gio.OutputVector vectors_, System.UIntPtr nVectors_, out System.UIntPtr bytesWritten_, System.IntPtr cancellable_, ref System.IntPtr error_)
+                {
+                    try
+                    {
+                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
+                        var vectors = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<GISharp.Lib.Gio.OutputVector>(ref System.Runtime.CompilerServices.Unsafe.AsRef(vectors_), (int)nVectors_);
+                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
+                        var doWritevFn = (WritevFn)methodInfo.CreateDelegate(typeof(WritevFn), stream);
+                        doWritevFn(vectors,out var bytesWritten, cancellable);
+                        bytesWritten_ = bytesWritten;
+                        return true;
+                    }
+                    catch (GISharp.Runtime.GErrorException ex)
+                    {
+                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                    }
+
+                    bytesWritten_ = default(System.UIntPtr);
+                    return default(GISharp.Runtime.Boolean);
+                }
+
+                return unmanagedWritevFn;
+            }
+        }
+
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevAsync']/*" />
+        public delegate void WritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        public unsafe delegate void UnmanagedWritevAsync(
+/* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+System.IntPtr stream,
+/* <array length="2" zero-terminated="0" type="const GOutputVector*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
+*   <type name="OutputVector" type="GOutputVector" managed-name="OutputVector" />
+* </array> */
+/* transfer-ownership:none direction:in */
+in GISharp.Lib.Gio.OutputVector vectors,
+/* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+/* transfer-ownership:none direction:in */
+System.UIntPtr nVectors,
+/* <type name="gint" type="int" managed-name="System.Int32" /> */
+/* transfer-ownership:none direction:in */
+System.Int32 ioPriority,
+/* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
+/* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+System.IntPtr cancellable,
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
+System.IntPtr callback,
+/* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+/* transfer-ownership:none nullable:1 allow-none:1 closure:6 direction:in */
+System.IntPtr userData);
+
+        /// <summary>
+        /// Class for marshalling <see cref="WritevAsync"/> methods.
+        /// </summary>
+        public static class WritevAsyncMarshal
+        {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
+            public static unsafe UnmanagedWritevAsync Create(System.Reflection.MethodInfo methodInfo)
+            {
+                void unmanagedWritevAsync(System.IntPtr stream_, in GISharp.Lib.Gio.OutputVector vectors_, System.UIntPtr nVectors_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
+                {
+                    try
+                    {
+                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
+                        var vectors = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<GISharp.Lib.Gio.OutputVector>(ref System.Runtime.CompilerServices.Unsafe.AsRef(vectors_), (int)nVectors_);
+                        var ioPriority = (System.Int32)ioPriority_;
+                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
+                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
+                        var doWritevAsync = (WritevAsync)methodInfo.CreateDelegate(typeof(WritevAsync), stream);
+                        doWritevAsync(vectors, ioPriority, callback, cancellable);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                    }
+                }
+
+                return unmanagedWritevAsync;
+            }
+        }
+
+        /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevFinish']/*" />
+        public delegate void WritevFinish(GISharp.Lib.Gio.IAsyncResult result, out System.Int32 bytesWritten);
+
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none skip:1 direction:out */
+        public unsafe delegate GISharp.Runtime.Boolean UnmanagedWritevFinish(
+/* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+System.IntPtr stream,
+/* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+System.IntPtr result,
+/* <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" /> */
+/* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
+out System.UIntPtr bytesWritten,
+/* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+/* direction:inout transfer-ownership:full */
+ref System.IntPtr error);
+
+        /// <summary>
+        /// Class for marshalling <see cref="WritevFinish"/> methods.
+        /// </summary>
+        public static class WritevFinishMarshal
+        {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
+            public static unsafe UnmanagedWritevFinish Create(System.Reflection.MethodInfo methodInfo)
+            {
+                GISharp.Runtime.Boolean unmanagedWritevFinish(System.IntPtr stream_, System.IntPtr result_, out System.UIntPtr bytesWritten_, ref System.IntPtr error_)
+                {
+                    try
+                    {
+                        var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
+                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
+                        var doWritevFinish = (WritevFinish)methodInfo.CreateDelegate(typeof(WritevFinish), stream);
+                        doWritevFinish(result,out var bytesWritten);
+                        bytesWritten_ = bytesWritten;
+                        return true;
+                    }
+                    catch (GISharp.Runtime.GErrorException ex)
+                    {
+                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                    }
+
+                    bytesWritten_ = default(System.UIntPtr);
+                    return default(GISharp.Runtime.Boolean);
+                }
+
+                return unmanagedWritevFinish;
             }
         }
 

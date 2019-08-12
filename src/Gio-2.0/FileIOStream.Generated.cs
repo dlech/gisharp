@@ -3,6 +3,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream']/*" />
+    [GISharp.Runtime.SinceAttribute("2.22")]
     [GISharp.Runtime.GTypeAttribute("GFileIOStream", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileIOStreamClass))]
     public partial class FileIOStream : GISharp.Lib.Gio.IOStream, GISharp.Lib.Gio.ISeekable

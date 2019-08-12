@@ -70,6 +70,20 @@ Allow users to override the
 </summary>
 </member>
 
+<member name='AllowReplacement'>
+<summary>
+Allow another instance to take over
+    the bus name.
+</summary>
+</member>
+
+<member name='Replace'>
+<summary>
+Take over from another instance. This flag is
+    usually set by passing `--gapplication-replace` on the commandline.
+</summary>
+</member>
+
 <member name='ApplicationFlags'>
 <summary>
 Flags used to define the behaviour of a <see cref="Application"/>.

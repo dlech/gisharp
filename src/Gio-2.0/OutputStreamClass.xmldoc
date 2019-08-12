@@ -40,13 +40,13 @@
 <member name='CloseFinish'>
 </member>
 
-<member name='GReserved1'>
+<member name='WritevFn'>
 </member>
 
-<member name='GReserved2'>
+<member name='WritevAsync'>
 </member>
 
-<member name='GReserved3'>
+<member name='WritevFinish'>
 </member>
 
 <member name='GReserved4'>
@@ -98,6 +98,15 @@
 </member>
 
 <member name='CloseFinish'>
+</member>
+
+<member name='WritevFn'>
+</member>
+
+<member name='WritevAsync'>
+</member>
+
+<member name='WritevFinish'>
 </member>
 
 <member name='OutputStreamClass'>

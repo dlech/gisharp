@@ -58,12 +58,33 @@ is <see cref="FileAttributeType.Boolean"/>.
 </summary>
 </member>
 
+<member name='DosIsMountpoint'>
+<summary>
+A key in the "dos" namespace for checking if the file is a NTFS mount point
+(a volume mount or a junction point).
+This attribute is <c>true</c> if file is a reparse point of type
+[IO_REPARSE_TAG_MOUNT_POINT](https://msdn.microsoft.com/en-us/library/dd541667.aspx).
+This attribute is only available for DOS file systems.
+Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
+</summary>
+</member>
+
 <member name='DosIsSystem'>
 <summary>
 A key in the "dos" namespace for checking if the file's backup flag
 is set. This attribute is <c>true</c> if the backup flag is set. This attribute
 is only available for DOS file systems. Corresponding <see cref="FileAttributeType"/>
 is <see cref="FileAttributeType.Boolean"/>.
+</summary>
+</member>
+
+<member name='DosReparsePointTag'>
+<summary>
+A key in the "dos" namespace for getting the file NTFS reparse tag.
+This value is 0 for files that are not reparse points.
+See the [Reparse Tags](https://msdn.microsoft.com/en-us/library/dd541667.aspx)
+page for possible reparse tag values. Corresponding <see cref="FileAttributeType"/>
+is <see cref="FileAttributeType.Uint32"/>.
 </summary>
 </member>
 

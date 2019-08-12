@@ -281,7 +281,7 @@ namespace GISharp.Lib.Gio
         /// a #GCancellable.
         /// </param>
         /// <returns>
-        /// A valid file descriptor. %-1 if the file descriptor
+        /// A valid file descriptor. `-1` if the file descriptor
         /// is not supported, or on errors.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

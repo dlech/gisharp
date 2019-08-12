@@ -26,8 +26,16 @@ namespace GISharp.Lib.Gio
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='DosIsArchive']/*" />
         public const System.String DosIsArchive = "dos::is-archive";
 
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='DosIsMountpoint']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        public const System.String DosIsMountpoint = "dos::is-mountpoint";
+
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='DosIsSystem']/*" />
         public const System.String DosIsSystem = "dos::is-system";
+
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='DosReparsePointTag']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        public const System.String DosReparsePointTag = "dos::reparse-point-tag";
 
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='EtagValue']/*" />
         public const System.String EtagValue = "etag::value";

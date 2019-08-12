@@ -57,6 +57,9 @@ namespace GISharp.Lib.Gio
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='HandleLocalOptions']/*" />
             public System.IntPtr HandleLocalOptions;
 
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='NameLost']/*" />
+            public System.IntPtr NameLost;
+
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Padding']/*" />
             public System.IntPtr* Padding;
 #pragma warning restore CS0649
@@ -88,6 +91,8 @@ namespace GISharp.Lib.Gio
             RegisterVirtualMethod(shutdownOffset, ShutdownMarshal.Create);
             System.Int32 handleLocalOptionsOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.HandleLocalOptions));
             RegisterVirtualMethod(handleLocalOptionsOffset, HandleLocalOptionsMarshal.Create);
+            System.Int32 nameLostOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.NameLost));
+            RegisterVirtualMethod(nameLostOffset, NameLostMarshal.Create);
         }
 
         /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Startup']/*" />
@@ -648,6 +653,52 @@ System.IntPtr options);
                 }
 
                 return unmanagedHandleLocalOptions;
+            }
+        }
+
+        /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='NameLost']/*" />
+        public delegate System.Boolean NameLost();
+
+        /// <summary>
+        /// Unmanaged callback
+        /// </summary>
+        [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none direction:out */
+        public unsafe delegate GISharp.Runtime.Boolean UnmanagedNameLost(
+/* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
+/* transfer-ownership:none direction:in */
+System.IntPtr application);
+
+        /// <summary>
+        /// Class for marshalling <see cref="NameLost"/> methods.
+        /// </summary>
+        public static class NameLostMarshal
+        {
+            /// <summary>
+            /// Creates an unmanaged delegate from a managed delegate.
+            /// </summary>
+            public static unsafe UnmanagedNameLost Create(System.Reflection.MethodInfo methodInfo)
+            {
+                GISharp.Runtime.Boolean unmanagedNameLost(System.IntPtr application_)
+                {
+                    try
+                    {
+                        var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
+                        var doNameLost = (NameLost)methodInfo.CreateDelegate(typeof(NameLost), application);
+                        var ret = doNameLost();
+                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        return ret_;
+                    }
+                    catch (System.Exception ex)
+                    {
+                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                    }
+
+                    return default(GISharp.Runtime.Boolean);
+                }
+
+                return unmanagedNameLost;
             }
         }
 

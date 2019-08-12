@@ -30,6 +30,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.GLib.MainContext Context { get => GetContext(); }
 
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Name']/*" />
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        public GISharp.Lib.GLib.NullableUnownedUtf8 Name { get => GetName(); set => SetName(value); }
+
         /// <include file="Task.xmldoc" path="declaration/member[@name='Priority']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Int32 Priority { get => GetPriority(); set => SetPriority(value); }
@@ -342,6 +346,33 @@ namespace GISharp.Lib.Gio
             var task_ = Handle;
             var ret_ = g_task_get_context(task_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>(ret_, GISharp.Runtime.Transfer.None)!;
+            return ret;
+        }
+
+        /// <summary>
+        /// Gets @task’s name. See g_task_set_name().
+        /// </summary>
+        /// <param name="task">
+        /// a #GTask
+        /// </param>
+        /// <returns>
+        /// @task’s name, or %NULL
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 direction:out */
+        static extern unsafe System.IntPtr g_task_get_name(
+        /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr task);
+
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetName()
+        {
+            var task_ = Handle;
+            var ret_ = g_task_get_name(task_);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 
@@ -873,6 +904,51 @@ namespace GISharp.Lib.Gio
             var task_ = Handle;
             var checkCancellable_ = (GISharp.Runtime.Boolean)checkCancellable;
             g_task_set_check_cancellable(task_, checkCancellable_);
+        }
+
+        /// <summary>
+        /// Sets @task’s name, used in debugging and profiling. The name defaults to
+        /// %NULL.
+        /// </summary>
+        /// <remarks>
+        /// The task name should describe in a human readable way what the task does.
+        /// For example, ‘Open file’ or ‘Connect to network host’. It is used to set the
+        /// name of the #GSource used for idle completion of the task.
+        /// 
+        /// This function may only be called before the @task is first used in a thread
+        /// other than the one it was constructed in.
+        /// </remarks>
+        /// <param name="task">
+        /// a #GTask
+        /// </param>
+        /// <param name="name">
+        /// a human readable name for the task, or %NULL to unset it
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_task_set_name(
+        /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr task,
+        /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr name);
+
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        private unsafe void SetName(GISharp.Lib.GLib.NullableUnownedUtf8 name)
+        {
+            var task_ = Handle;
+            var name_ = name.Handle;
+            g_task_set_name(task_, name_);
+        }
+
+        [GISharp.Runtime.SinceAttribute("2.60")]
+        private unsafe void SetName(System.String? name)
+        {
+            using var nameUtf8 = name == null ? null : new GISharp.Lib.GLib.Utf8(name);
+            SetName((GISharp.Lib.GLib.NullableUnownedUtf8)nameUtf8);
         }
 
         /// <summary>

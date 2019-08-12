@@ -49,6 +49,12 @@ context is the default #GMainContext.
 </remarks>
 </member>
 
+<member name='Name'>
+<summary>
+Gets this instance’s name. See <see cref="M:Task.SetName(GISharp.Lib.GLib.Utf8)"/>.
+</summary>
+</member>
+
 <member name='Priority'>
 <summary>
 Gets this instance's priority

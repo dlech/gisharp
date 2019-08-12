@@ -184,8 +184,8 @@ in the following two cases
   native, the returned string is the result of <see cref="M:File.GetUri(GISharp.Lib.Gio.IFile)"/>
   (such as `sftp://path/to/my%20icon.png`).
 
-- If this instance is a <see cref="ThemedIcon"/> with exactly one name, the encoding is
-   simply the name (such as `network-server`).
+- If this instance is a <see cref="ThemedIcon"/> with exactly one name and no fallbacks,
+  the encoding is simply the name (such as `network-server`).
 </remarks>
 <param name="icon">
 a <see cref="IIcon"/>.
