@@ -37,7 +37,10 @@ namespace GISharp.Test.GIRepository
         public void TestGetLoadedNamespaces ()
         {
             var namespaces = Repository.LoadedNamespaces;
-            Assert.That (namespaces, Is.EqualTo (new []{ "GLib", "GObject", "Gio" }));
+            Assert.That(namespaces.Length, Is.EqualTo(3));
+            Assert.That(namespaces, Contains.Item("GLib"));
+            Assert.That(namespaces, Contains.Item("GObject"));
+            Assert.That(namespaces, Contains.Item("Gio"));
         }
 
         [Test]

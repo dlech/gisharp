@@ -15,8 +15,8 @@ namespace GISharp.Test.GLib
         {
             // This is a bit of a backwards test since it is actually verifying
             // that the assembly version is correct.
-            var assembly = Assembly.GetAssembly (typeof (Version));
-            var assemblyVersion = assembly.GetName ().Version;
+            var assembly = Assembly.GetAssembly(typeof(Version))!;
+            var assemblyVersion = assembly.GetName().Version!;
             Assert.That (Version.CompileTime.Major, Is.EqualTo (assemblyVersion.Major));
             Assert.That (Version.CompileTime.Minor, Is.EqualTo (assemblyVersion.Minor));
         }
@@ -26,8 +26,8 @@ namespace GISharp.Test.GLib
         {
             // This is a bit of a backwards test since it is actually verifying
             // that the assembly version is correct.
-            var assembly = Assembly.GetAssembly (typeof (Version));
-            var assemblyVersion = assembly.GetName ().Version;
+            var assembly = Assembly.GetAssembly(typeof(Version))!;
+            var assemblyVersion = assembly.GetName().Version!;
             Assert.That (Version.RunTime.Major, Is.EqualTo (assemblyVersion.Major));
             Assert.That (Version.RunTime.Minor, Is.EqualTo (assemblyVersion.Minor));
         }

@@ -64,21 +64,12 @@ namespace GISharp.CodeGen.Reflection
             }
         }
 
-        static Attribute NullableAttribute;
+        static readonly Attribute NullableAttribute;
 
         static GirParameterInfo()
         {
-            var method = typeof(GirParameterInfo)
-                .GetMethod(nameof(Dummy), BindingFlags.NonPublic | BindingFlags.Static);
-            var param = method.GetParameters().First();
-            NullableAttribute = param.GetCustomAttributes()
-                .Single(x => x.GetType().FullName == "System.Runtime.CompilerServices.NullableAttribute");
+            var nullable = System.Type.GetType("System.Runtime.CompilerServices.NullableAttribute");
+            NullableAttribute = (Attribute)Activator.CreateInstance(nullable, (byte)2);
         }
-
-#nullable enable
-        // dummy method for getting System.Runtime.CompilerServices.NullableAttribute
-        static void Dummy(string? str) {
-        }
-#nullable restore
     }
 }

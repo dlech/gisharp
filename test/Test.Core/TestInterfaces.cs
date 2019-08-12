@@ -368,7 +368,7 @@ namespace GISharp.Test.Core
         {
             try {
                 var userData = (GCHandle)userData_;
-                var completion = (TaskCompletionSource<bool>)userData.Target;
+                var completion = (TaskCompletionSource<bool>)userData.Target!;
                 userData.Free();
     
                 var error_ = IntPtr.Zero;

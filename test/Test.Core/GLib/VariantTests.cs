@@ -449,11 +449,11 @@ namespace GISharp.Test.Core.GLib
         }
 
         static readonly PropertyInfo isFloatingProp =
-            typeof(Variant).GetProperty("IsFloating", BindingFlags.Instance | BindingFlags.NonPublic);
+            typeof(Variant).GetProperty("IsFloating", BindingFlags.Instance | BindingFlags.NonPublic)!;
 
         static bool GetIsFloating(Variant variant)
         {
-            return (bool)isFloatingProp.GetValue(variant);
+            return (bool)isFloatingProp.GetValue(variant)!;
         }
     }
 }

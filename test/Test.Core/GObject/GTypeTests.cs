@@ -308,8 +308,8 @@ namespace GISharp.Test.Core.GObject
             typeBuilder.SetCustomAttribute (new CustomAttributeBuilder (
                 gtypeAttribute.GetConstructors ().Single (),
                 new object [] { dummyTypeName },
-                new [] {
-                    gtypeAttribute.GetProperty ("IsProxyForUnmanagedType"),
+                new PropertyInfo[] {
+                    gtypeAttribute.GetProperty("IsProxyForUnmanagedType")!,
                 },
                 new object [] {
                     true, // IsProxyForUnmanagedType
@@ -329,7 +329,7 @@ namespace GISharp.Test.Core.GObject
                 MethodAttributes.HideBySig | MethodAttributes.SpecialName |
                 MethodAttributes.RTSpecialName | MethodAttributes.Static,
                 CallingConventions.Standard, null);
-            var getDummyGType = GetType ().GetMethod (nameof (GetDummyGType));
+            var getDummyGType = GetType().GetMethod(nameof(GetDummyGType))!;
             var generator = staticCtor.GetILGenerator();
             generator.Emit(OpCodes.Call, getDummyGType);
             generator.Emit(OpCodes.Stsfld, gtypeField);

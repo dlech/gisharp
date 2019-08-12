@@ -148,7 +148,7 @@ namespace GISharp.Test.Core
                 Assert.That(a[1], Is.EqualTo(values[1]));
                 Assert.That(a[2], Is.EqualTo(values[2]));
 
-                Assert.That(() => a.CopyTo(null, 0), Throws.TypeOf<ArgumentNullException>());
+                Assert.That(() => a.CopyTo(null!, 0), Throws.TypeOf<ArgumentNullException>());
                 Assert.That(() => a.CopyTo(a, -1), Throws.TypeOf<ArgumentOutOfRangeException>());
                 Assert.That(() => a.CopyTo(a, 2), Throws.TypeOf<ArgumentException>());
 
