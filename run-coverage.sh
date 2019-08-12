@@ -13,4 +13,5 @@ lcov -o lcov.info -a core.info -t core \
 
 if [ "$TRAVIS" != "true" ]; then
     genhtml lcov.info
+    echo "Browse coverage at $(pwd)/index.html"
 fi
