@@ -4960,9 +4960,9 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doMeasureDiskUsageFinish = (MeasureDiskUsageFinish)methodInfo.CreateDelegate(typeof(MeasureDiskUsageFinish), file);
                         doMeasureDiskUsageFinish(result,out var diskUsage,out var numDirs,out var numFiles);
-                        diskUsage_ = diskUsage;
-                        numDirs_ = numDirs;
-                        numFiles_ = numFiles;
+                        diskUsage_ = (System.UInt64)diskUsage;
+                        numDirs_ = (System.UInt64)numDirs;
+                        numFiles_ = (System.UInt64)numFiles;
                         return true;
                     }
                     catch (GISharp.Runtime.GErrorException ex)

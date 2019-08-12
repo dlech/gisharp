@@ -874,7 +874,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doWritevFn = (WritevFn)methodInfo.CreateDelegate(typeof(WritevFn), stream);
                         doWritevFn(vectors,out var bytesWritten, cancellable);
-                        bytesWritten_ = bytesWritten;
+                        bytesWritten_ = (System.UIntPtr)bytesWritten;
                         return true;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
@@ -1001,7 +1001,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doWritevFinish = (WritevFinish)methodInfo.CreateDelegate(typeof(WritevFinish), stream);
                         doWritevFinish(result,out var bytesWritten);
-                        bytesWritten_ = bytesWritten;
+                        bytesWritten_ = (System.UIntPtr)bytesWritten;
                         return true;
                     }
                     catch (GISharp.Runtime.GErrorException ex)

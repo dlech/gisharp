@@ -172,7 +172,7 @@ namespace GISharp.CodeGen.Syntax
                 // value types are used directly
                 var unmanagedType = arg.Type.UnmanagedType;
                 if (unmanagedType.IsPointer) {
-                    var ref_ = declareVariable ? "ref " : "";
+                    var ref_ = declareVariable ? "ref " : $"({unmanagedType.GetElementType()})";
                     expressions.Add(ParseExpression($"{arg.ManagedName}_ = {ref_}{arg.ManagedName}"));
                 }
                 else {

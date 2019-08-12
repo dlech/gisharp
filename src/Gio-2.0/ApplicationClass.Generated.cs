@@ -325,7 +325,7 @@ out System.Int32 exitStatus);
                         var doTryLocalCommandLine = (TryLocalCommandLine)methodInfo.CreateDelegate(typeof(TryLocalCommandLine), application);
                         var ret = doTryLocalCommandLine(ref arguments,out var exitStatus);
                         arguments_ = arguments.Take();
-                        exitStatus_ = exitStatus;
+                        exitStatus_ = (System.Int32)exitStatus;
                         var ret_ = (GISharp.Runtime.Boolean)ret;
                         return ret_;
                     }
