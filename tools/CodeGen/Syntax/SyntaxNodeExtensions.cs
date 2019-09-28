@@ -17,7 +17,7 @@ namespace GISharp.CodeGen.Syntax
             return builder.ToString();
         }
 
-        static string GetConstructordName(ConstructorDeclarationSyntax constructor)
+        static string GetConstructorName(ConstructorDeclarationSyntax constructor)
         {
             return GetCallableName(constructor.Identifier, constructor.ParameterList);
         }
@@ -33,7 +33,7 @@ namespace GISharp.CodeGen.Syntax
             case ClassDeclarationSyntax @class:
                 return @class.Identifier.Text;
             case ConstructorDeclarationSyntax constructor:
-                return GetConstructordName(constructor);
+                return GetConstructorName(constructor);
             case DelegateDeclarationSyntax @delegate:
                 return @delegate.Identifier.Text;
             case EnumDeclarationSyntax @enum:
