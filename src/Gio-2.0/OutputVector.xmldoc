@@ -1,7 +1,6 @@
 <declaration>
 
 <member name='Buffer'>
-#pragmawarningdisableCS0649
 <summary>
 Pointer to a buffer of data to read.
 </summary>
@@ -9,7 +8,7 @@ Pointer to a buffer of data to read.
 
 <member name='Size'>
 <summary>
-the size of <paramref name="buffer"/>.
+the size of <see cref="OutputVector.Buffer"/>.
 </summary>
 </member>
 
