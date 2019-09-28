@@ -30,8 +30,7 @@ namespace GISharp.Test.Gio
         {
             using (var ag = new TestActionGroup()) {
                 if (ag.TryQueryAction("does-not-exist", out var enabled, out var paramType,
-                    out var stateType, out var stateHint, out var state))
-                {
+                    out var stateType, out var stateHint, out var state)) {
                     Assert.Fail("The action does not exist, so we should not get here.");
                 }
             }
@@ -200,7 +199,7 @@ namespace GISharp.Test.Gio
             // default signal handler
         }
 
-        public event EventHandler<Variant?> ActionActivated;
+        public event EventHandler<Variant?>? ActionActivated;
 
         void IActionGroup.DoActivateAction(UnownedUtf8 actionName, Variant? parameter) => ActionActivated?.Invoke(this, parameter);
 
@@ -236,7 +235,7 @@ namespace GISharp.Test.Gio
             remove => actionStateChangedSignalManager.Remove(value);
         }
 
-        public event EventHandler<Variant> StateChanged;
+        public event EventHandler<Variant>? StateChanged;
         void IActionGroup.DoChangeActionState(UnownedUtf8 actionName, Variant value) => StateChanged?.Invoke(this, value);
 
         bool IActionGroup.DoGetActionEnabled(UnownedUtf8 actionName) => false;
@@ -251,6 +250,6 @@ namespace GISharp.Test.Gio
 
         bool IActionGroup.DoHasAction(UnownedUtf8 actionName) => false;
 
-        Strv IActionGroup.DoListActions() => new Strv("test-action-1" );
+        Strv IActionGroup.DoListActions() => new Strv("test-action-1");
     }
 }
