@@ -42,7 +42,8 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='ModificationDateTime']/*" />
         [GISharp.Runtime.SinceAttribute("2.62")]
-        public GISharp.Lib.GLib.DateTime? ModificationDateTime { get => GetModificationDateTime(); set => SetModificationDateTime(value); }
+        [System.Diagnostics.CodeAnalysis.DisallowNullAttribute]
+        public GISharp.Lib.GLib.DateTime? ModificationDateTime { get => GetModificationDateTime(); set => SetModificationDateTime(value!); }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='Name']/*" />
         public GISharp.Lib.GLib.Filename Name { get => GetName(); set => SetName(value); }

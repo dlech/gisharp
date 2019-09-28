@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GLib;
@@ -39,7 +40,19 @@ namespace GISharp.CodeGen.Syntax
 
             var setter = property.Setter;
             if (setter != null) {
-                var setterExpression = ParseExpression($"{setter.ManagedName}(value)");
+                var nullableValue = "";
+                if (!setter.Parameters.Last().IsNullable && getter.ReturnValue.IsNullable) {
+                    syntax = syntax.AddAttributeLists(AttributeList()
+                        .AddAttributes(Attribute(ParseName($"{typeof(DisallowNullAttribute)}"))));
+                    nullableValue = "!"; // work around https://github.com/dotnet/roslyn/issues/38943
+                }
+
+                if (setter.Parameters.Last().IsNullable && !getter.ReturnValue.IsNullable) {
+                    syntax = syntax.AddAttributeLists(AttributeList()
+                        .AddAttributes(Attribute(ParseName($"{typeof(AllowNullAttribute)}"))));
+                }
+
+                var setterExpression = ParseExpression($"{setter.ManagedName}(value{nullableValue})");
                 var setAccessor = AccessorDeclaration(SetAccessorDeclaration)
                     .WithExpressionBody(ArrowExpressionClause(setterExpression))
                     .WithSemicolonToken(Token(SemicolonToken));
