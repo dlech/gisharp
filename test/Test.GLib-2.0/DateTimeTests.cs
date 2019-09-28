@@ -62,6 +62,7 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
+        [Obsolete]
         public void TestNewFromTimeValLocal()
         {
             using (var dt = DateTime.FromTimevalLocal(new TimeVal())) {
@@ -71,6 +72,7 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
+        [Obsolete]
         public void TestNewFromTimeValUtc()
         {
             using (var dt = DateTime.FromTimevalUtc(new TimeVal())) {
@@ -94,7 +96,7 @@ namespace GISharp.Test.GLib
             using (var dt = new DateTime(TimeZone.Utc, 1, 1, 1, 0, 0, 0)) {
                 Assert.That(dt, Is.Not.Null);
             }
-            
+
             Assert.That(() => new DateTime(TimeZone.Utc, 0, 0, 0, 0, 0, 0),
                 Throws.TypeOf<ArgumentOutOfRangeException>());
 
@@ -107,7 +109,7 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.GetLocal(1, 1, 1, 0, 0, 0)) {
                 Assert.That(dt, Is.Not.Null);
             }
-            
+
             Assert.That(() => DateTime.GetLocal(0, 0, 0, 0, 0, 0),
                 Throws.TypeOf<ArgumentOutOfRangeException>());
 
@@ -120,7 +122,7 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.GetUtc(1, 1, 1, 0, 0, 0)) {
                 Assert.That(dt, Is.Not.Null);
             }
-            
+
             Assert.That(() => DateTime.GetUtc(0, 0, 0, 0, 0, 0),
                 Throws.TypeOf<ArgumentOutOfRangeException>());
 

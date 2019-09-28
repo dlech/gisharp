@@ -14,20 +14,20 @@ namespace GISharp.Test.Core.GObject
     public class InterfaceTests
     {
         [Test]
-        public void TestUnmanagedTypeRegistration ()
+        public void TestUnmanagedTypeRegistration()
         {
-            Assert.That (() => typeof(INetworkMonitor).GetGType (), Throws.Nothing);
+            Assert.That(() => typeof(INetworkMonitor).GetGType(), Throws.Nothing);
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestVirtualMethod ()
+        public void TestVirtualMethod()
         {
-            using (var obj = new TestNetworkMonitor ()) {
-                Assume.That (obj.CanReachCallCount, Is.EqualTo (0));
-                obj.CanReach (IntPtr.Zero);
-                Assert.That (obj.CanReachCallCount, Is.EqualTo (1));
+            using (var obj = new TestNetworkMonitor()) {
+                Assume.That(obj.CanReachCallCount, Is.EqualTo(0));
+                obj.CanReach(IntPtr.Zero);
+                Assert.That(obj.CanReachCallCount, Is.EqualTo(1));
             }
 
             AssertNoGLibLog();
@@ -58,17 +58,17 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestSignal ()
+        public void TestSignal()
         {
-            using (var obj = new TestNetworkMonitor ()) {
+            using (var obj = new TestNetworkMonitor()) {
                 var callbackCount = 0;
                 obj.NetworkChanged += available => callbackCount++;
 
-                var id = Signal.TryLookup<TestNetworkMonitor> ("network-changed");
-                Assume.That (id, Is.Not.EqualTo (0));
+                var id = Signal.TryLookup<TestNetworkMonitor>("network-changed");
+                Assume.That(id, Is.Not.EqualTo(0));
                 obj.Emit(id, Quark.Zero, true);
 
-                Assert.That (callbackCount, Is.EqualTo (1));
+                Assert.That(callbackCount, Is.EqualTo(1));
             }
 
             AssertNoGLibLog();
@@ -76,13 +76,13 @@ namespace GISharp.Test.Core.GObject
     }
 
     [GType]
-    class TestNetworkMonitor : GISharp.Lib.GObject.Object, INetworkMonitor
+    class TestNetworkMonitor : Lib.GObject.Object, INetworkMonitor
     {
         public int CanReachCallCount { get; private set; }
 
         #region INetworkMonitor implementation
 
-        public event Action<bool> NetworkChanged;
+        public event Action<bool>? NetworkChanged;
 
         bool INetworkMonitor.DoCanReach(IntPtr connectable, IntPtr cancellable)
         {
@@ -98,43 +98,30 @@ namespace GISharp.Test.Core.GObject
 
         void INetworkMonitor.DoNetworkChanged(bool available)
         {
-            if (NetworkChanged != null) {
-                NetworkChanged (available);
-            }
+            NetworkChanged?.Invoke(available);
         }
 
         [DefaultValue(NetworkConnectivity.Local)]
         public NetworkConnectivity Connectivity => NetworkConnectivity.Local;
 
-        public bool NetworkAvailable {
-            get {
-                throw new InvalidOperationException ();
-            }
-        }
+        public bool NetworkAvailable => throw new InvalidOperationException();
 
-        public bool NetworkMetered {
-            get {
-                throw new InvalidOperationException ();
-            }
-        }
+        public bool NetworkMetered => throw new InvalidOperationException();
 
         #endregion
 
         #region IInitable implementation
 
-        void IInitable.DoInit(IntPtr cancellable)
-        {
-            throw new InvalidOperationException ();
-        }
+        void IInitable.DoInit(IntPtr cancellable) => throw new InvalidOperationException();
 
         #endregion
 
-        public TestNetworkMonitor () : this (New<TestNetworkMonitor> (), Transfer.Full)
+        public TestNetworkMonitor() : this(New<TestNetworkMonitor>(), Transfer.Full)
         {
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public TestNetworkMonitor (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public TestNetworkMonitor(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
     }
