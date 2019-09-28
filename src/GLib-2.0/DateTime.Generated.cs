@@ -292,6 +292,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new #GDateTime, or %NULL
         /// </returns>
+        [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_unix_local() instead.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
@@ -302,6 +304,8 @@ namespace GISharp.Lib.GLib
         in GISharp.Lib.GLib.TimeVal tv);
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='FromTimevalLocal(GISharp.Lib.GLib.TimeVal)']/*" />
+        [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_unix_local() instead.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe GISharp.Lib.GLib.DateTime FromTimevalLocal(in GISharp.Lib.GLib.TimeVal tv)
         {ref readonly var tv_ = ref tv;
@@ -329,6 +333,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new #GDateTime, or %NULL
         /// </returns>
+        [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_unix_utc() instead.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
@@ -339,6 +345,8 @@ namespace GISharp.Lib.GLib
         in GISharp.Lib.GLib.TimeVal tv);
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='FromTimevalUtc(GISharp.Lib.GLib.TimeVal)']/*" />
+        [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_unix_utc() instead.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe GISharp.Lib.GLib.DateTime FromTimevalUtc(in GISharp.Lib.GLib.TimeVal tv)
         {ref readonly var tv_ = ref tv;
@@ -1248,6 +1256,38 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Format @datetime in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601),
+        /// including the date, time and time zone, and return that as a UTF-8 encoded
+        /// string.
+        /// </summary>
+        /// <param name="datetime">
+        /// A #GDateTime
+        /// </param>
+        /// <returns>
+        /// a newly allocated string formatted in ISO 8601 format
+        ///     or %NULL in the case that there was an error. The string
+        ///     should be freed with g_free().
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.62")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        static extern unsafe System.IntPtr g_date_time_format_iso8601(
+        /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr datetime);
+
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='FormatIso8601()']/*" />
+        [GISharp.Runtime.SinceAttribute("2.62")]
+        public unsafe GISharp.Lib.GLib.Utf8 FormatIso8601()
+        {
+            var datetime_ = Handle;
+            var ret_ = g_date_time_format_iso8601(datetime_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
         /// Retrieves the day of the month represented by @datetime in the gregorian
         /// calendar.
         /// </summary>
@@ -1874,6 +1914,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if successful, else %FALSE
         /// </returns>
+        [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_to_unix() instead.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
@@ -1887,6 +1929,8 @@ namespace GISharp.Lib.GLib
         in GISharp.Lib.GLib.TimeVal tv);
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='ToTimeval(GISharp.Lib.GLib.TimeVal)']/*" />
+        [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_to_unix() instead.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Boolean ToTimeval(in GISharp.Lib.GLib.TimeVal tv)
         {

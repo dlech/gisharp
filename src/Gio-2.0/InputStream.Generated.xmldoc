@@ -111,8 +111,8 @@ partial result will be returned, without an error.
 On error -1 is returned and this instance is set accordingly.
 </remarks>
 <param name="buffer">
-a buffer to
-    read data into (which should be at least count bytes long).
+
+    a buffer to read data into (which should be at least count bytes long).
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
@@ -149,8 +149,8 @@ available from C.  If you need it from another language then you must
 write your own loop around <see cref="M:InputStream.Read(GISharp.Runtime.CArray`1[System.Byte],GISharp.Lib.Gio.Cancellable)"/>.
 </remarks>
 <param name="buffer">
-a buffer to
-    read data into (which should be at least count bytes long).
+
+    a buffer to read data into (which should be at least count bytes long).
 </param>
 <param name="bytesRead">
 location to store the number of bytes that was read from the stream
@@ -178,8 +178,8 @@ value) will be executed before an outstanding request with lower
 priority. Default priority is %G_PRIORITY_DEFAULT.
 </remarks>
 <param name="buffer">
-a buffer to
-    read data into (which should be at least count bytes long)
+
+    a buffer to read data into (which should be at least count bytes long)
 </param>
 <param name="ioPriority">
 the [I/O priority][io-priority] of the request
@@ -217,8 +217,8 @@ asynchronicity, so they are optional for inheriting classes. However, if you
 override one you must override all.
 </remarks>
 <param name="buffer">
-a buffer to
-    read data into (which should be at least count bytes long).
+
+    a buffer to read data into (which should be at least count bytes long).
 </param>
 <param name="ioPriority">
 the [I/O priority][io-priority]
@@ -461,8 +461,8 @@ asynchronicity, so they are optional for inheriting classes. However, if you
 override one you must override all.
 </remarks>
 <param name="buffer">
-a buffer to
-    read data into (which should be at least count bytes long).
+
+    a buffer to read data into (which should be at least count bytes long).
 </param>
 <param name="ioPriority">
 the [I/O priority][io-priority]
@@ -578,7 +578,7 @@ Finishes a stream skip operation.
 a <see cref="IAsyncResult"/>.
 </param>
 <returns>
-the size of the bytes skipped, or %-1 on error.
+the size of the bytes skipped, or `-1` on error.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error

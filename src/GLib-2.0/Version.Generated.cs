@@ -9,10 +9,10 @@ namespace GISharp.Lib.GLib
         private const System.Int32 major = 2;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='minor']/*" />
-        private const System.Int32 minor = 60;
+        private const System.Int32 minor = 62;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='micro']/*" />
-        private const System.Int32 micro = 4;
+        private const System.Int32 micro = 0;
 
         /// <summary>
         /// Checks that the GLib library in use is compatible with the

@@ -140,7 +140,7 @@ namespace GISharp.Lib.Gio
         /// a #GFileAttributeInfoList.
         /// </param>
         /// <param name="name">
-        /// the name of the attribute to lookup.
+        /// the name of the attribute to look up.
         /// </param>
         /// <returns>
         /// a #GFileAttributeInfo for the @name, or %NULL if an

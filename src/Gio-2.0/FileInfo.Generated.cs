@@ -40,6 +40,10 @@ namespace GISharp.Lib.Gio
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='IsSymlink']/*" />
         public System.Boolean IsSymlink { get => GetIsSymlink(); set => SetIsSymlink(value); }
 
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='ModificationDateTime']/*" />
+        [GISharp.Runtime.SinceAttribute("2.62")]
+        public GISharp.Lib.GLib.DateTime? ModificationDateTime { get => GetModificationDateTime(); set => SetModificationDateTime(value); }
+
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='Name']/*" />
         public GISharp.Lib.GLib.Filename Name { get => GetName(); set => SetName(value); }
 
@@ -170,7 +174,7 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the value of a attribute, formated as a string.
         /// This escapes things as needed to make the string valid
-        /// utf8.
+        /// UTF-8.
         /// </summary>
         /// <param name="info">
         /// a #GFileInfo.
@@ -179,12 +183,13 @@ namespace GISharp.Lib.Gio
         /// a file attribute key.
         /// </param>
         /// <returns>
-        /// a UTF-8 string associated with the given @attribute.
+        /// a UTF-8 string associated with the given @attribute, or
+        ///    %NULL if the attribute wasn’t set.
         ///    When you're done with the string it must be freed with g_free().
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
+        /* transfer-ownership:full nullable:1 direction:out */
         static extern unsafe System.IntPtr g_file_info_get_attribute_as_string(
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -194,17 +199,17 @@ namespace GISharp.Lib.Gio
         System.IntPtr attribute);
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public unsafe GISharp.Lib.GLib.Utf8 GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8 attribute)
+        public unsafe GISharp.Lib.GLib.Utf8? GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
             var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_as_string(info_,attribute_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeAsString(System.String)']/*" />
-        public unsafe GISharp.Lib.GLib.Utf8 GetAttributeAsString(System.String attribute)
+        public unsafe GISharp.Lib.GLib.Utf8? GetAttributeAsString(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
             return GetAttributeAsString((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
@@ -994,6 +999,34 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Gets the modification time of the current @info and returns it as a
+        /// #GDateTime.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <returns>
+        /// modification time, or %NULL if unknown
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.62")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GLib.DateTime" type="GDateTime*" managed-name="GISharp.Lib.GLib.DateTime" is-pointer="1" /> */
+        /* transfer-ownership:full nullable:1 direction:out */
+        static extern unsafe System.IntPtr g_file_info_get_modification_date_time(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info);
+
+        [GISharp.Runtime.SinceAttribute("2.62")]
+        private unsafe GISharp.Lib.GLib.DateTime? GetModificationDateTime()
+        {
+            var info_ = Handle;
+            var ret_ = g_file_info_get_modification_date_time(info_);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>(ret_, GISharp.Runtime.Transfer.Full);
+            return ret;
+        }
+
+        /// <summary>
         /// Gets the modification time of the current @info and sets it
         /// in @result.
         /// </summary>
@@ -1003,6 +1036,8 @@ namespace GISharp.Lib.Gio
         /// <param name="result">
         /// a #GTimeVal.
         /// </param>
+        [System.ObsoleteAttribute("Use g_file_info_get_modification_date_time() instead, as\n   #GTimeVal is deprecated due to the year 2038 problem.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -1015,6 +1050,8 @@ namespace GISharp.Lib.Gio
         out GISharp.Lib.GLib.TimeVal result);
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetModificationTime(GISharp.Lib.GLib.TimeVal)']/*" />
+        [System.ObsoleteAttribute("Use g_file_info_get_modification_date_time() instead, as\n   #GTimeVal is deprecated due to the year 2038 problem.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         public unsafe void GetModificationTime(out GISharp.Lib.GLib.TimeVal result)
         {
             var info_ = Handle;
@@ -2061,6 +2098,36 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute in the file
+        /// info to the given date/time value.
+        /// </summary>
+        /// <param name="info">
+        /// a #GFileInfo.
+        /// </param>
+        /// <param name="mtime">
+        /// a #GDateTime.
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.62")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        static extern unsafe void g_file_info_set_modification_date_time(
+        /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr info,
+        /* <type name="GLib.DateTime" type="GDateTime*" managed-name="GISharp.Lib.GLib.DateTime" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr mtime);
+
+        [GISharp.Runtime.SinceAttribute("2.62")]
+        private unsafe void SetModificationDateTime(GISharp.Lib.GLib.DateTime mtime)
+        {
+            var info_ = Handle;
+            var mtime_ = mtime.Handle;
+            g_file_info_set_modification_date_time(info_, mtime_);
+        }
+
+        /// <summary>
+        /// Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute in the file
         /// info to the given time value.
         /// </summary>
         /// <param name="info">
@@ -2069,6 +2136,8 @@ namespace GISharp.Lib.Gio
         /// <param name="mtime">
         /// a #GTimeVal.
         /// </param>
+        [System.ObsoleteAttribute("Use g_file_info_set_modification_date_time() instead, as\n   #GTimeVal is deprecated due to the year 2038 problem.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -2081,6 +2150,8 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GLib.TimeVal mtime);
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetModificationTime(GISharp.Lib.GLib.TimeVal)']/*" />
+        [System.ObsoleteAttribute("Use g_file_info_set_modification_date_time() instead, as\n   #GTimeVal is deprecated due to the year 2038 problem.")]
+        [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         public unsafe void SetModificationTime(GISharp.Lib.GLib.TimeVal mtime)
         {
             var info_ = Handle;

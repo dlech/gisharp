@@ -64,6 +64,13 @@ Checks if a file is a symlink.
 </summary>
 </member>
 
+<member name='ModificationDateTime'>
+<summary>
+Gets the modification time of the current this instance and returns it as a
+#GDateTime.
+</summary>
+</member>
+
 <member name='Name'>
 <summary>
 Gets the name for a file.
@@ -130,13 +137,14 @@ a duplicate <see cref="FileInfo"/> of this instance.
 <summary>
 Gets the value of a attribute, formated as a string.
 This escapes things as needed to make the string valid
-utf8.
+UTF-8.
 </summary>
 <param name="attribute">
 a file attribute key.
 </param>
 <returns>
-a UTF-8 string associated with the given this instance.
+a UTF-8 string associated with the given this instance, or
+   <c>null</c> if the attribute wasn’t set.
    When you're done with the string it must be freed with g_free().
 </returns>
 </member>
@@ -145,13 +153,14 @@ a UTF-8 string associated with the given this instance.
 <summary>
 Gets the value of a attribute, formated as a string.
 This escapes things as needed to make the string valid
-utf8.
+UTF-8.
 </summary>
 <param name="attribute">
 a file attribute key.
 </param>
 <returns>
-a UTF-8 string associated with the given this instance.
+a UTF-8 string associated with the given this instance, or
+   <c>null</c> if the attribute wasn’t set.
    When you're done with the string it must be freed with g_free().
 </returns>
 </member>

@@ -25,6 +25,14 @@ zone indicator. (In the absence of any time zone indication, the
 timestamp is assumed to be in local time.)
 
 Any leading or trailing space in <paramref name="isoDate"/> is ignored.
+
+This function was deprecated, along with <see cref="TimeVal"/> itself, in GLib 2.62.
+Equivalent functionality is available using code like:
+|[
+GDateTime *dt = g_date_time_new_from_iso8601 (iso8601_string, NULL);
+gint64 time_val = g_date_time_to_unix (dt);
+g_date_time_unref (dt);
+]|
 </remarks>
 <param name="isoDate">
 an ISO 8601 encoded date string
@@ -49,6 +57,14 @@ zone indicator. (In the absence of any time zone indication, the
 timestamp is assumed to be in local time.)
 
 Any leading or trailing space in <paramref name="isoDate"/> is ignored.
+
+This function was deprecated, along with <see cref="TimeVal"/> itself, in GLib 2.62.
+Equivalent functionality is available using code like:
+|[
+GDateTime *dt = g_date_time_new_from_iso8601 (iso8601_string, NULL);
+gint64 time_val = g_date_time_to_unix (dt);
+g_date_time_unref (dt);
+]|
 </remarks>
 <param name="isoDate">
 an ISO 8601 encoded date string
@@ -98,7 +114,13 @@ variation of ISO 8601 format is required.
 If this instance represents a date which is too large to fit into a `struct tm`,
 <c>null</c> will be returned. This is platform dependent. Note also that since
 `GTimeVal` stores the number of seconds as a `glong`, on 32-bit systems it
-is subject to the year 2038 problem.
+is subject to the year 2038 problem. Accordingly, since GLib 2.62, this
+function has been deprecated. Equivalent functionality is available using:
+|[
+GDateTime *dt = g_date_time_new_from_unix_utc (time_val);
+iso8601_string = g_date_time_format_iso8601 (dt);
+g_date_time_unref (dt);
+]|
 
 The return value of <see cref="M:TimeVal.ToIso8601()"/> has been nullable since GLib
 2.54; before then, GLib would crash under the same conditions.
@@ -116,7 +138,7 @@ Similar to the struct timeval returned by the gettimeofday()
 UNIX system call.
 </summary>
 <remarks>
-GLib is attempting to unify around the use of 64bit integers to
+GLib is attempting to unify around the use of 64-bit integers to
 represent microsecond-precision time. As such, this type will be
 removed from a future version of GLib. A consequence of using `glong` for
 `tv_sec` is that on 32-bit systems `GTimeVal` is subject to the year 2038

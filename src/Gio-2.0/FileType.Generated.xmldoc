@@ -48,6 +48,16 @@ File is a mountable location.
 <summary>
 Indicates the file's on-disk type.
 </summary>
+<remarks>
+On Windows systems a file will never have <see cref="FileType.SymbolicLink"/> type;
+use <see cref="FileInfo"/> and %G_FILE_ATTRIBUTE_STANDARD_IS_SYMLINK to determine
+whether a file is a symlink or not. This is due to the fact that NTFS does
+not have a single filesystem object type for symbolic links - it has
+files that symlink to files, and directories that symlink to directories.
+<see cref="FileType"/> enumeration cannot precisely represent this important distinction,
+which is why all Windows symlinks will continue to be reported as
+<see cref="FileType.Regular"/> or <see cref="FileType.Directory"/>.
+</remarks>
 </member>
 
 </declaration>

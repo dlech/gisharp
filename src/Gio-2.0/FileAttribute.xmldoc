@@ -420,6 +420,7 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Bo
 A key in the "standard" namespace for checking if the file is a symlink.
 Typically the actual type is something else, if we followed the symlink
 to get the type.
+On Windows NTFS mountpoints are considered to be symlinks as well.
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
 </summary>
 </member>

@@ -73,7 +73,7 @@ namespace GISharp.Lib.GLib
         /// a #GVariantDict
         /// </param>
         /// <param name="key">
-        /// the key to lookup in the dictionary
+        /// the key to look up in the dictionary
         /// </param>
         /// <returns>
         /// %TRUE if @key is in @dict
@@ -210,7 +210,7 @@ namespace GISharp.Lib.GLib
         /// a #GVariantDict
         /// </param>
         /// <param name="key">
-        /// the key to lookup in the dictionary
+        /// the key to look up in the dictionary
         /// </param>
         /// <param name="expectedType">
         /// a #GVariantType, or %NULL

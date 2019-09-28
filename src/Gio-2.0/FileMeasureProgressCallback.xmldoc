@@ -23,7 +23,7 @@ default main context of the calling thread (ie: the same way that the
 final async result would be reported).
 
 <paramref name="currentSize"/> is in the same units as requested by the operation (see
-%G_FILE_DISK_USAGE_APPARENT_SIZE).
+<see cref="FileMeasureFlags.ApparentSize"/>).
 
 The frequency of the updates is implementation defined, but is
 ideally about once every 200ms.

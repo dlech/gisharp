@@ -8,7 +8,7 @@ No extra argument. This is useful for simple flags.
 
 <member name='String'>
 <summary>
-The option takes a string argument.
+The option takes a UTF-8 string argument.
 </summary>
 </member>
 
@@ -27,7 +27,8 @@ The option provides a callback (of type
 
 <member name='Filename'>
 <summary>
-The option takes a filename as argument.
+The option takes a filename as argument, which will
+       be in the GLib filename encoding rather than UTF-8.
 </summary>
 </member>
 

@@ -919,6 +919,18 @@ a newly allocated string formatted to the requested format
 </returns>
 </member>
 
+<member name='FormatIso8601()'>
+<summary>
+Format this instance in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601),
+including the date, time and time zone, and return that as a UTF-8 encoded
+string.
+</summary>
+<returns>
+a string formatted in ISO 8601 format
+    or <c>null</c> in the case that there was an error.
+</returns>
+</member>
+
 <member name='GetYmd(System.Int32,System.Int32,System.Int32)'>
 <summary>
 Retrieves the Gregorian day, month, and year of a given <see cref="DateTime"/>.

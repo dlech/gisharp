@@ -65,7 +65,7 @@ a copy of the given this instance.
 Gets the file attribute with the name this instance from this instance.
 </summary>
 <param name="name">
-the name of the attribute to lookup.
+the name of the attribute to look up.
 </param>
 <returns>
 a <see cref="FileAttributeInfo"/> for the this instance, or <c>null</c> if an
@@ -78,7 +78,7 @@ attribute isn't found.
 Gets the file attribute with the name this instance from this instance.
 </summary>
 <param name="name">
-the name of the attribute to lookup.
+the name of the attribute to look up.
 </param>
 <returns>
 a <see cref="FileAttributeInfo"/> for the this instance, or <c>null</c> if an

@@ -321,8 +321,8 @@ namespace GISharp.Lib.Gio
         /// a #GInputStream.
         /// </param>
         /// <param name="buffer">
-        /// a buffer to
-        ///     read data into (which should be at least count bytes long).
+        /// 
+        ///     a buffer to read data into (which should be at least count bytes long).
         /// </param>
         /// <param name="count">
         /// the number of bytes that will be read from the stream
@@ -346,11 +346,11 @@ namespace GISharp.Lib.Gio
         /* <array length="1" zero-terminated="0" type="void*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
-        /* transfer-ownership:none direction:in */
-        in System.Byte buffer,
+        /* direction:out caller-allocates:1 transfer-ownership:none */
+        out System.Byte buffer,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
-        /* transfer-ownership:none direction:in */
-        System.UIntPtr count,
+        /* direction:out caller-allocates:0 transfer-ownership:full */
+        out System.UIntPtr count,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
@@ -359,19 +359,19 @@ namespace GISharp.Lib.Gio
         ref System.IntPtr error);
 
         /// <include file="InputStream.xmldoc" path="declaration/member[@name='Read(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Int32 Read(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public unsafe System.Int32 Read(out System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
-            var count_ = (System.UIntPtr)buffer.Length;
+            var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            var ret_ = g_input_stream_read(stream_,buffer_,count_,cancellable_,ref error_);
+            var ret_ = g_input_stream_read(stream_,out var buffer_,out var count_,cancellable_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
+            buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
             var ret = (System.Int32)ret_;
             return ret;
         }
@@ -402,8 +402,8 @@ namespace GISharp.Lib.Gio
         /// a #GInputStream.
         /// </param>
         /// <param name="buffer">
-        /// a buffer to
-        ///     read data into (which should be at least count bytes long).
+        /// 
+        ///     a buffer to read data into (which should be at least count bytes long).
         /// </param>
         /// <param name="count">
         /// the number of bytes that will be read from the stream
@@ -430,11 +430,11 @@ namespace GISharp.Lib.Gio
         /* <array length="1" zero-terminated="0" type="void*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
-        /* transfer-ownership:none direction:in */
-        in System.Byte buffer,
+        /* direction:out caller-allocates:1 transfer-ownership:none */
+        out System.Byte buffer,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
-        /* transfer-ownership:none direction:in */
-        System.UIntPtr count,
+        /* direction:out caller-allocates:0 transfer-ownership:full */
+        out System.UIntPtr count,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out System.UIntPtr bytesRead,
@@ -446,19 +446,19 @@ namespace GISharp.Lib.Gio
         ref System.IntPtr error);
 
         /// <include file="InputStream.xmldoc" path="declaration/member[@name='ReadAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe void ReadAll(System.ReadOnlySpan<System.Byte> buffer, out System.Int32 bytesRead, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public unsafe void ReadAll(out System.ReadOnlySpan<System.Byte> buffer, out System.Int32 bytesRead, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
-            var count_ = (System.UIntPtr)buffer.Length;
+            var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_input_stream_read_all(stream_, buffer_, count_,out var bytesRead_, cancellable_,ref error_);
+            g_input_stream_read_all(stream_,out var buffer_,out var count_,out var bytesRead_, cancellable_,ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
+            buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
             bytesRead = (System.Int32)bytesRead_;
         }
 
@@ -479,8 +479,8 @@ namespace GISharp.Lib.Gio
         /// A #GInputStream
         /// </param>
         /// <param name="buffer">
-        /// a buffer to
-        ///     read data into (which should be at least count bytes long)
+        /// 
+        ///     a buffer to read data into (which should be at least count bytes long)
         /// </param>
         /// <param name="count">
         /// the number of bytes that will be read from the stream
@@ -510,11 +510,11 @@ namespace GISharp.Lib.Gio
         /* <array length="1" zero-terminated="0" type="void*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
-        /* transfer-ownership:none direction:in */
-        in System.Byte buffer,
+        /* direction:out caller-allocates:1 transfer-ownership:none */
+        out System.Byte buffer,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
-        /* transfer-ownership:none direction:in */
-        System.UIntPtr count,
+        /* direction:out caller-allocates:0 transfer-ownership:full */
+        out System.UIntPtr count,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 ioPriority,
@@ -530,16 +530,16 @@ namespace GISharp.Lib.Gio
 
         /// <include file="InputStream.xmldoc" path="declaration/member[@name='ReadAllAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public unsafe System.Threading.Tasks.Task<System.Int32> ReadAllAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public unsafe System.Threading.Tasks.Task<System.Int32> ReadAllAsync(out System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
-            var count_ = (System.UIntPtr)buffer.Length;
+            var stream_ = Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
             var callback_ = readAllAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
-            g_input_stream_read_all_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
+            g_input_stream_read_all_async(stream_,out var buffer_,out var count_, ioPriority_, cancellable_, callback_, userData_);
+            buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
             return completionSource.Task;
         }
 
@@ -645,8 +645,8 @@ namespace GISharp.Lib.Gio
         /// A #GInputStream.
         /// </param>
         /// <param name="buffer">
-        /// a buffer to
-        ///     read data into (which should be at least count bytes long).
+        /// 
+        ///     a buffer to read data into (which should be at least count bytes long).
         /// </param>
         /// <param name="count">
         /// the number of bytes that will be read from the stream
@@ -676,11 +676,11 @@ namespace GISharp.Lib.Gio
         /* <array length="1" zero-terminated="0" type="void*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
-        /* transfer-ownership:none direction:in */
-        in System.Byte buffer,
+        /* direction:out caller-allocates:1 transfer-ownership:none */
+        out System.Byte buffer,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
-        /* transfer-ownership:none direction:in */
-        System.UIntPtr count,
+        /* direction:out caller-allocates:0 transfer-ownership:full */
+        out System.UIntPtr count,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 ioPriority,
@@ -695,16 +695,16 @@ namespace GISharp.Lib.Gio
         System.IntPtr userData);
 
         /// <include file="InputStream.xmldoc" path="declaration/member[@name='ReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Threading.Tasks.Task<System.Int32> ReadAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public unsafe System.Threading.Tasks.Task<System.Int32> ReadAsync(out System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
-            var count_ = (System.UIntPtr)buffer.Length;
+            var stream_ = Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
             var callback_ = readAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
-            g_input_stream_read_async(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
+            g_input_stream_read_async(stream_,out var buffer_,out var count_, ioPriority_, cancellable_, callback_, userData_);
+            buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
             return completionSource.Task;
         }
 
@@ -1183,7 +1183,7 @@ namespace GISharp.Lib.Gio
         /// return location for a #GError
         /// </param>
         /// <returns>
-        /// the size of the bytes skipped, or %-1 on error.
+        /// the size of the bytes skipped, or `-1` on error.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
@@ -1269,14 +1269,14 @@ namespace GISharp.Lib.Gio
 
         /// <include file="InputStream.xmldoc" path="declaration/member[@name='DoReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(InputStreamClass.UnmanagedReadAsync))]
-        protected virtual unsafe void DoReadAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual unsafe void DoReadAsync(out System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
-            var count_ = (System.UIntPtr)buffer.Length;
+            var stream_ = Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<InputStreamClass.UnmanagedReadAsync>(_GType)!(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<InputStreamClass.UnmanagedReadAsync>(_GType)!(stream_,out var buffer_,out var count_, ioPriority_, cancellable_, callback_, userData_);
+            buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
         }
 
         /// <include file="InputStream.xmldoc" path="declaration/member[@name='DoReadFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
