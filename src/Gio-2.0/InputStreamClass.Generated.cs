@@ -263,7 +263,7 @@ ref System.IntPtr error);
         }
 
         /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='ReadAsync']/*" />
-        public delegate void ReadAsync(out System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void ReadAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -278,11 +278,11 @@ System.IntPtr stream,
 /* <array length="2" zero-terminated="0" type="void*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
-/* direction:out caller-allocates:1 transfer-ownership:none nullable:1 */
-out System.Byte buffer,
+/* direction:in caller-allocates:1 transfer-ownership:none nullable:1 */
+in System.Byte buffer,
 /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
-/* direction:out caller-allocates:0 transfer-ownership:full */
-out System.UIntPtr count,
+/* direction:in caller-allocates:0 transfer-ownership:full */
+System.UIntPtr count,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
@@ -306,26 +306,22 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedReadAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedReadAsync(System.IntPtr stream_, out System.Byte buffer_, out System.UIntPtr count_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
+                void unmanagedReadAsync(System.IntPtr stream_, in System.Byte buffer_, System.UIntPtr count_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
                 {
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(stream_, GISharp.Runtime.Transfer.None)!;
+                        var buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doReadAsync = (ReadAsync)methodInfo.CreateDelegate(typeof(ReadAsync), stream);
-                        doReadAsync(out var buffer, ioPriority, callback, cancellable);
-                        buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
-                        count_ = (System.UIntPtr)buffer.Length;
+                        doReadAsync(buffer, ioPriority, callback, cancellable);
                     }
                     catch (System.Exception ex)
                     {
                         GISharp.Lib.GLib.Log.LogUnhandledException(ex);
                     }
-
-                    buffer_ = default(System.Byte);
-                    count_ = default(System.UIntPtr);
                 }
 
                 return unmanagedReadAsync;

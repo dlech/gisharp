@@ -6,3 +6,17 @@
   name: gs:default
   value: "GISharp.Lib.GLib.Priority.Default"
   xpath: gi:repository/gi:namespace/gi:class[@name='InputStream']/gi:method/gi:parameters/gi:parameter[@name='io_priority']
+
+# Bad direction attribute introduced in v2.62
+- !set-attribute
+  name: direction
+  value: in
+  xpath: gi:repository/gi:namespace/gi:class[@name='InputStream']/gi:method[starts-with(@name,'read')]/gi:parameters/gi:parameter[@name='count']
+- !set-attribute
+  name: direction
+  value: in
+  xpath: gi:repository/gi:namespace/gi:class[@name='InputStream']/gi:virtual-method[starts-with(@name,'read')]/gi:parameters/gi:parameter[@name='count']
+- !set-attribute
+  name: direction
+  value: in
+  xpath: gi:repository/gi:namespace/gi:record[@name='InputStreamClass']/gi:field[starts-with(@name,'read')]/gi:callback/gi:parameters/gi:parameter[@name='count']
