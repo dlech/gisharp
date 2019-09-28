@@ -1,7 +1,6 @@
 <declaration>
 
 <member name='GIface'>
-#pragmawarningdisableCS0649
 <summary>
 The parent interface.
 </summary>

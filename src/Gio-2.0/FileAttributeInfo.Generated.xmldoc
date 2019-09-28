@@ -1,7 +1,6 @@
 <declaration>
 
 <member name='name'>
-#pragmawarningdisableCS0649
 <summary>
 the name of the attribute.
 </summary>

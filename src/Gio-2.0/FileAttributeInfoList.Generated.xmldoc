@@ -1,7 +1,6 @@
 <declaration>
 
 <member name='Infos'>
-#pragmawarningdisableCS0649
 <summary>
 an array of #GFileAttributeInfos.
 </summary>

@@ -1,7 +1,6 @@
 <declaration>
 
 <member name='TvSec'>
-#pragmawarningdisableCS0649
 <summary>
 seconds
 </summary>

@@ -1,7 +1,6 @@
 <declaration>
 
 <member name='Buffer'>
-#pragmawarningdisableCS0649
 <summary>
 Pointer to a buffer of data to read.
 </summary>

@@ -310,7 +310,9 @@ namespace GISharp.CodeGen
                     var memberName = SecurityElement.Escape(node.GetMemberDeclarationName());
                     collectedDocs.AppendFormat("<member name='{0}'>", memberName);
                     collectedDocs.AppendLine();
-                    collectedDocs.Append(slashReplacer.Replace(node.GetLeadingTrivia().ToFullString(), ""));
+                    collectedDocs.Append(slashReplacer.Replace(node.GetLeadingTrivia()
+                        .Where(x => x.IsKind(SingleLineDocumentationCommentTrivia))
+                        .ToSyntaxTriviaList().ToFullString(), ""));
                     collectedDocs.AppendLine("</member>");
                     collectedDocs.AppendLine();
 

@@ -1,7 +1,6 @@
 <declaration>
 
 <member name='ParentClass'>
-#pragmawarningdisableCS0649
 </member>
 
 <member name='WriteFn'>
