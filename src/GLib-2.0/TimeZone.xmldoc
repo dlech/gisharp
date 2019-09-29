@@ -9,9 +9,6 @@ if the system administrator changes it.
 <remarks>
 This is equivalent to calling <see cref="M:TimeZone.#ctor(GISharp.Lib.GLib.Utf8)"/> with the value of
 the `TZ` environment variable (including the possibility of <c>null</c>).
-
-You should release the return value by calling <see cref="M:TimeZone.Unref()"/>
-when you are done with it.
 </remarks>
 </member>
 
@@ -22,9 +19,6 @@ Creates a <see cref="TimeZone"/> corresponding to UTC.
 <remarks>
 This is equivalent to calling <see cref="M:TimeZone.#ctor(GISharp.Lib.GLib.Utf8)"/> with a value like
 "Z", "UTC", "+00", etc.
-
-You should release the return value by calling <see cref="M:TimeZone.Unref()"/>
-when you are done with it.
 </remarks>
 </member>
 
@@ -105,9 +99,6 @@ for an explanation of the possible
 values of the `TZ` environment variable. See
 [Microsoft Time Zone Index Values](http://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx)
 for the list of time zones on Windows.
-
-You should release the return value by calling <see cref="M:TimeZone.Unref()"/>
-when you are done with it.
 </remarks>
 <param name="identifier">
 a timezone identifier
@@ -177,9 +168,6 @@ for an explanation of the possible
 values of the `TZ` environment variable. See
 [Microsoft Time Zone Index Values](http://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx)
 for the list of time zones on Windows.
-
-You should release the return value by calling <see cref="M:TimeZone.Unref()"/>
-when you are done with it.
 </remarks>
 <param name="identifier">
 a timezone identifier
