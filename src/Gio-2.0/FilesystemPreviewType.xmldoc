@@ -22,7 +22,7 @@ Never preview files.
 <summary>
 Indicates a hint from the file system whether files should be
 previewed in a file manager. Returned as the value of the key
-#G_FILE_ATTRIBUTE_FILESYSTEM_USE_PREVIEW.
+<see cref="FileAttribute.FilesystemUsePreview"/>.
 </summary>
 </member>
 

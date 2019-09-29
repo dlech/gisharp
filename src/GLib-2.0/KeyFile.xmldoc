@@ -11,14 +11,14 @@ details about the meanings of the keys below.
 
 <member name='KeyFile.DesktopKeyActions'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string list
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a string list
 giving the available application actions.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopKeyCategories'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a list
 of strings giving the categories in which the desktop entry
 should be shown in a menu.
 </summary>
@@ -26,21 +26,21 @@ should be shown in a menu.
 
 <member name='KeyFile.DesktopKeyComment'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a localized
 string giving the tooltip for the desktop entry.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopKeyDbusActivatable'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean set to true
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a boolean set to true
 if the application is D-Bus activatable.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopKeyExec'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a string
 giving the command line to execute. It is only valid for desktop
 entries with the `Application` type.
 </summary>
@@ -48,21 +48,21 @@ entries with the `Application` type.
 
 <member name='KeyFile.DesktopKeyGenericName'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a localized
 string giving the generic name of the desktop entry.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopKeyHidden'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a boolean
 stating whether the desktop entry has been deleted by the user.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopKeyIcon'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a localized
 string giving the name of the icon to be displayed for the desktop
 entry.
 </summary>
@@ -70,21 +70,21 @@ entry.
 
 <member name='KeyFile.DesktopKeyMimeType'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a list
 of strings giving the MIME types supported by this desktop entry.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopKeyName'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a localized
 string giving the specific name of the desktop entry.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopKeyNotShowIn'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list of
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a list of
 strings identifying the environments that should not display the
 desktop entry.
 </summary>
@@ -92,14 +92,14 @@ desktop entry.
 
 <member name='KeyFile.DesktopKeyNoDisplay'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a boolean
 stating whether the desktop entry should be shown in menus.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopKeyOnlyShowIn'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list of
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a list of
 strings identifying the environments that should display the
 desktop entry.
 </summary>
@@ -107,7 +107,7 @@ desktop entry.
 
 <member name='KeyFile.DesktopKeyPath'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a string
 containing the working directory to run the program in. It is only
 valid for desktop entries with the `Application` type.
 </summary>
@@ -115,7 +115,7 @@ valid for desktop entries with the `Application` type.
 
 <member name='KeyFile.DesktopKeyStartupNotify'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a boolean
 stating whether the application supports the
 [Startup Notification Protocol Specification](http://www.freedesktop.org/Standards/startup-notification-spec).
 </summary>
@@ -123,7 +123,7 @@ stating whether the application supports the
 
 <member name='KeyFile.DesktopKeyStartupWmClass'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is string
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is string
 identifying the WM class or name hint of a window that the application
 will create, which can be used to emulate Startup Notification with
 older applications.
@@ -132,7 +132,7 @@ older applications.
 
 <member name='KeyFile.DesktopKeyTerminal'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a boolean
 stating whether the program should be run in a terminal window.
 It is only valid for desktop entries with the
 `Application` type.
@@ -141,7 +141,7 @@ It is only valid for desktop entries with the
 
 <member name='KeyFile.DesktopKeyTryExec'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a string
 giving the file name of a binary on disk used to determine if the
 program is actually installed. It is only valid for desktop entries
 with the `Application` type.
@@ -150,17 +150,17 @@ with the `Application` type.
 
 <member name='KeyFile.DesktopKeyType'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a string
 giving the type of the desktop entry. Usually
-#G_KEY_FILE_DESKTOP_TYPE_APPLICATION,
-#G_KEY_FILE_DESKTOP_TYPE_LINK, or
-#G_KEY_FILE_DESKTOP_TYPE_DIRECTORY.
+<see cref="KeyFile.DesktopTypeApplication"/>,
+<see cref="KeyFile.DesktopTypeLink"/>, or
+<see cref="KeyFile.DesktopTypeDirectory"/>.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopKeyUrl'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a string
 giving the URL to access. It is only valid for desktop entries
 with the `Link` type.
 </summary>
@@ -168,7 +168,7 @@ with the `Link` type.
 
 <member name='KeyFile.DesktopKeyVersion'>
 <summary>
-A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
+A key under <see cref="KeyFile.DesktopGroup"/>, whose value is a string
 giving the version of the Desktop Entry Specification used for
 the desktop entry file.
 </summary>
@@ -176,21 +176,21 @@ the desktop entry file.
 
 <member name='KeyFile.DesktopTypeApplication'>
 <summary>
-The value of the #G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
+The value of the <see cref="KeyFile.DesktopKeyType"/>, key for desktop
 entries representing applications.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopTypeDirectory'>
 <summary>
-The value of the #G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
+The value of the <see cref="KeyFile.DesktopKeyType"/>, key for desktop
 entries representing directories.
 </summary>
 </member>
 
 <member name='KeyFile.DesktopTypeLink'>
 <summary>
-The value of the #G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
+The value of the <see cref="KeyFile.DesktopKeyType"/>, key for desktop
 entries representing links to documents.
 </summary>
 </member>
@@ -225,9 +225,9 @@ boolean.
 </summary>
 <remarks>
 If this instance cannot be found then <c>false</c> is returned and this instance is set
-to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
+to <see cref="KeyFileError.KeyNotFound"/>. Likewise, if the value
 associated with this instance cannot be interpreted as a boolean then <c>false</c>
-is returned and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+is returned and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -251,9 +251,9 @@ boolean.
 </summary>
 <remarks>
 If this instance cannot be found then <c>false</c> is returned and this instance is set
-to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
+to <see cref="KeyFileError.KeyNotFound"/>. Likewise, if the value
 associated with this instance cannot be interpreted as a boolean then <c>false</c>
-is returned and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+is returned and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -277,9 +277,9 @@ booleans.
 </summary>
 <remarks>
 If this instance cannot be found then <c>null</c> is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the values associated
 with this instance cannot be interpreted as booleans then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -305,9 +305,9 @@ booleans.
 </summary>
 <remarks>
 If this instance cannot be found then <c>null</c> is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the values associated
 with this instance cannot be interpreted as booleans then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -385,9 +385,9 @@ double. If this instance is <c>null</c>, the start_group is used.
 </summary>
 <remarks>
 If this instance cannot be found then 0.0 is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the value associated
 with this instance cannot be interpreted as a double then 0.0 is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -411,9 +411,9 @@ double. If this instance is <c>null</c>, the start_group is used.
 </summary>
 <remarks>
 If this instance cannot be found then 0.0 is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the value associated
 with this instance cannot be interpreted as a double then 0.0 is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -437,9 +437,9 @@ doubles.
 </summary>
 <remarks>
 If this instance cannot be found then <c>null</c> is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the values associated
 with this instance cannot be interpreted as doubles then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -465,9 +465,9 @@ doubles.
 </summary>
 <remarks>
 If this instance cannot be found then <c>null</c> is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the values associated
 with this instance cannot be interpreted as doubles then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -535,10 +535,10 @@ integer.
 </summary>
 <remarks>
 If this instance cannot be found then 0 is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the value associated
 with this instance cannot be interpreted as an integer, or is out of range
 for a #gint, then 0 is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -562,10 +562,10 @@ integer.
 </summary>
 <remarks>
 If this instance cannot be found then 0 is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the value associated
 with this instance cannot be interpreted as an integer, or is out of range
 for a #gint, then 0 is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -589,10 +589,10 @@ integers.
 </summary>
 <remarks>
 If this instance cannot be found then <c>null</c> is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the values associated
 with this instance cannot be interpreted as integers, or are out of range for
 #gint, then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -618,10 +618,10 @@ integers.
 </summary>
 <remarks>
 If this instance cannot be found then <c>null</c> is returned and this instance is set to
-#G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
+<see cref="KeyFileError.KeyNotFound"/>. Likewise, if the values associated
 with this instance cannot be interpreted as integers, or are out of range for
 #gint, then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and this instance is set to <see cref="KeyFileError.InvalidValue"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -646,7 +646,7 @@ Returns all keys for the group name this instance.  The array of
 returned keys will be <c>null</c>-terminated, so this instance may
 optionally be <c>null</c>. In the event that the this instance cannot
 be found, <c>null</c> is returned and this instance is set to
-#G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+<see cref="KeyFileError.GroupNotFound"/>.
 </summary>
 <param name="groupName">
 a group name
@@ -666,7 +666,7 @@ Returns all keys for the group name this instance.  The array of
 returned keys will be <c>null</c>-terminated, so this instance may
 optionally be <c>null</c>. In the event that the this instance cannot
 be found, <c>null</c> is returned and this instance is set to
-#G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+<see cref="KeyFileError.GroupNotFound"/>.
 </summary>
 <param name="groupName">
 a group name
@@ -748,7 +748,7 @@ the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
 
 If this instance cannot be found then <c>null</c> is returned and this instance is set
-to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
+to <see cref="KeyFileError.KeyNotFound"/>. If the value associated
 with this instance cannot be interpreted or no suitable translation can
 be found then the untranslated value is returned.
 </remarks>
@@ -782,7 +782,7 @@ the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
 
 If this instance cannot be found then <c>null</c> is returned and this instance is set
-to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
+to <see cref="KeyFileError.KeyNotFound"/>. If the value associated
 with this instance cannot be interpreted or no suitable translation can
 be found then the untranslated value is returned.
 </remarks>
@@ -816,7 +816,7 @@ the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
 
 If this instance cannot be found then <c>null</c> is returned and this instance is set
-to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
+to <see cref="KeyFileError.KeyNotFound"/>. If the values associated
 with this instance cannot be interpreted or no suitable translations
 can be found then the untranslated values are returned. The
 returned array is <c>null</c>-terminated, so this instance may optionally
@@ -853,7 +853,7 @@ the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
 
 If this instance cannot be found then <c>null</c> is returned and this instance is set
-to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
+to <see cref="KeyFileError.KeyNotFound"/>. If the values associated
 with this instance cannot be interpreted or no suitable translations
 can be found then the untranslated values are returned. The
 returned array is <c>null</c>-terminated, so this instance may optionally
@@ -886,9 +886,9 @@ like \s.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+this instance is set to <see cref="KeyFileError.KeyNotFound"/>.  In the
 event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+and this instance is set to <see cref="KeyFileError.GroupNotFound"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -913,9 +913,9 @@ like \s.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+this instance is set to <see cref="KeyFileError.KeyNotFound"/>.  In the
 event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+and this instance is set to <see cref="KeyFileError.GroupNotFound"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -938,9 +938,9 @@ Returns the values associated with this instance under this instance.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+this instance is set to <see cref="KeyFileError.KeyNotFound"/>.  In the
 event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+and this instance is set to <see cref="KeyFileError.GroupNotFound"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -964,9 +964,9 @@ Returns the values associated with this instance under this instance.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+this instance is set to <see cref="KeyFileError.KeyNotFound"/>.  In the
 event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+and this instance is set to <see cref="KeyFileError.GroupNotFound"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -1033,9 +1033,9 @@ Use <see cref="M:KeyFile.GetString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+this instance is set to <see cref="KeyFileError.KeyNotFound"/>.  In the
 event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+and this instance is set to <see cref="KeyFileError.GroupNotFound"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -1059,9 +1059,9 @@ Use <see cref="M:KeyFile.GetString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+this instance is set to <see cref="KeyFileError.KeyNotFound"/>.  In the
 event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+and this instance is set to <see cref="KeyFileError.GroupNotFound"/>.
 </remarks>
 <param name="groupName">
 a group name

@@ -437,7 +437,7 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Bo
 A key in the "standard" namespace for checking if a file is
 volatile. This is meant for opaque, non-POSIX-like backends to
 indicate that the URI is not persistent. Applications should look
-at #G_FILE_ATTRIBUTE_STANDARD_SYMLINK_TARGET for the persistent URI.
+at <see cref="FileAttribute.StandardSymlinkTarget"/> for the persistent URI.
 </summary>
 <remarks>
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Boolean"/>.
@@ -449,7 +449,7 @@ Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.Bo
 A key in the "standard" namespace for getting the name of the file.
 The name is the on-disk filename which may not be in any known encoding,
 and can thus not be generally displayed as is.
-Use #G_FILE_ATTRIBUTE_STANDARD_DISPLAY_NAME if you need to display the
+Use <see cref="FileAttribute.StandardDisplayName"/> if you need to display the
 name in a user interface.
 Corresponding <see cref="FileAttributeType"/> is <see cref="FileAttributeType.ByteString"/>.
 </summary>
@@ -548,7 +548,7 @@ file was last accessed, in seconds since the UNIX epoch.
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
 the file was last accessed. This should be used in conjunction with
-#G_FILE_ATTRIBUTE_TIME_ACCESS. Corresponding <see cref="FileAttributeType"/> is
+<see cref="FileAttribute.TimeAccess"/>. Corresponding <see cref="FileAttributeType"/> is
 <see cref="FileAttributeType.Uint32"/>.
 </summary>
 </member>
@@ -569,7 +569,7 @@ This corresponds to the traditional UNIX ctime.
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
 the file was last changed. This should be used in conjunction with
-#G_FILE_ATTRIBUTE_TIME_CHANGED. Corresponding <see cref="FileAttributeType"/> is
+<see cref="FileAttribute.TimeChanged"/>. Corresponding <see cref="FileAttributeType"/> is
 <see cref="FileAttributeType.Uint32"/>.
 </summary>
 </member>
@@ -590,7 +590,7 @@ This corresponds to the NTFS ctime.
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
 the file was created. This should be used in conjunction with
-#G_FILE_ATTRIBUTE_TIME_CREATED. Corresponding <see cref="FileAttributeType"/> is
+<see cref="FileAttribute.TimeCreated"/>. Corresponding <see cref="FileAttributeType"/> is
 <see cref="FileAttributeType.Uint32"/>.
 </summary>
 </member>
@@ -608,7 +608,7 @@ file was modified, in seconds since the UNIX epoch.
 <summary>
 A key in the "time" namespace for getting the microseconds of the time
 the file was last modified. This should be used in conjunction with
-#G_FILE_ATTRIBUTE_TIME_MODIFIED. Corresponding <see cref="FileAttributeType"/> is
+<see cref="FileAttribute.TimeModified"/>. Corresponding <see cref="FileAttributeType"/> is
 <see cref="FileAttributeType.Uint32"/>.
 </summary>
 </member>
