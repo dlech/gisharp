@@ -106,7 +106,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         public unsafe void Add(System.Int64 microseconds)
         {
-            var time_ = this;
+            ref var time_ = ref this;
             var microseconds_ = (GISharp.Runtime.CLong)microseconds;
             g_time_val_add(time_, microseconds_);
         }
@@ -172,7 +172,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe GISharp.Lib.GLib.Utf8? ToIso8601()
         {
-            var time_ = this;
+            ref var time_ = ref this;
             var ret_ = g_time_val_to_iso8601(time_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;

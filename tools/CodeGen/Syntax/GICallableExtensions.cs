@@ -44,17 +44,32 @@ namespace GISharp.CodeGen.Syntax
             var managedParameters = callable.ManagedParameters.Cast<GIArg>();
 
             if (callable is Method || callable is VirtualMethod) {
+                var instanceParameter = callable.Parameters.InstanceParameter;
                 if (callable is Method method && method.IsExtensionMethod) {
                     // add the instance parameter to the list to be marshalled
-                    managedParameters = managedParameters.Prepend(callable.Parameters.InstanceParameter);
+                    managedParameters = managedParameters.Prepend(instanceParameter);
                 }
                 else {
                     // marshalling is trivial
-                    var identifier = callable.Parameters.InstanceParameter.ManagedName;
-                    var handleOrThis = callable.Parameters.InstanceParameter.Type.ManagedType.IsValueType
-                        ? "this" : "Handle";
-                    var expression = ParseExpression($"var {identifier}_ = {handleOrThis}");
-                    yield return ExpressionStatement(expression);
+                    var identifier = instanceParameter.ManagedName;
+                    var managedType = instanceParameter.Type.ManagedType;
+                    if (managedType.IsValueType) {
+                        if (instanceParameter.Type.UnmanagedType.IsPointer && managedType != typeof(IntPtr)) {
+                            // struct passed by reference
+                            var statement = ParseStatement($"ref var {identifier}_ = ref this;");
+                            yield return statement.WithTrailingTrivia(EndOfLine("\r\n"));
+                        }
+                        else {
+                            // struct passed by value
+                            var expression = ParseExpression($"var {identifier}_ = this");
+                            yield return ExpressionStatement(expression);
+                        }
+                    }
+                    else {
+                        // opaque type passed by reference
+                        var expression = ParseExpression($"var {identifier}_ = Handle");
+                        yield return ExpressionStatement(expression);
+                    }
                 }
             }
 
