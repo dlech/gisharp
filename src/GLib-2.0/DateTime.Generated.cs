@@ -9,75 +9,75 @@ namespace GISharp.Lib.GLib
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_date_time_get_type();
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='NowLocal']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.NowLocal']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static GISharp.Lib.GLib.DateTime NowLocal { get => GetNowLocal(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='NowUtc']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.NowUtc']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static GISharp.Lib.GLib.DateTime NowUtc { get => GetNowUtc(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DayOfMonth']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.DayOfMonth']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 DayOfMonth { get => GetDayOfMonth(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DayOfWeek']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.DayOfWeek']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 DayOfWeek { get => GetDayOfWeek(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DayOfYear']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.DayOfYear']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 DayOfYear { get => GetDayOfYear(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Hour']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Hour']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 Hour { get => GetHour(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Microsecond']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Microsecond']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 Microsecond { get => GetMicrosecond(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Minute']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Minute']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 Minute { get => GetMinute(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Month']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Month']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 Month { get => GetMonth(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Second']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Second']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 Second { get => GetSecond(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Seconds']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Seconds']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Double Seconds { get => GetSeconds(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Timezone']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Timezone']/*" />
         [GISharp.Runtime.SinceAttribute("2.58")]
         public GISharp.Lib.GLib.TimeZone Timezone { get => GetTimezone(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='TimezoneAbbreviation']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.TimezoneAbbreviation']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public GISharp.Lib.GLib.UnownedUtf8 TimezoneAbbreviation { get => GetTimezoneAbbreviation(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='UtcOffset']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.UtcOffset']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public GISharp.Lib.GLib.TimeSpan UtcOffset { get => GetUtcOffset(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='WeekNumberingYear']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.WeekNumberingYear']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 WeekNumberingYear { get => GetWeekNumberingYear(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='WeekOfYear']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.WeekOfYear']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 WeekOfYear { get => GetWeekOfYear(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Year']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Year']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Int32 Year { get => GetYear(); }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='IsDaylightSavings']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.IsDaylightSavings']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public System.Boolean IsDaylightSavings { get => GetIsDaylightSavings(); }
 
@@ -186,7 +186,7 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public DateTime(GISharp.Lib.GLib.TimeZone tz, System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds) : this(New(tz, year, month, day, hour, minute, seconds), GISharp.Runtime.Transfer.Full)
         {
@@ -252,7 +252,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr defaultTz);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='FromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeZone?)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeZone?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public static unsafe GISharp.Lib.GLib.DateTime? FromIso8601(GISharp.Lib.GLib.UnownedUtf8 text, GISharp.Lib.GLib.TimeZone? defaultTz)
         {
@@ -263,7 +263,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='FromIso8601(System.String,GISharp.Lib.GLib.TimeZone?)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromIso8601(System.String,GISharp.Lib.GLib.TimeZone?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public static unsafe GISharp.Lib.GLib.DateTime? FromIso8601(System.String text, GISharp.Lib.GLib.TimeZone? defaultTz)
         {
@@ -303,7 +303,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         in GISharp.Lib.GLib.TimeVal tv);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='FromTimevalLocal(GISharp.Lib.GLib.TimeVal)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromTimevalLocal(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_unix_local() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -344,7 +344,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         in GISharp.Lib.GLib.TimeVal tv);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='FromTimevalUtc(GISharp.Lib.GLib.TimeVal)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromTimevalUtc(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_unix_utc() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -384,7 +384,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int64 t);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='FromUnixLocal(System.Int64)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromUnixLocal(System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe GISharp.Lib.GLib.DateTime FromUnixLocal(System.Int64 t)
         {
@@ -422,7 +422,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int64 t);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='FromUnixUtc(System.Int64)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromUnixUtc(System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe GISharp.Lib.GLib.DateTime FromUnixUtc(System.Int64 t)
         {
@@ -485,7 +485,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Double seconds);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='GetLocal(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetLocal(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe GISharp.Lib.GLib.DateTime GetLocal(System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds)
         {
@@ -529,7 +529,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr tz);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='GetNow(GISharp.Lib.GLib.TimeZone)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetNow(GISharp.Lib.GLib.TimeZone)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe GISharp.Lib.GLib.DateTime GetNow(GISharp.Lib.GLib.TimeZone tz)
         {
@@ -641,7 +641,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Double seconds);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='GetUtc(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetUtc(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe GISharp.Lib.GLib.DateTime GetUtc(System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds)
         {
@@ -683,7 +683,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr dt2);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Compare(System.IntPtr,System.IntPtr)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Compare(System.IntPtr,System.IntPtr)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe System.Int32 Compare(System.IntPtr dt1, System.IntPtr dt2)
         {
@@ -724,7 +724,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeSpan timespan);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Add(GISharp.Lib.GLib.TimeSpan)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Add(GISharp.Lib.GLib.TimeSpan)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime Add(GISharp.Lib.GLib.TimeSpan timespan)
         {
@@ -761,7 +761,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 days);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='AddDays(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddDays(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddDays(System.Int32 days)
         {
@@ -828,7 +828,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Double seconds);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='AddFull(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddFull(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddFull(System.Int32 years, System.Int32 months, System.Int32 days, System.Int32 hours, System.Int32 minutes, System.Double seconds)
         {
@@ -870,7 +870,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 hours);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='AddHours(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddHours(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddHours(System.Int32 hours)
         {
@@ -907,7 +907,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 minutes);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='AddMinutes(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddMinutes(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddMinutes(System.Int32 minutes)
         {
@@ -950,7 +950,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 months);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='AddMonths(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddMonths(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddMonths(System.Int32 months)
         {
@@ -987,7 +987,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Double seconds);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='AddSeconds(System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddSeconds(System.Double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddSeconds(System.Double seconds)
         {
@@ -1024,7 +1024,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 weeks);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='AddWeeks(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddWeeks(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddWeeks(System.Int32 weeks)
         {
@@ -1065,7 +1065,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 years);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='AddYears(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddYears(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime AddYears(System.Int32 years)
         {
@@ -1103,7 +1103,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr begin);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Difference(GISharp.Lib.GLib.DateTime)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Difference(GISharp.Lib.GLib.DateTime)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.TimeSpan Difference(GISharp.Lib.GLib.DateTime begin)
         {
@@ -1236,7 +1236,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr format);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Format(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Format(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.Utf8 Format(GISharp.Lib.GLib.UnownedUtf8 format)
         {
@@ -1247,7 +1247,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Format(System.String)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Format(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.Utf8 Format(System.String format)
         {
@@ -1277,7 +1277,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr datetime);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='FormatIso8601()']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FormatIso8601()']/*" />
         [GISharp.Runtime.SinceAttribute("2.62")]
         public unsafe GISharp.Lib.GLib.Utf8 FormatIso8601()
         {
@@ -1793,7 +1793,7 @@ namespace GISharp.Lib.GLib
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.Int32 day);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='GetYmd(System.Int32,System.Int32,System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetYmd(System.Int32,System.Int32,System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe void GetYmd(out System.Int32 year, out System.Int32 month, out System.Int32 day)
         {
@@ -1879,7 +1879,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr datetime);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='ToLocal()']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.ToLocal()']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime ToLocal()
         {
@@ -1928,7 +1928,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         in GISharp.Lib.GLib.TimeVal tv);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='ToTimeval(GISharp.Lib.GLib.TimeVal)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.ToTimeval(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_to_unix() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -1973,7 +1973,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr tz);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='ToTimezone(GISharp.Lib.GLib.TimeZone)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.ToTimezone(GISharp.Lib.GLib.TimeZone)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime ToTimezone(GISharp.Lib.GLib.TimeZone tz)
         {
@@ -2007,7 +2007,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr datetime);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='ToUnix()']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.ToUnix()']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int64 ToUnix()
         {
@@ -2040,7 +2040,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr datetime);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='ToUtc()']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.ToUtc()']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.DateTime ToUtc()
         {
@@ -2097,7 +2097,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr dt2);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='Equals(GISharp.Lib.GLib.DateTime)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Equals(GISharp.Lib.GLib.DateTime)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Boolean Equals(GISharp.Lib.GLib.DateTime dt2)
         {
@@ -2126,7 +2126,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr datetime);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='GetHashCode()']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetHashCode()']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public override System.Int32 GetHashCode()
         {

@@ -1,26 +1,26 @@
 <declaration>
 
-<member name='None'>
+<member name='IOStreamSpliceFlags.None'>
 <summary>
 Do not close either stream.
 </summary>
 </member>
 
-<member name='CloseStream1'>
+<member name='IOStreamSpliceFlags.CloseStream1'>
 <summary>
 Close the first stream after
     the splice.
 </summary>
 </member>
 
-<member name='CloseStream2'>
+<member name='IOStreamSpliceFlags.CloseStream2'>
 <summary>
 Close the second stream after
     the splice.
 </summary>
 </member>
 
-<member name='WaitForBoth'>
+<member name='IOStreamSpliceFlags.WaitForBoth'>
 <summary>
 Wait for both splice operations to finish
     before calling the callback.

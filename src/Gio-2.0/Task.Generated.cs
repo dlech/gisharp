@@ -9,48 +9,48 @@ namespace GISharp.Lib.Gio
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_task_get_type();
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Completed_']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Completed_']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         [GISharp.Runtime.GPropertyAttribute("completed")]
         public System.Boolean Completed_ { get => (System.Boolean)GetProperty("completed")!; }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Cancellable']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Cancellable']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.Gio.Cancellable Cancellable { get => GetCancellable(); }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='CheckCancellable']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.CheckCancellable']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Boolean CheckCancellable { get => GetCheckCancellable(); set => SetCheckCancellable(value); }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Completed']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Completed']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public System.Boolean Completed { get => GetCompleted(); }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Context']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Context']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.GLib.MainContext Context { get => GetContext(); }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Name']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         public GISharp.Lib.GLib.NullableUnownedUtf8 Name { get => GetName(); set => SetName(value); }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Priority']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Priority']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Int32 Priority { get => GetPriority(); set => SetPriority(value); }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='ReturnOnCancel']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnOnCancel']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.Boolean ReturnOnCancel { get => GetReturnOnCancel(); }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='SourceObject']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.SourceObject']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.GObject.Object? SourceObject { get => GetSourceObject(); }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='SourceTag']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.SourceTag']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.IntPtr SourceTag { get => GetSourceTag(); set => SetSourceTag(value); }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='TaskData']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.TaskData']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public System.IntPtr TaskData { get => GetTaskData(); }
 
@@ -125,7 +125,7 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Task(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Task(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public Task(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null) : this(New(sourceObject, callback, cancellable), GISharp.Runtime.Transfer.Full)
         {
@@ -159,7 +159,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr sourceObject);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='IsValid(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.GObject.Object?)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.IsValid(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.GObject.Object?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public static unsafe System.Boolean IsValid(GISharp.Lib.Gio.IAsyncResult result, GISharp.Lib.GObject.Object? sourceObject)
         {
@@ -218,7 +218,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:in */
         System.IntPtr error);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='ReportError(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,System.IntPtr,GISharp.Lib.GLib.Error)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReportError(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,System.IntPtr,GISharp.Lib.GLib.Error)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public static unsafe void ReportError(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, System.IntPtr sourceTag, GISharp.Lib.GLib.Error error)
         {
@@ -528,7 +528,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='HadError()']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.HadError()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe System.Boolean HadError()
         {
@@ -569,7 +569,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='PropagateBoolean()']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateBoolean()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe void PropagateBoolean()
         {
@@ -614,7 +614,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='PropagateInt()']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateInt()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe System.Int32 PropagateInt()
         {
@@ -663,7 +663,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='PropagatePointer()']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagatePointer()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe System.IntPtr PropagatePointer()
         {
@@ -703,7 +703,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean result);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='ReturnBoolean(System.Boolean)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnBoolean(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe void ReturnBoolean(System.Boolean result)
         {
@@ -744,7 +744,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:in */
         System.IntPtr error);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='ReturnError(GISharp.Lib.GLib.Error)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnError(GISharp.Lib.GLib.Error)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe void ReturnError(GISharp.Lib.GLib.Error error)
         {
@@ -774,7 +774,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr task);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='ReturnErrorIfCancelled()']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnErrorIfCancelled()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe System.Boolean ReturnErrorIfCancelled()
         {
@@ -807,7 +807,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr result);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='ReturnInt(System.Int32)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnInt(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe void ReturnInt(System.Int32 result)
         {
@@ -1042,7 +1042,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean returnOnCancel);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='SetReturnOnCancel(System.Boolean)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.SetReturnOnCancel(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe System.Boolean SetReturnOnCancel(System.Boolean returnOnCancel)
         {

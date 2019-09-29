@@ -11,67 +11,67 @@ namespace GISharp.Lib.Gio
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteFn']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WriteFn']/*" />
             public System.IntPtr WriteFn;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Splice']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.Splice']/*" />
             public System.IntPtr Splice;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Flush']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.Flush']/*" />
             public System.IntPtr Flush;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseFn']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFn']/*" />
             public System.IntPtr CloseFn;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WriteAsync']/*" />
             public System.IntPtr WriteAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WriteFinish']/*" />
             public System.IntPtr WriteFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='SpliceAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.SpliceAsync']/*" />
             public System.IntPtr SpliceAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='SpliceFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.SpliceFinish']/*" />
             public System.IntPtr SpliceFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='FlushAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.FlushAsync']/*" />
             public System.IntPtr FlushAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='FlushFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.FlushFinish']/*" />
             public System.IntPtr FlushFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseAsync']/*" />
             public System.IntPtr CloseAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFinish']/*" />
             public System.IntPtr CloseFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevFn']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WritevFn']/*" />
             public System.IntPtr WritevFn;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WritevAsync']/*" />
             public System.IntPtr WritevAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WritevFinish']/*" />
             public System.IntPtr WritevFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved5']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved6']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved6']/*" />
             public System.IntPtr GReserved6;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved7']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved7']/*" />
             public System.IntPtr GReserved7;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='GReserved8']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved8']/*" />
             public System.IntPtr GReserved8;
 #pragma warning restore CS0649
         }

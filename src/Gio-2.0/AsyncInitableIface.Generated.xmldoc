@@ -1,15 +1,15 @@
 <declaration>
 
-<member name='GIface'>
+<member name='Struct.GIface'>
 <summary>
 The parent interface.
 </summary>
 </member>
 
-<member name='InitAsync'>
+<member name='Struct.InitAsync'>
 </member>
 
-<member name='InitFinish'>
+<member name='Struct.InitFinish'>
 </member>
 
 <member name='InitAsync'>

@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='NowLocal'>
+<member name='DateTime.NowLocal'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to this exact instant in the local
 time zone.
@@ -11,7 +11,7 @@ zone returned by <see cref="M:TimeZone.GetLocal()"/>.
 </remarks>
 </member>
 
-<member name='NowUtc'>
+<member name='DateTime.NowUtc'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to this exact instant in UTC.
 </summary>
@@ -21,72 +21,72 @@ zone returned by <see cref="M:TimeZone.GetUtc()"/>.
 </remarks>
 </member>
 
-<member name='DayOfMonth'>
+<member name='DateTime.DayOfMonth'>
 <summary>
 Retrieves the day of the month represented by this instance in the gregorian
 calendar.
 </summary>
 </member>
 
-<member name='DayOfWeek'>
+<member name='DateTime.DayOfWeek'>
 <summary>
 Retrieves the ISO 8601 day of the week on which this instance falls (1 is
 Monday, 2 is Tuesday... 7 is Sunday).
 </summary>
 </member>
 
-<member name='DayOfYear'>
+<member name='DateTime.DayOfYear'>
 <summary>
 Retrieves the day of the year represented by this instance in the Gregorian
 calendar.
 </summary>
 </member>
 
-<member name='Hour'>
+<member name='DateTime.Hour'>
 <summary>
 Retrieves the hour of the day represented by this instance
 </summary>
 </member>
 
-<member name='Microsecond'>
+<member name='DateTime.Microsecond'>
 <summary>
 Retrieves the microsecond of the date represented by this instance
 </summary>
 </member>
 
-<member name='Minute'>
+<member name='DateTime.Minute'>
 <summary>
 Retrieves the minute of the hour represented by this instance
 </summary>
 </member>
 
-<member name='Month'>
+<member name='DateTime.Month'>
 <summary>
 Retrieves the month of the year represented by this instance in the Gregorian
 calendar.
 </summary>
 </member>
 
-<member name='Second'>
+<member name='DateTime.Second'>
 <summary>
 Retrieves the second of the minute represented by this instance
 </summary>
 </member>
 
-<member name='Seconds'>
+<member name='DateTime.Seconds'>
 <summary>
 Retrieves the number of seconds since the start of the last minute,
 including the fractional part.
 </summary>
 </member>
 
-<member name='Timezone'>
+<member name='DateTime.Timezone'>
 <summary>
 Get the time zone for this this instance.
 </summary>
 </member>
 
-<member name='TimezoneAbbreviation'>
+<member name='DateTime.TimezoneAbbreviation'>
 <summary>
 Determines the time zone abbreviation to be used at the time and in
 the time zone of this instance.
@@ -98,7 +98,7 @@ time is in effect.
 </remarks>
 </member>
 
-<member name='UtcOffset'>
+<member name='DateTime.UtcOffset'>
 <summary>
 Determines the offset to UTC in effect at the time and in the time
 zone of this instance.
@@ -112,7 +112,7 @@ If this instance represents UTC time, then the offset is always zero.
 </remarks>
 </member>
 
-<member name='WeekNumberingYear'>
+<member name='DateTime.WeekNumberingYear'>
 <summary>
 Returns the ISO 8601 week-numbering year in which the week containing
 this instance falls.
@@ -149,7 +149,7 @@ Monday, so this function never returns 0.
 </remarks>
 </member>
 
-<member name='WeekOfYear'>
+<member name='DateTime.WeekOfYear'>
 <summary>
 Returns the ISO 8601 week number for the week containing this instance.
 The ISO 8601 week number is the same for every day of the week (from
@@ -170,20 +170,20 @@ if 4 or more days of that week are contained within the new year.
 </remarks>
 </member>
 
-<member name='Year'>
+<member name='DateTime.Year'>
 <summary>
 Retrieves the year represented by this instance in the Gregorian calendar.
 </summary>
 </member>
 
-<member name='IsDaylightSavings'>
+<member name='DateTime.IsDaylightSavings'>
 <summary>
 Determines if daylight savings time is in effect at the time and in
 the time zone of this instance.
 </summary>
 </member>
 
-<member name='DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<member name='DateTime.DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
 <summary>
 Creates a new <see cref="DateTime"/> corresponding to the given date and time in
 the time zone <paramref name="tz"/>.
@@ -238,7 +238,7 @@ the number of seconds past the minute
 </param>
 </member>
 
-<member name='FromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeZone?)'>
+<member name='DateTime.FromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeZone?)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to the given
 [ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
@@ -289,7 +289,7 @@ a new <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='FromIso8601(System.String,GISharp.Lib.GLib.TimeZone?)'>
+<member name='DateTime.FromIso8601(System.String,GISharp.Lib.GLib.TimeZone?)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to the given
 [ISO 8601 formatted string](https://en.wikipedia.org/wiki/ISO_8601)
@@ -340,7 +340,7 @@ a new <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='FromTimevalLocal(GISharp.Lib.GLib.TimeVal)'>
+<member name='DateTime.FromTimevalLocal(GISharp.Lib.GLib.TimeVal)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to the given <see cref="TimeVal"/> <paramref name="tv"/> in the
 local time zone.
@@ -364,7 +364,7 @@ a new <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='FromTimevalUtc(GISharp.Lib.GLib.TimeVal)'>
+<member name='DateTime.FromTimevalUtc(GISharp.Lib.GLib.TimeVal)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to the given <see cref="TimeVal"/> <paramref name="tv"/> in UTC.
 </summary>
@@ -386,7 +386,7 @@ a new <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='FromUnixLocal(System.Int64)'>
+<member name='DateTime.FromUnixLocal(System.Int64)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to the given Unix time <paramref name="t"/> in the
 local time zone.
@@ -409,7 +409,7 @@ a new <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='FromUnixUtc(System.Int64)'>
+<member name='DateTime.FromUnixUtc(System.Int64)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to the given Unix time <paramref name="t"/> in UTC.
 </summary>
@@ -431,7 +431,7 @@ a new <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='GetLocal(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<member name='DateTime.GetLocal(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
 <summary>
 Creates a new <see cref="DateTime"/> corresponding to the given date and time in
 the local time zone.
@@ -463,7 +463,7 @@ a <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='GetNow(GISharp.Lib.GLib.TimeZone)'>
+<member name='DateTime.GetNow(GISharp.Lib.GLib.TimeZone)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to this exact instant in the given
 time zone <paramref name="tz"/>.  The time is as accurate as the system allows, to a
@@ -485,7 +485,7 @@ a new <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='GetUtc(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<member name='DateTime.GetUtc(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
 <summary>
 Creates a new <see cref="DateTime"/> corresponding to the given date and time in
 UTC.
@@ -517,7 +517,7 @@ a <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='Compare(System.IntPtr,System.IntPtr)'>
+<member name='DateTime.Compare(System.IntPtr,System.IntPtr)'>
 <summary>
 A comparison function for #GDateTimes that is suitable
 as a #GCompareFunc. Both #GDateTimes must be non-<c>null</c>.
@@ -534,7 +534,7 @@ second <see cref="DateTime"/> to compare
 </returns>
 </member>
 
-<member name='Add(GISharp.Lib.GLib.TimeSpan)'>
+<member name='DateTime.Add(GISharp.Lib.GLib.TimeSpan)'>
 <summary>
 Creates a copy of this instance and adds the specified timespan to the copy.
 </summary>
@@ -547,7 +547,7 @@ the newly created <see cref="DateTime"/> which should be freed with
 </returns>
 </member>
 
-<member name='AddDays(System.Int32)'>
+<member name='DateTime.AddDays(System.Int32)'>
 <summary>
 Creates a copy of this instance and adds the specified number of days to the
 copy. Add negative values to subtract days.
@@ -561,7 +561,7 @@ the newly created <see cref="DateTime"/> which should be freed with
 </returns>
 </member>
 
-<member name='AddFull(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<member name='DateTime.AddFull(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
 <summary>
 Creates a new <see cref="DateTime"/> adding the specified values to the current date and
 time in this instance. Add negative values to subtract.
@@ -590,7 +590,7 @@ the newly created <see cref="DateTime"/> that should be freed with
 </returns>
 </member>
 
-<member name='AddHours(System.Int32)'>
+<member name='DateTime.AddHours(System.Int32)'>
 <summary>
 Creates a copy of this instance and adds the specified number of hours.
 Add negative values to subtract hours.
@@ -604,7 +604,7 @@ the newly created <see cref="DateTime"/> which should be freed with
 </returns>
 </member>
 
-<member name='AddMinutes(System.Int32)'>
+<member name='DateTime.AddMinutes(System.Int32)'>
 <summary>
 Creates a copy of this instance adding the specified number of minutes.
 Add negative values to subtract minutes.
@@ -618,7 +618,7 @@ the newly created <see cref="DateTime"/> which should be freed with
 </returns>
 </member>
 
-<member name='AddMonths(System.Int32)'>
+<member name='DateTime.AddMonths(System.Int32)'>
 <summary>
 Creates a copy of this instance and adds the specified number of months to the
 copy. Add negative values to subtract months.
@@ -638,7 +638,7 @@ the newly created <see cref="DateTime"/> which should be freed with
 </returns>
 </member>
 
-<member name='AddSeconds(System.Double)'>
+<member name='DateTime.AddSeconds(System.Double)'>
 <summary>
 Creates a copy of this instance and adds the specified number of seconds.
 Add negative values to subtract seconds.
@@ -652,7 +652,7 @@ the newly created <see cref="DateTime"/> which should be freed with
 </returns>
 </member>
 
-<member name='AddWeeks(System.Int32)'>
+<member name='DateTime.AddWeeks(System.Int32)'>
 <summary>
 Creates a copy of this instance and adds the specified number of weeks to the
 copy. Add negative values to subtract weeks.
@@ -666,7 +666,7 @@ the newly created <see cref="DateTime"/> which should be freed with
 </returns>
 </member>
 
-<member name='AddYears(System.Int32)'>
+<member name='DateTime.AddYears(System.Int32)'>
 <summary>
 Creates a copy of this instance and adds the specified number of years to the
 copy. Add negative values to subtract years.
@@ -684,7 +684,7 @@ the newly created <see cref="DateTime"/> which should be freed with
 </returns>
 </member>
 
-<member name='Difference(GISharp.Lib.GLib.DateTime)'>
+<member name='DateTime.Difference(GISharp.Lib.GLib.DateTime)'>
 <summary>
 Calculates the difference in time between this instance and this instance.  The
 <see cref="TimeSpan"/> that is returned is effectively this instance - this instance (ie:
@@ -699,7 +699,7 @@ the difference between the two <see cref="DateTime"/>, as a time
 </returns>
 </member>
 
-<member name='Format(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='DateTime.Format(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Creates a newly allocated string representing the requested this instance.
 </summary>
@@ -809,7 +809,7 @@ a newly allocated string formatted to the requested format
 </returns>
 </member>
 
-<member name='Format(System.String)'>
+<member name='DateTime.Format(System.String)'>
 <summary>
 Creates a newly allocated string representing the requested this instance.
 </summary>
@@ -919,7 +919,7 @@ a newly allocated string formatted to the requested format
 </returns>
 </member>
 
-<member name='FormatIso8601()'>
+<member name='DateTime.FormatIso8601()'>
 <summary>
 Format this instance in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601),
 including the date, time and time zone, and return that as a UTF-8 encoded
@@ -932,7 +932,7 @@ a newly allocated string formatted in ISO 8601 format
 </returns>
 </member>
 
-<member name='GetYmd(System.Int32,System.Int32,System.Int32)'>
+<member name='DateTime.GetYmd(System.Int32,System.Int32,System.Int32)'>
 <summary>
 Retrieves the Gregorian day, month, and year of a given <see cref="DateTime"/>.
 </summary>
@@ -947,7 +947,7 @@ the return location for the day of the month, or <c>null</c>.
 </param>
 </member>
 
-<member name='ToLocal()'>
+<member name='DateTime.ToLocal()'>
 <summary>
 Creates a new <see cref="DateTime"/> corresponding to the same instant in time as
 this instance, but in the local time zone.
@@ -961,7 +961,7 @@ the newly created <see cref="DateTime"/>
 </returns>
 </member>
 
-<member name='ToTimeval(GISharp.Lib.GLib.TimeVal)'>
+<member name='DateTime.ToTimeval(GISharp.Lib.GLib.TimeVal)'>
 <summary>
 Stores the instant in time that this instance represents into this instance.
 </summary>
@@ -986,7 +986,7 @@ a <see cref="TimeVal"/> to modify
 </returns>
 </member>
 
-<member name='ToTimezone(GISharp.Lib.GLib.TimeZone)'>
+<member name='DateTime.ToTimezone(GISharp.Lib.GLib.TimeZone)'>
 <summary>
 Create a new <see cref="DateTime"/> corresponding to the same instant in time as
 this instance, but in the time zone this instance.
@@ -1007,7 +1007,7 @@ a new <see cref="DateTime"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='ToUnix()'>
+<member name='DateTime.ToUnix()'>
 <summary>
 Gives the Unix time corresponding to this instance, rounding down to the
 nearest second.
@@ -1021,7 +1021,7 @@ the Unix time corresponding to this instance
 </returns>
 </member>
 
-<member name='ToUtc()'>
+<member name='DateTime.ToUtc()'>
 <summary>
 Creates a new <see cref="DateTime"/> corresponding to the same instant in time as
 this instance, but in UTC.
@@ -1035,7 +1035,7 @@ the newly created <see cref="DateTime"/>
 </returns>
 </member>
 
-<member name='Equals(GISharp.Lib.GLib.DateTime)'>
+<member name='DateTime.Equals(GISharp.Lib.GLib.DateTime)'>
 <summary>
 Checks to see if this instance and this instance are equal.
 </summary>
@@ -1051,7 +1051,7 @@ a <see cref="DateTime"/>
 </returns>
 </member>
 
-<member name='GetHashCode()'>
+<member name='DateTime.GetHashCode()'>
 <summary>
 Hashes this instance into a #guint, suitable for use within #GHashTable.
 </summary>

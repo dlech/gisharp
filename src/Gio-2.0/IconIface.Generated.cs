@@ -11,22 +11,22 @@ namespace GISharp.Lib.Gio
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='GIface']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Hash']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.Hash']/*" />
             public System.IntPtr Hash;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Equal']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.Equal']/*" />
             public System.IntPtr Equal;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='ToTokens']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.ToTokens']/*" />
             public System.IntPtr ToTokens;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='FromTokens']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.FromTokens']/*" />
             public System.IntPtr FromTokens;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Serialize']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.Serialize']/*" />
             public System.IntPtr Serialize;
 #pragma warning restore CS0649
         }

@@ -1,47 +1,47 @@
 <declaration>
 
-<member name='ParentInstance'>
+<member name='Struct.ParentInstance'>
 </member>
 
-<member name='Priv'>
+<member name='Struct.Priv'>
 </member>
 
-<member name='IsClosed_'>
+<member name='IOStream.IsClosed_'>
 </member>
 
-<member name='InputStream_'>
+<member name='IOStream.InputStream_'>
 </member>
 
-<member name='OutputStream_'>
+<member name='IOStream.OutputStream_'>
 </member>
 
-<member name='InputStream'>
+<member name='IOStream.InputStream'>
 <summary>
 Gets the input stream for this object. This is used
 for reading.
 </summary>
 </member>
 
-<member name='OutputStream'>
+<member name='IOStream.OutputStream'>
 <summary>
 Gets the output stream for this object. This is used for
 writing.
 </summary>
 </member>
 
-<member name='IsClosed'>
+<member name='IOStream.IsClosed'>
 <summary>
 Checks if a stream is closed.
 </summary>
 </member>
 
-<member name='ClearPending()'>
+<member name='IOStream.ClearPending()'>
 <summary>
 Clears the pending flag on this instance.
 </summary>
 </member>
 
-<member name='Close(GISharp.Lib.Gio.Cancellable?)'>
+<member name='IOStream.Close(GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Closes the stream, releasing resources related to it. This will also
 close the individual input and output streams, if they are not already
@@ -86,7 +86,7 @@ On error
 </exception>
 </member>
 
-<member name='CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IOStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous close of the stream, releasing resources
 related to it. When the operation is finished this instance will be
@@ -108,7 +108,7 @@ optional cancellable object
 </param>
 </member>
 
-<member name='HasPending()'>
+<member name='IOStream.HasPending()'>
 <summary>
 Checks if a stream has pending actions.
 </summary>
@@ -117,7 +117,7 @@ Checks if a stream has pending actions.
 </returns>
 </member>
 
-<member name='SetPending()'>
+<member name='IOStream.SetPending()'>
 <summary>
 Sets this instance to have actions pending. If the pending flag is
 already set or this instance is closed, it will return <c>false</c> and set
@@ -128,7 +128,7 @@ On error
 </exception>
 </member>
 
-<member name='SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IOStream.SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asyncronously splice the output stream of this instance to the input stream of
 this instance, and splice the output stream of this instance to the input stream of
@@ -153,7 +153,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IOStream.DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous close of the stream, releasing resources
 related to it. When the operation is finished this instance will be
@@ -178,7 +178,7 @@ optional cancellable object
 </param>
 </member>
 
-<member name='DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)'>
+<member name='IOStream.DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Closes a stream.
 </summary>
@@ -193,13 +193,13 @@ On error
 </exception>
 </member>
 
-<member name='DoCloseFn(GISharp.Lib.Gio.Cancellable?)'>
+<member name='IOStream.DoCloseFn(GISharp.Lib.Gio.Cancellable?)'>
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>
 </member>
 
-<member name='DoGetInputStream()'>
+<member name='IOStream.DoGetInputStream()'>
 <summary>
 Gets the input stream for this object. This is used
 for reading.
@@ -210,7 +210,7 @@ Do not free.
 </returns>
 </member>
 
-<member name='DoGetOutputStream()'>
+<member name='IOStream.DoGetOutputStream()'>
 <summary>
 Gets the output stream for this object. This is used for
 writing.

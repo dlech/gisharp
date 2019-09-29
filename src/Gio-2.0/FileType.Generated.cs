@@ -6,19 +6,19 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeAttribute("GFileType", IsProxyForUnmanagedType = true)]
     public enum FileType
     {
-        /// <include file="FileType.xmldoc" path="declaration/member[@name='Unknown']/*" />
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='FileType.Unknown']/*" />
         Unknown = 0,
-        /// <include file="FileType.xmldoc" path="declaration/member[@name='Regular']/*" />
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='FileType.Regular']/*" />
         Regular = 1,
-        /// <include file="FileType.xmldoc" path="declaration/member[@name='Directory']/*" />
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='FileType.Directory']/*" />
         Directory = 2,
-        /// <include file="FileType.xmldoc" path="declaration/member[@name='SymbolicLink']/*" />
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='FileType.SymbolicLink']/*" />
         SymbolicLink = 3,
-        /// <include file="FileType.xmldoc" path="declaration/member[@name='Special']/*" />
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='FileType.Special']/*" />
         Special = 4,
-        /// <include file="FileType.xmldoc" path="declaration/member[@name='Shortcut']/*" />
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='FileType.Shortcut']/*" />
         Shortcut = 5,
-        /// <include file="FileType.xmldoc" path="declaration/member[@name='Mountable']/*" />
+        /// <include file="FileType.xmldoc" path="declaration/member[@name='FileType.Mountable']/*" />
         Mountable = 6
     }
 

@@ -1,42 +1,42 @@
 <declaration>
 
-<member name='None'>
+<member name='FileCopyFlags.None'>
 <summary>
 No flags set.
 </summary>
 </member>
 
-<member name='Overwrite'>
+<member name='FileCopyFlags.Overwrite'>
 <summary>
 Overwrite any existing files
 </summary>
 </member>
 
-<member name='Backup'>
+<member name='FileCopyFlags.Backup'>
 <summary>
 Make a backup of any existing files.
 </summary>
 </member>
 
-<member name='NoFollowSymlinks'>
+<member name='FileCopyFlags.NoFollowSymlinks'>
 <summary>
 Don't follow symlinks.
 </summary>
 </member>
 
-<member name='AllMetadata'>
+<member name='FileCopyFlags.AllMetadata'>
 <summary>
 Copy all file metadata instead of just default set used for copy (see <see cref="FileInfo"/>).
 </summary>
 </member>
 
-<member name='NoFallbackForMove'>
+<member name='FileCopyFlags.NoFallbackForMove'>
 <summary>
 Don't use copy and delete fallback if native move not supported.
 </summary>
 </member>
 
-<member name='TargetDefaultPerms'>
+<member name='FileCopyFlags.TargetDefaultPerms'>
 <summary>
 Leaves target file with default perms, instead of setting the source file perms.
 </summary>

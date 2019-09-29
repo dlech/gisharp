@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='ParentInstance'>
+<member name='Struct.ParentInstance'>
 </member>
 
-<member name='Priv'>
+<member name='Struct.Priv'>
 </member>
 
-<member name='Current'>
+<member name='Cancellable.Current'>
 <summary>
 Gets the top cancellable from the stack.
 </summary>
 </member>
 
-<member name='Fd'>
+<member name='Cancellable.Fd'>
 <summary>
 Gets the file descriptor for a cancellable job. This can be used to
 implement cancellable operations on Unix systems. The returned fd will
@@ -31,13 +31,13 @@ See also <see cref="M:Cancellable.TryMakePollfd(GISharp.Lib.GLib.PollFD)"/>.
 </remarks>
 </member>
 
-<member name='IsCancelled'>
+<member name='Cancellable.IsCancelled'>
 <summary>
 Checks if a cancellable job has been cancelled.
 </summary>
 </member>
 
-<member name='Cancellable()'>
+<member name='Cancellable.Cancellable()'>
 <summary>
 Creates a new <see cref="Cancellable"/> object.
 </summary>
@@ -108,7 +108,7 @@ cancellable signal should not do something that can block.
 </remarks>
 </member>
 
-<member name='Cancelled'>
+<member name='Cancellable.Cancelled'>
 <summary>
 Emitted when the operation has been cancelled.
 </summary>
@@ -165,7 +165,7 @@ cancellable signal should not do something that can block.
 </remarks>
 </member>
 
-<member name='Cancel()'>
+<member name='Cancellable.Cancel()'>
 <summary>
 Will set this instance to cancelled, and will emit the
 <see cref="Cancellable"/>::cancelled signal. (However, see the warning about
@@ -187,7 +187,7 @@ the application returns to the main loop.
 </remarks>
 </member>
 
-<member name='Connect(GISharp.Lib.Gio.CancellableSourceFunc)'>
+<member name='Cancellable.Connect(GISharp.Lib.Gio.CancellableSourceFunc)'>
 <summary>
 Convenience function to connect to the <see cref="Cancellable"/>::cancelled
 signal. Also handles the race condition that may happen
@@ -218,7 +218,7 @@ The id of the signal handler or 0 if this instance has already
 </returns>
 </member>
 
-<member name='Disconnect(System.UInt64)'>
+<member name='Cancellable.Disconnect(System.UInt64)'>
 <summary>
 Disconnects a handler from a cancellable instance similar to
 g_signal_handler_disconnect().  Additionally, in the event that a
@@ -241,7 +241,7 @@ Handler id of the handler to be disconnected, or `0`.
 </param>
 </member>
 
-<member name='TryMakePollfd(GISharp.Lib.GLib.PollFD)'>
+<member name='Cancellable.TryMakePollfd(GISharp.Lib.GLib.PollFD)'>
 <summary>
 Creates a #GPollFD corresponding to this instance; this can be passed
 to g_poll() and used to poll for cancellation. This is useful both
@@ -272,14 +272,14 @@ a pointer to a #GPollFD
 </returns>
 </member>
 
-<member name='PopCurrent()'>
+<member name='Cancellable.PopCurrent()'>
 <summary>
 Pops this instance off the cancellable stack (verifying that this instance
 is on the top of the stack).
 </summary>
 </member>
 
-<member name='PushCurrent()'>
+<member name='Cancellable.PushCurrent()'>
 <summary>
 Pushes this instance onto the cancellable stack. The current
 cancellable can then be received using <see cref="M:Cancellable.GetCurrent()"/>.
@@ -293,7 +293,7 @@ so you rarely have to call this yourself.
 </remarks>
 </member>
 
-<member name='ReleaseFd()'>
+<member name='Cancellable.ReleaseFd()'>
 <summary>
 Releases a resources previously allocated by <see cref="M:Cancellable.GetFd()"/>
 or <see cref="M:Cancellable.TryMakePollfd(GISharp.Lib.GLib.PollFD)"/>.
@@ -308,7 +308,7 @@ descriptors when many #GCancellables are used at the same time.
 </remarks>
 </member>
 
-<member name='Reset()'>
+<member name='Cancellable.Reset()'>
 <summary>
 Resets this instance to its uncancelled state.
 </summary>
@@ -325,7 +325,7 @@ create a fresh cancellable for further async operations.
 </remarks>
 </member>
 
-<member name='ThrowIfCancelled()'>
+<member name='Cancellable.ThrowIfCancelled()'>
 <summary>
 If the this instance is cancelled, sets the error to notify
 that the operation was cancelled.
@@ -335,7 +335,7 @@ On error
 </exception>
 </member>
 
-<member name='DoCancelled()'>
+<member name='Cancellable.DoCancelled()'>
 </member>
 
 <member name='Cancellable'>

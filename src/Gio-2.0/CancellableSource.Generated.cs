@@ -48,7 +48,7 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="CancellableSource.xmldoc" path="declaration/member[@name='CancellableSource(GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="CancellableSource.xmldoc" path="declaration/member[@name='CancellableSource.CancellableSource(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public CancellableSource(GISharp.Lib.Gio.Cancellable? cancellable = null) : this(New(cancellable), GISharp.Runtime.Transfer.Full)
         {

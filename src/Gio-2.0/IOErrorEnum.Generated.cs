@@ -7,117 +7,117 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GErrorDomainAttribute("g-io-error-quark")]
     public enum IOErrorEnum
     {
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='Failed']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.Failed']/*" />
         Failed = 0,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotFound']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotFound']/*" />
         NotFound = 1,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='Exists']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.Exists']/*" />
         Exists = 2,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IsDirectory']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.IsDirectory']/*" />
         IsDirectory = 3,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotDirectory']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotDirectory']/*" />
         NotDirectory = 4,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotEmpty']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotEmpty']/*" />
         NotEmpty = 5,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotRegularFile']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotRegularFile']/*" />
         NotRegularFile = 6,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotSymbolicLink']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotSymbolicLink']/*" />
         NotSymbolicLink = 7,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotMountableFile']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotMountableFile']/*" />
         NotMountableFile = 8,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='FilenameTooLong']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.FilenameTooLong']/*" />
         FilenameTooLong = 9,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='InvalidFilename']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.InvalidFilename']/*" />
         InvalidFilename = 10,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='TooManyLinks']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.TooManyLinks']/*" />
         TooManyLinks = 11,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NoSpace']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NoSpace']/*" />
         NoSpace = 12,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='InvalidArgument']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.InvalidArgument']/*" />
         InvalidArgument = 13,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='PermissionDenied']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.PermissionDenied']/*" />
         PermissionDenied = 14,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotSupported']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotSupported']/*" />
         NotSupported = 15,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotMounted']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotMounted']/*" />
         NotMounted = 16,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='AlreadyMounted']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.AlreadyMounted']/*" />
         AlreadyMounted = 17,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='Closed']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.Closed']/*" />
         Closed = 18,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='Cancelled']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.Cancelled']/*" />
         Cancelled = 19,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='Pending']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.Pending']/*" />
         Pending = 20,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='ReadOnly']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.ReadOnly']/*" />
         ReadOnly = 21,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='CantCreateBackup']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.CantCreateBackup']/*" />
         CantCreateBackup = 22,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='WrongEtag']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.WrongEtag']/*" />
         WrongEtag = 23,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='TimedOut']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.TimedOut']/*" />
         TimedOut = 24,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='WouldRecurse']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.WouldRecurse']/*" />
         WouldRecurse = 25,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='Busy']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.Busy']/*" />
         Busy = 26,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='WouldBlock']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.WouldBlock']/*" />
         WouldBlock = 27,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='HostNotFound']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.HostNotFound']/*" />
         HostNotFound = 28,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='WouldMerge']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.WouldMerge']/*" />
         WouldMerge = 29,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='FailedHandled']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.FailedHandled']/*" />
         FailedHandled = 30,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='TooManyOpenFiles']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.TooManyOpenFiles']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         TooManyOpenFiles = 31,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotInitialized']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotInitialized']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         NotInitialized = 32,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='AddressInUse']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.AddressInUse']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         AddressInUse = 33,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='PartialInput']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.PartialInput']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         PartialInput = 34,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='InvalidData']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.InvalidData']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         InvalidData = 35,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='DbusError']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.DbusError']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         DbusError = 36,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='HostUnreachable']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.HostUnreachable']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         HostUnreachable = 37,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NetworkUnreachable']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NetworkUnreachable']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         NetworkUnreachable = 38,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='ConnectionRefused']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.ConnectionRefused']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         ConnectionRefused = 39,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='ProxyFailed']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.ProxyFailed']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         ProxyFailed = 40,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='ProxyAuthFailed']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.ProxyAuthFailed']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         ProxyAuthFailed = 41,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='ProxyNeedAuth']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.ProxyNeedAuth']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         ProxyNeedAuth = 42,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='ProxyNotAllowed']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.ProxyNotAllowed']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         ProxyNotAllowed = 43,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='BrokenPipe']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.BrokenPipe']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         BrokenPipe = 44,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='ConnectionClosed']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.ConnectionClosed']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         ConnectionClosed = 44,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='NotConnected']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.NotConnected']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         NotConnected = 45,
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='MessageTooLarge']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnum.MessageTooLarge']/*" />
         [GISharp.Runtime.SinceAttribute("2.48")]
         MessageTooLarge = 46
     }
@@ -129,7 +129,7 @@ namespace GISharp.Lib.Gio
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_io_error_enum_get_type();
 
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='Quark']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
         /// <summary>
@@ -156,7 +156,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.Int32 errno);
 
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='FromErrno(System.Int32)']/*" />
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.FromErrno(System.Int32)']/*" />
         public static unsafe GISharp.Lib.Gio.IOErrorEnum FromErrno(System.Int32 errno)
         {
             var errno_ = (System.Int32)errno;

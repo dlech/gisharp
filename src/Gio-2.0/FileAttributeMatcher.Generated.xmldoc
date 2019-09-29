@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeMatcher.FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Creates a new file attribute matcher, which matches attributes
 against a given string. <see cref="FileAttributeMatcher"/>s are reference
@@ -28,7 +28,7 @@ an attribute string to match.
 </param>
 </member>
 
-<member name='FileAttributeMatcher(System.String)'>
+<member name='FileAttributeMatcher.FileAttributeMatcher(System.String)'>
 <summary>
 Creates a new file attribute matcher, which matches attributes
 against a given string. <see cref="FileAttributeMatcher"/>s are reference
@@ -56,7 +56,7 @@ an attribute string to match.
 </param>
 </member>
 
-<member name='EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeMatcher.EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if the matcher will match all of the keys in a given namespace.
 This will always return <c>true</c> if a wildcard character is in use (e.g. if
@@ -75,7 +75,7 @@ in the given this instance, <c>false</c> otherwise.
 </returns>
 </member>
 
-<member name='EnumerateNamespace(System.String)'>
+<member name='FileAttributeMatcher.EnumerateNamespace(System.String)'>
 <summary>
 Checks if the matcher will match all of the keys in a given namespace.
 This will always return <c>true</c> if a wildcard character is in use (e.g. if
@@ -94,7 +94,7 @@ in the given this instance, <c>false</c> otherwise.
 </returns>
 </member>
 
-<member name='EnumerateNext()'>
+<member name='FileAttributeMatcher.EnumerateNext()'>
 <summary>
 Gets the next matched attribute from a <see cref="FileAttributeMatcher"/>.
 </summary>
@@ -104,7 +104,7 @@ no more attribute exist.
 </returns>
 </member>
 
-<member name='Matches(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeMatcher.Matches(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if an attribute will be matched by an attribute matcher. If
 the matcher was created with the "*" matching string, this function
@@ -118,7 +118,7 @@ a file attribute key.
 </returns>
 </member>
 
-<member name='Matches(System.String)'>
+<member name='FileAttributeMatcher.Matches(System.String)'>
 <summary>
 Checks if an attribute will be matched by an attribute matcher. If
 the matcher was created with the "*" matching string, this function
@@ -132,7 +132,7 @@ a file attribute key.
 </returns>
 </member>
 
-<member name='MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeMatcher.MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if a attribute matcher only matches a given attribute. Always
 returns <c>false</c> if "*" was used when creating the matcher.
@@ -145,7 +145,7 @@ a file attribute key.
 </returns>
 </member>
 
-<member name='MatchesOnly(System.String)'>
+<member name='FileAttributeMatcher.MatchesOnly(System.String)'>
 <summary>
 Checks if a attribute matcher only matches a given attribute. Always
 returns <c>false</c> if "*" was used when creating the matcher.
@@ -158,7 +158,7 @@ a file attribute key.
 </returns>
 </member>
 
-<member name='Subtract(GISharp.Lib.Gio.FileAttributeMatcher)'>
+<member name='FileAttributeMatcher.Subtract(GISharp.Lib.Gio.FileAttributeMatcher)'>
 <summary>
 Subtracts all attributes of this instance from this instance and returns
 a matcher that supports those attributes.
@@ -179,7 +179,7 @@ A file attribute matcher matching all attributes of
 </returns>
 </member>
 
-<member name='ToString()'>
+<member name='FileAttributeMatcher.ToString()'>
 <summary>
 Prints what the matcher is matching against. The format will be
 equal to the format passed to <see cref="M:FileAttributeMatcher.#ctor(GISharp.Lib.GLib.Utf8)"/>.

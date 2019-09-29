@@ -1,48 +1,48 @@
 <declaration>
 
-<member name='ParentClass'>
+<member name='Struct.ParentClass'>
 </member>
 
-<member name='Tell'>
+<member name='Struct.Tell'>
 </member>
 
-<member name='CanSeek'>
+<member name='Struct.CanSeek'>
 </member>
 
-<member name='Seek'>
+<member name='Struct.Seek'>
 </member>
 
-<member name='CanTruncate'>
+<member name='Struct.CanTruncate'>
 </member>
 
-<member name='TruncateFn'>
+<member name='Struct.TruncateFn'>
 </member>
 
-<member name='QueryInfo'>
+<member name='Struct.QueryInfo'>
 </member>
 
-<member name='QueryInfoAsync'>
+<member name='Struct.QueryInfoAsync'>
 </member>
 
-<member name='QueryInfoFinish'>
+<member name='Struct.QueryInfoFinish'>
 </member>
 
-<member name='GetEtag'>
+<member name='Struct.GetEtag'>
 </member>
 
-<member name='GReserved1'>
+<member name='Struct.GReserved1'>
 </member>
 
-<member name='GReserved2'>
+<member name='Struct.GReserved2'>
 </member>
 
-<member name='GReserved3'>
+<member name='Struct.GReserved3'>
 </member>
 
-<member name='GReserved4'>
+<member name='Struct.GReserved4'>
 </member>
 
-<member name='GReserved5'>
+<member name='Struct.GReserved5'>
 </member>
 
 <member name='Tell'>

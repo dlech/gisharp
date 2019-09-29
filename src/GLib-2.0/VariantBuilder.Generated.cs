@@ -52,7 +52,7 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder(GISharp.Lib.GLib.VariantType)']/*" />
+        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.VariantBuilder(GISharp.Lib.GLib.VariantType)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public VariantBuilder(GISharp.Lib.GLib.VariantType type) : this(New(type), GISharp.Runtime.Transfer.Full)
         {
@@ -94,7 +94,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
-        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='Add(GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.Add(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public unsafe void Add(GISharp.Lib.GLib.Variant value)
         {
@@ -124,7 +124,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr builder);
 
-        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='Close()']/*" />
+        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.Close()']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public unsafe void Close()
         {
@@ -167,7 +167,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr builder);
 
-        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='End()']/*" />
+        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.End()']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public unsafe GISharp.Lib.GLib.Variant End()
         {
@@ -234,7 +234,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr type);
 
-        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='Open(GISharp.Lib.GLib.VariantType)']/*" />
+        /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.Open(GISharp.Lib.GLib.VariantType)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public unsafe void Open(GISharp.Lib.GLib.VariantType type)
         {

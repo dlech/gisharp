@@ -5,27 +5,27 @@ namespace GISharp.Lib.GLib
     /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext']/*" />
     public sealed partial class OptionContext : GISharp.Runtime.Opaque
     {
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='Description']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.Description']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Lib.GLib.NullableUnownedUtf8 Description { get => GetDescription(); set => SetDescription(value); }
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='HelpEnabled']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.HelpEnabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean HelpEnabled { get => GetHelpEnabled(); set => SetHelpEnabled(value); }
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='IgnoreUnknownOptions']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.IgnoreUnknownOptions']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public System.Boolean IgnoreUnknownOptions { get => GetIgnoreUnknownOptions(); set => SetIgnoreUnknownOptions(value); }
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='MainGroup']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.MainGroup']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public GISharp.Lib.GLib.OptionGroup MainGroup { get => GetMainGroup(); set => SetMainGroup(value); }
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='StrictPosix']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.StrictPosix']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public System.Boolean StrictPosix { get => GetStrictPosix(); set => SetStrictPosix(value); }
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='Summary']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.Summary']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public GISharp.Lib.GLib.NullableUnownedUtf8 Summary { get => GetSummary(); set => SetSummary(value); }
 
@@ -108,7 +108,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:full direction:in */
         System.IntPtr group);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='AddGroup(GISharp.Lib.GLib.OptionGroup)']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.AddGroup(GISharp.Lib.GLib.OptionGroup)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void AddGroup(GISharp.Lib.GLib.OptionGroup group)
         {
@@ -200,7 +200,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr group);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='GetHelp(System.Boolean,GISharp.Lib.GLib.OptionGroup?)']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.GetHelp(System.Boolean,GISharp.Lib.GLib.OptionGroup?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public unsafe GISharp.Lib.GLib.Utf8 GetHelp(System.Boolean mainHelp, GISharp.Lib.GLib.OptionGroup? group)
         {
@@ -637,7 +637,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr destroyNotify);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
@@ -668,7 +668,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr domain);
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
@@ -677,7 +677,7 @@ namespace GISharp.Lib.GLib
             g_option_context_set_translation_domain(context_, domain_);
         }
 
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='SetTranslationDomain(System.String)']/*" />
+        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.SetTranslationDomain(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetTranslationDomain(System.String domain)
         {

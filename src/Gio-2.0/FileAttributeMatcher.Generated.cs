@@ -59,7 +59,7 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8 attributes) : this(New(attributes), GISharp.Runtime.Transfer.Full)
         {
         }
@@ -70,7 +70,7 @@ namespace GISharp.Lib.Gio
             return New((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8);
         }
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher(System.String)']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.FileAttributeMatcher(System.String)']/*" />
         public FileAttributeMatcher(System.String attributes) : this(New(attributes), GISharp.Runtime.Transfer.Full)
         {
         }
@@ -110,7 +110,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr ns);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Boolean EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8 ns)
         {
             var matcher_ = Handle;
@@ -120,7 +120,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='EnumerateNamespace(System.String)']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNamespace(System.String)']/*" />
         public unsafe System.Boolean EnumerateNamespace(System.String ns)
         {
             using var nsUtf8 = new GISharp.Lib.GLib.Utf8(ns);
@@ -145,7 +145,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr matcher);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='EnumerateNext()']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNext()']/*" />
         public unsafe GISharp.Lib.GLib.UnownedUtf8 EnumerateNext()
         {
             var matcher_ = Handle;
@@ -179,7 +179,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='Matches(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Matches(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Boolean Matches(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var matcher_ = Handle;
@@ -189,7 +189,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='Matches(System.String)']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Matches(System.String)']/*" />
         public unsafe System.Boolean Matches(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -220,7 +220,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Boolean MatchesOnly(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var matcher_ = Handle;
@@ -230,7 +230,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='MatchesOnly(System.String)']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.MatchesOnly(System.String)']/*" />
         public unsafe System.Boolean MatchesOnly(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -292,7 +292,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr subtract);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='Subtract(GISharp.Lib.Gio.FileAttributeMatcher)']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Subtract(GISharp.Lib.Gio.FileAttributeMatcher)']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeMatcher Subtract(GISharp.Lib.Gio.FileAttributeMatcher subtract)
         {
             var matcher_ = Handle;
@@ -324,7 +324,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr matcher);
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='ToString()']/*" />
+        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.ToString()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public override System.String ToString()
         {

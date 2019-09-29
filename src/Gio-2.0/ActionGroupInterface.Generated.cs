@@ -12,49 +12,49 @@ namespace GISharp.Lib.Gio
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GIface']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='HasAction']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.HasAction']/*" />
             public System.IntPtr HasAction;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ListActions']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ListActions']/*" />
             public System.IntPtr ListActions;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionEnabled']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionEnabled']/*" />
             public System.IntPtr GetActionEnabled;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionParameterType']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionParameterType']/*" />
             public System.IntPtr GetActionParameterType;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionStateType']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionStateType']/*" />
             public System.IntPtr GetActionStateType;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionStateHint']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionStateHint']/*" />
             public System.IntPtr GetActionStateHint;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='GetActionState']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionState']/*" />
             public System.IntPtr GetActionState;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ChangeActionState']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ChangeActionState']/*" />
             public System.IntPtr ChangeActionState;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActivateAction']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActivateAction']/*" />
             public System.IntPtr ActivateAction;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionAdded']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActionAdded']/*" />
             public System.IntPtr ActionAdded;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionRemoved']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActionRemoved']/*" />
             public System.IntPtr ActionRemoved;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionEnabledChanged']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActionEnabledChanged']/*" />
             public System.IntPtr ActionEnabledChanged;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='ActionStateChanged']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActionStateChanged']/*" />
             public System.IntPtr ActionStateChanged;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='QueryAction']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.QueryAction']/*" />
             public System.IntPtr QueryAction;
 #pragma warning restore CS0649
         }

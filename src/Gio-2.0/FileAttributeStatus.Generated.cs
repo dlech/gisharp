@@ -6,11 +6,11 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeAttribute("GFileAttributeStatus", IsProxyForUnmanagedType = true)]
     public enum FileAttributeStatus
     {
-        /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='Unset']/*" />
+        /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='FileAttributeStatus.Unset']/*" />
         Unset = 0,
-        /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='Set']/*" />
+        /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='FileAttributeStatus.Set']/*" />
         Set = 1,
-        /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='ErrorSetting']/*" />
+        /// <include file="FileAttributeStatus.xmldoc" path="declaration/member[@name='FileAttributeStatus.ErrorSetting']/*" />
         ErrorSetting = 2
     }
 

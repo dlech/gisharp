@@ -6,11 +6,11 @@ namespace GISharp.Lib.GLib
     [System.FlagsAttribute]
     public enum KeyFileFlags
     {
-        /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeyFileFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeepComments']/*" />
+        /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeyFileFlags.KeepComments']/*" />
         KeepComments = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeepTranslations']/*" />
+        /// <include file="KeyFileFlags.xmldoc" path="declaration/member[@name='KeyFileFlags.KeepTranslations']/*" />
         KeepTranslations = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 }

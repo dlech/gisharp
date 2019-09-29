@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='Unset'>
+<member name='FileAttributeStatus.Unset'>
 <summary>
 Attribute value is unset (empty).
 </summary>
 </member>
 
-<member name='Set'>
+<member name='FileAttributeStatus.Set'>
 <summary>
 Attribute value is set.
 </summary>
 </member>
 
-<member name='ErrorSetting'>
+<member name='FileAttributeStatus.ErrorSetting'>
 <summary>
 Indicates an error in setting the value.
 </summary>

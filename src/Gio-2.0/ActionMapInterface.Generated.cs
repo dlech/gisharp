@@ -12,16 +12,16 @@ namespace GISharp.Lib.Gio
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='GIface']/*" />
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
 
-            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='LookupAction']/*" />
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='Struct.LookupAction']/*" />
             public System.IntPtr LookupAction;
 
-            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='AddAction']/*" />
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='Struct.AddAction']/*" />
             public System.IntPtr AddAction;
 
-            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='RemoveAction']/*" />
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='Struct.RemoveAction']/*" />
             public System.IntPtr RemoveAction;
 #pragma warning restore CS0649
         }

@@ -6,17 +6,17 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.GErrorDomainAttribute("g-key-file-error-quark")]
     public enum KeyFileError
     {
-        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='UnknownEncoding']/*" />
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileError.UnknownEncoding']/*" />
         UnknownEncoding = 0,
-        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='Parse']/*" />
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileError.Parse']/*" />
         Parse = 1,
-        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='NotFound']/*" />
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileError.NotFound']/*" />
         NotFound = 2,
-        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyNotFound']/*" />
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileError.KeyNotFound']/*" />
         KeyNotFound = 3,
-        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='GroupNotFound']/*" />
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileError.GroupNotFound']/*" />
         GroupNotFound = 4,
-        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='InvalidValue']/*" />
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileError.InvalidValue']/*" />
         InvalidValue = 5
     }
 
@@ -25,7 +25,7 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public partial class KeyFileErrorDomain
     {
-        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='Quark']/*" />
+        /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

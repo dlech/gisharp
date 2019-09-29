@@ -6,25 +6,25 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeAttribute("GFileAttributeType", IsProxyForUnmanagedType = true)]
     public enum FileAttributeType
     {
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Invalid']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.Invalid']/*" />
         Invalid = 0,
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='String']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.String']/*" />
         String = 1,
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='ByteString']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.ByteString']/*" />
         ByteString = 2,
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Boolean']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.Boolean']/*" />
         Boolean = 3,
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Uint32']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.Uint32']/*" />
         Uint32 = 4,
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Int32']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.Int32']/*" />
         Int32 = 5,
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Uint64']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.Uint64']/*" />
         Uint64 = 6,
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Int64']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.Int64']/*" />
         Int64 = 7,
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='Object']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.Object']/*" />
         Object = 8,
-        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='StringArray']/*" />
+        /// <include file="FileAttributeType.xmldoc" path="declaration/member[@name='FileAttributeType.StringArray']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         StringArray = 9
     }

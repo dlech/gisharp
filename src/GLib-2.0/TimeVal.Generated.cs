@@ -6,10 +6,10 @@ namespace GISharp.Lib.GLib
     public partial struct TimeVal
     {
 #pragma warning disable CS0649
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TvSec']/*" />
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TvSec']/*" />
         public GISharp.Runtime.CLong TvSec;
 
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TvUsec']/*" />
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TvUsec']/*" />
         public GISharp.Runtime.CLong TvUsec;
 #pragma warning restore CS0649
         /// <summary>
@@ -55,7 +55,7 @@ namespace GISharp.Lib.GLib
         /* direction:out caller-allocates:1 transfer-ownership:none */
         out GISharp.Lib.GLib.TimeVal time);
 
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeVal)']/*" />
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_iso8601() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.12")]
@@ -68,7 +68,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TryFromIso8601(System.String,GISharp.Lib.GLib.TimeVal)']/*" />
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TryFromIso8601(System.String,GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_iso8601() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.12")]
@@ -101,7 +101,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong microseconds);
 
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='Add(System.Int64)']/*" />
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.Add(System.Int64)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use `guint64` for\n   representing microseconds since the epoch, or use #GDateTime.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         public unsafe void Add(System.Int64 microseconds)
@@ -166,7 +166,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         in GISharp.Lib.GLib.TimeVal time);
 
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='ToIso8601()']/*" />
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.ToIso8601()']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_format_iso8601(dt) instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.12")]

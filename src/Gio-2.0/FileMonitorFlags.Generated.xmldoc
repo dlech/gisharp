@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='None'>
+<member name='FileMonitorFlags.None'>
 <summary>
 No flags set.
 </summary>
 </member>
 
-<member name='WatchMounts'>
+<member name='FileMonitorFlags.WatchMounts'>
 <summary>
 Watch for mount events.
 </summary>
 </member>
 
-<member name='SendMoved'>
+<member name='FileMonitorFlags.SendMoved'>
 <summary>
 Pair DELETED and CREATED events caused
   by file renames (moves) and send a single G_FILE_MONITOR_EVENT_MOVED
@@ -23,14 +23,14 @@ Pair DELETED and CREATED events caused
 </summary>
 </member>
 
-<member name='WatchHardLinks'>
+<member name='FileMonitorFlags.WatchHardLinks'>
 <summary>
 Watch for changes to the file made
   via another hard link.
 </summary>
 </member>
 
-<member name='WatchMoves'>
+<member name='FileMonitorFlags.WatchMoves'>
 <summary>
 Watch for rename operations on a
   monitored directory.  This causes %G_FILE_MONITOR_EVENT_RENAMED,

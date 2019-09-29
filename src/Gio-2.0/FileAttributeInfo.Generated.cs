@@ -6,13 +6,13 @@ namespace GISharp.Lib.Gio
     public partial struct FileAttributeInfo
     {
 #pragma warning disable CS0649
-        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='name']/*" />
+        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.name']/*" />
         private System.IntPtr name;
 
-        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='Type']/*" />
+        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.Type']/*" />
         public GISharp.Lib.Gio.FileAttributeType Type;
 
-        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='Flags']/*" />
+        /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.Flags']/*" />
         public GISharp.Lib.Gio.FileAttributeInfoFlags Flags;
 #pragma warning restore CS0649
     }

@@ -8,13 +8,13 @@ namespace GISharp.Lib.Gio
     [System.FlagsAttribute]
     public enum IOStreamSpliceFlags
     {
-        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='IOStreamSpliceFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='CloseStream1']/*" />
+        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='IOStreamSpliceFlags.CloseStream1']/*" />
         CloseStream1 = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='CloseStream2']/*" />
+        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='IOStreamSpliceFlags.CloseStream2']/*" />
         CloseStream2 = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='WaitForBoth']/*" />
+        /// <include file="IOStreamSpliceFlags.xmldoc" path="declaration/member[@name='IOStreamSpliceFlags.WaitForBoth']/*" />
         WaitForBoth = 0b0000_0000_0000_0000_0000_0000_0000_0100
     }
 

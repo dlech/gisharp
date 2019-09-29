@@ -6,25 +6,25 @@ namespace GISharp.Lib.GLib
     [System.FlagsAttribute]
     public enum OptionFlags
     {
-        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags.None']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='Hidden']/*" />
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags.Hidden']/*" />
         Hidden = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='InMain']/*" />
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags.InMain']/*" />
         InMain = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='Reverse']/*" />
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags.Reverse']/*" />
         Reverse = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='NoArg']/*" />
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags.NoArg']/*" />
         [GISharp.Runtime.SinceAttribute("2.8")]
         NoArg = 0b0000_0000_0000_0000_0000_0000_0000_1000,
-        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='Filename']/*" />
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags.Filename']/*" />
         [GISharp.Runtime.SinceAttribute("2.8")]
         Filename = 0b0000_0000_0000_0000_0000_0000_0001_0000,
-        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionalArg']/*" />
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags.OptionalArg']/*" />
         [GISharp.Runtime.SinceAttribute("2.8")]
         OptionalArg = 0b0000_0000_0000_0000_0000_0000_0010_0000,
-        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='NoAlias']/*" />
+        /// <include file="OptionFlags.xmldoc" path="declaration/member[@name='OptionFlags.NoAlias']/*" />
         [GISharp.Runtime.SinceAttribute("2.8")]
         NoAlias = 0b0000_0000_0000_0000_0000_0000_0100_0000
     }

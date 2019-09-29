@@ -11,25 +11,25 @@ namespace GISharp.Lib.Gio
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Cancelled']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.Cancelled']/*" />
             public System.IntPtr Cancelled;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved1']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved1']/*" />
             public System.IntPtr GReserved1;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved2']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved2']/*" />
             public System.IntPtr GReserved2;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved3']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved3']/*" />
             public System.IntPtr GReserved3;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='GReserved5']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }

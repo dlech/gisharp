@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='CancellableSource(GISharp.Lib.Gio.Cancellable?)'>
+<member name='CancellableSource.CancellableSource(GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Creates a source that triggers if <paramref name="cancellable"/> is cancelled and
 calls its callback of type <see cref="CancellableSourceFunc"/>. This is

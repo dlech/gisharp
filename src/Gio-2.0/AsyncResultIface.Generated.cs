@@ -11,16 +11,16 @@ namespace GISharp.Lib.Gio
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='GIface']/*" />
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
 
-            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='GetUserData']/*" />
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='Struct.GetUserData']/*" />
             public System.IntPtr GetUserData;
 
-            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='GetSourceObject']/*" />
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='Struct.GetSourceObject']/*" />
             public System.IntPtr GetSourceObject;
 
-            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='IsTagged']/*" />
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='Struct.IsTagged']/*" />
             public System.IntPtr IsTagged;
 #pragma warning restore CS0649
         }

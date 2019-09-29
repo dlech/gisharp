@@ -6,11 +6,11 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.GErrorDomainAttribute("g-option-context-error-quark")]
     public enum OptionError
     {
-        /// <include file="OptionError.xmldoc" path="declaration/member[@name='UnknownOption']/*" />
+        /// <include file="OptionError.xmldoc" path="declaration/member[@name='OptionError.UnknownOption']/*" />
         UnknownOption = 0,
-        /// <include file="OptionError.xmldoc" path="declaration/member[@name='BadValue']/*" />
+        /// <include file="OptionError.xmldoc" path="declaration/member[@name='OptionError.BadValue']/*" />
         BadValue = 1,
-        /// <include file="OptionError.xmldoc" path="declaration/member[@name='Failed']/*" />
+        /// <include file="OptionError.xmldoc" path="declaration/member[@name='OptionError.Failed']/*" />
         Failed = 2
     }
 
@@ -19,7 +19,7 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public partial class OptionErrorDomain
     {
-        /// <include file="OptionError.xmldoc" path="declaration/member[@name='Quark']/*" />
+        /// <include file="OptionError.xmldoc" path="declaration/member[@name='OptionErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

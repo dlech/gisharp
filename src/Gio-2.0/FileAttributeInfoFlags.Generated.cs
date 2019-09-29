@@ -7,11 +7,11 @@ namespace GISharp.Lib.Gio
     [System.FlagsAttribute]
     public enum FileAttributeInfoFlags
     {
-        /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='FileAttributeInfoFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='CopyWithFile']/*" />
+        /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='FileAttributeInfoFlags.CopyWithFile']/*" />
         CopyWithFile = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='CopyWhenMoved']/*" />
+        /// <include file="FileAttributeInfoFlags.xmldoc" path="declaration/member[@name='FileAttributeInfoFlags.CopyWhenMoved']/*" />
         CopyWhenMoved = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 

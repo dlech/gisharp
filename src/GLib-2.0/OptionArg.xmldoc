@@ -1,59 +1,59 @@
 <declaration>
 
-<member name='None'>
+<member name='OptionArg.None'>
 <summary>
 No extra argument. This is useful for simple flags.
 </summary>
 </member>
 
-<member name='String'>
+<member name='OptionArg.String'>
 <summary>
 The option takes a UTF-8 string argument.
 </summary>
 </member>
 
-<member name='Int'>
+<member name='OptionArg.Int'>
 <summary>
 The option takes an integer argument.
 </summary>
 </member>
 
-<member name='Callback'>
+<member name='OptionArg.Callback'>
 <summary>
 The option provides a callback (of type
     <see cref="OptionArgFunc"/>) to parse the extra argument.
 </summary>
 </member>
 
-<member name='Filename'>
+<member name='OptionArg.Filename'>
 <summary>
 The option takes a filename as argument, which will
        be in the GLib filename encoding rather than UTF-8.
 </summary>
 </member>
 
-<member name='StringArray'>
+<member name='OptionArg.StringArray'>
 <summary>
 The option takes a string argument, multiple
     uses of the option are collected into an array of strings.
 </summary>
 </member>
 
-<member name='FilenameArray'>
+<member name='OptionArg.FilenameArray'>
 <summary>
 The option takes a filename as argument,
     multiple uses of the option are collected into an array of strings.
 </summary>
 </member>
 
-<member name='Double'>
+<member name='OptionArg.Double'>
 <summary>
 The option takes a double argument. The argument
     can be formatted either for the user's locale or for the "C" locale.
 </summary>
 </member>
 
-<member name='Int64'>
+<member name='OptionArg.Int64'>
 <summary>
 The option takes a 64-bit integer. Like
     <see cref="OptionArg.Int"/> but for larger numbers. The number can be in

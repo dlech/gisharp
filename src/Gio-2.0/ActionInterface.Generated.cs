@@ -12,31 +12,31 @@ namespace GISharp.Lib.Gio
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='GIface']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='GetName']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetName']/*" />
             public System.IntPtr GetName;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='GetParameterType']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetParameterType']/*" />
             public System.IntPtr GetParameterType;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='GetStateType']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetStateType']/*" />
             public System.IntPtr GetStateType;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='GetStateHint']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetStateHint']/*" />
             public System.IntPtr GetStateHint;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='GetEnabled']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetEnabled']/*" />
             public System.IntPtr GetEnabled;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='GetState']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetState']/*" />
             public System.IntPtr GetState;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='ChangeState']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.ChangeState']/*" />
             public System.IntPtr ChangeState;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Activate']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.Activate']/*" />
             public System.IntPtr Activate;
 #pragma warning restore CS0649
         }

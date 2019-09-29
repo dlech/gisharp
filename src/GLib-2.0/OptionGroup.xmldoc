@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)'>
+<member name='OptionGroup.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)'>
 <summary>
 Sets the function which is used to translate user-visible strings,
 for `--help` output. Different groups can use different
@@ -15,7 +15,7 @@ the <see cref="TranslateFunc"/>, or <c>null</c>
 </param>
 </member>
 
-<member name='SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 A convenience function to use gettext() for translating
 user-visible strings.
@@ -25,7 +25,7 @@ the domain to use
 </param>
 </member>
 
-<member name='SetTranslationDomain(System.String)'>
+<member name='OptionGroup.SetTranslationDomain(System.String)'>
 <summary>
 A convenience function to use gettext() for translating
 user-visible strings.

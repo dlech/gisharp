@@ -6,11 +6,11 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeAttribute("GFilesystemPreviewType", IsProxyForUnmanagedType = true)]
     public enum FilesystemPreviewType
     {
-        /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='IfAlways']/*" />
+        /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='FilesystemPreviewType.IfAlways']/*" />
         IfAlways = 0,
-        /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='IfLocal']/*" />
+        /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='FilesystemPreviewType.IfLocal']/*" />
         IfLocal = 1,
-        /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='Never']/*" />
+        /// <include file="FilesystemPreviewType.xmldoc" path="declaration/member[@name='FilesystemPreviewType.Never']/*" />
         Never = 2
     }
 

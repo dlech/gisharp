@@ -11,52 +11,52 @@ namespace GISharp.Lib.Gio
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GetInputStream']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GetInputStream']/*" />
             public System.IntPtr GetInputStream;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GetOutputStream']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GetOutputStream']/*" />
             public System.IntPtr GetOutputStream;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='CloseFn']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFn']/*" />
             public System.IntPtr CloseFn;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='CloseAsync']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseAsync']/*" />
             public System.IntPtr CloseAsync;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='CloseFinish']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFinish']/*" />
             public System.IntPtr CloseFinish;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved1']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved1']/*" />
             public System.IntPtr GReserved1;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved2']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved2']/*" />
             public System.IntPtr GReserved2;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved3']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved3']/*" />
             public System.IntPtr GReserved3;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved5']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved6']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved6']/*" />
             public System.IntPtr GReserved6;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved7']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved7']/*" />
             public System.IntPtr GReserved7;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved8']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved8']/*" />
             public System.IntPtr GReserved8;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved9']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved9']/*" />
             public System.IntPtr GReserved9;
 
-            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='GReserved10']/*" />
+            /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved10']/*" />
             public System.IntPtr GReserved10;
 #pragma warning restore CS0649
         }

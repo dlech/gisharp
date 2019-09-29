@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='DesktopGroup'>
+<member name='KeyFile.DesktopGroup'>
 <summary>
 The name of the main group of a desktop entry file, as defined in the
 [Desktop Entry Specification](http://freedesktop.org/Standards/desktop-entry-spec).
@@ -9,14 +9,14 @@ details about the meanings of the keys below.
 </summary>
 </member>
 
-<member name='DesktopKeyActions'>
+<member name='KeyFile.DesktopKeyActions'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string list
 giving the available application actions.
 </summary>
 </member>
 
-<member name='DesktopKeyCategories'>
+<member name='KeyFile.DesktopKeyCategories'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list
 of strings giving the categories in which the desktop entry
@@ -24,21 +24,21 @@ should be shown in a menu.
 </summary>
 </member>
 
-<member name='DesktopKeyComment'>
+<member name='KeyFile.DesktopKeyComment'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
 string giving the tooltip for the desktop entry.
 </summary>
 </member>
 
-<member name='DesktopKeyDbusActivatable'>
+<member name='KeyFile.DesktopKeyDbusActivatable'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean set to true
 if the application is D-Bus activatable.
 </summary>
 </member>
 
-<member name='DesktopKeyExec'>
+<member name='KeyFile.DesktopKeyExec'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
 giving the command line to execute. It is only valid for desktop
@@ -46,21 +46,21 @@ entries with the `Application` type.
 </summary>
 </member>
 
-<member name='DesktopKeyGenericName'>
+<member name='KeyFile.DesktopKeyGenericName'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
 string giving the generic name of the desktop entry.
 </summary>
 </member>
 
-<member name='DesktopKeyHidden'>
+<member name='KeyFile.DesktopKeyHidden'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
 stating whether the desktop entry has been deleted by the user.
 </summary>
 </member>
 
-<member name='DesktopKeyIcon'>
+<member name='KeyFile.DesktopKeyIcon'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
 string giving the name of the icon to be displayed for the desktop
@@ -68,21 +68,21 @@ entry.
 </summary>
 </member>
 
-<member name='DesktopKeyMimeType'>
+<member name='KeyFile.DesktopKeyMimeType'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list
 of strings giving the MIME types supported by this desktop entry.
 </summary>
 </member>
 
-<member name='DesktopKeyName'>
+<member name='KeyFile.DesktopKeyName'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a localized
 string giving the specific name of the desktop entry.
 </summary>
 </member>
 
-<member name='DesktopKeyNotShowIn'>
+<member name='KeyFile.DesktopKeyNotShowIn'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list of
 strings identifying the environments that should not display the
@@ -90,14 +90,14 @@ desktop entry.
 </summary>
 </member>
 
-<member name='DesktopKeyNoDisplay'>
+<member name='KeyFile.DesktopKeyNoDisplay'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
 stating whether the desktop entry should be shown in menus.
 </summary>
 </member>
 
-<member name='DesktopKeyOnlyShowIn'>
+<member name='KeyFile.DesktopKeyOnlyShowIn'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a list of
 strings identifying the environments that should display the
@@ -105,7 +105,7 @@ desktop entry.
 </summary>
 </member>
 
-<member name='DesktopKeyPath'>
+<member name='KeyFile.DesktopKeyPath'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
 containing the working directory to run the program in. It is only
@@ -113,7 +113,7 @@ valid for desktop entries with the `Application` type.
 </summary>
 </member>
 
-<member name='DesktopKeyStartupNotify'>
+<member name='KeyFile.DesktopKeyStartupNotify'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
 stating whether the application supports the
@@ -121,7 +121,7 @@ stating whether the application supports the
 </summary>
 </member>
 
-<member name='DesktopKeyStartupWmClass'>
+<member name='KeyFile.DesktopKeyStartupWmClass'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is string
 identifying the WM class or name hint of a window that the application
@@ -130,7 +130,7 @@ older applications.
 </summary>
 </member>
 
-<member name='DesktopKeyTerminal'>
+<member name='KeyFile.DesktopKeyTerminal'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a boolean
 stating whether the program should be run in a terminal window.
@@ -139,7 +139,7 @@ It is only valid for desktop entries with the
 </summary>
 </member>
 
-<member name='DesktopKeyTryExec'>
+<member name='KeyFile.DesktopKeyTryExec'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
 giving the file name of a binary on disk used to determine if the
@@ -148,7 +148,7 @@ with the `Application` type.
 </summary>
 </member>
 
-<member name='DesktopKeyType'>
+<member name='KeyFile.DesktopKeyType'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
 giving the type of the desktop entry. Usually
@@ -158,7 +158,7 @@ giving the type of the desktop entry. Usually
 </summary>
 </member>
 
-<member name='DesktopKeyUrl'>
+<member name='KeyFile.DesktopKeyUrl'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
 giving the URL to access. It is only valid for desktop entries
@@ -166,7 +166,7 @@ with the `Link` type.
 </summary>
 </member>
 
-<member name='DesktopKeyVersion'>
+<member name='KeyFile.DesktopKeyVersion'>
 <summary>
 A key under #G_KEY_FILE_DESKTOP_GROUP, whose value is a string
 giving the version of the Desktop Entry Specification used for
@@ -174,28 +174,28 @@ the desktop entry file.
 </summary>
 </member>
 
-<member name='DesktopTypeApplication'>
+<member name='KeyFile.DesktopTypeApplication'>
 <summary>
 The value of the #G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
 entries representing applications.
 </summary>
 </member>
 
-<member name='DesktopTypeDirectory'>
+<member name='KeyFile.DesktopTypeDirectory'>
 <summary>
 The value of the #G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
 entries representing directories.
 </summary>
 </member>
 
-<member name='DesktopTypeLink'>
+<member name='KeyFile.DesktopTypeLink'>
 <summary>
 The value of the #G_KEY_FILE_DESKTOP_KEY_TYPE, key for desktop
 entries representing links to documents.
 </summary>
 </member>
 
-<member name='Groups'>
+<member name='KeyFile.Groups'>
 <summary>
 Returns all groups in the key file loaded with this instance.
 The array of returned groups will be <c>null</c>-terminated, so
@@ -203,13 +203,13 @@ this instance may optionally be <c>null</c>.
 </summary>
 </member>
 
-<member name='StartGroup'>
+<member name='KeyFile.StartGroup'>
 <summary>
 Returns the name of the start group of the file.
 </summary>
 </member>
 
-<member name='KeyFile()'>
+<member name='KeyFile.KeyFile()'>
 <summary>
 Creates a new empty <see cref="KeyFile"/> object. Use
 <see cref="M:KeyFile.LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/>, <see cref="M:KeyFile.LoadFromData(GISharp.Lib.GLib.Utf8,System.Int32,GISharp.Lib.GLib.KeyFileFlags)"/>,
@@ -218,7 +218,7 @@ read an existing key file.
 </summary>
 </member>
 
-<member name='GetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the value associated with this instance under this instance as a
 boolean.
@@ -244,7 +244,7 @@ On error
 </exception>
 </member>
 
-<member name='GetBoolean(System.String,System.String)'>
+<member name='KeyFile.GetBoolean(System.String,System.String)'>
 <summary>
 Returns the value associated with this instance under this instance as a
 boolean.
@@ -270,7 +270,7 @@ On error
 </exception>
 </member>
 
-<member name='GetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the values associated with this instance under this instance as
 booleans.
@@ -298,7 +298,7 @@ On error
 </exception>
 </member>
 
-<member name='GetBooleanList(System.String,System.String)'>
+<member name='KeyFile.GetBooleanList(System.String,System.String)'>
 <summary>
 Returns the values associated with this instance under this instance as
 booleans.
@@ -326,7 +326,7 @@ On error
 </exception>
 </member>
 
-<member name='GetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Retrieves a comment above this instance from this instance.
 If this instance is <c>null</c> then this instance will be read from above
@@ -352,7 +352,7 @@ On error
 </exception>
 </member>
 
-<member name='GetComment(System.String?,System.String)'>
+<member name='KeyFile.GetComment(System.String?,System.String)'>
 <summary>
 Retrieves a comment above this instance from this instance.
 If this instance is <c>null</c> then this instance will be read from above
@@ -378,7 +378,7 @@ On error
 </exception>
 </member>
 
-<member name='GetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the value associated with this instance under this instance as a
 double. If this instance is <c>null</c>, the start_group is used.
@@ -404,7 +404,7 @@ On error
 </exception>
 </member>
 
-<member name='GetDouble(System.String,System.String)'>
+<member name='KeyFile.GetDouble(System.String,System.String)'>
 <summary>
 Returns the value associated with this instance under this instance as a
 double. If this instance is <c>null</c>, the start_group is used.
@@ -430,7 +430,7 @@ On error
 </exception>
 </member>
 
-<member name='GetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the values associated with this instance under this instance as
 doubles.
@@ -458,7 +458,7 @@ On error
 </exception>
 </member>
 
-<member name='GetDoubleList(System.String,System.String)'>
+<member name='KeyFile.GetDoubleList(System.String,System.String)'>
 <summary>
 Returns the values associated with this instance under this instance as
 doubles.
@@ -486,7 +486,7 @@ On error
 </exception>
 </member>
 
-<member name='GetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the value associated with this instance under this instance as a signed
 64-bit integer. This is similar to <see cref="M:KeyFile.GetInteger(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> but can return
@@ -507,7 +507,7 @@ On error
 </exception>
 </member>
 
-<member name='GetInt64(System.String,System.String)'>
+<member name='KeyFile.GetInt64(System.String,System.String)'>
 <summary>
 Returns the value associated with this instance under this instance as a signed
 64-bit integer. This is similar to <see cref="M:KeyFile.GetInteger(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> but can return
@@ -528,7 +528,7 @@ On error
 </exception>
 </member>
 
-<member name='GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the value associated with this instance under this instance as an
 integer.
@@ -555,7 +555,7 @@ On error
 </exception>
 </member>
 
-<member name='GetInteger(System.String,System.String)'>
+<member name='KeyFile.GetInteger(System.String,System.String)'>
 <summary>
 Returns the value associated with this instance under this instance as an
 integer.
@@ -582,7 +582,7 @@ On error
 </exception>
 </member>
 
-<member name='GetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the values associated with this instance under this instance as
 integers.
@@ -611,7 +611,7 @@ On error
 </exception>
 </member>
 
-<member name='GetIntegerList(System.String,System.String)'>
+<member name='KeyFile.GetIntegerList(System.String,System.String)'>
 <summary>
 Returns the values associated with this instance under this instance as
 integers.
@@ -640,7 +640,7 @@ On error
 </exception>
 </member>
 
-<member name='GetKeys(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetKeys(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns all keys for the group name this instance.  The array of
 returned keys will be <c>null</c>-terminated, so this instance may
@@ -660,7 +660,7 @@ On error
 </exception>
 </member>
 
-<member name='GetKeys(System.String)'>
+<member name='KeyFile.GetKeys(System.String)'>
 <summary>
 Returns all keys for the group name this instance.  The array of
 returned keys will be <c>null</c>-terminated, so this instance may
@@ -680,7 +680,7 @@ On error
 </exception>
 </member>
 
-<member name='GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='KeyFile.GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Returns the actual locale which the result of
 <see cref="M:KeyFile.GetLocaleString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> or <see cref="M:KeyFile.GetLocaleStringList(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>
@@ -708,7 +708,7 @@ the locale from the file, or <c>null</c> if the key was not
 </returns>
 </member>
 
-<member name='GetLocaleForKey(System.String,System.String,System.String?)'>
+<member name='KeyFile.GetLocaleForKey(System.String,System.String,System.String?)'>
 <summary>
 Returns the actual locale which the result of
 <see cref="M:KeyFile.GetLocaleString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> or <see cref="M:KeyFile.GetLocaleStringList(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>
@@ -736,7 +736,7 @@ the locale from the file, or <c>null</c> if the key was not
 </returns>
 </member>
 
-<member name='GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Returns the value associated with this instance under this instance
 translated in the given this instance if available.  If this instance is
@@ -770,7 +770,7 @@ On error
 </exception>
 </member>
 
-<member name='GetLocaleString(System.String,System.String,System.String?)'>
+<member name='KeyFile.GetLocaleString(System.String,System.String,System.String?)'>
 <summary>
 Returns the value associated with this instance under this instance
 translated in the given this instance if available.  If this instance is
@@ -804,7 +804,7 @@ On error
 </exception>
 </member>
 
-<member name='GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Returns the values associated with this instance under this instance
 translated in the given this instance if available.  If this instance is
@@ -841,7 +841,7 @@ On error
 </exception>
 </member>
 
-<member name='GetLocaleStringList(System.String,System.String,System.String?)'>
+<member name='KeyFile.GetLocaleStringList(System.String,System.String,System.String?)'>
 <summary>
 Returns the values associated with this instance under this instance
 translated in the given this instance if available.  If this instance is
@@ -878,7 +878,7 @@ On error
 </exception>
 </member>
 
-<member name='GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the string value associated with this instance under this instance.
 Unlike <see cref="M:KeyFile.GetValue(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>, this function handles escape sequences
@@ -905,7 +905,7 @@ On error
 </exception>
 </member>
 
-<member name='GetString(System.String,System.String)'>
+<member name='KeyFile.GetString(System.String,System.String)'>
 <summary>
 Returns the string value associated with this instance under this instance.
 Unlike <see cref="M:KeyFile.GetValue(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>, this function handles escape sequences
@@ -932,7 +932,7 @@ On error
 </exception>
 </member>
 
-<member name='GetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the values associated with this instance under this instance.
 </summary>
@@ -958,7 +958,7 @@ On error
 </exception>
 </member>
 
-<member name='GetStringList(System.String,System.String)'>
+<member name='KeyFile.GetStringList(System.String,System.String)'>
 <summary>
 Returns the values associated with this instance under this instance.
 </summary>
@@ -984,7 +984,7 @@ On error
 </exception>
 </member>
 
-<member name='GetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the value associated with this instance under this instance as an unsigned
 64-bit integer. This is similar to <see cref="M:KeyFile.GetInteger(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> but can return
@@ -1005,7 +1005,7 @@ On error
 </exception>
 </member>
 
-<member name='GetUint64(System.String,System.String)'>
+<member name='KeyFile.GetUint64(System.String,System.String)'>
 <summary>
 Returns the value associated with this instance under this instance as an unsigned
 64-bit integer. This is similar to <see cref="M:KeyFile.GetInteger(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> but can return
@@ -1026,7 +1026,7 @@ On error
 </exception>
 </member>
 
-<member name='GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Returns the raw value associated with this instance under this instance.
 Use <see cref="M:KeyFile.GetString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> to retrieve an unescaped UTF-8 string.
@@ -1052,7 +1052,7 @@ On error
 </exception>
 </member>
 
-<member name='GetValue(System.String,System.String)'>
+<member name='KeyFile.GetValue(System.String,System.String)'>
 <summary>
 Returns the raw value associated with this instance under this instance.
 Use <see cref="M:KeyFile.GetString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> to retrieve an unescaped UTF-8 string.
@@ -1078,7 +1078,7 @@ On error
 </exception>
 </member>
 
-<member name='HasGroup(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.HasGroup(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Looks whether the key file has the group this instance.
 </summary>
@@ -1091,7 +1091,7 @@ otherwise.
 </returns>
 </member>
 
-<member name='HasGroup(System.String)'>
+<member name='KeyFile.HasGroup(System.String)'>
 <summary>
 Looks whether the key file has the group this instance.
 </summary>
@@ -1104,7 +1104,7 @@ otherwise.
 </returns>
 </member>
 
-<member name='LoadFromBytes(GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromBytes(GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 Loads a key file from the data in this instance into an empty <see cref="KeyFile"/> structure.
 If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
@@ -1120,7 +1120,7 @@ On error
 </exception>
 </member>
 
-<member name='LoadFromData(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromData(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 Loads a key file from memory into an empty <see cref="KeyFile"/> structure.
 If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
@@ -1139,7 +1139,7 @@ On error
 </exception>
 </member>
 
-<member name='LoadFromData(System.String,System.Int32,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromData(System.String,System.Int32,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 Loads a key file from memory into an empty <see cref="KeyFile"/> structure.
 If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
@@ -1158,7 +1158,7 @@ On error
 </exception>
 </member>
 
-<member name='LoadFromDataDirs(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 This function looks for a key file named this instance in the paths
 returned from g_get_user_data_dir() and g_get_system_data_dirs(),
@@ -1181,7 +1181,7 @@ On error
 </exception>
 </member>
 
-<member name='LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.FilenameArray,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.FilenameArray,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 This function looks for a key file named this instance in the paths
 specified in this instance, loads the file into this instance and
@@ -1212,7 +1212,7 @@ On error
 </exception>
 </member>
 
-<member name='LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
+<member name='KeyFile.LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
 Loads a key file into an empty <see cref="KeyFile"/> structure.
 </summary>
@@ -1235,7 +1235,7 @@ On error
 </exception>
 </member>
 
-<member name='RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='KeyFile.RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Removes a comment above this instance from this instance.
 If this instance is <c>null</c> then this instance will be removed above this instance.
@@ -1253,7 +1253,7 @@ On error
 </exception>
 </member>
 
-<member name='RemoveComment(System.String?,System.String?)'>
+<member name='KeyFile.RemoveComment(System.String?,System.String?)'>
 <summary>
 Removes a comment above this instance from this instance.
 If this instance is <c>null</c> then this instance will be removed above this instance.
@@ -1271,7 +1271,7 @@ On error
 </exception>
 </member>
 
-<member name='RemoveGroup(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.RemoveGroup(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Removes the specified group, this instance,
 from the key file.
@@ -1284,7 +1284,7 @@ On error
 </exception>
 </member>
 
-<member name='RemoveGroup(System.String)'>
+<member name='KeyFile.RemoveGroup(System.String)'>
 <summary>
 Removes the specified group, this instance,
 from the key file.
@@ -1297,7 +1297,7 @@ On error
 </exception>
 </member>
 
-<member name='RemoveKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.RemoveKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Removes this instance in this instance from the key file.
 </summary>
@@ -1312,7 +1312,7 @@ On error
 </exception>
 </member>
 
-<member name='RemoveKey(System.String,System.String)'>
+<member name='KeyFile.RemoveKey(System.String,System.String)'>
 <summary>
 Removes this instance in this instance from the key file.
 </summary>
@@ -1327,7 +1327,7 @@ On error
 </exception>
 </member>
 
-<member name='SaveToFile(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SaveToFile(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Writes the contents of this instance to this instance using
 g_file_set_contents().
@@ -1344,7 +1344,7 @@ On error
 </exception>
 </member>
 
-<member name='SaveToFile(System.String)'>
+<member name='KeyFile.SaveToFile(System.String)'>
 <summary>
 Writes the contents of this instance to this instance using
 g_file_set_contents().
@@ -1361,7 +1361,7 @@ On error
 </exception>
 </member>
 
-<member name='SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
+<member name='KeyFile.SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
 <summary>
 Associates a new boolean value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1377,7 +1377,7 @@ a key
 </param>
 </member>
 
-<member name='SetBoolean(System.String,System.String,System.Boolean)'>
+<member name='KeyFile.SetBoolean(System.String,System.String,System.Boolean)'>
 <summary>
 Associates a new boolean value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1393,7 +1393,7 @@ a key
 </param>
 </member>
 
-<member name='SetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)'>
+<member name='KeyFile.SetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)'>
 <summary>
 Associates a list of boolean values with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1410,7 +1410,7 @@ an array of boolean values
 </param>
 </member>
 
-<member name='SetBooleanList(System.String,System.String,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)'>
+<member name='KeyFile.SetBooleanList(System.String,System.String,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)'>
 <summary>
 Associates a list of boolean values with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1427,7 +1427,7 @@ an array of boolean values
 </param>
 </member>
 
-<member name='SetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Places a comment above this instance from this instance.
 </summary>
@@ -1453,7 +1453,7 @@ On error
 </exception>
 </member>
 
-<member name='SetComment(System.String?,System.String?,System.String)'>
+<member name='KeyFile.SetComment(System.String?,System.String?,System.String)'>
 <summary>
 Places a comment above this instance from this instance.
 </summary>
@@ -1479,7 +1479,7 @@ On error
 </exception>
 </member>
 
-<member name='SetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Double)'>
+<member name='KeyFile.SetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Double)'>
 <summary>
 Associates a new double value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1495,7 +1495,7 @@ an double value
 </param>
 </member>
 
-<member name='SetDouble(System.String,System.String,System.Double)'>
+<member name='KeyFile.SetDouble(System.String,System.String,System.Double)'>
 <summary>
 Associates a new double value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1511,7 +1511,7 @@ an double value
 </param>
 </member>
 
-<member name='SetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Double&gt;)'>
+<member name='KeyFile.SetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Double&gt;)'>
 <summary>
 Associates a list of double values with this instance under
 this instance.  If this instance cannot be found then it is created.
@@ -1527,7 +1527,7 @@ an array of double values
 </param>
 </member>
 
-<member name='SetDoubleList(System.String,System.String,System.ReadOnlySpan&lt;System.Double&gt;)'>
+<member name='KeyFile.SetDoubleList(System.String,System.String,System.ReadOnlySpan&lt;System.Double&gt;)'>
 <summary>
 Associates a list of double values with this instance under
 this instance.  If this instance cannot be found then it is created.
@@ -1543,7 +1543,7 @@ an array of double values
 </param>
 </member>
 
-<member name='SetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int64)'>
+<member name='KeyFile.SetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int64)'>
 <summary>
 Associates a new integer value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1559,7 +1559,7 @@ an integer value
 </param>
 </member>
 
-<member name='SetInt64(System.String,System.String,System.Int64)'>
+<member name='KeyFile.SetInt64(System.String,System.String,System.Int64)'>
 <summary>
 Associates a new integer value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1575,7 +1575,7 @@ an integer value
 </param>
 </member>
 
-<member name='SetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='KeyFile.SetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
 <summary>
 Associates a new integer value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1591,7 +1591,7 @@ an integer value
 </param>
 </member>
 
-<member name='SetInteger(System.String,System.String,System.Int32)'>
+<member name='KeyFile.SetInteger(System.String,System.String,System.Int32)'>
 <summary>
 Associates a new integer value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1607,7 +1607,7 @@ an integer value
 </param>
 </member>
 
-<member name='SetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Int32&gt;)'>
+<member name='KeyFile.SetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Int32&gt;)'>
 <summary>
 Associates a list of integer values with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1623,7 +1623,7 @@ an array of integer values
 </param>
 </member>
 
-<member name='SetIntegerList(System.String,System.String,System.ReadOnlySpan&lt;System.Int32&gt;)'>
+<member name='KeyFile.SetIntegerList(System.String,System.String,System.ReadOnlySpan&lt;System.Int32&gt;)'>
 <summary>
 Associates a list of integer values with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1639,7 +1639,7 @@ an array of integer values
 </param>
 </member>
 
-<member name='SetListSeparator(System.SByte)'>
+<member name='KeyFile.SetListSeparator(System.SByte)'>
 <summary>
 Sets the character which is used to separate
 values in lists. Typically ';' or ',' are used
@@ -1650,7 +1650,7 @@ the separator
 </param>
 </member>
 
-<member name='SetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Associates a string value for this instance and this instance under this instance.
 If the translation for this instance cannot be found then it is created.
@@ -1669,7 +1669,7 @@ a string
 </param>
 </member>
 
-<member name='SetLocaleString(System.String,System.String,System.String,System.String)'>
+<member name='KeyFile.SetLocaleString(System.String,System.String,System.String,System.String)'>
 <summary>
 Associates a string value for this instance and this instance under this instance.
 If the translation for this instance cannot be found then it is created.
@@ -1688,7 +1688,7 @@ a string
 </param>
 </member>
 
-<member name='SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='KeyFile.SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
 Associates a list of string values for this instance and this instance under
 this instance.  If the translation for this instance cannot be found then
@@ -1708,7 +1708,7 @@ a <c>null</c>-terminated array of locale string values
 </param>
 </member>
 
-<member name='SetLocaleStringList(System.String,System.String,System.String,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='KeyFile.SetLocaleStringList(System.String,System.String,System.String,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
 Associates a list of string values for this instance and this instance under
 this instance.  If the translation for this instance cannot be found then
@@ -1728,7 +1728,7 @@ a <c>null</c>-terminated array of locale string values
 </param>
 </member>
 
-<member name='SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Associates a new string value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1747,7 +1747,7 @@ a string
 </param>
 </member>
 
-<member name='SetString(System.String,System.String,System.String)'>
+<member name='KeyFile.SetString(System.String,System.String,System.String)'>
 <summary>
 Associates a new string value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1766,7 +1766,7 @@ a string
 </param>
 </member>
 
-<member name='SetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='KeyFile.SetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
 Associates a list of string values for this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1783,7 +1783,7 @@ an array of string values
 </param>
 </member>
 
-<member name='SetStringList(System.String,System.String,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='KeyFile.SetStringList(System.String,System.String,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
 Associates a list of string values for this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1800,7 +1800,7 @@ an array of string values
 </param>
 </member>
 
-<member name='SetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.UInt64)'>
+<member name='KeyFile.SetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.UInt64)'>
 <summary>
 Associates a new integer value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1816,7 +1816,7 @@ an integer value
 </param>
 </member>
 
-<member name='SetUint64(System.String,System.String,System.UInt64)'>
+<member name='KeyFile.SetUint64(System.String,System.String,System.UInt64)'>
 <summary>
 Associates a new integer value with this instance under this instance.
 If this instance cannot be found then it is created.
@@ -1832,7 +1832,7 @@ an integer value
 </param>
 </member>
 
-<member name='SetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='KeyFile.SetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Associates a new value with this instance under this instance.
 </summary>
@@ -1853,7 +1853,7 @@ a string
 </param>
 </member>
 
-<member name='SetValue(System.String,System.String,System.String)'>
+<member name='KeyFile.SetValue(System.String,System.String,System.String)'>
 <summary>
 Associates a new value with this instance under this instance.
 </summary>
@@ -1874,7 +1874,7 @@ a string
 </param>
 </member>
 
-<member name='ToData(System.Int32)'>
+<member name='KeyFile.ToData(System.Int32)'>
 <summary>
 This function outputs this instance as a string.
 </summary>

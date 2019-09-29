@@ -9,20 +9,20 @@ namespace GISharp.Lib.Gio
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_themed_icon_get_type();
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='Name']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Name']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Utf8? Name { set => SetProperty("name", value); }
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='Names_']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Names_']/*" />
         [GISharp.Runtime.GPropertyAttribute("names", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Strv? Names_ { get => (GISharp.Lib.GLib.Strv?)GetProperty("names")!; set => SetProperty("names", value); }
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='UseDefaultFallbacks']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.UseDefaultFallbacks']/*" />
         [GISharp.Runtime.GPropertyAttribute("use-default-fallbacks", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public System.Boolean UseDefaultFallbacks { get => (System.Boolean)GetProperty("use-default-fallbacks")!; set => SetProperty("use-default-fallbacks", value); }
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='Names']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Names']/*" />
         public GISharp.Lib.GLib.Strv Names { get => GetNames(); }
 
         /// <summary>
@@ -90,7 +90,7 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.ThemedIcon(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
         public ThemedIcon(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames) : this(NewFromNames(iconnames), GISharp.Runtime.Transfer.Full)
         {
         }
@@ -163,7 +163,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='AppendName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.AppendName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe void AppendName(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             var icon_ = Handle;
@@ -171,7 +171,7 @@ namespace GISharp.Lib.Gio
             g_themed_icon_append_name(icon_, iconname_);
         }
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='AppendName(System.String)']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.AppendName(System.String)']/*" />
         public unsafe void AppendName(System.String iconname)
         {
             using var iconnameUtf8 = new GISharp.Lib.GLib.Utf8(iconname);
@@ -230,7 +230,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='PrependName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.PrependName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.18")]
         public unsafe void PrependName(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
@@ -239,7 +239,7 @@ namespace GISharp.Lib.Gio
             g_themed_icon_prepend_name(icon_, iconname_);
         }
 
-        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='PrependName(System.String)']/*" />
+        /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.PrependName(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.18")]
         public unsafe void PrependName(System.String iconname)
         {

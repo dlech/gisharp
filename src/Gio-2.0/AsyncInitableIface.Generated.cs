@@ -12,13 +12,13 @@ namespace GISharp.Lib.Gio
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='GIface']/*" />
+            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
 
-            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='InitAsync']/*" />
+            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='Struct.InitAsync']/*" />
             public System.IntPtr InitAsync;
 
-            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='InitFinish']/*" />
+            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='Struct.InitFinish']/*" />
             public System.IntPtr InitFinish;
 #pragma warning restore CS0649
         }

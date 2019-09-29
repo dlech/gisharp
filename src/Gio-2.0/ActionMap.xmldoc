@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='DoAddAction(GISharp.Lib.Gio.IAction)'>
+<member name='IActionMap.DoAddAction(GISharp.Lib.Gio.IAction)'>
 <summary>
 Adds an action to the this instance.
 </summary>
@@ -15,7 +15,7 @@ a <see cref="IAction"/>
 </param>
 </member>
 
-<member name='DoLookupAction(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionMap.DoLookupAction(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Looks up the action with the name this instance in this instance.
 </summary>
@@ -30,7 +30,7 @@ a <see cref="IAction"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionMap.DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Removes the named action from the action map.
 </summary>
@@ -57,7 +57,7 @@ name.
 </remarks>
 </member>
 
-<member name='AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)'>
+<member name='ActionMap.AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)'>
 <summary>
 Adds an action to the this instance.
 </summary>
@@ -75,7 +75,7 @@ a <see cref="IAction"/>
 </param>
 </member>
 
-<member name='LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Looks up the action with the name this instance in this instance.
 </summary>
@@ -93,7 +93,7 @@ a <see cref="IAction"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='LookupAction(GISharp.Lib.Gio.IActionMap,System.String)'>
+<member name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,System.String)'>
 <summary>
 Looks up the action with the name this instance in this instance.
 </summary>
@@ -111,7 +111,7 @@ a <see cref="IAction"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Removes the named action from the action map.
 </summary>
@@ -126,7 +126,7 @@ the name of the action
 </param>
 </member>
 
-<member name='RemoveAction(GISharp.Lib.Gio.IActionMap,System.String)'>
+<member name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,System.String)'>
 <summary>
 Removes the named action from the action map.
 </summary>

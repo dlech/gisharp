@@ -5,11 +5,11 @@ namespace GISharp.Lib.GLib
     /// <include file="SeekType.xmldoc" path="declaration/member[@name='SeekType']/*" />
     public enum SeekType
     {
-        /// <include file="SeekType.xmldoc" path="declaration/member[@name='Current']/*" />
+        /// <include file="SeekType.xmldoc" path="declaration/member[@name='SeekType.Current']/*" />
         Current = 0,
-        /// <include file="SeekType.xmldoc" path="declaration/member[@name='Start']/*" />
+        /// <include file="SeekType.xmldoc" path="declaration/member[@name='SeekType.Start']/*" />
         Start = 1,
-        /// <include file="SeekType.xmldoc" path="declaration/member[@name='End']/*" />
+        /// <include file="SeekType.xmldoc" path="declaration/member[@name='SeekType.End']/*" />
         End = 2
     }
 }

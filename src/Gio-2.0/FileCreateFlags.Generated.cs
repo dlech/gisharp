@@ -7,11 +7,11 @@ namespace GISharp.Lib.Gio
     [System.FlagsAttribute]
     public enum FileCreateFlags
     {
-        /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='FileCreateFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='Private']/*" />
+        /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='FileCreateFlags.Private']/*" />
         Private = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='ReplaceDestination']/*" />
+        /// <include file="FileCreateFlags.xmldoc" path="declaration/member[@name='FileCreateFlags.ReplaceDestination']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         ReplaceDestination = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }

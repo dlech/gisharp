@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='Completed_'>
+<member name='Task.Completed_'>
 <summary>
 Whether the task has completed, meaning its callback (if set) has been
 invoked. This can only happen after <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>,
@@ -15,20 +15,20 @@ context as the task’s callback, immediately after that callback is invoked.
 </remarks>
 </member>
 
-<member name='Cancellable'>
+<member name='Task.Cancellable'>
 <summary>
 Gets this instance's <see cref="Cancellable"/>
 </summary>
 </member>
 
-<member name='CheckCancellable'>
+<member name='Task.CheckCancellable'>
 <summary>
 Gets this instance's check-cancellable flag. See
 <see cref="M:Task.SetCheckCancellable(System.Boolean)"/> for more details.
 </summary>
 </member>
 
-<member name='Completed'>
+<member name='Task.Completed'>
 <summary>
 Gets the value of <see cref="Task"/>:completed. This changes from <c>false</c> to <c>true</c> after
 the task’s callback is invoked, and will return <c>false</c> if called from inside
@@ -36,7 +36,7 @@ the callback.
 </summary>
 </member>
 
-<member name='Context'>
+<member name='Task.Context'>
 <summary>
 Gets the #GMainContext that this instance will return its result in (that
 is, the context that was the
@@ -49,7 +49,7 @@ context is the default #GMainContext.
 </remarks>
 </member>
 
-<member name='Name'>
+<member name='Task.Name'>
 <summary>
 Gets or sets this task’s name, used in debugging and profiling. The name defaults to
 <c>null</c>.
@@ -64,39 +64,39 @@ other than the one it was constructed in.
 </remarks>
 </member>
 
-<member name='Priority'>
+<member name='Task.Priority'>
 <summary>
 Gets this instance's priority
 </summary>
 </member>
 
-<member name='ReturnOnCancel'>
+<member name='Task.ReturnOnCancel'>
 <summary>
 Gets this instance's return-on-cancel flag. See
 <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> for more details.
 </summary>
 </member>
 
-<member name='SourceObject'>
+<member name='Task.SourceObject'>
 <summary>
 Gets the source object from this instance. Like
 <see cref="M:AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)"/>, but does not ref the object.
 </summary>
 </member>
 
-<member name='SourceTag'>
+<member name='Task.SourceTag'>
 <summary>
 Gets this instance's source tag. See <see cref="M:Task.SetSourceTag(System.IntPtr)"/>.
 </summary>
 </member>
 
-<member name='TaskData'>
+<member name='Task.TaskData'>
 <summary>
 Gets this instance's `task_data`.
 </summary>
 </member>
 
-<member name='Task(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='Task.Task(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Creates a <see cref="Task"/> acting on <paramref name="sourceObject"/>, which will eventually be
 used to invoke <paramref name="callback"/> in the current
@@ -128,7 +128,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='IsValid(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.GObject.Object?)'>
+<member name='Task.IsValid(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.GObject.Object?)'>
 <summary>
 Checks that <paramref name="result"/> is a <see cref="Task"/>, and that <paramref name="sourceObject"/> is its
 source object (or that <paramref name="sourceObject"/> is <c>null</c> and <paramref name="result"/> has no
@@ -147,7 +147,7 @@ if not
 </returns>
 </member>
 
-<member name='ReportError(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,System.IntPtr,GISharp.Lib.GLib.Error)'>
+<member name='Task.ReportError(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,System.IntPtr,GISharp.Lib.GLib.Error)'>
 <summary>
 Creates a <see cref="Task"/> and then immediately calls <see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/>
 on it. Use this in the wrapper function of an asynchronous method
@@ -174,7 +174,7 @@ error to report
 </param>
 </member>
 
-<member name='HadError()'>
+<member name='Task.HadError()'>
 <summary>
 Tests if this instance resulted in an error.
 </summary>
@@ -183,7 +183,7 @@ Tests if this instance resulted in an error.
 </returns>
 </member>
 
-<member name='PropagateBoolean()'>
+<member name='Task.PropagateBoolean()'>
 <summary>
 Gets the result of this instance as a #gboolean.
 </summary>
@@ -199,7 +199,7 @@ On error
 </exception>
 </member>
 
-<member name='PropagateInt()'>
+<member name='Task.PropagateInt()'>
 <summary>
 Gets the result of this instance as an integer (#gssize).
 </summary>
@@ -218,7 +218,7 @@ On error
 </exception>
 </member>
 
-<member name='PropagatePointer()'>
+<member name='Task.PropagatePointer()'>
 <summary>
 Gets the result of this instance as a pointer, and transfers ownership
 of that value to the caller.
@@ -238,7 +238,7 @@ On error
 </exception>
 </member>
 
-<member name='ReturnBoolean(System.Boolean)'>
+<member name='Task.ReturnBoolean(System.Boolean)'>
 <summary>
 Sets this instance's result to this instance and completes the task (see
 <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
@@ -249,7 +249,7 @@ the #gboolean result of a task function.
 </param>
 </member>
 
-<member name='ReturnError(GISharp.Lib.GLib.Error)'>
+<member name='Task.ReturnError(GISharp.Lib.GLib.Error)'>
 <summary>
 Sets this instance's result to this instance (which this instance assumes ownership of)
 and completes the task (see <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more
@@ -269,7 +269,7 @@ the #GError result of a task function.
 </param>
 </member>
 
-<member name='ReturnErrorIfCancelled()'>
+<member name='Task.ReturnErrorIfCancelled()'>
 <summary>
 Checks if this instance's <see cref="Cancellable"/> has been cancelled, and if so, sets
 this instance's error accordingly and completes the task (see
@@ -281,7 +281,7 @@ means).
 </returns>
 </member>
 
-<member name='ReturnInt(System.Int32)'>
+<member name='Task.ReturnInt(System.Int32)'>
 <summary>
 Sets this instance's result to this instance and completes the task (see
 <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
@@ -292,7 +292,7 @@ the integer (#gssize) result of a task function.
 </param>
 </member>
 
-<member name='SetReturnOnCancel(System.Boolean)'>
+<member name='Task.SetReturnOnCancel(System.Boolean)'>
 <summary>
 Sets or clears this instance's return-on-cancel flag. This is only
 meaningful for tasks run via g_task_run_in_thread() or

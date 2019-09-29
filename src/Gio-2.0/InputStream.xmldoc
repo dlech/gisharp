@@ -1,24 +1,24 @@
 <declaration>
 
-<member name='ParentInstance'>
+<member name='Struct.ParentInstance'>
 </member>
 
-<member name='Priv'>
+<member name='Struct.Priv'>
 </member>
 
-<member name='IsClosed'>
+<member name='InputStream.IsClosed'>
 <summary>
 Checks if an input stream is closed.
 </summary>
 </member>
 
-<member name='ClearPending()'>
+<member name='InputStream.ClearPending()'>
 <summary>
 Clears the pending flag on this instance.
 </summary>
 </member>
 
-<member name='Close(GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.Close(GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Closes the stream, releasing resources related to it.
 </summary>
@@ -53,7 +53,7 @@ On error
 </exception>
 </member>
 
-<member name='CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous closes of the stream, releasing resources related to it.
 When the operation is finished this instance will be called.
@@ -75,7 +75,7 @@ optional cancellable object
 </param>
 </member>
 
-<member name='HasPending()'>
+<member name='InputStream.HasPending()'>
 <summary>
 Checks if an input stream has pending actions.
 </summary>
@@ -84,7 +84,7 @@ Checks if an input stream has pending actions.
 </returns>
 </member>
 
-<member name='Read(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.Read(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to read this instance bytes from the stream into the buffer starting at
 this instance. Will block during this read.
@@ -123,7 +123,7 @@ On error
 </exception>
 </member>
 
-<member name='ReadAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.ReadAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to read this instance bytes from the stream into the buffer starting at
 this instance. Will block during this read.
@@ -160,7 +160,7 @@ On error
 </exception>
 </member>
 
-<member name='ReadAllAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.ReadAllAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous read of this instance bytes from the stream into the
 buffer starting at this instance.
@@ -185,7 +185,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='ReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.ReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous read of this instance bytes from the stream into the buffer
 starting at this instance. When the operation is finished this instance will be called.
@@ -224,7 +224,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='ReadBytes(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.ReadBytes(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Like <see cref="M:InputStream.Read(GISharp.Runtime.CArray`1[System.Byte],GISharp.Lib.Gio.Cancellable)"/>, this tries to read this instance bytes from
 the stream in a blocking fashion. However, rather than reading into
@@ -266,7 +266,7 @@ On error
 </exception>
 </member>
 
-<member name='ReadBytesAsync(System.Int32,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.ReadBytesAsync(System.Int32,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous read of this instance bytes from the stream into a
 new #GBytes. When the operation is finished this instance will be
@@ -301,7 +301,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='SetPending()'>
+<member name='InputStream.SetPending()'>
 <summary>
 Sets this instance to have actions pending. If the pending flag is
 already set or this instance is closed, it will return <c>false</c> and set
@@ -312,7 +312,7 @@ On error
 </exception>
 </member>
 
-<member name='Skip(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.Skip(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to skip this instance bytes from the stream. Will block during the operation.
 </summary>
@@ -344,7 +344,7 @@ On error
 </exception>
 </member>
 
-<member name='SkipAsync(System.Int32,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.SkipAsync(System.Int32,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous skip of this instance bytes from the stream.
 When the operation is finished this instance will be called.
@@ -382,7 +382,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous closes of the stream, releasing resources related to it.
 When the operation is finished this instance will be called.
@@ -407,7 +407,7 @@ optional cancellable object
 </param>
 </member>
 
-<member name='DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)'>
+<member name='InputStream.DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes closing a stream asynchronously, started from <see cref="M:InputStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
@@ -422,13 +422,13 @@ On error
 </exception>
 </member>
 
-<member name='DoCloseFn(GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.DoCloseFn(GISharp.Lib.Gio.Cancellable?)'>
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>
 </member>
 
-<member name='DoReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.DoReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous read of this instance bytes from the stream into the buffer
 starting at this instance. When the operation is finished this instance will be called.
@@ -470,7 +470,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='DoReadFinish(GISharp.Lib.Gio.IAsyncResult)'>
+<member name='InputStream.DoReadFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous stream read operation.
 </summary>
@@ -485,13 +485,13 @@ On error
 </exception>
 </member>
 
-<member name='DoReadFn(System.IntPtr,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.DoReadFn(System.IntPtr,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>
 </member>
 
-<member name='DoSkip(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.DoSkip(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to skip this instance bytes from the stream. Will block during the operation.
 </summary>
@@ -523,7 +523,7 @@ On error
 </exception>
 </member>
 
-<member name='DoSkipAsync(System.Int32,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.DoSkipAsync(System.Int32,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous skip of this instance bytes from the stream.
 When the operation is finished this instance will be called.
@@ -564,7 +564,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='DoSkipFinish(GISharp.Lib.Gio.IAsyncResult)'>
+<member name='InputStream.DoSkipFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes a stream skip operation.
 </summary>

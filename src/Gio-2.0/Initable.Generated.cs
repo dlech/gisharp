@@ -8,7 +8,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(InitableIface))]
     public partial interface IInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <include file="Initable.xmldoc" path="declaration/member[@name='DoInit(GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="Initable.xmldoc" path="declaration/member[@name='IInitable.DoInit(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(InitableIface.UnmanagedInit))]
         void DoInit(GISharp.Lib.Gio.Cancellable? cancellable = null);
@@ -143,7 +143,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <include file="Initable.xmldoc" path="declaration/member[@name='Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="Initable.xmldoc" path="declaration/member[@name='Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void Init(this GISharp.Lib.Gio.IInitable initable, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {

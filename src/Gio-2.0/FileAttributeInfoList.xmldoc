@@ -1,24 +1,24 @@
 <declaration>
 
-<member name='Infos'>
+<member name='Struct.Infos'>
 <summary>
 an array of #GFileAttributeInfos.
 </summary>
 </member>
 
-<member name='NInfos'>
+<member name='Struct.NInfos'>
 <summary>
 the number of values in the array.
 </summary>
 </member>
 
-<member name='FileAttributeInfoList()'>
+<member name='FileAttributeInfoList.FileAttributeInfoList()'>
 <summary>
 Creates a new file attribute info list.
 </summary>
 </member>
 
-<member name='Add(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)'>
+<member name='FileAttributeInfoList.Add(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)'>
 <summary>
 Adds a new attribute with this instance to the this instance, setting
 its this instance and this instance.
@@ -34,7 +34,7 @@ the <see cref="FileAttributeType"/> for the attribute.
 </param>
 </member>
 
-<member name='Add(System.String,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)'>
+<member name='FileAttributeInfoList.Add(System.String,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)'>
 <summary>
 Adds a new attribute with this instance to the this instance, setting
 its this instance and this instance.
@@ -50,7 +50,7 @@ the <see cref="FileAttributeType"/> for the attribute.
 </param>
 </member>
 
-<member name='Dup()'>
+<member name='FileAttributeInfoList.Dup()'>
 <summary>
 Makes a duplicate of a file attribute info list.
 </summary>
@@ -59,7 +59,7 @@ a copy of the given this instance.
 </returns>
 </member>
 
-<member name='Lookup(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileAttributeInfoList.Lookup(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets the file attribute with the name this instance from this instance.
 </summary>
@@ -72,7 +72,7 @@ attribute isn't found.
 </returns>
 </member>
 
-<member name='Lookup(System.String)'>
+<member name='FileAttributeInfoList.Lookup(System.String)'>
 <summary>
 Gets the file attribute with the name this instance from this instance.
 </summary>

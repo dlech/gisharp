@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='DoGetSourceObject()'>
+<member name='IAsyncResult.DoGetSourceObject()'>
 <summary>
 Gets the source object from a <see cref="IAsyncResult"/>.
 </summary>
@@ -10,7 +10,7 @@ a new reference to the source
 </returns>
 </member>
 
-<member name='DoGetUserData()'>
+<member name='IAsyncResult.DoGetUserData()'>
 <summary>
 Gets the user data from a <see cref="IAsyncResult"/>.
 </summary>
@@ -19,7 +19,7 @@ the user data for this instance.
 </returns>
 </member>
 
-<member name='DoIsTagged(System.IntPtr)'>
+<member name='IAsyncResult.DoIsTagged(System.IntPtr)'>
 <summary>
 Checks if this instance has the given this instance (generally a function
 pointer indicating the function this instance was created by).
@@ -39,7 +39,7 @@ Provides a base class for implementing asynchronous function results.
 </summary>
 </member>
 
-<member name='GetSourceObject(GISharp.Lib.Gio.IAsyncResult)'>
+<member name='AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Gets the source object from a <see cref="IAsyncResult"/>.
 </summary>
@@ -52,7 +52,7 @@ a new reference to the source
 </returns>
 </member>
 
-<member name='GetUserData(GISharp.Lib.Gio.IAsyncResult)'>
+<member name='AsyncResult.GetUserData(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Gets the user data from a <see cref="IAsyncResult"/>.
 </summary>
@@ -64,7 +64,7 @@ the user data for this instance.
 </returns>
 </member>
 
-<member name='IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)'>
+<member name='AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)'>
 <summary>
 Checks if this instance has the given this instance (generally a function
 pointer indicating the function this instance was created by).

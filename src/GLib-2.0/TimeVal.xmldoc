@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='TvSec'>
+<member name='TimeVal.TvSec'>
 <summary>
 seconds
 </summary>
 </member>
 
-<member name='TvUsec'>
+<member name='TimeVal.TvUsec'>
 <summary>
 microseconds
 </summary>
 </member>
 
-<member name='TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeVal)'>
+<member name='TimeVal.TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeVal)'>
 <summary>
 Converts a string containing an ISO 8601 encoded date and time
 to a <see cref="TimeVal"/> and puts it into <paramref name="time"/>.
@@ -44,7 +44,7 @@ a <see cref="TimeVal"/>
 </returns>
 </member>
 
-<member name='TryFromIso8601(System.String,GISharp.Lib.GLib.TimeVal)'>
+<member name='TimeVal.TryFromIso8601(System.String,GISharp.Lib.GLib.TimeVal)'>
 <summary>
 Converts a string containing an ISO 8601 encoded date and time
 to a <see cref="TimeVal"/> and puts it into <paramref name="time"/>.
@@ -76,7 +76,7 @@ a <see cref="TimeVal"/>
 </returns>
 </member>
 
-<member name='Add(System.Int64)'>
+<member name='TimeVal.Add(System.Int64)'>
 <summary>
 Adds the given number of microseconds to this instance. this instance can
 also be negative to decrease the value of this instance.
@@ -86,7 +86,7 @@ number of microseconds to add to this instance
 </param>
 </member>
 
-<member name='ToIso8601()'>
+<member name='TimeVal.ToIso8601()'>
 <summary>
 Converts this instance into an RFC 3339 encoded string, relative to the
 Coordinated Universal Time (UTC). This is one of the many formats

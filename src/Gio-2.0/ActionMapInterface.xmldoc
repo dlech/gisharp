@@ -1,15 +1,15 @@
 <declaration>
 
-<member name='GIface'>
+<member name='Struct.GIface'>
 </member>
 
-<member name='LookupAction'>
+<member name='Struct.LookupAction'>
 </member>
 
-<member name='AddAction'>
+<member name='Struct.AddAction'>
 </member>
 
-<member name='RemoveAction'>
+<member name='Struct.RemoveAction'>
 </member>
 
 <member name='LookupAction'>

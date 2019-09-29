@@ -7,9 +7,9 @@ namespace GISharp.Lib.Gio
     [System.FlagsAttribute]
     public enum FileQueryInfoFlags
     {
-        /// <include file="FileQueryInfoFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="FileQueryInfoFlags.xmldoc" path="declaration/member[@name='FileQueryInfoFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="FileQueryInfoFlags.xmldoc" path="declaration/member[@name='NoFollowSymlinks']/*" />
+        /// <include file="FileQueryInfoFlags.xmldoc" path="declaration/member[@name='FileQueryInfoFlags.NoFollowSymlinks']/*" />
         NoFollowSymlinks = 0b0000_0000_0000_0000_0000_0000_0000_0001
     }
 

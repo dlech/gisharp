@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='DoEqual(GISharp.Lib.Gio.IIcon?)'>
+<member name='IIcon.DoEqual(GISharp.Lib.Gio.IIcon?)'>
 <summary>
 Checks if two icons are equal.
 </summary>
@@ -12,7 +12,7 @@ pointer to the second <see cref="IIcon"/>.
 </returns>
 </member>
 
-<member name='DoHash()'>
+<member name='IIcon.DoHash()'>
 <summary>
 Gets a hash for an icon.
 </summary>
@@ -22,7 +22,7 @@ use in a #GHashTable or similar data structure.
 </returns>
 </member>
 
-<member name='DoSerialize()'>
+<member name='IIcon.DoSerialize()'>
 <summary>
 Serializes a <see cref="IIcon"/> into a <see cref="GLib.Variant"/>. An equivalent <see cref="IIcon"/> can be retrieved
 back by calling <see cref="M:Icon.Deserialize(GISharp.Lib.GLib.Variant)"/> on the returned value.
@@ -69,7 +69,7 @@ types.
 </remarks>
 </member>
 
-<member name='Deserialize(GISharp.Lib.GLib.Variant)'>
+<member name='Icon.Deserialize(GISharp.Lib.GLib.Variant)'>
 <summary>
 Deserializes a <see cref="IIcon"/> previously serialized using <see cref="M:Icon.Serialize(GISharp.Lib.Gio.IIcon)"/>.
 </summary>
@@ -81,7 +81,7 @@ a <see cref="IIcon"/>, or <c>null</c> when deserialization fails.
 </returns>
 </member>
 
-<member name='NewForString(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Icon.NewForString(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
 <paramref name="str"/> is not valid - see <see cref="M:Icon.ToString(GISharp.Lib.Gio.IIcon)"/> for discussion.
@@ -102,7 +102,7 @@ On error
 </exception>
 </member>
 
-<member name='NewForString(System.String)'>
+<member name='Icon.NewForString(System.String)'>
 <summary>
 Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
 <paramref name="str"/> is not valid - see <see cref="M:Icon.ToString(GISharp.Lib.Gio.IIcon)"/> for discussion.
@@ -123,7 +123,7 @@ On error
 </exception>
 </member>
 
-<member name='GetHashCode(GISharp.Lib.Gio.IIcon)'>
+<member name='Icon.GetHashCode(GISharp.Lib.Gio.IIcon)'>
 <summary>
 Gets a hash for an icon.
 </summary>
@@ -136,7 +136,7 @@ use in a #GHashTable or similar data structure.
 </returns>
 </member>
 
-<member name='Equals(GISharp.Lib.Gio.IIcon?,GISharp.Lib.Gio.IIcon?)'>
+<member name='Icon.Equals(GISharp.Lib.Gio.IIcon?,GISharp.Lib.Gio.IIcon?)'>
 <summary>
 Checks if two icons are equal.
 </summary>
@@ -151,7 +151,7 @@ pointer to the second <see cref="IIcon"/>.
 </returns>
 </member>
 
-<member name='Serialize(GISharp.Lib.Gio.IIcon)'>
+<member name='Icon.Serialize(GISharp.Lib.Gio.IIcon)'>
 <summary>
 Serializes a <see cref="IIcon"/> into a <see cref="GLib.Variant"/>. An equivalent <see cref="IIcon"/> can be retrieved
 back by calling <see cref="M:Icon.Deserialize(GISharp.Lib.GLib.Variant)"/> on the returned value.
@@ -167,7 +167,7 @@ a <see cref="GLib.Variant"/>, or <c>null</c> when serialization fails.
 </returns>
 </member>
 
-<member name='ToString(GISharp.Lib.Gio.IIcon)'>
+<member name='Icon.ToString(GISharp.Lib.Gio.IIcon)'>
 <summary>
 Generates a textual representation of this instance that can be used for
 serialization such as when passing this instance to a different process or

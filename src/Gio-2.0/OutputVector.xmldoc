@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='Buffer'>
+<member name='OutputVector.Buffer'>
 <summary>
 Pointer to a buffer of data to read.
 </summary>
 </member>
 
-<member name='Size'>
+<member name='OutputVector.Size'>
 <summary>
 the size of <see cref="OutputVector.Buffer"/>.
 </summary>

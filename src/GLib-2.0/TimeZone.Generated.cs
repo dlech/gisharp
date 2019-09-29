@@ -9,15 +9,15 @@ namespace GISharp.Lib.GLib
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_time_zone_get_type();
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='Local']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.Local']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static GISharp.Lib.GLib.TimeZone Local { get => GetLocal(); }
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='Utc']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.Utc']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static GISharp.Lib.GLib.TimeZone Utc { get => GetUtc(); }
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='Identifier']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.Identifier']/*" />
         [GISharp.Runtime.SinceAttribute("2.58")]
         public GISharp.Lib.GLib.UnownedUtf8 Identifier { get => GetIdentifier(); }
 
@@ -118,7 +118,7 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8 identifier) : this(New(identifier), GISharp.Runtime.Transfer.Full)
         {
@@ -131,7 +131,7 @@ namespace GISharp.Lib.GLib
             return New((GISharp.Lib.GLib.NullableUnownedUtf8)identifierUtf8);
         }
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone(System.String?)']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.TimeZone(System.String?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public TimeZone(System.String? identifier) : this(New(identifier), GISharp.Runtime.Transfer.Full)
         {
@@ -168,7 +168,7 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone(System.Int32)']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.TimeZone(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.58")]
         public TimeZone(System.Int32 seconds) : this(NewOffset(seconds), GISharp.Runtime.Transfer.Full)
         {
@@ -281,7 +281,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         in System.Int64 time);
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='AdjustTime(GISharp.Lib.GLib.TimeType,System.Int64)']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.AdjustTime(GISharp.Lib.GLib.TimeType,System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int32 AdjustTime(GISharp.Lib.GLib.TimeType type, in System.Int64 time)
         {
@@ -340,7 +340,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int64 time);
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int32 FindInterval(GISharp.Lib.GLib.TimeType type, System.Int64 time)
         {
@@ -382,7 +382,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 interval);
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='GetAbbreviation(System.Int32)']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.GetAbbreviation(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAbbreviation(System.Int32 interval)
         {
@@ -459,7 +459,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 interval);
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='GetOffset(System.Int32)']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.GetOffset(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int32 GetOffset(System.Int32 interval)
         {
@@ -495,7 +495,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.Int32 interval);
 
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='IsDst(System.Int32)']/*" />
+        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.IsDst(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Boolean IsDst(System.Int32 interval)
         {

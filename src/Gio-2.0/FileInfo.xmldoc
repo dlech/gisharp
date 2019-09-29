@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='ContentType'>
+<member name='FileInfo.ContentType'>
 <summary>
 Gets the file's content type.
 </summary>
 </member>
 
-<member name='DeletionDate'>
+<member name='FileInfo.DeletionDate'>
 <summary>
 Returns the #GDateTime representing the deletion date of the file, as
 available in G_FILE_ATTRIBUTE_TRASH_DELETION_DATE. If the
@@ -14,107 +14,107 @@ G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, <c>null</c> is returned
 </summary>
 </member>
 
-<member name='DisplayName'>
+<member name='FileInfo.DisplayName'>
 <summary>
 Gets a display name for a file.
 </summary>
 </member>
 
-<member name='EditName'>
+<member name='FileInfo.EditName'>
 <summary>
 Gets the edit name for a file.
 </summary>
 </member>
 
-<member name='Etag'>
+<member name='FileInfo.Etag'>
 <summary>
 Gets the [entity tag][gfile-etag] for a given
 <see cref="FileInfo"/>. See %G_FILE_ATTRIBUTE_ETAG_VALUE.
 </summary>
 </member>
 
-<member name='FileType'>
+<member name='FileInfo.FileType'>
 <summary>
 Gets a file's type (whether it is a regular file, symlink, etc).
 This is different from the file's content type, see <see cref="M:FileInfo.GetContentType()"/>.
 </summary>
 </member>
 
-<member name='Icon'>
+<member name='FileInfo.Icon'>
 <summary>
 Gets the icon for a file.
 </summary>
 </member>
 
-<member name='IsBackup'>
+<member name='FileInfo.IsBackup'>
 <summary>
 Checks if a file is a backup file.
 </summary>
 </member>
 
-<member name='IsHidden'>
+<member name='FileInfo.IsHidden'>
 <summary>
 Checks if a file is hidden.
 </summary>
 </member>
 
-<member name='IsSymlink'>
+<member name='FileInfo.IsSymlink'>
 <summary>
 Checks if a file is a symlink.
 </summary>
 </member>
 
-<member name='ModificationDateTime'>
+<member name='FileInfo.ModificationDateTime'>
 <summary>
 Gets the modification time of the current this instance and returns it as a
 <see cref="GLib.DateTime"/>.
 </summary>
 </member>
 
-<member name='Name'>
+<member name='FileInfo.Name'>
 <summary>
 Gets the name for a file.
 </summary>
 </member>
 
-<member name='Size'>
+<member name='FileInfo.Size'>
 <summary>
 Gets the file's size.
 </summary>
 </member>
 
-<member name='SortOrder'>
+<member name='FileInfo.SortOrder'>
 <summary>
 Gets the value of the sort_order attribute from the <see cref="FileInfo"/>.
 See %G_FILE_ATTRIBUTE_STANDARD_SORT_ORDER.
 </summary>
 </member>
 
-<member name='SymbolicIcon'>
+<member name='FileInfo.SymbolicIcon'>
 <summary>
 Gets the symbolic icon for a file.
 </summary>
 </member>
 
-<member name='SymlinkTarget'>
+<member name='FileInfo.SymlinkTarget'>
 <summary>
 Gets the symlink target for a given <see cref="FileInfo"/>.
 </summary>
 </member>
 
-<member name='FileInfo()'>
+<member name='FileInfo.FileInfo()'>
 <summary>
 Creates a new file info structure.
 </summary>
 </member>
 
-<member name='ClearStatus()'>
+<member name='FileInfo.ClearStatus()'>
 <summary>
 Clears the status information from this instance.
 </summary>
 </member>
 
-<member name='CopyInto(GISharp.Lib.Gio.FileInfo)'>
+<member name='FileInfo.CopyInto(GISharp.Lib.Gio.FileInfo)'>
 <summary>
 First clears all of the [GFileAttribute][gio-GFileAttribute] of this instance,
 and then copies all of the file attributes from this instance to this instance.
@@ -124,7 +124,7 @@ destination to copy attributes to.
 </param>
 </member>
 
-<member name='Dup()'>
+<member name='FileInfo.Dup()'>
 <summary>
 Duplicates a file info structure.
 </summary>
@@ -133,7 +133,7 @@ a duplicate <see cref="FileInfo"/> of this instance.
 </returns>
 </member>
 
-<member name='GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets the value of a attribute, formated as a string.
 This escapes things as needed to make the string valid
@@ -148,7 +148,7 @@ a UTF-8 string associated with the given this instance, or
 </returns>
 </member>
 
-<member name='GetAttributeAsString(System.String)'>
+<member name='FileInfo.GetAttributeAsString(System.String)'>
 <summary>
 Gets the value of a attribute, formated as a string.
 This escapes things as needed to make the string valid
@@ -163,7 +163,7 @@ a UTF-8 string associated with the given this instance, or
 </returns>
 </member>
 
-<member name='GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets the value of a boolean attribute. If the attribute does not
 contain a boolean value, <c>false</c> will be returned.
@@ -176,7 +176,7 @@ the boolean value contained within the attribute.
 </returns>
 </member>
 
-<member name='GetAttributeBoolean(System.String)'>
+<member name='FileInfo.GetAttributeBoolean(System.String)'>
 <summary>
 Gets the value of a boolean attribute. If the attribute does not
 contain a boolean value, <c>false</c> will be returned.
@@ -189,7 +189,7 @@ the boolean value contained within the attribute.
 </returns>
 </member>
 
-<member name='GetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets the value of a byte string attribute. If the attribute does
 not contain a byte string, <c>null</c> will be returned.
@@ -203,7 +203,7 @@ the contents of the this instance value as a byte string, or
 </returns>
 </member>
 
-<member name='GetAttributeByteString(System.String)'>
+<member name='FileInfo.GetAttributeByteString(System.String)'>
 <summary>
 Gets the value of a byte string attribute. If the attribute does
 not contain a byte string, <c>null</c> will be returned.
@@ -217,7 +217,7 @@ the contents of the this instance value as a byte string, or
 </returns>
 </member>
 
-<member name='TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)'>
+<member name='FileInfo.TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)'>
 <summary>
 Gets the attribute type, value and status for an attribute key.
 </summary>
@@ -240,7 +240,7 @@ return location for the attribute status, or <c>null</c>
 </returns>
 </member>
 
-<member name='TryGetAttributeData(System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)'>
+<member name='FileInfo.TryGetAttributeData(System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)'>
 <summary>
 Gets the attribute type, value and status for an attribute key.
 </summary>
@@ -263,7 +263,7 @@ return location for the attribute status, or <c>null</c>
 </returns>
 </member>
 
-<member name='GetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets a signed 32-bit integer contained within the attribute. If the
 attribute does not contain a signed 32-bit integer, or is invalid,
@@ -277,7 +277,7 @@ a signed 32-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='GetAttributeInt32(System.String)'>
+<member name='FileInfo.GetAttributeInt32(System.String)'>
 <summary>
 Gets a signed 32-bit integer contained within the attribute. If the
 attribute does not contain a signed 32-bit integer, or is invalid,
@@ -291,7 +291,7 @@ a signed 32-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='GetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets a signed 64-bit integer contained within the attribute. If the
 attribute does not contain an signed 64-bit integer, or is invalid,
@@ -305,7 +305,7 @@ a signed 64-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='GetAttributeInt64(System.String)'>
+<member name='FileInfo.GetAttributeInt64(System.String)'>
 <summary>
 Gets a signed 64-bit integer contained within the attribute. If the
 attribute does not contain an signed 64-bit integer, or is invalid,
@@ -319,7 +319,7 @@ a signed 64-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='GetAttributeObject(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeObject(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets the value of a #GObject attribute. If the attribute does
 not contain a #GObject, <c>null</c> will be returned.
@@ -333,7 +333,7 @@ a #GObject associated with the given this instance, or
 </returns>
 </member>
 
-<member name='GetAttributeObject(System.String)'>
+<member name='FileInfo.GetAttributeObject(System.String)'>
 <summary>
 Gets the value of a #GObject attribute. If the attribute does
 not contain a #GObject, <c>null</c> will be returned.
@@ -347,7 +347,7 @@ a #GObject associated with the given this instance, or
 </returns>
 </member>
 
-<member name='GetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets the attribute status for an attribute key.
 </summary>
@@ -360,7 +360,7 @@ a <see cref="FileAttributeStatus"/> for the given this instance, or
 </returns>
 </member>
 
-<member name='GetAttributeStatus(System.String)'>
+<member name='FileInfo.GetAttributeStatus(System.String)'>
 <summary>
 Gets the attribute status for an attribute key.
 </summary>
@@ -373,7 +373,7 @@ a <see cref="FileAttributeStatus"/> for the given this instance, or
 </returns>
 </member>
 
-<member name='GetAttributeString(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeString(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets the value of a string attribute. If the attribute does
 not contain a string, <c>null</c> will be returned.
@@ -387,7 +387,7 @@ the contents of the this instance value as a UTF-8 string, or
 </returns>
 </member>
 
-<member name='GetAttributeString(System.String)'>
+<member name='FileInfo.GetAttributeString(System.String)'>
 <summary>
 Gets the value of a string attribute. If the attribute does
 not contain a string, <c>null</c> will be returned.
@@ -401,7 +401,7 @@ the contents of the this instance value as a UTF-8 string, or
 </returns>
 </member>
 
-<member name='GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets the value of a stringv attribute. If the attribute does
 not contain a stringv, <c>null</c> will be returned.
@@ -415,7 +415,7 @@ the contents of the this instance value as a stringv, or
 </returns>
 </member>
 
-<member name='GetAttributeStringv(System.String)'>
+<member name='FileInfo.GetAttributeStringv(System.String)'>
 <summary>
 Gets the value of a stringv attribute. If the attribute does
 not contain a stringv, <c>null</c> will be returned.
@@ -429,7 +429,7 @@ the contents of the this instance value as a stringv, or
 </returns>
 </member>
 
-<member name='GetAttributeType(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeType(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets the attribute type for an attribute key.
 </summary>
@@ -442,7 +442,7 @@ a <see cref="FileAttributeType"/> for the given this instance, or
 </returns>
 </member>
 
-<member name='GetAttributeType(System.String)'>
+<member name='FileInfo.GetAttributeType(System.String)'>
 <summary>
 Gets the attribute type for an attribute key.
 </summary>
@@ -455,7 +455,7 @@ a <see cref="FileAttributeType"/> for the given this instance, or
 </returns>
 </member>
 
-<member name='GetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets an unsigned 32-bit integer contained within the attribute. If the
 attribute does not contain an unsigned 32-bit integer, or is invalid,
@@ -469,7 +469,7 @@ an unsigned 32-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='GetAttributeUint32(System.String)'>
+<member name='FileInfo.GetAttributeUint32(System.String)'>
 <summary>
 Gets an unsigned 32-bit integer contained within the attribute. If the
 attribute does not contain an unsigned 32-bit integer, or is invalid,
@@ -483,7 +483,7 @@ an unsigned 32-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='GetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.GetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets a unsigned 64-bit integer contained within the attribute. If the
 attribute does not contain an unsigned 64-bit integer, or is invalid,
@@ -497,7 +497,7 @@ a unsigned 64-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='GetAttributeUint64(System.String)'>
+<member name='FileInfo.GetAttributeUint64(System.String)'>
 <summary>
 Gets a unsigned 64-bit integer contained within the attribute. If the
 attribute does not contain an unsigned 64-bit integer, or is invalid,
@@ -511,7 +511,7 @@ a unsigned 64-bit integer from the attribute.
 </returns>
 </member>
 
-<member name='GetModificationTime(GISharp.Lib.GLib.TimeVal)'>
+<member name='FileInfo.GetModificationTime(GISharp.Lib.GLib.TimeVal)'>
 <summary>
 Gets the modification time of the current this instance and sets it
 in this instance.
@@ -521,7 +521,7 @@ a #GTimeVal.
 </param>
 </member>
 
-<member name='HasAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.HasAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if a file info structure has an attribute named this instance.
 </summary>
@@ -534,7 +534,7 @@ a file attribute key.
 </returns>
 </member>
 
-<member name='HasAttribute(System.String)'>
+<member name='FileInfo.HasAttribute(System.String)'>
 <summary>
 Checks if a file info structure has an attribute named this instance.
 </summary>
@@ -547,7 +547,7 @@ a file attribute key.
 </returns>
 </member>
 
-<member name='HasNamespace(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.HasNamespace(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if a file info structure has an attribute in the
 specified this instance.
@@ -561,7 +561,7 @@ a file attribute namespace.
 </returns>
 </member>
 
-<member name='HasNamespace(System.String)'>
+<member name='FileInfo.HasNamespace(System.String)'>
 <summary>
 Checks if a file info structure has an attribute in the
 specified this instance.
@@ -575,7 +575,7 @@ a file attribute namespace.
 </returns>
 </member>
 
-<member name='ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='FileInfo.ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Lists the file info structure's attributes.
 </summary>
@@ -590,7 +590,7 @@ types for the given this instance, or <c>null</c> on error.
 </returns>
 </member>
 
-<member name='ListAttributes(System.String?)'>
+<member name='FileInfo.ListAttributes(System.String?)'>
 <summary>
 Lists the file info structure's attributes.
 </summary>
@@ -605,7 +605,7 @@ types for the given this instance, or <c>null</c> on error.
 </returns>
 </member>
 
-<member name='RemoveAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.RemoveAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Removes all cases of this instance from this instance if it exists.
 </summary>
@@ -614,7 +614,7 @@ a file attribute key.
 </param>
 </member>
 
-<member name='RemoveAttribute(System.String)'>
+<member name='FileInfo.RemoveAttribute(System.String)'>
 <summary>
 Removes all cases of this instance from this instance if it exists.
 </summary>
@@ -623,7 +623,7 @@ a file attribute key.
 </param>
 </member>
 
-<member name='SetAttribute(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)'>
+<member name='FileInfo.SetAttribute(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)'>
 <summary>
 Sets the this instance to contain the given value, if possible. To unset the
 attribute, use <see cref="FileAttributeType.Invalid"/> for this instance.
@@ -639,7 +639,7 @@ pointer to the value
 </param>
 </member>
 
-<member name='SetAttribute(System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)'>
+<member name='FileInfo.SetAttribute(System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)'>
 <summary>
 Sets the this instance to contain the given value, if possible. To unset the
 attribute, use <see cref="FileAttributeType.Invalid"/> for this instance.
@@ -655,7 +655,7 @@ pointer to the value
 </param>
 </member>
 
-<member name='SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
+<member name='FileInfo.SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -668,7 +668,7 @@ a boolean value.
 </param>
 </member>
 
-<member name='SetAttributeBoolean(System.String,System.Boolean)'>
+<member name='FileInfo.SetAttributeBoolean(System.String,System.Boolean)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -681,7 +681,7 @@ a boolean value.
 </param>
 </member>
 
-<member name='SetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.SetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -694,7 +694,7 @@ a byte string.
 </param>
 </member>
 
-<member name='SetAttributeByteString(System.String,System.String)'>
+<member name='FileInfo.SetAttributeByteString(System.String,System.String)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -707,7 +707,7 @@ a byte string.
 </param>
 </member>
 
-<member name='SetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='FileInfo.SetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -720,7 +720,7 @@ a signed 32-bit integer
 </param>
 </member>
 
-<member name='SetAttributeInt32(System.String,System.Int32)'>
+<member name='FileInfo.SetAttributeInt32(System.String,System.Int32)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -733,7 +733,7 @@ a signed 32-bit integer
 </param>
 </member>
 
-<member name='SetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8,System.Int64)'>
+<member name='FileInfo.SetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8,System.Int64)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -746,7 +746,7 @@ int64 value to set attribute to.
 </param>
 </member>
 
-<member name='SetAttributeInt64(System.String,System.Int64)'>
+<member name='FileInfo.SetAttributeInt64(System.String,System.Int64)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -759,7 +759,7 @@ int64 value to set attribute to.
 </param>
 </member>
 
-<member name='SetAttributeMask(GISharp.Lib.Gio.FileAttributeMatcher)'>
+<member name='FileInfo.SetAttributeMask(GISharp.Lib.Gio.FileAttributeMatcher)'>
 <summary>
 Sets this instance on this instance to match specific attribute types.
 </summary>
@@ -768,7 +768,7 @@ a <see cref="FileAttributeMatcher"/>.
 </param>
 </member>
 
-<member name='SetAttributeObject(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object)'>
+<member name='FileInfo.SetAttributeObject(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -781,7 +781,7 @@ a #GObject.
 </param>
 </member>
 
-<member name='SetAttributeObject(System.String,GISharp.Lib.GObject.Object)'>
+<member name='FileInfo.SetAttributeObject(System.String,GISharp.Lib.GObject.Object)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -794,7 +794,7 @@ a #GObject.
 </param>
 </member>
 
-<member name='SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeStatus)'>
+<member name='FileInfo.SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeStatus)'>
 <summary>
 Sets the attribute status for an attribute key. This is only
 needed by external code that implement <see cref="M:File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>
@@ -815,7 +815,7 @@ a <see cref="FileAttributeStatus"/>
 </returns>
 </member>
 
-<member name='SetAttributeStatus(System.String,GISharp.Lib.Gio.FileAttributeStatus)'>
+<member name='FileInfo.SetAttributeStatus(System.String,GISharp.Lib.Gio.FileAttributeStatus)'>
 <summary>
 Sets the attribute status for an attribute key. This is only
 needed by external code that implement <see cref="M:File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>
@@ -836,7 +836,7 @@ a <see cref="FileAttributeStatus"/>
 </returns>
 </member>
 
-<member name='SetAttributeString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='FileInfo.SetAttributeString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -849,7 +849,7 @@ a UTF-8 string.
 </param>
 </member>
 
-<member name='SetAttributeString(System.String,System.String)'>
+<member name='FileInfo.SetAttributeString(System.String,System.String)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -862,7 +862,7 @@ a UTF-8 string.
 </param>
 </member>
 
-<member name='SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Strv)'>
+<member name='FileInfo.SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Strv)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -878,7 +878,7 @@ a <c>null</c> terminated array of UTF-8 strings.
 </param>
 </member>
 
-<member name='SetAttributeStringv(System.String,GISharp.Lib.GLib.Strv)'>
+<member name='FileInfo.SetAttributeStringv(System.String,GISharp.Lib.GLib.Strv)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -894,7 +894,7 @@ a <c>null</c> terminated array of UTF-8 strings.
 </param>
 </member>
 
-<member name='SetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8,System.UInt32)'>
+<member name='FileInfo.SetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8,System.UInt32)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -907,7 +907,7 @@ an unsigned 32-bit integer.
 </param>
 </member>
 
-<member name='SetAttributeUint32(System.String,System.UInt32)'>
+<member name='FileInfo.SetAttributeUint32(System.String,System.UInt32)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -920,7 +920,7 @@ an unsigned 32-bit integer.
 </param>
 </member>
 
-<member name='SetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8,System.UInt64)'>
+<member name='FileInfo.SetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8,System.UInt64)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -933,7 +933,7 @@ an unsigned 64-bit integer.
 </param>
 </member>
 
-<member name='SetAttributeUint64(System.String,System.UInt64)'>
+<member name='FileInfo.SetAttributeUint64(System.String,System.UInt64)'>
 <summary>
 Sets the this instance to contain the given this instance,
 if possible.
@@ -946,7 +946,7 @@ an unsigned 64-bit integer.
 </param>
 </member>
 
-<member name='SetModificationTime(GISharp.Lib.GLib.TimeVal)'>
+<member name='FileInfo.SetModificationTime(GISharp.Lib.GLib.TimeVal)'>
 <summary>
 Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute in the file
 info to the given time value.
@@ -956,7 +956,7 @@ a #GTimeVal.
 </param>
 </member>
 
-<member name='UnsetAttributeMask()'>
+<member name='FileInfo.UnsetAttributeMask()'>
 <summary>
 Unsets a mask set by <see cref="M:FileInfo.SetAttributeMask(GISharp.Lib.Gio.FileAttributeMatcher)"/>, if one
 is set.

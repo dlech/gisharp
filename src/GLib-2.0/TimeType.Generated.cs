@@ -5,11 +5,11 @@ namespace GISharp.Lib.GLib
     /// <include file="TimeType.xmldoc" path="declaration/member[@name='TimeType']/*" />
     public enum TimeType
     {
-        /// <include file="TimeType.xmldoc" path="declaration/member[@name='Standard']/*" />
+        /// <include file="TimeType.xmldoc" path="declaration/member[@name='TimeType.Standard']/*" />
         Standard = 0,
-        /// <include file="TimeType.xmldoc" path="declaration/member[@name='Daylight']/*" />
+        /// <include file="TimeType.xmldoc" path="declaration/member[@name='TimeType.Daylight']/*" />
         Daylight = 1,
-        /// <include file="TimeType.xmldoc" path="declaration/member[@name='Universal']/*" />
+        /// <include file="TimeType.xmldoc" path="declaration/member[@name='TimeType.Universal']/*" />
         Universal = 2
     }
 }

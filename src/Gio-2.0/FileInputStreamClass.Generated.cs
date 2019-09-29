@@ -11,40 +11,40 @@ namespace GISharp.Lib.Gio
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
             public GISharp.Lib.Gio.InputStreamClass.Struct ParentClass;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Tell']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.Tell']/*" />
             public System.IntPtr Tell;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='CanSeek']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.CanSeek']/*" />
             public System.IntPtr CanSeek;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Seek']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.Seek']/*" />
             public System.IntPtr Seek;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='QueryInfo']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.QueryInfo']/*" />
             public System.IntPtr QueryInfo;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='QueryInfoAsync']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.QueryInfoAsync']/*" />
             public System.IntPtr QueryInfoAsync;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='QueryInfoFinish']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.QueryInfoFinish']/*" />
             public System.IntPtr QueryInfoFinish;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='GReserved1']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved1']/*" />
             public System.IntPtr GReserved1;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='GReserved2']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved2']/*" />
             public System.IntPtr GReserved2;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='GReserved3']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved3']/*" />
             public System.IntPtr GReserved3;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='GReserved5']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }

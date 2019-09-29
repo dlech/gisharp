@@ -11,316 +11,316 @@ namespace GISharp.Lib.Gio
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GIface']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Dup']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Dup']/*" />
             public System.IntPtr Dup;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Hash']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Hash']/*" />
             public System.IntPtr Hash;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Equal']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Equal']/*" />
             public System.IntPtr Equal;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='IsNative']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.IsNative']/*" />
             public System.IntPtr IsNative;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='HasUriScheme']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.HasUriScheme']/*" />
             public System.IntPtr HasUriScheme;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetUriScheme']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetUriScheme']/*" />
             public System.IntPtr GetUriScheme;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetBasename']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetBasename']/*" />
             public System.IntPtr GetBasename;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetPath']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetPath']/*" />
             public System.IntPtr GetPath;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetUri']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetUri']/*" />
             public System.IntPtr GetUri;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetParseName']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetParseName']/*" />
             public System.IntPtr GetParseName;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetParent']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetParent']/*" />
             public System.IntPtr GetParent;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='PrefixMatches']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.PrefixMatches']/*" />
             public System.IntPtr PrefixMatches;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetRelativePath']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetRelativePath']/*" />
             public System.IntPtr GetRelativePath;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ResolveRelativePath']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ResolveRelativePath']/*" />
             public System.IntPtr ResolveRelativePath;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='GetChildForDisplayName']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetChildForDisplayName']/*" />
             public System.IntPtr GetChildForDisplayName;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EnumerateChildren']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EnumerateChildren']/*" />
             public System.IntPtr EnumerateChildren;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EnumerateChildrenAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EnumerateChildrenAsync']/*" />
             public System.IntPtr EnumerateChildrenAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EnumerateChildrenFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EnumerateChildrenFinish']/*" />
             public System.IntPtr EnumerateChildrenFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryInfo']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryInfo']/*" />
             public System.IntPtr QueryInfo;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryInfoAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryInfoAsync']/*" />
             public System.IntPtr QueryInfoAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryInfoFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryInfoFinish']/*" />
             public System.IntPtr QueryInfoFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryFilesystemInfo']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryFilesystemInfo']/*" />
             public System.IntPtr QueryFilesystemInfo;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryFilesystemInfoAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryFilesystemInfoAsync']/*" />
             public System.IntPtr QueryFilesystemInfoAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryFilesystemInfoFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryFilesystemInfoFinish']/*" />
             public System.IntPtr QueryFilesystemInfoFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='FindEnclosingMount']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.FindEnclosingMount']/*" />
             public System.IntPtr FindEnclosingMount;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='FindEnclosingMountAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.FindEnclosingMountAsync']/*" />
             public System.IntPtr FindEnclosingMountAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='FindEnclosingMountFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.FindEnclosingMountFinish']/*" />
             public System.IntPtr FindEnclosingMountFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetDisplayName']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetDisplayName']/*" />
             public System.IntPtr SetDisplayName;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetDisplayNameAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetDisplayNameAsync']/*" />
             public System.IntPtr SetDisplayNameAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetDisplayNameFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetDisplayNameFinish']/*" />
             public System.IntPtr SetDisplayNameFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QuerySettableAttributes']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QuerySettableAttributes']/*" />
             public System.IntPtr QuerySettableAttributes;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QuerySettableAttributesAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QuerySettableAttributesAsync']/*" />
             public System.IntPtr QuerySettableAttributesAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QuerySettableAttributesFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QuerySettableAttributesFinish']/*" />
             public System.IntPtr QuerySettableAttributesFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryWritableNamespaces']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryWritableNamespaces']/*" />
             public System.IntPtr QueryWritableNamespaces;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryWritableNamespacesAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryWritableNamespacesAsync']/*" />
             public System.IntPtr QueryWritableNamespacesAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='QueryWritableNamespacesFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryWritableNamespacesFinish']/*" />
             public System.IntPtr QueryWritableNamespacesFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttribute']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetAttribute']/*" />
             public System.IntPtr SetAttribute;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttributesFromInfo']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetAttributesFromInfo']/*" />
             public System.IntPtr SetAttributesFromInfo;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttributesAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetAttributesAsync']/*" />
             public System.IntPtr SetAttributesAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SetAttributesFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetAttributesFinish']/*" />
             public System.IntPtr SetAttributesFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReadFn']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReadFn']/*" />
             public System.IntPtr ReadFn;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReadAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReadAsync']/*" />
             public System.IntPtr ReadAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReadFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReadFinish']/*" />
             public System.IntPtr ReadFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='AppendTo']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.AppendTo']/*" />
             public System.IntPtr AppendTo;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='AppendToAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.AppendToAsync']/*" />
             public System.IntPtr AppendToAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='AppendToFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.AppendToFinish']/*" />
             public System.IntPtr AppendToFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Create']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Create']/*" />
             public System.IntPtr Create;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateAsync']/*" />
             public System.IntPtr CreateAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateFinish']/*" />
             public System.IntPtr CreateFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Replace']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Replace']/*" />
             public System.IntPtr Replace;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceAsync']/*" />
             public System.IntPtr ReplaceAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceFinish']/*" />
             public System.IntPtr ReplaceFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='DeleteFile']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.DeleteFile']/*" />
             public System.IntPtr DeleteFile;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='DeleteFileAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.DeleteFileAsync']/*" />
             public System.IntPtr DeleteFileAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='DeleteFileFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.DeleteFileFinish']/*" />
             public System.IntPtr DeleteFileFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Trash']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Trash']/*" />
             public System.IntPtr Trash;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='TrashAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.TrashAsync']/*" />
             public System.IntPtr TrashAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='TrashFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.TrashFinish']/*" />
             public System.IntPtr TrashFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeDirectory']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeDirectory']/*" />
             public System.IntPtr MakeDirectory;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeDirectoryAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeDirectoryAsync']/*" />
             public System.IntPtr MakeDirectoryAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeDirectoryFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeDirectoryFinish']/*" />
             public System.IntPtr MakeDirectoryFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeSymbolicLink']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeSymbolicLink']/*" />
             public System.IntPtr MakeSymbolicLink;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeSymbolicLinkAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeSymbolicLinkAsync']/*" />
             public System.IntPtr MakeSymbolicLinkAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MakeSymbolicLinkFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeSymbolicLinkFinish']/*" />
             public System.IntPtr MakeSymbolicLinkFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Copy']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Copy']/*" />
             public System.IntPtr Copy;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CopyAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CopyAsync']/*" />
             public System.IntPtr CopyAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CopyFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CopyFinish']/*" />
             public System.IntPtr CopyFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Move']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Move']/*" />
             public System.IntPtr Move;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MoveAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MoveAsync']/*" />
             public System.IntPtr MoveAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MoveFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MoveFinish']/*" />
             public System.IntPtr MoveFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MountMountable']/*" />
             public System.IntPtr MountMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MountMountableFinish']/*" />
             public System.IntPtr MountMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.UnmountMountable']/*" />
             public System.IntPtr UnmountMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.UnmountMountableFinish']/*" />
             public System.IntPtr UnmountMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EjectMountable']/*" />
             public System.IntPtr EjectMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EjectMountableFinish']/*" />
             public System.IntPtr EjectMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountEnclosingVolume']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MountEnclosingVolume']/*" />
             public System.IntPtr MountEnclosingVolume;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MountEnclosingVolumeFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MountEnclosingVolumeFinish']/*" />
             public System.IntPtr MountEnclosingVolumeFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MonitorDir']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MonitorDir']/*" />
             public System.IntPtr MonitorDir;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MonitorFile']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MonitorFile']/*" />
             public System.IntPtr MonitorFile;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='OpenReadwrite']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.OpenReadwrite']/*" />
             public System.IntPtr OpenReadwrite;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='OpenReadwriteAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.OpenReadwriteAsync']/*" />
             public System.IntPtr OpenReadwriteAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='OpenReadwriteFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.OpenReadwriteFinish']/*" />
             public System.IntPtr OpenReadwriteFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateReadwrite']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateReadwrite']/*" />
             public System.IntPtr CreateReadwrite;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateReadwriteAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateReadwriteAsync']/*" />
             public System.IntPtr CreateReadwriteAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='CreateReadwriteFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateReadwriteFinish']/*" />
             public System.IntPtr CreateReadwriteFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwrite']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceReadwrite']/*" />
             public System.IntPtr ReplaceReadwrite;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwriteAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceReadwriteAsync']/*" />
             public System.IntPtr ReplaceReadwriteAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='ReplaceReadwriteFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceReadwriteFinish']/*" />
             public System.IntPtr ReplaceReadwriteFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='StartMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.StartMountable']/*" />
             public System.IntPtr StartMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='StartMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.StartMountableFinish']/*" />
             public System.IntPtr StartMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='StopMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.StopMountable']/*" />
             public System.IntPtr StopMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='StopMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.StopMountableFinish']/*" />
             public System.IntPtr StopMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='SupportsThreadContexts']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SupportsThreadContexts']/*" />
             public GISharp.Runtime.Boolean SupportsThreadContexts;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountableWithOperation']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.UnmountMountableWithOperation']/*" />
             public System.IntPtr UnmountMountableWithOperation;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmountMountableWithOperationFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.UnmountMountableWithOperationFinish']/*" />
             public System.IntPtr UnmountMountableWithOperationFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountableWithOperation']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EjectMountableWithOperation']/*" />
             public System.IntPtr EjectMountableWithOperation;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='EjectMountableWithOperationFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EjectMountableWithOperationFinish']/*" />
             public System.IntPtr EjectMountableWithOperationFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='PollMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.PollMountable']/*" />
             public System.IntPtr PollMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='PollMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.PollMountableFinish']/*" />
             public System.IntPtr PollMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MeasureDiskUsage']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MeasureDiskUsage']/*" />
             public System.IntPtr MeasureDiskUsage;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MeasureDiskUsageAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MeasureDiskUsageAsync']/*" />
             public System.IntPtr MeasureDiskUsageAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='MeasureDiskUsageFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MeasureDiskUsageFinish']/*" />
             public System.IntPtr MeasureDiskUsageFinish;
 #pragma warning restore CS0649
         }

@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='VariantDict(GISharp.Lib.GLib.Variant?)'>
+<member name='VariantDict.VariantDict(GISharp.Lib.GLib.Variant?)'>
 <summary>
 Allocates and initialises a new <see cref="VariantDict"/>.
 </summary>
@@ -20,7 +20,7 @@ the <see cref="GLib.Variant"/> with which to initialise the
 </param>
 </member>
 
-<member name='Contains(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='VariantDict.Contains(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if this instance exists in this instance.
 </summary>
@@ -32,7 +32,7 @@ the key to look up in the dictionary
 </returns>
 </member>
 
-<member name='Contains(System.String)'>
+<member name='VariantDict.Contains(System.String)'>
 <summary>
 Checks if this instance exists in this instance.
 </summary>
@@ -44,7 +44,7 @@ the key to look up in the dictionary
 </returns>
 </member>
 
-<member name='End()'>
+<member name='VariantDict.End()'>
 <summary>
 Returns the current value of this instance as a <see cref="GLib.Variant"/> of type
 %G_VARIANT_TYPE_VARDICT, clearing it in the process.
@@ -60,7 +60,7 @@ a new, floating, <see cref="GLib.Variant"/>
 </returns>
 </member>
 
-<member name='Insert(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
+<member name='VariantDict.Insert(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
 <summary>
 Inserts (or replaces) a key in a <see cref="VariantDict"/>.
 </summary>
@@ -75,7 +75,7 @@ the value to insert
 </param>
 </member>
 
-<member name='Insert(System.String,GISharp.Lib.GLib.Variant)'>
+<member name='VariantDict.Insert(System.String,GISharp.Lib.GLib.Variant)'>
 <summary>
 Inserts (or replaces) a key in a <see cref="VariantDict"/>.
 </summary>
@@ -90,7 +90,7 @@ the value to insert
 </param>
 </member>
 
-<member name='Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)'>
+<member name='VariantDict.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)'>
 <summary>
 Looks up a value in a <see cref="VariantDict"/>.
 </summary>
@@ -116,7 +116,7 @@ the value of the dictionary key, or <c>null</c>
 </returns>
 </member>
 
-<member name='Lookup(System.String,GISharp.Lib.GLib.VariantType?)'>
+<member name='VariantDict.Lookup(System.String,GISharp.Lib.GLib.VariantType?)'>
 <summary>
 Looks up a value in a <see cref="VariantDict"/>.
 </summary>
@@ -142,7 +142,7 @@ the value of the dictionary key, or <c>null</c>
 </returns>
 </member>
 
-<member name='Remove(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='VariantDict.Remove(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Removes a key and its associated value from a <see cref="VariantDict"/>.
 </summary>
@@ -154,7 +154,7 @@ the key to remove
 </returns>
 </member>
 
-<member name='Remove(System.String)'>
+<member name='VariantDict.Remove(System.String)'>
 <summary>
 Removes a key and its associated value from a <see cref="VariantDict"/>.
 </summary>

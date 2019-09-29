@@ -7,15 +7,15 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncResultIface))]
     public partial interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='DoGetSourceObject()']/*" />
+        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IAsyncResult.DoGetSourceObject()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedGetSourceObject))]
         GISharp.Lib.GObject.Object? DoGetSourceObject();
 
-        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='DoGetUserData()']/*" />
+        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IAsyncResult.DoGetUserData()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedGetUserData))]
         System.IntPtr DoGetUserData();
 
-        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='DoIsTagged(System.IntPtr)']/*" />
+        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IAsyncResult.DoIsTagged(System.IntPtr)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedIsTagged))]
         System.Boolean DoIsTagged(System.IntPtr sourceTag);
@@ -51,7 +51,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr res);
 
-        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='GetSourceObject(GISharp.Lib.Gio.IAsyncResult)']/*" />
+        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)']/*" />
         public unsafe static GISharp.Lib.GObject.Object? GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
         {
             var res_ = res.Handle;
@@ -77,7 +77,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr res);
 
-        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='GetUserData(GISharp.Lib.Gio.IAsyncResult)']/*" />
+        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.GetUserData(GISharp.Lib.Gio.IAsyncResult)']/*" />
         public unsafe static System.IntPtr GetUserData(this GISharp.Lib.Gio.IAsyncResult res)
         {
             var res_ = res.Handle;
@@ -112,7 +112,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr sourceTag);
 
-        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)']/*" />
+        /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         public unsafe static System.Boolean IsTagged(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag)
         {

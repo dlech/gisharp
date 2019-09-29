@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='None'>
+<member name='KeyFileFlags.None'>
 <summary>
 No flags, default behaviour
 </summary>
 </member>
 
-<member name='KeepComments'>
+<member name='KeyFileFlags.KeepComments'>
 <summary>
 Use this flag if you plan to write the
     (possibly modified) contents of the key file back to a file;
@@ -15,7 +15,7 @@ Use this flag if you plan to write the
 </summary>
 </member>
 
-<member name='KeepTranslations'>
+<member name='KeyFileFlags.KeepTranslations'>
 <summary>
 Use this flag if you plan to write the
     (possibly modified) contents of the key file back to a file;

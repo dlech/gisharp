@@ -8,13 +8,13 @@ namespace GISharp.Lib.Gio
     [System.FlagsAttribute]
     public enum FileMeasureFlags
     {
-        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='FileMeasureFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='ReportAnyError']/*" />
+        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='FileMeasureFlags.ReportAnyError']/*" />
         ReportAnyError = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='ApparentSize']/*" />
+        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='FileMeasureFlags.ApparentSize']/*" />
         ApparentSize = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='NoCrossMountPoint']/*" />
+        /// <include file="FileMeasureFlags.xmldoc" path="declaration/member[@name='FileMeasureFlags.NoCrossMountPoint']/*" />
         NoCrossMountPoint = 0b0000_0000_0000_0000_0000_0000_0000_1000
     }
 

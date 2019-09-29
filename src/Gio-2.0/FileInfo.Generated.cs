@@ -9,56 +9,56 @@ namespace GISharp.Lib.Gio
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_file_info_get_type();
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='ContentType']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.ContentType']/*" />
         public GISharp.Lib.GLib.UnownedUtf8 ContentType { get => GetContentType(); set => SetContentType(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='DeletionDate']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.DeletionDate']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public GISharp.Lib.GLib.DateTime DeletionDate { get => GetDeletionDate(); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='DisplayName']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.DisplayName']/*" />
         public GISharp.Lib.GLib.UnownedUtf8 DisplayName { get => GetDisplayName(); set => SetDisplayName(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='EditName']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.EditName']/*" />
         public GISharp.Lib.GLib.UnownedUtf8 EditName { get => GetEditName(); set => SetEditName(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='Etag']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.Etag']/*" />
         public GISharp.Lib.GLib.UnownedUtf8 Etag { get => GetEtag(); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileType']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.FileType']/*" />
         public GISharp.Lib.Gio.FileType FileType { get => GetFileType(); set => SetFileType(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='Icon']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.Icon']/*" />
         public GISharp.Lib.Gio.IIcon Icon { get => GetIcon(); set => SetIcon(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='IsBackup']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.IsBackup']/*" />
         public System.Boolean IsBackup { get => GetIsBackup(); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='IsHidden']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.IsHidden']/*" />
         public System.Boolean IsHidden { get => GetIsHidden(); set => SetIsHidden(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='IsSymlink']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.IsSymlink']/*" />
         public System.Boolean IsSymlink { get => GetIsSymlink(); set => SetIsSymlink(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='ModificationDateTime']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.ModificationDateTime']/*" />
         [GISharp.Runtime.SinceAttribute("2.62")]
         [System.Diagnostics.CodeAnalysis.DisallowNullAttribute]
         public GISharp.Lib.GLib.DateTime? ModificationDateTime { get => GetModificationDateTime(); set => SetModificationDateTime(value!); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='Name']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.Name']/*" />
         public GISharp.Lib.GLib.Filename Name { get => GetName(); set => SetName(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='Size']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.Size']/*" />
         public System.Int64 Size { get => GetSize(); set => SetSize(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SortOrder']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SortOrder']/*" />
         public System.Int32 SortOrder { get => GetSortOrder(); set => SetSortOrder(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SymbolicIcon']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SymbolicIcon']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         public GISharp.Lib.Gio.IIcon SymbolicIcon { get => GetSymbolicIcon(); set => SetSymbolicIcon(value); }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SymlinkTarget']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SymlinkTarget']/*" />
         public GISharp.Lib.GLib.UnownedUtf8 SymlinkTarget { get => GetSymlinkTarget(); set => SetSymlinkTarget(value); }
 
         /// <summary>
@@ -86,7 +86,7 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo()']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.FileInfo()']/*" />
         public FileInfo() : this(New(), GISharp.Runtime.Transfer.Full)
         {
         }
@@ -110,7 +110,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='ClearStatus()']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.ClearStatus()']/*" />
         public unsafe void ClearStatus()
         {
             var info_ = Handle;
@@ -138,7 +138,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr destInfo);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='CopyInto(GISharp.Lib.Gio.FileInfo)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.CopyInto(GISharp.Lib.Gio.FileInfo)']/*" />
         public unsafe void CopyInto(GISharp.Lib.Gio.FileInfo destInfo)
         {
             var srcInfo_ = Handle;
@@ -163,7 +163,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr other);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='Dup()']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.Dup()']/*" />
         public unsafe GISharp.Lib.Gio.FileInfo Dup()
         {
             var other_ = Handle;
@@ -199,7 +199,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe GISharp.Lib.GLib.Utf8? GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -209,7 +209,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeAsString(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeAsString(System.String)']/*" />
         public unsafe GISharp.Lib.GLib.Utf8? GetAttributeAsString(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -240,7 +240,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Boolean GetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -250,7 +250,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeBoolean(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeBoolean(System.String)']/*" />
         public unsafe System.Boolean GetAttributeBoolean(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -282,7 +282,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -292,7 +292,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeByteString(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeByteString(System.String)']/*" />
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeByteString(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -342,7 +342,7 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out GISharp.Lib.Gio.FileAttributeStatus status);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
         public unsafe System.Boolean TryGetAttributeData(GISharp.Lib.GLib.UnownedUtf8 attribute, out GISharp.Lib.Gio.FileAttributeType type, out System.IntPtr valuePp, out GISharp.Lib.Gio.FileAttributeStatus status)
         {
             var info_ = Handle;
@@ -355,7 +355,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='TryGetAttributeData(System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.TryGetAttributeData(System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
         public unsafe System.Boolean TryGetAttributeData(System.String attribute, out GISharp.Lib.Gio.FileAttributeType type, out System.IntPtr valuePp, out GISharp.Lib.Gio.FileAttributeStatus status)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -387,7 +387,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Int32 GetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -397,7 +397,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeInt32(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeInt32(System.String)']/*" />
         public unsafe System.Int32 GetAttributeInt32(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -429,7 +429,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Int64 GetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -439,7 +439,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeInt64(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeInt64(System.String)']/*" />
         public unsafe System.Int64 GetAttributeInt64(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -471,7 +471,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeObject(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeObject(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe GISharp.Lib.GObject.Object GetAttributeObject(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -481,7 +481,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeObject(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeObject(System.String)']/*" />
         public unsafe GISharp.Lib.GObject.Object GetAttributeObject(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -512,7 +512,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeStatus GetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -522,7 +522,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeStatus(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeStatus(System.String)']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeStatus GetAttributeStatus(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -554,7 +554,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeString(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -564,7 +564,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeString(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeString(System.String)']/*" />
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAttributeString(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -599,7 +599,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe GISharp.Lib.GLib.Strv GetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
@@ -610,7 +610,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeStringv(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeStringv(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe GISharp.Lib.GLib.Strv GetAttributeStringv(System.String attribute)
         {
@@ -642,7 +642,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeType(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeType(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeType GetAttributeType(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -652,7 +652,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeType(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeType(System.String)']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeType GetAttributeType(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -684,7 +684,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.UInt32 GetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -694,7 +694,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeUint32(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeUint32(System.String)']/*" />
         public unsafe System.UInt32 GetAttributeUint32(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -726,7 +726,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.UInt64 GetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -736,7 +736,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetAttributeUint64(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetAttributeUint64(System.String)']/*" />
         public unsafe System.UInt64 GetAttributeUint64(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1050,7 +1050,7 @@ namespace GISharp.Lib.Gio
         /* direction:out caller-allocates:1 transfer-ownership:none */
         out GISharp.Lib.GLib.TimeVal result);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='GetModificationTime(GISharp.Lib.GLib.TimeVal)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.GetModificationTime(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("Use g_file_info_get_modification_date_time() instead, as\n   #GTimeVal is deprecated due to the year 2038 problem.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         public unsafe void GetModificationTime(out GISharp.Lib.GLib.TimeVal result)
@@ -1212,7 +1212,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='HasAttribute(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.HasAttribute(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe System.Boolean HasAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -1222,7 +1222,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='HasAttribute(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.HasAttribute(System.String)']/*" />
         public unsafe System.Boolean HasAttribute(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1255,7 +1255,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr nameSpace);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='HasNamespace(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.HasNamespace(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Boolean HasNamespace(GISharp.Lib.GLib.UnownedUtf8 nameSpace)
         {
@@ -1266,7 +1266,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='HasNamespace(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.HasNamespace(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Boolean HasNamespace(System.String nameSpace)
         {
@@ -1302,7 +1302,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr nameSpace);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         public unsafe GISharp.Lib.GLib.Strv? ListAttributes(GISharp.Lib.GLib.NullableUnownedUtf8 nameSpace)
         {
             var info_ = Handle;
@@ -1312,7 +1312,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='ListAttributes(System.String?)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.ListAttributes(System.String?)']/*" />
         public unsafe GISharp.Lib.GLib.Strv? ListAttributes(System.String? nameSpace)
         {
             using var nameSpaceUtf8 = nameSpace == null ? null : new GISharp.Lib.GLib.Utf8(nameSpace);
@@ -1339,7 +1339,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attribute);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='RemoveAttribute(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.RemoveAttribute(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe void RemoveAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             var info_ = Handle;
@@ -1347,7 +1347,7 @@ namespace GISharp.Lib.Gio
             g_file_info_remove_attribute(info_, attribute_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='RemoveAttribute(System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.RemoveAttribute(System.String)']/*" />
         public unsafe void RemoveAttribute(System.String attribute)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1387,7 +1387,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr valueP);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttribute(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttribute(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)']/*" />
         public unsafe void SetAttribute(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP)
         {
             var info_ = Handle;
@@ -1397,7 +1397,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute(info_, attribute_, type_, valueP_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttribute(System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttribute(System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr)']/*" />
         public unsafe void SetAttribute(System.String attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1431,7 +1431,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
         public unsafe void SetAttributeBoolean(GISharp.Lib.GLib.UnownedUtf8 attribute, System.Boolean attrValue)
         {
             var info_ = Handle;
@@ -1440,7 +1440,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute_boolean(info_, attribute_, attrValue_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeBoolean(System.String,System.Boolean)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeBoolean(System.String,System.Boolean)']/*" />
         public unsafe void SetAttributeBoolean(System.String attribute, System.Boolean attrValue)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1474,7 +1474,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe void SetAttributeByteString(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 attrValue)
         {
             var info_ = Handle;
@@ -1483,7 +1483,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute_byte_string(info_, attribute_, attrValue_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeByteString(System.String,System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeByteString(System.String,System.String)']/*" />
         public unsafe void SetAttributeByteString(System.String attribute, System.String attrValue)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1518,7 +1518,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.Int32 attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
         public unsafe void SetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int32 attrValue)
         {
             var info_ = Handle;
@@ -1527,7 +1527,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute_int32(info_, attribute_, attrValue_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeInt32(System.String,System.Int32)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeInt32(System.String,System.Int32)']/*" />
         public unsafe void SetAttributeInt32(System.String attribute, System.Int32 attrValue)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1561,7 +1561,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.Int64 attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8,System.Int64)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8,System.Int64)']/*" />
         public unsafe void SetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int64 attrValue)
         {
             var info_ = Handle;
@@ -1570,7 +1570,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute_int64(info_, attribute_, attrValue_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeInt64(System.String,System.Int64)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeInt64(System.String,System.Int64)']/*" />
         public unsafe void SetAttributeInt64(System.String attribute, System.Int64 attrValue)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1597,7 +1597,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr mask);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeMask(GISharp.Lib.Gio.FileAttributeMatcher)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeMask(GISharp.Lib.Gio.FileAttributeMatcher)']/*" />
         public unsafe void SetAttributeMask(GISharp.Lib.Gio.FileAttributeMatcher mask)
         {
             var info_ = Handle;
@@ -1632,7 +1632,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeObject(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeObject(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object)']/*" />
         public unsafe void SetAttributeObject(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GObject.Object attrValue)
         {
             var info_ = Handle;
@@ -1641,7 +1641,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute_object(info_, attribute_, attrValue_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeObject(System.String,GISharp.Lib.GObject.Object)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeObject(System.String,GISharp.Lib.GObject.Object)']/*" />
         public unsafe void SetAttributeObject(System.String attribute, GISharp.Lib.GObject.Object attrValue)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1684,7 +1684,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileAttributeStatus status);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Boolean SetAttributeStatus(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeStatus status)
         {
@@ -1696,7 +1696,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeStatus(System.String,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeStatus(System.String,GISharp.Lib.Gio.FileAttributeStatus)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Boolean SetAttributeStatus(System.String attribute, GISharp.Lib.Gio.FileAttributeStatus status)
         {
@@ -1731,7 +1731,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe void SetAttributeString(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 attrValue)
         {
             var info_ = Handle;
@@ -1740,7 +1740,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute_string(info_, attribute_, attrValue_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeString(System.String,System.String)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeString(System.String,System.String)']/*" />
         public unsafe void SetAttributeString(System.String attribute, System.String attrValue)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1781,7 +1781,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Strv)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Strv)']/*" />
         public unsafe void SetAttributeStringv(GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.Strv attrValue)
         {
             var info_ = Handle;
@@ -1790,7 +1790,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute_stringv(info_, attribute_, attrValue_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeStringv(System.String,GISharp.Lib.GLib.Strv)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeStringv(System.String,GISharp.Lib.GLib.Strv)']/*" />
         public unsafe void SetAttributeStringv(System.String attribute, GISharp.Lib.GLib.Strv attrValue)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1824,7 +1824,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.UInt32 attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8,System.UInt32)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8,System.UInt32)']/*" />
         public unsafe void SetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt32 attrValue)
         {
             var info_ = Handle;
@@ -1833,7 +1833,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute_uint32(info_, attribute_, attrValue_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeUint32(System.String,System.UInt32)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeUint32(System.String,System.UInt32)']/*" />
         public unsafe void SetAttributeUint32(System.String attribute, System.UInt32 attrValue)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -1867,7 +1867,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.UInt64 attrValue);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8,System.UInt64)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8,System.UInt64)']/*" />
         public unsafe void SetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt64 attrValue)
         {
             var info_ = Handle;
@@ -1876,7 +1876,7 @@ namespace GISharp.Lib.Gio
             g_file_info_set_attribute_uint64(info_, attribute_, attrValue_);
         }
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetAttributeUint64(System.String,System.UInt64)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetAttributeUint64(System.String,System.UInt64)']/*" />
         public unsafe void SetAttributeUint64(System.String attribute, System.UInt64 attrValue)
         {
             using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
@@ -2150,7 +2150,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal mtime);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='SetModificationTime(GISharp.Lib.GLib.TimeVal)']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetModificationTime(GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("Use g_file_info_set_modification_date_time() instead, as\n   #GTimeVal is deprecated due to the year 2038 problem.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         public unsafe void SetModificationTime(GISharp.Lib.GLib.TimeVal mtime)
@@ -2323,7 +2323,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr info);
 
-        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='UnsetAttributeMask()']/*" />
+        /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.UnsetAttributeMask()']/*" />
         public unsafe void UnsetAttributeMask()
         {
             var info_ = Handle;

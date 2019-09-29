@@ -189,7 +189,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr destroyNotify);
 
-        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)']/*" />
+        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
@@ -220,7 +220,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr domain);
 
-        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
@@ -229,7 +229,7 @@ namespace GISharp.Lib.GLib
             g_option_group_set_translation_domain(group_, domain_);
         }
 
-        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='SetTranslationDomain(System.String)']/*" />
+        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslationDomain(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetTranslationDomain(System.String domain)
         {

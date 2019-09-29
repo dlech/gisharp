@@ -1,24 +1,24 @@
 <declaration>
 
-<member name='ParentClass'>
+<member name='Struct.ParentClass'>
 </member>
 
-<member name='Cancelled'>
+<member name='Struct.Cancelled'>
 </member>
 
-<member name='GReserved1'>
+<member name='Struct.GReserved1'>
 </member>
 
-<member name='GReserved2'>
+<member name='Struct.GReserved2'>
 </member>
 
-<member name='GReserved3'>
+<member name='Struct.GReserved3'>
 </member>
 
-<member name='GReserved4'>
+<member name='Struct.GReserved4'>
 </member>
 
-<member name='GReserved5'>
+<member name='Struct.GReserved5'>
 </member>
 
 <member name='Cancelled'>

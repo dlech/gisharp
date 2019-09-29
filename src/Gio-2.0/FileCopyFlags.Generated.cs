@@ -7,19 +7,19 @@ namespace GISharp.Lib.Gio
     [System.FlagsAttribute]
     public enum FileCopyFlags
     {
-        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='Overwrite']/*" />
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags.Overwrite']/*" />
         Overwrite = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='Backup']/*" />
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags.Backup']/*" />
         Backup = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='NoFollowSymlinks']/*" />
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags.NoFollowSymlinks']/*" />
         NoFollowSymlinks = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='AllMetadata']/*" />
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags.AllMetadata']/*" />
         AllMetadata = 0b0000_0000_0000_0000_0000_0000_0000_1000,
-        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='NoFallbackForMove']/*" />
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags.NoFallbackForMove']/*" />
         NoFallbackForMove = 0b0000_0000_0000_0000_0000_0000_0001_0000,
-        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='TargetDefaultPerms']/*" />
+        /// <include file="FileCopyFlags.xmldoc" path="declaration/member[@name='FileCopyFlags.TargetDefaultPerms']/*" />
         TargetDefaultPerms = 0b0000_0000_0000_0000_0000_0000_0010_0000
     }
 

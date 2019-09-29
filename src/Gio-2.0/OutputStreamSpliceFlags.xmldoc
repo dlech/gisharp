@@ -1,19 +1,19 @@
 <declaration>
 
-<member name='None'>
+<member name='OutputStreamSpliceFlags.None'>
 <summary>
 Do not close either stream.
 </summary>
 </member>
 
-<member name='CloseSource'>
+<member name='OutputStreamSpliceFlags.CloseSource'>
 <summary>
 Close the source stream after
     the splice.
 </summary>
 </member>
 
-<member name='CloseTarget'>
+<member name='OutputStreamSpliceFlags.CloseTarget'>
 <summary>
 Close the target stream after
     the splice.

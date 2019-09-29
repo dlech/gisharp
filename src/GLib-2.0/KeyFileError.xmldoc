@@ -1,37 +1,37 @@
 <declaration>
 
-<member name='UnknownEncoding'>
+<member name='KeyFileError.UnknownEncoding'>
 <summary>
 the text being parsed was in
     an unknown encoding
 </summary>
 </member>
 
-<member name='Parse'>
+<member name='KeyFileError.Parse'>
 <summary>
 document was ill-formed
 </summary>
 </member>
 
-<member name='NotFound'>
+<member name='KeyFileError.NotFound'>
 <summary>
 the file was not found
 </summary>
 </member>
 
-<member name='KeyNotFound'>
+<member name='KeyFileError.KeyNotFound'>
 <summary>
 a requested key was not found
 </summary>
 </member>
 
-<member name='GroupNotFound'>
+<member name='KeyFileError.GroupNotFound'>
 <summary>
 a requested group was not found
 </summary>
 </member>
 
-<member name='InvalidValue'>
+<member name='KeyFileError.InvalidValue'>
 <summary>
 a value could not be parsed
 </summary>
@@ -43,7 +43,7 @@ Error codes returned by key file parsing.
 </summary>
 </member>
 
-<member name='Quark'>
+<member name='KeyFileErrorDomain.Quark'>
 <summary>
 Gets the <see cref="KeyFileError"/> Quark.
 </summary>

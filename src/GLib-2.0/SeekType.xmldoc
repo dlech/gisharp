@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='Current'>
+<member name='SeekType.Current'>
 <summary>
 the current position in the file.
 </summary>
 </member>
 
-<member name='Start'>
+<member name='SeekType.Start'>
 <summary>
 the start of the file.
 </summary>
 </member>
 
-<member name='End'>
+<member name='SeekType.End'>
 <summary>
 the end of the file.
 </summary>

@@ -1,24 +1,24 @@
 <declaration>
 
-<member name='GIface'>
+<member name='Struct.GIface'>
 <summary>
 The parent interface.
 </summary>
 </member>
 
-<member name='Tell'>
+<member name='Struct.Tell'>
 </member>
 
-<member name='CanSeek'>
+<member name='Struct.CanSeek'>
 </member>
 
-<member name='Seek'>
+<member name='Struct.Seek'>
 </member>
 
-<member name='CanTruncate'>
+<member name='Struct.CanTruncate'>
 </member>
 
-<member name='TruncateFn'>
+<member name='Struct.TruncateFn'>
 </member>
 
 <member name='Tell'>

@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='ActionAdded'>
+<member name='IActionGroup.ActionAdded'>
 <summary>
 Signals that a new action was just added to the group.
 This signal is emitted after the action has been added
@@ -8,13 +8,13 @@ and is now visible.
 </summary>
 </member>
 
-<member name='ActionEnabledChanged'>
+<member name='IActionGroup.ActionEnabledChanged'>
 <summary>
 Signals that the enabled status of the named action has changed.
 </summary>
 </member>
 
-<member name='ActionRemoved'>
+<member name='IActionGroup.ActionRemoved'>
 <summary>
 Signals that an action is just about to be removed from the group.
 This signal is emitted before the action is removed, so the action
@@ -22,13 +22,13 @@ is still visible and can be queried from the signal handler.
 </summary>
 </member>
 
-<member name='ActionStateChanged'>
+<member name='IActionGroup.ActionStateChanged'>
 <summary>
 Signals that the state of the named action has changed.
 </summary>
 </member>
 
-<member name='DoActionAdded(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionGroup.DoActionAdded(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-added signal on this instance.
 </summary>
@@ -40,7 +40,7 @@ the name of an action in the group
 </param>
 </member>
 
-<member name='DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
+<member name='IActionGroup.DoActionEnabledChanged(GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-enabled-changed signal on this instance.
 </summary>
@@ -55,7 +55,7 @@ whether or not the action is now enabled
 </param>
 </member>
 
-<member name='DoActionRemoved(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionGroup.DoActionRemoved(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-removed signal on this instance.
 </summary>
@@ -67,7 +67,7 @@ the name of an action in the group
 </param>
 </member>
 
-<member name='DoActionStateChanged(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
+<member name='IActionGroup.DoActionStateChanged(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-state-changed signal on this instance.
 </summary>
@@ -82,7 +82,7 @@ the new state of the named action
 </param>
 </member>
 
-<member name='DoActivateAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)'>
+<member name='IActionGroup.DoActivateAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)'>
 <summary>
 Activate the named action within this instance.
 </summary>
@@ -100,7 +100,7 @@ parameters to the activation
 </param>
 </member>
 
-<member name='DoChangeActionState(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
+<member name='IActionGroup.DoChangeActionState(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
 <summary>
 Request for the state of the named action within this instance to be
 changed to this instance.
@@ -123,7 +123,7 @@ the new state
 </param>
 </member>
 
-<member name='DoGetActionEnabled(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionGroup.DoGetActionEnabled(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if the named action within this instance is currently enabled.
 </summary>
@@ -139,7 +139,7 @@ whether or not the action is currently enabled
 </returns>
 </member>
 
-<member name='DoGetActionParameterType(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionGroup.DoGetActionParameterType(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Queries the type of the parameter that must be given when activating
 the named action within this instance.
@@ -164,7 +164,7 @@ the parameter type
 </returns>
 </member>
 
-<member name='DoGetActionState(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionGroup.DoGetActionState(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Queries the current state of the named action within this instance.
 </summary>
@@ -184,7 +184,7 @@ the current state of the action
 </returns>
 </member>
 
-<member name='DoGetActionStateHint(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionGroup.DoGetActionStateHint(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Requests a hint about the valid range of values for the state of the
 named action within this instance.
@@ -214,7 +214,7 @@ the state range hint
 </returns>
 </member>
 
-<member name='DoGetActionStateType(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionGroup.DoGetActionStateType(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Queries the type of the state of the named action within
 this instance.
@@ -242,7 +242,7 @@ the state type, if the action is stateful
 </returns>
 </member>
 
-<member name='DoHasAction(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='IActionGroup.DoHasAction(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if the named action exists within this instance.
 </summary>
@@ -254,7 +254,7 @@ whether the named action exists
 </returns>
 </member>
 
-<member name='DoListActions()'>
+<member name='IActionGroup.DoListActions()'>
 <summary>
 Lists the actions contained within this instance.
 </summary>
@@ -319,7 +319,7 @@ calls to <see cref="M:ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GI
 </remarks>
 </member>
 
-<member name='ActionName'>
+<member name='ActionAddedEventArgs.ActionName'>
 <param name="actionName">
 the name of the action in <paramref name="actionGroup"/>
 </param>
@@ -333,13 +333,13 @@ and is now visible.
 </summary>
 </member>
 
-<member name='ActionName'>
+<member name='ActionEnabledChangedEventArgs.ActionName'>
 <param name="actionName">
 the name of the action in <paramref name="actionGroup"/>
 </param>
 </member>
 
-<member name='Enabled'>
+<member name='ActionEnabledChangedEventArgs.Enabled'>
 <param name="enabled">
 whether the action is enabled or not
 </param>
@@ -351,7 +351,7 @@ Signals that the enabled status of the named action has changed.
 </summary>
 </member>
 
-<member name='ActionName'>
+<member name='ActionRemovedEventArgs.ActionName'>
 <param name="actionName">
 the name of the action in <paramref name="actionGroup"/>
 </param>
@@ -365,13 +365,13 @@ is still visible and can be queried from the signal handler.
 </summary>
 </member>
 
-<member name='ActionName'>
+<member name='ActionStateChangedEventArgs.ActionName'>
 <param name="actionName">
 the name of the action in <paramref name="actionGroup"/>
 </param>
 </member>
 
-<member name='Value'>
+<member name='ActionStateChangedEventArgs.Value'>
 <param name="value">
 the new value of the state
 </param>
@@ -383,7 +383,7 @@ Signals that the state of the named action has changed.
 </summary>
 </member>
 
-<member name='ActionAdded(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionGroup.ActionAdded(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-added signal on this instance.
 </summary>
@@ -398,7 +398,7 @@ the name of an action in the group
 </param>
 </member>
 
-<member name='ActionAdded(GISharp.Lib.Gio.IActionGroup,System.String)'>
+<member name='ActionGroup.ActionAdded(GISharp.Lib.Gio.IActionGroup,System.String)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-added signal on this instance.
 </summary>
@@ -413,7 +413,7 @@ the name of an action in the group
 </param>
 </member>
 
-<member name='ActionEnabledChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
+<member name='ActionGroup.ActionEnabledChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-enabled-changed signal on this instance.
 </summary>
@@ -431,7 +431,7 @@ whether or not the action is now enabled
 </param>
 </member>
 
-<member name='ActionEnabledChanged(GISharp.Lib.Gio.IActionGroup,System.String,System.Boolean)'>
+<member name='ActionGroup.ActionEnabledChanged(GISharp.Lib.Gio.IActionGroup,System.String,System.Boolean)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-enabled-changed signal on this instance.
 </summary>
@@ -449,7 +449,7 @@ whether or not the action is now enabled
 </param>
 </member>
 
-<member name='ActionRemoved(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionGroup.ActionRemoved(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-removed signal on this instance.
 </summary>
@@ -464,7 +464,7 @@ the name of an action in the group
 </param>
 </member>
 
-<member name='ActionRemoved(GISharp.Lib.Gio.IActionGroup,System.String)'>
+<member name='ActionGroup.ActionRemoved(GISharp.Lib.Gio.IActionGroup,System.String)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-removed signal on this instance.
 </summary>
@@ -479,7 +479,7 @@ the name of an action in the group
 </param>
 </member>
 
-<member name='ActionStateChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
+<member name='ActionGroup.ActionStateChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-state-changed signal on this instance.
 </summary>
@@ -497,7 +497,7 @@ the new state of the named action
 </param>
 </member>
 
-<member name='ActionStateChanged(GISharp.Lib.Gio.IActionGroup,System.String,GISharp.Lib.GLib.Variant)'>
+<member name='ActionGroup.ActionStateChanged(GISharp.Lib.Gio.IActionGroup,System.String,GISharp.Lib.GLib.Variant)'>
 <summary>
 Emits the <see cref="IActionGroup"/>::action-state-changed signal on this instance.
 </summary>
@@ -515,7 +515,7 @@ the new state of the named action
 </param>
 </member>
 
-<member name='ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)'>
+<member name='ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)'>
 <summary>
 Activate the named action within this instance.
 </summary>
@@ -536,7 +536,7 @@ parameters to the activation
 </param>
 </member>
 
-<member name='ActivateAction(GISharp.Lib.Gio.IActionGroup,System.String,GISharp.Lib.GLib.Variant?)'>
+<member name='ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,System.String,GISharp.Lib.GLib.Variant?)'>
 <summary>
 Activate the named action within this instance.
 </summary>
@@ -557,7 +557,7 @@ parameters to the activation
 </param>
 </member>
 
-<member name='ChangeActionState(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
+<member name='ActionGroup.ChangeActionState(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)'>
 <summary>
 Request for the state of the named action within this instance to be
 changed to this instance.
@@ -583,7 +583,7 @@ the new state
 </param>
 </member>
 
-<member name='ChangeActionState(GISharp.Lib.Gio.IActionGroup,System.String,GISharp.Lib.GLib.Variant)'>
+<member name='ActionGroup.ChangeActionState(GISharp.Lib.Gio.IActionGroup,System.String,GISharp.Lib.GLib.Variant)'>
 <summary>
 Request for the state of the named action within this instance to be
 changed to this instance.
@@ -609,7 +609,7 @@ the new state
 </param>
 </member>
 
-<member name='GetActionEnabled(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionGroup.GetActionEnabled(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if the named action within this instance is currently enabled.
 </summary>
@@ -628,7 +628,7 @@ whether or not the action is currently enabled
 </returns>
 </member>
 
-<member name='GetActionEnabled(GISharp.Lib.Gio.IActionGroup,System.String)'>
+<member name='ActionGroup.GetActionEnabled(GISharp.Lib.Gio.IActionGroup,System.String)'>
 <summary>
 Checks if the named action within this instance is currently enabled.
 </summary>
@@ -647,7 +647,7 @@ whether or not the action is currently enabled
 </returns>
 </member>
 
-<member name='GetActionParameterType(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionGroup.GetActionParameterType(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Queries the type of the parameter that must be given when activating
 the named action within this instance.
@@ -675,7 +675,7 @@ the parameter type
 </returns>
 </member>
 
-<member name='GetActionParameterType(GISharp.Lib.Gio.IActionGroup,System.String)'>
+<member name='ActionGroup.GetActionParameterType(GISharp.Lib.Gio.IActionGroup,System.String)'>
 <summary>
 Queries the type of the parameter that must be given when activating
 the named action within this instance.
@@ -703,7 +703,7 @@ the parameter type
 </returns>
 </member>
 
-<member name='GetActionState(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionGroup.GetActionState(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Queries the current state of the named action within this instance.
 </summary>
@@ -726,7 +726,7 @@ the current state of the action
 </returns>
 </member>
 
-<member name='GetActionState(GISharp.Lib.Gio.IActionGroup,System.String)'>
+<member name='ActionGroup.GetActionState(GISharp.Lib.Gio.IActionGroup,System.String)'>
 <summary>
 Queries the current state of the named action within this instance.
 </summary>
@@ -749,7 +749,7 @@ the current state of the action
 </returns>
 </member>
 
-<member name='GetActionStateHint(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionGroup.GetActionStateHint(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Requests a hint about the valid range of values for the state of the
 named action within this instance.
@@ -782,7 +782,7 @@ the state range hint
 </returns>
 </member>
 
-<member name='GetActionStateHint(GISharp.Lib.Gio.IActionGroup,System.String)'>
+<member name='ActionGroup.GetActionStateHint(GISharp.Lib.Gio.IActionGroup,System.String)'>
 <summary>
 Requests a hint about the valid range of values for the state of the
 named action within this instance.
@@ -815,7 +815,7 @@ the state range hint
 </returns>
 </member>
 
-<member name='GetActionStateType(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionGroup.GetActionStateType(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Queries the type of the state of the named action within
 this instance.
@@ -846,7 +846,7 @@ the state type, if the action is stateful
 </returns>
 </member>
 
-<member name='GetActionStateType(GISharp.Lib.Gio.IActionGroup,System.String)'>
+<member name='ActionGroup.GetActionStateType(GISharp.Lib.Gio.IActionGroup,System.String)'>
 <summary>
 Queries the type of the state of the named action within
 this instance.
@@ -877,7 +877,7 @@ the state type, if the action is stateful
 </returns>
 </member>
 
-<member name='HasAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ActionGroup.HasAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if the named action exists within this instance.
 </summary>
@@ -892,7 +892,7 @@ whether the named action exists
 </returns>
 </member>
 
-<member name='HasAction(GISharp.Lib.Gio.IActionGroup,System.String)'>
+<member name='ActionGroup.HasAction(GISharp.Lib.Gio.IActionGroup,System.String)'>
 <summary>
 Checks if the named action exists within this instance.
 </summary>
@@ -907,7 +907,7 @@ whether the named action exists
 </returns>
 </member>
 
-<member name='ListActions(GISharp.Lib.Gio.IActionGroup)'>
+<member name='ActionGroup.ListActions(GISharp.Lib.Gio.IActionGroup)'>
 <summary>
 Lists the actions contained within this instance.
 </summary>
@@ -924,7 +924,7 @@ actions in the group
 </returns>
 </member>
 
-<member name='TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)'>
+<member name='ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)'>
 <summary>
 Queries all aspects of the named action within an this instance.
 </summary>
@@ -981,7 +981,7 @@ the current state, or <c>null</c> if stateless
 </returns>
 </member>
 
-<member name='TryQueryAction(GISharp.Lib.Gio.IActionGroup,System.String,System.Boolean,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)'>
+<member name='ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,System.String,System.Boolean,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)'>
 <summary>
 Queries all aspects of the named action within an this instance.
 </summary>

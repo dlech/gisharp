@@ -8,28 +8,28 @@ namespace GISharp.Lib.Gio
     [System.FlagsAttribute]
     public enum ApplicationFlags
     {
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='FlagsNone']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.FlagsNone']/*" />
         FlagsNone = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='IsService']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.IsService']/*" />
         IsService = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='IsLauncher']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.IsLauncher']/*" />
         IsLauncher = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='HandlesOpen']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.HandlesOpen']/*" />
         HandlesOpen = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='HandlesCommandLine']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.HandlesCommandLine']/*" />
         HandlesCommandLine = 0b0000_0000_0000_0000_0000_0000_0000_1000,
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='SendEnvironment']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.SendEnvironment']/*" />
         SendEnvironment = 0b0000_0000_0000_0000_0000_0000_0001_0000,
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='NonUnique']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.NonUnique']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         NonUnique = 0b0000_0000_0000_0000_0000_0000_0010_0000,
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='CanOverrideAppId']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.CanOverrideAppId']/*" />
         [GISharp.Runtime.SinceAttribute("2.48")]
         CanOverrideAppId = 0b0000_0000_0000_0000_0000_0000_0100_0000,
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='AllowReplacement']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.AllowReplacement']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         AllowReplacement = 0b0000_0000_0000_0000_0000_0000_1000_0000,
-        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='Replace']/*" />
+        /// <include file="ApplicationFlags.xmldoc" path="declaration/member[@name='ApplicationFlags.Replace']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         Replace = 0b0000_0000_0000_0000_0000_0001_0000_0000
     }

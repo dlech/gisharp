@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='ParentInstance'>
+<member name='Struct.ParentInstance'>
 </member>
 
-<member name='Priv'>
+<member name='Struct.Priv'>
 </member>
 
-<member name='Etag'>
+<member name='FileOutputStream.Etag'>
 <summary>
 Gets the entity tag for the file when it has been written.
 This must be called after the stream has been written
@@ -14,7 +14,7 @@ and closed, as the etag can change while writing.
 </summary>
 </member>
 
-<member name='QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)'>
+<member name='FileOutputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Queries a file output stream for the given this instance.
 This function blocks while querying the stream. For the asynchronous
@@ -49,7 +49,7 @@ On error
 </exception>
 </member>
 
-<member name='QueryInfo(System.String,GISharp.Lib.Gio.Cancellable?)'>
+<member name='FileOutputStream.QueryInfo(System.String,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Queries a file output stream for the given this instance.
 This function blocks while querying the stream. For the asynchronous
@@ -84,7 +84,7 @@ On error
 </exception>
 </member>
 
-<member name='QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='FileOutputStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously queries the this instance for a <see cref="FileInfo"/>. When completed,
 this instance will be called with a <see cref="IAsyncResult"/> which can be used to
@@ -105,7 +105,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='QueryInfoAsync(System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='FileOutputStream.QueryInfoAsync(System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously queries the this instance for a <see cref="FileInfo"/>. When completed,
 this instance will be called with a <see cref="IAsyncResult"/> which can be used to
@@ -126,13 +126,13 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='DoCanSeek()'>
+<member name='FileOutputStream.DoCanSeek()'>
 </member>
 
-<member name='DoCanTruncate()'>
+<member name='FileOutputStream.DoCanTruncate()'>
 </member>
 
-<member name='DoGetEtag()'>
+<member name='FileOutputStream.DoGetEtag()'>
 <summary>
 Gets the entity tag for the file when it has been written.
 This must be called after the stream has been written
@@ -143,7 +143,7 @@ the entity tag for the stream.
 </returns>
 </member>
 
-<member name='DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)'>
+<member name='FileOutputStream.DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Queries a file output stream for the given this instance.
 This function blocks while querying the stream. For the asynchronous
@@ -178,7 +178,7 @@ On error
 </exception>
 </member>
 
-<member name='DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='FileOutputStream.DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously queries the this instance for a <see cref="FileInfo"/>. When completed,
 this instance will be called with a <see cref="IAsyncResult"/> which can be used to
@@ -202,7 +202,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)'>
+<member name='FileOutputStream.DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finalizes the asynchronous query started
 by <see cref="M:FileOutputStream.QueryInfoAsync(GISharp.Lib.GLib.Utf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
@@ -218,16 +218,16 @@ On error
 </exception>
 </member>
 
-<member name='DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)'>
+<member name='FileOutputStream.DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)'>
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>
 </member>
 
-<member name='DoTell()'>
+<member name='FileOutputStream.DoTell()'>
 </member>
 
-<member name='DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)'>
+<member name='FileOutputStream.DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)'>
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>

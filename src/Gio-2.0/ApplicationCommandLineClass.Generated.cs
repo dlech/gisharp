@@ -12,19 +12,19 @@ namespace GISharp.Lib.Gio
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
 
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='PrintLiteral']/*" />
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.PrintLiteral']/*" />
             public System.IntPtr PrintLiteral;
 
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='PrinterrLiteral']/*" />
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.PrinterrLiteral']/*" />
             public System.IntPtr PrinterrLiteral;
 
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='GetStdin']/*" />
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.GetStdin']/*" />
             public System.IntPtr GetStdin;
 
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Padding']/*" />
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.Padding']/*" />
             public System.IntPtr* Padding;
 #pragma warning restore CS0649
         }

@@ -12,55 +12,55 @@ namespace GISharp.Lib.Gio
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Startup']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Startup']/*" />
             public System.IntPtr Startup;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Activate']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Activate']/*" />
             public System.IntPtr Activate;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Open']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Open']/*" />
             public System.IntPtr Open;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='CommandLine']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.CommandLine']/*" />
             public System.IntPtr CommandLine;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='LocalCommandLine']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.LocalCommandLine']/*" />
             public System.IntPtr LocalCommandLine;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='BeforeEmit']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.BeforeEmit']/*" />
             public System.IntPtr BeforeEmit;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='AfterEmit']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.AfterEmit']/*" />
             public System.IntPtr AfterEmit;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='AddPlatformData']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.AddPlatformData']/*" />
             public System.IntPtr AddPlatformData;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='QuitMainloop']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.QuitMainloop']/*" />
             public System.IntPtr QuitMainloop;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='RunMainloop']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.RunMainloop']/*" />
             public System.IntPtr RunMainloop;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Shutdown']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Shutdown']/*" />
             public System.IntPtr Shutdown;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='DbusRegister']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.DbusRegister']/*" />
             public System.IntPtr DbusRegister;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='DbusUnregister']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.DbusUnregister']/*" />
             public System.IntPtr DbusUnregister;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='HandleLocalOptions']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.HandleLocalOptions']/*" />
             public System.IntPtr HandleLocalOptions;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='NameLost']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.NameLost']/*" />
             public System.IntPtr NameLost;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Padding']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Padding']/*" />
             public System.IntPtr* Padding;
 #pragma warning restore CS0649
         }

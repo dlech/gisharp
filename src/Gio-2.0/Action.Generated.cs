@@ -7,67 +7,67 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionInterface))]
     public partial interface IAction : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <include file="Action.xmldoc" path="declaration/member[@name='Enabled']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.Enabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
         System.Boolean Enabled { get; }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='Name']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name")]
         GISharp.Lib.GLib.Utf8? Name { get; }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='ParameterType']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.ParameterType']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("parameter-type")]
         GISharp.Lib.GLib.VariantType? ParameterType { get; }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='State']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.State']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state")]
         GISharp.Lib.GLib.Variant? State { get; }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='StateType']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.StateType']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state-type")]
         GISharp.Lib.GLib.VariantType? StateType { get; }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='DoActivate(GISharp.Lib.GLib.Variant?)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoActivate(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedActivate))]
         void DoActivate(GISharp.Lib.GLib.Variant? parameter);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='DoChangeState(GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoChangeState(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedChangeState))]
         void DoChangeState(GISharp.Lib.GLib.Variant value);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='DoGetEnabled()']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetEnabled()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetEnabled))]
         System.Boolean DoGetEnabled();
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='DoGetName()']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetName()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetName))]
         GISharp.Lib.GLib.UnownedUtf8 DoGetName();
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='DoGetParameterType()']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetParameterType()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetParameterType))]
         GISharp.Lib.GLib.VariantType? DoGetParameterType();
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='DoGetState()']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetState()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetState))]
         GISharp.Lib.GLib.Variant DoGetState();
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='DoGetStateHint()']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetStateHint()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetStateHint))]
         GISharp.Lib.GLib.Variant? DoGetStateHint();
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='DoGetStateType()']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.DoGetStateType()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionInterface.UnmanagedGetStateType))]
         GISharp.Lib.GLib.VariantType? DoGetStateType();
@@ -105,7 +105,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='NameIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.NameIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe System.Boolean NameIsValid(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
@@ -115,7 +115,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='NameIsValid(System.String)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.NameIsValid(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe System.Boolean NameIsValid(System.String actionName)
         {
@@ -183,7 +183,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe void ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8 detailedName, out GISharp.Lib.GLib.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
         {
@@ -200,7 +200,7 @@ namespace GISharp.Lib.Gio
             targetValue = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(targetValue_, GISharp.Runtime.Transfer.Full)!;
         }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='ParseDetailedName(System.String,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.ParseDetailedName(System.String,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe void ParseDetailedName(System.String detailedName, out GISharp.Lib.GLib.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
         {
@@ -242,7 +242,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr targetValue);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='PrintDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.PrintDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe GISharp.Lib.GLib.Utf8 PrintDetailedName(GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? targetValue)
         {
@@ -253,7 +253,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='PrintDetailedName(System.String,GISharp.Lib.GLib.Variant?)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.PrintDetailedName(System.String,GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe GISharp.Lib.GLib.Utf8 PrintDetailedName(System.String actionName, GISharp.Lib.GLib.Variant? targetValue)
         {
@@ -294,7 +294,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parameter);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant?)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe static void Activate(this GISharp.Lib.Gio.IAction action, GISharp.Lib.GLib.Variant? parameter)
         {
@@ -334,7 +334,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         public unsafe static void ChangeState(this GISharp.Lib.Gio.IAction action, GISharp.Lib.GLib.Variant value)
         {
@@ -365,7 +365,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='GetEnabled(GISharp.Lib.Gio.IAction)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.GetEnabled(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe static System.Boolean GetEnabled(this GISharp.Lib.Gio.IAction action)
         {
@@ -393,7 +393,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='GetName(GISharp.Lib.Gio.IAction)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.GetName(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe static GISharp.Lib.GLib.UnownedUtf8 GetName(this GISharp.Lib.Gio.IAction action)
         {
@@ -429,7 +429,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='GetParameterType(GISharp.Lib.Gio.IAction)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.GetParameterType(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe static GISharp.Lib.GLib.VariantType? GetParameterType(this GISharp.Lib.Gio.IAction action)
         {
@@ -465,7 +465,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='GetState(GISharp.Lib.Gio.IAction)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.GetState(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe static GISharp.Lib.GLib.Variant GetState(this GISharp.Lib.Gio.IAction action)
         {
@@ -511,7 +511,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='GetStateHint(GISharp.Lib.Gio.IAction)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.GetStateHint(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe static GISharp.Lib.GLib.Variant? GetStateHint(this GISharp.Lib.Gio.IAction action)
         {
@@ -551,7 +551,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='GetStateType(GISharp.Lib.Gio.IAction)']/*" />
+        /// <include file="Action.xmldoc" path="declaration/member[@name='Action.GetStateType(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe static GISharp.Lib.GLib.VariantType? GetStateType(this GISharp.Lib.Gio.IAction action)
         {

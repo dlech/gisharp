@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='None'>
+<member name='FileAttributeInfoFlags.None'>
 <summary>
 no flags set.
 </summary>
 </member>
 
-<member name='CopyWithFile'>
+<member name='FileAttributeInfoFlags.CopyWithFile'>
 <summary>
 copy the attribute values when the file is copied.
 </summary>
 </member>
 
-<member name='CopyWhenMoved'>
+<member name='FileAttributeInfoFlags.CopyWhenMoved'>
 <summary>
 copy the attribute values when the file is moved.
 </summary>

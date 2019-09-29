@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='Local'>
+<member name='TimeZone.Local'>
 <summary>
 Creates a <see cref="TimeZone"/> corresponding to local time.  The local time
 zone may change between invocations to this function; for example,
@@ -15,7 +15,7 @@ when you are done with it.
 </remarks>
 </member>
 
-<member name='Utc'>
+<member name='TimeZone.Utc'>
 <summary>
 Creates a <see cref="TimeZone"/> corresponding to UTC.
 </summary>
@@ -28,7 +28,7 @@ when you are done with it.
 </remarks>
 </member>
 
-<member name='Identifier'>
+<member name='TimeZone.Identifier'>
 <summary>
 Get the identifier of this <see cref="TimeZone"/>, as passed to <see cref="M:TimeZone.#ctor(GISharp.Lib.GLib.Utf8)"/>.
 If the identifier passed at construction time was not recognised, `UTC` will
@@ -42,7 +42,7 @@ this function.
 </remarks>
 </member>
 
-<member name='TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Creates a <see cref="TimeZone"/> corresponding to <paramref name="identifier"/>.
 </summary>
@@ -114,7 +114,7 @@ a timezone identifier
 </param>
 </member>
 
-<member name='TimeZone(System.String?)'>
+<member name='TimeZone.TimeZone(System.String?)'>
 <summary>
 Creates a <see cref="TimeZone"/> corresponding to <paramref name="identifier"/>.
 </summary>
@@ -186,7 +186,7 @@ a timezone identifier
 </param>
 </member>
 
-<member name='TimeZone(System.Int32)'>
+<member name='TimeZone.TimeZone(System.Int32)'>
 <summary>
 Creates a <see cref="TimeZone"/> corresponding to the given constant offset from UTC,
 in seconds.
@@ -200,7 +200,7 @@ offset to UTC, in seconds
 </param>
 </member>
 
-<member name='AdjustTime(GISharp.Lib.GLib.TimeType,System.Int64)'>
+<member name='TimeZone.AdjustTime(GISharp.Lib.GLib.TimeType,System.Int64)'>
 <summary>
 Finds an interval within this instance that corresponds to the given this instance,
 possibly adjusting this instance if required to fit into an interval.
@@ -231,7 +231,7 @@ the interval containing this instance, never -1
 </returns>
 </member>
 
-<member name='FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)'>
+<member name='TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)'>
 <summary>
 Finds an the interval within this instance that corresponds to the given this instance.
 The meaning of this instance depends on this instance.
@@ -264,7 +264,7 @@ the interval containing this instance, or -1 in case of failure
 </returns>
 </member>
 
-<member name='GetAbbreviation(System.Int32)'>
+<member name='TimeZone.GetAbbreviation(System.Int32)'>
 <summary>
 Determines the time zone abbreviation to be used during a particular
 this instance of time in the time zone this instance.
@@ -282,7 +282,7 @@ the time zone abbreviation, which belongs to this instance
 </returns>
 </member>
 
-<member name='GetOffset(System.Int32)'>
+<member name='TimeZone.GetOffset(System.Int32)'>
 <summary>
 Determines the offset to UTC in effect during a particular this instance
 of time in the time zone this instance.
@@ -301,7 +301,7 @@ the number of seconds that should be added to UTC to get the
 </returns>
 </member>
 
-<member name='IsDst(System.Int32)'>
+<member name='TimeZone.IsDst(System.Int32)'>
 <summary>
 Determines if daylight savings time is in effect during a particular
 this instance of time in the time zone this instance.

@@ -7,18 +7,18 @@ namespace GISharp.Lib.Gio
     [System.FlagsAttribute]
     public enum FileMonitorFlags
     {
-        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='FileMonitorFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='WatchMounts']/*" />
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='FileMonitorFlags.WatchMounts']/*" />
         WatchMounts = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='SendMoved']/*" />
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='FileMonitorFlags.SendMoved']/*" />
         [System.ObsoleteAttribute]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.46")]
         SendMoved = 0b0000_0000_0000_0000_0000_0000_0000_0010,
-        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='WatchHardLinks']/*" />
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='FileMonitorFlags.WatchHardLinks']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         WatchHardLinks = 0b0000_0000_0000_0000_0000_0000_0000_0100,
-        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='WatchMoves']/*" />
+        /// <include file="FileMonitorFlags.xmldoc" path="declaration/member[@name='FileMonitorFlags.WatchMoves']/*" />
         [GISharp.Runtime.SinceAttribute("2.46")]
         WatchMoves = 0b0000_0000_0000_0000_0000_0000_0000_1000
     }

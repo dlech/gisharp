@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='UnknownOption'>
+<member name='OptionError.UnknownOption'>
 <summary>
 An option was not known to the parser.
  This error will only be reported, if the parser hasn't been instructed
@@ -8,13 +8,13 @@ An option was not known to the parser.
 </summary>
 </member>
 
-<member name='BadValue'>
+<member name='OptionError.BadValue'>
 <summary>
 A value couldn't be parsed.
 </summary>
 </member>
 
-<member name='Failed'>
+<member name='OptionError.Failed'>
 <summary>
 A <see cref="OptionArgFunc"/> callback failed.
 </summary>
@@ -26,7 +26,7 @@ Error codes returned by option parsing.
 </summary>
 </member>
 
-<member name='Quark'>
+<member name='OptionErrorDomain.Quark'>
 </member>
 
 </declaration>

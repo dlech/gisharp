@@ -1,60 +1,60 @@
 <declaration>
 
-<member name='Invalid'>
+<member name='FileAttributeType.Invalid'>
 <summary>
 indicates an invalid or uninitalized type.
 </summary>
 </member>
 
-<member name='String'>
+<member name='FileAttributeType.String'>
 <summary>
 a null terminated UTF8 string.
 </summary>
 </member>
 
-<member name='ByteString'>
+<member name='FileAttributeType.ByteString'>
 <summary>
 a zero terminated string of non-zero bytes.
 </summary>
 </member>
 
-<member name='Boolean'>
+<member name='FileAttributeType.Boolean'>
 <summary>
 a boolean value.
 </summary>
 </member>
 
-<member name='Uint32'>
+<member name='FileAttributeType.Uint32'>
 <summary>
 an unsigned 4-byte/32-bit integer.
 </summary>
 </member>
 
-<member name='Int32'>
+<member name='FileAttributeType.Int32'>
 <summary>
 a signed 4-byte/32-bit integer.
 </summary>
 </member>
 
-<member name='Uint64'>
+<member name='FileAttributeType.Uint64'>
 <summary>
 an unsigned 8-byte/64-bit integer.
 </summary>
 </member>
 
-<member name='Int64'>
+<member name='FileAttributeType.Int64'>
 <summary>
 a signed 8-byte/64-bit integer.
 </summary>
 </member>
 
-<member name='Object'>
+<member name='FileAttributeType.Object'>
 <summary>
 a #GObject.
 </summary>
 </member>
 
-<member name='StringArray'>
+<member name='FileAttributeType.StringArray'>
 <summary>
 a <c>null</c> terminated char **.
 </summary>

@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='GIface'>
+<member name='Struct.GIface'>
 <summary>
 The parent interface.
 </summary>
 </member>
 
-<member name='GetUserData'>
+<member name='Struct.GetUserData'>
 </member>
 
-<member name='GetSourceObject'>
+<member name='Struct.GetSourceObject'>
 </member>
 
-<member name='IsTagged'>
+<member name='Struct.IsTagged'>
 </member>
 
 <member name='GetUserData'>

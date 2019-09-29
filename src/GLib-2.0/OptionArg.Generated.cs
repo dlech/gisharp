@@ -5,24 +5,24 @@ namespace GISharp.Lib.GLib
     /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg']/*" />
     public enum OptionArg
     {
-        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg.None']/*" />
         None = 0,
-        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='String']/*" />
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg.String']/*" />
         String = 1,
-        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Int']/*" />
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg.Int']/*" />
         Int = 2,
-        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Callback']/*" />
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg.Callback']/*" />
         Callback = 3,
-        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Filename']/*" />
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg.Filename']/*" />
         Filename = 4,
-        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='StringArray']/*" />
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg.StringArray']/*" />
         StringArray = 5,
-        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='FilenameArray']/*" />
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg.FilenameArray']/*" />
         FilenameArray = 6,
-        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Double']/*" />
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg.Double']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         Double = 7,
-        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='Int64']/*" />
+        /// <include file="OptionArg.xmldoc" path="declaration/member[@name='OptionArg.Int64']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         Int64 = 8
     }

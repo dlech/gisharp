@@ -5,271 +5,271 @@ namespace GISharp.Lib.Gio
     /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute']/*" />
     public static partial class FileAttribute
     {
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='AccessCanDelete']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.AccessCanDelete']/*" />
         public const System.String AccessCanDelete = "access::can-delete";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='AccessCanExecute']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.AccessCanExecute']/*" />
         public const System.String AccessCanExecute = "access::can-execute";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='AccessCanRead']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.AccessCanRead']/*" />
         public const System.String AccessCanRead = "access::can-read";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='AccessCanRename']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.AccessCanRename']/*" />
         public const System.String AccessCanRename = "access::can-rename";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='AccessCanTrash']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.AccessCanTrash']/*" />
         public const System.String AccessCanTrash = "access::can-trash";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='AccessCanWrite']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.AccessCanWrite']/*" />
         public const System.String AccessCanWrite = "access::can-write";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='DosIsArchive']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.DosIsArchive']/*" />
         public const System.String DosIsArchive = "dos::is-archive";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='DosIsMountpoint']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.DosIsMountpoint']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         public const System.String DosIsMountpoint = "dos::is-mountpoint";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='DosIsSystem']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.DosIsSystem']/*" />
         public const System.String DosIsSystem = "dos::is-system";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='DosReparsePointTag']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.DosReparsePointTag']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         public const System.String DosReparsePointTag = "dos::reparse-point-tag";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='EtagValue']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.EtagValue']/*" />
         public const System.String EtagValue = "etag::value";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FilesystemFree']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.FilesystemFree']/*" />
         public const System.String FilesystemFree = "filesystem::free";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FilesystemReadonly']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.FilesystemReadonly']/*" />
         public const System.String FilesystemReadonly = "filesystem::readonly";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FilesystemRemote']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.FilesystemRemote']/*" />
         public const System.String FilesystemRemote = "filesystem::remote";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FilesystemSize']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.FilesystemSize']/*" />
         public const System.String FilesystemSize = "filesystem::size";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FilesystemType']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.FilesystemType']/*" />
         public const System.String FilesystemType = "filesystem::type";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FilesystemUsed']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.FilesystemUsed']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public const System.String FilesystemUsed = "filesystem::used";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FilesystemUsePreview']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.FilesystemUsePreview']/*" />
         public const System.String FilesystemUsePreview = "filesystem::use-preview";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='GvfsBackend']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.GvfsBackend']/*" />
         public const System.String GvfsBackend = "gvfs::backend";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='IdFile']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.IdFile']/*" />
         public const System.String IdFile = "id::file";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='IdFilesystem']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.IdFilesystem']/*" />
         public const System.String IdFilesystem = "id::filesystem";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableCanEject']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableCanEject']/*" />
         public const System.String MountableCanEject = "mountable::can-eject";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableCanMount']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableCanMount']/*" />
         public const System.String MountableCanMount = "mountable::can-mount";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableCanPoll']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableCanPoll']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public const System.String MountableCanPoll = "mountable::can-poll";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableCanStart']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableCanStart']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public const System.String MountableCanStart = "mountable::can-start";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableCanStartDegraded']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableCanStartDegraded']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public const System.String MountableCanStartDegraded = "mountable::can-start-degraded";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableCanStop']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableCanStop']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public const System.String MountableCanStop = "mountable::can-stop";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableCanUnmount']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableCanUnmount']/*" />
         public const System.String MountableCanUnmount = "mountable::can-unmount";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableHalUdi']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableHalUdi']/*" />
         public const System.String MountableHalUdi = "mountable::hal-udi";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableIsMediaCheckAutomatic']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableIsMediaCheckAutomatic']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public const System.String MountableIsMediaCheckAutomatic = "mountable::is-media-check-automatic";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableStartStopType']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableStartStopType']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public const System.String MountableStartStopType = "mountable::start-stop-type";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableUnixDevice']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableUnixDevice']/*" />
         public const System.String MountableUnixDevice = "mountable::unix-device";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='MountableUnixDeviceFile']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.MountableUnixDeviceFile']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public const System.String MountableUnixDeviceFile = "mountable::unix-device-file";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='OwnerGroup']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.OwnerGroup']/*" />
         public const System.String OwnerGroup = "owner::group";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='OwnerUser']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.OwnerUser']/*" />
         public const System.String OwnerUser = "owner::user";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='OwnerUserReal']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.OwnerUserReal']/*" />
         public const System.String OwnerUserReal = "owner::user-real";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='PreviewIcon']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.PreviewIcon']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         public const System.String PreviewIcon = "preview::icon";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='RecentModified']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.RecentModified']/*" />
         [GISharp.Runtime.SinceAttribute("2.52")]
         public const System.String RecentModified = "recent::modified";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='SelinuxContext']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.SelinuxContext']/*" />
         public const System.String SelinuxContext = "selinux::context";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardAllocatedSize']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardAllocatedSize']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         public const System.String StandardAllocatedSize = "standard::allocated-size";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardContentType']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardContentType']/*" />
         public const System.String StandardContentType = "standard::content-type";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardCopyName']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardCopyName']/*" />
         public const System.String StandardCopyName = "standard::copy-name";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardDescription']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardDescription']/*" />
         public const System.String StandardDescription = "standard::description";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardDisplayName']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardDisplayName']/*" />
         public const System.String StandardDisplayName = "standard::display-name";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardEditName']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardEditName']/*" />
         public const System.String StandardEditName = "standard::edit-name";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardFastContentType']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardFastContentType']/*" />
         public const System.String StandardFastContentType = "standard::fast-content-type";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardIcon']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardIcon']/*" />
         public const System.String StandardIcon = "standard::icon";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardIsBackup']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardIsBackup']/*" />
         public const System.String StandardIsBackup = "standard::is-backup";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardIsHidden']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardIsHidden']/*" />
         public const System.String StandardIsHidden = "standard::is-hidden";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardIsSymlink']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardIsSymlink']/*" />
         public const System.String StandardIsSymlink = "standard::is-symlink";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardIsVirtual']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardIsVirtual']/*" />
         public const System.String StandardIsVirtual = "standard::is-virtual";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardIsVolatile']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardIsVolatile']/*" />
         [GISharp.Runtime.SinceAttribute("2.46")]
         public const System.String StandardIsVolatile = "standard::is-volatile";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardName']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardName']/*" />
         public const System.String StandardName = "standard::name";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardSize']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardSize']/*" />
         public const System.String StandardSize = "standard::size";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardSortOrder']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardSortOrder']/*" />
         public const System.String StandardSortOrder = "standard::sort-order";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardSymbolicIcon']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardSymbolicIcon']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         public const System.String StandardSymbolicIcon = "standard::symbolic-icon";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardSymlinkTarget']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardSymlinkTarget']/*" />
         public const System.String StandardSymlinkTarget = "standard::symlink-target";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardTargetUri']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardTargetUri']/*" />
         public const System.String StandardTargetUri = "standard::target-uri";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='StandardType']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.StandardType']/*" />
         public const System.String StandardType = "standard::type";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='ThumbnailingFailed']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailingFailed']/*" />
         public const System.String ThumbnailingFailed = "thumbnail::failed";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='ThumbnailIsValid']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailIsValid']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public const System.String ThumbnailIsValid = "thumbnail::is-valid";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='ThumbnailPath']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.ThumbnailPath']/*" />
         public const System.String ThumbnailPath = "thumbnail::path";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TimeAccess']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeAccess']/*" />
         public const System.String TimeAccess = "time::access";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TimeAccessUsec']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeAccessUsec']/*" />
         public const System.String TimeAccessUsec = "time::access-usec";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TimeChanged']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeChanged']/*" />
         public const System.String TimeChanged = "time::changed";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TimeChangedUsec']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeChangedUsec']/*" />
         public const System.String TimeChangedUsec = "time::changed-usec";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TimeCreated']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeCreated']/*" />
         public const System.String TimeCreated = "time::created";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TimeCreatedUsec']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeCreatedUsec']/*" />
         public const System.String TimeCreatedUsec = "time::created-usec";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TimeModified']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeModified']/*" />
         public const System.String TimeModified = "time::modified";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TimeModifiedUsec']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TimeModifiedUsec']/*" />
         public const System.String TimeModifiedUsec = "time::modified-usec";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TrashDeletionDate']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TrashDeletionDate']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public const System.String TrashDeletionDate = "trash::deletion-date";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TrashItemCount']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TrashItemCount']/*" />
         public const System.String TrashItemCount = "trash::item-count";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='TrashOrigPath']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.TrashOrigPath']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public const System.String TrashOrigPath = "trash::orig-path";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixBlocks']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixBlocks']/*" />
         public const System.String UnixBlocks = "unix::blocks";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixBlockSize']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixBlockSize']/*" />
         public const System.String UnixBlockSize = "unix::block-size";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixDevice']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixDevice']/*" />
         public const System.String UnixDevice = "unix::device";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixGid']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixGid']/*" />
         public const System.String UnixGid = "unix::gid";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixInode']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixInode']/*" />
         public const System.String UnixInode = "unix::inode";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixIsMountpoint']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixIsMountpoint']/*" />
         public const System.String UnixIsMountpoint = "unix::is-mountpoint";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixMode']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixMode']/*" />
         public const System.String UnixMode = "unix::mode";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixNlink']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixNlink']/*" />
         public const System.String UnixNlink = "unix::nlink";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixRdev']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixRdev']/*" />
         public const System.String UnixRdev = "unix::rdev";
 
-        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='UnixUid']/*" />
+        /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.UnixUid']/*" />
         public const System.String UnixUid = "unix::uid";
     }
 }

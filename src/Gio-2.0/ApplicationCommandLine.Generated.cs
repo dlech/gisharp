@@ -15,62 +15,62 @@ namespace GISharp.Lib.Gio
         unsafe protected new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ParentInstance']/*" />
+            /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Struct.ParentInstance']/*" />
             public GISharp.Lib.GObject.Object.Struct ParentInstance;
 
-            /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Priv']/*" />
+            /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Struct.Priv']/*" />
             public System.IntPtr Priv;
 #pragma warning restore CS0649
         }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Arguments_']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Arguments_']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("arguments", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Variant? Arguments_ { set => SetProperty("arguments", value); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='IsRemote_']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.IsRemote_']/*" />
         [GISharp.Runtime.GPropertyAttribute("is-remote")]
         public System.Boolean IsRemote_ { get => (System.Boolean)GetProperty("is-remote")!; }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Options_']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Options_']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("options", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Variant? Options_ { set => SetProperty("options", value); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='PlatformData_']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.PlatformData_']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         [GISharp.Runtime.GPropertyAttribute("platform-data", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Variant? PlatformData_ { set => SetProperty("platform-data", value); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Arguments']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Arguments']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename> Arguments { get => GetArguments(); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Cwd']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Cwd']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Lib.GLib.Filename? Cwd { get => GetCwd(); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Environment']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Environment']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Runtime.FilenameArray Environment { get => GetEnvironment(); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ExitStatus']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.ExitStatus']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public System.Int32 ExitStatus { get => GetExitStatus(); set => SetExitStatus(value); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='IsRemote']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.IsRemote']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public System.Boolean IsRemote { get => GetIsRemote(); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Options']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Options']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public GISharp.Lib.GLib.VariantDict Options { get => GetOptions(); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='PlatformData']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.PlatformData']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public GISharp.Lib.GLib.Variant? PlatformData { get => GetPlatformData(); }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='Stdin']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.Stdin']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         public GISharp.Lib.Gio.InputStream Stdin { get => GetStdin(); }
 
@@ -117,7 +117,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr arg);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='CreateFileForArg(GISharp.Lib.GLib.Filename)']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public unsafe GISharp.Lib.Gio.IFile CreateFileForArg(GISharp.Lib.GLib.Filename arg)
         {
@@ -453,7 +453,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr name);
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='GetEnvironmentVariable(GISharp.Lib.GLib.Filename)']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetEnvironmentVariable(GISharp.Lib.GLib.Filename name)
         {
@@ -514,7 +514,7 @@ namespace GISharp.Lib.Gio
             g_application_command_line_set_exit_status(cmdline_, exitStatus_);
         }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='DoGetStdin()']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoGetStdin()']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedGetStdin))]
         protected virtual unsafe GISharp.Lib.Gio.InputStream DoGetStdin()
@@ -525,7 +525,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrintLiteral))]
         protected virtual unsafe void DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
@@ -534,7 +534,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrintLiteral>(_GType)!(cmdline_, message_);
         }
 
-        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrinterrLiteral))]
         protected virtual unsafe void DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {

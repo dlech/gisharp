@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='None'>
+<member name='FileMeasureFlags.None'>
 <summary>
 No flags set.
 </summary>
 </member>
 
-<member name='ReportAnyError'>
+<member name='FileMeasureFlags.ReportAnyError'>
 <summary>
 Report any error encountered
   while traversing the directory tree.  Normally errors are only
@@ -14,7 +14,7 @@ Report any error encountered
 </summary>
 </member>
 
-<member name='ApparentSize'>
+<member name='FileMeasureFlags.ApparentSize'>
 <summary>
 Tally usage based on apparent file
   sizes.  Normally, the block-size is used, if available, as this is a
@@ -23,7 +23,7 @@ Tally usage based on apparent file
 </summary>
 </member>
 
-<member name='NoCrossMountPoint'>
+<member name='FileMeasureFlags.NoCrossMountPoint'>
 <summary>
 Do not cross mount point boundaries.
   Compare with `du -x`.

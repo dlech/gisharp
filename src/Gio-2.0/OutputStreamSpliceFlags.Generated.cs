@@ -7,11 +7,11 @@ namespace GISharp.Lib.Gio
     [System.FlagsAttribute]
     public enum OutputStreamSpliceFlags
     {
-        /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='None']/*" />
+        /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='OutputStreamSpliceFlags.None']/*" />
         None = 0b0000_0000_0000_0000_0000_0000_0000_0000,
-        /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='CloseSource']/*" />
+        /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='OutputStreamSpliceFlags.CloseSource']/*" />
         CloseSource = 0b0000_0000_0000_0000_0000_0000_0000_0001,
-        /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='CloseTarget']/*" />
+        /// <include file="OutputStreamSpliceFlags.xmldoc" path="declaration/member[@name='OutputStreamSpliceFlags.CloseTarget']/*" />
         CloseTarget = 0b0000_0000_0000_0000_0000_0000_0000_0010
     }
 

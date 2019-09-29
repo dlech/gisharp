@@ -6,10 +6,10 @@ namespace GISharp.Lib.Gio
     public partial struct OutputVector
     {
 #pragma warning disable CS0649
-        /// <include file="OutputVector.xmldoc" path="declaration/member[@name='Buffer']/*" />
+        /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector.Buffer']/*" />
         public System.IntPtr Buffer;
 
-        /// <include file="OutputVector.xmldoc" path="declaration/member[@name='Size']/*" />
+        /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector.Size']/*" />
         public System.UIntPtr Size;
 #pragma warning restore CS0649
     }

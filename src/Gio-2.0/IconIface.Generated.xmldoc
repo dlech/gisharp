@@ -1,24 +1,24 @@
 <declaration>
 
-<member name='GIface'>
+<member name='Struct.GIface'>
 <summary>
 The parent interface.
 </summary>
 </member>
 
-<member name='Hash'>
+<member name='Struct.Hash'>
 </member>
 
-<member name='Equal'>
+<member name='Struct.Equal'>
 </member>
 
-<member name='ToTokens'>
+<member name='Struct.ToTokens'>
 </member>
 
-<member name='FromTokens'>
+<member name='Struct.FromTokens'>
 </member>
 
-<member name='Serialize'>
+<member name='Struct.Serialize'>
 </member>
 
 <member name='Hash'>

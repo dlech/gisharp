@@ -1,194 +1,194 @@
 <declaration>
 
-<member name='Failed'>
+<member name='IOErrorEnum.Failed'>
 <summary>
 Generic error condition for when an operation fails
     and no more specific <see cref="IOErrorEnum"/> value is defined.
 </summary>
 </member>
 
-<member name='NotFound'>
+<member name='IOErrorEnum.NotFound'>
 <summary>
 File not found.
 </summary>
 </member>
 
-<member name='Exists'>
+<member name='IOErrorEnum.Exists'>
 <summary>
 File already exists.
 </summary>
 </member>
 
-<member name='IsDirectory'>
+<member name='IOErrorEnum.IsDirectory'>
 <summary>
 File is a directory.
 </summary>
 </member>
 
-<member name='NotDirectory'>
+<member name='IOErrorEnum.NotDirectory'>
 <summary>
 File is not a directory.
 </summary>
 </member>
 
-<member name='NotEmpty'>
+<member name='IOErrorEnum.NotEmpty'>
 <summary>
 File is a directory that isn't empty.
 </summary>
 </member>
 
-<member name='NotRegularFile'>
+<member name='IOErrorEnum.NotRegularFile'>
 <summary>
 File is not a regular file.
 </summary>
 </member>
 
-<member name='NotSymbolicLink'>
+<member name='IOErrorEnum.NotSymbolicLink'>
 <summary>
 File is not a symbolic link.
 </summary>
 </member>
 
-<member name='NotMountableFile'>
+<member name='IOErrorEnum.NotMountableFile'>
 <summary>
 File cannot be mounted.
 </summary>
 </member>
 
-<member name='FilenameTooLong'>
+<member name='IOErrorEnum.FilenameTooLong'>
 <summary>
 Filename is too many characters.
 </summary>
 </member>
 
-<member name='InvalidFilename'>
+<member name='IOErrorEnum.InvalidFilename'>
 <summary>
 Filename is invalid or contains invalid characters.
 </summary>
 </member>
 
-<member name='TooManyLinks'>
+<member name='IOErrorEnum.TooManyLinks'>
 <summary>
 File contains too many symbolic links.
 </summary>
 </member>
 
-<member name='NoSpace'>
+<member name='IOErrorEnum.NoSpace'>
 <summary>
 No space left on drive.
 </summary>
 </member>
 
-<member name='InvalidArgument'>
+<member name='IOErrorEnum.InvalidArgument'>
 <summary>
 Invalid argument.
 </summary>
 </member>
 
-<member name='PermissionDenied'>
+<member name='IOErrorEnum.PermissionDenied'>
 <summary>
 Permission denied.
 </summary>
 </member>
 
-<member name='NotSupported'>
+<member name='IOErrorEnum.NotSupported'>
 <summary>
 Operation (or one of its parameters) not supported
 </summary>
 </member>
 
-<member name='NotMounted'>
+<member name='IOErrorEnum.NotMounted'>
 <summary>
 File isn't mounted.
 </summary>
 </member>
 
-<member name='AlreadyMounted'>
+<member name='IOErrorEnum.AlreadyMounted'>
 <summary>
 File is already mounted.
 </summary>
 </member>
 
-<member name='Closed'>
+<member name='IOErrorEnum.Closed'>
 <summary>
 File was closed.
 </summary>
 </member>
 
-<member name='Cancelled'>
+<member name='IOErrorEnum.Cancelled'>
 <summary>
 Operation was cancelled. See <see cref="Cancellable"/>.
 </summary>
 </member>
 
-<member name='Pending'>
+<member name='IOErrorEnum.Pending'>
 <summary>
 Operations are still pending.
 </summary>
 </member>
 
-<member name='ReadOnly'>
+<member name='IOErrorEnum.ReadOnly'>
 <summary>
 File is read only.
 </summary>
 </member>
 
-<member name='CantCreateBackup'>
+<member name='IOErrorEnum.CantCreateBackup'>
 <summary>
 Backup couldn't be created.
 </summary>
 </member>
 
-<member name='WrongEtag'>
+<member name='IOErrorEnum.WrongEtag'>
 <summary>
 File's Entity Tag was incorrect.
 </summary>
 </member>
 
-<member name='TimedOut'>
+<member name='IOErrorEnum.TimedOut'>
 <summary>
 Operation timed out.
 </summary>
 </member>
 
-<member name='WouldRecurse'>
+<member name='IOErrorEnum.WouldRecurse'>
 <summary>
 Operation would be recursive.
 </summary>
 </member>
 
-<member name='Busy'>
+<member name='IOErrorEnum.Busy'>
 <summary>
 File is busy.
 </summary>
 </member>
 
-<member name='WouldBlock'>
+<member name='IOErrorEnum.WouldBlock'>
 <summary>
 Operation would block.
 </summary>
 </member>
 
-<member name='HostNotFound'>
+<member name='IOErrorEnum.HostNotFound'>
 <summary>
 Host couldn't be found (remote operations).
 </summary>
 </member>
 
-<member name='WouldMerge'>
+<member name='IOErrorEnum.WouldMerge'>
 <summary>
 Operation would merge files.
 </summary>
 </member>
 
-<member name='FailedHandled'>
+<member name='IOErrorEnum.FailedHandled'>
 <summary>
 Operation failed and a helper program has
     already interacted with the user. Do not display any error dialog.
 </summary>
 </member>
 
-<member name='TooManyOpenFiles'>
+<member name='IOErrorEnum.TooManyOpenFiles'>
 <summary>
 The current process has too many files
     open and can't open any more. Duplicate descriptors do count toward
@@ -196,31 +196,31 @@ The current process has too many files
 </summary>
 </member>
 
-<member name='NotInitialized'>
+<member name='IOErrorEnum.NotInitialized'>
 <summary>
 The object has not been initialized.
 </summary>
 </member>
 
-<member name='AddressInUse'>
+<member name='IOErrorEnum.AddressInUse'>
 <summary>
 The requested address is already in use.
 </summary>
 </member>
 
-<member name='PartialInput'>
+<member name='IOErrorEnum.PartialInput'>
 <summary>
 Need more input to finish operation.
 </summary>
 </member>
 
-<member name='InvalidData'>
+<member name='IOErrorEnum.InvalidData'>
 <summary>
 The input data was invalid.
 </summary>
 </member>
 
-<member name='DbusError'>
+<member name='IOErrorEnum.DbusError'>
 <summary>
 A remote object generated an error that
     doesn't correspond to a locally registered #GError error
@@ -230,55 +230,55 @@ A remote object generated an error that
 </summary>
 </member>
 
-<member name='HostUnreachable'>
+<member name='IOErrorEnum.HostUnreachable'>
 <summary>
 Host unreachable.
 </summary>
 </member>
 
-<member name='NetworkUnreachable'>
+<member name='IOErrorEnum.NetworkUnreachable'>
 <summary>
 Network unreachable.
 </summary>
 </member>
 
-<member name='ConnectionRefused'>
+<member name='IOErrorEnum.ConnectionRefused'>
 <summary>
 Connection refused.
 </summary>
 </member>
 
-<member name='ProxyFailed'>
+<member name='IOErrorEnum.ProxyFailed'>
 <summary>
 Connection to proxy server failed.
 </summary>
 </member>
 
-<member name='ProxyAuthFailed'>
+<member name='IOErrorEnum.ProxyAuthFailed'>
 <summary>
 Proxy authentication failed.
 </summary>
 </member>
 
-<member name='ProxyNeedAuth'>
+<member name='IOErrorEnum.ProxyNeedAuth'>
 <summary>
 Proxy server needs authentication.
 </summary>
 </member>
 
-<member name='ProxyNotAllowed'>
+<member name='IOErrorEnum.ProxyNotAllowed'>
 <summary>
 Proxy connection is not allowed by ruleset.
 </summary>
 </member>
 
-<member name='BrokenPipe'>
+<member name='IOErrorEnum.BrokenPipe'>
 <summary>
 Broken pipe.
 </summary>
 </member>
 
-<member name='ConnectionClosed'>
+<member name='IOErrorEnum.ConnectionClosed'>
 <summary>
 Connection closed by peer. Note that this
     is the same code as <see cref="IOErrorEnum.BrokenPipe"/>; before 2.44 some
@@ -288,13 +288,13 @@ Connection closed by peer. Note that this
 </summary>
 </member>
 
-<member name='NotConnected'>
+<member name='IOErrorEnum.NotConnected'>
 <summary>
 Transport endpoint is not connected.
 </summary>
 </member>
 
-<member name='MessageTooLarge'>
+<member name='IOErrorEnum.MessageTooLarge'>
 <summary>
 Message too large.
 </summary>
@@ -321,13 +321,13 @@ but should instead treat all unrecognized error codes the same as
 </remarks>
 </member>
 
-<member name='Quark'>
+<member name='IOErrorEnumDomain.Quark'>
 <summary>
 Gets the GIO Error Quark.
 </summary>
 </member>
 
-<member name='FromErrno(System.Int32)'>
+<member name='IOErrorEnumDomain.FromErrno(System.Int32)'>
 <summary>
 Converts errno.h error codes into GIO error codes. The fallback
 value <see cref="IOErrorEnum.Failed"/> is returned for error codes not currently

@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='DoInit(GISharp.Lib.Gio.Cancellable?)'>
+<member name='IInitable.DoInit(GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Initializes the object implementing the interface.
 </summary>
@@ -84,7 +84,7 @@ an exception on failure.
 </remarks>
 </member>
 
-<member name='Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable?)'>
+<member name='Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Initializes the object implementing the interface.
 </summary>

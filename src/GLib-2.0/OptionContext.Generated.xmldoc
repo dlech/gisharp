@@ -1,32 +1,32 @@
 <declaration>
 
-<member name='Description'>
+<member name='OptionContext.Description'>
 <summary>
 Returns the description. See <see cref="M:OptionContext.SetDescription(GISharp.Lib.GLib.Utf8)"/>.
 </summary>
 </member>
 
-<member name='HelpEnabled'>
+<member name='OptionContext.HelpEnabled'>
 <summary>
 Returns whether automatic `--help` generation
 is turned on for this instance. See <see cref="M:OptionContext.SetHelpEnabled(System.Boolean)"/>.
 </summary>
 </member>
 
-<member name='IgnoreUnknownOptions'>
+<member name='OptionContext.IgnoreUnknownOptions'>
 <summary>
 Returns whether unknown options are ignored or not. See
 <see cref="M:OptionContext.SetIgnoreUnknownOptions(System.Boolean)"/>.
 </summary>
 </member>
 
-<member name='MainGroup'>
+<member name='OptionContext.MainGroup'>
 <summary>
 Returns a pointer to the main group of this instance.
 </summary>
 </member>
 
-<member name='StrictPosix'>
+<member name='OptionContext.StrictPosix'>
 <summary>
 Returns whether strict POSIX code is enabled.
 </summary>
@@ -35,13 +35,13 @@ See <see cref="M:OptionContext.SetStrictPosix(System.Boolean)"/> for more inform
 </remarks>
 </member>
 
-<member name='Summary'>
+<member name='OptionContext.Summary'>
 <summary>
 Returns the summary. See <see cref="M:OptionContext.SetSummary(GISharp.Lib.GLib.Utf8)"/>.
 </summary>
 </member>
 
-<member name='AddGroup(GISharp.Lib.GLib.OptionGroup)'>
+<member name='OptionContext.AddGroup(GISharp.Lib.GLib.OptionGroup)'>
 <summary>
 Adds a <see cref="OptionGroup"/> to the this instance, so that parsing with this instance
 will recognize the options in the group. Note that this will take
@@ -52,7 +52,7 @@ the group to add
 </param>
 </member>
 
-<member name='GetHelp(System.Boolean,GISharp.Lib.GLib.OptionGroup?)'>
+<member name='OptionContext.GetHelp(System.Boolean,GISharp.Lib.GLib.OptionGroup?)'>
 <summary>
 Returns a formatted, translated help text for the given context.
 To obtain the text produced by `--help`, call
@@ -73,7 +73,7 @@ A newly allocated string containing the help text
 </returns>
 </member>
 
-<member name='SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)'>
+<member name='OptionContext.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)'>
 <summary>
 Sets the function which is used to translate the contexts
 user-visible strings, for `--help` output. If this instance is <c>null</c>,
@@ -93,7 +93,7 @@ the <see cref="TranslateFunc"/>, or <c>null</c>
 </param>
 </member>
 
-<member name='SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='OptionContext.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 A convenience function to use gettext() for translating
 user-visible strings.
@@ -103,7 +103,7 @@ the domain to use
 </param>
 </member>
 
-<member name='SetTranslationDomain(System.String)'>
+<member name='OptionContext.SetTranslationDomain(System.String)'>
 <summary>
 A convenience function to use gettext() for translating
 user-visible strings.

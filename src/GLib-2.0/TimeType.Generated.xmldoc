@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='Standard'>
+<member name='TimeType.Standard'>
 <summary>
 the time is in local standard time
 </summary>
 </member>
 
-<member name='Daylight'>
+<member name='TimeType.Daylight'>
 <summary>
 the time is in local daylight time
 </summary>
 </member>
 
-<member name='Universal'>
+<member name='TimeType.Universal'>
 <summary>
 the time is in UTC
 </summary>

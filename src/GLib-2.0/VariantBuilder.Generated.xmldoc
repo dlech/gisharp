@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='VariantBuilder(GISharp.Lib.GLib.VariantType)'>
+<member name='VariantBuilder.VariantBuilder(GISharp.Lib.GLib.VariantType)'>
 <summary>
 Allocates and initialises a new <see cref="VariantBuilder"/>.
 </summary>
@@ -18,7 +18,7 @@ a container type
 </param>
 </member>
 
-<member name='Add(GISharp.Lib.GLib.Variant)'>
+<member name='VariantBuilder.Add(GISharp.Lib.GLib.Variant)'>
 <summary>
 Adds this instance to this instance.
 </summary>
@@ -37,7 +37,7 @@ a #GVariant
 </param>
 </member>
 
-<member name='Close()'>
+<member name='VariantBuilder.Close()'>
 <summary>
 Closes the subcontainer inside the given this instance that was opened by
 the most recent call to <see cref="M:VariantBuilder.Open(GISharp.Lib.GLib.VariantType)"/>.
@@ -49,7 +49,7 @@ subcontainer).
 </remarks>
 </member>
 
-<member name='End()'>
+<member name='VariantBuilder.End()'>
 <summary>
 Ends the builder process and returns the constructed value.
 </summary>
@@ -75,7 +75,7 @@ a new, floating, #GVariant
 </returns>
 </member>
 
-<member name='Open(GISharp.Lib.GLib.VariantType)'>
+<member name='VariantBuilder.Open(GISharp.Lib.GLib.VariantType)'>
 <summary>
 Opens a subcontainer inside the given this instance.  When done adding
 items to the subcontainer, <see cref="M:VariantBuilder.Close()"/> must be called. this instance

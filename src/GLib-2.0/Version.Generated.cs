@@ -5,13 +5,13 @@ namespace GISharp.Lib.GLib
     /// <include file="Version.xmldoc" path="declaration/member[@name='Version']/*" />
     public static partial class Version
     {
-        /// <include file="Version.xmldoc" path="declaration/member[@name='major']/*" />
+        /// <include file="Version.xmldoc" path="declaration/member[@name='Version.major']/*" />
         private const System.Int32 major = 2;
 
-        /// <include file="Version.xmldoc" path="declaration/member[@name='minor']/*" />
+        /// <include file="Version.xmldoc" path="declaration/member[@name='Version.minor']/*" />
         private const System.Int32 minor = 62;
 
-        /// <include file="Version.xmldoc" path="declaration/member[@name='micro']/*" />
+        /// <include file="Version.xmldoc" path="declaration/member[@name='Version.micro']/*" />
         private const System.Int32 micro = 0;
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.UInt32 requiredMicro);
 
-        /// <include file="Version.xmldoc" path="declaration/member[@name='Check(System.UInt32,System.UInt32,System.UInt32)']/*" />
+        /// <include file="Version.xmldoc" path="declaration/member[@name='Version.Check(System.UInt32,System.UInt32,System.UInt32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public static unsafe GISharp.Lib.GLib.NullableUnownedUtf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
         {

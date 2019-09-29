@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='LongName'>
+<member name='OptionEntry.LongName'>
 <summary>
 The long name of an option can be used to specify it
     in a commandline as `--long_name`. Every option must have a
@@ -10,7 +10,7 @@ The long name of an option can be used to specify it
 </summary>
 </member>
 
-<member name='ShortName'>
+<member name='OptionEntry.ShortName'>
 <summary>
 If an option has a short name, it can be specified
     `-short_name` in a commandline. <paramref name="shortName"/> must be  a printable
@@ -19,19 +19,19 @@ If an option has a short name, it can be specified
 </summary>
 </member>
 
-<member name='Flags'>
+<member name='OptionEntry.Flags'>
 <summary>
 Flags from <see cref="OptionFlags"/>
 </summary>
 </member>
 
-<member name='Arg'>
+<member name='OptionEntry.Arg'>
 <summary>
 The type of the option, as a <see cref="OptionArg"/>
 </summary>
 </member>
 
-<member name='ArgData'>
+<member name='OptionEntry.ArgData'>
 <summary>
 If the <paramref name="arg"/> type is <see cref="OptionArg.Callback"/>, then <paramref name="argData"/>
     must point to a <see cref="OptionArgFunc"/> callback function, which will be
@@ -53,7 +53,7 @@ If the <paramref name="arg"/> type is <see cref="OptionArg.Callback"/>, then <pa
 </summary>
 </member>
 
-<member name='Description'>
+<member name='OptionEntry.Description'>
 <summary>
 the description for the option in `--help`
     output. The <paramref name="description"/> is translated using the <paramref name="translateFunc"/>
@@ -61,7 +61,7 @@ the description for the option in `--help`
 </summary>
 </member>
 
-<member name='ArgDescription'>
+<member name='OptionEntry.ArgDescription'>
 <summary>
 The placeholder to use for the extra argument parsed
     by the option in `--help` output. The <paramref name="argDescription"/> is translated

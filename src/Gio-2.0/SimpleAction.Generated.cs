@@ -8,27 +8,27 @@ namespace GISharp.Lib.Gio
     {
         static readonly GISharp.Lib.GObject.GType _GType = g_simple_action_get_type();
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Enabled']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.Enabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
         public System.Boolean Enabled { get => (System.Boolean)GetProperty("enabled")!; set => SetProperty("enabled", value); }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Name']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("name", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.Utf8? Name { get => (GISharp.Lib.GLib.Utf8?)GetProperty("name")!; set => SetProperty("name", value); }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ParameterType']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.ParameterType']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("parameter-type", Construct = GISharp.Runtime.GPropertyConstruct.Only)]
         public GISharp.Lib.GLib.VariantType? ParameterType { get => (GISharp.Lib.GLib.VariantType?)GetProperty("parameter-type")!; set => SetProperty("parameter-type", value); }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='State']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.State']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state", Construct = GISharp.Runtime.GPropertyConstruct.Yes)]
         public GISharp.Lib.GLib.Variant? State { get => (GISharp.Lib.GLib.Variant?)GetProperty("state")!; set => SetProperty("state", value); }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='StateType']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.StateType']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("state-type")]
         public GISharp.Lib.GLib.VariantType? StateType { get => (GISharp.Lib.GLib.VariantType?)GetProperty("state-type")!; }
@@ -79,7 +79,7 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
@@ -92,7 +92,7 @@ namespace GISharp.Lib.Gio
             return New((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType);
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction(System.String,GISharp.Lib.GLib.VariantType?)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(System.String,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(System.String name, GISharp.Lib.GLib.VariantType? parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
@@ -145,7 +145,7 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
@@ -158,7 +158,7 @@ namespace GISharp.Lib.Gio
             return NewStateful((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType, state);
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction(System.String,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(System.String,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(System.String name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
@@ -169,7 +169,7 @@ namespace GISharp.Lib.Gio
         {
             readonly System.Object[] args;
 
-            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Parameter']/*" />
+            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivatedEventArgs.Parameter']/*" />
             public GISharp.Lib.GLib.Variant Parameter => (GISharp.Lib.GLib.Variant)args[1];
 
             /// <summary>
@@ -183,7 +183,7 @@ namespace GISharp.Lib.Gio
 
         readonly GISharp.Runtime.GSignalManager<ActivatedEventArgs> activatedSignalManager = new GISharp.Runtime.GSignalManager<ActivatedEventArgs>("activate", _GType);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Activated']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.Activated']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<ActivatedEventArgs> Activated { add => activatedSignalManager.Add(this, value); remove => activatedSignalManager.Remove(value); }
@@ -193,7 +193,7 @@ namespace GISharp.Lib.Gio
         {
             readonly System.Object[] args;
 
-            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='Value']/*" />
+            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ChangedStateEventArgs.Value']/*" />
             public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[1];
 
             /// <summary>
@@ -207,7 +207,7 @@ namespace GISharp.Lib.Gio
 
         readonly GISharp.Runtime.GSignalManager<ChangedStateEventArgs> changedStateSignalManager = new GISharp.Runtime.GSignalManager<ChangedStateEventArgs>("change-state", _GType);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ChangedState']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.ChangedState']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         [GISharp.Runtime.GSignalAttribute("change-state", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<ChangedStateEventArgs> ChangedState { add => changedStateSignalManager.Add(this, value); remove => changedStateSignalManager.Remove(value); }
@@ -245,7 +245,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean enabled);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SetEnabled(System.Boolean)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetEnabled(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe void SetEnabled(System.Boolean enabled)
         {
@@ -285,7 +285,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SetState(GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetState(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         public unsafe void SetState(GISharp.Lib.GLib.Variant value)
         {
@@ -319,7 +319,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr stateHint);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SetStateHint(GISharp.Lib.GLib.Variant?)']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetStateHint(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe void SetStateHint(GISharp.Lib.GLib.Variant? stateHint)
         {

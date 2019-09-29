@@ -16,15 +16,15 @@ namespace GISharp.Lib.Gio
         unsafe protected new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='ParentInstance']/*" />
+            /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='Struct.ParentInstance']/*" />
             public GISharp.Lib.Gio.IOStream.Struct ParentInstance;
 
-            /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='Priv']/*" />
+            /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='Struct.Priv']/*" />
             public System.IntPtr Priv;
 #pragma warning restore CS0649
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='Etag']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.Etag']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public GISharp.Lib.GLib.Utf8 Etag { get => GetEtag(); }
 
@@ -123,7 +123,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -142,7 +142,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='QueryInfo(System.String,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.QueryInfo(System.String,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(System.String attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -203,7 +203,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -218,7 +218,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='QueryInfoAsync(System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.QueryInfoAsync(System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(System.String attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -284,7 +284,7 @@ namespace GISharp.Lib.Gio
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback queryInfoAsyncCallbackDelegate = QueryInfoFinish;
         static readonly System.IntPtr queryInfoAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(queryInfoAsyncCallbackDelegate);
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoCanSeek()']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoCanSeek()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedCanSeek))]
         protected virtual unsafe System.Boolean DoCanSeek()
         {
@@ -294,7 +294,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoCanTruncate()']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoCanTruncate()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedCanTruncate))]
         protected virtual unsafe System.Boolean DoCanTruncate()
         {
@@ -304,7 +304,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoGetEtag()']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoGetEtag()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedGetEtag))]
         protected virtual unsafe GISharp.Lib.GLib.Utf8 DoGetEtag()
@@ -315,7 +315,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedQueryInfo))]
         protected virtual unsafe GISharp.Lib.Gio.FileInfo DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
@@ -335,7 +335,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedQueryInfoAsync))]
         protected virtual unsafe void DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
@@ -348,7 +348,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedQueryInfoAsync>(_GType)!(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedQueryInfoFinish))]
         protected virtual unsafe GISharp.Lib.Gio.FileInfo DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult result)
@@ -367,7 +367,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedSeek))]
         protected virtual unsafe void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -384,7 +384,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoTell()']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoTell()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedTell))]
         protected virtual unsafe System.Int64 DoTell()
         {
@@ -394,7 +394,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedTruncateFn))]
         protected virtual unsafe void DoTruncateFn(System.Int64 size, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {

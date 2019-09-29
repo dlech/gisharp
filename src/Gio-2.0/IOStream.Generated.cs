@@ -16,35 +16,35 @@ namespace GISharp.Lib.Gio
         unsafe protected new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="IOStream.xmldoc" path="declaration/member[@name='ParentInstance']/*" />
+            /// <include file="IOStream.xmldoc" path="declaration/member[@name='Struct.ParentInstance']/*" />
             public GISharp.Lib.GObject.Object.Struct ParentInstance;
 
-            /// <include file="IOStream.xmldoc" path="declaration/member[@name='Priv']/*" />
+            /// <include file="IOStream.xmldoc" path="declaration/member[@name='Struct.Priv']/*" />
             public System.IntPtr Priv;
 #pragma warning restore CS0649
         }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IsClosed_']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.IsClosed_']/*" />
         [GISharp.Runtime.GPropertyAttribute("closed")]
         public System.Boolean IsClosed_ { get => (System.Boolean)GetProperty("closed")!; }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='InputStream_']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.InputStream_']/*" />
         [GISharp.Runtime.GPropertyAttribute("input-stream")]
         public GISharp.Lib.Gio.InputStream? InputStream_ { get => (GISharp.Lib.Gio.InputStream?)GetProperty("input-stream")!; }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='OutputStream_']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.OutputStream_']/*" />
         [GISharp.Runtime.GPropertyAttribute("output-stream")]
         public GISharp.Lib.Gio.OutputStream? OutputStream_ { get => (GISharp.Lib.Gio.OutputStream?)GetProperty("output-stream")!; }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='InputStream']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.InputStream']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public GISharp.Lib.Gio.InputStream InputStream { get => GetInputStream(); }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='OutputStream']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.OutputStream']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public GISharp.Lib.Gio.OutputStream OutputStream { get => GetOutputStream(); }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IsClosed']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.IsClosed']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public System.Boolean IsClosed { get => GetIsClosed(); }
 
@@ -126,7 +126,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='ClearPending()']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.ClearPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe void ClearPending()
         {
@@ -197,7 +197,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='Close(GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.Close(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe void Close(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -261,7 +261,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Threading.Tasks.Task CloseAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -407,7 +407,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='HasPending()']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.HasPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Boolean HasPending()
         {
@@ -470,7 +470,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='SetPending()']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.SetPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe void SetPending()
         {
@@ -542,7 +542,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe System.Threading.Tasks.Task SpliceAsync(GISharp.Lib.Gio.IOStream stream2, GISharp.Lib.Gio.IOStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -558,7 +558,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedCloseAsync))]
         protected virtual unsafe void DoCloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
@@ -570,7 +570,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<IOStreamClass.UnmanagedCloseAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);
         }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedCloseFinish))]
         protected virtual unsafe void DoCloseFinish(GISharp.Lib.Gio.IAsyncResult result)
@@ -586,7 +586,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoCloseFn(GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.DoCloseFn(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedCloseFn))]
         protected virtual unsafe void DoCloseFn(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
@@ -601,7 +601,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoGetInputStream()']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.DoGetInputStream()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedGetInputStream))]
         protected virtual unsafe GISharp.Lib.Gio.InputStream DoGetInputStream()
@@ -612,7 +612,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='DoGetOutputStream()']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.DoGetOutputStream()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedGetOutputStream))]
         protected virtual unsafe GISharp.Lib.Gio.OutputStream DoGetOutputStream()

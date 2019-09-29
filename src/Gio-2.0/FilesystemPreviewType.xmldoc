@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='IfAlways'>
+<member name='FilesystemPreviewType.IfAlways'>
 <summary>
 Only preview files if user has explicitly requested it.
 </summary>
 </member>
 
-<member name='IfLocal'>
+<member name='FilesystemPreviewType.IfLocal'>
 <summary>
 Preview files if user has requested preview of "local" files.
 </summary>
 </member>
 
-<member name='Never'>
+<member name='FilesystemPreviewType.Never'>
 <summary>
 Never preview files.
 </summary>

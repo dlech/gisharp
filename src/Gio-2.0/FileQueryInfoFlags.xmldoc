@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='None'>
+<member name='FileQueryInfoFlags.None'>
 <summary>
 No flags set.
 </summary>
 </member>
 
-<member name='NoFollowSymlinks'>
+<member name='FileQueryInfoFlags.NoFollowSymlinks'>
 <summary>
 Don't follow symlinks.
 </summary>

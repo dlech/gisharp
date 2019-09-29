@@ -11,22 +11,22 @@ namespace GISharp.Lib.Gio
         unsafe new struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='GIface']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
             public GISharp.Lib.GObject.TypeInterface.Struct GIface;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Tell']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.Tell']/*" />
             public System.IntPtr Tell;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='CanSeek']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.CanSeek']/*" />
             public System.IntPtr CanSeek;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Seek']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.Seek']/*" />
             public System.IntPtr Seek;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='CanTruncate']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.CanTruncate']/*" />
             public System.IntPtr CanTruncate;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='TruncateFn']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.TruncateFn']/*" />
             public System.IntPtr TruncateFn;
 #pragma warning restore CS0649
         }

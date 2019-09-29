@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='Name'>
+<member name='ThemedIcon.Name'>
 <summary>
 The icon name.
 </summary>
 </member>
 
-<member name='Names_'>
+<member name='ThemedIcon.Names_'>
 <summary>
 A <c>null</c>-terminated array of icon names.
 </summary>
 </member>
 
-<member name='UseDefaultFallbacks'>
+<member name='ThemedIcon.UseDefaultFallbacks'>
 <summary>
 Whether to use the default fallbacks found by shortening the icon name
 at '-' characters. If the "names" array has more than one element,
@@ -33,13 +33,13 @@ would become
 </remarks>
 </member>
 
-<member name='Names'>
+<member name='ThemedIcon.Names'>
 <summary>
 Gets the names of icons from within this instance.
 </summary>
 </member>
 
-<member name='ThemedIcon(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
+<member name='ThemedIcon.ThemedIcon(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
 Creates a new themed icon for <paramref name="iconnames"/>.
 </summary>
@@ -48,7 +48,7 @@ an array of strings containing icon names.
 </param>
 </member>
 
-<member name='AppendName(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ThemedIcon.AppendName(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Append a name to the list of icons from within this instance.
 </summary>
@@ -61,7 +61,7 @@ name of icon to append to list of icons from within this instance.
 </param>
 </member>
 
-<member name='AppendName(System.String)'>
+<member name='ThemedIcon.AppendName(System.String)'>
 <summary>
 Append a name to the list of icons from within this instance.
 </summary>
@@ -74,7 +74,7 @@ name of icon to append to list of icons from within this instance.
 </param>
 </member>
 
-<member name='PrependName(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ThemedIcon.PrependName(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Prepend a name to the list of icons from within this instance.
 </summary>
@@ -87,7 +87,7 @@ name of icon to prepend to list of icons from within this instance.
 </param>
 </member>
 
-<member name='PrependName(System.String)'>
+<member name='ThemedIcon.PrependName(System.String)'>
 <summary>
 Prepend a name to the list of icons from within this instance.
 </summary>

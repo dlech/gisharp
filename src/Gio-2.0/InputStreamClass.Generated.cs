@@ -11,49 +11,49 @@ namespace GISharp.Lib.Gio
         unsafe new protected struct Struct
         {
 #pragma warning disable CS0649
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='ParentClass']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
             public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='ReadFn']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.ReadFn']/*" />
             public System.IntPtr ReadFn;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Skip']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.Skip']/*" />
             public System.IntPtr Skip;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='CloseFn']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFn']/*" />
             public System.IntPtr CloseFn;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='ReadAsync']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.ReadAsync']/*" />
             public System.IntPtr ReadAsync;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='ReadFinish']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.ReadFinish']/*" />
             public System.IntPtr ReadFinish;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='SkipAsync']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.SkipAsync']/*" />
             public System.IntPtr SkipAsync;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='SkipFinish']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.SkipFinish']/*" />
             public System.IntPtr SkipFinish;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='CloseAsync']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseAsync']/*" />
             public System.IntPtr CloseAsync;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='CloseFinish']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFinish']/*" />
             public System.IntPtr CloseFinish;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='GReserved1']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved1']/*" />
             public System.IntPtr GReserved1;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='GReserved2']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved2']/*" />
             public System.IntPtr GReserved2;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='GReserved3']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved3']/*" />
             public System.IntPtr GReserved3;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='GReserved4']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='GReserved5']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }

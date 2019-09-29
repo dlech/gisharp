@@ -8,9 +8,15 @@ namespace GISharp.CodeGen.Syntax
 {
     public static class SyntaxNodeExtensions
     {
-        static string GetCallableName(SyntaxToken identifier, ParameterListSyntax parameterList)
+        static string GetQualifiedName(MemberDeclarationSyntax member, SyntaxToken identifier)
         {
-            var builder = new StringBuilder(identifier.Text);
+            var typeDecl = (BaseTypeDeclarationSyntax)member.Ancestors().First(x => x is BaseTypeDeclarationSyntax);
+            return $"{typeDecl.Identifier.Text}.{identifier.Text}";
+        }
+
+        static string GetCallableName(string memberName, ParameterListSyntax parameterList)
+        {
+            var builder = new StringBuilder(memberName);
             builder.Append("(");
             builder.AppendJoin(",", parameterList.Parameters.Select(x => x.Type));
             builder.Append(")");
@@ -19,44 +25,35 @@ namespace GISharp.CodeGen.Syntax
 
         static string GetConstructorName(ConstructorDeclarationSyntax constructor)
         {
-            return GetCallableName(constructor.Identifier, constructor.ParameterList);
+            var name = GetQualifiedName(constructor, constructor.Identifier);
+            return GetCallableName(name, constructor.ParameterList);
         }
 
         static string GetMethodName(MethodDeclarationSyntax method)
         {
-            return GetCallableName(method.Identifier, method.ParameterList);
+            var name = GetQualifiedName(method, method.Identifier);
+            return GetCallableName(name, method.ParameterList);
         }
 
         public static string GetMemberDeclarationName(this SyntaxNode node)
         {
-            switch (node) {
-            case ClassDeclarationSyntax @class:
-                return @class.Identifier.Text;
-            case ConstructorDeclarationSyntax constructor:
-                return GetConstructorName(constructor);
-            case DelegateDeclarationSyntax @delegate:
-                return @delegate.Identifier.Text;
-            case EnumDeclarationSyntax @enum:
-                return @enum.Identifier.Text;
-            case EnumMemberDeclarationSyntax member:
-                return member.Identifier.Text;
-            case EventDeclarationSyntax @event:
-                return @event.Identifier.Text;
-            case EventFieldDeclarationSyntax eventField:
-                return eventField.Declaration.Variables.First().Identifier.Text;
-            case FieldDeclarationSyntax field:
-                return field.Declaration.Variables.First().Identifier.Text;
-            case InterfaceDeclarationSyntax @interface:
-                return @interface.Identifier.Text;
-            case PropertyDeclarationSyntax property:
-                return property.Identifier.Text;
-            case MethodDeclarationSyntax method:
-                return GetMethodName(method);
-            case StructDeclarationSyntax @struct:
-                return @struct.Identifier.Text;
-            }
+            return node switch
+            {
+                ClassDeclarationSyntax @class => @class.Identifier.Text,
+                ConstructorDeclarationSyntax constructor => GetConstructorName(constructor),
+                DelegateDeclarationSyntax @delegate => @delegate.Identifier.Text,
+                EnumDeclarationSyntax @enum => @enum.Identifier.Text,
+                EnumMemberDeclarationSyntax member => GetQualifiedName(member, member.Identifier),
+                EventDeclarationSyntax @event => GetQualifiedName(@event, @event.Identifier),
+                EventFieldDeclarationSyntax eventField => GetQualifiedName(eventField, eventField.Declaration.Variables.First().Identifier),
+                FieldDeclarationSyntax field => GetQualifiedName(field, field.Declaration.Variables.First().Identifier),
+                InterfaceDeclarationSyntax @interface => @interface.Identifier.Text,
+                PropertyDeclarationSyntax property => GetQualifiedName(property, property.Identifier),
+                MethodDeclarationSyntax method => GetMethodName(method),
+                StructDeclarationSyntax @struct => @struct.Identifier.Text,
 
-            throw new ArgumentException($"Unknown syntax type {node.GetType()}", nameof(node));
+                _ => throw new ArgumentException($"Unknown syntax type {node.GetType()}", nameof(node)),
+            };
         }
     }
 }

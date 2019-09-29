@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='Enabled'>
+<member name='IAction.Enabled'>
 <summary>
 If this instance is currently enabled.
 </summary>
@@ -10,14 +10,14 @@ If the action is disabled then calls to <see cref="M:Action.Activate(GISharp.Lib
 </remarks>
 </member>
 
-<member name='Name'>
+<member name='IAction.Name'>
 <summary>
 The name of the action.  This is mostly meaningful for identifying
 the action once it has been added to a <see cref="IActionGroup"/>. It is immutable.
 </summary>
 </member>
 
-<member name='ParameterType'>
+<member name='IAction.ParameterType'>
 <summary>
 The type of the parameter that must be given when activating the
 action. This is immutable, and may be <c>null</c> if no parameter is needed when
@@ -25,20 +25,20 @@ activating the action.
 </summary>
 </member>
 
-<member name='State'>
+<member name='IAction.State'>
 <summary>
 The state of the action, or <c>null</c> if the action is stateless.
 </summary>
 </member>
 
-<member name='StateType'>
+<member name='IAction.StateType'>
 <summary>
 The <see cref="GLib.VariantType"/> of the state that the action has, or <c>null</c> if the
 action is stateless. This is immutable.
 </summary>
 </member>
 
-<member name='DoActivate(GISharp.Lib.GLib.Variant?)'>
+<member name='IAction.DoActivate(GISharp.Lib.GLib.Variant?)'>
 <summary>
 Activates the action.
 </summary>
@@ -54,7 +54,7 @@ the parameter to the activation
 </param>
 </member>
 
-<member name='DoChangeState(GISharp.Lib.GLib.Variant)'>
+<member name='IAction.DoChangeState(GISharp.Lib.GLib.Variant)'>
 <summary>
 Request for the state of this instance to be changed to this instance.
 </summary>
@@ -73,7 +73,7 @@ the new state
 </param>
 </member>
 
-<member name='DoGetEnabled()'>
+<member name='IAction.DoGetEnabled()'>
 <summary>
 Checks if this instance is currently enabled.
 </summary>
@@ -86,7 +86,7 @@ whether the action is enabled
 </returns>
 </member>
 
-<member name='DoGetName()'>
+<member name='IAction.DoGetName()'>
 <summary>
 Queries the name of this instance.
 </summary>
@@ -95,7 +95,7 @@ the name of the action
 </returns>
 </member>
 
-<member name='DoGetParameterType()'>
+<member name='IAction.DoGetParameterType()'>
 <summary>
 Queries the type of the parameter that must be given when activating
 this instance.
@@ -112,7 +112,7 @@ the parameter type
 </returns>
 </member>
 
-<member name='DoGetState()'>
+<member name='IAction.DoGetState()'>
 <summary>
 Queries the current state of this instance.
 </summary>
@@ -129,7 +129,7 @@ the current state of the action
 </returns>
 </member>
 
-<member name='DoGetStateHint()'>
+<member name='IAction.DoGetStateHint()'>
 <summary>
 Requests a hint about the valid range of values for the state of
 this instance.
@@ -156,7 +156,7 @@ the state range hint
 </returns>
 </member>
 
-<member name='DoGetStateType()'>
+<member name='IAction.DoGetStateType()'>
 <summary>
 Queries the type of the state of this instance.
 </summary>
@@ -212,7 +212,7 @@ inside of a <see cref="SimpleAction"/>Group.
 </remarks>
 </member>
 
-<member name='NameIsValid(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Action.NameIsValid(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Checks if <paramref name="actionName"/> is valid.
 </summary>
@@ -231,7 +231,7 @@ an potential action name
 </returns>
 </member>
 
-<member name='NameIsValid(System.String)'>
+<member name='Action.NameIsValid(System.String)'>
 <summary>
 Checks if <paramref name="actionName"/> is valid.
 </summary>
@@ -250,7 +250,7 @@ an potential action name
 </returns>
 </member>
 
-<member name='ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)'>
+<member name='Action.ParseDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)'>
 <summary>
 Parses a detailed action name into its separate name and target
 components.
@@ -292,7 +292,7 @@ On error
 </exception>
 </member>
 
-<member name='ParseDetailedName(System.String,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)'>
+<member name='Action.ParseDetailedName(System.String,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)'>
 <summary>
 Parses a detailed action name into its separate name and target
 components.
@@ -334,7 +334,7 @@ On error
 </exception>
 </member>
 
-<member name='PrintDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)'>
+<member name='Action.PrintDetailedName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)'>
 <summary>
 Formats a detailed action name from <paramref name="actionName"/> and <paramref name="targetValue"/>.
 </summary>
@@ -359,7 +359,7 @@ a detailed format string
 </returns>
 </member>
 
-<member name='PrintDetailedName(System.String,GISharp.Lib.GLib.Variant?)'>
+<member name='Action.PrintDetailedName(System.String,GISharp.Lib.GLib.Variant?)'>
 <summary>
 Formats a detailed action name from <paramref name="actionName"/> and <paramref name="targetValue"/>.
 </summary>
@@ -384,7 +384,7 @@ a detailed format string
 </returns>
 </member>
 
-<member name='Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant?)'>
+<member name='Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant?)'>
 <summary>
 Activates the action.
 </summary>
@@ -403,7 +403,7 @@ the parameter to the activation
 </param>
 </member>
 
-<member name='ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)'>
+<member name='Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)'>
 <summary>
 Request for the state of this instance to be changed to this instance.
 </summary>
@@ -425,7 +425,7 @@ the new state
 </param>
 </member>
 
-<member name='GetEnabled(GISharp.Lib.Gio.IAction)'>
+<member name='Action.GetEnabled(GISharp.Lib.Gio.IAction)'>
 <summary>
 Checks if this instance is currently enabled.
 </summary>
@@ -441,7 +441,7 @@ whether the action is enabled
 </returns>
 </member>
 
-<member name='GetName(GISharp.Lib.Gio.IAction)'>
+<member name='Action.GetName(GISharp.Lib.Gio.IAction)'>
 <summary>
 Queries the name of this instance.
 </summary>
@@ -453,7 +453,7 @@ the name of the action
 </returns>
 </member>
 
-<member name='GetParameterType(GISharp.Lib.Gio.IAction)'>
+<member name='Action.GetParameterType(GISharp.Lib.Gio.IAction)'>
 <summary>
 Queries the type of the parameter that must be given when activating
 this instance.
@@ -473,7 +473,7 @@ the parameter type
 </returns>
 </member>
 
-<member name='GetState(GISharp.Lib.Gio.IAction)'>
+<member name='Action.GetState(GISharp.Lib.Gio.IAction)'>
 <summary>
 Queries the current state of this instance.
 </summary>
@@ -493,7 +493,7 @@ the current state of the action
 </returns>
 </member>
 
-<member name='GetStateHint(GISharp.Lib.Gio.IAction)'>
+<member name='Action.GetStateHint(GISharp.Lib.Gio.IAction)'>
 <summary>
 Requests a hint about the valid range of values for the state of
 this instance.
@@ -523,7 +523,7 @@ the state range hint
 </returns>
 </member>
 
-<member name='GetStateType(GISharp.Lib.Gio.IAction)'>
+<member name='Action.GetStateType(GISharp.Lib.Gio.IAction)'>
 <summary>
 Queries the type of the state of this instance.
 </summary>

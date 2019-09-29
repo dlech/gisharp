@@ -55,7 +55,7 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict(GISharp.Lib.GLib.Variant?)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.VariantDict(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public VariantDict(GISharp.Lib.GLib.Variant? fromAsv) : this(New(fromAsv), GISharp.Runtime.Transfer.Full)
         {
@@ -90,7 +90,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr key);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='Contains(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Contains(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe System.Boolean Contains(GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -101,7 +101,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='Contains(System.String)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Contains(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe System.Boolean Contains(System.String key)
         {
@@ -134,7 +134,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr dict);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='End()']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.End()']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe GISharp.Lib.GLib.Variant End()
         {
@@ -174,7 +174,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='Insert(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Insert(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void Insert(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.Variant value)
         {
@@ -184,7 +184,7 @@ namespace GISharp.Lib.GLib
             g_variant_dict_insert_value(dict_, key_, value_);
         }
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='Insert(System.String,GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Insert(System.String,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void Insert(System.String key, GISharp.Lib.GLib.Variant value)
         {
@@ -233,7 +233,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr expectedType);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe GISharp.Lib.GLib.Variant Lookup(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null)
         {
@@ -245,7 +245,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='Lookup(System.String,GISharp.Lib.GLib.VariantType?)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Lookup(System.String,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe GISharp.Lib.GLib.Variant Lookup(System.String key, GISharp.Lib.GLib.VariantType? expectedType = null)
         {
@@ -305,7 +305,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         System.IntPtr key);
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='Remove(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Remove(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe System.Boolean Remove(GISharp.Lib.GLib.UnownedUtf8 key)
         {
@@ -316,7 +316,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='Remove(System.String)']/*" />
+        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Remove(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe System.Boolean Remove(System.String key)
         {

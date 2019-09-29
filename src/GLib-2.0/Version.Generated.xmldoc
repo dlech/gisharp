@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='major'>
+<member name='Version.major'>
 <summary>
 The major version number of the GLib library.
 </summary>
@@ -11,7 +11,7 @@ linked against at application run time.
 </remarks>
 </member>
 
-<member name='minor'>
+<member name='Version.minor'>
 <summary>
 The minor version number of the GLib library.
 </summary>
@@ -22,7 +22,7 @@ linked against at application run time.
 </remarks>
 </member>
 
-<member name='micro'>
+<member name='Version.micro'>
 <summary>
 The micro version number of the GLib library.
 </summary>
@@ -33,7 +33,7 @@ linked against at application run time.
 </remarks>
 </member>
 
-<member name='Check(System.UInt32,System.UInt32,System.UInt32)'>
+<member name='Version.Check(System.UInt32,System.UInt32,System.UInt32)'>
 <summary>
 Checks that the GLib library in use is compatible with the
 given version. Generally you would pass in the constants

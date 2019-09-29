@@ -1,19 +1,19 @@
 <declaration>
 
-<member name='None'>
+<member name='FileCreateFlags.None'>
 <summary>
 No flags set.
 </summary>
 </member>
 
-<member name='Private'>
+<member name='FileCreateFlags.Private'>
 <summary>
 Create a file that can only be
    accessed by the current user.
 </summary>
 </member>
 
-<member name='ReplaceDestination'>
+<member name='FileCreateFlags.ReplaceDestination'>
 <summary>
 Replace the destination
    as if it didn't exist before. Don't try to keep any old

@@ -1,24 +1,24 @@
 <declaration>
 
-<member name='ParentInstance'>
+<member name='Struct.ParentInstance'>
 </member>
 
-<member name='Priv'>
+<member name='Struct.Priv'>
 </member>
 
-<member name='Arguments_'>
+<member name='ApplicationCommandLine.Arguments_'>
 </member>
 
-<member name='IsRemote_'>
+<member name='ApplicationCommandLine.IsRemote_'>
 </member>
 
-<member name='Options_'>
+<member name='ApplicationCommandLine.Options_'>
 </member>
 
-<member name='PlatformData_'>
+<member name='ApplicationCommandLine.PlatformData_'>
 </member>
 
-<member name='Arguments'>
+<member name='ApplicationCommandLine.Arguments'>
 <summary>
 Gets the list of arguments that was passed on the command line.
 </summary>
@@ -35,7 +35,7 @@ g_strfreev().
 </remarks>
 </member>
 
-<member name='Cwd'>
+<member name='ApplicationCommandLine.Cwd'>
 <summary>
 Gets the working directory of the command line invocation.
 The string may contain non-utf8 data.
@@ -49,7 +49,7 @@ long as this instance exists.
 </remarks>
 </member>
 
-<member name='Environment'>
+<member name='ApplicationCommandLine.Environment'>
 <summary>
 Gets the contents of the 'environ' variable of the command line
 invocation, as would be returned by g_get_environ(), ie as a
@@ -70,20 +70,20 @@ in the value of a single environment variable.
 </remarks>
 </member>
 
-<member name='ExitStatus'>
+<member name='ApplicationCommandLine.ExitStatus'>
 <summary>
 Gets the exit status of this instance.  See
 <see cref="M:ApplicationCommandLine.SetExitStatus(System.Int32)"/> for more information.
 </summary>
 </member>
 
-<member name='IsRemote'>
+<member name='ApplicationCommandLine.IsRemote'>
 <summary>
 Determines if this instance represents a remote invocation.
 </summary>
 </member>
 
-<member name='Options'>
+<member name='ApplicationCommandLine.Options'>
 <summary>
 Gets the options there were passed to g_application_command_line().
 </summary>
@@ -98,7 +98,7 @@ you don't need to check for <c>null</c>.
 </remarks>
 </member>
 
-<member name='PlatformData'>
+<member name='ApplicationCommandLine.PlatformData'>
 <summary>
 Gets the platform data associated with the invocation of this instance.
 </summary>
@@ -112,7 +112,7 @@ For local invocation, it will be <c>null</c>.
 </remarks>
 </member>
 
-<member name='Stdin'>
+<member name='ApplicationCommandLine.Stdin'>
 <summary>
 Gets the stdin of the invoking process.
 </summary>
@@ -128,7 +128,7 @@ You must only call this function once per commandline invocation.
 </remarks>
 </member>
 
-<member name='CreateFileForArg(GISharp.Lib.GLib.Filename)'>
+<member name='ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)'>
 <summary>
 Creates a <see cref="IFile"/> corresponding to a filename that was given as part
 of the invocation of this instance.
@@ -146,7 +146,7 @@ a new <see cref="IFile"/>
 </returns>
 </member>
 
-<member name='GetEnvironmentVariable(GISharp.Lib.GLib.Filename)'>
+<member name='ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)'>
 <summary>
 Gets the value of a particular environment variable of the command
 line invocation, as would be returned by g_getenv().  The strings may
@@ -169,7 +169,7 @@ the value of the variable, or <c>null</c> if unset or unsent
 </returns>
 </member>
 
-<member name='DoGetStdin()'>
+<member name='ApplicationCommandLine.DoGetStdin()'>
 <summary>
 Gets the stdin of the invoking process.
 </summary>
@@ -188,10 +188,10 @@ a <see cref="InputStream"/> for stdin
 </returns>
 </member>
 
-<member name='DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ApplicationCommandLine.DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8)'>
 </member>
 
-<member name='DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='ApplicationCommandLine.DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8)'>
 </member>
 
 <member name='ApplicationCommandLine'>

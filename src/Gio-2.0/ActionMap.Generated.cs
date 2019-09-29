@@ -8,17 +8,17 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionMapInterface))]
     public partial interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='DoAddAction(GISharp.Lib.Gio.IAction)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoAddAction(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedAddAction))]
         void DoAddAction(GISharp.Lib.Gio.IAction action);
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='DoLookupAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoLookupAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedLookupAction))]
         GISharp.Lib.Gio.IAction DoLookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedRemoveAction))]
         void DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
@@ -63,7 +63,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr action);
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static void AddAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.Gio.IAction action)
         {
@@ -99,7 +99,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
@@ -110,7 +110,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='LookupAction(GISharp.Lib.Gio.IActionMap,System.String)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
         {
@@ -142,7 +142,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr actionName);
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
@@ -151,7 +151,7 @@ namespace GISharp.Lib.Gio
             g_action_map_remove_action(actionMap_, actionName_);
         }
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='RemoveAction(GISharp.Lib.Gio.IActionMap,System.String)']/*" />
+        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
         {

@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='GIface'>
+<member name='Struct.GIface'>
 <summary>
 The parent interface.
 </summary>
 </member>
 
-<member name='Init'>
+<member name='Struct.Init'>
 </member>
 
 <member name='Init'>
