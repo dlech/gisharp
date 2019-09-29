@@ -36,8 +36,8 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_log (IntPtr logDomain, LogLevelFlags logLevel, IntPtr format, IntPtr arg);
 
-        static Utf8 stringFormat = "%s";
-        static IntPtr stringFormat_ = stringFormat.Handle;
+        static readonly Utf8 stringFormat = "%s";
+        static readonly IntPtr stringFormat_ = stringFormat.Handle;
 
         static void Log_(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
         {
