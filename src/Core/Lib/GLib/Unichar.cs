@@ -5,7 +5,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
-    public partial struct Unichar
+    public struct Unichar : IEquatable<Unichar>
     {
         readonly int value;
 
@@ -34,15 +34,15 @@ namespace GISharp.Lib.GLib
             return a.value != b.value;
         }
 
+        public bool Equals(Unichar c) => value == c.value;
+
         public override bool Equals(object obj) => value.Equals(obj);
 
         public override int GetHashCode() => value.GetHashCode();
 
         public override string ToString()
         {
-            using (var utf8 = ToUtf8()) {
-                return utf8.Value;
-            }
+            return $"U+{value:X4}";
         }
 
         /// <summary>
@@ -78,9 +78,9 @@ namespace GISharp.Lib.GLib
             Unichar c);
 
         /// <summary>
-        /// Determines the break type of @c. @c should be a Unicode character
+        /// Determines the break type of this character. This character should be a Unicode character
         /// (to derive a character from UTF-8 encoded text, use
-        /// g_utf8_get_char()). The break type is used to find word and line
+        /// <see cref="Utf8.GetEnumerator"/>). The break type is used to find word and line
         /// breaks ("text boundaries"), Pango implements the Unicode boundary
         /// resolution algorithms and normally you would use a function such
         /// as pango_break() instead of caring about break types yourself.
@@ -139,9 +139,9 @@ namespace GISharp.Lib.GLib
         /// there exists a Primary Composite P which is canonically
         /// equivalent to the sequence &lt;@a,@b&gt;.  See the Unicode
         /// Standard for the definition of Primary Composite.
-        /// 
+        ///
         /// If @a and @b do not compose a new character, @ch is set to zero.
-        /// 
+        ///
         /// See
         /// [UAX#15](http://unicode.org/reports/tr15/)
         /// for details.
@@ -179,15 +179,16 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// This function includes algorithmic Hangul Jamo composition,
-        /// but it is not exactly the inverse of g_unichar_decompose().
-        /// No composition can have either of @a or @b equal to zero.
+        /// but it is not exactly the inverse of <see cref="TryDecompose"/>.
+        /// No composition can have either of <paramref name="a"/> or <paramref name="b"/> equal to zero.
         /// To be precise, this function composes if and only if
         /// there exists a Primary Composite P which is canonically
-        /// equivalent to the sequence &lt;@a,@b&gt;.  See the Unicode
+        /// equivalent to the sequence &lt;<paramref name="a"/>,<paramref name="b"/>&gt;.  See the Unicode
         /// Standard for the definition of Primary Composite.
-        /// 
-        /// If @a and @b do not compose a new character, @ch is set to zero.
-        /// 
+        ///
+        /// If <paramref name="a"/> and <paramref name="b"/> do not compose a
+        /// new character, <paramref name="ch"/> is set to zero.
+        ///
         /// See
         /// [UAX#15](http://unicode.org/reports/tr15/)
         /// for details.
@@ -202,7 +203,7 @@ namespace GISharp.Lib.GLib
         /// return location for the composed character
         /// </param>
         /// <returns>
-        /// %TRUE if the characters could be composed
+        /// <c>true</c> if the characters could be composed
         /// </returns>
         [Since("2.30")]
         public static bool TryCompose(Unichar a, Unichar b, out Unichar ch)
@@ -222,17 +223,17 @@ namespace GISharp.Lib.GLib
         /// decompositions which replace a character by a single
         /// other character. In the case of singletons *@b will
         /// be set to zero.
-        /// 
+        ///
         /// If @ch is not decomposable, *@a is set to @ch and *@b
         /// is set to zero.
-        /// 
+        ///
         /// Note that the way Unicode decomposition pairs are
         /// defined, it is guaranteed that @b would not decompose
         /// further, but @a may itself decompose.  To get the full
         /// canonical decomposition for @ch, one would need to
         /// recursively call this function on @a.  Or use
         /// g_unichar_fully_decompose().
-        /// 
+        ///
         /// See
         /// [UAX#15](http://unicode.org/reports/tr15/)
         /// for details.
@@ -273,31 +274,32 @@ namespace GISharp.Lib.GLib
         /// decompositions. It does, however, include algorithmic
         /// Hangul Jamo decomposition, as well as 'singleton'
         /// decompositions which replace a character by a single
-        /// other character. In the case of singletons *@b will
+        /// other character. In the case of singletons <paramref name="b"/> will
         /// be set to zero.
-        /// 
-        /// If @ch is not decomposable, *@a is set to @ch and *@b
+        ///
+        /// If @ch is not decomposable, <paramref name="a"/> is set to
+        /// this character and <paramref name="b"/>
         /// is set to zero.
-        /// 
+        ///
         /// Note that the way Unicode decomposition pairs are
-        /// defined, it is guaranteed that @b would not decompose
-        /// further, but @a may itself decompose.  To get the full
-        /// canonical decomposition for @ch, one would need to
-        /// recursively call this function on @a.  Or use
-        /// g_unichar_fully_decompose().
-        /// 
+        /// defined, it is guaranteed that <paramref name="b"/> would not decompose
+        /// further, but <paramref name="a"/> may itself decompose.  To get the full
+        /// canonical decomposition for this character, one would need to
+        /// recursively call this function on <paramref name="a"/>.  Or use
+        /// <see cref="FullyDecompose"/>.
+        ///
         /// See
         /// [UAX#15](http://unicode.org/reports/tr15/)
         /// for details.
         /// </remarks>
         /// <param name="a">
-        /// return location for the first component of @ch
+        /// return location for the first component of this character
         /// </param>
         /// <param name="b">
-        /// return location for the second component of @ch
+        /// return location for the second component of this character
         /// </param>
         /// <returns>
-        /// %TRUE if the character could be decomposed
+        /// <c>true</c> if the character could be decomposed
         /// </returns>
         [Since("2.30")]
         public bool TryDecompose(out Unichar a, out Unichar b)
@@ -330,8 +332,8 @@ namespace GISharp.Lib.GLib
         /// digit.
         /// </summary>
         /// <returns>
-        /// If @c is a decimal digit (according to
-        /// g_unichar_isdigit()), its numeric value. Otherwise, -1.
+        /// If this character is a decimal digit (according to
+        /// <see cref="IsDigit"/>), its numeric value. Otherwise, <c>-1</c>.
         /// </returns>
         public int DigitValue {
             get {
@@ -357,7 +359,7 @@ namespace GISharp.Lib.GLib
         /// 18 is always enough for both compatibility and canonical
         /// decompositions, so that is the size recommended. This is provided
         /// as %G_UNICHAR_MAX_DECOMPOSITION_LENGTH.
-        /// 
+        ///
         /// See
         /// [UAX#15](http://unicode.org/reports/tr15/)
         /// for details.
@@ -398,8 +400,8 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Computes the canonical or compatibility decomposition of a
         /// Unicode character.  For compatibility decomposition,
-        /// pass %TRUE for @compat; for canonical decomposition
-        /// pass %FALSE for @compat.
+        /// pass <c>true</c> for <paramref name="compat"/>; for canonical decomposition
+        /// pass <c>false</c> for <paramref name="compat"/>;.
         /// </summary>
         /// <param name="compat">
         /// whether perform canonical or compatibility decomposition
@@ -408,12 +410,14 @@ namespace GISharp.Lib.GLib
         /// the decomposed result
         /// </returns>
         [Since("2.30")]
-        public unsafe Span<Unichar> FullyDecompose(bool compat = false)
+        public unsafe Memory<Unichar> FullyDecompose(bool compat = false)
         {
-            var result_ = stackalloc Unichar[MaxDecompositionLength];
-            var ret = g_unichar_fully_decompose(this, compat, result_, (UIntPtr)MaxDecompositionLength);
-            var result = new Span<Unichar>(result_, (int)ret);
-            return result;
+            Memory<Unichar> result = new Unichar[MaxDecompositionLength];
+            using var resultMemHandle = result.Pin();
+            var result_ = (Unichar*)resultMemHandle.Pointer;
+            var resultLen_ = (UIntPtr)MaxDecompositionLength;
+            var ret = g_unichar_fully_decompose(this, compat, result_, resultLen_);
+            return result.Slice(0, (int)ret);
         }
 
         /// <summary>
@@ -456,21 +460,21 @@ namespace GISharp.Lib.GLib
         /// right-to-left text.
         /// </summary>
         /// <remarks>
-        /// If @ch has the Unicode mirrored property and there is another unicode
-        /// character that typically has a glyph that is the mirror image of @ch's
-        /// glyph and @mirrored_ch is set, it puts that character in the address
-        /// pointed to by @mirrored_ch.  Otherwise the original character is put.
+        /// If this character has the Unicode mirrored property and there is another unicode
+        /// character that typically has a glyph that is the mirror image of this character's
+        /// glyph and <paramref name="mirrored"/> is set, it puts that character in the address
+        /// pointed to by <paramref name="mirrored"/>.  Otherwise the original character is put.
         /// </remarks>
-        /// <param name="mirroredCh">
+        /// <param name="mirrored">
         /// location to store the mirrored character
         /// </param>
         /// <returns>
-        /// %TRUE if @ch has a mirrored character, %FALSE otherwise
+        /// <c>true</c> if this character has a mirrored character, <c>false</c> otherwise
         /// </returns>
         [Since("2.4")]
-        public bool TryGetMirrorChar(out Unichar mirroredCh)
+        public bool TryGetMirrorChar(out Unichar mirrored)
         {
-            var ret = g_unichar_get_mirror_char(this, out mirroredCh);
+            var ret = g_unichar_get_mirror_char(this, out mirrored);
             return ret;
         }
 
@@ -500,9 +504,9 @@ namespace GISharp.Lib.GLib
             Unichar ch);
 
         /// <summary>
-        /// Looks up the #GUnicodeScript for a particular character (as defined
-        /// by Unicode Standard Annex \#24). No check is made for @ch being a
-        /// valid Unicode character; if you pass in invalid character, the
+        /// Looks up the <see cref="UnicodeScript"/> for a particular character (as defined
+        /// by Unicode Standard Annex \#24). No check is made for this character being a
+        /// valid Unicode character; if this character is an invalid character, the
         /// result is undefined.
         /// </summary>
         /// <remarks>
@@ -510,7 +514,7 @@ namespace GISharp.Lib.GLib
         /// two are interchangeable.
         /// </remarks>
         /// <returns>
-        /// the #GUnicodeScript for the character.
+        /// the <see cref="UnicodeScript"/> for the character.
         /// </returns>
         [Since("2.14")]
         public UnicodeScript Script {
@@ -542,10 +546,10 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines whether a character is alphanumeric.
         /// Given some UTF-8 text, obtain a character value
-        /// with g_utf8_get_char().
+        /// with <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if @c is an alphanumeric character
+        /// <c>true</c> if this character is an alphanumeric character
         /// </returns>
         public bool IsAlphaNumeric {
             get {
@@ -576,10 +580,10 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines whether a character is alphabetic (i.e. a letter).
         /// Given some UTF-8 text, obtain a character value with
-        /// g_utf8_get_char().
+        /// <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if @c is an alphabetic character
+        /// <c>true</c> if this character is an alphabetic character
         /// </returns>
         public bool IsAlpha {
             get {
@@ -610,10 +614,10 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines whether a character is a control character.
         /// Given some UTF-8 text, obtain a character value with
-        /// g_utf8_get_char().
+        /// <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if @c is a control character
+        /// <c>true</c> if this character is a control character
         /// </returns>
         public bool IsControl {
             get {
@@ -645,7 +649,7 @@ namespace GISharp.Lib.GLib
         /// standard.
         /// </summary>
         /// <returns>
-        /// %TRUE if the character has an assigned value
+        /// <c>true</c> if the character has an assigned value
         /// </returns>
         public bool IsDefined {
             get {
@@ -676,10 +680,10 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines whether a character is numeric (i.e. a digit).  This
         /// covers ASCII 0-9 and also digits in other languages/scripts.  Given
-        /// some UTF-8 text, obtain a character value with g_utf8_get_char().
+        /// some UTF-8 text, obtain a character value with <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if @c is a digit
+        /// <c>true</c> if this character is a digit
         /// </returns>
         public bool IsDigit {
             get {
@@ -711,13 +715,13 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Determines whether a character is printable and not a space
-        /// (returns %FALSE for control characters, format characters, and
-        /// spaces). g_unichar_isprint() is similar, but returns %TRUE for
+        /// (returns <c>false</c> for control characters, format characters, and
+        /// spaces). <see cref="IsPrintable"/> is similar, but returns <c>true</c> for
         /// spaces. Given some UTF-8 text, obtain a character value with
-        /// g_utf8_get_char().
+        /// <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if @c is printable unless it's a space
+        /// <c>true</c> if this character is printable unless it's a space
         /// </returns>
         public bool IsGraph {
             get {
@@ -748,12 +752,12 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines whether a character is a lowercase letter.
         /// Given some UTF-8 text, obtain a character value with
-        /// g_utf8_get_char().
+        /// <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if @c is a lowercase letter
+        /// <c>true</c> if this character is a lowercase letter
         /// </returns>
-        public bool IsLower {
+        public bool IsLowercase {
             get {
                 var ret = g_unichar_islower(this);
                 return ret;
@@ -791,16 +795,16 @@ namespace GISharp.Lib.GLib
         /// Determines whether a character is a mark (non-spacing mark,
         /// combining mark, or enclosing mark in Unicode speak).
         /// Given some UTF-8 text, obtain a character value
-        /// with g_utf8_get_char().
+        /// with <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <remarks>
-        /// Note: in most cases where isalpha characters are allowed,
-        /// ismark characters should be allowed to as they are essential
+        /// Note: in most cases where <see cref="IsAlpha"/> characters are allowed,
+        /// <see cref="IsMark"/> characters should be allowed to as they are essential
         /// for writing most European languages as well as many non-Latin
         /// scripts.
         /// </remarks>
         /// <returns>
-        /// %TRUE if @c is a mark character
+        /// <c>true</c> if this character is a mark character
         /// </returns>
         [Since("2.14")]
         public bool IsMark {
@@ -832,14 +836,14 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Determines whether a character is printable.
-        /// Unlike g_unichar_isgraph(), returns %TRUE for spaces.
+        /// Unlike <see cref="IsGraph"/>, returns <c>true</c> for spaces.
         /// Given some UTF-8 text, obtain a character value with
-        /// g_utf8_get_char().
+        /// <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if @c is printable
+        /// <c>true</c> if this character is printable
         /// </returns>
-        public bool IsPrint {
+        public bool IsPrintable {
             get {
                 var ret = g_unichar_isprint(this);
                 return ret;
@@ -868,10 +872,10 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines whether a character is punctuation or a symbol.
         /// Given some UTF-8 text, obtain a character value with
-        /// g_utf8_get_char().
+        /// <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <returns>
-        /// %TRUE if @c is a punctuation or symbol character
+        /// <c>true</c> if this character is a punctuation or symbol character
         /// </returns>
         public bool IsPunctuation {
             get {
@@ -907,7 +911,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines whether a character is a space, tab, or line separator
         /// (newline, carriage return, etc.).  Given some UTF-8 text, obtain a
-        /// character value with g_utf8_get_char().
+        /// character value with <see cref="Utf8.GetEnumerator"/>.
         /// </summary>
         /// <remarks>
         /// (Note: don't use this to do word breaking; you have to use
@@ -915,7 +919,7 @@ namespace GISharp.Lib.GLib
         /// is fairly complex.)
         /// </remarks>
         /// <returns>
-        /// %TRUE if @c is a space character
+        /// <c>true</c> if this character is a space character
         /// </returns>
         public bool IsSpace {
             get {
@@ -955,9 +959,9 @@ namespace GISharp.Lib.GLib
         /// digraph is U+01F2 LATIN CAPITAL LETTTER D WITH SMALL LETTER Z.
         /// </summary>
         /// <returns>
-        /// %TRUE if the character is titlecase
+        /// <c>true</c> if the character is titlecase
         /// </returns>
-        public bool IsTitle {
+        public bool IsTitlecase {
             get {
                 var ret = g_unichar_istitle(this);
                 return ret;
@@ -985,9 +989,9 @@ namespace GISharp.Lib.GLib
         /// Determines if a character is uppercase.
         /// </summary>
         /// <returns>
-        /// %TRUE if @c is an uppercase character
+        /// <c>true</c> if this character is an uppercase character
         /// </returns>
-        public bool IsUpper {
+        public bool IsUppercase {
             get {
                 var ret = g_unichar_isupper(this);
                 return ret;
@@ -1017,7 +1021,7 @@ namespace GISharp.Lib.GLib
         /// cell.
         /// </summary>
         /// <returns>
-        /// %TRUE if the character is wide
+        /// <c>true</c> if the character is wide
         /// </returns>
         public bool IsWide {
             get {
@@ -1057,18 +1061,18 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines if a character is typically rendered in a double-width
         /// cell under legacy East Asian locales.  If a character is wide according to
-        /// g_unichar_iswide(), then it is also reported wide with this function, but
+        /// <see cref="IsWide"/>, then it is also reported wide with this function, but
         /// the converse is not necessarily true. See the
         /// [Unicode Standard Annex #11](http://www.unicode.org/reports/tr11/)
         /// for details.
         /// </summary>
         /// <remarks>
-        /// If a character passes the g_unichar_iswide() test then it will also pass
+        /// If a character passes the <see cref="IsWide"/> test then it will also pass
         /// this test, but not the other way around.  Note that some characters may
-        /// pass both this test and g_unichar_iszerowidth().
+        /// pass both this test and <see cref="IsZeroWidth"/>.
         /// </remarks>
         /// <returns>
-        /// %TRUE if the character is wide in legacy East Asian locales
+        /// <c>true</c> if the character is wide in legacy East Asian locales
         /// </returns>
         [Since("2.12")]
         public bool IsWideCJK {
@@ -1096,10 +1100,10 @@ namespace GISharp.Lib.GLib
             Unichar c);
 
         /// <summary>
-        /// Determines if a character is a hexidecimal digit.
+        /// Determines if a character is a hexadecimal digit.
         /// </summary>
         /// <returns>
-        /// %TRUE if the character is a hexadecimal digit
+        /// <c>true</c> if the character is a hexadecimal digit
         /// </returns>
         public bool IsHexDigit {
             get {
@@ -1137,18 +1141,18 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Determines if a given character typically takes zero width when rendered.
-        /// The return value is %TRUE for all non-spacing and enclosing marks
+        /// The return value is <c>true</c> for all non-spacing and enclosing marks
         /// (e.g., combining accents), format characters, zero-width
         /// space, but not U+00AD SOFT HYPHEN.
         /// </summary>
         /// <remarks>
-        /// A typical use of this function is with one of g_unichar_iswide() or
-        /// g_unichar_iswide_cjk() to determine the number of cells a string occupies
+        /// A typical use of this function is with one of <see cref="IsWide"/> or
+        /// <see cref="IsWideCJK"/> to determine the number of cells a string occupies
         /// when displayed on a grid display (terminals).  However, note that not all
         /// terminals support zero-width rendering of zero-width marks.
         /// </remarks>
         /// <returns>
-        /// %TRUE if the character has zero width
+        /// <c>true</c> if the character has zero width
         /// </returns>
         [Since("2.14")]
         public bool IsZeroWidth {
@@ -1188,11 +1192,9 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public Utf8 ToUtf8()
         {
-            // get the length
-            var ret = g_unichar_to_utf8(this, IntPtr.Zero);
-            var outbuf_ = GMarshal.Alloc0(ret + 1);
+            var outbuf_ = GMarshal.Alloc0(6);
             g_unichar_to_utf8(this, outbuf_);
-            var outbuf = Opaque.GetInstance<Utf8>(outbuf_, Transfer.Full);
+            var outbuf = new Utf8(outbuf_, Transfer.Full);
             return outbuf;
         }
 
@@ -1219,11 +1221,11 @@ namespace GISharp.Lib.GLib
         /// Converts a character to lower case.
         /// </summary>
         /// <returns>
-        /// the result of converting @c to lower case.
-        /// If @c is not an upperlower or titlecase character,
-        /// or has no lowercase equivalent @c is returned unchanged.
+        /// the result of converting this character to lower case.
+        /// If this character is not an upperlower or titlecase character,
+        /// or has no lowercase equivalent this character is returned unchanged.
         /// </returns>
-        public Unichar ToLower()
+        public Unichar ToLowercase()
         {
             var ret = g_unichar_tolower(this);
             return ret;
@@ -1252,11 +1254,11 @@ namespace GISharp.Lib.GLib
         /// Converts a character to the titlecase.
         /// </summary>
         /// <returns>
-        /// the result of converting @c to titlecase.
-        /// If @c is not an uppercase or lowercase character,
-        /// @c is returned unchanged.
+        /// the result of converting this character to titlecase.
+        /// If this character is not an uppercase or lowercase character,
+        /// this character is returned unchanged.
         /// </returns>
-        public Unichar ToTitle()
+        public Unichar ToTitlecase()
         {
             var ret = g_unichar_totitle(this);
             return ret;
@@ -1285,11 +1287,11 @@ namespace GISharp.Lib.GLib
         /// Converts a character to uppercase.
         /// </summary>
         /// <returns>
-        /// the result of converting @c to uppercase.
-        /// If @c is not an lowercase or titlecase character,
-        /// or has no upper case equivalent @c is returned unchanged.
+        /// the result of converting this character to uppercase.
+        /// If this character is not an lowercase or titlecase character,
+        /// or has no upper case equivalent this character is returned unchanged.
         /// </returns>
-        public Unichar ToUpper()
+        public Unichar ToUppercase()
         {
             var ret = g_unichar_toupper(this);
             return ret;
@@ -1345,18 +1347,14 @@ namespace GISharp.Lib.GLib
             Unichar ch);
 
         /// <summary>
-        /// Checks whether @ch is a valid Unicode character. Some possible
-        /// integer values of @ch will not be valid. 0 is considered a valid
+        /// Checks whether this character is a valid Unicode character. Some possible
+        /// integer values of this character will not be valid. 0 is considered a valid
         /// character, though it's normally a string terminator.
         /// </summary>
         /// <returns>
-        /// %TRUE if @ch is a valid Unicode character
+        /// <c>true</c> if this character is a valid Unicode character
         /// </returns>
-        public bool Validate()
-        {
-            var ret = g_unichar_validate(this);
-            return ret;
-        }
+        public bool IsValid => g_unichar_validate(this);
 
         /// <summary>
         /// Determines the numeric value of a character as a hexidecimal
@@ -1378,12 +1376,12 @@ namespace GISharp.Lib.GLib
             Unichar c);
 
         /// <summary>
-        /// Determines the numeric value of a character as a hexidecimal
+        /// Determines the numeric value of a character as a hexadecimal
         /// digit.
         /// </summary>
         /// <returns>
-        /// If @c is a hex digit (according to
-        /// g_unichar_isxdigit()), its numeric value. Otherwise, -1.
+        /// If this character is a hex digit (according to
+        /// <see cref="IsHexDigit"/>), its numeric value. Otherwise, <c>-1</c>.
         /// </returns>
         public int HexDigitValue {
             get {
