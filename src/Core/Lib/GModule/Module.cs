@@ -16,7 +16,7 @@ namespace GISharp.Lib.GModule
     /// <remarks>
     /// To use this class you must first determine whether dynamic loading is
     /// supported on the platform by checking <see cref="Supported"/>.
-    /// If it is, you can open a module with <see cref="M:#ctor"/>,
+    /// If it is, you can open a module with <see cref="Open"/>,
     /// find the module's symbols (e.g. function names) with <see cref="GetSymbol"/>,
     /// and later close the module with <see cref="Dispose"/>. <see cref="Name"/>
     /// will return the file name of a currently opened module.
@@ -131,7 +131,7 @@ namespace GISharp.Lib.GModule
         /// a <paramref name="directory"/> of <c>/lib</c> and a <paramref name="moduleName"/>
         /// of "mylibrary" will return <c>/lib/libmylibrary.so</c>.On a Windows system,
         /// using <c>\Windows</c> as the directory it will return <c>\Windows\mylibrary.dll</c>.
-        /// 
+        ///
         /// The <paramref name="isSharedLibrary"/> parameter only makes a difference
         /// on macOS, where modules use the suffix "so" and shared libraries use
         /// the suffix "dylib".
@@ -139,7 +139,7 @@ namespace GISharp.Lib.GModule
         public static string BuildPath(string? directory, string moduleName, bool isSharedLibrary = false)
         {
             // BuildPath was originally a wrapper around g_module_build_path,
-            // but it is easy enough to implment it in managed code and we want
+            // but it is easy enough to implement it in managed code and we want
             // to be able to handle both "so" and "dylib" suffixes on macOS.
 
             var prefix = moduleName.StartsWith (Prefix, StringComparison.OrdinalIgnoreCase)
@@ -167,13 +167,13 @@ namespace GISharp.Lib.GModule
         /// <param name="flags">The flags used for opening the module. This can
         /// be the logical OR of any of the <see cref="ModuleFlags"/></param>
         /// <remarks>
-        /// First of all <see cref="M:#ctor"/> tries to open <paramref name="fileName"/>
+        /// First of all <see cref="Open"/> tries to open <paramref name="fileName"/>
         /// as a module. If that fails and <paramref name="fileName"/> has the ".la"-suffix
         /// (and is a libtool archive) it tries to open the corresponding module. If
         /// that fails and it doesn't have the proper module suffix for the platform
         /// (<see cref="Suffix"/>), this suffix will be appended and the corresponding
-        /// module will be opended. If that fails and <paramref name="fileName"/> doesn't
-        /// have the ".la"-suffix, this suffix is appended and <see cref="M:#ctor"/> tries
+        /// module will be opened. If that fails and <paramref name="fileName"/> doesn't
+        /// have the ".la"-suffix, this suffix is appended and <see cref="Open"/> tries
         /// to open the corresponding module. If eventually that fails as well,
         /// a <see cref="ModuleErrorException"/> is thrown.
         /// </remarks>
