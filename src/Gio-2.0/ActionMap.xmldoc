@@ -46,7 +46,7 @@ the name of the action
 <summary>
 The GActionMap interface is implemented by <see cref="IActionGroup"/>
 implementations that operate by containing a number of
-named <see cref="IAction"/> instances, such as #GSimpleActionGroup.
+named <see cref="IAction"/> instances, such as <see cref="T:SimpleActionGroup"/>.
 </summary>
 <remarks>
 One useful application of this interface is to map the

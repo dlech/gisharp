@@ -13,7 +13,7 @@ If the action is disabled then calls to <see cref="M:Action.Activate(GISharp.Lib
 <member name='SimpleAction.Name'>
 <summary>
 The name of the action. This is mostly meaningful for identifying
-the action once it has been added to a #GSimpleActionGroup.
+the action once it has been added to a <see cref="T:SimpleActionGroup"/>.
 </summary>
 </member>
 
@@ -296,7 +296,7 @@ a <see cref="GLib.Variant"/> representing the state hint
 <summary>
 A <see cref="SimpleAction"/> is the obvious simple implementation of the <see cref="IAction"/>
 interface. This is the easiest way to create an action for purposes of
-adding it to a <see cref="SimpleAction"/>Group.
+adding it to a <see cref="T:SimpleActionGroup"/>.
 </summary>
 <remarks>
 See also #GtkAction.

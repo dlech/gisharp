@@ -208,7 +208,7 @@ calls to <see cref="M:Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.V
 safety and for the state being enabled.
 
 Probably the only useful thing to do with a <see cref="IAction"/> is to put it
-inside of a <see cref="SimpleAction"/>Group.
+inside of a <see cref="T:SimpleActionGroup"/>.
 </remarks>
 </member>
 
