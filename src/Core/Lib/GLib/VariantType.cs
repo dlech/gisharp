@@ -420,7 +420,7 @@ namespace GISharp.Lib.GLib
             IntPtr typeString);
 
         /// <summary>
-        /// Creates a new <see cref="T:VariantType"/> corresponding to the type
+        /// Creates a new <see cref="VariantType"/> corresponding to the type
         /// string given by <paramref name="typeString"/>.
         /// </summary>
         /// <param name="typeString">
@@ -440,7 +440,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Creates a new <see cref="T:VariantType"/> corresponding to the type
+        /// Creates a new <see cref="VariantType"/> corresponding to the type
         /// string given by <paramref name="typeString"/>.
         /// </summary>
         /// <param name="typeString">
@@ -457,7 +457,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Creates a new <see cref="T:VariantType"/> corresponding to the type
+        /// Creates a new <see cref="VariantType"/> corresponding to the type
         /// string given by <paramref name="typeString"/>.
         /// </summary>
         /// <param name="typeString">
@@ -472,7 +472,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Creates a new <see cref="T:VariantType"/> corresponding to the type
+        /// Creates a new <see cref="VariantType"/> corresponding to the type
         /// string given by <paramref name="typeString"/>.
         /// </summary>
         /// <param name="typeString">
@@ -513,10 +513,10 @@ namespace GISharp.Lib.GLib
         /// type <paramref name="element"/>
         /// </summary>
         /// <param name="element">
-        /// a <see cref="T:VariantType"/>
+        /// a <see cref="VariantType"/>
         /// </param>
         /// <returns>
-        /// a new array <see cref="T:VariantType"/>
+        /// a new array <see cref="VariantType"/>
         /// </returns>
         [Since("2.24")]
         public static VariantType CreateArray(VariantType element)
@@ -559,13 +559,13 @@ namespace GISharp.Lib.GLib
         /// of type <paramref name="key"/> and a value of type <paramref name="value"/>.
         /// </summary>
         /// <param name="key">
-        /// a basic <see cref="T:VariantType"/>
+        /// a basic <see cref="VariantType"/>
         /// </param>
         /// <param name="value">
-        /// a <see cref="T:VariantType"/>
+        /// a <see cref="VariantType"/>
         /// </param>
         /// <returns>
-        /// a new dictionary entry <see cref="T:VariantType"/>
+        /// a new dictionary entry <see cref="VariantType"/>
         /// </returns>
         [Since("2.24")]
         public static VariantType CreateDictEntry(VariantType key, VariantType value)
@@ -602,10 +602,10 @@ namespace GISharp.Lib.GLib
         /// type <paramref name="element"/> or Nothing.
         /// </summary>
         /// <param name="element">
-        /// a <see cref="T:VariantType"/>
+        /// a <see cref="VariantType"/>
         /// </param>
         /// <returns>
-        /// a new maybe <see cref="T:VariantType"/>
+        /// a new maybe <see cref="VariantType"/>
         /// </returns>
         [Since("2.24")]
         public static VariantType CreateMaybe(VariantType element)
@@ -651,10 +651,10 @@ namespace GISharp.Lib.GLib
         /// Constructs a new tuple type, from <paramref name="items"/>.
         /// </summary>
         /// <param name="items">
-        /// an array of <see cref="T:VariantType"/>s, one for each item
+        /// an array of <see cref="VariantType"/>s, one for each item
         /// </param>
         /// <returns>
-        /// a new tuple <see cref="T:VariantType"/>
+        /// a new tuple <see cref="VariantType"/>
         /// </returns>
         /// <exception cref="ArgumentException">
         /// if any element of <paramref name="items"/> is <c>null</c>
@@ -673,10 +673,10 @@ namespace GISharp.Lib.GLib
         /// Constructs a new tuple type, from <paramref name="items"/>.
         /// </summary>
         /// <param name="items">
-        /// an array of <see cref="T:VariantType"/>s, one for each item
+        /// an array of <see cref="VariantType"/>s, one for each item
         /// </param>
         /// <returns>
-        /// a new tuple <see cref="T:VariantType"/>
+        /// a new tuple <see cref="VariantType"/>
         /// </returns>
         /// <exception cref="ArgumentException">
         /// if any element of <paramref name="items"/> is <c>null</c>
@@ -691,10 +691,10 @@ namespace GISharp.Lib.GLib
         /// Constructs a new tuple type, from <paramref name="items"/>.
         /// </summary>
         /// <param name="items">
-        /// an array of <see cref="T:VariantType"/>s, one for each item
+        /// an array of <see cref="VariantType"/>s, one for each item
         /// </param>
         /// <returns>
-        /// a new tuple <see cref="T:VariantType"/>
+        /// a new tuple <see cref="VariantType"/>
         /// </returns>
         /// <exception cref="ArgumentException">
         /// if any element of <paramref name="items"/> is <c>null</c>
@@ -912,10 +912,10 @@ namespace GISharp.Lib.GLib
         /// Only returns <c>true</c> if the types are exactly equal.  Even if one type
         /// is an indefinite type and the other is a subtype of it, <c>false</c> will
         /// be returned if they are not exactly equal.  If you want to check for
-        /// subtypes, use <see cref="M:IsSubtypeOf"/>.
+        /// subtypes, use <see cref="IsSubtypeOf"/>.
         /// </remarks>
         /// <param name="other">
-        /// a <see cref="T:VariantType"/>
+        /// a <see cref="VariantType"/>
         /// </param>
         /// <returns>
         /// <c>true</c> if this type and <paramref name="other"/> are exactly equal
@@ -985,12 +985,12 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This function may only be used with tuple or dictionary entry types,
         /// but must not be used with the generic tuple type
-        /// <see cref="P:Tuple"/>.
+        /// <see cref="Tuple"/>.
         ///
         /// In the case of a dictionary entry type, this returns the type of
         /// the key.
         ///
-        /// <c>null</c> is returned in case of this type being <see cref="P:Unit"/>.
+        /// <c>null</c> is returned in case of this type being <see cref="Unit"/>.
         /// </remarks>
         /// <returns>
         /// the items type of this type type, or <c>null</c>
@@ -1101,7 +1101,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// This function returns <c>true</c> for any indefinite type for which every
-        /// definite subtype is an array type -- <see cref="P:Array"/>, for
+        /// definite subtype is an array type -- <see cref="Array"/>, for
         /// example.
         /// </remarks>
         /// <returns>
@@ -1152,7 +1152,7 @@ namespace GISharp.Lib.GLib
         /// Only a basic type may be used as the key of a dictionary entry.
         ///
         /// This function returns <c>false</c> for all indefinite types except
-        /// <see cref="P:Basic"/>.
+        /// <see cref="Basic"/>.
         /// </remarks>
         /// <returns>
         /// <c>true</c> if this variant type is a basic type
@@ -1199,7 +1199,7 @@ namespace GISharp.Lib.GLib
         /// entry types plus the variant type.
         ///
         /// This function returns <c>true</c> for any indefinite type for which every
-        /// definite subtype is a container -- <see cref="P:Array"/>, for
+        /// definite subtype is a container -- <see cref="Array"/>, for
         /// example.
         /// </remarks>
         /// <returns>
@@ -1248,10 +1248,10 @@ namespace GISharp.Lib.GLib
         /// A type is definite if its type string does not contain any indefinite
         /// type characters ('*', '?', or 'r').
         ///
-        /// A <see cref="T:Variant"/> instance may not have an indefinite type, so getting
-        /// this property on the result of <see cref="P:Variant.Type"/> will always
+        /// A <see cref="Variant"/> instance may not have an indefinite type, so getting
+        /// this property on the result of <see cref="Variant.Type"/> will always
         /// result in <c>true</c> being returned.  Getting this property on an
-        /// indefinite type like <see cref="P:Array"/>, however, will result in
+        /// indefinite type like <see cref="Array"/>, however, will result in
         /// <c>false</c> being returned.
         /// </remarks>
         /// <returns>
@@ -1296,7 +1296,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This function returns <c>true</c> for any indefinite type for which every
         /// definite subtype is a dictionary entry type --
-        /// <see cref="P:DictionaryEntry"/>, for example.
+        /// <see cref="DictionaryEntry"/>, for example.
         /// </remarks>
         /// <returns>
         /// <c>true</c> if this type is a dictionary entry type
@@ -1339,7 +1339,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// This function returns <c>true</c> for any indefinite type for which every
-        /// definite subtype is a maybe type -- <see cref="P:Maybe"/>, for
+        /// definite subtype is a maybe type -- <see cref="Maybe"/>, for
         /// example.
         /// </remarks>
         /// <returns>
@@ -1391,7 +1391,7 @@ namespace GISharp.Lib.GLib
         /// only indefinite types can have subtypes.
         /// </remarks>
         /// <param name="supertype">
-        /// a <see cref="T:VariantType"/>
+        /// a <see cref="VariantType"/>
         /// </param>
         /// <returns>
         /// <c>true</c> if this type is a subtype of <paramref name="supertype"/>
@@ -1433,11 +1433,11 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Determines if this variant type is a tuple type.  This is true if the
         /// type string for this type starts with a '(' or if this type is
-        /// <see cref="P:Tuple"/>.
+        /// <see cref="Tuple"/>.
         /// </summary>
         /// <remarks>
         /// This property returns <c>true</c> for any indefinite type for which every
-        /// definite subtype is a tuple type -- <see cref="P:Tuple"/>, for
+        /// definite subtype is a tuple type -- <see cref="Tuple"/>, for
         /// example.
         /// </remarks>
         /// <returns>
@@ -1566,7 +1566,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This function may only be used with tuple or dictionary entry types,
         /// but must not be used with the generic tuple type
-        /// <see cref="P:Tuple"/>.
+        /// <see cref="Tuple"/>.
         ///
         /// In the case of a dictionary entry type, this function will always
         /// return 2.

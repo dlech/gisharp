@@ -2747,7 +2747,7 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:GISharp.Core.Value"/> class.
+        /// Initializes a new instance of the <see cref="GISharp.Core.Value"/> class.
         /// </summary>
         public Value (GType type)
         {

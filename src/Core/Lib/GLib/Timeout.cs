@@ -21,16 +21,16 @@ namespace GISharp.Lib.GLib
         /// After each call to the timeout function, the time of the next
         /// timeout is recalculated based on the current time and the given interval
         /// (it does not try to 'catch up' time lost in delays).
-        /// 
+        ///
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle the return value and memory management of @data.
-        /// 
+        ///
         /// This internally creates a main loop source using g_timeout_source_new()
         /// and attaches it to the global #GMainContext using g_source_attach(), so
         /// the callback will be invoked in whichever thread is running that main
         /// context. You can do these steps manually if you need greater control or to
         /// use a custom main context.
-        /// 
+        ///
         /// The interval given in terms of monotonic time, not wall clock time.
         /// See g_get_monotonic_time().
         /// </remarks>
@@ -87,13 +87,13 @@ namespace GISharp.Lib.GLib
         /// After each call to the timeout function, the time of the next
         /// timeout is recalculated based on the current time and the given interval
         /// (it does not try to 'catch up' time lost in delays).
-        /// 
-        /// This internally creates a main loop source using <see cref="M:TimeoutSource.#ctor"/>
+        ///
+        /// This internally creates a main loop source using <see cref="TimeoutSource.IdleSource"/>
         /// and attaches it to the global <see cref="MainContext"/> using <see cref="Source.Attach"/>, so
         /// the callback will be invoked in whichever thread is running that main
         /// context. You can do these steps manually if you need greater control or to
         /// use a custom main context.
-        /// 
+        ///
         /// The interval given in terms of monotonic time, not wall clock time.
         /// </remarks>
         /// <param name="interval">
@@ -132,28 +132,28 @@ namespace GISharp.Lib.GLib
         /// To allow this grouping, the @interval to the first timer is rounded
         /// and can deviate up to one second from the specified interval.
         /// Subsequent timer iterations will generally run at the specified interval.
-        /// 
+        ///
         /// Note that timeout functions may be delayed, due to the processing of other
         /// event sources. Thus they should not be relied on for precise timing.
         /// After each call to the timeout function, the time of the next
         /// timeout is recalculated based on the current time and the given @interval
-        /// 
+        ///
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle the return value and memory management of @data.
-        /// 
+        ///
         /// If you want timing more precise than whole seconds, use g_timeout_add()
         /// instead.
-        /// 
+        ///
         /// The grouping of timers to fire at the same time results in a more power
         /// and CPU efficient behavior so if your timer is in multiples of seconds
         /// and you don't require the first timer exactly one second from now, the
         /// use of g_timeout_add_seconds() is preferred over g_timeout_add().
-        /// 
+        ///
         /// This internally creates a main loop source using
         /// g_timeout_source_new_seconds() and attaches it to the main loop context
         /// using g_source_attach(). You can do these steps manually if you need
         /// greater control.
-        /// 
+        ///
         /// The interval given is in terms of monotonic time, not wall clock
         /// time.  See g_get_monotonic_time().
         /// </remarks>
@@ -211,25 +211,25 @@ namespace GISharp.Lib.GLib
         /// To allow this grouping, the <paramref name="interval"/> to the first timer is rounded
         /// and can deviate up to one second from the specified interval.
         /// Subsequent timer iterations will generally run at the specified interval.
-        /// 
+        ///
         /// Note that timeout functions may be delayed, due to the processing of other
         /// event sources. Thus they should not be relied on for precise timing.
         /// After each call to the timeout function, the time of the next
         /// timeout is recalculated based on the current time and the given <paramref name="interval"/>
-        /// 
+        ///
         /// If you want timing more precise than whole seconds, use <see cref="Add"/>
         /// instead.
-        /// 
+        ///
         /// The grouping of timers to fire at the same time results in a more power
         /// and CPU efficient behavior so if your timer is in multiples of seconds
         /// and you don't require the first timer exactly one second from now, the
         /// use of <see cref="AddSeconds"/> is preferred over <see cref="Add"/>.
-        /// 
+        ///
         /// This internally creates a main loop source using
         /// <see cref="TimeoutSource.Seconds"/> and attaches it to the main loop context
         /// using <see cref="Source.Attach"/>. You can do these steps manually if you need
         /// greater control.
-        /// 
+        ///
         /// The interval given is in terms of monotonic time, not wall clock
         /// time.
         /// </remarks>

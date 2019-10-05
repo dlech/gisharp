@@ -56,7 +56,7 @@ namespace GISharp.Lib.GLib
             IntPtr notify);
 
         /// <summary>
-        /// A convenience function for <see cref="M:UnixSignalSource.#ctor"/>, which
+        /// A convenience function for <see cref="UnixSignalSource.UnixSignalSource"/>, which
         /// attaches to the default <see cref="MainContext"/>.  You can remove the watch
         /// using <see cref="Source.Remove"/>.
         /// </summary>

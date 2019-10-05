@@ -94,8 +94,8 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Creates a new <see cref="T:ParamSpecVariant" /> instance specifying a
-        /// <see cref="T:Variant" /> property.
+        /// Creates a new <see cref="ParamSpecVariant" /> instance specifying a
+        /// <see cref="Variant" /> property.
         /// </summary>
         /// <param name="name">canonical name of the property specified</param>
         /// <param name="nick">nick name for the property specified</param>

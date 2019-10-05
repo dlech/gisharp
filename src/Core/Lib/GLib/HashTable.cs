@@ -807,7 +807,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:GISharp.Lib.GLib.HashTable`2"/> class.
+        /// Initializes a new instance of the <see cref="GISharp.Lib.GLib.HashTable`2"/> class.
         /// This instance does not maintain a reference to keys or values!
         /// </summary>
         public HashTable () : this (New (), Transfer.Full)

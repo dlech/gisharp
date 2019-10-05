@@ -280,12 +280,12 @@ namespace GISharp.Lib.GLib
         /// g_idle_add_full(), g_timeout_add(), g_timeout_add_full(),
         /// g_child_watch_add(), g_child_watch_add_full(), g_io_add_watch(), and
         /// g_io_add_watch_full().
-        /// 
+        ///
         /// See also g_source_destroy(). You must use g_source_destroy() for sources
         /// added to a non-default main context.
-        /// 
+        ///
         /// It is a programmer error to attempt to remove a non-existent source.
-        /// 
+        ///
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
@@ -317,12 +317,12 @@ namespace GISharp.Lib.GLib
         /// returned by the functions <see cref="Attach"/>, <see cref="Idle.Add"/>,
         /// <see cref="Timeout.Add"/>, <see cref="ChildWatch.Add"/>
         /// and <see cref="Gio.AddWatch"/>.
-        /// 
+        ///
         /// You must use <see cref="Destroy"/> for sources
         /// added to a non-default main context.
-        /// 
+        ///
         /// It is a programmer error to attempt to remove a non-existent source.
-        /// 
+        ///
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
@@ -347,10 +347,10 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This is a convenience utility to set source names from the return
         /// value of g_idle_add(), g_timeout_add(), etc.
-        /// 
+        ///
         /// It is a programmer error to attempt to set the name of a non-existent
         /// source.
-        /// 
+        ///
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
@@ -384,10 +384,10 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This is a convenience utility to set source names from the return
         /// value of <see cref="Idle.Add"/>, <see cref="Timeout.Add"/>, etc.
-        /// 
+        ///
         /// It is a programmer error to attempt to set the name of a non-existent
         /// source.
-        /// 
+        ///
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
@@ -456,10 +456,10 @@ namespace GISharp.Lib.GLib
         /// If you don't need @child_source to do anything on its own when it
         /// triggers, you can call g_source_set_dummy_callback() on it to set a
         /// callback that does nothing (except return %TRUE if appropriate).
-        /// 
+        ///
         /// @source will hold a reference on @child_source while @child_source
         /// is attached to it.
-        /// 
+        ///
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
         /// </remarks>
@@ -483,7 +483,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Adds <paramref name="childSource"/> to this source as a "polled" source; when this source is
-        /// added to a <see cref="T:MainContext"/>, <paramref name="childSource"/> will be automatically added
+        /// added to a <see cref="MainContext"/>, <paramref name="childSource"/> will be automatically added
         /// with the same priority, when <paramref name="childSource"/> is triggered, it will
         /// cause this source to dispatch (in addition to calling its own
         /// callback), and when this source is destroyed, it will destroy
@@ -492,14 +492,14 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// If you don't need <paramref name="childSource"/> to do anything on its own when it
-        /// triggers, you can call <see cref="M:SetDummyCallback"/> on it to set a
+        /// triggers, you can call <see cref="SetDummyCallback"/> on it to set a
         /// callback that does nothing (except return <c>true</c> if appropriate).
-        /// 
-        /// This API is only intended to be used by implementations of <see cref="T:Source"/>.
-        /// Do not call this API on a <see cref="T:Source"/> that you did not create.
+        ///
+        /// This API is only intended to be used by implementations of <see cref="Source"/>.
+        /// Do not call this API on a <see cref="Source"/> that you did not create.
         /// </remarks>
         /// <param name="childSource">
-        /// a second <see cref="T:Source"/> that this source should "poll"
+        /// a second <see cref="Source"/> that this source should "poll"
         /// </param>
         [Since("2.28")]
         public void AddChildSource(Source childSource)
@@ -519,7 +519,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
-        /// 
+        ///
         /// Using this API forces the linear scanning of event sources on each
         /// main loop iteration.  Newly-written event sources should try to use
         /// g_source_add_unix_fd() instead of this API.
@@ -544,21 +544,21 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Adds a file descriptor to the set of file descriptors polled for
-        /// this source. This is usually combined with <see cref="M:Source.#ctor"/> to add an
+        /// this source. This is usually combined with <see cref="Source.IdleSource"/> to add an
         /// event source. The event source's check function will typically test
-        /// the revents field in the <see cref="T:PollFD"/> struct and return <c>true</c> if events need
+        /// the revents field in the <see cref="PollFD"/> struct and return <c>true</c> if events need
         /// to be processed.
         /// </summary>
         /// <remarks>
-        /// This API is only intended to be used by implementations of <see cref="T:Source"/>.
-        /// Do not call this API on a <see cref="T:Source"/> that you did not create.
-        /// 
+        /// This API is only intended to be used by implementations of <see cref="Source"/>.
+        /// Do not call this API on a <see cref="Source"/> that you did not create.
+        ///
         /// Using this API forces the linear scanning of event sources on each
         /// main loop iteration.  Newly-written event sources should try to use
-        /// <see cref="M:AddUnixFd"/> instead of this API.
+        /// <see cref="AddUnixFd"/> instead of this API.
         /// </remarks>
         /// <param name="fd">
-        /// a <see cref="T:PollFD"/> structure holding information about a file
+        /// a <see cref="PollFD"/> structure holding information about a file
         /// descriptor to watch.
         /// </param>
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -934,58 +934,58 @@ namespace GISharp.Lib.GLib
         /// This is important when you operate upon your objects
         /// from within idle handlers, but may have freed the object
         /// before the dispatch of your idle handler.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// static gboolean
         /// idle_callback (gpointer data)
         /// {
         ///   SomeWidget *self = data;
-        ///    
+        ///
         ///   GDK_THREADS_ENTER ();
         ///   // do stuff with self
         ///   self-&gt;idle_id = 0;
         ///   GDK_THREADS_LEAVE ();
-        ///    
+        ///
         ///   return G_SOURCE_REMOVE;
         /// }
-        ///  
+        ///
         /// static void
         /// some_widget_do_stuff_later (SomeWidget *self)
         /// {
         ///   self-&gt;idle_id = g_idle_add (idle_callback, self);
         /// }
-        ///  
+        ///
         /// static void
         /// some_widget_finalize (GObject *object)
         /// {
         ///   SomeWidget *self = SOME_WIDGET (object);
-        ///    
+        ///
         ///   if (self-&gt;idle_id)
         ///     g_source_remove (self-&gt;idle_id);
-        ///    
+        ///
         ///   G_OBJECT_CLASS (parent_class)-&gt;finalize (object);
         /// }
         /// ]|
-        /// 
+        ///
         /// This will fail in a multi-threaded application if the
         /// widget is destroyed before the idle handler fires due
         /// to the use after free in the callback. A solution, to
         /// this particular problem, is to check to if the source
         /// has already been destroy within the callback.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// static gboolean
         /// idle_callback (gpointer data)
         /// {
         ///   SomeWidget *self = data;
-        ///   
+        ///
         ///   GDK_THREADS_ENTER ();
         ///   if (!g_source_is_destroyed (g_main_current_source ()))
         ///     {
         ///       // do stuff with self
         ///     }
         ///   GDK_THREADS_LEAVE ();
-        ///   
+        ///
         ///   return FALSE;
         /// }
         /// ]|
@@ -1012,58 +1012,58 @@ namespace GISharp.Lib.GLib
         /// This is important when you operate upon your objects
         /// from within idle handlers, but may have freed the object
         /// before the dispatch of your idle handler.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// static gboolean
         /// idle_callback (gpointer data)
         /// {
         ///   SomeWidget *self = data;
-        ///    
+        ///
         ///   GDK_THREADS_ENTER ();
         ///   // do stuff with self
         ///   self-&gt;idle_id = 0;
         ///   GDK_THREADS_LEAVE ();
-        ///    
+        ///
         ///   return G_SOURCE_REMOVE;
         /// }
-        ///  
+        ///
         /// static void
         /// some_widget_do_stuff_later (SomeWidget *self)
         /// {
         ///   self-&gt;idle_id = g_idle_add (idle_callback, self);
         /// }
-        ///  
+        ///
         /// static void
         /// some_widget_finalize (GObject *object)
         /// {
         ///   SomeWidget *self = SOME_WIDGET (object);
-        ///    
+        ///
         ///   if (self-&gt;idle_id)
         ///     g_source_remove (self-&gt;idle_id);
-        ///    
+        ///
         ///   G_OBJECT_CLASS (parent_class)-&gt;finalize (object);
         /// }
         /// ]|
-        /// 
+        ///
         /// This will fail in a multi-threaded application if the
         /// widget is destroyed before the idle handler fires due
         /// to the use after free in the callback. A solution, to
         /// this particular problem, is to check to if the source
         /// has already been destroy within the callback.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// static gboolean
         /// idle_callback (gpointer data)
         /// {
         ///   SomeWidget *self = data;
-        ///   
+        ///
         ///   GDK_THREADS_ENTER ();
         ///   if (!g_source_is_destroyed (g_main_current_source ()))
         ///     {
         ///       // do stuff with self
         ///     }
         ///   GDK_THREADS_LEAVE ();
-        ///   
+        ///
         ///   return FALSE;
         /// }
         /// ]|
@@ -1172,10 +1172,10 @@ namespace GISharp.Lib.GLib
         /// You only need to call this if you want to remove an fd from being
         /// watched while keeping the same source around.  In the normal case you
         /// will just want to destroy the source.
-        /// 
+        ///
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
-        /// 
+        ///
         /// As the name suggests, this function is not available on Windows.
         /// </remarks>
         /// <param name="source">
@@ -1203,10 +1203,10 @@ namespace GISharp.Lib.GLib
         /// You only need to call this if you want to remove an fd from being
         /// watched while keeping the same source around.  In the normal case you
         /// will just want to destroy the source.
-        /// 
+        ///
         /// This API is only intended to be used by implementations of <see cref="Source" />.
         /// Do not call this API on a <see cref="Source" /> that you did not create.
-        /// 
+        ///
         /// As the name suggests, this function is not available on Windows.
         /// </remarks>
         /// <param name="tag">
@@ -1226,10 +1226,10 @@ namespace GISharp.Lib.GLib
         /// The exact type of @func depends on the type of source; ie. you
         /// should not count on @func being called with @data as its first
         /// parameter.
-        /// 
+        ///
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle memory management of @data.
-        /// 
+        ///
         /// Typically, you won't use this function. Instead use functions specific
         /// to the type of source you are using.
         /// </remarks>
@@ -1270,10 +1270,10 @@ namespace GISharp.Lib.GLib
         /// The exact type of @func depends on the type of source; ie. you
         /// should not count on @func being called with @data as its first
         /// parameter.
-        /// 
+        ///
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle memory management of @data.
-        /// 
+        ///
         /// Typically, you won't use this function. Instead use functions specific
         /// to the type of source you are using.
         /// </remarks>
@@ -1385,12 +1385,12 @@ namespace GISharp.Lib.GLib
         /// The source name should describe in a human-readable way
         /// what the source does. For example, "X11 event queue"
         /// or "GTK+ repaint idle handler" or whatever it is.
-        /// 
+        ///
         /// It is permitted to call this function multiple times, but is not
         /// recommended due to the potential performance impact.  For example,
         /// one could change the name in the "check" function of a #GSourceFuncs
         /// to include details like the event type in the source name.
-        /// 
+        ///
         /// Use caution if changing the name while another thread may be
         /// accessing it with g_source_get_name(); that function does not copy
         /// the value, and changing the value will free it while the other thread
@@ -1451,16 +1451,16 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// If @ready_time is -1 then the source is never woken up on the basis
         /// of the passage of time.
-        /// 
+        ///
         /// Dispatching the source does not reset the ready time.  You should do
         /// so yourself, from the source dispatch function.
-        /// 
+        ///
         /// Note that if you have a pair of sources where the ready time of one
         /// suggests that it will be delivered first but the priority for the
         /// other suggests that it would be delivered first, and the ready time
         /// for both sources is reached during the same main context iteration
         /// then the order of dispatch is undefined.
-        /// 
+        ///
         /// This API is only intended to be used by implementations of #GSource.
         /// Do not call this API on a #GSource that you did not create.
         /// </remarks>
@@ -1522,12 +1522,12 @@ namespace GISharp.Lib.GLib
     /// function also returns a timeout value of 0 to ensure that the poll() call
     /// doesn't block (since that would be time wasted which could have been spent
     /// running the idle function).
-    /// 
+    ///
     /// For timeout sources, the prepare and check functions both return %TRUE
     /// if the timeout interval has expired. The prepare function also returns
     /// a timeout value to ensure that the poll() call doesn't block too long
     /// and miss the next timeout.
-    /// 
+    ///
     /// For file descriptor sources, the prepare function typically returns <c>false</c>,
     /// since it must wait until poll() has been called before it knows whether
     /// any events need to be processed. It sets the returned timeout to -1 to

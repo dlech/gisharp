@@ -52,9 +52,9 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Creates a <see cref="T:VariantIter"/> for iterating over the items in <paramref name="value"/>.
+        /// Creates a <see cref="VariantIter"/> for iterating over the items in <paramref name="value"/>.
         /// </summary>
-        /// <param name="value">a container <see cref="T:Variant"/>.</param>
+        /// <param name="value">a container <see cref="Variant"/>.</param>
         /// <exception cref="ArgumentException">
         /// if <paramref name="value"/> is not a container type
         /// </exception>

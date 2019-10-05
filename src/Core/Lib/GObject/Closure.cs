@@ -246,7 +246,7 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Closure"/> class.
+        /// Initializes a new instance of the <see cref="Closure"/> class.
         /// </summary>
         public Closure (Func<object[], object> callback)
             : this(NewSimple ((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
@@ -255,7 +255,7 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Closure"/> class.
+        /// Initializes a new instance of the <see cref="Closure"/> class.
         /// </summary>
         public Closure (Action<object[]> callback)
             : this (NewSimple((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
@@ -264,7 +264,7 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="T:Closure"/> class.
+        /// Initializes a new instance of the <see cref="Closure"/> class.
         /// </summary>
         public Closure (Action callback)
             : this (NewSimple((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
@@ -697,7 +697,7 @@ namespace GISharp.Lib.GObject
             {
                 // hack to make EventHandler<T> covariant
                 EventHandler<GSignalEventArgs> handlerAction = (s, a) => handler(s, (T)a);
-    
+
                 var userData = new UnmanagedSignalClosureMarshalData(handlerAction, typeof(T), UnmanagedClosureMarshal, UnmanagedClosureNotify);
                 var userData_ = GCHandle.Alloc(userData);
 

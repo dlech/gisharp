@@ -15,7 +15,7 @@ namespace GISharp.Lib.GObject
     /// Whenever the source property changes, the same
     /// value is applied to the target property; for instance, the following
     /// binding:
-    /// 
+    ///
     /// |[&lt;!-- language="C" --&gt;
     ///   g_object_bind_property (object1, "property-a",
     ///                           object2, "property-b",
@@ -122,10 +122,10 @@ namespace GISharp.Lib.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Gets the flags passed when constructing the <see cref="T:Binding"/>.
+        /// Gets the flags passed when constructing the <see cref="Binding"/>.
         /// </summary>
         /// <value>
-        /// the <see cref="T:BindingFlags"/> used by the <see cref="T:Binding"/>
+        /// the <see cref="BindingFlags"/> used by the <see cref="Binding"/>
         /// </value>
         [GProperty("flags")]
         [Since ("2.26")]
@@ -155,10 +155,10 @@ namespace GISharp.Lib.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Retrieves the <see cref="T:Object"/> instance used as the source of the binding.
+        /// Retrieves the <see cref="Object"/> instance used as the source of the binding.
         /// </summary>
         /// <returns>
-        /// the source <see cref="T:Object"/>
+        /// the source <see cref="Object"/>
         /// </returns>
         [GProperty("source")]
         [Since ("2.26")]
@@ -190,7 +190,7 @@ namespace GISharp.Lib.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Retrieves the name of the property of <see cref="P:Source"/> used as the source
+        /// Retrieves the name of the property of <see cref="Source"/> used as the source
         /// of the binding.
         /// </summary>
         /// <returns>
@@ -225,10 +225,10 @@ namespace GISharp.Lib.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Retrieves the <see cref="T:Object"/> instance used as the target of the binding.
+        /// Retrieves the <see cref="Object"/> instance used as the target of the binding.
         /// </summary>
         /// <returns>
-        /// the target <see cref="T:Object"/>
+        /// the target <see cref="Object"/>
         /// </returns>
         [GProperty("target")]
         [Since ("2.26")]
@@ -260,7 +260,7 @@ namespace GISharp.Lib.GObject
             IntPtr binding);
 
         /// <summary>
-        /// Retrieves the name of the property of <see cref="P:Target"/> used as the target
+        /// Retrieves the name of the property of <see cref="Target"/> used as the target
         /// of the binding.
         /// </summary>
         /// <returns>

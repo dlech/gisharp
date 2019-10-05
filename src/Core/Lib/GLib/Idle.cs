@@ -15,7 +15,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// See [memory management of sources][mainloop-memory-management] for details
         /// on how to handle the return value and memory management of @data.
-        /// 
+        ///
         /// This internally creates a main loop source using g_idle_source_new()
         /// and attaches it to the global #MainContext using g_source_attach(), so
         /// the callback will be invoked in whichever thread is running that main
@@ -60,8 +60,8 @@ namespace GISharp.Lib.GLib
         /// events pending.  If the function returns <c>false</c> it is automatically
         /// removed from the list of event sources and will not be called again.
         /// </summary>
-        /// <remarks> 
-        /// This internally creates a main loop source using <see cref="M:IdleSource.#ctor"/>
+        /// <remarks>
+        /// This internally creates a main loop source using <see cref="IdleSource.IdleSource"/>
         /// and attaches it to the global <see cref="MainContext"/> using <see cref="Source.Attach"/>, so
         /// the callback will be invoked in whichever thread is running that main
         /// context. You can do these steps manually if you need greater control or to

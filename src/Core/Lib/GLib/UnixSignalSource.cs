@@ -22,7 +22,7 @@ namespace GISharp.Lib.GLib
         /// Note that unlike the UNIX default, all sources which have created a
         /// watch will be dispatched, regardless of which underlying thread
         /// invoked g_unix_signal_source_new().
-        /// 
+        ///
         /// For example, an effective use of this function is to handle `SIGTERM`
         /// cleanly; flushing any outstanding files, and then calling
         /// g_main_loop_quit().  It is not safe to do any of this a regular
@@ -30,10 +30,10 @@ namespace GISharp.Lib.GLib
         /// another library function is running, causing reentrancy if you
         /// attempt to use it from the handler.  None of the GLib/GObject API
         /// is safe against this kind of reentrancy.
-        /// 
+        ///
         /// The interaction of this source when combined with native UNIX
         /// functions like sigprocmask() is not defined.
-        /// 
+        ///
         /// The source will not initially be associated with any #GMainContext
         /// and must be added to one with g_source_attach() before it will be
         /// executed.
@@ -62,8 +62,8 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that unlike the UNIX default, all sources which have created a
         /// watch will be dispatched, regardless of which underlying thread
-        /// invoked <see cref="M:UnixSignalSource.#ctor"/>.
-        /// 
+        /// invoked <see cref="UnixSignalSource.UnixSignalSource"/>.
+        ///
         /// For example, an effective use of this function is to handle <c>SIGTERM</c>
         /// cleanly; flushing any outstanding files, and then calling
         /// <see cref="MainLoop.Quit"/>.  It is not safe to do any of this a regular
@@ -71,10 +71,10 @@ namespace GISharp.Lib.GLib
         /// another library function is running, causing reentrancy if you
         /// attempt to use it from the handler.  None of the GLib/GObject API
         /// is safe against this kind of reentrancy.
-        /// 
+        ///
         /// The interaction of this source when combined with native UNIX
         /// functions like sigprocmask() is not defined.
-        /// 
+        ///
         /// The source will not initially be associated with any <see cref="MainContext"/>
         /// and must be added to one with <see cref="Source.Attach"/> before it will be
         /// executed.
@@ -105,8 +105,8 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that unlike the UNIX default, all sources which have created a
         /// watch will be dispatched, regardless of which underlying thread
-        /// invoked <see cref="M:UnixSignalSource.#ctor"/>.
-        /// 
+        /// invoked <see cref="UnixSignalSource.UnixSignalSource"/>.
+        ///
         /// For example, an effective use of this function is to handle <c>SIGTERM</c>
         /// cleanly; flushing any outstanding files, and then calling
         /// <see cref="MainLoop.Quit"/>.  It is not safe to do any of this a regular
@@ -114,10 +114,10 @@ namespace GISharp.Lib.GLib
         /// another library function is running, causing reentrancy if you
         /// attempt to use it from the handler.  None of the GLib/GObject API
         /// is safe against this kind of reentrancy.
-        /// 
+        ///
         /// The interaction of this source when combined with native UNIX
         /// functions like sigprocmask() is not defined.
-        /// 
+        ///
         /// The source will not initially be associated with any <see cref="MainContext"/>
         /// and must be added to one with <see cref="Source.Attach"/> before it will be
         /// executed.
