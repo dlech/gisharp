@@ -8,9 +8,9 @@
 
 <member name='FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Queries a file input stream the given this instance. This function blocks
+Queries a file input stream the given <paramref name="attributes"/>. This function blocks
 while querying the stream. For the asynchronous (non-blocking) version
-of this function, see <see cref="M:FileInputStream.QueryInfoAsync(GISharp.Lib.GLib.Utf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>. While the
+of this function, see <see cref="FileInputStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>. While the
 stream is blocked, the stream will set the pending flag internally, and
 any other operations on the stream will fail with <see cref="IOErrorEnum.Pending"/>.
 </summary>
@@ -30,9 +30,9 @@ On error
 
 <member name='FileInputStream.QueryInfo(System.String,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Queries a file input stream the given this instance. This function blocks
+Queries a file input stream the given <paramref name="attributes"/>. This function blocks
 while querying the stream. For the asynchronous (non-blocking) version
-of this function, see <see cref="M:FileInputStream.QueryInfoAsync(GISharp.Lib.GLib.Utf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>. While the
+of this function, see <see cref="FileInputStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>. While the
 stream is blocked, the stream will set the pending flag internally, and
 any other operations on the stream will fail with <see cref="IOErrorEnum.Pending"/>.
 </summary>
@@ -53,15 +53,12 @@ On error
 <member name='FileInputStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Queries the stream information asynchronously.
-When the operation is finished this instance will be called.
-You can then call <see cref="M:FileInputStream.QueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)"/>
-to get the result of the operation.
 </summary>
 <remarks>
 For the synchronous version of this function,
-see <see cref="M:FileInputStream.QueryInfo(GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/>.
+see <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set
 </remarks>
@@ -79,15 +76,12 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 <member name='FileInputStream.QueryInfoAsync(System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Queries the stream information asynchronously.
-When the operation is finished this instance will be called.
-You can then call <see cref="M:FileInputStream.QueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)"/>
-to get the result of the operation.
 </summary>
 <remarks>
 For the synchronous version of this function,
-see <see cref="M:FileInputStream.QueryInfo(GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/>.
+see <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set
 </remarks>
@@ -107,9 +101,9 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 
 <member name='FileInputStream.DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Queries a file input stream the given this instance. This function blocks
+Queries a file input stream the given <paramref name="attributes"/>. This function blocks
 while querying the stream. For the asynchronous (non-blocking) version
-of this function, see <see cref="M:FileInputStream.QueryInfoAsync(GISharp.Lib.GLib.Utf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>. While the
+of this function, see <see cref="FileInputStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>. While the
 stream is blocked, the stream will set the pending flag internally, and
 any other operations on the stream will fail with <see cref="IOErrorEnum.Pending"/>.
 </summary>
@@ -130,15 +124,15 @@ On error
 <member name='FileInputStream.DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Queries the stream information asynchronously.
-When the operation is finished this instance will be called.
-You can then call <see cref="M:FileInputStream.QueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)"/>
+When the operation is finished <paramref name="callback"/> will be called.
+You can then call <see cref="FileInputStream.DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)"/>
 to get the result of the operation.
 </summary>
 <remarks>
 For the synchronous version of this function,
-see <see cref="M:FileInputStream.QueryInfo(GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/>.
+see <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set
 </remarks>
@@ -189,9 +183,9 @@ content from a file.
 GFileInputStream implements <see cref="ISeekable"/>, which allows the input
 stream to jump to arbitrary positions in the file, provided the
 filesystem of the file allows it. To find the position of a file
-input stream, use <see cref="M:Seekable.Tell(GISharp.Lib.Gio.ISeekable)"/>. To find out if a file input
-stream supports seeking, use <see cref="M:Seekable.CanSeek(GISharp.Lib.Gio.ISeekable)"/>.
-To position a file input stream, use <see cref="M:Seekable.Seek(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable)"/>.
+input stream, use <see cref="Seekable.Tell(GISharp.Lib.Gio.ISeekable)"/>. To find out if a file input
+stream supports seeking, use <see cref="Seekable.CanSeek(GISharp.Lib.Gio.ISeekable)"/>.
+To position a file input stream, use <see cref="Seekable.Seek(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable)"/>.
 </remarks>
 </member>
 

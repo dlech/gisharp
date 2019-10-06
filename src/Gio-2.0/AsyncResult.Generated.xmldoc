@@ -21,14 +21,14 @@ the user data for this instance.
 
 <member name='IAsyncResult.DoIsTagged(System.IntPtr)'>
 <summary>
-Checks if this instance has the given this instance (generally a function
+Checks if this instance has the given <paramref name="sourceTag"/> (generally a function
 pointer indicating the function this instance was created by).
 </summary>
 <param name="sourceTag">
 an application-defined tag
 </param>
 <returns>
-<c>true</c> if this instance has the indicated this instance, <c>false</c> if
+<c>true</c> if this instance has the indicated <paramref name="sourceTag"/>, <c>false</c> if
   not.
 </returns>
 </member>
@@ -150,7 +150,7 @@ the user data for this instance.
 
 <member name='AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)'>
 <summary>
-Checks if this instance has the given this instance (generally a function
+Checks if this instance has the given <paramref name="sourceTag"/> (generally a function
 pointer indicating the function this instance was created by).
 </summary>
 <param name="res">
@@ -160,7 +160,7 @@ a <see cref="IAsyncResult"/>
 an application-defined tag
 </param>
 <returns>
-<c>true</c> if this instance has the indicated this instance, <c>false</c> if
+<c>true</c> if this instance has the indicated <paramref name="sourceTag"/>, <c>false</c> if
   not.
 </returns>
 </member>

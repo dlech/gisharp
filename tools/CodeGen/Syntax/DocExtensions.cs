@@ -6,6 +6,8 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
+using GISharp.Lib.GLib;
+using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -43,11 +45,11 @@ namespace GISharp.CodeGen.Syntax
                 else if (doc.ParentNode is GIArg arg) {
                     builder.AppendFormat("/// <param name=\"{0}\">", arg.ManagedName.Replace("@", ""));
                     builder.AppendLine();
-                    while ((line = reader.ReadLine ()) != null) {
+                    while ((line = reader.ReadLine()) != null) {
                         builder.AppendFormat("/// {0}", new XText(line));
                         builder.AppendLine();
                     }
-                    builder.AppendLine ("/// </param>");
+                    builder.AppendLine("/// </param>");
                 }
                 else {
                     builder.AppendLine("/// <summary>");
@@ -105,7 +107,6 @@ namespace GISharp.CodeGen.Syntax
                 // anything that starts with an "@" is probably a paramref
                 var paramRefs = Regex.Matches(text, @"@\w+");
                 foreach (Match p in paramRefs.OrderByDescending(x => x.Value.Length)) {
-                    // if this is an instance parameter, replace it with "this instance'
                     var callable = doc.Ancestors.OfType<GICallable>().SingleOrDefault();
                     if (callable == null) {
                         var property = doc.Ancestors.OfType<ManagedProperty>().SingleOrDefault();
@@ -114,17 +115,34 @@ namespace GISharp.CodeGen.Syntax
                         }
                     }
                     if (callable != null) {
+                        // if this is an instance parameter, replace it with "this instance'
                         var instanceParam = callable.Parameters.InstanceParameter;
-                        if (instanceParam != null) {
+                        if (instanceParam?.GirName == p.Value.Substring(1)) {
                             builder.Replace(p.Value, $"this instance");
                             continue;
                         }
+
+                        // if this is an error argument, cref GErrorException instead
+                        var errorParam = callable.Parameters.ErrorParameter;
+                        if (errorParam?.GirName == p.Value.Substring(1)) {
+                            builder.Replace(p.Value, $"<see cref=\"{typeof(GErrorException)}\"/>");
+                            continue;
+                        }
+
+                        // if this is an array length argument
+                        foreach (var (arg, type) in callable.Parameters.Select(x => (x, x.Type as Gir.Array)).Where(x => x.Item2?.LengthIndex >= 0)) {
+                            if (callable.Parameters.RegularParameters.ElementAt(type.LengthIndex).GirName == p.Value.Substring(1)) {
+                                builder.Replace(p.Value, $"the length of <paramref name=\"{arg.ManagedName}\"/>");
+                                continue;
+                            }
+                        }
                     }
+
                     // otherwise replace it with a paramref element
                     // TODO: can probably do a better job of detecting @ ref
                     // to fields/virtual methods and signal callback parameters
                     // (EventArgs)
-                    var name = p.Value.Substring(1).ToCamelCase();
+                    var name = p.Value.Substring(1).ToCamelCase().Replace("@", "");
                     builder.Replace(p.Value, $"<paramref name=\"{name}\"/>");
                 }
 
@@ -141,11 +159,45 @@ namespace GISharp.CodeGen.Syntax
                         var method = callable.ManagedName;
                         if (callable is Constructor) {
                             // constructors are special
-                            method = "#ctor";
+                            method = parent.GirName;
+                        }
+                        static string getManagedType(GIArg arg)
+                        {
+                            var type = arg.Type.ManagedType;
+                            if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
+                                type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
+                            }
+                            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(CArray<>)) {
+                                type = typeof(ReadOnlySpan<>).MakeGenericType(type.GetGenericArguments());
+                            }
+
+                            var result = type.ToString();
+
+                            // see rules at https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/documentation-comments#id-string-format
+                            // Roslyn compiler doesn't seem to follow these rules
+                            if (arg.Direction == "out") {
+                                result = "out " + result;
+                            }
+                            if (arg.Direction == "inout") {
+                                result = "ref " + result;
+                            }
+                            if (type.IsGenericType) {
+                                result = result.Replace("`1[", "{").Replace("]", "}");
+                            }
+                            return result;
                         }
                         // include parameter types so we don't get conflicts with overloads
-                        method += $"({string.Join(",", callable.ManagedParameters.Select(x => x.Type.ManagedType))})";
-                        builder.Replace($"{f.Value}()", $"<see cref=\"M:{parent.GirName}.{method}\"/>");
+                        var parameters = callable.ManagedParameters.RegularParameters.Cast<GIArg>();
+                        var thisParam = callable.ManagedParameters.ThisParameter;
+                        if (thisParam != null) {
+                            var thisParamType = thisParam.Type.ManagedType;
+                            if (thisParamType.IsInterface || thisParamType.IsEnum) {
+                                // interfaces and enums are extension methods, so need instance parameter
+                                parameters = parameters.Prepend(thisParam);
+                            }
+                        }
+                        method += $"({string.Join(",", parameters.Select(x => getManagedType(x)))})";
+                        builder.Replace($"{f.Value}()", $"<see cref=\"{parent.GirName}.{method}\"/>");
                     }
                 }
             }

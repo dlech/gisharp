@@ -4,15 +4,6 @@
 <summary>
 Allocates and initialises a new <see cref="VariantBuilder"/>.
 </summary>
-<remarks>
-You should call <see cref="M:VariantBuilder.Unref()"/> on the return value when it
-is no longer needed.  The memory will not be automatically freed by
-any other call.
-
-In most cases it is easier to place a <see cref="VariantBuilder"/> directly on
-the stack of the calling function and initialise it with
-g_variant_builder_init().
-</remarks>
 <param name="type">
 a container type
 </param>
@@ -20,7 +11,7 @@ a container type
 
 <member name='VariantBuilder.Add(GISharp.Lib.GLib.Variant)'>
 <summary>
-Adds this instance to this instance.
+Adds <paramref name="value"/> to this instance.
 </summary>
 <remarks>
 It is an error to call this function in any way that would create an
@@ -29,8 +20,8 @@ putting different types of items into an array, putting the wrong
 types or number of items in a tuple, putting more than one value into
 a variant, etc.
 
-If this instance is a floating reference (see g_variant_ref_sink()),
-the this instance instance takes ownership of this instance.
+If <paramref name="value"/> is a floating reference (see g_variant_ref_sink()),
+the this instance instance takes ownership of <paramref name="value"/>.
 </remarks>
 <param name="value">
 a <see cref="GLib.Variant"/>
@@ -40,7 +31,7 @@ a <see cref="GLib.Variant"/>
 <member name='VariantBuilder.Close()'>
 <summary>
 Closes the subcontainer inside the given this instance that was opened by
-the most recent call to <see cref="M:VariantBuilder.Open(GISharp.Lib.GLib.VariantType)"/>.
+the most recent call to <see cref="VariantBuilder.Open(GISharp.Lib.GLib.VariantType)"/>.
 </summary>
 <remarks>
 It is an error to call this function in any way that would create an
@@ -60,7 +51,7 @@ heap-allocated <see cref="VariantBuilder"/>) or by reinitialising it with
 g_variant_builder_init() (in the case of stack-allocated). This
 means that for the stack-allocated builders there is no need to
 call g_variant_builder_clear() after the call to
-<see cref="M:VariantBuilder.End()"/>.
+<see cref="VariantBuilder.End()"/>.
 
 It is an error to call this function in any way that would create an
 inconsistent value to be constructed (ie: insufficient number of
@@ -78,8 +69,8 @@ a new, floating, <see cref="GLib.Variant"/>
 <member name='VariantBuilder.Open(GISharp.Lib.GLib.VariantType)'>
 <summary>
 Opens a subcontainer inside the given this instance.  When done adding
-items to the subcontainer, <see cref="M:VariantBuilder.Close()"/> must be called. this instance
-is the type of the container: so to build a tuple of several values, this instance
+items to the subcontainer, <see cref="VariantBuilder.Close()"/> must be called. <paramref name="type"/>
+is the type of the container: so to build a tuple of several values, <paramref name="type"/>
 must include the tuple itself.
 </summary>
 <remarks>

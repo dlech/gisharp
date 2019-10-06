@@ -5,7 +5,7 @@
 Allocates and initialises a new <see cref="VariantDict"/>.
 </summary>
 <remarks>
-You should call <see cref="M:VariantDict.Unref()"/> on the return value when it
+You should call <see cref="VariantDict.Unref()"/> on the return value when it
 is no longer needed.  The memory will not be automatically freed by
 any other call.
 
@@ -22,25 +22,25 @@ the #GVariant with which to initialise the
 
 <member name='VariantDict.Contains(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Checks if this instance exists in this instance.
+Checks if <paramref name="key"/> exists in this instance.
 </summary>
 <param name="key">
 the key to look up in the dictionary
 </param>
 <returns>
-<c>true</c> if this instance is in this instance
+<c>true</c> if <paramref name="key"/> is in this instance
 </returns>
 </member>
 
 <member name='VariantDict.Contains(System.String)'>
 <summary>
-Checks if this instance exists in this instance.
+Checks if <paramref name="key"/> exists in this instance.
 </summary>
 <param name="key">
 the key to look up in the dictionary
 </param>
 <returns>
-<c>true</c> if this instance is in this instance
+<c>true</c> if <paramref name="key"/> is in this instance
 </returns>
 </member>
 
@@ -65,7 +65,7 @@ a new, floating, #GVariant
 Inserts (or replaces) a key in a <see cref="VariantDict"/>.
 </summary>
 <remarks>
-this instance is consumed if it is floating.
+<paramref name="value"/> is consumed if it is floating.
 </remarks>
 <param name="key">
 the key to insert a value for
@@ -80,7 +80,7 @@ the value to insert
 Inserts (or replaces) a key in a <see cref="VariantDict"/>.
 </summary>
 <remarks>
-this instance is consumed if it is floating.
+<paramref name="value"/> is consumed if it is floating.
 </remarks>
 <param name="key">
 the key to insert a value for
@@ -95,14 +95,14 @@ the value to insert
 Looks up a value in a <see cref="VariantDict"/>.
 </summary>
 <remarks>
-If this instance is not found in this instance, <c>null</c> is returned.
+If <paramref name="key"/> is not found in <paramref name="dictionary"/>, <c>null</c> is returned.
 
-The this instance string specifies what type of value is expected.
-If the value associated with this instance has a different type then <c>null</c> is
+The <paramref name="expectedType"/> string specifies what type of value is expected.
+If the value associated with <paramref name="key"/> has a different type then <c>null</c> is
 returned.
 
 If the key is found and the value has the correct type, it is
-returned.  If this instance was specified then any non-<c>null</c> return
+returned.  If <paramref name="expectedType"/> was specified then any non-<c>null</c> return
 value will have this type.
 </remarks>
 <param name="key">
@@ -121,14 +121,14 @@ the value of the dictionary key, or <c>null</c>
 Looks up a value in a <see cref="VariantDict"/>.
 </summary>
 <remarks>
-If this instance is not found in this instance, <c>null</c> is returned.
+If <paramref name="key"/> is not found in <paramref name="dictionary"/>, <c>null</c> is returned.
 
-The this instance string specifies what type of value is expected.
-If the value associated with this instance has a different type then <c>null</c> is
+The <paramref name="expectedType"/> string specifies what type of value is expected.
+If the value associated with <paramref name="key"/> has a different type then <c>null</c> is
 returned.
 
 If the key is found and the value has the correct type, it is
-returned.  If this instance was specified then any non-<c>null</c> return
+returned.  If <paramref name="expectedType"/> was specified then any non-<c>null</c> return
 value will have this type.
 </remarks>
 <param name="key">
@@ -186,13 +186,13 @@ call to g_variant_dict_init() and free the resources with a call to
 g_variant_dict_clear().
 
 Heap-allocated <see cref="VariantDict"/> follows normal refcounting rules: you
-allocate it with <see cref="M:VariantDict.#ctor(GISharp.Lib.GLib.Variant)"/> and use <see cref="M:VariantDict.Ref()"/>
-and <see cref="M:VariantDict.Unref()"/>.
+allocate it with <see cref="VariantDict.VariantDict(GISharp.Lib.GLib.Variant)"/> and use <see cref="VariantDict.Ref()"/>
+and <see cref="VariantDict.Unref()"/>.
 
-<see cref="M:VariantDict.End()"/> is used to convert the <see cref="VariantDict"/> back into a
+<see cref="VariantDict.End()"/> is used to convert the <see cref="VariantDict"/> back into a
 dictionary-type #GVariant.  When used with stack-allocated instances,
 this also implicitly frees all associated memory, but for
-heap-allocated instances, you must still call <see cref="M:VariantDict.Unref()"/>
+heap-allocated instances, you must still call <see cref="VariantDict.Unref()"/>
 afterwards.
 
 You will typically want to use a heap-allocated <see cref="VariantDict"/> when

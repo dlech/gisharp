@@ -69,7 +69,7 @@ to close will still return <see cref="IOErrorEnum.Closed"/> for all operations.
 Still, it is important to check and report the error to the user,
 otherwise there might be a loss of data as all data might not be written.
 
-If this instance is not NULL, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not NULL, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 Cancelling a close will still leave the stream closed, but some streams
@@ -89,12 +89,12 @@ On error
 <member name='IOStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous close of the stream, releasing resources
-related to it. When the operation is finished this instance will be
-called. You can then call <see cref="M:IOStream.CloseFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get
+related to it. When the operation is finished <paramref name="callback"/> will be
+called. You can then call <see cref="IOStream.CloseFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get
 the result of the operation.
 </summary>
 <remarks>
-For behaviour details see <see cref="M:IOStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
+For behaviour details see <see cref="IOStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
 
 The asynchronous methods have a default fallback that uses threads
 to implement asynchronicity, so they are optional for inheriting
@@ -121,7 +121,7 @@ Checks if a stream has pending actions.
 <summary>
 Sets this instance to have actions pending. If the pending flag is
 already set or this instance is closed, it will return <c>false</c> and set
-this instance.
+<see cref="GISharp.Runtime.GErrorException"/>.
 </summary>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -131,12 +131,12 @@ On error
 <member name='IOStream.SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asyncronously splice the output stream of this instance to the input stream of
-this instance, and splice the output stream of this instance to the input stream of
+<paramref name="stream2"/>, and splice the output stream of <paramref name="stream2"/> to the input stream of
 this instance.
 </summary>
 <remarks>
-When the operation is finished this instance will be called.
-You can then call <see cref="M:IOStream.SpliceFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the
+When the operation is finished <paramref name="callback"/> will be called.
+You can then call <see cref="IOStream.SpliceFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the
 result of the operation.
 </remarks>
 <param name="stream2">
@@ -156,12 +156,12 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 <member name='IOStream.DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous close of the stream, releasing resources
-related to it. When the operation is finished this instance will be
-called. You can then call <see cref="M:IOStream.CloseFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get
+related to it. When the operation is finished <paramref name="callback"/> will be
+called. You can then call <see cref="IOStream.CloseFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get
 the result of the operation.
 </summary>
 <remarks>
-For behaviour details see <see cref="M:IOStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
+For behaviour details see <see cref="IOStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
 
 The asynchronous methods have a default fallback that uses threads
 to implement asynchronicity, so they are optional for inheriting
@@ -234,7 +234,7 @@ a two-way network connection; and <see cref="FileIOStream"/>, which represents a
 file handle opened in read-write mode.
 
 To do the actual reading and writing you need to get the substreams
-with <see cref="M:IOStream.GetInputStream()"/> and <see cref="M:IOStream.GetOutputStream()"/>.
+with <see cref="IOStream.GetInputStream()"/> and <see cref="IOStream.GetOutputStream()"/>.
 
 The <see cref="IOStream"/> object owns the input and the output streams, not the other
 way around, so keeping the substreams alive will not keep the <see cref="IOStream"/>
@@ -242,7 +242,7 @@ object alive. If the <see cref="IOStream"/> object is freed it will be closed, t
 closing the substreams, so even if the substreams stay alive they will
 always return <see cref="IOErrorEnum.Closed"/> for all operations.
 
-To close a stream use <see cref="M:IOStream.Close(GISharp.Lib.Gio.Cancellable)"/> which will close the common
+To close a stream use <see cref="IOStream.Close(GISharp.Lib.Gio.Cancellable)"/> which will close the common
 stream object and also the individual substreams. You can also close
 the substreams themselves. In most cases this only marks the
 substream as closed, so further I/O on it fails but common state in the

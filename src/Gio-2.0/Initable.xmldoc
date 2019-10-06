@@ -9,12 +9,12 @@ This method is intended for language bindings. If writing in C,
 g_initable_new() should typically be used instead.
 
 The object must be initialized before any real use after initial
-construction, either with this function or <see cref="M:AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+construction, either with this function or <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
 
-Implementations may also support cancellation. If this instance is not <c>null</c>,
+Implementations may also support cancellation. If <paramref name="cancellable"/> is not <c>null</c>,
 then initialization can be cancelled by triggering the cancellable object
 from another thread. If the operation was cancelled, the error
-<see cref="IOErrorEnum.Cancelled"/> will be returned. If this instance is not <c>null</c> and
+<see cref="IOErrorEnum.Cancelled"/> will be returned. If <paramref name="cancellable"/> is not <c>null</c> and
 the object doesn't support cancellable initialization the error
 <see cref="IOErrorEnum.NotSupported"/> will be returned.
 
@@ -38,7 +38,7 @@ the object; further calls return the result of the first call.
 One reason why a class might need to support idempotent initialization is if
 it is designed to be used via the singleton pattern, with a
 #GObjectClass.constructor that sometimes returns an existing instance.
-In this pattern, a caller would expect to be able to call <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/>
+In this pattern, a caller would expect to be able to call <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/>
 on the result of g_object_new(), regardless of whether it is in fact a new
 instance.
 </remarks>
@@ -47,7 +47,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 <returns>
 <c>true</c> if successful. If an error has occurred, this function will
-    return <c>false</c> and set this instance appropriately if present.
+    return <c>false</c> and set <see cref="GISharp.Runtime.GErrorException"/> appropriately if present.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -59,7 +59,7 @@ On error
 <see cref="IInitable"/> is implemented by objects that can fail during
 initialization. If an object implements this interface then
 it must be initialized as the first thing after construction,
-either via <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> or <see cref="M:AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>
+either via <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> or <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>
 (the latter is only available if it also implements <see cref="IAsyncInitable"/>).
 </summary>
 <remarks>
@@ -73,7 +73,7 @@ Users of objects implementing this are not intended to use
 the interface method directly, instead it will be used automatically
 in various ways. For C applications you generally just call
 g_initable_new() directly, or indirectly via a foo_thing_new() wrapper.
-This will call <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> under the cover, returning <c>null</c> and
+This will call <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> under the cover, returning <c>null</c> and
 setting a #GError on failure (at which point the instance is
 unreferenced).
 
@@ -93,12 +93,12 @@ This method is intended for language bindings. If writing in C,
 g_initable_new() should typically be used instead.
 
 The object must be initialized before any real use after initial
-construction, either with this function or <see cref="M:AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+construction, either with this function or <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
 
-Implementations may also support cancellation. If this instance is not <c>null</c>,
+Implementations may also support cancellation. If <paramref name="cancellable"/> is not <c>null</c>,
 then initialization can be cancelled by triggering the cancellable object
 from another thread. If the operation was cancelled, the error
-<see cref="IOErrorEnum.Cancelled"/> will be returned. If this instance is not <c>null</c> and
+<see cref="IOErrorEnum.Cancelled"/> will be returned. If <paramref name="cancellable"/> is not <c>null</c> and
 the object doesn't support cancellable initialization the error
 <see cref="IOErrorEnum.NotSupported"/> will be returned.
 
@@ -122,7 +122,7 @@ the object; further calls return the result of the first call.
 One reason why a class might need to support idempotent initialization is if
 it is designed to be used via the singleton pattern, with a
 #GObjectClass.constructor that sometimes returns an existing instance.
-In this pattern, a caller would expect to be able to call <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/>
+In this pattern, a caller would expect to be able to call <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/>
 on the result of g_object_new(), regardless of whether it is in fact a new
 instance.
 </remarks>

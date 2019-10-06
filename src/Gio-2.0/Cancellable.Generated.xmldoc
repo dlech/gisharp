@@ -21,13 +21,13 @@ turn readable when this instance is cancelled.
 <remarks>
 You are not supposed to read from the fd yourself, just check for
 readable status. Reading to unset the readable status is done
-with <see cref="M:Cancellable.Reset()"/>.
+with <see cref="Cancellable.Reset()"/>.
 
 After a successful return from this function, you should use
-<see cref="M:Cancellable.ReleaseFd()"/> to free up resources allocated for
+<see cref="Cancellable.ReleaseFd()"/> to free up resources allocated for
 the returned file descriptor.
 
-See also <see cref="M:Cancellable.TryMakePollfd(GISharp.Lib.GLib.PollFD)"/>.
+See also <see cref="Cancellable.TryMakePollfd(out GISharp.Lib.GLib.PollFD)"/>.
 </remarks>
 </member>
 
@@ -73,8 +73,8 @@ unexpectedly not be emitted, and checking before connecting to
 the signal leaves a race condition where this is still happening.
 
 In order to make it safe and easy to connect handlers there
-are two helper functions: <see cref="M:Cancellable.Connect(GISharp.Lib.Gio.CancellableSourceFunc)"/> and
-<see cref="M:Cancellable.Disconnect(System.UInt64)"/> which protect against problems
+are two helper functions: <see cref="Cancellable.Connect(GISharp.Lib.Gio.CancellableSourceFunc)"/> and
+<see cref="Cancellable.Disconnect(System.UInt64)"/> which protect against problems
 like this.
 
 An example of how to us this:
@@ -130,8 +130,8 @@ unexpectedly not be emitted, and checking before connecting to
 the signal leaves a race condition where this is still happening.
 
 In order to make it safe and easy to connect handlers there
-are two helper functions: <see cref="M:Cancellable.Connect(GISharp.Lib.Gio.CancellableSourceFunc)"/> and
-<see cref="M:Cancellable.Disconnect(System.UInt64)"/> which protect against problems
+are two helper functions: <see cref="Cancellable.Connect(GISharp.Lib.Gio.CancellableSourceFunc)"/> and
+<see cref="Cancellable.Disconnect(System.UInt64)"/> which protect against problems
 like this.
 
 An example of how to us this:
@@ -194,20 +194,20 @@ signal. Also handles the race condition that may happen
 if the cancellable is cancelled right before connecting.
 </summary>
 <remarks>
-this instance is called at most once, either directly at the
+<paramref name="callback"/> is called at most once, either directly at the
 time of the connect if this instance is already cancelled,
 or when this instance is cancelled in some thread.
 
-this instance will be called when the handler is
+<paramref name="dataDestroyFunc"/> will be called when the handler is
 disconnected, or immediately if the cancellable is already
 cancelled.
 
 See <see cref="Cancellable"/>::cancelled for details on how to use this.
 
 Since GLib 2.40, the lock protecting this instance is not held when
-this instance is invoked.  This lifts a restriction in place for
+<paramref name="callback"/> is invoked.  This lifts a restriction in place for
 earlier GLib versions which now makes it easier to write cleanup
-code that unconditionally invokes e.g. <see cref="M:Cancellable.Cancel()"/>.
+code that unconditionally invokes e.g. <see cref="Cancellable.Cancel()"/>.
 </remarks>
 <param name="callback">
 The #GCallback to connect.
@@ -233,7 +233,7 @@ same time as the cancellable operation is finished and the
 signal handler is removed. See <see cref="Cancellable"/>::cancelled for
 details on how to use this.
 
-If this instance is <c>null</c> or this instance is `0` this function does
+If this instance is <c>null</c> or <paramref name="handlerId"/> is `0` this function does
 nothing.
 </remarks>
 <param name="handlerId">
@@ -250,8 +250,8 @@ windows.
 </summary>
 <remarks>
 When this function returns <c>true</c>, you should use
-<see cref="M:Cancellable.ReleaseFd()"/> to free up resources allocated for the
-this instance. After a <c>false</c> return, do not call <see cref="M:Cancellable.ReleaseFd()"/>.
+<see cref="Cancellable.ReleaseFd()"/> to free up resources allocated for the
+<paramref name="pollfd"/>. After a <c>false</c> return, do not call <see cref="Cancellable.ReleaseFd()"/>.
 
 If this function returns <c>false</c>, either no this instance was given or
 resource limits prevent this function from allocating the necessary
@@ -261,13 +261,13 @@ these cases is to ignore the this instance.
 
 You are not supposed to read from the fd yourself, just check for
 readable status. Reading to unset the readable status is done
-with <see cref="M:Cancellable.Reset()"/>.
+with <see cref="Cancellable.Reset()"/>.
 </remarks>
 <param name="pollfd">
 a pointer to a #GPollFD
 </param>
 <returns>
-<c>true</c> if this instance was successfully initialized, <c>false</c> on
+<c>true</c> if <paramref name="pollfd"/> was successfully initialized, <c>false</c> on
          failure to prepare the cancellable.
 </returns>
 </member>
@@ -282,7 +282,7 @@ is on the top of the stack).
 <member name='Cancellable.PushCurrent()'>
 <summary>
 Pushes this instance onto the cancellable stack. The current
-cancellable can then be received using <see cref="M:Cancellable.GetCurrent()"/>.
+cancellable can then be received using <see cref="Cancellable.GetCurrent()"/>.
 </summary>
 <remarks>
 This is useful when implementing cancellable operations in
@@ -295,8 +295,8 @@ so you rarely have to call this yourself.
 
 <member name='Cancellable.ReleaseFd()'>
 <summary>
-Releases a resources previously allocated by <see cref="M:Cancellable.GetFd()"/>
-or <see cref="M:Cancellable.TryMakePollfd(GISharp.Lib.GLib.PollFD)"/>.
+Releases a resources previously allocated by <see cref="Cancellable.GetFd()"/>
+or <see cref="Cancellable.TryMakePollfd(out GISharp.Lib.GLib.PollFD)"/>.
 </summary>
 <remarks>
 For compatibility reasons with older releases, calling this function

@@ -5,8 +5,8 @@
 If <paramref name="action"/> is currently enabled.
 </summary>
 <remarks>
-If the action is disabled then calls to <see cref="M:Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> and
-<see cref="M:Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> have no effect.
+If the action is disabled then calls to <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> and
+<see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> have no effect.
 </remarks>
 </member>
 
@@ -42,7 +42,7 @@ action is stateless.
 Creates a new action.
 </summary>
 <remarks>
-The created action is stateless. See <see cref="M:SimpleAction.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/> to create
+The created action is stateless. See <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/> to create
 an action that has state.
 </remarks>
 <param name="name">
@@ -59,7 +59,7 @@ the type of parameter that will be passed to
 Creates a new action.
 </summary>
 <remarks>
-The created action is stateless. See <see cref="M:SimpleAction.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/> to create
+The created action is stateless. See <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/> to create
 an action that has state.
 </remarks>
 <param name="name">
@@ -160,28 +160,28 @@ of <see cref="SimpleAction"/> to connect only one handler or the other.
 </remarks>
 </member>
 
-<member name='ChangedStateEventArgs.Value'>
+<member name='StateChangedEventArgs.Value'>
 <param name="value">
 the requested value for the state
 </param>
 </member>
 
-<member name='ChangedStateEventArgs'>
+<member name='StateChangedEventArgs'>
 <summary>
 Indicates that the action just received a request to change its
 state.
 </summary>
 <remarks>
 <paramref name="value"/> will always be of the correct state type, i.e. the type of the
-initial state passed to <see cref="M:SimpleAction.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>. If an incorrect
+initial state passed to <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>. If an incorrect
 type is given when requesting to change the state, this signal is not
 emitted.
 
 If no handler is connected to this signal then the default
-behaviour is to call <see cref="M:SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> to set the state
+behaviour is to call <see cref="SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> to set the state
 to the requested value. If you connect a signal handler then no
 default action is taken. If the state should change then you must
-call <see cref="M:SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> from the handler.
+call <see cref="SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> from the handler.
 
 An example of a 'change-state' handler:
 |[&lt;!-- language="C" --&gt;
@@ -205,22 +205,22 @@ It could set it to any value at all, or take some other action.
 </remarks>
 </member>
 
-<member name='SimpleAction.ChangedState'>
+<member name='SimpleAction.StateChanged'>
 <summary>
 Indicates that the action just received a request to change its
 state.
 </summary>
 <remarks>
 <paramref name="value"/> will always be of the correct state type, i.e. the type of the
-initial state passed to <see cref="M:SimpleAction.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>. If an incorrect
+initial state passed to <see cref="SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant)"/>. If an incorrect
 type is given when requesting to change the state, this signal is not
 emitted.
 
 If no handler is connected to this signal then the default
-behaviour is to call <see cref="M:SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> to set the state
+behaviour is to call <see cref="SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> to set the state
 to the requested value. If you connect a signal handler then no
 default action is taken. If the state should change then you must
-call <see cref="M:SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> from the handler.
+call <see cref="SimpleAction.SetState(GISharp.Lib.GLib.Variant)"/> from the handler.
 
 An example of a 'change-state' handler:
 |[&lt;!-- language="C" --&gt;
@@ -269,10 +269,10 @@ This directly updates the 'state' property to the given value.
 
 This should only be called by the implementor of the action.  Users
 of the action should not attempt to directly modify the 'state'
-property.  Instead, they should call <see cref="M:Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> to
+property.  Instead, they should call <see cref="Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> to
 request the change.
 
-If the this instance GVariant is floating, it is consumed.
+If the <paramref name="value"/> GVariant is floating, it is consumed.
 </remarks>
 <param name="value">
 the new #GVariant for the state
@@ -284,7 +284,7 @@ the new #GVariant for the state
 Sets the state hint for the action.
 </summary>
 <remarks>
-See <see cref="M:Action.GetStateHint(GISharp.Lib.Gio.IAction)"/> for more information about
+See <see cref="Action.GetStateHint(GISharp.Lib.Gio.IAction)"/> for more information about
 action state hints.
 </remarks>
 <param name="stateHint">

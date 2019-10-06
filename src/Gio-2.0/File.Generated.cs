@@ -95,10 +95,6 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedEqual))]
         System.Boolean DoEqual(GISharp.Lib.Gio.IFile file2);
 
-        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoFindEnclosingMountAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
-        [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedFindEnclosingMountAsync))]
-        void DoFindEnclosingMountAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
-
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoGetBasename()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedGetBasename))]
         GISharp.Lib.GLib.Utf8 DoGetBasename();

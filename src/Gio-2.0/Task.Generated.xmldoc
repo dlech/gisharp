@@ -3,8 +3,8 @@
 <member name='Task.Completed_'>
 <summary>
 Whether the task has completed, meaning its callback (if set) has been
-invoked. This can only happen after <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>,
-<see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/> or one of the other return functions have been called
+invoked. This can only happen after <see cref="Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>,
+<see cref="Task.ReturnError(GISharp.Lib.GLib.Error)"/> or one of the other return functions have been called
 on the task.
 </summary>
 <remarks>
@@ -24,7 +24,7 @@ Gets this instance's <see cref="Cancellable"/>
 <member name='Task.CheckCancellable'>
 <summary>
 Gets this instance's check-cancellable flag. See
-<see cref="M:Task.SetCheckCancellable(System.Boolean)"/> for more details.
+<see cref="Task.SetCheckCancellable(System.Boolean)"/> for more details.
 </summary>
 </member>
 
@@ -51,7 +51,7 @@ context is the default #GMainContext.
 
 <member name='Task.Name'>
 <summary>
-Gets this instance’s name. See <see cref="M:Task.SetName(GISharp.Lib.GLib.Utf8)"/>.
+Gets this instance’s name. See <see cref="Task.SetName(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -64,20 +64,20 @@ Gets this instance's priority
 <member name='Task.ReturnOnCancel'>
 <summary>
 Gets this instance's return-on-cancel flag. See
-<see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> for more details.
+<see cref="Task.SetReturnOnCancel(System.Boolean)"/> for more details.
 </summary>
 </member>
 
 <member name='Task.SourceObject'>
 <summary>
 Gets the source object from this instance. Like
-<see cref="M:AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)"/>, but does not ref the object.
+<see cref="AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)"/>, but does not ref the object.
 </summary>
 </member>
 
 <member name='Task.SourceTag'>
 <summary>
-Gets this instance's source tag. See <see cref="M:Task.SetSourceTag(System.IntPtr)"/>.
+Gets this instance's source tag. See <see cref="Task.SetSourceTag(System.IntPtr)"/>.
 </summary>
 </member>
 
@@ -96,8 +96,8 @@ used to invoke <paramref name="callback"/> in the current
 <remarks>
 Call this in the "start" method of your asynchronous method, and
 pass the <see cref="Task"/> around throughout the asynchronous operation. You
-can use <see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> to attach task-specific data to the
-object, which you can retrieve later via <see cref="M:Task.GetTaskData()"/>.
+can use <see cref="Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> to attach task-specific data to the
+object, which you can retrieve later via <see cref="Task.GetTaskData()"/>.
 
 By default, if <paramref name="cancellable"/> is cancelled, then the return value of
 the task will always be <see cref="IOErrorEnum.Cancelled"/>, even if the task had
@@ -105,7 +105,7 @@ already completed before the cancellation. This allows for
 simplified handling in cases where cancellation may imply that
 other objects that the task depends on have been destroyed. If you
 do not want this behavior, you can use
-<see cref="M:Task.SetCheckCancellable(System.Boolean)"/> to change it.
+<see cref="Task.SetCheckCancellable(System.Boolean)"/> to change it.
 </remarks>
 <param name="sourceObject">
 the #GObject that owns
@@ -140,10 +140,10 @@ if not
 
 <member name='Task.ReportError(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,System.IntPtr,GISharp.Lib.GLib.Error)'>
 <summary>
-Creates a <see cref="Task"/> and then immediately calls <see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/>
+Creates a <see cref="Task"/> and then immediately calls <see cref="Task.ReturnError(GISharp.Lib.GLib.Error)"/>
 on it. Use this in the wrapper function of an asynchronous method
 when you want to avoid even calling the virtual method. You can
-then use <see cref="M:AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/> in the finish method wrapper to
+then use <see cref="AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/> in the finish method wrapper to
 check if the result there is tagged as having been created by the
 wrapper method, and deal with it appropriately if so.
 </summary>
@@ -180,7 +180,7 @@ Gets the result of this instance as a #gboolean.
 </summary>
 <remarks>
 If the task resulted in an error, or was cancelled, then this will
-instead return <c>false</c> and set this instance.
+instead return <c>false</c> and set <see cref="GISharp.Runtime.GErrorException"/>.
 
 Since this method transfers ownership of the return value (or
 error) to the caller, you may only call it once.
@@ -196,7 +196,7 @@ Gets the result of this instance as an integer (#gssize).
 </summary>
 <remarks>
 If the task resulted in an error, or was cancelled, then this will
-instead return -1 and set this instance.
+instead return -1 and set <see cref="GISharp.Runtime.GErrorException"/>.
 
 Since this method transfers ownership of the return value (or
 error) to the caller, you may only call it once.
@@ -216,7 +216,7 @@ of that value to the caller.
 </summary>
 <remarks>
 If the task resulted in an error, or was cancelled, then this will
-instead return <c>null</c> and set this instance.
+instead return <c>null</c> and set <see cref="GISharp.Runtime.GErrorException"/>.
 
 Since this method transfers ownership of the return value (or
 error) to the caller, you may only call it once.
@@ -231,8 +231,8 @@ On error
 
 <member name='Task.ReturnBoolean(System.Boolean)'>
 <summary>
-Sets this instance's result to this instance and completes the task (see
-<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
+Sets this instance's result to <paramref name="result"/> and completes the task (see
+<see cref="Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
 means).
 </summary>
 <param name="result">
@@ -242,14 +242,14 @@ the #gboolean result of a task function.
 
 <member name='Task.ReturnError(GISharp.Lib.GLib.Error)'>
 <summary>
-Sets this instance's result to this instance (which this instance assumes ownership of)
-and completes the task (see <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more
+Sets this instance's result to <paramref name="error"/> (which this instance assumes ownership of)
+and completes the task (see <see cref="Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more
 discussion of exactly what this means).
 </summary>
 <remarks>
-Note that since the task takes ownership of this instance, and since the
-task may be completed before returning from <see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/>,
-you cannot assume that this instance is still valid after calling this.
+Note that since the task takes ownership of <paramref name="error"/>, and since the
+task may be completed before returning from <see cref="Task.ReturnError(GISharp.Lib.GLib.Error)"/>,
+you cannot assume that <paramref name="error"/> is still valid after calling this.
 Call g_error_copy() on the error if you need to keep a local copy
 as well.
 
@@ -264,7 +264,7 @@ the #GError result of a task function.
 <summary>
 Checks if this instance's <see cref="Cancellable"/> has been cancelled, and if so, sets
 this instance's error accordingly and completes the task (see
-<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
+<see cref="Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
 means).
 </summary>
 <returns>
@@ -274,8 +274,8 @@ means).
 
 <member name='Task.ReturnInt(System.Int32)'>
 <summary>
-Sets this instance's result to this instance and completes the task (see
-<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
+Sets this instance's result to <paramref name="result"/> and completes the task (see
+<see cref="Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
 means).
 </summary>
 <param name="result">
@@ -290,24 +290,24 @@ meaningful for tasks run via g_task_run_in_thread() or
 g_task_run_in_thread_sync().
 </summary>
 <remarks>
-If this instance is <c>true</c>, then cancelling this instance's
+If <paramref name="returnOnCancel"/> is <c>true</c>, then cancelling this instance's
 <see cref="Cancellable"/> will immediately cause it to return, as though the
 task's <see cref="TaskThreadFunc"/> had called
-<see cref="M:Task.ReturnErrorIfCancelled()"/> and then returned.
+<see cref="Task.ReturnErrorIfCancelled()"/> and then returned.
 
 This allows you to create a cancellable wrapper around an
 uninterruptable function. The <see cref="TaskThreadFunc"/> just needs to be
 careful that it does not modify any externally-visible state after
 it has been cancelled. To do that, the thread should call
-<see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> again to (atomically) set
+<see cref="Task.SetReturnOnCancel(System.Boolean)"/> again to (atomically) set
 return-on-cancel <c>false</c> before making externally-visible changes;
 if the task gets cancelled before the return-on-cancel flag could
-be changed, <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> will indicate this by
+be changed, <see cref="Task.SetReturnOnCancel(System.Boolean)"/> will indicate this by
 returning <c>false</c>.
 
 You can disable and re-enable this flag multiple times if you wish.
 If the task's <see cref="Cancellable"/> is cancelled while return-on-cancel is
-<c>false</c>, then calling <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> to set it <c>true</c>
+<c>false</c>, then calling <see cref="Task.SetReturnOnCancel(System.Boolean)"/> to set it <c>true</c>
 again will cause the task to be cancelled at that point.
 
 If the task's <see cref="Cancellable"/> is already cancelled before you call
@@ -321,7 +321,7 @@ whether the task returns automatically when
 </param>
 <returns>
 <c>true</c> if this instance's return-on-cancel flag was changed to
-  match this instance. <c>false</c> if this instance has already been
+  match <paramref name="returnOnCancel"/>. <c>false</c> if this instance has already been
   cancelled.
 </returns>
 </member>
@@ -335,19 +335,19 @@ A <see cref="Task"/> represents and manages a cancellable "task".
 
 The most common usage of <see cref="Task"/> is as a <see cref="IAsyncResult"/>, to
 manage data during an asynchronous operation. You call
-<see cref="M:Task.#ctor(GISharp.Lib.GObject.Object,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/> in the "start" method, followed by
-<see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> and the like if you need to keep some
+<see cref="Task.Task(GISharp.Lib.GObject.Object,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/> in the "start" method, followed by
+<see cref="Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> and the like if you need to keep some
 additional data associated with the task, and then pass the
 task object around through your asynchronous operation.
 Eventually, you will call a method such as
-<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> or <see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/>, which will
+<see cref="Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> or <see cref="Task.ReturnError(GISharp.Lib.GLib.Error)"/>, which will
 save the value you give it and then invoke the task's callback
 function in the
 [thread-default main context][g-main-context-push-thread-default]
 where it was created (waiting until the next iteration of the main
 loop first, if necessary). The caller will pass the <see cref="Task"/> back to
 the operation's finish function (as a <see cref="IAsyncResult"/>), and you can
-use <see cref="M:Task.PropagatePointer()"/> or the like to extract the
+use <see cref="Task.PropagatePointer()"/> or the like to extract the
 return value.
 
 Here is an example for using GTask as a GAsyncResult:
@@ -383,7 +383,7 @@ Here is an example for using GTask as a GAsyncResult:
       if (!cake_decorate (cake, decoration-&gt;frosting, decoration-&gt;message, &amp;error))
         {
           g_object_unref (cake);
-          // <see cref="M:Task.ReturnError(GISharp.Lib.GLib.Error)"/> takes ownership of error
+          // <see cref="Task.ReturnError(GISharp.Lib.GLib.Error)"/> takes ownership of error
           g_task_return_error (task, error);
           g_object_unref (task);
           return;
@@ -449,8 +449,8 @@ Here is an example for using GTask as a GAsyncResult:
 
 <see cref="Task"/> also tries to simplify asynchronous operations that
 internally chain together several smaller asynchronous
-operations. <see cref="M:Task.GetCancellable()"/>, <see cref="M:Task.GetContext()"/>,
-and <see cref="M:Task.GetPriority()"/> allow you to get back the task's
+operations. <see cref="Task.GetCancellable()"/>, <see cref="Task.GetContext()"/>,
+and <see cref="Task.GetPriority()"/> allow you to get back the task's
 <see cref="Cancellable"/>, #GMainContext, and [I/O priority][io-priority]
 when starting a new subtask, so you don't have to keep track
 of them yourself. g_task_attach_source() simplifies the case
@@ -667,7 +667,7 @@ Running a task in a thread:
 
 Finally, g_task_run_in_thread() and g_task_run_in_thread_sync()
 can be used to turn an uncancellable operation into a
-cancellable one. If you call <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/>,
+cancellable one. If you call <see cref="Task.SetReturnOnCancel(System.Boolean)"/>,
 passing <c>true</c>, then if the task's <see cref="Cancellable"/> is cancelled,
 it will return control back to the caller immediately, while
 allowing the task thread to continue running in the background
@@ -702,7 +702,7 @@ Cancelling a task:
       // If the task has already been cancelled, then we don't want to add
       // the cake to the cake cache. Likewise, we don't  want to have the
       // task get cancelled in the middle of updating the cache.
-      // <see cref="M:Task.SetReturnOnCancel(System.Boolean)"/> will return <c>true</c> here if it managed
+      // <see cref="Task.SetReturnOnCancel(System.Boolean)"/> will return <c>true</c> here if it managed
       // to disable return-on-cancel, or <c>false</c> if the task was cancelled
       // before it could.
       if (g_task_set_return_on_cancel (task, FALSE))
@@ -773,8 +773,8 @@ Cancelling a task:
 
 <see cref="Task"/>'s API attempts to be simpler than #GSimpleAsyncResult's
 in several ways:
-- You can save task-specific data with <see cref="M:Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>, and
-  retrieve it later with <see cref="M:Task.GetTaskData()"/>. This replaces the
+- You can save task-specific data with <see cref="Task.SetTaskData(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>, and
+  retrieve it later with <see cref="Task.GetTaskData()"/>. This replaces the
   abuse of g_simple_async_result_set_op_res_gpointer() for the same
   purpose with #GSimpleAsyncResult.
 - In addition to the task data, <see cref="Task"/> also keeps track of the
@@ -782,20 +782,20 @@ in several ways:
   #GMainContext associated with the task, so tasks that consist of
   a chain of simpler asynchronous operations will have easy access
   to those values when starting each sub-task.
-- <see cref="M:Task.ReturnErrorIfCancelled()"/> provides simplified
+- <see cref="Task.ReturnErrorIfCancelled()"/> provides simplified
   handling for cancellation. In addition, cancellation
   overrides any other <see cref="Task"/> return value by default, like
   #GSimpleAsyncResult does when
   g_simple_async_result_set_check_cancellable() is called.
-  (You can use <see cref="M:Task.SetCheckCancellable(System.Boolean)"/> to turn off that
+  (You can use <see cref="Task.SetCheckCancellable(System.Boolean)"/> to turn off that
   behavior.) On the other hand, g_task_run_in_thread()
   guarantees that it will always run your
   `task_func`, even if the task's <see cref="Cancellable"/>
   is already cancelled before the task gets a chance to run;
   you can start your `task_func` with a
-  <see cref="M:Task.ReturnErrorIfCancelled()"/> check if you need the
+  <see cref="Task.ReturnErrorIfCancelled()"/> check if you need the
   old behavior.
-- The "return" methods (eg, <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>)
+- The "return" methods (eg, <see cref="Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>)
   automatically cause the task to be "completed" as well, and
   there is no need to worry about the "complete" vs "complete
   in idle" distinction. (<see cref="Task"/> automatically figures out
@@ -804,8 +804,8 @@ in several ways:
   until the next iteration of the current #GMainContext.)
 - The "finish" functions for <see cref="Task"/> based operations are generally
   much simpler than #GSimpleAsyncResult ones, normally consisting
-  of only a single call to <see cref="M:Task.PropagatePointer()"/> or the like.
-  Since <see cref="M:Task.PropagatePointer()"/> "steals" the return value from
+  of only a single call to <see cref="Task.PropagatePointer()"/> or the like.
+  Since <see cref="Task.PropagatePointer()"/> "steals" the return value from
   the <see cref="Task"/>, it is not necessary to juggle pointers around to
   prevent it from being freed twice.
 - With #GSimpleAsyncResult, it was common to call
@@ -820,10 +820,10 @@ in several ways:
   Note that wrapper methods can now use
   g_async_result_legacy_propagate_error() to do old-style
   #GSimpleAsyncResult error-returning behavior, and
-  <see cref="M:AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/> to check if a result is tagged as
+  <see cref="AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/> to check if a result is tagged as
   having come from the `_async()` wrapper
   function (for "short-circuit" results, such as when passing
-  0 to <see cref="M:InputStream.ReadAsync(GISharp.Runtime.CArray`1[System.Byte],System.Int32,GISharp.Lib.Gio.Cancellable)"/>).
+  0 to <see cref="InputStream.ReadAsync(System.ReadOnlySpan{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>).
 </remarks>
 </member>
 

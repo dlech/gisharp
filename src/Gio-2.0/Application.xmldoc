@@ -21,7 +21,7 @@
 <member name='Application.IsBusy_'>
 <summary>
 Whether the application is currently marked as busy through
-<see cref="M:Application.MarkBusy()"/> or <see cref="M:Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.Utf8)"/>.
+<see cref="Application.MarkBusy()"/> or <see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -41,7 +41,7 @@ Returns the default <see cref="Application"/> instance for this process.
 <remarks>
 Normally there is only one <see cref="Application"/> per process and it becomes
 the default when it is created.  You can exercise more control over
-this by using <see cref="M:Application.SetDefault()"/>.
+this by using <see cref="Application.SetDefault()"/>.
 
 If there is no default application then <c>null</c> is returned.
 </remarks>
@@ -69,7 +69,7 @@ If <see cref="Application"/> is not using D-Bus then this function will return
 normally be in use but we were unable to connect to the bus.
 
 This function must not be called before the application has been
-registered.  See <see cref="M:Application.GetIsRegistered()"/>.
+registered.  See <see cref="Application.GetIsRegistered()"/>.
 </remarks>
 </member>
 
@@ -88,14 +88,14 @@ Gets the current inactivity timeout for the application.
 </summary>
 <remarks>
 This is the amount of time (in milliseconds) after the last call to
-<see cref="M:Application.Release()"/> before the application stops running.
+<see cref="Application.Release()"/> before the application stops running.
 </remarks>
 </member>
 
 <member name='Application.IsBusy'>
 <summary>
 Gets the application's current busy state, as set through
-<see cref="M:Application.MarkBusy()"/> or <see cref="M:Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.Utf8)"/>.
+<see cref="Application.MarkBusy()"/> or <see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -104,7 +104,7 @@ Gets the application's current busy state, as set through
 Checks if this instance is registered.
 </summary>
 <remarks>
-An application is registered if <see cref="M:Application.Register(GISharp.Lib.Gio.Cancellable)"/> has been
+An application is registered if <see cref="Application.Register(GISharp.Lib.Gio.Cancellable)"/> has been
 successfully called.
 </remarks>
 </member>
@@ -120,8 +120,8 @@ perform actions on this instance will result in the actions being
 performed by the primary instance.
 
 The value of this property cannot be accessed before
-<see cref="M:Application.Register(GISharp.Lib.Gio.Cancellable)"/> has been called.  See
-<see cref="M:Application.GetIsRegistered()"/>.
+<see cref="Application.Register(GISharp.Lib.Gio.Cancellable)"/> has been called.  See
+<see cref="Application.GetIsRegistered()"/>.
 </remarks>
 </member>
 
@@ -130,7 +130,7 @@ The value of this property cannot be accessed before
 Gets the resource base path of this instance.
 </summary>
 <remarks>
-See <see cref="M:Application.SetResourceBasePath(GISharp.Lib.GLib.Utf8)"/> for more information.
+See <see cref="Application.SetResourceBasePath(GISharp.Lib.GLib.NullableUnownedUtf8)"/> for more information.
 </remarks>
 </member>
 
@@ -140,7 +140,7 @@ Creates a new <see cref="Application"/> instance.
 </summary>
 <remarks>
 If non-<c>null</c>, the application id must be valid.  See
-<see cref="M:Application.IdIsValid(GISharp.Lib.GLib.Utf8)"/>.
+<see cref="Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)"/>.
 
 If no application ID is given then some features of <see cref="Application"/>
 (most notably application uniqueness) will be disabled.
@@ -159,7 +159,7 @@ Creates a new <see cref="Application"/> instance.
 </summary>
 <remarks>
 If non-<c>null</c>, the application id must be valid.  See
-<see cref="M:Application.IdIsValid(GISharp.Lib.GLib.Utf8)"/>.
+<see cref="Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)"/>.
 
 If no application ID is given then some features of <see cref="Application"/>
 (most notably application uniqueness) will be disabled.
@@ -175,14 +175,14 @@ the application flags
 <member name='ActivatedEventArgs'>
 <summary>
 The ::activate signal is emitted on the primary instance when an
-activation occurs. See <see cref="M:Application.Activate()"/>.
+activation occurs. See <see cref="Application.Activate()"/>.
 </summary>
 </member>
 
 <member name='Application.Activated'>
 <summary>
 The ::activate signal is emitted on the primary instance when an
-activation occurs. See <see cref="M:Application.Activate()"/>.
+activation occurs. See <see cref="Application.Activate()"/>.
 </summary>
 </member>
 
@@ -196,14 +196,14 @@ a <see cref="ApplicationCommandLine"/> representing the
 <member name='CommandLinedEventArgs.ReturnValue'>
 <returns>
 An integer that is set as the exit status for the calling
-  process. See <see cref="M:ApplicationCommandLine.SetExitStatus(System.Int32)"/>.
+  process. See <see cref="ApplicationCommandLine.SetExitStatus(System.Int32)"/>.
 </returns>
 </member>
 
 <member name='CommandLinedEventArgs'>
 <summary>
 The ::command-line signal is emitted on the primary instance when
-a commandline is not handled locally. See <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/> and
+a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> and
 the <see cref="ApplicationCommandLine"/> documentation for more information.
 </summary>
 </member>
@@ -211,7 +211,7 @@ the <see cref="ApplicationCommandLine"/> documentation for more information.
 <member name='Application.CommandLined'>
 <summary>
 The ::command-line signal is emitted on the primary instance when
-a commandline is not handled locally. See <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/> and
+a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> and
 the <see cref="ApplicationCommandLine"/> documentation for more information.
 </summary>
 </member>
@@ -238,32 +238,32 @@ after the parsing of the commandline options has occurred.
 </summary>
 <remarks>
 You can add options to be recognised during commandline option
-parsing using <see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> and
-<see cref="M:Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
+parsing using <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> and
+<see cref="Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
 
 Signal handlers can inspect <see cref="Options"/> (along with values pointed to
-from the <see cref="GLib.OptionEntry.ArgData"/> of an installed #GOptionEntrys) in order to
+from the <see cref="GLib.OptionEntry.ArgData"/> of an installed <see cref="GLib.OptionEntry"/>s) in order to
 decide to perform certain actions, including direct local handling
 (which may be useful for options like --version).
 
 In the event that the application is marked
 <see cref="ApplicationFlags.HandlesCommandLine"/> the "normal processing" will
 send the <see cref="Options"/> dictionary to the primary instance where it can be
-read with <see cref="M:ApplicationCommandLine.GetOptions()"/>.  The signal
+read with <see cref="ApplicationCommandLine.GetOptions()"/>.  The signal
 handler can modify the dictionary before returning, and the
 modified dictionary will be sent.
 
 In the event that <see cref="ApplicationFlags.HandlesCommandLine"/> is not set,
 "normal processing" will treat the remaining uncollected command
 line arguments as filenames or URIs.  If there are no arguments,
-the application is activated by <see cref="M:Application.Activate()"/>.  One or
-more arguments results in a call to <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GISharp.Lib.Gio.IFile],GISharp.Lib.GLib.Utf8)"/>.
+the application is activated by <see cref="Application.Activate()"/>.  One or
+more arguments results in a call to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/>.
 
 If you want to handle the local commandline arguments for yourself
-by converting them to calls to <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GISharp.Lib.Gio.IFile],GISharp.Lib.GLib.Utf8)"/> or
-<see cref="M:ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
+by converting them to calls to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> or
+<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
 the application first.  You should probably not call
-<see cref="M:Application.Activate()"/> for yourself, however: just return -1 and
+<see cref="Application.Activate()"/> for yourself, however: just return -1 and
 allow the default handler to do it for you.  This will ensure that
 the `--gapplication-service` switch works properly (i.e. no activation
 in that case).
@@ -285,32 +285,32 @@ after the parsing of the commandline options has occurred.
 </summary>
 <remarks>
 You can add options to be recognised during commandline option
-parsing using <see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> and
-<see cref="M:Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
+parsing using <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> and
+<see cref="Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
 
 Signal handlers can inspect <see cref="HandledLocalOptionsEventArgs.Options"/> (along with values pointed to
-from the <see cref="GLib.OptionEntry.ArgData"/> of an installed #GOptionEntrys) in order to
+from the <see cref="GLib.OptionEntry.ArgData"/> of an installed <see cref="GLib.OptionEntry"/>s) in order to
 decide to perform certain actions, including direct local handling
 (which may be useful for options like --version).
 
 In the event that the application is marked
 <see cref="ApplicationFlags.HandlesCommandLine"/> the "normal processing" will
 send the <see cref="HandledLocalOptionsEventArgs.Options"/> dictionary to the primary instance where it can be
-read with <see cref="M:ApplicationCommandLine.GetOptions()"/>.  The signal
+read with <see cref="ApplicationCommandLine.GetOptions()"/>.  The signal
 handler can modify the dictionary before returning, and the
 modified dictionary will be sent.
 
 In the event that <see cref="ApplicationFlags.HandlesCommandLine"/> is not set,
 "normal processing" will treat the remaining uncollected command
 line arguments as filenames or URIs.  If there are no arguments,
-the application is activated by <see cref="M:Application.Activate()"/>.  One or
-more arguments results in a call to <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GISharp.Lib.Gio.IFile],GISharp.Lib.GLib.Utf8)"/>.
+the application is activated by <see cref="Application.Activate()"/>.  One or
+more arguments results in a call to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/>.
 
 If you want to handle the local commandline arguments for yourself
-by converting them to calls to <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GISharp.Lib.Gio.IFile],GISharp.Lib.GLib.Utf8)"/> or
-<see cref="M:ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
+by converting them to calls to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> or
+<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
 the application first.  You should probably not call
-<see cref="M:Application.Activate()"/> for yourself, however: just return -1 and
+<see cref="Application.Activate()"/> for yourself, however: just return -1 and
 allow the default handler to do it for you.  This will ensure that
 the `--gapplication-service` switch works properly (i.e. no activation
 in that case).
@@ -338,7 +338,7 @@ when a new instance has taken over. This can only happen if the application
 is using the <see cref="ApplicationFlags.AllowReplacement"/> flag.
 </summary>
 <remarks>
-The default handler for this signal calls <see cref="M:Application.Quit()"/>.
+The default handler for this signal calls <see cref="Application.Quit()"/>.
 </remarks>
 </member>
 
@@ -349,13 +349,13 @@ when a new instance has taken over. This can only happen if the application
 is using the <see cref="ApplicationFlags.AllowReplacement"/> flag.
 </summary>
 <remarks>
-The default handler for this signal calls <see cref="M:Application.Quit()"/>.
+The default handler for this signal calls <see cref="Application.Quit()"/>.
 </remarks>
 </member>
 
 <member name='OpenedEventArgs.Files'>
 <summary>
-an array of #GFiles
+an array of <see cref="IFile"/>s
 </summary>
 </member>
 
@@ -368,14 +368,14 @@ a hint provided by the calling instance
 <member name='OpenedEventArgs'>
 <summary>
 The ::open signal is emitted on the primary instance when there are
-files to open. See <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GISharp.Lib.Gio.IFile],GISharp.Lib.GLib.Utf8)"/> for more information.
+files to open. See <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> for more information.
 </summary>
 </member>
 
 <member name='Application.Opened'>
 <summary>
 The ::open signal is emitted on the primary instance when there are
-files to open. See <see cref="M:Application.Open(GISharp.Runtime.CPtrArray`1[GISharp.Lib.Gio.IFile],GISharp.Lib.GLib.Utf8)"/> for more information.
+files to open. See <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> for more information.
 </summary>
 </member>
 
@@ -396,14 +396,14 @@ immediately after the main loop terminates.
 <member name='StartupedEventArgs'>
 <summary>
 The ::startup signal is emitted on the primary instance immediately
-after registration. See <see cref="M:Application.Register(GISharp.Lib.Gio.Cancellable)"/>.
+after registration. See <see cref="Application.Register(GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 </member>
 
 <member name='Application.Startuped'>
 <summary>
 The ::startup signal is emitted on the primary instance immediately
-after registration. See <see cref="M:Application.Register(GISharp.Lib.Gio.Cancellable)"/>.
+after registration. See <see cref="Application.Register(GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 </member>
 
@@ -412,8 +412,8 @@ after registration. See <see cref="M:Application.Register(GISharp.Lib.Gio.Cancel
 Checks if <paramref name="applicationId"/> is a valid application identifier.
 </summary>
 <remarks>
-A valid ID is required for calls to <see cref="M:Application.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.ApplicationFlags)"/> and
-<see cref="M:Application.SetApplicationId(GISharp.Lib.GLib.Utf8)"/>.
+A valid ID is required for calls to <see cref="Application.Application(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)"/> and
+<see cref="Application.SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
 
 Application identifiers follow the same format as
 [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
@@ -469,8 +469,8 @@ a potential application identifier
 Checks if <paramref name="applicationId"/> is a valid application identifier.
 </summary>
 <remarks>
-A valid ID is required for calls to <see cref="M:Application.#ctor(GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.ApplicationFlags)"/> and
-<see cref="M:Application.SetApplicationId(GISharp.Lib.GLib.Utf8)"/>.
+A valid ID is required for calls to <see cref="Application.Application(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)"/> and
+<see cref="Application.SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
 
 Application identifiers follow the same format as
 [D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
@@ -539,16 +539,16 @@ Add an option to be handled by this instance.
 </summary>
 <remarks>
 Calling this function is the equivalent of calling
-<see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> with a single #GOptionEntry
+<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> with a single <see cref="GLib.OptionEntry"/>
 that has its arg_data member set to <c>null</c>.
 
 The parsed arguments will be packed into a <see cref="GLib.VariantDict"/> which
 is passed to <see cref="Application"/>::handle-local-options. If
 <see cref="ApplicationFlags.HandlesCommandLine"/> is set, then it will also
 be sent to the primary instance. See
-<see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> for more details.
+<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> for more details.
 
-See #GOptionEntry for more documentation of the arguments.
+See <see cref="GLib.OptionEntry"/> for more documentation of the arguments.
 </remarks>
 <param name="longName">
 the long name of an option used to specify it in a commandline
@@ -557,10 +557,10 @@ the long name of an option used to specify it in a commandline
 the short name of an option
 </param>
 <param name="flags">
-flags from #GOptionFlags
+flags from <see cref="GLib.OptionFlags"/>
 </param>
 <param name="arg">
-the type of the option, as a #GOptionArg
+the type of the option, as a <see cref="GLib.OptionArg"/>
 </param>
 <param name="description">
 the description for the option in `--help` output
@@ -577,16 +577,16 @@ Add an option to be handled by this instance.
 </summary>
 <remarks>
 Calling this function is the equivalent of calling
-<see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> with a single #GOptionEntry
+<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> with a single <see cref="GLib.OptionEntry"/>
 that has its arg_data member set to <c>null</c>.
 
 The parsed arguments will be packed into a <see cref="GLib.VariantDict"/> which
 is passed to <see cref="Application"/>::handle-local-options. If
 <see cref="ApplicationFlags.HandlesCommandLine"/> is set, then it will also
 be sent to the primary instance. See
-<see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> for more details.
+<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> for more details.
 
-See #GOptionEntry for more documentation of the arguments.
+See <see cref="GLib.OptionEntry"/> for more documentation of the arguments.
 </remarks>
 <param name="longName">
 the long name of an option used to specify it in a commandline
@@ -595,10 +595,10 @@ the long name of an option used to specify it in a commandline
 the short name of an option
 </param>
 <param name="flags">
-flags from #GOptionFlags
+flags from <see cref="GLib.OptionFlags"/>
 </param>
 <param name="arg">
-the type of the option, as a #GOptionArg
+the type of the option, as a <see cref="GLib.OptionArg"/>
 </param>
 <param name="description">
 the description for the option in `--help` output
@@ -618,16 +618,16 @@ This function is comparable to g_option_context_add_main_entries().
 
 After the commandline arguments are parsed, the
 <see cref="Application"/>::handle-local-options signal will be emitted.  At this
-point, the application can inspect the values pointed to by this instance
-in the given #GOptionEntrys.
+point, the application can inspect the values pointed to by <see cref="GLib.OptionEntry.ArgData"/>
+in the given <see cref="GLib.OptionEntry"/>s.
 
-Unlike #GOptionContext, <see cref="Application"/> supports giving a <c>null</c>
-this instance for a non-callback #GOptionEntry.  This results in the
+Unlike <see cref="GLib.OptionContext"/>, <see cref="Application"/> supports giving a <c>null</c>
+<see cref="GLib.OptionEntry.ArgData"/> for a non-callback <see cref="GLib.OptionEntry"/>.  This results in the
 argument in question being packed into a <see cref="GLib.VariantDict"/> which is also
 passed to <see cref="Application"/>::handle-local-options, where it can be
 inspected and modified.  If <see cref="ApplicationFlags.HandlesCommandLine"/> is
 set, then the resulting dictionary is sent to the primary instance,
-where <see cref="M:ApplicationCommandLine.GetOptions()"/> will return it.
+where <see cref="ApplicationCommandLine.GetOptions()"/> will return it.
 This "packing" is done according to the type of the argument --
 booleans for normal flags, strings for strings, bytestrings for
 filenames, etc.  The packing only occurs if the flag is given (ie: we
@@ -637,7 +637,7 @@ In general, it is recommended that all commandline arguments are
 parsed locally.  The options dictionary should then be used to
 transmit the result of the parsing to the primary instance, where
 g_variant_dict_lookup() can be used.  For local options, it is
-possible to either use this instance in the usual way, or to consult (and
+possible to either use <see cref="GLib.OptionEntry.ArgData"/> in the usual way, or to consult (and
 potentially remove) the option from the options dictionary.
 
 This function is new in GLib 2.40.  Before then, the only real choice
@@ -650,14 +650,14 @@ treated as errors.  Unrecognised options have never been ignored when
 
 If <see cref="Application"/>::handle-local-options needs to see the list of
 filenames, then the use of %G_OPTION_REMAINING is recommended.  If
-this instance is <c>null</c> then %G_OPTION_REMAINING can be used as a key into
+<see cref="GLib.OptionEntry.ArgData"/> is <c>null</c> then %G_OPTION_REMAINING can be used as a key into
 the options dictionary.  If you do use %G_OPTION_REMAINING then you
 need to handle these arguments for yourself because once they are
 consumed, they will no longer be visible to the default handling
 (which treats them as filenames to be opened).
 
-It is important to use the proper GVariant format when retrieving
-the options with g_variant_dict_lookup():
+It is important to use the proper <see cref="GLib.Variant"/> format when retrieving
+the options with <see cref="GLib.VariantDict.Lookup(GLib.UnownedUtf8,GLib.VariantType)"/>:
 - for %G_OPTION_ARG_NONE, use b
 - for %G_OPTION_ARG_STRING, use &amp;s
 - for %G_OPTION_ARG_INT, use i
@@ -669,19 +669,19 @@ the options with g_variant_dict_lookup():
 </remarks>
 <param name="entries">
 a
-          <c>null</c>-terminated list of #GOptionEntrys
+          <c>null</c>-terminated list of <see cref="GLib.OptionEntry"/>s
 </param>
 </member>
 
 <member name='Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)'>
 <summary>
-Adds a #GOptionGroup to the commandline handling of this instance.
+Adds a <see cref="GLib.OptionGroup"/> to the commandline handling of this instance.
 </summary>
 <remarks>
-This function is comparable to g_option_context_add_group().
+This function is comparable to <see cref="GLib.OptionContext.AddGroup"/>.
 
-Unlike <see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/>, this function does
-not deal with <c>null</c> this instance and never transmits options to the
+Unlike <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/>, this function does
+not deal with <c>null</c> <see cref="GLib.OptionEntry.ArgData"/> and never transmits options to the
 primary instance.
 
 The reason for that is because, by the time the options arrive at the
@@ -692,7 +692,7 @@ In the case that this is not the first-running instance of the
 application, the existing instance may already have been running for
 a very long time.
 
-This means that the options from #GOptionGroup are only really usable
+This means that the options from <see cref="GLib.OptionGroup"/> are only really usable
 in the case that the instance of the application being run is the
 first instance.  Passing options like `--display=` or `--gdk-debug=`
 on future runs will have no effect on the existing primary instance.
@@ -703,43 +703,43 @@ new functionality whereby unrecognised options are rejected even if
 <see cref="ApplicationFlags.HandlesCommandLine"/> was given.
 </remarks>
 <param name="group">
-a #GOptionGroup
+a <see cref="GLib.OptionGroup"/>
 </param>
 </member>
 
 <member name='Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Marks this instance as busy (see <see cref="M:Application.MarkBusy()"/>) while
-this instance on this instance is <c>true</c>.
+Marks this instance as busy (see <see cref="Application.MarkBusy()"/>) while
+<paramref name="property"/> on <paramref name="object"/> is <c>true</c>.
 </summary>
 <remarks>
 The binding holds a reference to this instance while it is active, but
-not to this instance. Instead, the binding is destroyed when this instance is
+not to <paramref name="object"/>. Instead, the binding is destroyed when <paramref name="object"/> is
 finalized.
 </remarks>
 <param name="object">
-a #GObject
+a <see cref="GObject.Object"/>
 </param>
 <param name="property">
-the name of a boolean property of this instance
+the name of a boolean property of <paramref name="object"/>
 </param>
 </member>
 
 <member name='Application.BindBusyProperty(GISharp.Lib.GObject.Object,System.String)'>
 <summary>
-Marks this instance as busy (see <see cref="M:Application.MarkBusy()"/>) while
-this instance on this instance is <c>true</c>.
+Marks this instance as busy (see <see cref="Application.MarkBusy()"/>) while
+<paramref name="property"/> on <paramref name="object"/> is <c>true</c>.
 </summary>
 <remarks>
 The binding holds a reference to this instance while it is active, but
-not to this instance. Instead, the binding is destroyed when this instance is
+not to <paramref name="object"/>. Instead, the binding is destroyed when <paramref name="object"/> is
 finalized.
 </remarks>
 <param name="object">
-a #GObject
+a <see cref="GObject.Object"/>
 </param>
 <param name="property">
-the name of a boolean property of this instance
+the name of a boolean property of <paramref name="object"/>
 </param>
 </member>
 
@@ -749,10 +749,10 @@ Increases the use count of this instance.
 </summary>
 <remarks>
 Use this function to indicate that the application has a reason to
-continue to run.  For example, <see cref="M:Application.Hold()"/> is called by GTK+
+continue to run.  For example, <see cref="Application.Hold()"/> is called by GTK+
 when a toplevel window is on the screen.
 
-To cancel the hold, call <see cref="M:Application.Release()"/>.
+To cancel the hold, call <see cref="Application.Release()"/>.
 </remarks>
 </member>
 
@@ -768,7 +768,7 @@ The busy state will be exposed to other processes, so a session shell will
 use that information to indicate the state to the user (e.g. with a
 spinner).
 
-To cancel the busy indication, use <see cref="M:Application.UnmarkBusy()"/>.
+To cancel the busy indication, use <see cref="Application.UnmarkBusy()"/>.
 </remarks>
 </member>
 
@@ -780,9 +780,9 @@ Opens the given files.
 In essence, this results in the <see cref="Application"/>::open signal being emitted
 in the primary instance.
 
-this instance must be greater than zero.
+the length of <paramref name="files"/> must be greater than zero.
 
-this instance is simply passed through to the ::open signal.  It is
+<paramref name="hint"/> is simply passed through to the ::open signal.  It is
 intended to be used by applications that have multiple modes for
 opening files (eg: "view" vs "edit", etc).  Unless you have a need
 for this functionality, you should use "".
@@ -791,7 +791,7 @@ The application must be registered before calling this function
 and it must have the <see cref="ApplicationFlags.HandlesOpen"/> flag set.
 </remarks>
 <param name="files">
-an array of #GFiles to open
+an array of <see cref="IFile"/>s to open
 </param>
 <param name="hint">
 a hint (or ""), but never <c>null</c>
@@ -806,9 +806,9 @@ Opens the given files.
 In essence, this results in the <see cref="Application"/>::open signal being emitted
 in the primary instance.
 
-this instance must be greater than zero.
+the length of <paramref name="files"/> must be greater than zero.
 
-this instance is simply passed through to the ::open signal.  It is
+<paramref name="hint"/> is simply passed through to the ::open signal.  It is
 intended to be used by applications that have multiple modes for
 opening files (eg: "view" vs "edit", etc).  Unless you have a need
 for this functionality, you should use "".
@@ -817,7 +817,7 @@ The application must be registered before calling this function
 and it must have the <see cref="ApplicationFlags.HandlesOpen"/> flag set.
 </remarks>
 <param name="files">
-an array of #GFiles to open
+an array of <see cref="IFile"/>s to open
 </param>
 <param name="hint">
 a hint (or ""), but never <c>null</c>
@@ -829,16 +829,16 @@ a hint (or ""), but never <c>null</c>
 Immediately quits the application.
 </summary>
 <remarks>
-Upon return to the mainloop, <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/> will return,
+Upon return to the mainloop, <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> will return,
 calling only the 'shutdown' function before doing so.
 
 The hold count is ignored.
-Take care if your code has called <see cref="M:Application.Hold()"/> on the application and
+Take care if your code has called <see cref="Application.Hold()"/> on the application and
 is therefore still expecting it to exist.
-(Note that you may have called <see cref="M:Application.Hold()"/> indirectly, for example
+(Note that you may have called <see cref="Application.Hold()"/> indirectly, for example
 through gtk_application_add_window().)
 
-The result of calling <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/> again after it returns is
+The result of calling <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> again after it returns is
 unspecified.
 </remarks>
 </member>
@@ -869,13 +869,13 @@ The <see cref="Application"/>::startup signal is emitted if registration succeed
 and this instance is the primary instance (including the non-unique
 case).
 
-In the event of an error (such as this instance being cancelled, or a
-failure to connect to the session bus), <c>false</c> is returned and this instance
-is set appropriately.
+In the event of an error (such as <paramref name="cancellable"/> being cancelled, or a
+failure to connect to the session bus), <see cref="GISharp.Runtime.GErrorException"/>
+is thrown.
 
 Note: the return value of this function is not an indicator that this
 instance is or is not the primary instance of the application.  See
-<see cref="M:Application.GetIsRemote()"/> for that.
+<see cref="Application.GetIsRemote()"/> for that.
 </remarks>
 <param name="cancellable">
 a <see cref="Cancellable"/>, or <c>null</c>
@@ -893,7 +893,7 @@ Decrease the use count of this instance.
 When the use count reaches zero, the application will stop running.
 
 Never call this function except to cancel the effect of a previous
-call to <see cref="M:Application.Hold()"/>.
+call to <see cref="Application.Hold()"/>.
 </remarks>
 </member>
 
@@ -904,17 +904,17 @@ Runs the application.
 <remarks>
 This function is intended to be run from main() and its return value
 is intended to be returned by main(). Although you are expected to pass
-the this instance, this instance parameters from main() to this function, it is possible
-to pass <c>null</c> if this instance is not available or commandline handling is not
-required.  Note that on Windows, this instance and this instance are ignored, and
+the the length of <paramref name="argv"/>, <paramref name="argv"/> parameters from main() to this function, it is possible
+to pass <c>null</c> if <paramref name="argv"/> is not available or commandline handling is not
+required.  Note that on Windows, the length of <paramref name="argv"/> and <paramref name="argv"/> are ignored, and
 g_win32_get_command_line() is called internally (for proper support
 of Unicode commandline arguments).
 
 <see cref="Application"/> will attempt to parse the commandline arguments.  You
 can add commandline flags to the list of recognised options by way of
-<see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/>.  After this, the
+<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/>.  After this, the
 <see cref="Application"/>::handle-local-options signal is emitted, from which the
-application can inspect the values of its #GOptionEntrys.
+application can inspect the values of its <see cref="GLib.OptionEntry"/>s.
 
 <see cref="Application"/>::handle-local-options is a good place to handle options
 such as `--version`, where an immediate reply from the local process is
@@ -950,7 +950,7 @@ If the <see cref="ApplicationFlags.IsService"/> flag is set, then the service wi
 run for as much as 10 seconds with a use count of zero while waiting
 for the message that caused the activation to arrive.  After that,
 if the use count falls to zero the application will exit immediately,
-except in the case that <see cref="M:Application.SetInactivityTimeout(System.UInt32)"/> is in
+except in the case that <see cref="Application.SetInactivityTimeout(System.UInt32)"/> is in
 use.
 
 This function sets the prgname (g_set_prgname()), if not already set,
@@ -998,7 +998,7 @@ a <see cref="IActionGroup"/>, or <c>null</c>
 <member name='Application.SetDefault()'>
 <summary>
 Sets or unsets the default application for the process, as returned
-by <see cref="M:Application.GetDefault()"/>.
+by <see cref="Application.GetDefault()"/>.
 </summary>
 <remarks>
 This function does not take its own reference on this instance.  If
@@ -1039,9 +1039,9 @@ Sets the parameter string to be used by the commandline handling of this instanc
 </summary>
 <remarks>
 This function registers the argument to be passed to g_option_context_new()
-when the internal #GOptionContext of this instance is created.
+when the internal <see cref="GLib.OptionContext"/> of this instance is created.
 
-See g_option_context_new() for more information about this instance.
+See g_option_context_new() for more information about <paramref name="parameterString"/>.
 </remarks>
 <param name="parameterString">
 a string which is displayed
@@ -1055,9 +1055,9 @@ Sets the parameter string to be used by the commandline handling of this instanc
 </summary>
 <remarks>
 This function registers the argument to be passed to g_option_context_new()
-when the internal #GOptionContext of this instance is created.
+when the internal <see cref="GLib.OptionContext"/> of this instance is created.
 
-See g_option_context_new() for more information about this instance.
+See g_option_context_new() for more information about <paramref name="parameterString"/>.
 </remarks>
 <param name="parameterString">
 a string which is displayed
@@ -1093,29 +1093,29 @@ a string to be shown in `--help` output
 
 <member name='Application.UnbindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Destroys a binding between this instance and the busy state of
+Destroys a binding between <paramref name="property"/> and the busy state of
 this instance that was previously created with
-<see cref="M:Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.Utf8)"/>.
+<see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="object">
-a #GObject
+a <see cref="GObject.Object"/>
 </param>
 <param name="property">
-the name of a boolean property of this instance
+the name of a boolean property of <paramref name="object"/>
 </param>
 </member>
 
 <member name='Application.UnbindBusyProperty(GISharp.Lib.GObject.Object,System.String)'>
 <summary>
-Destroys a binding between this instance and the busy state of
+Destroys a binding between <paramref name="property"/> and the busy state of
 this instance that was previously created with
-<see cref="M:Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.Utf8)"/>.
+<see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="object">
-a #GObject
+a <see cref="GObject.Object"/>
 </param>
 <param name="property">
-the name of a boolean property of this instance
+the name of a boolean property of <paramref name="object"/>
 </param>
 </member>
 
@@ -1128,7 +1128,7 @@ When the busy count reaches zero, the new state will be propagated
 to other processes.
 
 This function must only be called to cancel the effect of a previous
-call to <see cref="M:Application.MarkBusy()"/>.
+call to <see cref="Application.MarkBusy()"/>.
 </remarks>
 </member>
 
@@ -1138,11 +1138,11 @@ Withdraws a notification that was sent with
 g_application_send_notification().
 </summary>
 <remarks>
-This call does nothing if a notification with this instance doesn't exist or
+This call does nothing if a notification with <paramref name="id"/> doesn't exist or
 the notification was never sent.
 
 This function works even for notifications sent in previous
-executions of this application, as long this instance is the same as it was for
+executions of this application, as long <paramref name="id"/> is the same as it was for
 the sent notification.
 
 Note that notifications are dismissed when the user clicks on one
@@ -1160,11 +1160,11 @@ Withdraws a notification that was sent with
 g_application_send_notification().
 </summary>
 <remarks>
-This call does nothing if a notification with this instance doesn't exist or
+This call does nothing if a notification with <paramref name="id"/> doesn't exist or
 the notification was never sent.
 
 This function works even for notifications sent in previous
-executions of this application, as long this instance is the same as it was for
+executions of this application, as long <paramref name="id"/> is the same as it was for
 the sent notification.
 
 Note that notifications are dismissed when the user clicks on one
@@ -1206,16 +1206,16 @@ The application must be registered before calling this function.
 <member name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv,System.Int32)'>
 <summary>
 This virtual function is always invoked in the local instance. It
-gets passed a pointer to a <c>null</c>-terminated copy of this instance and is
+gets passed a pointer to a <c>null</c>-terminated copy of <c>argv</c> and is
 expected to remove arguments that it handled (shifting up remaining
 arguments).
 </summary>
 <remarks>
-The last argument to local_command_line() is a pointer to the this instance
+The last argument to local_command_line() is a pointer to the <c>status</c>
 variable which can used to set the exit status that is returned from
-<see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/>.
+<see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/>.
 
-See <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/> for more details on <see cref="Application"/> startup.
+See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> for more details on <see cref="Application"/> startup.
 </remarks>
 <param name="arguments">
 array of command line arguments
@@ -1239,9 +1239,9 @@ Opens the given files.
 In essence, this results in the <see cref="Application"/>::open signal being emitted
 in the primary instance.
 
-this instance must be greater than zero.
+the length of <paramref name="files"/> must be greater than zero.
 
-this instance is simply passed through to the ::open signal.  It is
+<paramref name="hint"/> is simply passed through to the ::open signal.  It is
 intended to be used by applications that have multiple modes for
 opening files (eg: "view" vs "edit", etc).  Unless you have a need
 for this functionality, you should use "".
@@ -1250,7 +1250,7 @@ The application must be registered before calling this function
 and it must have the <see cref="ApplicationFlags.HandlesOpen"/> flag set.
 </remarks>
 <param name="files">
-an array of #GFiles to open
+an array of <see cref="IFile"/>s to open
 </param>
 <param name="hint">
 a hint (or ""), but never <c>null</c>
@@ -1274,15 +1274,15 @@ a hint (or ""), but never <c>null</c>
 A <see cref="Application"/> is the foundation of an application.  It wraps some
 low-level platform-specific services and is intended to act as the
 foundation for higher-level application classes such as
-#GtkApplication or #MxApplication.  In general, you should not use
+<see cref="T:Gtk.Appllication"/> or <see cref="T:Mx.Appllication"/>.  In general, you should not use
 this class outside of a higher level framework.
 </summary>
 <remarks>
 GApplication provides convenient life cycle management by maintaining
 a "use count" for the primary application instance. The use count can
-be changed using <see cref="M:Application.Hold()"/> and <see cref="M:Application.Release()"/>. If
+be changed using <see cref="Application.Hold()"/> and <see cref="Application.Release()"/>. If
 it drops to zero, the application exits. Higher-level classes such as
-#GtkApplication employ the use count to ensure that the application
+<see cref="T:Gtk.Appllication"/> employ the use count to ensure that the application
 stays alive as long as it has any opened windows.
 
 Another feature that GApplication (optionally) provides is process
@@ -1303,11 +1303,11 @@ application is not expected to manually register itself and check
 if it is the primary instance. Instead, the main() function of a
 <see cref="Application"/> should do very little more than instantiating the
 application instance, possibly connecting signal handlers, then
-calling <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/>. All checks for uniqueness are done
+calling <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/>. All checks for uniqueness are done
 internally. If the application is the primary instance then the
 startup signal is emitted and the mainloop runs. If the application
 is not the primary instance then a signal is sent to the primary
-instance and <see cref="M:Application.Run(GISharp.Runtime.CPtrArray`1[GISharp.Lib.GLib.Filename])"/> promptly returns. See the code
+instance and <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> promptly returns. See the code
 examples below.
 
 If used, the expected form of an application identifier is the same as
@@ -1315,7 +1315,7 @@ that of of a
 [D-Bus well-known bus name](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
 Examples include: `com.example.MyApp`, `org.example.internal_apps.Calculator`,
 `org._7_zip.Archiver`.
-For details on valid application identifiers, see <see cref="M:Application.IdIsValid(GISharp.Lib.GLib.Utf8)"/>.
+For details on valid application identifiers, see <see cref="Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)"/>.
 
 On Linux, the application identifier is claimed as a well-known bus name
 on the user's session bus.  This means that the uniqueness of your
@@ -1327,13 +1327,13 @@ internal architecture of GDBus, method calls can be dispatched at any time
 (even if a main loop is not running).  For this reason, you must ensure that
 any object paths that you wish to register are registered before <see cref="Application"/>
 attempts to acquire the bus name of your application (which happens in
-<see cref="M:Application.Register(GISharp.Lib.Gio.Cancellable)"/>).  Unfortunately, this means that you cannot use
-<see cref="M:Application.GetIsRemote()"/> to decide if you want to register object paths.
+<see cref="Application.Register(GISharp.Lib.Gio.Cancellable)"/>).  Unfortunately, this means that you cannot use
+<see cref="Application.GetIsRemote()"/> to decide if you want to register object paths.
 
 GApplication also implements the <see cref="IActionGroup"/> and <see cref="IActionMap"/>
 interfaces and lets you easily export actions by adding them with
-<see cref="M:ActionMap.AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)"/>. When invoking an action by calling
-<see cref="M:ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)"/> on the application, it is always
+<see cref="ActionMap.AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)"/>. When invoking an action by calling
+<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> on the application, it is always
 invoked in the primary instance. The actions are also exported on
 the session bus, and GIO provides the #GDBusActionGroup wrapper to
 conveniently access them remotely. GIO provides a #GDBusMenuModel wrapper
@@ -1359,9 +1359,9 @@ launching instance to the primary instance, in the form of a
 data, override the <see cref="DoBeforeEmit"/> or <see cref="DoAfterEmit"/> virtual functions
 in your <see cref="Application"/> subclass. When dealing with
 <see cref="ApplicationCommandLine"/> objects, the platform data is
-directly available via <see cref="M:ApplicationCommandLine.GetCwd()"/>,
-<see cref="M:ApplicationCommandLine.GetEnvironment()"/> and
-<see cref="M:ApplicationCommandLine.GetPlatformData()"/>.
+directly available via <see cref="ApplicationCommandLine.GetCwd()"/>,
+<see cref="ApplicationCommandLine.GetEnvironment()"/> and
+<see cref="ApplicationCommandLine.GetPlatformData()"/>.
 
 As the name indicates, the platform data may vary depending on the
 operating system, but it always includes the current directory (key
@@ -1370,7 +1370,7 @@ variables and their values) of the calling process (key "environ").
 The environment is only added to the platform data if the
 <see cref="ApplicationFlags.SendEnvironment"/> flag is set. <see cref="Application"/> subclasses
 can add their own platform data by overriding the <see cref="DoAddPlatformData"/>
-virtual function. For instance, #GtkApplication adds startup notification
+virtual function. For instance, <see cref="T:Gtk.Appllication"/> adds startup notification
 data in this way.
 
 To parse commandline arguments you may handle the

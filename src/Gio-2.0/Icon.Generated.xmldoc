@@ -8,7 +8,7 @@ Checks if two icons are equal.
 pointer to the second <see cref="IIcon"/>.
 </param>
 <returns>
-<c>true</c> if this instance is equal to this instance. <c>false</c> otherwise.
+<c>true</c> if this instance is equal to <paramref name="icon2"/>. <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -25,7 +25,7 @@ use in a #GHashTable or similar data structure.
 <member name='IIcon.DoSerialize()'>
 <summary>
 Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
-back by calling <see cref="M:Icon.Deserialize(GISharp.Lib.GLib.Variant)"/> on the returned value.
+back by calling <see cref="Icon.Deserialize(GISharp.Lib.GLib.Variant)"/> on the returned value.
 As serialization will avoid using raw icon data when possible, it only
 makes sense to transfer the #GVariant between processes on the same machine,
 (as opposed to over the network), and within the same file system namespace.
@@ -46,12 +46,12 @@ serializing an icon to and from strings.
 of GIO's scope, however implementations of <see cref="IIcon"/> may contain the name
 of an icon (see <see cref="ThemedIcon"/>), or the path to an icon (see #GLoadableIcon).
 
-To obtain a hash of a <see cref="IIcon"/>, see <see cref="M:Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
+To obtain a hash of a <see cref="IIcon"/>, see <see cref="Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
 
-To check if two <see cref="IIcon"/>s are equal, see <see cref="M:Icon.Equals(GISharp.Lib.Gio.IIcon,GISharp.Lib.Gio.IIcon)"/>.
+To check if two <see cref="IIcon"/>s are equal, see <see cref="Icon.Equals(GISharp.Lib.Gio.IIcon,GISharp.Lib.Gio.IIcon)"/>.
 
-For serializing a <see cref="IIcon"/>, use <see cref="M:Icon.Serialize(GISharp.Lib.Gio.IIcon)"/> and
-<see cref="M:Icon.Deserialize(GISharp.Lib.GLib.Variant)"/>.
+For serializing a <see cref="IIcon"/>, use <see cref="Icon.Serialize(GISharp.Lib.Gio.IIcon)"/> and
+<see cref="Icon.Deserialize(GISharp.Lib.GLib.Variant)"/>.
 
 If you want to consume <see cref="IIcon"/> (for example, in a toolkit) you must
 be prepared to handle at least the three following cases:
@@ -63,18 +63,18 @@ outside of GIO must implement #GLoadableIcon.
 If your application or library provides one or more <see cref="IIcon"/>
 implementations you need to ensure that your new implementation also
 implements #GLoadableIcon.  Additionally, you must provide an
-implementation of <see cref="M:Icon.Serialize(GISharp.Lib.Gio.IIcon)"/> that gives a result that is
-understood by <see cref="M:Icon.Deserialize(GISharp.Lib.GLib.Variant)"/>, yielding one of the built-in icon
+implementation of <see cref="Icon.Serialize(GISharp.Lib.Gio.IIcon)"/> that gives a result that is
+understood by <see cref="Icon.Deserialize(GISharp.Lib.GLib.Variant)"/>, yielding one of the built-in icon
 types.
 </remarks>
 </member>
 
 <member name='Icon.Deserialize(GISharp.Lib.GLib.Variant)'>
 <summary>
-Deserializes a <see cref="IIcon"/> previously serialized using <see cref="M:Icon.Serialize(GISharp.Lib.Gio.IIcon)"/>.
+Deserializes a <see cref="IIcon"/> previously serialized using <see cref="Icon.Serialize(GISharp.Lib.Gio.IIcon)"/>.
 </summary>
 <param name="value">
-a #GVariant created with <see cref="M:Icon.Serialize(GISharp.Lib.Gio.IIcon)"/>
+a #GVariant created with <see cref="Icon.Serialize(GISharp.Lib.Gio.IIcon)"/>
 </param>
 <returns>
 a <see cref="IIcon"/>, or <c>null</c> when deserialization fails.
@@ -84,19 +84,19 @@ a <see cref="IIcon"/>, or <c>null</c> when deserialization fails.
 <member name='Icon.NewForString(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
-<paramref name="str"/> is not valid - see <see cref="M:Icon.ToString(GISharp.Lib.Gio.IIcon)"/> for discussion.
+<paramref name="str"/> is not valid - see <see cref="Icon.ToString(GISharp.Lib.Gio.IIcon)"/> for discussion.
 </summary>
 <remarks>
 If your application or library provides one or more <see cref="IIcon"/>
 implementations you need to ensure that each #GType is registered
-with the type system prior to calling <see cref="M:Icon.NewForString(GISharp.Lib.GLib.Utf8)"/>.
+with the type system prior to calling <see cref="Icon.NewForString(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </remarks>
 <param name="str">
-A string obtained via <see cref="M:Icon.ToString(GISharp.Lib.Gio.IIcon)"/>.
+A string obtained via <see cref="Icon.ToString(GISharp.Lib.Gio.IIcon)"/>.
 </param>
 <returns>
 An object implementing the <see cref="IIcon"/>
-         interface or <c>null</c> if <paramref name="error"/> is set.
+         interface or <c>null</c> if <see cref="GISharp.Runtime.GErrorException"/> is set.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -106,19 +106,19 @@ On error
 <member name='Icon.NewForString(System.String)'>
 <summary>
 Generate a <see cref="IIcon"/> instance from <paramref name="str"/>. This function can fail if
-<paramref name="str"/> is not valid - see <see cref="M:Icon.ToString(GISharp.Lib.Gio.IIcon)"/> for discussion.
+<paramref name="str"/> is not valid - see <see cref="Icon.ToString(GISharp.Lib.Gio.IIcon)"/> for discussion.
 </summary>
 <remarks>
 If your application or library provides one or more <see cref="IIcon"/>
 implementations you need to ensure that each #GType is registered
-with the type system prior to calling <see cref="M:Icon.NewForString(GISharp.Lib.GLib.Utf8)"/>.
+with the type system prior to calling <see cref="Icon.NewForString(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </remarks>
 <param name="str">
-A string obtained via <see cref="M:Icon.ToString(GISharp.Lib.Gio.IIcon)"/>.
+A string obtained via <see cref="Icon.ToString(GISharp.Lib.Gio.IIcon)"/>.
 </param>
 <returns>
 An object implementing the <see cref="IIcon"/>
-         interface or <c>null</c> if <paramref name="error"/> is set.
+         interface or <c>null</c> if <see cref="GISharp.Runtime.GErrorException"/> is set.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -149,14 +149,14 @@ pointer to the first <see cref="IIcon"/>.
 pointer to the second <see cref="IIcon"/>.
 </param>
 <returns>
-<c>true</c> if this instance is equal to this instance. <c>false</c> otherwise.
+<c>true</c> if this instance is equal to <paramref name="icon2"/>. <c>false</c> otherwise.
 </returns>
 </member>
 
 <member name='Icon.Serialize(GISharp.Lib.Gio.IIcon)'>
 <summary>
 Serializes a <see cref="IIcon"/> into a #GVariant. An equivalent <see cref="IIcon"/> can be retrieved
-back by calling <see cref="M:Icon.Deserialize(GISharp.Lib.GLib.Variant)"/> on the returned value.
+back by calling <see cref="Icon.Deserialize(GISharp.Lib.GLib.Variant)"/> on the returned value.
 As serialization will avoid using raw icon data when possible, it only
 makes sense to transfer the #GVariant between processes on the same machine,
 (as opposed to over the network), and within the same file system namespace.
@@ -173,7 +173,7 @@ a #GVariant, or <c>null</c> when serialization fails.
 <summary>
 Generates a textual representation of this instance that can be used for
 serialization such as when passing this instance to a different process or
-saving it to persistent storage. Use <see cref="M:Icon.NewForString(GISharp.Lib.GLib.Utf8)"/> to
+saving it to persistent storage. Use <see cref="Icon.NewForString(GISharp.Lib.GLib.UnownedUtf8)"/> to
 get this instance back from the returned string.
 </summary>
 <remarks>
@@ -183,7 +183,7 @@ in the following two cases
 - If this instance is a <see cref="IFile"/>Icon, the returned string is a native path
   (such as `/path/to/my icon.png`) without escaping
   if the <see cref="IFile"/> for this instance is a native file.  If the file is not
-  native, the returned string is the result of <see cref="M:File.GetUri(GISharp.Lib.Gio.IFile)"/>
+  native, the returned string is the result of <see cref="File.GetUri(GISharp.Lib.Gio.IFile)"/>
   (such as `sftp://path/to/my%20icon.png`).
 
 - If this instance is a <see cref="ThemedIcon"/> with exactly one name and no fallbacks,

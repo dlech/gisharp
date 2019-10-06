@@ -7,10 +7,10 @@ zone may change between invocations to this function; for example,
 if the system administrator changes it.
 </summary>
 <remarks>
-This is equivalent to calling <see cref="M:TimeZone.#ctor(GISharp.Lib.GLib.Utf8)"/> with the value of
+This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)"/> with the value of
 the `TZ` environment variable (including the possibility of <c>null</c>).
 
-You should release the return value by calling <see cref="M:TimeZone.Unref()"/>
+You should release the return value by calling <see cref="TimeZone.Unref()"/>
 when you are done with it.
 </remarks>
 </member>
@@ -20,17 +20,17 @@ when you are done with it.
 Creates a <see cref="TimeZone"/> corresponding to UTC.
 </summary>
 <remarks>
-This is equivalent to calling <see cref="M:TimeZone.#ctor(GISharp.Lib.GLib.Utf8)"/> with a value like
+This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)"/> with a value like
 "Z", "UTC", "+00", etc.
 
-You should release the return value by calling <see cref="M:TimeZone.Unref()"/>
+You should release the return value by calling <see cref="TimeZone.Unref()"/>
 when you are done with it.
 </remarks>
 </member>
 
 <member name='TimeZone.Identifier'>
 <summary>
-Get the identifier of this <see cref="TimeZone"/>, as passed to <see cref="M:TimeZone.#ctor(GISharp.Lib.GLib.Utf8)"/>.
+Get the identifier of this <see cref="TimeZone"/>, as passed to <see cref="TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
 If the identifier passed at construction time was not recognised, `UTC` will
 be returned. If it was <c>null</c>, the identifier of the local timezone at
 construction time will be returned.
@@ -82,7 +82,7 @@ with date and time of change taken from Pacific Standard Time.
 Offsets are time values to be added to the local time to get
 Coordinated Universal Time (UTC).
 
-<see cref="M:TimeZone.GetLocal()"/> calls this function with the value of the
+<see cref="TimeZone.GetLocal()"/> calls this function with the value of the
 `TZ` environment variable. This function itself is independent of
 the value of `TZ`, but if <paramref name="identifier"/> is <c>null</c> then `/etc/localtime`
 will be consulted to discover the correct time zone on UNIX and the
@@ -106,7 +106,7 @@ values of the `TZ` environment variable. See
 [Microsoft Time Zone Index Values](http://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx)
 for the list of time zones on Windows.
 
-You should release the return value by calling <see cref="M:TimeZone.Unref()"/>
+You should release the return value by calling <see cref="TimeZone.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="identifier">
@@ -154,7 +154,7 @@ with date and time of change taken from Pacific Standard Time.
 Offsets are time values to be added to the local time to get
 Coordinated Universal Time (UTC).
 
-<see cref="M:TimeZone.GetLocal()"/> calls this function with the value of the
+<see cref="TimeZone.GetLocal()"/> calls this function with the value of the
 `TZ` environment variable. This function itself is independent of
 the value of `TZ`, but if <paramref name="identifier"/> is <c>null</c> then `/etc/localtime`
 will be consulted to discover the correct time zone on UNIX and the
@@ -178,7 +178,7 @@ values of the `TZ` environment variable. See
 [Microsoft Time Zone Index Values](http://msdn.microsoft.com/en-us/library/ms912391%28v=winembedded.11%29.aspx)
 for the list of time zones on Windows.
 
-You should release the return value by calling <see cref="M:TimeZone.Unref()"/>
+You should release the return value by calling <see cref="TimeZone.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="identifier">
@@ -192,7 +192,7 @@ Creates a <see cref="TimeZone"/> corresponding to the given constant offset from
 in seconds.
 </summary>
 <remarks>
-This is equivalent to calling <see cref="M:TimeZone.#ctor(GISharp.Lib.GLib.Utf8)"/> with a string in the form
+This is equivalent to calling <see cref="TimeZone.TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8)"/> with a string in the form
 `[+|-]hh[:mm[:ss]]`.
 </remarks>
 <param name="seconds">
@@ -202,50 +202,50 @@ offset to UTC, in seconds
 
 <member name='TimeZone.AdjustTime(GISharp.Lib.GLib.TimeType,System.Int64)'>
 <summary>
-Finds an interval within this instance that corresponds to the given this instance,
-possibly adjusting this instance if required to fit into an interval.
-The meaning of this instance depends on this instance.
+Finds an interval within this instance that corresponds to the given <paramref name="time"/>,
+possibly adjusting <paramref name="time"/> if required to fit into an interval.
+The meaning of <paramref name="time"/> depends on <paramref name="type"/>.
 </summary>
 <remarks>
-This function is similar to <see cref="M:TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)"/>, with the
+This function is similar to <see cref="TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)"/>, with the
 difference that it always succeeds (by making the adjustments
 described below).
 
-In any of the cases where <see cref="M:TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)"/> succeeds then
-this function returns the same value, without modifying this instance.
+In any of the cases where <see cref="TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)"/> succeeds then
+this function returns the same value, without modifying <paramref name="time"/>.
 
-This function may, however, modify this instance in order to deal with
-non-existent times.  If the non-existent local this instance of 02:30 were
+This function may, however, modify <paramref name="time"/> in order to deal with
+non-existent times.  If the non-existent local <paramref name="time"/> of 02:30 were
 requested on March 14th 2010 in Toronto then this function would
-adjust this instance to be 03:00 and return the interval containing the
+adjust <paramref name="time"/> to be 03:00 and return the interval containing the
 adjusted time.
 </remarks>
 <param name="type">
-the <see cref="TimeType"/> of this instance
+the <see cref="TimeType"/> of <paramref name="time"/>
 </param>
 <param name="time">
 a pointer to a number of seconds since January 1, 1970
 </param>
 <returns>
-the interval containing this instance, never -1
+the interval containing <paramref name="time"/>, never -1
 </returns>
 </member>
 
 <member name='TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)'>
 <summary>
-Finds an the interval within this instance that corresponds to the given this instance.
-The meaning of this instance depends on this instance.
+Finds an the interval within this instance that corresponds to the given <paramref name="time"/>.
+The meaning of <paramref name="time"/> depends on <paramref name="type"/>.
 </summary>
 <remarks>
-If this instance is <see cref="TimeType.Universal"/> then this function will always
+If <paramref name="type"/> is <see cref="TimeType.Universal"/> then this function will always
 succeed (since universal time is monotonic and continuous).
 
-Otherwise this instance is treated as local time.  The distinction between
+Otherwise <paramref name="time"/> is treated as local time.  The distinction between
 <see cref="TimeType.Standard"/> and <see cref="TimeType.Daylight"/> is ignored except in
-the case that the given this instance is ambiguous.  In Toronto, for example,
+the case that the given <paramref name="time"/> is ambiguous.  In Toronto, for example,
 01:30 on November 7th 2010 occurred twice (once inside of daylight
 savings time and the next, an hour later, outside of daylight savings
-time).  In this case, the different value of this instance would result in a
+time).  In this case, the different value of <paramref name="type"/> would result in a
 different interval being returned.
 
 It is still possible for this function to fail.  In Toronto, for
@@ -254,20 +254,20 @@ forward to begin daylight savings time).  -1 is returned in that
 case.
 </remarks>
 <param name="type">
-the <see cref="TimeType"/> of this instance
+the <see cref="TimeType"/> of <paramref name="time"/>
 </param>
 <param name="time">
 a number of seconds since January 1, 1970
 </param>
 <returns>
-the interval containing this instance, or -1 in case of failure
+the interval containing <paramref name="time"/>, or -1 in case of failure
 </returns>
 </member>
 
 <member name='TimeZone.GetAbbreviation(System.Int32)'>
 <summary>
 Determines the time zone abbreviation to be used during a particular
-this instance of time in the time zone this instance.
+<paramref name="interval"/> of time in the time zone this instance.
 </summary>
 <remarks>
 For example, in Toronto this is currently "EST" during the winter
@@ -284,7 +284,7 @@ the time zone abbreviation, which belongs to this instance
 
 <member name='TimeZone.GetOffset(System.Int32)'>
 <summary>
-Determines the offset to UTC in effect during a particular this instance
+Determines the offset to UTC in effect during a particular <paramref name="interval"/>
 of time in the time zone this instance.
 </summary>
 <remarks>
@@ -304,7 +304,7 @@ the number of seconds that should be added to UTC to get the
 <member name='TimeZone.IsDst(System.Int32)'>
 <summary>
 Determines if daylight savings time is in effect during a particular
-this instance of time in the time zone this instance.
+<paramref name="interval"/> of time in the time zone this instance.
 </summary>
 <param name="interval">
 an interval within the timezone

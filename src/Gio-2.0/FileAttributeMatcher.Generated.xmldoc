@@ -60,7 +60,7 @@ an attribute string to match.
 <summary>
 Checks if the matcher will match all of the keys in a given namespace.
 This will always return <c>true</c> if a wildcard character is in use (e.g. if
-matcher was created with "standard::*" and this instance is "standard", or if matcher was created
+matcher was created with "standard::*" and <paramref name="ns"/> is "standard", or if matcher was created
 using "*" and namespace is anything.)
 </summary>
 <remarks>
@@ -71,7 +71,7 @@ a string containing a file attribute namespace.
 </param>
 <returns>
 <c>true</c> if the matcher matches all of the entries
-in the given this instance, <c>false</c> otherwise.
+in the given <paramref name="ns"/>, <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -79,7 +79,7 @@ in the given this instance, <c>false</c> otherwise.
 <summary>
 Checks if the matcher will match all of the keys in a given namespace.
 This will always return <c>true</c> if a wildcard character is in use (e.g. if
-matcher was created with "standard::*" and this instance is "standard", or if matcher was created
+matcher was created with "standard::*" and <paramref name="ns"/> is "standard", or if matcher was created
 using "*" and namespace is anything.)
 </summary>
 <remarks>
@@ -90,7 +90,7 @@ a string containing a file attribute namespace.
 </param>
 <returns>
 <c>true</c> if the matcher matches all of the entries
-in the given this instance, <c>false</c> otherwise.
+in the given <paramref name="ns"/>, <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -114,7 +114,7 @@ will always return <c>true</c>.
 a file attribute key.
 </param>
 <returns>
-<c>true</c> if this instance matches this instance. <c>false</c> otherwise.
+<c>true</c> if <paramref name="attribute"/> matches this instance. <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -128,7 +128,7 @@ will always return <c>true</c>.
 a file attribute key.
 </param>
 <returns>
-<c>true</c> if this instance matches this instance. <c>false</c> otherwise.
+<c>true</c> if <paramref name="attribute"/> matches this instance. <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -141,7 +141,7 @@ returns <c>false</c> if "*" was used when creating the matcher.
 a file attribute key.
 </param>
 <returns>
-<c>true</c> if the matcher only matches this instance. <c>false</c> otherwise.
+<c>true</c> if the matcher only matches <paramref name="attribute"/>. <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -154,13 +154,13 @@ returns <c>false</c> if "*" was used when creating the matcher.
 a file attribute key.
 </param>
 <returns>
-<c>true</c> if the matcher only matches this instance. <c>false</c> otherwise.
+<c>true</c> if the matcher only matches <paramref name="attribute"/>. <c>false</c> otherwise.
 </returns>
 </member>
 
 <member name='FileAttributeMatcher.Subtract(GISharp.Lib.Gio.FileAttributeMatcher)'>
 <summary>
-Subtracts all attributes of this instance from this instance and returns
+Subtracts all attributes of <paramref name="subtract"/> from this instance and returns
 a matcher that supports those attributes.
 </summary>
 <remarks>
@@ -175,14 +175,14 @@ The matcher to subtract
 </param>
 <returns>
 A file attribute matcher matching all attributes of
-    this instance that are not matched by this instance
+    this instance that are not matched by <paramref name="subtract"/>
 </returns>
 </member>
 
 <member name='FileAttributeMatcher.ToString()'>
 <summary>
 Prints what the matcher is matching against. The format will be
-equal to the format passed to <see cref="M:FileAttributeMatcher.#ctor(GISharp.Lib.GLib.Utf8)"/>.
+equal to the format passed to <see cref="FileAttributeMatcher.FileAttributeMatcher(GISharp.Lib.GLib.UnownedUtf8)"/>.
 The output however, might not be identical, as the matcher may
 decide to use a different order or omit needless parts.
 </summary>

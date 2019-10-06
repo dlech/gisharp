@@ -99,7 +99,7 @@ namespace GISharp.Test.Gio
         {
             using (var sa = new SimpleAction("test-action", null, (Variant)5)) {
                 var value = default(Variant)!;
-                sa.ChangedState += (s, a) => value = a.Value;
+                sa.StateChanged += (s, a) => value = a.Value;
                 sa.ChangeState((Variant)10);
                 Assert.That(value, Is.Not.Null, "Event was not called");
                 Assert.That((int)value, Is.EqualTo(10));

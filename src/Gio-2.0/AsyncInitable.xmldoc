@@ -5,20 +5,20 @@
 Starts asynchronous initialization of the object implementing the
 interface. This must be done before any real use of the object after
 initial construction. If the object also implements <see cref="IInitable"/> you can
-optionally call <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> instead.
+optionally call <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> instead.
 </summary>
 <remarks>
 This method is intended for language bindings. If writing in C,
 g_async_initable_new_async() should typically be used instead.
 
-When the initialization is finished, this instance will be called. You can
-then call <see cref="M:AsyncInitable.InitFinish(GISharp.Lib.Gio.IAsyncInitable,GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
+When the initialization is finished, <paramref name="callback"/> will be called. You can
+then call <see cref="IAsyncInitable.DoInitFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
 initialization.
 
-Implementations may also support cancellation. If this instance is not
+Implementations may also support cancellation. If <paramref name="cancellable"/> is not
 <c>null</c>, then initialization can be cancelled by triggering the cancellable
 object from another thread. If the operation was cancelled, the error
-<see cref="IOErrorEnum.Cancelled"/> will be returned. If this instance is not <c>null</c>, and
+<see cref="IOErrorEnum.Cancelled"/> will be returned. If <paramref name="cancellable"/> is not <c>null</c>, and
 the object doesn't support cancellable initialization, the error
 <see cref="IOErrorEnum.NotSupported"/> will be returned.
 
@@ -29,13 +29,13 @@ have undefined behaviour. They will often fail with g_critical() or
 g_warning(), but this must not be relied on.
 
 Callers should not assume that a class which implements <see cref="IAsyncInitable"/> can
-be initialized multiple times; for more information, see <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/>.
+be initialized multiple times; for more information, see <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/>.
 If a class explicitly supports being initialized multiple times,
 implementation requires yielding all subsequent calls to init_async() on the
 results of the first call.
 
 For classes that also support the <see cref="IInitable"/> interface, the default
-implementation of this method will run the <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> function
+implementation of this method will run the <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> function
 in a thread, so if you want to support asynchronous initialization via
 threads, just implement the <see cref="IAsyncInitable"/> interface without overriding
 any interface methods.
@@ -54,15 +54,11 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 <member name='IAsyncInitable.DoInitFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes asynchronous initialization and returns the result.
-See <see cref="M:AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+See <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>.
 </param>
-<returns>
-<c>true</c> if successful. If an error has occurred, this function
-will return <c>false</c> and set this instance appropriately if present.
-</returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>
@@ -81,7 +77,7 @@ Users of objects implementing this are not intended to use the interface
 method directly; instead it will be used automatically in various ways.
 For C applications you generally just call g_async_initable_new_async()
 directly, or indirectly via a foo_thing_new_async() wrapper. This will call
-<see cref="M:AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/> under the cover, calling back with <c>null</c> and
+<see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/> under the cover, calling back with <c>null</c> and
 a set %GError on failure.
 
 A typical implementation might look something like this:
@@ -199,20 +195,13 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 Starts asynchronous initialization of the object implementing the
 interface. This must be done before any real use of the object after
 initial construction. If the object also implements <see cref="IInitable"/> you can
-optionally call <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> instead.
+optionally call <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> instead.
 </summary>
 <remarks>
-This method is intended for language bindings. If writing in C,
-g_async_initable_new_async() should typically be used instead.
-
-When the initialization is finished, this instance will be called. You can
-then call <see cref="M:AsyncInitable.InitFinish(GISharp.Lib.Gio.IAsyncInitable,GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
-initialization.
-
-Implementations may also support cancellation. If this instance is not
+Implementations may also support cancellation. If <paramref name="cancellable"/> is not
 <c>null</c>, then initialization can be cancelled by triggering the cancellable
 object from another thread. If the operation was cancelled, the error
-<see cref="IOErrorEnum.Cancelled"/> will be returned. If this instance is not <c>null</c>, and
+<see cref="IOErrorEnum.Cancelled"/> will be returned. If <paramref name="cancellable"/> is not <c>null</c>, and
 the object doesn't support cancellable initialization, the error
 <see cref="IOErrorEnum.NotSupported"/> will be returned.
 
@@ -223,13 +212,13 @@ have undefined behaviour. They will often fail with g_critical() or
 g_warning(), but this must not be relied on.
 
 Callers should not assume that a class which implements <see cref="IAsyncInitable"/> can
-be initialized multiple times; for more information, see <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/>.
+be initialized multiple times; for more information, see <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/>.
 If a class explicitly supports being initialized multiple times,
 implementation requires yielding all subsequent calls to init_async() on the
 results of the first call.
 
 For classes that also support the <see cref="IInitable"/> interface, the default
-implementation of this method will run the <see cref="M:Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> function
+implementation of this method will run the <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> function
 in a thread, so if you want to support asynchronous initialization via
 threads, just implement the <see cref="IAsyncInitable"/> interface without overriding
 any interface methods.

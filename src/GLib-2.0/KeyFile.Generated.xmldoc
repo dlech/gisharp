@@ -199,7 +199,7 @@ entries representing links to documents.
 <summary>
 Returns all groups in the key file loaded with this instance.
 The array of returned groups will be <c>null</c>-terminated, so
-this instance may optionally be <c>null</c>.
+<paramref name="length"/> may optionally be <c>null</c>.
 </summary>
 </member>
 
@@ -212,22 +212,22 @@ Returns the name of the start group of the file.
 <member name='KeyFile.KeyFile()'>
 <summary>
 Creates a new empty <see cref="KeyFile"/> object. Use
-<see cref="M:KeyFile.LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/>, <see cref="M:KeyFile.LoadFromData(GISharp.Lib.GLib.Utf8,System.Int32,GISharp.Lib.GLib.KeyFileFlags)"/>,
-<see cref="M:KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.FilenameArray,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> or <see cref="M:KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> to
+<see cref="KeyFile.LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/>, <see cref="KeyFile.LoadFromData(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.KeyFileFlags)"/>,
+<see cref="KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.FilenameArray,out GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> or <see cref="KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,out GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)"/> to
 read an existing key file.
 </summary>
 </member>
 
 <member name='KeyFile.GetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the value associated with this instance under this instance as a
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
 boolean.
 </summary>
 <remarks>
-If this instance cannot be found then <c>false</c> is returned and this instance is set
+If <paramref name="key"/> cannot be found then <c>false</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set
 to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
-associated with this instance cannot be interpreted as a boolean then <c>false</c>
-is returned and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+associated with <paramref name="key"/> cannot be interpreted as a boolean then <c>false</c>
+is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -246,14 +246,14 @@ On error
 
 <member name='KeyFile.GetBoolean(System.String,System.String)'>
 <summary>
-Returns the value associated with this instance under this instance as a
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
 boolean.
 </summary>
 <remarks>
-If this instance cannot be found then <c>false</c> is returned and this instance is set
+If <paramref name="key"/> cannot be found then <c>false</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set
 to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value
-associated with this instance cannot be interpreted as a boolean then <c>false</c>
-is returned and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+associated with <paramref name="key"/> cannot be interpreted as a boolean then <c>false</c>
+is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -272,14 +272,14 @@ On error
 
 <member name='KeyFile.GetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the values associated with this instance under this instance as
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
 booleans.
 </summary>
 <remarks>
-If this instance cannot be found then <c>null</c> is returned and this instance is set to
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-with this instance cannot be interpreted as booleans then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+with <paramref name="key"/> cannot be interpreted as booleans then <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -300,14 +300,14 @@ On error
 
 <member name='KeyFile.GetBooleanList(System.String,System.String)'>
 <summary>
-Returns the values associated with this instance under this instance as
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
 booleans.
 </summary>
 <remarks>
-If this instance cannot be found then <c>null</c> is returned and this instance is set to
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-with this instance cannot be interpreted as booleans then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+with <paramref name="key"/> cannot be interpreted as booleans then <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -328,10 +328,10 @@ On error
 
 <member name='KeyFile.GetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Retrieves a comment above this instance from this instance.
-If this instance is <c>null</c> then this instance will be read from above
-this instance. If both this instance and this instance are <c>null</c>, then
-this instance will be read from above the first group in the file.
+Retrieves a comment above <paramref name="key"/> from <paramref name="groupName"/>.
+If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be read from above
+<paramref name="groupName"/>. If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then
+<paramref name="comment"/> will be read from above the first group in the file.
 </summary>
 <remarks>
 Note that the returned string does not include the '#' comment markers,
@@ -354,10 +354,10 @@ On error
 
 <member name='KeyFile.GetComment(System.String?,System.String)'>
 <summary>
-Retrieves a comment above this instance from this instance.
-If this instance is <c>null</c> then this instance will be read from above
-this instance. If both this instance and this instance are <c>null</c>, then
-this instance will be read from above the first group in the file.
+Retrieves a comment above <paramref name="key"/> from <paramref name="groupName"/>.
+If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be read from above
+<paramref name="groupName"/>. If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then
+<paramref name="comment"/> will be read from above the first group in the file.
 </summary>
 <remarks>
 Note that the returned string does not include the '#' comment markers,
@@ -380,14 +380,14 @@ On error
 
 <member name='KeyFile.GetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the value associated with this instance under this instance as a
-double. If this instance is <c>null</c>, the start_group is used.
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
+double. If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
 </summary>
 <remarks>
-If this instance cannot be found then 0.0 is returned and this instance is set to
+If <paramref name="key"/> cannot be found then 0.0 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-with this instance cannot be interpreted as a double then 0.0 is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+with <paramref name="key"/> cannot be interpreted as a double then 0.0 is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -406,14 +406,14 @@ On error
 
 <member name='KeyFile.GetDouble(System.String,System.String)'>
 <summary>
-Returns the value associated with this instance under this instance as a
-double. If this instance is <c>null</c>, the start_group is used.
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a
+double. If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
 </summary>
 <remarks>
-If this instance cannot be found then 0.0 is returned and this instance is set to
+If <paramref name="key"/> cannot be found then 0.0 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-with this instance cannot be interpreted as a double then 0.0 is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+with <paramref name="key"/> cannot be interpreted as a double then 0.0 is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -432,14 +432,14 @@ On error
 
 <member name='KeyFile.GetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the values associated with this instance under this instance as
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
 doubles.
 </summary>
 <remarks>
-If this instance cannot be found then <c>null</c> is returned and this instance is set to
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-with this instance cannot be interpreted as doubles then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+with <paramref name="key"/> cannot be interpreted as doubles then <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -460,14 +460,14 @@ On error
 
 <member name='KeyFile.GetDoubleList(System.String,System.String)'>
 <summary>
-Returns the values associated with this instance under this instance as
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
 doubles.
 </summary>
 <remarks>
-If this instance cannot be found then <c>null</c> is returned and this instance is set to
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-with this instance cannot be interpreted as doubles then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+with <paramref name="key"/> cannot be interpreted as doubles then <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -488,8 +488,8 @@ On error
 
 <member name='KeyFile.GetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the value associated with this instance under this instance as a signed
-64-bit integer. This is similar to <see cref="M:KeyFile.GetInteger(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> but can return
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a signed
+64-bit integer. This is similar to <see cref="KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> but can return
 64-bit results without truncation.
 </summary>
 <param name="groupName">
@@ -509,8 +509,8 @@ On error
 
 <member name='KeyFile.GetInt64(System.String,System.String)'>
 <summary>
-Returns the value associated with this instance under this instance as a signed
-64-bit integer. This is similar to <see cref="M:KeyFile.GetInteger(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> but can return
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as a signed
+64-bit integer. This is similar to <see cref="KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> but can return
 64-bit results without truncation.
 </summary>
 <param name="groupName">
@@ -530,15 +530,15 @@ On error
 
 <member name='KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the value associated with this instance under this instance as an
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an
 integer.
 </summary>
 <remarks>
-If this instance cannot be found then 0 is returned and this instance is set to
+If <paramref name="key"/> cannot be found then 0 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-with this instance cannot be interpreted as an integer, or is out of range
+with <paramref name="key"/> cannot be interpreted as an integer, or is out of range
 for a #gint, then 0 is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -557,15 +557,15 @@ On error
 
 <member name='KeyFile.GetInteger(System.String,System.String)'>
 <summary>
-Returns the value associated with this instance under this instance as an
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an
 integer.
 </summary>
 <remarks>
-If this instance cannot be found then 0 is returned and this instance is set to
+If <paramref name="key"/> cannot be found then 0 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the value associated
-with this instance cannot be interpreted as an integer, or is out of range
+with <paramref name="key"/> cannot be interpreted as an integer, or is out of range
 for a #gint, then 0 is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -584,15 +584,15 @@ On error
 
 <member name='KeyFile.GetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the values associated with this instance under this instance as
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
 integers.
 </summary>
 <remarks>
-If this instance cannot be found then <c>null</c> is returned and this instance is set to
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-with this instance cannot be interpreted as integers, or are out of range for
+with <paramref name="key"/> cannot be interpreted as integers, or are out of range for
 #gint, then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -613,15 +613,15 @@ On error
 
 <member name='KeyFile.GetIntegerList(System.String,System.String)'>
 <summary>
-Returns the values associated with this instance under this instance as
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/> as
 integers.
 </summary>
 <remarks>
-If this instance cannot be found then <c>null</c> is returned and this instance is set to
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_KEY_NOT_FOUND. Likewise, if the values associated
-with this instance cannot be interpreted as integers, or are out of range for
+with <paramref name="key"/> cannot be interpreted as integers, or are out of range for
 #gint, then <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_INVALID_VALUE.
 </remarks>
 <param name="groupName">
 a group name
@@ -642,10 +642,10 @@ On error
 
 <member name='KeyFile.GetKeys(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns all keys for the group name this instance.  The array of
-returned keys will be <c>null</c>-terminated, so this instance may
-optionally be <c>null</c>. In the event that the this instance cannot
-be found, <c>null</c> is returned and this instance is set to
+Returns all keys for the group name <paramref name="groupName"/>.  The array of
+returned keys will be <c>null</c>-terminated, so <paramref name="length"/> may
+optionally be <c>null</c>. In the event that the <paramref name="groupName"/> cannot
+be found, <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
 </summary>
 <param name="groupName">
@@ -662,10 +662,10 @@ On error
 
 <member name='KeyFile.GetKeys(System.String)'>
 <summary>
-Returns all keys for the group name this instance.  The array of
-returned keys will be <c>null</c>-terminated, so this instance may
-optionally be <c>null</c>. In the event that the this instance cannot
-be found, <c>null</c> is returned and this instance is set to
+Returns all keys for the group name <paramref name="groupName"/>.  The array of
+returned keys will be <c>null</c>-terminated, so <paramref name="length"/> may
+optionally be <c>null</c>. In the event that the <paramref name="groupName"/> cannot
+be found, <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set to
 #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
 </summary>
 <param name="groupName">
@@ -683,13 +683,13 @@ On error
 <member name='KeyFile.GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Returns the actual locale which the result of
-<see cref="M:KeyFile.GetLocaleString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> or <see cref="M:KeyFile.GetLocaleStringList(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>
+<see cref="KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> or <see cref="KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/>
 came from.
 </summary>
 <remarks>
-If calling <see cref="M:KeyFile.GetLocaleString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> or
-<see cref="M:KeyFile.GetLocaleStringList(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> with exactly the same this instance,
-this instance, this instance and this instance, the result of those functions will
+If calling <see cref="KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> or
+<see cref="KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> with exactly the same this instance,
+<paramref name="groupName"/>, <paramref name="key"/> and <paramref name="locale"/>, the result of those functions will
 have originally been tagged with the locale that is the result of
 this function.
 </remarks>
@@ -711,13 +711,13 @@ the locale from the file, or <c>null</c> if the key was not
 <member name='KeyFile.GetLocaleForKey(System.String,System.String,System.String?)'>
 <summary>
 Returns the actual locale which the result of
-<see cref="M:KeyFile.GetLocaleString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> or <see cref="M:KeyFile.GetLocaleStringList(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>
+<see cref="KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> or <see cref="KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/>
 came from.
 </summary>
 <remarks>
-If calling <see cref="M:KeyFile.GetLocaleString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> or
-<see cref="M:KeyFile.GetLocaleStringList(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> with exactly the same this instance,
-this instance, this instance and this instance, the result of those functions will
+If calling <see cref="KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> or
+<see cref="KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)"/> with exactly the same this instance,
+<paramref name="groupName"/>, <paramref name="key"/> and <paramref name="locale"/>, the result of those functions will
 have originally been tagged with the locale that is the result of
 this function.
 </remarks>
@@ -738,18 +738,18 @@ the locale from the file, or <c>null</c> if the key was not
 
 <member name='KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
-Returns the value associated with this instance under this instance
-translated in the given this instance if available.  If this instance is
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/>
+translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
 <c>null</c> then the current locale is assumed.
 </summary>
 <remarks>
-If this instance is to be non-<c>null</c>, or if the current locale will change over
+If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
 the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
 
-If this instance cannot be found then <c>null</c> is returned and this instance is set
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set
 to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
-with this instance cannot be interpreted or no suitable translation can
+with <paramref name="key"/> cannot be interpreted or no suitable translation can
 be found then the untranslated value is returned.
 </remarks>
 <param name="groupName">
@@ -772,18 +772,18 @@ On error
 
 <member name='KeyFile.GetLocaleString(System.String,System.String,System.String?)'>
 <summary>
-Returns the value associated with this instance under this instance
-translated in the given this instance if available.  If this instance is
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/>
+translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
 <c>null</c> then the current locale is assumed.
 </summary>
 <remarks>
-If this instance is to be non-<c>null</c>, or if the current locale will change over
+If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
 the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
 
-If this instance cannot be found then <c>null</c> is returned and this instance is set
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set
 to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the value associated
-with this instance cannot be interpreted or no suitable translation can
+with <paramref name="key"/> cannot be interpreted or no suitable translation can
 be found then the untranslated value is returned.
 </remarks>
 <param name="groupName">
@@ -806,20 +806,20 @@ On error
 
 <member name='KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
-Returns the values associated with this instance under this instance
-translated in the given this instance if available.  If this instance is
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>
+translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
 <c>null</c> then the current locale is assumed.
 </summary>
 <remarks>
-If this instance is to be non-<c>null</c>, or if the current locale will change over
+If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
 the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
 
-If this instance cannot be found then <c>null</c> is returned and this instance is set
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set
 to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
-with this instance cannot be interpreted or no suitable translations
+with <paramref name="key"/> cannot be interpreted or no suitable translations
 can be found then the untranslated values are returned. The
-returned array is <c>null</c>-terminated, so this instance may optionally
+returned array is <c>null</c>-terminated, so <paramref name="length"/> may optionally
 be <c>null</c>.
 </remarks>
 <param name="groupName">
@@ -843,20 +843,20 @@ On error
 
 <member name='KeyFile.GetLocaleStringList(System.String,System.String,System.String?)'>
 <summary>
-Returns the values associated with this instance under this instance
-translated in the given this instance if available.  If this instance is
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>
+translated in the given <paramref name="locale"/> if available.  If <paramref name="locale"/> is
 <c>null</c> then the current locale is assumed.
 </summary>
 <remarks>
-If this instance is to be non-<c>null</c>, or if the current locale will change over
+If <paramref name="locale"/> is to be non-<c>null</c>, or if the current locale will change over
 the lifetime of the <see cref="KeyFile"/>, it must be loaded with
 <see cref="KeyFileFlags.KeepTranslations"/> in order to load strings for all locales.
 
-If this instance cannot be found then <c>null</c> is returned and this instance is set
+If <paramref name="key"/> cannot be found then <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set
 to #G_KEY_FILE_ERROR_KEY_NOT_FOUND. If the values associated
-with this instance cannot be interpreted or no suitable translations
+with <paramref name="key"/> cannot be interpreted or no suitable translations
 can be found then the untranslated values are returned. The
-returned array is <c>null</c>-terminated, so this instance may optionally
+returned array is <c>null</c>-terminated, so <paramref name="length"/> may optionally
 be <c>null</c>.
 </remarks>
 <param name="groupName">
@@ -880,15 +880,15 @@ On error
 
 <member name='KeyFile.GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the string value associated with this instance under this instance.
-Unlike <see cref="M:KeyFile.GetValue(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>, this function handles escape sequences
+Returns the string value associated with <paramref name="key"/> under <paramref name="groupName"/>.
+Unlike <see cref="KeyFile.GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, this function handles escape sequences
 like \s.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+<see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
 </remarks>
 <param name="groupName">
 a group name
@@ -907,15 +907,15 @@ On error
 
 <member name='KeyFile.GetString(System.String,System.String)'>
 <summary>
-Returns the string value associated with this instance under this instance.
-Unlike <see cref="M:KeyFile.GetValue(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>, this function handles escape sequences
+Returns the string value associated with <paramref name="key"/> under <paramref name="groupName"/>.
+Unlike <see cref="KeyFile.GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, this function handles escape sequences
 like \s.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+<see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
 </remarks>
 <param name="groupName">
 a group name
@@ -934,13 +934,13 @@ On error
 
 <member name='KeyFile.GetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the values associated with this instance under this instance.
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+<see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
 </remarks>
 <param name="groupName">
 a group name
@@ -960,13 +960,13 @@ On error
 
 <member name='KeyFile.GetStringList(System.String,System.String)'>
 <summary>
-Returns the values associated with this instance under this instance.
+Returns the values associated with <paramref name="key"/> under <paramref name="groupName"/>.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+<see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
 </remarks>
 <param name="groupName">
 a group name
@@ -986,8 +986,8 @@ On error
 
 <member name='KeyFile.GetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the value associated with this instance under this instance as an unsigned
-64-bit integer. This is similar to <see cref="M:KeyFile.GetInteger(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> but can return
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an unsigned
+64-bit integer. This is similar to <see cref="KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> but can return
 large positive results without truncation.
 </summary>
 <param name="groupName">
@@ -1007,8 +1007,8 @@ On error
 
 <member name='KeyFile.GetUint64(System.String,System.String)'>
 <summary>
-Returns the value associated with this instance under this instance as an unsigned
-64-bit integer. This is similar to <see cref="M:KeyFile.GetInteger(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> but can return
+Returns the value associated with <paramref name="key"/> under <paramref name="groupName"/> as an unsigned
+64-bit integer. This is similar to <see cref="KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> but can return
 large positive results without truncation.
 </summary>
 <param name="groupName">
@@ -1028,14 +1028,14 @@ On error
 
 <member name='KeyFile.GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Returns the raw value associated with this instance under this instance.
-Use <see cref="M:KeyFile.GetString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> to retrieve an unescaped UTF-8 string.
+Returns the raw value associated with <paramref name="key"/> under <paramref name="groupName"/>.
+Use <see cref="KeyFile.GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> to retrieve an unescaped UTF-8 string.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+<see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
 </remarks>
 <param name="groupName">
 a group name
@@ -1054,14 +1054,14 @@ On error
 
 <member name='KeyFile.GetValue(System.String,System.String)'>
 <summary>
-Returns the raw value associated with this instance under this instance.
-Use <see cref="M:KeyFile.GetString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/> to retrieve an unescaped UTF-8 string.
+Returns the raw value associated with <paramref name="key"/> under <paramref name="groupName"/>.
+Use <see cref="KeyFile.GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/> to retrieve an unescaped UTF-8 string.
 </summary>
 <remarks>
 In the event the key cannot be found, <c>null</c> is returned and
-this instance is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
-event that the this instance cannot be found, <c>null</c> is returned
-and this instance is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
+<see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_KEY_NOT_FOUND.  In the
+event that the <paramref name="groupName"/> cannot be found, <c>null</c> is returned
+and <see cref="GISharp.Runtime.GErrorException"/> is set to #G_KEY_FILE_ERROR_GROUP_NOT_FOUND.
 </remarks>
 <param name="groupName">
 a group name
@@ -1080,33 +1080,33 @@ On error
 
 <member name='KeyFile.HasGroup(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Looks whether the key file has the group this instance.
+Looks whether the key file has the group <paramref name="groupName"/>.
 </summary>
 <param name="groupName">
 a group name
 </param>
 <returns>
-<c>true</c> if this instance is a part of this instance, <c>false</c>
+<c>true</c> if <paramref name="groupName"/> is a part of this instance, <c>false</c>
 otherwise.
 </returns>
 </member>
 
 <member name='KeyFile.HasGroup(System.String)'>
 <summary>
-Looks whether the key file has the group this instance.
+Looks whether the key file has the group <paramref name="groupName"/>.
 </summary>
 <param name="groupName">
 a group name
 </param>
 <returns>
-<c>true</c> if this instance is a part of this instance, <c>false</c>
+<c>true</c> if <paramref name="groupName"/> is a part of this instance, <c>false</c>
 otherwise.
 </returns>
 </member>
 
 <member name='KeyFile.LoadFromBytes(GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
-Loads a key file from the data in this instance into an empty <see cref="KeyFile"/> structure.
+Loads a key file from the data in <paramref name="bytes"/> into an empty <see cref="KeyFile"/> structure.
 If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
 </summary>
 <param name="bytes">
@@ -1129,7 +1129,7 @@ If the object cannot be created then %error is set to a <see cref="KeyFileError"
 key file loaded in memory
 </param>
 <param name="length">
-the length of this instance in bytes (or (gsize)-1 if data is nul-terminated)
+the length of <paramref name="data"/> in bytes (or (gsize)-1 if data is nul-terminated)
 </param>
 <param name="flags">
 flags from <see cref="KeyFileFlags"/>
@@ -1148,7 +1148,7 @@ If the object cannot be created then %error is set to a <see cref="KeyFileError"
 key file loaded in memory
 </param>
 <param name="length">
-the length of this instance in bytes (or (gsize)-1 if data is nul-terminated)
+the length of <paramref name="data"/> in bytes (or (gsize)-1 if data is nul-terminated)
 </param>
 <param name="flags">
 flags from <see cref="KeyFileFlags"/>
@@ -1160,10 +1160,10 @@ On error
 
 <member name='KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
-This function looks for a key file named this instance in the paths
+This function looks for a key file named <paramref name="file"/> in the paths
 returned from g_get_user_data_dir() and g_get_system_data_dirs(),
 loads the file into this instance and returns the file's full path in
-this instance.  If the file could not be loaded then an %error is
+<paramref name="fullPath"/>.  If the file could not be loaded then an %error is
 set to either a #GFileError or <see cref="KeyFileError"/>.
 </summary>
 <param name="file">
@@ -1183,12 +1183,12 @@ On error
 
 <member name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.FilenameArray,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)'>
 <summary>
-This function looks for a key file named this instance in the paths
-specified in this instance, loads the file into this instance and
-returns the file's full path in this instance.
+This function looks for a key file named <paramref name="file"/> in the paths
+specified in <paramref name="searchDirs"/>, loads the file into this instance and
+returns the file's full path in <paramref name="fullPath"/>.
 </summary>
 <remarks>
-If the file could not be found in any of the this instance,
+If the file could not be found in any of the <paramref name="searchDirs"/>,
 <see cref="KeyFileError.NotFound"/> is returned. If
 the file is found but the OS returns an error when opening or reading the
 file, a %G_FILE_ERROR is returned. If there is a problem parsing the file, a
@@ -1222,7 +1222,7 @@ If the OS returns an error when opening or reading the file, a
 %G_KEY_FILE_ERROR is returned.
 
 This function will never return a <see cref="KeyFileError.NotFound"/> error. If the
-this instance is not found, %G_FILE_ERROR_NOENT is returned.
+<paramref name="file"/> is not found, %G_FILE_ERROR_NOENT is returned.
 </remarks>
 <param name="file">
 the path of a filename to load, in the GLib filename encoding
@@ -1237,9 +1237,9 @@ On error
 
 <member name='KeyFile.RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
-Removes a comment above this instance from this instance.
-If this instance is <c>null</c> then this instance will be removed above this instance.
-If both this instance and this instance are <c>null</c>, then this instance will
+Removes a comment above <paramref name="key"/> from <paramref name="groupName"/>.
+If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be removed above <paramref name="groupName"/>.
+If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then <paramref name="comment"/> will
 be removed above the first group in the file.
 </summary>
 <param name="groupName">
@@ -1255,9 +1255,9 @@ On error
 
 <member name='KeyFile.RemoveComment(System.String?,System.String?)'>
 <summary>
-Removes a comment above this instance from this instance.
-If this instance is <c>null</c> then this instance will be removed above this instance.
-If both this instance and this instance are <c>null</c>, then this instance will
+Removes a comment above <paramref name="key"/> from <paramref name="groupName"/>.
+If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be removed above <paramref name="groupName"/>.
+If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then <paramref name="comment"/> will
 be removed above the first group in the file.
 </summary>
 <param name="groupName">
@@ -1273,7 +1273,7 @@ On error
 
 <member name='KeyFile.RemoveGroup(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Removes the specified group, this instance,
+Removes the specified group, <paramref name="groupName"/>,
 from the key file.
 </summary>
 <param name="groupName">
@@ -1286,7 +1286,7 @@ On error
 
 <member name='KeyFile.RemoveGroup(System.String)'>
 <summary>
-Removes the specified group, this instance,
+Removes the specified group, <paramref name="groupName"/>,
 from the key file.
 </summary>
 <param name="groupName">
@@ -1299,7 +1299,7 @@ On error
 
 <member name='KeyFile.RemoveKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Removes this instance in this instance from the key file.
+Removes <paramref name="key"/> in <paramref name="groupName"/> from the key file.
 </summary>
 <param name="groupName">
 a group name
@@ -1314,7 +1314,7 @@ On error
 
 <member name='KeyFile.RemoveKey(System.String,System.String)'>
 <summary>
-Removes this instance in this instance from the key file.
+Removes <paramref name="key"/> in <paramref name="groupName"/> from the key file.
 </summary>
 <param name="groupName">
 a group name
@@ -1329,7 +1329,7 @@ On error
 
 <member name='KeyFile.SaveToFile(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Writes the contents of this instance to this instance using
+Writes the contents of this instance to <paramref name="filename"/> using
 g_file_set_contents().
 </summary>
 <remarks>
@@ -1346,7 +1346,7 @@ On error
 
 <member name='KeyFile.SaveToFile(System.String)'>
 <summary>
-Writes the contents of this instance to this instance using
+Writes the contents of this instance to <paramref name="filename"/> using
 g_file_set_contents().
 </summary>
 <remarks>
@@ -1363,8 +1363,8 @@ On error
 
 <member name='KeyFile.SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)'>
 <summary>
-Associates a new boolean value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new boolean value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1379,8 +1379,8 @@ a key
 
 <member name='KeyFile.SetBoolean(System.String,System.String,System.Boolean)'>
 <summary>
-Associates a new boolean value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new boolean value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1395,9 +1395,9 @@ a key
 
 <member name='KeyFile.SetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)'>
 <summary>
-Associates a list of boolean values with this instance under this instance.
-If this instance cannot be found then it is created.
-If this instance is <c>null</c>, the start_group is used.
+Associates a list of boolean values with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
+If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
 </summary>
 <param name="groupName">
 a group name
@@ -1412,9 +1412,9 @@ an array of boolean values
 
 <member name='KeyFile.SetBooleanList(System.String,System.String,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)'>
 <summary>
-Associates a list of boolean values with this instance under this instance.
-If this instance cannot be found then it is created.
-If this instance is <c>null</c>, the start_group is used.
+Associates a list of boolean values with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
+If <paramref name="groupName"/> is <c>null</c>, the start_group is used.
 </summary>
 <param name="groupName">
 a group name
@@ -1429,15 +1429,15 @@ an array of boolean values
 
 <member name='KeyFile.SetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Places a comment above this instance from this instance.
+Places a comment above <paramref name="key"/> from <paramref name="groupName"/>.
 </summary>
 <remarks>
-If this instance is <c>null</c> then this instance will be written above this instance.
-If both this instance and this instance  are <c>null</c>, then this instance will be
+If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be written above <paramref name="groupName"/>.
+If both <paramref name="key"/> and <paramref name="groupName"/>  are <c>null</c>, then <paramref name="comment"/> will be
 written above the first group in the file.
 
 Note that this function prepends a '#' comment marker to
-each line of this instance.
+each line of <paramref name="comment"/>.
 </remarks>
 <param name="groupName">
 a group name, or <c>null</c>
@@ -1455,15 +1455,15 @@ On error
 
 <member name='KeyFile.SetComment(System.String?,System.String?,System.String)'>
 <summary>
-Places a comment above this instance from this instance.
+Places a comment above <paramref name="key"/> from <paramref name="groupName"/>.
 </summary>
 <remarks>
-If this instance is <c>null</c> then this instance will be written above this instance.
-If both this instance and this instance  are <c>null</c>, then this instance will be
+If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be written above <paramref name="groupName"/>.
+If both <paramref name="key"/> and <paramref name="groupName"/>  are <c>null</c>, then <paramref name="comment"/> will be
 written above the first group in the file.
 
 Note that this function prepends a '#' comment marker to
-each line of this instance.
+each line of <paramref name="comment"/>.
 </remarks>
 <param name="groupName">
 a group name, or <c>null</c>
@@ -1481,8 +1481,8 @@ On error
 
 <member name='KeyFile.SetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Double)'>
 <summary>
-Associates a new double value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new double value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1497,8 +1497,8 @@ an double value
 
 <member name='KeyFile.SetDouble(System.String,System.String,System.Double)'>
 <summary>
-Associates a new double value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new double value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1513,8 +1513,8 @@ an double value
 
 <member name='KeyFile.SetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Double&gt;)'>
 <summary>
-Associates a list of double values with this instance under
-this instance.  If this instance cannot be found then it is created.
+Associates a list of double values with <paramref name="key"/> under
+<paramref name="groupName"/>.  If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1529,8 +1529,8 @@ an array of double values
 
 <member name='KeyFile.SetDoubleList(System.String,System.String,System.ReadOnlySpan&lt;System.Double&gt;)'>
 <summary>
-Associates a list of double values with this instance under
-this instance.  If this instance cannot be found then it is created.
+Associates a list of double values with <paramref name="key"/> under
+<paramref name="groupName"/>.  If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1545,8 +1545,8 @@ an array of double values
 
 <member name='KeyFile.SetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int64)'>
 <summary>
-Associates a new integer value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1561,8 +1561,8 @@ an integer value
 
 <member name='KeyFile.SetInt64(System.String,System.String,System.Int64)'>
 <summary>
-Associates a new integer value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1577,8 +1577,8 @@ an integer value
 
 <member name='KeyFile.SetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
 <summary>
-Associates a new integer value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1593,8 +1593,8 @@ an integer value
 
 <member name='KeyFile.SetInteger(System.String,System.String,System.Int32)'>
 <summary>
-Associates a new integer value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1609,8 +1609,8 @@ an integer value
 
 <member name='KeyFile.SetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Int32&gt;)'>
 <summary>
-Associates a list of integer values with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a list of integer values with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1625,8 +1625,8 @@ an array of integer values
 
 <member name='KeyFile.SetIntegerList(System.String,System.String,System.ReadOnlySpan&lt;System.Int32&gt;)'>
 <summary>
-Associates a list of integer values with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a list of integer values with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1652,8 +1652,8 @@ the separator
 
 <member name='KeyFile.SetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Associates a string value for this instance and this instance under this instance.
-If the translation for this instance cannot be found then it is created.
+Associates a string value for <paramref name="key"/> and <paramref name="locale"/> under <paramref name="groupName"/>.
+If the translation for <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1671,8 +1671,8 @@ a string
 
 <member name='KeyFile.SetLocaleString(System.String,System.String,System.String,System.String)'>
 <summary>
-Associates a string value for this instance and this instance under this instance.
-If the translation for this instance cannot be found then it is created.
+Associates a string value for <paramref name="key"/> and <paramref name="locale"/> under <paramref name="groupName"/>.
+If the translation for <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1690,8 +1690,8 @@ a string
 
 <member name='KeyFile.SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
-Associates a list of string values for this instance and this instance under
-this instance.  If the translation for this instance cannot be found then
+Associates a list of string values for <paramref name="key"/> and <paramref name="locale"/> under
+<paramref name="groupName"/>.  If the translation for <paramref name="key"/> cannot be found then
 it is created.
 </summary>
 <param name="groupName">
@@ -1710,8 +1710,8 @@ a <c>null</c>-terminated array of locale string values
 
 <member name='KeyFile.SetLocaleStringList(System.String,System.String,System.String,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
-Associates a list of string values for this instance and this instance under
-this instance.  If the translation for this instance cannot be found then
+Associates a list of string values for <paramref name="key"/> and <paramref name="locale"/> under
+<paramref name="groupName"/>.  If the translation for <paramref name="key"/> cannot be found then
 it is created.
 </summary>
 <param name="groupName">
@@ -1730,10 +1730,10 @@ a <c>null</c>-terminated array of locale string values
 
 <member name='KeyFile.SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Associates a new string value with this instance under this instance.
-If this instance cannot be found then it is created.
-If this instance cannot be found then it is created.
-Unlike <see cref="M:KeyFile.SetValue(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>, this function handles characters
+Associates a new string value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
+If <paramref name="groupName"/> cannot be found then it is created.
+Unlike <see cref="KeyFile.SetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, this function handles characters
 that need escaping, such as newlines.
 </summary>
 <param name="groupName">
@@ -1749,10 +1749,10 @@ a string
 
 <member name='KeyFile.SetString(System.String,System.String,System.String)'>
 <summary>
-Associates a new string value with this instance under this instance.
-If this instance cannot be found then it is created.
-If this instance cannot be found then it is created.
-Unlike <see cref="M:KeyFile.SetValue(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>, this function handles characters
+Associates a new string value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
+If <paramref name="groupName"/> cannot be found then it is created.
+Unlike <see cref="KeyFile.SetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, this function handles characters
 that need escaping, such as newlines.
 </summary>
 <param name="groupName">
@@ -1768,9 +1768,9 @@ a string
 
 <member name='KeyFile.SetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
-Associates a list of string values for this instance under this instance.
-If this instance cannot be found then it is created.
-If this instance cannot be found then it is created.
+Associates a list of string values for <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
+If <paramref name="groupName"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1785,9 +1785,9 @@ an array of string values
 
 <member name='KeyFile.SetStringList(System.String,System.String,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)'>
 <summary>
-Associates a list of string values for this instance under this instance.
-If this instance cannot be found then it is created.
-If this instance cannot be found then it is created.
+Associates a list of string values for <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
+If <paramref name="groupName"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1802,8 +1802,8 @@ an array of string values
 
 <member name='KeyFile.SetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.UInt64)'>
 <summary>
-Associates a new integer value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1818,8 +1818,8 @@ an integer value
 
 <member name='KeyFile.SetUint64(System.String,System.String,System.UInt64)'>
 <summary>
-Associates a new integer value with this instance under this instance.
-If this instance cannot be found then it is created.
+Associates a new integer value with <paramref name="key"/> under <paramref name="groupName"/>.
+If <paramref name="key"/> cannot be found then it is created.
 </summary>
 <param name="groupName">
 a group name
@@ -1834,13 +1834,13 @@ an integer value
 
 <member name='KeyFile.SetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Associates a new value with this instance under this instance.
+Associates a new value with <paramref name="key"/> under <paramref name="groupName"/>.
 </summary>
 <remarks>
-If this instance cannot be found then it is created. If this instance cannot
+If <paramref name="key"/> cannot be found then it is created. If <paramref name="groupName"/> cannot
 be found then it is created. To set an UTF-8 string which may contain
 characters that need escaping (such as newlines or spaces), use
-<see cref="M:KeyFile.SetString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>.
+<see cref="KeyFile.SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -1855,13 +1855,13 @@ a string
 
 <member name='KeyFile.SetValue(System.String,System.String,System.String)'>
 <summary>
-Associates a new value with this instance under this instance.
+Associates a new value with <paramref name="key"/> under <paramref name="groupName"/>.
 </summary>
 <remarks>
-If this instance cannot be found then it is created. If this instance cannot
+If <paramref name="key"/> cannot be found then it is created. If <paramref name="groupName"/> cannot
 be found then it is created. To set an UTF-8 string which may contain
 characters that need escaping (such as newlines or spaces), use
-<see cref="M:KeyFile.SetString(GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Utf8)"/>.
+<see cref="KeyFile.SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>.
 </remarks>
 <param name="groupName">
 a group name
@@ -1880,7 +1880,7 @@ This function outputs this instance as a string.
 </summary>
 <remarks>
 Note that this function never reports an error,
-so it is safe to pass <c>null</c> as this instance.
+so it is safe to pass <c>null</c> as <see cref="GISharp.Runtime.GErrorException"/>.
 </remarks>
 <param name="length">
 return location for the length of the

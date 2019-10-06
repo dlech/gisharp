@@ -20,7 +20,7 @@ Indicates an error in setting the value.
 
 <member name='FileAttributeStatus'>
 <summary>
-Used by <see cref="M:File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> when setting file attributes.
+Used by <see cref="File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> when setting file attributes.
 </summary>
 </member>
 

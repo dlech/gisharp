@@ -1,9 +1,9 @@
 
 ### SimpleAction ###
 
-# better name - TODO: StateChanged would be even betterer
+# better name
 - !set-attribute
   name: gs:managed-name
-  value: ChangedState
+  value: StateChanged
   xpath: gi:repository/gi:namespace/gi:class[@name='SimpleAction']/glib:signal[@name='change-state']
 

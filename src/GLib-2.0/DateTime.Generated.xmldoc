@@ -6,8 +6,8 @@ Creates a <see cref="DateTime"/> corresponding to this exact instant in the loca
 time zone.
 </summary>
 <remarks>
-This is equivalent to calling <see cref="M:DateTime.GetNow(GISharp.Lib.GLib.TimeZone)"/> with the time
-zone returned by <see cref="M:TimeZone.GetLocal()"/>.
+This is equivalent to calling <see cref="DateTime.GetNow(GISharp.Lib.GLib.TimeZone)"/> with the time
+zone returned by <see cref="TimeZone.GetLocal()"/>.
 </remarks>
 </member>
 
@@ -16,8 +16,8 @@ zone returned by <see cref="M:TimeZone.GetLocal()"/>.
 Creates a <see cref="DateTime"/> corresponding to this exact instant in UTC.
 </summary>
 <remarks>
-This is equivalent to calling <see cref="M:DateTime.GetNow(GISharp.Lib.GLib.TimeZone)"/> with the time
-zone returned by <see cref="M:TimeZone.GetUtc()"/>.
+This is equivalent to calling <see cref="DateTime.GetNow(GISharp.Lib.GLib.TimeZone)"/> with the time
+zone returned by <see cref="TimeZone.GetUtc()"/>.
 </remarks>
 </member>
 
@@ -118,12 +118,12 @@ Returns the ISO 8601 week-numbering year in which the week containing
 this instance falls.
 </summary>
 <remarks>
-This function, taken together with <see cref="M:DateTime.GetWeekOfYear()"/> and
-<see cref="M:DateTime.GetDayOfWeek()"/> can be used to determine the full ISO
+This function, taken together with <see cref="DateTime.GetWeekOfYear()"/> and
+<see cref="DateTime.GetDayOfWeek()"/> can be used to determine the full ISO
 week date on which this instance falls.
 
 This is usually equal to the normal Gregorian year (as returned by
-<see cref="M:DateTime.GetYear()"/>), except as detailed below:
+<see cref="DateTime.GetYear()"/>), except as detailed below:
 
 For Thursday, the week-numbering year is always equal to the usual
 calendar year.  For other days, the number is such that every day
@@ -212,7 +212,7 @@ It not considered a programmer error for the values to this function
 to be out of range, but in the case that they are, the function will
 return <c>null</c>.
 
-You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="tz">
@@ -274,7 +274,7 @@ If the timezone is not provided in <paramref name="text"/> it must be provided i
 This call can fail (returning <c>null</c>) if <paramref name="text"/> is not a valid ISO 8601
 formatted string.
 
-You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="text">
@@ -325,7 +325,7 @@ If the timezone is not provided in <paramref name="text"/> it must be provided i
 This call can fail (returning <c>null</c>) if <paramref name="text"/> is not a valid ISO 8601
 formatted string.
 
-You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="text">
@@ -353,7 +353,7 @@ local time offset.
 This call can fail (returning <c>null</c>) if <paramref name="tv"/> represents a time outside
 of the supported range of <see cref="DateTime"/>.
 
-You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="tv">
@@ -375,7 +375,7 @@ seconds elapsed since 1970-01-01 00:00:00 UTC.
 This call can fail (returning <c>null</c>) if <paramref name="tv"/> represents a time outside
 of the supported range of <see cref="DateTime"/>.
 
-You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="tv">
@@ -398,7 +398,7 @@ Unix time is the number of seconds that have elapsed since 1970-01-01
 This call can fail (returning <c>null</c>) if <paramref name="t"/> represents a time outside
 of the supported range of <see cref="DateTime"/>.
 
-You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="t">
@@ -420,7 +420,7 @@ Unix time is the number of seconds that have elapsed since 1970-01-01
 This call can fail (returning <c>null</c>) if <paramref name="t"/> represents a time outside
 of the supported range of <see cref="DateTime"/>.
 
-You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="t">
@@ -437,8 +437,8 @@ Creates a new <see cref="DateTime"/> corresponding to the given date and time in
 the local time zone.
 </summary>
 <remarks>
-This call is equivalent to calling <see cref="M:DateTime.#ctor(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)"/> with the time
-zone returned by <see cref="M:TimeZone.GetLocal()"/>.
+This call is equivalent to calling <see cref="DateTime.DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)"/> with the time
+zone returned by <see cref="TimeZone.GetLocal()"/>.
 </remarks>
 <param name="year">
 the year component of the date
@@ -474,7 +474,7 @@ This function will always succeed unless the system clock is set to
 truly insane values (or unless GLib is still being used after the
 year 9999).
 
-You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="tz">
@@ -491,8 +491,8 @@ Creates a new <see cref="DateTime"/> corresponding to the given date and time in
 UTC.
 </summary>
 <remarks>
-This call is equivalent to calling <see cref="M:DateTime.#ctor(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)"/> with the time
-zone returned by <see cref="M:TimeZone.GetUtc()"/>.
+This call is equivalent to calling <see cref="DateTime.DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)"/> with the time
+zone returned by <see cref="TimeZone.GetUtc()"/>.
 </remarks>
 <param name="year">
 the year component of the date
@@ -543,7 +543,7 @@ a <see cref="TimeSpan"/>
 </param>
 <returns>
 the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="M:DateTime.Unref()"/>.
+  <see cref="DateTime.Unref()"/>.
 </returns>
 </member>
 
@@ -557,7 +557,7 @@ the number of days
 </param>
 <returns>
 the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="M:DateTime.Unref()"/>.
+  <see cref="DateTime.Unref()"/>.
 </returns>
 </member>
 
@@ -586,7 +586,7 @@ the number of seconds to add
 </param>
 <returns>
 the newly created <see cref="DateTime"/> that should be freed with
-  <see cref="M:DateTime.Unref()"/>.
+  <see cref="DateTime.Unref()"/>.
 </returns>
 </member>
 
@@ -600,7 +600,7 @@ the number of hours to add
 </param>
 <returns>
 the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="M:DateTime.Unref()"/>.
+  <see cref="DateTime.Unref()"/>.
 </returns>
 </member>
 
@@ -614,7 +614,7 @@ the number of minutes to add
 </param>
 <returns>
 the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="M:DateTime.Unref()"/>.
+  <see cref="DateTime.Unref()"/>.
 </returns>
 </member>
 
@@ -634,7 +634,7 @@ the number of months
 </param>
 <returns>
 the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="M:DateTime.Unref()"/>.
+  <see cref="DateTime.Unref()"/>.
 </returns>
 </member>
 
@@ -648,7 +648,7 @@ the number of seconds to add
 </param>
 <returns>
 the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="M:DateTime.Unref()"/>.
+  <see cref="DateTime.Unref()"/>.
 </returns>
 </member>
 
@@ -662,7 +662,7 @@ the number of weeks
 </param>
 <returns>
 the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="M:DateTime.Unref()"/>.
+  <see cref="DateTime.Unref()"/>.
 </returns>
 </member>
 
@@ -672,7 +672,7 @@ Creates a copy of this instance and adds the specified number of years to the
 copy. Add negative values to subtract years.
 </summary>
 <remarks>
-As with <see cref="M:DateTime.AddMonths(System.Int32)"/>, if the resulting date would be 29th
+As with <see cref="DateTime.AddMonths(System.Int32)"/>, if the resulting date would be 29th
 February on a non-leap year, the day will be clamped to 28th February.
 </remarks>
 <param name="years">
@@ -680,14 +680,14 @@ the number of years
 </param>
 <returns>
 the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="M:DateTime.Unref()"/>.
+  <see cref="DateTime.Unref()"/>.
 </returns>
 </member>
 
 <member name='DateTime.Difference(GISharp.Lib.GLib.DateTime)'>
 <summary>
-Calculates the difference in time between this instance and this instance.  The
-<see cref="TimeSpan"/> that is returned is effectively this instance - this instance (ie:
+Calculates the difference in time between this instance and <paramref name="begin"/>.  The
+<see cref="TimeSpan"/> that is returned is effectively this instance - <paramref name="begin"/> (ie:
 positive if the first parameter is larger).
 </summary>
 <param name="begin">
@@ -701,7 +701,7 @@ the difference between the two <see cref="DateTime"/>, as a time
 
 <member name='DateTime.Format(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Creates a newly allocated string representing the requested this instance.
+Creates a newly allocated string representing the requested <paramref name="format"/>.
 </summary>
 <remarks>
 The format strings understood by this function are a subset of the
@@ -756,7 +756,7 @@ The following format specifiers are supported:
    Monday being 1. This works well with \%G and \%V.
 - \%V: the ISO 8601 standard week number of the current year as a decimal
   number, range 01 to 53, where week 1 is the first week that has at
-  least 4 days in the new year. See <see cref="M:DateTime.GetWeekOfYear()"/>.
+  least 4 days in the new year. See <see cref="DateTime.GetWeekOfYear()"/>.
   This works well with \%G and \%u.
 - \%w: the day of the week as a decimal, range 0 to 6, Sunday being 0.
   This is not the ISO 8601 standard format -- use \%u instead.
@@ -811,7 +811,7 @@ a newly allocated string formatted to the requested format
 
 <member name='DateTime.Format(System.String)'>
 <summary>
-Creates a newly allocated string representing the requested this instance.
+Creates a newly allocated string representing the requested <paramref name="format"/>.
 </summary>
 <remarks>
 The format strings understood by this function are a subset of the
@@ -866,7 +866,7 @@ The following format specifiers are supported:
    Monday being 1. This works well with \%G and \%V.
 - \%V: the ISO 8601 standard week number of the current year as a decimal
   number, range 01 to 53, where week 1 is the first week that has at
-  least 4 days in the new year. See <see cref="M:DateTime.GetWeekOfYear()"/>.
+  least 4 days in the new year. See <see cref="DateTime.GetWeekOfYear()"/>.
   This works well with \%G and \%u.
 - \%w: the day of the week as a decimal, range 0 to 6, Sunday being 0.
   This is not the ISO 8601 standard format -- use \%u instead.
@@ -953,8 +953,8 @@ Creates a new <see cref="DateTime"/> corresponding to the same instant in time a
 this instance, but in the local time zone.
 </summary>
 <remarks>
-This call is equivalent to calling <see cref="M:DateTime.ToTimezone(GISharp.Lib.GLib.TimeZone)"/> with the
-time zone returned by <see cref="M:TimeZone.GetLocal()"/>.
+This call is equivalent to calling <see cref="DateTime.ToTimezone(GISharp.Lib.GLib.TimeZone)"/> with the
+time zone returned by <see cref="TimeZone.GetLocal()"/>.
 </remarks>
 <returns>
 the newly created <see cref="DateTime"/>
@@ -963,7 +963,7 @@ the newly created <see cref="DateTime"/>
 
 <member name='DateTime.ToTimeval(GISharp.Lib.GLib.TimeVal)'>
 <summary>
-Stores the instant in time that this instance represents into this instance.
+Stores the instant in time that this instance represents into <paramref name="tv"/>.
 </summary>
 <remarks>
 The time contained in a <see cref="TimeVal"/> is always stored in the form of
@@ -989,14 +989,14 @@ a <see cref="TimeVal"/> to modify
 <member name='DateTime.ToTimezone(GISharp.Lib.GLib.TimeZone)'>
 <summary>
 Create a new <see cref="DateTime"/> corresponding to the same instant in time as
-this instance, but in the time zone this instance.
+this instance, but in the time zone <paramref name="tz"/>.
 </summary>
 <remarks>
 This call can fail in the case that the time goes out of bounds.  For
 example, converting 0001-01-01 00:00:00 UTC to a time zone west of
 Greenwich will fail (due to the year 0 being out of range).
 
-You should release the return value by calling <see cref="M:DateTime.Unref()"/>
+You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
 </remarks>
 <param name="tz">
@@ -1027,8 +1027,8 @@ Creates a new <see cref="DateTime"/> corresponding to the same instant in time a
 this instance, but in UTC.
 </summary>
 <remarks>
-This call is equivalent to calling <see cref="M:DateTime.ToTimezone(GISharp.Lib.GLib.TimeZone)"/> with the
-time zone returned by <see cref="M:TimeZone.GetUtc()"/>.
+This call is equivalent to calling <see cref="DateTime.ToTimezone(GISharp.Lib.GLib.TimeZone)"/> with the
+time zone returned by <see cref="TimeZone.GetUtc()"/>.
 </remarks>
 <returns>
 the newly created <see cref="DateTime"/>
@@ -1037,7 +1037,7 @@ the newly created <see cref="DateTime"/>
 
 <member name='DateTime.Equals(GISharp.Lib.GLib.DateTime)'>
 <summary>
-Checks to see if this instance and this instance are equal.
+Checks to see if this instance and <paramref name="dt2"/> are equal.
 </summary>
 <remarks>
 Equal here means that they represent the same moment after converting
@@ -1047,7 +1047,7 @@ them to the same time zone.
 a <see cref="DateTime"/>
 </param>
 <returns>
-<c>true</c> if this instance and this instance are equal
+<c>true</c> if this instance and <paramref name="dt2"/> are equal
 </returns>
 </member>
 

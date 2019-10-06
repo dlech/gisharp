@@ -12,7 +12,7 @@ Tests if the stream supports the <see cref="SeekableIface"/>.
 <member name='ISeekable.DoCanTruncate()'>
 <summary>
 Tests if the length of the stream can be adjusted with
-<see cref="M:Seekable.Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="Seekable.Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <returns>
 <c>true</c> if the stream can be truncated, <c>false</c> otherwise.
@@ -21,7 +21,7 @@ Tests if the length of the stream can be adjusted with
 
 <member name='ISeekable.DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Seeks in the stream by the given this instance, modified by this instance.
+Seeks in the stream by the given <paramref name="offset"/>, modified by <paramref name="type"/>.
 </summary>
 <remarks>
 Attempting to seek past the end of the stream will have different
@@ -33,7 +33,7 @@ the end of a fixed-sized stream will fail.
 
 Any operation that would result in a negative offset will fail.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 </remarks>
@@ -48,7 +48,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 <returns>
 <c>true</c> if successful. If an error
-    has occurred, this function will return <c>false</c> and set this instance
+    has occurred, this function will return <c>false</c> and set <see cref="GISharp.Runtime.GErrorException"/>
     appropriately if present.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
@@ -67,12 +67,12 @@ the offset from the beginning of the buffer.
 
 <member name='ISeekable.DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Sets the length of the stream to this instance. If the stream was previously
-larger than this instance, the extra data is discarded. If the stream was
-previouly shorter than this instance, it is extended with NUL ('\0') bytes.
+Sets the length of the stream to <paramref name="offset"/>. If the stream was previously
+larger than <paramref name="offset"/>, the extra data is discarded. If the stream was
+previouly shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
 </summary>
 <remarks>
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
@@ -86,7 +86,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 <returns>
 <c>true</c> if successful. If an error
-    has occurred, this function will return <c>false</c> and set this instance
+    has occurred, this function will return <c>false</c> and set <see cref="GISharp.Runtime.GErrorException"/>
     appropriately if present.
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
@@ -129,7 +129,7 @@ a <see cref="ISeekable"/>.
 <member name='Seekable.CanTruncate(GISharp.Lib.Gio.ISeekable)'>
 <summary>
 Tests if the length of the stream can be adjusted with
-<see cref="M:Seekable.Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="Seekable.Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="seekable">
 a <see cref="ISeekable"/>.
@@ -141,7 +141,7 @@ a <see cref="ISeekable"/>.
 
 <member name='Seekable.Seek(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Seeks in the stream by the given this instance, modified by this instance.
+Seeks in the stream by the given <paramref name="offset"/>, modified by <paramref name="type"/>.
 </summary>
 <remarks>
 Attempting to seek past the end of the stream will have different
@@ -153,7 +153,7 @@ the end of a fixed-sized stream will fail.
 
 Any operation that would result in a negative offset will fail.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 </remarks>
@@ -188,12 +188,12 @@ the offset from the beginning of the buffer.
 
 <member name='Seekable.Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Sets the length of the stream to this instance. If the stream was previously
-larger than this instance, the extra data is discarded. If the stream was
-previouly shorter than this instance, it is extended with NUL ('\0') bytes.
+Sets the length of the stream to <paramref name="offset"/>. If the stream was previously
+larger than <paramref name="offset"/>, the extra data is discarded. If the stream was
+previouly shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
 </summary>
 <remarks>
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the

@@ -65,7 +65,7 @@ to invocation messages from other applications).
 The return value should not be modified or freed and is valid for as
 long as this instance exists.
 
-See <see cref="M:ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)"/> if you are only interested
+See <see cref="ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)"/> if you are only interested
 in the value of a single environment variable.
 </remarks>
 </member>
@@ -73,7 +73,7 @@ in the value of a single environment variable.
 <member name='ApplicationCommandLine.ExitStatus'>
 <summary>
 Gets the exit status of this instance.  See
-<see cref="M:ApplicationCommandLine.SetExitStatus(System.Int32)"/> for more information.
+<see cref="ApplicationCommandLine.SetExitStatus(System.Int32)"/> for more information.
 </summary>
 </member>
 
@@ -90,7 +90,7 @@ Gets the options there were passed to g_application_command_line().
 <remarks>
 If you did not override local_command_line() then these are the same
 options that were parsed according to the #GOptionEntrys added to the
-application with <see cref="M:Application.AddMainOptionEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/> and possibly
+application with <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> and possibly
 modified from your GApplication::handle-local-options handler.
 
 If no options were sent then an empty dictionary is returned so that
@@ -134,7 +134,7 @@ Creates a <see cref="IFile"/> corresponding to a filename that was given as part
 of the invocation of this instance.
 </summary>
 <remarks>
-This differs from <see cref="M:File.NewForCommandlineArg(GISharp.Lib.GLib.Filename)"/> in that it
+This differs from <see cref="File.NewForCommandlineArg(GISharp.Lib.GLib.Filename)"/> in that it
 resolves relative pathnames using the current working directory of
 the invoking process rather than the local process.
 </remarks>
@@ -209,7 +209,7 @@ commandline to this process).
 
 The GApplicationCommandLine object can provide the <paramref name="argc"/> and <paramref name="argv"/>
 parameters for use with the #GOptionContext command-line parsing API,
-with the <see cref="M:ApplicationCommandLine.GetArguments()"/> function. See
+with the <see cref="ApplicationCommandLine.GetArguments()"/> function. See
 [gapplication-example-cmdline3.c][gapplication-example-cmdline3]
 for an example.
 

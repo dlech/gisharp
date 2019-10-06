@@ -57,7 +57,7 @@ If the <paramref name="arg"/> type is <see cref="OptionArg.Callback"/>, then <pa
 <summary>
 the description for the option in `--help`
     output. The <paramref name="description"/> is translated using the <paramref name="translateFunc"/>
-    of the group, see <see cref="M:OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.Utf8)"/>.
+    of the group, see <see cref="OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -66,7 +66,7 @@ the description for the option in `--help`
 The placeholder to use for the extra argument parsed
     by the option in `--help` output. The <paramref name="argDescription"/> is translated
     using the <paramref name="translateFunc"/> of the group, see
-    <see cref="M:OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.Utf8)"/>.
+    <see cref="OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 </member>
 
@@ -74,7 +74,7 @@ The placeholder to use for the extra argument parsed
 <summary>
 A GOptionEntry struct defines a single option. To have an effect, they
 must be added to a <see cref="OptionGroup"/> with g_option_context_add_main_entries()
-or <see cref="M:OptionGroup.AddEntries(GISharp.Runtime.CArray`1[GISharp.Lib.GLib.OptionEntry])"/>.
+or <see cref="OptionGroup.AddEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/>.
 </summary>
 </member>
 

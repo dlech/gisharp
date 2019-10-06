@@ -39,7 +39,7 @@ operation will finish as much as possible. A stream that failed to
 close will still return <see cref="IOErrorEnum.Closed"/> for all operations. Still, it
 is important to check and report the error to the user.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 Cancelling a close will still leave the stream closed, but some streams
@@ -56,12 +56,9 @@ On error
 <member name='InputStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous closes of the stream, releasing resources related to it.
-When the operation is finished this instance will be called.
-You can then call <see cref="M:InputStream.CloseFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
-operation.
 </summary>
 <remarks>
-For behaviour details see <see cref="M:InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
+For behaviour details see <see cref="InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
 
 The asynchronous methods have a default fallback that uses threads to implement
 asynchronicity, so they are optional for inheriting classes. However, if you
@@ -86,28 +83,28 @@ Checks if an input stream has pending actions.
 
 <member name='InputStream.Read(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Tries to read this instance bytes from the stream into the buffer starting at
-this instance. Will block during this read.
+Tries to read the length of <paramref name="buffer"/> bytes from the stream into the buffer starting at
+<paramref name="buffer"/>. Will block during this read.
 </summary>
 <remarks>
-If count is zero returns zero and does nothing. A value of this instance
+If count is zero returns zero and does nothing. A value of the length of <paramref name="buffer"/>
 larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
 
 On success, the number of bytes read into the buffer is returned.
 It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file. Zero is returned on end of file
-(or if this instance is zero),  but never otherwise.
+(or if the length of <paramref name="buffer"/> is zero),  but never otherwise.
 
-The returned this instance is not a nul-terminated string, it can contain nul bytes
-at any position, and this function doesn't nul-terminate the this instance.
+The returned <paramref name="buffer"/> is not a nul-terminated string, it can contain nul bytes
+at any position, and this function doesn't nul-terminate the <paramref name="buffer"/>.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
 
-On error -1 is returned and this instance is set accordingly.
+On error -1 is returned and <see cref="GISharp.Runtime.GErrorException"/> is set accordingly.
 </remarks>
 <param name="buffer">
 a buffer to read data into (which should be at least count bytes long).
@@ -125,26 +122,26 @@ On error
 
 <member name='InputStream.ReadAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Tries to read this instance bytes from the stream into the buffer starting at
-this instance. Will block during this read.
+Tries to read the length of <paramref name="buffer"/> bytes from the stream into the buffer starting at
+<paramref name="buffer"/>. Will block during this read.
 </summary>
 <remarks>
-This function is similar to <see cref="M:InputStream.Read(GISharp.Runtime.CArray`1[System.Byte],GISharp.Lib.Gio.Cancellable)"/>, except it tries to
+This function is similar to <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, except it tries to
 read as many bytes as requested, only stopping on an error or end of stream.
 
-On a successful read of this instance bytes, or if we reached the end of the
-stream,  <c>true</c> is returned, and this instance is set to the number of bytes
-read into this instance.
+On a successful read of the length of <paramref name="buffer"/> bytes, or if we reached the end of the
+stream,  <c>true</c> is returned, and <paramref name="bytesRead"/> is set to the number of bytes
+read into <paramref name="buffer"/>.
 
-If there is an error during the operation <c>false</c> is returned and this instance
+If there is an error during the operation <c>false</c> is returned and <see cref="GISharp.Runtime.GErrorException"/>
 is set to indicate the error status.
 
 As a special exception to the normal conventions for functions that
-use #GError, if this function returns <c>false</c> (and sets this instance) then
-this instance will be set to the number of bytes that were successfully
+use #GError, if this function returns <c>false</c> (and sets <see cref="GISharp.Runtime.GErrorException"/>) then
+<paramref name="bytesRead"/> will be set to the number of bytes that were successfully
 read before the error was encountered.  This functionality is only
 available from C.  If you need it from another language then you must
-write your own loop around <see cref="M:InputStream.Read(GISharp.Runtime.CArray`1[System.Byte],GISharp.Lib.Gio.Cancellable)"/>.
+write your own loop around <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>.
 </remarks>
 <param name="buffer">
 a buffer to read data into (which should be at least count bytes long).
@@ -162,13 +159,11 @@ On error
 
 <member name='InputStream.ReadAllAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Request an asynchronous read of this instance bytes from the stream into the
-buffer starting at this instance.
+Request an asynchronous read of the length of <paramref name="buffer"/> bytes from the stream into the
+buffer starting at <paramref name="buffer"/>.
 </summary>
 <remarks>
-This is the asynchronous equivalent of <see cref="M:InputStream.ReadAll(GISharp.Runtime.CArray`1[System.Byte],System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
-
-Call <see cref="M:InputStream.ReadAllFinish(GISharp.Lib.Gio.IAsyncResult,System.Int32)"/> to collect the result.
+This is the asynchronous equivalent of <see cref="InputStream.ReadAll(System.ReadOnlySpan{System.Byte},out System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
 
 Any outstanding I/O request with higher priority (lower numerical
 value) will be executed before an outstanding request with lower
@@ -187,22 +182,20 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 
 <member name='InputStream.ReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Request an asynchronous read of this instance bytes from the stream into the buffer
-starting at this instance. When the operation is finished this instance will be called.
-You can then call <see cref="M:InputStream.ReadFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
-operation.
+Request an asynchronous read of up to the length of <paramref name="buffer"/> bytes from the stream into the
+<paramref name="buffer"/>.
 </summary>
 <remarks>
 During an async request no other sync and async calls are allowed on this instance, and will
 result in <see cref="IOErrorEnum.Pending"/> errors.
 
-A value of this instance larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
+A value of the length of <paramref name="buffer"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
 
 On success, the number of bytes read into the buffer will be passed to the
 callback. It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file, but generally we try to read
 as many bytes as requested. Zero is returned on end of file
-(or if this instance is zero),  but never otherwise.
+(or if the length of <paramref name="buffer"/> is zero),  but never otherwise.
 
 Any outstanding i/o request with higher priority (lower numerical value) will
 be executed before an outstanding request with lower priority. Default
@@ -226,30 +219,30 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 
 <member name='InputStream.ReadBytes(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Like <see cref="M:InputStream.Read(GISharp.Runtime.CArray`1[System.Byte],GISharp.Lib.Gio.Cancellable)"/>, this tries to read this instance bytes from
+Like <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, this tries to read <paramref name="count"/> bytes from
 the stream in a blocking fashion. However, rather than reading into
-a user-supplied buffer, this will create a new #GBytes containing
+a user-supplied buffer, this will create a new <see cref="GLib.Bytes"/> containing
 the data that was read. This may be easier to use from language
 bindings.
 </summary>
 <remarks>
-If count is zero, returns a zero-length #GBytes and does nothing. A
-value of this instance larger than %G_MAXSSIZE will cause a
+If count is zero, returns a zero-length <see cref="GLib.Bytes"/> and does nothing. A
+value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a
 <see cref="IOErrorEnum.InvalidArgument"/> error.
 
-On success, a new #GBytes is returned. It is not an error if the
+On success, a new <see cref="GLib.Bytes"/> is returned. It is not an error if the
 size of this object is not the same as the requested size, as it
-can happen e.g. near the end of a file. A zero-length #GBytes is
-returned on end of file (or if this instance is zero), but never
+can happen e.g. near the end of a file. A zero-length <see cref="GLib.Bytes"/> is
+returned on end of file (or if <paramref name="count"/> is zero), but never
 otherwise.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
 
-On error <c>null</c> is returned and this instance is set accordingly.
+On error <c>null</c> is returned and <see cref="GISharp.Runtime.GErrorException"/> is set accordingly.
 </remarks>
 <param name="count">
 maximum number of bytes that will be read from the stream. Common
@@ -259,7 +252,7 @@ values include 4096 and 8192.
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 <returns>
-a new #GBytes, or <c>null</c> on error
+a new <see cref="GLib.Bytes"/>, or <c>null</c> on error
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -268,23 +261,21 @@ On error
 
 <member name='InputStream.ReadBytesAsync(System.Int32,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Request an asynchronous read of this instance bytes from the stream into a
-new #GBytes. When the operation is finished this instance will be
-called. You can then call <see cref="M:InputStream.ReadBytesFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the
-result of the operation.
+Request an asynchronous read of <paramref name="count"/> bytes from the stream into a
+new <see cref="GLib.Bytes"/>.
 </summary>
 <remarks>
 During an async request no other sync and async calls are allowed
 on this instance, and will result in <see cref="IOErrorEnum.Pending"/> errors.
 
-A value of this instance larger than %G_MAXSSIZE will cause a
+A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a
 <see cref="IOErrorEnum.InvalidArgument"/> error.
 
-On success, the new #GBytes will be passed to the callback. It is
+On success, the new <see cref="GLib.Bytes"/> will be passed to the callback. It is
 not an error if this is smaller than the requested size, as it can
 happen e.g. near the end of a file, but generally we try to read as
 many bytes as requested. Zero is returned on end of file (or if
-this instance is zero), but never otherwise.
+<paramref name="count"/> is zero), but never otherwise.
 
 Any outstanding I/O request with higher priority (lower numerical
 value) will be executed before an outstanding request with lower
@@ -305,7 +296,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 <summary>
 Sets this instance to have actions pending. If the pending flag is
 already set or this instance is closed, it will return <c>false</c> and set
-this instance.
+<see cref="GISharp.Runtime.GErrorException"/>.
 </summary>
 <exception name="GISharp.Runtime.GErrorException">
 On error
@@ -314,17 +305,17 @@ On error
 
 <member name='InputStream.Skip(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Tries to skip this instance bytes from the stream. Will block during the operation.
+Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
 </summary>
 <remarks>
-This is identical to <see cref="M:InputStream.Read(GISharp.Runtime.CArray`1[System.Byte],GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
+This is identical to <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
 but the bytes that are skipped are not returned to the user. Some
 streams have an implementation that is more efficient than reading the data.
 
 This function is optional for inherited classes, as the default implementation
 emulates it using read.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
@@ -346,22 +337,19 @@ On error
 
 <member name='InputStream.SkipAsync(System.Int32,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Request an asynchronous skip of this instance bytes from the stream.
-When the operation is finished this instance will be called.
-You can then call <see cref="M:InputStream.SkipFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result
-of the operation.
+Request an asynchronous skip of <paramref name="count"/> bytes from the stream.
 </summary>
 <remarks>
 During an async request no other sync and async calls are allowed,
 and will result in <see cref="IOErrorEnum.Pending"/> errors.
 
-A value of this instance larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
+A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
 
 On success, the number of bytes skipped will be passed to the callback.
 It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file, but generally we try to skip
 as many bytes as requested. Zero is returned on end of file
-(or if this instance is zero), but never otherwise.
+(or if <paramref name="count"/> is zero), but never otherwise.
 
 Any outstanding i/o request with higher priority (lower numerical value)
 will be executed before an outstanding request with lower priority.
@@ -385,12 +373,12 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 <member name='InputStream.DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous closes of the stream, releasing resources related to it.
-When the operation is finished this instance will be called.
-You can then call <see cref="M:InputStream.CloseFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
+When the operation is finished <paramref name="callback"/> will be called.
+You can then call <see cref="InputStream.DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
 operation.
 </summary>
 <remarks>
-For behaviour details see <see cref="M:InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
+For behaviour details see <see cref="InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>.
 
 The asynchronous methods have a default fallback that uses threads to implement
 asynchronicity, so they are optional for inheriting classes. However, if you
@@ -409,7 +397,7 @@ optional cancellable object
 
 <member name='InputStream.DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
-Finishes closing a stream asynchronously, started from <see cref="M:InputStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+Finishes closing a stream asynchronously, started from <see cref="InputStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="result">
 a <see cref="IAsyncResult"/>.
@@ -430,22 +418,22 @@ On error
 
 <member name='InputStream.DoReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Request an asynchronous read of this instance bytes from the stream into the buffer
-starting at this instance. When the operation is finished this instance will be called.
-You can then call <see cref="M:InputStream.ReadFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
+Request an asynchronous read of the length of <paramref name="buffer"/> bytes from the stream into the buffer
+starting at <paramref name="buffer"/>. When the operation is finished <paramref name="callback"/> will be called.
+You can then call <see cref="InputStream.DoReadFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
 operation.
 </summary>
 <remarks>
 During an async request no other sync and async calls are allowed on this instance, and will
 result in <see cref="IOErrorEnum.Pending"/> errors.
 
-A value of this instance larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
+A value of the length of <paramref name="buffer"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
 
 On success, the number of bytes read into the buffer will be passed to the
 callback. It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file, but generally we try to read
 as many bytes as requested. Zero is returned on end of file
-(or if this instance is zero),  but never otherwise.
+(or if the length of <paramref name="buffer"/> is zero),  but never otherwise.
 
 Any outstanding i/o request with higher priority (lower numerical value) will
 be executed before an outstanding request with lower priority. Default
@@ -493,17 +481,17 @@ On error
 
 <member name='InputStream.DoSkip(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Tries to skip this instance bytes from the stream. Will block during the operation.
+Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
 </summary>
 <remarks>
-This is identical to <see cref="M:InputStream.Read(GISharp.Runtime.CArray`1[System.Byte],GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
+This is identical to <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
 but the bytes that are skipped are not returned to the user. Some
 streams have an implementation that is more efficient than reading the data.
 
 This function is optional for inherited classes, as the default implementation
 emulates it using read.
 
-If this instance is not <c>null</c>, then the operation can be cancelled by
+If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. If an
 operation was partially finished when the operation was cancelled the
@@ -525,22 +513,22 @@ On error
 
 <member name='InputStream.DoSkipAsync(System.Int32,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Request an asynchronous skip of this instance bytes from the stream.
-When the operation is finished this instance will be called.
-You can then call <see cref="M:InputStream.SkipFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result
+Request an asynchronous skip of <paramref name="count"/> bytes from the stream.
+When the operation is finished <paramref name="callback"/> will be called.
+You can then call <see cref="InputStream.DoSkipFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the result
 of the operation.
 </summary>
 <remarks>
 During an async request no other sync and async calls are allowed,
 and will result in <see cref="IOErrorEnum.Pending"/> errors.
 
-A value of this instance larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
+A value of <paramref name="count"/> larger than %G_MAXSSIZE will cause a <see cref="IOErrorEnum.InvalidArgument"/> error.
 
 On success, the number of bytes skipped will be passed to the callback.
 It is not an error if this is not the same as the requested size, as it
 can happen e.g. near the end of a file, but generally we try to skip
 as many bytes as requested. Zero is returned on end of file
-(or if this instance is zero), but never otherwise.
+(or if <paramref name="count"/> is zero), but never otherwise.
 
 Any outstanding i/o request with higher priority (lower numerical value)
 will be executed before an outstanding request with lower priority.
@@ -581,13 +569,13 @@ On error
 
 <member name='InputStream'>
 <summary>
-<see cref="InputStream"/> has functions to read from a stream (<see cref="M:InputStream.Read(GISharp.Runtime.CArray`1[System.Byte],GISharp.Lib.Gio.Cancellable)"/>),
-to close a stream (<see cref="M:InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>) and to skip some content
-(<see cref="M:InputStream.Skip(System.Int32,GISharp.Lib.Gio.Cancellable)"/>).
+<see cref="InputStream"/> has functions to read from a stream (<see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>),
+to close a stream (<see cref="InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>) and to skip some content
+(<see cref="InputStream.Skip(System.Int32,GISharp.Lib.Gio.Cancellable)"/>).
 </summary>
 <remarks>
 To copy the content of an input stream to an output stream without
-manually handling the reads and writes, use <see cref="M:OutputStream.Splice(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,GISharp.Lib.Gio.Cancellable)"/>.
+manually handling the reads and writes, use <see cref="OutputStream.Splice(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,GISharp.Lib.Gio.Cancellable)"/>.
 
 See the documentation for <see cref="IOStream"/> for details of thread safety of
 streaming APIs.

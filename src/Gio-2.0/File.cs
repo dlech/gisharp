@@ -12,11 +12,11 @@ namespace GISharp.Lib.Gio
     {
         /// <summary>
         /// Copies the file <paramref name="source"/> to the location specified by <paramref name="destination"/>
-        /// asynchronously. For details of the behaviour, see <see cref="File.Copy"/>.
+        /// asynchronously. For details of the behaviour, see <see cref="Copy"/>.
         /// </summary>
         /// <remarks>
         /// If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
-        /// just like in <see cref="File.Copy"/>. The callback will run in the default main context
+        /// just like in <see cref="Copy"/>. The callback will run in the default main context
         /// of the thread calling <see cref="CopyAsync"/>.
         /// </remarks>
         /// <param name="source">
@@ -37,7 +37,7 @@ namespace GISharp.Lib.Gio
         /// </param>
         /// <param name="progressCallback">
         /// function to callback with progress information, or <c>null</c> if
-        /// progress information is not needed. 
+        /// progress information is not needed.
         /// </param>
         public unsafe static Tasks.Task CopyAsync(this IFile source, IFile destination, FileCopyFlags flags, int ioPriority = Priority.Default,
             Cancellable? cancellable = null, FileProgressCallback? progressCallback = null)
