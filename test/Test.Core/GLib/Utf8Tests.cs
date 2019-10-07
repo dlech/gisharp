@@ -1,6 +1,6 @@
 using System;
 using GISharp.Lib.GLib;
-
+using GISharp.Lib.GObject;
 using NUnit.Framework;
 
 using static GISharp.TestHelpers;
@@ -33,6 +33,14 @@ namespace GISharp.Test.Core
                 }
                 Assert.That(expected.MoveNext(), Is.False);
             }
+            AssertNoGLibLog();
+        }
+
+        [Test]
+        public void TestGType()
+        {
+            var gtype = GType.TypeOf<Utf8>();
+            Assert.That(gtype, Is.EqualTo(GType.String));
             AssertNoGLibLog();
         }
     }

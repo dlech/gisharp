@@ -14,13 +14,13 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// An opaque structure used to hold different types of values.
     /// </summary>
-    [GType ("GValue", IsProxyForUnmanagedType = true)]
-    [DebuggerDisplay ("{ToString ()}")]
+    [GType("GValue", IsProxyForUnmanagedType = true)]
+    [DebuggerDisplay("{ToString ()}")]
     public ref struct Value
     {
         GType type;
 
-        #pragma warning disable 414
+#pragma warning disable 414
         // this should never be accessed directly
         //[MarshalAs (UnmanagedType.ByValArray, SizeConst = 2)]
         //ValueDataUnion[] data;
@@ -32,10 +32,10 @@ namespace GISharp.Lib.GObject
         [StructLayout(LayoutKind.Explicit)]
         ref struct ValueDataUnion
         {
-            [FieldOffset (0)]
+            [FieldOffset(0)]
             int vInt;
 
-            [FieldOffset (0)]
+            [FieldOffset(0)]
             uint vUInt;
 
             [FieldOffset(0)]
@@ -44,22 +44,22 @@ namespace GISharp.Lib.GObject
             [FieldOffset(0)]
             culong vULong;
 
-            [FieldOffset (0)]
+            [FieldOffset(0)]
             long vInt64;
 
-            [FieldOffset (0)]
+            [FieldOffset(0)]
             ulong vUInt64;
 
-            [FieldOffset (0)]
+            [FieldOffset(0)]
             float vFloat;
 
-            [FieldOffset (0)]
+            [FieldOffset(0)]
             double vDouble;
 
-            [FieldOffset (0)]
+            [FieldOffset(0)]
             IntPtr vPointer;
         }
-        #pragma warning restore 414
+#pragma warning restore 414
 
         /// <summary>
         /// The maximum number of #GTypeCValues which can be collected for a
@@ -75,12 +75,12 @@ namespace GISharp.Lib.GObject
         const int NocopyContents = 134217728;
 
         static readonly Dictionary<Tuple<GType, GType>, GCHandle> transformFuncMap
-            = new Dictionary<Tuple<GType, GType>, GCHandle> ();
-        static readonly object transformFuncMapLock = new object ();
+            = new Dictionary<Tuple<GType, GType>, GCHandle>();
+        static readonly object transformFuncMapLock = new object();
 
         public object? Get()
         {
-            AssertInitialized ();
+            AssertInitialized();
             var gtype = ValueGType.Fundamental;
             if (gtype == GType.Boolean) {
                 return Boolean;
@@ -101,12 +101,12 @@ namespace GISharp.Lib.GObject
                 return Float;
             }
             if (gtype == GType.Enum) {
-                var enumType = GType.TypeOf (ValueGType);
-                return System.Enum.ToObject (enumType, Enum);
+                var enumType = GType.TypeOf(ValueGType);
+                return System.Enum.ToObject(enumType, Enum);
             }
             if (gtype == GType.Flags) {
-                var enumType = GType.TypeOf (ValueGType);
-                return System.Enum.ToObject (enumType, Flags);
+                var enumType = GType.TypeOf(ValueGType);
+                return System.Enum.ToObject(enumType, Flags);
             }
             if (gtype == GType.Int) {
                 return Int;
@@ -148,53 +148,71 @@ namespace GISharp.Lib.GObject
                 return Variant;
             }
             // TODO: Need more specific exception
-            throw new Exception ("unhandled GType");
+            throw new Exception("unhandled GType");
         }
 
         public void Set(object? obj)
         {
-            AssertInitialized ();
+            AssertInitialized();
             var gtype = type.Fundamental;
             try {
                 if (gtype == GType.Boolean) {
                     Boolean = (bool)obj!;
-                } else if (gtype == GType.Boxed) {
-                    Boxed = obj;
-                } else if (gtype == GType.Char) {
+                }
+                else if (gtype == GType.Boxed) {
+                    Boxed = (Boxed?)obj;
+                }
+                else if (gtype == GType.Char) {
                     Char = (sbyte)obj!;
-                } else if (gtype == GType.UChar) {
+                }
+                else if (gtype == GType.UChar) {
                     UChar = (byte)obj!;
-                } else if (gtype == GType.Double) {
+                }
+                else if (gtype == GType.Double) {
                     Double = (double)obj!;
-                } else if (gtype == GType.Float) {
+                }
+                else if (gtype == GType.Float) {
                     Float = (float)obj!;
-                } else if (gtype == GType.Enum) {
+                }
+                else if (gtype == GType.Enum) {
                     Enum = (int)obj!;
-                } else if (gtype == GType.Flags) {
+                }
+                else if (gtype == GType.Flags) {
                     Flags = (uint)(int)obj!;
-                } else if (gtype == GType.Int) {
+                }
+                else if (gtype == GType.Int) {
                     Int = (int)obj!;
-                } else if (gtype == GType.UInt) {
+                }
+                else if (gtype == GType.UInt) {
                     UInt = (uint)obj!;
-                } else if (gtype == GType.Int64) {
+                }
+                else if (gtype == GType.Int64) {
                     Int64 = (long)obj!;
-                } else if (gtype == GType.UInt64) {
+                }
+                else if (gtype == GType.UInt64) {
                     UInt64 = (ulong)obj!;
-                } else if (gtype == GType.Long) {
+                }
+                else if (gtype == GType.Long) {
                     Long = (clong)obj!;
-                } else if (gtype == GType.ULong) {
+                }
+                else if (gtype == GType.ULong) {
                     ULong = (culong)obj!;
-                } else if (gtype == GType.Object) {
+                }
+                else if (gtype == GType.Object) {
                     Object = (Object?)obj;
-                } else if (gtype == GType.Param) {
+                }
+                else if (gtype == GType.Param) {
                     Param = (ParamSpec?)obj;
-                } else if (ValueGType == GType.Type) {
+                }
+                else if (ValueGType == GType.Type) {
                     // GType has fundamental type of void, so this check must
                     // be before Pointer and not check the fundamental GType
                     GType = (GType)obj!;
-                } else if (gtype == GType.Pointer) {
+                }
+                else if (gtype == GType.Pointer) {
                     Pointer = (IntPtr)obj!;
-                } else if (gtype == GType.String) {
+                }
+                else if (gtype == GType.String) {
                     if (obj is string str) {
                         obj = new Utf8(str);
                     }
@@ -218,14 +236,17 @@ namespace GISharp.Lib.GObject
                     else {
                         throw new InvalidCastException();
                     }
-                } else if (gtype == GType.Variant) {
-                    Variant = (Variant?)obj;
-                } else {
-                    // TODO: Need more specific exception
-                    throw new Exception ("unhandled GType");
                 }
-            } catch (InvalidCastException ex) {
-                throw new ArgumentException ("Wrong type", nameof (obj), ex);
+                else if (gtype == GType.Variant) {
+                    Variant = (Variant?)obj;
+                }
+                else {
+                    // TODO: Need more specific exception
+                    throw new Exception("unhandled GType");
+                }
+            }
+            catch (InvalidCastException ex) {
+                throw new ArgumentException("Wrong type", nameof(obj), ex);
             }
         }
 
@@ -245,109 +266,117 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        public static explicit operator bool (Value value)
+        public static explicit operator bool(Value value)
         {
             try {
                 return value.Boolean;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("", ex);
             }
         }
 
-        public static explicit operator Value (bool value)
+        public static explicit operator Value(bool value)
         {
-            return new Value (GType.Boolean, value);
+            return new Value(GType.Boolean, value);
         }
 
-        public static explicit operator sbyte (Value value)
+        public static explicit operator sbyte(Value value)
         {
             try {
                 return value.Char;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to sbyte", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to sbyte", ex);
             }
         }
 
-        public static explicit operator Value (sbyte value)
+        public static explicit operator Value(sbyte value)
         {
-            return new Value (GType.Char, value);
+            return new Value(GType.Char, value);
         }
 
-        public static explicit operator byte (Value value)
+        public static explicit operator byte(Value value)
         {
             try {
                 return value.UChar;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to byte", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to byte", ex);
             }
         }
 
-        public static explicit operator Value (byte value)
+        public static explicit operator Value(byte value)
         {
-            return new Value (GType.UChar, value);
+            return new Value(GType.UChar, value);
         }
 
-        public static explicit operator int (Value value)
+        public static explicit operator int(Value value)
         {
             try {
                 return value.Int;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to int", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to int", ex);
             }
         }
 
-        public static explicit operator Value (int value)
+        public static explicit operator Value(int value)
         {
-            return new Value (GType.Int, value);
+            return new Value(GType.Int, value);
         }
 
-        public static explicit operator uint (Value value)
+        public static explicit operator uint(Value value)
         {
             try {
                 return value.UInt;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to uint", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to uint", ex);
             }
         }
 
-        public static explicit operator Value (uint value)
+        public static explicit operator Value(uint value)
         {
-            return new Value (GType.UInt, value);
+            return new Value(GType.UInt, value);
         }
 
-        public static explicit operator long (Value value)
+        public static explicit operator long(Value value)
         {
             try {
                 return value.Int64;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to long", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to long", ex);
             }
         }
 
-        public static explicit operator Value (long value)
+        public static explicit operator Value(long value)
         {
-            return new Value (GType.Int64, value);
+            return new Value(GType.Int64, value);
         }
 
-        public static explicit operator ulong (Value value)
+        public static explicit operator ulong(Value value)
         {
             try {
                 return value.UInt64;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to ulong", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to ulong", ex);
             }
         }
 
-        public static explicit operator Value (ulong value)
+        public static explicit operator Value(ulong value)
         {
-            return new Value (GType.UInt64, value);
+            return new Value(GType.UInt64, value);
         }
 
         public static explicit operator clong(Value value)
         {
             try {
                 return value.Long;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 throw new InvalidCastException("Cannot cast to clong", ex);
             }
         }
@@ -361,7 +390,8 @@ namespace GISharp.Lib.GObject
         {
             try {
                 return value.ULong;
-            } catch (Exception ex) {
+            }
+            catch (Exception ex) {
                 throw new InvalidCastException("Cannot cast to culong", ex);
             }
         }
@@ -371,102 +401,139 @@ namespace GISharp.Lib.GObject
             return new Value(GType.ULong, value);
         }
 
-        public static explicit operator float (Value value)
+        public static explicit operator float(Value value)
         {
             try {
                 return value.Float;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to float", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to float", ex);
             }
         }
 
-        public static explicit operator Value (float value)
+        public static explicit operator Value(float value)
         {
-            return new Value (GType.Float, value);
+            return new Value(GType.Float, value);
         }
 
-        public static explicit operator double (Value value)
+        public static explicit operator double(Value value)
         {
             try {
                 return value.Double;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to double", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to double", ex);
             }
         }
 
-        public static explicit operator Value (double value)
+        public static explicit operator Value(double value)
         {
-            return new Value (GType.Double, value);
+            return new Value(GType.Double, value);
         }
 
-        public static explicit operator IntPtr (Value value)
+        public static explicit operator IntPtr(Value value)
         {
             try {
                 return value.Pointer;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to IntPtr", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to IntPtr", ex);
             }
         }
 
-        public static explicit operator Value (IntPtr value)
+        public static explicit operator Value(IntPtr value)
         {
-            return new Value (GType.Pointer, value);
+            return new Value(GType.Pointer, value);
         }
 
         public static explicit operator Object?(Value value)
         {
             try {
                 return value.Object;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to GObject", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to GObject", ex);
             }
         }
 
-        public static explicit operator Value(Object? value)
+        public static explicit operator Value(Object value)
         {
-            return new Value (GType.Object, value);
+            return new Value(GType.TypeOf(value.GetType()), value);
         }
 
         public static explicit operator string?(Value value)
         {
             try {
                 return value.String;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to string", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to string", ex);
             }
         }
 
         public static explicit operator Value(string? value)
         {
-            return new Value (GType.String, value);
+            return new Value(GType.String, value);
         }
 
-        public static explicit operator GType (Value value)
+        public static explicit operator ParamSpec?(Value value)
         {
             try {
-                return value.GType;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to GType", ex);
+                return value.Param;
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to ParamSpec", ex);
             }
         }
 
-        public static explicit operator Value (GType value)
+        public static explicit operator Value(ParamSpec value)
         {
-            return new Value (GType.Type, value);
+            return new Value(GType.TypeOf(value.GetType()), value);
+        }
+
+        public static explicit operator Boxed?(Value value)
+        {
+            try {
+                return value.Boxed;
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to ParamSpec", ex);
+            }
+        }
+
+        public static explicit operator Value(Boxed value)
+        {
+            return new Value(GType.TypeOf(value.GetType()), value);
+        }
+
+        public static explicit operator GType(Value value)
+        {
+            try {
+                return value.GType;
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to GType", ex);
+            }
+        }
+
+        public static explicit operator Value(GType value)
+        {
+            return new Value(GType.Type, value);
         }
 
         public static explicit operator Variant?(Value value)
         {
             try {
                 return value.Variant;
-            } catch (Exception ex) {
-                throw new InvalidCastException ("Cannot cast to Variant", ex);
+            }
+            catch (Exception ex) {
+                throw new InvalidCastException("Cannot cast to Variant", ex);
             }
         }
 
         public static explicit operator Value(Variant? value)
         {
-            return new Value (GType.Variant, value);
+            return new Value(GType.Variant, value);
         }
 
         /// <summary>
@@ -484,10 +551,10 @@ namespace GISharp.Lib.GObject
         /// a function which transforms values of type @src_type
         ///  into value of type @dest_type
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_register_transform_func (
+        static extern void g_value_register_transform_func(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType srcType,
@@ -515,15 +582,15 @@ namespace GISharp.Lib.GObject
         /// A previously registered transformation function for <paramref name="srcType"/>
         /// and <paramref name="destType"/> will be replaced.
         /// </remarks>
-        public static void RegisterTransformFunc (GType srcType, GType destType, ValueTransform transformFunc)
+        public static void RegisterTransformFunc(GType srcType, GType destType, ValueTransform transformFunc)
         {
             lock (transformFuncMapLock) {
-                var key = new Tuple<GType, GType> (srcType, destType);
-                if (transformFuncMap.ContainsKey (key)) {
-                    transformFuncMap[key].Free ();
+                var key = new Tuple<GType, GType>(srcType, destType);
+                if (transformFuncMap.ContainsKey(key)) {
+                    transformFuncMap[key].Free();
                 }
-                g_value_register_transform_func (srcType, destType, transformFunc);
-                transformFuncMap[key] = GCHandle.Alloc (transformFunc);
+                g_value_register_transform_func(srcType, destType, transformFunc);
+                transformFuncMap[key] = GCHandle.Alloc(transformFunc);
             }
         }
 
@@ -564,9 +631,9 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// %TRUE if g_value_copy() is possible with @src_type and @dest_type.
         /// </returns>
-        public static bool TypeCompatible (GType srcType, GType destType)
+        public static bool TypeCompatible(GType srcType, GType destType)
         {
-            var ret = g_value_type_compatible (srcType, destType);
+            var ret = g_value_type_compatible(srcType, destType);
             return ret;
         }
 
@@ -611,9 +678,9 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// %TRUE if the transformation is possible, %FALSE otherwise.
         /// </returns>
-        public static bool TypeTransformable (GType srcType, GType destType)
+        public static bool TypeTransformable(GType srcType, GType destType)
         {
-            var ret = g_value_type_transformable (srcType, destType);
+            var ret = g_value_type_transformable(srcType, destType);
             return ret;
         }
 
@@ -626,10 +693,10 @@ namespace GISharp.Lib.GObject
         /// <param name="destValue">
         /// An initialized #GValue structure of the same type as @src_value.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_copy (
+        static extern void g_value_copy(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value srcValue,
@@ -643,10 +710,10 @@ namespace GISharp.Lib.GObject
         /// <param name="destValue">
         /// An initialized #GValue structure of the same type as @src_value.
         /// </param>
-        public void Copy (out Value destValue)
+        public void Copy(out Value destValue)
         {
-            AssertInitialized ();
-            g_value_copy (in this, out destValue);
+            AssertInitialized();
+            g_value_copy(in this, out destValue);
         }
 
         /// <summary>
@@ -661,10 +728,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// boxed contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* */
-        static extern IntPtr g_value_dup_boxed (
+        static extern IntPtr g_value_dup_boxed(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -678,10 +745,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// boxed contents of @value
         /// </returns>
-        IntPtr DupBoxed ()
+        IntPtr DupBoxed()
         {
-            AssertInitialized ();
-            var ret = g_value_dup_boxed (in this);
+            AssertInitialized();
+            var ret = g_value_dup_boxed(in this);
             return ret;
         }
 
@@ -704,7 +771,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_dup_object (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_OBJECT derived #GValue, increasing
@@ -741,7 +808,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_dup_param (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a %G_TYPE_PARAM #GValue, increasing its
@@ -776,7 +843,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_value_dup_variant (
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Get the contents of a variant #GValue, increasing its refcount.
@@ -810,7 +877,7 @@ namespace GISharp.Lib.GObject
         static extern Runtime.Boolean g_value_fits_pointer(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         /// <summary>
         /// Determines if @value will fit inside the size of a pointer value.
@@ -852,14 +919,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         bool Boolean {
             get {
-                AssertType (GType.Boolean);
-                var ret = g_value_get_boolean (in this);
+                AssertType(GType.Boolean);
+                var ret = g_value_get_boolean(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Boolean);
-                g_value_set_boolean (ref this, value);
+                AssertType(GType.Boolean);
+                g_value_set_boolean(ref this, value);
             }
         }
 
@@ -872,10 +939,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// boxed contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_value_get_boxed (
+        static extern IntPtr g_value_get_boxed(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -886,33 +953,17 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// boxed contents of @value
         /// </returns>
-        object? Boxed {
+        Boxed? Boxed {
             get {
-                AssertType (GType.Boxed);
-                var managedType = GType.TypeOf (ValueGType);
-                var ret_ = g_value_get_boxed (in this);
-                if (typeof(Boxed).IsAssignableFrom(managedType)) {
-                    return Opaque.GetInstance(managedType, ret_, Transfer.None);
-                }
-                var gchandle = GCHandle.FromIntPtr (ret_);
-                return gchandle.Target;
+                AssertType(GType.Boxed);
+                var managedType = GType.TypeOf(ValueGType);
+                var ret_ = g_value_get_boxed(in this);
+                return (Boxed?)Opaque.GetInstance(managedType, ret_, Transfer.None);
             }
-
             set {
-                AssertType (GType.Boxed);
-                if (value != null) {
-                    var gtype = value.GetGType();
-                    if (!gtype.IsA(GType.Boxed)) {
-                        throw new ArgumentException ("Requires a boxed type.", nameof (value));
-                    }
-                }
-                if (value is Boxed boxed) {
-                    // if this is a wrapped native type, then we pass the native handle
-                    g_value_set_boxed (ref this, boxed.Handle);
-                } else {
-                    // otherwise, we create a GCHandle.
-                    g_value_set_boxed (ref this, (GCHandle.ToIntPtr (GCHandle.Alloc (value))));
-                }
+                AssertType(GType.Boxed);
+                var boxed_ = value?.Handle ?? IntPtr.Zero;
+                g_value_set_boxed(ref this, boxed_);
             }
         }
 
@@ -925,10 +976,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// double contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gdouble" type="gdouble" managed-name="Gdouble" /> */
         /* transfer-ownership:none */
-        static extern double g_value_get_double (
+        static extern double g_value_get_double(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -941,14 +992,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         double Double {
             get {
-                AssertType (GType.Double);
-                var ret = g_value_get_double (in this);
+                AssertType(GType.Double);
+                var ret = g_value_get_double(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Double);
-                g_value_set_double (ref this, value);
+                AssertType(GType.Double);
+                g_value_set_double(ref this, value);
             }
         }
 
@@ -961,10 +1012,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// enum contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static extern int g_value_get_enum (
+        static extern int g_value_get_enum(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -977,14 +1028,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         int Enum {
             get {
-                AssertType (GType.Enum);
-                var ret = g_value_get_enum (in this);
+                AssertType(GType.Enum);
+                var ret = g_value_get_enum(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Enum);
-                g_value_set_enum (ref this, value);
+                AssertType(GType.Enum);
+                g_value_set_enum(ref this, value);
             }
         }
 
@@ -997,10 +1048,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// flags contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern uint g_value_get_flags (
+        static extern uint g_value_get_flags(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1013,15 +1064,15 @@ namespace GISharp.Lib.GObject
         /// </returns>
         uint Flags {
             get {
-                AssertType (GType.Flags);
-                var ret = g_value_get_flags (in this);
+                AssertType(GType.Flags);
+                var ret = g_value_get_flags(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Flags);
+                AssertType(GType.Flags);
 
-                g_value_set_flags (ref this, value);
+                g_value_set_flags(ref this, value);
             }
         }
 
@@ -1034,10 +1085,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// float contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gfloat" type="gfloat" managed-name="Gfloat" /> */
         /* transfer-ownership:none */
-        static extern float g_value_get_float (
+        static extern float g_value_get_float(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1050,14 +1101,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         float Float {
             get {
-                AssertType (GType.Float);
-                var ret = g_value_get_float (in this);
+                AssertType(GType.Float);
+                var ret = g_value_get_float(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Float);
-                g_value_set_float (ref this, value);
+                AssertType(GType.Float);
+                g_value_set_float(ref this, value);
             }
         }
 
@@ -1070,11 +1121,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the #GType stored in @value
         /// </returns>
-        [Since ("2.12")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.12")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GType" /> */
         /* transfer-ownership:none */
-        static extern GType g_value_get_gtype (
+        static extern GType g_value_get_gtype(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1085,17 +1136,17 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the #GType stored in @value
         /// </returns>
-        [Since ("2.12")]
+        [Since("2.12")]
         GType GType {
             get {
-                AssertType (GType.Type);
-                var ret = g_value_get_gtype (in this);
+                AssertType(GType.Type);
+                var ret = g_value_get_gtype(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Type);
-                g_value_set_gtype (ref this, value);
+                AssertType(GType.Type);
+                g_value_set_gtype(ref this, value);
             }
         }
 
@@ -1108,10 +1159,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static extern int g_value_get_int (
+        static extern int g_value_get_int(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1124,14 +1175,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         int Int {
             get {
-                AssertType (GType.Int);
-                var ret = g_value_get_int (in this);
+                AssertType(GType.Int);
+                var ret = g_value_get_int(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Int);
-                g_value_set_int (ref this, value);
+                AssertType(GType.Int);
+                g_value_set_int(ref this, value);
             }
         }
 
@@ -1144,10 +1195,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// 64bit integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="Gint64" /> */
         /* transfer-ownership:none */
-        static extern long g_value_get_int64 (
+        static extern long g_value_get_int64(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1160,14 +1211,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         long Int64 {
             get {
-                AssertType (GType.Int64);
-                var ret = g_value_get_int64 (in this);
+                AssertType(GType.Int64);
+                var ret = g_value_get_int64(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Int64);
-                g_value_set_int64 (ref this, value);
+                AssertType(GType.Int64);
+                g_value_set_int64(ref this, value);
             }
         }
 
@@ -1216,10 +1267,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// object contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="gpointer" managed-name="Object" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_value_get_object (
+        static extern IntPtr g_value_get_object(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1232,16 +1283,16 @@ namespace GISharp.Lib.GObject
         /// </returns>
         Object? Object {
             get {
-                AssertType (GType.Object);
-                var ret_ = g_value_get_object (in this);
+                AssertType(GType.Object);
+                var ret_ = g_value_get_object(in this);
                 var ret = Object.GetInstance(ret_, Transfer.None);
                 return ret;
             }
 
             set {
-                AssertType (GType.Object);
-                g_value_set_object (ref this, value?.Handle ?? IntPtr.Zero);
-                GC.KeepAlive (value);
+                AssertType(GType.Object);
+                g_value_set_object(ref this, value?.Handle ?? IntPtr.Zero);
+                GC.KeepAlive(value);
             }
         }
 
@@ -1254,10 +1305,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// #GParamSpec content of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_value_get_param (
+        static extern IntPtr g_value_get_param(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1270,16 +1321,16 @@ namespace GISharp.Lib.GObject
         /// </returns>
         ParamSpec? Param {
             get {
-                AssertType (GType.Param);
-                var ret_ = g_value_get_param (in this);
+                AssertType(GType.Param);
+                var ret_ = g_value_get_param(in this);
                 var ret = ParamSpec.GetInstance(ret_, Transfer.None);
                 return ret;
             }
 
             set {
-                AssertType (GType.Param);
+                AssertType(GType.Param);
                 g_value_set_param(ref this, value?.Handle ?? IntPtr.Zero);
-                GC.KeepAlive (value);
+                GC.KeepAlive(value);
             }
         }
 
@@ -1292,10 +1343,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// pointer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_value_get_pointer (
+        static extern IntPtr g_value_get_pointer(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1308,14 +1359,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         IntPtr Pointer {
             get {
-                AssertType (GType.Pointer);
-                var ret = g_value_get_pointer (in this);
+                AssertType(GType.Pointer);
+                var ret = g_value_get_pointer(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Pointer);
-                g_value_set_pointer (ref this, value);
+                AssertType(GType.Pointer);
+                g_value_set_pointer(ref this, value);
             }
         }
 
@@ -1328,11 +1379,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// signed 8 bit integer contents of @value
         /// </returns>
-        [Since ("2.32")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint8" type="gint8" managed-name="Gint8" /> */
         /* transfer-ownership:none */
-        static extern sbyte g_value_get_schar (
+        static extern sbyte g_value_get_schar(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1343,17 +1394,17 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// signed 8 bit integer contents of @value
         /// </returns>
-        [Since ("2.32")]
+        [Since("2.32")]
         sbyte Char {
             get {
-                AssertType (GType.Char);
-                var ret = g_value_get_schar (in this);
+                AssertType(GType.Char);
+                var ret = g_value_get_schar(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.Char);
-                g_value_set_schar (ref this, value);
+                AssertType(GType.Char);
+                g_value_set_schar(ref this, value);
             }
         }
 
@@ -1366,10 +1417,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// string content of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_value_get_string (
+        static extern IntPtr g_value_get_string(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1382,14 +1433,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         NullableUnownedUtf8 String {
             get {
-                AssertType (GType.String);
+                AssertType(GType.String);
                 var ret_ = g_value_get_string(in this);
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
 
             set {
-                AssertType (GType.String);
+                AssertType(GType.String);
                 g_value_set_string(ref this, value.Handle);
             }
         }
@@ -1403,10 +1454,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// unsigned character contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint8" type="guchar" managed-name="Guint8" /> */
         /* transfer-ownership:none */
-        static extern byte g_value_get_uchar (
+        static extern byte g_value_get_uchar(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1419,14 +1470,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         byte UChar {
             get {
-                AssertType (GType.UChar);
-                var ret = g_value_get_uchar (in this);
+                AssertType(GType.UChar);
+                var ret = g_value_get_uchar(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.UChar);
-                g_value_set_uchar (ref this, value);
+                AssertType(GType.UChar);
+                g_value_set_uchar(ref this, value);
             }
         }
 
@@ -1439,10 +1490,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// unsigned integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern uint g_value_get_uint (
+        static extern uint g_value_get_uint(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1455,14 +1506,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         uint UInt {
             get {
-                AssertType (GType.UInt);
-                var ret = g_value_get_uint (in this);
+                AssertType(GType.UInt);
+                var ret = g_value_get_uint(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.UInt);
-                g_value_set_uint (ref this, value);
+                AssertType(GType.UInt);
+                g_value_set_uint(ref this, value);
             }
         }
 
@@ -1475,10 +1526,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// unsigned 64bit integer contents of @value
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint64" type="guint64" managed-name="Guint64" /> */
         /* transfer-ownership:none */
-        static extern ulong g_value_get_uint64 (
+        static extern ulong g_value_get_uint64(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1491,14 +1542,14 @@ namespace GISharp.Lib.GObject
         /// </returns>
         ulong UInt64 {
             get {
-                AssertType (GType.UInt64);
-                var ret = g_value_get_uint64 (in this);
+                AssertType(GType.UInt64);
+                var ret = g_value_get_uint64(in this);
                 return ret;
             }
 
             set {
-                AssertType (GType.UInt64);
-                g_value_set_uint64 (ref this, value);
+                AssertType(GType.UInt64);
+                g_value_set_uint64(ref this, value);
             }
         }
 
@@ -1547,11 +1598,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// variant contents of @value
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GLib.Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_value_get_variant (
+        static extern IntPtr g_value_get_variant(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             in Value value);
@@ -1562,18 +1613,18 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// variant contents of @value
         /// </returns>
-        [Since ("2.26")]
+        [Since("2.26")]
         Variant? Variant {
             get {
-                AssertType (GType.Variant);
-                var ret_ = g_value_get_variant (in this);
-                var ret = Opaque.GetInstance<Variant> (ret_, Transfer.None);
+                AssertType(GType.Variant);
+                var ret_ = g_value_get_variant(in this);
+                var ret = Opaque.GetInstance<Variant>(ret_, Transfer.None);
                 return ret;
             }
             set {
-                AssertType (GType.Variant);
-                g_value_set_variant (ref this, value?.Handle ?? IntPtr.Zero);
-                GC.KeepAlive (value);
+                AssertType(GType.Variant);
+                g_value_set_variant(ref this, value?.Handle ?? IntPtr.Zero);
+                GC.KeepAlive(value);
             }
         }
 
@@ -1589,10 +1640,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the #GValue structure that has been passed in
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_value_init (
+        static extern IntPtr g_value_init(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1619,7 +1670,7 @@ namespace GISharp.Lib.GObject
                 var message = $"Cannot initialize using abstract GType '{gType.Name}'.";
                 throw new ArgumentException(message, nameof(gType));
             }
-            g_value_init (ref this, gType);
+            g_value_init(ref this, gType);
         }
 
         /// <summary>
@@ -1638,11 +1689,11 @@ namespace GISharp.Lib.GObject
         /// <param name="instance">
         /// the instance
         /// </param>
-        [Since ("2.42")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.42")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_init_from_instance (
+        static extern void g_value_init_from_instance(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1663,11 +1714,11 @@ namespace GISharp.Lib.GObject
         ///// <param name="instance">
         ///// the instance
         ///// </param>
-         //[Since ("2.42")]
-         //public void InitFromInstance (IntPtr instance)
-         //{
-         //    g_value_init_from_instance (ref this, instance);
-         //}
+        //[Since ("2.42")]
+        //public void InitFromInstance (IntPtr instance)
+        //{
+        //    g_value_init_from_instance (ref this, instance);
+        //}
 
         /// <summary>
         /// Returns the value contents as pointer. This function asserts that
@@ -1680,13 +1731,13 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the value contents as pointer
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_value_peek_pointer (
+        static extern IntPtr g_value_peek_pointer(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value value);
+            in Value value);
 
         ///// <summary>
         ///// Returns the value contents as pointer. This function asserts that
@@ -1713,10 +1764,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the #GValue structure that has been passed in
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Value" type="GValue*" managed-name="Value" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_value_reset (
+        static extern IntPtr g_value_reset(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value);
@@ -1725,10 +1776,10 @@ namespace GISharp.Lib.GObject
         /// Clears the current value in @value and resets it to the default value
         /// (as if the value had just been initialized).
         /// </summary>
-        public void Reset ()
+        public void Reset()
         {
-            AssertInitialized ();
-            g_value_reset (ref this);
+            AssertInitialized();
+            g_value_reset(ref this);
         }
 
         /// <summary>
@@ -1740,10 +1791,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vBoolean">
         /// boolean value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_boolean (
+        static extern void g_value_set_boolean(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1760,10 +1811,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vBoxed">
         /// boxed value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_boxed (
+        static extern void g_value_set_boxed(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1819,12 +1870,12 @@ namespace GISharp.Lib.GObject
         /////* <type name="none" type="void" managed-name="None" /> */
         /////* transfer-ownership:none */
         //static extern void g_value_set_char (
-            ///* <type name="Value" type="GValue*" managed-name="Value" /> */
-            ///* transfer-ownership:none */
-            //ref Value value,
-            ///* <type name="gchar" type="gchar" managed-name="Gchar" /> */
-            ///* transfer-ownership:none */
-            //sbyte vChar);
+        ///* <type name="Value" type="GValue*" managed-name="Value" /> */
+        ///* transfer-ownership:none */
+        //ref Value value,
+        ///* <type name="gchar" type="gchar" managed-name="Gchar" /> */
+        ///* transfer-ownership:none */
+        //sbyte vChar);
 
         /// <summary>
         /// Set the contents of a %G_TYPE_DOUBLE #GValue to @v_double.
@@ -1835,10 +1886,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vDouble">
         /// double value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_double (
+        static extern void g_value_set_double(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1855,10 +1906,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vEnum">
         /// enum value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_enum (
+        static extern void g_value_set_enum(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1875,10 +1926,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vFlags">
         /// flags value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_flags (
+        static extern void g_value_set_flags(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1895,10 +1946,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vFloat">
         /// float value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_float (
+        static extern void g_value_set_float(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1915,11 +1966,11 @@ namespace GISharp.Lib.GObject
         /// <param name="vGType">
         /// #GType to be set
         /// </param>
-        [Since ("2.12")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.12")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_gtype (
+        static extern void g_value_set_gtype(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1937,10 +1988,10 @@ namespace GISharp.Lib.GObject
         /// <param name="instance">
         /// the instance
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_instance (
+        static extern void g_value_set_instance(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1970,10 +2021,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vInt">
         /// integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_int (
+        static extern void g_value_set_int(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -1990,10 +2041,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vInt64">
         /// 64bit integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_int64 (
+        static extern void g_value_set_int64(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2010,7 +2061,7 @@ namespace GISharp.Lib.GObject
         /// <param name="vLong">
         /// long integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_long(
@@ -2041,10 +2092,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vObject">
         /// object value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_object (
+        static extern void g_value_set_object(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2066,12 +2117,12 @@ namespace GISharp.Lib.GObject
         /////* <type name="none" type="void" managed-name="None" /> */
         /////* transfer-ownership:none */
         //static extern void g_value_set_object_take_ownership (
-            ///* <type name="Value" type="GValue*" managed-name="Value" /> */
-            ///* transfer-ownership:none */
-            //ref Value value,
-            ///* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-            ///* transfer-ownership:none nullable:1 allow-none:1 */
-            //IntPtr vObject);
+        ///* <type name="Value" type="GValue*" managed-name="Value" /> */
+        ///* transfer-ownership:none */
+        //ref Value value,
+        ///* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
+        ///* transfer-ownership:none nullable:1 allow-none:1 */
+        //IntPtr vObject);
 
         ///// <summary>
         ///// This is an internal function introduced mainly for C marshallers.
@@ -2095,10 +2146,10 @@ namespace GISharp.Lib.GObject
         /// <param name="param">
         /// the #GParamSpec to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_param (
+        static extern void g_value_set_param(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2120,12 +2171,12 @@ namespace GISharp.Lib.GObject
         /////* <type name="none" type="void" managed-name="None" /> */
         /////* transfer-ownership:none */
         //static extern void g_value_set_param_take_ownership (
-            ///* <type name="Value" type="GValue*" managed-name="Value" /> */
-            ///* transfer-ownership:none */
-            //ref Value value,
-            ///* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
-            ///* transfer-ownership:none nullable:1 allow-none:1 */
-            //IntPtr param);
+        ///* <type name="Value" type="GValue*" managed-name="Value" /> */
+        ///* transfer-ownership:none */
+        //ref Value value,
+        ///* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
+        ///* transfer-ownership:none nullable:1 allow-none:1 */
+        //IntPtr param);
 
         ///// <summary>
         ///// This is an internal function introduced mainly for C marshallers.
@@ -2150,10 +2201,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vPointer">
         /// pointer value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_pointer (
+        static extern void g_value_set_pointer(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2170,11 +2221,11 @@ namespace GISharp.Lib.GObject
         /// <param name="vChar">
         /// signed 8 bit integer to be set
         /// </param>
-        [Since ("2.32")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.32")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_schar (
+        static extern void g_value_set_schar(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2197,12 +2248,12 @@ namespace GISharp.Lib.GObject
         /////* <type name="none" type="void" managed-name="None" /> */
         /////* transfer-ownership:none */
         //static extern void g_value_set_static_boxed (
-            ///* <type name="Value" type="GValue*" managed-name="Value" /> */
-            ///* transfer-ownership:none */
-            //ref Value value,
-            ///* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
-            ///* transfer-ownership:none nullable:1 allow-none:1 */
-            //IntPtr vBoxed);
+        ///* <type name="Value" type="GValue*" managed-name="Value" /> */
+        ///* transfer-ownership:none */
+        //ref Value value,
+        ///* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
+        ///* transfer-ownership:none nullable:1 allow-none:1 */
+        //IntPtr vBoxed);
 
         /// <summary>
         /// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
@@ -2229,10 +2280,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vString">
         /// static string to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_static_string (
+        static extern void g_value_set_static_string(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2265,10 +2316,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vString">
         /// caller-owned string to be duplicated for the #GValue
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_string (
+        static extern void g_value_set_string(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2321,10 +2372,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vUchar">
         /// unsigned character value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_uchar (
+        static extern void g_value_set_uchar(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2341,10 +2392,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vUint">
         /// unsigned integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_uint (
+        static extern void g_value_set_uint(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2361,10 +2412,10 @@ namespace GISharp.Lib.GObject
         /// <param name="vUint64">
         /// unsigned 64bit integer value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_uint64 (
+        static extern void g_value_set_uint64(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2402,11 +2453,11 @@ namespace GISharp.Lib.GObject
         /// <param name="variant">
         /// a #GVariant, or %NULL
         /// </param>
-        [Since ("2.26")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_set_variant (
+        static extern void g_value_set_variant(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2425,11 +2476,11 @@ namespace GISharp.Lib.GObject
         /// <param name="vBoxed">
         /// duplicated unowned boxed value to be set
         /// </param>
-        [Since ("2.4")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.4")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_take_boxed (
+        static extern void g_value_take_boxed(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2468,11 +2519,11 @@ namespace GISharp.Lib.GObject
         /// <param name="vObject">
         /// object value to be set
         /// </param>
-        [Since ("2.4")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.4")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_take_object (
+        static extern void g_value_take_object(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2511,11 +2562,11 @@ namespace GISharp.Lib.GObject
         /// <param name="param">
         /// the #GParamSpec to be set
         /// </param>
-        [Since ("2.4")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.4")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_take_param (
+        static extern void g_value_take_param(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2548,11 +2599,11 @@ namespace GISharp.Lib.GObject
         /// <param name="vString">
         /// string to take ownership of
         /// </param>
-        [Since ("2.4")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.4")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_take_string (
+        static extern void g_value_take_string(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2596,11 +2647,11 @@ namespace GISharp.Lib.GObject
         /// <param name="variant">
         /// a #GVariant, or %NULL
         /// </param>
-        [Since ("2.26")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_take_variant (
+        static extern void g_value_take_variant(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value,
@@ -2653,13 +2704,13 @@ namespace GISharp.Lib.GObject
         /// Whether a transformation rule was found and could be applied.
         ///  Upon failing transformations, @dest_value is left untouched.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
         static extern Runtime.Boolean g_value_transform(
             /* <type name="Value" type="const GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            ref Value srcValue,
+            in Value srcValue,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value destValue);
@@ -2683,10 +2734,10 @@ namespace GISharp.Lib.GObject
         /// results and shouldn't be relied upon for production code (such
         /// as rcfile value or object property serialization).
         /// </remarks>
-        public bool TryTransform (ref Value destValue)
+        public bool TryTransform(ref Value destValue)
         {
-            AssertInitialized ();
-            var ret = g_value_transform (ref this, ref destValue);
+            AssertInitialized();
+            var ret = g_value_transform(in this, ref destValue);
 
             return ret;
         }
@@ -2710,10 +2761,10 @@ namespace GISharp.Lib.GObject
         /// results and shouldn't be relied upon for production code (such
         /// as rcfile value or object property serialization).
         /// </remarks>
-        public void Transform (ref Value destValue)
+        public void Transform(ref Value destValue)
         {
-            if (!TryTransform (ref destValue)) {
-                throw new InvalidCastException ();
+            if (!TryTransform(ref destValue)) {
+                throw new InvalidCastException();
             }
         }
 
@@ -2726,10 +2777,10 @@ namespace GISharp.Lib.GObject
         /// <param name="value">
         /// An initialized #GValue structure.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_value_unset (
+        static extern void g_value_unset(
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
             ref Value value);
@@ -2740,61 +2791,61 @@ namespace GISharp.Lib.GObject
         /// An unset value is the same as an uninitialized (zero-filled)
         /// #GValue structure.
         /// </summary>
-        public void Unset ()
+        public void Unset()
         {
-            AssertInitialized ();
-            g_value_unset (ref this);
+            AssertInitialized();
+            g_value_unset(ref this);
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="GISharp.Core.Value"/> class.
+        /// Initializes a new instance of the <see cref="Value"/> class.
         /// </summary>
-        public Value (GType type)
+        public Value(GType type)
         {
             this.type = GType.Invalid;
-            data0 = default (ValueDataUnion);
-            data1 = default (ValueDataUnion);
+            data0 = default;
+            data1 = default;
 
-            Init (type);
+            Init(type);
             if (ValueGType == GType.Invalid) {
                 var message = $"{type.Name} cannot be used as Value.";
-                throw new ArgumentException (message, nameof (type));
+                throw new ArgumentException(message, nameof(type));
             }
         }
 
         public Value(GType type, object? value) : this(type)
         {
-            Set (value);
+            Set(value);
         }
 
         public Value(Type type, object? value) : this(type.GetGType())
         {
-            Set (value);
+            Set(value);
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_value_get_type ();
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_value_get_type();
 
-        static readonly GType _GType = g_value_get_type ();
+        static readonly GType _GType = g_value_get_type();
 
-        void AssertType (GType type)
+        void AssertType(GType type)
         {
-            AssertInitialized ();
-            if (!this.type.IsA (type)) {
+            AssertInitialized();
+            if (!this.type.IsA(type)) {
                 var message = $"Expecting {type.Name} but have {this.type.Name}";
-                throw new InvalidOperationException (message);
+                throw new InvalidOperationException(message);
             }
         }
 
-        void AssertInitialized ()
+        void AssertInitialized()
         {
             if (type == GType.Invalid) {
-                throw new InvalidOperationException ("Value type has not been initialized.");
+                throw new InvalidOperationException("Value type has not been initialized.");
             }
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_strdup_value_contents(ref Value value);
+        static extern IntPtr g_strdup_value_contents(in Value value);
 
         /// <summary>
         /// Return a string that describes the contents of this value.
@@ -2808,7 +2859,7 @@ namespace GISharp.Lib.GObject
         public override string ToString()
         {
             AssertInitialized();
-            var ret_ = g_strdup_value_contents(ref this);
+            var ret_ = g_strdup_value_contents(in this);
             using var ret = new Utf8(ret_, Transfer.Full);
             return $"{ValueGType.Name}: {ret}";
         }
@@ -2818,11 +2869,11 @@ namespace GISharp.Lib.GObject
     /// The type of value transformation functions which can be registered with
     /// g_value_register_transform_func().
     /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void ValueTransform (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void ValueTransform(
     /* <type name="Value" type="const GValue*" managed-name="Value" /> */
     /* transfer-ownership:none */
-        ref Value srcValue,
+        in Value srcValue,
     /* <type name="Value" type="GValue*" managed-name="Value" /> */
     /* transfer-ownership:none */
         ref Value destValue);

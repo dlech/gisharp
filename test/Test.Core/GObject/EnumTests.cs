@@ -12,13 +12,11 @@ namespace GISharp.Test.Core.GObject
     public class EnumTests
     {
         [Test]
-        public void TestRegister1 ()
+        public void TestRegister1()
         {
             // invalid because TestEnum1 does not have [GType] attribute so it
-            // gets registered as a boxed type instead of as an enum type.
-            var testEnum1GType = typeof(TestEnum1).GetGType ();
-            Assert.That (() => (EnumClass)TypeClass.Get (testEnum1GType),
-                Throws.ArgumentException);
+            // can't be registered.
+            Assert.That(() => typeof(TestEnum1).GetGType(), Throws.ArgumentException);
 
             AssertNoGLibLog();
         }

@@ -1,6 +1,7 @@
 ﻿using System;
 
 using NUnit.Framework;
+using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
@@ -8,6 +9,7 @@ using static GISharp.TestHelpers;
 
 using clong = GISharp.Runtime.CLong;
 using culong = GISharp.Runtime.CULong;
+using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.Core.GObject
 {
@@ -15,16 +17,16 @@ namespace GISharp.Test.Core.GObject
     public class ValueTests
     {
         [Test]
-        public void TestBoolean ()
+        public void TestBoolean()
         {
-            var v = new Value (GType.Boolean);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.Boolean));
+            var v = new Value(GType.Boolean);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Boolean));
 
-            Assume.That ((bool)v, Is.False);
-            Assert.That (v.Get (), Is.False);
-            v.Set (true);
-            Assert.That ((bool)v, Is.True);
-            Assert.That (v.Get (), Is.True);
+            Assume.That((bool)v, Is.False);
+            Assert.That(v.Get(), Is.False);
+            v.Set(true);
+            Assert.That((bool)v, Is.True);
+            Assert.That(v.Get(), Is.True);
 
             Assert.That(() => {
                 var v2 = new Value(GType.Char);
@@ -39,18 +41,18 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestChar ()
+        public void TestChar()
         {
-            var v = new Value (GType.Char);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.Char));
+            var v = new Value(GType.Char);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Char));
             sbyte expected = 1;
-            v.Set (expected);
-            Assert.That ((sbyte)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((sbyte)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
-                v2.Set ((sbyte)1);
+                v2.Set((sbyte)1);
             }, Throws.ArgumentException);
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -61,14 +63,14 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestUChar ()
+        public void TestUChar()
         {
-            var v = new Value (GType.UChar);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.UChar));
+            var v = new Value(GType.UChar);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.UChar));
             byte expected = 1;
-            v.Set (expected);
-            Assert.That ((byte)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((byte)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -83,14 +85,14 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestInt ()
+        public void TestInt()
         {
-            var v = new Value (GType.Int);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.Int));
+            var v = new Value(GType.Int);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Int));
             int expected = 1;
-            v.Set (expected);
-            Assert.That ((int)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((int)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -105,14 +107,14 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestUInt ()
+        public void TestUInt()
         {
-            var v = new Value (GType.UInt);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.UInt));
+            var v = new Value(GType.UInt);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.UInt));
             uint expected = 1;
-            v.Set (expected);
-            Assert.That ((uint)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((uint)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -127,14 +129,14 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestLong ()
+        public void TestLong()
         {
-            var v = new Value (GType.Long);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.Long));
+            var v = new Value(GType.Long);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Long));
             clong expected = 1;
-            v.Set (expected);
+            v.Set(expected);
             Assert.That((clong)v, Is.EqualTo(expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -149,14 +151,14 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestULong ()
+        public void TestULong()
         {
-            var v = new Value (GType.ULong);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.ULong));
+            var v = new Value(GType.ULong);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.ULong));
             culong expected = 1;
-            v.Set (expected);
+            v.Set(expected);
             Assert.That((culong)v, Is.EqualTo(expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -171,14 +173,14 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestInt64 ()
+        public void TestInt64()
         {
-            var v = new Value (GType.Int64);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.Int64));
+            var v = new Value(GType.Int64);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Int64));
             long expected = 1;
-            v.Set (expected);
-            Assert.That ((long)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((long)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -187,20 +189,20 @@ namespace GISharp.Test.Core.GObject
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
                 var _ = (long)v2;
-             }, Throws.InstanceOf<InvalidCastException>());
+            }, Throws.InstanceOf<InvalidCastException>());
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestUInt64 ()
+        public void TestUInt64()
         {
-            var v = new Value (GType.UInt64);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.UInt64));
+            var v = new Value(GType.UInt64);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.UInt64));
             ulong expected = 1;
-            v.Set (expected);
-            Assert.That ((ulong)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((ulong)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -215,14 +217,14 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestFloat ()
+        public void TestFloat()
         {
-            var v = new Value (GType.Float);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.Float));
+            var v = new Value(GType.Float);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Float));
             float expected = 1;
-            v.Set (expected);
-            Assert.That ((float)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((float)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -237,14 +239,14 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestDouble ()
+        public void TestDouble()
         {
-            var v = new Value (GType.Double);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.Double));
+            var v = new Value(GType.Double);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Double));
             double expected = 1;
-            v.Set (expected);
-            Assert.That ((double)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((double)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -265,25 +267,25 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestEnum ()
+        public void TestEnum()
         {
             // Can't have enum without implementation
-            Assert.That (() => new Value (GType.Enum), Throws.ArgumentException);
+            Assert.That(() => new Value(GType.Enum), Throws.ArgumentException);
 
-            var gtype = typeof (ValueTestEnum).GetGType ();
-            Assume.That (gtype.Fundamental, Is.EqualTo (GType.Enum));
-            var v = new Value (gtype);
-            Assert.That (v.ValueGType, Is.EqualTo (gtype));
+            var gtype = typeof(ValueTestEnum).GetGType();
+            Assume.That(gtype.Fundamental, Is.EqualTo(GType.Enum));
+            var v = new Value(gtype);
+            Assert.That(v.ValueGType, Is.EqualTo(gtype));
             var expected = ValueTestEnum.Value;
-            v.Set (expected);
-            //            Assert.That ((ValueTestEnum)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            // Assert.That ((ValueTestEnum)v, Is.EqualTo (expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
                 v2.Set(ValueTestEnum.Value);
             }, Throws.ArgumentException);
-//            Assert.That (() => (ValueTestEnum)v2, Throws.InstanceOf<InvalidCastException> ());
+            // Assert.That (() => (ValueTestEnum)v2, Throws.InstanceOf<InvalidCastException> ());
 
             AssertNoGLibLog();
         }
@@ -295,38 +297,38 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestFlags ()
+        public void TestFlags()
         {
             // Can't have flags without implementation
-            Assert.That (() => new Value (GType.Flags), Throws.ArgumentException);
+            Assert.That(() => new Value(GType.Flags), Throws.ArgumentException);
 
-            var gtype = typeof (ValueTestFlags).GetGType ();
-            Assume.That (gtype.Fundamental, Is.EqualTo (GType.Flags));
-            var v = new Value (gtype);
-            Assert.That (v.ValueGType, Is.EqualTo (gtype));
+            var gtype = typeof(ValueTestFlags).GetGType();
+            Assume.That(gtype.Fundamental, Is.EqualTo(GType.Flags));
+            var v = new Value(gtype);
+            Assert.That(v.ValueGType, Is.EqualTo(gtype));
             var expected = ValueTestFlags.Value;
-            v.Set (expected);
-            //            Assert.That ((ValueTestFlags)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            // Assert.That ((ValueTestFlags)v, Is.EqualTo (expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
                 v2.Set(ValueTestFlags.Value);
             }, Throws.ArgumentException);
-//            Assert.That (() => (ValueTestFlags)v2, Throws.InstanceOf<InvalidCastException> ());
+            // Assert.That (() => (ValueTestFlags)v2, Throws.InstanceOf<InvalidCastException> ());
 
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestString ()
+        public void TestString()
         {
-            var v = new Value (GType.String);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.String));
+            var v = new Value(GType.String);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.String));
             var expected = "1";
-            v.Set (expected);
+            v.Set(expected);
             Assert.That((string?)v, Is.EqualTo(expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -338,49 +340,61 @@ namespace GISharp.Test.Core.GObject
             }, Throws.InstanceOf<InvalidCastException>());
         }
 
-        //[Test]
-        //public void TestParam ()
-        //{
-        //    var v = new Value (GType.Param);
-        //    Assert.That (v.ValueGType, Is.EqualTo (GType.Param));
-        //    var expected = "1";
-        //    v.Param = expected;
-        //    Assert.That (v.Param, Is.EqualTo (expected));
-        //    Assert.That (v.Get (), Is.EqualTo (expected));
+        [Test]
+        public void TestParam()
+        {
+            var v = new Value(GType.TypeOf<ParamSpecInt>());
+            Assert.That(v.ValueGType, Is.Not.EqualTo(GType.Param));
+            Assert.That(v.ValueGType.Fundamental, Is.EqualTo(GType.Param));
+            using var expected = new ParamSpecBoolean("test", "test", "test", false, default);
+            v.Set(expected);
+            Assert.That((ParamSpec?)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
-        //    var v2 = new Value (GType.Invalid);
-        //    Assert.That (() => v2.Param = "1", Throws.InstanceOf<InvalidCastException> ());
-        //    Assert.That (() => v2.Param, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(expected);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (ParamSpec?)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
-        //    AssertNoGLibLog();
-        //}
-
-        //[Test]
-        //public void TestBoxed ()
-        //{
-        //    var v = new Value (GType.Boxed);
-        //    Assert.That (v.ValueGType, Is.EqualTo (GType.Boxed));
-        //    var expected = (IntPtr)1;
-        //    v.Boxed = expected;
-        //    Assert.That (v.Boxed, Is.EqualTo (expected));
-        //    Assert.That (v.Get (), Is.EqualTo (expected));
-
-        //    var v2 = new Value (GType.Boolean);
-        //    Assert.That (() => v2.Boxed = IntPtr.Zero, Throws.InstanceOf<InvalidCastException> ());
-        //    Assert.That (() => v2.Boxed, Throws.InstanceOf<InvalidCastException> ());
-
-        //    AssertNoGLibLog();
-        //}
+            AssertNoGLibLog();
+        }
 
         [Test]
-        public void TestPointer ()
+        public void TestBoxed()
         {
-            var v = new Value (GType.Pointer);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.Pointer));
+            var v = new Value(GType.TypeOf<Strv>());
+            Assert.That(v.ValueGType, Is.Not.EqualTo(GType.Boxed));
+            Assert.That(v.ValueGType.Fundamental, Is.EqualTo(GType.Boxed));
+            using var expected = new Strv();
+            v.Set(expected);
+            Assert.That((Boxed?)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
+
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(IntPtr.Zero);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (Boxed?)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
+
+            AssertNoGLibLog();
+        }
+
+        [Test]
+        public void TestPointer()
+        {
+            var v = new Value(GType.Pointer);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Pointer));
             var expected = (IntPtr)1;
-            v.Set (expected);
-            Assert.That ((IntPtr)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((IntPtr)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -394,32 +408,37 @@ namespace GISharp.Test.Core.GObject
             AssertNoGLibLog();
         }
 
-        //[Test]
-        //public void TestObject ()
-        //{
-        //    var v = new Value (GType.Object);
-        //    Assert.That (v.ValueGType, Is.EqualTo (GType.Object));
-        //    var expected = (IntPtr)1;
-        //    v.Object = expected;
-        //    Assert.That (v.Object, Is.EqualTo (expected));
-        //    Assert.That (v.Get (), Is.EqualTo (expected));
+        [Test]
+        public void TestObject()
+        {
+            var v = new Value(GType.Object);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Object));
+            using var expected = new Object();
+            v.Set(expected);
+            Assert.That((Object?)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
-        //    var v2 = new Value (GType.Boolean);
-        //    Assert.That (() => v2.Object = IntPtr.Zero, Throws.InstanceOf<InvalidCastException> ());
-        //    Assert.That (() => v2.Object, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(expected);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (Object?)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
-        //    AssertNoGLibLog();
-        //}
+            AssertNoGLibLog();
+        }
 
         [Test]
-        public void TestType ()
+        public void TestType()
         {
-            var v = new Value (GType.Type);
-            Assert.That (v.ValueGType, Is.EqualTo (GType.Type));
+            var v = new Value(GType.Type);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Type));
             var expected = GType.None;
-            v.Set (expected);
-            Assert.That ((GType)v, Is.EqualTo (expected));
-            Assert.That (v.Get (), Is.EqualTo (expected));
+            v.Set(expected);
+            Assert.That((GType)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
             Assert.That(() => {
                 var v2 = new Value(GType.Boolean);
@@ -433,21 +452,26 @@ namespace GISharp.Test.Core.GObject
             AssertNoGLibLog();
         }
 
-        //[Test]
-        //public void TestVariant ()
-        //{
-        //    var v = new Value (GType.Variant);
-        //    Assert.That (v.ValueGType, Is.EqualTo (GType.Variant));
-        //    var expected = (IntPtr)1;
-        //    v.Variant = GType.None;
-        //    Assert.That (v.Variant, Is.EqualTo (expected));
-        //    Assert.That (v.Get (), Is.EqualTo (expected));
+        [Test]
+        public void TestVariant()
+        {
+            var v = new Value(GType.Variant);
+            Assert.That(v.ValueGType, Is.EqualTo(GType.Variant));
+            using var expected = (Variant)1;
+            v.Set(expected);
+            Assert.That((Variant?)v, Is.EqualTo(expected));
+            Assert.That(v.Get(), Is.EqualTo(expected));
 
-        //    var v2 = new Value (GType.Boolean);
-        //    Assert.That (() => v2.Variant = GType.None, Throws.InstanceOf<InvalidCastException> ());
-        //    Assert.That (() => v2.Variant, Throws.InstanceOf<InvalidCastException> ());
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                v2.Set(expected);
+            }, Throws.ArgumentException);
+            Assert.That(() => {
+                var v2 = new Value(GType.Boolean);
+                var _ = (Variant?)v2;
+            }, Throws.InstanceOf<InvalidCastException>());
 
-        //    AssertNoGLibLog();
-        //}
+            AssertNoGLibLog();
+        }
     }
 }

@@ -307,7 +307,7 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestParamSpecBoxed ()
         {
-            var gtype = GType.TypeOf<object> ();
+            var gtype = GType.TypeOf<Strv> ();
             Assume.That (gtype.IsA (GType.Boxed));
 
             var param = TestParamSpec (gtype, (name, nick, blurb, flags) =>

@@ -12,13 +12,11 @@ namespace GISharp.Test.Core.GObject
     public class FlagsTests
     {
         [Test]
-        public void TestRegister1 ()
+        public void TestRegister1()
         {
-            // invalid because TestEnum1 does not have [GType] attribute so it
-            // gets registered as a boxed type instead of as a flags type.
-            var testFlags1GType = typeof(TestFlags1).GetGType ();
-            Assert.That (() => (FlagsClass)TypeClass.Get (testFlags1GType),
-                Throws.ArgumentException);
+            // invalid because TestFlags1 does not have [GType] attribute so it
+            // can't be registered
+            Assert.That(() => typeof(TestFlags1).GetGType(), Throws.ArgumentException);
 
             AssertNoGLibLog();
         }

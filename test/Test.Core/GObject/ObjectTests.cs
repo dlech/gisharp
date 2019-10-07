@@ -128,9 +128,9 @@ namespace GISharp.Test.Core.GObject
 
                 // also make sure that non-GTypes get boxed
                 Assume.That(obj.ObjectProperty, Is.Null);
-                var expectedObj = new object();
-                obj.SetProperty(nameof(obj.ObjectProperty), expectedObj);
-                Assert.That(obj.ObjectProperty, Is.SameAs(expectedObj));
+                var expectedObj =new object();
+                obj.SetProperty(nameof(obj.ObjectProperty), new Boxed<object?>(expectedObj));
+                Assert.That(obj.ObjectProperty?.Value, Is.SameAs(expectedObj));
             }
 
             AssertNoGLibLog();
@@ -309,7 +309,7 @@ namespace GISharp.Test.Core.GObject
             }
 
             [GProperty]
-            public object? ObjectProperty { get; set; }
+            public Boxed<object?>? ObjectProperty { get; set; }
 
             public TestObjectPropertiesBase() : this(New<TestObjectPropertiesBase>(), Transfer.Full)
             {

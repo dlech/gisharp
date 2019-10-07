@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Reflection;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
@@ -9,7 +10,9 @@ namespace GISharp.Lib.GObject
     [GType("GBoxed", IsProxyForUnmanagedType = true)]
     public abstract class Boxed : Opaque
     {
-        GType gType;
+        static readonly GType _GType = GType.Boxed;
+
+        readonly GType gType;
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected Boxed(GType gType, IntPtr handle, Transfer ownership) : base(handle, ownership)
@@ -48,10 +51,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// The newly created copy of the boxed structure.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_boxed_copy (
+        static extern IntPtr g_boxed_copy(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType boxedType,
@@ -68,10 +71,10 @@ namespace GISharp.Lib.GObject
         /// <param name="boxed">
         /// The boxed structure to be freed.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_boxed_free (
+        static extern void g_boxed_free(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType boxedType,
@@ -79,40 +82,71 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             IntPtr boxed);
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_boxed_type_register_static (IntPtr name,
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        private protected static extern GType g_boxed_type_register_static(IntPtr name,
             UnmanagedBoxedCopyFunc boxedCopy,
             UnmanagedBoxedFreeFunc boxedFree);
 
-        internal static GType Register(string name, UnmanagedBoxedCopyFunc boxedCopy, UnmanagedBoxedFreeFunc boxedFree)
+    }
+
+    [GType(IsProxyForUnmanagedType = true)]
+    public sealed class Boxed<T> : Boxed
+    {
+        static GType GetGType()
         {
-            using var nameUtf8 = name.ToUtf8();
-            var name_ = nameUtf8.Handle;
+            var name = typeof(Boxed<T>).GetGTypeName();
+            GType.AssertGTypeName(name);
+            using var utf8 = (Utf8)name;
+            UnmanagedBoxedCopyFunc boxedCopy = CopyManagedType;
+            UnmanagedBoxedFreeFunc boxedFree = FreeManagedType;
+            // these are never freed
             GCHandle.Alloc(boxedCopy);
             GCHandle.Alloc(boxedFree);
-            var ret = g_boxed_type_register_static(name_, boxedCopy, boxedFree);
-            return ret;
+            return g_boxed_type_register_static(utf8.Handle, boxedCopy, boxedFree);
+        }
+        static readonly GType _GType = GetGType();
+
+        public Boxed(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
+        {
         }
 
-        internal static readonly UnmanagedBoxedCopyFunc CopyManagedTypeDelegate = CopyManagedType;
-
-        static IntPtr CopyManagedType (IntPtr boxed)
+        static IntPtr New(T obj)
         {
-            if (boxed == IntPtr.Zero) {
+            return (IntPtr)GCHandle.Alloc(obj);
+        }
+
+        public Boxed(T obj) : base(_GType, New(obj), Transfer.Full)
+        {
+        }
+
+        public T Value => (T)GCHandle.FromIntPtr(Handle).Target;
+
+        static IntPtr CopyManagedType(IntPtr boxed)
+        {
+            try {
+                if (boxed == IntPtr.Zero) {
+                    return IntPtr.Zero;
+                }
+                var target = GCHandle.FromIntPtr(boxed).Target;
+                return GCHandle.ToIntPtr(GCHandle.Alloc(target));
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
                 return IntPtr.Zero;
             }
-            var target = GCHandle.FromIntPtr (boxed).Target;
-            return GCHandle.ToIntPtr (GCHandle.Alloc (target));
         }
 
-        internal static readonly UnmanagedBoxedFreeFunc FreeManagedTypeDelegate = FreeManagedType;
-
-        static void FreeManagedType (IntPtr boxed)
+        static void FreeManagedType(IntPtr boxed)
         {
-            if (boxed == IntPtr.Zero) {
-                return;
+            try {
+                if (boxed == IntPtr.Zero) {
+                    return;
+                }
+                GCHandle.FromIntPtr(boxed).Free();
             }
-            GCHandle.FromIntPtr (boxed).Free ();
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+            }
         }
     }
 
@@ -120,8 +154,8 @@ namespace GISharp.Lib.GObject
     /// This function is provided by the user and should produce a copy
     /// of the passed in boxed structure.
     /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate IntPtr UnmanagedBoxedCopyFunc (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    delegate IntPtr UnmanagedBoxedCopyFunc(
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr boxed);
@@ -130,8 +164,8 @@ namespace GISharp.Lib.GObject
     /// This function is provided by the user and should free the boxed
     /// structure passed.
     /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate void UnmanagedBoxedFreeFunc (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    delegate void UnmanagedBoxedFreeFunc(
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
         IntPtr boxed);

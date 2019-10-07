@@ -138,9 +138,9 @@ namespace GISharp.Test.Core.GObject
         }
 
         [Test]
-        public void TestString ()
+        public void TestString()
         {
-            Assert.That ((Type)GType.String, Is.EqualTo (typeof (string)));
+            Assert.That((Type)GType.String, Is.EqualTo(typeof(Utf8)));
 
             AssertNoGLibLog();
         }

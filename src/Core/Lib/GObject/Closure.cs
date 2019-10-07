@@ -519,6 +519,9 @@ namespace GISharp.Lib.GObject
             var paramValues_ = stackalloc Value[paramValues.Length];
             for (int i = 0; i < paramValues.Length; i++) {
                 var p = paramValues[i];
+                if (p is string s) {
+                    p = (Utf8)s;
+                }
                 paramValues_[i].Init(p?.GetGType() ?? throw new NotImplementedException());
                 paramValues_[i].Set(p);
             }

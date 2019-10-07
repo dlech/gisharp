@@ -100,8 +100,7 @@ namespace GISharp.Lib.GObject
                 gtype[managedTypeQuark] = typeof(System.Enum);
 
                 gtype = Flags;
-                // TODO: do we care about enum vs. flags?
-                //typeMap.Add(typeof(System.Enum), gType);
+                // Flags is special-cased in lookup
                 gtype[managedTypeQuark] = typeof(System.Enum);
 
                 gtype = Float;
@@ -113,8 +112,8 @@ namespace GISharp.Lib.GObject
                 gtype[managedTypeQuark] = typeof(double);
 
                 gtype = String;
-                typeMap.Add(typeof(string), gtype);
-                gtype[managedTypeQuark] = typeof(string);
+                typeMap.Add(typeof(Utf8), gtype);
+                gtype[managedTypeQuark] = typeof(Utf8);
 
                 gtype = Pointer;
                 typeMap.Add(typeof(IntPtr), gtype);
@@ -888,16 +887,7 @@ namespace GISharp.Lib.GObject
                 var gtypeAttribute = type.GetCustomAttributes()
                     .OfType<GTypeAttribute>().SingleOrDefault();
                 if (gtypeAttribute == null) {
-                    // if the type is not decorated with GTypeAttribute, then we
-                    // register it as a boxed type.
-                    var name = type.GetGTypeName();
-                    AssertGTypeName(name);
-                    var gtype = GObject.Boxed.Register(name, GObject.Boxed.CopyManagedTypeDelegate, GObject.Boxed.FreeManagedTypeDelegate);
-
-                    typeMap.Add(type, gtype);
-                    gtype[managedTypeQuark] = type;
-
-                    return gtype;
+                    throw new ArgumentException($"Type '{type}' is missing GType attribute. Boxed<T> can be used for manged types.");
                 }
 
                 if (gtypeAttribute.IsProxyForUnmanagedType) {
@@ -912,11 +902,10 @@ namespace GISharp.Lib.GObject
                         var nameWithoutIPrefix = type.FullName.Remove(type.FullName.LastIndexOf('.') + 1, 1);
                         implementationType = type.Assembly.GetType(nameWithoutIPrefix) ?? implementationType;
                     }
-                    else if (type.IsGenericType) {
+                    else if (type.IsGenericType && type.BaseType != typeof(Boxed)) {
                         implementationType = type.BaseType;
                     }
-                    var gtypeField = implementationType.GetField("_GType",
-                                       System.Reflection.BindingFlags.Static | System.Reflection.BindingFlags.NonPublic);
+                    var gtypeField = implementationType.GetField("_GType", BindFlags.Static | BindFlags.NonPublic);
                     if (gtypeField == null) {
                         var message = $"Could not find _GType field for {implementationType.FullName}.";
                         throw new ArgumentException(message, nameof(type));
@@ -948,7 +937,7 @@ namespace GISharp.Lib.GObject
                     var parentTypeclass = TypeClass.Get(parentGType);
                     var parentTypeInfo = ObjectClass.GetTypeInfo(type);
 
-                    TypeFlags flags = default(TypeFlags);
+                    TypeFlags flags = default;
                     // TODO: do we need to set any flags?
 
                     var gtype = RegisterStatic(parentGType, gtypeName, parentTypeInfo, flags);
@@ -1062,7 +1051,12 @@ namespace GISharp.Lib.GObject
         {
             lock (mapLock) {
                 if (typeMap.ContainsKey(type)) {
-                    return typeMap[type];
+                    var gtype = typeMap[type];
+                    if (gtype == Enum && type.GetCustomAttributes<FlagsAttribute>().Any()) {
+                        // special case for Flags vs. Enum
+                        return Flags;
+                    }
+                    return gtype;
                 }
 
                 var ret = Register(type);

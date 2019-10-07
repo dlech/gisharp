@@ -1,12 +1,11 @@
 using System;
-using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
+using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 using clong = GISharp.Runtime.CLong;
@@ -172,7 +171,7 @@ namespace GISharp.Lib.GLib
         public static implicit operator NullableUnownedUtf8(Utf8? owned)
         {
             if (owned == null) {
-                return default(NullableUnownedUtf8);
+                return default;
             }
             return new NullableUnownedUtf8(owned);
         }
@@ -181,9 +180,12 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Unmanaged, null-terminated UTF8 string
     /// </summary>
+    [GType(IsProxyForUnmanagedType = true)]
     [DebuggerDisplay("{Value}")]
     public sealed class Utf8 : Opaque, IEnumerable<Unichar>, IEnumerable, IComparable, IComparable<Utf8>, IComparable<String>, IConvertible, IEquatable<Utf8>, IEquatable<String>
     {
+        static readonly GType _GType = GType.String;
+
         /// <summary>
         /// Convenience property for <c>default(NullableUnownedUtf8)</c> or
         /// <c>new NullableUnownedUtf8(null)</c>
@@ -254,7 +256,7 @@ namespace GISharp.Lib.GLib
         {
             return Value;
         }
-        
+
         string GetValue()
         {
             // TODO: replace this with Marshal.PtrToStringUTF8() when it
@@ -391,7 +393,7 @@ namespace GISharp.Lib.GLib
         /// The results of comparing the collation keys of two strings
         /// with strcmp() will always be the same as comparing the two
         /// original keys with g_utf8_collate().
-        /// 
+        ///
         /// Note that this function depends on the [current locale][setlocale].
         /// </remarks>
         /// <param name="str">
@@ -424,7 +426,7 @@ namespace GISharp.Lib.GLib
         /// The results of comparing the collation keys of two strings
         /// with <see cref="Compare"/> will always be the same as comparing the two
         /// original keys with <see cref="Collate"/>.
-        /// 
+        ///
         /// Note that this function depends on the [current locale][setlocale].
         /// </remarks>
         /// <returns>
@@ -448,7 +450,7 @@ namespace GISharp.Lib.GLib
         /// "event.h" instead of "event.c" "event.h" "eventgenerator.c". Also, we
         /// would like to treat numbers intelligently so that "file1" "file10" "file5"
         /// is sorted as "file1" "file5" "file10".
-        /// 
+        ///
         /// Note that this function depends on the [current locale][setlocale].
         /// </remarks>
         /// <param name="str">
@@ -485,7 +487,7 @@ namespace GISharp.Lib.GLib
         /// "event.h" instead of "event.c" "event.h" "eventgenerator.c". Also, we
         /// would like to treat numbers intelligently so that "file1" "file10" "file5"
         /// is sorted as "file1" "file5" "file10".
-        /// 
+        ///
         /// Note that this function depends on the [current locale][setlocale].
         /// </remarks>
         /// <returns>
@@ -646,7 +648,7 @@ namespace GISharp.Lib.GLib
         /// (in this case DIGIT THREE). Formatting information
         /// may be lost but for most text operations such
         /// characters should be considered the same.
-        /// 
+        ///
         /// %G_NORMALIZE_DEFAULT_COMPOSE and %G_NORMALIZE_ALL_COMPOSE
         /// are like %G_NORMALIZE_DEFAULT and %G_NORMALIZE_ALL,
         /// but returned a result with composed forms rather
@@ -702,7 +704,7 @@ namespace GISharp.Lib.GLib
         /// (in this case DIGIT THREE). Formatting information
         /// may be lost but for most text operations such
         /// characters should be considered the same.
-        /// 
+        ///
         /// <see cref="NormalizeMode.DefaultCompose"/> and <see cref="NormalizeMode.AllCompose"/>
         /// are like <see cref="NormalizeMode.Default"/> and <see cref="NormalizeMode.All"/>,
         /// but returned a result with composed forms rather
@@ -735,7 +737,7 @@ namespace GISharp.Lib.GLib
         /// step backwards. It is usually worth stepping backwards from the end
         /// instead of forwards if @offset is in the last fourth of the string,
         /// since moving forward is about 3 times faster than moving backward.
-        /// 
+        ///
         /// Note that this function doesn't abort when reaching the end of @str.
         /// Therefore you should be sure that @offset is within string boundaries
         /// before calling that function. Call g_utf8_strlen() when unsure.
@@ -771,7 +773,7 @@ namespace GISharp.Lib.GLib
         // /// step backwards. It is usually worth stepping backwards from the end
         // /// instead of forwards if @offset is in the last fourth of the string,
         // /// since moving forward is about 3 times faster than moving backward.
-        // /// 
+        // ///
         // /// Note that this function doesn't abort when reaching the end of @str.
         // /// Therefore you should be sure that @offset is within string boundaries
         // /// before calling that function. Call g_utf8_strlen() when unsure.
@@ -1211,7 +1213,7 @@ namespace GISharp.Lib.GLib
         /// order marks, directional indicators (LRM, LRO, etc) and similar
         /// characters which might need special handling when reversing a string
         /// for display purposes.
-        /// 
+        ///
         /// Note that unlike g_strreverse(), this function returns
         /// newly-allocated memory, which should be freed with g_free() when
         /// no longer needed.
@@ -1598,7 +1600,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that g_utf8_validate() returns %FALSE if @max_len is
         /// positive and any of the @max_len bytes are nul.
-        /// 
+        ///
         /// Returns %TRUE if all of @str was valid. Many GLib and GTK+
         /// routines require valid UTF-8 as input; so data read from a file
         /// or the network should be checked with g_utf8_validate() before
@@ -1638,7 +1640,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that <see cref="Validate"/> returns <c>false</c> if <paramref name="maxLen"/> is
         /// positive and any of the <paramref name="maxLen"/> bytes are nul.
-        /// 
+        ///
         /// Returns <c>true</c> if all of this string was valid. Many GLib and GTK+
         /// routines require valid UTF-8 as input; so data read from a file
         /// or the network should be checked with <see cref="Validate"/> before
