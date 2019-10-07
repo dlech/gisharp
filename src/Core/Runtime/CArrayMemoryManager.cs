@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace GISharp.Runtime
 {
-    public unsafe sealed class CArrayMemoryManager<T> : MemoryManager<T>, IOpaque where T : unmanaged
+    public unsafe sealed class CArrayMemoryManager<T> : MemoryManager<T> where T : unmanaged
     {
         T* handle;
         readonly int length;

@@ -16,8 +16,8 @@ using Boolean = GISharp.Runtime.Boolean;
 
 namespace GISharp.Test.Core
 {
-    [GType ("GInitable", IsProxyForUnmanagedType = true)]
-    [GTypeStruct (typeof(InitableIface))]
+    [GType("GInitable", IsProxyForUnmanagedType = true)]
+    [GTypeStruct(typeof(InitableIface))]
     public interface IInitable : GInterface<Object>
     {
         [GVirtualMethod(typeof(InitableIface.UnmanagedInit))]
@@ -26,22 +26,23 @@ namespace GISharp.Test.Core
 
     sealed class InitableIface : TypeInterface
     {
-        static InitableIface() {
+        static InitableIface()
+        {
             var initOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.Init));
             RegisterVirtualMethod(initOffset, InitFactory.Create);
         }
-        
+
         new struct Struct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             public TypeInterface.Struct GIface;
             public IntPtr Init;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
         public delegate bool UnmanagedInit(IntPtr initable, IntPtr cancellable, ref IntPtr error);
-        
+
         public delegate void Init(IntPtr cancellable);
 
         public static class InitFactory
@@ -61,7 +62,7 @@ namespace GISharp.Test.Core
                     }
                     catch (Exception ex) {
                         // FIXME: we should convert managed exception to GError
-                        ex.LogUnhandledException ();
+                        ex.LogUnhandledException();
                     }
                     return false;
                 }
@@ -71,28 +72,28 @@ namespace GISharp.Test.Core
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public InitableIface (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public InitableIface(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
     }
 
     public static class Initable
     {
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_initable_get_type ();
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_initable_get_type();
 
         static readonly GType _GType = g_initable_get_type();
 
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_initable_newv (GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, out IntPtr errorPtr);
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_initable_newv(GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, out IntPtr errorPtr);
 
         public static Object New(GType objectType, params object[] parameters)
         {
             IntPtr errorPtr;
-            var ret_ = g_initable_newv (objectType, 0, IntPtr.Zero, IntPtr.Zero, out errorPtr);
+            var ret_ = g_initable_newv(objectType, 0, IntPtr.Zero, IntPtr.Zero, out errorPtr);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
-                throw new GErrorException (error);
+                var error = Opaque.GetInstance<Error>(errorPtr, Transfer.Full);
+                throw new GErrorException(error);
             }
             var ret = Object.GetInstance(ret_, Transfer.Full)!;
 
@@ -102,21 +103,21 @@ namespace GISharp.Test.Core
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Boolean g_initable_init(IntPtr initable, IntPtr cancellable, out IntPtr errorPtr);
 
-        public static bool Init (this IInitable initable)
+        public static bool Init(this IInitable initable)
         {
             var instance = (Object)initable;
-            var ret = g_initable_init (instance.Handle, IntPtr.Zero, out var errorPtr);
-            GC.KeepAlive (instance);
+            var ret = g_initable_init(instance.Handle, IntPtr.Zero, out var errorPtr);
+            GC.KeepAlive(instance);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
-                throw new GErrorException (error);
+                var error = Opaque.GetInstance<Error>(errorPtr, Transfer.Full);
+                throw new GErrorException(error);
             }
             return ret;
         }
     }
 
-    [GType ("GNetworkMonitor", IsProxyForUnmanagedType = true)]
-    [GTypeStruct (typeof(NetworkMonitorInterface))]
+    [GType("GNetworkMonitor", IsProxyForUnmanagedType = true)]
+    [GTypeStruct(typeof(NetworkMonitorInterface))]
     public interface INetworkMonitor : IInitable, GInterface<Object>
     {
         [GProperty("connectivity")]
@@ -140,7 +141,7 @@ namespace GISharp.Test.Core
         void DoNetworkChanged(bool available);
     }
 
-    [GType ("GNetworkConnectivity", IsProxyForUnmanagedType = true)]
+    [GType("GNetworkConnectivity", IsProxyForUnmanagedType = true)]
     public enum NetworkConnectivity
     {
         Local = 1,
@@ -151,7 +152,7 @@ namespace GISharp.Test.Core
 
     public static class NetworkConnectivityExtensions
     {
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_network_connectivity_get_type();
 
         static readonly GType _GType = g_network_connectivity_get_type();
@@ -159,7 +160,8 @@ namespace GISharp.Test.Core
 
     sealed class NetworkMonitorInterface : TypeInterface
     {
-        static NetworkMonitorInterface() {
+        static NetworkMonitorInterface()
+        {
             var networkChangedOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.NetworkChanged));
             TypeClass.RegisterVirtualMethod(networkChangedOffset, NetworkChangedFactory.Create);
             var canReachOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.CanReach));
@@ -172,13 +174,13 @@ namespace GISharp.Test.Core
 
         new struct Struct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             public TypeInterface.Struct GIface;
             public IntPtr NetworkChanged;
             public IntPtr CanReach;
             public IntPtr CanReachAsync;
             public IntPtr CanReachAsyncFinish;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
@@ -198,7 +200,7 @@ namespace GISharp.Test.Core
                         doNetworkChanged(available);
                     }
                     catch (Exception ex) {
-                        ex.LogUnhandledException ();
+                        ex.LogUnhandledException();
                     }
                 }
 
@@ -228,7 +230,7 @@ namespace GISharp.Test.Core
                     }
                     catch (Exception ex) {
                         // FIXME: convert managed exception to GError
-                        ex.LogUnhandledException ();
+                        ex.LogUnhandledException();
                     }
                     return false;
                 }
@@ -258,7 +260,7 @@ namespace GISharp.Test.Core
                         });
                     }
                     catch (Exception ex) {
-                        ex.LogUnhandledException ();
+                        ex.LogUnhandledException();
                     }
                 }
 
@@ -279,12 +281,13 @@ namespace GISharp.Test.Core
                         var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None)!;
                         var result = Object.GetInstance<GTask>(result_, Transfer.None)!;
                         return result.PropagateBoolean();
-                    } catch (GErrorException ex) {
+                    }
+                    catch (GErrorException ex) {
                         GMarshal.PropagateError(ref error_, ex.Error);
                     }
                     catch (Exception ex) {
                         // FIXME: convert managed exception to GError
-                        ex.LogUnhandledException ();
+                        ex.LogUnhandledException();
                     }
 
                     return default(bool);
@@ -295,53 +298,53 @@ namespace GISharp.Test.Core
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public NetworkMonitorInterface (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public NetworkMonitorInterface(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
     }
 
     public static class NetworkMonitor
     {
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_network_monitor_get_type ();
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_network_monitor_get_type();
 
         static readonly GType _GType = g_network_monitor_get_type();
 
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_network_monitor_get_network_available (IntPtr monitor);
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Boolean g_network_monitor_get_network_available(IntPtr monitor);
 
-        public static bool GetNetworkAvailable (this INetworkMonitor monitor)
+        public static bool GetNetworkAvailable(this INetworkMonitor monitor)
         {
             var instance = (Object)monitor;
-            var ret = g_network_monitor_get_network_available (instance.Handle);
-            GC.KeepAlive (instance);
+            var ret = g_network_monitor_get_network_available(instance.Handle);
+            GC.KeepAlive(instance);
 
             return ret;
         }
 
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_network_monitor_get_network_metered (IntPtr monitor);
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Boolean g_network_monitor_get_network_metered(IntPtr monitor);
 
-        public static bool GetNetworkMetered (this INetworkMonitor monitor)
+        public static bool GetNetworkMetered(this INetworkMonitor monitor)
         {
             var instance = (Object)monitor;
-            var ret = g_network_monitor_get_network_metered (instance.Handle);
-            GC.KeepAlive (instance);
+            var ret = g_network_monitor_get_network_metered(instance.Handle);
+            GC.KeepAlive(instance);
 
             return ret;
         }
 
-        [DllImport ("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_network_monitor_can_reach (IntPtr monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Boolean g_network_monitor_can_reach(IntPtr monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
 
-        public static bool CanReach (this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
+        public static bool CanReach(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
             var instance = (Object)monitor;
-            var ret = g_network_monitor_can_reach (instance.Handle, connectable, cancellable, out var errorPtr);
-            GC.KeepAlive (instance);
+            var ret = g_network_monitor_can_reach(instance.Handle, connectable, cancellable, out var errorPtr);
+            GC.KeepAlive(instance);
             if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error> (errorPtr, Transfer.Full);
-                throw new GErrorException (error);
+                var error = Opaque.GetInstance<Error>(errorPtr, Transfer.Full);
+                throw new GErrorException(error);
             }
 
             return ret;
@@ -353,7 +356,7 @@ namespace GISharp.Test.Core
         public static Task<bool> CanReachAsync(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
         {
             var completion = new TaskCompletionSource<bool>();
-            var this_ = monitor.Handle;
+            var this_ = monitor.AsObject().Handle;
             var callback_ = CanReachAsyncFinishDelegate;
             var userData_ = (IntPtr)GCHandle.Alloc(completion);
             g_network_monitor_can_reach_async(this_, connectable, cancellable, callback_, userData_);
@@ -370,13 +373,14 @@ namespace GISharp.Test.Core
                 var userData = (GCHandle)userData_;
                 var completion = (TaskCompletionSource<bool>)userData.Target!;
                 userData.Free();
-    
+
                 var error_ = IntPtr.Zero;
                 var ret = g_network_monitor_can_reach_finish(sourceObject_, result_, ref error_);
                 if (error_ != IntPtr.Zero) {
                     var error = Opaque.GetInstance<Error>(error_, Transfer.Full);
                     completion.SetException(new GErrorException(error));
-                } else {
+                }
+                else {
                     completion.SetResult(ret);
                 }
             }
@@ -397,7 +401,7 @@ namespace GISharp.Test.Core
 
         [GVirtualMethod(typeof(AsyncResultIface.UnmanagedGetSourceObject))]
         Object GetSourceObject();
-        
+
         [GVirtualMethod(typeof(AsyncResultIface.UnmanagedIsTagged))]
         IntPtr IsTagged(IntPtr sourceTag);
     }
@@ -444,14 +448,14 @@ namespace GISharp.Test.Core
     {
         new struct Struct
         {
-            #pragma warning disable CS0649
-            #pragma warning disable CS0169
+#pragma warning disable CS0649
+#pragma warning disable CS0169
             TypeInterface.Struct gIface;
-            #pragma warning restore CS0169
+#pragma warning restore CS0169
             public IntPtr GetUserData;
             public IntPtr GetSourceObject;
             public IntPtr IsTagged;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
         static AsyncResultIface()
@@ -574,9 +578,9 @@ namespace GISharp.Test.Core
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern void g_task_return_boolean(
-            IntPtr task, 
+            IntPtr task,
             Boolean result);
- 
+
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Boolean g_task_propagate_boolean(IntPtr task, ref IntPtr error);
 

@@ -28,9 +28,6 @@ namespace GISharp.Runtime
     /// </example>
     public interface GInterface<T> : IOpaque, IDisposable where T : Object
     {
-        /// <summary>
-        /// Takes ownership (or a reference) of the unmanaged object
-        /// </summary>
-        IntPtr Take();
+        public sealed T AsObject() => (T)this;
     }
 }
