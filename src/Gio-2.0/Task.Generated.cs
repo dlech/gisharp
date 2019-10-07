@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(TaskClass))]
     public partial class Task : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IAsyncResult
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_task_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_task_get_type();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Completed_']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]

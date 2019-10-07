@@ -7,7 +7,7 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.GTypeAttribute("GDateTime", IsProxyForUnmanagedType = true)]
     public sealed partial class DateTime : GISharp.Lib.GObject.Boxed, System.IEquatable<DateTime>
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_date_time_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_date_time_get_type();
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.NowLocal']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]

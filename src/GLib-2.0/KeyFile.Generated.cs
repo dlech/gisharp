@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.GTypeAttribute("GKeyFile", IsProxyForUnmanagedType = true)]
     public sealed partial class KeyFile : GISharp.Lib.GObject.Boxed
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_key_file_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_key_file_get_type();
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.DesktopGroup']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]

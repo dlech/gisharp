@@ -347,7 +347,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class File
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_file_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_file_get_type();
 
         /// <summary>
         /// Creates a #GFile with the given argument from the command line.

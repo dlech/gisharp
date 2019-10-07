@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(ApplicationCommandLineClass))]
     public partial class ApplicationCommandLine : GISharp.Lib.GObject.Object
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_application_command_line_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_application_command_line_get_type();
 
         /// <summary>
         /// Unmanaged data structure

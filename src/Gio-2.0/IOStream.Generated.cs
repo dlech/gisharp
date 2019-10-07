@@ -8,7 +8,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(IOStreamClass))]
     public abstract partial class IOStream : GISharp.Lib.GObject.Object
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_io_stream_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_io_stream_get_type();
 
         /// <summary>
         /// Unmanaged data structure

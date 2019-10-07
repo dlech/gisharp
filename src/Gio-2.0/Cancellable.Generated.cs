@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(CancellableClass))]
     public partial class Cancellable : GISharp.Lib.GObject.Object
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_cancellable_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_cancellable_get_type();
 
         /// <summary>
         /// Unmanaged data structure

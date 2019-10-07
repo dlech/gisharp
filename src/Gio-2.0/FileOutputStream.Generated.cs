@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileOutputStreamClass))]
     public partial class FileOutputStream : GISharp.Lib.Gio.OutputStream, GISharp.Lib.Gio.ISeekable
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_file_output_stream_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_file_output_stream_get_type();
 
         /// <summary>
         /// Unmanaged data structure

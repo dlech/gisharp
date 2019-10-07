@@ -127,7 +127,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public partial class IOErrorEnumDomain
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_io_error_enum_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_io_error_enum_get_type();
 
         /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }

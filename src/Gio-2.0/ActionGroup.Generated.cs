@@ -98,7 +98,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class ActionGroup
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_action_group_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_action_group_get_type();
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionAddedEventArgs']/*" />
         public sealed class ActionAddedEventArgs : GISharp.Runtime.GSignalEventArgs

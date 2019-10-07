@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeAttribute("GSimpleAction", IsProxyForUnmanagedType = true)]
     public sealed partial class SimpleAction : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IAction
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_simple_action_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_simple_action_get_type();
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.Enabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]

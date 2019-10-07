@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileInfoClass))]
     public partial class FileInfo : GISharp.Lib.GObject.Object
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_file_info_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_file_info_get_type();
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.ContentType']/*" />
         public GISharp.Lib.GLib.UnownedUtf8 ContentType { get => GetContentType(); set => SetContentType(value); }

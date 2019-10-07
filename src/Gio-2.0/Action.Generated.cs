@@ -78,7 +78,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class Action
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_action_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_action_get_type();
 
         /// <summary>
         /// Checks if @action_name is valid.

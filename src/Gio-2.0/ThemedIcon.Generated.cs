@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(ThemedIconClass))]
     public partial class ThemedIcon : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IIcon
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_themed_icon_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_themed_icon_get_type();
 
         /// <include file="ThemedIcon.xmldoc" path="declaration/member[@name='ThemedIcon.Name']/*" />
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]

@@ -8,7 +8,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(ApplicationClass))]
     public partial class Application : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IActionGroup, GISharp.Lib.Gio.IActionMap
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_application_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_application_get_type();
 
         /// <summary>
         /// Unmanaged data structure

@@ -55,7 +55,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var returnType = function.ReturnValue.GetManagedTypeName();
             var modifiers = TokenList(function.GetCommonAccessModifiers());
-            
+
             if (function is Constructor) {
                 // special case for constructors since the static method is only
                 // part of the constructor
@@ -79,7 +79,7 @@ namespace GISharp.CodeGen.Syntax
             if (returnType.ToString() != "void") {
                 trivia = trivia.AddRange(function.ReturnValue.Doc.GetDocCommentTrivia());
             }
-                
+
             trivia = trivia.AddRange(function.GetGErrorExceptionDocCommentTrivia());
 
             // only set "extern doc" if method is public

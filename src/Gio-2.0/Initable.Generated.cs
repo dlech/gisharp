@@ -19,7 +19,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class Initable
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_initable_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_initable_get_type();
 
         /// <summary>
         /// Helper function for constructing #GInitable object. This is

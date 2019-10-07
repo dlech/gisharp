@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
     [GISharp.Runtime.GTypeAttribute("GVariantBuilder", IsProxyForUnmanagedType = true)]
     public sealed partial class VariantBuilder : GISharp.Lib.GObject.Boxed
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_variant_builder_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_variant_builder_get_type();
 
         /// <summary>
         /// For internal runtime use only.

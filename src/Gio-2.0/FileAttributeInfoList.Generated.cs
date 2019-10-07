@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeAttribute("GFileAttributeInfoList", IsProxyForUnmanagedType = true)]
     public sealed partial class FileAttributeInfoList : GISharp.Lib.GObject.Boxed
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_info_list_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_info_list_get_type();
 
         /// <summary>
         /// Unmanaged data structure

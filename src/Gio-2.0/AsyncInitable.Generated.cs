@@ -24,7 +24,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class AsyncInitable
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_async_initable_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_async_initable_get_type();
 
         /// <summary>
         /// Helper function for constructing #GAsyncInitable object. This is

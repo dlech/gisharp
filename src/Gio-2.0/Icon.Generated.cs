@@ -26,7 +26,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class Icon
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_icon_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_icon_get_type();
 
         /// <summary>
         /// Deserializes a #GIcon previously serialized using g_icon_serialize().

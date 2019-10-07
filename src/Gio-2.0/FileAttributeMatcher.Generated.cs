@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeAttribute("GFileAttributeMatcher", IsProxyForUnmanagedType = true)]
     public sealed partial class FileAttributeMatcher : GISharp.Lib.GObject.Boxed
     {
-        static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_matcher_get_type();
+        private static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_matcher_get_type();
 
         /// <summary>
         /// For internal runtime use only.

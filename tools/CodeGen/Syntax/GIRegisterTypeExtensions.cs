@@ -25,11 +25,11 @@ namespace GISharp.CodeGen.Syntax
             var typeName = typeof(GType).ToSyntax();
             var identifier = ParseToken("_GType");
             var expression = ParseExpression($"{type.GTypeGetter}()");
-            
+
             return FieldDeclaration(VariableDeclaration(typeName)
                     .AddVariables(VariableDeclarator(identifier)
                         .WithInitializer(EqualsValueClause(expression))))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+                .AddModifiers(Token(PrivateKeyword), Token(StaticKeyword), Token(ReadOnlyKeyword));
         }
 
         public static SyntaxList<AttributeListSyntax> GetGTypeAttributeLists(this GIRegisteredType type)
