@@ -41,7 +41,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_variant_dict_new(
+        private static extern unsafe System.IntPtr g_variant_dict_new(
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr fromAsv);
@@ -64,7 +64,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_variant_dict_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_variant_dict_get_type();
 
         /// <summary>
         /// Checks if @key exists in @dict.
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_variant_dict_contains(
+        private static extern unsafe GISharp.Runtime.Boolean g_variant_dict_contains(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr dict,
@@ -129,7 +129,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_variant_dict_end(
+        private static extern unsafe System.IntPtr g_variant_dict_end(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr dict);
@@ -163,7 +163,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_variant_dict_insert_value(
+        private static extern unsafe void g_variant_dict_insert_value(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr dict,
@@ -222,7 +222,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_variant_dict_lookup_value(
+        private static extern unsafe System.IntPtr g_variant_dict_lookup_value(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr dict,
@@ -270,7 +270,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_variant_dict_ref(
+        private static extern unsafe System.IntPtr g_variant_dict_ref(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr dict);
@@ -297,7 +297,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_variant_dict_remove(
+        private static extern unsafe GISharp.Runtime.Boolean g_variant_dict_remove(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr dict,
@@ -341,7 +341,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_variant_dict_unref(
+        private static extern unsafe void g_variant_dict_unref(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         System.IntPtr dict);

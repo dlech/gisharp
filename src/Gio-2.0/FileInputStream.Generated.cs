@@ -34,7 +34,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_file_input_stream_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_file_input_stream_get_type();
 
         /// <summary>
         /// Queries a file input stream the given @attributes. This function blocks
@@ -61,7 +61,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_input_stream_query_info(
+        private static extern unsafe System.IntPtr g_file_input_stream_query_info(
         /* <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -137,7 +137,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_input_stream_query_info_async(
+        private static extern unsafe void g_file_input_stream_query_info_async(
         /* <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -196,7 +196,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_input_stream_query_info_finish(
+        private static extern unsafe System.IntPtr g_file_input_stream_query_info_finish(
         /* <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,

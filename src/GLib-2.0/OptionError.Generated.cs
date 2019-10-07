@@ -25,7 +25,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Lib.GLib.Quark g_option_error_quark();
+        private static extern unsafe GISharp.Lib.GLib.Quark g_option_error_quark();
 
         private static unsafe GISharp.Lib.GLib.Quark GetQuark()
         {

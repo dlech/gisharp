@@ -31,7 +31,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_async_result_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_async_result_get_type();
 
         /// <summary>
         /// Gets the source object from a #GAsyncResult.
@@ -46,7 +46,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_async_result_get_source_object(
+        private static extern unsafe System.IntPtr g_async_result_get_source_object(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr res);
@@ -72,7 +72,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_async_result_get_user_data(
+        private static extern unsafe System.IntPtr g_async_result_get_user_data(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr res);
@@ -104,7 +104,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_async_result_is_tagged(
+        private static extern unsafe GISharp.Runtime.Boolean g_async_result_is_tagged(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr res,

@@ -34,7 +34,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_action_map_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_action_map_get_type();
 
         /// <summary>
         /// Adds an action to the @action_map.
@@ -55,7 +55,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_action_map_add_action(
+        private static extern unsafe void g_action_map_add_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr actionMap,
@@ -91,7 +91,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_action_map_lookup_action(
+        private static extern unsafe System.IntPtr g_action_map_lookup_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr actionMap,
@@ -134,7 +134,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_action_map_remove_action(
+        private static extern unsafe void g_action_map_remove_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr actionMap,

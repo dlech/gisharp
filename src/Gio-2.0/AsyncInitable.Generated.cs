@@ -65,7 +65,7 @@ namespace GISharp.Lib.Gio
 *   <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_async_initable_newv_async(
+        private static extern unsafe void g_async_initable_newv_async(
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.GType objectType,
@@ -109,7 +109,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_async_initable_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_async_initable_get_type();
 
         /// <summary>
         /// Starts asynchronous initialization of the object implementing the
@@ -169,7 +169,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_async_initable_init_async(
+        private static extern unsafe void g_async_initable_init_async(
         /* <type name="AsyncInitable" type="GAsyncInitable*" managed-name="AsyncInitable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr initable,
@@ -221,7 +221,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_async_initable_init_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_async_initable_init_finish(
         /* <type name="AsyncInitable" type="GAsyncInitable*" managed-name="AsyncInitable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr initable,
@@ -279,7 +279,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_async_initable_new_finish(
+        private static extern unsafe System.IntPtr g_async_initable_new_finish(
         /* <type name="AsyncInitable" type="GAsyncInitable*" managed-name="AsyncInitable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr initable,

@@ -41,7 +41,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_icon_deserialize(
+        private static extern unsafe System.IntPtr g_icon_deserialize(
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
@@ -79,7 +79,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_icon_new_for_string(
+        private static extern unsafe System.IntPtr g_icon_new_for_string(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr str,
@@ -115,7 +115,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_icon_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_icon_get_type();
 
         /// <summary>
         /// Gets a hash for an icon.
@@ -130,7 +130,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.UInt32 g_icon_hash(
+        private static extern unsafe System.UInt32 g_icon_hash(
         /* <type name="Icon" type="gconstpointer" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);
@@ -159,7 +159,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_icon_equal(
+        private static extern unsafe GISharp.Runtime.Boolean g_icon_equal(
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr icon1,
@@ -194,7 +194,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_icon_serialize(
+        private static extern unsafe System.IntPtr g_icon_serialize(
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);
@@ -239,7 +239,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_icon_to_string(
+        private static extern unsafe System.IntPtr g_icon_to_string(
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);

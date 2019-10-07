@@ -39,7 +39,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_file_io_stream_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_file_io_stream_get_type();
 
         /// <summary>
         /// Gets the entity tag for the file when it has been written.
@@ -56,7 +56,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_io_stream_get_etag(
+        private static extern unsafe System.IntPtr g_file_io_stream_get_etag(
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
@@ -109,7 +109,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_io_stream_query_info(
+        private static extern unsafe System.IntPtr g_file_io_stream_query_info(
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -183,7 +183,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_io_stream_query_info_async(
+        private static extern unsafe void g_file_io_stream_query_info_async(
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -246,7 +246,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_io_stream_query_info_finish(
+        private static extern unsafe System.IntPtr g_file_io_stream_query_info_finish(
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,

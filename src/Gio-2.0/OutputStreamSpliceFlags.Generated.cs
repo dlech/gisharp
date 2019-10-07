@@ -25,6 +25,6 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_output_stream_splice_flags_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_output_stream_splice_flags_get_type();
     }
 }

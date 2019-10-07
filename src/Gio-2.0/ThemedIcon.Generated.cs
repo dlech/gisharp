@@ -45,7 +45,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="ThemedIcon" type="GIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_themed_icon_new(
+        private static extern unsafe System.IntPtr g_themed_icon_new(
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
@@ -73,7 +73,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="ThemedIcon" type="GIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_themed_icon_new_from_names(
+        private static extern unsafe System.IntPtr g_themed_icon_new_from_names(
         /* <array length="1" zero-terminated="0" type="char**" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" />
 * </array> */
@@ -122,7 +122,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="ThemedIcon" type="GIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_themed_icon_new_with_default_fallbacks(
+        private static extern unsafe System.IntPtr g_themed_icon_new_with_default_fallbacks(
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr iconname);
@@ -137,7 +137,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_themed_icon_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_themed_icon_get_type();
 
         /// <summary>
         /// Append a name to the list of icons from within @icon.
@@ -155,7 +155,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_themed_icon_append_name(
+        private static extern unsafe void g_themed_icon_append_name(
         /* <type name="ThemedIcon" type="GThemedIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr icon,
@@ -192,7 +192,7 @@ namespace GISharp.Lib.Gio
 *   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" />
 * </array> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_themed_icon_get_names(
+        private static extern unsafe System.IntPtr g_themed_icon_get_names(
         /* <type name="ThemedIcon" type="GThemedIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr icon);
@@ -222,7 +222,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_themed_icon_prepend_name(
+        private static extern unsafe void g_themed_icon_prepend_name(
         /* <type name="ThemedIcon" type="GThemedIcon*" managed-name="ThemedIcon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr icon,

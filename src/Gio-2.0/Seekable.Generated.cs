@@ -38,7 +38,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_seekable_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_seekable_get_type();
 
         /// <summary>
         /// Tests if the stream supports the #GSeekableIface.
@@ -52,7 +52,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_seekable_can_seek(
+        private static extern unsafe GISharp.Runtime.Boolean g_seekable_can_seek(
         /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr seekable);
@@ -79,7 +79,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_seekable_can_truncate(
+        private static extern unsafe GISharp.Runtime.Boolean g_seekable_can_truncate(
         /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr seekable);
@@ -133,7 +133,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_seekable_seek(
+        private static extern unsafe GISharp.Runtime.Boolean g_seekable_seek(
         /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr seekable,
@@ -178,7 +178,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.Int64 g_seekable_tell(
+        private static extern unsafe System.Int64 g_seekable_tell(
         /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr seekable);
@@ -224,7 +224,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_seekable_truncate(
+        private static extern unsafe GISharp.Runtime.Boolean g_seekable_truncate(
         /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr seekable,

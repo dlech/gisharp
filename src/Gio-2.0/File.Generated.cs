@@ -376,7 +376,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_new_for_commandline_arg(
+        private static extern unsafe System.IntPtr g_file_new_for_commandline_arg(
         /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr arg);
@@ -417,7 +417,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_new_for_commandline_arg_and_cwd(
+        private static extern unsafe System.IntPtr g_file_new_for_commandline_arg_and_cwd(
         /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr arg,
@@ -452,7 +452,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_new_for_path(
+        private static extern unsafe System.IntPtr g_file_new_for_path(
         /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr path);
@@ -482,7 +482,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_new_for_uri(
+        private static extern unsafe System.IntPtr g_file_new_for_uri(
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr uri);
@@ -534,7 +534,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_new_tmp(
+        private static extern unsafe System.IntPtr g_file_new_tmp(
         /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr tmpl,
@@ -578,7 +578,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_parse_name(
+        private static extern unsafe System.IntPtr g_file_parse_name(
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr parseName);
@@ -602,7 +602,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_file_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_file_get_type();
 
         /// <summary>
         /// Gets an output stream for appending data to the file.
@@ -644,7 +644,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_append_to(
+        private static extern unsafe System.IntPtr g_file_append_to(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -712,7 +712,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_append_to_async(
+        private static extern unsafe void g_file_append_to_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -767,7 +767,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_append_to_finish(
+        private static extern unsafe System.IntPtr g_file_append_to_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -877,7 +877,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_copy(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_copy(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr source,
@@ -964,7 +964,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_copy_async(
+        private static extern unsafe void g_file_copy_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr source,
@@ -1027,7 +1027,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_copy_attributes(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_copy_attributes(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr source,
@@ -1078,7 +1078,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_copy_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_copy_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1132,7 +1132,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_create(
+        private static extern unsafe System.IntPtr g_file_create(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1201,7 +1201,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_create_async(
+        private static extern unsafe void g_file_create_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1255,7 +1255,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_create_finish(
+        private static extern unsafe System.IntPtr g_file_create_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1341,7 +1341,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_create_readwrite(
+        private static extern unsafe System.IntPtr g_file_create_readwrite(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1412,7 +1412,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_create_readwrite_async(
+        private static extern unsafe void g_file_create_readwrite_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1468,7 +1468,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_create_readwrite_finish(
+        private static extern unsafe System.IntPtr g_file_create_readwrite_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1531,7 +1531,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_delete(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_delete(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1582,7 +1582,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_delete_async(
+        private static extern unsafe void g_file_delete_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1632,7 +1632,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_delete_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_delete_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1692,7 +1692,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_dup(
+        private static extern unsafe System.IntPtr g_file_dup(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -1728,7 +1728,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_eject_mountable_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_eject_mountable_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1776,7 +1776,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_eject_mountable_with_operation_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_eject_mountable_with_operation_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1824,7 +1824,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_equal(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_equal(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file1,
@@ -1869,7 +1869,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="filename" type="char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_file_get_basename(
+        private static extern unsafe System.IntPtr g_file_get_basename(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -1906,7 +1906,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_get_child(
+        private static extern unsafe System.IntPtr g_file_get_child(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -1952,7 +1952,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_get_child_for_display_name(
+        private static extern unsafe System.IntPtr g_file_get_child_for_display_name(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2006,7 +2006,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_file_get_parent(
+        private static extern unsafe System.IntPtr g_file_get_parent(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -2048,7 +2048,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_get_parse_name(
+        private static extern unsafe System.IntPtr g_file_get_parse_name(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -2080,7 +2080,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="filename" type="char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_file_get_path(
+        private static extern unsafe System.IntPtr g_file_get_path(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -2115,7 +2115,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="filename" type="char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_file_get_relative_path(
+        private static extern unsafe System.IntPtr g_file_get_relative_path(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr parent,
@@ -2150,7 +2150,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_get_uri(
+        private static extern unsafe System.IntPtr g_file_get_uri(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -2186,7 +2186,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_get_uri_scheme(
+        private static extern unsafe System.IntPtr g_file_get_uri_scheme(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -2222,7 +2222,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_has_parent(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_has_parent(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2271,7 +2271,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_has_prefix(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_has_prefix(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2309,7 +2309,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_has_uri_scheme(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_has_uri_scheme(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2352,7 +2352,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.UInt32 g_file_hash(
+        private static extern unsafe System.UInt32 g_file_hash(
         /* <type name="File" type="gconstpointer" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -2389,7 +2389,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_is_native(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_is_native(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -2437,7 +2437,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Bytes" type="GBytes*" managed-name="GISharp.Lib.GLib.Bytes" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_load_bytes(
+        private static extern unsafe System.IntPtr g_file_load_bytes(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2503,7 +2503,7 @@ namespace GISharp.Lib.Gio
 *   <type name="utf8" type="gchar**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_load_bytes_async(
+        private static extern unsafe void g_file_load_bytes_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2562,7 +2562,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Bytes" type="GBytes*" managed-name="GISharp.Lib.GLib.Bytes" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_load_bytes_finish(
+        private static extern unsafe System.IntPtr g_file_load_bytes_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2642,7 +2642,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_load_contents(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_load_contents(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2717,7 +2717,7 @@ namespace GISharp.Lib.Gio
 *   <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_load_contents_async(
+        private static extern unsafe void g_file_load_contents_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2777,7 +2777,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_load_contents_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_load_contents_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2861,7 +2861,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_load_partial_contents_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_load_partial_contents_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2933,7 +2933,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_make_directory(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_make_directory(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -2982,7 +2982,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_make_directory_async(
+        private static extern unsafe void g_file_make_directory_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3033,7 +3033,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_make_directory_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_make_directory_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3104,7 +3104,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_make_directory_with_parents(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_make_directory_with_parents(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3159,7 +3159,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_make_symbolic_link(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_make_symbolic_link(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3219,7 +3219,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_measure_disk_usage_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_measure_disk_usage_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3278,7 +3278,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_mount_enclosing_volume_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_mount_enclosing_volume_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr location,
@@ -3326,7 +3326,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_mount_mountable_finish(
+        private static extern unsafe System.IntPtr g_file_mount_mountable_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3424,7 +3424,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_move(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_move(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr source,
@@ -3502,7 +3502,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_open_readwrite(
+        private static extern unsafe System.IntPtr g_file_open_readwrite(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3565,7 +3565,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_open_readwrite_async(
+        private static extern unsafe void g_file_open_readwrite_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3617,7 +3617,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_open_readwrite_finish(
+        private static extern unsafe System.IntPtr g_file_open_readwrite_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3676,7 +3676,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_file_peek_path(
+        private static extern unsafe System.IntPtr g_file_peek_path(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -3720,7 +3720,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_poll_mountable(
+        private static extern unsafe void g_file_poll_mountable(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3768,7 +3768,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_poll_mountable_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_poll_mountable_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3833,7 +3833,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_query_exists(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_query_exists(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3877,7 +3877,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileType" type="GFileType" managed-name="FileType" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Lib.Gio.FileType g_file_query_file_type(
+        private static extern unsafe GISharp.Lib.Gio.FileType g_file_query_file_type(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -3948,7 +3948,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_query_filesystem_info(
+        private static extern unsafe System.IntPtr g_file_query_filesystem_info(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4026,7 +4026,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_query_filesystem_info_async(
+        private static extern unsafe void g_file_query_filesystem_info_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4088,7 +4088,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_query_filesystem_info_finish(
+        private static extern unsafe System.IntPtr g_file_query_filesystem_info_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4182,7 +4182,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_query_info(
+        private static extern unsafe System.IntPtr g_file_query_info(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4265,7 +4265,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_query_info_async(
+        private static extern unsafe void g_file_query_info_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4331,7 +4331,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_query_info_finish(
+        private static extern unsafe System.IntPtr g_file_query_info_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4400,7 +4400,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" managed-name="FileAttributeInfoList" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_query_settable_attributes(
+        private static extern unsafe System.IntPtr g_file_query_settable_attributes(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4456,7 +4456,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" managed-name="FileAttributeInfoList" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_query_writable_namespaces(
+        private static extern unsafe System.IntPtr g_file_query_writable_namespaces(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4514,7 +4514,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_read(
+        private static extern unsafe System.IntPtr g_file_read(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4575,7 +4575,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_read_async(
+        private static extern unsafe void g_file_read_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4625,7 +4625,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_read_finish(
+        private static extern unsafe System.IntPtr g_file_read_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4734,7 +4734,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_replace(
+        private static extern unsafe System.IntPtr g_file_replace(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4825,7 +4825,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_replace_async(
+        private static extern unsafe void g_file_replace_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -4930,7 +4930,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_replace_contents(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_replace_contents(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5042,7 +5042,7 @@ namespace GISharp.Lib.Gio
 *   <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_replace_contents_async(
+        private static extern unsafe void g_file_replace_contents_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5137,7 +5137,7 @@ namespace GISharp.Lib.Gio
 *   <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_replace_contents_bytes_async(
+        private static extern unsafe void g_file_replace_contents_bytes_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5213,7 +5213,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_replace_contents_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_replace_contents_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5274,7 +5274,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_replace_finish(
+        private static extern unsafe System.IntPtr g_file_replace_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5353,7 +5353,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_replace_readwrite(
+        private static extern unsafe System.IntPtr g_file_replace_readwrite(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5448,7 +5448,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_replace_readwrite_async(
+        private static extern unsafe void g_file_replace_readwrite_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5520,7 +5520,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_replace_readwrite_finish(
+        private static extern unsafe System.IntPtr g_file_replace_readwrite_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5578,7 +5578,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_resolve_relative_path(
+        private static extern unsafe System.IntPtr g_file_resolve_relative_path(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5636,7 +5636,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5720,7 +5720,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_byte_string(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_byte_string(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5800,7 +5800,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_int32(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_int32(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5878,7 +5878,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_int64(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_int64(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -5956,7 +5956,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_string(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_string(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6036,7 +6036,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_uint32(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_uint32(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6115,7 +6115,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_uint64(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_set_attribute_uint64(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6197,7 +6197,7 @@ namespace GISharp.Lib.Gio
 *   <type name="FileInfo" type="GFileInfo**" managed-name="FileInfo" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_set_attributes_async(
+        private static extern unsafe void g_file_set_attributes_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6256,7 +6256,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_set_attributes_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_set_attributes_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6334,7 +6334,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_set_attributes_from_info(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_set_attributes_from_info(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6406,7 +6406,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_set_display_name(
+        private static extern unsafe System.IntPtr g_file_set_display_name(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6481,7 +6481,7 @@ namespace GISharp.Lib.Gio
 *   <type name="File" type="GFile*" managed-name="File" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_set_display_name_async(
+        private static extern unsafe void g_file_set_display_name_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6542,7 +6542,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_file_set_display_name_finish(
+        private static extern unsafe System.IntPtr g_file_set_display_name_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6604,7 +6604,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_start_mountable_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_start_mountable_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6654,7 +6654,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_stop_mountable_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_stop_mountable_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6696,7 +6696,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_supports_thread_contexts(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_supports_thread_contexts(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
@@ -6738,7 +6738,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_trash(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_trash(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6787,7 +6787,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_file_trash_async(
+        private static extern unsafe void g_file_trash_async(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6838,7 +6838,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_trash_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_trash_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6900,7 +6900,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_unmount_mountable_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_unmount_mountable_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,
@@ -6952,7 +6952,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_file_unmount_mountable_with_operation_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_file_unmount_mountable_with_operation_finish(
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file,

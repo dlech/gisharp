@@ -41,7 +41,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_output_stream_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_output_stream_get_type();
 
         /// <summary>
         /// Clears the pending flag on @stream.
@@ -52,7 +52,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_output_stream_clear_pending(
+        private static extern unsafe void g_output_stream_clear_pending(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
@@ -111,7 +111,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_close(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_close(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -167,7 +167,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_output_stream_close_async(
+        private static extern unsafe void g_output_stream_close_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -215,7 +215,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_close_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_close_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -279,7 +279,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_flush(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_flush(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -332,7 +332,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_output_stream_flush_async(
+        private static extern unsafe void g_output_stream_flush_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -380,7 +380,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_flush_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_flush_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -429,7 +429,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_has_pending(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_has_pending(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
@@ -455,7 +455,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_is_closed(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_is_closed(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
@@ -484,7 +484,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_is_closing(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_is_closing(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
@@ -515,7 +515,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_set_pending(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_set_pending(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -564,7 +564,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_output_stream_splice(
+        private static extern unsafe System.IntPtr g_output_stream_splice(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -636,7 +636,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gssize" type="gssize" managed-name="System.Int32" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_output_stream_splice_async(
+        private static extern unsafe void g_output_stream_splice_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -695,7 +695,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_output_stream_splice_finish(
+        private static extern unsafe System.IntPtr g_output_stream_splice_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -777,7 +777,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_output_stream_write(
+        private static extern unsafe System.IntPtr g_output_stream_write(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -861,7 +861,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_write_all(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_write_all(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -945,7 +945,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_output_stream_write_all_async(
+        private static extern unsafe void g_output_stream_write_all_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1017,7 +1017,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_write_all_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_write_all_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1122,7 +1122,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gssize" type="gssize" managed-name="System.Int32" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_output_stream_write_async(
+        private static extern unsafe void g_output_stream_write_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1193,7 +1193,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_output_stream_write_bytes(
+        private static extern unsafe System.IntPtr g_output_stream_write_bytes(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1264,7 +1264,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gssize" type="gssize" managed-name="System.Int32" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_output_stream_write_bytes_async(
+        private static extern unsafe void g_output_stream_write_bytes_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1316,7 +1316,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_output_stream_write_bytes_finish(
+        private static extern unsafe System.IntPtr g_output_stream_write_bytes_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1372,7 +1372,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_output_stream_write_finish(
+        private static extern unsafe System.IntPtr g_output_stream_write_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1462,7 +1462,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1553,7 +1553,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_all(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_all(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1639,7 +1639,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_output_stream_writev_all_async(
+        private static extern unsafe void g_output_stream_writev_all_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1711,7 +1711,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_all_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_all_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1812,7 +1812,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_output_stream_writev_async(
+        private static extern unsafe void g_output_stream_writev_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,
@@ -1874,7 +1874,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_finish(
+        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream,

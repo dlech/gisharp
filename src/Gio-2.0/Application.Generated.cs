@@ -123,7 +123,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe System.IntPtr g_application_new(
+        private static extern unsafe System.IntPtr g_application_new(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr applicationId,
@@ -355,7 +355,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_application_get_default();
+        private static extern unsafe System.IntPtr g_application_get_default();
 
         [GISharp.Runtime.SinceAttribute("2.32")]
         private static unsafe GISharp.Lib.Gio.Application GetDefault()
@@ -422,7 +422,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_application_id_is_valid(
+        private static extern unsafe GISharp.Runtime.Boolean g_application_id_is_valid(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr applicationId);
@@ -446,7 +446,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
-        static extern unsafe GISharp.Lib.GObject.GType g_application_get_type();
+        private static extern unsafe GISharp.Lib.GObject.GType g_application_get_type();
 
         /// <summary>
         /// Activates the application.
@@ -464,7 +464,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_activate(
+        private static extern unsafe void g_application_activate(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -519,7 +519,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_add_main_option(
+        private static extern unsafe void g_application_add_main_option(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -634,7 +634,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_add_main_option_entries(
+        private static extern unsafe void g_application_add_main_option_entries(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -690,7 +690,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_add_option_group(
+        private static extern unsafe void g_application_add_option_group(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -729,7 +729,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_bind_busy_property(
+        private static extern unsafe void g_application_bind_busy_property(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -771,7 +771,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_application_get_application_id(
+        private static extern unsafe System.IntPtr g_application_get_application_id(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -812,7 +812,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.IntPtr g_application_get_dbus_object_path(
+        private static extern unsafe System.IntPtr g_application_get_dbus_object_path(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -842,7 +842,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="ApplicationFlags" type="GApplicationFlags" managed-name="ApplicationFlags" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Lib.Gio.ApplicationFlags g_application_get_flags(
+        private static extern unsafe GISharp.Lib.Gio.ApplicationFlags g_application_get_flags(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -873,7 +873,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.UInt32 g_application_get_inactivity_timeout(
+        private static extern unsafe System.UInt32 g_application_get_inactivity_timeout(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -901,7 +901,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_application_get_is_busy(
+        private static extern unsafe GISharp.Runtime.Boolean g_application_get_is_busy(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -932,7 +932,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_application_get_is_registered(
+        private static extern unsafe GISharp.Runtime.Boolean g_application_get_is_registered(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -969,7 +969,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_application_get_is_remote(
+        private static extern unsafe GISharp.Runtime.Boolean g_application_get_is_remote(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -999,7 +999,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:out */
-        static extern unsafe System.IntPtr g_application_get_resource_base_path(
+        private static extern unsafe System.IntPtr g_application_get_resource_base_path(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -1029,7 +1029,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_hold(
+        private static extern unsafe void g_application_hold(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -1061,7 +1061,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_mark_busy(
+        private static extern unsafe void g_application_mark_busy(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -1107,7 +1107,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_open(
+        private static extern unsafe void g_application_open(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1164,7 +1164,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_quit(
+        private static extern unsafe void g_application_quit(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -1226,7 +1226,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:out */
-        static extern unsafe GISharp.Runtime.Boolean g_application_register(
+        private static extern unsafe GISharp.Runtime.Boolean g_application_register(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1267,7 +1267,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_release(
+        private static extern unsafe void g_application_release(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -1374,7 +1374,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe System.Int32 g_application_run(
+        private static extern unsafe System.Int32 g_application_run(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1414,7 +1414,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_set_action_group(
+        private static extern unsafe void g_application_set_action_group(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1453,7 +1453,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_set_application_id(
+        private static extern unsafe void g_application_set_application_id(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1492,7 +1492,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_set_default(
+        private static extern unsafe void g_application_set_default(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr application);
@@ -1524,7 +1524,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_set_flags(
+        private static extern unsafe void g_application_set_flags(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1561,7 +1561,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_set_inactivity_timeout(
+        private static extern unsafe void g_application_set_inactivity_timeout(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1594,7 +1594,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_set_option_context_description(
+        private static extern unsafe void g_application_set_option_context_description(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1639,7 +1639,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_set_option_context_parameter_string(
+        private static extern unsafe void g_application_set_option_context_parameter_string(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1681,7 +1681,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_set_option_context_summary(
+        private static extern unsafe void g_application_set_option_context_summary(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1752,7 +1752,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_set_resource_base_path(
+        private static extern unsafe void g_application_set_resource_base_path(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1793,7 +1793,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_unbind_busy_property(
+        private static extern unsafe void g_application_unbind_busy_property(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
@@ -1839,7 +1839,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_unmark_busy(
+        private static extern unsafe void g_application_unmark_busy(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application);
@@ -1878,7 +1878,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe void g_application_withdraw_notification(
+        private static extern unsafe void g_application_withdraw_notification(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr application,
