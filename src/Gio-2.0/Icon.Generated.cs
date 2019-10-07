@@ -7,25 +7,6 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(IconIface))]
     public partial interface IIcon : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoEqual(GISharp.Lib.Gio.IIcon?)']/*" />
-        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedEqual))]
-        System.Boolean DoEqual(GISharp.Lib.Gio.IIcon? icon2);
-
-        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoHash()']/*" />
-        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedHash))]
-        System.UInt32 DoHash();
-
-        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoSerialize()']/*" />
-        [GISharp.Runtime.SinceAttribute("2.38")]
-        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedSerialize))]
-        GISharp.Lib.GLib.Variant DoSerialize();
-    }
-
-    /// <summary>
-    /// Extension methods for <see cref="IIcon"/>
-    /// </summary>
-    public static partial class Icon
-    {
         private static readonly GISharp.Lib.GObject.GType _GType = g_icon_get_type();
 
         /// <summary>
@@ -46,7 +27,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
 
-        /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.Deserialize(GISharp.Lib.GLib.Variant)']/*" />
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.Deserialize(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public static unsafe GISharp.Lib.Gio.IIcon Deserialize(GISharp.Lib.GLib.Variant value)
         {
@@ -87,7 +68,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
 
-        /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.NewForString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.NewForString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         public static unsafe GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.UnownedUtf8 str)
         {
@@ -104,7 +85,7 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.NewForString(System.String)']/*" />
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.NewForString(System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
         public static unsafe GISharp.Lib.Gio.IIcon NewForString(System.String str)
         {
@@ -117,6 +98,25 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:out */
         private static extern unsafe GISharp.Lib.GObject.GType g_icon_get_type();
 
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoEqual(GISharp.Lib.Gio.IIcon?)']/*" />
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedEqual))]
+        System.Boolean DoEqual(GISharp.Lib.Gio.IIcon? icon2);
+
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoHash()']/*" />
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedHash))]
+        System.UInt32 DoHash();
+
+        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoSerialize()']/*" />
+        [GISharp.Runtime.SinceAttribute("2.38")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedSerialize))]
+        GISharp.Lib.GLib.Variant DoSerialize();
+    }
+
+    /// <summary>
+    /// Extension methods for <see cref="IIcon"/>
+    /// </summary>
+    public static partial class Icon
+    {
         /// <summary>
         /// Gets a hash for an icon.
         /// </summary>

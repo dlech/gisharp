@@ -41,10 +41,18 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static SyntaxList<MemberDeclarationSyntax> GetInterfaceMembers(this Interface @interface)
         {
-            return List<MemberDeclarationSyntax>()
+            var members = List<MemberDeclarationSyntax>()
+                .AddRange(@interface.Constants.GetMemberDeclarations())
                 .AddRange(@interface.Properties.GetMemberDeclarations(true))
                 .AddRange(@interface.Signals.GetMemberDeclarations(true))
+                .AddRange(@interface.Functions.GetMemberDeclarations())
                 .AddRange(@interface.VirtualMethods.GetMemberDeclarations(true));
+
+            if (@interface.GTypeName != null) {
+                members = members.Insert(0, @interface.GetGTypeFieldDeclaration());
+            }
+
+            return members;
         }
 
         /// <summary>
@@ -68,15 +76,9 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetExtClassMembers(this Interface @interface)
         {
             var members = List<MemberDeclarationSyntax>()
-                .AddRange(@interface.Constants.GetMemberDeclarations())
                 .AddRange(@interface.ManagedProperties.GetMemberDeclarations())
                 .AddRange(@interface.Signals.Select(x => x.GetEventArgsClassDeclaration()))
-                .AddRange(@interface.Functions.GetMemberDeclarations())
                 .AddRange(@interface.Methods.GetMemberDeclarations());
-
-            if (@interface.GTypeName != null) {
-                members = members.Insert(0, @interface.GetGTypeFieldDeclaration());
-            }
 
             return List(members);
         }

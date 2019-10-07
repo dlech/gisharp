@@ -20,6 +20,11 @@ namespace GISharp.Test.Core
     [GTypeStruct(typeof(InitableIface))]
     public interface IInitable : GInterface<Object>
     {
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        private static extern GType g_initable_get_type();
+
+        private static readonly GType _GType = g_initable_get_type();
+
         [GVirtualMethod(typeof(InitableIface.UnmanagedInit))]
         void DoInit(IntPtr cancellable);
     }
@@ -80,11 +85,6 @@ namespace GISharp.Test.Core
     public static class Initable
     {
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_initable_get_type();
-
-        static readonly GType _GType = g_initable_get_type();
-
-        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_initable_newv(GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, out IntPtr errorPtr);
 
         public static Object New(GType objectType, params object[] parameters)
@@ -120,6 +120,11 @@ namespace GISharp.Test.Core
     [GTypeStruct(typeof(NetworkMonitorInterface))]
     public interface INetworkMonitor : IInitable, GInterface<Object>
     {
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        private static extern GType g_network_monitor_get_type();
+
+        private static readonly GType _GType = g_network_monitor_get_type();
+
         [GProperty("connectivity")]
         NetworkConnectivity Connectivity { get; }
         [GProperty("network-available")]
@@ -306,11 +311,6 @@ namespace GISharp.Test.Core
     public static class NetworkMonitor
     {
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_network_monitor_get_type();
-
-        static readonly GType _GType = g_network_monitor_get_type();
-
-        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Boolean g_network_monitor_get_network_available(IntPtr monitor);
 
         public static bool GetNetworkAvailable(this INetworkMonitor monitor)
@@ -396,6 +396,11 @@ namespace GISharp.Test.Core
     [GTypeStruct(typeof(AsyncResultIface))]
     interface IAsyncResult : GInterface<Object>
     {
+        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
+        private static extern GType g_async_result_get_type();
+
+        private static GType _GType = g_async_result_get_type();
+
         [GVirtualMethod(typeof(AsyncResultIface.UnmanagedGetUserData))]
         IntPtr GetUserData();
 
@@ -404,14 +409,6 @@ namespace GISharp.Test.Core
 
         [GVirtualMethod(typeof(AsyncResultIface.UnmanagedIsTagged))]
         IntPtr IsTagged(IntPtr sourceTag);
-    }
-
-    static class AsyncResult
-    {
-        [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_async_result_get_type();
-
-        static GType _GType = g_async_result_get_type();
     }
 
     delegate void AsyncReadyCallback(Object sourceObject, IAsyncResult res);

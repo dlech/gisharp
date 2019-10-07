@@ -8,22 +8,6 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncInitableIface))]
     public partial interface IAsyncInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.DoInitAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.22")]
-        [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncInitableIface.UnmanagedInitAsync))]
-        void DoInitAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
-
-        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.DoInitFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.22")]
-        [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncInitableIface.UnmanagedInitFinish))]
-        void DoInitFinish(GISharp.Lib.Gio.IAsyncResult res);
-    }
-
-    /// <summary>
-    /// Extension methods for <see cref="IAsyncInitable"/>
-    /// </summary>
-    public static partial class AsyncInitable
-    {
         private static readonly GISharp.Lib.GObject.GType _GType = g_async_initable_get_type();
 
         /// <summary>
@@ -88,7 +72,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
 
-        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='AsyncInitable.NewAsync(GISharp.Lib.GObject.GType,System.UInt32,GISharp.Lib.GObject.Parameter,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.NewAsync(GISharp.Lib.GObject.GType,System.UInt32,GISharp.Lib.GObject.Parameter,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_async_initable_init_async() instead. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
         [GISharp.Runtime.SinceAttribute("2.22")]
@@ -111,6 +95,22 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:out */
         private static extern unsafe GISharp.Lib.GObject.GType g_async_initable_get_type();
 
+        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.DoInitAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncInitableIface.UnmanagedInitAsync))]
+        void DoInitAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+
+        /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.DoInitFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncInitableIface.UnmanagedInitFinish))]
+        void DoInitFinish(GISharp.Lib.Gio.IAsyncResult res);
+    }
+
+    /// <summary>
+    /// Extension methods for <see cref="IAsyncInitable"/>
+    /// </summary>
+    public static partial class AsyncInitable
+    {
         /// <summary>
         /// Starts asynchronous initialization of the object implementing the
         /// interface. This must be done before any real use of the object after

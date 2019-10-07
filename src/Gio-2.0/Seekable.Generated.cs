@@ -7,6 +7,13 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(SeekableIface))]
     public partial interface ISeekable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
+        private static readonly GISharp.Lib.GObject.GType _GType = g_seekable_get_type();
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe GISharp.Lib.GObject.GType g_seekable_get_type();
+
         /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable.DoCanSeek()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedCanSeek))]
         System.Boolean DoCanSeek();
@@ -33,13 +40,6 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class Seekable
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_seekable_get_type();
-
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe GISharp.Lib.GObject.GType g_seekable_get_type();
-
         /// <summary>
         /// Tests if the stream supports the #GSeekableIface.
         /// </summary>

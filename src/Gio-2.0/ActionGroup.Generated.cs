@@ -7,6 +7,8 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionGroupInterface))]
     public partial interface IActionGroup : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
+        private static readonly GISharp.Lib.GObject.GType _GType = g_action_group_get_type();
+
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionAdded']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-added", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
@@ -26,6 +28,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-state-changed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
         event System.EventHandler<ActionGroup.ActionStateChangedEventArgs> ActionStateChanged;
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe GISharp.Lib.GObject.GType g_action_group_get_type();
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoActionAdded(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -98,8 +105,6 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class ActionGroup
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_action_group_get_type();
-
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionAddedEventArgs']/*" />
         public sealed class ActionAddedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
@@ -173,11 +178,6 @@ namespace GISharp.Lib.Gio
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
-
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe GISharp.Lib.GObject.GType g_action_group_get_type();
 
         /// <summary>
         /// Emits the #GActionGroup::action-added signal on @action_group.

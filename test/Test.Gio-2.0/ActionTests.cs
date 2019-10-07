@@ -4,10 +4,8 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
-using System.Reflection;
 
 using static GISharp.TestHelpers;
-using Action = GISharp.Lib.Gio.Action;
 using Object = GISharp.Lib.GObject.Object;
 using System.ComponentModel;
 
@@ -17,7 +15,7 @@ namespace GISharp.Test.Gio
     public class ActionTests
     {
         [Test]
-        public void TestEnabledProperty ()
+        public void TestEnabledProperty()
         {
             using (var obj = new TestAction()) {
                 // default value is true
@@ -41,7 +39,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestParameterTypeProperty ()
+        public void TestParameterTypeProperty()
         {
             using (var obj = new TestAction()) {
                 Assert.That(obj.ParameterType, Is.EqualTo(VariantType.Boolean));
@@ -52,7 +50,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestStateProperty ()
+        public void TestStateProperty()
         {
             using (var obj = new TestAction()) {
                 Assert.That((int)obj.State!, Is.EqualTo(2));
@@ -63,7 +61,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestStateTypeProperty ()
+        public void TestStateTypeProperty()
         {
             using (var obj = new TestAction()) {
                 Assert.That(obj.StateType, Is.EqualTo(VariantType.Int32));
@@ -74,7 +72,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestThatActivateImplementationIsCalled ()
+        public void TestThatActivateImplementationIsCalled()
         {
             using (var obj = new TestAction())
             using (var parameter = new Variant(1)) {
@@ -86,7 +84,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestThatChangeStateImplementationIsCalled ()
+        public void TestThatChangeStateImplementationIsCalled()
         {
             using (var obj = new TestAction())
             using (var value = new Variant(1)) {
@@ -98,7 +96,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestThatGetEnabledImplementationIsCalled ()
+        public void TestThatGetEnabledImplementationIsCalled()
         {
             using (var obj = new TestAction()) {
                 Assume.That(obj.GetEnabledCallbackCount, Is.EqualTo(0));
@@ -110,7 +108,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestThatGetNameImplementationIsCalled ()
+        public void TestThatGetNameImplementationIsCalled()
         {
             const string expected = "test-action-name";
             using (var obj = new TestAction(expected)) {
@@ -123,7 +121,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestThatGetParameterTypeImplementationIsCalled ()
+        public void TestThatGetParameterTypeImplementationIsCalled()
         {
             using (var obj = new TestAction()) {
                 Assume.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(0));
@@ -135,7 +133,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestThatGetStateImplementationIsCalled ()
+        public void TestThatGetStateImplementationIsCalled()
         {
             using (var obj = new TestAction()) {
                 Assume.That(obj.GetStateCallbackCount, Is.EqualTo(0));
@@ -147,7 +145,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestThatGetStateHintImplementationIsCalled ()
+        public void TestThatGetStateHintImplementationIsCalled()
         {
             using (var obj = new TestAction()) {
                 Assume.That(obj.GetStateHintCallbackCount, Is.EqualTo(0));
@@ -159,7 +157,7 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestThatGetStateTypeImplementationIsCalled ()
+        public void TestThatGetStateTypeImplementationIsCalled()
         {
             using (var obj = new TestAction()) {
                 Assume.That(obj.GetStateTypeCallbackCount, Is.EqualTo(0));
@@ -173,44 +171,44 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestNameIsValidNullArgument()
         {
-            Assert.That(Action.NameIsValid("test"), Is.True);
-            Assert.That(Action.NameIsValid(""), Is.False);
+            Assert.That(IAction.NameIsValid("test"), Is.True);
+            Assert.That(IAction.NameIsValid(""), Is.False);
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestNameIsValidEmptyIsNotValid ()
+        public void TestNameIsValidEmptyIsNotValid()
         {
-            Assert.That (Action.NameIsValid (string.Empty), Is.False);
+            Assert.That(IAction.NameIsValid(string.Empty), Is.False);
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestNameIsValidWithValid ()
+        public void TestNameIsValidWithValid()
         {
-            Assert.That (Action.NameIsValid ("a.valid-name123"), Is.True);
+            Assert.That(IAction.NameIsValid("a.valid-name123"), Is.True);
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestNameIsValidWithInvalidName ()
+        public void TestNameIsValidWithInvalidName()
         {
-            Assert.That (Action.NameIsValid ("not a valid name"), Is.False);
+            Assert.That(IAction.NameIsValid("not a valid name"), Is.False);
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestParseDetailedNameWithInvalidName ()
+        public void TestParseDetailedNameWithInvalidName()
         {
-            Assert.That(() => Action.ParseDetailedName("invalid name", out var actionName, out var target),
+            Assert.That(() => IAction.ParseDetailedName("invalid name", out var actionName, out var target),
                 ThrowsGErrorException(VariantParseError.Failed));
             AssertNoGLibLog();
         }
 
         [Test]
-        public void TestParseDetailedNameActionWithNoTarget ()
+        public void TestParseDetailedNameActionWithNoTarget()
         {
-            Action.ParseDetailedName("action", out var actionName, out var target);
+            IAction.ParseDetailedName("action", out var actionName, out var target);
             try {
                 Assert.That<string>(actionName, Is.EqualTo("action"));
                 Assert.That(target, Is.Null);
@@ -223,9 +221,9 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestParseDetailedNameActionWithStringTarget ()
+        public void TestParseDetailedNameActionWithStringTarget()
         {
-            Action.ParseDetailedName("action::target", out var actionName, out var target);
+            IAction.ParseDetailedName("action::target", out var actionName, out var target);
             try {
                 Assert.That<string>(actionName, Is.EqualTo("action"));
                 Assert.That((string)target, Is.EqualTo("target"));
@@ -238,9 +236,9 @@ namespace GISharp.Test.Gio
         }
 
         [Test]
-        public void TestParseDetailedNameActionWithIntTarget ()
+        public void TestParseDetailedNameActionWithIntTarget()
         {
-            Action.ParseDetailedName("action(42)", out var actionName, out var target);
+            IAction.ParseDetailedName("action(42)", out var actionName, out var target);
             try {
                 Assert.That<string>(actionName, Is.EqualTo("action"));
                 Assert.That((int)target, Is.EqualTo(42));
@@ -272,7 +270,7 @@ namespace GISharp.Test.Gio
 
         void IAction.DoActivate(Variant? parameter)
         {
-            Assert.That ((int)parameter!, Is.EqualTo (1));
+            Assert.That((int)parameter!, Is.EqualTo(1));
             ActivateCallbackCount++;
         }
 
@@ -280,7 +278,7 @@ namespace GISharp.Test.Gio
 
         void IAction.DoChangeState(Variant value)
         {
-            Assert.That ((int)value, Is.EqualTo (1));
+            Assert.That((int)value, Is.EqualTo(1));
             ChangeStateCallbackCount++;
         }
 
@@ -313,7 +311,7 @@ namespace GISharp.Test.Gio
         Variant IAction.DoGetState()
         {
             GetStateCallbackCount++;
-            return new Variant (2);
+            return new Variant(2);
         }
 
         public int GetStateHintCallbackCount;
@@ -336,14 +334,14 @@ namespace GISharp.Test.Gio
         {
         }
 
-        public TestAction(string name) : this (New<TestAction>(), Transfer.Full)
+        public TestAction(string name) : this(New<TestAction>(), Transfer.Full)
         {
             this.name = name;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TestAction(IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
+            : base(handle, ownership)
         {
         }
     }

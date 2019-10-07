@@ -7,6 +7,13 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncResultIface))]
     public partial interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
+        private static readonly GISharp.Lib.GObject.GType _GType = g_async_result_get_type();
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe GISharp.Lib.GObject.GType g_async_result_get_type();
+
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IAsyncResult.DoGetSourceObject()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedGetSourceObject))]
         GISharp.Lib.GObject.Object? DoGetSourceObject();
@@ -26,13 +33,6 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class AsyncResult
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_async_result_get_type();
-
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe GISharp.Lib.GObject.GType g_async_result_get_type();
-
         /// <summary>
         /// Gets the source object from a #GAsyncResult.
         /// </summary>

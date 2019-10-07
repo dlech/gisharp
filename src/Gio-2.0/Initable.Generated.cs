@@ -8,17 +8,6 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(InitableIface))]
     public partial interface IInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
-        /// <include file="Initable.xmldoc" path="declaration/member[@name='IInitable.DoInit(GISharp.Lib.Gio.Cancellable?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.22")]
-        [GISharp.Runtime.GVirtualMethodAttribute(typeof(InitableIface.UnmanagedInit))]
-        void DoInit(GISharp.Lib.Gio.Cancellable? cancellable = null);
-    }
-
-    /// <summary>
-    /// Extension methods for <see cref="IInitable"/>
-    /// </summary>
-    public static partial class Initable
-    {
         private static readonly GISharp.Lib.GObject.GType _GType = g_initable_get_type();
 
         /// <summary>
@@ -74,6 +63,17 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:full direction:out */
         private static extern unsafe GISharp.Lib.GObject.GType g_initable_get_type();
 
+        /// <include file="Initable.xmldoc" path="declaration/member[@name='IInitable.DoInit(GISharp.Lib.Gio.Cancellable?)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.22")]
+        [GISharp.Runtime.GVirtualMethodAttribute(typeof(InitableIface.UnmanagedInit))]
+        void DoInit(GISharp.Lib.Gio.Cancellable? cancellable = null);
+    }
+
+    /// <summary>
+    /// Extension methods for <see cref="IInitable"/>
+    /// </summary>
+    public static partial class Initable
+    {
         /// <summary>
         /// Initializes the object implementing the interface.
         /// </summary>

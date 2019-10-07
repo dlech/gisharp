@@ -1,5 +1,166 @@
 <declaration>
 
+<member name='IFile.NewForCommandlineArg(GISharp.Lib.GLib.Filename)'>
+<summary>
+Creates a <see cref="IFile"/> with the given argument from the command line.
+The value of <paramref name="arg"/> can be either a URI, an absolute path or a
+relative path resolved relative to the current working directory.
+This operation never fails, but the returned object might not
+support any I/O operation if <paramref name="arg"/> points to a malformed path.
+</summary>
+<remarks>
+Note that on Windows, this function expects its argument to be in
+UTF-8 -- not the system code page.  This means that you
+should not use this function with string from argv as it is passed
+to main().  g_win32_get_command_line() will return a UTF-8 version of
+the commandline.  <see cref="Application"/> also uses UTF-8 but
+<see cref="ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)"/> may be more useful
+for you there.  It is also always possible to use this function with
+#GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
+</remarks>
+<param name="arg">
+a command line string
+</param>
+<returns>
+a new <see cref="IFile"/>.
+   Free the returned object with g_object_unref().
+</returns>
+</member>
+
+<member name='IFile.NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename)'>
+<summary>
+Creates a <see cref="IFile"/> with the given argument from the command line.
+</summary>
+<remarks>
+This function is similar to <see cref="File.NewForCommandlineArg(GISharp.Lib.GLib.Filename)"/> except
+that it allows for passing the current working directory as an
+argument instead of using the current working directory of the
+process.
+
+This is useful if the commandline argument was given in a context
+other than the invocation of the current process.
+
+See also <see cref="ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)"/>.
+</remarks>
+<param name="arg">
+a command line string
+</param>
+<param name="cwd">
+the current working directory of the commandline
+</param>
+<returns>
+a new <see cref="IFile"/>
+</returns>
+</member>
+
+<member name='IFile.NewForPath(GISharp.Lib.GLib.Filename)'>
+<summary>
+Constructs a <see cref="IFile"/> for a given path. This operation never
+fails, but the returned object might not support any I/O
+operation if <paramref name="path"/> is malformed.
+</summary>
+<param name="path">
+a string containing a relative or absolute path.
+    The string must be encoded in the glib filename encoding.
+</param>
+<returns>
+a new <see cref="IFile"/> for the given <paramref name="path"/>.
+  Free the returned object with g_object_unref().
+</returns>
+</member>
+
+<member name='IFile.NewForUri(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Constructs a <see cref="IFile"/> for a given URI. This operation never
+fails, but the returned object might not support any I/O
+operation if <paramref name="uri"/> is malformed or if the uri type is
+not supported.
+</summary>
+<param name="uri">
+a UTF-8 string containing a URI
+</param>
+<returns>
+a new <see cref="IFile"/> for the given <paramref name="uri"/>.
+    Free the returned object with g_object_unref().
+</returns>
+</member>
+
+<member name='IFile.NewForUri(System.String)'>
+<summary>
+Constructs a <see cref="IFile"/> for a given URI. This operation never
+fails, but the returned object might not support any I/O
+operation if <paramref name="uri"/> is malformed or if the uri type is
+not supported.
+</summary>
+<param name="uri">
+a UTF-8 string containing a URI
+</param>
+<returns>
+a new <see cref="IFile"/> for the given <paramref name="uri"/>.
+    Free the returned object with g_object_unref().
+</returns>
+</member>
+
+<member name='IFile.NewTmp(GISharp.Lib.GLib.Filename?,GISharp.Lib.Gio.FileIOStream)'>
+<summary>
+Opens a file in the preferred directory for temporary files (as
+returned by g_get_tmp_dir()) and returns a <see cref="IFile"/> and
+<see cref="FileIOStream"/> pointing to it.
+</summary>
+<remarks>
+<paramref name="tmpl"/> should be a string in the GLib file name encoding
+containing a sequence of six 'X' characters, and containing no
+directory components. If it is <c>null</c>, a default template is used.
+
+Unlike the other <see cref="IFile"/> constructors, this will return <c>null</c> if
+a temporary file could not be created.
+</remarks>
+<param name="tmpl">
+Template for the file
+  name, as in g_file_open_tmp(), or <c>null</c> for a default template
+</param>
+<param name="iostream">
+on return, a <see cref="FileIOStream"/> for the created file
+</param>
+<returns>
+a new <see cref="IFile"/>.
+    Free the returned object with g_object_unref().
+</returns>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
+<member name='IFile.ParseName(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Constructs a <see cref="IFile"/> with the given <paramref name="parseName"/> (i.e. something
+given by <see cref="File.GetParseName(GISharp.Lib.Gio.IFile)"/>). This operation never fails,
+but the returned object might not support any I/O operation if
+the <paramref name="parseName"/> cannot be parsed.
+</summary>
+<param name="parseName">
+a file name or path to be parsed
+</param>
+<returns>
+a new <see cref="IFile"/>.
+</returns>
+</member>
+
+<member name='IFile.ParseName(System.String)'>
+<summary>
+Constructs a <see cref="IFile"/> with the given <paramref name="parseName"/> (i.e. something
+given by <see cref="File.GetParseName(GISharp.Lib.Gio.IFile)"/>). This operation never fails,
+but the returned object might not support any I/O operation if
+the <paramref name="parseName"/> cannot be parsed.
+</summary>
+<param name="parseName">
+a file name or path to be parsed
+</param>
+<returns>
+a new <see cref="IFile"/>.
+</returns>
+</member>
+
 <member name='IFile.DoAppendTo(GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Gets an output stream for appending data to the file.
@@ -2028,167 +2189,6 @@ HTTP 1.1
 [specification](http://www.w3.org/Protocols/rfc2616/rfc2616-sec14.html)
 for HTTP Etag headers, which are a very similar concept.
 </remarks>
-</member>
-
-<member name='File.NewForCommandlineArg(GISharp.Lib.GLib.Filename)'>
-<summary>
-Creates a <see cref="IFile"/> with the given argument from the command line.
-The value of <paramref name="arg"/> can be either a URI, an absolute path or a
-relative path resolved relative to the current working directory.
-This operation never fails, but the returned object might not
-support any I/O operation if <paramref name="arg"/> points to a malformed path.
-</summary>
-<remarks>
-Note that on Windows, this function expects its argument to be in
-UTF-8 -- not the system code page.  This means that you
-should not use this function with string from argv as it is passed
-to main().  g_win32_get_command_line() will return a UTF-8 version of
-the commandline.  <see cref="Application"/> also uses UTF-8 but
-<see cref="ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)"/> may be more useful
-for you there.  It is also always possible to use this function with
-#GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
-</remarks>
-<param name="arg">
-a command line string
-</param>
-<returns>
-a new <see cref="IFile"/>.
-   Free the returned object with g_object_unref().
-</returns>
-</member>
-
-<member name='File.NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename)'>
-<summary>
-Creates a <see cref="IFile"/> with the given argument from the command line.
-</summary>
-<remarks>
-This function is similar to <see cref="File.NewForCommandlineArg(GISharp.Lib.GLib.Filename)"/> except
-that it allows for passing the current working directory as an
-argument instead of using the current working directory of the
-process.
-
-This is useful if the commandline argument was given in a context
-other than the invocation of the current process.
-
-See also <see cref="ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)"/>.
-</remarks>
-<param name="arg">
-a command line string
-</param>
-<param name="cwd">
-the current working directory of the commandline
-</param>
-<returns>
-a new <see cref="IFile"/>
-</returns>
-</member>
-
-<member name='File.NewForPath(GISharp.Lib.GLib.Filename)'>
-<summary>
-Constructs a <see cref="IFile"/> for a given path. This operation never
-fails, but the returned object might not support any I/O
-operation if <paramref name="path"/> is malformed.
-</summary>
-<param name="path">
-a string containing a relative or absolute path.
-    The string must be encoded in the glib filename encoding.
-</param>
-<returns>
-a new <see cref="IFile"/> for the given <paramref name="path"/>.
-  Free the returned object with g_object_unref().
-</returns>
-</member>
-
-<member name='File.NewForUri(GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Constructs a <see cref="IFile"/> for a given URI. This operation never
-fails, but the returned object might not support any I/O
-operation if <paramref name="uri"/> is malformed or if the uri type is
-not supported.
-</summary>
-<param name="uri">
-a UTF-8 string containing a URI
-</param>
-<returns>
-a new <see cref="IFile"/> for the given <paramref name="uri"/>.
-    Free the returned object with g_object_unref().
-</returns>
-</member>
-
-<member name='File.NewForUri(System.String)'>
-<summary>
-Constructs a <see cref="IFile"/> for a given URI. This operation never
-fails, but the returned object might not support any I/O
-operation if <paramref name="uri"/> is malformed or if the uri type is
-not supported.
-</summary>
-<param name="uri">
-a UTF-8 string containing a URI
-</param>
-<returns>
-a new <see cref="IFile"/> for the given <paramref name="uri"/>.
-    Free the returned object with g_object_unref().
-</returns>
-</member>
-
-<member name='File.NewTmp(GISharp.Lib.GLib.Filename?,GISharp.Lib.Gio.FileIOStream)'>
-<summary>
-Opens a file in the preferred directory for temporary files (as
-returned by g_get_tmp_dir()) and returns a <see cref="IFile"/> and
-<see cref="FileIOStream"/> pointing to it.
-</summary>
-<remarks>
-<paramref name="tmpl"/> should be a string in the GLib file name encoding
-containing a sequence of six 'X' characters, and containing no
-directory components. If it is <c>null</c>, a default template is used.
-
-Unlike the other <see cref="IFile"/> constructors, this will return <c>null</c> if
-a temporary file could not be created.
-</remarks>
-<param name="tmpl">
-Template for the file
-  name, as in g_file_open_tmp(), or <c>null</c> for a default template
-</param>
-<param name="iostream">
-on return, a <see cref="FileIOStream"/> for the created file
-</param>
-<returns>
-a new <see cref="IFile"/>.
-    Free the returned object with g_object_unref().
-</returns>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
-<member name='File.ParseName(GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Constructs a <see cref="IFile"/> with the given <paramref name="parseName"/> (i.e. something
-given by <see cref="File.GetParseName(GISharp.Lib.Gio.IFile)"/>). This operation never fails,
-but the returned object might not support any I/O operation if
-the <paramref name="parseName"/> cannot be parsed.
-</summary>
-<param name="parseName">
-a file name or path to be parsed
-</param>
-<returns>
-a new <see cref="IFile"/>.
-</returns>
-</member>
-
-<member name='File.ParseName(System.String)'>
-<summary>
-Constructs a <see cref="IFile"/> with the given <paramref name="parseName"/> (i.e. something
-given by <see cref="File.GetParseName(GISharp.Lib.Gio.IFile)"/>). This operation never fails,
-but the returned object might not support any I/O operation if
-the <paramref name="parseName"/> cannot be parsed.
-</summary>
-<param name="parseName">
-a file name or path to be parsed
-</param>
-<returns>
-a new <see cref="IFile"/>.
-</returns>
 </member>
 
 <member name='File.AppendTo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>

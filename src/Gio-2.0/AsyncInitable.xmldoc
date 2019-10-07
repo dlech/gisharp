@@ -1,5 +1,27 @@
 <declaration>
 
+<member name='IAsyncInitable.NewAsync(GISharp.Lib.GObject.GType,System.UInt32,GISharp.Lib.GObject.Parameter,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<summary>
+Helper function for constructing <see cref="IAsyncInitable"/> object. This is
+similar to g_object_newv() but also initializes the object asynchronously.
+</summary>
+<param name="objectType">
+a #GType supporting <see cref="IAsyncInitable"/>.
+</param>
+<param name="nParameters">
+the number of parameters in <paramref name="parameters"/>
+</param>
+<param name="parameters">
+the parameters to use to construct the object
+</param>
+<param name="ioPriority">
+the [I/O priority][io-priority] of the operation
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
+</param>
+</member>
+
 <member name='IAsyncInitable.DoInitAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Starts asynchronous initialization of the object implementing the
@@ -166,28 +188,6 @@ foo_async_initable_iface_init (gpointer g_iface,
 }
 ]|
 </remarks>
-</member>
-
-<member name='AsyncInitable.NewAsync(GISharp.Lib.GObject.GType,System.UInt32,GISharp.Lib.GObject.Parameter,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Helper function for constructing <see cref="IAsyncInitable"/> object. This is
-similar to g_object_newv() but also initializes the object asynchronously.
-</summary>
-<param name="objectType">
-a #GType supporting <see cref="IAsyncInitable"/>.
-</param>
-<param name="nParameters">
-the number of parameters in <paramref name="parameters"/>
-</param>
-<param name="parameters">
-the parameters to use to construct the object
-</param>
-<param name="ioPriority">
-the [I/O priority][io-priority] of the operation
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-</param>
 </member>
 
 <member name='AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable?)'>

@@ -898,10 +898,6 @@ namespace GISharp.Lib.GObject
                     if (type.IsEnum) {
                         implementationType = type.Assembly.GetType(type.FullName + "Extensions") ?? implementationType;
                     }
-                    else if (type.IsInterface) {
-                        var nameWithoutIPrefix = type.FullName.Remove(type.FullName.LastIndexOf('.') + 1, 1);
-                        implementationType = type.Assembly.GetType(nameWithoutIPrefix) ?? implementationType;
-                    }
                     else if (type.IsGenericType && type.BaseType != typeof(Boxed)) {
                         implementationType = type.BaseType;
                     }

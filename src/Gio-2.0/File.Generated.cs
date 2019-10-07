@@ -7,6 +7,263 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.GTypeStructAttribute(typeof(FileIface))]
     public partial interface IFile : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
+        private static readonly GISharp.Lib.GObject.GType _GType = g_file_get_type();
+
+        /// <summary>
+        /// Creates a #GFile with the given argument from the command line.
+        /// The value of @arg can be either a URI, an absolute path or a
+        /// relative path resolved relative to the current working directory.
+        /// This operation never fails, but the returned object might not
+        /// support any I/O operation if @arg points to a malformed path.
+        /// </summary>
+        /// <remarks>
+        /// Note that on Windows, this function expects its argument to be in
+        /// UTF-8 -- not the system code page.  This means that you
+        /// should not use this function with string from argv as it is passed
+        /// to main().  g_win32_get_command_line() will return a UTF-8 version of
+        /// the commandline.  #GApplication also uses UTF-8 but
+        /// g_application_command_line_create_file_for_arg() may be more useful
+        /// for you there.  It is also always possible to use this function with
+        /// #GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
+        /// </remarks>
+        /// <param name="arg">
+        /// a command line string
+        /// </param>
+        /// <returns>
+        /// a new #GFile.
+        ///    Free the returned object with g_object_unref().
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe System.IntPtr g_file_new_for_commandline_arg(
+        /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr arg);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForCommandlineArg(GISharp.Lib.GLib.Filename)']/*" />
+        public static unsafe GISharp.Lib.Gio.IFile NewForCommandlineArg(GISharp.Lib.GLib.Filename arg)
+        {
+            var arg_ = arg.Handle;
+            var ret_ = g_file_new_for_commandline_arg(arg_);
+            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
+        /// Creates a #GFile with the given argument from the command line.
+        /// </summary>
+        /// <remarks>
+        /// This function is similar to g_file_new_for_commandline_arg() except
+        /// that it allows for passing the current working directory as an
+        /// argument instead of using the current working directory of the
+        /// process.
+        /// 
+        /// This is useful if the commandline argument was given in a context
+        /// other than the invocation of the current process.
+        /// 
+        /// See also g_application_command_line_create_file_for_arg().
+        /// </remarks>
+        /// <param name="arg">
+        /// a command line string
+        /// </param>
+        /// <param name="cwd">
+        /// the current working directory of the commandline
+        /// </param>
+        /// <returns>
+        /// a new #GFile
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.36")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe System.IntPtr g_file_new_for_commandline_arg_and_cwd(
+        /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr arg,
+        /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr cwd);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.36")]
+        public static unsafe GISharp.Lib.Gio.IFile NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename arg, GISharp.Lib.GLib.Filename cwd)
+        {
+            var arg_ = arg.Handle;
+            var cwd_ = cwd.Handle;
+            var ret_ = g_file_new_for_commandline_arg_and_cwd(arg_,cwd_);
+            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
+        /// Constructs a #GFile for a given path. This operation never
+        /// fails, but the returned object might not support any I/O
+        /// operation if @path is malformed.
+        /// </summary>
+        /// <param name="path">
+        /// a string containing a relative or absolute path.
+        ///     The string must be encoded in the glib filename encoding.
+        /// </param>
+        /// <returns>
+        /// a new #GFile for the given @path.
+        ///   Free the returned object with g_object_unref().
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe System.IntPtr g_file_new_for_path(
+        /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr path);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForPath(GISharp.Lib.GLib.Filename)']/*" />
+        public static unsafe GISharp.Lib.Gio.IFile NewForPath(GISharp.Lib.GLib.Filename path)
+        {
+            var path_ = path.Handle;
+            var ret_ = g_file_new_for_path(path_);
+            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
+        /// Constructs a #GFile for a given URI. This operation never
+        /// fails, but the returned object might not support any I/O
+        /// operation if @uri is malformed or if the uri type is
+        /// not supported.
+        /// </summary>
+        /// <param name="uri">
+        /// a UTF-8 string containing a URI
+        /// </param>
+        /// <returns>
+        /// a new #GFile for the given @uri.
+        ///     Free the returned object with g_object_unref().
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe System.IntPtr g_file_new_for_uri(
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr uri);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForUri(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        public static unsafe GISharp.Lib.Gio.IFile NewForUri(GISharp.Lib.GLib.UnownedUtf8 uri)
+        {
+            var uri_ = uri.Handle;
+            var ret_ = g_file_new_for_uri(uri_);
+            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForUri(System.String)']/*" />
+        public static unsafe GISharp.Lib.Gio.IFile NewForUri(System.String uri)
+        {
+            using var uriUtf8 = new GISharp.Lib.GLib.Utf8(uri);
+            return NewForUri((GISharp.Lib.GLib.UnownedUtf8)uriUtf8);
+        }
+
+        /// <summary>
+        /// Opens a file in the preferred directory for temporary files (as
+        /// returned by g_get_tmp_dir()) and returns a #GFile and
+        /// #GFileIOStream pointing to it.
+        /// </summary>
+        /// <remarks>
+        /// @tmpl should be a string in the GLib file name encoding
+        /// containing a sequence of six 'X' characters, and containing no
+        /// directory components. If it is %NULL, a default template is used.
+        /// 
+        /// Unlike the other #GFile constructors, this will return %NULL if
+        /// a temporary file could not be created.
+        /// </remarks>
+        /// <param name="tmpl">
+        /// Template for the file
+        ///   name, as in g_file_open_tmp(), or %NULL for a default template
+        /// </param>
+        /// <param name="iostream">
+        /// on return, a #GFileIOStream for the created file
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// a new #GFile.
+        ///     Free the returned object with g_object_unref().
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe System.IntPtr g_file_new_tmp(
+        /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr tmpl,
+        /* <type name="FileIOStream" type="GFileIOStream**" managed-name="FileIOStream" is-pointer="1" /> */
+        /* direction:out caller-allocates:0 transfer-ownership:full */
+        out System.IntPtr iostream,
+        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        ref System.IntPtr error);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewTmp(GISharp.Lib.GLib.Filename?,GISharp.Lib.Gio.FileIOStream)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        public static unsafe GISharp.Lib.Gio.IFile NewTmp(GISharp.Lib.GLib.Filename? tmpl, out GISharp.Lib.Gio.FileIOStream iostream)
+        {
+            var tmpl_ = tmpl?.Handle ?? System.IntPtr.Zero;
+            var error_ = System.IntPtr.Zero;
+            var ret_ = g_file_new_tmp(tmpl_,out var iostream_,ref error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            iostream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileIOStream>(iostream_, GISharp.Runtime.Transfer.Full)!;
+            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <summary>
+        /// Constructs a #GFile with the given @parse_name (i.e. something
+        /// given by g_file_get_parse_name()). This operation never fails,
+        /// but the returned object might not support any I/O operation if
+        /// the @parse_name cannot be parsed.
+        /// </summary>
+        /// <param name="parseName">
+        /// a file name or path to be parsed
+        /// </param>
+        /// <returns>
+        /// a new #GFile.
+        /// </returns>
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe System.IntPtr g_file_parse_name(
+        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr parseName);
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.ParseName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        public static unsafe GISharp.Lib.Gio.IFile ParseName(GISharp.Lib.GLib.UnownedUtf8 parseName)
+        {
+            var parseName_ = parseName.Handle;
+            var ret_ = g_file_parse_name(parseName_);
+            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
+            return ret;
+        }
+
+        /// <include file="File.xmldoc" path="declaration/member[@name='IFile.ParseName(System.String)']/*" />
+        public static unsafe GISharp.Lib.Gio.IFile ParseName(System.String parseName)
+        {
+            using var parseNameUtf8 = new GISharp.Lib.GLib.Utf8(parseName);
+            return ParseName((GISharp.Lib.GLib.UnownedUtf8)parseNameUtf8);
+        }
+
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe GISharp.Lib.GObject.GType g_file_get_type();
+
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.DoAppendTo(GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIface.UnmanagedAppendTo))]
         GISharp.Lib.Gio.FileOutputStream DoAppendTo(GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
@@ -347,263 +604,6 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class File
     {
-        private static readonly GISharp.Lib.GObject.GType _GType = g_file_get_type();
-
-        /// <summary>
-        /// Creates a #GFile with the given argument from the command line.
-        /// The value of @arg can be either a URI, an absolute path or a
-        /// relative path resolved relative to the current working directory.
-        /// This operation never fails, but the returned object might not
-        /// support any I/O operation if @arg points to a malformed path.
-        /// </summary>
-        /// <remarks>
-        /// Note that on Windows, this function expects its argument to be in
-        /// UTF-8 -- not the system code page.  This means that you
-        /// should not use this function with string from argv as it is passed
-        /// to main().  g_win32_get_command_line() will return a UTF-8 version of
-        /// the commandline.  #GApplication also uses UTF-8 but
-        /// g_application_command_line_create_file_for_arg() may be more useful
-        /// for you there.  It is also always possible to use this function with
-        /// #GOptionContext arguments of type %G_OPTION_ARG_FILENAME.
-        /// </remarks>
-        /// <param name="arg">
-        /// a command line string
-        /// </param>
-        /// <returns>
-        /// a new #GFile.
-        ///    Free the returned object with g_object_unref().
-        /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_file_new_for_commandline_arg(
-        /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        System.IntPtr arg);
-
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.NewForCommandlineArg(GISharp.Lib.GLib.Filename)']/*" />
-        public static unsafe GISharp.Lib.Gio.IFile NewForCommandlineArg(GISharp.Lib.GLib.Filename arg)
-        {
-            var arg_ = arg.Handle;
-            var ret_ = g_file_new_for_commandline_arg(arg_);
-            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
-            return ret;
-        }
-
-        /// <summary>
-        /// Creates a #GFile with the given argument from the command line.
-        /// </summary>
-        /// <remarks>
-        /// This function is similar to g_file_new_for_commandline_arg() except
-        /// that it allows for passing the current working directory as an
-        /// argument instead of using the current working directory of the
-        /// process.
-        /// 
-        /// This is useful if the commandline argument was given in a context
-        /// other than the invocation of the current process.
-        /// 
-        /// See also g_application_command_line_create_file_for_arg().
-        /// </remarks>
-        /// <param name="arg">
-        /// a command line string
-        /// </param>
-        /// <param name="cwd">
-        /// the current working directory of the commandline
-        /// </param>
-        /// <returns>
-        /// a new #GFile
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.36")]
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_file_new_for_commandline_arg_and_cwd(
-        /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        System.IntPtr arg,
-        /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        System.IntPtr cwd);
-
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.36")]
-        public static unsafe GISharp.Lib.Gio.IFile NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename arg, GISharp.Lib.GLib.Filename cwd)
-        {
-            var arg_ = arg.Handle;
-            var cwd_ = cwd.Handle;
-            var ret_ = g_file_new_for_commandline_arg_and_cwd(arg_,cwd_);
-            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
-            return ret;
-        }
-
-        /// <summary>
-        /// Constructs a #GFile for a given path. This operation never
-        /// fails, but the returned object might not support any I/O
-        /// operation if @path is malformed.
-        /// </summary>
-        /// <param name="path">
-        /// a string containing a relative or absolute path.
-        ///     The string must be encoded in the glib filename encoding.
-        /// </param>
-        /// <returns>
-        /// a new #GFile for the given @path.
-        ///   Free the returned object with g_object_unref().
-        /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_file_new_for_path(
-        /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        System.IntPtr path);
-
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.NewForPath(GISharp.Lib.GLib.Filename)']/*" />
-        public static unsafe GISharp.Lib.Gio.IFile NewForPath(GISharp.Lib.GLib.Filename path)
-        {
-            var path_ = path.Handle;
-            var ret_ = g_file_new_for_path(path_);
-            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
-            return ret;
-        }
-
-        /// <summary>
-        /// Constructs a #GFile for a given URI. This operation never
-        /// fails, but the returned object might not support any I/O
-        /// operation if @uri is malformed or if the uri type is
-        /// not supported.
-        /// </summary>
-        /// <param name="uri">
-        /// a UTF-8 string containing a URI
-        /// </param>
-        /// <returns>
-        /// a new #GFile for the given @uri.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_file_new_for_uri(
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        System.IntPtr uri);
-
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.NewForUri(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static unsafe GISharp.Lib.Gio.IFile NewForUri(GISharp.Lib.GLib.UnownedUtf8 uri)
-        {
-            var uri_ = uri.Handle;
-            var ret_ = g_file_new_for_uri(uri_);
-            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
-            return ret;
-        }
-
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.NewForUri(System.String)']/*" />
-        public static unsafe GISharp.Lib.Gio.IFile NewForUri(System.String uri)
-        {
-            using var uriUtf8 = new GISharp.Lib.GLib.Utf8(uri);
-            return NewForUri((GISharp.Lib.GLib.UnownedUtf8)uriUtf8);
-        }
-
-        /// <summary>
-        /// Opens a file in the preferred directory for temporary files (as
-        /// returned by g_get_tmp_dir()) and returns a #GFile and
-        /// #GFileIOStream pointing to it.
-        /// </summary>
-        /// <remarks>
-        /// @tmpl should be a string in the GLib file name encoding
-        /// containing a sequence of six 'X' characters, and containing no
-        /// directory components. If it is %NULL, a default template is used.
-        /// 
-        /// Unlike the other #GFile constructors, this will return %NULL if
-        /// a temporary file could not be created.
-        /// </remarks>
-        /// <param name="tmpl">
-        /// Template for the file
-        ///   name, as in g_file_open_tmp(), or %NULL for a default template
-        /// </param>
-        /// <param name="iostream">
-        /// on return, a #GFileIOStream for the created file
-        /// </param>
-        /// <param name="error">
-        /// return location for a #GError
-        /// </param>
-        /// <returns>
-        /// a new #GFile.
-        ///     Free the returned object with g_object_unref().
-        /// </returns>
-        [GISharp.Runtime.SinceAttribute("2.32")]
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_file_new_tmp(
-        /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr tmpl,
-        /* <type name="FileIOStream" type="GFileIOStream**" managed-name="FileIOStream" is-pointer="1" /> */
-        /* direction:out caller-allocates:0 transfer-ownership:full */
-        out System.IntPtr iostream,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
-        /* direction:inout transfer-ownership:full */
-        ref System.IntPtr error);
-
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.NewTmp(GISharp.Lib.GLib.Filename?,GISharp.Lib.Gio.FileIOStream)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.32")]
-        public static unsafe GISharp.Lib.Gio.IFile NewTmp(GISharp.Lib.GLib.Filename? tmpl, out GISharp.Lib.Gio.FileIOStream iostream)
-        {
-            var tmpl_ = tmpl?.Handle ?? System.IntPtr.Zero;
-            var error_ = System.IntPtr.Zero;
-            var ret_ = g_file_new_tmp(tmpl_,out var iostream_,ref error_);
-            if (error_ != System.IntPtr.Zero)
-            {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
-            }
-
-            iostream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileIOStream>(iostream_, GISharp.Runtime.Transfer.Full)!;
-            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
-            return ret;
-        }
-
-        /// <summary>
-        /// Constructs a #GFile with the given @parse_name (i.e. something
-        /// given by g_file_get_parse_name()). This operation never fails,
-        /// but the returned object might not support any I/O operation if
-        /// the @parse_name cannot be parsed.
-        /// </summary>
-        /// <param name="parseName">
-        /// a file name or path to be parsed
-        /// </param>
-        /// <returns>
-        /// a new #GFile.
-        /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_file_parse_name(
-        /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        System.IntPtr parseName);
-
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.ParseName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static unsafe GISharp.Lib.Gio.IFile ParseName(GISharp.Lib.GLib.UnownedUtf8 parseName)
-        {
-            var parseName_ = parseName.Handle;
-            var ret_ = g_file_parse_name(parseName_);
-            var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
-            return ret;
-        }
-
-        /// <include file="File.xmldoc" path="declaration/member[@name='File.ParseName(System.String)']/*" />
-        public static unsafe GISharp.Lib.Gio.IFile ParseName(System.String parseName)
-        {
-            using var parseNameUtf8 = new GISharp.Lib.GLib.Utf8(parseName);
-            return ParseName((GISharp.Lib.GLib.UnownedUtf8)parseNameUtf8);
-        }
-
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe GISharp.Lib.GObject.GType g_file_get_type();
-
         /// <summary>
         /// Gets an output stream for appending data to the file.
         /// If the file doesn't already exist it is created.
