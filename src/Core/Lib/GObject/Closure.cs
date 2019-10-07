@@ -515,7 +515,7 @@ namespace GISharp.Lib.GObject
                 throw new ArgumentNullException (nameof (paramValues));
             }
 
-            var returnValue = new Value(GType.TypeOf<T>());
+            var returnValue = new Value(GType.Of<T>());
             var paramValues_ = stackalloc Value[paramValues.Length];
             for (int i = 0; i < paramValues.Length; i++) {
                 var p = paramValues[i];

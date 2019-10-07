@@ -101,11 +101,11 @@ namespace GISharp.Lib.GObject
                 return Float;
             }
             if (gtype == GType.Enum) {
-                var enumType = GType.TypeOf(ValueGType);
+                var enumType = ValueGType.ToType();
                 return System.Enum.ToObject(enumType, Enum);
             }
             if (gtype == GType.Flags) {
-                var enumType = GType.TypeOf(ValueGType);
+                var enumType = ValueGType.ToType();
                 return System.Enum.ToObject(enumType, Flags);
             }
             if (gtype == GType.Int) {
@@ -458,7 +458,7 @@ namespace GISharp.Lib.GObject
 
         public static explicit operator Value(Object value)
         {
-            return new Value(GType.TypeOf(value.GetType()), value);
+            return new Value(GType.Of(value.GetType()), value);
         }
 
         public static explicit operator string?(Value value)
@@ -488,7 +488,7 @@ namespace GISharp.Lib.GObject
 
         public static explicit operator Value(ParamSpec value)
         {
-            return new Value(GType.TypeOf(value.GetType()), value);
+            return new Value(GType.Of(value.GetType()), value);
         }
 
         public static explicit operator Boxed?(Value value)
@@ -503,7 +503,7 @@ namespace GISharp.Lib.GObject
 
         public static explicit operator Value(Boxed value)
         {
-            return new Value(GType.TypeOf(value.GetType()), value);
+            return new Value(GType.Of(value.GetType()), value);
         }
 
         public static explicit operator GType(Value value)
@@ -956,7 +956,7 @@ namespace GISharp.Lib.GObject
         Boxed? Boxed {
             get {
                 AssertType(GType.Boxed);
-                var managedType = GType.TypeOf(ValueGType);
+                var managedType = ValueGType.ToType();
                 var ret_ = g_value_get_boxed(in this);
                 return (Boxed?)Opaque.GetInstance(managedType, ret_, Transfer.None);
             }

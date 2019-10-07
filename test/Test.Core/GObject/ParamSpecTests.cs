@@ -236,7 +236,7 @@ namespace GISharp.Test.Core.GObject
         public void TestParamSpecEnum ()
         {
             const TestEnum defaultValue = TestEnum.Two;
-            var gtype = GType.TypeOf<TestEnum> ();
+            var gtype = GType.Of<TestEnum> ();
             Assume.That (gtype.IsA (GType.Enum));
 
             var param = TestParamSpec (gtype, (name, nick, blurb, flags) =>
@@ -261,7 +261,7 @@ namespace GISharp.Test.Core.GObject
         public void TestParamSpecFlags ()
         {
             const TestFlags defaultValue = TestFlags.Two;
-            var gtype = GType.TypeOf<TestFlags> ();
+            var gtype = GType.Of<TestFlags> ();
             Assume.That (gtype.IsA (GType.Flags));
 
             var param = TestParamSpec (gtype, (name, nick, blurb, flags) =>
@@ -294,7 +294,7 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestParamSpecParam ()
         {
-            var gtype = GType.TypeOf<ParamSpecBoolean> ();
+            var gtype = GType.Of<ParamSpecBoolean> ();
             Assume.That (gtype.IsA (GType.Param));
 
             var param = TestParamSpec (gtype, (name, nick, blurb, flags) =>
@@ -307,7 +307,7 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestParamSpecBoxed ()
         {
-            var gtype = GType.TypeOf<Strv> ();
+            var gtype = GType.Of<Strv> ();
             Assume.That (gtype.IsA (GType.Boxed));
 
             var param = TestParamSpec (gtype, (name, nick, blurb, flags) =>
@@ -331,7 +331,7 @@ namespace GISharp.Test.Core.GObject
         public void TestParamSpecObject ()
         {
             var param = TestParamSpec (GType.Object, (name, nick, blurb, flags) =>
-                                       new ParamSpecObject (name, nick, blurb, GType.TypeOf<GISharp.Lib.GObject.Object> (), flags));
+                                       new ParamSpecObject(name, nick, blurb, GType.Object, flags));
             Assert.That<string?>(param.GetGType().Name, Is.EqualTo("GParamObject"));
 
             AssertNoGLibLog();

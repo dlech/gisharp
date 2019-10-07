@@ -57,8 +57,6 @@ namespace GISharp.Test.Gio
     [GType]
     class TestActionMap : Object, IActionMap
     {
-        static readonly GType gtype = GType.TypeOf<TestActionMap>();
-
         public TestActionMap() : base(New<TestActionMap>(), Transfer.Full)
         {
         }

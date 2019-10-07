@@ -343,7 +343,7 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestParam()
         {
-            var v = new Value(GType.TypeOf<ParamSpecInt>());
+            var v = new Value(GType.Of<ParamSpecInt>());
             Assert.That(v.ValueGType, Is.Not.EqualTo(GType.Param));
             Assert.That(v.ValueGType.Fundamental, Is.EqualTo(GType.Param));
             using var expected = new ParamSpecBoolean("test", "test", "test", false, default);
@@ -366,7 +366,7 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestBoxed()
         {
-            var v = new Value(GType.TypeOf<Strv>());
+            var v = new Value(GType.Of<Strv>());
             Assert.That(v.ValueGType, Is.Not.EqualTo(GType.Boxed));
             Assert.That(v.ValueGType.Fundamental, Is.EqualTo(GType.Boxed));
             using var expected = new Strv();

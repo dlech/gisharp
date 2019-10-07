@@ -173,7 +173,7 @@ namespace GISharp.Test.Gio
     [GType]
     class TestActionGroup : Object, IActionGroup
     {
-        static readonly GType gtype = GType.TypeOf<TestActionGroup>();
+        static readonly GType gtype = GType.Of<TestActionGroup>();
 
         public TestActionGroup() : base(New<TestActionGroup>(), Transfer.Full)
         {

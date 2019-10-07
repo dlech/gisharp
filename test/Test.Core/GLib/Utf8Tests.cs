@@ -39,7 +39,7 @@ namespace GISharp.Test.Core
         [Test]
         public void TestGType()
         {
-            var gtype = GType.TypeOf<Utf8>();
+            var gtype = GType.Of<Utf8>();
             Assert.That(gtype, Is.EqualTo(GType.String));
             AssertNoGLibLog();
         }

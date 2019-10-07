@@ -971,7 +971,7 @@ namespace GISharp.Lib.GObject
                         var ifaceGType = ifaceType.GetGType();
                         var prereqs = TypeInterface.GetPrerequisites(ifaceGType);
                         foreach (var p in prereqs.Span) {
-                            if (!GType.TypeOf(p).IsAssignableFrom(type)) {
+                            if (!p.ToType().IsAssignableFrom(type)) {
                                 var message = $"Type {type.FullName} is missing prerequisite {ifaceType.FullName} ({p})";
                                 throw new ArgumentException(message, nameof(type));
                             }
@@ -1047,7 +1047,7 @@ namespace GISharp.Lib.GObject
             throw new NotImplementedException();
         }
 
-        public static GType TypeOf(Type type)
+        public static GType Of(Type type)
         {
             lock (mapLock) {
                 if (typeMap.ContainsKey(type)) {
@@ -1065,51 +1065,52 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        public static GType TypeOf<T>()
+        public static GType Of<T>()
         {
-            return TypeOf(typeof(T));
+            return Of(typeof(T));
         }
 
         public static explicit operator GType(Type type)
         {
             try {
-                return TypeOf(type);
+                return Of(type);
             }
             catch (Exception ex) {
                 throw new InvalidCastException("Could not get GType from type.", ex);
             }
         }
 
-        public static Type TypeOf(GType type)
+        public Type ToType()
         {
             lock (mapLock) {
-                if (g_type_get_qdata(type, managedTypeQuark) == IntPtr.Zero) {
+                if (g_type_get_qdata(this, managedTypeQuark) == IntPtr.Zero) {
                     Type? matchingType = null;
                     foreach (var asm in AppDomain.CurrentDomain.GetAssemblies()) {
+                        var name = (string?)Name;
                         matchingType = (asm.IsDynamic ? asm.DefinedTypes : asm.ExportedTypes)
                             .FirstOrDefault(t => t.GetCustomAttributes()
                                .OfType<GTypeAttribute>()
-                               .Any(a => a.Name == type.Name));
+                               .Any(a => a.Name == name));
                         if (matchingType != null) {
                             break;
                         }
                     }
                     if (matchingType == null) {
                         // TODO: More specific exception type
-                        var message = $"Could not find type for GType '{type.Name}' in loaded assemblies.";
+                        var message = $"Could not find type for GType '{Name}' in loaded assemblies.";
                         throw new Exception(message);
                     }
                     Register(matchingType);
                 }
 
-                return (Type)type[managedTypeQuark]!;
+                return (Type)this[managedTypeQuark]!;
             }
         }
 
         public static explicit operator Type(GType type)
         {
             try {
-                return TypeOf(type);
+                return type.ToType();
             }
             catch (Exception ex) {
                 throw new InvalidCastException("Could not get type from GType.", ex);
@@ -2598,7 +2599,7 @@ namespace GISharp.Lib.GObject
 
         public static Type GetGTypeStruct(this GType type)
         {
-            return GType.TypeOf(type).GetGTypeStruct();
+            return type.ToType().GetGTypeStruct();
         }
 
         /// <summary>
@@ -2614,7 +2615,7 @@ namespace GISharp.Lib.GObject
         /// </exception>
         public static GType GetGType(this Type type)
         {
-            return GType.TypeOf(type);
+            return GType.Of(type);
         }
 
         /// <summary>
@@ -2630,7 +2631,7 @@ namespace GISharp.Lib.GObject
         /// </exception>
         public static GType GetGType(this object obj)
         {
-            return GType.TypeOf(obj.GetType());
+            return GType.Of(obj.GetType());
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]

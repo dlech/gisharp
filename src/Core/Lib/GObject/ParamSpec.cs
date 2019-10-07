@@ -509,7 +509,7 @@ namespace GISharp.Lib.GObject
             // get the exact type of the object
             ptr = Marshal.ReadIntPtr(handle);
             var gtype = Marshal.PtrToStructure<GType>(ptr);
-            var type = GType.TypeOf(gtype);
+            var type = gtype.ToType();
 
             return (T)Activator.CreateInstance(type, handle, ownership);
         }

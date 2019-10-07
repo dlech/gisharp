@@ -508,7 +508,7 @@ namespace GISharp.Lib.GObject
                     g_signal_emitv(instanceAndParams, signalId, detail, null);
                 }
                 else {
-                    var returnValue = new Value(GType.TypeOf(type));
+                    var returnValue = new Value(GType.Of(type));
                     g_signal_emitv(instanceAndParams, signalId, detail, &returnValue);
                     ret = returnValue.Get();
                     returnValue.Unset();

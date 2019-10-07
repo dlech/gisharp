@@ -27,10 +27,10 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestGType()
         {
-            var gtype = GType.TypeOf<Boxed>();
+            var gtype = GType.Of<Boxed>();
             Assert.That<string?>(gtype.Name, Is.EqualTo("GBoxed"));
 
-            gtype = GType.TypeOf<Boxed<object>>();
+            gtype = GType.Of<Boxed<object>>();
             Assert.That<string?>(gtype.Name, Is.EqualTo("GISharp-Lib-GObject-Boxed--of--1System-Object"));
 
             AssertNoGLibLog();

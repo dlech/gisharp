@@ -48,7 +48,7 @@ namespace GISharp.Lib.GObject
         public Type EnumType {
             get {
                 var type = Marshal.PtrToStructure<GType>(EnumClass);
-                return GType.TypeOf(type);
+                return type.ToType();
             }
         }
 

@@ -241,7 +241,7 @@ namespace GISharp.Lib.GObject
 
         protected static unsafe IntPtr New<T>(params object[] parameters) where T : Object
         {
-            var gtype = GType.TypeOf<T>();
+            var gtype = GType.Of<T>();
             var nParameters = parameters.Length / 2;
             var valueArray = stackalloc Value[nParameters];
             var paramArray = stackalloc Parameter[nParameters];
@@ -387,7 +387,7 @@ namespace GISharp.Lib.GObject
         /// Whenever the <paramref name="sourceProperty"/>
         /// is changed the <paramref name="targetProperty"/> is
         /// updated using the same value. For instance:
-        /// 
+        ///
         /// |[
         ///   g_object_bind_property (action, "active", widget, "sensitive", 0);
         /// ]|
@@ -481,7 +481,7 @@ namespace GISharp.Lib.GObject
             UnmanagedDestroyNotify? notify);
 
         /// <summary>
-        /// Creates a binding between <paramref name="sourceProperty"/> on 
+        /// Creates a binding between <paramref name="sourceProperty"/> on
         /// this instance and <paramref name="targetProperty"/> on <paramref name="target"/>,
         /// allowing you to set the transformation functions to be used by
         /// the binding.
@@ -532,7 +532,7 @@ namespace GISharp.Lib.GObject
             var sourceProperty_ = sourceProperty.Handle;
             var target_ = target.Handle;
             var targetProperty_ = targetProperty.Handle;
-            
+
             var (transformTo_, transformFrom_, notify_, userData_) = UnmangedBindingTransformFuncFactory.CreateNotifyDelegate (transformTo, transformFrom);
             var ret_ = g_object_bind_property_full(this_, sourceProperty_, target_, targetProperty_, flags,
                                                    transformTo_, transformFrom_, userData_, notify_);
@@ -541,7 +541,7 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Creates a binding between <paramref name="sourceProperty"/> on 
+        /// Creates a binding between <paramref name="sourceProperty"/> on
         /// this instance and <paramref name="targetProperty"/> on <paramref name="target"/>,
         /// allowing you to set the transformation functions to be used by
         /// the binding.
@@ -1235,7 +1235,7 @@ namespace GISharp.Lib.GObject
             // get the exact type of the object
             ptr = Marshal.ReadIntPtr(handle);
             var gtype = Marshal.PtrToStructure<GType>(ptr);
-            var type = GType.TypeOf(gtype);
+            var type = gtype.ToType();
 
             return (T)Activator.CreateInstance(type, handle, ownership);
         }

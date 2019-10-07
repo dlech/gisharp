@@ -48,7 +48,7 @@ namespace GISharp.Lib.GObject
         public Type FlagsType {
             get {
                 var type = Marshal.PtrToStructure<GType>(FlagsClass);
-                return GType.TypeOf(type);
+                return type.ToType();
             }
         }
 

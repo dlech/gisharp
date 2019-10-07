@@ -294,7 +294,7 @@ namespace GISharp.Test.Core.GObject
 
             var gtype = GetDummyGType ();
             // TODO: Need more specific type of exception
-            Assert.That (() => GType.TypeOf (gtype), Throws.Exception);
+            Assert.That(() => gtype.ToType(), Throws.Exception);
 
             // then we dynamically generate a matching managed type
 
@@ -339,7 +339,7 @@ namespace GISharp.Test.Core.GObject
 
             // and try the test again
 
-            var actualType = GType.TypeOf (gtype);
+            var actualType = gtype.ToType();
             Assert.That (actualType, Is.EqualTo (expectedType));
 
             AssertNoGLibLog();
