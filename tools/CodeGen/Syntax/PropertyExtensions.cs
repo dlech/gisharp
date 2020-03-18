@@ -68,13 +68,13 @@ namespace GISharp.CodeGen.Syntax
         {
             var getter = $"({type})GetProperty";
             var expression = $"{getter}(\"{property.GirName}\")!";
-            return ParseExpression(expression); 
+            return ParseExpression(expression);
         }
 
         static ExpressionSyntax GetSetExpression(this Property property)
         {
             var expression = $"SetProperty(\"{property.GirName}\", value)";
-            return ParseExpression(expression); 
+            return ParseExpression(expression);
         }
 
         /// <summary>

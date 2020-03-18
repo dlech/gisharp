@@ -58,7 +58,7 @@ namespace GISharp.Lib.GLib
         /// g_int_hash(), g_int64_hash(), g_double_hash() and g_str_hash()
         /// functions are provided for some common types of keys.
         /// If @hash_func is %NULL, g_direct_hash() is used.
-        /// 
+        ///
         /// @key_equal_func is used when looking up keys in the #GHashTable.
         /// The g_direct_equal(), g_int_equal(), g_int64_equal(), g_double_equal()
         /// and g_str_equal() functions are provided for the most common types
@@ -298,10 +298,10 @@ namespace GISharp.Lib.GLib
         /// The returned array is %NULL-terminated but may contain %NULL as a
         /// key.  Use @length to determine the true length if it's possible that
         /// %NULL was used as the value for a key.
-        /// 
+        ///
         /// Note: in the common case of a string-keyed #GHashTable, the return
         /// value of this function can be conveniently cast to (gchar **).
-        /// 
+        ///
         /// You should always free the return result with g_free().  In the
         /// above-mentioned case of a string-keyed hash table, it may be
         /// appropriate to use g_strfreev() if you call g_hash_table_steal_all()
@@ -770,7 +770,7 @@ namespace GISharp.Lib.GLib
         /// bit unsigned hash value starts at 5381 and for each byte 'c' in
         /// the string, is updated: `hash = hash * 33 + c`. This function
         /// uses the signed value of each byte.
-        /// 
+        ///
         /// It can be passed to g_hash_table_new() as the @hash_func parameter,
         /// when using non-%NULL strings as keys in a #GHashTable.
         /// </remarks>

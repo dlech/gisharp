@@ -109,7 +109,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The resulting string is suitable for output to the console or other
         /// monospace media where newlines are treated in the usual way.
-        /// 
+        ///
         /// The message will typically look something like one of the following:
         /// <code>
         /// unterminated string constant:
@@ -123,7 +123,7 @@ namespace GISharp.Lib.GLib
         ///    ^        ^^^^^
         /// </code>
         /// The format of the message may change in a future version.
-        /// 
+        ///
         /// <paramref name="error"/> must have come from a failed attempt to
         /// <see cref="Variant.Parse(VariantType, UnownedUtf8)"/> and <paramref name="sourceStr"/>
         /// must be exactly the same string that caused the error.

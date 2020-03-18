@@ -89,10 +89,10 @@ namespace GISharp.Lib.GLib
         /// You can search the result for the UTF-8 encoding of this character (which is
         /// "\357\277\275" in octal notation) to find out if @filename was in an invalid
         /// encoding.
-        /// 
+        ///
         /// You must pass the whole absolute pathname to this functions so that
         /// translation of well known locations can be done.
-        /// 
+        ///
         /// This function is preferred over g_filename_display_name() if you know the
         /// whole path, as it allows translation.
         /// </remarks>
@@ -124,10 +124,10 @@ namespace GISharp.Lib.GLib
         /// You can search the result for the UTF-8 encoding of this character (which is
         /// "\357\277\275" in octal notation) to find out if @filename was in an invalid
         /// encoding.
-        /// 
+        ///
         /// You must pass the whole absolute pathname to this functions so that
         /// translation of well known locations can be done.
-        /// 
+        ///
         /// This function is preferred over <see cref="DisplayName"/> if you know the
         /// whole path, as it allows translation.
         /// </remarks>
@@ -157,7 +157,7 @@ namespace GISharp.Lib.GLib
         /// You can search the result for the UTF-8 encoding of this character (which is
         /// "\357\277\275" in octal notation) to find out if @filename was in an invalid
         /// encoding.
-        /// 
+        ///
         /// If you know the whole pathname of the file you should use
         /// g_filename_display_basename(), since that allows location-based
         /// translation of filenames.
@@ -191,7 +191,7 @@ namespace GISharp.Lib.GLib
         /// You can search the result for the UTF-8 encoding of this character (which is
         /// "\357\277\275" in octal notation) to find out if @filename was in an invalid
         /// encoding.
-        /// 
+        ///
         /// If you know the whole pathname of the file you should use
         /// <see cref="DisplayBasename"/>, since that allows location-based
         /// translation of filenames.
@@ -372,7 +372,7 @@ namespace GISharp.Lib.GLib
         /// return location for a #GError
         /// </param>
         /// <returns>
-        /// 
+        ///
         ///               The converted string, or %NULL on an error.
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

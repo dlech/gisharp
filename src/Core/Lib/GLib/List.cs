@@ -104,20 +104,20 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that the return value is the new start of the list,
         /// if @list was empty; make sure you store the new value.
-        /// 
+        ///
         /// g_list_append() has to traverse the entire list to find the end,
         /// which is inefficient when adding multiple elements. A common idiom
         /// to avoid the inefficiency is to use g_list_prepend() and reverse
         /// the list with g_list_reverse() when all elements have been added.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// // Notice that these are initialized to the empty list.
         /// GList *string_list = NULL, *number_list = NULL;
-        /// 
+        ///
         /// // This is a list of strings.
         /// string_list = g_list_append (string_list, "first");
         /// string_list = g_list_append (string_list, "second");
-        /// 
+        ///
         /// // This is a list of integers.
         /// number_list = g_list_append (number_list, GINT_TO_POINTER (27));
         /// number_list = g_list_append (number_list, GINT_TO_POINTER (14));
@@ -143,7 +143,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that the return value is the new start of the list,
         /// if @list was empty; make sure you store the new value.
-        /// 
+        ///
         /// <see cref="Append"/> has to traverse the entire list to find the end,
         /// which is inefficient when adding multiple elements. A common idiom
         /// to avoid the inefficiency is to use <see cref="Prepend"/> and reverse
@@ -202,16 +202,16 @@ namespace GISharp.Lib.GLib
         /// In contrast with g_list_copy(), this function uses @func to make
         /// a copy of each list element, in addition to copying the list
         /// container itself.
-        /// 
+        ///
         /// @func, as a #GCopyFunc, takes two arguments, the data to be copied
         /// and a @user_data pointer. It's safe to pass %NULL as user_data,
         /// if the copy function takes only one argument.
-        /// 
+        ///
         /// For instance, if @list holds a list of GObjects, you can do:
         /// |[&lt;!-- language="C" --&gt;
         /// another_list = g_list_copy_deep (list, (GCopyFunc) g_object_ref, NULL);
         /// ]|
-        /// 
+        ///
         /// And, to entirely free the new list, you could do:
         /// |[&lt;!-- language="C" --&gt;
         /// g_list_free_full (another_list, g_object_unref);
@@ -573,7 +573,7 @@ namespace GISharp.Lib.GLib
         ///     or %NULL if the #GList has no elements
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_last ( 
+        static extern IntPtr g_list_last (
             IntPtr list);
 
         /// <summary>
@@ -706,15 +706,15 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that the return value is the new start of the list,
         /// which will have changed, so make sure you store the new value.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// // Notice that it is initialized to the empty list.
         /// GList *list = NULL;
-        /// 
+        ///
         /// list = g_list_prepend (list, "last");
         /// list = g_list_prepend (list, "first");
         /// ]|
-        /// 
+        ///
         /// Do not use this function to prepend a new element to a different
         /// element than the start of the list. Use g_list_insert_before() instead.
         /// </remarks>
@@ -933,7 +933,7 @@ namespace GISharp.Lib.GLib
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
         static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Next));
         static readonly IntPtr prevOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Prev));
-        
+
         struct Struct
         {
             #pragma warning disable CS0649

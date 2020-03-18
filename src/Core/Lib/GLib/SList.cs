@@ -98,20 +98,20 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The return value is the new start of the list, which may
         /// have changed, so make sure you store the new value.
-        /// 
+        ///
         /// Note that g_slist_append() has to traverse the entire list
         /// to find the end, which is inefficient when adding multiple
         /// elements. A common idiom to avoid the inefficiency is to prepend
         /// the elements and reverse the list when all elements have been added.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// // Notice that these are initialized to the empty list.
         /// GSList *list = NULL, *number_list = NULL;
-        /// 
+        ///
         /// // This is a list of strings.
         /// list = g_slist_append (list, "first");
         /// list = g_slist_append (list, "second");
-        /// 
+        ///
         /// // This is a list of integers.
         /// number_list = g_slist_append (number_list, GINT_TO_POINTER (27));
         /// number_list = g_slist_append (number_list, GINT_TO_POINTER (14));
@@ -137,7 +137,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The return value is the new start of the list, which may
         /// have changed, so make sure you store the new value.
-        /// 
+        ///
         /// Note that <see cref="Append"/> has to traverse the entire list
         /// to find the end, which is inefficient when adding multiple
         /// elements. A common idiom to avoid the inefficiency is to prepend
@@ -195,16 +195,16 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// In contrast with g_slist_copy(), this function uses @func to make a copy of
         /// each list element, in addition to copying the list container itself.
-        /// 
+        ///
         /// @func, as a #GCopyFunc, takes two arguments, the data to be copied and a user
         /// pointer. It's safe to pass #NULL as user_data, if the copy function takes only
         /// one argument.
-        /// 
+        ///
         /// For instance, if @list holds a list of GObjects, you can do:
         /// |[&lt;!-- language="C" --&gt;
         /// another_list = g_slist_copy_deep (list, (GCopyFunc) g_object_ref, NULL);
         /// ]|
-        /// 
+        ///
         /// And, to entirely free the new list, you could do:
         /// |[&lt;!-- language="C" --&gt;
         /// g_slist_free_full (another_list, g_object_unref);
@@ -656,7 +656,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The return value is the new start of the list, which
         /// may have changed, so make sure you store the new value.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// // Notice that it is initialized to the empty list.
         /// GSList *list = NULL;
@@ -866,7 +866,7 @@ namespace GISharp.Lib.GLib
     {
         static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
         static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Next));
-        
+
         struct Struct
         {
             #pragma warning disable CS0649
@@ -935,7 +935,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The return value is the new start of the list, which may
         /// have changed, so make sure you store the new value.
-        /// 
+        ///
         /// Note that <see cref="Append"/> has to traverse the entire list
         /// to find the end, which is inefficient when adding multiple
         /// elements. A common idiom to avoid the inefficiency is to prepend

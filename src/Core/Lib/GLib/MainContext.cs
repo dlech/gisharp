@@ -133,10 +133,10 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This function is useful in a situation like the following:
         /// Imagine an extremely simple "garbage collected" system.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// static GList *free_list;
-        /// 
+        ///
         /// gpointer
         /// allocate_memory (gsize size)
         /// {
@@ -144,7 +144,7 @@ namespace GISharp.Lib.GLib
         ///   free_list = g_list_prepend (free_list, result);
         ///   return result;
         /// }
-        /// 
+        ///
         /// void
         /// free_allocated_memory (void)
         /// {
@@ -154,23 +154,23 @@ namespace GISharp.Lib.GLib
         ///   g_list_free (free_list);
         ///   free_list = NULL;
         ///  }
-        /// 
+        ///
         /// [...]
-        /// 
+        ///
         /// while (TRUE);
         ///  {
         ///    g_main_context_iteration (NULL, TRUE);
         ///    free_allocated_memory();
         ///   }
         /// ]|
-        /// 
+        ///
         /// This works from an application, however, if you want to do the same
         /// thing from a library, it gets more difficult, since you no longer
         /// control the main loop. You might think you can simply use an idle
         /// function to make the call to free_allocated_memory(), but that
         /// doesn't work, since the idle function could be called from a
         /// recursive callback. This can be fixed by using g_main_depth()
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// gpointer
         /// allocate_memory (gsize size)
@@ -181,12 +181,12 @@ namespace GISharp.Lib.GLib
         ///   free_list = g_list_prepend (free_list, block);
         ///   return block-&gt;mem;
         /// }
-        /// 
+        ///
         /// void
         /// free_allocated_memory (void)
         /// {
         ///   GList *l;
-        ///   
+        ///
         ///   int depth = g_main_depth ();
         ///   for (l = free_list; l; );
         ///     {
@@ -198,12 +198,12 @@ namespace GISharp.Lib.GLib
         ///           g_free (block);
         ///           free_list = g_list_delete_link (free_list, l);
         ///         }
-        ///               
+        ///
         ///       l = next;
         ///     }
         ///   }
         /// ]|
-        /// 
+        ///
         /// There is a temptation to use g_main_depth() to solve
         /// problems with reentrancy. For instance, while waiting for data
         /// to be received from the network in response to a menu item,
@@ -215,11 +215,11 @@ namespace GISharp.Lib.GLib
         /// these checks all over your code, since there are doubtless many,
         /// many things that the user could do. Instead, you can use the
         /// following techniques:
-        /// 
+        ///
         /// 1. Use gtk_widget_set_sensitive() or modal dialogs to prevent
         ///    the user from interacting with elements while the main
         ///    loop is recursing.
-        /// 
+        ///
         /// 2. Avoid main loop recursion in situations where you can't handle
         ///    arbitrary  callbacks. Instead, structure your code so that you
         ///    simply return to the main loop and then get called again when
@@ -245,10 +245,10 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This function is useful in a situation like the following:
         /// Imagine an extremely simple "garbage collected" system.
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// static GList *free_list;
-        /// 
+        ///
         /// gpointer
         /// allocate_memory (gsize size)
         /// {
@@ -256,7 +256,7 @@ namespace GISharp.Lib.GLib
         ///   free_list = g_list_prepend (free_list, result);
         ///   return result;
         /// }
-        /// 
+        ///
         /// void
         /// free_allocated_memory (void)
         /// {
@@ -266,23 +266,23 @@ namespace GISharp.Lib.GLib
         ///   g_list_free (free_list);
         ///   free_list = NULL;
         ///  }
-        /// 
+        ///
         /// [...]
-        /// 
+        ///
         /// while (TRUE);
         ///  {
         ///    g_main_context_iteration (NULL, TRUE);
         ///    free_allocated_memory();
         ///   }
         /// ]|
-        /// 
+        ///
         /// This works from an application, however, if you want to do the same
         /// thing from a library, it gets more difficult, since you no longer
         /// control the main loop. You might think you can simply use an idle
         /// function to make the call to free_allocated_memory(), but that
         /// doesn't work, since the idle function could be called from a
         /// recursive callback. This can be fixed by using <see cref="Depth"/>
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         /// gpointer
         /// allocate_memory (gsize size)
@@ -293,12 +293,12 @@ namespace GISharp.Lib.GLib
         ///   free_list = g_list_prepend (free_list, block);
         ///   return block-&gt;mem;
         /// }
-        /// 
+        ///
         /// void
         /// free_allocated_memory (void)
         /// {
         ///   GList *l;
-        ///   
+        ///
         ///   int depth = g_main_depth ();
         ///   for (l = free_list; l; );
         ///     {
@@ -310,12 +310,12 @@ namespace GISharp.Lib.GLib
         ///           g_free (block);
         ///           free_list = g_list_delete_link (free_list, l);
         ///         }
-        ///               
+        ///
         ///       l = next;
         ///     }
         ///   }
         /// ]|
-        /// 
+        ///
         /// There is a temptation to use <see cref="Depth"/> to solve
         /// problems with reentrancy. For instance, while waiting for data
         /// to be received from the network in response to a menu item,
@@ -327,11 +327,11 @@ namespace GISharp.Lib.GLib
         /// these checks all over your code, since there are doubtless many,
         /// many things that the user could do. Instead, you can use the
         /// following techniques:
-        /// 
+        ///
         /// 1. Use gtk_widget_set_sensitive() or modal dialogs to prevent
         ///    the user from interacting with elements while the main
         ///    loop is recursing.
-        /// 
+        ///
         /// 2. Avoid main loop recursion in situations where you can't handle
         ///    arbitrary  callbacks. Instead, structure your code so that you
         ///    simply return to the main loop and then get called again when
@@ -360,7 +360,7 @@ namespace GISharp.Lib.GLib
         /// and the %events field indicates the events to poll for. On return,
         /// the %revents fields will be filled with the events that actually
         /// occurred.
-        /// 
+        ///
         /// On POSIX systems, the file descriptors in @fds can be any sort of
         /// file descriptor, but the situation is much more complicated on
         /// Windows. If you need to use g_poll() in code that has to run on
@@ -409,7 +409,7 @@ namespace GISharp.Lib.GLib
         /// and the <see cref="PollFD.Events"/> field indicates the events to poll for. On return,
         /// the <see cref="PollFD.Revents"/> fields will be filled with the events that actually
         /// occurred.
-        /// 
+        ///
         /// On POSIX systems, the file descriptors in <paramref name="fds"/> can be any sort of
         /// file descriptor, but the situation is much more complicated on
         /// Windows. If you need to use g_poll() in code that has to run on
@@ -649,7 +649,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// It is a programmer error to attempt to lookup a non-existent source.
-        /// 
+        ///
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
@@ -684,7 +684,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// It is a programmer error to attempt to lookup a non-existent source.
-        /// 
+        ///
         /// More specifically: source IDs can be reissued after a source has been
         /// destroyed and therefore it is never valid to use this function with a
         /// source ID which may have already been removed.  An example is when
@@ -809,7 +809,7 @@ namespace GISharp.Lib.GLib
         /// This function is the same as g_main_context_invoke() except that it
         /// lets you specify the priority incase @function ends up being
         /// scheduled as an idle and also lets you give a #GDestroyNotify for @data.
-        /// 
+        ///
         /// @notify should not assume that it is called from any particular
         /// thread or with any particular context acquired.
         /// </remarks>
@@ -1095,7 +1095,7 @@ namespace GISharp.Lib.GLib
         /// ever call g_main_context_pop_thread_default(), assuming you want the
         /// new #GMainContext to be the default for the whole lifecycle of the
         /// thread.
-        /// 
+        ///
         /// If you don't have control over how the new thread was created (e.g.
         /// in the new thread isn't newly created, or if the thread life
         /// cycle is managed by a #GThreadPool), it is always suggested to wrap
@@ -1103,7 +1103,7 @@ namespace GISharp.Lib.GLib
         /// g_main_context_push_thread_default() / g_main_context_pop_thread_default()
         /// pair, otherwise threads that are re-used will end up never explicitly
         /// releasing the #GMainContext reference they hold.
-        /// 
+        ///
         /// In some cases you may want to schedule a single operation in a
         /// non-default context, or temporarily use a non-default context in
         /// the main thread. In that case, you can wrap the call to the
@@ -1112,7 +1112,7 @@ namespace GISharp.Lib.GLib
         /// g_main_context_pop_thread_default() pair, but it is up to you to
         /// ensure that no other asynchronous operations accidentally get
         /// started while the non-default context is active.
-        /// 
+        ///
         /// Beware that libraries that predate this function may not correctly
         /// handle being used from a thread with a thread-default context. Eg,
         /// see g_file_supports_thread_contexts().
@@ -1148,7 +1148,7 @@ namespace GISharp.Lib.GLib
         /// ever call <see cref="PopThreadDefault"/>, assuming you want the
         /// new <see cref="MainContext"/> to be the default for the whole lifecycle of the
         /// thread.
-        /// 
+        ///
         /// If you don't have control over how the new thread was created (e.g.
         /// in the new thread isn't newly created, or if the thread life
         /// cycle is managed by a <see cref="ThreadPool"/>), it is always suggested to wrap
@@ -1156,7 +1156,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="PushThreadDefault"/> / <see cref="PopThreadDefault"/>
         /// pair, otherwise threads that are re-used will end up never explicitly
         /// releasing the <see cref="MainContext"/> reference they hold.
-        /// 
+        ///
         /// In some cases you may want to schedule a single operation in a
         /// non-default context, or temporarily use a non-default context in
         /// the main thread. In that case, you can wrap the call to the
@@ -1165,7 +1165,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="PopThreadDefault"/> pair, but it is up to you to
         /// ensure that no other asynchronous operations accidentally get
         /// started while the non-default context is active.
-        /// 
+        ///
         /// Beware that libraries that predate this function may not correctly
         /// handle being used from a thread with a thread-default context. Eg,
         /// see g_file_supports_thread_contexts().
@@ -1354,23 +1354,23 @@ namespace GISharp.Lib.GLib
         /// This API is useful for low-level control over #GMainContext; for
         /// example, integrating it with main loop implementations such as
         /// #GMainLoop.
-        /// 
+        ///
         /// Another related use for this function is when implementing a main
         /// loop with a termination condition, computed from multiple threads:
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         ///   #define NUM_TASKS 10
         ///   static volatile gint tasks_remaining = NUM_TASKS;
         ///   ...
-        ///  
+        ///
         ///   while (g_atomic_int_get (&amp;tasks_remaining) != 0)
         ///     g_main_context_iteration (NULL, TRUE);
         /// ]|
-        ///  
+        ///
         /// Then in a thread:
         /// |[&lt;!-- language="C" --&gt;
         ///   perform_work();
-        /// 
+        ///
         ///   if (g_atomic_int_dec_and_test (&amp;tasks_remaining))
         ///     g_main_context_wakeup (NULL);
         /// ]|
@@ -1396,23 +1396,23 @@ namespace GISharp.Lib.GLib
         /// This API is useful for low-level control over <see cref="MainContext"/>; for
         /// example, integrating it with main loop implementations such as
         /// <see cref="MainLoop"/>.
-        /// 
+        ///
         /// Another related use for this function is when implementing a main
         /// loop with a termination condition, computed from multiple threads:
-        /// 
+        ///
         /// |[&lt;!-- language="C" --&gt;
         ///   #define NUM_TASKS 10
         ///   static volatile gint tasks_remaining = NUM_TASKS;
         ///   ...
-        ///  
+        ///
         ///   while (g_atomic_int_get (&amp;tasks_remaining) != 0)
         ///     g_main_context_iteration (NULL, TRUE);
         /// ]|
-        ///  
+        ///
         /// Then in a thread:
         /// |[&lt;!-- language="C" --&gt;
         ///   perform_work();
-        /// 
+        ///
         ///   if (g_atomic_int_dec_and_test (&amp;tasks_remaining))
         ///     g_main_context_wakeup (NULL);
         /// ]|

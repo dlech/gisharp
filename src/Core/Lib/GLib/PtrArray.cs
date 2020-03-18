@@ -616,7 +616,7 @@ namespace GISharp.Lib.GLib
         /// Note that the comparison function for g_ptr_array_sort() doesn't
         /// take the pointers from the array as arguments, it takes pointers to
         /// the pointers in the array.
-        /// 
+        ///
         /// This is guaranteed to be a stable sort since version 2.32.
         /// </remarks>
         /// <param name="array">
@@ -636,7 +636,7 @@ namespace GISharp.Lib.GLib
         /// than second arg, zero for equal, greater than zero if first arg is
         /// greater than second arg).
         /// </summary>
-        /// <remarks> 
+        /// <remarks>
         /// This is guaranteed to be a stable sort since version 2.32.
         /// </remarks>
         /// <param name="compareFunc">
@@ -668,7 +668,7 @@ namespace GISharp.Lib.GLib
         /// Note that the comparison function for g_ptr_array_sort_with_data()
         /// doesn't take the pointers from the array as arguments, it takes
         /// pointers to the pointers in the array.
-        /// 
+        ///
         /// This is guaranteed to be a stable sort since version 2.32.
         /// </remarks>
         /// <param name="array">
@@ -927,7 +927,7 @@ namespace GISharp.Lib.GLib
         /// than second arg, zero for equal, greater than zero if first arg is
         /// greater than second arg).
         /// </summary>
-        /// <remarks> 
+        /// <remarks>
         /// This is guaranteed to be a stable sort since version 2.32.
         /// </remarks>
         /// <param name="compareFunc">

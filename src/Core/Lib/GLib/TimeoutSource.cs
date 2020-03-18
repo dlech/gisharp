@@ -16,7 +16,7 @@ namespace GISharp.Lib.GLib
         /// The source will not initially be associated with any #GMainContext
         /// and must be added to one with g_source_attach() before it will be
         /// executed.
-        /// 
+        ///
         /// The interval given is in terms of monotonic time, not wall clock
         /// time.  See g_get_monotonic_time().
         /// </remarks>
@@ -41,7 +41,7 @@ namespace GISharp.Lib.GLib
         /// The source will not initially be associated with any <see cref="MainContext"/>
         /// and must be added to one with <see cref="Source.Attach"/> before it will be
         /// executed.
-        /// 
+        ///
         /// The interval given is in terms of monotonic time, not wall clock
         /// time.
         /// </remarks>
@@ -64,7 +64,7 @@ namespace GISharp.Lib.GLib
         /// The source will not initially be associated with any <see cref="MainContext"/>
         /// and must be added to one with <see cref="Source.Attach"/> before it will be
         /// executed.
-        /// 
+        ///
         /// The interval given is in terms of monotonic time, not wall clock
         /// time.
         /// </remarks>
@@ -82,10 +82,10 @@ namespace GISharp.Lib.GLib
         /// The source will not initially be associated with any #GMainContext
         /// and must be added to one with g_source_attach() before it will be
         /// executed.
-        /// 
+        ///
         /// The scheduling granularity/accuracy of this timeout source will be
         /// in seconds.
-        /// 
+        ///
         /// The interval given in terms of monotonic time, not wall clock time.
         /// See g_get_monotonic_time().
         /// </remarks>
@@ -111,10 +111,10 @@ namespace GISharp.Lib.GLib
         /// The source will not initially be associated with any <see cref="MainContext"/>
         /// and must be added to one with <see cref="Source.Attach"/> before it will be
         /// executed.
-        /// 
+        ///
         /// The scheduling granularity/accuracy of this timeout source will be
         /// in seconds.
-        /// 
+        ///
         /// The interval given in terms of monotonic time, not wall clock time.
         /// </remarks>
         /// <param name="interval">
@@ -137,10 +137,10 @@ namespace GISharp.Lib.GLib
         /// The source will not initially be associated with any <see cref="MainContext"/>
         /// and must be added to one with <see cref="Source.Attach"/> before it will be
         /// executed.
-        /// 
+        ///
         /// The scheduling granularity/accuracy of this timeout source will be
         /// in seconds.
-        /// 
+        ///
         /// The interval given in terms of monotonic time, not wall clock time.
         /// </remarks>
         /// <param name="interval">
