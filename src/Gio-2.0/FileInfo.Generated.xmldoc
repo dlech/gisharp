@@ -69,6 +69,11 @@ Checks if a file is a symlink.
 Gets the modification time of the current this instance and returns it as a
 #GDateTime.
 </summary>
+<remarks>
+This requires the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute. If
+%G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is provided, the resulting #GDateTime
+will have microsecond precision.
+</remarks>
 </member>
 
 <member name='FileInfo.Name'>
@@ -296,7 +301,7 @@ a signed 32-bit integer from the attribute.
 <member name='FileInfo.GetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Gets a signed 64-bit integer contained within the attribute. If the
-attribute does not contain an signed 64-bit integer, or is invalid,
+attribute does not contain a signed 64-bit integer, or is invalid,
 0 will be returned.
 </summary>
 <param name="attribute">
@@ -310,7 +315,7 @@ a signed 64-bit integer from the attribute.
 <member name='FileInfo.GetAttributeInt64(System.String)'>
 <summary>
 Gets a signed 64-bit integer contained within the attribute. If the
-attribute does not contain an signed 64-bit integer, or is invalid,
+attribute does not contain a signed 64-bit integer, or is invalid,
 0 will be returned.
 </summary>
 <param name="attribute">
@@ -531,7 +536,7 @@ Checks if a file info structure has an attribute named <paramref name="attribute
 a file attribute key.
 </param>
 <returns>
-<c>true</c> if <paramref name="ginfo"/> has an attribute named <paramref name="attribute"/>,
+<c>true</c> if this instance has an attribute named <paramref name="attribute"/>,
     <c>false</c> otherwise.
 </returns>
 </member>
@@ -544,7 +549,7 @@ Checks if a file info structure has an attribute named <paramref name="attribute
 a file attribute key.
 </param>
 <returns>
-<c>true</c> if <paramref name="ginfo"/> has an attribute named <paramref name="attribute"/>,
+<c>true</c> if this instance has an attribute named <paramref name="attribute"/>,
     <c>false</c> otherwise.
 </returns>
 </member>
@@ -558,7 +563,7 @@ specified <paramref name="nameSpace"/>.
 a file attribute namespace.
 </param>
 <returns>
-<c>true</c> if <paramref name="ginfo"/> has an attribute in <paramref name="nameSpace"/>,
+<c>true</c> if this instance has an attribute in <paramref name="nameSpace"/>,
     <c>false</c> otherwise.
 </returns>
 </member>
@@ -572,7 +577,7 @@ specified <paramref name="nameSpace"/>.
 a file attribute namespace.
 </param>
 <returns>
-<c>true</c> if <paramref name="ginfo"/> has an attribute in <paramref name="nameSpace"/>,
+<c>true</c> if this instance has an attribute in <paramref name="nameSpace"/>,
     <c>false</c> otherwise.
 </returns>
 </member>
@@ -952,8 +957,9 @@ an unsigned 64-bit integer.
 
 <member name='FileInfo.SetModificationTime(GISharp.Lib.GLib.TimeVal)'>
 <summary>
-Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute in the file
-info to the given time value.
+Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
+%G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
+given time value.
 </summary>
 <param name="mtime">
 a #GTimeVal.

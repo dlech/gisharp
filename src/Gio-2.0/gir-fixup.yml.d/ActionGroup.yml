@@ -2,7 +2,7 @@
 ### ActionGroup ###
 
 # there is a default implmentation for the query_action virtual-method that calls the other virtual methods
-# the docs say we shouldn't override both this an the other get_* virtual methods, so don't
+# the docs say we shouldn't override both this and the other get_* virtual methods, so don't
 - !set-attribute
   name: introspectable
   value: "0"

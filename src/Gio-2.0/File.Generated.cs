@@ -2265,7 +2265,7 @@ namespace GISharp.Lib.Gio
         /// input #GFile
         /// </param>
         /// <returns>
-        /// %TRUE if the @files's parent, grandparent, etc is @prefix,
+        /// %TRUE if the @file's parent, grandparent, etc is @prefix,
         ///     %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -2607,7 +2607,7 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Loads the content of the file into memory. The data is always
         /// zero-terminated, but this is not included in the resultant @length.
-        /// The returned @content should be freed with g_free() when no longer
+        /// The returned @contents should be freed with g_free() when no longer
         /// needed.
         /// </summary>
         /// <remarks>
@@ -2746,7 +2746,7 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Finishes an asynchronous load of the @file's contents.
         /// The contents are placed in @contents, and @length is set to the
-        /// size of the @contents string. The @content should be freed with
+        /// size of the @contents string. The @contents should be freed with
         /// g_free() when no longer needed. If @etag_out is present, it will be
         /// set to the new entity tag for the @file.
         /// </summary>
@@ -2831,7 +2831,7 @@ namespace GISharp.Lib.Gio
         /// Finishes an asynchronous partial load operation that was started
         /// with g_file_load_partial_contents_async(). The data is always
         /// zero-terminated, but this is not included in the resultant @length.
-        /// The returned @content should be freed with g_free() when no longer
+        /// The returned @contents should be freed with g_free() when no longer
         /// needed.
         /// </summary>
         /// <param name="file">
@@ -3364,10 +3364,6 @@ namespace GISharp.Lib.Gio
         /// <remarks>
         /// If the flag #G_FILE_COPY_OVERWRITE is specified an already
         /// existing @destination file is overwritten.
-        /// 
-        /// If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
-        /// will be copied as symlinks, otherwise the target of the
-        /// @source symlink will be copied.
         /// 
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
@@ -5005,7 +5001,7 @@ namespace GISharp.Lib.Gio
         /// If @make_backup is %TRUE, this function will attempt to
         /// make a backup of @file.
         /// 
-        /// Note that no copy of @content will be made, so it must stay valid
+        /// Note that no copy of @contents will be made, so it must stay valid
         /// until @callback is called. See g_file_replace_contents_bytes_async()
         /// for a #GBytes version that will automatically hold a reference to the
         /// contents (without copying) for the duration of the call.
@@ -5597,7 +5593,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Sets an attribute in the file with attribute name @attribute to @value.
+        /// Sets an attribute in the file with attribute name @attribute to @value_p.
         /// </summary>
         /// <remarks>
         /// Some attributes can be unset by setting @type to
@@ -6631,7 +6627,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Finishes an stop operation, see g_file_stop_mountable() for details.
+        /// Finishes a stop operation, see g_file_stop_mountable() for details.
         /// </summary>
         /// <remarks>
         /// Finish an asynchronous stop operation that was started

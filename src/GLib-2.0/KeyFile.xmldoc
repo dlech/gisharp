@@ -1483,7 +1483,7 @@ a group name
 a key
 </param>
 <param name="value">
-an double value
+a double value
 </param>
 </member>
 
@@ -1499,7 +1499,7 @@ a group name
 a key
 </param>
 <param name="value">
-an double value
+a double value
 </param>
 </member>
 

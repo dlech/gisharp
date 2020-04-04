@@ -229,6 +229,28 @@ On error
 </exception>
 </member>
 
+<member name='Task.PropagateValue(GISharp.Lib.GObject.Value)'>
+<summary>
+Gets the result of this instance as a #GValue, and transfers ownership of
+that value to the caller. As with <see cref="Task.ReturnValue(GISharp.Lib.GObject.Value)"/>, this is
+a generic low-level method; <see cref="Task.PropagatePointer()"/> and the like
+will usually be more useful for C code.
+</summary>
+<remarks>
+If the task resulted in an error, or was cancelled, then this will
+instead set <see cref="GISharp.Runtime.GErrorException"/> and return <c>false</c>.
+
+Since this method transfers ownership of the return value (or
+error) to the caller, you may only call it once.
+</remarks>
+<param name="value">
+return location for the #GValue
+</param>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
 <member name='Task.ReturnBoolean(System.Boolean)'>
 <summary>
 Sets this instance's result to <paramref name="result"/> and completes the task (see
@@ -283,11 +305,29 @@ the integer (#gssize) result of a task function.
 </param>
 </member>
 
+<member name='Task.ReturnValue(GISharp.Lib.GObject.Value)'>
+<summary>
+Sets this instance's result to <paramref name="result"/> (by copying it) and completes the task.
+</summary>
+<remarks>
+If <paramref name="result"/> is <c>null</c> then a #GValue of type #G_TYPE_POINTER
+with a value of <c>null</c> will be used for the result.
+
+This is a very generic low-level method intended primarily for use
+by language bindings; for C code, <see cref="Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> and the
+like will normally be much easier to use.
+</remarks>
+<param name="result">
+the #GValue result of
+                                     a task function
+</param>
+</member>
+
 <member name='Task.SetReturnOnCancel(System.Boolean)'>
 <summary>
 Sets or clears this instance's return-on-cancel flag. This is only
-meaningful for tasks run via g_task_run_in_thread() or
-g_task_run_in_thread_sync().
+meaningful for tasks run via <see cref="Task.RunInThread(GISharp.Lib.Gio.TaskThreadFunc)"/> or
+<see cref="Task.RunInThreadSync(GISharp.Lib.Gio.TaskThreadFunc)"/>.
 </summary>
 <remarks>
 If <paramref name="returnOnCancel"/> is <c>true</c>, then cancelling this instance's
@@ -311,7 +351,7 @@ If the task's <see cref="Cancellable"/> is cancelled while return-on-cancel is
 again will cause the task to be cancelled at that point.
 
 If the task's <see cref="Cancellable"/> is already cancelled before you call
-g_task_run_in_thread()/g_task_run_in_thread_sync(), then the
+<see cref="Task.RunInThread(GISharp.Lib.Gio.TaskThreadFunc)"/>/<see cref="Task.RunInThreadSync(GISharp.Lib.Gio.TaskThreadFunc)"/>, then the
 <see cref="TaskThreadFunc"/> will still be run (for consistency), but the task
 will also be completed right away.
 </remarks>
@@ -586,7 +626,7 @@ Here is an example for chained asynchronous operations:
 
 ## Asynchronous operations from synchronous ones
 
-You can use g_task_run_in_thread() to turn a synchronous
+You can use <see cref="Task.RunInThread(GISharp.Lib.Gio.TaskThreadFunc)"/> to turn a synchronous
 operation into an asynchronous one, by running it in a thread.
 When it completes, the result will be dispatched to the
 [thread-default main context][g-main-context-push-thread-default]
@@ -665,7 +705,7 @@ Running a task in a thread:
 
 ## Adding cancellability to uncancellable tasks
 
-Finally, g_task_run_in_thread() and g_task_run_in_thread_sync()
+Finally, <see cref="Task.RunInThread(GISharp.Lib.Gio.TaskThreadFunc)"/> and <see cref="Task.RunInThreadSync(GISharp.Lib.Gio.TaskThreadFunc)"/>
 can be used to turn an uncancellable operation into a
 cancellable one. If you call <see cref="Task.SetReturnOnCancel(System.Boolean)"/>,
 passing <c>true</c>, then if the task's <see cref="Cancellable"/> is cancelled,
@@ -788,7 +828,7 @@ in several ways:
   #GSimpleAsyncResult does when
   g_simple_async_result_set_check_cancellable() is called.
   (You can use <see cref="Task.SetCheckCancellable(System.Boolean)"/> to turn off that
-  behavior.) On the other hand, g_task_run_in_thread()
+  behavior.) On the other hand, <see cref="Task.RunInThread(GISharp.Lib.Gio.TaskThreadFunc)"/>
   guarantees that it will always run your
   `task_func`, even if the task's <see cref="Cancellable"/>
   is already cancelled before the task gets a chance to run;

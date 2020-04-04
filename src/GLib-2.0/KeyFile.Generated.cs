@@ -2249,7 +2249,7 @@ namespace GISharp.Lib.GLib
         /// a key
         /// </param>
         /// <param name="value">
-        /// an double value
+        /// a double value
         /// </param>
         [GISharp.Runtime.SinceAttribute("2.12")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

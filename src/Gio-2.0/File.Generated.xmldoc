@@ -1024,10 +1024,6 @@ inside the same filesystem), but the fallback code does not.
 If the flag #G_FILE_COPY_OVERWRITE is specified an already
 existing <paramref name="destination"/> file is overwritten.
 
-If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
-will be copied as symlinks, otherwise the target of the
-this instance symlink will be copied.
-
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
@@ -1213,7 +1209,7 @@ of this instance.
 input <see cref="IFile"/>
 </param>
 <returns>
-<c>true</c> if the <paramref name="files"/>'s parent, grandparent, etc is this instance,
+<c>true</c> if the <paramref name="file"/>'s parent, grandparent, etc is this instance,
     <c>false</c> otherwise.
 </returns>
 </member>
@@ -1768,7 +1764,7 @@ a given relative path string
 
 <member name='IFile.DoSetAttribute(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="value"/>.
+Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="valueP"/>.
 </summary>
 <remarks>
 Some attributes can be unset by setting <paramref name="type"/> to
@@ -1988,7 +1984,7 @@ On error
 
 <member name='IFile.DoStopMountableFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
-Finishes an stop operation, see g_file_stop_mountable() for details.
+Finishes a stop operation, see g_file_stop_mountable() for details.
 </summary>
 <remarks>
 Finish an asynchronous stop operation that was started
@@ -2894,7 +2890,7 @@ input <see cref="IFile"/>
 input <see cref="IFile"/>
 </param>
 <returns>
-<c>true</c> if the <paramref name="files"/>'s parent, grandparent, etc is <paramref name="prefix"/>,
+<c>true</c> if the this instance's parent, grandparent, etc is <paramref name="prefix"/>,
     <c>false</c> otherwise.
 </returns>
 </member>
@@ -3039,7 +3035,7 @@ a <see cref="Cancellable"/> or <c>null</c>
 <summary>
 Loads the content of the file into memory. The data is always
 zero-terminated, but this is not included in the resultant the length of <paramref name="contents"/>.
-The returned <paramref name="content"/> should be freed with g_free() when no longer
+The returned <paramref name="contents"/> should be freed with g_free() when no longer
 needed.
 </summary>
 <remarks>
@@ -3095,7 +3091,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 Finishes an asynchronous partial load operation that was started
 with g_file_load_partial_contents_async(). The data is always
 zero-terminated, but this is not included in the resultant the length of <paramref name="contents"/>.
-The returned <paramref name="content"/> should be freed with g_free() when no longer
+The returned <paramref name="contents"/> should be freed with g_free() when no longer
 needed.
 </summary>
 <param name="file">
@@ -3292,10 +3288,6 @@ inside the same filesystem), but the fallback code does not.
 <remarks>
 If the flag #G_FILE_COPY_OVERWRITE is specified an already
 existing <paramref name="destination"/> file is overwritten.
-
-If the flag #G_FILE_COPY_NOFOLLOW_SYMLINKS is specified then symlinks
-will be copied as symlinks, otherwise the target of the
-this instance symlink will be copied.
 
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
@@ -4302,7 +4294,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to
 make a backup of this instance.
 
-Note that no copy of <paramref name="content"/> will be made, so it must stay valid
+Note that no copy of <paramref name="contents"/> will be made, so it must stay valid
 until <paramref name="callback"/> is called. See <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>
 for a #GBytes version that will automatically hold a reference to the
 contents (without copying) for the duration of the call.
@@ -4345,7 +4337,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to
 make a backup of this instance.
 
-Note that no copy of <paramref name="content"/> will be made, so it must stay valid
+Note that no copy of <paramref name="contents"/> will be made, so it must stay valid
 until <paramref name="callback"/> is called. See <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>
 for a #GBytes version that will automatically hold a reference to the
 contents (without copying) for the duration of the call.
@@ -4608,7 +4600,7 @@ a given relative path string
 
 <member name='File.SetAttribute(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="value"/>.
+Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="valueP"/>.
 </summary>
 <remarks>
 Some attributes can be unset by setting <paramref name="type"/> to
@@ -4645,7 +4637,7 @@ On error
 
 <member name='File.SetAttribute(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="value"/>.
+Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="valueP"/>.
 </summary>
 <remarks>
 Some attributes can be unset by setting <paramref name="type"/> to
@@ -5271,7 +5263,7 @@ On error
 
 <member name='File.StopMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
-Finishes an stop operation, see g_file_stop_mountable() for details.
+Finishes a stop operation, see g_file_stop_mountable() for details.
 </summary>
 <remarks>
 Finish an asynchronous stop operation that was started

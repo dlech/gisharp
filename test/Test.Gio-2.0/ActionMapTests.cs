@@ -68,7 +68,7 @@ namespace GISharp.Test.Gio
             Actions.Add(action);
         }
 
-        IAction IActionMap.DoLookupAction(UnownedUtf8 actionName)
+        IAction? IActionMap.DoLookupAction(UnownedUtf8 actionName)
         {
             var match = actionName.ToString();
             return Actions.SingleOrDefault(a => a.Name == match);

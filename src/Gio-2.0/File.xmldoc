@@ -1024,10 +1024,6 @@ inside the same filesystem), but the fallback code does not.
 If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
 
-If the flag <see cref="FileCopyFlags.NoFollowSymlinks"/> is specified then symlinks
-will be copied as symlinks, otherwise the target of the
-this instance symlink will be copied.
-
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
@@ -1984,7 +1980,7 @@ On error
 
 <member name='IFile.DoStopMountableFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
-Finishes an stop operation, see g_file_stop_mountable() for details.
+Finishes a stop operation, see g_file_stop_mountable() for details.
 </summary>
 <remarks>
 Finish an asynchronous stop operation that was started
@@ -3265,10 +3261,6 @@ inside the same filesystem), but the fallback code does not.
 <remarks>
 If the flag <see cref="FileCopyFlags.Overwrite"/> is specified an already
 existing <paramref name="destination"/> file is overwritten.
-
-If the flag <see cref="FileCopyFlags.NoFollowSymlinks"/> is specified then symlinks
-will be copied as symlinks, otherwise the target of the
-this instance symlink will be copied.
 
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
@@ -5168,7 +5160,7 @@ On error
 
 <member name='File.StopMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
-Finishes an stop operation, see g_file_stop_mountable() for details.
+Finishes a stop operation, see g_file_stop_mountable() for details.
 </summary>
 <remarks>
 Finish an asynchronous stop operation that was started

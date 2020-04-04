@@ -6,3 +6,13 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:interface[@name='ActionMap']/gi:method[@name='add_action_entries']
+
+# Fix return value nullability
+- !set-attribute
+  name: nullable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionMap']/gi:method[@name='lookup_action']/gi:return-value
+- !set-attribute
+  name: nullable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:interface[@name='ActionMap']/gi:virtual-method[@name='lookup_action']/gi:return-value

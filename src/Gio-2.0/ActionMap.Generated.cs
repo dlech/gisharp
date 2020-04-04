@@ -23,7 +23,7 @@ namespace GISharp.Lib.Gio
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoLookupAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ActionMapInterface.UnmanagedLookupAction))]
-        GISharp.Lib.Gio.IAction DoLookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
+        GISharp.Lib.Gio.IAction? DoLookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoRemoveAction(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
@@ -90,7 +90,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.32")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none nullable:1 direction:out */
         private static extern unsafe System.IntPtr g_action_map_lookup_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
@@ -101,18 +101,18 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public unsafe static GISharp.Lib.Gio.IAction? LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             var actionMap_ = actionMap.Handle;
             var actionName_ = actionName.Handle;
             var ret_ = g_action_map_lookup_action(actionMap_,actionName_);
-            var ret = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = (GISharp.Lib.Gio.IAction?)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,System.String)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static GISharp.Lib.Gio.IAction LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
+        public unsafe static GISharp.Lib.Gio.IAction? LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
         {
             using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
             return LookupAction(actionMap, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);

@@ -614,14 +614,14 @@ namespace GISharp.Lib.Gio
         /// 
         /// It is important to use the proper GVariant format when retrieving
         /// the options with g_variant_dict_lookup():
-        /// - for %G_OPTION_ARG_NONE, use b
-        /// - for %G_OPTION_ARG_STRING, use &amp;s
-        /// - for %G_OPTION_ARG_INT, use i
-        /// - for %G_OPTION_ARG_INT64, use x
-        /// - for %G_OPTION_ARG_DOUBLE, use d
-        /// - for %G_OPTION_ARG_FILENAME, use ^ay
-        /// - for %G_OPTION_ARG_STRING_ARRAY, use &amp;as
-        /// - for %G_OPTION_ARG_FILENAME_ARRAY, use ^aay
+        /// - for %G_OPTION_ARG_NONE, use `b`
+        /// - for %G_OPTION_ARG_STRING, use `&amp;s`
+        /// - for %G_OPTION_ARG_INT, use `i`
+        /// - for %G_OPTION_ARG_INT64, use `x`
+        /// - for %G_OPTION_ARG_DOUBLE, use `d`
+        /// - for %G_OPTION_ARG_FILENAME, use `^&amp;ay`
+        /// - for %G_OPTION_ARG_STRING_ARRAY, use `^a&amp;s`
+        /// - for %G_OPTION_ARG_FILENAME_ARRAY, use `^a&amp;ay`
         /// </remarks>
         /// <param name="application">
         /// a #GApplication
@@ -2097,7 +2097,7 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        GISharp.Lib.Gio.IAction GISharp.Lib.Gio.IActionMap.DoLookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName)
+        GISharp.Lib.Gio.IAction? GISharp.Lib.Gio.IActionMap.DoLookupAction(GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             throw new System.NotImplementedException();
         }

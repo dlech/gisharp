@@ -24,7 +24,7 @@ namespace GISharp.Lib.Gio
         /// automatically destroyed.
         /// </summary>
         /// <remarks>
-        /// The @attribute string should be formatted with specific keys separated
+        /// The @attributes string should be formatted with specific keys separated
         /// from namespaces with a double colon. Several "namespace::key" strings may be
         /// concatenated with a single comma (e.g. "standard::type,standard::is-hidden").
         /// The wildcard "*" may be used to match all keys and namespaces, or

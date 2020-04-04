@@ -45,7 +45,7 @@ namespace GISharp.Lib.Gio
         /// @action_name must not be %NULL.
         /// </remarks>
         /// <param name="actionName">
-        /// an potential action name
+        /// a potential action name
         /// </param>
         /// <returns>
         /// %TRUE if @action_name is valid

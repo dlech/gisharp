@@ -86,7 +86,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr group,
-        /* <array zero-terminated="1" type="GOptionEntry*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
+        /* <array type="const GOptionEntry*" zero-terminated="1" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="OptionEntry" type="GOptionEntry" managed-name="OptionEntry" />
 * </array> */
         /* transfer-ownership:none direction:in */

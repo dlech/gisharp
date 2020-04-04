@@ -13,10 +13,11 @@
   value: 1
   xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']
 
-# GIR is incorrect, this is an array
-- !add-element
-  xml: <gi:array zero-terminated='1' c:type='GOptionEntry*' />
-  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']
+# GIR is is missing zero-terminated attribute
+- !set-attribute
+  name: zero-terminated
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']/gi:array
 
 # fix the C type of the array element
 - !set-attribute

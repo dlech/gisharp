@@ -3,7 +3,7 @@
 <member name='Task.Completed_'>
 <summary>
 Whether the task has completed, meaning its callback (if set) has been
-invoked. This can only happen after <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>,
+invoked. This can only happen after g_task_return_pointer(),
 <see cref="Task.ReturnError(GISharp.Lib.GLib.Error)"/> or one of the other return functions have been called
 on the task.
 </summary>
@@ -238,10 +238,32 @@ On error
 </exception>
 </member>
 
+<member name='Task.PropagateValue(GISharp.Lib.GObject.Value)'>
+<summary>
+Gets the result of this instance as a #GValue, and transfers ownership of
+that value to the caller. As with <see cref="Task.ReturnValue(GISharp.Lib.GObject.Value)"/>, this is
+a generic low-level method; <see cref="Task.PropagatePointer()"/> and the like
+will usually be more useful for C code.
+</summary>
+<remarks>
+If the task resulted in an error, or was cancelled, then this will
+instead set <see cref="GISharp.Runtime.GErrorException"/> and return <c>false</c>.
+
+Since this method transfers ownership of the return value (or
+error) to the caller, you may only call it once.
+</remarks>
+<param name="value">
+return location for the #GValue
+</param>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
 <member name='Task.ReturnBoolean(System.Boolean)'>
 <summary>
 Sets this instance's result to <paramref name="result"/> and completes the task (see
-<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
+g_task_return_pointer() for more discussion of exactly what this
 means).
 </summary>
 <param name="result">
@@ -252,7 +274,7 @@ the #gboolean result of a task function.
 <member name='Task.ReturnError(GISharp.Lib.GLib.Error)'>
 <summary>
 Sets this instance's result to <paramref name="error"/> (which this instance assumes ownership of)
-and completes the task (see <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more
+and completes the task (see g_task_return_pointer() for more
 discussion of exactly what this means).
 </summary>
 <remarks>
@@ -273,7 +295,7 @@ the #GError result of a task function.
 <summary>
 Checks if this instance's <see cref="Cancellable"/> has been cancelled, and if so, sets
 this instance's error accordingly and completes the task (see
-<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
+g_task_return_pointer() for more discussion of exactly what this
 means).
 </summary>
 <returns>
@@ -284,11 +306,28 @@ means).
 <member name='Task.ReturnInt(System.Int32)'>
 <summary>
 Sets this instance's result to <paramref name="result"/> and completes the task (see
-<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> for more discussion of exactly what this
+g_task_return_pointer() for more discussion of exactly what this
 means).
 </summary>
 <param name="result">
 the integer (#gssize) result of a task function.
+</param>
+</member>
+
+<member name='Task.ReturnValue(GISharp.Lib.GObject.Value)'>
+<summary>
+Sets this instance's result to <paramref name="result"/> (by copying it) and completes the task.
+</summary>
+<remarks>
+If <paramref name="result"/> is <c>null</c> then a #GValue of type #G_TYPE_POINTER
+with a value of <c>null</c> will be used for the result.
+
+This is a very generic low-level method intended primarily for use
+by language bindings; for C code, g_task_return_pointer() and the
+like will normally be much easier to use.
+</remarks>
+<param name="result">
+the #GValue result of a task function
 </param>
 </member>
 
@@ -349,7 +388,7 @@ manage data during an asynchronous operation. You call
 additional data associated with the task, and then pass the
 task object around through your asynchronous operation.
 Eventually, you will call a method such as
-<see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/> or <see cref="Task.ReturnError(GISharp.Lib.GLib.Error)"/>, which will
+g_task_return_pointer() or <see cref="Task.ReturnError(GISharp.Lib.GLib.Error)"/>, which will
 save the value you give it and then invoke the task's callback
 function in the
 [thread-default main context][g-main-context-push-thread-default]
@@ -804,7 +843,7 @@ in several ways:
   you can start your `task_func` with a
   <see cref="Task.ReturnErrorIfCancelled()"/> check if you need the
   old behavior.
-- The "return" methods (eg, <see cref="M:Task.ReturnPointer(System.IntPtr,GISharp.Lib.GLib.DestroyNotify)"/>)
+- The "return" methods (eg, g_task_return_pointer())
   automatically cause the task to be "completed" as well, and
   there is no need to worry about the "complete" vs "complete
   in idle" distinction. (<see cref="Task"/> automatically figures out

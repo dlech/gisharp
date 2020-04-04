@@ -658,14 +658,14 @@ consumed, they will no longer be visible to the default handling
 
 It is important to use the proper <see cref="GLib.Variant"/> format when retrieving
 the options with <see cref="GLib.VariantDict.Lookup(GLib.UnownedUtf8,GLib.VariantType)"/>:
-- for %G_OPTION_ARG_NONE, use b
-- for %G_OPTION_ARG_STRING, use &amp;s
-- for %G_OPTION_ARG_INT, use i
-- for %G_OPTION_ARG_INT64, use x
-- for %G_OPTION_ARG_DOUBLE, use d
-- for %G_OPTION_ARG_FILENAME, use ^ay
-- for %G_OPTION_ARG_STRING_ARRAY, use &amp;as
-- for %G_OPTION_ARG_FILENAME_ARRAY, use ^aay
+- for %G_OPTION_ARG_NONE, use <c>b</c>
+- for %G_OPTION_ARG_STRING, use <c>&amp;s</c>
+- for %G_OPTION_ARG_INT, use <c>i</c>
+- for %G_OPTION_ARG_INT64, use <c>x</c>
+- for %G_OPTION_ARG_DOUBLE, use <c>d</c>
+- for %G_OPTION_ARG_FILENAME, use <c>^ay</c>
+- for %G_OPTION_ARG_STRING_ARRAY, use <c>&amp;as</c>
+- for %G_OPTION_ARG_FILENAME_ARRAY, use <c>^aay</c>
 </remarks>
 <param name="entries">
 a

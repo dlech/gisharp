@@ -681,6 +681,62 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
+        /// Gets the result of @task as a #GValue, and transfers ownership of
+        /// that value to the caller. As with g_task_return_value(), this is
+        /// a generic low-level method; g_task_propagate_pointer() and the like
+        /// will usually be more useful for C code.
+        /// </summary>
+        /// <remarks>
+        /// If the task resulted in an error, or was cancelled, then this will
+        /// instead set @error and return %FALSE.
+        /// 
+        /// Since this method transfers ownership of the return value (or
+        /// error) to the caller, you may only call it once.
+        /// </remarks>
+        /// <param name="task">
+        /// a #GTask
+        /// </param>
+        /// <param name="value">
+        /// return location for the #GValue
+        /// </param>
+        /// <param name="error">
+        /// return location for a #GError
+        /// </param>
+        /// <returns>
+        /// %TRUE if @task succeeded, %FALSE on error.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.64")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
+        /* transfer-ownership:none skip:1 direction:out */
+        private static extern unsafe GISharp.Runtime.Boolean g_task_propagate_value(
+        /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr task,
+        /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
+        /* direction:out caller-allocates:1 transfer-ownership:none */
+        out GISharp.Lib.GObject.Value value,
+        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
+        /* direction:inout transfer-ownership:full */
+        ref System.IntPtr error);
+
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateValue(GISharp.Lib.GObject.Value)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.64")]
+        public unsafe void PropagateValue(out GISharp.Lib.GObject.Value value)
+        {
+            var task_ = Handle;
+            var error_ = System.IntPtr.Zero;
+            g_task_propagate_value(task_,out var value_,ref error_);
+            if (error_ != System.IntPtr.Zero)
+            {
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                throw new GISharp.Runtime.GErrorException(error);
+            }
+
+            value = (GISharp.Lib.GObject.Value)value_;
+        }
+
+        /// <summary>
         /// Sets @task's result to @result and completes the task (see
         /// g_task_return_pointer() for more discussion of exactly what this
         /// means).
@@ -861,6 +917,115 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr resultDestroy);
+
+        /// <summary>
+        /// Sets @task's result to @result (by copying it) and completes the task.
+        /// </summary>
+        /// <remarks>
+        /// If @result is %NULL then a #GValue of type #G_TYPE_POINTER
+        /// with a value of %NULL will be used for the result.
+        /// 
+        /// This is a very generic low-level method intended primarily for use
+        /// by language bindings; for C code, g_task_return_pointer() and the
+        /// like will normally be much easier to use.
+        /// </remarks>
+        /// <param name="task">
+        /// a #GTask
+        /// </param>
+        /// <param name="result">
+        /// the #GValue result of
+        ///                                      a task function
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.64")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        private static extern unsafe void g_task_return_value(
+        /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr task,
+        /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        GISharp.Lib.GObject.Value result);
+
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnValue(GISharp.Lib.GObject.Value)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.64")]
+        public unsafe void ReturnValue(GISharp.Lib.GObject.Value result)
+        {
+            var task_ = Handle;
+            var result_ = (GISharp.Lib.GObject.Value)result;
+            g_task_return_value(task_, result_);
+        }
+
+        /// <summary>
+        /// Runs @task_func in another thread. When @task_func returns, @task's
+        /// #GAsyncReadyCallback will be invoked in @task's #GMainContext.
+        /// </summary>
+        /// <remarks>
+        /// This takes a ref on @task until the task completes.
+        /// 
+        /// See #GTaskThreadFunc for more details about how @task_func is handled.
+        /// 
+        /// Although GLib currently rate-limits the tasks queued via
+        /// g_task_run_in_thread(), you should not assume that it will always
+        /// do this. If you have a very large number of tasks to run, but don't
+        /// want them to all run at once, you should only queue a limited
+        /// number of them at a time.
+        /// </remarks>
+        /// <param name="task">
+        /// a #GTask
+        /// </param>
+        /// <param name="taskFunc">
+        /// a #GTaskThreadFunc
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.36")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        private static extern unsafe void g_task_run_in_thread(
+        /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr task,
+        /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="UnmanagedTaskThreadFunc" /> */
+        /* transfer-ownership:none scope:async direction:in */
+        System.IntPtr taskFunc);
+
+        /// <summary>
+        /// Runs @task_func in another thread, and waits for it to return or be
+        /// cancelled. You can use g_task_propagate_pointer(), etc, afterward
+        /// to get the result of @task_func.
+        /// </summary>
+        /// <remarks>
+        /// See #GTaskThreadFunc for more details about how @task_func is handled.
+        /// 
+        /// Normally this is used with tasks created with a %NULL
+        /// `callback`, but note that even if the task does
+        /// have a callback, it will not be invoked when @task_func returns.
+        /// #GTask:completed will be set to %TRUE just before this function returns.
+        /// 
+        /// Although GLib currently rate-limits the tasks queued via
+        /// g_task_run_in_thread_sync(), you should not assume that it will
+        /// always do this. If you have a very large number of tasks to run,
+        /// but don't want them to all run at once, you should only queue a
+        /// limited number of them at a time.
+        /// </remarks>
+        /// <param name="task">
+        /// a #GTask
+        /// </param>
+        /// <param name="taskFunc">
+        /// a #GTaskThreadFunc
+        /// </param>
+        [GISharp.Runtime.SinceAttribute("2.36")]
+        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="System.Void" /> */
+        /* transfer-ownership:none direction:out */
+        private static extern unsafe void g_task_run_in_thread_sync(
+        /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        System.IntPtr task,
+        /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="UnmanagedTaskThreadFunc" /> */
+        /* transfer-ownership:none scope:async direction:in */
+        System.IntPtr taskFunc);
 
         /// <summary>
         /// Sets or clears @task's check-cancellable flag. If this is %TRUE

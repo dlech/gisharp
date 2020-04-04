@@ -47,7 +47,8 @@ namespace GISharp.Lib.GLib
         /// the local time.
         /// 
         /// In UNIX, the `TZ` environment variable typically corresponds
-        /// to the name of a file in the zoneinfo database, or string in
+        /// to the name of a file in the zoneinfo database, an absolute path to a file
+        /// somewhere else, or a string in
         /// "std offset [dst [offset],start[/time],end[/time]]" (POSIX) format.
         /// There  are  no spaces in the specification. The name of standard
         /// and daylight savings time zone must be three or more alphabetic
@@ -293,7 +294,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Finds an the interval within @tz that corresponds to the given @time_.
+        /// Finds an interval within @tz that corresponds to the given @time_.
         /// The meaning of @time_ depends on @type.
         /// </summary>
         /// <remarks>

@@ -406,7 +406,7 @@ namespace GISharp.Lib.Gio
 
         /// <summary>
         /// Gets a signed 64-bit integer contained within the attribute. If the
-        /// attribute does not contain an signed 64-bit integer, or is invalid,
+        /// attribute does not contain a signed 64-bit integer, or is invalid,
         /// 0 will be returned.
         /// </summary>
         /// <param name="info">
@@ -1003,6 +1003,11 @@ namespace GISharp.Lib.Gio
         /// Gets the modification time of the current @info and returns it as a
         /// #GDateTime.
         /// </summary>
+        /// <remarks>
+        /// This requires the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute. If
+        /// %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC is provided, the resulting #GDateTime
+        /// will have microsecond precision.
+        /// </remarks>
         /// <param name="info">
         /// a #GFileInfo.
         /// </param>
@@ -1198,7 +1203,7 @@ namespace GISharp.Lib.Gio
         /// a file attribute key.
         /// </param>
         /// <returns>
-        /// %TRUE if @Ginfo has an attribute named @attribute,
+        /// %TRUE if @info has an attribute named @attribute,
         ///     %FALSE otherwise.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -1240,7 +1245,7 @@ namespace GISharp.Lib.Gio
         /// a file attribute namespace.
         /// </param>
         /// <returns>
-        /// %TRUE if @Ginfo has an attribute in @name_space,
+        /// %TRUE if @info has an attribute in @name_space,
         ///     %FALSE otherwise.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
@@ -2098,8 +2103,9 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute in the file
-        /// info to the given date/time value.
+        /// Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
+        /// %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
+        /// given date/time value.
         /// </summary>
         /// <param name="info">
         /// a #GFileInfo.
@@ -2128,8 +2134,9 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED attribute in the file
-        /// info to the given time value.
+        /// Sets the %G_FILE_ATTRIBUTE_TIME_MODIFIED and
+        /// %G_FILE_ATTRIBUTE_TIME_MODIFIED_USEC attributes in the file info to the
+        /// given time value.
         /// </summary>
         /// <param name="info">
         /// a #GFileInfo.

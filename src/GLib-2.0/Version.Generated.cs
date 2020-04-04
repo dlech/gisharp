@@ -9,7 +9,7 @@ namespace GISharp.Lib.GLib
         private const System.Int32 major = 2;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.minor']/*" />
-        private const System.Int32 minor = 62;
+        private const System.Int32 minor = 64;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.micro']/*" />
         private const System.Int32 micro = 0;
