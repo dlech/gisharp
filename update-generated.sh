@@ -2,6 +2,9 @@
 
 set -e 
 
+# macOS 10.15 hack
+export DYLD_LIBRARY_PATH=/System/Library/Frameworks/ImageIO.framework/Versions/A/Resources:/usr/local/lib
+
 export GenerateFullPaths=true
 
 if [ $# -gt 0 ]; then
