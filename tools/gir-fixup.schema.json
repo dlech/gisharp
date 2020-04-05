@@ -1,0 +1,129 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "$id": "http://dandycode.org/gir-fixup.schema.json",
+    "title": "GISharp fixup",
+    "description": "Fixups for GObject introspection xml files",
+    "type": "array",
+    "items": {
+        "oneOf": [
+            {
+                "title": "!set-attribute",
+                "description": "Set or modify an XML attribute.",
+                "type": "object",
+                "properties": {
+                    "name": {
+                        "description": "The name of an XML attribute.",
+                        "type": "string"
+                    },
+                    "value": {
+                        "description": "The new value for the attribute.",
+                        "type": [
+                            "string",
+                            "integer"
+                        ]
+                    },
+                    "xpath": {
+                        "description": "The xpath to the XML element to be modified.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "value",
+                    "xpath"
+                ],
+                "additionalProperties": false
+            },
+            {
+                "title": "!change-attribute",
+                "type": "object",
+                "description": "Change an XML attribute using a regular expression.",
+                "properties": {
+                    "name": {
+                        "description": "The name of an XML attribute.",
+                        "type": "string"
+                    },
+                    "regex": {
+                        "description": "A regular expression.",
+                        "type": "string"
+                    },
+                    "replace": {
+                        "description": "The new value for the attribute.",
+                        "type": "string"
+                    },
+                    "xpath": {
+                        "description": "The xpath to the XML element to be modified.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "name",
+                    "regex",
+                    "replace",
+                    "xpath"
+                ],
+                "additionalProperties": false
+            },
+            {
+                "title": "!add-element",
+                "description": "Add an XML element.",
+                "type": "object",
+                "properties": {
+                    "xml": {
+                        "description": "The new XML element.",
+                        "type": "string"
+                    },
+                    "xpath": {
+                        "description": "The xpath to the parent XML element.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "xml",
+                    "xpath"
+                ],
+                "additionalProperties": false
+            },
+            {
+                "title": "!change-element",
+                "description": "Change the name of an XML element.",
+                "type": "object",
+                "properties": {
+                    "new-name": {
+                        "description": "The new XML element name.",
+                        "type": "string"
+                    },
+                    "xpath": {
+                        "description": "The xpath to the XML element to change.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "new-name",
+                    "xpath"
+                ],
+                "additionalProperties": false
+            },
+            {
+                "title": "!move-element",
+                "description": "Move an XML element.",
+                "type": "object",
+                "properties": {
+                    "xpath": {
+                        "description": "The xpath to the XML element to move.",
+                        "type": "string"
+                    },
+                    "new-parent-xpath": {
+                        "description": "The xpath to the new parent XML element.",
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "xpath",
+                    "new-parent-xpath"
+                ],
+                "additionalProperties": false
+            }
+        ]
+    }
+}
