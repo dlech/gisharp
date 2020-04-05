@@ -12,7 +12,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
 {
     public class DynamicGObject : IDynamicMetaObjectProvider, IDisposable
     {
-        static int pspecValueTypeOffset;
+        static readonly int pspecValueTypeOffset;
 
         static DynamicGObject ()
         {
@@ -82,25 +82,25 @@ namespace GISharp.Lib.GIRepository.Dynamic
             return value.Get ();
         }
 
-        public ulong Connect(string signalSpec, System.Func<object?[], object?> callback, ConnectFlags flags = default(ConnectFlags))
+        public ulong Connect(string signalSpec, System.Func<object?[], object?> callback, ConnectFlags flags = default)
         {
             using var closure = new GClosure(callback);
             return Connect(signalSpec, closure, flags);
         }
 
-        public ulong Connect(string signalSpec, System.Func<object?> callback, ConnectFlags flags = default(ConnectFlags))
+        public ulong Connect(string signalSpec, System.Func<object?> callback, ConnectFlags flags = default)
         {
             using var closure = new GClosure(callback);
             return Connect(signalSpec, closure, flags);
         }
 
-        public ulong Connect(string signalSpec, Action<object?[]> callback, ConnectFlags flags = default(ConnectFlags))
+        public ulong Connect(string signalSpec, Action<object?[]> callback, ConnectFlags flags = default)
         {
             using var closure = new GClosure(callback);
             return Connect(signalSpec, closure, flags);
         }
 
-        public ulong Connect(string signalSpec, Action callback, ConnectFlags flags = default (ConnectFlags))
+        public ulong Connect(string signalSpec, Action callback, ConnectFlags flags = default)
         {
             using var closure = new GClosure(callback);
             return Connect(signalSpec, closure, flags);

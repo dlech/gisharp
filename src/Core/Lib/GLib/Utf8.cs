@@ -190,7 +190,7 @@ namespace GISharp.Lib.GLib
         /// Convenience property for <c>default(NullableUnownedUtf8)</c> or
         /// <c>new NullableUnownedUtf8(null)</c>
         /// </summary>
-        public static NullableUnownedUtf8 Null => default(NullableUnownedUtf8);
+        public static NullableUnownedUtf8 Null => default;
 
         [PtrArrayCopyFunc]
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -618,7 +618,7 @@ namespace GISharp.Lib.GLib
         {
             for (var ptr = Handle; ptr != IntPtr.Zero; ptr = g_utf8_find_next_char(ptr, IntPtr.Zero)) {
                 var ret = g_utf8_get_char(ptr);
-                if (ret == default(Unichar)) {
+                if (ret == default) {
                     // don't return the null terminator
                     yield break;
                 }

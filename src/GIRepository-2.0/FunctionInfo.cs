@@ -15,7 +15,7 @@ namespace GISharp.Lib.GIRepository
 {
     public sealed class FunctionInfo : CallableInfo, IDynamicMetaObjectProvider
     {
-        static System.Reflection.MethodInfo invokeMethodInfo;
+        static readonly System.Reflection.MethodInfo invokeMethodInfo;
 
         static FunctionInfo ()
         {
@@ -287,7 +287,7 @@ namespace GISharp.Lib.GIRepository
                     TypeTag.UInt32 => arg.UInt32,
                     TypeTag.Int64 => arg.Int64,
                     TypeTag.UInt64 => arg.UInt64,
-                    TypeTag.Void => default(object?),
+                    TypeTag.Void => default,
                     _ => throw new NotImplementedException()
                 };
             }
@@ -357,19 +357,15 @@ namespace GISharp.Lib.GIRepository
                 // TODO: marshal out args
 
                 if (SkipReturn) {
-                    return default (object);
+                    return default;
                 }
 
                 var ret = MarshalOutArg (retArg, ReturnTypeInfo, CallerOwns, ref freeOutArgs);
 
                 return ret;
             } finally {
-                if (freeInArgs != null) {
-                    freeInArgs ();
-                }
-                if (freeOutArgs != null) {
-                    freeOutArgs ();
-                }
+                freeInArgs?.Invoke();
+                freeOutArgs?.Invoke();
             }
         }
 

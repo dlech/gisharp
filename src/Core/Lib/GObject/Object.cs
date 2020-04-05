@@ -159,7 +159,7 @@ namespace GISharp.Lib.GObject
         {
             var detailedSignalPtr = GMarshal.StringToUtf8Ptr ("notify");
             var id = Signal.g_signal_connect_data (handle, detailedSignalPtr,
-                nativeNotifyPtr, IntPtr.Zero, null, default (ConnectFlags));
+                nativeNotifyPtr, IntPtr.Zero, null, default);
             GMarshal.Free (detailedSignalPtr);
 
             return new SignalHandler (this, id);
@@ -636,7 +636,7 @@ namespace GISharp.Lib.GObject
                 }
                 catch (Exception ex) {
                     ex.LogUnhandledException ();
-                    return default(bool);
+                    return default;
                 }
             }
 
@@ -651,7 +651,7 @@ namespace GISharp.Lib.GObject
                 }
                 catch (Exception ex) {
                     ex.LogUnhandledException ();
-                    return default(bool);
+                    return default;
                 }
             }
 

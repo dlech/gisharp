@@ -123,7 +123,7 @@ namespace GISharp.Lib.GLib
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
-                return default(bool);
+                return default;
             }
         }
 
@@ -154,7 +154,7 @@ namespace GISharp.Lib.GLib
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
-                return default(bool);
+                return default;
             }
         }
 

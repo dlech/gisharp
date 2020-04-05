@@ -40,8 +40,8 @@ namespace GISharp.Test.GIRepository
             Assert.That (null == info1, Is.False);
             Assert.That (null != info1, Is.True);
 
-            Assert.That(default(BaseInfo?) == default(BaseInfo?), Is.True);
-            Assert.That(default(BaseInfo?) != default(BaseInfo?), Is.False);
+            Assert.That(default == default(BaseInfo?), Is.True);
+            Assert.That(default != default(BaseInfo?), Is.False);
         }
 
         [Test]

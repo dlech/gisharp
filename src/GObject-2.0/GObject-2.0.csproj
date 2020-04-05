@@ -7,6 +7,7 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>IDE1006</NoWarn>
     <RootNamespace>GISharp.Lib.GObject</RootNamespace>
   </PropertyGroup>
 </Project>

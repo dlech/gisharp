@@ -417,7 +417,7 @@ namespace GISharp.Runtime
         {
             var ret_ = Marshal.ReadIntPtr(ptr, fieldOffset);
             if (ret_ == IntPtr.Zero) {
-                return default(T);
+                return default;
             }
             var ret = Marshal.GetDelegateForFunctionPointer<T>(ret_);
             return ret;

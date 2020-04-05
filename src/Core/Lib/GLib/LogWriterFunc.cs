@@ -15,7 +15,7 @@ namespace GISharp.Lib.GLib
     /// <remarks>
     /// Writer functions must ignore fields which they do not recognise, unless they
     /// can write arbitrary binary output, as field values may be arbitrary binary.
-    /// 
+    ///
     /// @log_level is guaranteed to be included in @fields as the `PRIORITY` field,
     /// but is provided separately for convenience of deciding whether or where to
     /// output the log entry.
@@ -47,7 +47,7 @@ namespace GISharp.Lib.GLib
     /// <remarks>
     /// Writer functions must ignore fields which they do not recognise, unless they
     /// can write arbitrary binary output, as field values may be arbitrary binary.
-    /// 
+    ///
     /// @log_level is guaranteed to be included in @fields as the `PRIORITY` field,
     /// but is provided separately for convenience of deciding whether or where to
     /// output the log entry.
@@ -104,7 +104,7 @@ namespace GISharp.Lib.GLib
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
-                return default(LogWriterOutput);
+                return default;
             }
         }
 

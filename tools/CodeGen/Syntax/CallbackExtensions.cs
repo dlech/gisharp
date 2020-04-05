@@ -113,12 +113,12 @@ namespace GISharp.CodeGen.Syntax
             // GErrorException thrown by the managed callback
 
             if (callback.ThrowsGErrorException) {
-                var gErrorException = typeof(GISharp.Runtime.GErrorException).FullName;
+                var gErrorException = typeof(GErrorException).FullName;
                 var propagateError = ParseStatement(string.Format("{0}.{1}(ref {2}_, ex.{3});\n",
-                    typeof(GISharp.Runtime.GMarshal),
-                    nameof(GISharp.Runtime.GMarshal.PropagateError),
+                    typeof(GMarshal),
+                    nameof(GMarshal.PropagateError),
                     callback.Parameters.ErrorParameter.ManagedName,
-                    nameof(GISharp.Runtime.GErrorException.Error)));
+                    nameof(GErrorException.Error)));
 
                 var gErrorExceptionStatements = List<StatementSyntax>().Add(propagateError);
 

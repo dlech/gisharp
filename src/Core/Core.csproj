@@ -6,6 +6,7 @@
     <LangVersion>8.0</LangVersion>
     <Nullable>enable</Nullable>
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
+    <NoWarn>IDE1006</NoWarn>
   </PropertyGroup>
   <ItemGroup Condition="$([MSBuild]::IsOSUnixLike())">
     <Compile Remove="Runtime\CLong32.cs" />

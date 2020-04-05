@@ -42,20 +42,13 @@ namespace GISharp.CodeGen.Reflection
 
         public override RuntimeMethodHandle MethodHandle => throw new NotSupportedException();
 
-        public override System.Type DeclaringType {
-            get {
-                switch (method.ParentNode) {
-                case Class @class:
-                    return new GirClassType(@class);
-                case Interface @interface:
-                    return new GirInterfaceType(@interface);
-                case Record record:
-                    return new GirRecordType(record);
-                default:
-                    throw new NotSupportedException();
-                }
-            }
-        }
+        public override System.Type DeclaringType => method.ParentNode switch
+        {
+            Class @class => new GirClassType(@class),
+            Interface @interface => new GirInterfaceType(@interface),
+            Record record => new GirRecordType(record),
+            _ => throw new NotSupportedException(),
+        };
 
         public override string Name => method.ManagedName;
 

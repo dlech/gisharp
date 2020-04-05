@@ -376,7 +376,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static SignalHandler Connect<T, U>(this Object instance, UnownedUtf8 detailedSignal,
             System.Func<T, (U, UnmanagedClosureNotify, IntPtr)> unmanagedCallbackFactory,
-            T handler, ConnectFlags connectFlags = default(ConnectFlags))
+            T handler, ConnectFlags connectFlags = default)
         {
             var instance_ = instance.Handle;
             var detailedSignal_ = detailedSignal.Handle;
@@ -453,7 +453,7 @@ namespace GISharp.Lib.GObject
         /// argument list for the signal emission.
         ///  The arguments to be passed to the signal.
         /// </param>
-        public static T Emit<T>(this Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
+        public static T Emit<T>(this Object instance, uint signalId, Quark detail = default, params object[] parameters)
         {
             return (T)Emit(typeof(T), instance, signalId, detail, parameters)!;
         }
@@ -474,7 +474,7 @@ namespace GISharp.Lib.GObject
         /// argument list for the signal emission.
         ///  The arguments to be passed to the signal.
         /// </param>
-        public static void Emit(this Object instance, uint signalId, Quark detail = default(Quark), params object[] parameters)
+        public static void Emit(this Object instance, uint signalId, Quark detail = default, params object[] parameters)
         {
             Emit(typeof(void), instance, signalId, detail, parameters);
         }
@@ -1309,7 +1309,7 @@ namespace GISharp.Lib.GObject
         /// <param name="detail">
         /// the detail which the signal was emitted with.
         /// </param>
-        public static void StopEmission(this Object instance, uint signalId, Quark detail = default(Quark))
+        public static void StopEmission(this Object instance, uint signalId, Quark detail = default)
         {
             var instance_ = instance.Handle;
             g_signal_stop_emission(instance_, signalId, detail);

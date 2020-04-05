@@ -304,7 +304,7 @@ namespace GISharp.Lib.GIRepository
         /// is not specified, the latest will be used.
         /// </remarks>
         public static void Require(UnownedUtf8 @namespace, NullableUnownedUtf8 version = default,
-            RepositoryLoadFlags flags = default(RepositoryLoadFlags))
+            RepositoryLoadFlags flags = default)
         {
             g_irepository_require(IntPtr.Zero, @namespace.Handle, version.Handle, (int)flags, out var error_);
             if (error_ != IntPtr.Zero) {
@@ -383,7 +383,8 @@ namespace GISharp.Lib.GIRepository
         {
             using var typelibDirUtf8 = typelibDir.ToUtf8();
             using var namespaceUtf8 = @namespace.ToUtf8();
-            RequirePrivate(typelibDirUtf8, namespaceUtf8);
+            using var versionUtf8 = version?.ToUtf8();
+            RequirePrivate(typelibDirUtf8, namespaceUtf8, versionUtf8, flags);
         }
     }
 }

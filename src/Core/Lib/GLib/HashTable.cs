@@ -1112,7 +1112,7 @@ namespace GISharp.Lib.GLib
             var lookupKey_ = lookupKey?.Handle ?? IntPtr.Zero;
             var origKey_ = IntPtr.Zero;
             var value_ = IntPtr.Zero;
-            var ret = g_hash_table_lookup_extended(handle, lookupKey_, &origKey_, &value_);
+            var ret = g_hash_table_lookup_extended(this_, lookupKey_, &origKey_, &value_);
             origKey = GetInstance<TKey>(origKey_, Transfer.None);
             value = GetInstance<TValue>(value_, Transfer.None);
             return ret;

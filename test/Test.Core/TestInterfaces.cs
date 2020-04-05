@@ -295,7 +295,7 @@ namespace GISharp.Test.Core
                         ex.LogUnhandledException();
                     }
 
-                    return default(bool);
+                    return default;
                 }
 
                 return canReachAsyncFinish;
@@ -337,7 +337,7 @@ namespace GISharp.Test.Core
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Boolean g_network_monitor_can_reach(IntPtr monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
 
-        public static bool CanReach(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
+        public static bool CanReach(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default)
         {
             var instance = (Object)monitor;
             var ret = g_network_monitor_can_reach(instance.Handle, connectable, cancellable, out var errorPtr);
@@ -353,7 +353,7 @@ namespace GISharp.Test.Core
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_network_monitor_can_reach_async(IntPtr monitor, IntPtr connectable, IntPtr cancellable, UnmanagedAsyncReadyCallback callback, IntPtr userData);
 
-        public static Task<bool> CanReachAsync(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default(IntPtr))
+        public static Task<bool> CanReachAsync(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default)
         {
             var completion = new TaskCompletionSource<bool>();
             var this_ = monitor.AsObject().Handle;
@@ -490,7 +490,7 @@ namespace GISharp.Test.Core
                     catch (Exception ex) {
                         ex.LogUnhandledException();
                     }
-                    return default(IntPtr);
+                    return default;
                 }
 
                 return getUserData;
@@ -518,7 +518,7 @@ namespace GISharp.Test.Core
                     catch (Exception ex) {
                         ex.LogUnhandledException();
                     }
-                    return default(IntPtr);
+                    return default;
                 }
 
                 return getSourceObject;
@@ -545,7 +545,7 @@ namespace GISharp.Test.Core
                     catch (Exception ex) {
                         ex.LogUnhandledException();
                     }
-                    return default(bool);
+                    return default;
                 }
 
                 return isTagged;

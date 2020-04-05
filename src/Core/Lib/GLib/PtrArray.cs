@@ -1050,7 +1050,7 @@ namespace GISharp.Lib.GLib
         public static implicit operator UnownedCPtrArray<T>(PtrArray<T>? array)
         {
             if (array == null) {
-                return default(UnownedCPtrArray<T>);
+                return default;
             }
             return new UnownedCPtrArray<T>(array.Data);
         }

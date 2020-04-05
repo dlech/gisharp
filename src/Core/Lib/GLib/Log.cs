@@ -112,19 +112,19 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The behavior of this log handler can be influenced by a number of
         /// environment variables:
-        /// 
+        ///
         /// - `G_MESSAGES_PREFIXED`: A :-separated list of log levels for which
         ///   messages should be prefixed by the program name and PID of the
         ///   application.
-        /// 
+        ///
         /// - `G_MESSAGES_DEBUG`: A space-separated list of log domains for
         ///   which debug and informational messages are printed. By default
         ///   these messages are not printed.
-        /// 
+        ///
         /// stderr is used for levels %G_LOG_LEVEL_ERROR, %G_LOG_LEVEL_CRITICAL,
         /// %G_LOG_LEVEL_WARNING and %G_LOG_LEVEL_MESSAGE. stdout is used for
         /// the rest.
-        /// 
+        ///
         /// This has no effect if structured logging is enabled; see
         /// [Using Structured Logging][using-structured-logging].
         /// </remarks>
@@ -170,19 +170,19 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The behavior of this log handler can be influenced by a number of
         /// environment variables:
-        /// 
+        ///
         /// - `G_MESSAGES_PREFIXED`: A :-separated list of log levels for which
         ///   messages should be prefixed by the program name and PID of the
         ///   application.
-        /// 
+        ///
         /// - `G_MESSAGES_DEBUG`: A space-separated list of log domains for
         ///   which debug and informational messages are printed. By default
         ///   these messages are not printed.
-        /// 
+        ///
         /// stderr is used for levels <see cref="LogLevelFlags.Error"/>, <see cref="LogLevelFlags.Critical"/>,
         /// <see cref="LogLevelFlags.Warning"/> and <see cref="LogLevelFlags.Message"/>. stdout is used for
         /// the rest.
-        /// 
+        ///
         /// This has no effect if structured logging is enabled; see
         /// [Using Structured Logging][using-structured-logging].
         /// </remarks>
@@ -258,10 +258,10 @@ namespace GISharp.Lib.GLib
         /// You can also make some message levels fatal at runtime by setting
         /// the `G_DEBUG` environment variable (see
         /// [Running GLib Applications](glib-running.html)).
-        /// 
+        ///
         /// Libraries should not call this function, as it affects all messages logged
         /// by a process, including those from other libraries.
-        /// 
+        ///
         /// Structured log messages (using g_log_structured() and
         /// g_log_structured_array()) are fatal only if the default log writer is used;
         /// otherwise it is up to the writer function to determine which log messages
@@ -292,10 +292,10 @@ namespace GISharp.Lib.GLib
         /// You can also make some message levels fatal at runtime by setting
         /// the <c>G_DEBUG</c> environment variable (see
         /// [Running GLib Applications](glib-running.html)).
-        /// 
+        ///
         /// Libraries should not call this function, as it affects all messages logged
         /// by a process, including those from other libraries.
-        /// 
+        ///
         /// Structured log messages (using g_log_structured() and
         /// g_log_structured_array()) are fatal only if the default log writer is used;
         /// otherwise it is up to the writer function to determine which log messages
@@ -366,7 +366,7 @@ namespace GISharp.Lib.GLib
             var oldHandler = defaultHandler;
             if (logFunc == DefaultHandler) {
                 g_log_set_default_handler (g_log_default_handler, IntPtr.Zero);
-                defaultHandler = default(GCHandle);
+                defaultHandler = default;
             } else {
                 // this function does not fix the GIR callback scope pattern
                 // so we have to do some special memory management ourselves
@@ -497,23 +497,23 @@ namespace GISharp.Lib.GLib
         /// Note that since the <see cref="LogLevelFlags.Error"/> log level is always fatal, if
         /// you want to set a handler for this log level you must combine it with
         /// <see cref="LogLevelFlags.Fatal"/>.
-        /// 
+        ///
         /// This has no effect if structured logging is enabled; see
         /// [Using Structured Logging][using-structured-logging].
-        /// 
+        ///
         /// Here is an example for adding a log handler for all warning messages
         /// in the default domain:
         /// |[&lt;!-- language="C" --&gt;
         /// g_log_set_handler (NULL, G_LOG_LEVEL_WARNING | G_LOG_FLAG_FATAL
         ///                    | G_LOG_FLAG_RECURSION, my_log_handler, NULL);
         /// ]|
-        /// 
+        ///
         /// This example adds a log handler for all critical messages from GTK+:
         /// |[&lt;!-- language="C" --&gt;
         /// g_log_set_handler ("Gtk", G_LOG_LEVEL_CRITICAL | G_LOG_FLAG_FATAL
         ///                    | G_LOG_FLAG_RECURSION, my_log_handler, NULL);
         /// ]|
-        /// 
+        ///
         /// This example adds a log handler for all messages from GLib:
         /// |[&lt;!-- language="C" --&gt;
         /// g_log_set_handler ("GLib", G_LOG_LEVEL_MASK | G_LOG_FLAG_FATAL

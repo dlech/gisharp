@@ -132,7 +132,7 @@ namespace GISharp.CodeGen.Reflection
             throw new NotSupportedException();
         }
 
-        protected override TypeAttributes GetAttributeFlagsImpl() => default(TypeAttributes);
+        protected override TypeAttributes GetAttributeFlagsImpl() => default;
 
         protected override ConstructorInfo GetConstructorImpl(BindingFlags bindingAttr,
             Binder binder, CallingConventions callConvention, System.Type[] types,

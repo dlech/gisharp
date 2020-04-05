@@ -213,7 +213,7 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxTriviaList GetGErrorExceptionDocCommentTrivia(this GICallable callable)
         {
             if (!callable.ThrowsGErrorException) {
-                return default(SyntaxTriviaList);
+                return default;
             }
             var builder = new StringBuilder();
             builder.AppendFormat("/// <exception name=\"{0}\">",

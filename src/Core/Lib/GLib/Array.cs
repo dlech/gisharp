@@ -740,7 +740,6 @@ namespace GISharp.Lib.GLib
 
         public bool Contains(T other)
         {
-            var this_ = Handle;
             for (int i = 0; i < Length; i++) {
                 if (this[i].Equals(other)) {
                     return true;
@@ -801,7 +800,7 @@ namespace GISharp.Lib.GLib
         public static implicit operator Span<T>(Array<T>? array)
         {
             if (array == null) {
-                return default(Span<T>);
+                return default;
             }
 
             return array.Data;

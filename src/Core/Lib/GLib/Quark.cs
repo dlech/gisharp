@@ -15,11 +15,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// A zero value <see cref="Quark"/>.
         /// </summary>
-        public static Quark Zero {
-            get {
-                return default(Quark);
-            }
-        }
+        public static Quark Zero => default;
 
         Quark(uint value)
         {

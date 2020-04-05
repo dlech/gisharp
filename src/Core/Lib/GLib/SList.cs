@@ -875,7 +875,7 @@ namespace GISharp.Lib.GLib
             #pragma warning restore CS0649
         }
 
-        IntPtr start;
+        readonly IntPtr start;
         IntPtr next;
 
         internal SListEnumerator(IntPtr start) : base(IntPtr.Zero, Transfer.None)
@@ -1038,7 +1038,7 @@ namespace GISharp.Lib.GLib
                 }
                 catch (Exception ex) {
                     ex.LogUnhandledException ();
-                    return default (int);
+                    return default;
                 }
             };
             InsertSorted (data?.Handle ?? IntPtr.Zero, func_);
@@ -1124,7 +1124,7 @@ namespace GISharp.Lib.GLib
                 }
                 catch (Exception ex) {
                     ex.LogUnhandledException ();
-                    return default(int);
+                    return default;
                 }
             };
             Sort (compareFunc_);

@@ -133,7 +133,7 @@ namespace GISharp.CodeGen
             foreach (var command in commands) {
                 switch (command) {
                 case AddElement addElement:
-                    var newElement = parseElement(addElement.Xml);
+                    var newElement = ParseElement(addElement.Xml);
                     var addParent = document.XPathSelectElement(addElement.Xpath, Manager);
                     if (addParent == null) {
                         Log.Warning($"Could not find element at '{addElement.Xpath}'");
@@ -805,7 +805,7 @@ namespace GISharp.CodeGen
             foreach (var element in document.Descendants(gi + "parameter")
                 .Concat(document.Descendants(gi + "instance-parameter"))
                 .Where(x => x.Element(gi + "array") != null
-                    && x.Attribute("direction").AsString() == "out" 
+                    && x.Attribute("direction").AsString() == "out"
                     && x.Attribute("caller-allocates").AsBool())) {
                 element.SetAttributeValue("direction", "in");
             }
@@ -1332,30 +1332,24 @@ namespace GISharp.CodeGen
 
         public static Transfer AsTransfer(this XAttribute attribute, string defaultValue)
         {
-            switch (attribute?.Value ?? defaultValue) {
-            case "none":
-                return Transfer.None;
-            case "container":
-                return Transfer.Container;
-            case "full":
-                return Transfer.Full;
-            default:
-                throw new ArgumentException("Unknown transfer-ownership type");
-            }
+            return (attribute?.Value ?? defaultValue) switch
+            {
+                "none" => Transfer.None,
+                "container" => Transfer.Container,
+                "full" => Transfer.Full,
+                _ => throw new ArgumentException("Unknown transfer-ownership type"),
+            };
         }
 
         public static EmissionStage ToEmissionStage(this XAttribute attribute)
         {
-            switch (attribute.Value) {
-            case "first":
-                return EmissionStage.First;
-            case "last":
-                return EmissionStage.Last;
-            case "cleanup":
-                return EmissionStage.Cleanup;
-            default:
-                throw new ArgumentException("Unknown when value", nameof(attribute));
-            }
+            return attribute.Value switch
+            {
+                "first" => EmissionStage.First,
+                "last" => EmissionStage.Last,
+                "cleanup" => EmissionStage.Cleanup,
+                _ => throw new ArgumentException("Unknown when value", nameof(attribute)),
+            };
         }
 
         public static string ToPascalCase(this string str)
@@ -1394,7 +1388,7 @@ namespace GISharp.CodeGen
         }
 
         // Thanks, http://stackoverflow.com/a/3584742/1976323
-        static XElement parseElement(string xml)
+        static XElement ParseElement(string xml)
         {
             var context = new XmlParserContext(null, Manager, null, XmlSpace.None);
             var reader = XmlReader.Create(new StringReader(xml), null, context);
