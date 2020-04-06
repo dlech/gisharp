@@ -19,17 +19,6 @@
   value: 1
   xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']/gi:array
 
-# fix the C type of the array element
-- !set-attribute
-  name: c:type
-  value: GOptionEntry
-  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']/gi:type
-
-# move the type element so that it is a child of the new array element
-- !move-element
-  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']/gi:type
-  new-parent-xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']/gi:parameters/gi:parameter[@name='entries']/gi:array
-
 # need this to help with marshalling
 - !set-attribute
   name: introspectable
