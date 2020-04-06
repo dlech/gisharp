@@ -524,7 +524,7 @@ namespace GISharp.Lib.Gio
         {
             var cancellable_ = Handle;
             var error_ = System.IntPtr.Zero;
-            g_cancellable_set_error_if_cancelled(cancellable_,ref error_);
+            g_cancellable_set_error_if_cancelled(cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

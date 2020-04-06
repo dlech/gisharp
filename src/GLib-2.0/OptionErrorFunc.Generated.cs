@@ -49,12 +49,13 @@ namespace GISharp.Lib.GLib
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionErrorFunc>(callback_);
             var data_ = userData_;
+
             unsafe void managedCallback(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group)
             {
                 var context_ = context.Handle;
                 var group_ = group.Handle;
                 var error_ = System.IntPtr.Zero;
-                unmanagedCallback(context_, group_, data_,ref error_);
+                unmanagedCallback(context_, group_, data_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

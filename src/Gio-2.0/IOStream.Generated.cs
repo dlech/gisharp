@@ -88,7 +88,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_io_stream_splice_finish(result_,ref error_);
+                g_io_stream_splice_finish(result_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -204,7 +204,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_io_stream_close(stream_, cancellable_,ref error_);
+            g_io_stream_close(stream_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -313,7 +313,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_io_stream_close_finish(stream_, result_,ref error_);
+                g_io_stream_close_finish(stream_, result_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -476,7 +476,7 @@ namespace GISharp.Lib.Gio
         {
             var stream_ = Handle;
             var error_ = System.IntPtr.Zero;
-            g_io_stream_set_pending(stream_,ref error_);
+            g_io_stream_set_pending(stream_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -578,7 +578,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<IOStreamClass.UnmanagedCloseFinish>(_GType)!(stream_, result_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<IOStreamClass.UnmanagedCloseFinish>(_GType)!(stream_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -593,7 +593,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<IOStreamClass.UnmanagedCloseFn>(_GType)!(stream_, cancellable_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<IOStreamClass.UnmanagedCloseFn>(_GType)!(stream_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

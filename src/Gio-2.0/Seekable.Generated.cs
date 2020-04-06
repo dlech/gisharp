@@ -158,7 +158,7 @@ namespace GISharp.Lib.Gio
             var type_ = (GISharp.Lib.GLib.SeekType)type;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_seekable_seek(seekable_, offset_, type_, cancellable_,ref error_);
+            g_seekable_seek(seekable_, offset_, type_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -245,7 +245,7 @@ namespace GISharp.Lib.Gio
             var offset_ = (System.Int64)offset;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_seekable_truncate(seekable_, offset_, cancellable_,ref error_);
+            g_seekable_truncate(seekable_, offset_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

@@ -44,6 +44,7 @@ namespace GISharp.Lib.GLib
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedTranslateFunc>(callback_);
             var data_ = userData_;
+
             unsafe GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str)
             {
                 var str_ = str.Handle;

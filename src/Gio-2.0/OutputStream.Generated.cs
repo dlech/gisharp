@@ -128,7 +128,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_output_stream_close(stream_, cancellable_,ref error_);
+            g_output_stream_close(stream_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -234,7 +234,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_output_stream_close_finish(stream_, result_,ref error_);
+                g_output_stream_close_finish(stream_, result_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -296,7 +296,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_output_stream_flush(stream_, cancellable_,ref error_);
+            g_output_stream_flush(stream_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -399,7 +399,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_output_stream_flush_finish(stream_, result_,ref error_);
+                g_output_stream_flush_finish(stream_, result_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -528,7 +528,7 @@ namespace GISharp.Lib.Gio
         {
             var stream_ = Handle;
             var error_ = System.IntPtr.Zero;
-            g_output_stream_set_pending(stream_,ref error_);
+            g_output_stream_set_pending(stream_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -799,7 +799,8 @@ namespace GISharp.Lib.Gio
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Write(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Int32 Write(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
+            var stream_ = Handle;
+            ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -886,11 +887,12 @@ namespace GISharp.Lib.Gio
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe void WriteAll(System.ReadOnlySpan<System.Byte> buffer, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
+            var stream_ = Handle;
+            ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_output_stream_write_all(stream_, buffer_, count_,out var bytesWritten_, cancellable_,ref error_);
+            g_output_stream_write_all(stream_, buffer_, count_,out var bytesWritten_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -974,7 +976,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe System.Threading.Tasks.Task<System.Int32> WriteAllAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
+            var stream_ = Handle;
+            ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -1039,7 +1042,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_output_stream_write_all_finish(stream_, result_,out var bytesWritten_,ref error_);
+                g_output_stream_write_all_finish(stream_, result_,out var bytesWritten_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1150,7 +1153,8 @@ namespace GISharp.Lib.Gio
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task<System.Int32> WriteAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
+            var stream_ = Handle;
+            ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -1488,11 +1492,12 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.60")]
         public unsafe void Writev(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var stream_ = Handle;
+            ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_output_stream_writev(stream_, vectors_, nVectors_,out var bytesWritten_, cancellable_,ref error_);
+            g_output_stream_writev(stream_, vectors_, nVectors_,out var bytesWritten_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1579,11 +1584,12 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.60")]
         public unsafe void WritevAll(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var stream_ = Handle;
+            ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_output_stream_writev_all(stream_, vectors_, nVectors_,out var bytesWritten_, cancellable_,ref error_);
+            g_output_stream_writev_all(stream_, vectors_, nVectors_,out var bytesWritten_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1668,7 +1674,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.60")]
         public unsafe System.Threading.Tasks.Task<System.Int32> WritevAllAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var stream_ = Handle;
+            ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -1733,7 +1740,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_output_stream_writev_all_finish(stream_, result_,out var bytesWritten_,ref error_);
+                g_output_stream_writev_all_finish(stream_, result_,out var bytesWritten_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1841,7 +1848,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.60")]
         public unsafe System.Threading.Tasks.Task<System.Int32> WritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var stream_ = Handle;
+            ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -1896,7 +1904,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_output_stream_writev_finish(stream_, result_,out var bytesWritten_,ref error_);
+                g_output_stream_writev_finish(stream_, result_,out var bytesWritten_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1933,7 +1941,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedCloseFinish>(_GType)!(stream_, result_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedCloseFinish>(_GType)!(stream_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1948,7 +1956,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedCloseFn>(_GType)!(stream_, cancellable_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedCloseFn>(_GType)!(stream_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1963,7 +1971,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedFlush>(_GType)!(stream_, cancellable_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedFlush>(_GType)!(stream_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1989,7 +1997,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedFlushFinish>(_GType)!(stream_, result_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedFlushFinish>(_GType)!(stream_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2052,7 +2060,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWriteAsync))]
         protected virtual unsafe void DoWriteAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
+            var stream_ = Handle;
+            ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
@@ -2082,7 +2091,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWriteFn))]
         protected virtual unsafe System.Int32 DoWriteFn(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
+            var stream_ = Handle;
+            ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -2102,7 +2112,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWritevAsync))]
         protected virtual unsafe void DoWritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var stream_ = Handle;
+            ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
@@ -2118,7 +2129,7 @@ namespace GISharp.Lib.Gio
             var stream_ = Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFinish>(_GType)!(stream_, result_,out var bytesWritten_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFinish>(_GType)!(stream_, result_,out var bytesWritten_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2133,11 +2144,12 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWritevFn))]
         protected virtual unsafe void DoWritevFn(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
+            var stream_ = Handle;
+            ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFn>(_GType)!(stream_, vectors_, nVectors_,out var bytesWritten_, cancellable_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFn>(_GType)!(stream_, vectors_, nVectors_,out var bytesWritten_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

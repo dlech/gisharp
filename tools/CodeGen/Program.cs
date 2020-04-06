@@ -135,7 +135,7 @@ namespace GISharp.CodeGen
             // load the project given by the --project option
 
             var analyzerOptions = new AnalyzerManagerOptions() {
-                LogWriter = Console.Error,
+                // LogWriter = Console.Error,
             };
             var manager = new AnalyzerManager(analyzerOptions);
             ProjectAnalyzer projectAnalyzer;
@@ -152,7 +152,6 @@ namespace GISharp.CodeGen
             catch (Exception ex) {
                 Console.Error.WriteLine($"Failed to load project: {ex.Message}");
                 Environment.Exit(1);
-                return;
             }
 
             var repositoryName = Path.GetFileNameWithoutExtension(projectAnalyzer.ProjectFile.Path);
@@ -172,7 +171,6 @@ namespace GISharp.CodeGen
             catch (Exception ex) {
                 Console.Error.WriteLine($"Failed to load GIR XML: {ex.Message}");
                 Environment.Exit(1);
-                return;
             }
 
             // load the gir-fixup.yml file
@@ -191,13 +189,11 @@ namespace GISharp.CodeGen
             if (command != Command.NewFixup && !fixupFileExists && !fixupDirExists) {
                 Console.Error.WriteLine("gir-fixup.yml does not exist. Create it using --command=new-fixup.");
                 Environment.Exit(1);
-                return;
             }
             // for the new-fixup command, we want to make sure we aren't overwriting an existing file
             else if (command == Command.NewFixup == !forceArg && fixupFileExists) {
                 Console.Error.WriteLine("gir-fixup.yml already exists in project. Use --force to overwrite.");
                 Environment.Exit(1);
-                return;
             }
 
             // Handle the new-fixup command
@@ -239,7 +235,6 @@ namespace GISharp.CodeGen
                 var msg = $"Fixup file error: {ex.Message}";
                 Console.Error.WriteLine(msg);
                 Environment.Exit(1);
-                return;
             }
 
             // Apply the fixups to the GIR XML
@@ -264,7 +259,7 @@ namespace GISharp.CodeGen
                 // build the project references to ensure they are not out of date.
                 // theoretically, we could use MSBUild programmatically
                 // but it is really quirky and doesn't "just work"
-                var dotnet = Process.Start("dotnet", $"build {projRef} -v q");
+                var dotnet = Process.Start("dotnet", $"build -v q --nologo {projRef}");
                 dotnet.WaitForExit();
                 if (dotnet.ExitCode != 0) {
                     Environment.Exit(dotnet.ExitCode);

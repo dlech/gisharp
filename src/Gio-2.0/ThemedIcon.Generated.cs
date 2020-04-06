@@ -84,7 +84,8 @@ namespace GISharp.Lib.Gio
         System.Int32 len);
 
         static unsafe System.IntPtr NewFromNames(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames)
-        {ref readonly var iconnames_ = ref iconnames.GetPinnableReference();
+        {
+            ref readonly var iconnames_ = ref iconnames.GetPinnableReference();
             var len_ = (System.Int32)iconnames.Length;
             var ret_ = g_themed_icon_new_from_names(iconnames_,len_);
             return ret_;

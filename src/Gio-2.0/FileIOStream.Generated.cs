@@ -376,7 +376,7 @@ namespace GISharp.Lib.Gio
             var type_ = (GISharp.Lib.GLib.SeekType)type;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedSeek>(_GType)!(stream_, offset_, type_, cancellable_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedSeek>(_GType)!(stream_, offset_, type_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -402,7 +402,7 @@ namespace GISharp.Lib.Gio
             var size_ = (System.Int64)size;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedTruncateFn>(_GType)!(stream_, size_, cancellable_,ref error_);
+            GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedTruncateFn>(_GType)!(stream_, size_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

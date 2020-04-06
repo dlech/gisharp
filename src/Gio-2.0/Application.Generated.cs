@@ -648,7 +648,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void AddMainOptionEntries(System.ReadOnlySpan<GISharp.Lib.GLib.OptionEntry> entries)
         {
-            var application_ = Handle;ref readonly var entries_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(entries);
+            var application_ = Handle;
+            ref readonly var entries_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(entries);
             g_application_add_main_option_entries(application_, entries_);
         }
 
@@ -1127,7 +1128,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe void Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
         {
-            var application_ = Handle;ref readonly var files_ = ref files.GetPinnableReference();
+            var application_ = Handle;
+            ref readonly var files_ = ref files.GetPinnableReference();
             var nFiles_ = (System.Int32)files.Length;
             var hint_ = hint.Handle;
             g_application_open(application_, files_, nFiles_, hint_);
@@ -1244,7 +1246,7 @@ namespace GISharp.Lib.Gio
             var application_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_application_register(application_, cancellable_,ref error_);
+            g_application_register(application_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1391,7 +1393,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe System.Int32 Run(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> argv)
         {
-            var application_ = Handle;ref readonly var argv_ = ref argv.GetPinnableReference();
+            var application_ = Handle;
+            ref readonly var argv_ = ref argv.GetPinnableReference();
             var argc_ = (System.Int32)argv.Length;
             var ret_ = g_application_run(application_,argc_,argv_);
             var ret = (System.Int32)ret_;
@@ -1989,7 +1992,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedOpen))]
         protected virtual unsafe void DoOpen(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
         {
-            var application_ = Handle;ref readonly var files_ = ref files.GetPinnableReference();
+            var application_ = Handle;
+            ref readonly var files_ = ref files.GetPinnableReference();
             var nFiles_ = (System.Int32)files.Length;
             var hint_ = hint.Handle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedOpen>(_GType)!(application_, files_, nFiles_, hint_);

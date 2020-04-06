@@ -143,7 +143,7 @@ namespace GISharp.Lib.Gio
         {
             var detailedName_ = detailedName.Handle;
             var error_ = System.IntPtr.Zero;
-            g_action_parse_detailed_name(detailedName_,out var actionName_,out var targetValue_,ref error_);
+            g_action_parse_detailed_name(detailedName_,out var actionName_,out var targetValue_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

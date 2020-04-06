@@ -575,7 +575,7 @@ namespace GISharp.Lib.Gio
         {
             var task_ = Handle;
             var error_ = System.IntPtr.Zero;
-            g_task_propagate_boolean(task_,ref error_);
+            g_task_propagate_boolean(task_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -726,7 +726,7 @@ namespace GISharp.Lib.Gio
         {
             var task_ = Handle;
             var error_ = System.IntPtr.Zero;
-            g_task_propagate_value(task_,out var value_,ref error_);
+            g_task_propagate_value(task_,out var value_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

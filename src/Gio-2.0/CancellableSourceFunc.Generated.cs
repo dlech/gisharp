@@ -45,6 +45,7 @@ namespace GISharp.Lib.Gio
         public static GISharp.Lib.Gio.CancellableSourceFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedCancellableSourceFunc>(callback_);
+
             unsafe System.Boolean managedCallback(GISharp.Lib.Gio.Cancellable? cancellable)
             {
                 var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;

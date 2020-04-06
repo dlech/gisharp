@@ -909,7 +909,7 @@ namespace GISharp.Lib.Gio
             var (progressCallback_, destroy_, progressCallbackData_) = GISharp.Lib.Gio.FileProgressCallbackMarshal.ToPointer(progressCallback, GISharp.Runtime.CallbackScope.Call);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_copy(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_,ref error_);
+            g_file_copy(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_, ref error_);
             var destroy = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedDestroyNotify>(destroy_);
             destroy?.Invoke(progressCallbackData_);
             if (error_ != System.IntPtr.Zero)
@@ -1052,7 +1052,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_copy_attributes(source_, destination_, flags_, cancellable_,ref error_);
+            g_file_copy_attributes(source_, destination_, flags_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1548,7 +1548,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_delete(file_, cancellable_,ref error_);
+            g_file_delete(file_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1651,7 +1651,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_file_delete_finish(file_, result_,ref error_);
+                g_file_delete_finish(file_, result_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1747,7 +1747,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_eject_mountable_finish(file_, result_,ref error_);
+            g_file_eject_mountable_finish(file_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1794,7 +1794,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_eject_mountable_with_operation_finish(file_, result_,ref error_);
+            g_file_eject_mountable_with_operation_finish(file_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2670,7 +2670,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_load_contents(file_, cancellable_,out var contents_,out var length_,out var etagOut_,ref error_);
+            g_file_load_contents(file_, cancellable_,out var contents_,out var length_,out var etagOut_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2807,7 +2807,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Runtime.CArray<System.Byte>,GISharp.Lib.GLib.Utf8>>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_file_load_contents_finish(file_, res_,out var contents_,out var length_,out var etagOut_,ref error_);
+                g_file_load_contents_finish(file_, res_,out var contents_,out var length_,out var etagOut_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2889,7 +2889,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var res_ = res.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_load_partial_contents_finish(file_, res_,out var contents_,out var length_,out var etagOut_,ref error_);
+            g_file_load_partial_contents_finish(file_, res_,out var contents_,out var length_,out var etagOut_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2950,7 +2950,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_make_directory(file_, cancellable_,ref error_);
+            g_file_make_directory(file_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -3052,7 +3052,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_file_make_directory_finish(file_, result_,ref error_);
+                g_file_make_directory_finish(file_, result_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -3122,7 +3122,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_make_directory_with_parents(file_, cancellable_,ref error_);
+            g_file_make_directory_with_parents(file_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -3180,7 +3180,7 @@ namespace GISharp.Lib.Gio
             var symlinkValue_ = symlinkValue.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_make_symbolic_link(file_, symlinkValue_, cancellable_,ref error_);
+            g_file_make_symbolic_link(file_, symlinkValue_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -3246,7 +3246,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_measure_disk_usage_finish(file_, result_,out var diskUsage_,out var numDirs_,out var numFiles_,ref error_);
+            g_file_measure_disk_usage_finish(file_, result_,out var diskUsage_,out var numDirs_,out var numFiles_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -3295,7 +3295,7 @@ namespace GISharp.Lib.Gio
             var location_ = location.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_mount_enclosing_volume_finish(location_, result_,ref error_);
+            g_file_mount_enclosing_volume_finish(location_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -3452,7 +3452,7 @@ namespace GISharp.Lib.Gio
             var (progressCallback_, destroy_, progressCallbackData_) = GISharp.Lib.Gio.FileProgressCallbackMarshal.ToPointer(progressCallback, GISharp.Runtime.CallbackScope.Call);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_move(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_,ref error_);
+            g_file_move(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_, ref error_);
             var destroy = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedDestroyNotify>(destroy_);
             destroy?.Invoke(progressCallbackData_);
             if (error_ != System.IntPtr.Zero)
@@ -3782,7 +3782,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_poll_mountable_finish(file_, result_,ref error_);
+            g_file_poll_mountable_finish(file_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -4960,14 +4960,15 @@ namespace GISharp.Lib.Gio
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void ReplaceContents(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, out GISharp.Lib.GLib.Utf8 newEtag, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var file_ = file.Handle;ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
+            var file_ = file.Handle;
+            ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
             var length_ = (System.UIntPtr)contents.Length;
             var etag_ = etag.Handle;
             var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_replace_contents(file_, contents_, length_, etag_, makeBackup_, flags_,out var newEtag_, cancellable_,ref error_);
+            g_file_replace_contents(file_, contents_, length_, etag_, makeBackup_, flags_,out var newEtag_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -5072,7 +5073,8 @@ namespace GISharp.Lib.Gio
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.GLib.Utf8> ReplaceContentsAsync(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var file_ = file.Handle;ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
+            var file_ = file.Handle;
+            ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
             var length_ = (System.UIntPtr)contents.Length;
             var etag_ = etag.Handle;
             var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
@@ -5231,7 +5233,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Utf8>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_file_replace_contents_finish(file_, res_,out var newEtag_,ref error_);
+                g_file_replace_contents_finish(file_, res_,out var newEtag_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -5665,7 +5667,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_set_attribute(file_, attribute_, type_, valueP_, flags_, cancellable_,ref error_);
+            g_file_set_attribute(file_, attribute_, type_, valueP_, flags_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -5745,7 +5747,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_set_attribute_byte_string(file_, attribute_, value_, flags_, cancellable_,ref error_);
+            g_file_set_attribute_byte_string(file_, attribute_, value_, flags_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -5825,7 +5827,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_set_attribute_int32(file_, attribute_, value_, flags_, cancellable_,ref error_);
+            g_file_set_attribute_int32(file_, attribute_, value_, flags_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -5903,7 +5905,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_set_attribute_int64(file_, attribute_, value_, flags_, cancellable_,ref error_);
+            g_file_set_attribute_int64(file_, attribute_, value_, flags_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -5981,7 +5983,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_set_attribute_string(file_, attribute_, value_, flags_, cancellable_,ref error_);
+            g_file_set_attribute_string(file_, attribute_, value_, flags_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6061,7 +6063,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_set_attribute_uint32(file_, attribute_, value_, flags_, cancellable_,ref error_);
+            g_file_set_attribute_uint32(file_, attribute_, value_, flags_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6140,7 +6142,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_set_attribute_uint64(file_, attribute_, value_, flags_, cancellable_,ref error_);
+            g_file_set_attribute_uint64(file_, attribute_, value_, flags_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6274,7 +6276,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_file_set_attributes_finish(file_, result_,out var info_,ref error_);
+                g_file_set_attributes_finish(file_, result_,out var info_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6355,7 +6357,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_set_attributes_from_info(file_, info_, flags_, cancellable_,ref error_);
+            g_file_set_attributes_from_info(file_, info_, flags_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6618,7 +6620,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_start_mountable_finish(file_, result_,ref error_);
+            g_file_start_mountable_finish(file_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6668,7 +6670,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_stop_mountable_finish(file_, result_,ref error_);
+            g_file_stop_mountable_finish(file_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6751,7 +6753,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_file_trash(file_, cancellable_,ref error_);
+            g_file_trash(file_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6853,7 +6855,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_file_trash_finish(file_, result_,ref error_);
+                g_file_trash_finish(file_, result_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6915,7 +6917,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_unmount_mountable_finish(file_, result_,ref error_);
+            g_file_unmount_mountable_finish(file_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -6966,7 +6968,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
-            g_file_unmount_mountable_with_operation_finish(file_, result_,ref error_);
+            g_file_unmount_mountable_with_operation_finish(file_, result_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

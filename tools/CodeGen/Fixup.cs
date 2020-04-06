@@ -62,7 +62,7 @@ namespace GISharp.CodeGen
             }
 
             // we want everything lower-case and hyphenated
-            var hyphenator = new HyphenatedNamingConvention();
+            var hyphenator = HyphenatedNamingConvention.Instance;
 
             var builder = new SerializerBuilder().WithNamingConvention(hyphenator);
 
@@ -100,7 +100,7 @@ namespace GISharp.CodeGen
             }
 
             // we expect everything lower-case and hyphenated
-            var hyphenator = new HyphenatedNamingConvention();
+            var hyphenator = HyphenatedNamingConvention.Instance;
 
             var builder = new DeserializerBuilder().WithNamingConvention(hyphenator);
 

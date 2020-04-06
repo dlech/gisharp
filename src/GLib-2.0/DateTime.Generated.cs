@@ -316,7 +316,8 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe GISharp.Lib.GLib.DateTime FromTimevalLocal(in GISharp.Lib.GLib.TimeVal tv)
-        {ref readonly var tv_ = ref tv;
+        {
+            ref readonly var tv_ = ref tv;
             var ret_ = g_date_time_new_from_timeval_local(tv_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -357,7 +358,8 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.26")]
         public static unsafe GISharp.Lib.GLib.DateTime FromTimevalUtc(in GISharp.Lib.GLib.TimeVal tv)
-        {ref readonly var tv_ = ref tv;
+        {
+            ref readonly var tv_ = ref tv;
             var ret_ = g_date_time_new_from_timeval_utc(tv_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -1942,7 +1944,8 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Boolean ToTimeval(in GISharp.Lib.GLib.TimeVal tv)
         {
-            var datetime_ = Handle;ref readonly var tv_ = ref tv;
+            var datetime_ = Handle;
+            ref readonly var tv_ = ref tv;
             var ret_ = g_date_time_to_timeval(datetime_,tv_);
             var ret = (System.Boolean)ret_;
             return ret;

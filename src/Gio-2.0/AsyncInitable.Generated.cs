@@ -240,7 +240,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
-                g_async_initable_init_finish(initable_, res_,ref error_);
+                g_async_initable_init_finish(initable_, res_, ref error_);
                 if (error_ != System.IntPtr.Zero)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

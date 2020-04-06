@@ -287,7 +287,8 @@ namespace GISharp.Lib.GLib
         public unsafe System.Int32 AdjustTime(GISharp.Lib.GLib.TimeType type, in System.Int64 time)
         {
             var tz_ = Handle;
-            var type_ = (GISharp.Lib.GLib.TimeType)type;ref readonly var time_ = ref time;
+            var type_ = (GISharp.Lib.GLib.TimeType)type;
+            ref readonly var time_ = ref time;
             var ret_ = g_time_zone_adjust_time(tz_,type_,time_);
             var ret = (System.Int32)ret_;
             return ret;

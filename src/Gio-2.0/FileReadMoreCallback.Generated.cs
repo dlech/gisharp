@@ -49,6 +49,7 @@ namespace GISharp.Lib.Gio
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileReadMoreCallback>(callback_);
             var callbackData_ = userData_;
+
             unsafe System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize)
             {
                 var fileContents_ = fileContents.Handle;

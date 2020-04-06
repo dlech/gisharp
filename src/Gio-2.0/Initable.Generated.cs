@@ -150,7 +150,7 @@ namespace GISharp.Lib.Gio
             var initable_ = initable.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
-            g_initable_init(initable_, cancellable_,ref error_);
+            g_initable_init(initable_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);

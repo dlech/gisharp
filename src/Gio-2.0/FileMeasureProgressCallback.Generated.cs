@@ -80,6 +80,7 @@ namespace GISharp.Lib.Gio
         public static GISharp.Lib.Gio.FileMeasureProgressCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback>(callback_);
+
             unsafe void managedCallback(System.Boolean reporting, System.UInt64 currentSize, System.UInt64 numDirs, System.UInt64 numFiles)
             {
                 var reporting_ = (GISharp.Runtime.Boolean)reporting;

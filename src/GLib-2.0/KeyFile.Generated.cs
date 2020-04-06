@@ -1525,7 +1525,7 @@ namespace GISharp.Lib.GLib
             var bytes_ = bytes.Handle;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
-            g_key_file_load_from_bytes(keyFile_, bytes_, flags_,ref error_);
+            g_key_file_load_from_bytes(keyFile_, bytes_, flags_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1585,7 +1585,7 @@ namespace GISharp.Lib.GLib
             var length_ = (System.UIntPtr)length;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
-            g_key_file_load_from_data(keyFile_, data_, length_, flags_,ref error_);
+            g_key_file_load_from_data(keyFile_, data_, length_, flags_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1656,7 +1656,7 @@ namespace GISharp.Lib.GLib
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
-            g_key_file_load_from_data_dirs(keyFile_, file_,out var fullPath_, flags_,ref error_);
+            g_key_file_load_from_data_dirs(keyFile_, file_,out var fullPath_, flags_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1731,10 +1731,11 @@ namespace GISharp.Lib.GLib
         public unsafe void LoadFromDirs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.FilenameArray searchDirs, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
         {
             var keyFile_ = Handle;
-            var file_ = file.Handle;ref readonly var searchDirs_ = ref searchDirs.GetPinnableReference();
+            var file_ = file.Handle;
+            ref readonly var searchDirs_ = ref searchDirs.GetPinnableReference();
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
-            g_key_file_load_from_dirs(keyFile_, file_, searchDirs_,out var fullPath_, flags_,ref error_);
+            g_key_file_load_from_dirs(keyFile_, file_, searchDirs_,out var fullPath_, flags_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1796,7 +1797,7 @@ namespace GISharp.Lib.GLib
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
-            g_key_file_load_from_file(keyFile_, file_, flags_,ref error_);
+            g_key_file_load_from_file(keyFile_, file_, flags_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1851,7 +1852,7 @@ namespace GISharp.Lib.GLib
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
             var error_ = System.IntPtr.Zero;
-            g_key_file_remove_comment(keyFile_, groupName_, key_,ref error_);
+            g_key_file_remove_comment(keyFile_, groupName_, key_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1906,7 +1907,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var error_ = System.IntPtr.Zero;
-            g_key_file_remove_group(keyFile_, groupName_,ref error_);
+            g_key_file_remove_group(keyFile_, groupName_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -1966,7 +1967,7 @@ namespace GISharp.Lib.GLib
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
             var error_ = System.IntPtr.Zero;
-            g_key_file_remove_key(keyFile_, groupName_, key_,ref error_);
+            g_key_file_remove_key(keyFile_, groupName_, key_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2025,7 +2026,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = Handle;
             var filename_ = filename.Handle;
             var error_ = System.IntPtr.Zero;
-            g_key_file_save_to_file(keyFile_, filename_,ref error_);
+            g_key_file_save_to_file(keyFile_, filename_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2144,7 +2145,8 @@ namespace GISharp.Lib.GLib
         {
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
-            var key_ = key.Handle;ref readonly var list_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(list);
+            var key_ = key.Handle;
+            ref readonly var list_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(list);
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_boolean_list(keyFile_, groupName_, key_, list_, length_);
         }
@@ -2217,7 +2219,7 @@ namespace GISharp.Lib.GLib
             var key_ = key.Handle;
             var comment_ = comment.Handle;
             var error_ = System.IntPtr.Zero;
-            g_key_file_set_comment(keyFile_, groupName_, key_, comment_,ref error_);
+            g_key_file_set_comment(keyFile_, groupName_, key_, comment_, ref error_);
             if (error_ != System.IntPtr.Zero)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
@@ -2337,7 +2339,8 @@ namespace GISharp.Lib.GLib
         {
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
-            var key_ = key.Handle;ref readonly var list_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(list);
+            var key_ = key.Handle;
+            ref readonly var list_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(list);
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_double_list(keyFile_, groupName_, key_, list_, length_);
         }
@@ -2507,7 +2510,8 @@ namespace GISharp.Lib.GLib
         {
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
-            var key_ = key.Handle;ref readonly var list_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(list);
+            var key_ = key.Handle;
+            ref readonly var list_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(list);
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_integer_list(keyFile_, groupName_, key_, list_, length_);
         }
@@ -2672,7 +2676,8 @@ namespace GISharp.Lib.GLib
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
-            var locale_ = locale.Handle;ref readonly var list_ = ref list.GetPinnableReference();
+            var locale_ = locale.Handle;
+            ref readonly var list_ = ref list.GetPinnableReference();
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_locale_string_list(keyFile_, groupName_, key_, locale_, list_, length_);
         }
@@ -2794,7 +2799,8 @@ namespace GISharp.Lib.GLib
         {
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
-            var key_ = key.Handle;ref readonly var list_ = ref list.GetPinnableReference();
+            var key_ = key.Handle;
+            ref readonly var list_ = ref list.GetPinnableReference();
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_string_list(keyFile_, groupName_, key_, list_, length_);
         }

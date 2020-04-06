@@ -52,6 +52,7 @@ namespace GISharp.Lib.Gio
         public static GISharp.Lib.Gio.AsyncReadyCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(callback_);
+
             unsafe void managedCallback(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.IAsyncResult res)
             {
                 var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
