@@ -1,7 +1,9 @@
 using System;
+using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
+using Microsoft.Extensions.Logging;
 
 namespace GISharp.Lib.GLib
 {
@@ -33,8 +35,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public const int LogLevelUserShift = 8;
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_log (IntPtr logDomain, LogLevelFlags logLevel, IntPtr format, IntPtr arg);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_log(IntPtr logDomain, LogLevelFlags logLevel, IntPtr format, IntPtr arg);
 
         static readonly Utf8 stringFormat = "%s";
         static readonly IntPtr stringFormat_ = stringFormat.Handle;
@@ -52,34 +54,38 @@ namespace GISharp.Lib.GLib
             Log_(logDomainUtf8, logLevel, formatUtf8);
         }
 
-        public static void Message (string format, params object[] args)
+        public static void Message(string format, params object[] args)
         {
-            Log_ (DefaultDomain, LogLevelFlags.Message, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Message, format, args);
         }
 
-        public static void Warning (string format, params object[] args)
+        public static void Warning(string format, params object[] args)
         {
-            Log_ (DefaultDomain, LogLevelFlags.Warning, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Warning, format, args);
         }
 
-        public static void Critical (string format, params object[] args)
+        public static void Critical(string format, params object[] args)
         {
-            Log_ (DefaultDomain, LogLevelFlags.Critical, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Critical, format, args);
         }
 
-        public static void Error (string format, params object[] args)
+// GLib will abort the program after logging the error
+#pragma warning disable CS8763
+        [DoesNotReturn]
+        public static void Error(string format, params object[] args)
         {
-            Log_ (DefaultDomain, LogLevelFlags.Error, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Error, format, args);
+        }
+#pragma warning restore CS8763
+
+        public static void Info(string format, params object[] args)
+        {
+            Log_(DefaultDomain, LogLevelFlags.Info, format, args);
         }
 
-        public static void Info (string format, params object[] args)
+        public static void Debug(string format, params object[] args)
         {
-            Log_ (DefaultDomain, LogLevelFlags.Info, format, args);
-        }
-
-        public static void Debug (string format, params object[] args)
-        {
-            Log_ (DefaultDomain, LogLevelFlags.Debug, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Debug, format, args);
         }
 
         /// <summary>
@@ -90,12 +96,13 @@ namespace GISharp.Lib.GLib
         /// code does not know about managed exceptions. So all exceptions in
         /// callbacks need to be caught and this function should be called.
         /// </remarks>
-        public static void LogUnhandledException (this Exception ex, [CallerMemberName]string caller = "")
+        public static void LogUnhandledException(this Exception ex, [CallerMemberName]string caller = "")
         {
             try {
                 var domain = ex?.TargetSite?.Module?.Name;
                 Log_(domain, LogLevelFlags.Critical, "Unhandled exception in {0}\n{1}", caller!, ex!);
-            } catch {
+            }
+            catch {
                 // This must absolutely not throw an exception
             }
         }
@@ -141,10 +148,10 @@ namespace GISharp.Lib.GLib
         /// <param name="unusedData">
         /// data passed from g_log() which is unused
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_log_default_handler (
+        static extern void g_log_default_handler(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr logDomain,
@@ -217,10 +224,10 @@ namespace GISharp.Lib.GLib
         /// the id of the handler, which was returned
         ///     in g_log_set_handler()
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_log_remove_handler (
+        static extern void g_log_remove_handler(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr logDomain,
@@ -274,10 +281,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the old fatal mask
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
         /* transfer-ownership:none */
-        static extern LogLevelFlags g_log_set_always_fatal (
+        static extern LogLevelFlags g_log_set_always_fatal(
             /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
             /* transfer-ownership:none */
             LogLevelFlags fatalMask);
@@ -308,9 +315,9 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the old fatal mask
         /// </returns>
-        public static LogLevelFlags SetAlwaysFatal (LogLevelFlags fatalMask)
+        public static LogLevelFlags SetAlwaysFatal(LogLevelFlags fatalMask)
         {
-            var ret = g_log_set_always_fatal (fatalMask);
+            var ret = g_log_set_always_fatal(fatalMask);
             return ret;
         }
 
@@ -333,11 +340,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the previous default log handler
         /// </returns>
-        [Since ("2.6")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.6")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
         /* */
-        static extern IntPtr g_log_set_default_handler (
+        static extern IntPtr g_log_set_default_handler(
             /* <type name="LogFunc" type="GLogFunc" managed-name="LogFunc" /> */
             /* transfer-ownership:none closure:1 */
             UnmanagedLogFunc logFunc,
@@ -346,6 +353,68 @@ namespace GISharp.Lib.GLib
             IntPtr userData);
 
         static GCHandle defaultHandler;
+
+        public class LoggerProvider : ILoggerProvider
+        {
+            public ILogger CreateLogger(string categoryName)
+            {
+                return new Logger(categoryName);
+            }
+
+            public void Dispose()
+            {
+            }
+        }
+
+        class Logger : ILogger
+        {
+            readonly Utf8? domain;
+
+            public Logger(string? domain = null)
+            {
+                if (domain != null) {
+                    this.domain = domain;
+                }
+            }
+
+            class Scope : IDisposable
+            {
+                public void Dispose()
+                {
+                }
+            }
+
+            public IDisposable BeginScope<TState>(TState state)
+            {
+                return new Scope();
+            }
+
+            public bool IsEnabled(LogLevel logLevel)
+            {
+                return true;
+            }
+
+            public void Log<TState>(LogLevel logLevel, EventId eventId, TState state, Exception exception, Func<TState, Exception, string> formatter)
+            {
+                using var message = (Utf8)formatter(state, exception);
+                Log_(domain, MapLogLevel(logLevel), message);
+            }
+
+            static LogLevelFlags MapLogLevel(LogLevel logLevel)
+            {
+                return logLevel switch
+                {
+                    LogLevel.Trace => LogLevelFlags.Debug,
+                    LogLevel.Debug => LogLevelFlags.Info,
+                    LogLevel.Information => LogLevelFlags.Message,
+                    LogLevel.Warning => LogLevelFlags.Warning,
+                    LogLevel.Error => LogLevelFlags.Critical,
+                    LogLevel.Critical => LogLevelFlags.Error,
+                    LogLevel.None => default,
+                    _ => throw new ArgumentException()
+                };
+            }
+        }
 
         /// <summary>
         /// Installs a default log handler which is used if no
@@ -360,22 +429,23 @@ namespace GISharp.Lib.GLib
         /// <param name="logFunc">
         /// the log handler function
         /// </param>
-        [Since ("2.6")]
-        public static void SetDefaultHandler (LogFunc logFunc)
+        [Since("2.6")]
+        public static void SetDefaultHandler(LogFunc logFunc)
         {
             var oldHandler = defaultHandler;
             if (logFunc == DefaultHandler) {
-                g_log_set_default_handler (g_log_default_handler, IntPtr.Zero);
+                g_log_set_default_handler(g_log_default_handler, IntPtr.Zero);
                 defaultHandler = default;
-            } else {
+            }
+            else {
                 // this function does not fix the GIR callback scope pattern
                 // so we have to do some special memory management ourselves
                 var (logFunc_, _, userData_) = LogFuncFactory.Create(logFunc, CallbackScope.Unknown);
-                g_log_set_default_handler (logFunc_, userData_);
+                g_log_set_default_handler(logFunc_, userData_);
                 defaultHandler = (GCHandle)userData_;
             }
             if (oldHandler.IsAllocated) {
-                oldHandler.Free ();
+                oldHandler.Free();
             }
         }
 
@@ -399,10 +469,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the old fatal mask for the log domain
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
         /* transfer-ownership:none */
-        static extern LogLevelFlags g_log_set_fatal_mask (
+        static extern LogLevelFlags g_log_set_fatal_mask(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr logDomain,
@@ -466,11 +536,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the id of the new handler
         /// </returns>
-        [Since ("2.46")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.46")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern uint g_log_set_handler_full (
+        static extern uint g_log_set_handler_full(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr logDomain,
@@ -535,7 +605,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the id of the new handler
         /// </returns>
-        [Since ("2.46")]
+        [Since("2.46")]
         public static uint SetHandler(NullableUnownedUtf8 logDomain, LogLevelFlags logLevels, LogFunc logFunc)
         {
             var logDomain_ = logDomain.Handle;

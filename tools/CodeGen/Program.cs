@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -10,17 +9,14 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 using Buildalyzer;
-using Buildalyzer.Workspaces;
 using GISharp.CodeGen.Gir;
 using GISharp.CodeGen.Syntax;
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
-using Microsoft.Build.Framework;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Formatting;
-using Microsoft.CodeAnalysis.Workspaces;
+using Microsoft.Extensions.Logging;
 using Mono.Options;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -55,12 +51,16 @@ namespace GISharp.CodeGen
         {
             var assembly = Assembly.GetExecutingAssembly();
             var assemblyName = assembly.GetName();
-            Log.Message("{0} v{1}", assemblyName.Name, assemblyName.Version);
+            Console.WriteLine("{0} v{1}", assemblyName.Name, assemblyName.Version);
             Environment.Exit(0);
         }
 
         public static void Main(string[] args)
         {
+            using (var name = (Utf8)AppDomain.CurrentDomain.FriendlyName) {
+                Utility.ProgramName = name;
+            }
+
             string commandArg = null;
             string projectArg = null;
             string girDirectoryArg = null;
@@ -135,7 +135,7 @@ namespace GISharp.CodeGen
             // load the project given by the --project option
 
             var analyzerOptions = new AnalyzerManagerOptions() {
-                // LogWriter = Console.Error,
+                LoggerFactory = new LoggerFactory(new[] { new Log.LoggerProvider() }),
             };
             var manager = new AnalyzerManager(analyzerOptions);
             ProjectAnalyzer projectAnalyzer;
@@ -150,8 +150,8 @@ namespace GISharp.CodeGen
 
             }
             catch (Exception ex) {
-                Console.Error.WriteLine($"Failed to load project: {ex.Message}");
-                Environment.Exit(1);
+                Log.Error($"Failed to load project: {ex.Message}");
+                return;
             }
 
             var repositoryName = Path.GetFileNameWithoutExtension(projectAnalyzer.ProjectFile.Path);
@@ -169,8 +169,8 @@ namespace GISharp.CodeGen
                 girXml = XDocument.Load(girFilePath);
             }
             catch (Exception ex) {
-                Console.Error.WriteLine($"Failed to load GIR XML: {ex.Message}");
-                Environment.Exit(1);
+                Log.Error($"Failed to load GIR XML: {ex.Message}");
+                return;
             }
 
             // load the gir-fixup.yml file
@@ -187,13 +187,13 @@ namespace GISharp.CodeGen
 
             // for most commands, we need an existing fixup file
             if (command != Command.NewFixup && !fixupFileExists && !fixupDirExists) {
-                Console.Error.WriteLine("gir-fixup.yml does not exist. Create it using --command=new-fixup.");
-                Environment.Exit(1);
+                Log.Error("gir-fixup.yml does not exist. Create it using --command=new-fixup.");
+                return;
             }
             // for the new-fixup command, we want to make sure we aren't overwriting an existing file
             else if (command == Command.NewFixup == !forceArg && fixupFileExists) {
-                Console.Error.WriteLine("gir-fixup.yml already exists in project. Use --force to overwrite.");
-                Environment.Exit(1);
+                Log.Error("gir-fixup.yml already exists in project. Use --force to overwrite.");
+                return;
             }
 
             // Handle the new-fixup command
@@ -201,14 +201,12 @@ namespace GISharp.CodeGen
             if (command == Command.NewFixup) {
                 Log.Message($"Generating '{fixupFilePath}'");
                 try {
-                    using (var writer = new StreamWriter(fixupFilePath)) {
-                        girXml.Generate(writer);
-                    }
+                    using var writer = new StreamWriter(fixupFilePath);
+                    girXml.Generate(writer);
                 }
                 catch (Exception ex) {
                     var msg = $"Failed to create fixup file: {ex.Message}";
-                    Console.Error.WriteLine(msg);
-                    Environment.Exit(1);
+                    Log.Error(msg);
                 }
                 return;
             }
@@ -226,15 +224,13 @@ namespace GISharp.CodeGen
             }
             try {
                 foreach (var file in fixupFiles) {
-                    using (var reader = new StreamReader(file)) {
-                        commands.AddRange(Fixup.Parse(reader));
-                    }
+                    using var reader = new StreamReader(file);
+                    commands.AddRange(Fixup.Parse(reader));
                 }
             }
             catch (Exception ex) {
                 var msg = $"Fixup file error: {ex.Message}";
-                Console.Error.WriteLine(msg);
-                Environment.Exit(1);
+                Log.Error(msg);
             }
 
             // Apply the fixups to the GIR XML
@@ -249,8 +245,8 @@ namespace GISharp.CodeGen
 
             // load all references assemblies into type resolver
 
-            TypeResolver.LoadAssembly(typeof(GISharp.Runtime.Opaque).Assembly);
-            TypeResolver.LoadAssembly(typeof(System.ReadOnlySpan<>).Assembly);
+            TypeResolver.LoadAssembly(typeof(Runtime.Opaque).Assembly);
+            TypeResolver.LoadAssembly(typeof(ReadOnlySpan<>).Assembly);
 
             foreach (var projRef in projectAnalyzer.Build().SelectMany(x => x.ProjectReferences).Distinct()) {
                 var proj = manager.GetProject(projRef);
@@ -259,7 +255,16 @@ namespace GISharp.CodeGen
                 // build the project references to ensure they are not out of date.
                 // theoretically, we could use MSBUild programmatically
                 // but it is really quirky and doesn't "just work"
-                var dotnet = Process.Start("dotnet", $"build -v q --nologo {projRef}");
+                var dotnet = Process.Start(new ProcessStartInfo("dotnet", $"build {projRef}") {
+                    RedirectStandardOutput = true,
+                    RedirectStandardError = true,
+                });
+                dotnet.OutputDataReceived += (s, e) => {
+                    Log.Info(e.Data);
+                };
+                dotnet.ErrorDataReceived += (s, e) => {
+                    Log.Critical(e.Data);
+                };
                 dotnet.WaitForExit();
                 if (dotnet.ExitCode != 0) {
                     Environment.Exit(dotnet.ExitCode);
