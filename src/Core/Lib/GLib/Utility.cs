@@ -1,16 +1,15 @@
 ﻿using System;
 using System.Runtime.InteropServices;
-using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
     public static class Utility
     {
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_get_application_name ();
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_get_application_name();
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_set_application_name (IntPtr applicationName);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_set_application_name(IntPtr applicationName);
 
         /// <summary>
         /// Gets or sets a human-readable name for the application.
@@ -30,7 +29,7 @@ namespace GISharp.Lib.GLib
         /// <value>Localized, name of the application.</value>
         public static UnownedUtf8 ApplicationName {
             get {
-                var ret_ = g_get_application_name ();
+                var ret_ = g_get_application_name();
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -39,11 +38,11 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_get_prgname ();
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_get_prgname();
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_set_prgname (IntPtr applicationName);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_set_prgname(IntPtr applicationName);
 
         /// <summary>
         /// Gets or sets the name of the program. This name should not be
@@ -57,7 +56,7 @@ namespace GISharp.Lib.GLib
         /// <value>The name of the program.</value>
         public static UnownedUtf8 ProgramName {
             get {
-                var ret_ = g_get_prgname ();
+                var ret_ = g_get_prgname();
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
