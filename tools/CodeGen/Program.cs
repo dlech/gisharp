@@ -318,11 +318,9 @@ namespace GISharp.CodeGen
 
                     // make sure we don't lose other trivia like #pragma
                     var otherTrivia = node.GetLeadingTrivia().Where(x => x.Kind() != SingleLineDocumentationCommentTrivia);
-                    newNode = newNode.WithLeadingTrivia(otherTrivia.Concat(ParseLeadingTrivia(string.Format(
-                        "/// <include file=\"{0}\" path=\"declaration/member[@name='{1}']/*\" />\r\n",
-                        docFileName,
-                        memberName
-                    ))));
+                    newNode = newNode.WithLeadingTrivia(otherTrivia.Concat(ParseLeadingTrivia(
+                        $@"/// <include file=""{docFileName}"" path=""declaration/member[@name='{memberName}']/*"" />
+                        ")));
 
                     return newNode;
                 }

@@ -90,7 +90,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddErrorCodes(ParseExpression("CS0649"));
             structMembers = structMembers.Replace(firstMember, firstMember
                 .WithLeadingTrivia(firstMember.GetLeadingTrivia()
-                    .Prepend(EndOfLine("\r\n"))
+                    .Prepend(EndOfLine("\n"))
                     .Prepend(Trivia(warningDisable))));
 
             var warningRestore = warningDisable.WithDisableOrRestoreKeyword(Token(RestoreKeyword));
@@ -98,7 +98,7 @@ namespace GISharp.CodeGen.Syntax
             structMembers = structMembers.Replace(lastMember, lastMember
                 .WithTrailingTrivia(lastMember.GetTrailingTrivia()
                     .Append(Trivia(warningRestore))
-                    .Append(EndOfLine("\r\n"))));
+                    .Append(EndOfLine("\n"))));
 
             return StructDeclaration("Struct")
                 .AddModifiers(Token(UnsafeKeyword))

@@ -42,7 +42,7 @@ namespace GISharp.CodeGen.Syntax
                     // TODO: inheritdoc only makes sense when implementing an
                     // interface. If info is GirEventInfo, we should be able to
                     // get docs from the GIR XML
-                    .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\r\n")))
+                    .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\n")))
                 .AddAccessorListAccessors(addAccessor, removeAccessor);
         }
 

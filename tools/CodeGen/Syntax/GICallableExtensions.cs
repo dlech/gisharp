@@ -57,7 +57,7 @@ namespace GISharp.CodeGen.Syntax
                         if (instanceParameter.Type.UnmanagedType.IsPointer && managedType != typeof(IntPtr)) {
                             // struct passed by reference
                             var statement = ParseStatement($"ref var {identifier}_ = ref this;");
-                            yield return statement.WithTrailingTrivia(EndOfLine("\r\n"));
+                            yield return statement.WithTrailingTrivia(EndOfLine("\n"));
                         }
                         else {
                             // struct passed by value

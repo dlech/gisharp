@@ -138,10 +138,8 @@ namespace GISharp.CodeGen.Syntax
             // generate a constructor
 
             var constructorParams = ParseParameterList($"(params {argsType} args)");
-            var initArgs = string.Format("this.args = args ?? throw new {0}(nameof(args));",
-                typeof(ArgumentNullException));
-            var initArgsStatement = ParseStatement(initArgs);
-            var body = Block(initArgsStatement);
+            var initArgs = $"this.args = args ?? throw new {typeof(ArgumentNullException)}(nameof(args));\n";
+            var body = Block(ParseStatement(initArgs));
 
             yield return ConstructorDeclaration($"{signal.ManagedName}EventArgs")
                 .AddModifiers(Token(PublicKeyword))
