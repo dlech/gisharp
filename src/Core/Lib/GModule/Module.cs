@@ -65,8 +65,7 @@ namespace GISharp.Lib.GModule
             Prefix = parts[0];
             Suffix = parts[1];
 
-            // Hack to detect macOS
-            if (File.Exists ("/usr/lib/libSystem.dylib")) {
+            if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) {
                 LibrarySuffix = "dylib";
             } else {
                 LibrarySuffix = Suffix;
