@@ -20,14 +20,18 @@ namespace GISharp.Test.Core.Runtime
         public void TestEqualityOperator()
         {
             Assert.That(Void.Default == Void.Default, Is.True);
+            #pragma warning disable CS8073
             Assert.That(Void.Default == null, Is.False);
+            #pragma warning restore CS8073
         }
 
         [Test]
         public void TestInequalityOperator()
         {
             Assert.That(Void.Default != Void.Default, Is.False);
+            #pragma warning disable CS8073
             Assert.That(Void.Default != null, Is.True);
+            #pragma warning restore CS8073
         }
     }
 }
