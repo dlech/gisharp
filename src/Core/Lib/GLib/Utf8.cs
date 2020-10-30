@@ -84,6 +84,11 @@ namespace GISharp.Lib.GLib
         {
             return new UnownedUtf8(owned);
         }
+
+        public static implicit operator Utf8Span(UnownedUtf8 utf8)
+        {
+            return Utf8Span.UnsafeCreateWithoutValidation(utf8.AsReadOnlySpan());
+        }
     }
 
     public unsafe ref struct NullableUnownedUtf8
@@ -1813,6 +1818,12 @@ namespace GISharp.Lib.GLib
             }
             return unowned.Copy();
         }
+
+        public unsafe static implicit operator Utf8String(Utf8 utf8)
+        {
+            return new Utf8String((byte*)utf8.handle);
+        }
+
         public static bool operator ==(Utf8? a, Utf8? b)
         {
             return object.Equals(a, b);

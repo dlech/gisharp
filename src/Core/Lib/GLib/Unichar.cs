@@ -1,6 +1,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using System.Text;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
@@ -1388,6 +1389,16 @@ namespace GISharp.Lib.GLib
                 var ret = g_unichar_xdigit_value(this);
                 return ret;
             }
+        }
+
+        public static implicit operator Rune(Unichar unichar)
+        {
+            return new Rune(unichar.value);
+        }
+
+        public static implicit operator Unichar(Rune rune)
+        {
+            return new Unichar(rune.Value);
         }
     }
 }
