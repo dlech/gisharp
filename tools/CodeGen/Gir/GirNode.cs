@@ -161,6 +161,9 @@ namespace GISharp.CodeGen.Gir
             else if (element.Name == gi + "virtual-method") {
                 return new VirtualMethod(element, GetNode(element.Parent));
             }
+            else if (element.Name == gi + "docsection") {
+                return new DocSection(element, GetNode(element.Parent));
+            }
 
             var message = $"Unknown element <{element.Name}>";
             throw new ArgumentException(message, nameof(element));
