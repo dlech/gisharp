@@ -86,7 +86,7 @@ namespace GISharp.Lib.GLib
         {
             IntPtr ptr, str_;
             for (ptr = Handle; (str_ = Marshal.ReadIntPtr(ptr)) != IntPtr.Zero; ptr += IntPtr.Size) {
-                var str = new UnownedUtf8(str_, -1).Copy();
+                var str = new Utf8(str_, Transfer.None);
                 yield return str;
             }
         }

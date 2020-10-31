@@ -123,7 +123,7 @@ namespace GISharp.Lib.GIRepository
         public string[] SharedLibraries {
             get {
                 var library = Repository.GetSharedLibrary (@namespace);
-                if (library.IsNull) {
+                if (!library.HasValue) {
                     return new string[0];
                 }
                 return library.ToString().Split(new[] { ',' }, StringSplitOptions.RemoveEmptyEntries);

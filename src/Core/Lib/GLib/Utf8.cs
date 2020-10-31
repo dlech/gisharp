@@ -12,190 +12,793 @@ using clong = GISharp.Runtime.CLong;
 
 namespace GISharp.Lib.GLib
 {
+    /// <summary>
+    /// Managed wrapper around an unowned, null-terminated UTF-8 string in unmanged memory.
+    /// </summary>
+    /// <seealso cref="NullableUnownedUtf8"/>
+    /// <seealso cref="Utf8"/>
     public unsafe ref struct UnownedUtf8
     {
-        byte* handle;
+        readonly byte* handle;
         int length;
-        string? managedValue;
-        Utf8? unmanagedValue;
 
-        public IntPtr Handle => (IntPtr)handle;
+        /// <summary>
+        /// Pointer to to the unmanaged UTF-8 string.
+        /// </summary>
+        /// <exception name="NullReferenceException">
+        /// If this points to <c>null</c>, e.g. <c>default(UnownedUtf8).Handle</c>.
+        /// </exception>
+        public IntPtr Handle => handle is null ? throw new NullReferenceException() : (IntPtr)handle;
 
+        [DllImport("c")]
+        static extern UIntPtr strlen(IntPtr s);
+
+        /// <summary>
+        /// Gets the length of the string in bytes.
+        /// </summary>
         public int Length {
             get {
                 if (length < 0) {
-                    length = unmanagedValue?.Length ?? (int)strlen(handle);
+                    length = (int)strlen(Handle);
                 }
                 return length;
             }
         }
 
+        /// <summary>
+        /// Creates a new <see cref="UnownedUtf8"/>.
+        /// </summary>
+        /// <parma name="handle">
+        /// Pointer to the unmanaged UTF-8 string.
+        /// </param>
+        /// <param name="length">
+        /// The length of the string or <c>-1</c> if the length is unknown.
+        /// </param>
+        /// <exception name="ArgumentNullException">
+        /// <paramref name="handle"/> is <see cref="IntPtr.Zero"/>.
+        /// </exception>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public UnownedUtf8(IntPtr handle, int length)
         {
             if (handle == IntPtr.Zero) {
-                throw new ArgumentException("Cannot be null pointer", nameof(handle));
+                throw new ArgumentNullException(nameof(handle));
             }
             this.handle = (byte*)handle;
             this.length = length;
-            managedValue = null;
-            unmanagedValue = null;
         }
 
-        public UnownedUtf8(Utf8 utf8)
+        /// <summary>
+        /// Creates a <see cref="NullableUnownedUtf8"/> from this instance.
+        /// </summary>
+        public NullableUnownedUtf8 AsNullableUnownedUtf8()
         {
-            this.handle = (byte*)utf8.Handle;
-            this.length = -1;
-            this.managedValue = null;
-            this.unmanagedValue = utf8;
+            return new NullableUnownedUtf8(this);
         }
 
-        [DllImport("c")]
-        static extern UIntPtr strlen(byte* s);
-
+        /// <summary>
+        /// Creates a <see cref="ReadOnlySpan<byte>"/> of the unmanaged memory.
+        /// </summary>
         public ReadOnlySpan<byte> AsReadOnlySpan()
         {
-            return new ReadOnlySpan<byte>(handle, Length);
+            return new ReadOnlySpan<byte>((byte*)Handle, Length);
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Utf8Span"/> of the unmanaged memory.
+        /// </summary>
+        public Utf8Span AsUtf8Span()
+        {
+            return Utf8Span.UnsafeCreateWithoutValidation(AsReadOnlySpan());
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_strdup(byte* str);
+        static extern bool g_str_equal(IntPtr v1, IntPtr v2);
 
-        public Utf8 Copy()
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality and returns
+        /// <c>true</c> if they are equal.
+        /// <summary>
+        public bool Equals(UnownedUtf8 other)
         {
-            var ret_ = g_strdup(handle);
+            var ret = g_str_equal(Handle, other.Handle);
+            return ret;
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality and returns
+        /// <c>true</c> if they are equal.
+        /// <summary>
+        public bool Equals(NullableUnownedUtf8 other)
+        {
+            if (!other.HasValue) {
+                return false;
+            }
+            var ret = g_str_equal(Handle, other.Handle);
+            return ret;
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality and returns
+        /// <c>true</c> if they are equal.
+        /// <summary>
+        public bool Equals(Utf8? other)
+        {
+            if (other is null) {
+                return false;
+            }
+            var ret = g_str_equal(Handle, other.Handle);
+            return ret;
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality and returns
+        /// <c>true</c> if they are equal.
+        /// <summary>
+        public bool Equals(string? other)
+        {
+            if (other is null) {
+                return false;
+            }
+            return ToString() == other;
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality and returns
+        /// <c>true</c> if they are equal.
+        /// <summary>
+        public unsafe bool Equals(Utf8String? other)
+        {
+            if (other is null) {
+                return false;
+            }
+            fixed (byte* p = other) {
+                var ret = g_str_equal(Handle, (IntPtr)p);
+                return ret;
+            }
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object obj)
+        {
+            if (obj is Utf8 utf8) {
+                return Equals(utf8);
+            }
+            if (obj is string str) {
+                return ToString() == str;
+            }
+            if (obj is Utf8String utf8String) {
+                return Equals(utf8String);
+            }
+            return false;
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern uint g_str_hash(IntPtr v);
+
+        /// <inheritdoc/>
+        public override int GetHashCode()
+        {
+            var ret = g_str_hash(Handle);
+            return (int)ret;
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_strdup(IntPtr str);
+
+        /// <summary>
+        /// Creates a copy of the string.
+        /// </summary>
+        public Utf8 ToUtf8()
+        {
+            var ret_ = g_strdup(Handle);
             var ret = new Utf8(ret_, Transfer.Full);
             return ret;
         }
 
-        public override string ToString()
+        /// <inheritdoc/>
+        public override string ToString() => Encoding.UTF8.GetString(AsReadOnlySpan());
+
+        /// <summary>
+        /// Converts this instance to a <see cref="Utf8String"/>.
+        /// </summary>
+        public Utf8String ToUtf8String() => new Utf8String(AsReadOnlySpan());
+
+        /// <summary>
+        /// Converts <see cref="UnownedUtf8"/> to <see cref="Utf8"/>.
+        /// </summary>
+        /// <remarks>
+        /// This is the equivalent of <see cref="AsNullableUnownedUtf8"/>.
+        /// </remarks>
+        public static implicit operator NullableUnownedUtf8(UnownedUtf8 value)
         {
-            if (managedValue == null) {
-                managedValue = unmanagedValue?.ToString() ?? Encoding.UTF8.GetString(handle, Length);
+            return value.AsNullableUnownedUtf8();
+        }
+
+        /// <summary>
+        /// Converts <see cref="UnownedUtf8"/> to <see cref="ToUtf8String"/>.
+        /// </summary>
+        /// <remarks>
+        /// This is the equivalent of <see cref="ToUtf8String"/>.
+        /// </remarks>
+        public static explicit operator Utf8String(UnownedUtf8 value)
+        {
+            return value.ToUtf8String();
+        }
+
+        /// <summary>
+        /// Converts <see cref="UnownedUtf8"/> to <c>string</c>.
+        /// </summary>
+        /// <remarks>
+        /// This is the equivalent of <see cref="ToString()"/>.
+        /// </remarks>
+        public static implicit operator string(UnownedUtf8 value)
+        {
+            return value.ToString();
+        }
+
+        /// <summary>
+        /// Converts <see cref="UnownedUtf8"/> to <see cref="Utf8Span"/>.
+        /// </summary>
+        /// <remarks>
+        /// This is the equivalent of <see cref="AsUtf8Span"/>.
+        /// </remarks>
+        public static implicit operator Utf8Span(UnownedUtf8 value)
+        {
+            return Utf8Span.UnsafeCreateWithoutValidation(value.AsReadOnlySpan());
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to <see cref="Equals(UnownedUtf8)"/>
+        /// </remarks>
+        public static bool operator ==(UnownedUtf8 a, UnownedUtf8 b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        /// <remarks>
+        /// This is the inverse of to <see cref="Equals(UnownedUtf8)"/>
+        /// </remarks>
+        public static bool operator !=(UnownedUtf8 a, UnownedUtf8 b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        public static bool operator ==(UnownedUtf8 a, NullableUnownedUtf8 b)
+        {
+            if (b.HasValue) {
+                return a.Equals(b.Value);
             }
-            return managedValue;
+            // a can't be null, so must be false
+            return false;
         }
 
-        public static implicit operator string(UnownedUtf8 utf8)
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        public static bool operator !=(UnownedUtf8 a, NullableUnownedUtf8 b)
         {
-            return utf8.ToString();
-        }
-
-        public static implicit operator UnownedUtf8(Utf8 owned)
-        {
-            return new UnownedUtf8(owned);
-        }
-
-        public static implicit operator Utf8Span(UnownedUtf8 utf8)
-        {
-            return Utf8Span.UnsafeCreateWithoutValidation(utf8.AsReadOnlySpan());
-        }
-    }
-
-    public unsafe ref struct NullableUnownedUtf8
-    {
-        byte* handle;
-        int length;
-        string? managedValue;
-        Utf8? unmanagedValue;
-
-        public IntPtr Handle => (IntPtr)handle;
-
-        public bool IsNull => handle == null;
-
-        public int Length {
-            get {
-                if (handle == null) {
-                    throw new NullReferenceException();
-                }
-                if (length < 0) {
-                    length = unmanagedValue?.Length ?? (int)strlen(handle);
-                }
-                return length;
+            if (b.HasValue) {
+                return !a.Equals(b.Value);
             }
+            // a can't be null, so must be true
+            return true;
         }
 
-        public NullableUnownedUtf8(IntPtr handle, int length)
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        public static bool operator ==(UnownedUtf8 a, Utf8? b)
         {
-            this.handle = (byte*)handle;
-            this.length = length;
-            managedValue = null;
-            unmanagedValue = null;
+            return a.Equals(b);
         }
 
-        public NullableUnownedUtf8(Utf8? utf8)
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        public static bool operator !=(UnownedUtf8 a, Utf8? b)
         {
-            this.handle = (byte*)utf8?.Handle;
-            this.length = utf8 == null ? 0 : -1;
-            this.managedValue = null;
-            this.unmanagedValue = utf8;
+            return !a.Equals(b);
         }
 
-        [DllImport("c")]
-        static extern UIntPtr strlen(byte* s);
-
-        public ReadOnlySpan<byte> AsReadOnlySpan()
+        /// <summary>
+        /// Compares two strings for equality.
+        /// </summary>
+        public static bool operator ==(UnownedUtf8 a, string? b)
         {
-            if (handle == null) {
-                throw new NullReferenceException();
-            }
-            return new ReadOnlySpan<byte>(handle, Length);
+            return a.ToString() == b;
         }
 
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_strdup(byte* str);
-
-        public Utf8 Copy()
+        /// <summary>
+        /// Compares two strings for inequality.
+        /// </summary>
+        public static bool operator !=(UnownedUtf8 a, string? b)
         {
-            if (handle == null) {
-                throw new NullReferenceException();
-            }
-            var ret_ = g_strdup(handle);
-            var ret = new Utf8(ret_, Transfer.Full);
-            return ret;
+            return a.ToString() != b;
         }
 
-        public override string ToString()
+        /// <summary>
+        /// Compares two strings for equality.
+        /// </summary>
+        public static bool operator ==(string? a, UnownedUtf8 b)
         {
-            if (handle == null) {
-                throw new NullReferenceException();
-            }
-            if (managedValue == null) {
-                managedValue = unmanagedValue?.ToString() ?? Encoding.UTF8.GetString(handle, Length);
-            }
-            return managedValue;
+            return a == b.ToString();
         }
 
-        public static implicit operator string?(NullableUnownedUtf8 utf8)
+        /// <summary>
+        /// Compares two strings for inequality.
+        /// </summary>
+        public static bool operator !=(string? a, UnownedUtf8 b)
         {
-            if (utf8.handle == null) {
-                return null;
-            }
-            return utf8.ToString();
+            return a != b.ToString();
         }
 
-        public static implicit operator NullableUnownedUtf8(Utf8? owned)
+        /// <summary>
+        /// Compares two strings for equality.
+        /// </summary>
+        public static bool operator ==(UnownedUtf8 a, Utf8String? b)
         {
-            if (owned == null) {
-                return default;
-            }
-            return new NullableUnownedUtf8(owned);
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for inequality.
+        /// </summary>
+        public static bool operator !=(UnownedUtf8 a, Utf8String? b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for equality.
+        /// </summary>
+        public static bool operator ==(Utf8String? a, UnownedUtf8 b)
+        {
+            return b.Equals(a);
+        }
+
+        /// <summary>
+        /// Compares two strings for inequality.
+        /// </summary>
+        public static bool operator !=(Utf8String? a, UnownedUtf8 b)
+        {
+            return !b.Equals(a);
         }
     }
 
     /// <summary>
-    /// Unmanaged, null-terminated UTF8 string
+    /// Represents an <see cref="UnownedUtf8"/> that can possibly be null.
     /// </summary>
+    /// <remarks>
+    /// This works essentially the same as <c>Nullable<UnownedUtf8></c> would.
+    /// <see cref="Nullable{T}"/> can't be use with <see cref="UnownedUtf8"/>
+    /// since it is a <c>ref struct</c>.
+    /// </remarks>
+    /// <seealso cref="UnownedUtf8"/>
+    /// <seealso cref="Utf8"/>
+    public unsafe ref struct NullableUnownedUtf8
+    {
+        readonly UnownedUtf8 value;
+
+        /// <summary>
+        /// Pointer to to the unmanaged UTF-8 string if <see cref="HasValue"/>
+        /// is <c>true</c>, otherwise <see cref="IntPtr.Zero"/>.
+        /// </summary>
+        public IntPtr Handle => HasValue ? value.Handle : IntPtr.Zero;
+
+        /// <summary>
+        /// Gets a value indicating whether this instance has a valid value.
+        /// </summary>
+        public bool HasValue { get; }
+
+        /// <summary>
+        /// Gets the value of this instance if it has been assigned a valid
+        /// underlying value.
+        /// </summary>
+        /// <exception name="InvalidOperationException">
+        /// The <see cref="HasValue"/> property is <c>false</c>.
+        /// </exception>
+        public UnownedUtf8 Value {
+            get {
+                if (!HasValue) {
+                    throw new InvalidOperationException();
+                }
+                return value;
+            }
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="NullableUnownedUtf8"/>.
+        /// </summary>
+        /// <param name="handle">
+        /// Pointer to the unowned unmanaged UTF-8 string or <see cref="IntPtr.Zero"/>.
+        /// </param>
+        /// <param name="length">
+        /// The length of the string or <c>-1</c> if the length is unknown.
+        /// </param>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public NullableUnownedUtf8(IntPtr handle, int length)
+        {
+            if (handle == IntPtr.Zero) {
+                value = default;
+                HasValue = false;
+            }
+            else {
+                value = new UnownedUtf8(handle, length);
+                HasValue = true;
+            }
+        }
+
+        public NullableUnownedUtf8(UnownedUtf8 value)
+        {
+            // protect against NullableUnownedUtf8(default(UnownedUtf8))
+            var _ = value.Handle;
+
+            this.value = value;
+            HasValue = true;
+        }
+
+        public UnownedUtf8 GetValueOrDefault(UnownedUtf8 defaultValue)
+        {
+            if (HasValue) {
+                return value;
+            }
+            return defaultValue;
+        }
+
+        /// <summary>
+        /// Compares str1 and str2 like strcmp(). Handles NULL gracefully by
+        /// sorting it before non-NULL strings. Comparing two NULL pointers
+        /// returns 0.
+        /// </summary>
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_strcmp0(IntPtr str1, IntPtr str2);
+
+        public bool Equals(NullableUnownedUtf8 other)
+        {
+            return g_strcmp0(Handle, other.Handle) == 0;
+        }
+
+        public bool Equals(UnownedUtf8 other)
+        {
+            return g_strcmp0(Handle, other.Handle) == 0;
+        }
+
+        public bool Equals(Utf8? other)
+        {
+            var otherHandle = other is null ? IntPtr.Zero : other.Handle;
+            return g_strcmp0(Handle, otherHandle) == 0;
+        }
+
+        public unsafe bool Equals(string? other)
+        {
+            if (other is null) {
+                return !HasValue;
+            }
+            if (!HasValue) {
+                return false;
+            }
+            return Value.Equals(other);
+        }
+
+        public unsafe bool Equals(Utf8String? other)
+        {
+            fixed (byte* other_ = other) {
+                return g_strcmp0(Handle, (IntPtr)other_) == 0;
+            }
+        }
+
+        /// <inheritdoc/>
+        public override bool Equals(object other)
+        {
+            if (!HasValue) {
+                return other is null;
+            }
+            if (other is Utf8 utf8) {
+                return Value.Equals(utf8);
+            }
+            if (other is string str) {
+                return Value.Equals(str);
+            }
+            // if (other is Utf8String utf8String) {
+            //     return Value.Equals(utf8String);
+            // }
+            return false;
+        }
+
+        /// <summary>
+        /// Retrieves the hash code of the object returned by the
+        /// <see cref="Value"/> property.
+        /// <summary>
+        public override int GetHashCode()
+        {
+            if (HasValue) {
+                return value.GetHashCode();
+            }
+            return 0;
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            if (HasValue) {
+                return value.ToString();
+            }
+            return string.Empty;
+        }
+
+        /// <summary>
+        /// Converts this instance to a <see cref="Utf8String"/>.
+        /// </summary>
+        public Utf8String ToUtf8String()
+        {
+            if (HasValue) {
+                return value.ToUtf8String();
+            }
+            return Utf8String.Empty;
+        }
+
+        public static explicit operator UnownedUtf8(NullableUnownedUtf8 value)
+        {
+            return value.Value;
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to <see cref="Equals(NullableUnownedUtf8)"/>
+        /// </remarks>
+        public static bool operator ==(NullableUnownedUtf8 a, NullableUnownedUtf8 b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        /// <remarks>
+        /// This is the inverse of to <see cref="Equals(NullableUnownedUtf8)"/>
+        /// </remarks>
+        public static bool operator !=(NullableUnownedUtf8 a, NullableUnownedUtf8 b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        public static bool operator ==(NullableUnownedUtf8 a, UnownedUtf8 b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        public static bool operator !=(NullableUnownedUtf8 a, UnownedUtf8 b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to <see cref="Equals(Utf8)"/>
+        /// </remarks>
+        public static bool operator ==(NullableUnownedUtf8 a, Utf8? b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        /// <remarks>
+        /// This is the inverse of to <see cref="Equals(Utf8)"/>
+        /// </remarks>
+        public static bool operator !=(NullableUnownedUtf8 a, Utf8? b)
+        {
+            return !a.Equals(b);
+        }
+
+        public static implicit operator string?(NullableUnownedUtf8 value)
+        {
+            if (!value.HasValue) {
+                return null;
+            }
+            return value.ToString();
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to <see cref="Equals(string)"/>
+        /// </remarks>
+        public static bool operator ==(NullableUnownedUtf8 a, string? b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        /// <remarks>
+        /// This is the inverse of to <see cref="Equals(string)"/>
+        /// </remarks>
+        public static bool operator !=(NullableUnownedUtf8 a, string? b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to <see cref="Equals(string)"/>
+        /// </remarks>
+        public static bool operator ==(string? a, NullableUnownedUtf8 b)
+        {
+            return b.Equals(a);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        /// <remarks>
+        /// This is the inverse of to <see cref="Equals(string)"/>
+        /// </remarks>
+        public static bool operator !=(string? a, NullableUnownedUtf8 b)
+        {
+            return !b.Equals(a);
+        }
+
+        public static explicit operator Utf8String?(NullableUnownedUtf8 value)
+        {
+            if (value.HasValue) {
+                return value.ToUtf8String();
+            }
+            return null;
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to <see cref="Equals(Utf8String)"/>
+        /// </remarks>
+        public static bool operator ==(NullableUnownedUtf8 a, Utf8String? b)
+        {
+            return a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        /// <remarks>
+        /// This is the inverse of to <see cref="Equals(Utf8String)"/>
+        /// </remarks>
+        public static bool operator !=(NullableUnownedUtf8 a, Utf8String? b)
+        {
+            return !a.Equals(b);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte equality.
+        /// </summary>
+        /// <remarks>
+        /// This is equivalent to <see cref="Equals(Utf8String)"/>
+        /// </remarks>
+        public static bool operator ==(Utf8String? a, NullableUnownedUtf8 b)
+        {
+            return b.Equals(a);
+        }
+
+        /// <summary>
+        /// Compares two strings for byte-by-byte inequality.
+        /// </summary>
+        /// <remarks>
+        /// This is the inverse of to <see cref="Equals(Utf8String)"/>
+        /// </remarks>
+        public static bool operator !=(Utf8String? a, NullableUnownedUtf8 b)
+        {
+            return !b.Equals(a);
+        }
+    }
+
+    /// <summary>
+    /// Managed wrapper around an owned, null-terminated UTF-8 string in unmanged memory.
+    /// </summary>
+    /// <seealso cref="UnownedUtf8"/>
+    /// <seealso cref="NullableUnownedUtf8"/>
     [GType(IsProxyForUnmanagedType = true)]
     [DebuggerDisplay("{Value}")]
-    public sealed class Utf8 : Opaque, IEnumerable<Unichar>, IEnumerable, IComparable, IComparable<Utf8>, IComparable<String>, IConvertible, IEquatable<Utf8>, IEquatable<String>
+    public sealed class Utf8 : Opaque, IComparable, IComparable<Utf8>, IComparable<string>, IConvertible, IEquatable<Utf8>, IEquatable<string>
     {
+        /// <summary>
+        /// Enumerator for iterating the bytes of a <see cref="Utf8"/> string.
+        /// </summary>
+        public readonly struct ByteEnumerable : IEnumerable<byte>, IEnumerable
+        {
+            private readonly Utf8 utf8;
+
+            internal ByteEnumerable(Utf8 utf8) => this.utf8 = utf8;
+
+            /// <inheritdoc/>
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+            /// <inheritdoc/>
+            public IEnumerator<byte> GetEnumerator()
+            {
+                byte b;
+                for (var i = 0; (b = Marshal.ReadByte(utf8.Handle, i)) != 0; i++) {
+                    yield return b;
+                }
+            }
+        }
+
+        /// <summary>
+        /// Enumerator for iterating the unicode characters of a <see cref="Utf8"/> string.
+        /// </summary>
+        public readonly struct UnicharEnumerable : IEnumerable<Unichar>, IEnumerable
+        {
+            private readonly Utf8 utf8;
+
+            internal UnicharEnumerable(Utf8 utf8) => this.utf8 = utf8;
+
+            /// <inheritdoc/>
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+            /// <inheritdoc/>
+            public IEnumerator<Unichar> GetEnumerator()
+            {
+                for (var ptr = utf8.Handle; ptr != IntPtr.Zero; ptr = g_utf8_find_next_char(ptr, IntPtr.Zero)) {
+                    var ret = g_utf8_get_char(ptr);
+                    if (ret == 0) {
+                        // don't return the null terminator
+                        yield break;
+                    }
+                    yield return ret;
+                }
+            }
+        }
+
         static readonly GType _GType = GType.String;
+
+        private int length = -1;
 
         /// <summary>
         /// Convenience property for <c>default(NullableUnownedUtf8)</c> or
         /// <c>new NullableUnownedUtf8(null)</c>
         /// </summary>
         public static NullableUnownedUtf8 Null => default;
+
+        static readonly IntPtr EmptyUtf8 = Marshal.AllocHGlobal(1);
+
+        /// <summary>
+        /// Convenience property for getting an empty string.
+        /// </summary>
+        public static UnownedUtf8 Empty => new UnownedUtf8(EmptyUtf8, 0);
+
+        /// <summary>
+        /// Gets an enumerator for iterating the bytes of this string.
+        /// </summary>
+        public ByteEnumerable Bytes => new ByteEnumerable(this);
+
+        /// <summary>
+        /// Gets an enumerator for iterating the unicode characters of this string.
+        /// </summary>
+        public UnicharEnumerable Unichars => new UnicharEnumerable(this);
 
         [PtrArrayCopyFunc]
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -204,9 +807,27 @@ namespace GISharp.Lib.GLib
         [PtrArrayFreeFunc]
         static unsafe void Free(IntPtr src) => GMarshal.Free(src);
 
+
+        /// <summary>
+        /// Creates a new <see cref="Utf8"/> from <paramref name="value"/>.
+        /// </summary>
+        /// <param name="value">
+        /// A managed UTF-16 string.
+        /// </param>
+        /// <exception name="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>.
+        /// </exception>
+        /// <remarks>
+        /// <paramref name="value"/> is converted from UTF-16 to UTF-8 and stored
+        /// in unmanaged memory.
+        /// </remarks>
+        public Utf8(UnownedUtf8 value) : this(value.Handle, Transfer.None)
+        {
+        }
+
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_utf16_to_utf8(
-            [MarshalAs(UnmanagedType.LPWStr)]string str,
+            [MarshalAs(UnmanagedType.LPWStr)] string str,
             clong len,
             IntPtr itemsRead,
             IntPtr itemsWritten,
@@ -222,10 +843,63 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Utf8"/> from <paramref name="value"/>.
+        /// </summary>
+        /// <param name="value">
+        /// A managed UTF-16 string.
+        /// </param>
+        /// <exception name="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>.
+        /// </exception>
+        /// <remarks>
+        /// <paramref name="value"/> is converted from UTF-16 to UTF-8 and stored
+        /// in unmanaged memory.
+        /// </remarks>
         public Utf8(string value) : this(New(value), Transfer.Full)
         {
         }
 
+        private unsafe static IntPtr New(Utf8String value)
+        {
+            if (value is null) {
+                throw new ArgumentNullException(nameof(value));
+            }
+
+            fixed (byte* p = value) {
+                return g_strdup((IntPtr)p);
+            }
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Utf8"/> from <paramref name="value"/>.
+        /// </summary>
+        /// <param name="value">
+        /// An managed UTF-8 string.
+        /// </param>
+        /// <exception name="ArgumentNullException">
+        /// <paramref name="value"/> is <c>null</c>.
+        /// </exception>
+        /// <remarks>
+        /// <paramref name="value"/> is copied from managed memory to unmanaged memory.
+        /// </remarks>
+        public Utf8(Utf8String value) : this(New(value), Transfer.Full)
+        {
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="Utf8"/> string.
+        /// </summary>
+        /// <param name="handle">
+        /// Pointer to the UTF-8 string in unmanaged memory.
+        /// </param>
+        /// <param name="ownership">
+        /// Indicates if we own <paramref name="handle"/> or not.
+        /// </param>
+        /// <remarks>
+        /// If <paramref name="handle"/> is unowned, a copy of the string is
+        /// made.
+        /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Utf8(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
@@ -235,6 +909,7 @@ namespace GISharp.Lib.GLib
             _Value = new Lazy<string>(GetValue);
         }
 
+        /// <inheritdoc/>
         public override IntPtr Take()
         {
             var this_ = Handle;
@@ -254,12 +929,20 @@ namespace GISharp.Lib.GLib
             base.Dispose(disposing);
         }
 
+        public UnownedUtf8 AsUnownedUtf8() => new UnownedUtf8(Handle, length);
+
         public string Value => _Value.Value;
         readonly Lazy<string> _Value;
 
+        /// </inheritdoc>
         public override string ToString()
         {
             return Value;
+        }
+
+        public unsafe Utf8String ToUtf8String()
+        {
+            return new Utf8String((byte*)Handle);
         }
 
         string GetValue()
@@ -618,21 +1301,6 @@ namespace GISharp.Lib.GLib
             /* <type name="gssize" type="gssize" managed-name="Gssize" /> */
             /* transfer-ownership:none */
             IntPtr maxLen);
-
-        IEnumerator<Unichar> GetEnumerator()
-        {
-            for (var ptr = Handle; ptr != IntPtr.Zero; ptr = g_utf8_find_next_char(ptr, IntPtr.Zero)) {
-                var ret = g_utf8_get_char(ptr);
-                if (ret == default) {
-                    // don't return the null terminator
-                    yield break;
-                }
-                yield return ret;
-            }
-        }
-
-        IEnumerator<Unichar> IEnumerable<Unichar>.GetEnumerator() => GetEnumerator();
-        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         /// <summary>
         /// Converts a string into canonical form, standardizing
@@ -1063,13 +1731,18 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             IntPtr max);
 
+        [DllImport("c")]
+        static extern UIntPtr strlen(IntPtr s);
+
         /// <summary>
-        /// Gets the length of the string in characters.
+        /// Gets the length of the string in bytes.
         /// </summary>
         public int Length {
             get {
-                var ret = g_utf8_strlen(Handle, new IntPtr(-1));
-                return (int)ret;
+                if (length == -1) {
+                    length = (int)strlen(Handle);
+                }
+                return length;
             }
         }
 
@@ -1760,6 +2433,43 @@ namespace GISharp.Lib.GLib
             return ((IConvertible)Value).ToUInt64(provider);
         }
 
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Runtime.Boolean g_str_equal(IntPtr v1, IntPtr v2);
+
+        public bool Equals(Utf8 other)
+        {
+            if (other is null) {
+                throw new ArgumentNullException(nameof(other));
+            }
+
+            var this_ = Handle;
+            var other_ = other.Handle;
+            var ret = g_str_equal(this_, other_);
+            return ret;
+        }
+
+        public bool Equals(string other)
+        {
+            if (other is null) {
+                throw new ArgumentNullException(nameof(other));
+            }
+
+            return Value.Equals(other);
+        }
+
+        public unsafe bool Equals(Utf8String other)
+        {
+            if (other is null) {
+                throw new ArgumentNullException(nameof(other));
+            }
+
+            var this_ = Handle;
+            fixed (byte* other_ = other) {
+                var ret = g_str_equal(this_, (IntPtr)other_);
+                return ret;
+            }
+        }
+
         public override bool Equals(object obj)
         {
             if (obj is Utf8 utf8) {
@@ -1768,23 +2478,10 @@ namespace GISharp.Lib.GLib
             if (obj is string str) {
                 return Equals(str);
             }
+            if (obj is Utf8String utf8String) {
+                return Equals(utf8String);
+            }
             return base.Equals(obj);
-        }
-
-        public bool Equals(string other)
-        {
-            return Value.Equals(other);
-        }
-
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Runtime.Boolean g_str_equal(IntPtr v1, IntPtr v2);
-
-        public bool Equals(Utf8 other)
-        {
-            var this_ = Handle;
-            var other_ = other.Handle;
-            var ret = g_str_equal(this_, other_);
-            return ret;
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -1794,6 +2491,65 @@ namespace GISharp.Lib.GLib
         {
             var ret = g_str_hash(Handle);
             return (int)ret;
+        }
+
+        static bool EqualsUtf8(Utf8? a, Utf8? b)
+        {
+            if (a is null && b is null) {
+                return true;
+            }
+            if (a is null || b is null) {
+                return false;
+            }
+            return a.Equals(b);
+        }
+
+        public static bool operator ==(Utf8? a, Utf8? b)
+        {
+            return EqualsUtf8(a, b);
+        }
+
+        public static bool operator !=(Utf8? a, Utf8? b)
+        {
+            return !EqualsUtf8(a, b);
+        }
+
+        /// <summary>
+        /// Converts <see cref="UnownedUtf8"/> to <see cref="Utf8"/>.
+        /// </summary>
+        /// <remarks>
+        /// This is the equivalent of <see cref="Utf8(UnownedUtf8)"/>.
+        /// </remarks>
+        public static implicit operator Utf8(UnownedUtf8 value)
+        {
+            return new Utf8(value);
+        }
+
+        /// <summary>
+        /// Converts <see cref="Utf8"/> to <see cref="UnownedUtf8"/>.
+        /// </summary>
+        /// <remarks>
+        /// This is the equivalent of <see cref="AsUnownedUtf8"/>.
+        /// </remarks>
+        public static implicit operator UnownedUtf8(Utf8 value)
+        {
+            return value.AsUnownedUtf8();
+        }
+
+        /// <summary>
+        /// Converts <see cref="Utf8"/> to <see cref="NullableUnownedUtf8"/>.
+        /// </summary>
+        public static implicit operator NullableUnownedUtf8(Utf8? value)
+        {
+            return value is null ? default : new NullableUnownedUtf8(value.AsUnownedUtf8());
+        }
+
+        public static implicit operator Utf8?(NullableUnownedUtf8 value)
+        {
+            if (value.HasValue) {
+                return value.Value;
+            }
+            return null;
         }
 
         public static implicit operator string(Utf8 utf8)
@@ -1806,32 +2562,71 @@ namespace GISharp.Lib.GLib
             return new Utf8(str);
         }
 
-        public static implicit operator Utf8(UnownedUtf8 unowned)
+        static bool EqualsString(Utf8? a, string? b)
         {
-            return unowned.Copy();
-        }
-
-        public static implicit operator Utf8?(NullableUnownedUtf8 unowned)
-        {
-            if (unowned.IsNull) {
-                return null;
+            if (a is null && b is null) {
+                return true;
             }
-            return unowned.Copy();
+            if (a is null || b is null) {
+                return false;
+            }
+            return a.Equals(b);
         }
 
-        public unsafe static implicit operator Utf8String(Utf8 utf8)
+        public static bool operator ==(Utf8? a, string? b)
         {
-            return new Utf8String((byte*)utf8.handle);
+            return EqualsString(a, b);
         }
 
-        public static bool operator ==(Utf8? a, Utf8? b)
+        public static bool operator !=(Utf8? a, string? b)
         {
-            return object.Equals(a, b);
+            return !EqualsString(a, b);
         }
 
-        public static bool operator !=(Utf8? a, Utf8? b)
+        public static bool operator ==(string? a, Utf8? b)
         {
-            return !object.Equals(a, b);
+            return EqualsString(b, a);
+        }
+
+        public static bool operator !=(string? a, Utf8? b)
+        {
+            return !EqualsString(b, a);
+        }
+
+        public unsafe static explicit operator Utf8String(Utf8 utf8)
+        {
+            return new Utf8String((byte*)utf8.Handle);
+        }
+
+        static bool EqualsUtf8String(Utf8? a, Utf8String? b)
+        {
+            if (a is null && b is null) {
+                return true;
+            }
+            if (a is null || b is null) {
+                return false;
+            }
+            return a.Equals(b);
+        }
+
+        public static bool operator ==(Utf8? a, Utf8String? b)
+        {
+            return EqualsUtf8String(a, b);
+        }
+
+        public static bool operator !=(Utf8? a, Utf8String? b)
+        {
+            return !EqualsUtf8String(a, b);
+        }
+
+        public static bool operator ==(Utf8String? a, Utf8? b)
+        {
+            return EqualsUtf8String(b, a);
+        }
+
+        public static bool operator !=(Utf8String? a, Utf8? b)
+        {
+            return !EqualsUtf8String(b, a);
         }
     }
 

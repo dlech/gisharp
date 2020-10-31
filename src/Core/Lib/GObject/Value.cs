@@ -142,7 +142,7 @@ namespace GISharp.Lib.GObject
                 return Pointer;
             }
             if (gtype == GType.String) {
-                return String.Copy();
+                return (Utf8?)String;
             }
             if (gtype == GType.Variant) {
                 return Variant;
