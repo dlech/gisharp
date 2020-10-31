@@ -40,11 +40,15 @@ namespace GISharp.CodeGen.Syntax
 
             var setter = property.Setter;
             if (setter != null) {
-                var nullableValue = "";
+                var nullForgiving = "";
                 if (!setter.Parameters.Last().IsNullable && getter.ReturnValue.IsNullable) {
-                    syntax = syntax.AddAttributeLists(AttributeList()
-                        .AddAttributes(Attribute(ParseName($"{typeof(DisallowNullAttribute)}"))));
-                    nullableValue = "!"; // work around https://github.com/dotnet/roslyn/issues/38943
+                    if (getter.ReturnValue.IsUnownedUtf8()) {
+                        nullForgiving = ".Value";
+                    } else {
+                        syntax = syntax.AddAttributeLists(AttributeList()
+                            .AddAttributes(Attribute(ParseName($"{typeof(DisallowNullAttribute)}"))));
+                        nullForgiving = "!"; // work around https://github.com/dotnet/roslyn/issues/38943
+                    }
                 }
 
                 if (setter.Parameters.Last().IsNullable && !getter.ReturnValue.IsNullable) {
@@ -52,7 +56,7 @@ namespace GISharp.CodeGen.Syntax
                         .AddAttributes(Attribute(ParseName($"{typeof(AllowNullAttribute)}"))));
                 }
 
-                var setterExpression = ParseExpression($"{setter.ManagedName}(value{nullableValue})");
+                var setterExpression = ParseExpression($"{setter.ManagedName}(value{nullForgiving})");
                 var setAccessor = AccessorDeclaration(SetAccessorDeclaration)
                     .WithExpressionBody(ArrowExpressionClause(setterExpression))
                     .WithSemicolonToken(Token(SemicolonToken));
