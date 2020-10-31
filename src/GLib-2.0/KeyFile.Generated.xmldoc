@@ -1330,7 +1330,9 @@ On error
 <member name='KeyFile.SaveToFile(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Writes the contents of this instance to <paramref name="filename"/> using
-g_file_set_contents().
+g_file_set_contents(). If you need stricter guarantees about durability of
+the written file than are provided by g_file_set_contents(), use
+g_file_set_contents_full() with the return value of <see cref="KeyFile.ToData(out System.Int32)"/>.
 </summary>
 <remarks>
 This function can fail for any of the reasons that
@@ -1347,7 +1349,9 @@ On error
 <member name='KeyFile.SaveToFile(System.String)'>
 <summary>
 Writes the contents of this instance to <paramref name="filename"/> using
-g_file_set_contents().
+g_file_set_contents(). If you need stricter guarantees about durability of
+the written file than are provided by g_file_set_contents(), use
+g_file_set_contents_full() with the return value of <see cref="KeyFile.ToData(out System.Int32)"/>.
 </summary>
 <remarks>
 This function can fail for any of the reasons that

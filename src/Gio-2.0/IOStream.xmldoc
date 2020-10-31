@@ -128,7 +128,7 @@ On error
 
 <member name='IOStream.SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Asyncronously splice the output stream of this instance to the input stream of
+Asynchronously splice the output stream of this instance to the input stream of
 <paramref name="stream2"/>, and splice the output stream of <paramref name="stream2"/> to the input stream of
 this instance.
 </summary>

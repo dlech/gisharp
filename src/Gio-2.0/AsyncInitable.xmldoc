@@ -144,6 +144,7 @@ foo_init_async (GAsyncInitable       *initable,
   GTask *task;
 
   task = g_task_new (initable, cancellable, callback, user_data);
+  g_task_set_name (task, G_STRFUNC);
 
   switch (self-&gt;priv-&gt;state)
     {

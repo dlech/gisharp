@@ -1625,7 +1625,7 @@ namespace GISharp.Lib.GLib
         /// return location for a #GError
         /// </param>
         /// <returns>
-        /// %TRUE if a key file could be loaded, %FALSE othewise
+        /// %TRUE if a key file could be loaded, %FALSE otherwise
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -1986,7 +1986,9 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Writes the contents of @key_file to @filename using
-        /// g_file_set_contents().
+        /// g_file_set_contents(). If you need stricter guarantees about durability of
+        /// the written file than are provided by g_file_set_contents(), use
+        /// g_file_set_contents_full() with the return value of g_key_file_to_data().
         /// </summary>
         /// <remarks>
         /// This function can fail for any of the reasons that

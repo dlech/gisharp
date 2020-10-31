@@ -69,7 +69,7 @@ the offset from the beginning of the buffer.
 <summary>
 Sets the length of the stream to <paramref name="offset"/>. If the stream was previously
 larger than <paramref name="offset"/>, the extra data is discarded. If the stream was
-previouly shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
+previously shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
 </summary>
 <remarks>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
@@ -190,7 +190,7 @@ the offset from the beginning of the buffer.
 <summary>
 Sets the length of the stream to <paramref name="offset"/>. If the stream was previously
 larger than <paramref name="offset"/>, the extra data is discarded. If the stream was
-previouly shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
+previously shorter than <paramref name="offset"/>, it is extended with NUL ('\0') bytes.
 </summary>
 <remarks>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by

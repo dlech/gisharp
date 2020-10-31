@@ -543,6 +543,21 @@ Deletes a file. If the this instance is a directory, it will only be
 deleted if it is empty. This has the same semantics as g_unlink().
 </summary>
 <remarks>
+If this instance doesn’t exist, <see cref="IOErrorEnum.NotFound"/> will be returned. This allows
+for deletion to be implemented avoiding
+[time-of-check to time-of-use races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use):
+|[
+g_autoptr(GError) local_error = NULL;
+if (!g_file_delete (my_file, my_cancellable, &amp;local_error) &amp;&amp;
+    !g_error_matches (local_error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
+  {
+    // deletion failed for some reason other than the file not existing:
+    // so report the error
+    g_warning ("Failed to delete %s: %s",
+               g_file_peek_path (my_file), local_error-&gt;message);
+  }
+]|
+
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
@@ -2003,7 +2018,9 @@ On error
 Sends this instance to the "Trashcan", if possible. This is similar to
 deleting it, but the user can recover it before emptying the trashcan.
 Not all file systems support trashing, so this call can return the
-<see cref="IOErrorEnum.NotSupported"/> error.
+<see cref="IOErrorEnum.NotSupported"/> error. Since GLib 2.66, the `x-gvfs-notrash` unix
+mount option can be used to disable <see cref="File.Trash(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> support for certain
+mounts, the <see cref="IOErrorEnum.NotSupported"/> error will be returned in that case.
 </summary>
 <remarks>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
@@ -2487,6 +2504,21 @@ Deletes a file. If the this instance is a directory, it will only be
 deleted if it is empty. This has the same semantics as g_unlink().
 </summary>
 <remarks>
+If this instance doesn’t exist, <see cref="IOErrorEnum.NotFound"/> will be returned. This allows
+for deletion to be implemented avoiding
+[time-of-check to time-of-use races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use):
+|[
+g_autoptr(GError) local_error = NULL;
+if (!g_file_delete (my_file, my_cancellable, &amp;local_error) &amp;&amp;
+    !g_error_matches (local_error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
+  {
+    // deletion failed for some reason other than the file not existing:
+    // so report the error
+    g_warning ("Failed to delete %s: %s",
+               g_file_peek_path (my_file), local_error-&gt;message);
+  }
+]|
+
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
@@ -5197,7 +5229,9 @@ Whether or not this instance supports thread-default contexts.
 Sends this instance to the "Trashcan", if possible. This is similar to
 deleting it, but the user can recover it before emptying the trashcan.
 Not all file systems support trashing, so this call can return the
-<see cref="IOErrorEnum.NotSupported"/> error.
+<see cref="IOErrorEnum.NotSupported"/> error. Since GLib 2.66, the `x-gvfs-notrash` unix
+mount option can be used to disable <see cref="File.Trash(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> support for certain
+mounts, the <see cref="IOErrorEnum.NotSupported"/> error will be returned in that case.
 </summary>
 <remarks>
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by

@@ -2,7 +2,7 @@
 
 <member name='FileAttributeType.Invalid'>
 <summary>
-indicates an invalid or uninitalized type.
+indicates an invalid or uninitialized type.
 </summary>
 </member>
 

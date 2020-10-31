@@ -22,7 +22,8 @@ Replace the destination
    rather than a "save new version of" replace operation.
    You can think of it as "unlink destination" before
    writing to it, although the implementation may not
-   be exactly like that.
+   be exactly like that. This flag can only be used with
+   <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> and its variants, including <see cref="File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 </member>
 

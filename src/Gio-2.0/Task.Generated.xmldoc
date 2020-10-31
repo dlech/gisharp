@@ -336,7 +336,7 @@ task's <see cref="TaskThreadFunc"/> had called
 <see cref="Task.ReturnErrorIfCancelled()"/> and then returned.
 
 This allows you to create a cancellable wrapper around an
-uninterruptable function. The <see cref="TaskThreadFunc"/> just needs to be
+uninterruptible function. The <see cref="TaskThreadFunc"/> just needs to be
 careful that it does not modify any externally-visible state after
 it has been cancelled. To do that, the thread should call
 <see cref="Task.SetReturnOnCancel(System.Boolean)"/> again to (atomically) set

@@ -486,9 +486,8 @@ time zone <paramref name="tz"/>.  The time is as accurate as the system allows, 
 maximum accuracy of 1 microsecond.
 </summary>
 <remarks>
-This function will always succeed unless the system clock is set to
-truly insane values (or unless GLib is still being used after the
-year 9999).
+This function will always succeed unless GLib is still being used after the
+year 9999.
 
 You should release the return value by calling <see cref="DateTime.Unref()"/>
 when you are done with it.
@@ -558,8 +557,8 @@ Creates a copy of this instance and adds the specified timespan to the copy.
 a <see cref="TimeSpan"/>
 </param>
 <returns>
-the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="DateTime.Unref()"/>.
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -572,8 +571,8 @@ copy. Add negative values to subtract days.
 the number of days
 </param>
 <returns>
-the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="DateTime.Unref()"/>.
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -601,8 +600,8 @@ the number of minutes to add
 the number of seconds to add
 </param>
 <returns>
-the newly created <see cref="DateTime"/> that should be freed with
-  <see cref="DateTime.Unref()"/>.
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -615,8 +614,8 @@ Add negative values to subtract hours.
 the number of hours to add
 </param>
 <returns>
-the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="DateTime.Unref()"/>.
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -629,8 +628,8 @@ Add negative values to subtract minutes.
 the number of minutes to add
 </param>
 <returns>
-the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="DateTime.Unref()"/>.
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -649,8 +648,8 @@ year), the result would be 29th February.
 the number of months
 </param>
 <returns>
-the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="DateTime.Unref()"/>.
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -663,8 +662,8 @@ Add negative values to subtract seconds.
 the number of seconds to add
 </param>
 <returns>
-the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="DateTime.Unref()"/>.
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -677,8 +676,8 @@ copy. Add negative values to subtract weeks.
 the number of weeks
 </param>
 <returns>
-the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="DateTime.Unref()"/>.
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -695,8 +694,8 @@ February on a non-leap year, the day will be clamped to 28th February.
 the number of years
 </param>
 <returns>
-the newly created <see cref="DateTime"/> which should be freed with
-  <see cref="DateTime.Unref()"/>.
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -724,7 +723,7 @@ The format strings understood by this function are a subset of the
 strftime() format language as specified by C99.  The \%D, \%U and \%W
 conversions are not supported, nor is the 'E' modifier.  The GNU
 extensions \%k, \%l, \%s and \%P are supported, however, as are the
-'0', '_' and '-' modifiers.
+'0', '_' and '-' modifiers. The Python extension \%f is also supported.
 
 In contrast to strftime(), this function always produces a UTF-8
 string, regardless of the current locale.  Note that the rendering of
@@ -756,12 +755,17 @@ The following format specifiers are supported:
   single digits are preceded by a blank
 - \%m: the month as a decimal number (range 01 to 12)
 - \%M: the minute as a decimal number (range 00 to 59)
+- \%f: the microsecond as a decimal number (range 000000 to 999999)
 - \%p: either "AM" or "PM" according to the given time value, or the
   corresponding  strings for the current locale.  Noon is treated as
-  "PM" and midnight as "AM".
+  "PM" and midnight as "AM". Use of this format specifier is discouraged, as
+  many locales have no concept of AM/PM formatting. Use \%c or \%X instead.
 - \%P: like \%p but lowercase: "am" or "pm" or a corresponding string for
-  the current locale
-- \%r: the time in a.m. or p.m. notation
+  the current locale. Use of this format specifier is discouraged, as
+  many locales have no concept of AM/PM formatting. Use \%c or \%X instead.
+- \%r: the time in a.m. or p.m. notation. Use of this format specifier is
+  discouraged, as many locales have no concept of AM/PM formatting. Use \%c
+  or \%X instead.
 - \%R: the time in 24-hour notation (\%H:\%M)
 - \%s: the number of seconds since the Epoch, that is, since 1970-01-01
   00:00:00 UTC
@@ -818,10 +822,10 @@ a valid UTF-8 string, containing the format for the
          <see cref="DateTime"/>
 </param>
 <returns>
-a newly allocated string formatted to the requested format
-    or <c>null</c> in the case that there was an error (such as a format specifier
-    not being supported in the current locale). The string
-    should be freed with g_free().
+a newly allocated string formatted to
+   the requested format or <c>null</c> in the case that there was an error (such
+   as a format specifier not being supported in the current locale). The
+   string should be freed with g_free().
 </returns>
 </member>
 
@@ -834,7 +838,7 @@ The format strings understood by this function are a subset of the
 strftime() format language as specified by C99.  The \%D, \%U and \%W
 conversions are not supported, nor is the 'E' modifier.  The GNU
 extensions \%k, \%l, \%s and \%P are supported, however, as are the
-'0', '_' and '-' modifiers.
+'0', '_' and '-' modifiers. The Python extension \%f is also supported.
 
 In contrast to strftime(), this function always produces a UTF-8
 string, regardless of the current locale.  Note that the rendering of
@@ -866,12 +870,17 @@ The following format specifiers are supported:
   single digits are preceded by a blank
 - \%m: the month as a decimal number (range 01 to 12)
 - \%M: the minute as a decimal number (range 00 to 59)
+- \%f: the microsecond as a decimal number (range 000000 to 999999)
 - \%p: either "AM" or "PM" according to the given time value, or the
   corresponding  strings for the current locale.  Noon is treated as
-  "PM" and midnight as "AM".
+  "PM" and midnight as "AM". Use of this format specifier is discouraged, as
+  many locales have no concept of AM/PM formatting. Use \%c or \%X instead.
 - \%P: like \%p but lowercase: "am" or "pm" or a corresponding string for
-  the current locale
-- \%r: the time in a.m. or p.m. notation
+  the current locale. Use of this format specifier is discouraged, as
+  many locales have no concept of AM/PM formatting. Use \%c or \%X instead.
+- \%r: the time in a.m. or p.m. notation. Use of this format specifier is
+  discouraged, as many locales have no concept of AM/PM formatting. Use \%c
+  or \%X instead.
 - \%R: the time in 24-hour notation (\%H:\%M)
 - \%s: the number of seconds since the Epoch, that is, since 1970-01-01
   00:00:00 UTC
@@ -928,10 +937,10 @@ a valid UTF-8 string, containing the format for the
          <see cref="DateTime"/>
 </param>
 <returns>
-a newly allocated string formatted to the requested format
-    or <c>null</c> in the case that there was an error (such as a format specifier
-    not being supported in the current locale). The string
-    should be freed with g_free().
+a newly allocated string formatted to
+   the requested format or <c>null</c> in the case that there was an error (such
+   as a format specifier not being supported in the current locale). The
+   string should be freed with g_free().
 </returns>
 </member>
 
@@ -941,10 +950,13 @@ Format this instance in [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601
 including the date, time and time zone, and return that as a UTF-8 encoded
 string.
 </summary>
+<remarks>
+Since GLib 2.66, this will output to sub-second precision if needed.
+</remarks>
 <returns>
-a newly allocated string formatted in ISO 8601 format
-    or <c>null</c> in the case that there was an error. The string
-    should be freed with g_free().
+a newly allocated string formatted in
+  ISO 8601 format or <c>null</c> in the case that there was an error. The string
+  should be freed with g_free().
 </returns>
 </member>
 
@@ -973,7 +985,8 @@ This call is equivalent to calling <see cref="DateTime.ToTimezone(GISharp.Lib.GL
 time zone returned by <see cref="TimeZone.GetLocal()"/>.
 </remarks>
 <returns>
-the newly created <see cref="DateTime"/>
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -1011,15 +1024,13 @@ this instance, but in the time zone <paramref name="tz"/>.
 This call can fail in the case that the time goes out of bounds.  For
 example, converting 0001-01-01 00:00:00 UTC to a time zone west of
 Greenwich will fail (due to the year 0 being out of range).
-
-You should release the return value by calling <see cref="DateTime.Unref()"/>
-when you are done with it.
 </remarks>
 <param name="tz">
 the new <see cref="TimeZone"/>
 </param>
 <returns>
-a new <see cref="DateTime"/>, or <c>null</c>
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 
@@ -1047,7 +1058,8 @@ This call is equivalent to calling <see cref="DateTime.ToTimezone(GISharp.Lib.GL
 time zone returned by <see cref="TimeZone.GetUtc()"/>.
 </remarks>
 <returns>
-the newly created <see cref="DateTime"/>
+the newly created <see cref="DateTime"/> which
+  should be freed with <see cref="DateTime.Unref()"/>, or <c>null</c>
 </returns>
 </member>
 

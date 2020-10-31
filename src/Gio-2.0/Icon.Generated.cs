@@ -188,7 +188,7 @@ namespace GISharp.Lib.Gio
         /// a #GIcon
         /// </param>
         /// <returns>
-        /// a #GVariant, or %NULL when serialization fails.
+        /// a #GVariant, or %NULL when serialization fails. The #GVariant will not be floating.
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.38")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

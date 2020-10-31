@@ -896,7 +896,7 @@ namespace GISharp.Lib.Gio
         /// a #GApplication
         /// </param>
         /// <returns>
-        /// %TRUE if @application is currenty marked as busy
+        /// %TRUE if @application is currently marked as busy
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

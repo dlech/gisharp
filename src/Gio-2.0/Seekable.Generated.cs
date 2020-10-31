@@ -195,7 +195,7 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Sets the length of the stream to @offset. If the stream was previously
         /// larger than @offset, the extra data is discarded. If the stream was
-        /// previouly shorter than @offset, it is extended with NUL ('\0') bytes.
+        /// previously shorter than @offset, it is extended with NUL ('\0') bytes.
         /// </summary>
         /// <remarks>
         /// If @cancellable is not %NULL, then the operation can be cancelled by

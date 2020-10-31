@@ -16,7 +16,7 @@ G_FILE_ATTRIBUTE_TRASH_DELETION_DATE attribute is unset, <c>null</c> is returned
 
 <member name='FileInfo.DisplayName'>
 <summary>
-Gets a display name for a file.
+Gets a display name for a file. This is guaranteed to always be set.
 </summary>
 </member>
 
@@ -78,7 +78,7 @@ will have microsecond precision.
 
 <member name='FileInfo.Name'>
 <summary>
-Gets the name for a file.
+Gets the name for a file. This is guaranteed to always be set.
 </summary>
 </member>
 
@@ -140,7 +140,7 @@ a duplicate <see cref="FileInfo"/> of this instance.
 
 <member name='FileInfo.GetAttributeAsString(GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Gets the value of a attribute, formated as a string.
+Gets the value of a attribute, formatted as a string.
 This escapes things as needed to make the string valid
 UTF-8.
 </summary>
@@ -155,7 +155,7 @@ a UTF-8 string associated with the given <paramref name="attribute"/>, or
 
 <member name='FileInfo.GetAttributeAsString(System.String)'>
 <summary>
-Gets the value of a attribute, formated as a string.
+Gets the value of a attribute, formatted as a string.
 This escapes things as needed to make the string valid
 UTF-8.
 </summary>
@@ -333,8 +333,8 @@ not contain a #GObject, <c>null</c> will be returned.
 a file attribute key.
 </param>
 <returns>
-a #GObject associated with the given <paramref name="attribute"/>, or
-<c>null</c> otherwise.
+a #GObject associated with the given <paramref name="attribute"/>,
+or <c>null</c> otherwise.
 </returns>
 </member>
 
@@ -347,8 +347,8 @@ not contain a #GObject, <c>null</c> will be returned.
 a file attribute key.
 </param>
 <returns>
-a #GObject associated with the given <paramref name="attribute"/>, or
-<c>null</c> otherwise.
+a #GObject associated with the given <paramref name="attribute"/>,
+or <c>null</c> otherwise.
 </returns>
 </member>
 
@@ -387,8 +387,8 @@ not contain a string, <c>null</c> will be returned.
 a file attribute key.
 </param>
 <returns>
-the contents of the <paramref name="attribute"/> value as a UTF-8 string, or
-<c>null</c> otherwise.
+the contents of the <paramref name="attribute"/> value as a UTF-8 string,
+or <c>null</c> otherwise.
 </returns>
 </member>
 
@@ -401,8 +401,8 @@ not contain a string, <c>null</c> will be returned.
 a file attribute key.
 </param>
 <returns>
-the contents of the <paramref name="attribute"/> value as a UTF-8 string, or
-<c>null</c> otherwise.
+the contents of the <paramref name="attribute"/> value as a UTF-8 string,
+or <c>null</c> otherwise.
 </returns>
 </member>
 
@@ -415,8 +415,8 @@ not contain a stringv, <c>null</c> will be returned.
 a file attribute key.
 </param>
 <returns>
-the contents of the <paramref name="attribute"/> value as a stringv, or
-<c>null</c> otherwise. Do not free. These returned strings are UTF-8.
+the contents of the <paramref name="attribute"/> value as a stringv,
+or <c>null</c> otherwise. Do not free. These returned strings are UTF-8.
 </returns>
 </member>
 
@@ -429,8 +429,8 @@ not contain a stringv, <c>null</c> will be returned.
 a file attribute key.
 </param>
 <returns>
-the contents of the <paramref name="attribute"/> value as a stringv, or
-<c>null</c> otherwise. Do not free. These returned strings are UTF-8.
+the contents of the <paramref name="attribute"/> value as a stringv,
+or <c>null</c> otherwise. Do not free. These returned strings are UTF-8.
 </returns>
 </member>
 

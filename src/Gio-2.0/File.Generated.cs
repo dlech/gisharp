@@ -1511,6 +1511,21 @@ namespace GISharp.Lib.Gio
         /// deleted if it is empty. This has the same semantics as g_unlink().
         /// </summary>
         /// <remarks>
+        /// If @file doesn’t exist, %G_IO_ERROR_NOT_FOUND will be returned. This allows
+        /// for deletion to be implemented avoiding
+        /// [time-of-check to time-of-use races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use):
+        /// |[
+        /// g_autoptr(GError) local_error = NULL;
+        /// if (!g_file_delete (my_file, my_cancellable, &amp;local_error) &amp;&amp;
+        ///     !g_error_matches (local_error, G_IO_ERROR, G_IO_ERROR_NOT_FOUND))
+        ///   {
+        ///     // deletion failed for some reason other than the file not existing:
+        ///     // so report the error
+        ///     g_warning ("Failed to delete %s: %s",
+        ///                g_file_peek_path (my_file), local_error-&gt;message);
+        ///   }
+        /// ]|
+        /// 
         /// If @cancellable is not %NULL, then the operation can be cancelled by
         /// triggering the cancellable object from another thread. If the operation
         /// was cancelled, the error %G_IO_ERROR_CANCELLED will be returned.
@@ -6713,7 +6728,9 @@ namespace GISharp.Lib.Gio
         /// Sends @file to the "Trashcan", if possible. This is similar to
         /// deleting it, but the user can recover it before emptying the trashcan.
         /// Not all file systems support trashing, so this call can return the
-        /// %G_IO_ERROR_NOT_SUPPORTED error.
+        /// %G_IO_ERROR_NOT_SUPPORTED error. Since GLib 2.66, the `x-gvfs-notrash` unix
+        /// mount option can be used to disable g_file_trash() support for certain
+        /// mounts, the %G_IO_ERROR_NOT_SUPPORTED error will be returned in that case.
         /// </summary>
         /// <remarks>
         /// If @cancellable is not %NULL, then the operation can be cancelled by

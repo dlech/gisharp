@@ -134,23 +134,23 @@ namespace GISharp.Lib.Gio
         /// a #GFileAttributeMatcher.
         /// </param>
         /// <returns>
-        /// a string containing the next attribute or %NULL if
+        /// a string containing the next attribute or, %NULL if
         /// no more attribute exist.
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none nullable:1 direction:out */
         private static extern unsafe System.IntPtr g_file_attribute_matcher_enumerate_next(
         /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr matcher);
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNext()']/*" />
-        public unsafe GISharp.Lib.GLib.UnownedUtf8 EnumerateNext()
+        public unsafe GISharp.Lib.GLib.NullableUnownedUtf8 EnumerateNext()
         {
             var matcher_ = Handle;
             var ret_ = g_file_attribute_matcher_enumerate_next(matcher_);
-            var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 

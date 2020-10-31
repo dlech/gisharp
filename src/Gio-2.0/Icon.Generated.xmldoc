@@ -87,7 +87,7 @@ makes sense to transfer the #GVariant between processes on the same machine,
 (as opposed to over the network), and within the same file system namespace.
 </summary>
 <returns>
-a #GVariant, or <c>null</c> when serialization fails.
+a #GVariant, or <c>null</c> when serialization fails. The #GVariant will not be floating.
 </returns>
 </member>
 
@@ -165,7 +165,7 @@ makes sense to transfer the #GVariant between processes on the same machine,
 a <see cref="IIcon"/>
 </param>
 <returns>
-a #GVariant, or <c>null</c> when serialization fails.
+a #GVariant, or <c>null</c> when serialization fails. The #GVariant will not be floating.
 </returns>
 </member>
 

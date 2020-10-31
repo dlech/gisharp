@@ -99,7 +99,7 @@ in the given <paramref name="ns"/>, <c>false</c> otherwise.
 Gets the next matched attribute from a <see cref="FileAttributeMatcher"/>.
 </summary>
 <returns>
-a string containing the next attribute or <c>null</c> if
+a string containing the next attribute or, <c>null</c> if
 no more attribute exist.
 </returns>
 </member>
