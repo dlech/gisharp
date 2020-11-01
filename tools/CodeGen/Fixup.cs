@@ -733,6 +733,7 @@ namespace GISharp.CodeGen
                 gi + "enumeration",
                 gi + "bitfield",
                 gi + "interface",
+                gs + "static-class",
             };
 
             foreach (var element in document.Descendants(gi + "method")
