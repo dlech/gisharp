@@ -1,0 +1,273 @@
+<declaration>
+
+<member name='UnicodeBreakType.Mandatory'>
+<summary>
+Mandatory Break (BK)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.CarriageReturn'>
+<summary>
+Carriage Return (CR)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.LineFeed'>
+<summary>
+Line Feed (LF)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.CombiningMark'>
+<summary>
+Attached Characters and Combining Marks (CM)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Surrogate'>
+<summary>
+Surrogates (SG)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.ZeroWidthSpace'>
+<summary>
+Zero Width Space (ZW)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Inseparable'>
+<summary>
+Inseparable (IN)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.NonBreakingGlue'>
+<summary>
+Non-breaking ("Glue") (GL)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Contingent'>
+<summary>
+Contingent Break Opportunity (CB)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Space'>
+<summary>
+Space (SP)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.After'>
+<summary>
+Break Opportunity After (BA)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Before'>
+<summary>
+Break Opportunity Before (BB)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.BeforeAndAfter'>
+<summary>
+Break Opportunity Before and After (B2)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Hyphen'>
+<summary>
+Hyphen (HY)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.NonStarter'>
+<summary>
+Nonstarter (NS)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.OpenPunctuation'>
+<summary>
+Opening Punctuation (OP)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.ClosePunctuation'>
+<summary>
+Closing Punctuation (CL)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Quotation'>
+<summary>
+Ambiguous Quotation (QU)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Exclamation'>
+<summary>
+Exclamation/Interrogation (EX)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Ideographic'>
+<summary>
+Ideographic (ID)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Numeric'>
+<summary>
+Numeric (NU)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.InfixSeparator'>
+<summary>
+Infix Separator (Numeric) (IS)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Symbol'>
+<summary>
+Symbols Allowing Break After (SY)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Alphabetic'>
+<summary>
+Ordinary Alphabetic and Symbol Characters (AL)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Prefix'>
+<summary>
+Prefix (Numeric) (PR)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Postfix'>
+<summary>
+Postfix (Numeric) (PO)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.ComplexContext'>
+<summary>
+Complex Content Dependent (South East Asian) (SA)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Ambiguous'>
+<summary>
+Ambiguous (Alphabetic or Ideographic) (AI)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.Unknown'>
+<summary>
+Unknown (XX)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.NextLine'>
+<summary>
+Next Line (NL)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.WordJoiner'>
+<summary>
+Word Joiner (WJ)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.HangulLJamo'>
+<summary>
+Hangul L Jamo (JL)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.HangulVJamo'>
+<summary>
+Hangul V Jamo (JV)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.HangulTJamo'>
+<summary>
+Hangul T Jamo (JT)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.HangulLvSyllable'>
+<summary>
+Hangul LV Syllable (H2)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.HangulLvtSyllable'>
+<summary>
+Hangul LVT Syllable (H3)
+</summary>
+</member>
+
+<member name='UnicodeBreakType.CloseParanthesis'>
+<summary>
+Closing Parenthesis (CP).
+</summary>
+</member>
+
+<member name='UnicodeBreakType.ConditionalJapaneseStarter'>
+<summary>
+Conditional Japanese Starter (CJ).
+</summary>
+</member>
+
+<member name='UnicodeBreakType.HebrewLetter'>
+<summary>
+Hebrew Letter (HL).
+</summary>
+</member>
+
+<member name='UnicodeBreakType.RegionalIndicator'>
+<summary>
+Regional Indicator (RI).
+</summary>
+</member>
+
+<member name='UnicodeBreakType.EmojiBase'>
+<summary>
+Emoji Base (EB).
+</summary>
+</member>
+
+<member name='UnicodeBreakType.EmojiModifier'>
+<summary>
+Emoji Modifier (EM).
+</summary>
+</member>
+
+<member name='UnicodeBreakType.ZeroWidthJoiner'>
+<summary>
+Zero Width Joiner (ZWJ).
+</summary>
+</member>
+
+<member name='UnicodeBreakType'>
+<summary>
+These are the possible line break classifications.
+</summary>
+<remarks>
+Since new unicode versions may add new types here, applications should be ready
+to handle unknown values. They may be regarded as <see cref="UnicodeBreakType.Unknown"/>.
+
+See [Unicode Line Breaking Algorithm](http://www.unicode.org/unicode/reports/tr14/).
+</remarks>
+</member>
+
+</declaration>

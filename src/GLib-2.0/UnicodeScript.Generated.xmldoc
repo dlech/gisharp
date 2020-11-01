@@ -1,0 +1,966 @@
+<declaration>
+
+<member name='UnicodeScript.InvalidCode'>
+<summary>
+a value never returned from <see cref="UnicharExtensions.GetScript()"/>
+</summary>
+</member>
+
+<member name='UnicodeScript.Common'>
+<summary>
+a character used by multiple different scripts
+</summary>
+</member>
+
+<member name='UnicodeScript.Inherited'>
+<summary>
+a mark glyph that takes its script from the
+                              base glyph to which it is attached
+</summary>
+</member>
+
+<member name='UnicodeScript.Arabic'>
+<summary>
+Arabic
+</summary>
+</member>
+
+<member name='UnicodeScript.Armenian'>
+<summary>
+Armenian
+</summary>
+</member>
+
+<member name='UnicodeScript.Bengali'>
+<summary>
+Bengali
+</summary>
+</member>
+
+<member name='UnicodeScript.Bopomofo'>
+<summary>
+Bopomofo
+</summary>
+</member>
+
+<member name='UnicodeScript.Cherokee'>
+<summary>
+Cherokee
+</summary>
+</member>
+
+<member name='UnicodeScript.Coptic'>
+<summary>
+Coptic
+</summary>
+</member>
+
+<member name='UnicodeScript.Cyrillic'>
+<summary>
+Cyrillic
+</summary>
+</member>
+
+<member name='UnicodeScript.Deseret'>
+<summary>
+Deseret
+</summary>
+</member>
+
+<member name='UnicodeScript.Devanagari'>
+<summary>
+Devanagari
+</summary>
+</member>
+
+<member name='UnicodeScript.Ethiopic'>
+<summary>
+Ethiopic
+</summary>
+</member>
+
+<member name='UnicodeScript.Georgian'>
+<summary>
+Georgian
+</summary>
+</member>
+
+<member name='UnicodeScript.Gothic'>
+<summary>
+Gothic
+</summary>
+</member>
+
+<member name='UnicodeScript.Greek'>
+<summary>
+Greek
+</summary>
+</member>
+
+<member name='UnicodeScript.Gujarati'>
+<summary>
+Gujarati
+</summary>
+</member>
+
+<member name='UnicodeScript.Gurmukhi'>
+<summary>
+Gurmukhi
+</summary>
+</member>
+
+<member name='UnicodeScript.Han'>
+<summary>
+Han
+</summary>
+</member>
+
+<member name='UnicodeScript.Hangul'>
+<summary>
+Hangul
+</summary>
+</member>
+
+<member name='UnicodeScript.Hebrew'>
+<summary>
+Hebrew
+</summary>
+</member>
+
+<member name='UnicodeScript.Hiragana'>
+<summary>
+Hiragana
+</summary>
+</member>
+
+<member name='UnicodeScript.Kannada'>
+<summary>
+Kannada
+</summary>
+</member>
+
+<member name='UnicodeScript.Katakana'>
+<summary>
+Katakana
+</summary>
+</member>
+
+<member name='UnicodeScript.Khmer'>
+<summary>
+Khmer
+</summary>
+</member>
+
+<member name='UnicodeScript.Lao'>
+<summary>
+Lao
+</summary>
+</member>
+
+<member name='UnicodeScript.Latin'>
+<summary>
+Latin
+</summary>
+</member>
+
+<member name='UnicodeScript.Malayalam'>
+<summary>
+Malayalam
+</summary>
+</member>
+
+<member name='UnicodeScript.Mongolian'>
+<summary>
+Mongolian
+</summary>
+</member>
+
+<member name='UnicodeScript.Myanmar'>
+<summary>
+Myanmar
+</summary>
+</member>
+
+<member name='UnicodeScript.Ogham'>
+<summary>
+Ogham
+</summary>
+</member>
+
+<member name='UnicodeScript.OldItalic'>
+<summary>
+Old Italic
+</summary>
+</member>
+
+<member name='UnicodeScript.Oriya'>
+<summary>
+Oriya
+</summary>
+</member>
+
+<member name='UnicodeScript.Runic'>
+<summary>
+Runic
+</summary>
+</member>
+
+<member name='UnicodeScript.Sinhala'>
+<summary>
+Sinhala
+</summary>
+</member>
+
+<member name='UnicodeScript.Syriac'>
+<summary>
+Syriac
+</summary>
+</member>
+
+<member name='UnicodeScript.Tamil'>
+<summary>
+Tamil
+</summary>
+</member>
+
+<member name='UnicodeScript.Telugu'>
+<summary>
+Telugu
+</summary>
+</member>
+
+<member name='UnicodeScript.Thaana'>
+<summary>
+Thaana
+</summary>
+</member>
+
+<member name='UnicodeScript.Thai'>
+<summary>
+Thai
+</summary>
+</member>
+
+<member name='UnicodeScript.Tibetan'>
+<summary>
+Tibetan
+</summary>
+</member>
+
+<member name='UnicodeScript.CanadianAboriginal'>
+<summary>
+Canadian Aboriginal
+</summary>
+</member>
+
+<member name='UnicodeScript.Yi'>
+<summary>
+Yi
+</summary>
+</member>
+
+<member name='UnicodeScript.Tagalog'>
+<summary>
+Tagalog
+</summary>
+</member>
+
+<member name='UnicodeScript.Hanunoo'>
+<summary>
+Hanunoo
+</summary>
+</member>
+
+<member name='UnicodeScript.Buhid'>
+<summary>
+Buhid
+</summary>
+</member>
+
+<member name='UnicodeScript.Tagbanwa'>
+<summary>
+Tagbanwa
+</summary>
+</member>
+
+<member name='UnicodeScript.Braille'>
+<summary>
+Braille
+</summary>
+</member>
+
+<member name='UnicodeScript.Cypriot'>
+<summary>
+Cypriot
+</summary>
+</member>
+
+<member name='UnicodeScript.Limbu'>
+<summary>
+Limbu
+</summary>
+</member>
+
+<member name='UnicodeScript.Osmanya'>
+<summary>
+Osmanya
+</summary>
+</member>
+
+<member name='UnicodeScript.Shavian'>
+<summary>
+Shavian
+</summary>
+</member>
+
+<member name='UnicodeScript.LinearB'>
+<summary>
+Linear B
+</summary>
+</member>
+
+<member name='UnicodeScript.TaiLe'>
+<summary>
+Tai Le
+</summary>
+</member>
+
+<member name='UnicodeScript.Ugaritic'>
+<summary>
+Ugaritic
+</summary>
+</member>
+
+<member name='UnicodeScript.NewTaiLue'>
+<summary>
+New Tai Lue
+</summary>
+</member>
+
+<member name='UnicodeScript.Buginese'>
+<summary>
+Buginese
+</summary>
+</member>
+
+<member name='UnicodeScript.Glagolitic'>
+<summary>
+Glagolitic
+</summary>
+</member>
+
+<member name='UnicodeScript.Tifinagh'>
+<summary>
+Tifinagh
+</summary>
+</member>
+
+<member name='UnicodeScript.SylotiNagri'>
+<summary>
+Syloti Nagri
+</summary>
+</member>
+
+<member name='UnicodeScript.OldPersian'>
+<summary>
+Old Persian
+</summary>
+</member>
+
+<member name='UnicodeScript.Kharoshthi'>
+<summary>
+Kharoshthi
+</summary>
+</member>
+
+<member name='UnicodeScript.Unknown'>
+<summary>
+an unassigned code point
+</summary>
+</member>
+
+<member name='UnicodeScript.Balinese'>
+<summary>
+Balinese
+</summary>
+</member>
+
+<member name='UnicodeScript.Cuneiform'>
+<summary>
+Cuneiform
+</summary>
+</member>
+
+<member name='UnicodeScript.Phoenician'>
+<summary>
+Phoenician
+</summary>
+</member>
+
+<member name='UnicodeScript.PhagsPa'>
+<summary>
+Phags-pa
+</summary>
+</member>
+
+<member name='UnicodeScript.Nko'>
+<summary>
+N'Ko
+</summary>
+</member>
+
+<member name='UnicodeScript.KayahLi'>
+<summary>
+Kayah Li.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Lepcha'>
+<summary>
+Lepcha.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Rejang'>
+<summary>
+Rejang.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Sundanese'>
+<summary>
+Sundanese.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Saurashtra'>
+<summary>
+Saurashtra.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Cham'>
+<summary>
+Cham.3
+</summary>
+</member>
+
+<member name='UnicodeScript.OlChiki'>
+<summary>
+Ol Chiki.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Vai'>
+<summary>
+Vai.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Carian'>
+<summary>
+Carian.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Lycian'>
+<summary>
+Lycian.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Lydian'>
+<summary>
+Lydian.3
+</summary>
+</member>
+
+<member name='UnicodeScript.Avestan'>
+<summary>
+Avestan.
+</summary>
+</member>
+
+<member name='UnicodeScript.Bamum'>
+<summary>
+Bamum.
+</summary>
+</member>
+
+<member name='UnicodeScript.EgyptianHieroglyphs'>
+<summary>
+Egyptian Hieroglpyhs.
+</summary>
+</member>
+
+<member name='UnicodeScript.ImperialAramaic'>
+<summary>
+Imperial Aramaic.
+</summary>
+</member>
+
+<member name='UnicodeScript.InscriptionalPahlavi'>
+<summary>
+Inscriptional Pahlavi.
+</summary>
+</member>
+
+<member name='UnicodeScript.InscriptionalParthian'>
+<summary>
+Inscriptional Parthian.
+</summary>
+</member>
+
+<member name='UnicodeScript.Javanese'>
+<summary>
+Javanese.
+</summary>
+</member>
+
+<member name='UnicodeScript.Kaithi'>
+<summary>
+Kaithi.
+</summary>
+</member>
+
+<member name='UnicodeScript.Lisu'>
+<summary>
+Lisu.
+</summary>
+</member>
+
+<member name='UnicodeScript.MeeteiMayek'>
+<summary>
+Meetei Mayek.
+</summary>
+</member>
+
+<member name='UnicodeScript.OldSouthArabian'>
+<summary>
+Old South Arabian.
+</summary>
+</member>
+
+<member name='UnicodeScript.OldTurkic'>
+<summary>
+Old Turkic.
+</summary>
+</member>
+
+<member name='UnicodeScript.Samaritan'>
+<summary>
+Samaritan.
+</summary>
+</member>
+
+<member name='UnicodeScript.TaiTham'>
+<summary>
+Tai Tham.
+</summary>
+</member>
+
+<member name='UnicodeScript.TaiViet'>
+<summary>
+Tai Viet.
+</summary>
+</member>
+
+<member name='UnicodeScript.Batak'>
+<summary>
+Batak.
+</summary>
+</member>
+
+<member name='UnicodeScript.Brahmi'>
+<summary>
+Brahmi.
+</summary>
+</member>
+
+<member name='UnicodeScript.Mandaic'>
+<summary>
+Mandaic.
+</summary>
+</member>
+
+<member name='UnicodeScript.Chakma'>
+<summary>
+Chakma.
+</summary>
+</member>
+
+<member name='UnicodeScript.MeroiticCursive'>
+<summary>
+Meroitic Cursive.
+</summary>
+</member>
+
+<member name='UnicodeScript.MeroiticHieroglyphs'>
+<summary>
+Meroitic Hieroglyphs.
+</summary>
+</member>
+
+<member name='UnicodeScript.Miao'>
+<summary>
+Miao.
+</summary>
+</member>
+
+<member name='UnicodeScript.Sharada'>
+<summary>
+Sharada.
+</summary>
+</member>
+
+<member name='UnicodeScript.SoraSompeng'>
+<summary>
+Sora Sompeng.
+</summary>
+</member>
+
+<member name='UnicodeScript.Takri'>
+<summary>
+Takri.
+</summary>
+</member>
+
+<member name='UnicodeScript.BassaVah'>
+<summary>
+Bassa.
+</summary>
+</member>
+
+<member name='UnicodeScript.CaucasianAlbanian'>
+<summary>
+Caucasian Albanian.
+</summary>
+</member>
+
+<member name='UnicodeScript.Duployan'>
+<summary>
+Duployan.
+</summary>
+</member>
+
+<member name='UnicodeScript.Elbasan'>
+<summary>
+Elbasan.
+</summary>
+</member>
+
+<member name='UnicodeScript.Grantha'>
+<summary>
+Grantha.
+</summary>
+</member>
+
+<member name='UnicodeScript.Khojki'>
+<summary>
+Kjohki.
+</summary>
+</member>
+
+<member name='UnicodeScript.Khudawadi'>
+<summary>
+Khudawadi, Sindhi.
+</summary>
+</member>
+
+<member name='UnicodeScript.LinearA'>
+<summary>
+Linear A.
+</summary>
+</member>
+
+<member name='UnicodeScript.Mahajani'>
+<summary>
+Mahajani.
+</summary>
+</member>
+
+<member name='UnicodeScript.Manichaean'>
+<summary>
+Manichaean.
+</summary>
+</member>
+
+<member name='UnicodeScript.MendeKikakui'>
+<summary>
+Mende Kikakui.
+</summary>
+</member>
+
+<member name='UnicodeScript.Modi'>
+<summary>
+Modi.
+</summary>
+</member>
+
+<member name='UnicodeScript.Mro'>
+<summary>
+Mro.
+</summary>
+</member>
+
+<member name='UnicodeScript.Nabataean'>
+<summary>
+Nabataean.
+</summary>
+</member>
+
+<member name='UnicodeScript.OldNorthArabian'>
+<summary>
+Old North Arabian.
+</summary>
+</member>
+
+<member name='UnicodeScript.OldPermic'>
+<summary>
+Old Permic.
+</summary>
+</member>
+
+<member name='UnicodeScript.PahawhHmong'>
+<summary>
+Pahawh Hmong.
+</summary>
+</member>
+
+<member name='UnicodeScript.Palmyrene'>
+<summary>
+Palmyrene.
+</summary>
+</member>
+
+<member name='UnicodeScript.PauCinHau'>
+<summary>
+Pau Cin Hau.
+</summary>
+</member>
+
+<member name='UnicodeScript.PsalterPahlavi'>
+<summary>
+Psalter Pahlavi.
+</summary>
+</member>
+
+<member name='UnicodeScript.Siddham'>
+<summary>
+Siddham.
+</summary>
+</member>
+
+<member name='UnicodeScript.Tirhuta'>
+<summary>
+Tirhuta.
+</summary>
+</member>
+
+<member name='UnicodeScript.WarangCiti'>
+<summary>
+Warang Citi.
+</summary>
+</member>
+
+<member name='UnicodeScript.Ahom'>
+<summary>
+Ahom.
+</summary>
+</member>
+
+<member name='UnicodeScript.AnatolianHieroglyphs'>
+<summary>
+Anatolian Hieroglyphs.
+</summary>
+</member>
+
+<member name='UnicodeScript.Hatran'>
+<summary>
+Hatran.
+</summary>
+</member>
+
+<member name='UnicodeScript.Multani'>
+<summary>
+Multani.
+</summary>
+</member>
+
+<member name='UnicodeScript.OldHungarian'>
+<summary>
+Old Hungarian.
+</summary>
+</member>
+
+<member name='UnicodeScript.Signwriting'>
+<summary>
+Signwriting.
+</summary>
+</member>
+
+<member name='UnicodeScript.Adlam'>
+<summary>
+Adlam.
+</summary>
+</member>
+
+<member name='UnicodeScript.Bhaiksuki'>
+<summary>
+Bhaiksuki.
+</summary>
+</member>
+
+<member name='UnicodeScript.Marchen'>
+<summary>
+Marchen.
+</summary>
+</member>
+
+<member name='UnicodeScript.Newa'>
+<summary>
+Newa.
+</summary>
+</member>
+
+<member name='UnicodeScript.Osage'>
+<summary>
+Osage.
+</summary>
+</member>
+
+<member name='UnicodeScript.Tangut'>
+<summary>
+Tangut.
+</summary>
+</member>
+
+<member name='UnicodeScript.MasaramGondi'>
+<summary>
+Masaram Gondi.
+</summary>
+</member>
+
+<member name='UnicodeScript.Nushu'>
+<summary>
+Nushu.
+</summary>
+</member>
+
+<member name='UnicodeScript.Soyombo'>
+<summary>
+Soyombo.
+</summary>
+</member>
+
+<member name='UnicodeScript.ZanabazarSquare'>
+<summary>
+Zanabazar Square.
+</summary>
+</member>
+
+<member name='UnicodeScript.Dogra'>
+<summary>
+Dogra.
+</summary>
+</member>
+
+<member name='UnicodeScript.GunjalaGondi'>
+<summary>
+Gunjala Gondi.
+</summary>
+</member>
+
+<member name='UnicodeScript.HanifiRohingya'>
+<summary>
+Hanifi Rohingya.
+</summary>
+</member>
+
+<member name='UnicodeScript.Makasar'>
+<summary>
+Makasar.
+</summary>
+</member>
+
+<member name='UnicodeScript.Medefaidrin'>
+<summary>
+Medefaidrin.
+</summary>
+</member>
+
+<member name='UnicodeScript.OldSogdian'>
+<summary>
+Old Sogdian.
+</summary>
+</member>
+
+<member name='UnicodeScript.Sogdian'>
+<summary>
+Sogdian.
+</summary>
+</member>
+
+<member name='UnicodeScript.Elymaic'>
+<summary>
+Elym.
+</summary>
+</member>
+
+<member name='UnicodeScript.Nandinagari'>
+<summary>
+Nand.
+</summary>
+</member>
+
+<member name='UnicodeScript.NyiakengPuachueHmong'>
+<summary>
+Rohg.
+</summary>
+</member>
+
+<member name='UnicodeScript.Wancho'>
+<summary>
+Wcho.
+</summary>
+</member>
+
+<member name='UnicodeScript.Chorasmian'>
+<summary>
+Chorasmian.
+</summary>
+</member>
+
+<member name='UnicodeScript.DivesAkuru'>
+<summary>
+Dives Akuru.
+</summary>
+</member>
+
+<member name='UnicodeScript.KhitanSmallScript'>
+<summary>
+Khitan small script.
+</summary>
+</member>
+
+<member name='UnicodeScript.Yezidi'>
+<summary>
+Yezidi.
+</summary>
+</member>
+
+<member name='UnicodeScript'>
+<summary>
+The <see cref="UnicodeScript"/> enumeration identifies different writing
+systems. The values correspond to the names as defined in the
+Unicode standard. The enumeration has been added in GLib 2.14,
+and is interchangeable with #PangoScript.
+</summary>
+<remarks>
+Note that new types may be added in the future. Applications
+should be ready to handle unknown values.
+See [Unicode Standard Annex #24: Script names](http://www.unicode.org/reports/tr24/).
+</remarks>
+</member>
+
+</declaration>

@@ -1,0 +1,191 @@
+<declaration>
+
+<member name='UnicodeType.Control'>
+<summary>
+General category "Other, Control" (Cc)
+</summary>
+</member>
+
+<member name='UnicodeType.Format'>
+<summary>
+General category "Other, Format" (Cf)
+</summary>
+</member>
+
+<member name='UnicodeType.Unassigned'>
+<summary>
+General category "Other, Not Assigned" (Cn)
+</summary>
+</member>
+
+<member name='UnicodeType.PrivateUse'>
+<summary>
+General category "Other, Private Use" (Co)
+</summary>
+</member>
+
+<member name='UnicodeType.Surrogate'>
+<summary>
+General category "Other, Surrogate" (Cs)
+</summary>
+</member>
+
+<member name='UnicodeType.LowercaseLetter'>
+<summary>
+General category "Letter, Lowercase" (Ll)
+</summary>
+</member>
+
+<member name='UnicodeType.ModifierLetter'>
+<summary>
+General category "Letter, Modifier" (Lm)
+</summary>
+</member>
+
+<member name='UnicodeType.OtherLetter'>
+<summary>
+General category "Letter, Other" (Lo)
+</summary>
+</member>
+
+<member name='UnicodeType.TitlecaseLetter'>
+<summary>
+General category "Letter, Titlecase" (Lt)
+</summary>
+</member>
+
+<member name='UnicodeType.UppercaseLetter'>
+<summary>
+General category "Letter, Uppercase" (Lu)
+</summary>
+</member>
+
+<member name='UnicodeType.SpacingMark'>
+<summary>
+General category "Mark, Spacing" (Mc)
+</summary>
+</member>
+
+<member name='UnicodeType.EnclosingMark'>
+<summary>
+General category "Mark, Enclosing" (Me)
+</summary>
+</member>
+
+<member name='UnicodeType.NonSpacingMark'>
+<summary>
+General category "Mark, Nonspacing" (Mn)
+</summary>
+</member>
+
+<member name='UnicodeType.DecimalNumber'>
+<summary>
+General category "Number, Decimal Digit" (Nd)
+</summary>
+</member>
+
+<member name='UnicodeType.LetterNumber'>
+<summary>
+General category "Number, Letter" (Nl)
+</summary>
+</member>
+
+<member name='UnicodeType.OtherNumber'>
+<summary>
+General category "Number, Other" (No)
+</summary>
+</member>
+
+<member name='UnicodeType.ConnectPunctuation'>
+<summary>
+General category "Punctuation, Connector" (Pc)
+</summary>
+</member>
+
+<member name='UnicodeType.DashPunctuation'>
+<summary>
+General category "Punctuation, Dash" (Pd)
+</summary>
+</member>
+
+<member name='UnicodeType.ClosePunctuation'>
+<summary>
+General category "Punctuation, Close" (Pe)
+</summary>
+</member>
+
+<member name='UnicodeType.FinalPunctuation'>
+<summary>
+General category "Punctuation, Final quote" (Pf)
+</summary>
+</member>
+
+<member name='UnicodeType.InitialPunctuation'>
+<summary>
+General category "Punctuation, Initial quote" (Pi)
+</summary>
+</member>
+
+<member name='UnicodeType.OtherPunctuation'>
+<summary>
+General category "Punctuation, Other" (Po)
+</summary>
+</member>
+
+<member name='UnicodeType.OpenPunctuation'>
+<summary>
+General category "Punctuation, Open" (Ps)
+</summary>
+</member>
+
+<member name='UnicodeType.CurrencySymbol'>
+<summary>
+General category "Symbol, Currency" (Sc)
+</summary>
+</member>
+
+<member name='UnicodeType.ModifierSymbol'>
+<summary>
+General category "Symbol, Modifier" (Sk)
+</summary>
+</member>
+
+<member name='UnicodeType.MathSymbol'>
+<summary>
+General category "Symbol, Math" (Sm)
+</summary>
+</member>
+
+<member name='UnicodeType.OtherSymbol'>
+<summary>
+General category "Symbol, Other" (So)
+</summary>
+</member>
+
+<member name='UnicodeType.LineSeparator'>
+<summary>
+General category "Separator, Line" (Zl)
+</summary>
+</member>
+
+<member name='UnicodeType.ParagraphSeparator'>
+<summary>
+General category "Separator, Paragraph" (Zp)
+</summary>
+</member>
+
+<member name='UnicodeType.SpaceSeparator'>
+<summary>
+General category "Separator, Space" (Zs)
+</summary>
+</member>
+
+<member name='UnicodeType'>
+<summary>
+These are the possible character classifications from the
+Unicode specification.
+See [Unicode Character Database](http://www.unicode.org/reports/tr44/#General_Category_Values).
+</summary>
+</member>
+
+</declaration>

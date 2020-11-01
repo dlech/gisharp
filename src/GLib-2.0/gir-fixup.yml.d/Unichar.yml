@@ -1,0 +1,111 @@
+
+### Unichar ###
+
+# acutal Unichar type is defined in Core, so we make a static class with
+# extension methods
+- !add-element
+  xml: <gs:static-class name='UnicharExtensions' />
+  xpath: gi:repository/gi:namespace
+
+# Move UNICHAR_* constants to static class
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'UNICHAR_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']
+- !change-attribute
+  name: name
+  regex: UNICHAR_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:constant
+
+# Private
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:constant[@name='MAX_DECOMPOSITION_LENGTH']
+
+
+# Move unichar_* functions to static class
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unichar_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']
+- !change-attribute
+  name: name
+  regex: unichar_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function
+
+# Needs special handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='to_utf8']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']
+
+# Fix array parameter in fully_decompose()
+- !add-element
+  xml: <gi:array length="2" zero-terminated="0" c:type="gunichar*"/>
+  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']
+- !set-attribute
+  name: c:type
+  value: gunichar
+  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']/gi:type
+- !move-element
+  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']/gi:type
+  new-parent-xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']/gi:array
+
+# Fix names
+- !change-attribute
+  name: name
+  regex: ^is([^_].*)
+  replace: is_$1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function
+- !set-attribute 
+  name: name
+  value: is_alpha_numeric
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='is_alnum']
+- !set-attribute 
+  name: name
+  value: is_control
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='is_cntrl']
+- !set-attribute 
+  name: name
+  value: is_printable
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='is_print']
+- !set-attribute 
+  name: name
+  value: is_punctuation
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='is_punct']
+- !set-attribute 
+  name: name
+  value: is_hex_digit
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='is_xdigit']
+- !set-attribute 
+  name: name
+  value: is_zero_width
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='is_zerowidth']
+- !change-attribute
+  name: name
+  regex: ^to([^_].*)
+  replace: to_$1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function
+- !set-attribute 
+  name: name
+  value: hex_digit_value
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='xdigit_value']
+
+# Fix parameter direction
+- !set-attribute 
+  name: direction
+  value: out
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='get_mirror_char']/gi:parameters/gi:parameter[@name='mirrored_ch']
+
+# Change first parameter to instance-parameter to convert function to an extension method
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[gi:parameters/gi:parameter[position()=1]]
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:method/gi:parameters/gi:parameter[position()=1]
