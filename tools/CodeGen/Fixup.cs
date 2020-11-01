@@ -811,6 +811,16 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue("direction", "in");
             }
 
+            // change direction="out", caller-allocates="1" to direction="in" for strings
+
+            foreach (var element in document.Descendants(gi + "parameter")
+                .Concat(document.Descendants(gi + "instance-parameter"))
+                .Where(x => x.Element(gi + "type")?.Attribute("name").AsString() == "utf8"
+                    && x.Attribute("direction").AsString() == "out"
+                    && x.Attribute("caller-allocates").AsBool())) {
+                element.SetAttributeValue("direction", "in");
+            }
+
             // TODO: add instance parameter and user data parameter for signals
 
             // make all cancellable parameters have default value

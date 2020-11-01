@@ -65,7 +65,7 @@ namespace GISharp.CodeGen.Syntax
                     if (arg.Direction == "inout") {
                         yield return Token(RefKeyword);
                     }
-                    else if (arg.Direction == "out" && (!arg.IsCallerAllocates || !(arg.IsUnownedUtf8() || arg.Type is Gir.Array)) ){
+                    else if (arg.Direction == "out") {
                         yield return Token(OutKeyword);
                     }
                     else if (byRef) {
