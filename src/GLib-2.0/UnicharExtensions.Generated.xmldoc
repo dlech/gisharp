@@ -46,7 +46,7 @@ Unicode canonical composition algorithm.
 </summary>
 <remarks>
 This function includes algorithmic Hangul Jamo composition,
-but it is not exactly the inverse of <see cref="UnicharExtensions.TryDecompose(out GISharp.Lib.GLib.Unichar,out GISharp.Lib.GLib.Unichar)"/>.
+but it is not exactly the inverse of <see cref="UnicharExtensions.TryDecompose(GISharp.Lib.GLib.Unichar,out GISharp.Lib.GLib.Unichar,out GISharp.Lib.GLib.Unichar)"/>.
 No composition can have either of this instance or <paramref name="b"/> equal to zero.
 To be precise, this function composes if and only if
 there exists a Primary Composite P which is canonically
@@ -94,7 +94,7 @@ defined, it is guaranteed that <paramref name="b"/> would not decompose
 further, but <paramref name="a"/> may itself decompose.  To get the full
 canonical decomposition for this instance, one would need to
 recursively call this function on <paramref name="a"/>.  Or use
-<see cref="UnicharExtensions.FullyDecompose(System.Boolean,System.ReadOnlySpan{GISharp.Lib.GLib.Unichar})"/>.
+<see cref="UnicharExtensions.FullyDecompose(GISharp.Lib.GLib.Unichar,System.Boolean,System.ReadOnlySpan{GISharp.Lib.GLib.Unichar})"/>.
 
 See
 [UAX#15](http://unicode.org/reports/tr15/)
@@ -124,7 +124,7 @@ a Unicode character
 </param>
 <returns>
 If this instance is a decimal digit (according to
-<see cref="UnicharExtensions.IsDigit()"/>), its numeric value. Otherwise, -1.
+<see cref="UnicharExtensions.IsDigit(GISharp.Lib.GLib.Unichar)"/>), its numeric value. Otherwise, -1.
 </returns>
 </member>
 
@@ -244,7 +244,7 @@ a Unicode character
 <summary>
 Determines whether a character is printable and not a space
 (returns <c>false</c> for control characters, format characters, and
-spaces). <see cref="UnicharExtensions.IsPrintable()"/> is similar, but returns <c>true</c> for
+spaces). <see cref="UnicharExtensions.IsPrintable(GISharp.Lib.GLib.Unichar)"/> is similar, but returns <c>true</c> for
 spaces. Given some UTF-8 text, obtain a character value with
 g_utf8_get_char().
 </summary>
@@ -294,7 +294,7 @@ a Unicode character
 <member name='UnicharExtensions.IsPrintable(GISharp.Lib.GLib.Unichar)'>
 <summary>
 Determines whether a character is printable.
-Unlike <see cref="UnicharExtensions.IsGraph()"/>, returns <c>true</c> for spaces.
+Unlike <see cref="UnicharExtensions.IsGraph(GISharp.Lib.GLib.Unichar)"/>, returns <c>true</c> for spaces.
 Given some UTF-8 text, obtain a character value with
 g_utf8_get_char().
 </summary>
@@ -385,15 +385,15 @@ a Unicode character
 <summary>
 Determines if a character is typically rendered in a double-width
 cell under legacy East Asian locales.  If a character is wide according to
-<see cref="UnicharExtensions.IsWide()"/>, then it is also reported wide with this function, but
+<see cref="UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)"/>, then it is also reported wide with this function, but
 the converse is not necessarily true. See the
 [Unicode Standard Annex #11](http://www.unicode.org/reports/tr11/)
 for details.
 </summary>
 <remarks>
-If a character passes the <see cref="UnicharExtensions.IsWide()"/> test then it will also pass
+If a character passes the <see cref="UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)"/> test then it will also pass
 this test, but not the other way around.  Note that some characters may
-pass both this test and <see cref="UnicharExtensions.IsZeroWidth()"/>.
+pass both this test and <see cref="UnicharExtensions.IsZeroWidth(GISharp.Lib.GLib.Unichar)"/>.
 </remarks>
 <param name="c">
 a Unicode character
@@ -423,8 +423,8 @@ The return value is <c>true</c> for all non-spacing and enclosing marks
 space, but not U+00AD SOFT HYPHEN.
 </summary>
 <remarks>
-A typical use of this function is with one of <see cref="UnicharExtensions.IsWide()"/> or
-<see cref="UnicharExtensions.IsWideCjk()"/> to determine the number of cells a string occupies
+A typical use of this function is with one of <see cref="UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)"/> or
+<see cref="UnicharExtensions.IsWideCjk(GISharp.Lib.GLib.Unichar)"/> to determine the number of cells a string occupies
 when displayed on a grid display (terminals).  However, note that not all
 terminals support zero-width rendering of zero-width marks.
 </remarks>
@@ -514,7 +514,7 @@ a Unicode character
 </param>
 <returns>
 If this instance is a hex digit (according to
-<see cref="UnicharExtensions.IsHexDigit()"/>), its numeric value. Otherwise, -1.
+<see cref="UnicharExtensions.IsHexDigit(GISharp.Lib.GLib.Unichar)"/>), its numeric value. Otherwise, -1.
 </returns>
 </member>
 

@@ -188,13 +188,9 @@ namespace GISharp.CodeGen.Syntax
                         }
                         // include parameter types so we don't get conflicts with overloads
                         var parameters = callable.ManagedParameters.RegularParameters.Cast<GIArg>();
-                        var thisParam = callable.ManagedParameters.ThisParameter;
-                        if (thisParam != null) {
-                            var thisParamType = thisParam.Type.ManagedType;
-                            if (thisParamType.IsInterface || thisParamType.IsEnum) {
-                                // interfaces and enums are extension methods, so need instance parameter
-                                parameters = parameters.Prepend(thisParam);
-                            }
+                        // extension methods need instance parameter
+                        if (callable is Method m && m.IsExtensionMethod) {
+                            parameters = parameters.Prepend(callable.ManagedParameters.ThisParameter);
                         }
                         method += $"({string.Join(",", parameters.Select(x => getManagedType(x)))})";
                         builder.Replace($"{f.Value}()", $"<see cref=\"{parent.GirName}.{method}\"/>");
