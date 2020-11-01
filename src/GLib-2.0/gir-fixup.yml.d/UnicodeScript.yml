@@ -1,0 +1,19 @@
+# UnicodeScript
+
+# Move functions
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unicode_script_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='UnicodeScript']
+- !change-attribute
+  name: name
+  regex: ^unicode_script_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='UnicodeScript']/gi:function
+
+# Change first parameter to instance-parameter to convert function to an extension method
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='UnicodeScript']/gi:function[@name='to_iso15924']
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='UnicodeScript']/gi:method/gi:parameters/gi:parameter[position()=1]

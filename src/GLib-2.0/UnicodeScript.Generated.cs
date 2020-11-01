@@ -412,4 +412,88 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.66")]
         Yezidi = 156
     }
+
+    /// <summary>
+    /// Extension methods for <see cref="UnicodeScript"/>.
+    /// </summary>
+    public static partial class UnicodeScriptExtensions
+    {
+        /// <summary>
+        /// Looks up the Unicode script for @iso15924.  ISO 15924 assigns four-letter
+        /// codes to scripts.  For example, the code for Arabic is 'Arab'.
+        /// This function accepts four letter codes encoded as a @guint32 in a
+        /// big-endian fashion.  That is, the code expected for Arabic is
+        /// 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
+        /// </summary>
+        /// <remarks>
+        /// See
+        /// [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
+        /// for details.
+        /// </remarks>
+        /// <param name="iso15924">
+        /// a Unicode script
+        /// </param>
+        /// <returns>
+        /// the Unicode script for @iso15924, or
+        ///   of %G_UNICODE_SCRIPT_INVALID_CODE if @iso15924 is zero and
+        ///   %G_UNICODE_SCRIPT_UNKNOWN if @iso15924 is unknown.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.30")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="UnicodeScript" type="GUnicodeScript" managed-name="UnicodeScript" /> */
+        /* transfer-ownership:none direction:out */
+        private static extern unsafe GISharp.Lib.GLib.UnicodeScript g_unicode_script_from_iso15924(
+        /* <type name="guint32" type="guint32" managed-name="System.UInt32" /> */
+        /* transfer-ownership:none direction:in */
+        System.UInt32 iso15924);
+
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScriptExtensions.FromIso15924(System.UInt32)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.30")]
+        public static unsafe GISharp.Lib.GLib.UnicodeScript FromIso15924(System.UInt32 iso15924)
+        {
+            var iso15924_ = (System.UInt32)iso15924;
+            var ret_ = g_unicode_script_from_iso15924(iso15924_);
+            var ret = (GISharp.Lib.GLib.UnicodeScript)ret_;
+            return ret;
+        }
+
+        /// <summary>
+        /// Looks up the ISO 15924 code for @script.  ISO 15924 assigns four-letter
+        /// codes to scripts.  For example, the code for Arabic is 'Arab'.  The
+        /// four letter codes are encoded as a @guint32 by this function in a
+        /// big-endian fashion.  That is, the code returned for Arabic is
+        /// 0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
+        /// </summary>
+        /// <remarks>
+        /// See
+        /// [Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
+        /// for details.
+        /// </remarks>
+        /// <param name="script">
+        /// a Unicode script
+        /// </param>
+        /// <returns>
+        /// the ISO 15924 code for @script, encoded as an integer,
+        ///   of zero if @script is %G_UNICODE_SCRIPT_INVALID_CODE or
+        ///   ISO 15924 code 'Zzzz' (script code for UNKNOWN) if @script is not understood.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.30")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="guint32" type="guint32" managed-name="System.UInt32" /> */
+        /* transfer-ownership:none direction:out */
+        private static extern unsafe System.UInt32 g_unicode_script_to_iso15924(
+        /* <type name="UnicodeScript" type="GUnicodeScript" managed-name="UnicodeScript" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.UnicodeScript script);
+
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScriptExtensions.ToIso15924(GISharp.Lib.GLib.UnicodeScript)']/*" />
+        [GISharp.Runtime.SinceAttribute("2.30")]
+        public unsafe static System.UInt32 ToIso15924(this GISharp.Lib.GLib.UnicodeScript script)
+        {
+            var script_ = (GISharp.Lib.GLib.UnicodeScript)script;
+            var ret_ = g_unicode_script_to_iso15924(script_);
+            var ret = (System.UInt32)ret_;
+            return ret;
+        }
+    }
 }

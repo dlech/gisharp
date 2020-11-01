@@ -963,4 +963,50 @@ See [Unicode Standard Annex #24: Script names](http://www.unicode.org/reports/tr
 </remarks>
 </member>
 
+<member name='UnicodeScriptExtensions.FromIso15924(System.UInt32)'>
+<summary>
+Looks up the Unicode script for <paramref name="iso15924"/>.  ISO 15924 assigns four-letter
+codes to scripts.  For example, the code for Arabic is 'Arab'.
+This function accepts four letter codes encoded as a <see cref="uint"/> in a
+big-endian fashion.  That is, the code expected for Arabic is
+0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
+</summary>
+<remarks>
+See
+[Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
+for details.
+</remarks>
+<param name="iso15924">
+a Unicode script
+</param>
+<returns>
+the Unicode script for <paramref name="iso15924"/>, or
+  of <see cref="UnicodeScript.InvalidCode"/> if <paramref name="iso15924"/> is zero and
+  <see cref="UnicodeScript.Unknown"/> if <paramref name="iso15924"/> is unknown.
+</returns>
+</member>
+
+<member name='UnicodeScriptExtensions.ToIso15924(GISharp.Lib.GLib.UnicodeScript)'>
+<summary>
+Looks up the ISO 15924 code for this instance.  ISO 15924 assigns four-letter
+codes to scripts.  For example, the code for Arabic is 'Arab'.  The
+four letter codes are encoded as a <see cref="uint"/> by this function in a
+big-endian fashion.  That is, the code returned for Arabic is
+0x41726162 (0x41 is ASCII code for 'A', 0x72 is ASCII code for 'r', etc).
+</summary>
+<remarks>
+See
+[Codes for the representation of names of scripts](http://unicode.org/iso15924/codelists.html)
+for details.
+</remarks>
+<param name="script">
+a Unicode script
+</param>
+<returns>
+the ISO 15924 code for this instance, encoded as an integer,
+  of zero if this instance is <see cref="UnicodeScript.InvalidCode"/> or
+  ISO 15924 code 'Zzzz' (script code for UNKNOWN) if this instance is not understood.
+</returns>
+</member>
+
 </declaration>
