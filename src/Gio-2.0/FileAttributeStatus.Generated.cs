@@ -17,7 +17,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FileAttributeStatus"/>.
     /// </summary>
-    public partial class FileAttributeStatusExtensions
+    public static partial class FileAttributeStatusExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_status_get_type();
 

@@ -18,7 +18,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="OutputStreamSpliceFlags"/>.
     /// </summary>
-    public partial class OutputStreamSpliceFlagsExtensions
+    public static partial class OutputStreamSpliceFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_output_stream_splice_flags_get_type();
 

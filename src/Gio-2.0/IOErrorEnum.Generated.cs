@@ -125,7 +125,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="IOErrorEnum"/>.
     /// </summary>
-    public partial class IOErrorEnumDomain
+    public static partial class IOErrorEnumDomain
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_io_error_enum_get_type();
 

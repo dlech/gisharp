@@ -23,7 +23,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Extension methods for <see cref="KeyFileError"/>.
     /// </summary>
-    public partial class KeyFileErrorDomain
+    public static partial class KeyFileErrorDomain
     {
         /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }

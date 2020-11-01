@@ -32,7 +32,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FileAttributeType"/>.
     /// </summary>
-    public partial class FileAttributeTypeExtensions
+    public static partial class FileAttributeTypeExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_type_get_type();
 

@@ -19,7 +19,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FileCreateFlags"/>.
     /// </summary>
-    public partial class FileCreateFlagsExtensions
+    public static partial class FileCreateFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_create_flags_get_type();
 

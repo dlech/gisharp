@@ -17,7 +17,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FilesystemPreviewType"/>.
     /// </summary>
-    public partial class FilesystemPreviewTypeExtensions
+    public static partial class FilesystemPreviewTypeExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_filesystem_preview_type_get_type();
 

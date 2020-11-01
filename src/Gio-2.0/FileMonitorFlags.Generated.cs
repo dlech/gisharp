@@ -26,7 +26,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FileMonitorFlags"/>.
     /// </summary>
-    public partial class FileMonitorFlagsExtensions
+    public static partial class FileMonitorFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_monitor_flags_get_type();
 

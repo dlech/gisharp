@@ -17,7 +17,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Extension methods for <see cref="OptionError"/>.
     /// </summary>
-    public partial class OptionErrorDomain
+    public static partial class OptionErrorDomain
     {
         /// <include file="OptionError.xmldoc" path="declaration/member[@name='OptionErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }

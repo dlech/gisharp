@@ -16,7 +16,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FileQueryInfoFlags"/>.
     /// </summary>
-    public partial class FileQueryInfoFlagsExtensions
+    public static partial class FileQueryInfoFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_query_info_flags_get_type();
 

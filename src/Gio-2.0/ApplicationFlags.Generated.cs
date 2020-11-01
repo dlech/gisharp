@@ -37,7 +37,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="ApplicationFlags"/>.
     /// </summary>
-    public partial class ApplicationFlagsExtensions
+    public static partial class ApplicationFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_application_flags_get_type();
 

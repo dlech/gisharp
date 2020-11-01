@@ -26,7 +26,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FileCopyFlags"/>.
     /// </summary>
-    public partial class FileCopyFlagsExtensions
+    public static partial class FileCopyFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_copy_flags_get_type();
 

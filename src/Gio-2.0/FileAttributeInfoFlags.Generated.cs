@@ -18,7 +18,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FileAttributeInfoFlags"/>.
     /// </summary>
-    public partial class FileAttributeInfoFlagsExtensions
+    public static partial class FileAttributeInfoFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_info_flags_get_type();
 

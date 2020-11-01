@@ -21,7 +21,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FileMeasureFlags"/>.
     /// </summary>
-    public partial class FileMeasureFlagsExtensions
+    public static partial class FileMeasureFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_measure_flags_get_type();
 

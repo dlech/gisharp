@@ -64,7 +64,7 @@ namespace GISharp.CodeGen.Syntax
                 (@enum.ErrorDomain == null ? "Extensions" : "Domain");
 
             return ClassDeclaration(name)
-                .AddModifiers(Token(PublicKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword))
                 .WithLeadingTrivia(ParseLeadingTrivia(string.Format(@"/// <summary>
                 /// Extension methods for <see cref=""{0}""/>.
                 /// </summary>
