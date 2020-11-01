@@ -199,8 +199,10 @@ namespace GISharp.CodeGen.Reflection
                 break;
             case "guint":
             case "guint32":
-            case "gunichar":
                 type = typeof(uint);
+                break;
+            case "gunichar":
+                type = typeof(Unichar);
                 break;
             case "glong":
                 type = typeof(CLong);
