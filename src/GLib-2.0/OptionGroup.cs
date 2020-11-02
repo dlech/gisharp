@@ -111,19 +111,19 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Allocates variable of the specified size and returns the pointer to 
+        /// Allocates variable of the specified size and returns the pointer to
         /// it. The pointer is also stored so that it can be freed later.
         /// </summary>
         IntPtr AllocArg(int size)
         {
-            var ptr = GMarshal.Alloc0(IntPtr.Size);
+            var ptr = GMarshal.Alloc0(size);
             userData.Args.Add(ptr);
             return ptr;
         }
 
         unsafe void AddEntry(OptionEntry entry)
         {
-            using (var array = new Array<OptionEntry>(true, false, 1){ entry }) {
+            using (var array = new Array<OptionEntry>(true, false, 1) { entry }) {
                 ref readonly var entries_ = ref MemoryMarshal.GetReference(array.Data);
                 g_option_group_add_entries(Handle, entries_);
             }
@@ -189,7 +189,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Adds an integer option
-        /// </summary>        
+        /// </summary>
         public void AddInt(string longName, char shortName, Action<int> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
@@ -219,7 +219,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Adds a filename option
-        /// </summary>     
+        /// </summary>
         public void AddFilename(string longName, char shortName, Action<Filename> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
@@ -250,7 +250,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Adds a string array option
-        /// </summary>   
+        /// </summary>
         public void AddStringArray(string longName, char shortName, Action<Strv> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
@@ -281,7 +281,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Adds a filename array option
-        /// </summary>   
+        /// </summary>
         public void AddFilenameArray(string longName, char shortName, Action<FilenameArray> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
@@ -312,7 +312,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Adds a double option
-        /// </summary>   
+        /// </summary>
         public void AddDouble(string longName, char shortName, Action<double> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
@@ -342,7 +342,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Adds a callback option
-        /// </summary>   
+        /// </summary>
         public void AddCallback(string longName, char shortName, OptionArgFunc callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
