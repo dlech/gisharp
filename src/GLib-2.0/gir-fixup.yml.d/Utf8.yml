@@ -1,0 +1,36 @@
+
+### Utf8 ###
+
+# acutal Utf8 type is defined in Core, so we make a static class with
+# extension methods
+- !add-element
+  xml: <gs:static-class name='Utf8Extensions' />
+  xpath: gi:repository/gi:namespace
+
+# Move utf8_* functions to static class
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'utf8_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Utf8Extensions']
+- !change-attribute
+  name: name
+  regex: utf8_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Utf8Extensions']/gi:function
+
+# Most functions require special handling or are used in Core
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Utf8Extensions']/gi:function
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 0
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Utf8Extensions']/gi:function[@name="substring"]
+
+# Change first parameter to instance-parameter to convert function to an extension method
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Utf8Extensions']/gi:function[gi:parameters/gi:parameter[position()=1]]
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Utf8Extensions']/gi:method/gi:parameters/gi:parameter[position()=1]

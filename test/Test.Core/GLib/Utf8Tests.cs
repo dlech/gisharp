@@ -142,7 +142,7 @@ namespace GISharp.Test.Core
         public void TestUnichars()
         {
              using (var utf8 = new Utf8(testString)) {
-                Assert.That(utf8.Unichars, Is.EquivalentTo(testUtf8String.Runes));
+                Assert.That(utf8.Characters, Is.EquivalentTo(testUtf8String.Runes));
             }
             AssertNoGLibLog();
         }

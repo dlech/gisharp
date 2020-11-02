@@ -14,7 +14,7 @@ This is as defined by Unicode 6.1.
 <summary>
 Determines the break type of this instance. this instance should be a Unicode character
 (to derive a character from UTF-8 encoded text, use
-g_utf8_get_char()). The break type is used to find word and line
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>). The break type is used to find word and line
 breaks ("text boundaries"), Pango implements the Unicode boundary
 resolution algorithms and normally you would use a function such
 as pango_break() instead of caring about break types yourself.
@@ -175,7 +175,7 @@ the <see cref="UnicodeScript"/> for the character.
 <summary>
 Determines whether a character is alphanumeric.
 Given some UTF-8 text, obtain a character value
-with g_utf8_get_char().
+with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -189,7 +189,7 @@ a Unicode character
 <summary>
 Determines whether a character is alphabetic (i.e. a letter).
 Given some UTF-8 text, obtain a character value with
-g_utf8_get_char().
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -203,7 +203,7 @@ a Unicode character
 <summary>
 Determines whether a character is a control character.
 Given some UTF-8 text, obtain a character value with
-g_utf8_get_char().
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -230,7 +230,7 @@ a Unicode character
 <summary>
 Determines whether a character is numeric (i.e. a digit).  This
 covers ASCII 0-9 and also digits in other languages/scripts.  Given
-some UTF-8 text, obtain a character value with g_utf8_get_char().
+some UTF-8 text, obtain a character value with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -246,7 +246,7 @@ Determines whether a character is printable and not a space
 (returns <c>false</c> for control characters, format characters, and
 spaces). <see cref="UnicharExtensions.IsPrintable(GISharp.Lib.GLib.Unichar)"/> is similar, but returns <c>true</c> for
 spaces. Given some UTF-8 text, obtain a character value with
-g_utf8_get_char().
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -260,7 +260,7 @@ a Unicode character
 <summary>
 Determines whether a character is a lowercase letter.
 Given some UTF-8 text, obtain a character value with
-g_utf8_get_char().
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -275,7 +275,7 @@ a Unicode character
 Determines whether a character is a mark (non-spacing mark,
 combining mark, or enclosing mark in Unicode speak).
 Given some UTF-8 text, obtain a character value
-with g_utf8_get_char().
+with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
 Note: in most cases where isalpha characters are allowed,
@@ -296,7 +296,7 @@ a Unicode character
 Determines whether a character is printable.
 Unlike <see cref="UnicharExtensions.IsGraph(GISharp.Lib.GLib.Unichar)"/>, returns <c>true</c> for spaces.
 Given some UTF-8 text, obtain a character value with
-g_utf8_get_char().
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -310,7 +310,7 @@ a Unicode character
 <summary>
 Determines whether a character is punctuation or a symbol.
 Given some UTF-8 text, obtain a character value with
-g_utf8_get_char().
+<see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <param name="c">
 a Unicode character
@@ -324,7 +324,7 @@ a Unicode character
 <summary>
 Determines whether a character is a space, tab, or line separator
 (newline, carriage return, etc.).  Given some UTF-8 text, obtain a
-character value with g_utf8_get_char().
+character value with <see cref="Utf8Extensions.GetChar(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 <remarks>
 (Note: don't use this to do word breaking; you have to use
