@@ -1272,15 +1272,13 @@ namespace GISharp.CodeGen
             case "guint32":
                 return typeof(uint).ToString();
             case "gint64":
-            // hiding the fact that glong could be 32-bit
-            // this could cause trouble, but it is not used frequently
-            case "glong":
                 return typeof(long).ToString();
+            case "glong":
+                return typeof(CLong).ToString();
             case "guint64":
-            // hiding the fact that gulong could be 32-bit
-            // this could cause trouble, but it is not used frequently
-            case "gulong":
                 return typeof(ulong).ToString();
+            case "gulong":
+                return typeof(CULong).ToString();
             case "gfloat":
                 return typeof(float).ToString();
             case "gdouble":

@@ -190,7 +190,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="gulong" type="gulong" managed-name="System.UInt64" /> */
+        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
         /* transfer-ownership:none direction:out */
         private static extern unsafe GISharp.Runtime.CULong g_cancellable_connect(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
@@ -208,12 +208,12 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Connect(GISharp.Lib.Gio.CancellableSourceFunc)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public unsafe System.UInt64 Connect(GISharp.Lib.Gio.CancellableSourceFunc callback)
+        public unsafe GISharp.Runtime.CULong Connect(GISharp.Lib.Gio.CancellableSourceFunc callback)
         {
             var cancellable_ = Handle;
             var (callback_, dataDestroyFunc_, data_) = GISharp.Lib.Gio.CancellableSourceFuncMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Notified);
             var ret_ = g_cancellable_connect(cancellable_,callback_,data_,dataDestroyFunc_);
-            var ret = (System.UInt64)ret_;
+            var ret = (GISharp.Runtime.CULong)ret_;
             return ret;
         }
 
@@ -248,13 +248,13 @@ namespace GISharp.Lib.Gio
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable,
-        /* <type name="gulong" type="gulong" managed-name="System.UInt64" /> */
+        /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CULong handlerId);
 
-        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Disconnect(System.UInt64)']/*" />
+        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Disconnect(GISharp.Runtime.CULong)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public unsafe void Disconnect(System.UInt64 handlerId)
+        public unsafe void Disconnect(GISharp.Runtime.CULong handlerId)
         {
             var cancellable_ = Handle;
             var handlerId_ = (GISharp.Runtime.CULong)handlerId;

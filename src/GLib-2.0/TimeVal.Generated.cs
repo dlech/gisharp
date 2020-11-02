@@ -97,14 +97,14 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         in GISharp.Lib.GLib.TimeVal time,
-        /* <type name="glong" type="glong" managed-name="System.Int64" /> */
+        /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong microseconds);
 
-        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.Add(System.Int64)']/*" />
+        /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.Add(GISharp.Runtime.CLong)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use `guint64` for\n   representing microseconds since the epoch, or use #GDateTime.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
-        public unsafe void Add(System.Int64 microseconds)
+        public unsafe void Add(GISharp.Runtime.CLong microseconds)
         {
             ref var time_ = ref this;
             var microseconds_ = (GISharp.Runtime.CLong)microseconds;

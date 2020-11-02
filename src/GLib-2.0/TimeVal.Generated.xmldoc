@@ -76,7 +76,7 @@ a <see cref="TimeVal"/>
 </returns>
 </member>
 
-<member name='TimeVal.Add(System.Int64)'>
+<member name='TimeVal.Add(GISharp.Runtime.CLong)'>
 <summary>
 Adds the given number of microseconds to this instance. <paramref name="microseconds"/> can
 also be negative to decrease the value of this instance.
