@@ -5,8 +5,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.GIRepository
 {
-    [TestFixture]
-    public class TestBaseInfo
+    public class TestBaseInfo : Tests
     {
         InfoDictionary<BaseInfo> infos = default!;
 

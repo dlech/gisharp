@@ -7,8 +7,7 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
-    public class OptionContextTests
+    public class OptionContextTests : Tests
     {
         [Test]
         public void TestSummary()
@@ -20,7 +19,6 @@ namespace GISharp.Test.GLib
                 oc.Summary = Utf8.Null;
                 Assert.That<string?>(oc.Summary, Is.EqualTo(Utf8.Null));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -33,7 +31,6 @@ namespace GISharp.Test.GLib
                 oc.Description = Utf8.Null;
                 Assert.That<string?>(oc.Description, Is.EqualTo(Utf8.Null));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -44,7 +41,6 @@ namespace GISharp.Test.GLib
                 oc.SetTranslateFunc(translate);
                 oc.SetTranslateFunc(null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -53,7 +49,6 @@ namespace GISharp.Test.GLib
             using (var oc = new OptionContext()) {
                 oc.SetTranslationDomain("domain");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -64,7 +59,6 @@ namespace GISharp.Test.GLib
                 oc.HelpEnabled = expected;
                 Assert.That(oc.HelpEnabled, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -75,7 +69,6 @@ namespace GISharp.Test.GLib
                 oc.IgnoreUnknownOptions = expected;
                 Assert.That(oc.IgnoreUnknownOptions, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -86,7 +79,6 @@ namespace GISharp.Test.GLib
                 oc.StrictPosix = expected;
                 Assert.That(oc.StrictPosix, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -97,7 +89,6 @@ namespace GISharp.Test.GLib
                 oc.AddGroup(og);
                 Assert.That(() => og.Handle, Throws.Nothing);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -108,7 +99,6 @@ namespace GISharp.Test.GLib
                 oc.MainGroup = og;
                 Assert.That(oc.MainGroup.Handle, Is.EqualTo(og.Handle));
             }
-            AssertNoGLibLog();
         }
     }
 }

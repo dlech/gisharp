@@ -5,16 +5,13 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
-using static GISharp.TestHelpers;
-
 using clong = GISharp.Runtime.CLong;
 using culong = GISharp.Runtime.CULong;
 using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.Core.GObject
 {
-    [TestFixture]
-    public class ValueTests
+    public class ValueTests : Tests
     {
         [Test]
         public void TestBoolean()
@@ -36,8 +33,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Char);
                 var _ = (bool)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -58,8 +53,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (sbyte)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -80,8 +73,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (byte)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -102,8 +93,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (int)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -124,8 +113,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (uint)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -146,8 +133,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (clong)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -168,8 +153,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (culong)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -190,8 +173,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (long)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -212,8 +193,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (ulong)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -234,8 +213,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (float)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -256,8 +233,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (double)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [GType]
@@ -286,8 +261,6 @@ namespace GISharp.Test.Core.GObject
                 v2.Set(ValueTestEnum.Value);
             }, Throws.ArgumentException);
             // Assert.That (() => (ValueTestEnum)v2, Throws.InstanceOf<InvalidCastException> ());
-
-            AssertNoGLibLog();
         }
 
         [Flags, GType]
@@ -316,8 +289,6 @@ namespace GISharp.Test.Core.GObject
                 v2.Set(ValueTestFlags.Value);
             }, Throws.ArgumentException);
             // Assert.That (() => (ValueTestFlags)v2, Throws.InstanceOf<InvalidCastException> ());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -359,8 +330,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (ParamSpec?)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -382,8 +351,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (Boxed?)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -404,8 +371,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (IntPtr)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -426,8 +391,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (Object?)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -448,8 +411,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (GType)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -470,8 +431,6 @@ namespace GISharp.Test.Core.GObject
                 var v2 = new Value(GType.Boolean);
                 var _ = (Variant?)v2;
             }, Throws.InstanceOf<InvalidCastException>());
-
-            AssertNoGLibLog();
         }
     }
 }

@@ -3,12 +3,9 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core
 {
-    [TestFixture]
-    public class Utf8Tests
+    public class Utf8Tests : Tests
     {
         const string testString = "test-string-with-ůŋįçøđê-😀";
         readonly Utf8String testUtf8String = new Utf8String(testString);
@@ -69,7 +66,6 @@ namespace GISharp.Test.Core
                 Assert.That(testString != utf8, Is.False);
                 Assert.That(default(string?) != utf8, Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -126,7 +122,6 @@ namespace GISharp.Test.Core
                 Assert.That(testUtf8String != utf8, Is.False);
                 Assert.That(default(Utf8String?) != utf8, Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -135,7 +130,6 @@ namespace GISharp.Test.Core
              using (var utf8 = new Utf8(testString)) {
                 Assert.That(utf8.Bytes, Is.EquivalentTo(testUtf8String.Bytes));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -144,7 +138,6 @@ namespace GISharp.Test.Core
              using (var utf8 = new Utf8(testString)) {
                 Assert.That(utf8.Characters, Is.EquivalentTo(testUtf8String.Runes));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -152,7 +145,6 @@ namespace GISharp.Test.Core
         {
             var gtype = GType.Of<Utf8>();
             Assert.That(gtype, Is.EqualTo(GType.String));
-            AssertNoGLibLog();
         }
     }
 }

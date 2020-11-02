@@ -5,9 +5,8 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
     [TestOf(typeof(KeyFileError))]
-    public class KeyFileErrorTests
+    public class KeyFileErrorTests : Tests
     {
         [Test]
         public void TestQuark()

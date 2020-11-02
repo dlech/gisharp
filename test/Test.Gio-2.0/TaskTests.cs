@@ -4,12 +4,9 @@ using GISharp.Lib.Gio;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class TaskTests
+    public class TaskTests : Tests
     {
         [Test]
         public void TestNew()
@@ -17,8 +14,6 @@ namespace GISharp.Test.Gio
             using (var task = new Task(null, null)) {
                 Assert.That(task.SourceObject, Is.Null);
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -28,7 +23,6 @@ namespace GISharp.Test.Gio
                 task.Priority = Priority.Low;
                 Assert.That(task.Priority, Is.EqualTo(Priority.Low));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -38,7 +32,6 @@ namespace GISharp.Test.Gio
                 task.CheckCancellable = false;
                 Assert.That(task.CheckCancellable, Is.False);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -48,7 +41,6 @@ namespace GISharp.Test.Gio
                 Assert.That(task.SetReturnOnCancel(true), Is.True);
                 Assert.That(task.ReturnOnCancel, Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -59,14 +51,12 @@ namespace GISharp.Test.Gio
                 task.SourceTag = expected;
                 Assert.That(task.SourceTag, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
         public void TestReportError()
         {
             Task.ReportError(null, null, IntPtr.Zero, new Error(IOErrorEnum.Failed, "test error"));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -76,7 +66,6 @@ namespace GISharp.Test.Gio
             using (var task = new Task(null, null, cancellable: c)) {
                 Assert.That(task.Cancellable, Is.SameAs(c));
             }
-            AssertNoGLibLog();
         }
     }
 }

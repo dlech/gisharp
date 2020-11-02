@@ -5,16 +5,13 @@ using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 using Object = GISharp.Lib.GObject.Object;
 using IAsyncResult = GISharp.Lib.Gio.IAsyncResult;
 using System.ComponentModel;
 
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class AsyncResultTests
+    public class AsyncResultTests : Tests
     {
         [Test]
         public void TestGetSourceObject()
@@ -23,7 +20,6 @@ namespace GISharp.Test.Gio
             using (var ar = new TestAsyncResult(source)) {
                 Assert.That(ar.GetSourceObject(), Is.SameAs(source));
             }
-            AssertNoGLibLog();
         }
     }
 

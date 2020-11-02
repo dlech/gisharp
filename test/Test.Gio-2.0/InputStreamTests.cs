@@ -10,8 +10,7 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class InputStreamTests
+    public class InputStreamTests : Tests
     {
         [Test]
         public void TestRead()
@@ -22,8 +21,6 @@ namespace GISharp.Test.Gio
                 var count = stream.Read(buffer);
                 Assert.That(count, Is.EqualTo(10));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -35,8 +32,6 @@ namespace GISharp.Test.Gio
                 stream.ReadAll(buffer, out var read);
                 Assert.That(read, Is.EqualTo(10));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -48,8 +43,6 @@ namespace GISharp.Test.Gio
                 var count = stream.Skip(10);
                 Assert.That(count, Is.EqualTo(10));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -63,8 +56,6 @@ namespace GISharp.Test.Gio
                     Assert.That(count, Is.EqualTo(10));
                 }
             });
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -78,8 +69,6 @@ namespace GISharp.Test.Gio
                     Assert.That(count, Is.EqualTo(10));
                 }
             });
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -91,8 +80,6 @@ namespace GISharp.Test.Gio
                     Assert.That(actual, Has.Count.EqualTo(10));
                 }
             });
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -104,8 +91,6 @@ namespace GISharp.Test.Gio
                     Assert.That(actual, Is.EqualTo(10));
                 }
             });
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -117,8 +102,6 @@ namespace GISharp.Test.Gio
                     Assert.That(stream.IsClosed, Is.True);
                 }
             });
-
-            AssertNoGLibLog();
         }
     }
 

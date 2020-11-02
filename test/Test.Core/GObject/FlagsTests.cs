@@ -4,12 +4,9 @@ using NUnit.Framework;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core.GObject
 {
-    [TestFixture]
-    public class FlagsTests
+    public class FlagsTests : Tests
     {
         [Test]
         public void TestRegister1()
@@ -17,8 +14,6 @@ namespace GISharp.Test.Core.GObject
             // invalid because TestFlags1 does not have [GType] attribute so it
             // can't be registered
             Assert.That(() => typeof(TestFlags1).GetGType(), Throws.ArgumentException);
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -27,8 +22,6 @@ namespace GISharp.Test.Core.GObject
             // invalid because underlying type is too big.
             Assert.That (() => typeof (TestFlags2).GetGType (),
                 Throws.ArgumentException);
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -38,8 +31,6 @@ namespace GISharp.Test.Core.GObject
             // a matching _GType property.
             Assert.That (() => typeof (TestFlags3).GetGType (),
                 Throws.ArgumentException);
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -66,8 +57,6 @@ namespace GISharp.Test.Core.GObject
                 Assert.That<string>(value.Nick, Is.EqualTo("One"));
             }
 
-            AssertNoGLibLog();
-
         }
 
         [Test]
@@ -87,8 +76,6 @@ namespace GISharp.Test.Core.GObject
                 Assert.That<string>(value2.Name, Is.EqualTo("Two"));
                 Assert.That<string>(value2.Nick, Is.EqualTo("test_flags_5_value_two"));
             }
-
-            AssertNoGLibLog();
         }
 
         // This type is registered as a boxed type with the GType system since

@@ -1,14 +1,10 @@
 using System;
-using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core
 {
-    [TestFixture]
-    public class UnicharExtensionsTests
+    public class UnicharExtensionsTests : Tests
     {
         [Test]
         public void TestValidate()
@@ -17,7 +13,6 @@ namespace GISharp.Test.Core
             Assert.That(c.Validate(), Is.True);
             c = new Unichar(-1); // invalid
             Assert.That(c.Validate(), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -27,7 +22,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsAlphaNumeric(), Is.False);
             c = new Unichar(0x0030); // 0
             Assert.That(c.IsAlphaNumeric(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -37,7 +31,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsAlpha(), Is.True);
             c = new Unichar(0x0030); // 0
             Assert.That(c.IsAlpha(), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -47,7 +40,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsControl(), Is.True);
             c = new Unichar(0x0030); // 0
             Assert.That(c.IsControl(), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -57,7 +49,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsDefined(), Is.False);
             c = new Unichar(0x0030); // 0
             Assert.That(c.IsDefined(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -67,7 +58,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsDigit(), Is.False);
             c = new Unichar(0x0030); // 0
             Assert.That(c.IsDigit(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -77,7 +67,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsGraph(), Is.False);
             c = new Unichar(0x0030); // 0
             Assert.That(c.IsGraph(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -87,7 +76,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsLower(), Is.False);
             c = new Unichar(0x0061); // a
             Assert.That(c.IsLower(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -97,7 +85,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsMark(), Is.False);
             c = new Unichar(0x0300); // `
             Assert.That(c.IsMark(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -107,7 +94,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsPrintable(), Is.True);
             c = new Unichar(0x000A); // line feed
             Assert.That(c.IsPrintable(), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -117,7 +103,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsPunctuation(), Is.False);
             c = new Unichar(0x0021); // !
             Assert.That(c.IsPunctuation(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -127,7 +112,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsSpace(), Is.True);
             c = new Unichar(0x0021); // !
             Assert.That(c.IsSpace(), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -137,7 +121,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsTitle(), Is.True);
             c = new Unichar(0x0041); // A
             Assert.That(c.IsTitle(), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -147,7 +130,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsUpper(), Is.False);
             c = new Unichar(0x0041); // A
             Assert.That(c.IsUpper(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -157,7 +139,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsHexDigit(), Is.True);
             c = new Unichar(0x0067); // g
             Assert.That(c.IsHexDigit(), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -167,7 +148,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsWide(), Is.False);
             c = new Unichar(0x1100); // ᄀ
             Assert.That(c.IsWide(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -177,7 +157,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsWideCjk(), Is.False);
             c = new Unichar(0x1100); // ᄀ
             Assert.That(c.IsWideCjk(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -187,7 +166,6 @@ namespace GISharp.Test.Core
             Assert.That(c.IsZeroWidth(), Is.False);
             c = new Unichar(0x0300); // `
             Assert.That(c.IsZeroWidth(), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -195,7 +173,6 @@ namespace GISharp.Test.Core
         {
             var c = new Unichar(0x0061); // a
             Assert.That(c.ToUpper(), Is.EqualTo(new Unichar(0x0041))); // A
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -203,7 +180,6 @@ namespace GISharp.Test.Core
         {
             var c = new Unichar(0x0041); // A
             Assert.That(c.ToLower(), Is.EqualTo(new Unichar(0x0061))); // a
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -211,7 +187,6 @@ namespace GISharp.Test.Core
         {
             var c = new Unichar(0x0061); // a
             Assert.That(c.ToTitle(), Is.EqualTo(new Unichar(0x0041))); // A
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -221,7 +196,6 @@ namespace GISharp.Test.Core
             Assert.That(c.DigitValue(), Is.EqualTo(-1));
             c = new Unichar(0x0039); // 9
             Assert.That(c.DigitValue(), Is.EqualTo(9));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -231,7 +205,6 @@ namespace GISharp.Test.Core
             Assert.That(c.HexDigitValue(), Is.EqualTo(0x000A));
             c = new Unichar(0x0067); // g
             Assert.That(c.HexDigitValue(), Is.EqualTo(-1));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -241,7 +214,6 @@ namespace GISharp.Test.Core
             var b = new Unichar(0x0300); // `
             Assert.That(a.TryCompose(b, out var c), Is.True);
             Assert.That(c, Is.EqualTo(new Unichar(0x00E0))); // à
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -251,7 +223,6 @@ namespace GISharp.Test.Core
             Assert.That(c.TryDecompose(out var a, out var b), Is.True);
             Assert.That(a, Is.EqualTo(new Unichar(0x0061))); // a
             Assert.That(b, Is.EqualTo(new Unichar(0x0300))); // `
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -262,7 +233,6 @@ namespace GISharp.Test.Core
             var c = new Unichar(0x00E0); // à
             Assert.That(c.FullyDecompose().ToArray(),
                 Is.EquivalentTo(new Unichar[] { a, b }));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -270,7 +240,6 @@ namespace GISharp.Test.Core
         {
             var c = new Unichar(0x0061); // a
             Assert.That(c.Type(), Is.EqualTo(UnicodeType.LowercaseLetter));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -278,7 +247,6 @@ namespace GISharp.Test.Core
         {
             var c = new Unichar(0x0061); // a
             Assert.That(c.BreakType(), Is.EqualTo(UnicodeBreakType.Alphabetic));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -286,7 +254,6 @@ namespace GISharp.Test.Core
         {
             var c = new Unichar(0x0300); // `
             Assert.That(c.CombiningClass(), Is.EqualTo(230));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -295,7 +262,6 @@ namespace GISharp.Test.Core
             var c = new Unichar(0x0028); // (
             Assert.That(c.TryGetMirrorChar(out var m), Is.True);
             Assert.That(m, Is.EqualTo(new Unichar(0x0029))); // )
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -303,7 +269,6 @@ namespace GISharp.Test.Core
         {
             var c = new Unichar(0x0061); // a
             Assert.That(c.GetScript(), Is.EqualTo(UnicodeScript.Latin));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -311,7 +276,6 @@ namespace GISharp.Test.Core
         {
             var c = new Unichar(0x0061); // a
             Assert.That<string>(c.ToUtf8(), Is.EqualTo("a"));
-            AssertNoGLibLog();
         }
     }
 }

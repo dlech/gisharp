@@ -4,12 +4,9 @@ using System.Linq;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class BytesTests
+    public class BytesTests : Tests
     {
         [Test]
         public void TestNew()
@@ -20,8 +17,6 @@ namespace GISharp.Test.Core.GLib
             using (var b = new Bytes(new byte[] { 1 })) {
                 Assert.That(b.Size, Is.EqualTo(1));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -52,8 +47,6 @@ namespace GISharp.Test.Core.GLib
                     }
                 }
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -69,8 +62,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That(b3 > b1);
                 Assert.That(b3 >= b2);
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -86,8 +77,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That(b1 == b2);
                 Assert.That(b1 != b3);
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -98,8 +87,6 @@ namespace GISharp.Test.Core.GLib
                 var set = new HashSet<object> { b1, b2 };
                 Assert.That(set.Count, Is.EqualTo(1));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -111,8 +98,6 @@ namespace GISharp.Test.Core.GLib
                 b.Dispose();
                 Assert.That(() => b.Size, Throws.TypeOf<ObjectDisposedException>());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -128,8 +113,6 @@ namespace GISharp.Test.Core.GLib
                 b.Dispose();
                 Assert.That(() => b[0], Throws.TypeOf<ObjectDisposedException>());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -145,8 +128,6 @@ namespace GISharp.Test.Core.GLib
                 bytes.Dispose();
                 Assert.That(() => bytes.Any(), Throws.TypeOf<ObjectDisposedException>());
             }
-
-            AssertNoGLibLog();
         }
     }
 }

@@ -5,16 +5,13 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
-using System.Reflection;
 
-using static GISharp.TestHelpers;
 using Object = GISharp.Lib.GObject.Object;
 using ActionSet = System.Collections.Generic.HashSet<GISharp.Lib.Gio.IAction>;
 
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class ActionMapTests
+    public class ActionMapTests : Tests
     {
         [Test]
         public void TestLookupAction()
@@ -25,7 +22,6 @@ namespace GISharp.Test.Gio
                 am.Actions.Add(expected);
                 Assert.That(am.LookupAction(name), Is.SameAs(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -37,7 +33,6 @@ namespace GISharp.Test.Gio
                 am.AddAction(expected);
                 Assert.That(am.Actions, Has.Member(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -50,7 +45,6 @@ namespace GISharp.Test.Gio
                 am.RemoveAction(name);
                 Assert.That(am.Actions, Has.No.Member(expected));
             }
-            AssertNoGLibLog();
         }
     }
 

@@ -4,12 +4,9 @@ using GISharp.Lib.GLib;
 using NUnit.Framework;
 using Mono.Unix.Native;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core
 {
-    [TestFixture]
-    public class UnixSignalSourceTests
+    public class UnixSignalSourceTests : Tests
     {
         [Test]
         public void TestNew()
@@ -38,8 +35,6 @@ namespace GISharp.Test.Core
 
                 Assert.That(callbackInvoked, Is.True);
             }
-
-            AssertNoGLibLog();
         }
     }
 }

@@ -10,15 +10,12 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Core.GObject
 {
-    [TestFixture]
-    public class InterfaceTests
+    public class InterfaceTests : Tests
     {
         [Test]
         public void TestUnmanagedTypeRegistration()
         {
             Assert.That(() => typeof(INetworkMonitor).GetGType(), Throws.Nothing);
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -29,8 +26,6 @@ namespace GISharp.Test.Core.GObject
                 obj.CanReach(IntPtr.Zero);
                 Assert.That(obj.CanReachCallCount, Is.EqualTo(1));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -42,8 +37,6 @@ namespace GISharp.Test.Core.GObject
                     Assert.That(result, Is.True);
                 }
             });
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -53,8 +46,6 @@ namespace GISharp.Test.Core.GObject
                 var value = obj.GetProperty("connectivity");
                 Assert.That(value, Is.EqualTo(NetworkConnectivity.Local));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -70,8 +61,6 @@ namespace GISharp.Test.Core.GObject
 
                 Assert.That(callbackCount, Is.EqualTo(1));
             }
-
-            AssertNoGLibLog();
         }
     }
 

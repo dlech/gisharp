@@ -6,25 +6,15 @@ using System.Collections.Generic;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class HashTableTests
+    public class HashTableTests : Tests
     {
-        void HandleFunc ()
-        {
-
-        }
-
         [Test]
         public void TestConstructor ()
         {
             using (var hashTable = new HashTable<OpaqueInt, OpaqueInt> ()) {
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -53,8 +43,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Insert (null, null),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -83,8 +71,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Replace (null, null),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -109,8 +95,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Add (null),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -135,8 +119,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Contains (null),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -152,8 +134,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Size,
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -180,8 +160,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Lookup (null),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -206,8 +184,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Lookup (null, out key, out value),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -230,8 +206,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Foreach (foreachFunc),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -256,8 +230,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Find (findFunc),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -282,8 +254,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Remove (null),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 #if false
         [Test]
@@ -308,8 +278,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Steal (null),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 #endif
         [Test]
@@ -333,8 +301,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.ForeachRemove (foreachFunc),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 #if false
         [Test]
@@ -357,8 +323,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.ForeachSteal (foreachFunc),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 #endif
         [Test]
@@ -375,8 +339,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.RemoveAll (),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 #if false
         [Test]
@@ -393,8 +355,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.StealAll (),
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 #endif
         [Test]
@@ -411,8 +371,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Keys,
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -429,8 +387,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That (() => hashTable.Values,
                              Throws.TypeOf<ObjectDisposedException> ());
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -439,8 +395,6 @@ namespace GISharp.Test.Core.GLib
             var gtype = typeof (HashTable<OpaqueInt, OpaqueInt>).GetGType ();
             Assert.That (gtype, Is.Not.EqualTo (GType.Invalid));
             Assert.That<string?>(gtype.Name, Is.EqualTo("GHashTable"));
-
-            AssertNoGLibLog();
         }
     }
 }

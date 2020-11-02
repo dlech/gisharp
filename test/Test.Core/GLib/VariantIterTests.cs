@@ -1,5 +1,3 @@
-using System.Linq;
-
 using NUnit.Framework;
 
 using GISharp.Lib.GLib;
@@ -7,8 +5,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class VariantIterTests
+    public class VariantIterTests : Tests
     {
         [Test]
         public void TestNew()

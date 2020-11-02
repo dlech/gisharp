@@ -2,12 +2,9 @@ using System.Linq;
 using GISharp.Lib.Gio;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class ThemedIconTests
+    public class ThemedIconTests : Tests
     {
         [Test]
         public void TestNew()

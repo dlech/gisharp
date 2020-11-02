@@ -2,16 +2,13 @@
 using NUnit.Framework;
 
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
 
 using static GISharp.TestHelpers;
-using System;
 
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
     [TestOf(typeof(KeyFile))]
-    public class KeyFileTests
+    public class KeyFileTests : Tests
     {
         static readonly Utf8 TestGroup = "TestGroup";
         static readonly Utf8 TestKey1 = "TestKey1";
@@ -35,7 +32,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -55,7 +51,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -75,7 +70,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -95,7 +89,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -115,7 +108,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -135,7 +127,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -156,7 +147,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -176,7 +166,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -196,7 +185,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -216,7 +204,6 @@ namespace GISharp.Test.GLib
                     ThrowsGErrorException(KeyFileError.KeyNotFound),
                     "Trying to get a non-existant key should throw an exception");
             }
-            AssertNoGLibLog();
         }
     }
 }

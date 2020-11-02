@@ -1,14 +1,10 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using NUnit.Framework;
 using GISharp.Lib.GLib;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class SourceTests
+    public class SourceTests : Tests
     {
         [Test]
         public void TestCurrent()
@@ -40,8 +36,6 @@ namespace GISharp.Test.Core.GLib
                 }).Wait(1000);
                 Assert.That(callbackInvoked, Is.True);
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -53,8 +47,6 @@ namespace GISharp.Test.Core.GLib
                 Source.Remove(id);
                 Assert.That(MainContext.Default.FindSourceById(id), Is.Null);
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -66,8 +58,6 @@ namespace GISharp.Test.Core.GLib
                 userData.Dispose();
                 Assert.That(MainContext.Default.FindSourceByUserData(userData), Is.Null);
             }
-
-            AssertNoGLibLog();
         }
 
         static PollFD testPollFD = default;
@@ -79,8 +69,6 @@ namespace GISharp.Test.Core.GLib
                 s.AddPoll(testPollFD);
                 s.RemovePoll(testPollFD);
             }
-
-            AssertNoGLibLog();
         }
     }
 }

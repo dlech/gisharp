@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
-
-using static GISharp.TestHelpers;
 
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
     [TestOf(typeof(VariantDict))]
-    public class VariantDictTests
+    public class VariantDictTests : Tests
     {
         [Test]
         public void TestNew()
@@ -26,7 +20,6 @@ namespace GISharp.Test.GLib
             using (var goodValue = Variant.Parse(VariantType.VariantDictionary, "{'key': <'value'>}")) {
                 new VariantDict(goodValue).Dispose();
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -36,7 +29,6 @@ namespace GISharp.Test.GLib
             using (var vd = new VariantDict(init)) {
                 Assert.That(vd.Contains("key"), Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -51,7 +43,6 @@ namespace GISharp.Test.GLib
                 Assert.That(vd.Lookup("key"), Is.EqualTo(expected));
                 Assert.That(vd.Lookup("key", VariantType.String), Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -61,7 +52,6 @@ namespace GISharp.Test.GLib
             using (var value = new Variant("value")) {
                 vd.Insert("key", value);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -71,7 +61,6 @@ namespace GISharp.Test.GLib
             using (var vd = new VariantDict(init)) {
                 Assert.That(vd.Remove("key"), Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -82,7 +71,6 @@ namespace GISharp.Test.GLib
                 var actual = vd.End();
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
     }
 }

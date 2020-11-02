@@ -7,8 +7,7 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class FilenameTests
+    public class FilenameTests : Tests
     {
         [Test]
         public void TestDisplayBasename()
@@ -18,8 +17,6 @@ namespace GISharp.Test.Core.GLib
                 using var baseName = f.DisplayBasename;
                 Assert.That<string>(baseName, Is.EqualTo(Path.GetFileName(fullPath)));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -30,8 +27,6 @@ namespace GISharp.Test.Core.GLib
                 using var displayName = f.DisplayName;
                 Assert.That<string>(displayName, Is.EqualTo(fullPath));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -49,8 +44,6 @@ namespace GISharp.Test.Core.GLib
                 Assert.That<string>(f, Is.EqualTo(uri.LocalPath));
                 Assert.That(hostname, Is.Null);
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -66,8 +59,6 @@ namespace GISharp.Test.Core.GLib
                 using var uri = f.ToUri();
                 Assert.That<string>(uri, Is.EqualTo(new Uri(fullPath)));
             }
-
-            AssertNoGLibLog();
         }
     }
 }

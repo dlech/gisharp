@@ -2,12 +2,9 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.Gio;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class SimpleActionTests
+    public class SimpleActionTests : Tests
     {
         [Test]
         public void TestNew()
@@ -25,8 +22,6 @@ namespace GISharp.Test.Gio
                 Assert.That(sa.State, Is.Null);
                 Assert.That(sa.StateType, Is.Null);
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -45,7 +40,6 @@ namespace GISharp.Test.Gio
                 Assert.That((int)sa.State!, Is.Zero);
                 Assert.That(sa.StateType, Is.EqualTo(VariantType.Int32));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -56,7 +50,6 @@ namespace GISharp.Test.Gio
                 sa.SetEnabled(false);
                 Assert.That(sa.Enabled, Is.False);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -67,7 +60,6 @@ namespace GISharp.Test.Gio
                 sa.SetState((Variant)true);
                 Assert.That((bool)sa.State!, Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -78,7 +70,6 @@ namespace GISharp.Test.Gio
                 sa.SetStateHint((Variant)true);
                 Assert.That((bool)sa.GetStateHint()!, Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -91,7 +82,6 @@ namespace GISharp.Test.Gio
                 Assert.That(parameter, Is.Not.Null, "Event was not called");
                 Assert.That((bool)parameter, Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -104,7 +94,6 @@ namespace GISharp.Test.Gio
                 Assert.That(value, Is.Not.Null, "Event was not called");
                 Assert.That((int)value, Is.EqualTo(10));
             }
-            AssertNoGLibLog();
         }
     }
 }

@@ -7,8 +7,7 @@ using static GISharp.Test.Core.Helpers;
 
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class LogWriterTests
+    public class LogWriterTests : Tests
     {
         [Test]
         public void TestFormatFields ()
@@ -31,8 +30,6 @@ namespace GISharp.Test.Core.GLib
             const string expectedColor = @"^\*\* \(GISharp\.Test:\d+\): \e\[1;32mDEBUG\e\[0m: \e\[34m\d\d:\d\d:\d\d\.\d\d\d\e\[0m: Test message\.$";
             var actualColor = LogWriter.FormatFields (LogLevelFlags.Debug, message, true);
             Assert.That (actualColor, Does.Match (expectedColor));
-
-            AssertNoGLibLog();
         }
     }
 }

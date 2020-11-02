@@ -2,12 +2,9 @@
 using NUnit.Framework;
 using GISharp.Lib.GObject;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core.GObject
 {
-    [TestFixture]
-    public class ClosureTests
+    public class ClosureTests : Tests
     {
         [Test]
         public void TestInvoke()
@@ -28,8 +25,6 @@ namespace GISharp.Test.Core.GObject
                 Assert.That(callbackInvoked, Is.True);
                 Assert.That(ret, Is.True);
             }
-
-            AssertNoGLibLog();
         }
     }
 }

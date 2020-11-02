@@ -3,12 +3,9 @@ using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class ErrorTests
+    public class ErrorTests : Tests
     {
         [Test]
         public void TestGType()
@@ -16,8 +13,6 @@ namespace GISharp.Test.Core.GLib
             var gtype = typeof(Error).GetGType();
             Assert.That(gtype, Is.Not.EqualTo(GType.Invalid));
             Assert.That<string?>(gtype.Name, Is.EqualTo("GError"));
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -33,8 +28,6 @@ namespace GISharp.Test.Core.GLib
             using (var err = new Error(domain2, code2, "Format {0}", 0)) {
                 Assert.That(err.Matches(domain2, code2));
             }
-
-            AssertNoGLibLog();
         }
     }
 

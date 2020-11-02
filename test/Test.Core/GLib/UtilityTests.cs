@@ -1,14 +1,10 @@
-using System;
 using GISharp.Lib.GLib;
 
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core
 {
-    [TestFixture]
-    public class UtilityTests
+    public class UtilityTests : Tests
     {
         [Test]
         public void TestApplicationName()

@@ -5,9 +5,8 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
     [TestOf(typeof(OptionError))]
-    public class OptionErrorTests
+    public class OptionErrorTests : Tests
     {
         [Test]
         public void TestQuark()

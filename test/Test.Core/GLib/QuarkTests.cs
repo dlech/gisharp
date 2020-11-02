@@ -3,12 +3,9 @@ using System;
 
 using GISharp.Lib.GLib;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class QuarkTests
+    public class QuarkTests : Tests
     {
         const string testQuarkPrefix = "gisharp-glib-test-quark-";
 
@@ -19,8 +16,6 @@ namespace GISharp.Test.Core.GLib
             Quark quark = expected;
             uint actual = quark;
             Assert.That (actual, Is.EqualTo (expected));
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -35,8 +30,6 @@ namespace GISharp.Test.Core.GLib
             // this creates a new quark if it does not exist
             actual = Quark.FromString (testQuarkPrefix + "test-from-string");
             Assert.That (actual, Is.Not.EqualTo (default(Quark)));
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -55,8 +48,6 @@ namespace GISharp.Test.Core.GLib
             Assume.That (quark, Is.Not.EqualTo (default(Quark)));
             actual = quark.ToString ();
             Assert.That (actual, Is.EqualTo (quarkString));
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -77,8 +68,6 @@ namespace GISharp.Test.Core.GLib
             var quark = Quark.FromString (quarkString);
             actual = Quark.TryString (quarkString);
             Assert.That (actual, Is.EqualTo (quark));
-
-            AssertNoGLibLog();
         }
 
         [Test]

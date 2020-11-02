@@ -3,12 +3,9 @@ using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
-    public class OptionGroupTests
+    public class OptionGroupTests : Tests
     {
         [Test]
         public void TestAddEntries()
@@ -36,7 +33,6 @@ namespace GISharp.Test.GLib
                 og.AddDouble("double", 'd', a => arg7 = a, "test double arg", "VALUE");
                 og.AddCallback("callback", 'c', callback, "test callback arg", "VALUE");
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -47,7 +43,6 @@ namespace GISharp.Test.GLib
                 og.SetTranslateFunc(translate);
                 og.SetTranslateFunc(null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -56,7 +51,6 @@ namespace GISharp.Test.GLib
             using (var og = new OptionGroup("test-group", "group desc", "help desc")) {
                 og.SetTranslationDomain("domain");
             }
-            AssertNoGLibLog();
         }
     }
 }

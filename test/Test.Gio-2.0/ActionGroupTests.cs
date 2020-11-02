@@ -1,19 +1,16 @@
 using System;
+using System.Linq;
 using GISharp.Lib.Gio;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
-using System.Reflection;
 
-using static GISharp.TestHelpers;
 using Object = GISharp.Lib.GObject.Object;
-using System.Linq;
 
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class ActionGroupTests
+    public class ActionGroupTests : Tests
     {
         [Test]
         public void TestListActions()
@@ -22,7 +19,6 @@ namespace GISharp.Test.Gio
             using (var list = ag.ListActions()) {
                 Assert.That<string>(list.First(), Is.EqualTo("test-action-1"));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -34,7 +30,6 @@ namespace GISharp.Test.Gio
                     Assert.Fail("The action does not exist, so we should not get here.");
                 }
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -43,7 +38,6 @@ namespace GISharp.Test.Gio
             using (var ag = new TestActionGroup()) {
                 Assert.That(ag.HasAction("does-not-exist")!, Is.False);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -52,7 +46,6 @@ namespace GISharp.Test.Gio
             using (var ag = new TestActionGroup()) {
                 Assert.That(ag.GetActionEnabled("does-not-exist")!, Is.False);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -61,7 +54,6 @@ namespace GISharp.Test.Gio
             using (var ag = new TestActionGroup()) {
                 Assert.That(ag.GetActionParameterType("does-not-exist")!, Is.EqualTo(VariantType.Int32));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -70,7 +62,6 @@ namespace GISharp.Test.Gio
             using (var ag = new TestActionGroup()) {
                 Assert.That(ag.GetActionStateType("does-not-exist")!, Is.EqualTo(VariantType.Boolean));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -79,7 +70,6 @@ namespace GISharp.Test.Gio
             using (var ag = new TestActionGroup()) {
                 Assert.That((int)ag.GetActionStateHint("does-not-exist")!, Is.EqualTo(1));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -88,7 +78,6 @@ namespace GISharp.Test.Gio
             using (var ag = new TestActionGroup()) {
                 Assert.That((int)ag.GetActionState("does-not-exist")!, Is.EqualTo(2));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -101,7 +90,6 @@ namespace GISharp.Test.Gio
                 ag.ChangeActionState("does-not-exist", expected);
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -114,7 +102,6 @@ namespace GISharp.Test.Gio
                 ag.ActivateAction("does-not-exist", expected);
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -127,7 +114,6 @@ namespace GISharp.Test.Gio
                 ActionGroup.ActionAdded(ag, expected);
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -140,7 +126,6 @@ namespace GISharp.Test.Gio
                 ActionGroup.ActionRemoved(ag, expected);
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -153,7 +138,6 @@ namespace GISharp.Test.Gio
                 ActionGroup.ActionEnabledChanged(ag, expected, true);
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -166,7 +150,6 @@ namespace GISharp.Test.Gio
                 ActionGroup.ActionStateChanged(ag, expected, new Variant(11));
                 Assert.That(actual, Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
     }
 

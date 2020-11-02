@@ -4,14 +4,11 @@ using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Test.Core.GObject
 {
-    [TestFixture]
-    public class SignalTests
+    public class SignalTests : Tests
     {
         [Test]
         public void TestValidateName()
@@ -28,8 +25,6 @@ namespace GISharp.Test.Core.GObject
             Assert.That(() => Signal.ValidateName("s1"), Throws.Nothing);
             Assert.That(() => Signal.ValidateName("s-s"), Throws.Nothing);
             Assert.That(() => Signal.ValidateName("s_s"), Throws.Nothing);
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -62,8 +57,6 @@ namespace GISharp.Test.Core.GObject
 
             // again with the exception throwing version
             Assert.That(() => Signal.ParseName("does-not-exist", GType.Object), Throws.ArgumentException);
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -103,8 +96,6 @@ namespace GISharp.Test.Core.GObject
                 Assert.That(handler1Count, Is.EqualTo(2));
                 Assert.That(handler2Count, Is.EqualTo(1));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -141,8 +132,6 @@ namespace GISharp.Test.Core.GObject
                 Assert.That(handler1Count, Is.EqualTo(2));
                 Assert.That(handler2Count, Is.EqualTo(1));
             }
-
-            AssertNoGLibLog();
         }
     }
 }

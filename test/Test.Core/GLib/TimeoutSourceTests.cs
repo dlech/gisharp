@@ -2,8 +2,6 @@ using System.Threading.Tasks;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core
 {
     public class TimeoutSourceTests
@@ -32,7 +30,6 @@ namespace GISharp.Test.Core
 
                 Assert.That(timeoutInvoked, Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -59,7 +56,6 @@ namespace GISharp.Test.Core
 
                 Assert.That(timeoutInvoked, Is.True);
             }
-            AssertNoGLibLog();
         }
     }
 }

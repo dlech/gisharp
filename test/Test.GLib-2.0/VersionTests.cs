@@ -1,14 +1,11 @@
 ﻿using NUnit.Framework;
-using System;
 using System.Reflection;
 
-using GISharp.Lib.GLib;
 using Version = GISharp.Lib.GLib.Version;
 
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
-    public class VersionTests
+    public class VersionTests : Tests
     {
         [Test, Ignore ("This depends on the system we are running on")]
         public void TestCompileTime ()

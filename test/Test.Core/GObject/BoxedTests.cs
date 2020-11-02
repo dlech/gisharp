@@ -1,14 +1,10 @@
 
 using GISharp.Lib.GObject;
-using GISharp.Runtime;
 using NUnit.Framework;
-
-using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Core.GObject
 {
-    [TestFixture]
-    public class BoxedTests
+    public class BoxedTests : Tests
     {
         [Test]
         public void TestBoxingManagedType()
@@ -20,8 +16,6 @@ namespace GISharp.Test.Core.GObject
             using (var b = new Boxed<object?>(null)) {
                 Assert.That(b.Value, Is.Null);
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -32,8 +26,6 @@ namespace GISharp.Test.Core.GObject
 
             gtype = GType.Of<Boxed<object>>();
             Assert.That<string?>(gtype.Name, Is.EqualTo("GISharp-Lib-GObject-Boxed--of--1System-Object"));
-
-            AssertNoGLibLog();
         }
     }
 }

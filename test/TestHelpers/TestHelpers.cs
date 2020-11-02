@@ -5,16 +5,12 @@ using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using NUnit.Framework;
 using NUnit.Framework.Constraints;
-using NUnit.Framework.Internal;
 
 namespace GISharp
 {
     [ExcludeFromCodeCoverage]
     public static class TestHelpers
     {
-        static readonly string critical = GISharp.Lib.GLib.LogLevelFlags.Critical.ToString();
-        static readonly string warning = GISharp.Lib.GLib.LogLevelFlags.Warning.ToString();
-
         /// <summary>
         /// Throws an IgnoreException if <paramref name="actual"/> version is
         /// less than <paramref name="required"/> version.
@@ -34,25 +30,6 @@ namespace GISharp
             var actualVersion = new Version(actual);
             if (actualVersion < requiredVersion) {
                 throw new IgnoreException($"Skipping test since glib-2.0 v{actual} < v{required}");
-            }
-        }
-
-        /// <summary>
-        /// Fails a test if there was a critical or warning message logged via
-        /// the GLib log infrastructure.
-        /// </summary>
-        /// <exception cref="NUnit.Framework.AssertionException">
-        /// Thrown when a critical or warning message was logged
-        /// </exception>
-        public static void AssertNoGLibLog()
-        {
-            var properties = TestExecutionContext.CurrentContext.CurrentTest.Properties;
-
-            if (properties.ContainsKey(critical)) {
-                Assert.Fail("{0}", properties.Get(critical));
-            }
-            if (properties.ContainsKey(warning)) {
-                Assert.Fail("{0}", properties.Get(warning));
             }
         }
 
@@ -87,23 +64,22 @@ namespace GISharp
         /// </remarks>
         public static void RunAsyncTest(System.Func<Task> test, uint timeout = 100)
         {
-            using (var context = new MainContext())
-            using (var loop = new MainLoop(context))
-            using (var ts = new TimeoutSource(timeout)) {
-                context.PushThreadDefault();
-                try {
-                    var task = test();
-                    ts.SetCallback(() => {
-                        task.Dispose();
-                        loop.Quit();
-                        return Source.Remove_;
-                    });
-                    task.ContinueWith(_ => loop.Quit());
-                    loop.Run();
-                }
-                finally {
-                    context.PopThreadDefault();
-                }
+            using var context = new MainContext();
+            using var loop = new MainLoop(context);
+            using var ts = new TimeoutSource(timeout);
+            context.PushThreadDefault();
+            try {
+                var task = test();
+                ts.SetCallback(() => {
+                    task.Dispose();
+                    loop.Quit();
+                    return Source.Remove_;
+                });
+                task.ContinueWith(_ => loop.Quit());
+                loop.Run();
+            }
+            finally {
+                context.PopThreadDefault();
             }
         }
     }

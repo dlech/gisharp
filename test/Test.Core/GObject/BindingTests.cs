@@ -4,12 +4,9 @@ using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core.GObject
 {
-    [TestFixture]
-    public class BindingTests
+    public class BindingTests : Tests
     {
         [Test]
         public void TestBindProperty ()
@@ -30,8 +27,6 @@ namespace GISharp.Test.Core.GObject
                 obj1.IntValue = 2;
                 Assert.That (obj2.IntValue, Is.EqualTo (1));
             }
-
-            AssertNoGLibLog();
         }
 
         static bool Plus5 (Binding binding, ref Value fromValue, ref Value toValue)
@@ -60,8 +55,6 @@ namespace GISharp.Test.Core.GObject
                 obj1.IntValue = 2;
                 Assert.That (obj2.IntValue, Is.EqualTo (6));
             }
-
-            AssertNoGLibLog();
         }
     }
 

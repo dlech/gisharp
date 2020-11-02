@@ -1,19 +1,15 @@
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
-    public class TimeZoneTests
+    public class TimeZoneTests : Tests
     {
         [Test]
         public void TestNew()
         {
             using (var tz = new TimeZone(Utf8.Null)) {
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -21,7 +17,6 @@ namespace GISharp.Test.GLib
         {
             using (var tz = new TimeZone(0)) {
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -29,7 +24,6 @@ namespace GISharp.Test.GLib
         {
             using (var tz = TimeZone.Local) {
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -37,7 +31,6 @@ namespace GISharp.Test.GLib
         {
             using (var tz = TimeZone.Utc) {
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -49,7 +42,6 @@ namespace GISharp.Test.GLib
             using (var tz = new TimeZone("Z")) {
                 Assert.That<string>(tz.Identifier, Is.EqualTo("Z"));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -58,7 +50,6 @@ namespace GISharp.Test.GLib
             using (var tz = new TimeZone(Utf8.Null)) {
                 Assert.That(tz.FindInterval(TimeType.Universal, 1), Is.GreaterThan(0));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -67,7 +58,6 @@ namespace GISharp.Test.GLib
             using (var tz = new TimeZone(Utf8.Null)) {
                 Assert.That(tz.AdjustTime(TimeType.Universal, 1), Is.GreaterThan(0));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -76,7 +66,6 @@ namespace GISharp.Test.GLib
             using (var tz = new TimeZone(Utf8.Null)) {
                 Assert.That<string>(tz.GetAbbreviation(1), Is.Not.Null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -85,7 +74,6 @@ namespace GISharp.Test.GLib
             using (var tz = TimeZone.Utc) {
                 Assert.That(tz.GetOffset(0), Is.Zero);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -94,7 +82,6 @@ namespace GISharp.Test.GLib
             using (var tz = TimeZone.Utc) {
                 Assert.That(tz.IsDst(0), Is.False);
             }
-            AssertNoGLibLog();
         }
     }
 }

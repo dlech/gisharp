@@ -3,8 +3,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Core.Runtime
 {
-    [TestFixture]
-    public class VoidTests
+    public class VoidTests : Tests
     {
         [Test]
         public void TestEquals()

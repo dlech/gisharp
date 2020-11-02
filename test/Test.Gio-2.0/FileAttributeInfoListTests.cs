@@ -1,14 +1,10 @@
 
 using GISharp.Lib.Gio;
-using GISharp.Lib.GLib;
 using NUnit.Framework;
-
-using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class FileAttributeInfoListTests
+    public class FileAttributeInfoListTests : Tests
     {
         [Test]
         public void TestNew()

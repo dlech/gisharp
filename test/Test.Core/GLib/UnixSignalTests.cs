@@ -1,15 +1,11 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using GISharp.Lib.GLib;
 using Mono.Unix.Native;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class UnixSignalTests
+    public class UnixSignalTests : Tests
     {
         [Test]
         public void TestAdd()
@@ -41,7 +37,6 @@ namespace GISharp.Test.Core.GLib
 
                 Assert.That(callbackInvoked, Is.True);
             }
-            AssertNoGLibLog();
         }
     }
 }

@@ -3,18 +3,14 @@ using System;
 using NUnit.Framework;
 
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
-
-using static GISharp.TestHelpers;
 
 using DateTime = GISharp.Lib.GLib.DateTime;
 using TimeZone = GISharp.Lib.GLib.TimeZone;
 
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
     [TestOf(typeof(DateTime))]
-    public class DateTimeTests
+    public class DateTimeTests : Tests
     {
         [Test]
         public void TestNewNow()
@@ -22,7 +18,6 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.GetNow(TimeZone.Utc)) {
                 Assert.That(dt, Is.Not.Null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -31,7 +26,6 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.NowLocal) {
                 Assert.That(dt, Is.Not.Null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -40,7 +34,6 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.NowUtc) {
                 Assert.That(dt, Is.Not.Null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -49,7 +42,6 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.FromUnixLocal(0)) {
                 Assert.That(dt, Is.Not.Null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -58,7 +50,6 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.FromUnixUtc(0)) {
                 Assert.That(dt, Is.Not.Null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -68,7 +59,6 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.FromTimevalLocal(new TimeVal())) {
                 Assert.That(dt, Is.Not.Null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -78,7 +68,6 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.FromTimevalUtc(new TimeVal())) {
                 Assert.That(dt, Is.Not.Null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -87,7 +76,6 @@ namespace GISharp.Test.GLib
             using (var dt = DateTime.FromIso8601("2018-03-27T21:43:57Z", null)) {
                 Assert.That(dt, Is.Not.Null);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -99,8 +87,6 @@ namespace GISharp.Test.GLib
 
             Assert.That(() => new DateTime(TimeZone.Utc, 0, 0, 0, 0, 0, 0),
                 Throws.TypeOf<ArgumentOutOfRangeException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -112,8 +98,6 @@ namespace GISharp.Test.GLib
 
             Assert.That(() => DateTime.GetLocal(0, 0, 0, 0, 0, 0),
                 Throws.TypeOf<ArgumentOutOfRangeException>());
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -125,8 +109,6 @@ namespace GISharp.Test.GLib
 
             Assert.That(() => DateTime.GetUtc(0, 0, 0, 0, 0, 0),
                 Throws.TypeOf<ArgumentOutOfRangeException>());
-
-            AssertNoGLibLog();
         }
     }
 }

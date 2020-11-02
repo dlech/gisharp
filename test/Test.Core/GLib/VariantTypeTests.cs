@@ -6,8 +6,7 @@ using GISharp.Lib.GLib;
 
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
-    public class VariantTypeTests
+    public class VariantTypeTests : Tests
     {
         [Test]
         public void TestIsMaybe()

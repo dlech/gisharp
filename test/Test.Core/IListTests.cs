@@ -5,11 +5,9 @@ using System.Linq;
 
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core
 {
-    public class IListTests<TList, TItem> where TList : IList<TItem>, IDisposable, new()
+    public abstract class IListTests<TList, TItem> : Tests where TList : IList<TItem>, IDisposable, new()
     {
         readonly Func<TList, int, TItem> getItemAt;
         readonly TItem[] values = new TItem[5];
@@ -33,7 +31,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.Count, Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -42,7 +39,6 @@ namespace GISharp.Test.Core
             using (var l = new TList()) {
                 Assert.That(l.IsReadOnly, Is.False);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -73,7 +69,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l[0], Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -89,7 +84,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.Count, Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -105,7 +99,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.Clear(), Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -120,7 +113,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.Contains(values[0]), Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -155,7 +147,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.CopyTo(a, 0), Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -175,7 +166,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.Any(), Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -191,7 +181,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.IndexOf(values[0]), Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -228,7 +217,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.Insert(0, values[0]), Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -265,7 +253,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.Remove(values[0]), Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -296,7 +283,6 @@ namespace GISharp.Test.Core
                 l.Dispose();
                 Assert.That(() => l.RemoveAt(0), Throws.TypeOf<ObjectDisposedException>());
             }
-            AssertNoGLibLog();
         }
     }
 
@@ -304,7 +290,6 @@ namespace GISharp.Test.Core
     /// This test class is used to validate the tests in IListTests using the
     /// standard .NET List&lt;int&gt; implementation.
     /// </summary>
-    [TestFixture]
     public class ListTests : IListTests<DisposableList, int>
     {
         public ListTests() : base(HandleFunc, 0, 1, 2, 3, 4)

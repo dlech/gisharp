@@ -1,12 +1,9 @@
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
-    public class Utf8ExtensionsTests
+    public class Utf8ExtensionsTests : Tests
     {
         [Test]
         public void TestCaseFold()
@@ -15,7 +12,6 @@ namespace GISharp.Test.GLib
                 using var actual = utf8.CaseFold();
                 Assert.That(actual, Is.EqualTo("test"));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -27,7 +23,6 @@ namespace GISharp.Test.GLib
 
                 // TODO: test out of  range indexes
             }
-            AssertNoGLibLog();
         }
     }
 }

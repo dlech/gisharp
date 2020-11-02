@@ -5,8 +5,7 @@ using NUnit.Framework;
 
 namespace GISharp.Test.Core.Runtime
 {
-    [TestFixture]
-    public class CLongTests
+    public class CLongTests : Tests
     {
         [Test]
         public void TestMinValue()

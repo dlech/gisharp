@@ -6,15 +6,11 @@ using NUnit.Framework;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
-using static GISharp.TestHelpers;
-
 using Object = GISharp.Lib.GObject.Object;
-using System.Collections.Generic;
 
 namespace GISharp.Test.Core.GObject
 {
-    [TestFixture]
-    public class ObjectTests
+    public class ObjectTests : Tests
     {
         [Test]
         public void TestReferences()
@@ -51,8 +47,6 @@ namespace GISharp.Test.Core.GObject
                     o2.Dispose();
                 }
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -90,8 +84,6 @@ namespace GISharp.Test.Core.GObject
             GC.Collect();
             GC.WaitForPendingFinalizers();
             Assert.That(weakRef!.IsAlive, Is.False);
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -113,8 +105,6 @@ namespace GISharp.Test.Core.GObject
             Assert.That(testObject3GType, Is.Not.EqualTo(GType.Invalid));
 
             Assert.That(() => new TestObject3(), Throws.Nothing);
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -132,8 +122,6 @@ namespace GISharp.Test.Core.GObject
                 obj.SetProperty(nameof(obj.ObjectProperty), new Boxed<object?>(expectedObj));
                 Assert.That(obj.ObjectProperty?.Value, Is.SameAs(expectedObj));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -171,8 +159,6 @@ namespace GISharp.Test.Core.GObject
                     }
                 }
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -204,8 +190,6 @@ namespace GISharp.Test.Core.GObject
                 obj.SetProperty(nameof(obj.DoubleValue), 1.0);
                 Assert.That(notificationCount, Is.EqualTo(2));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -234,8 +218,6 @@ namespace GISharp.Test.Core.GObject
                 Assert.That(subPspec.DefaultValue.Get(),
                     Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -251,8 +233,6 @@ namespace GISharp.Test.Core.GObject
 
                 Assert.That(eventCount, Is.EqualTo(1));
             }
-
-            AssertNoGLibLog();
         }
 
         // This will fail because it lacks the GTypeAttribute

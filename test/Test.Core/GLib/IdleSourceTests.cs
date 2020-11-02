@@ -4,12 +4,9 @@ using System.Threading.Tasks;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Core
 {
-    [TestFixture]
-    public class IdleSourceTests
+    public class IdleSourceTests : Tests
     {
         [Test]
         public void TestNew()
@@ -34,7 +31,6 @@ namespace GISharp.Test.Core
 
                 Assert.That(idleInvoked, Is.True);
             }
-            AssertNoGLibLog();
         }
     }
 }

@@ -11,8 +11,7 @@ using System.ComponentModel;
 
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class ActionTests
+    public class ActionTests : Tests
     {
         [Test]
         public void TestEnabledProperty()
@@ -23,7 +22,6 @@ namespace GISharp.Test.Gio
                 Assert.That(obj.GetEnabled(), Is.True);
                 Assert.That(obj.GetProperty("enabled"), Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -35,7 +33,6 @@ namespace GISharp.Test.Gio
                 Assert.That<string>(obj.GetName(), Is.EqualTo(expected));
                 Assert.That(obj.GetProperty("name"), Is.EqualTo(expected));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -46,7 +43,6 @@ namespace GISharp.Test.Gio
                 Assert.That(obj.GetParameterType(), Is.EqualTo(VariantType.Boolean));
                 Assert.That(obj.GetProperty("parameter-type"), Is.EqualTo(VariantType.Boolean));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -57,7 +53,6 @@ namespace GISharp.Test.Gio
                 Assert.That((int)obj.GetState(), Is.EqualTo(2));
                 Assert.That((int)(Variant)obj.GetProperty("state")!, Is.EqualTo(2));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -68,7 +63,6 @@ namespace GISharp.Test.Gio
                 Assert.That(obj.GetStateType(), Is.EqualTo(VariantType.Int32));
                 Assert.That(obj.GetProperty("state-type"), Is.EqualTo(VariantType.Int32));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -80,7 +74,6 @@ namespace GISharp.Test.Gio
                 obj.Activate(parameter);
                 Assert.That(obj.ActivateCallbackCount, Is.EqualTo(1));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -92,7 +85,6 @@ namespace GISharp.Test.Gio
                 obj.ChangeState(value);
                 Assert.That(obj.ChangeStateCallbackCount, Is.EqualTo(1));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -104,7 +96,6 @@ namespace GISharp.Test.Gio
                 Assert.That(actual, Is.True);
                 Assert.That(obj.GetEnabledCallbackCount, Is.EqualTo(1));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -117,7 +108,6 @@ namespace GISharp.Test.Gio
                 Assert.That<string>(actual, Is.EqualTo(expected));
                 Assert.That(obj.GetNameCallbackCount, Is.EqualTo(1));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -129,7 +119,6 @@ namespace GISharp.Test.Gio
                 Assert.That(actual, Is.EqualTo(VariantType.Boolean));
                 Assert.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(1));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -141,7 +130,6 @@ namespace GISharp.Test.Gio
                 Assert.That((int)actual, Is.EqualTo(2));
                 Assert.That(obj.GetStateCallbackCount, Is.EqualTo(1));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -153,7 +141,6 @@ namespace GISharp.Test.Gio
                 Assert.That(actual, Is.Null);
                 Assert.That(obj.GetStateHintCallbackCount, Is.EqualTo(1));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -165,7 +152,6 @@ namespace GISharp.Test.Gio
                 Assert.That(actual, Is.EqualTo(VariantType.Int32));
                 Assert.That(obj.GetStateTypeCallbackCount, Is.EqualTo(1));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -173,28 +159,24 @@ namespace GISharp.Test.Gio
         {
             Assert.That(IAction.NameIsValid("test"), Is.True);
             Assert.That(IAction.NameIsValid(""), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
         public void TestNameIsValidEmptyIsNotValid()
         {
             Assert.That(IAction.NameIsValid(string.Empty), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
         public void TestNameIsValidWithValid()
         {
             Assert.That(IAction.NameIsValid("a.valid-name123"), Is.True);
-            AssertNoGLibLog();
         }
 
         [Test]
         public void TestNameIsValidWithInvalidName()
         {
             Assert.That(IAction.NameIsValid("not a valid name"), Is.False);
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -202,7 +184,6 @@ namespace GISharp.Test.Gio
         {
             Assert.That(() => IAction.ParseDetailedName("invalid name", out var actionName, out var target),
                 ThrowsGErrorException(VariantParseError.Failed));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -217,7 +198,6 @@ namespace GISharp.Test.Gio
                 actionName?.Dispose();
                 target?.Dispose();
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -232,7 +212,6 @@ namespace GISharp.Test.Gio
                 actionName?.Dispose();
                 target?.Dispose();
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -247,7 +226,6 @@ namespace GISharp.Test.Gio
                 actionName?.Dispose();
                 target?.Dispose();
             }
-            AssertNoGLibLog();
         }
     }
 

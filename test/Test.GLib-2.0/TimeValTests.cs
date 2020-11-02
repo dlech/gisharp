@@ -2,12 +2,9 @@ using System;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
-    public class TimeValTests
+    public class TimeValTests : Tests
     {
         [Test]
         [Obsolete]
@@ -16,7 +13,6 @@ namespace GISharp.Test.GLib
             Assert.That(TimeVal.TryFromIso8601("1970-01-01T00:00:00Z", out var tv), Is.True);
             Assert.That(tv.TvSec, Is.EqualTo(0));
             Assert.That(tv.TvUsec, Is.EqualTo(0));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -27,7 +23,6 @@ namespace GISharp.Test.GLib
             tv.Add(1234567890);
             Assert.That(tv.TvSec, Is.EqualTo(1234));
             Assert.That(tv.TvUsec, Is.EqualTo(567890));
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -38,7 +33,6 @@ namespace GISharp.Test.GLib
             using (var iso8601 = tv.ToIso8601()) {
                 Assert.That<string?>(iso8601!, Is.EqualTo("1970-01-01T00:00:00Z"));
             }
-            AssertNoGLibLog();
         }
     }
 }

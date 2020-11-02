@@ -27,5 +27,6 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\GIRepository-2.0\GIRepository-2.0.csproj" />
     <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 </Project>

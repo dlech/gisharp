@@ -5,9 +5,8 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
     [TestOf(typeof(ConvertError))]
-    public class ConvertErrorTests
+    public class ConvertErrorTests : Tests
     {
         [Test]
         public void TestQuark()

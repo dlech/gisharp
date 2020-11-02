@@ -1,17 +1,11 @@
-using System;
-using System.Collections.Generic;
 using NUnit.Framework;
 
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
-
-using static GISharp.TestHelpers;
 
 namespace GISharp.Test.GLib
 {
-    [TestFixture]
     [TestOf(typeof(VariantBuilder))]
-    public class VariantBuilderTests
+    public class VariantBuilderTests : Tests
     {
         [Test]
         public void TestNew()
@@ -20,8 +14,6 @@ namespace GISharp.Test.GLib
             vb.Dispose();
 
             Assert.That(() => new VariantBuilder(VariantType.Boolean), Throws.ArgumentException);
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -31,7 +23,6 @@ namespace GISharp.Test.GLib
             using (var value = new Variant(0)) {
                 vb.Add(value);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -45,7 +36,6 @@ namespace GISharp.Test.GLib
 
                 Assert.That(vb.End().Type, Is.EqualTo(VariantType.Variant));
             }
-            AssertNoGLibLog();
         }
     }
 }

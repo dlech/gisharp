@@ -9,8 +9,7 @@ using GISharp.Lib.GIRepository;
 
 namespace GISharp.Test.GIRepository
 {
-    [TestFixture]
-    public class TestRepository
+    public class TestRepository : Tests
     {
         [OneTimeSetUp]
         public void TestGetDefault ()

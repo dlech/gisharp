@@ -2,12 +2,9 @@
 using GISharp.Lib.Gio;
 using NUnit.Framework;
 
-using static GISharp.TestHelpers;
-
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class IconTests
+    public class IconTests : Tests
     {
         [Test]
         public void TestEverything()
@@ -17,8 +14,6 @@ namespace GISharp.Test.Gio
             using (var actual = IIcon.Deserialize(serialized)) {
                 Assert.That(expected, Is.EqualTo(actual));
             }
-
-            AssertNoGLibLog();
         }
     }
 }

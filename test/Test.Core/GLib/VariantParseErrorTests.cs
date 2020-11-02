@@ -5,9 +5,8 @@ using GISharp.Runtime;
 
 namespace GISharp.Test.Core.GLib
 {
-    [TestFixture]
     [TestOf(typeof(VariantParseError))]
-    public class VariantParseErrorTests
+    public class VariantParseErrorTests : Tests
     {
         [Test]
         public void TestQuark()

@@ -10,8 +10,7 @@ using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Gio
 {
-    [TestFixture]
-    public class CancellableTests
+    public class CancellableTests : Tests
     {
         [Test]
         public void TestIsCancelled()
@@ -21,7 +20,6 @@ namespace GISharp.Test.Gio
                 c.Cancel();
                 Assert.That(c.IsCancelled, Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -32,7 +30,6 @@ namespace GISharp.Test.Gio
                 c.Cancel();
                 Assert.That(() => c.ThrowIfCancelled(), ThrowsGErrorException(IOErrorEnum.Cancelled));
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -42,7 +39,6 @@ namespace GISharp.Test.Gio
                 Assert.That(c.Fd, Is.GreaterThan(-1));
                 c.ReleaseFd();
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -52,7 +48,6 @@ namespace GISharp.Test.Gio
                 Assert.That(c.TryMakePollfd(out var pollFD), Is.True);
                 c.ReleaseFd();
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -67,8 +62,6 @@ namespace GISharp.Test.Gio
                 c.PopCurrent();
                 Assert.That(Cancellable.Current, Is.Null);
             }
-
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -77,7 +70,6 @@ namespace GISharp.Test.Gio
             using (var c = new Cancellable()) {
                 c.Reset();
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -97,7 +89,6 @@ namespace GISharp.Test.Gio
                 c.Cancel();
                 Assert.That(handlerInvoked, Is.False);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
@@ -109,7 +100,6 @@ namespace GISharp.Test.Gio
                 c.Cancel();
                 Assert.That(handlerInvoked, Is.True);
             }
-            AssertNoGLibLog();
         }
 
         [Test]
