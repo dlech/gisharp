@@ -37,17 +37,6 @@ namespace GISharp.Lib.GIRepository
             return Repository.FindByName (@namespace, name);
         }
 
-        /// <summary>
-        /// Searches for a particular entry in a namespace.
-        /// </summary>
-        /// <returns>BaseInfo representing metadata about name , or <c>null</c> if no match was found.</returns>
-        /// <param name="name">Name.</param>
-        public BaseInfo? FindByName(string name)
-        {
-            using var nameUtf8 = name.ToUtf8();
-            return FindByName(nameUtf8);
-        }
-
         public DynamicMetaObject GetMetaObject (Expression parameter)
         {
             return new NamespaceDynamicMetaObject (parameter, this);

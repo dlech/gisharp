@@ -153,25 +153,6 @@ the application flags
 </param>
 </member>
 
-<member name='Application.Application(System.String?,GISharp.Lib.Gio.ApplicationFlags)'>
-<summary>
-Creates a new <see cref="Application"/> instance.
-</summary>
-<remarks>
-If non-<c>null</c>, the application id must be valid.  See
-<see cref="Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)"/>.
-
-If no application ID is given then some features of <see cref="Application"/>
-(most notably application uniqueness) will be disabled.
-</remarks>
-<param name="applicationId">
-the application id
-</param>
-<param name="flags">
-the application flags
-</param>
-</member>
-
 <member name='ActivatedEventArgs'>
 <summary>
 The ::activate signal is emitted on the primary instance when an
@@ -464,63 +445,6 @@ a potential application identifier
 </returns>
 </member>
 
-<member name='Application.IdIsValid(System.String)'>
-<summary>
-Checks if <paramref name="applicationId"/> is a valid application identifier.
-</summary>
-<remarks>
-A valid ID is required for calls to <see cref="Application.Application(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)"/> and
-<see cref="Application.SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8)"/>.
-
-Application identifiers follow the same format as
-[D-Bus well-known bus names](https://dbus.freedesktop.org/doc/dbus-specification.html#message-protocol-names-bus).
-For convenience, the restrictions on application identifiers are
-reproduced here:
-
-- Application identifiers are composed of 1 or more elements separated by a
-  period (`.`) character. All elements must contain at least one character.
-
-- Each element must only contain the ASCII characters `[A-Z][a-z][0-9]_-`,
-  with `-` discouraged in new application identifiers. Each element must not
-  begin with a digit.
-
-- Application identifiers must contain at least one `.` (period) character
-  (and thus at least two elements).
-
-- Application identifiers must not begin with a `.` (period) character.
-
-- Application identifiers must not exceed 255 characters.
-
-Note that the hyphen (`-`) character is allowed in application identifiers,
-but is problematic or not allowed in various specifications and APIs that
-refer to D-Bus, such as
-[Flatpak application IDs](http://docs.flatpak.org/en/latest/introduction.html#identifiers),
-the
-[`DBusActivatable` interface in the Desktop Entry Specification](https://specifications.freedesktop.org/desktop-entry-spec/desktop-entry-spec-latest.html#dbus),
-and the convention that an application's "main" interface and object path
-resemble its application identifier and bus name. To avoid situations that
-require special-case handling, it is recommended that new application
-identifiers consistently replace hyphens with underscores.
-
-Like D-Bus interface names, application identifiers should start with the
-reversed DNS domain name of the author of the interface (in lower-case), and
-it is conventional for the rest of the application identifier to consist of
-words run together, with initial capital letters.
-
-As with D-Bus interface names, if the author's DNS domain name contains
-hyphen/minus characters they should be replaced by underscores, and if it
-contains leading digits they should be escaped by prepending an underscore.
-For example, if the owner of 7-zip.org used an application identifier for an
-archiving application, it might be named `org._7_zip.Archiver`.
-</remarks>
-<param name="applicationId">
-a potential application identifier
-</param>
-<returns>
-<c>true</c> if <paramref name="applicationId"/> is valid
-</returns>
-</member>
-
 <member name='Application.Activate()'>
 <summary>
 Activates the application.
@@ -534,44 +458,6 @@ The application must be registered before calling this function.
 </member>
 
 <member name='Application.AddMainOption(GISharp.Lib.GLib.UnownedUtf8,System.SByte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
-<summary>
-Add an option to be handled by this instance.
-</summary>
-<remarks>
-Calling this function is the equivalent of calling
-<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> with a single #GOptionEntry
-that has its arg_data member set to <c>null</c>.
-
-The parsed arguments will be packed into a #GVariantDict which
-is passed to <see cref="Application"/>::handle-local-options. If
-<see cref="ApplicationFlags.HandlesCommandLine"/> is set, then it will also
-be sent to the primary instance. See
-<see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> for more details.
-
-See #GOptionEntry for more documentation of the arguments.
-</remarks>
-<param name="longName">
-the long name of an option used to specify it in a commandline
-</param>
-<param name="shortName">
-the short name of an option
-</param>
-<param name="flags">
-flags from #GOptionFlags
-</param>
-<param name="arg">
-the type of the option, as a #GOptionArg
-</param>
-<param name="description">
-the description for the option in `--help` output
-</param>
-<param name="argDescription">
-the placeholder to use for the extra argument
-   parsed by the option in `--help` output
-</param>
-</member>
-
-<member name='Application.AddMainOption(System.String,System.SByte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,System.String,System.String?)'>
 <summary>
 Add an option to be handled by this instance.
 </summary>
@@ -725,24 +611,6 @@ the name of a boolean property of <paramref name="object"/>
 </param>
 </member>
 
-<member name='Application.BindBusyProperty(GISharp.Lib.GObject.Object,System.String)'>
-<summary>
-Marks this instance as busy (see <see cref="Application.MarkBusy()"/>) while
-<paramref name="property"/> on <paramref name="object"/> is <c>true</c>.
-</summary>
-<remarks>
-The binding holds a reference to this instance while it is active, but
-not to <paramref name="object"/>. Instead, the binding is destroyed when <paramref name="object"/> is
-finalized.
-</remarks>
-<param name="object">
-a #GObject
-</param>
-<param name="property">
-the name of a boolean property of <paramref name="object"/>
-</param>
-</member>
-
 <member name='Application.Hold()'>
 <summary>
 Increases the use count of this instance.
@@ -773,32 +641,6 @@ To cancel the busy indication, use <see cref="Application.UnmarkBusy()"/>.
 </member>
 
 <member name='Application.Open(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Opens the given files.
-</summary>
-<remarks>
-In essence, this results in the <see cref="Application"/>::open signal being emitted
-in the primary instance.
-
-the length of <paramref name="files"/> must be greater than zero.
-
-<paramref name="hint"/> is simply passed through to the ::open signal.  It is
-intended to be used by applications that have multiple modes for
-opening files (eg: "view" vs "edit", etc).  Unless you have a need
-for this functionality, you should use "".
-
-The application must be registered before calling this function
-and it must have the <see cref="ApplicationFlags.HandlesOpen"/> flag set.
-</remarks>
-<param name="files">
-an array of #GFiles to open
-</param>
-<param name="hint">
-a hint (or ""), but never <c>null</c>
-</param>
-</member>
-
-<member name='Application.Open(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,System.String)'>
 <summary>
 Opens the given files.
 </summary>
@@ -1020,36 +862,7 @@ a string to be shown in `--help` output
 </param>
 </member>
 
-<member name='Application.SetOptionContextDescription(System.String?)'>
-<summary>
-Adds a description to the this instance option context.
-</summary>
-<remarks>
-See g_option_context_set_description() for more information.
-</remarks>
-<param name="description">
-a string to be shown in `--help` output
- after the list of options, or <c>null</c>
-</param>
-</member>
-
 <member name='Application.SetOptionContextParameterString(GISharp.Lib.GLib.NullableUnownedUtf8)'>
-<summary>
-Sets the parameter string to be used by the commandline handling of this instance.
-</summary>
-<remarks>
-This function registers the argument to be passed to g_option_context_new()
-when the internal #GOptionContext of this instance is created.
-
-See g_option_context_new() for more information about <paramref name="parameterString"/>.
-</remarks>
-<param name="parameterString">
-a string which is displayed
-  in the first line of `--help` output, after the usage summary `programname [OPTION...]`.
-</param>
-</member>
-
-<member name='Application.SetOptionContextParameterString(System.String?)'>
 <summary>
 Sets the parameter string to be used by the commandline handling of this instance.
 </summary>
@@ -1078,34 +891,7 @@ a string to be shown in `--help` output
 </param>
 </member>
 
-<member name='Application.SetOptionContextSummary(System.String?)'>
-<summary>
-Adds a summary to the this instance option context.
-</summary>
-<remarks>
-See g_option_context_set_summary() for more information.
-</remarks>
-<param name="summary">
-a string to be shown in `--help` output
- before the list of options, or <c>null</c>
-</param>
-</member>
-
 <member name='Application.UnbindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Destroys a binding between <paramref name="property"/> and the busy state of
-this instance that was previously created with
-<see cref="Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)"/>.
-</summary>
-<param name="object">
-a #GObject
-</param>
-<param name="property">
-the name of a boolean property of <paramref name="object"/>
-</param>
-</member>
-
-<member name='Application.UnbindBusyProperty(GISharp.Lib.GObject.Object,System.String)'>
 <summary>
 Destroys a binding between <paramref name="property"/> and the busy state of
 this instance that was previously created with
@@ -1133,28 +919,6 @@ call to <see cref="Application.MarkBusy()"/>.
 </member>
 
 <member name='Application.WithdrawNotification(GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Withdraws a notification that was sent with
-g_application_send_notification().
-</summary>
-<remarks>
-This call does nothing if a notification with <paramref name="id"/> doesn't exist or
-the notification was never sent.
-
-This function works even for notifications sent in previous
-executions of this application, as long <paramref name="id"/> is the same as it was for
-the sent notification.
-
-Note that notifications are dismissed when the user clicks on one
-of the buttons in a notification or triggers its default action, so
-there is no need to explicitly withdraw the notification in that case.
-</remarks>
-<param name="id">
-id of a previously sent notification
-</param>
-</member>
-
-<member name='Application.WithdrawNotification(System.String)'>
 <summary>
 Withdraws a notification that was sent with
 g_application_send_notification().

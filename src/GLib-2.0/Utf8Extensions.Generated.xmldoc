@@ -20,26 +20,6 @@ a newly allocated copy of the requested
 </returns>
 </member>
 
-<member name='Utf8Extensions.Substring(System.String,GISharp.Runtime.CLong,GISharp.Runtime.CLong)'>
-<summary>
-Copies a substring out of a UTF-8 encoded string.
-The substring will contain <paramref name="endPos"/> - <paramref name="startPos"/> characters.
-</summary>
-<param name="str">
-a UTF-8 encoded string
-</param>
-<param name="startPos">
-a character offset within this instance
-</param>
-<param name="endPos">
-another character offset within this instance
-</param>
-<returns>
-a newly allocated copy of the requested
-    substring. Free with g_free() when no longer needed.
-</returns>
-</member>
-
 <member name='Utf8Extensions'>
 </member>
 

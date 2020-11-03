@@ -706,14 +706,6 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.Substring(System.String,GISharp.Runtime.CLong,GISharp.Runtime.CLong)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.30")]
-        public unsafe static GISharp.Lib.GLib.Utf8 Substring(this System.String str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos)
-        {
-            using var strUtf8 = new GISharp.Lib.GLib.Utf8(str);
-            return Substring((GISharp.Lib.GLib.UnownedUtf8)strUtf8, startPos, endPos);
-        }
-
         /// <summary>
         /// Convert a string from UTF-8 to a 32-bit fixed width
         /// representation as UCS-4. A trailing 0 character will be added to the

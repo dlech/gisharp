@@ -279,31 +279,6 @@ namespace GISharp.Lib.GLib
         /// <param name="uri">
         /// a uri describing a filename (escaped, encoded in ASCII).
         /// </param>
-        /// <param name="hostname">
-        /// hostname for the URI
-        /// </param>
-        /// <returns>
-        /// the resulting filename
-        /// </returns>
-        /// <exception name="GErrorException">
-        /// On error
-        /// </exception>
-        public static unsafe Filename FromUri(string uri, out string? hostname)
-        {
-            using var uriUtf8 = new Utf8(uri);
-            var ret = FromUri(uriUtf8, out var hostnameUtf8);
-            hostname = hostnameUtf8?.ToString();
-            hostnameUtf8?.Dispose();
-            return ret;
-        }
-
-        /// <summary>
-        /// Converts an escaped ASCII-encoded URI to a local filename in the
-        /// encoding used for filenames.
-        /// </summary>
-        /// <param name="uri">
-        /// a uri describing a filename (escaped, encoded in ASCII).
-        /// </param>
         /// <returns>
         /// the resulting filename
         /// </returns>
@@ -320,25 +295,6 @@ namespace GISharp.Lib.GLib
             }
             var ret = GetInstance<Filename>(ret_, Transfer.Full);
             return ret;
-        }
-
-        /// <summary>
-        /// Converts an escaped ASCII-encoded URI to a local filename in the
-        /// encoding used for filenames.
-        /// </summary>
-        /// <param name="uri">
-        /// a uri describing a filename (escaped, encoded in ASCII).
-        /// </param>
-        /// <returns>
-        /// the resulting filename
-        /// </returns>
-        /// <exception name="GErrorException">
-        /// On error
-        /// </exception>
-        public static unsafe Filename FromUri(string uri)
-        {
-            using var uriUtf8 = new Utf8(uri);
-            return FromUri(uriUtf8);
         }
 
         /// <summary>

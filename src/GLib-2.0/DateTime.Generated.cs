@@ -271,14 +271,6 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromIso8601(System.String,GISharp.Lib.GLib.TimeZone?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.56")]
-        public static unsafe GISharp.Lib.GLib.DateTime? FromIso8601(System.String text, GISharp.Lib.GLib.TimeZone? defaultTz)
-        {
-            using var textUtf8 = new GISharp.Lib.GLib.Utf8(text);
-            return FromIso8601((GISharp.Lib.GLib.UnownedUtf8)textUtf8, defaultTz);
-        }
-
         /// <summary>
         /// Creates a #GDateTime corresponding to the given #GTimeVal @tv in the
         /// local time zone.
@@ -1259,14 +1251,6 @@ namespace GISharp.Lib.GLib
             var ret_ = g_date_time_format(datetime_,format_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
-        }
-
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Format(System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.26")]
-        public unsafe GISharp.Lib.GLib.Utf8? Format(System.String format)
-        {
-            using var formatUtf8 = new GISharp.Lib.GLib.Utf8(format);
-            return Format((GISharp.Lib.GLib.UnownedUtf8)formatUtf8);
         }
 
         /// <summary>

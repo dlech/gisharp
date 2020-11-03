@@ -91,22 +91,6 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Gets the <see cref="Quark"/> identifying the given string. If the string does
-        /// not currently have an associated <see cref="Quark"/>, a new <see cref="Quark"/> is created.
-        /// </summary>
-        /// <param name="string">
-        /// A string
-        /// </param>
-        /// <returns>
-        /// The <see cref="Quark"/> identifying the string, or <see cref="Zero"/> if <paramref name="string"/> is <c>null</c>.
-        /// </returns>
-        public static Quark FromString(string? @string)
-        {
-            using var utf8 = @string?.ToUtf8();
-            return FromString(utf8);
-        }
-
-        /// <summary>
         /// Gets the #GQuark associated with the given string, or 0 if string is
         /// %NULL or it has no associated #GQuark.
         /// </summary>
@@ -149,27 +133,6 @@ namespace GISharp.Lib.GLib
             var string_ = @string.Handle;
             var ret = g_quark_try_string(string_);
             return ret;
-        }
-
-        /// <summary>
-        /// Gets the <see cref="Quark"/> associated with the given string, or <see cref="Zero"/> if string is
-        /// <c>null</c> or it has no associated <see cref="Quark"/>.
-        /// </summary>
-        /// <remarks>
-        /// If you want the <see cref="Quark"/> to be created if it doesn't already exist,
-        /// use <see cref="FromString"/>.
-        /// </remarks>
-        /// <param name="string">
-        /// a string
-        /// </param>
-        /// <returns>
-        /// the <see cref="Quark"/> associated with the string, or <see cref="Zero"/> if <paramref name="string"/> is
-        /// <c>null</c> or there is no <see cref="Quark"/> associated with it
-        /// </returns>
-        public static Quark TryString(string? @string)
-        {
-            using var utf8 = @string?.ToUtf8();
-            return TryString(utf8);
         }
 
         /// <summary>

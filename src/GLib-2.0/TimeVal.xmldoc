@@ -44,39 +44,7 @@ a <see cref="TimeVal"/>
 </returns>
 </member>
 
-<member name='TimeVal.TryFromIso8601(System.String,GISharp.Lib.GLib.TimeVal)'>
-<summary>
-Converts a string containing an ISO 8601 encoded date and time
-to a <see cref="TimeVal"/> and puts it into <paramref name="time"/>.
-</summary>
-<remarks>
-<paramref name="isoDate"/> must include year, month, day, hours, minutes, and
-seconds. It can optionally include fractions of a second and a time
-zone indicator. (In the absence of any time zone indication, the
-timestamp is assumed to be in local time.)
-
-Any leading or trailing space in <paramref name="isoDate"/> is ignored.
-
-This function was deprecated, along with <see cref="TimeVal"/> itself, in GLib 2.62.
-Equivalent functionality is available using code like:
-|[
-GDateTime *dt = g_date_time_new_from_iso8601 (iso8601_string, NULL);
-gint64 time_val = g_date_time_to_unix (dt);
-g_date_time_unref (dt);
-]|
-</remarks>
-<param name="isoDate">
-an ISO 8601 encoded date string
-</param>
-<param name="time">
-a <see cref="TimeVal"/>
-</param>
-<returns>
-<c>true</c> if the conversion was successful.
-</returns>
-</member>
-
-<member name='TimeVal.Add(System.Int64)'>
+<member name='TimeVal.Add(GISharp.Runtime.CLong)'>
 <summary>
 Adds the given number of microseconds to this instance. <paramref name="microseconds"/> can
 also be negative to decrease the value of this instance.

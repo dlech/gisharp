@@ -28,18 +28,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static IntPtr New(string iconName)
-        {
-            using var iconNameUtf8 = new Utf8(iconName);
-            return New(iconNameUtf8);
-        }
-
-        static IntPtr NewWithDefaultFallbacks(string iconName)
-        {
-            using var iconNameUtf8 = new Utf8(iconName);
-            return NewWithDefaultFallbacks(iconNameUtf8);
-        }
-
         /// <summary>
         /// Creates a new themed icon for <paramref name="iconName"/>.
         /// </summary>

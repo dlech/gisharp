@@ -85,19 +85,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        [GISharp.Runtime.SinceAttribute("2.28")]
-        static unsafe System.IntPtr New(System.String name, GISharp.Lib.GLib.VariantType? parameterType)
-        {
-            using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
-            return New((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType);
-        }
-
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(System.String,GISharp.Lib.GLib.VariantType?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(System.String name, GISharp.Lib.GLib.VariantType? parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
-        {
-        }
-
         /// <summary>
         /// Creates a new stateful action.
         /// </summary>
@@ -148,19 +135,6 @@ namespace GISharp.Lib.Gio
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
-        {
-        }
-
-        [GISharp.Runtime.SinceAttribute("2.28")]
-        static unsafe System.IntPtr NewStateful(System.String name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
-        {
-            using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
-            return NewStateful((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, parameterType, state);
-        }
-
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(System.String,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(System.String name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
         }
 

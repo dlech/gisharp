@@ -85,14 +85,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.NewForString(System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.20")]
-        public static unsafe GISharp.Lib.Gio.IIcon NewForString(System.String str)
-        {
-            using var strUtf8 = new GISharp.Lib.GLib.Utf8(str);
-            return NewForString((GISharp.Lib.GLib.UnownedUtf8)strUtf8);
-        }
-
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */

@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using GISharp.Lib.GObject;
@@ -309,6 +310,14 @@ namespace GISharp.Lib.GLib
             return !a.Equals(b);
         }
 
+        // Needed to keep Utf8 objects alive for string implicit cast;
+        static readonly ConditionalWeakTable<string, Utf8> stringMap = new();
+
+        public static implicit operator UnownedUtf8(string value)
+        {
+            return stringMap.GetValue(value, v => new Utf8(v)).AsUnownedUtf8();
+        }
+
         /// <summary>
         /// Compares two strings for equality.
         /// </summary>
@@ -609,6 +618,17 @@ namespace GISharp.Lib.GLib
         public static bool operator !=(NullableUnownedUtf8 a, Utf8? b)
         {
             return !a.Equals(b);
+        }
+
+        // Needed to keep Utf8 objects alive for string implicit cast;
+        static readonly ConditionalWeakTable<string, Utf8> stringMap = new();
+
+        public static implicit operator NullableUnownedUtf8(string? value)
+        {
+            if (value is null) {
+                return default;
+            }
+            return stringMap.GetValue(value, v => new Utf8(v)).AsNullableUnownedUtf8();
         }
 
         public static implicit operator string?(NullableUnownedUtf8 value)
@@ -928,6 +948,8 @@ namespace GISharp.Lib.GLib
         }
 
         public UnownedUtf8 AsUnownedUtf8() => new UnownedUtf8(Handle, length);
+
+        public NullableUnownedUtf8 AsNullableUnownedUtf8() => new NullableUnownedUtf8(Handle, length);
 
         public string Value => _Value.Value;
         readonly Lazy<string> _Value;

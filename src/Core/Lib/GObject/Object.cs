@@ -540,59 +540,6 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        /// <summary>
-        /// Creates a binding between <paramref name="sourceProperty"/> on
-        /// this instance and <paramref name="targetProperty"/> on <paramref name="target"/>,
-        /// allowing you to set the transformation functions to be used by
-        /// the binding.
-        /// </summary>
-        /// <remarks>
-        /// If flags contains <see cref="BindingFlags.Bidirectional"/> then the
-        /// binding will be mutual: if <paramref name="targetProperty"/> on
-        /// <paramref name="target"/> changes then the <paramref name="sourceProperty"/>
-        /// on this instance will be updated as well. The <paramref name="transformFrom"/>
-        /// function is only used in case of bidirectional bindings, otherwise it will be ignored.
-        ///
-        /// The binding will automatically be removed when either the this instance
-        /// or the <paramref name="target"/> instances are finalized. To remove the binding
-        /// without affecting this instance and the <paramref name="target"/> you can
-        /// just call <see cref="Binding.Unbind"/> on the returned <see cref="Binding"/> instance.
-        ///
-        /// An <see cref="Object"/> can have multiple bindings.
-        /// </remarks>
-        /// <param name="sourceProperty">
-        /// the property on this instance to bind
-        /// </param>
-        /// <param name="target">
-        /// the target <see cref="Object"/>
-        /// </param>
-        /// <param name="targetProperty">
-        /// the property on <paramref name="target"/> to bind
-        /// </param>
-        /// <param name="flags">
-        /// flags to pass to <see cref="Binding"/>
-        /// </param>
-        /// <param name="transformTo">
-        /// the transformation function from this instance to the <paramref name="target"/>,
-        /// or <c>null</c> to use the default
-        /// </param>
-        /// <param name="transformFrom">
-        /// the transformation function from the <paramref name="target"/> to this
-        /// instance, or <c>null</c> to use the default
-        /// </param>
-        /// <returns>
-        /// the <see cref="Binding"/> instance representing the binding between
-        /// the two <see cref="Object"/> instances. The binding is released
-        /// whenever the <see cref="Binding"/> reference count reaches zero.
-        /// </returns>
-        [Since ("2.26")]
-        public Binding BindProperty(string sourceProperty, Object target, string targetProperty, BindingFlags flags, BindingTransformFunc? transformTo, BindingTransformFunc? transformFrom)
-        {
-            using var sourcePropertyUtf8 = sourceProperty.ToUtf8();
-            using var targetPropertyUtf8 = targetProperty.ToUtf8();
-            return BindProperty(sourcePropertyUtf8, target, targetPropertyUtf8, flags, transformTo, transformFrom);
-        }
-
         static class UnmangedBindingTransformFuncFactory
         {
             class BindingTransformFuncData
@@ -771,24 +718,6 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// Gets a property of an object.
-        /// </summary>
-        /// <param name="propertyName">
-        /// the GType system name of the property to get
-        /// </param>
-        /// <returns>
-        /// the property value
-        /// </returns>
-        /// <exception cref="ArgumentException">
-        /// Throw when <paramref name="propertyName"/> is not a valid property name
-        /// </exception>
-        public object? GetProperty(string propertyName)
-        {
-            using var propertyNameUtf8 = propertyName.ToUtf8();
-            return GetProperty(propertyNameUtf8);
-        }
-
-        /// <summary>
         /// Emits a "notify" signal for the property @property_name on @object.
         /// </summary>
         /// <remarks>
@@ -839,28 +768,6 @@ namespace GISharp.Lib.GObject
             var this_ = Handle;
             var propertyName_ = propertyName.Handle;
             g_object_notify(this_, propertyName_);
-        }
-
-        /// <summary>
-        /// Emits a "notify" signal for the property @property_name on @object.
-        /// </summary>
-        /// <remarks>
-        /// When possible, eg. when signaling a property change from within the class
-        /// that registered the property, you should use g_object_notify_by_pspec()
-        /// instead.
-        ///
-        /// Note that emission of the notify signal may be blocked with
-        /// g_object_freeze_notify(). In this case, the signal emissions are queued
-        /// and will be emitted (in reverse order) when g_object_thaw_notify() is
-        /// called.
-        /// </remarks>
-        /// <param name="propertyName">
-        /// the name of a property installed on the class of @object.
-        /// </param>
-        public void EmitNotify(string propertyName)
-        {
-            using var propertyNameUtf8 = propertyName.ToUtf8();
-            EmitNotify(propertyNameUtf8);
         }
 
         /// <summary>
@@ -1024,24 +931,6 @@ namespace GISharp.Lib.GObject
             value_.Set(value);
             g_object_set_property(this_, pspec.Name.Handle, ref value_);
             value_.Unset();
-        }
-
-        /// <summary>
-        /// Sets a property on an object.
-        /// </summary>
-        /// <param name="propertyName">
-        /// the name of the property to set
-        /// </param>
-        /// <param name="value">
-        /// the value
-        /// </param>
-        /// <exception cref="ArgumentException">
-        /// Throw when <paramref name="propertyName"/> is not a valid property name
-        /// </exception>
-        public void SetProperty(string propertyName, object? value)
-        {
-            using var propertyNameUtf8 = propertyName.ToUtf8();
-            SetProperty(propertyNameUtf8, value);
         }
 
         /// <summary>

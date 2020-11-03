@@ -444,23 +444,6 @@ namespace GISharp.Lib.GLib
         /// string given by <paramref name="typeString"/>.
         /// </summary>
         /// <param name="typeString">
-        /// a valid GVariant type string
-        /// </param>
-        /// <returns>
-        /// a new #GVariantType
-        /// </returns>
-        [Since("2.24")]
-        static IntPtr New(string typeString)
-        {
-            using var typeStringUtf8 = typeString.ToUtf8();
-            return New(typeStringUtf8);
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="VariantType"/> corresponding to the type
-        /// string given by <paramref name="typeString"/>.
-        /// </summary>
-        /// <param name="typeString">
         /// a valid Variant type string
         /// </param>
         /// <exception cref="ArgumentException">
@@ -468,21 +451,6 @@ namespace GISharp.Lib.GLib
         /// </exception>
         [Since("2.24")]
         public VariantType(UnownedUtf8 typeString) : this(New(typeString), Transfer.Full)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="VariantType"/> corresponding to the type
-        /// string given by <paramref name="typeString"/>.
-        /// </summary>
-        /// <param name="typeString">
-        /// a valid Variant type string
-        /// </param>
-        /// <exception cref="ArgumentException">
-        /// if <paramref name="typeString"/> is not a valid type string
-        /// </exception>
-        [Since("2.24")]
-        public VariantType(string typeString) : this(New(typeString), Transfer.Full)
         {
         }
 

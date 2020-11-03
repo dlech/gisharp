@@ -21,12 +21,6 @@ namespace GISharp.Lib.GIRepository
             return ret;
         }
 
-        public FunctionInfo? FindMethod(string name)
-        {
-            using var nameUtf8 = name.ToUtf8();
-            return FindMethod(nameUtf8);
-        }
-
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_interface_info_find_signal (IntPtr raw, IntPtr name);
 

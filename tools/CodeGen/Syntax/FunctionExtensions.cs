@@ -22,13 +22,6 @@ namespace GISharp.CodeGen.Syntax
                 if (!function.IsPInvokeOnly) {
                     yield return function.GetStaticMethodDeclaration()
                         .WithBody(Block(function.GetInvokeStatements(function.CIdentifier)));
-
-                    // create an overload for string parameters
-                    if (function.Parameters.Any(x => x.IsUnownedUtf8())) {
-                        yield return function.GetStaticMethodDeclaration()
-                            .WithParameterList(function.ManagedParameters.GetParameterList(unownedUtf8AsString: true))
-                            .WithBody(Block(function.GetStringToUtf8InvokeStatements()));
-                    }
                 }
 
                 if (function.FinishFor != null) {

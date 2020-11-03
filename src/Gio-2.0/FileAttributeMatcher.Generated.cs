@@ -64,17 +64,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static unsafe System.IntPtr New(System.String attributes)
-        {
-            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
-            return New((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8);
-        }
-
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.FileAttributeMatcher(System.String)']/*" />
-        public FileAttributeMatcher(System.String attributes) : this(New(attributes), GISharp.Runtime.Transfer.Full)
-        {
-        }
-
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -118,13 +107,6 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_attribute_matcher_enumerate_namespace(matcher_,ns_);
             var ret = (System.Boolean)ret_;
             return ret;
-        }
-
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNamespace(System.String)']/*" />
-        public unsafe System.Boolean EnumerateNamespace(System.String ns)
-        {
-            using var nsUtf8 = new GISharp.Lib.GLib.Utf8(ns);
-            return EnumerateNamespace((GISharp.Lib.GLib.UnownedUtf8)nsUtf8);
         }
 
         /// <summary>
@@ -189,13 +171,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Matches(System.String)']/*" />
-        public unsafe System.Boolean Matches(System.String attribute)
-        {
-            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
-            return Matches((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
-        }
-
         /// <summary>
         /// Checks if a attribute matcher only matches a given attribute. Always
         /// returns %FALSE if "*" was used when creating the matcher.
@@ -228,13 +203,6 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_attribute_matcher_matches_only(matcher_,attribute_);
             var ret = (System.Boolean)ret_;
             return ret;
-        }
-
-        /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.MatchesOnly(System.String)']/*" />
-        public unsafe System.Boolean MatchesOnly(System.String attribute)
-        {
-            using var attributeUtf8 = new GISharp.Lib.GLib.Utf8(attribute);
-            return MatchesOnly((GISharp.Lib.GLib.UnownedUtf8)attributeUtf8);
         }
 
         /// <summary>

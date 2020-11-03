@@ -34,22 +34,6 @@ the <see cref="FileAttributeType"/> for the attribute.
 </param>
 </member>
 
-<member name='FileAttributeInfoList.Add(System.String,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)'>
-<summary>
-Adds a new attribute with <paramref name="name"/> to the this instance, setting
-its <paramref name="type"/> and <paramref name="flags"/>.
-</summary>
-<param name="name">
-the name of the attribute to add.
-</param>
-<param name="type">
-the <see cref="FileAttributeType"/> for the attribute.
-</param>
-<param name="flags">
-<see cref="FileAttributeInfoFlags"/> for the attribute.
-</param>
-</member>
-
 <member name='FileAttributeInfoList.Dup()'>
 <summary>
 Makes a duplicate of a file attribute info list.
@@ -60,19 +44,6 @@ a copy of the given this instance.
 </member>
 
 <member name='FileAttributeInfoList.Lookup(GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Gets the file attribute with the name <paramref name="name"/> from this instance.
-</summary>
-<param name="name">
-the name of the attribute to look up.
-</param>
-<returns>
-a <see cref="FileAttributeInfo"/> for the <paramref name="name"/>, or <c>null</c> if an
-attribute isn't found.
-</returns>
-</member>
-
-<member name='FileAttributeInfoList.Lookup(System.String)'>
 <summary>
 Gets the file attribute with the name <paramref name="name"/> from this instance.
 </summary>

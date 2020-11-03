@@ -39,14 +39,6 @@ namespace GISharp.Lib.GLib
             return (ret, userData);
         }
 
-        static (IntPtr, UserData) New(string name, string description, string helpDescription)
-        {
-            using var nameUtf8 = name.ToUtf8();
-            using var descriptionUtf8 = description.ToUtf8();
-            using var helpDescriptionUtf8 = helpDescription.ToUtf8();
-            return New(nameUtf8, descriptionUtf8, helpDescriptionUtf8);
-        }
-
         OptionGroup(ValueTuple<IntPtr, UserData> handleAndUserData)
             : base(_GType, handleAndUserData.Item1, Transfer.Full)
         {
@@ -72,29 +64,6 @@ namespace GISharp.Lib.GLib
         /// </param>
         [Since("2.6")]
         public OptionGroup(UnownedUtf8 name, UnownedUtf8 description, UnownedUtf8 helpDescription)
-            : this(New(name, description, helpDescription))
-        {
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="OptionGroup"/>.
-        /// </summary>
-        /// <param name="name">
-        /// the name for the option group, this is used to provide
-        /// help for the options in this group with <c>--help-</c><paramref name="name"/>
-        /// </param>
-        /// <param name="description">
-        /// a description for this group to be shown in
-        /// <c>--help</c>. This string is translated using the translation
-        /// domain or translation function of the group
-        /// </param>
-        /// <param name="helpDescription">
-        /// a description for the <c>--help-</c><paramref name="name"/> option.
-        /// This string is translated using the translation domain or translation function
-        /// of the group
-        /// </param>
-        [Since("2.6")]
-        public OptionGroup(string name, string description, string helpDescription)
             : this(New(name, description, helpDescription))
         {
         }

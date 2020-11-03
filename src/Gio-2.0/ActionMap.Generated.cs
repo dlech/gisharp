@@ -110,14 +110,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static GISharp.Lib.Gio.IAction? LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
-        {
-            using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
-            return LookupAction(actionMap, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
-        }
-
         /// <summary>
         /// Removes the named action from the action map.
         /// </summary>
@@ -149,14 +141,6 @@ namespace GISharp.Lib.Gio
             var actionMap_ = actionMap.Handle;
             var actionName_ = actionName.Handle;
             g_action_map_remove_action(actionMap_, actionName_);
-        }
-
-        /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, System.String actionName)
-        {
-            using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
-            RemoveAction(actionMap, (GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
         }
     }
 }

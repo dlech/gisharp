@@ -103,16 +103,6 @@ the domain to use
 </param>
 </member>
 
-<member name='OptionContext.SetTranslationDomain(System.String)'>
-<summary>
-A convenience function to use gettext() for translating
-user-visible strings.
-</summary>
-<param name="domain">
-the domain to use
-</param>
-</member>
-
 <member name='OptionContext'>
 <summary>
 A `GOptionContext` struct defines which options

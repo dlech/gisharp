@@ -136,13 +136,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.QueryInfo(System.String,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(System.String attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {
-            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
-            return QueryInfo((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, cancellable);
-        }
-
         /// <summary>
         /// Asynchronously queries the @stream for a #GFileInfo. When completed,
         /// @callback will be called with a #GAsyncResult which can be used to
@@ -207,13 +200,6 @@ namespace GISharp.Lib.Gio
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_output_stream_query_info_async(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
-        }
-
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.QueryInfoAsync(System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(System.String attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
-        {
-            using var attributesUtf8 = new GISharp.Lib.GLib.Utf8(attributes);
-            return QueryInfoAsync((GISharp.Lib.GLib.UnownedUtf8)attributesUtf8, ioPriority, cancellable);
         }
 
         /// <summary>

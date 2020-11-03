@@ -100,13 +100,6 @@ namespace GISharp.Lib.Gio
             g_file_attribute_info_list_add(list_, name_, type_, flags_);
         }
 
-        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Add(System.String,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)']/*" />
-        public unsafe void Add(System.String name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
-        {
-            using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
-            Add((GISharp.Lib.GLib.UnownedUtf8)nameUtf8, type, flags);
-        }
-
         /// <summary>
         /// Makes a duplicate of a file attribute info list.
         /// </summary>
@@ -165,13 +158,6 @@ namespace GISharp.Lib.Gio
             var ret_ = g_file_attribute_info_list_lookup(list_,name_);
             var ret = (ret_ == null) ? default(GISharp.Lib.Gio.FileAttributeInfo?) : (GISharp.Lib.Gio.FileAttributeInfo)(*ret_);
             return ret;
-        }
-
-        /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Lookup(System.String)']/*" />
-        public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(System.String name)
-        {
-            using var nameUtf8 = new GISharp.Lib.GLib.Utf8(name);
-            return Lookup((GISharp.Lib.GLib.UnownedUtf8)nameUtf8);
         }
 
         /// <summary>

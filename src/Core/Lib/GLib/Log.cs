@@ -46,46 +46,38 @@ namespace GISharp.Lib.GLib
             g_log(logDomain.Handle, logLevel, stringFormat_, message.Handle);
         }
 
-        static void Log_(string? logDomain, LogLevelFlags logLevel, string format, params object[] args)
+        public static void Message(NullableUnownedUtf8 message)
         {
-            using var logDomainUtf8 = logDomain?.ToUtf8();
-            format = string.Format(format, args);
-            using var formatUtf8 = new Utf8(format);
-            Log_(logDomainUtf8, logLevel, formatUtf8);
+            Log_(DefaultDomain, LogLevelFlags.Message, message);
         }
 
-        public static void Message(string format, params object[] args)
+        public static void Warning(NullableUnownedUtf8 message)
         {
-            Log_(DefaultDomain, LogLevelFlags.Message, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Warning, message);
         }
 
-        public static void Warning(string format, params object[] args)
+        public static void Critical(NullableUnownedUtf8 message)
         {
-            Log_(DefaultDomain, LogLevelFlags.Warning, format, args);
-        }
-
-        public static void Critical(string format, params object[] args)
-        {
-            Log_(DefaultDomain, LogLevelFlags.Critical, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Critical, message);
         }
 
 // GLib will abort the program after logging the error
 #pragma warning disable CS8763
         [DoesNotReturn]
-        public static void Error(string format, params object[] args)
+        public static void Error(NullableUnownedUtf8 message)
         {
-            Log_(DefaultDomain, LogLevelFlags.Error, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Error, message);
         }
 #pragma warning restore CS8763
 
-        public static void Info(string format, params object[] args)
+        public static void Info(NullableUnownedUtf8 message)
         {
-            Log_(DefaultDomain, LogLevelFlags.Info, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Info, message);
         }
 
-        public static void Debug(string format, params object[] args)
+        public static void Debug(NullableUnownedUtf8 message)
         {
-            Log_(DefaultDomain, LogLevelFlags.Debug, format, args);
+            Log_(DefaultDomain, LogLevelFlags.Debug, message);
         }
 
         /// <summary>
@@ -100,7 +92,7 @@ namespace GISharp.Lib.GLib
         {
             try {
                 var domain = ex?.TargetSite?.Module?.Name;
-                Log_(domain, LogLevelFlags.Critical, "Unhandled exception in {0}\n{1}", caller!, ex!);
+                Log_(domain, LogLevelFlags.Critical, $"Unhandled exception in {caller}\n{ex}");
             }
             catch {
                 // This must absolutely not throw an exception

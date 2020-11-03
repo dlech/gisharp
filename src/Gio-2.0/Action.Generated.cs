@@ -69,14 +69,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.NameIsValid(System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.38")]
-        public static unsafe System.Boolean NameIsValid(System.String actionName)
-        {
-            using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
-            return NameIsValid((GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8);
-        }
-
         /// <summary>
         /// Parses a detailed action name into its separate name and target
         /// components.
@@ -154,14 +146,6 @@ namespace GISharp.Lib.Gio
             targetValue = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(targetValue_, GISharp.Runtime.Transfer.Full)!;
         }
 
-        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.ParseDetailedName(System.String,GISharp.Lib.GLib.Utf8,GISharp.Lib.GLib.Variant)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.38")]
-        public static unsafe void ParseDetailedName(System.String detailedName, out GISharp.Lib.GLib.Utf8 actionName, out GISharp.Lib.GLib.Variant targetValue)
-        {
-            using var detailedNameUtf8 = new GISharp.Lib.GLib.Utf8(detailedName);
-            ParseDetailedName((GISharp.Lib.GLib.UnownedUtf8)detailedNameUtf8,out actionName,out targetValue);
-        }
-
         /// <summary>
         /// Formats a detailed action name from @action_name and @target_value.
         /// </summary>
@@ -205,14 +189,6 @@ namespace GISharp.Lib.Gio
             var ret_ = g_action_print_detailed_name(actionName_,targetValue_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
-        }
-
-        /// <include file="Action.xmldoc" path="declaration/member[@name='IAction.PrintDetailedName(System.String,GISharp.Lib.GLib.Variant?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.38")]
-        public static unsafe GISharp.Lib.GLib.Utf8 PrintDetailedName(System.String actionName, GISharp.Lib.GLib.Variant? targetValue)
-        {
-            using var actionNameUtf8 = new GISharp.Lib.GLib.Utf8(actionName);
-            return PrintDetailedName((GISharp.Lib.GLib.UnownedUtf8)actionNameUtf8, targetValue);
         }
 
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

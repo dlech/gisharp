@@ -46,12 +46,6 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        public static void Dump(string arg)
-        {
-            using var argUtf8 = arg.ToUtf8();
-            Dump(argUtf8);
-        }
-
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_enumerate_versions (IntPtr raw, IntPtr @namespace);
 
@@ -234,21 +228,6 @@ namespace GISharp.Lib.GIRepository
             return ret;
         }
 
-        /// <summary>
-        /// Check whether a particular namespace (and optionally, a specific
-        /// version thereof) is currently loaded.
-        /// </summary>
-        /// <returns><c>true</c> if is registered the specified <c>namespace-version</c>
-        /// was loaded; otherwise, <c>false</c>.</returns>
-        /// <param name="namespace">Namespace of interest.</param>
-        /// <param name="version">Required version or <c>null</c> for latest.</param>
-        public static bool IsRegistered(string @namespace, string? version = default)
-        {
-            using var namespaceUtf8 = @namespace.ToUtf8();
-            using var versionUtf8 = version?.ToUtf8();
-            return IsRegistered(namespaceUtf8, versionUtf8);
-        }
-
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_irepository_prepend_library_path (IntPtr directory);
 
@@ -313,28 +292,6 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        /// <summary>
-        /// Force the namespace <paramref name="namespace"/> to be loaded if it
-        /// isn't already.
-        /// </summary>
-        /// <param name="namespace">Namespace.</param>
-        /// <param name="version">Version.</param>
-        /// <param name="flags">Flags.</param>
-        /// <exception cref="GErrorException">On failure.</exception>
-        /// <remarks>
-        /// If <paramref name="namespace"/> is not loaded, this function will
-        /// search for a ".typelib" file using the repository search path. In
-        /// addition, a version version of namespace may be specified. If version
-        /// is not specified, the latest will be used.
-        /// </remarks>
-        public static void Require(string @namespace, string? version = default,
-            RepositoryLoadFlags flags = default)
-        {
-            using var namespaceUtf8 = @namespace.ToUtf8();
-            using var versionUtf8 = version?.ToUtf8();
-            Require(namespaceUtf8, versionUtf8, flags);
-        }
-
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_irepository_require_private (IntPtr raw, IntPtr typelibDir, IntPtr @namespace, IntPtr version, int flags, out IntPtr error);
 
@@ -361,30 +318,6 @@ namespace GISharp.Lib.GIRepository
                 var error = new Error (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
             }
-        }
-
-        /// <summary>
-        /// Force the namespace namespace_ to be loaded if it isn't already.
-        /// </summary>
-        /// <param name="typelibDir">Private directory where to find the requested typelib.</param>
-        /// <param name="namespace">Namespace.</param>
-        /// <param name="version">Version of namespace, may be <c>null</c> for latest.</param>
-        /// <param name="flags">Flags.</param>
-        /// <exception cref="GErrorException">On failure.</exception>
-        /// <remarks>
-        /// If <paramref name="namespace"/> is not loaded, this function will
-        /// search for a ".typelib" file within the private directory only. In
-        /// addition, a version <paramref name="version"/> of namespace may be
-        /// specified. If <paramref name="version"/> is not specified, the latest
-        /// will be used.
-        /// </remarks>
-        public static void RequirePrivate(string typelibDir, string @namespace,
-            string? version = default, RepositoryLoadFlags flags = default)
-        {
-            using var typelibDirUtf8 = typelibDir.ToUtf8();
-            using var namespaceUtf8 = @namespace.ToUtf8();
-            using var versionUtf8 = version?.ToUtf8();
-            RequirePrivate(typelibDirUtf8, namespaceUtf8, versionUtf8, flags);
         }
     }
 }

@@ -49,61 +49,7 @@ On error
 </exception>
 </member>
 
-<member name='FileIOStream.QueryInfo(System.String,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Queries a file io stream for the given <paramref name="attributes"/>.
-This function blocks while querying the stream. For the asynchronous
-version of this function, see <see cref="FileIOStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
-While the stream is blocked, the stream will set the pending flag
-internally, and any other operations on the stream will fail with
-<see cref="IOErrorEnum.Pending"/>.
-</summary>
-<remarks>
-Can fail if the stream was already closed (with <see cref="GISharp.Runtime.GErrorException"/> being set to
-<see cref="IOErrorEnum.Closed"/>), the stream has pending operations (with <see cref="GISharp.Runtime.GErrorException"/> being
-set to <see cref="IOErrorEnum.Pending"/>), or if querying info is not supported for
-the stream's interface (with <see cref="GISharp.Runtime.GErrorException"/> being set to <see cref="IOErrorEnum.NotSupported"/>). I
-all cases of failure, <c>null</c> will be returned.
-
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be set, and <c>null</c> will
-be returned.
-</remarks>
-<param name="attributes">
-a file attribute query string.
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-</param>
-<returns>
-a <see cref="FileInfo"/> for the this instance, or <c>null</c> on error.
-</returns>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='FileIOStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Asynchronously queries the this instance for a <see cref="FileInfo"/>.
-</summary>
-<remarks>
-For the synchronous version of this function, see
-<see cref="FileIOStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
-</remarks>
-<param name="attributes">
-a file attribute query string.
-</param>
-<param name="ioPriority">
-the [I/O priority][gio-GIOScheduler] of the request
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
-</param>
-</member>
-
-<member name='FileIOStream.QueryInfoAsync(System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously queries the this instance for a <see cref="FileInfo"/>.
 </summary>

@@ -1109,13 +1109,6 @@ namespace GISharp.Lib.Gio
             g_task_set_name(task_, name_);
         }
 
-        [GISharp.Runtime.SinceAttribute("2.60")]
-        private unsafe void SetName(System.String? name)
-        {
-            using var nameUtf8 = name == null ? null : new GISharp.Lib.GLib.Utf8(name);
-            SetName((GISharp.Lib.GLib.NullableUnownedUtf8)nameUtf8);
-        }
-
         /// <summary>
         /// Sets @task's priority. If you do not call this, it will default to
         /// %G_PRIORITY_DEFAULT.

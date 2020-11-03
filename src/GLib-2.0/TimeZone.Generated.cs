@@ -125,19 +125,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        [GISharp.Runtime.SinceAttribute("2.26")]
-        static unsafe System.IntPtr New(System.String? identifier)
-        {
-            using var identifierUtf8 = identifier == null ? null : new GISharp.Lib.GLib.Utf8(identifier);
-            return New((GISharp.Lib.GLib.NullableUnownedUtf8)identifierUtf8);
-        }
-
-        /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.TimeZone(System.String?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.26")]
-        public TimeZone(System.String? identifier) : this(New(identifier), GISharp.Runtime.Transfer.Full)
-        {
-        }
-
         /// <summary>
         /// Creates a #GTimeZone corresponding to the given constant offset from UTC,
         /// in seconds.

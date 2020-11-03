@@ -229,14 +229,6 @@ namespace GISharp.Lib.GLib
             g_option_group_set_translation_domain(group_, domain_);
         }
 
-        /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslationDomain(System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.6")]
-        public unsafe void SetTranslationDomain(System.String domain)
-        {
-            using var domainUtf8 = new GISharp.Lib.GLib.Utf8(domain);
-            SetTranslationDomain((GISharp.Lib.GLib.UnownedUtf8)domainUtf8);
-        }
-
         /// <summary>
         /// Decrements the reference count of @group by one.
         /// If the reference count drops to 0, the @group will be freed.

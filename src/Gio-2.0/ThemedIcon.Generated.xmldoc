@@ -61,33 +61,7 @@ name of icon to append to list of icons from within this instance.
 </param>
 </member>
 
-<member name='ThemedIcon.AppendName(System.String)'>
-<summary>
-Append a name to the list of icons from within this instance.
-</summary>
-<remarks>
-Note that doing so invalidates the hash computed by prior calls
-to <see cref="Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
-</remarks>
-<param name="iconname">
-name of icon to append to list of icons from within this instance.
-</param>
-</member>
-
 <member name='ThemedIcon.PrependName(GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Prepend a name to the list of icons from within this instance.
-</summary>
-<remarks>
-Note that doing so invalidates the hash computed by prior calls
-to <see cref="Icon.GetHashCode(GISharp.Lib.Gio.IIcon)"/>.
-</remarks>
-<param name="iconname">
-name of icon to prepend to list of icons from within this instance.
-</param>
-</member>
-
-<member name='ThemedIcon.PrependName(System.String)'>
 <summary>
 Prepend a name to the list of icons from within this instance.
 </summary>

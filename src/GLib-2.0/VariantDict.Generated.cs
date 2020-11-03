@@ -101,14 +101,6 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Contains(System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe System.Boolean Contains(System.String key)
-        {
-            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
-            return Contains((GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
-        }
-
         /// <summary>
         /// Returns the current value of @dict as a #GVariant of type
         /// %G_VARIANT_TYPE_VARDICT, clearing it in the process.
@@ -184,14 +176,6 @@ namespace GISharp.Lib.GLib
             g_variant_dict_insert_value(dict_, key_, value_);
         }
 
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Insert(System.String,GISharp.Lib.GLib.Variant)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe void Insert(System.String key, GISharp.Lib.GLib.Variant value)
-        {
-            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
-            Insert((GISharp.Lib.GLib.UnownedUtf8)keyUtf8, value);
-        }
-
         /// <summary>
         /// Looks up a value in a #GVariantDict.
         /// </summary>
@@ -243,14 +227,6 @@ namespace GISharp.Lib.GLib
             var ret_ = g_variant_dict_lookup_value(dict_,key_,expectedType_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
-        }
-
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Lookup(System.String,GISharp.Lib.GLib.VariantType?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe GISharp.Lib.GLib.Variant Lookup(System.String key, GISharp.Lib.GLib.VariantType? expectedType = null)
-        {
-            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
-            return Lookup((GISharp.Lib.GLib.UnownedUtf8)keyUtf8, expectedType);
         }
 
         /// <summary>
@@ -314,14 +290,6 @@ namespace GISharp.Lib.GLib
             var ret_ = g_variant_dict_remove(dict_,key_);
             var ret = (System.Boolean)ret_;
             return ret;
-        }
-
-        /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Remove(System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe System.Boolean Remove(System.String key)
-        {
-            using var keyUtf8 = new GISharp.Lib.GLib.Utf8(key);
-            return Remove((GISharp.Lib.GLib.UnownedUtf8)keyUtf8);
         }
 
         /// <summary>

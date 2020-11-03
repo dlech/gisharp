@@ -93,40 +93,7 @@ a <see cref="IAction"/>, or <c>null</c>
 </returns>
 </member>
 
-<member name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,System.String)'>
-<summary>
-Looks up the action with the name <paramref name="actionName"/> in this instance.
-</summary>
-<remarks>
-If no such action exists, returns <c>null</c>.
-</remarks>
-<param name="actionMap">
-a <see cref="IActionMap"/>
-</param>
-<param name="actionName">
-the name of an action
-</param>
-<returns>
-a <see cref="IAction"/>, or <c>null</c>
-</returns>
-</member>
-
 <member name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Removes the named action from the action map.
-</summary>
-<remarks>
-If no action of this name is in the map then nothing happens.
-</remarks>
-<param name="actionMap">
-a <see cref="IActionMap"/>
-</param>
-<param name="actionName">
-the name of the action
-</param>
-</member>
-
-<member name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,System.String)'>
 <summary>
 Removes the named action from the action map.
 </summary>

@@ -85,22 +85,6 @@ a new <see cref="IFile"/> for the given <paramref name="uri"/>.
 </returns>
 </member>
 
-<member name='IFile.NewForUri(System.String)'>
-<summary>
-Constructs a <see cref="IFile"/> for a given URI. This operation never
-fails, but the returned object might not support any I/O
-operation if <paramref name="uri"/> is malformed or if the uri type is
-not supported.
-</summary>
-<param name="uri">
-a UTF-8 string containing a URI
-</param>
-<returns>
-a new <see cref="IFile"/> for the given <paramref name="uri"/>.
-    Free the returned object with g_object_unref().
-</returns>
-</member>
-
 <member name='IFile.NewTmp(GISharp.Lib.GLib.Filename?,GISharp.Lib.Gio.FileIOStream)'>
 <summary>
 Opens a file in the preferred directory for temporary files (as
@@ -132,21 +116,6 @@ On error
 </member>
 
 <member name='IFile.ParseName(GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Constructs a <see cref="IFile"/> with the given <paramref name="parseName"/> (i.e. something
-given by <see cref="File.GetParseName(GISharp.Lib.Gio.IFile)"/>). This operation never fails,
-but the returned object might not support any I/O operation if
-the <paramref name="parseName"/> cannot be parsed.
-</summary>
-<param name="parseName">
-a file name or path to be parsed
-</param>
-<returns>
-a new <see cref="IFile"/>.
-</returns>
-</member>
-
-<member name='IFile.ParseName(System.String)'>
 <summary>
 Constructs a <see cref="IFile"/> with the given <paramref name="parseName"/> (i.e. something
 given by <see cref="File.GetParseName(GISharp.Lib.Gio.IFile)"/>). This operation never fails,
@@ -2723,34 +2692,6 @@ On error
 </exception>
 </member>
 
-<member name='File.GetChildForDisplayName(GISharp.Lib.Gio.IFile,System.String)'>
-<summary>
-Gets the child of this instance for a given <paramref name="displayName"/> (i.e. a UTF-8
-version of the name). If this function fails, it returns <c>null</c>
-and <see cref="GISharp.Runtime.GErrorException"/> will be set. This is very useful when constructing a
-<see cref="IFile"/> for a new file and the user entered the filename in the
-user interface, for instance when you select a directory and
-type a filename in the file selector.
-</summary>
-<remarks>
-This call does no blocking I/O.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="displayName">
-string to a possible child
-</param>
-<returns>
-a <see cref="IFile"/> to the specified child, or
-    <c>null</c> if the display name couldn't be converted.
-    Free the returned object with g_object_unref().
-</returns>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.GetParent(GISharp.Lib.Gio.IFile)'>
 <summary>
 Gets the parent directory for the this instance.
@@ -2928,26 +2869,6 @@ input <see cref="IFile"/>
 </member>
 
 <member name='File.HasUriScheme(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8)'>
-<summary>
-Checks to see if a <see cref="IFile"/> has a given URI scheme.
-</summary>
-<remarks>
-This call does no blocking I/O.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="uriScheme">
-a string containing a URI scheme
-</param>
-<returns>
-<c>true</c> if <see cref="IFile"/>'s backend supports the
-    given URI scheme, <c>false</c> if URI scheme is <c>null</c>,
-    not supported, or <see cref="IFile"/> is invalid.
-</returns>
-</member>
-
-<member name='File.HasUriScheme(GISharp.Lib.Gio.IFile,System.String)'>
 <summary>
 Checks to see if a <see cref="IFile"/> has a given URI scheme.
 </summary>
@@ -3603,85 +3524,7 @@ On error
 </exception>
 </member>
 
-<member name='File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Similar to <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>, but obtains information
-about the filesystem the this instance is on, rather than the file itself.
-For instance the amount of space available and the type of
-the filesystem.
-</summary>
-<remarks>
-The <paramref name="attributes"/> value is a string that specifies the attributes
-that should be gathered. It is not an error if it's not possible
-to read a particular requested attribute from a file - it just
-won't be set. <paramref name="attributes"/> should be a comma-separated list of
-attributes or attribute wildcards. The wildcard "*" means all
-attributes, and a wildcard like "filesystem::*" means all attributes
-in the filesystem namespace. The standard namespace for filesystem
-attributes is "filesystem". Common attributes of interest are
-#G_FILE_ATTRIBUTE_FILESYSTEM_SIZE (the total size of the filesystem
-in bytes), #G_FILE_ATTRIBUTE_FILESYSTEM_FREE (number of bytes available),
-and #G_FILE_ATTRIBUTE_FILESYSTEM_TYPE (type of the filesystem).
-
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-by triggering the cancellable object from another thread. If the
-operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-returned.
-
-If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will
-be returned. Other errors are possible too, and depend on what
-kind of filesystem the file is on.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attributes">
-an attribute query string
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<returns>
-a <see cref="FileInfo"/> or <c>null</c> if there was an error.
-    Free the returned object with g_object_unref().
-</returns>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Asynchronously gets the requested information about the filesystem
-that the specified this instance is on. The result is a <see cref="FileInfo"/> object
-that contains key-value attributes (such as type or size for the
-file).
-</summary>
-<remarks>
-For more details, see <see cref="File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> which is the
-synchronous version of this call.
-
-When the operation is finished, <paramref name="callback"/> will be called. You can
-then call <see cref="File.QueryInfoFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the
-operation.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attributes">
-an attribute query string
-</param>
-<param name="ioPriority">
-the [I/O priority][io-priority] of the request
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-</member>
-
-<member name='File.QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously gets the requested information about the filesystem
 that the specified this instance is on. The result is a <see cref="FileInfo"/> object
@@ -3767,94 +3610,7 @@ On error
 </exception>
 </member>
 
-<member name='File.QueryInfo(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Gets the requested information about specified this instance.
-The result is a <see cref="FileInfo"/> object that contains key-value
-attributes (such as the type or size of the file).
-</summary>
-<remarks>
-The <paramref name="attributes"/> value is a string that specifies the file
-attributes that should be gathered. It is not an error if
-it's not possible to read a particular requested attribute
-from a file - it just won't be set. <paramref name="attributes"/> should be a
-comma-separated list of attributes or attribute wildcards.
-The wildcard "*" means all attributes, and a wildcard like
-"standard::*" means all attributes in the standard namespace.
-An example attribute query be "standard::*,owner::user".
-The standard attributes are available as defines, like
-#G_FILE_ATTRIBUTE_STANDARD_NAME.
-
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-by triggering the cancellable object from another thread. If the
-operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-returned.
-
-For symlinks, normally the information about the target of the
-symlink is returned, rather than information about the symlink
-itself. However if you pass #G_FILE_QUERY_INFO_NOFOLLOW_SYMLINKS
-in <paramref name="flags"/> the information about the symlink itself will be returned.
-Also, for symlinks that point to non-existing files the information
-about the symlink itself will be returned.
-
-If the file does not exist, the <see cref="IOErrorEnum.NotFound"/> error will be
-returned. Other errors are possible too, and depend on what kind of
-filesystem the file is on.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attributes">
-an attribute query string
-</param>
-<param name="flags">
-a set of <see cref="FileQueryInfoFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<returns>
-a <see cref="FileInfo"/> for the given this instance, or <c>null</c>
-    on error. Free the returned object with g_object_unref().
-</returns>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.QueryInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Asynchronously gets the requested information about specified this instance.
-The result is a <see cref="FileInfo"/> object that contains key-value attributes
-(such as type or size for the file).
-</summary>
-<remarks>
-For more details, see <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/> which is the synchronous
-version of this call.
-
-When the operation is finished, <paramref name="callback"/> will be called. You can
-then call <see cref="File.QueryInfoFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)"/> to get the result of the operation.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attributes">
-an attribute query string
-</param>
-<param name="flags">
-a set of <see cref="FileQueryInfoFlags"/>
-</param>
-<param name="ioPriority">
-the [I/O priority][io-priority] of the request
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-</member>
-
-<member name='File.QueryInfoAsync(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously gets the requested information about specified this instance.
 The result is a <see cref="FileInfo"/> object that contains key-value attributes
@@ -4069,113 +3825,7 @@ On error
 </exception>
 </member>
 
-<member name='File.Replace(GISharp.Lib.Gio.IFile,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Returns an output stream for overwriting the file, possibly
-creating a backup copy of the file first. If the file doesn't exist,
-it will be created.
-</summary>
-<remarks>
-This will try to replace the file in the safest way possible so
-that any errors during the writing will not affect an already
-existing copy of the file. For instance, for local files it
-may write to a temporary file and then atomically rename over
-the destination when the stream is closed.
-
-By default files created are generally readable by everyone,
-but if you pass #G_FILE_CREATE_PRIVATE in <paramref name="flags"/> the file
-will be made readable only to the current user, to the level that
-is supported on the target filesystem.
-
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled
-by triggering the cancellable object from another thread. If the
-operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
-returned.
-
-If you pass in a non-<c>null</c> <paramref name="etag"/> value and this instance already exists, then
-this value is compared to the current entity tag of the file, and if
-they differ an <see cref="IOErrorEnum.WrongEtag"/> error is returned. This
-generally means that the file has been changed since you last read
-it. You can get the new etag from <see cref="FileOutputStream.GetEtag()"/>
-after you've finished writing and closed the <see cref="FileOutputStream"/>. When
-you load a new file you can use <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> to
-get the etag of the file.
-
-If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a
-backup of the current file before overwriting it. If this fails
-a <see cref="IOErrorEnum.CantCreateBackup"/> error will be returned. If you
-want to replace anyway, try again with <paramref name="makeBackup"/> set to <c>false</c>.
-
-If the file is a directory the <see cref="IOErrorEnum.IsDirectory"/> error will
-be returned, and if the file is some other form of non-regular file
-then a <see cref="IOErrorEnum.NotRegularFile"/> error will be returned. Some
-file systems don't allow all file names, and may return an
-<see cref="IOErrorEnum.InvalidFilename"/> error, and if the name is to long
-<see cref="IOErrorEnum.FilenameTooLong"/> will be returned. Other errors are
-possible too, and depend on what kind of filesystem the file is on.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="etag">
-an optional [entity tag][gfile-etag]
-    for the current <see cref="IFile"/>, or #NULL to ignore
-</param>
-<param name="makeBackup">
-<c>true</c> if a backup should be created
-</param>
-<param name="flags">
-a set of <see cref="FileCreateFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<returns>
-a <see cref="FileOutputStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
-</returns>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Asynchronously overwrites the file, replacing the contents,
-possibly creating a backup copy of the file first.
-</summary>
-<remarks>
-For more details, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
-the synchronous version of this call.
-
-When the operation is finished, <paramref name="callback"/> will be called.
-You can then call <see cref="File.ReplaceFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)"/> to get the result
-of the operation.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="etag">
-an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-    or <c>null</c> to ignore
-</param>
-<param name="makeBackup">
-<c>true</c> if a backup should be created
-</param>
-<param name="flags">
-a set of <see cref="FileCreateFlags"/>
-</param>
-<param name="ioPriority">
-the [I/O priority][io-priority] of the request
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-</member>
-
-<member name='File.ReplaceAsync(GISharp.Lib.Gio.IFile,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file, replacing the contents,
 possibly creating a backup copy of the file first.
@@ -4259,55 +3909,6 @@ On error
 </exception>
 </member>
 
-<member name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Replaces the contents of this instance with <paramref name="contents"/> of the length of <paramref name="contents"/> bytes.
-</summary>
-<remarks>
-If <paramref name="etag"/> is specified (not <c>null</c>), any existing file must have that etag,
-or the error <see cref="IOErrorEnum.WrongEtag"/> will be returned.
-
-If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a backup
-of this instance. Internally, it uses <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>, so will try to replace the
-file contents in the safest way possible. For example, atomic renames are
-used when replacing local files’ contents.
-
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
-The returned <paramref name="newEtag"/> can be used to verify that the file hasn't
-changed the next time it is saved over.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="contents">
-a string containing the new contents for this instance
-</param>
-<param name="etag">
-the old [entity-tag][gfile-etag] for the document,
-    or <c>null</c>
-</param>
-<param name="makeBackup">
-<c>true</c> if a backup should be created
-</param>
-<param name="flags">
-a set of <see cref="FileCreateFlags"/>
-</param>
-<param name="newEtag">
-a location to a new [entity tag][gfile-etag]
-     for the document. This should be freed with g_free() when no longer
-     needed, or <c>null</c>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-</param>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Starts an asynchronous replacement of this instance with the given
@@ -4315,53 +3916,6 @@ Starts an asynchronous replacement of this instance with the given
 current entity tag.
 </summary>
 <remarks>
-When this operation has completed, <paramref name="callback"/> will be called with
-<paramref name="userUser"/> data, and the operation can be finalized with
-<see cref="File.ReplaceContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,out GISharp.Lib.GLib.Utf8)"/>.
-
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-
-If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to
-make a backup of this instance.
-
-Note that no copy of <paramref name="contents"/> will be made, so it must stay valid
-until <paramref name="callback"/> is called. See <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>
-for a #GBytes version that will automatically hold a reference to the
-contents (without copying) for the duration of the call.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="contents">
-string of contents to replace the file with
-</param>
-<param name="etag">
-a new [entity tag][gfile-etag] for the this instance, or <c>null</c>
-</param>
-<param name="makeBackup">
-<c>true</c> if a backup should be created
-</param>
-<param name="flags">
-a set of <see cref="FileCreateFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-</param>
-</member>
-
-<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Starts an asynchronous replacement of this instance with the given
-<paramref name="contents"/> of the length of <paramref name="contents"/> bytes. <paramref name="etag"/> will replace the document's
-current entity tag.
-</summary>
-<remarks>
-When this operation has completed, <paramref name="callback"/> will be called with
-<paramref name="userUser"/> data, and the operation can be finalized with
-<see cref="File.ReplaceContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,out GISharp.Lib.GLib.Utf8)"/>.
-
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
@@ -4401,43 +3955,6 @@ This function will keep a ref on <paramref name="contents"/> until the operation
 Unlike <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> this allows forgetting about the
 content without waiting for the callback.
 </summary>
-<remarks>
-When this operation has completed, <paramref name="callback"/> will be called with
-<paramref name="userUser"/> data, and the operation can be finalized with
-<see cref="File.ReplaceContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,out GISharp.Lib.GLib.Utf8)"/>.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="contents">
-a #GBytes
-</param>
-<param name="etag">
-a new [entity tag][gfile-etag] for the this instance, or <c>null</c>
-</param>
-<param name="makeBackup">
-<c>true</c> if a backup should be created
-</param>
-<param name="flags">
-a set of <see cref="FileCreateFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object, <c>null</c> to ignore
-</param>
-</member>
-
-<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Same as <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> but takes a #GBytes input instead.
-This function will keep a ref on <paramref name="contents"/> until the operation is done.
-Unlike <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> this allows forgetting about the
-content without waiting for the callback.
-</summary>
-<remarks>
-When this operation has completed, <paramref name="callback"/> will be called with
-<paramref name="userUser"/> data, and the operation can be finalized with
-<see cref="File.ReplaceContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,out GISharp.Lib.GLib.Utf8)"/>.
-</remarks>
 <param name="file">
 input <see cref="IFile"/>
 </param>
@@ -4498,83 +4015,7 @@ On error
 </exception>
 </member>
 
-<member name='File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Returns an output stream for overwriting the file in readwrite mode,
-possibly creating a backup copy of the file first. If the file doesn't
-exist, it will be created.
-</summary>
-<remarks>
-For details about the behaviour, see <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which does the
-same thing but returns an output stream only.
-
-Note that in many non-local file cases read and write streams are not
-supported, so make sure you really need to do read and write streaming,
-rather than just opening for reading or writing.
-</remarks>
-<param name="file">
-a <see cref="IFile"/>
-</param>
-<param name="etag">
-an optional [entity tag][gfile-etag]
-    for the current <see cref="IFile"/>, or #NULL to ignore
-</param>
-<param name="makeBackup">
-<c>true</c> if a backup should be created
-</param>
-<param name="flags">
-a set of <see cref="FileCreateFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<returns>
-a <see cref="FileIOStream"/> or <c>null</c> on error.
-    Free the returned object with g_object_unref().
-</returns>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Asynchronously overwrites the file in read-write mode,
-replacing the contents, possibly creating a backup copy
-of the file first.
-</summary>
-<remarks>
-For more details, see <see cref="File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
-the synchronous version of this call.
-
-When the operation is finished, <paramref name="callback"/> will be called.
-You can then call <see cref="File.ReplaceReadwriteFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)"/> to get
-the result of the operation.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="etag">
-an [entity tag][gfile-etag] for the current <see cref="IFile"/>,
-    or <c>null</c> to ignore
-</param>
-<param name="makeBackup">
-<c>true</c> if a backup should be created
-</param>
-<param name="flags">
-a set of <see cref="FileCreateFlags"/>
-</param>
-<param name="ioPriority">
-the [I/O priority][io-priority] of the request
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-</member>
-
-<member name='File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,System.String?,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file in read-write mode,
 replacing the contents, possibly creating a backup copy
@@ -4667,76 +4108,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetAttribute(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Sets an attribute in the file with attribute name <paramref name="attribute"/> to <paramref name="valueP"/>.
-</summary>
-<remarks>
-Some attributes can be unset by setting <paramref name="type"/> to
-<see cref="FileAttributeType.Invalid"/> and <paramref name="valueP"/> to <c>null</c>.
-
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attribute">
-a string containing the attribute's name
-</param>
-<param name="type">
-The type of the attribute
-</param>
-<param name="valueP">
-a pointer to the value (or the pointer
-    itself if the type is a pointer type)
-</param>
-<param name="flags">
-a set of <see cref="FileQueryInfoFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.SetAttributeByteString(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.ByteString"/> to <paramref name="value"/>.
-If <paramref name="attribute"/> is of a different type, this operation will fail,
-returning <c>false</c>.
-</summary>
-<remarks>
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attribute">
-a string containing the attribute's name
-</param>
-<param name="value">
-a string containing the attribute's new value
-</param>
-<param name="flags">
-a <see cref="FileQueryInfoFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
-<member name='File.SetAttributeByteString(GISharp.Lib.Gio.IFile,System.String,System.String,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.ByteString"/> to <paramref name="value"/>.
 If <paramref name="attribute"/> is of a different type, this operation will fail,
@@ -4799,69 +4171,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetAttributeInt32(GISharp.Lib.Gio.IFile,System.String,System.Int32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int32"/> to <paramref name="value"/>.
-If <paramref name="attribute"/> is of a different type, this operation will fail.
-</summary>
-<remarks>
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attribute">
-a string containing the attribute's name
-</param>
-<param name="value">
-a #gint32 containing the attribute's new value
-</param>
-<param name="flags">
-a <see cref="FileQueryInfoFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.SetAttributeInt64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int64"/> to <paramref name="value"/>.
-If <paramref name="attribute"/> is of a different type, this operation will fail.
-</summary>
-<remarks>
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attribute">
-a string containing the attribute's name
-</param>
-<param name="value">
-a #guint64 containing the attribute's new value
-</param>
-<param name="flags">
-a <see cref="FileQueryInfoFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
-<member name='File.SetAttributeInt64(GISharp.Lib.Gio.IFile,System.String,System.Int64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int64"/> to <paramref name="value"/>.
 If <paramref name="attribute"/> is of a different type, this operation will fail.
@@ -4923,37 +4233,6 @@ On error
 </exception>
 </member>
 
-<member name='File.SetAttributeString(GISharp.Lib.Gio.IFile,System.String,System.String,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.String"/> to <paramref name="value"/>.
-If <paramref name="attribute"/> is of a different type, this operation will fail.
-</summary>
-<remarks>
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attribute">
-a string containing the attribute's name
-</param>
-<param name="value">
-a string containing the attribute's value
-</param>
-<param name="flags">
-<see cref="FileQueryInfoFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.SetAttributeUint32(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.UInt32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint32"/> to <paramref name="value"/>.
@@ -4985,69 +4264,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetAttributeUint32(GISharp.Lib.Gio.IFile,System.String,System.UInt32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint32"/> to <paramref name="value"/>.
-If <paramref name="attribute"/> is of a different type, this operation will fail.
-</summary>
-<remarks>
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attribute">
-a string containing the attribute's name
-</param>
-<param name="value">
-a #guint32 containing the attribute's new value
-</param>
-<param name="flags">
-a <see cref="FileQueryInfoFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.SetAttributeUint64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.UInt64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint64"/> to <paramref name="value"/>.
-If <paramref name="attribute"/> is of a different type, this operation will fail.
-</summary>
-<remarks>
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="attribute">
-a string containing the attribute's name
-</param>
-<param name="value">
-a #guint64 containing the attribute's new value
-</param>
-<param name="flags">
-a <see cref="FileQueryInfoFlags"/>
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
-<member name='File.SetAttributeUint64(GISharp.Lib.Gio.IFile,System.String,System.UInt64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint64"/> to <paramref name="value"/>.
 If <paramref name="attribute"/> is of a different type, this operation will fail.
@@ -5181,73 +4398,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetDisplayName(GISharp.Lib.Gio.IFile,System.String,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Renames this instance to the specified display name.
-</summary>
-<remarks>
-The display name is converted from UTF-8 to the correct encoding
-for the target filesystem if possible and the this instance is renamed to this.
-
-If you want to implement a rename operation in the user interface the
-edit name (#G_FILE_ATTRIBUTE_STANDARD_EDIT_NAME) should be used as the
-initial value in the rename widget, and then the result after editing
-should be passed to <see cref="File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/>.
-
-On success the resulting converted filename is returned.
-
-If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
-triggering the cancellable object from another thread. If the operation
-was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="displayName">
-a string
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-<returns>
-a <see cref="IFile"/> specifying what this instance was renamed to,
-    or <c>null</c> if there was an error.
-    Free the returned object with g_object_unref().
-</returns>
-<exception name="GISharp.Runtime.GErrorException">
-On error
-</exception>
-</member>
-
 <member name='File.SetDisplayNameAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
-<summary>
-Asynchronously sets the display name for a given <see cref="IFile"/>.
-</summary>
-<remarks>
-For more details, see <see cref="File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable)"/> which is
-the synchronous version of this call.
-
-When the operation is finished, <paramref name="callback"/> will be called.
-You can then call <see cref="File.SetDisplayNameFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)"/> to get
-the result of the operation.
-</remarks>
-<param name="file">
-input <see cref="IFile"/>
-</param>
-<param name="displayName">
-a string
-</param>
-<param name="ioPriority">
-the [I/O priority][io-priority] of the request
-</param>
-<param name="cancellable">
-optional <see cref="Cancellable"/> object,
-    <c>null</c> to ignore
-</param>
-</member>
-
-<member name='File.SetDisplayNameAsync(GISharp.Lib.Gio.IFile,System.String,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously sets the display name for a given <see cref="IFile"/>.
 </summary>

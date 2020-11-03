@@ -389,13 +389,6 @@ namespace GISharp.Lib.GLib
             g_option_context_set_description(context_, description_);
         }
 
-        [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe void SetDescription(System.String? description)
-        {
-            using var descriptionUtf8 = description == null ? null : new GISharp.Lib.GLib.Utf8(description);
-            SetDescription((GISharp.Lib.GLib.NullableUnownedUtf8)descriptionUtf8);
-        }
-
         /// <summary>
         /// Enables or disables automatic generation of `--help` output.
         /// By default, g_option_context_parse() recognizes `--help`, `-h`,
@@ -586,13 +579,6 @@ namespace GISharp.Lib.GLib
             g_option_context_set_summary(context_, summary_);
         }
 
-        [GISharp.Runtime.SinceAttribute("2.12")]
-        private unsafe void SetSummary(System.String? summary)
-        {
-            using var summaryUtf8 = summary == null ? null : new GISharp.Lib.GLib.Utf8(summary);
-            SetSummary((GISharp.Lib.GLib.NullableUnownedUtf8)summaryUtf8);
-        }
-
         /// <summary>
         /// Sets the function which is used to translate the contexts
         /// user-visible strings, for `--help` output. If @func is %NULL,
@@ -675,14 +661,6 @@ namespace GISharp.Lib.GLib
             var context_ = Handle;
             var domain_ = domain.Handle;
             g_option_context_set_translation_domain(context_, domain_);
-        }
-
-        /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.SetTranslationDomain(System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.12")]
-        public unsafe void SetTranslationDomain(System.String domain)
-        {
-            using var domainUtf8 = new GISharp.Lib.GLib.Utf8(domain);
-            SetTranslationDomain((GISharp.Lib.GLib.UnownedUtf8)domainUtf8);
         }
     }
 }

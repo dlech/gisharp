@@ -144,17 +144,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static unsafe System.IntPtr New(System.String? applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
-        {
-            using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
-            return New((GISharp.Lib.GLib.NullableUnownedUtf8)applicationIdUtf8, flags);
-        }
-
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Application(System.String?,GISharp.Lib.Gio.ApplicationFlags)']/*" />
-        public Application(System.String? applicationId, GISharp.Lib.Gio.ApplicationFlags flags) : this(New(applicationId, flags), GISharp.Runtime.Transfer.Full)
-        {
-        }
-
         /// <include file="Application.xmldoc" path="declaration/member[@name='ActivatedEventArgs']/*" />
         public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
         {
@@ -436,13 +425,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IdIsValid(System.String)']/*" />
-        public static unsafe System.Boolean IdIsValid(System.String applicationId)
-        {
-            using var applicationIdUtf8 = new GISharp.Lib.GLib.Utf8(applicationId);
-            return IdIsValid((GISharp.Lib.GLib.UnownedUtf8)applicationIdUtf8);
-        }
-
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -554,16 +536,6 @@ namespace GISharp.Lib.Gio
             var description_ = description.Handle;
             var argDescription_ = argDescription.Handle;
             g_application_add_main_option(application_, longName_, shortName_, flags_, arg_, description_, argDescription_);
-        }
-
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.AddMainOption(System.String,System.SByte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,System.String,System.String?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.42")]
-        public unsafe void AddMainOption(System.String longName, System.SByte shortName, GISharp.Lib.GLib.OptionFlags flags, GISharp.Lib.GLib.OptionArg arg, System.String description, System.String? argDescription)
-        {
-            using var longNameUtf8 = new GISharp.Lib.GLib.Utf8(longName);
-            using var descriptionUtf8 = new GISharp.Lib.GLib.Utf8(description);
-            using var argDescriptionUtf8 = argDescription == null ? null : new GISharp.Lib.GLib.Utf8(argDescription);
-            AddMainOption((GISharp.Lib.GLib.UnownedUtf8)longNameUtf8, shortName, flags, arg, (GISharp.Lib.GLib.UnownedUtf8)descriptionUtf8, (GISharp.Lib.GLib.NullableUnownedUtf8)argDescriptionUtf8);
         }
 
         /// <summary>
@@ -749,14 +721,6 @@ namespace GISharp.Lib.Gio
             var @object_ = @object.Handle;
             var property_ = property.Handle;
             g_application_bind_busy_property(application_, @object_, property_);
-        }
-
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.BindBusyProperty(GISharp.Lib.GObject.Object,System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.44")]
-        public unsafe void BindBusyProperty(GISharp.Lib.GObject.Object @object, System.String property)
-        {
-            using var propertyUtf8 = new GISharp.Lib.GLib.Utf8(property);
-            BindBusyProperty(@object, (GISharp.Lib.GLib.UnownedUtf8)propertyUtf8);
         }
 
         /// <summary>
@@ -1135,14 +1099,6 @@ namespace GISharp.Lib.Gio
             g_application_open(application_, files_, nFiles_, hint_);
         }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Open(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe void Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, System.String hint)
-        {
-            using var hintUtf8 = new GISharp.Lib.GLib.Utf8(hint);
-            Open(files, (GISharp.Lib.GLib.UnownedUtf8)hintUtf8);
-        }
-
         /// <summary>
         /// Immediately quits the application.
         /// </summary>
@@ -1472,13 +1428,6 @@ namespace GISharp.Lib.Gio
             g_application_set_application_id(application_, applicationId_);
         }
 
-        [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe void SetApplicationId(System.String? applicationId)
-        {
-            using var applicationIdUtf8 = applicationId == null ? null : new GISharp.Lib.GLib.Utf8(applicationId);
-            SetApplicationId((GISharp.Lib.GLib.NullableUnownedUtf8)applicationIdUtf8);
-        }
-
         /// <summary>
         /// Sets or unsets the default application for the process, as returned
         /// by g_application_get_default().
@@ -1614,14 +1563,6 @@ namespace GISharp.Lib.Gio
             g_application_set_option_context_description(application_, description_);
         }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.SetOptionContextDescription(System.String?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe void SetOptionContextDescription(System.String? description)
-        {
-            using var descriptionUtf8 = description == null ? null : new GISharp.Lib.GLib.Utf8(description);
-            SetOptionContextDescription((GISharp.Lib.GLib.NullableUnownedUtf8)descriptionUtf8);
-        }
-
         /// <summary>
         /// Sets the parameter string to be used by the commandline handling of @application.
         /// </summary>
@@ -1659,14 +1600,6 @@ namespace GISharp.Lib.Gio
             g_application_set_option_context_parameter_string(application_, parameterString_);
         }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.SetOptionContextParameterString(System.String?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe void SetOptionContextParameterString(System.String? parameterString)
-        {
-            using var parameterStringUtf8 = parameterString == null ? null : new GISharp.Lib.GLib.Utf8(parameterString);
-            SetOptionContextParameterString((GISharp.Lib.GLib.NullableUnownedUtf8)parameterStringUtf8);
-        }
-
         /// <summary>
         /// Adds a summary to the @application option context.
         /// </summary>
@@ -1699,14 +1632,6 @@ namespace GISharp.Lib.Gio
             var application_ = Handle;
             var summary_ = summary.Handle;
             g_application_set_option_context_summary(application_, summary_);
-        }
-
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.SetOptionContextSummary(System.String?)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe void SetOptionContextSummary(System.String? summary)
-        {
-            using var summaryUtf8 = summary == null ? null : new GISharp.Lib.GLib.Utf8(summary);
-            SetOptionContextSummary((GISharp.Lib.GLib.NullableUnownedUtf8)summaryUtf8);
         }
 
         /// <summary>
@@ -1771,13 +1696,6 @@ namespace GISharp.Lib.Gio
             g_application_set_resource_base_path(application_, resourcePath_);
         }
 
-        [GISharp.Runtime.SinceAttribute("2.42")]
-        private unsafe void SetResourceBasePath(System.String? resourcePath)
-        {
-            using var resourcePathUtf8 = resourcePath == null ? null : new GISharp.Lib.GLib.Utf8(resourcePath);
-            SetResourceBasePath((GISharp.Lib.GLib.NullableUnownedUtf8)resourcePathUtf8);
-        }
-
         /// <summary>
         /// Destroys a binding between @property and the busy state of
         /// @application that was previously created with
@@ -1815,14 +1733,6 @@ namespace GISharp.Lib.Gio
             var @object_ = @object.Handle;
             var property_ = property.Handle;
             g_application_unbind_busy_property(application_, @object_, property_);
-        }
-
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.UnbindBusyProperty(GISharp.Lib.GObject.Object,System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.44")]
-        public unsafe void UnbindBusyProperty(GISharp.Lib.GObject.Object @object, System.String property)
-        {
-            using var propertyUtf8 = new GISharp.Lib.GLib.Utf8(property);
-            UnbindBusyProperty(@object, (GISharp.Lib.GLib.UnownedUtf8)propertyUtf8);
         }
 
         /// <summary>
@@ -1896,14 +1806,6 @@ namespace GISharp.Lib.Gio
             var application_ = Handle;
             var id_ = id.Handle;
             g_application_withdraw_notification(application_, id_);
-        }
-
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.WithdrawNotification(System.String)']/*" />
-        [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe void WithdrawNotification(System.String id)
-        {
-            using var idUtf8 = new GISharp.Lib.GLib.Utf8(id);
-            WithdrawNotification((GISharp.Lib.GLib.UnownedUtf8)idUtf8);
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoActivate()']/*" />
