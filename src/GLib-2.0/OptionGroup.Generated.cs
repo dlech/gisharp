@@ -16,6 +16,8 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 description, GISharp.Lib.GLib.UnownedUtf8 helpDescription, System.IntPtr userData, GISharp.Lib.GLib.DestroyNotify? destroy);
+
         /// <summary>
         /// Creates a new #GOptionGroup.
         /// </summary>
@@ -64,6 +66,7 @@ namespace GISharp.Lib.GLib
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr destroy);
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -188,11 +191,13 @@ namespace GISharp.Lib.GLib
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr destroyNotify);
+        static partial void CheckSetTranslateFuncArgs(GISharp.Lib.GLib.TranslateFunc? func);
 
         /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
+            CheckSetTranslateFuncArgs(func);
             var group_ = Handle;
             var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToPointer(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_group_set_translate_func(group_, func_, data_, destroyNotify_);
@@ -219,11 +224,13 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr domain);
+        static partial void CheckSetTranslationDomainArgs(GISharp.Lib.GLib.UnownedUtf8 domain);
 
         /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
+            CheckSetTranslationDomainArgs(domain);
             var group_ = Handle;
             var domain_ = domain.Handle;
             g_option_group_set_translation_domain(group_, domain_);

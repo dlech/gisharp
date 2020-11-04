@@ -10,54 +10,7 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_initable_get_type();
 
-        /// <summary>
-        /// Helper function for constructing #GInitable object. This is
-        /// similar to g_object_newv() but also initializes the object
-        /// and returns %NULL, setting an error on failure.
-        /// </summary>
-        /// <param name="objectType">
-        /// a #GType supporting #GInitable.
-        /// </param>
-        /// <param name="nParameters">
-        /// the number of parameters in @parameters
-        /// </param>
-        /// <param name="parameters">
-        /// the parameters to use to construct the object
-        /// </param>
-        /// <param name="cancellable">
-        /// optional #GCancellable object, %NULL to ignore.
-        /// </param>
-        /// <param name="error">
-        /// return location for a #GError
-        /// </param>
-        /// <returns>
-        /// a newly allocated
-        ///      #GObject, or %NULL on error
-        /// </returns>
-        [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_initable_init() instead. See #GParameter for more information.")]
-        [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
-        [GISharp.Runtime.SinceAttribute("2.22")]
-        [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_initable_newv(
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.GType objectType,
-        /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
-        /* transfer-ownership:none direction:in */
-        System.UInt32 nParameters,
-        /* <array length="1" zero-terminated="0" type="GParameter*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="GObject.Parameter" type="GParameter" managed-name="GISharp.Lib.GObject.Parameter" />
-* </array> */
-        /* transfer-ownership:none direction:in */
-        in GISharp.Lib.GObject.Parameter parameters,
-        /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable,
-        /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
-        /* direction:inout transfer-ownership:full */
-        ref System.IntPtr error);
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -142,11 +95,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckInitArgs(this GISharp.Lib.Gio.IInitable initable, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="Initable.xmldoc" path="declaration/member[@name='Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void Init(this GISharp.Lib.Gio.IInitable initable, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckInitArgs(initable, cancellable);
             var initable_ = initable.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;

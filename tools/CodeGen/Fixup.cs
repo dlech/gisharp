@@ -1023,10 +1023,10 @@ namespace GISharp.CodeGen
         {
             foreach (var e in doc.Descendants().Where(d => ElementsThatDefineAType.Contains(d.Name))) {
                 if (e.Attribute("name") == null) {
-                    Log.Warning("Missing name attribute at {0}", e.GetXPath());
+                    Log.Warning($"Missing name attribute at {e.GetXPath()}");
                 }
                 if (e.Attribute(gs + "managed-name") == null) {
-                    Log.Warning("Missing gs:managed-name attribute at {0}", e.GetXPath());
+                    Log.Warning($"Missing gs:managed-name attribute at {e.GetXPath()}");
                 }
             }
         }

@@ -13,6 +13,8 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        static partial void CheckNewArgs(GISharp.Lib.Gio.Cancellable? cancellable = null);
+
         /// <summary>
         /// Creates a source that triggers if @cancellable is cancelled and
         /// calls its callback of type #GCancellableSourceFunc. This is
@@ -43,6 +45,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr New(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckNewArgs(cancellable);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_cancellable_source_new(cancellable_);
             return ret_;

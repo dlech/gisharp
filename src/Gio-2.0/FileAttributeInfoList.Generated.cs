@@ -30,6 +30,8 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        static partial void CheckNewArgs();
+
         /// <summary>
         /// Creates a new file attribute info list.
         /// </summary>
@@ -43,6 +45,7 @@ namespace GISharp.Lib.Gio
 
         static unsafe System.IntPtr New()
         {
+            CheckNewArgs();
             var ret_ = g_file_attribute_info_list_new();
             return ret_;
         }
@@ -52,6 +55,7 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -89,10 +93,12 @@ namespace GISharp.Lib.Gio
         /* <type name="FileAttributeInfoFlags" type="GFileAttributeInfoFlags" managed-name="FileAttributeInfoFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileAttributeInfoFlags flags);
+        static partial void CheckAddArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags);
 
         /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Add(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,GISharp.Lib.Gio.FileAttributeInfoFlags)']/*" />
         public unsafe void Add(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
         {
+            CheckAddArgs(name, type, flags);
             var list_ = Handle;
             var name_ = name.Handle;
             var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
@@ -116,10 +122,12 @@ namespace GISharp.Lib.Gio
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" managed-name="FileAttributeInfoList" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr list);
+        static partial void CheckDupArgs();
 
         /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Dup()']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeInfoList Dup()
         {
+            CheckDupArgs();
             var list_ = Handle;
             var ret_ = g_file_attribute_info_list_dup(list_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeInfoList>(ret_, GISharp.Runtime.Transfer.Full)!;
@@ -149,10 +157,12 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr name);
+        static partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Lookup(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(GISharp.Lib.GLib.UnownedUtf8 name)
         {
+            CheckLookupArgs(name);
             var list_ = Handle;
             var name_ = name.Handle;
             var ret_ = g_file_attribute_info_list_lookup(list_,name_);

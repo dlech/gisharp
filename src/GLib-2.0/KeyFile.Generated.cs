@@ -124,6 +124,8 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        static partial void CheckNewArgs();
+
         /// <summary>
         /// Creates a new empty #GKeyFile object. Use
         /// g_key_file_load_from_file(), g_key_file_load_from_data(),
@@ -142,6 +144,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         static unsafe System.IntPtr New()
         {
+            CheckNewArgs();
             var ret_ = g_key_file_new();
             return ret_;
         }
@@ -152,6 +155,7 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -200,11 +204,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetBooleanArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Boolean GetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetBooleanArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -273,11 +279,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetBooleanListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Runtime.CArray<GISharp.Runtime.Boolean> GetBooleanList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetBooleanListArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -336,11 +344,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetCommentArgs(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetComment(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetCommentArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -399,11 +409,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetDoubleArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe System.Double GetDouble(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetDoubleArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -472,11 +484,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetDoubleListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe GISharp.Runtime.CArray<System.Double> GetDoubleList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetDoubleListArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -520,10 +534,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         out System.UIntPtr length);
+        static partial void CheckGetGroupsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe GISharp.Lib.GLib.Strv GetGroups()
         {
+            CheckGetGroupsArgs();
             var keyFile_ = Handle;
             var ret_ = g_key_file_get_groups(keyFile_,out var length_);
             var ret = new GISharp.Lib.GLib.Strv(ret_, (int)length_, GISharp.Runtime.Transfer.Full);
@@ -568,11 +584,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetInt64Args(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int64 GetInt64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetInt64Args(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -632,11 +650,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetIntegerArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Int32 GetInteger(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetIntegerArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -706,11 +726,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetIntegerListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Runtime.CArray<System.Int32> GetIntegerList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetIntegerListArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -768,11 +790,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetKeysArgs(GISharp.Lib.GLib.UnownedUtf8 groupName);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetKeys(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetKeys(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
+            CheckGetKeysArgs(groupName);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var error_ = System.IntPtr.Zero;
@@ -832,11 +856,13 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr locale);
+        static partial void CheckGetLocaleForKeyArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe GISharp.Lib.GLib.Utf8? GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale)
         {
+            CheckGetLocaleForKeyArgs(groupName, key, locale);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -900,11 +926,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetLocaleStringArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetLocaleString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale)
         {
+            CheckGetLocaleStringArgs(groupName, key, locale);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -986,11 +1014,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetLocaleStringListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale)
         {
+            CheckGetLocaleStringListArgs(groupName, key, locale);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -1024,10 +1054,12 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr keyFile);
+        static partial void CheckGetStartGroupArgs();
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         private unsafe GISharp.Lib.GLib.Utf8 GetStartGroup()
         {
+            CheckGetStartGroupArgs();
             var keyFile_ = Handle;
             var ret_ = g_key_file_get_start_group(keyFile_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
@@ -1078,11 +1110,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetStringArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetStringArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -1149,11 +1183,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetStringListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Strv GetStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetStringListArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -1207,11 +1243,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetUint64Args(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.UInt64 GetUint64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetUint64Args(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -1270,11 +1308,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetValueArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.GetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 GetValue(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckGetValueArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -1314,11 +1354,13 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr groupName);
+        static partial void CheckHasGroupArgs(GISharp.Lib.GLib.UnownedUtf8 groupName);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.HasGroup(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe System.Boolean HasGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
+            CheckHasGroupArgs(groupName);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var ret_ = g_key_file_has_group(keyFile_,groupName_);
@@ -1362,11 +1404,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckLoadFromBytesArgs(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.GLib.KeyFileFlags flags);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.LoadFromBytes(GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.50")]
         public unsafe void LoadFromBytes(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.GLib.KeyFileFlags flags)
         {
+            CheckLoadFromBytesArgs(bytes, flags);
             var keyFile_ = Handle;
             var bytes_ = bytes.Handle;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
@@ -1421,11 +1465,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckLoadFromDataArgs(GISharp.Lib.GLib.UnownedUtf8 data, System.Int32 length, GISharp.Lib.GLib.KeyFileFlags flags);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.LoadFromData(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void LoadFromData(GISharp.Lib.GLib.UnownedUtf8 data, System.Int32 length, GISharp.Lib.GLib.KeyFileFlags flags)
         {
+            CheckLoadFromDataArgs(data, length, flags);
             var keyFile_ = Handle;
             var data_ = data.Handle;
             var length_ = (System.UIntPtr)length;
@@ -1485,11 +1531,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckLoadFromDataDirsArgs(GISharp.Lib.GLib.Filename file, GISharp.Lib.GLib.KeyFileFlags flags);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.LoadFromDataDirs(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void LoadFromDataDirs(GISharp.Lib.GLib.Filename file, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
         {
+            CheckLoadFromDataDirsArgs(file, flags);
             var keyFile_ = Handle;
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
@@ -1563,11 +1611,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckLoadFromDirsArgs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.FilenameArray searchDirs, GISharp.Lib.GLib.KeyFileFlags flags);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.LoadFromDirs(GISharp.Lib.GLib.Filename,GISharp.Runtime.FilenameArray,GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public unsafe void LoadFromDirs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.FilenameArray searchDirs, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
         {
+            CheckLoadFromDirsArgs(file, searchDirs, flags);
             var keyFile_ = Handle;
             var file_ = file.Handle;
             ref readonly var searchDirs_ = ref searchDirs.GetPinnableReference();
@@ -1626,11 +1676,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckLoadFromFileArgs(GISharp.Lib.GLib.Filename file, GISharp.Lib.GLib.KeyFileFlags flags);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.LoadFromFile(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.KeyFileFlags)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void LoadFromFile(GISharp.Lib.GLib.Filename file, GISharp.Lib.GLib.KeyFileFlags flags)
         {
+            CheckLoadFromFileArgs(file, flags);
             var keyFile_ = Handle;
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
@@ -1681,11 +1733,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckRemoveCommentArgs(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.NullableUnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.NullableUnownedUtf8 key)
         {
+            CheckRemoveCommentArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -1728,11 +1782,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckRemoveGroupArgs(GISharp.Lib.GLib.UnownedUtf8 groupName);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.RemoveGroup(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
+            CheckRemoveGroupArgs(groupName);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var error_ = System.IntPtr.Zero;
@@ -1779,11 +1835,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckRemoveKeyArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.RemoveKey(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void RemoveKey(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckRemoveKeyArgs(groupName, key);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -1832,11 +1890,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSaveToFileArgs(GISharp.Lib.GLib.UnownedUtf8 filename);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SaveToFile(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void SaveToFile(GISharp.Lib.GLib.UnownedUtf8 filename)
         {
+            CheckSaveToFileArgs(filename);
             var keyFile_ = Handle;
             var filename_ = filename.Handle;
             var error_ = System.IntPtr.Zero;
@@ -1881,11 +1941,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean value);
+        static partial void CheckSetBooleanArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Boolean value);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetBoolean(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Boolean value)
         {
+            CheckSetBooleanArgs(groupName, key, value);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -1935,11 +1997,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
+        static partial void CheckSetBooleanListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<GISharp.Runtime.Boolean> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetBooleanList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<GISharp.Runtime.Boolean> list)
         {
+            CheckSetBooleanListArgs(groupName, key, list);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -1997,11 +2061,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetCommentArgs(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.NullableUnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 comment);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetComment(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.NullableUnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 comment)
         {
+            CheckSetCommentArgs(groupName, key, comment);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2048,11 +2114,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
         /* transfer-ownership:none direction:in */
         System.Double value);
+        static partial void CheckSetDoubleArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Double value);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetDouble(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetDouble(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Double value)
         {
+            CheckSetDoubleArgs(groupName, key, value);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2101,11 +2169,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
+        static partial void CheckSetDoubleListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Double> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Double&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe void SetDoubleList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Double> list)
         {
+            CheckSetDoubleListArgs(groupName, key, list);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2147,11 +2217,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
         System.Int64 value);
+        static partial void CheckSetInt64Args(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int64 value);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetInt64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe void SetInt64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int64 value)
         {
+            CheckSetInt64Args(groupName, key, value);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2192,11 +2264,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 value);
+        static partial void CheckSetIntegerArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int32 value);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetInteger(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetInteger(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int32 value)
         {
+            CheckSetIntegerArgs(groupName, key, value);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2245,11 +2319,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
+        static partial void CheckSetIntegerListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Int32> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Int32&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetIntegerList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Int32> list)
         {
+            CheckSetIntegerListArgs(groupName, key, list);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2280,11 +2356,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gchar" type="gchar" managed-name="System.SByte" /> */
         /* transfer-ownership:none direction:in */
         System.SByte separator);
+        static partial void CheckSetListSeparatorArgs(System.SByte separator);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetListSeparator(System.SByte)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetListSeparator(System.SByte separator)
         {
+            CheckSetListSeparatorArgs(separator);
             var keyFile_ = Handle;
             var separator_ = (System.SByte)separator;
             g_key_file_set_list_separator(keyFile_, separator_);
@@ -2329,11 +2407,13 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr @string);
+        static partial void CheckSetLocaleStringArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Lib.GLib.UnownedUtf8 @string);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetLocaleString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetLocaleString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Lib.GLib.UnownedUtf8 @string)
         {
+            CheckSetLocaleStringArgs(groupName, key, locale, @string);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2390,11 +2470,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
+        static partial void CheckSetLocaleStringListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
         {
+            CheckSetLocaleStringListArgs(groupName, key, locale, list);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2440,11 +2522,13 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr @string);
+        static partial void CheckSetStringArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 @string);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetString(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 @string)
         {
+            CheckSetStringArgs(groupName, key, @string);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2494,11 +2578,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.UIntPtr length);
+        static partial void CheckSetStringListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
         {
+            CheckSetStringListArgs(groupName, key, list);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2540,11 +2626,13 @@ namespace GISharp.Lib.GLib
         /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
         /* transfer-ownership:none direction:in */
         System.UInt64 value);
+        static partial void CheckSetUint64Args(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.UInt64 value);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetUint64(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.UInt64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe void SetUint64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.UInt64 value)
         {
+            CheckSetUint64Args(groupName, key, value);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2590,11 +2678,13 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
+        static partial void CheckSetValueArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 value);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetValue(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe void SetValue(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 value)
         {
+            CheckSetValueArgs(groupName, key, value);
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
@@ -2637,11 +2727,13 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckToDataArgs();
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.ToData(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
         public unsafe GISharp.Lib.GLib.Utf8 ToData(out System.Int32 length)
         {
+            CheckToDataArgs();
             var keyFile_ = Handle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_to_data(keyFile_,out var length_,ref error_);

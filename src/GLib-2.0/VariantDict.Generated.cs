@@ -17,6 +17,8 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        static partial void CheckNewArgs(GISharp.Lib.GLib.Variant? fromAsv);
+
         /// <summary>
         /// Allocates and initialises a new #GVariantDict.
         /// </summary>
@@ -49,7 +51,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.40")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.Variant? fromAsv)
         {
-            AssertNewArgs(fromAsv);
+            CheckNewArgs(fromAsv);
             var fromAsv_ = fromAsv?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_variant_dict_new(fromAsv_);
             return ret_;
@@ -61,6 +63,7 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -89,11 +92,13 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key);
+        static partial void CheckContainsArgs(GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Contains(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe System.Boolean Contains(GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckContainsArgs(key);
             var dict_ = Handle;
             var key_ = key.Handle;
             var ret_ = g_variant_dict_contains(dict_,key_);
@@ -125,11 +130,13 @@ namespace GISharp.Lib.GLib
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr dict);
+        static partial void CheckEndArgs();
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.End()']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe GISharp.Lib.GLib.Variant End()
         {
+            CheckEndArgs();
             var dict_ = Handle;
             var ret_ = g_variant_dict_end(dict_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.None)!;
@@ -165,11 +172,13 @@ namespace GISharp.Lib.GLib
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
+        static partial void CheckInsertArgs(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.Variant value);
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Insert(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe void Insert(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.Variant value)
         {
+            CheckInsertArgs(key, value);
             var dict_ = Handle;
             var key_ = key.Handle;
             var value_ = value.Handle;
@@ -216,11 +225,13 @@ namespace GISharp.Lib.GLib
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr expectedType);
+        static partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null);
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe GISharp.Lib.GLib.Variant Lookup(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null)
         {
+            CheckLookupArgs(key, expectedType);
             var dict_ = Handle;
             var key_ = key.Handle;
             var expectedType_ = expectedType?.Handle ?? System.IntPtr.Zero;
@@ -280,11 +291,13 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr key);
+        static partial void CheckRemoveArgs(GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Remove(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe System.Boolean Remove(GISharp.Lib.GLib.UnownedUtf8 key)
         {
+            CheckRemoveArgs(key);
             var dict_ = Handle;
             var key_ = key.Handle;
             var ret_ = g_variant_dict_remove(dict_,key_);

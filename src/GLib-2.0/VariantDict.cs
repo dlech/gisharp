@@ -13,7 +13,7 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static void AssertNewArgs(Variant? fromAsv)
+        static partial void CheckNewArgs(Variant? fromAsv)
         {
             if (fromAsv == null) {
                 return;

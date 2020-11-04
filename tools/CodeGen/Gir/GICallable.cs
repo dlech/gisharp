@@ -13,15 +13,6 @@ namespace GISharp.CodeGen.Gir
         public bool ThrowsGErrorException { get; }
 
         /// <summary>
-        /// Indicates that there is a custom arg check that should be called
-        /// </summary>
-        /// <remarks>
-        /// The custom arg check must be defined manually in a partial class
-        /// matching type this callable belongs to
-        /// </remarks>
-        public bool HasCustomArgCheck { get; }
-
-        /// <summary>
         /// Indicates that this callable is a .NET async method
         /// </summary>
         public bool IsAsync { get; }
@@ -54,7 +45,6 @@ namespace GISharp.CodeGen.Gir
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
             ThrowsGErrorException = Element.Attribute("throws").AsBool();
-            HasCustomArgCheck = Element.Attribute(gs + "custom-arg-check").AsBool();
             IsAsync = Element.Attribute(gs + "async").AsBool();
             FinishFor = Element.Attribute(gs + "finish-for").AsString();
             _ReturnValue = new Lazy<ReturnValue>(LazyGetReturnValue, false);

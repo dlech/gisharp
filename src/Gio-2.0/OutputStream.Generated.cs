@@ -38,6 +38,7 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -56,10 +57,12 @@ namespace GISharp.Lib.Gio
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
+        static partial void CheckClearPendingArgs();
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.ClearPending()']/*" />
         public unsafe void ClearPending()
         {
+            CheckClearPendingArgs();
             var stream_ = Handle;
             g_output_stream_clear_pending(stream_);
         }
@@ -121,10 +124,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckCloseArgs(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Close(GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe void Close(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCloseArgs(cancellable);
             var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -183,10 +188,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckCloseAsyncArgs(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task CloseAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCloseAsyncArgs(ioPriority, cancellable);
             var stream_ = Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -289,10 +296,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckFlushArgs(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Flush(GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe void Flush(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckFlushArgs(cancellable);
             var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -348,10 +357,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckFlushAsyncArgs(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.FlushAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task FlushAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckFlushAsyncArgs(ioPriority, cancellable);
             var stream_ = Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -433,10 +444,12 @@ namespace GISharp.Lib.Gio
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
+        static partial void CheckHasPendingArgs();
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.HasPending()']/*" />
         public unsafe System.Boolean HasPending()
         {
+            CheckHasPendingArgs();
             var stream_ = Handle;
             var ret_ = g_output_stream_has_pending(stream_);
             var ret = (System.Boolean)ret_;
@@ -459,9 +472,11 @@ namespace GISharp.Lib.Gio
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
+        static partial void CheckGetIsClosedArgs();
 
         private unsafe System.Boolean GetIsClosed()
         {
+            CheckGetIsClosedArgs();
             var stream_ = Handle;
             var ret_ = g_output_stream_is_closed(stream_);
             var ret = (System.Boolean)ret_;
@@ -488,10 +503,12 @@ namespace GISharp.Lib.Gio
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
+        static partial void CheckGetIsClosingArgs();
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         private unsafe System.Boolean GetIsClosing()
         {
+            CheckGetIsClosingArgs();
             var stream_ = Handle;
             var ret_ = g_output_stream_is_closing(stream_);
             var ret = (System.Boolean)ret_;
@@ -522,10 +539,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetPendingArgs();
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.SetPending()']/*" />
         public unsafe void SetPending()
         {
+            CheckSetPendingArgs();
             var stream_ = Handle;
             var error_ = System.IntPtr.Zero;
             g_output_stream_set_pending(stream_, ref error_);
@@ -580,10 +599,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSpliceArgs(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Splice(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Int32 Splice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSpliceArgs(source, flags, cancellable);
             var stream_ = Handle;
             var source_ = source.Handle;
             var flags_ = (GISharp.Lib.Gio.OutputStreamSpliceFlags)flags;
@@ -658,10 +679,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckSpliceAsyncArgs(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.SpliceAsync(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task<System.Int32> SpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSpliceAsyncArgs(source, flags, ioPriority, cancellable);
             var stream_ = Handle;
             var source_ = source.Handle;
             var flags_ = (GISharp.Lib.Gio.OutputStreamSpliceFlags)flags;
@@ -795,10 +818,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckWriteArgs(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Write(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Int32 Write(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWriteArgs(buffer, cancellable);
             var stream_ = Handle;
             ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
@@ -883,10 +908,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckWriteAllArgs(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe void WriteAll(System.ReadOnlySpan<System.Byte> buffer, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWriteAllArgs(buffer, cancellable);
             var stream_ = Handle;
             ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
@@ -971,11 +998,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckWriteAllAsyncArgs(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteAllAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe System.Threading.Tasks.Task<System.Int32> WriteAllAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWriteAllAsyncArgs(buffer, ioPriority, cancellable);
             var stream_ = Handle;
             ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
@@ -1149,10 +1178,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckWriteAsyncArgs(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task<System.Int32> WriteAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWriteAsyncArgs(buffer, ioPriority, cancellable);
             var stream_ = Handle;
             ref readonly var buffer_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(buffer);
             var count_ = (System.UIntPtr)buffer.Length;
@@ -1210,10 +1241,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckWriteBytesArgs(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteBytes(GISharp.Lib.GLib.Bytes,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Int32 WriteBytes(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWriteBytesArgs(bytes, cancellable);
             var stream_ = Handle;
             var bytes_ = bytes.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -1287,10 +1320,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckWriteBytesAsyncArgs(GISharp.Lib.GLib.Bytes bytes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteBytesAsync(GISharp.Lib.GLib.Bytes,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe System.Threading.Tasks.Task<System.Int32> WriteBytesAsync(GISharp.Lib.GLib.Bytes bytes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWriteBytesAsyncArgs(bytes, ioPriority, cancellable);
             var stream_ = Handle;
             var bytes_ = bytes.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
@@ -1487,11 +1522,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckWritevArgs(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Writev(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         public unsafe void Writev(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWritevArgs(vectors, cancellable);
             var stream_ = Handle;
             ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;
@@ -1579,11 +1616,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckWritevAllArgs(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WritevAll(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         public unsafe void WritevAll(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWritevAllArgs(vectors, cancellable);
             var stream_ = Handle;
             ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;
@@ -1669,11 +1708,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckWritevAllAsyncArgs(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WritevAllAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         public unsafe System.Threading.Tasks.Task<System.Int32> WritevAllAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWritevAllAsyncArgs(vectors, ioPriority, cancellable);
             var stream_ = Handle;
             ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;
@@ -1843,11 +1884,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckWritevAsyncArgs(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WritevAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         public unsafe System.Threading.Tasks.Task<System.Int32> WritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckWritevAsyncArgs(vectors, ioPriority, cancellable);
             var stream_ = Handle;
             ref readonly var vectors_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(vectors);
             var nVectors_ = (System.UIntPtr)vectors.Length;

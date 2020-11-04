@@ -56,6 +56,8 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        static partial void CheckSpliceFinishArgs(GISharp.Lib.Gio.IAsyncResult result);
+
         /// <summary>
         /// Finishes an asynchronous io stream splice operation.
         /// </summary>
@@ -106,6 +108,7 @@ namespace GISharp.Lib.Gio
         static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback spliceAsyncCallbackDelegate = SpliceFinish;
         static readonly System.IntPtr spliceAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(spliceAsyncCallbackDelegate);
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -125,11 +128,13 @@ namespace GISharp.Lib.Gio
         /* <type name="IOStream" type="GIOStream*" managed-name="IOStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
+        static partial void CheckClearPendingArgs();
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.ClearPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe void ClearPending()
         {
+            CheckClearPendingArgs();
             var stream_ = Handle;
             g_io_stream_clear_pending(stream_);
         }
@@ -196,11 +201,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckCloseArgs(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.Close(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe void Close(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCloseArgs(cancellable);
             var stream_ = Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -260,11 +267,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckCloseAsyncArgs(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Threading.Tasks.Task CloseAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCloseAsyncArgs(ioPriority, cancellable);
             var stream_ = Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -350,10 +359,12 @@ namespace GISharp.Lib.Gio
         /* <type name="IOStream" type="GIOStream*" managed-name="IOStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
+        static partial void CheckGetInputStreamArgs();
 
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe GISharp.Lib.Gio.InputStream GetInputStream()
         {
+            CheckGetInputStreamArgs();
             var stream_ = Handle;
             var ret_ = g_io_stream_get_input_stream(stream_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(ret_, GISharp.Runtime.Transfer.None)!;
@@ -379,10 +390,12 @@ namespace GISharp.Lib.Gio
         /* <type name="IOStream" type="GIOStream*" managed-name="IOStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
+        static partial void CheckGetOutputStreamArgs();
 
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe GISharp.Lib.Gio.OutputStream GetOutputStream()
         {
+            CheckGetOutputStreamArgs();
             var stream_ = Handle;
             var ret_ = g_io_stream_get_output_stream(stream_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(ret_, GISharp.Runtime.Transfer.None)!;
@@ -406,11 +419,13 @@ namespace GISharp.Lib.Gio
         /* <type name="IOStream" type="GIOStream*" managed-name="IOStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
+        static partial void CheckHasPendingArgs();
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.HasPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe System.Boolean HasPending()
         {
+            CheckHasPendingArgs();
             var stream_ = Handle;
             var ret_ = g_io_stream_has_pending(stream_);
             var ret = (System.Boolean)ret_;
@@ -434,10 +449,12 @@ namespace GISharp.Lib.Gio
         /* <type name="IOStream" type="GIOStream*" managed-name="IOStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr stream);
+        static partial void CheckGetIsClosedArgs();
 
         [GISharp.Runtime.SinceAttribute("2.22")]
         private unsafe System.Boolean GetIsClosed()
         {
+            CheckGetIsClosedArgs();
             var stream_ = Handle;
             var ret_ = g_io_stream_is_closed(stream_);
             var ret = (System.Boolean)ret_;
@@ -469,11 +486,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetPendingArgs();
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.SetPending()']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe void SetPending()
         {
+            CheckSetPendingArgs();
             var stream_ = Handle;
             var error_ = System.IntPtr.Zero;
             g_io_stream_set_pending(stream_, ref error_);
@@ -541,11 +560,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckSpliceAsyncArgs(GISharp.Lib.Gio.IOStream stream2, GISharp.Lib.Gio.IOStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe System.Threading.Tasks.Task SpliceAsync(GISharp.Lib.Gio.IOStream stream2, GISharp.Lib.Gio.IOStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSpliceAsyncArgs(stream2, flags, ioPriority, cancellable);
             var stream1_ = Handle;
             var stream2_ = stream2.Handle;
             var flags_ = (GISharp.Lib.Gio.IOStreamSpliceFlags)flags;

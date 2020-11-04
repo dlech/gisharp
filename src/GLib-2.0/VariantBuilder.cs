@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
 {
     partial class VariantBuilder
     {
-        static void AssertNewArgs(VariantType type)
+        static partial void CheckNewArgs(VariantType type)
         {
             if (type == null) {
                 return;

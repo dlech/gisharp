@@ -4,7 +4,7 @@ namespace GISharp.Lib.GLib
 {
     partial class DateTime
     {
-        static void AssertArgs(int year, int month, int day, int hour, int minute, double seconds)
+        static void CheckArgs(int year, int month, int day, int hour, int minute, double seconds)
         {
             if (year < 1 || year > 9999) {
                 throw new ArgumentOutOfRangeException(nameof(year));
@@ -26,19 +26,19 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static void AssertNewArgs(TimeZone tz, int year, int month, int day, int hour, int minute, double seconds)
+        static partial void CheckNewArgs(TimeZone tz, int year, int month, int day, int hour, int minute, double seconds)
         {
-            AssertArgs(year, month, day, hour, minute, seconds);
+            CheckArgs(year, month, day, hour, minute, seconds);
         }
 
-        static void AssertGetLocalArgs(int year, int month, int day, int hour, int minute, double seconds)
+        static partial void CheckGetLocalArgs(int year, int month, int day, int hour, int minute, double seconds)
         {
-            AssertArgs(year, month, day, hour, minute, seconds);
+            CheckArgs(year, month, day, hour, minute, seconds);
         }
 
-        static void AssertGetUtcArgs(int year, int month, int day, int hour, int minute, double seconds)
+        static partial void CheckGetUtcArgs(int year, int month, int day, int hour, int minute, double seconds)
         {
-            AssertArgs(year, month, day, hour, minute, seconds);
+            CheckArgs(year, month, day, hour, minute, seconds);
         }
     }
 }

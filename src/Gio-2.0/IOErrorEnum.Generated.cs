@@ -132,6 +132,8 @@ namespace GISharp.Lib.Gio
         /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
+        static partial void CheckFromErrnoArgs(System.Int32 errno);
+
         /// <summary>
         /// Converts errno.h error codes into GIO error codes. The fallback
         /// value %G_IO_ERROR_FAILED is returned for error codes not currently
@@ -159,11 +161,14 @@ namespace GISharp.Lib.Gio
         /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.FromErrno(System.Int32)']/*" />
         public static unsafe GISharp.Lib.Gio.IOErrorEnum FromErrno(System.Int32 errno)
         {
+            CheckFromErrnoArgs(errno);
             var errno_ = (System.Int32)errno;
             var ret_ = g_io_error_from_errno(errno_);
             var ret = (GISharp.Lib.Gio.IOErrorEnum)ret_;
             return ret;
         }
+
+        static partial void CheckGetQuarkArgs();
 
         /// <summary>
         /// Gets the GIO Error Quark.
@@ -178,11 +183,13 @@ namespace GISharp.Lib.Gio
 
         private static unsafe GISharp.Lib.GLib.Quark GetQuark()
         {
+            CheckGetQuarkArgs();
             var ret_ = g_io_error_quark();
             var ret = (GISharp.Lib.GLib.Quark)ret_;
             return ret;
         }
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */

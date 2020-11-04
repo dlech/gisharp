@@ -41,6 +41,8 @@ namespace GISharp.Lib.Gio
         {
         }
 
+        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType);
+
         /// <summary>
         /// Creates a new action.
         /// </summary>
@@ -73,6 +75,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
         {
+            CheckNewArgs(name, parameterType);
             var name_ = name.Handle;
             var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_simple_action_new(name_,parameterType_);
@@ -84,6 +87,8 @@ namespace GISharp.Lib.Gio
         public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
         }
+
+        static partial void CheckNewStatefulArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state);
 
         /// <summary>
         /// Creates a new stateful action.
@@ -125,6 +130,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         static unsafe System.IntPtr NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
         {
+            CheckNewStatefulArgs(name, parameterType, state);
             var name_ = name.Handle;
             var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
             var state_ = state.Handle;
@@ -186,6 +192,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("change-state", When = GISharp.Runtime.EmissionStage.Last)]
         public event System.EventHandler<StateChangedEventArgs> StateChanged { add => stateChangedSignalManager.Add(this, value); remove => stateChangedSignalManager.Remove(value); }
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -218,11 +225,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean enabled);
+        static partial void CheckSetEnabledArgs(System.Boolean enabled);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetEnabled(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         public unsafe void SetEnabled(System.Boolean enabled)
         {
+            CheckSetEnabledArgs(enabled);
             var simple_ = Handle;
             var enabled_ = (GISharp.Runtime.Boolean)enabled;
             g_simple_action_set_enabled(simple_, enabled_);
@@ -258,11 +267,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr value);
+        static partial void CheckSetStateArgs(GISharp.Lib.GLib.Variant value);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetState(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         public unsafe void SetState(GISharp.Lib.GLib.Variant value)
         {
+            CheckSetStateArgs(value);
             var simple_ = Handle;
             var value_ = value.Handle;
             g_simple_action_set_state(simple_, value_);
@@ -292,11 +303,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr stateHint);
+        static partial void CheckSetStateHintArgs(GISharp.Lib.GLib.Variant? stateHint);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetStateHint(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         public unsafe void SetStateHint(GISharp.Lib.GLib.Variant? stateHint)
         {
+            CheckSetStateHintArgs(stateHint);
             var simple_ = Handle;
             var stateHint_ = stateHint?.Handle ?? System.IntPtr.Zero;
             g_simple_action_set_state_hint(simple_, stateHint_);

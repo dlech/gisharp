@@ -1,12 +1,6 @@
 
 ### VariantBuilder ###
 
-# need to validate arg is containter type
-- !set-attribute
-  name: gs:custom-arg-check
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='VariantBuilder']/gi:constructor[@name='new']
-
 # Make add_value an overload of add
 - !set-attribute
   name: name

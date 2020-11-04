@@ -17,6 +17,19 @@ namespace GISharp.CodeGen.Syntax
     public static class GICallableExtensions
     {
         /// <summary>
+        /// Gets a partial static method declaration for checking managed arguments.
+        /// </summary>
+        internal static MethodDeclarationSyntax GetCheckArgsMethodDeclaration(this GICallable callable)
+        {
+            var declaration = MethodDeclaration(IdentifierName("void"), $"Check{callable.ManagedName}Args")
+                .AddModifiers(Token(StaticKeyword), Token(PartialKeyword))
+                .AddParameterListParameters(callable.ManagedParameters.Where(x => x.Direction != "out")
+                    .Select(x => x.GetParameter()).ToArray()
+                ).WithSemicolonToken(Token(SemicolonToken));
+            return declaration;
+        }
+
+        /// <summary>
         /// Gets statements for invoking a callable
         /// </summary>
         /// <remarks>
@@ -25,12 +38,13 @@ namespace GISharp.CodeGen.Syntax
         /// </remarks>
         /// <param name="callable">The GIR callable node</param>
         /// <param name="invokeMethod">An expression describing the pinvoke method</param>
-        internal static IEnumerable<StatementSyntax> GetInvokeStatements(this GICallable callable, string invokeMethod)
+        internal static IEnumerable<StatementSyntax> GetInvokeStatements(this GICallable callable, string invokeMethod, bool checkArgs = true)
         {
             // might need to do some extra arg checks first
 
-            if (callable.HasCustomArgCheck) {
-                var expression = ParseExpression($"Assert{callable.ManagedName}Args");
+            // call check arg method
+            if (checkArgs) {
+                var expression = ParseExpression($"Check{callable.ManagedName}Args");
                 var invocation = InvocationExpression(expression);
                 foreach (var arg in callable.ManagedParameters.Where(x => x.Direction != "out")) {
                     var item = Argument(ParseExpression(arg.ManagedName));

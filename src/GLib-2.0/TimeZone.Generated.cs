@@ -29,6 +29,8 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        static partial void CheckNewArgs(GISharp.Lib.GLib.NullableUnownedUtf8 identifier);
+
         /// <summary>
         /// Creates a #GTimeZone corresponding to @identifier.
         /// </summary>
@@ -114,6 +116,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         static unsafe System.IntPtr New(GISharp.Lib.GLib.NullableUnownedUtf8 identifier)
         {
+            CheckNewArgs(identifier);
             var identifier_ = identifier.Handle;
             var ret_ = g_time_zone_new(identifier_);
             return ret_;
@@ -124,6 +127,8 @@ namespace GISharp.Lib.GLib
         public TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8 identifier) : this(New(identifier), GISharp.Runtime.Transfer.Full)
         {
         }
+
+        static partial void CheckNewOffsetArgs(System.Int32 seconds);
 
         /// <summary>
         /// Creates a #GTimeZone corresponding to the given constant offset from UTC,
@@ -151,6 +156,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.58")]
         static unsafe System.IntPtr NewOffset(System.Int32 seconds)
         {
+            CheckNewOffsetArgs(seconds);
             var seconds_ = (System.Int32)seconds;
             var ret_ = g_time_zone_new_offset(seconds_);
             return ret_;
@@ -161,6 +167,8 @@ namespace GISharp.Lib.GLib
         public TimeZone(System.Int32 seconds) : this(NewOffset(seconds), GISharp.Runtime.Transfer.Full)
         {
         }
+
+        static partial void CheckGetLocalArgs();
 
         /// <summary>
         /// Creates a #GTimeZone corresponding to local time.  The local time
@@ -186,10 +194,13 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         private static unsafe GISharp.Lib.GLib.TimeZone GetLocal()
         {
+            CheckGetLocalArgs();
             var ret_ = g_time_zone_new_local();
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.TimeZone>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
+
+        static partial void CheckGetUtcArgs();
 
         /// <summary>
         /// Creates a #GTimeZone corresponding to UTC.
@@ -213,11 +224,13 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.26")]
         private static unsafe GISharp.Lib.GLib.TimeZone GetUtc()
         {
+            CheckGetUtcArgs();
             var ret_ = g_time_zone_new_utc();
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.TimeZone>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -268,11 +281,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gint64" type="gint64*" managed-name="System.Int64" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         in System.Int64 time);
+        static partial void CheckAdjustTimeArgs(GISharp.Lib.GLib.TimeType type, in System.Int64 time);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.AdjustTime(GISharp.Lib.GLib.TimeType,System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int32 AdjustTime(GISharp.Lib.GLib.TimeType type, in System.Int64 time)
         {
+            CheckAdjustTimeArgs(type, time);
             var tz_ = Handle;
             var type_ = (GISharp.Lib.GLib.TimeType)type;
             ref readonly var time_ = ref time;
@@ -328,11 +343,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
         System.Int64 time);
+        static partial void CheckFindIntervalArgs(GISharp.Lib.GLib.TimeType type, System.Int64 time);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int32 FindInterval(GISharp.Lib.GLib.TimeType type, System.Int64 time)
         {
+            CheckFindIntervalArgs(type, time);
             var tz_ = Handle;
             var type_ = (GISharp.Lib.GLib.TimeType)type;
             var time_ = (System.Int64)time;
@@ -370,11 +387,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 interval);
+        static partial void CheckGetAbbreviationArgs(System.Int32 interval);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.GetAbbreviation(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAbbreviation(System.Int32 interval)
         {
+            CheckGetAbbreviationArgs(interval);
             var tz_ = Handle;
             var interval_ = (System.Int32)interval;
             var ret_ = g_time_zone_get_abbreviation(tz_,interval_);
@@ -407,10 +426,12 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeZone" type="GTimeZone*" managed-name="TimeZone" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr tz);
+        static partial void CheckGetIdentifierArgs();
 
         [GISharp.Runtime.SinceAttribute("2.58")]
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetIdentifier()
         {
+            CheckGetIdentifierArgs();
             var tz_ = Handle;
             var ret_ = g_time_zone_get_identifier(tz_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
@@ -447,11 +468,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 interval);
+        static partial void CheckGetOffsetArgs(System.Int32 interval);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.GetOffset(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Int32 GetOffset(System.Int32 interval)
         {
+            CheckGetOffsetArgs(interval);
             var tz_ = Handle;
             var interval_ = (System.Int32)interval;
             var ret_ = g_time_zone_get_offset(tz_,interval_);
@@ -483,11 +506,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 interval);
+        static partial void CheckIsDstArgs(System.Int32 interval);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.IsDst(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public unsafe System.Boolean IsDst(System.Int32 interval)
         {
+            CheckIsDstArgs(interval);
             var tz_ = Handle;
             var interval_ = (System.Int32)interval;
             var ret_ = g_time_zone_is_dst(tz_,interval_);

@@ -12,6 +12,8 @@ namespace GISharp.Lib.GLib
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TvUsec']/*" />
         public GISharp.Runtime.CLong TvUsec;
 #pragma warning restore CS0649
+        static partial void CheckTryFromIso8601Args(GISharp.Lib.GLib.UnownedUtf8 isoDate);
+
         /// <summary>
         /// Converts a string containing an ISO 8601 encoded date and time
         /// to a #GTimeVal and puts it into @time_.
@@ -61,6 +63,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public static unsafe System.Boolean TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
         {
+            CheckTryFromIso8601Args(isoDate);
             var isoDate_ = isoDate.Handle;
             var ret_ = g_time_val_from_iso8601(isoDate_,out var time_);
             time = (GISharp.Lib.GLib.TimeVal)time_;
@@ -90,12 +93,14 @@ namespace GISharp.Lib.GLib
         /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong microseconds);
+        static partial void CheckAddArgs(GISharp.Runtime.CLong microseconds);
 
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.Add(GISharp.Runtime.CLong)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use `guint64` for\n   representing microseconds since the epoch, or use #GDateTime.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         public unsafe void Add(GISharp.Runtime.CLong microseconds)
         {
+            CheckAddArgs(microseconds);
             ref var time_ = ref this;
             var microseconds_ = (GISharp.Runtime.CLong)microseconds;
             g_time_val_add(time_, microseconds_);
@@ -155,6 +160,7 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         in GISharp.Lib.GLib.TimeVal time);
+        static partial void CheckToIso8601Args();
 
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.ToIso8601()']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_format_iso8601(dt) instead.")]
@@ -162,6 +168,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe GISharp.Lib.GLib.Utf8? ToIso8601()
         {
+            CheckToIso8601Args();
             ref var time_ = ref this;
             var ret_ = g_time_val_to_iso8601(time_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);

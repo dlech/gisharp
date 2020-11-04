@@ -23,12 +23,12 @@ namespace GISharp.CodeGen.Syntax
             var invoker = $"{typeof(TypeClass)}.{getter}<{type}>(_GType)!";
 
             var returnType = method.ReturnValue.GetManagedTypeName();
-            
+
             var syntax = MethodDeclaration(returnType, method.ManagedName)
                 .WithAttributeLists(method.GetAttributeLists())
                 .AddModifiers(Token(ProtectedKeyword), Token(VirtualKeyword), Token(UnsafeKeyword))
                 .WithParameterList(method.ManagedParameters.GetParameterList())
-                .WithBody(Block(method.GetInvokeStatements(invoker)))
+                .WithBody(Block(method.GetInvokeStatements(invoker, checkArgs: false)))
                 .WithLeadingTrivia(TriviaList()
                     .AddRange(method.Doc.GetDocCommentTrivia())
                     .AddRange(method.ManagedParameters.RegularParameters

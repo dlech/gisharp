@@ -3916,6 +3916,10 @@ Starts an asynchronous replacement of this instance with the given
 current entity tag.
 </summary>
 <remarks>
+When this operation has completed, <paramref name="callback"/> will be called with
+<paramref name="userUser"/> data, and the operation can be finalized with
+<see cref="File.ReplaceContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,out GISharp.Lib.GLib.Utf8)"/>.
+
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
 triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
@@ -3955,6 +3959,11 @@ This function will keep a ref on <paramref name="contents"/> until the operation
 Unlike <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> this allows forgetting about the
 content without waiting for the callback.
 </summary>
+<remarks>
+When this operation has completed, <paramref name="callback"/> will be called with
+<paramref name="userUser"/> data, and the operation can be finalized with
+<see cref="File.ReplaceContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,out GISharp.Lib.GLib.Utf8)"/>.
+</remarks>
 <param name="file">
 input <see cref="IFile"/>
 </param>

@@ -9,6 +9,7 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_async_result_get_type();
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -50,10 +51,12 @@ namespace GISharp.Lib.Gio
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr res);
+        static partial void CheckGetSourceObjectArgs(this GISharp.Lib.Gio.IAsyncResult res);
 
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)']/*" />
         public unsafe static GISharp.Lib.GObject.Object? GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
         {
+            CheckGetSourceObjectArgs(res);
             var res_ = res.Handle;
             var ret_ = g_async_result_get_source_object(res_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.Full);
@@ -76,10 +79,12 @@ namespace GISharp.Lib.Gio
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr res);
+        static partial void CheckGetUserDataArgs(this GISharp.Lib.Gio.IAsyncResult res);
 
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.GetUserData(GISharp.Lib.Gio.IAsyncResult)']/*" />
         public unsafe static System.IntPtr GetUserData(this GISharp.Lib.Gio.IAsyncResult res)
         {
+            CheckGetUserDataArgs(res);
             var res_ = res.Handle;
             var ret_ = g_async_result_get_user_data(res_);
             var ret = (System.IntPtr)ret_;
@@ -111,11 +116,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr sourceTag);
+        static partial void CheckIsTaggedArgs(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag);
 
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         public unsafe static System.Boolean IsTagged(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag)
         {
+            CheckIsTaggedArgs(res, sourceTag);
             var res_ = res.Handle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             var ret_ = g_async_result_is_tagged(res_,sourceTag_);

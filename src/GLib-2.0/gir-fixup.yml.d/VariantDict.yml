@@ -1,12 +1,6 @@
 
 ### VariantDict ###
 
-# need to validate arg to prevent crashes
-- !set-attribute
-  name: gs:custom-arg-check
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='VariantDict']/gi:constructor[@name='new']
-
 # Clear is only valid on stack allocated VariantDict
 - !set-attribute
   name: introspectable

@@ -17,17 +17,3 @@
   regex: new_(.*)
   replace: get_$1
   xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[starts-with(@name,'new_')]
-
-# managed arg check
-- !set-attribute
-  name: gs:custom-arg-check
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:constructor[@name='new']
-- !set-attribute
-  name: gs:custom-arg-check
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[@name='get_local']
-- !set-attribute
-  name: gs:custom-arg-check
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[@name='get_utc']

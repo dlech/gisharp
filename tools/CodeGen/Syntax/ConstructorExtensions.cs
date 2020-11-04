@@ -18,6 +18,9 @@ namespace GISharp.CodeGen.Syntax
         {
             IEnumerable<MemberDeclarationSyntax> getMembers()
             {
+                var checkArgsMethod = constructor.GetCheckArgsMethodDeclaration();
+                yield return checkArgsMethod;
+
                 yield return constructor.GetExternMethodDeclaration();
                 if (!constructor.IsPInvokeOnly) {
                     yield return constructor.GetStaticMethodDeclaration()

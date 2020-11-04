@@ -546,7 +546,7 @@ namespace GISharp.Lib.GLib
             return new Variant(value.Key, value.Value);
         }
 
-        static void AssertNewArrayArgs(VariantType? childType, UnownedCPtrArray<Variant> children)
+        static void CheckNewArrayArgs(VariantType? childType, UnownedCPtrArray<Variant> children)
         {
             if (childType == null && (children.Data.Length == 0)) {
                 throw new ArgumentException("Must specify child type when no children", nameof(childType));
@@ -646,7 +646,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         static IntPtr NewArray(VariantType? childType, UnownedCPtrArray<Variant> children)
         {
-            AssertNewArrayArgs(childType, children);
+            CheckNewArrayArgs(childType, children);
             var childType_ = childType?.Handle ?? IntPtr.Zero;
             ref readonly var children_ = ref MemoryMarshal.GetReference(children.Data);
             var nChildren_ = (UIntPtr)children.Data.Length;

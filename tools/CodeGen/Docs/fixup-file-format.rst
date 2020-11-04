@@ -48,13 +48,6 @@ Attributes
     Values
         ``1`` (true), ``0`` (false)
 
-``gs:custom-arg-check``
-    Description
-        Specifies that a callable has a custom argument check function that
-        needs to be called before invoking the unmanaged function.
-    Values
-        ``1`` (true), ``0`` (false)
-
 ``gs:custom-constructor``
     Description
         Specifies that the constructor should not be automatically generated.

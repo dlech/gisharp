@@ -9,6 +9,8 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_get_type();
 
+        static partial void CheckNewForCommandlineArgArgs(GISharp.Lib.GLib.Filename arg);
+
         /// <summary>
         /// Creates a #GFile with the given argument from the command line.
         /// The value of @arg can be either a URI, an absolute path or a
@@ -44,11 +46,14 @@ namespace GISharp.Lib.Gio
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForCommandlineArg(GISharp.Lib.GLib.Filename)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile NewForCommandlineArg(GISharp.Lib.GLib.Filename arg)
         {
+            CheckNewForCommandlineArgArgs(arg);
             var arg_ = arg.Handle;
             var ret_ = g_file_new_for_commandline_arg(arg_);
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
+
+        static partial void CheckNewForCommandlineArgAndCwdArgs(GISharp.Lib.GLib.Filename arg, GISharp.Lib.GLib.Filename cwd);
 
         /// <summary>
         /// Creates a #GFile with the given argument from the command line.
@@ -89,12 +94,15 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         public static unsafe GISharp.Lib.Gio.IFile NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename arg, GISharp.Lib.GLib.Filename cwd)
         {
+            CheckNewForCommandlineArgAndCwdArgs(arg, cwd);
             var arg_ = arg.Handle;
             var cwd_ = cwd.Handle;
             var ret_ = g_file_new_for_commandline_arg_and_cwd(arg_,cwd_);
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
+
+        static partial void CheckNewForPathArgs(GISharp.Lib.GLib.Filename path);
 
         /// <summary>
         /// Constructs a #GFile for a given path. This operation never
@@ -120,11 +128,14 @@ namespace GISharp.Lib.Gio
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForPath(GISharp.Lib.GLib.Filename)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile NewForPath(GISharp.Lib.GLib.Filename path)
         {
+            CheckNewForPathArgs(path);
             var path_ = path.Handle;
             var ret_ = g_file_new_for_path(path_);
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
+
+        static partial void CheckNewForUriArgs(GISharp.Lib.GLib.UnownedUtf8 uri);
 
         /// <summary>
         /// Constructs a #GFile for a given URI. This operation never
@@ -150,11 +161,14 @@ namespace GISharp.Lib.Gio
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForUri(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile NewForUri(GISharp.Lib.GLib.UnownedUtf8 uri)
         {
+            CheckNewForUriArgs(uri);
             var uri_ = uri.Handle;
             var ret_ = g_file_new_for_uri(uri_);
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
+
+        static partial void CheckNewTmpArgs(GISharp.Lib.GLib.Filename? tmpl);
 
         /// <summary>
         /// Opens a file in the preferred directory for temporary files (as
@@ -202,6 +216,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.32")]
         public static unsafe GISharp.Lib.Gio.IFile NewTmp(GISharp.Lib.GLib.Filename? tmpl, out GISharp.Lib.Gio.FileIOStream iostream)
         {
+            CheckNewTmpArgs(tmpl);
             var tmpl_ = tmpl?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_file_new_tmp(tmpl_,out var iostream_,ref error_);
@@ -215,6 +230,8 @@ namespace GISharp.Lib.Gio
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
+
+        static partial void CheckParseNameArgs(GISharp.Lib.GLib.UnownedUtf8 parseName);
 
         /// <summary>
         /// Constructs a #GFile with the given @parse_name (i.e. something
@@ -239,12 +256,14 @@ namespace GISharp.Lib.Gio
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.ParseName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static unsafe GISharp.Lib.Gio.IFile ParseName(GISharp.Lib.GLib.UnownedUtf8 parseName)
         {
+            CheckParseNameArgs(parseName);
             var parseName_ = parseName.Handle;
             var ret_ = g_file_parse_name(parseName_);
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
+        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
@@ -643,10 +662,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckAppendToArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.AppendTo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileOutputStream AppendTo(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckAppendToArgs(file, flags, cancellable);
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -717,10 +738,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckAppendToAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.AppendToAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileOutputStream> AppendToAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckAppendToAsyncArgs(file, flags, ioPriority, cancellable);
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var ioPriority_ = (System.Int32)ioPriority;
@@ -885,10 +908,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckCopyArgs(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Copy(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCopyArgs(source, destination, flags, progressCallback, cancellable);
             var source_ = source.Handle;
             var destination_ = destination.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
@@ -1029,10 +1054,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckCopyAttributesArgs(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.CopyAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void CopyAttributes(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCopyAttributesArgs(source, destination, flags, cancellable);
             var source_ = source.Handle;
             var destination_ = destination.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
@@ -1131,10 +1158,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckCreateArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.Create(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileOutputStream Create(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCreateArgs(file, flags, cancellable);
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -1206,10 +1235,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckCreateAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.CreateAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileOutputStream> CreateAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCreateAsyncArgs(file, flags, ioPriority, cancellable);
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var ioPriority_ = (System.Int32)ioPriority;
@@ -1340,11 +1371,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckCreateReadwriteArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.CreateReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static GISharp.Lib.Gio.FileIOStream CreateReadwrite(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCreateReadwriteArgs(file, flags, cancellable);
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -1417,11 +1450,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckCreateReadwriteAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.CreateReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileIOStream> CreateReadwriteAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckCreateReadwriteAsyncArgs(file, flags, ioPriority, cancellable);
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var ioPriority_ = (System.Int32)ioPriority;
@@ -1542,10 +1577,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckDeleteArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.Delete(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Delete(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckDeleteArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -1599,11 +1636,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckDeleteAsyncArgs(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.DeleteAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
         public unsafe static System.Threading.Tasks.Task DeleteAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckDeleteAsyncArgs(file, ioPriority, cancellable);
             var file_ = file.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -1697,10 +1736,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckDupArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.Dup(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile Dup(this GISharp.Lib.Gio.IFile file)
         {
+            CheckDupArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_dup(file_);
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
@@ -1739,12 +1780,14 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckEjectMountableFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.EjectMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [System.ObsoleteAttribute("Use g_file_eject_mountable_with_operation_finish()\n    instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         public unsafe static void EjectMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
+            CheckEjectMountableFinishArgs(file, result);
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
@@ -1787,11 +1830,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckEjectMountableWithOperationFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.EjectMountableWithOperationFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void EjectMountableWithOperationFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
+            CheckEjectMountableWithOperationFinishArgs(file, result);
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
@@ -1832,10 +1877,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file2);
+        static partial void CheckEqualsArgs(this GISharp.Lib.Gio.IFile file1, GISharp.Lib.Gio.IFile file2);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.Equals(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static System.Boolean Equals(this GISharp.Lib.Gio.IFile file1, GISharp.Lib.Gio.IFile file2)
         {
+            CheckEqualsArgs(file1, file2);
             var file1_ = file1.Handle;
             var file2_ = file2.Handle;
             var ret_ = g_file_equal(file1_,file2_);
@@ -1874,10 +1921,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckGetBasenameArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetBasename(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Filename? GetBasename(this GISharp.Lib.Gio.IFile file)
         {
+            CheckGetBasenameArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_get_basename(file_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>(ret_, GISharp.Runtime.Transfer.Full);
@@ -1914,10 +1963,12 @@ namespace GISharp.Lib.Gio
         /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr name);
+        static partial void CheckGetChildArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Filename name);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetChild(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filename)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile GetChild(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Filename name)
         {
+            CheckGetChildArgs(file, name);
             var file_ = file.Handle;
             var name_ = name.Handle;
             var ret_ = g_file_get_child(file_,name_);
@@ -1963,10 +2014,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckGetChildForDisplayNameArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 displayName);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetChildForDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile GetChildForDisplayName(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 displayName)
         {
+            CheckGetChildForDisplayNameArgs(file, displayName);
             var file_ = file.Handle;
             var displayName_ = displayName.Handle;
             var error_ = System.IntPtr.Zero;
@@ -2004,10 +2057,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckGetParentArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetParent(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile? GetParent(this GISharp.Lib.Gio.IFile file)
         {
+            CheckGetParentArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_get_parent(file_);
             var ret = (GISharp.Lib.Gio.IFile?)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full);
@@ -2046,10 +2101,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckGetParseNameArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetParseName(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Utf8 GetParseName(this GISharp.Lib.Gio.IFile file)
         {
+            CheckGetParseNameArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_get_parse_name(file_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
@@ -2078,10 +2135,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckGetPathArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetPath(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Filename? GetPath(this GISharp.Lib.Gio.IFile file)
         {
+            CheckGetPathArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_get_path(file_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>(ret_, GISharp.Runtime.Transfer.Full);
@@ -2116,10 +2175,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr descendant);
+        static partial void CheckGetRelativePathArgs(this GISharp.Lib.Gio.IFile parent, GISharp.Lib.Gio.IFile descendant);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetRelativePath(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Filename? GetRelativePath(this GISharp.Lib.Gio.IFile parent, GISharp.Lib.Gio.IFile descendant)
         {
+            CheckGetRelativePathArgs(parent, descendant);
             var parent_ = parent.Handle;
             var descendant_ = descendant.Handle;
             var ret_ = g_file_get_relative_path(parent_,descendant_);
@@ -2148,10 +2209,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckGetUriArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetUri(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Utf8 GetUri(this GISharp.Lib.Gio.IFile file)
         {
+            CheckGetUriArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_get_uri(file_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
@@ -2184,10 +2247,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckGetUriSchemeArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetUriScheme(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static GISharp.Lib.GLib.Utf8 GetUriScheme(this GISharp.Lib.Gio.IFile file)
         {
+            CheckGetUriSchemeArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_get_uri_scheme(file_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
@@ -2223,11 +2288,13 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr parent);
+        static partial void CheckHasParentArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IFile? parent);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.HasParent(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public unsafe static System.Boolean HasParent(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IFile? parent)
         {
+            CheckHasParentArgs(file, parent);
             var file_ = file.Handle;
             var parent_ = parent?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_file_has_parent(file_,parent_);
@@ -2272,10 +2339,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr prefix);
+        static partial void CheckHasPrefixArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IFile prefix);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.HasPrefix(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static System.Boolean HasPrefix(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IFile prefix)
         {
+            CheckHasPrefixArgs(file, prefix);
             var file_ = file.Handle;
             var prefix_ = prefix.Handle;
             var ret_ = g_file_has_prefix(file_,prefix_);
@@ -2310,10 +2379,12 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr uriScheme);
+        static partial void CheckHasUriSchemeArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 uriScheme);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.HasUriScheme(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public unsafe static System.Boolean HasUriScheme(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 uriScheme)
         {
+            CheckHasUriSchemeArgs(file, uriScheme);
             var file_ = file.Handle;
             var uriScheme_ = uriScheme.Handle;
             var ret_ = g_file_has_uri_scheme(file_,uriScheme_);
@@ -2343,10 +2414,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="gconstpointer" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckGetHashCodeArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.GetHashCode(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static System.Int32 GetHashCode(this GISharp.Lib.Gio.IFile file)
         {
+            CheckGetHashCodeArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_hash(file_);
             var ret = (System.Int32)ret_;
@@ -2380,10 +2453,12 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckIsNativeArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.IsNative(GISharp.Lib.Gio.IFile)']/*" />
         public unsafe static System.Boolean IsNative(this GISharp.Lib.Gio.IFile file)
         {
+            CheckIsNativeArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_is_native(file_);
             var ret = (System.Boolean)ret_;
@@ -2437,11 +2512,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckLoadBytesArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadBytes(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Utf8?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe static GISharp.Lib.GLib.Bytes LoadBytes(this GISharp.Lib.Gio.IFile file, out GISharp.Lib.GLib.Utf8? etagOut, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckLoadBytesArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -2503,11 +2580,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckLoadBytesAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadBytesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe static System.Threading.Tasks.Task<System.ValueTuple<GISharp.Lib.GLib.Bytes, GISharp.Lib.GLib.Utf8>> LoadBytesAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckLoadBytesAsyncArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.Utf8>>();
@@ -2650,10 +2729,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckLoadContentsArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadContents(GISharp.Lib.Gio.IFile,GISharp.Runtime.CArray&lt;System.Byte&gt;,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void LoadContents(this GISharp.Lib.Gio.IFile file, out GISharp.Runtime.CArray<System.Byte> contents, out GISharp.Lib.GLib.Utf8 etagOut, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckLoadContentsArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -2717,10 +2798,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckLoadContentsAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<System.ValueTuple<GISharp.Runtime.CArray<System.Byte>, GISharp.Lib.GLib.Utf8>> LoadContentsAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckLoadContentsAsyncArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Runtime.CArray<System.Byte>,GISharp.Lib.GLib.Utf8>>();
@@ -2869,10 +2952,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckLoadPartialContentsFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult res);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.LoadPartialContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,GISharp.Runtime.CArray&lt;System.Byte&gt;,GISharp.Lib.GLib.Utf8)']/*" />
         public unsafe static void LoadPartialContentsFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult res, out GISharp.Runtime.CArray<System.Byte> contents, out GISharp.Lib.GLib.Utf8 etagOut)
         {
+            CheckLoadPartialContentsFinishArgs(file, res);
             var file_ = file.Handle;
             var res_ = res.Handle;
             var error_ = System.IntPtr.Zero;
@@ -2930,10 +3015,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckMakeDirectoryArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.MakeDirectory(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void MakeDirectory(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckMakeDirectoryArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -2985,11 +3072,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckMakeDirectoryAsyncArgs(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.MakeDirectoryAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public unsafe static System.Threading.Tasks.Task MakeDirectoryAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckMakeDirectoryAsyncArgs(file, ioPriority, cancellable);
             var file_ = file.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -3101,11 +3190,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckMakeDirectoryWithParentsArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.MakeDirectoryWithParents(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.18")]
         public unsafe static void MakeDirectoryWithParents(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckMakeDirectoryWithParentsArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -3159,10 +3250,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckMakeSymbolicLinkArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Filename symlinkValue, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.MakeSymbolicLink(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filename,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void MakeSymbolicLink(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Filename symlinkValue, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckMakeSymbolicLinkArgs(file, symlinkValue, cancellable);
             var file_ = file.Handle;
             var symlinkValue_ = symlinkValue.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -3225,11 +3318,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckMeasureDiskUsageFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.MeasureDiskUsageFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,System.UInt64,System.UInt64,System.UInt64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public unsafe static void MeasureDiskUsageFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result, out System.UInt64 diskUsage, out System.UInt64 numDirs, out System.UInt64 numFiles)
         {
+            CheckMeasureDiskUsageFinishArgs(file, result);
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
@@ -3275,10 +3370,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckMountEnclosingVolumeFinishArgs(this GISharp.Lib.Gio.IFile location, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.MountEnclosingVolumeFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         public unsafe static void MountEnclosingVolumeFinish(this GISharp.Lib.Gio.IFile location, GISharp.Lib.Gio.IAsyncResult result)
         {
+            CheckMountEnclosingVolumeFinishArgs(location, result);
             var location_ = location.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
@@ -3323,10 +3420,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckMountMountableFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.MountMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile MountMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
+            CheckMountMountableFinishArgs(file, result);
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
@@ -3429,10 +3528,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckMoveArgs(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.Move(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Move(this GISharp.Lib.Gio.IFile source, GISharp.Lib.Gio.IFile destination, GISharp.Lib.Gio.FileCopyFlags flags, GISharp.Lib.Gio.FileProgressCallback? progressCallback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckMoveArgs(source, destination, flags, progressCallback, cancellable);
             var source_ = source.Handle;
             var destination_ = destination.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
@@ -3495,11 +3596,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckOpenReadwriteArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.OpenReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static GISharp.Lib.Gio.FileIOStream OpenReadwrite(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckOpenReadwriteArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -3564,11 +3667,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckOpenReadwriteAsyncArgs(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.OpenReadwriteAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileIOStream> OpenReadwriteAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckOpenReadwriteAsyncArgs(file, ioPriority, cancellable);
             var file_ = file.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -3663,11 +3768,13 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckPeekPathArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.PeekPath(GISharp.Lib.Gio.IFile)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
         public unsafe static GISharp.Lib.GLib.Filename? PeekPath(this GISharp.Lib.Gio.IFile file)
         {
+            CheckPeekPathArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_peek_path(file_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>(ret_, GISharp.Runtime.Transfer.None);
@@ -3716,11 +3823,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckPollMountableArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.PollMountable(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void PollMountable(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckPollMountableArgs(file, callback, cancellable);
             var file_ = file.Handle;
             var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -3761,11 +3870,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckPollMountableFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.PollMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void PollMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
+            CheckPollMountableFinishArgs(file, result);
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
@@ -3823,10 +3934,12 @@ namespace GISharp.Lib.Gio
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
+        static partial void CheckQueryExistsArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.QueryExists(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Boolean QueryExists(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckQueryExistsArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_file_query_exists(file_,cancellable_);
@@ -3870,11 +3983,13 @@ namespace GISharp.Lib.Gio
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr cancellable);
+        static partial void CheckQueryFileTypeArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.QueryFileType(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.18")]
         public unsafe static GISharp.Lib.Gio.FileType QueryFileType(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckQueryFileTypeArgs(file, flags, cancellable);
             var file_ = file.Handle;
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -3944,10 +4059,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckQueryFilesystemInfoArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileInfo QueryFilesystemInfo(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckQueryFilesystemInfoArgs(file, attributes, cancellable);
             var file_ = file.Handle;
             var attributes_ = attributes.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -4021,10 +4138,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckQueryFilesystemInfoAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryFilesystemInfoAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckQueryFilesystemInfoAsyncArgs(file, attributes, ioPriority, cancellable);
             var file_ = file.Handle;
             var attributes_ = attributes.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
@@ -4167,10 +4286,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckQueryInfoArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileInfo QueryInfo(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckQueryInfoArgs(file, attributes, flags, cancellable);
             var file_ = file.Handle;
             var attributes_ = attributes.Handle;
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
@@ -4249,10 +4370,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckQueryInfoAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.QueryInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckQueryInfoAsyncArgs(file, attributes, flags, ioPriority, cancellable);
             var file_ = file.Handle;
             var attributes_ = attributes.Handle;
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
@@ -4365,10 +4488,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckQuerySettableAttributesArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.QuerySettableAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileAttributeInfoList QuerySettableAttributes(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckQuerySettableAttributesArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -4421,10 +4546,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckQueryWritableNamespacesArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.QueryWritableNamespaces(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileAttributeInfoList QueryWritableNamespaces(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckQueryWritableNamespacesArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -4479,10 +4606,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckReadArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.Read(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileInputStream Read(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckReadArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -4546,10 +4675,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckReadAsyncArgs(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ReadAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInputStream> ReadAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckReadAsyncArgs(file, ioPriority, cancellable);
             var file_ = file.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -4708,10 +4839,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckReplaceArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.FileOutputStream Replace(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckReplaceArgs(file, etag, makeBackup, flags, cancellable);
             var file_ = file.Handle;
             var etag_ = etag.Handle;
             var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
@@ -4798,10 +4931,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckReplaceAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileOutputStream> ReplaceAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckReplaceAsyncArgs(file, etag, makeBackup, flags, ioPriority, cancellable);
             var file_ = file.Handle;
             var etag_ = etag.Handle;
             var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
@@ -4901,10 +5036,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckReplaceContentsArgs(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void ReplaceContents(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, out GISharp.Lib.GLib.Utf8 newEtag, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckReplaceContentsArgs(file, contents, etag, makeBackup, flags, cancellable);
             var file_ = file.Handle;
             ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
             var length_ = (System.UIntPtr)contents.Length;
@@ -5007,10 +5144,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckReplaceContentsAsyncArgs(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.GLib.Utf8> ReplaceContentsAsync(this GISharp.Lib.Gio.IFile file, System.ReadOnlySpan<System.Byte> contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckReplaceContentsAsyncArgs(file, contents, etag, makeBackup, flags, cancellable);
             var file_ = file.Handle;
             ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
             var length_ = (System.UIntPtr)contents.Length;
@@ -5091,11 +5230,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckReplaceContentsAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Bytes contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.GLib.Utf8> ReplaceContentsAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Bytes contents, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckReplaceContentsAsyncArgs(file, contents, etag, makeBackup, flags, cancellable);
             var file_ = file.Handle;
             var contents_ = contents.Handle;
             var etag_ = etag.Handle;
@@ -5293,11 +5434,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckReplaceReadwriteArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static GISharp.Lib.Gio.FileIOStream ReplaceReadwrite(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckReplaceReadwriteArgs(file, etag, makeBackup, flags, cancellable);
             var file_ = file.Handle;
             var etag_ = etag.Handle;
             var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
@@ -5386,11 +5529,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckReplaceReadwriteAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileIOStream> ReplaceReadwriteAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.NullableUnownedUtf8 etag, System.Boolean makeBackup, GISharp.Lib.Gio.FileCreateFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckReplaceReadwriteAsyncArgs(file, etag, makeBackup, flags, ioPriority, cancellable);
             var file_ = file.Handle;
             var etag_ = etag.Handle;
             var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
@@ -5490,10 +5635,12 @@ namespace GISharp.Lib.Gio
         /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr relativePath);
+        static partial void CheckResolveRelativePathArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Filename relativePath);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.ResolveRelativePath(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filename)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile ResolveRelativePath(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.Filename relativePath)
         {
+            CheckResolveRelativePathArgs(file, relativePath);
             var file_ = file.Handle;
             var relativePath_ = relativePath.Handle;
             var ret_ = g_file_resolve_relative_path(file_,relativePath_);
@@ -5563,10 +5710,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetAttributeArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetAttribute(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileAttributeType,System.IntPtr,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttribute(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.Gio.FileAttributeType type, System.IntPtr valueP, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetAttributeArgs(file, attribute, type, valueP, flags, cancellable);
             var file_ = file.Handle;
             var attribute_ = attribute.Handle;
             var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
@@ -5637,10 +5786,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetAttributeByteStringArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetAttributeByteString(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeByteString(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetAttributeByteStringArgs(file, attribute, value, flags, cancellable);
             var file_ = file.Handle;
             var attribute_ = attribute.Handle;
             var value_ = value.Handle;
@@ -5709,10 +5860,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetAttributeInt32Args(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetAttributeInt32(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeInt32(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetAttributeInt32Args(file, attribute, value, flags, cancellable);
             var file_ = file.Handle;
             var attribute_ = attribute.Handle;
             var value_ = (System.Int32)value;
@@ -5780,10 +5933,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetAttributeInt64Args(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetAttributeInt64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeInt64(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.Int64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetAttributeInt64Args(file, attribute, value, flags, cancellable);
             var file_ = file.Handle;
             var attribute_ = attribute.Handle;
             var value_ = (System.Int64)value;
@@ -5851,10 +6006,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetAttributeStringArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetAttributeString(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeString(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, GISharp.Lib.GLib.UnownedUtf8 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetAttributeStringArgs(file, attribute, value, flags, cancellable);
             var file_ = file.Handle;
             var attribute_ = attribute.Handle;
             var value_ = value.Handle;
@@ -5923,10 +6080,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetAttributeUint32Args(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetAttributeUint32(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.UInt32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeUint32(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt32 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetAttributeUint32Args(file, attribute, value, flags, cancellable);
             var file_ = file.Handle;
             var attribute_ = attribute.Handle;
             var value_ = (System.UInt32)value;
@@ -5995,10 +6154,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetAttributeUint64Args(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetAttributeUint64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.UInt64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributeUint64(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 attribute, System.UInt64 value, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetAttributeUint64Args(file, attribute, value, flags, cancellable);
             var file_ = file.Handle;
             var attribute_ = attribute.Handle;
             var value_ = (System.UInt64)value;
@@ -6073,10 +6234,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckSetAttributesAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> SetAttributesAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetAttributesAsyncArgs(file, info, flags, ioPriority, cancellable);
             var file_ = file.Handle;
             var info_ = info.Handle;
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
@@ -6204,10 +6367,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetAttributesFromInfoArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void SetAttributesFromInfo(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.FileInfo info, GISharp.Lib.Gio.FileQueryInfoFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetAttributesFromInfoArgs(file, info, flags, cancellable);
             var file_ = file.Handle;
             var info_ = info.Handle;
             var flags_ = (GISharp.Lib.Gio.FileQueryInfoFlags)flags;
@@ -6273,10 +6438,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckSetDisplayNameArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 displayName, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static GISharp.Lib.Gio.IFile SetDisplayName(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 displayName, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetDisplayNameArgs(file, displayName, cancellable);
             var file_ = file.Handle;
             var displayName_ = displayName.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -6347,10 +6514,12 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckSetDisplayNameAsyncArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 displayName, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SetDisplayNameAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static System.Threading.Tasks.Task<GISharp.Lib.Gio.IFile> SetDisplayNameAsync(this GISharp.Lib.Gio.IFile file, GISharp.Lib.GLib.UnownedUtf8 displayName, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckSetDisplayNameAsyncArgs(file, displayName, ioPriority, cancellable);
             var file_ = file.Handle;
             var displayName_ = displayName.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
@@ -6454,11 +6623,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckStartMountableFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.StartMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void StartMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
+            CheckStartMountableFinishArgs(file, result);
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
@@ -6504,11 +6675,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckStopMountableFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.StopMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void StopMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
+            CheckStopMountableFinishArgs(file, result);
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
@@ -6540,11 +6713,13 @@ namespace GISharp.Lib.Gio
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr file);
+        static partial void CheckSupportsThreadContextsArgs(this GISharp.Lib.Gio.IFile file);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.SupportsThreadContexts(GISharp.Lib.Gio.IFile)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static System.Boolean SupportsThreadContexts(this GISharp.Lib.Gio.IFile file)
         {
+            CheckSupportsThreadContextsArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_supports_thread_contexts(file_);
             var ret = (System.Boolean)ret_;
@@ -6590,10 +6765,12 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckTrashArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.Trash(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)']/*" />
         public unsafe static void Trash(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckTrashArgs(file, cancellable);
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -6645,11 +6822,13 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckTrashAsyncArgs(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.TrashAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
         public unsafe static System.Threading.Tasks.Task TrashAsync(this GISharp.Lib.Gio.IFile file, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
+            CheckTrashAsyncArgs(file, ioPriority, cancellable);
             var file_ = file.Handle;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -6752,12 +6931,14 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckUnmountMountableFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.UnmountMountableFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [System.ObsoleteAttribute("Use g_file_unmount_mountable_with_operation_finish()\n    instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.22")]
         public unsafe static void UnmountMountableFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
+            CheckUnmountMountableFinishArgs(file, result);
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;
@@ -6804,11 +6985,13 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         ref System.IntPtr error);
+        static partial void CheckUnmountMountableWithOperationFinishArgs(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='File.UnmountMountableWithOperationFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         public unsafe static void UnmountMountableWithOperationFinish(this GISharp.Lib.Gio.IFile file, GISharp.Lib.Gio.IAsyncResult result)
         {
+            CheckUnmountMountableWithOperationFinishArgs(file, result);
             var file_ = file.Handle;
             var result_ = result.Handle;
             var error_ = System.IntPtr.Zero;

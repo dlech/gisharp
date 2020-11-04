@@ -473,7 +473,7 @@ namespace GISharp.CodeGen.Syntax
             yield return LocalFunctionStatement(returnType, "managedCallback")
                 .AddModifiers(Token(UnsafeKeyword))
                 .WithParameterList(paramList)
-                .WithBody(Block(callback.GetInvokeStatements("unmanagedCallback")
+                .WithBody(Block(callback.GetInvokeStatements("unmanagedCallback", checkArgs: false)
                     .Select(x => x.WithTrailingTrivia(EndOfLine("\n")))));
 
             yield return ReturnStatement(ParseExpression("managedCallback"));

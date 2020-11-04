@@ -693,11 +693,13 @@ namespace GISharp.Lib.GLib
         /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong endPos);
+        static partial void CheckSubstringArgs(this GISharp.Lib.GLib.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos);
 
         /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.Substring(GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.CLong,GISharp.Runtime.CLong)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         public unsafe static GISharp.Lib.GLib.Utf8 Substring(this GISharp.Lib.GLib.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos)
         {
+            CheckSubstringArgs(str, startPos, endPos);
             var str_ = str.Handle;
             var startPos_ = (GISharp.Runtime.CLong)startPos;
             var endPos_ = (GISharp.Runtime.CLong)endPos;

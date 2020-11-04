@@ -30,10 +30,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckBreakTypeArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.BreakType(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static GISharp.Lib.GLib.UnicodeBreakType BreakType(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckBreakTypeArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_break_type(c_);
             var ret = (GISharp.Lib.GLib.UnicodeBreakType)ret_;
@@ -57,11 +59,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar uc);
+        static partial void CheckCombiningClassArgs(this GISharp.Lib.GLib.Unichar uc);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.CombiningClass(GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public unsafe static System.Int32 CombiningClass(this GISharp.Lib.GLib.Unichar uc)
         {
+            CheckCombiningClassArgs(uc);
             var uc_ = (GISharp.Lib.GLib.Unichar)uc;
             var ret_ = g_unichar_combining_class(uc_);
             var ret = (System.Int32)ret_;
@@ -113,11 +117,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar*" managed-name="GISharp.Lib.GLib.Unichar" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out GISharp.Lib.GLib.Unichar ch);
+        static partial void CheckTryComposeArgs(this GISharp.Lib.GLib.Unichar a, GISharp.Lib.GLib.Unichar b);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.TryCompose(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         public unsafe static System.Boolean TryCompose(this GISharp.Lib.GLib.Unichar a, GISharp.Lib.GLib.Unichar b, out GISharp.Lib.GLib.Unichar ch)
         {
+            CheckTryComposeArgs(a, b);
             var a_ = (GISharp.Lib.GLib.Unichar)a;
             var b_ = (GISharp.Lib.GLib.Unichar)b;
             var ret_ = g_unichar_compose(a_,b_,out var ch_);
@@ -178,11 +184,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar*" managed-name="GISharp.Lib.GLib.Unichar" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         out GISharp.Lib.GLib.Unichar b);
+        static partial void CheckTryDecomposeArgs(this GISharp.Lib.GLib.Unichar ch);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.TryDecompose(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         public unsafe static System.Boolean TryDecompose(this GISharp.Lib.GLib.Unichar ch, out GISharp.Lib.GLib.Unichar a, out GISharp.Lib.GLib.Unichar b)
         {
+            CheckTryDecomposeArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
             var ret_ = g_unichar_decompose(ch_,out var a_,out var b_);
             a = (GISharp.Lib.GLib.Unichar)a_;
@@ -209,10 +217,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckDigitValueArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.DigitValue(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Int32 DigitValue(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckDigitValueArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_digit_value(c_);
             var ret = (System.Int32)ret_;
@@ -308,11 +318,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar*" managed-name="GISharp.Lib.GLib.Unichar" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
         out GISharp.Lib.GLib.Unichar mirroredCh);
+        static partial void CheckTryGetMirrorCharArgs(this GISharp.Lib.GLib.Unichar ch);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.TryGetMirrorChar(GISharp.Lib.GLib.Unichar,GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
         public unsafe static System.Boolean TryGetMirrorChar(this GISharp.Lib.GLib.Unichar ch, out GISharp.Lib.GLib.Unichar mirroredCh)
         {
+            CheckTryGetMirrorCharArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
             var ret_ = g_unichar_get_mirror_char(ch_,out var mirroredCh_);
             mirroredCh = (GISharp.Lib.GLib.Unichar)mirroredCh_;
@@ -344,11 +356,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar ch);
+        static partial void CheckGetScriptArgs(this GISharp.Lib.GLib.Unichar ch);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.GetScript(GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public unsafe static GISharp.Lib.GLib.UnicodeScript GetScript(this GISharp.Lib.GLib.Unichar ch)
         {
+            CheckGetScriptArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
             var ret_ = g_unichar_get_script(ch_);
             var ret = (GISharp.Lib.GLib.UnicodeScript)ret_;
@@ -373,10 +387,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsAlphaNumericArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsAlphaNumeric(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsAlphaNumeric(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsAlphaNumericArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isalnum(c_);
             var ret = (System.Boolean)ret_;
@@ -401,10 +417,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsAlphaArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsAlpha(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsAlpha(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsAlphaArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isalpha(c_);
             var ret = (System.Boolean)ret_;
@@ -429,10 +447,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsControlArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsControl(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsControl(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsControlArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iscntrl(c_);
             var ret = (System.Boolean)ret_;
@@ -456,10 +476,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsDefinedArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsDefined(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsDefined(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsDefinedArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isdefined(c_);
             var ret = (System.Boolean)ret_;
@@ -484,10 +506,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsDigitArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsDigit(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsDigit(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsDigitArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isdigit(c_);
             var ret = (System.Boolean)ret_;
@@ -514,10 +538,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsGraphArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsGraph(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsGraph(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsGraphArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isgraph(c_);
             var ret = (System.Boolean)ret_;
@@ -542,10 +568,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsLowerArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsLower(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsLower(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsLowerArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_islower(c_);
             var ret = (System.Boolean)ret_;
@@ -578,11 +606,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsMarkArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsMark(GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public unsafe static System.Boolean IsMark(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsMarkArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_ismark(c_);
             var ret = (System.Boolean)ret_;
@@ -608,10 +638,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsPrintableArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsPrintable(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsPrintable(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsPrintableArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isprint(c_);
             var ret = (System.Boolean)ret_;
@@ -636,10 +668,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsPunctuationArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsPunctuation(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsPunctuation(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsPunctuationArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_ispunct(c_);
             var ret = (System.Boolean)ret_;
@@ -669,10 +703,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsSpaceArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsSpace(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsSpace(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsSpaceArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isspace(c_);
             var ret = (System.Boolean)ret_;
@@ -700,10 +736,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsTitleArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsTitle(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsTitle(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsTitleArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_istitle(c_);
             var ret = (System.Boolean)ret_;
@@ -726,10 +764,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsUpperArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsUpper(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsUpper(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsUpperArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isupper(c_);
             var ret = (System.Boolean)ret_;
@@ -753,10 +793,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsWideArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsWide(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsWide(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsWideArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iswide(c_);
             var ret = (System.Boolean)ret_;
@@ -790,11 +832,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsWideCjkArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsWideCjk(GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
         public unsafe static System.Boolean IsWideCjk(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsWideCjkArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iswide_cjk(c_);
             var ret = (System.Boolean)ret_;
@@ -817,10 +861,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsHexDigitArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsHexDigit(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean IsHexDigit(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsHexDigitArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isxdigit(c_);
             var ret = (System.Boolean)ret_;
@@ -853,11 +899,13 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckIsZeroWidthArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.IsZeroWidth(GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
         public unsafe static System.Boolean IsZeroWidth(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckIsZeroWidthArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iszerowidth(c_);
             var ret = (System.Boolean)ret_;
@@ -907,10 +955,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckToLowerArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.ToLower(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static GISharp.Lib.GLib.Unichar ToLower(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckToLowerArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_tolower(c_);
             var ret = (GISharp.Lib.GLib.Unichar)ret_;
@@ -935,10 +985,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckToTitleArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.ToTitle(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static GISharp.Lib.GLib.Unichar ToTitle(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckToTitleArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_totitle(c_);
             var ret = (GISharp.Lib.GLib.Unichar)ret_;
@@ -963,10 +1015,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckToUpperArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.ToUpper(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static GISharp.Lib.GLib.Unichar ToUpper(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckToUpperArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_toupper(c_);
             var ret = (GISharp.Lib.GLib.Unichar)ret_;
@@ -989,10 +1043,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckTypeArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.Type(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static GISharp.Lib.GLib.UnicodeType Type(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckTypeArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_type(c_);
             var ret = (GISharp.Lib.GLib.UnicodeType)ret_;
@@ -1017,10 +1073,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar ch);
+        static partial void CheckValidateArgs(this GISharp.Lib.GLib.Unichar ch);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.Validate(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Boolean Validate(this GISharp.Lib.GLib.Unichar ch)
         {
+            CheckValidateArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
             var ret_ = g_unichar_validate(ch_);
             var ret = (System.Boolean)ret_;
@@ -1045,10 +1103,12 @@ namespace GISharp.Lib.GLib
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
+        static partial void CheckHexDigitValueArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.HexDigitValue(GISharp.Lib.GLib.Unichar)']/*" />
         public unsafe static System.Int32 HexDigitValue(this GISharp.Lib.GLib.Unichar c)
         {
+            CheckHexDigitValueArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_xdigit_value(c_);
             var ret = (System.Int32)ret_;

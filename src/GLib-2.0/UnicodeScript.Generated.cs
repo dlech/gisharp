@@ -418,6 +418,8 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public static partial class UnicodeScriptExtensions
     {
+        static partial void CheckFromIso15924Args(System.UInt32 iso15924);
+
         /// <summary>
         /// Looks up the Unicode script for @iso15924.  ISO 15924 assigns four-letter
         /// codes to scripts.  For example, the code for Arabic is 'Arab'.
@@ -451,6 +453,7 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.30")]
         public static unsafe GISharp.Lib.GLib.UnicodeScript FromIso15924(System.UInt32 iso15924)
         {
+            CheckFromIso15924Args(iso15924);
             var iso15924_ = (System.UInt32)iso15924;
             var ret_ = g_unicode_script_from_iso15924(iso15924_);
             var ret = (GISharp.Lib.GLib.UnicodeScript)ret_;
@@ -485,11 +488,13 @@ namespace GISharp.Lib.GLib
         /* <type name="UnicodeScript" type="GUnicodeScript" managed-name="UnicodeScript" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.UnicodeScript script);
+        static partial void CheckToIso15924Args(this GISharp.Lib.GLib.UnicodeScript script);
 
         /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScriptExtensions.ToIso15924(GISharp.Lib.GLib.UnicodeScript)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         public unsafe static System.UInt32 ToIso15924(this GISharp.Lib.GLib.UnicodeScript script)
         {
+            CheckToIso15924Args(script);
             var script_ = (GISharp.Lib.GLib.UnicodeScript)script;
             var ret_ = g_unicode_script_to_iso15924(script_);
             var ret = (System.UInt32)ret_;
