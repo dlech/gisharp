@@ -1,3 +1,4 @@
+using System;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
@@ -17,12 +18,25 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCaseSubstring()
         {
-            using (var utf8 = new Utf8("Test")) {
-                using var s1 = utf8.Substring(1, 3);
-                Assert.That(s1, Is.EqualTo("es"));
+            using var utf8 = new Utf8("Test");
+            using var s1 = utf8.Substring(0, 4);
+            Assert.That(s1, Is.EqualTo("Test"));
+            using var s2 = utf8.Substring(1, 3);
+            Assert.That(s2, Is.EqualTo("es"));
 
-                // TODO: test out of  range indexes
-            }
+            Assert.That(() => utf8.Substring(-1, 4),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+                    .With.Property("ParamName").EqualTo("startPos"));
+            Assert.That(() => utf8.Substring(5, 4),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+                    .With.Property("ParamName").EqualTo("startPos"));
+            Assert.That(() => utf8.Substring(0, -1),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+                    .With.Property("ParamName").EqualTo("endPos"));
+            Assert.That(() => utf8.Substring(0, 5),
+                Throws.TypeOf<ArgumentOutOfRangeException>()
+                    .With.Property("ParamName").EqualTo("endPos"));
+            Assert.That(() => utf8.Substring(3, 2), Throws.ArgumentException);
         }
     }
 }

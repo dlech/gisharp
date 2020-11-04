@@ -1,3 +1,4 @@
+using System;
 using GISharp.Runtime;
 
 using clong = GISharp.Runtime.CLong;
@@ -6,6 +7,18 @@ namespace GISharp.Lib.GLib
 {
     partial class Utf8Extensions
     {
+        static partial void CheckSubstringArgs(this UnownedUtf8 str, clong startPos, clong endPos) {
+            if (startPos < 0 || startPos > str.Length) {
+                throw new ArgumentOutOfRangeException(nameof(startPos));
+            }
+            if (endPos < 0 || endPos > str.Length) {
+                throw new ArgumentOutOfRangeException(nameof(endPos));
+            }
+            if (endPos < startPos) {
+                throw new ArgumentException($"{nameof(startPos)} must be less than or equal to ${nameof(endPos)}");
+            }
+        }
+
         /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
         public unsafe static Utf8 CaseFold(this UnownedUtf8 str)
         {
