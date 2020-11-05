@@ -77,7 +77,7 @@ namespace GISharp.Test.Gio
         {
             using (var sa = new SimpleAction("test-action", VariantType.Boolean)) {
                 var parameter = default(Variant)!;
-                sa.Activated += (s, a) => parameter = a.Parameter;
+                sa.ActivateSignal += (s, a) => parameter = a.Parameter;
                 sa.Activate((Variant)true);
                 Assert.That(parameter, Is.Not.Null, "Event was not called");
                 Assert.That((bool)parameter, Is.True);
@@ -89,7 +89,7 @@ namespace GISharp.Test.Gio
         {
             using (var sa = new SimpleAction("test-action", null, (Variant)5)) {
                 var value = default(Variant)!;
-                sa.StateChanged += (s, a) => value = a.Value;
+                sa.ChangeStateSignal += (s, a) => value = a.Value;
                 sa.ChangeState((Variant)10);
                 Assert.That(value, Is.Not.Null, "Event was not called");
                 Assert.That((int)value, Is.EqualTo(10));

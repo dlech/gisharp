@@ -73,25 +73,25 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='CancelledEventArgs']/*" />
-        public sealed class CancelledEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='CancelledSignalEventArgs']/*" />
+        public sealed class CancelledSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public CancelledEventArgs(params System.Object[] args)
+            public CancelledSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<CancelledEventArgs> cancelledSignalManager = new GISharp.Runtime.GSignalManager<CancelledEventArgs>("cancelled", _GType);
+        readonly GISharp.Runtime.GSignalManager<CancelledSignalEventArgs> cancelledSignalSignalManager = new GISharp.Runtime.GSignalManager<CancelledSignalEventArgs>("cancelled", _GType);
 
-        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Cancelled']/*" />
+        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.CancelledSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("cancelled", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<CancelledEventArgs> Cancelled { add => cancelledSignalManager.Add(this, value); remove => cancelledSignalManager.Remove(value); }
+        public event System.EventHandler<CancelledSignalEventArgs> CancelledSignal { add => cancelledSignalSignalManager.Add(this, value); remove => cancelledSignalSignalManager.Remove(value); }
 
         static partial void CheckGetCurrentArgs();
 

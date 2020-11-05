@@ -96,7 +96,7 @@ namespace GISharp.Test.Gio
         {
             using (var c = new Cancellable()) {
                 bool handlerInvoked = false;
-                c.Cancelled += (s, a) => handlerInvoked = true;
+                c.CancelledSignal += (s, a) => handlerInvoked = true;
                 c.Cancel();
                 Assert.That(handlerInvoked, Is.True);
             }

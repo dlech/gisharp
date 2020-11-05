@@ -147,188 +147,188 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='ActivatedEventArgs']/*" />
-        public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="Application.xmldoc" path="declaration/member[@name='ActivateSignalEventArgs']/*" />
+        public sealed class ActivateSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public ActivatedEventArgs(params System.Object[] args)
+            public ActivateSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<ActivatedEventArgs> activatedSignalManager = new GISharp.Runtime.GSignalManager<ActivatedEventArgs>("activate", _GType);
+        readonly GISharp.Runtime.GSignalManager<ActivateSignalEventArgs> activateSignalSignalManager = new GISharp.Runtime.GSignalManager<ActivateSignalEventArgs>("activate", _GType);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Activated']/*" />
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.ActivateSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<ActivatedEventArgs> Activated { add => activatedSignalManager.Add(this, value); remove => activatedSignalManager.Remove(value); }
+        public event System.EventHandler<ActivateSignalEventArgs> ActivateSignal { add => activateSignalSignalManager.Add(this, value); remove => activateSignalSignalManager.Remove(value); }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLinedEventArgs']/*" />
-        public sealed class CommandLinedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLineSignalEventArgs']/*" />
+        public sealed class CommandLineSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLinedEventArgs.CommandLine']/*" />
+            /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLineSignalEventArgs.CommandLine']/*" />
             public GISharp.Lib.Gio.ApplicationCommandLine CommandLine => (GISharp.Lib.Gio.ApplicationCommandLine)args[1];
 
-            /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLinedEventArgs.ReturnValue']/*" />
+            /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLineSignalEventArgs.ReturnValue']/*" />
             public System.Int32 ReturnValue { get; set; }
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public CommandLinedEventArgs(params System.Object[] args)
+            public CommandLineSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<CommandLinedEventArgs> commandLinedSignalManager = new GISharp.Runtime.GSignalManager<CommandLinedEventArgs>("command-line", _GType);
+        readonly GISharp.Runtime.GSignalManager<CommandLineSignalEventArgs> commandLineSignalSignalManager = new GISharp.Runtime.GSignalManager<CommandLineSignalEventArgs>("command-line", _GType);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.CommandLined']/*" />
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.CommandLineSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("command-line", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<CommandLinedEventArgs> CommandLined { add => commandLinedSignalManager.Add(this, value); remove => commandLinedSignalManager.Remove(value); }
+        public event System.EventHandler<CommandLineSignalEventArgs> CommandLineSignal { add => commandLineSignalSignalManager.Add(this, value); remove => commandLineSignalSignalManager.Remove(value); }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='HandledLocalOptionsEventArgs']/*" />
-        public sealed class HandledLocalOptionsEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="Application.xmldoc" path="declaration/member[@name='HandleLocalOptionsSignalEventArgs']/*" />
+        public sealed class HandleLocalOptionsSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="Application.xmldoc" path="declaration/member[@name='HandledLocalOptionsEventArgs.Options']/*" />
+            /// <include file="Application.xmldoc" path="declaration/member[@name='HandleLocalOptionsSignalEventArgs.Options']/*" />
             public GISharp.Lib.GLib.VariantDict Options => (GISharp.Lib.GLib.VariantDict)args[1];
 
-            /// <include file="Application.xmldoc" path="declaration/member[@name='HandledLocalOptionsEventArgs.ReturnValue']/*" />
+            /// <include file="Application.xmldoc" path="declaration/member[@name='HandleLocalOptionsSignalEventArgs.ReturnValue']/*" />
             public System.Int32 ReturnValue { get; set; }
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public HandledLocalOptionsEventArgs(params System.Object[] args)
+            public HandleLocalOptionsSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<HandledLocalOptionsEventArgs> handledLocalOptionsSignalManager = new GISharp.Runtime.GSignalManager<HandledLocalOptionsEventArgs>("handle-local-options", _GType);
+        readonly GISharp.Runtime.GSignalManager<HandleLocalOptionsSignalEventArgs> handleLocalOptionsSignalSignalManager = new GISharp.Runtime.GSignalManager<HandleLocalOptionsSignalEventArgs>("handle-local-options", _GType);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.HandledLocalOptions']/*" />
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.HandleLocalOptionsSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
         [GISharp.Runtime.GSignalAttribute("handle-local-options", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<HandledLocalOptionsEventArgs> HandledLocalOptions { add => handledLocalOptionsSignalManager.Add(this, value); remove => handledLocalOptionsSignalManager.Remove(value); }
+        public event System.EventHandler<HandleLocalOptionsSignalEventArgs> HandleLocalOptionsSignal { add => handleLocalOptionsSignalSignalManager.Add(this, value); remove => handleLocalOptionsSignalSignalManager.Remove(value); }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='NameLostEventArgs']/*" />
-        public sealed class NameLostEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="Application.xmldoc" path="declaration/member[@name='NameLostSignalEventArgs']/*" />
+        public sealed class NameLostSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="Application.xmldoc" path="declaration/member[@name='NameLostEventArgs.ReturnValue']/*" />
+            /// <include file="Application.xmldoc" path="declaration/member[@name='NameLostSignalEventArgs.ReturnValue']/*" />
             public System.Boolean ReturnValue { get; set; }
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public NameLostEventArgs(params System.Object[] args)
+            public NameLostSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<NameLostEventArgs> nameLostSignalManager = new GISharp.Runtime.GSignalManager<NameLostEventArgs>("name-lost", _GType);
+        readonly GISharp.Runtime.GSignalManager<NameLostSignalEventArgs> nameLostSignalSignalManager = new GISharp.Runtime.GSignalManager<NameLostSignalEventArgs>("name-lost", _GType);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.NameLost']/*" />
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.NameLostSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         [GISharp.Runtime.GSignalAttribute("name-lost", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<NameLostEventArgs> NameLost { add => nameLostSignalManager.Add(this, value); remove => nameLostSignalManager.Remove(value); }
+        public event System.EventHandler<NameLostSignalEventArgs> NameLostSignal { add => nameLostSignalSignalManager.Add(this, value); remove => nameLostSignalSignalManager.Remove(value); }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='OpenedEventArgs']/*" />
-        public sealed class OpenedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="Application.xmldoc" path="declaration/member[@name='OpenSignalEventArgs']/*" />
+        public sealed class OpenSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="Application.xmldoc" path="declaration/member[@name='OpenedEventArgs.Files']/*" />
+            /// <include file="Application.xmldoc" path="declaration/member[@name='OpenSignalEventArgs.Files']/*" />
             public GISharp.Runtime.CPtrArray<GISharp.Lib.Gio.IFile> Files => (GISharp.Runtime.CPtrArray<GISharp.Lib.Gio.IFile>)args[1];
 
-            /// <include file="Application.xmldoc" path="declaration/member[@name='OpenedEventArgs.Hint']/*" />
+            /// <include file="Application.xmldoc" path="declaration/member[@name='OpenSignalEventArgs.Hint']/*" />
             public GISharp.Lib.GLib.Utf8 Hint => (GISharp.Lib.GLib.Utf8)args[2];
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public OpenedEventArgs(params System.Object[] args)
+            public OpenSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<OpenedEventArgs> openedSignalManager = new GISharp.Runtime.GSignalManager<OpenedEventArgs>("open", _GType);
+        readonly GISharp.Runtime.GSignalManager<OpenSignalEventArgs> openSignalSignalManager = new GISharp.Runtime.GSignalManager<OpenSignalEventArgs>("open", _GType);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Opened']/*" />
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.OpenSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("open", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<OpenedEventArgs> Opened { add => openedSignalManager.Add(this, value); remove => openedSignalManager.Remove(value); }
+        public event System.EventHandler<OpenSignalEventArgs> OpenSignal { add => openSignalSignalManager.Add(this, value); remove => openSignalSignalManager.Remove(value); }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='ShutdownedEventArgs']/*" />
-        public sealed class ShutdownedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="Application.xmldoc" path="declaration/member[@name='ShutdownSignalEventArgs']/*" />
+        public sealed class ShutdownSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public ShutdownedEventArgs(params System.Object[] args)
+            public ShutdownSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<ShutdownedEventArgs> shutdownedSignalManager = new GISharp.Runtime.GSignalManager<ShutdownedEventArgs>("shutdown", _GType);
+        readonly GISharp.Runtime.GSignalManager<ShutdownSignalEventArgs> shutdownSignalSignalManager = new GISharp.Runtime.GSignalManager<ShutdownSignalEventArgs>("shutdown", _GType);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Shutdowned']/*" />
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.ShutdownSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("shutdown", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<ShutdownedEventArgs> Shutdowned { add => shutdownedSignalManager.Add(this, value); remove => shutdownedSignalManager.Remove(value); }
+        public event System.EventHandler<ShutdownSignalEventArgs> ShutdownSignal { add => shutdownSignalSignalManager.Add(this, value); remove => shutdownSignalSignalManager.Remove(value); }
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='StartupedEventArgs']/*" />
-        public sealed class StartupedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="Application.xmldoc" path="declaration/member[@name='StartupSignalEventArgs']/*" />
+        public sealed class StartupSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public StartupedEventArgs(params System.Object[] args)
+            public StartupSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<StartupedEventArgs> startupedSignalManager = new GISharp.Runtime.GSignalManager<StartupedEventArgs>("startup", _GType);
+        readonly GISharp.Runtime.GSignalManager<StartupSignalEventArgs> startupSignalSignalManager = new GISharp.Runtime.GSignalManager<StartupSignalEventArgs>("startup", _GType);
 
-        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Startuped']/*" />
+        /// <include file="Application.xmldoc" path="declaration/member[@name='Application.StartupSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("startup", When = GISharp.Runtime.EmissionStage.First)]
-        public event System.EventHandler<StartupedEventArgs> Startuped { add => startupedSignalManager.Add(this, value); remove => startupedSignalManager.Remove(value); }
+        public event System.EventHandler<StartupSignalEventArgs> StartupSignal { add => startupSignalSignalManager.Add(this, value); remove => startupSignalSignalManager.Remove(value); }
 
-        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionAddedEventArgs> actionAddedSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionAddedEventArgs>("action-added", _GType);
-
-        /// <inheritdoc />
-        public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionAddedEventArgs> ActionAdded { add => actionAddedSignalManager.Add(this, value); remove => actionAddedSignalManager.Remove(value); }
-
-        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedEventArgs> actionEnabledChangedSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedEventArgs>("action-enabled-changed", _GType);
+        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionAddedSignalEventArgs> actionAddedSignalSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionAddedSignalEventArgs>("action-added", _GType);
 
         /// <inheritdoc />
-        public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedEventArgs> ActionEnabledChanged { add => actionEnabledChangedSignalManager.Add(this, value); remove => actionEnabledChangedSignalManager.Remove(value); }
+        public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionAddedSignalEventArgs> ActionAddedSignal { add => actionAddedSignalSignalManager.Add(this, value); remove => actionAddedSignalSignalManager.Remove(value); }
 
-        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionRemovedEventArgs> actionRemovedSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionRemovedEventArgs>("action-removed", _GType);
-
-        /// <inheritdoc />
-        public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionRemovedEventArgs> ActionRemoved { add => actionRemovedSignalManager.Add(this, value); remove => actionRemovedSignalManager.Remove(value); }
-
-        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionStateChangedEventArgs> actionStateChangedSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionStateChangedEventArgs>("action-state-changed", _GType);
+        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedSignalEventArgs> actionEnabledChangedSignalSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedSignalEventArgs>("action-enabled-changed", _GType);
 
         /// <inheritdoc />
-        public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionStateChangedEventArgs> ActionStateChanged { add => actionStateChangedSignalManager.Add(this, value); remove => actionStateChangedSignalManager.Remove(value); }
+        public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionEnabledChangedSignalEventArgs> ActionEnabledChangedSignal { add => actionEnabledChangedSignalSignalManager.Add(this, value); remove => actionEnabledChangedSignalSignalManager.Remove(value); }
+
+        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionRemovedSignalEventArgs> actionRemovedSignalSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionRemovedSignalEventArgs>("action-removed", _GType);
+
+        /// <inheritdoc />
+        public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionRemovedSignalEventArgs> ActionRemovedSignal { add => actionRemovedSignalSignalManager.Add(this, value); remove => actionRemovedSignalSignalManager.Remove(value); }
+
+        readonly GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionStateChangedSignalEventArgs> actionStateChangedSignalSignalManager = new GISharp.Runtime.GSignalManager<GISharp.Lib.Gio.ActionGroup.ActionStateChangedSignalEventArgs>("action-state-changed", _GType);
+
+        /// <inheritdoc />
+        public event System.EventHandler<GISharp.Lib.Gio.ActionGroup.ActionStateChangedSignalEventArgs> ActionStateChangedSignal { add => actionStateChangedSignalSignalManager.Add(this, value); remove => actionStateChangedSignalSignalManager.Remove(value); }
 
         static partial void CheckGetDefaultArgs();
 

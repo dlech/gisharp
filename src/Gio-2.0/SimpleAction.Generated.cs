@@ -144,53 +144,53 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivatedEventArgs']/*" />
-        public sealed class ActivatedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivateSignalEventArgs']/*" />
+        public sealed class ActivateSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivatedEventArgs.Parameter']/*" />
+            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivateSignalEventArgs.Parameter']/*" />
             public GISharp.Lib.GLib.Variant Parameter => (GISharp.Lib.GLib.Variant)args[1];
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public ActivatedEventArgs(params System.Object[] args)
+            public ActivateSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<ActivatedEventArgs> activatedSignalManager = new GISharp.Runtime.GSignalManager<ActivatedEventArgs>("activate", _GType);
+        readonly GISharp.Runtime.GSignalManager<ActivateSignalEventArgs> activateSignalSignalManager = new GISharp.Runtime.GSignalManager<ActivateSignalEventArgs>("activate", _GType);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.Activated']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.ActivateSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<ActivatedEventArgs> Activated { add => activatedSignalManager.Add(this, value); remove => activatedSignalManager.Remove(value); }
+        public event System.EventHandler<ActivateSignalEventArgs> ActivateSignal { add => activateSignalSignalManager.Add(this, value); remove => activateSignalSignalManager.Remove(value); }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='StateChangedEventArgs']/*" />
-        public sealed class StateChangedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ChangeStateSignalEventArgs']/*" />
+        public sealed class ChangeStateSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='StateChangedEventArgs.Value']/*" />
+            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ChangeStateSignalEventArgs.Value']/*" />
             public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[1];
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public StateChangedEventArgs(params System.Object[] args)
+            public ChangeStateSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<StateChangedEventArgs> stateChangedSignalManager = new GISharp.Runtime.GSignalManager<StateChangedEventArgs>("change-state", _GType);
+        readonly GISharp.Runtime.GSignalManager<ChangeStateSignalEventArgs> changeStateSignalSignalManager = new GISharp.Runtime.GSignalManager<ChangeStateSignalEventArgs>("change-state", _GType);
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.StateChanged']/*" />
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.ChangeStateSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         [GISharp.Runtime.GSignalAttribute("change-state", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<StateChangedEventArgs> StateChanged { add => stateChangedSignalManager.Add(this, value); remove => stateChangedSignalManager.Remove(value); }
+        public event System.EventHandler<ChangeStateSignalEventArgs> ChangeStateSignal { add => changeStateSignalSignalManager.Add(this, value); remove => changeStateSignalSignalManager.Remove(value); }
 
         static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

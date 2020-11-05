@@ -26,15 +26,3 @@
   name: nullable
   value: 1
   xpath: gi:repository/gi:namespace/gi:class[@name='Application']/gi:method[@name='get_application_id']/gi:return-value
-
-# better event name for signal
-- !set-attribute
-  name: gs:managed-name
-  value: HandledLocalOptions
-  xpath: gi:repository/gi:namespace/gi:class[@name='Application']/glib:signal[@name='handle-local-options']
-
-# avoid "ed" suffix for signal
-- !set-attribute
-  name: gs:managed-name
-  value: NameLost
-  xpath: gi:repository/gi:namespace/gi:class[@name='Application']/glib:signal[@name='name-lost']

@@ -1,9 +1,0 @@
-
-### SimpleAction ###
-
-# better name
-- !set-attribute
-  name: gs:managed-name
-  value: StateChanged
-  xpath: gi:repository/gi:namespace/gi:class[@name='SimpleAction']/glib:signal[@name='change-state']
-

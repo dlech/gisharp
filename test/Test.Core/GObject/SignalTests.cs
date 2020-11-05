@@ -72,17 +72,17 @@ namespace GISharp.Test.Core.GObject
                 var id = Signal.TryLookup("notify", GType.Object);
                 Assume.That(id, Is.Not.EqualTo(0));
 
-                EventHandler<Object.NotifiedEventArgs> handler1 = (s, e) => {
+                EventHandler<Object.NotifySignalEventArgs> handler1 = (s, e) => {
                     handler1Count++;
                     if (stopEmission) {
                         obj.StopEmission(id);
                     }
                 };
 
-                EventHandler<Object.NotifiedEventArgs> handler2 = (s, e) => handler2Count++;
+                EventHandler<Object.NotifySignalEventArgs> handler2 = (s, e) => handler2Count++;
 
-                obj.Notified += handler1;
-                obj.Notified += handler2;
+                obj.NotifySignal += handler1;
+                obj.NotifySignal += handler2;
 
                 // make sure our callbacks are working
                 obj.Emit(id, 0, pspec);
@@ -108,17 +108,17 @@ namespace GISharp.Test.Core.GObject
             using (var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
                 false, ParamFlags.Readwrite | ParamFlags.StaticStrings))
             using (var obj = new Object()) {
-                EventHandler<Object.NotifiedEventArgs> handler1 = (s, e) => {
+                EventHandler<Object.NotifySignalEventArgs> handler1 = (s, e) => {
                     handler1Count++;
                     if (stopEmission) {
                         obj.StopEmissionByName("notify::test-param");
                     }
                 };
 
-                EventHandler<Object.NotifiedEventArgs> handler2 = (s, e) => handler2Count++;
+                EventHandler<Object.NotifySignalEventArgs> handler2 = (s, e) => handler2Count++;
 
-                obj.Notified += handler1;
-                obj.Notified += handler2;
+                obj.NotifySignal += handler1;
+                obj.NotifySignal += handler2;
 
                 // make sure our callbacks are working
                 obj.EmitNotify(pspec);

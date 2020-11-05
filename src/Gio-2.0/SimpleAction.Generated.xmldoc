@@ -76,14 +76,14 @@ the initial state of the action
 </param>
 </member>
 
-<member name='ActivatedEventArgs.Parameter'>
+<member name='ActivateSignalEventArgs.Parameter'>
 <param name="parameter">
 the parameter to the activation, or <c>null</c> if it has
   no parameter
 </param>
 </member>
 
-<member name='ActivatedEventArgs'>
+<member name='ActivateSignalEventArgs'>
 <summary>
 Indicates that the action was just activated.
 </summary>
@@ -102,7 +102,7 @@ of <see cref="SimpleAction"/> to connect only one handler or the other.
 </remarks>
 </member>
 
-<member name='SimpleAction.Activated'>
+<member name='SimpleAction.ActivateSignal'>
 <summary>
 Indicates that the action was just activated.
 </summary>
@@ -121,13 +121,13 @@ of <see cref="SimpleAction"/> to connect only one handler or the other.
 </remarks>
 </member>
 
-<member name='StateChangedEventArgs.Value'>
+<member name='ChangeStateSignalEventArgs.Value'>
 <param name="value">
 the requested value for the state
 </param>
 </member>
 
-<member name='StateChangedEventArgs'>
+<member name='ChangeStateSignalEventArgs'>
 <summary>
 Indicates that the action just received a request to change its
 state.
@@ -166,7 +166,7 @@ It could set it to any value at all, or take some other action.
 </remarks>
 </member>
 
-<member name='SimpleAction.StateChanged'>
+<member name='SimpleAction.ChangeStateSignal'>
 <summary>
 Indicates that the action just received a request to change its
 state.

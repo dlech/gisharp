@@ -153,35 +153,35 @@ the application flags
 </param>
 </member>
 
-<member name='ActivatedEventArgs'>
+<member name='ActivateSignalEventArgs'>
 <summary>
 The ::activate signal is emitted on the primary instance when an
 activation occurs. See <see cref="Application.Activate()"/>.
 </summary>
 </member>
 
-<member name='Application.Activated'>
+<member name='Application.ActivateSignal'>
 <summary>
 The ::activate signal is emitted on the primary instance when an
 activation occurs. See <see cref="Application.Activate()"/>.
 </summary>
 </member>
 
-<member name='CommandLinedEventArgs.CommandLine'>
+<member name='CommandLineSignalEventArgs.CommandLine'>
 <param name="commandLine">
 a <see cref="ApplicationCommandLine"/> representing the
     passed commandline
 </param>
 </member>
 
-<member name='CommandLinedEventArgs.ReturnValue'>
+<member name='CommandLineSignalEventArgs.ReturnValue'>
 <returns>
 An integer that is set as the exit status for the calling
   process. See <see cref="ApplicationCommandLine.SetExitStatus(System.Int32)"/>.
 </returns>
 </member>
 
-<member name='CommandLinedEventArgs'>
+<member name='CommandLineSignalEventArgs'>
 <summary>
 The ::command-line signal is emitted on the primary instance when
 a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/> and
@@ -189,7 +189,7 @@ the <see cref="ApplicationCommandLine"/> documentation for more information.
 </summary>
 </member>
 
-<member name='Application.CommandLined'>
+<member name='Application.CommandLineSignal'>
 <summary>
 The ::command-line signal is emitted on the primary instance when
 a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/> and
@@ -197,13 +197,13 @@ the <see cref="ApplicationCommandLine"/> documentation for more information.
 </summary>
 </member>
 
-<member name='HandledLocalOptionsEventArgs.Options'>
+<member name='HandleLocalOptionsSignalEventArgs.Options'>
 <param name="options">
 the options dictionary
 </param>
 </member>
 
-<member name='HandledLocalOptionsEventArgs.ReturnValue'>
+<member name='HandleLocalOptionsSignalEventArgs.ReturnValue'>
 <returns>
 an exit code. If you have handled your options and want
 to exit the process, return a non-negative option, 0 for success,
@@ -212,7 +212,7 @@ the default option processing continue.
 </returns>
 </member>
 
-<member name='HandledLocalOptionsEventArgs'>
+<member name='HandleLocalOptionsSignalEventArgs'>
 <summary>
 The ::handle-local-options signal is emitted on the local instance
 after the parsing of the commandline options has occurred.
@@ -259,7 +259,7 @@ normally be required.
 </remarks>
 </member>
 
-<member name='Application.HandledLocalOptions'>
+<member name='Application.HandleLocalOptionsSignal'>
 <summary>
 The ::handle-local-options signal is emitted on the local instance
 after the parsing of the commandline options has occurred.
@@ -306,13 +306,13 @@ normally be required.
 </remarks>
 </member>
 
-<member name='NameLostEventArgs.ReturnValue'>
+<member name='NameLostSignalEventArgs.ReturnValue'>
 <returns>
 <c>true</c> if the signal has been handled
 </returns>
 </member>
 
-<member name='NameLostEventArgs'>
+<member name='NameLostSignalEventArgs'>
 <summary>
 The ::name-lost signal is emitted only on the registered primary instance
 when a new instance has taken over. This can only happen if the application
@@ -323,7 +323,7 @@ The default handler for this signal calls <see cref="Application.Quit()"/>.
 </remarks>
 </member>
 
-<member name='Application.NameLost'>
+<member name='Application.NameLostSignal'>
 <summary>
 The ::name-lost signal is emitted only on the registered primary instance
 when a new instance has taken over. This can only happen if the application
@@ -334,54 +334,54 @@ The default handler for this signal calls <see cref="Application.Quit()"/>.
 </remarks>
 </member>
 
-<member name='OpenedEventArgs.Files'>
+<member name='OpenSignalEventArgs.Files'>
 <param name="files">
 an array of #GFiles
 </param>
 </member>
 
-<member name='OpenedEventArgs.Hint'>
+<member name='OpenSignalEventArgs.Hint'>
 <param name="hint">
 a hint provided by the calling instance
 </param>
 </member>
 
-<member name='OpenedEventArgs'>
+<member name='OpenSignalEventArgs'>
 <summary>
 The ::open signal is emitted on the primary instance when there are
 files to open. See <see cref="Application.Open(GISharp.Runtime.CPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> for more information.
 </summary>
 </member>
 
-<member name='Application.Opened'>
+<member name='Application.OpenSignal'>
 <summary>
 The ::open signal is emitted on the primary instance when there are
 files to open. See <see cref="Application.Open(GISharp.Runtime.CPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> for more information.
 </summary>
 </member>
 
-<member name='ShutdownedEventArgs'>
+<member name='ShutdownSignalEventArgs'>
 <summary>
 The ::shutdown signal is emitted only on the registered primary instance
 immediately after the main loop terminates.
 </summary>
 </member>
 
-<member name='Application.Shutdowned'>
+<member name='Application.ShutdownSignal'>
 <summary>
 The ::shutdown signal is emitted only on the registered primary instance
 immediately after the main loop terminates.
 </summary>
 </member>
 
-<member name='StartupedEventArgs'>
+<member name='StartupSignalEventArgs'>
 <summary>
 The ::startup signal is emitted on the primary instance immediately
 after registration. See <see cref="Application.Register(GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 </member>
 
-<member name='Application.Startuped'>
+<member name='Application.StartupSignal'>
 <summary>
 The ::startup signal is emitted on the primary instance immediately
 after registration. See <see cref="Application.Register(GISharp.Lib.Gio.Cancellable)"/>.

@@ -51,7 +51,7 @@ operations or in multiple concurrent operations.
 </remarks>
 </member>
 
-<member name='CancelledEventArgs'>
+<member name='CancelledSignalEventArgs'>
 <summary>
 Emitted when the operation has been cancelled.
 </summary>
@@ -108,7 +108,7 @@ cancellable signal should not do something that can block.
 </remarks>
 </member>
 
-<member name='Cancellable.Cancelled'>
+<member name='Cancellable.CancelledSignal'>
 <summary>
 Emitted when the operation has been cancelled.
 </summary>

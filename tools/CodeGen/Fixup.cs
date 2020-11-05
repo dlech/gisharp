@@ -510,17 +510,10 @@ namespace GISharp.CodeGen
                     name = "do_" + name;
                 }
 
-                // add "ed" suffix to events
+                // add "Signal" suffix to signals since signal names often
+                // conflict with method names
                 if (element.Name == glib + "signal") {
-                    if (!name.EndsWith("ed") && !name.EndsWith("ing")) {
-                        if (name.EndsWith('y')) {
-                            name = name.Substring(name.Length - 1) + "i";
-                        }
-                        if (!name.EndsWith('e')) {
-                            name += "e";
-                        }
-                        name += "d";
-                    }
+                    name += "_signal";
                 }
 
                 // check various conditions where we might want camelCase
@@ -1341,8 +1334,7 @@ namespace GISharp.CodeGen
 
         public static Transfer AsTransfer(this XAttribute attribute, string defaultValue)
         {
-            return (attribute?.Value ?? defaultValue) switch
-            {
+            return (attribute?.Value ?? defaultValue) switch {
                 "none" => Transfer.None,
                 "container" => Transfer.Container,
                 "full" => Transfer.Full,
@@ -1352,8 +1344,7 @@ namespace GISharp.CodeGen
 
         public static EmissionStage ToEmissionStage(this XAttribute attribute)
         {
-            return attribute.Value switch
-            {
+            return attribute.Value switch {
                 "first" => EmissionStage.First,
                 "last" => EmissionStage.Last,
                 "cleanup" => EmissionStage.Cleanup,

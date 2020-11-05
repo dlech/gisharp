@@ -111,23 +111,23 @@ namespace GISharp.Lib.GObject
 
         static GType _GType => g_object_get_type();
 
-        public sealed class NotifiedEventArgs : GSignalEventArgs
+        public sealed class NotifySignalEventArgs : GSignalEventArgs
         {
             readonly object[] args;
 
             public ParamSpec Pspec => (ParamSpec)args[0];
 
-            public NotifiedEventArgs(params object[] args)
+            public NotifySignalEventArgs(params object[] args)
             {
                 this.args = args ?? throw new ArgumentNullException(nameof(args));
             }
         }
 
-        readonly GSignalManager<NotifiedEventArgs> notifySignalManager =
-                new GSignalManager<NotifiedEventArgs>("notify", _GType);
+        readonly GSignalManager<NotifySignalEventArgs> notifySignalManager =
+                new GSignalManager<NotifySignalEventArgs>("notify", _GType);
 
         [GSignal("notify", When = EmissionStage.First, IsNoRecurse = true, IsDetailed = true, IsAction = true, IsNoHooks = true)]
-        public event EventHandler<NotifiedEventArgs> Notified {
+        public event EventHandler<NotifySignalEventArgs> NotifySignal {
             add => notifySignalManager.Add(this, value);
             remove => notifySignalManager.Remove(value);
         }

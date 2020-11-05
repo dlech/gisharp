@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='IActionGroup.ActionAdded'>
+<member name='IActionGroup.ActionAddedSignal'>
 <summary>
 Signals that a new action was just added to the group.
 This signal is emitted after the action has been added
@@ -8,13 +8,13 @@ and is now visible.
 </summary>
 </member>
 
-<member name='IActionGroup.ActionEnabledChanged'>
+<member name='IActionGroup.ActionEnabledChangedSignal'>
 <summary>
 Signals that the enabled status of the named action has changed.
 </summary>
 </member>
 
-<member name='IActionGroup.ActionRemoved'>
+<member name='IActionGroup.ActionRemovedSignal'>
 <summary>
 Signals that an action is just about to be removed from the group.
 This signal is emitted before the action is removed, so the action
@@ -22,7 +22,7 @@ is still visible and can be queried from the signal handler.
 </summary>
 </member>
 
-<member name='IActionGroup.ActionStateChanged'>
+<member name='IActionGroup.ActionStateChangedSignal'>
 <summary>
 Signals that the state of the named action has changed.
 </summary>
@@ -319,13 +319,13 @@ calls to <see cref="ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISh
 </remarks>
 </member>
 
-<member name='ActionAddedEventArgs.ActionName'>
+<member name='ActionAddedSignalEventArgs.ActionName'>
 <param name="actionName">
 the name of the action in <paramref name="actionGroup"/>
 </param>
 </member>
 
-<member name='ActionAddedEventArgs'>
+<member name='ActionAddedSignalEventArgs'>
 <summary>
 Signals that a new action was just added to the group.
 This signal is emitted after the action has been added
@@ -333,31 +333,31 @@ and is now visible.
 </summary>
 </member>
 
-<member name='ActionEnabledChangedEventArgs.ActionName'>
+<member name='ActionEnabledChangedSignalEventArgs.ActionName'>
 <param name="actionName">
 the name of the action in <paramref name="actionGroup"/>
 </param>
 </member>
 
-<member name='ActionEnabledChangedEventArgs.Enabled'>
+<member name='ActionEnabledChangedSignalEventArgs.Enabled'>
 <param name="enabled">
 whether the action is enabled or not
 </param>
 </member>
 
-<member name='ActionEnabledChangedEventArgs'>
+<member name='ActionEnabledChangedSignalEventArgs'>
 <summary>
 Signals that the enabled status of the named action has changed.
 </summary>
 </member>
 
-<member name='ActionRemovedEventArgs.ActionName'>
+<member name='ActionRemovedSignalEventArgs.ActionName'>
 <param name="actionName">
 the name of the action in <paramref name="actionGroup"/>
 </param>
 </member>
 
-<member name='ActionRemovedEventArgs'>
+<member name='ActionRemovedSignalEventArgs'>
 <summary>
 Signals that an action is just about to be removed from the group.
 This signal is emitted before the action is removed, so the action
@@ -365,19 +365,19 @@ is still visible and can be queried from the signal handler.
 </summary>
 </member>
 
-<member name='ActionStateChangedEventArgs.ActionName'>
+<member name='ActionStateChangedSignalEventArgs.ActionName'>
 <param name="actionName">
 the name of the action in <paramref name="actionGroup"/>
 </param>
 </member>
 
-<member name='ActionStateChangedEventArgs.Value'>
+<member name='ActionStateChangedSignalEventArgs.Value'>
 <param name="value">
 the new value of the state
 </param>
 </member>
 
-<member name='ActionStateChangedEventArgs'>
+<member name='ActionStateChangedSignalEventArgs'>
 <summary>
 Signals that the state of the named action has changed.
 </summary>

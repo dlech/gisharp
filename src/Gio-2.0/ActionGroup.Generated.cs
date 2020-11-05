@@ -9,25 +9,25 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_action_group_get_type();
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionAdded']/*" />
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionAddedSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-added", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<ActionGroup.ActionAddedEventArgs> ActionAdded;
+        event System.EventHandler<ActionGroup.ActionAddedSignalEventArgs> ActionAddedSignal;
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionEnabledChanged']/*" />
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionEnabledChangedSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-enabled-changed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<ActionGroup.ActionEnabledChangedEventArgs> ActionEnabledChanged;
+        event System.EventHandler<ActionGroup.ActionEnabledChangedSignalEventArgs> ActionEnabledChangedSignal;
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionRemoved']/*" />
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionRemovedSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-removed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<ActionGroup.ActionRemovedEventArgs> ActionRemoved;
+        event System.EventHandler<ActionGroup.ActionRemovedSignalEventArgs> ActionRemovedSignal;
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionStateChanged']/*" />
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.ActionStateChangedSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("action-state-changed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
-        event System.EventHandler<ActionGroup.ActionStateChangedEventArgs> ActionStateChanged;
+        event System.EventHandler<ActionGroup.ActionStateChangedSignalEventArgs> ActionStateChangedSignal;
 
         static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
@@ -106,75 +106,75 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static partial class ActionGroup
     {
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionAddedEventArgs']/*" />
-        public sealed class ActionAddedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionAddedSignalEventArgs']/*" />
+        public sealed class ActionAddedSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionAddedEventArgs.ActionName']/*" />
+            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionAddedSignalEventArgs.ActionName']/*" />
             public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1];
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public ActionAddedEventArgs(params System.Object[] args)
+            public ActionAddedSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionEnabledChangedEventArgs']/*" />
-        public sealed class ActionEnabledChangedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionEnabledChangedSignalEventArgs']/*" />
+        public sealed class ActionEnabledChangedSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionEnabledChangedEventArgs.ActionName']/*" />
+            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionEnabledChangedSignalEventArgs.ActionName']/*" />
             public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1];
 
-            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionEnabledChangedEventArgs.Enabled']/*" />
+            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionEnabledChangedSignalEventArgs.Enabled']/*" />
             public System.Boolean Enabled => (System.Boolean)args[2];
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public ActionEnabledChangedEventArgs(params System.Object[] args)
+            public ActionEnabledChangedSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionRemovedEventArgs']/*" />
-        public sealed class ActionRemovedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionRemovedSignalEventArgs']/*" />
+        public sealed class ActionRemovedSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionRemovedEventArgs.ActionName']/*" />
+            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionRemovedSignalEventArgs.ActionName']/*" />
             public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1];
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public ActionRemovedEventArgs(params System.Object[] args)
+            public ActionRemovedSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
         }
 
-        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionStateChangedEventArgs']/*" />
-        public sealed class ActionStateChangedEventArgs : GISharp.Runtime.GSignalEventArgs
+        /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionStateChangedSignalEventArgs']/*" />
+        public sealed class ActionStateChangedSignalEventArgs : GISharp.Runtime.GSignalEventArgs
         {
             readonly System.Object[] args;
 
-            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionStateChangedEventArgs.ActionName']/*" />
+            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionStateChangedSignalEventArgs.ActionName']/*" />
             public GISharp.Lib.GLib.Utf8 ActionName => (GISharp.Lib.GLib.Utf8)args[1];
 
-            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionStateChangedEventArgs.Value']/*" />
+            /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionStateChangedSignalEventArgs.Value']/*" />
             public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[2];
 
             /// <summary>
             /// Creates a new instance.
             /// </summary>
-            public ActionStateChangedEventArgs(params System.Object[] args)
+            public ActionStateChangedSignalEventArgs(params System.Object[] args)
             {
                 this.args = args ?? throw new System.ArgumentNullException(nameof(args));
             }
