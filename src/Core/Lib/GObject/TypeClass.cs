@@ -281,7 +281,7 @@ namespace GISharp.Lib.GObject
             IntPtr gClass,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr privateSize);
+            nuint privateSize);
 
         /// <summary>
         /// Registers a private structure for an instantiatable type.
@@ -355,9 +355,12 @@ namespace GISharp.Lib.GObject
         /// size of private structure
         /// </param>
         [SinceAttribute ("2.4")]
-        public static void AddPrivate (IntPtr gClass, UInt64 privateSize)
+        public static void AddPrivate(IntPtr gClass, int privateSize)
         {
-            g_type_class_add_private (gClass, privateSize);
+            if (privateSize < 0) {
+                throw new ArgumentOutOfRangeException(nameof(privateSize));
+            }
+            g_type_class_add_private(gClass, (nuint)privateSize);
         }
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -371,9 +374,9 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             Int32 privateSizeOrOffset);
 
-        public static void AdjustPrivateOffset (IntPtr gClass, Int32 privateSizeOrOffset)
+        public static void AdjustPrivateOffset(IntPtr gClass, int privateSizeOrOffset)
         {
-            g_type_class_adjust_private_offset (gClass, privateSizeOrOffset);
+            g_type_class_adjust_private_offset(gClass, privateSizeOrOffset);
         }
 
         /// <summary>

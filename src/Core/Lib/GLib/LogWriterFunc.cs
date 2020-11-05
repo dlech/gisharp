@@ -33,7 +33,7 @@ namespace GISharp.Lib.GLib
         LogField* fields,
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        UIntPtr nFields,
+        nuint nFields,
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 closure:3 */
         IntPtr userData);
@@ -83,7 +83,8 @@ namespace GISharp.Lib.GLib
             });
         }
 
-        public static unsafe (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) Create(LogWriterFunc func, CallbackScope scope) {
+        public static unsafe (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) Create(LogWriterFunc func, CallbackScope scope)
+        {
             var data = new UserData(func, UnmanagedFunc, UnmanagedNotify, scope);
             var gcHandle = GCHandle.Alloc(data);
 

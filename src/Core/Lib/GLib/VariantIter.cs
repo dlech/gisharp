@@ -86,7 +86,7 @@ namespace GISharp.Lib.GLib
         [return: MarshalAs(UnmanagedType.SysUInt)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern UIntPtr g_variant_iter_init(
+        static extern nuint g_variant_iter_init(
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
             IntPtr iter,
@@ -122,7 +122,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern UIntPtr g_variant_iter_n_children(
+        static extern nuint g_variant_iter_n_children(
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
             IntPtr iter);

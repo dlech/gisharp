@@ -1266,10 +1266,10 @@ namespace GISharp.CodeGen
                 return typeof(uint).ToString();
             case "gint64":
                 return typeof(long).ToString();
-            case "glong":
-                return typeof(CLong).ToString();
             case "guint64":
                 return typeof(ulong).ToString();
+            case "glong":
+                return typeof(CLong).ToString();
             case "gulong":
                 return typeof(CULong).ToString();
             case "gfloat":
@@ -1278,10 +1278,11 @@ namespace GISharp.CodeGen
                 return typeof(double).ToString();
             case "gpointer":
             case "gconstpointer":
-            case "gintptr":
                 return typeof(IntPtr).ToString();
+            case "gintptr":
+                return "nint";
             case "guintptr":
-                return typeof(UIntPtr).ToString();
+                return "nuint";
             case "gunichar":
                 return typeof(Unichar).ToString();
             case "GType":

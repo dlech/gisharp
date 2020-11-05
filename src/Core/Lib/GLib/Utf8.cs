@@ -1076,7 +1076,7 @@ namespace GISharp.Lib.GLib
             IntPtr p,
             /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
             /* transfer-ownership:none direction:in */
-            IntPtr max);
+            nint max);
 
         private int lengthInCharacters = -1;
 
@@ -1087,7 +1087,7 @@ namespace GISharp.Lib.GLib
         public int LengthInCharacters {
             get {
                 if (lengthInCharacters == -1) {
-                    lengthInCharacters = (int)g_utf8_strlen(Handle, (IntPtr)(-1));
+                    lengthInCharacters = (int)g_utf8_strlen(Handle, -1);
                 }
                 return lengthInCharacters;
             }

@@ -178,11 +178,11 @@ namespace GISharp.Lib.GObject
         const int ReservedUserFirst = 49;
 
         // typedef gsize GType;
-        readonly UIntPtr value;
+        readonly nuint value;
 
-        GType(uint value)
+        GType(nuint value)
         {
-            this.value = new UIntPtr(value);
+            this.value = value;
         }
 
         /// <summary>
@@ -1350,7 +1350,7 @@ namespace GISharp.Lib.GObject
             GType classType,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr privateSize);
+            nuint privateSize);
 
         /// <summary>
         /// Registers a private class structure for a classed type;
@@ -1372,8 +1372,11 @@ namespace GISharp.Lib.GObject
         /// size of private structure
         /// </param>
         [Since ("2.24")]
-        public static void AddClassPrivate(GType classType, ulong privateSize)
+        public static void AddClassPrivate(GType classType, int privateSize)
         {
+            if (privateSize < 0) {
+                throw new ArgumentOutOfRangeException(nameof(privateSize));
+            }
             g_type_add_class_private(classType, privateSize);
         }
 
@@ -1386,14 +1389,14 @@ namespace GISharp.Lib.GObject
             GType classType,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr privateSize);
+            nuint privateSize);
 
         public static int AddInstancePrivate(GType classType, int privateSize)
         {
             if (privateSize < 0) {
                 throw new ArgumentOutOfRangeException(nameof(privateSize));
             }
-            var ret = g_type_add_instance_private(classType, (UintPtr)privateSize);
+            var ret = g_type_add_instance_private(classType, (nuint)privateSize);
             return ret;
         }
 

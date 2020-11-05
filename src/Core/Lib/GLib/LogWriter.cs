@@ -17,7 +17,7 @@ namespace GISharp.Lib.GLib
         /// Libraries **must not** call this function — only programs are allowed to
         /// install a writer function, as there must be a single, central point where
         /// log messages are formatted and outputted.
-        /// 
+        ///
         /// There can only be one writer function. It is an error to set more than one.
         /// </remarks>
         /// <param name="func">
@@ -30,11 +30,11 @@ namespace GISharp.Lib.GLib
         /// function to free @user_data once it’s
         ///    finished with, if non-%NULL
         /// </param>
-        [Since ("2.50")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_log_set_writer_func (
+        static extern void g_log_set_writer_func(
             /* <type name="LogWriterFunc" type="GLogWriterFunc" managed-name="LogWriterFunc" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 */
             UnmanagedLogWriterFunc? func,
@@ -56,29 +56,32 @@ namespace GISharp.Lib.GLib
         /// Libraries <b>must not</b> call this function — only programs are allowed to
         /// install a writer function, as there must be a single, central point where
         /// log messages are formatted and outputted.
-        /// 
+        ///
         /// There can only be one writer function. It is an error to set more than one.
         /// </remarks>
         /// <param name="func">
         /// log writer function
         /// </param>
-        [Since ("2.50")]
+        [Since("2.50")]
         public static unsafe void SetFunc(LogWriterFunc func)
         {
             if (isFuncSet) {
-                throw new InvalidOperationException ("Log writer function can only be set once.");
+                throw new InvalidOperationException("Log writer function can only be set once.");
             }
             // If using one of the default functions, pass the unmanged function
             // pointer instead of wrapping the managed version.
             if (func == Default) {
-                g_log_set_writer_func (g_log_writer_default, IntPtr.Zero, null);
-            } else if (func == Journald) {
-                g_log_set_writer_func (g_log_writer_journald, IntPtr.Zero, null);
-            } else if (func == StandardStreams) {
-                g_log_set_writer_func (g_log_writer_standard_streams, IntPtr.Zero, null);
-            } else {
+                g_log_set_writer_func(g_log_writer_default, IntPtr.Zero, null);
+            }
+            else if (func == Journald) {
+                g_log_set_writer_func(g_log_writer_journald, IntPtr.Zero, null);
+            }
+            else if (func == StandardStreams) {
+                g_log_set_writer_func(g_log_writer_standard_streams, IntPtr.Zero, null);
+            }
+            else {
                 var (func_, userDataFree_, userData_) = LogWriterFuncFactory.Create(func, CallbackScope.Notified);
-                g_log_set_writer_func (func_, userData_, userDataFree_);
+                g_log_set_writer_func(func_, userData_, userDataFree_);
             }
             isFuncSet = true;
         }
@@ -93,10 +96,10 @@ namespace GISharp.Lib.GLib
         /// Support for other platform-specific logging mechanisms may be added in
         /// future. Distributors of GLib may modify this function to impose their own
         /// (documented) platform-specific log writing policies.
-        /// 
+        ///
         /// This is suitable for use as a #GLogWriterFunc, and is the default writer used
         /// if no other is set using g_log_set_writer_func().
-        /// 
+        ///
         /// As with g_log_default_handler(), this function drops debug and informational
         /// messages unless their log domain (or `all`) is listed in the space-separated
         /// `G_MESSAGES_DEBUG` environment variable.
@@ -118,8 +121,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %G_LOG_WRITER_HANDLED on success, %G_LOG_WRITER_UNHANDLED otherwise
         /// </returns>
-        [Since ("2.50")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
         static extern unsafe LogWriterOutput g_log_writer_default(
@@ -133,7 +136,7 @@ namespace GISharp.Lib.GLib
             LogField* fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr nFields,
+            nuint nFields,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData);
@@ -148,10 +151,10 @@ namespace GISharp.Lib.GLib
         /// Support for other platform-specific logging mechanisms may be added in
         /// future. Distributors of GLib may modify this function to impose their own
         /// (documented) platform-specific log writing policies.
-        /// 
+        ///
         /// This is suitable for use as a <see cref="LogWriterFunc"/>, and is the default writer used
         /// if no other is set using <see cref="SetFunc"/>.
-        /// 
+        ///
         /// As with g_log_default_handler(), this function drops debug and informational
         /// messages unless their log domain (or <c>all</c>) is listed in the space-separated
         /// <c>G_MESSAGES_DEBUG</c> environment variable.
@@ -167,11 +170,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
-        [Since ("2.50")]
+        [Since("2.50")]
         public static unsafe LogWriterOutput Default(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
             fixed (LogField* fields_ = fields) {
-                var ret = g_log_writer_default(logLevel, fields_, (UIntPtr)fields.Length, IntPtr.Zero);
+                var ret = g_log_writer_default(logLevel, fields_, (nuint)fields.Length, IntPtr.Zero);
                 return ret;
             }
         }
@@ -207,11 +210,11 @@ namespace GISharp.Lib.GLib
         /// string containing the formatted log message, in
         ///    the character set of the current locale
         /// </returns>
-        [Since ("2.50")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_log_writer_format_fields (
+        static extern IntPtr g_log_writer_format_fields(
             /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
             /* transfer-ownership:none */
             LogLevelFlags logLevel,
@@ -219,10 +222,10 @@ namespace GISharp.Lib.GLib
                 <type name="LogField" type="GLogField" managed-name="LogField" />
                 </array> */
             /* transfer-ownership:none */
-            [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 2)] LogField[] fields,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] LogField[] fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr nFields,
+            nuint nFields,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
             Runtime.Boolean useColor);
@@ -252,10 +255,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// string containing the formatted log message
         /// </returns>
-        [Since ("2.50")]
+        [Since("2.50")]
         public static Utf8 FormatFields(LogLevelFlags logLevel, LogField[] fields, bool useColor = false)
         {
-            var ret_ = g_log_writer_format_fields (logLevel, fields, (UIntPtr)fields.Length, useColor);
+            var ret_ = g_log_writer_format_fields(logLevel, fields, (nuint)fields.Length, useColor);
             var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -285,23 +288,24 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// string containing the formatted log message
         /// </returns>
-        [Since ("2.50")]
-        public static string FormatFields (LogLevelFlags logLevel, IDictionary<string, string> fields, bool useColor = false)
+        [Since("2.50")]
+        public static string FormatFields(LogLevelFlags logLevel, IDictionary<string, string> fields, bool useColor = false)
         {
             var fields_ = new LogField[fields.Count];
             var i = 0;
             foreach (var item in fields) {
-                fields_[i].Key = GMarshal.StringToUtf8Ptr (item.Key);
-                fields_[i].Value = GMarshal.StringToUtf8Ptr (item.Value);
-                fields_[i].Length = new IntPtr (-1);
+                fields_[i].Key = GMarshal.StringToUtf8Ptr(item.Key);
+                fields_[i].Value = GMarshal.StringToUtf8Ptr(item.Value);
+                fields_[i].Length = new IntPtr(-1);
                 i++;
             }
             try {
                 return FormatFields(logLevel, fields_, useColor).ToString();
-            } finally {
+            }
+            finally {
                 foreach (var item in fields_) {
-                    GMarshal.Free (item.Key);
-                    GMarshal.Free (item.Value);
+                    GMarshal.Free(item.Key);
+                    GMarshal.Free(item.Value);
                 }
             }
         }
@@ -317,11 +321,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if @output_fd points to the journal, %FALSE otherwise
         /// </returns>
-        [Since ("2.50")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern Runtime.Boolean g_log_writer_is_journald (
+        static extern Runtime.Boolean g_log_writer_is_journald(
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int outputFd);
@@ -337,10 +341,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if <paramref name="outputFd"/> points to the journal, <c>false</c> otherwise
         /// </returns>
-        [Since ("2.50")]
-        public static bool IsJournald (int outputFd)
+        [Since("2.50")]
+        public static bool IsJournald(int outputFd)
         {
-            var ret = g_log_writer_is_journald (outputFd);
+            var ret = g_log_writer_is_journald(outputFd);
             return ret;
         }
 
@@ -352,7 +356,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// This is suitable for use as a #GLogWriterFunc.
-        /// 
+        ///
         /// If GLib has been compiled without systemd support, this function is still
         /// defined, but will always return %G_LOG_WRITER_UNHANDLED.
         /// </remarks>
@@ -373,8 +377,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %G_LOG_WRITER_HANDLED on success, %G_LOG_WRITER_UNHANDLED otherwise
         /// </returns>
-        [Since ("2.50")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
         static extern unsafe LogWriterOutput g_log_writer_journald(
@@ -388,7 +392,7 @@ namespace GISharp.Lib.GLib
             LogField* fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr nFields,
+            nuint nFields,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData);
@@ -401,7 +405,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// This is suitable for use as a <see cref="LogWriterFunc"/>.
-        /// 
+        ///
         /// If GLib has been compiled without systemd support, this function is still
         /// defined, but will always return <see cref="LogWriterOutput.Unhandled"/>.
         /// </remarks>
@@ -416,11 +420,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
-        [Since ("2.50")]
+        [Since("2.50")]
         public static unsafe LogWriterOutput Journald(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
             fixed (LogField* fields_ = fields) {
-                var ret = g_log_writer_journald(logLevel, fields_, (UIntPtr)fields.Length, IntPtr.Zero);
+                var ret = g_log_writer_journald(logLevel, fields_, (nuint)fields.Length, IntPtr.Zero);
                 return ret;
             }
         }
@@ -435,9 +439,9 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// If the output stream supports ANSI color escape sequences, they will be used
         /// in the output.
-        /// 
+        ///
         /// A trailing new-line character is added to the log message when it is printed.
-        /// 
+        ///
         /// This is suitable for use as a #GLogWriterFunc.
         /// </remarks>
         /// <param name="logLevel">
@@ -457,8 +461,8 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %G_LOG_WRITER_HANDLED on success, %G_LOG_WRITER_UNHANDLED otherwise
         /// </returns>
-        [Since ("2.50")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
         static extern unsafe LogWriterOutput g_log_writer_standard_streams(
@@ -472,7 +476,7 @@ namespace GISharp.Lib.GLib
             LogField* fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr nFields,
+            nuint nFields,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr userData);
@@ -487,9 +491,9 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// If the output stream supports ANSI color escape sequences, they will be used
         /// in the output.
-        /// 
+        ///
         /// A trailing new-line character is added to the log message when it is printed.
-        /// 
+        ///
         /// This is suitable for use as a <see cref="LogWriterFunc"/>.
         /// </remarks>
         /// <param name="logLevel">
@@ -503,11 +507,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
-        [Since ("2.50")]
+        [Since("2.50")]
         public static unsafe LogWriterOutput StandardStreams(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
             fixed (LogField* fields_ = fields) {
-                var ret = g_log_writer_standard_streams(logLevel, fields_, (UIntPtr)fields.Length, IntPtr.Zero);
+                var ret = g_log_writer_standard_streams(logLevel, fields_, (nuint)fields.Length, IntPtr.Zero);
                 return ret;
             }
         }
@@ -523,11 +527,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// %TRUE if ANSI color escapes are supported, %FALSE otherwise
         /// </returns>
-        [Since ("2.50")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-            /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
-            /* transfer-ownership:none */
-            static extern Runtime.Boolean g_log_writer_supports_color(
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
+        /* transfer-ownership:none */
+        static extern Runtime.Boolean g_log_writer_supports_color(
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int outputFd);
@@ -543,10 +547,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// <c>true</c> if ANSI color escapes are supported, <c>false</c> otherwise
         /// </returns>
-        [Since ("2.50")]
-        public static bool SupportsColor (int outputFd)
+        [Since("2.50")]
+        public static bool SupportsColor(int outputFd)
         {
-            var ret = g_log_writer_supports_color (outputFd);
+            var ret = g_log_writer_supports_color(outputFd);
             return ret;
         }
 
@@ -559,7 +563,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// See g_log_structured() for more documentation.
-        /// 
+        ///
         /// This assumes that @log_level is already present in @fields (typically as the
         /// `PRIORITY` field).
         /// </remarks>
@@ -574,11 +578,11 @@ namespace GISharp.Lib.GLib
         /// <param name="nFields">
         /// number of elements in the @fields array
         /// </param>
-        [Since ("2.50")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_log_structured_array (
+        static extern void g_log_structured_array(
             /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
             /* transfer-ownership:none */
             LogLevelFlags logLevel,
@@ -586,10 +590,10 @@ namespace GISharp.Lib.GLib
                 <type name="LogField" type="GLogField" managed-name="LogField" />
                 </array> */
             /* transfer-ownership:none */
-            [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 2)] LogField[] fields,
+            [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 2)] LogField[] fields,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr nFields);
+            nuint nFields);
 
         /// <summary>
         /// Log a message with structured data. The message will be passed through to the
@@ -599,7 +603,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// See g_log_structured() for more documentation.
-        /// 
+        ///
         /// This assumes that <paramref name="logLevel"/> is already present in
         /// <paramref name="fields"/> (typically as the <c>PRIORITY</c> field).
         /// </remarks>
@@ -611,31 +615,31 @@ namespace GISharp.Lib.GLib
         /// key–value pairs of structured data to add
         /// to the log message
         /// </param>
-        [Since ("2.50")]
-        public static void Log (LogLevelFlags logLevel, LogField[] fields)
+        [Since("2.50")]
+        public static void Log(LogLevelFlags logLevel, LogField[] fields)
         {
-            g_log_structured_array (logLevel, fields, (UIntPtr)fields.Length);
+            g_log_structured_array(logLevel, fields, (nuint)fields.Length);
         }
 
-        [Since ("2.50")]
-        public static void Log (LogLevelFlags logLevel, IDictionary<string, string> fields)
+        [Since("2.50")]
+        public static void Log(LogLevelFlags logLevel, IDictionary<string, string> fields)
         {
             var fields_ = new LogField[fields.Count];
             int i = 0;
             foreach (var item in fields) {
-                fields_[i].Key = GMarshal.StringToUtf8Ptr (item.Key);
-                fields_[i].Value = GMarshal.StringToUtf8Ptr (item.Value);
-                fields_[i].Length = new IntPtr (-1);
+                fields_[i].Key = GMarshal.StringToUtf8Ptr(item.Key);
+                fields_[i].Value = GMarshal.StringToUtf8Ptr(item.Value);
+                fields_[i].Length = new IntPtr(-1);
                 i++;
             }
-            g_log_structured_array (logLevel, fields_, (UIntPtr)fields_.Length);
+            g_log_structured_array(logLevel, fields_, (UIntPtr)fields_.Length);
             foreach (var item in fields_) {
-                GMarshal.Free (item.Key);
-                GMarshal.Free (item.Value);
+                GMarshal.Free(item.Key);
+                GMarshal.Free(item.Value);
             }
         }
 
-        static void Log (LogLevelFlags logLevel, string message, string codeFile, int codeLine, string codeFunc)
+        static void Log(LogLevelFlags logLevel, string message, string codeFile, int codeLine, string codeFunc)
         {
             var fields = new Dictionary<string, string> {
                 { "MESSAGE", message },
@@ -644,70 +648,70 @@ namespace GISharp.Lib.GLib
                 { "CODE_FUNC", codeFunc }
             };
 
-            Log (logLevel, fields);
+            Log(logLevel, fields);
         }
 
-        [Since ("2.50")]
-        public static void Message (string message, 
+        [Since("2.50")]
+        public static void Message(string message,
+                                   [CallerFilePath] string file = "",
+                                   [CallerLineNumber] int line = 0,
+                                   [CallerMemberName] string member = "")
+        {
+            Log(LogLevelFlags.Message, message, file, line, member);
+        }
+
+        [Since("2.50")]
+        public static void Warning(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
                                     [CallerMemberName] string member = "")
         {
-            Log (LogLevelFlags.Message, message, file, line, member);
+            Log(LogLevelFlags.Warning, message, file, line, member);
         }
 
-        [Since ("2.50")]
-        public static void Warning (string message,
+        [Since("2.50")]
+        public static void Critical(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
                                     [CallerMemberName] string member = "")
         {
-            Log (LogLevelFlags.Warning, message, file, line, member);
+            Log(LogLevelFlags.Critical, message, file, line, member);
         }
 
-        [Since ("2.50")]
-        public static void Critical (string message,
+        [Since("2.50")]
+        public static void Error(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
                                     [CallerMemberName] string member = "")
         {
-            Log (LogLevelFlags.Critical, message, file, line, member);
+            Log(LogLevelFlags.Error, message, file, line, member);
         }
 
-        [Since ("2.50")]
-        public static void Error (string message,
+        [Since("2.50")]
+        public static void Info(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
                                     [CallerMemberName] string member = "")
         {
-            Log (LogLevelFlags.Error, message, file, line, member);
+            Log(LogLevelFlags.Info, message, file, line, member);
         }
 
-        [Since ("2.50")]
-        public static void Info (string message,
+        [Since("2.50")]
+        public static void Debug(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
                                     [CallerMemberName] string member = "")
         {
-            Log (LogLevelFlags.Info, message, file, line, member);
+            Log(LogLevelFlags.Debug, message, file, line, member);
         }
 
-        [Since ("2.50")]
-        public static void Debug (string message,
-                                    [CallerFilePath] string file = "",
-                                    [CallerLineNumber] int line = 0,
-                                    [CallerMemberName] string member = "")
-        {
-            Log (LogLevelFlags.Debug, message, file, line, member);
-        }
-
-        [Since ("2.50")]
-        public static void DebugHere ([CallerFilePath] string file = "",
+        [Since("2.50")]
+        public static void DebugHere([CallerFilePath] string file = "",
                                       [CallerLineNumber] int line = 0,
                                       [CallerMemberName] string member = "")
         {
-            var message = string.Format ($"{Environment.TickCount}: {file}:{line}:{member}()");
-            Log (LogLevelFlags.Debug, message, file, line, member);
+            var message = string.Format($"{Environment.TickCount}: {file}:{line}:{member}()");
+            Log(LogLevelFlags.Debug, message, file, line, member);
         }
 
         /// <summary>
@@ -717,14 +721,14 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The only mandatory item in the @fields dictionary is the "MESSAGE" which must
         /// contain the text shown to the user.
-        /// 
+        ///
         /// The values in the @fields dictionary are likely to be of type String
         /// (#G_VARIANT_TYPE_STRING). Array of bytes (#G_VARIANT_TYPE_BYTESTRING) is also
         /// supported. In this case the message is handled as binary and will be forwarded
         /// to the log writer as such. The size of the array should not be higher than
         /// %G_MAXSSIZE. Otherwise it will be truncated to this size. For other types
         /// g_variant_print() will be used to convert the value into a string.
-        /// 
+        ///
         /// For more details on its usage and about the parameters, see g_log_structured().
         /// </remarks>
         /// <param name="logDomain">
@@ -738,11 +742,11 @@ namespace GISharp.Lib.GLib
         /// a dictionary (#GVariant of the type %G_VARIANT_TYPE_VARDICT)
         /// containing the key-value pairs of message data.
         /// </param>
-        [Since ("2.50")]
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_log_variant (
+        static extern void g_log_variant(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr logDomain,
@@ -760,14 +764,14 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The only mandatory item in the @fields dictionary is the "MESSAGE" which must
         /// contain the text shown to the user.
-        /// 
+        ///
         /// The values in the @fields dictionary are likely to be of type String
         /// (<see cref="VariantType.String"/>). Array of bytes (<see cref="VariantType.ByteString"/>) is also
         /// supported. In this case the message is handled as binary and will be forwarded
         /// to the log writer as such. The size of the array should not be higher than
         /// %G_MAXSSIZE. Otherwise it will be truncated to this size. For other types
         /// <see cref="Variant.Print"/> will be used to convert the value into a string.
-        /// 
+        ///
         /// For more details on its usage and about the parameters, see g_log_structured().
         /// </remarks>
         /// <param name="logDomain">
@@ -781,7 +785,7 @@ namespace GISharp.Lib.GLib
         /// a dictionary (<see cref="Variant"/> of the type <see cref="VariantType.VariantDictionary"/>)
         /// containing the key-value pairs of message data.
         /// </param>
-        [Since ("2.50")]
+        [Since("2.50")]
         public static void Log(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, Variant fields)
         {
             var logDomain_ = logDomain.Handle;

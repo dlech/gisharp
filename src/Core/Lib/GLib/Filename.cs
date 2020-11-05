@@ -342,13 +342,13 @@ namespace GISharp.Lib.GLib
             IntPtr utf8string,
             /* <type name="gssize" type="gssize" managed-name="Gssize" /> */
             /* transfer-ownership:none */
-            IntPtr len,
+            nint len,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            UIntPtr* bytesRead,
+            nuint* bytesRead,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full */
-            UIntPtr* bytesWritten,
+            nuint* bytesWritten,
             /* <type name="GLib.Error" managed-name="GLib.Error" /> */
             /* direction:out */
             out IntPtr error);
@@ -371,8 +371,8 @@ namespace GISharp.Lib.GLib
         public static unsafe Filename FromUtf8(Utf8 utf8string)
         {
             var utf8string_ = utf8string.Handle;
-            UIntPtr bytesWritten_;
-            var ret_ = g_filename_from_utf8(utf8string_, new IntPtr(-1), null, &bytesWritten_, out var error_);
+            nuint bytesWritten_;
+            var ret_ = g_filename_from_utf8(utf8string_, -1, null, &bytesWritten_, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = GetInstance<Error>(error_, Transfer.Full);
                 throw new GErrorException(error);
@@ -485,13 +485,13 @@ namespace GISharp.Lib.GLib
             IntPtr opsysstring,
             /* <type name="gssize" type="gssize" managed-name="Gssize" /> */
             /* transfer-ownership:none */
-            IntPtr len,
+            nint len,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            IntPtr bytesRead,
+            nuint bytesRead,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr* bytesWritten,
+            nuint* bytesWritten,
             /* <type name="GLib.Error" managed-name="GLib.Error" /> */
             /* direction:out */
             out IntPtr error);
@@ -511,8 +511,8 @@ namespace GISharp.Lib.GLib
         public unsafe Utf8 ToUtf8()
         {
             var opsysstring_ = Handle;
-            UIntPtr bytesWritten_;
-            var ret_ = g_filename_to_utf8(opsysstring_, new IntPtr(-1), IntPtr.Zero, &bytesWritten_, out var error_);
+            nuint bytesWritten_;
+            var ret_ = g_filename_to_utf8(opsysstring_, -1, 0, &bytesWritten_, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = GetInstance<Error>(error_, Transfer.Full);
                 throw new GErrorException(error);

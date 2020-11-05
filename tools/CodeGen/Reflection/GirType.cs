@@ -150,7 +150,7 @@ namespace GISharp.CodeGen.Reflection
         /// <summary>
         /// Resolves a GIR type node to the cooresponding .NET type
         /// </summary>
-        public static System.Type ResolveUnmanagedType(Gir.GIType node)
+        public static System.Type ResolveUnmanagedType(GIType node)
         {
             if (node.ParentNode is Gir.Field field) {
                 if (field.Callback is not null) {
@@ -225,11 +225,11 @@ namespace GISharp.CodeGen.Reflection
                 break;
             case "gintptr":
             case "gssize":
-                type = typeof(IntPtr);
+                type = typeof(nint);
                 break;
             case "guintptr":
             case "gsize":
-                type = typeof(UIntPtr);
+                type = typeof(nuint);
                 break;
             case "GType":
                 type = typeof(GType);

@@ -998,7 +998,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern UIntPtr g_variant_type_get_string_length(
+        static extern nuint g_variant_type_get_string_length(
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
             IntPtr type);
@@ -1522,7 +1522,7 @@ namespace GISharp.Lib.GLib
         [return: MarshalAs(UnmanagedType.SysUInt)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern UIntPtr g_variant_type_n_items(
+        static extern nuint g_variant_type_n_items(
             /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" /> */
             /* transfer-ownership:none */
             IntPtr type);

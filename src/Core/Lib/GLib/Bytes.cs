@@ -90,13 +90,13 @@ namespace GISharp.Lib.GLib
             void* data,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr size);
+            nuint size);
 
         [Since("2.32")]
         static unsafe IntPtr New(ReadOnlySpan<byte> data)
         {
             fixed (byte* data_ = data) {
-                var size_ = (UIntPtr)data.Length;
+                var size_ = (nuint)data.Length;
                 var ret_ = g_bytes_new(data_, size_);
                 return ret_;
             }
@@ -170,7 +170,7 @@ namespace GISharp.Lib.GLib
             byte* data,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr size,
+            nuint size,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
             UnmanagedDestroyNotify freeFunc,
@@ -351,12 +351,12 @@ namespace GISharp.Lib.GLib
             IntPtr bytes,
             /* <type name="gsize" type="gsize*" managed-name="Gsize" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            UIntPtr* size);
+            nuint* size);
 
         public unsafe ReadOnlySpan<byte> Data {
             get {
                 var this_ = Handle;
-                UIntPtr size_;
+                nuint size_;
                 var ret_ = g_bytes_get_data(this_, &size_);
                 var ret = new ReadOnlySpan<byte>(ret_, (int)size_);
                 return ret;
@@ -379,7 +379,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
         /* transfer-ownership:none */
-        static extern UIntPtr g_bytes_get_size(
+        static extern nuint g_bytes_get_size(
             /* <type name="Bytes" type="IntPtr" managed-name="Bytes" /> */
             /* transfer-ownership:none */
             IntPtr bytes);
@@ -474,10 +474,10 @@ namespace GISharp.Lib.GLib
             IntPtr bytes,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr offset,
+            nuint offset,
             /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
             /* transfer-ownership:none */
-            UIntPtr length);
+            nuint length);
 
         /// <summary>
         /// Creates a <see cref="Bytes"/> which is a subsection of another
@@ -506,7 +506,7 @@ namespace GISharp.Lib.GLib
             if (offset + length > Size) {
                 throw new ArgumentException("offset + length exceeds size");
             }
-            var ret_ = g_bytes_new_from_bytes(this_, (UIntPtr)offset, (UIntPtr)length);
+            var ret_ = g_bytes_new_from_bytes(this_, (nuint)offset, (nuint)length);
             var ret = new Bytes(ret_, Transfer.Full);
             return ret;
         }
@@ -537,7 +537,7 @@ namespace GISharp.Lib.GLib
 
         IEnumerator<byte> GetEnumerator()
         {
-            for (int i = 0; i < Size; i++) {
+            for (int i = 0; i < (int)Size; i++) {
                 yield return this[i];
             }
         }
