@@ -17,7 +17,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// The type name that is used in unmanged code.
         /// </summary>
-        public string? Name { get; private set; }
+        public string? Name { get; }
 
         /// <summary>
         /// Indicates if the type can be registered with the GObject type system.
@@ -27,7 +27,7 @@ namespace GISharp.Runtime
         /// to <c>true</c> (default). If you are binding a type implemented in
         /// unmanged code, then this should be set to false.
         /// </remarks>
-        public bool IsProxyForUnmanagedType { get; set; }
+        public bool IsProxyForUnmanagedType { get; init; }
 
         /// <summary>
         /// Creates a new instance.

@@ -58,8 +58,8 @@ namespace GISharp.CodeGen.Gir
             IsDeprecated = element.Attribute("deprecated").AsBool();
             DeprecatedVersion = element.Attribute("deprecated-version").AsString();
             AccessModifiers = element.Attribute(gs + "access-modifiers").AsString();
-            _DocDeprecated = new Lazy<DocDeprecated>(LazyGetDocDeprecated, false);
-            _Namespace = new Lazy<Namespace>(LazyGetNamespace, false);
+            _DocDeprecated = new(LazyGetDocDeprecated, false);
+            _Namespace = new(LazyGetNamespace, false);
         }
 
         DocDeprecated LazyGetDocDeprecated() =>

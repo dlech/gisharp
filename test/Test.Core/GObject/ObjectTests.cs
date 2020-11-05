@@ -66,7 +66,7 @@ namespace GISharp.Test.Core.GObject
             IntPtr handle = IntPtr.Zero;
             new Action(() => {
                 var o = new Object();
-                weakRef = new WeakReference(o);
+                weakRef = new(o);
                 // Simulate unmanaged code taking a reference. This should trigger
                 // the toggle reference which prevents the object from being GC'ed
                 handle = o.Handle;

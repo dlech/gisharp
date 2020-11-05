@@ -21,7 +21,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         public override DynamicMetaObject BindInvokeMember (InvokeMemberBinder binder, DynamicMetaObject[] args)
         {
             var functionInfo = Namespace.FindByName (binder.Name) as FunctionInfo;
-            if (functionInfo != null) {
+            if (functionInfo is not null) {
                 var expression = functionInfo.GetInvokeExpression (binder.CallInfo, binder.ReturnType, null, args);
                 return new DynamicMetaObject (expression, typeRestriction);
             }
@@ -31,7 +31,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         public override DynamicMetaObject BindGetMember (GetMemberBinder binder)
         {
             var info = Namespace.FindByName (binder.Name);
-            if (info != null) {
+            if (info is not null) {
                 var expression = Expression.Constant (info);
                 return new DynamicMetaObject (expression, typeRestriction);
             }

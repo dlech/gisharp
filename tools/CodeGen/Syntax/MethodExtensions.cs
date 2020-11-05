@@ -27,7 +27,7 @@ namespace GISharp.CodeGen.Syntax
                     yield return declaration;
                 }
 
-                if (method.FinishFor != null) {
+                if (method.FinishFor is not null) {
                     yield return method.GetFinishMethodDeclaration()
                         .WithBody(Block(method.GetFinishMethodStatements()));
                     foreach (var f in method.GetFinishDelegateField()) {

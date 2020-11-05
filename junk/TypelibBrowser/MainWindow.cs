@@ -74,16 +74,16 @@ namespace GISharp.TypelibBrowser
             // work around https://bugzilla.xamarin.com/show_bug.cgi?id=51688
             typeof (NodeView).GetField ("store", BindingFlags.Instance | BindingFlags.NonPublic).SetValue (namespaceNodeview, nodeStore);
             namespaceNodeview.NodeSelection.Changed += (sender, e) => {
-                if (SelectedNamespaceChanged != null) {
+                if (SelectedNamespaceChanged is not null) {
                     var selectedNode = namespaceNodeview.NodeSelection.SelectedNode as NamespaceTreeNode;
-                    var @namespace = selectedNode == null ? null : selectedNode.Namespace;
+                    var @namespace = selectedNode is null ? null : selectedNode.Namespace;
                     SelectedNamespaceChanged (this, new SelectedNamespaceChangedEventArgs (@namespace));
                 }
             };
 
             infoTreeview.AppendColumn ("Name", new CellRendererText(), "text", 0, "strikethrough", 1, "foreground", 2);
             infoTreeview.Selection.Changed += (sender, e) => {
-                if (SelectedInfoChanged != null) {
+                if (SelectedInfoChanged is not null) {
                     object selected = null;
                     TreeIter iter;
                     if (infoTreeview.Selection.GetSelected(out iter) && iter.UserData != IntPtr.Zero) {
@@ -99,10 +99,10 @@ namespace GISharp.TypelibBrowser
 
         public void AddNamespace (string @namespace, string version)
         {
-            if (@namespace == null) {
+            if (@namespace is null) {
                 throw new ArgumentNullException ("namespace");
             }
-            if (version == null) {
+            if (version is null) {
                 throw new ArgumentNullException ("version");
             }
             namespaceNodeview.NodeStore.AddNode (new NamespaceTreeNode (@namespace, version));
@@ -131,7 +131,7 @@ namespace GISharp.TypelibBrowser
 
         public void AddInfo (TreeModelImplementor implementor)
         {
-            if (implementor== null) {
+            if (implementoris null) {
                 throw new ArgumentNullException ("implementor");
             }
             infoTreeview.Model = new TreeModelAdapter (implementor);
@@ -176,7 +176,7 @@ namespace GISharp.TypelibBrowser
             }
 
             var registeredTypeInfo = obj as RegisteredTypeInfo;
-            if (registeredTypeInfo != null && registeredTypeInfo.GType != Lib.GObject.GType.None) {
+            if (registeredTypeInfo is not null && registeredTypeInfo.GType != Lib.GObject.GType.None) {
                 var gtypeVBox = new VBox ();
                 var gtypeSectionLabel = new Label () {
                     LabelProp = "<b>GType Hierarchy</b>",
@@ -236,7 +236,7 @@ namespace GISharp.TypelibBrowser
                 propertyTable.Attach (descLabel, 0, 1, row, row + 1);
 
                 var value = property.GetValue (obj);
-                if (linkProperties.Contains (property.Name) && value != null) {
+                if (linkProperties.Contains (property.Name) && value is not null) {
                     var linkLabel = new LinkButton (string.Empty, value.ToString ()) {
                         Xalign = 0,
                         HasTooltip = false,
@@ -266,7 +266,7 @@ namespace GISharp.TypelibBrowser
                 if (infoTreeview.Selection.GetSelected(out infoIter) && infoIter.UserData != IntPtr.Zero) {
                     selectedInfo = GCHandle.FromIntPtr (infoIter.UserData).Target as InfoTreeModelImpl.Info;
                 }
-                if (selectedInfo == null) {
+                if (selectedInfo is null) {
                     Debug.Fail ("Could not get selected info.");
                     return;
                 }
@@ -362,15 +362,15 @@ namespace GISharp.TypelibBrowser
         }
 
         [TreeNodeValue (Column=0)]
-        public string Namespace { get; private set; }
+        public string Namespace { get; }
 
         [TreeNodeValue (Column=1)]
-        public string Version { get; private set; }
+        public string Version { get; }
     }
 
     public class SelectedNamespaceChangedEventArgs : EventArgs
     {
-        public string Namespace { get; private set; }
+        public string Namespace { get; }
 
         public SelectedNamespaceChangedEventArgs (string @namespace)
         {
@@ -380,7 +380,7 @@ namespace GISharp.TypelibBrowser
 
     public class SelectedInfoChangedEventArgs : EventArgs
     {
-        public object UserData { get; private set; }
+        public object UserData { get; }
 
         public SelectedInfoChangedEventArgs (object userData)
         {

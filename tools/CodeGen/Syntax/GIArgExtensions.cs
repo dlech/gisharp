@@ -100,7 +100,7 @@ namespace GISharp.CodeGen.Syntax
                 syntax = syntax.WithType(NullableType(syntax.Type));
             }
 
-            if (arg.ParentNode is ManagedParameters && arg.DefaultValue != null) {
+            if (arg.ParentNode is ManagedParameters && arg.DefaultValue is not null) {
                 var @default = EqualsValueClause(ParseExpression(arg.DefaultValue));
                 syntax = syntax.WithDefault(@default);
             }
@@ -134,7 +134,7 @@ namespace GISharp.CodeGen.Syntax
             var expressions = new System.Collections.Generic.List<ExpressionSyntax>();
             var type = arg.Type.ManagedType;
 
-            if (arg.Type is Gir.Array array && array.GirName == null) {
+            if (arg.Type is Gir.Array array && array.GirName is null) {
                 bool isSpanLike = arg.TransferOwnership == "none";
                 if (arg.Type.ManagedType.IsGenericType && arg.Type.ManagedType.GetGenericTypeDefinition() == typeof(CArray<>) && arg.TransferOwnership == "none") {
                     var marshal = $"{typeof(MemoryMarshal)}.{nameof(MemoryMarshal.GetReference)}";
@@ -211,7 +211,7 @@ namespace GISharp.CodeGen.Syntax
             var expressions = new System.Collections.Generic.List<ExpressionSyntax>();
             var type = arg.Type.ManagedType;
 
-            if (arg.Type is Gir.Array array && array.GirName == null) {
+            if (arg.Type is Gir.Array array && array.GirName is null) {
                 var lengthArg = "-1";
                 if (array.LengthIndex >= 0) {
                     var lengthParameter = arg.Callable.Parameters.RegularParameters.ElementAt(array.LengthIndex);

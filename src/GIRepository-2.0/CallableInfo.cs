@@ -16,8 +16,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<ArgInfo> Args {
             get {
-                if (args == null) {
-                    args = new InfoDictionary<ArgInfo> (NArgs, GetArg);
+                if (args is null) {
+                    args = new(NArgs, GetArg);
                 }
                 return args;
             }
@@ -104,7 +104,7 @@ namespace GISharp.Lib.GIRepository
         bool Invoke(IntPtr function, Argument[] inArgs, Argument[] outArgs, out Argument returnValue, bool isMethod, bool throws)
         {
             IntPtr error_;
-            bool ret = g_callable_info_invoke (Handle, function, inArgs, (inArgs == null ? 0 : inArgs.Length), outArgs, (outArgs == null ? 0 : outArgs.Length), out returnValue, isMethod, throws, out error_);
+            bool ret = g_callable_info_invoke (Handle, function, inArgs, (inArgs is null ? 0 : inArgs.Length), outArgs, (outArgs is null ? 0 : outArgs.Length), out returnValue, isMethod, throws, out error_);
             if (error_ != IntPtr.Zero) {
                 var error = new Error (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
@@ -146,7 +146,7 @@ namespace GISharp.Lib.GIRepository
 
         void LoadArg (int n, ArgInfo arg)
         {
-            g_callable_info_load_arg (Handle, n, arg == null ? IntPtr.Zero : arg.Handle);
+            g_callable_info_load_arg (Handle, n, arg is null ? IntPtr.Zero : arg.Handle);
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -154,7 +154,7 @@ namespace GISharp.Lib.GIRepository
 
         void LoadReturnType (TypeInfo type)
         {
-            g_callable_info_load_return_type (Handle, type == null ? IntPtr.Zero : type.Handle);
+            g_callable_info_load_return_type (Handle, type is null ? IntPtr.Zero : type.Handle);
         }
 
         [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -187,11 +187,11 @@ namespace GISharp.Lib.GIRepository
 
         protected CallableInfo (IntPtr raw) : base (raw)
         {
-            _InArgs = new Lazy<InfoDictionary<ArgInfo>> (() => {
+            _InArgs = new(() => {
                 var inArgs = Args.Where (a => a.Direction != Direction.Out).ToList ();
                 return new InfoDictionary<ArgInfo> (inArgs.Count, i => inArgs[i]);
             });
-            _OutArgs = new Lazy<InfoDictionary<ArgInfo>> (() => {
+            _OutArgs = new(() => {
                 var outArgs = Args.Where (a => a.Direction != Direction.In).ToList ();
                 return new InfoDictionary<ArgInfo> (outArgs.Count, i => outArgs[i]);
             });

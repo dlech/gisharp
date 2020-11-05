@@ -103,14 +103,14 @@ namespace GISharp.CodeGen
                 return;
             }
 
-            if (commandArg == null) {
+            if (commandArg is null) {
                 Console.Error.WriteLine("Command option is required");
                 Console.Error.WriteLine();
                 PrintHelpAndExit(options, 1);
                 return;
             }
 
-            if (projectArg == null) {
+            if (projectArg is null) {
                 Console.Error.WriteLine("Project option is required");
                 Console.Error.WriteLine();
                 PrintHelpAndExit(options, 1);
@@ -441,12 +441,12 @@ namespace GISharp.CodeGen
 
         public static int GetClosureIndex(this XElement element, bool countInstanceParameter = false)
         {
-            if (element.Attribute("closure") == null) {
+            if (element.Attribute("closure") is null) {
                 return -1;
             }
 
             var index = int.Parse(element.Attribute("closure").Value);
-            if (countInstanceParameter && element.Parent.Element(gi + "instance-parameter") != null) {
+            if (countInstanceParameter && element.Parent.Element(gi + "instance-parameter") is not null) {
                 index++;
             }
 
@@ -455,12 +455,12 @@ namespace GISharp.CodeGen
 
         public static int GetDestroyIndex(this XElement element, bool countInstanceParameter = false)
         {
-            if (element.Attribute("destroy") == null) {
+            if (element.Attribute("destroy") is null) {
                 return -1;
             }
 
             var index = int.Parse(element.Attribute("destroy").Value);
-            if (countInstanceParameter && element.Parent.Element(gi + "instance-parameter") != null) {
+            if (countInstanceParameter && element.Parent.Element(gi + "instance-parameter") is not null) {
                 index++;
             }
 
@@ -470,7 +470,7 @@ namespace GISharp.CodeGen
         public static int GetLengthIndex(this XElement element, bool countInstanceParameter = false)
         {
             var arrayElement = element.Element(gi + "array");
-            if (arrayElement == null || arrayElement.Attribute("length") == null) {
+            if (arrayElement is null || arrayElement.Attribute("length") is null) {
                 return -1;
             }
 
@@ -485,7 +485,7 @@ namespace GISharp.CodeGen
         public static int GetFixedSize(this XElement element)
         {
             var arrayElement = element.Element(gi + "array");
-            if (arrayElement == null || arrayElement.Attribute("fixed-size") == null) {
+            if (arrayElement is null || arrayElement.Attribute("fixed-size") is null) {
                 return -1;
             }
 
@@ -495,7 +495,7 @@ namespace GISharp.CodeGen
         public static bool GetZeroTerminated(this XElement element)
         {
             var arrayElement = element.Element(gi + "array");
-            if (arrayElement == null) {
+            if (arrayElement is null) {
                 return false;
             }
 

@@ -80,7 +80,7 @@ namespace GISharp.Runtime
 
         public static implicit operator UnownedCPtrArray<T>(CPtrArray<T>? array)
         {
-            if (array == null) {
+            if (array is null) {
                 return default;
             }
             return new UnownedCPtrArray<T>(array.Data);
@@ -103,7 +103,7 @@ namespace GISharp.Runtime
                 // TODO: lazy-get length for null terminated arrays
                 throw new NotSupportedException();
             }
-            Data = new ReadOnlySpan<IntPtr>((void*)handle, length);
+            Data = new((void*)handle, length);
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -155,7 +155,7 @@ namespace GISharp.Runtime
     {
         public static UnownedCPtrArray<T> AsUnownedCPtrArray<T>(this T[] array) where T : IOpaque
         {
-            if (array == null) {
+            if (array is null) {
                 return UnownedCPtrArray<T>.Empty;
             }
             return new UnownedCPtrArray<T>(array.Select(x => x.Handle).ToArray());

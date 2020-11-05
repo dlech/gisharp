@@ -15,7 +15,7 @@ namespace GISharp.Lib.GLib
 
         static partial void CheckNewArgs(Variant? fromAsv)
         {
-            if (fromAsv == null) {
+            if (fromAsv is null) {
                 return;
             }
             if (!fromAsv.IsOfType(VariantType.VariantDictionary)) {

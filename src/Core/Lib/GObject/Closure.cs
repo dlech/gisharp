@@ -511,7 +511,7 @@ namespace GISharp.Lib.GObject
         public unsafe T Invoke<T>(params object?[] paramValues)
         {
             var this_ = Handle;
-            if (paramValues == null) {
+            if (paramValues is null) {
                 throw new ArgumentNullException (nameof (paramValues));
             }
 
@@ -724,7 +724,7 @@ namespace GISharp.Lib.GObject
 
                     marshalData.SignalHandler(obj, args);
 
-                    if (returnValue_ != null) {
+                    if (returnValue_ is not null) {
                         returnValue_->Set(args.GetType().GetProperty("ReturnValue").GetValue(args));
                     }
                 }

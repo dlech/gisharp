@@ -33,10 +33,10 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "parameters") {
                 throw new ArgumentException("Requrires <parameters> element", nameof(element));
             }
-            _InstanceParameter = new Lazy<InstanceParameter>(LazyGetInstanceParameter, false);
-            _RegularParameters = new Lazy<List<Parameter>>(() => LazyGetRegularParameters().ToList(), false);
-            _ErrorParameter = new Lazy<ErrorParameter>(LazyGetErrorParameter, false);
-            _AllParameters = new Lazy<List<GIArg>>(() => LazyGetAllParameters().ToList(), false);
+            _InstanceParameter = new(LazyGetInstanceParameter, false);
+            _RegularParameters = new(() => LazyGetRegularParameters().ToList(), false);
+            _ErrorParameter = new(LazyGetErrorParameter, false);
+            _AllParameters = new(() => LazyGetAllParameters().ToList(), false);
         }
 
         InstanceParameter LazyGetInstanceParameter() =>
@@ -52,11 +52,11 @@ namespace GISharp.CodeGen.Gir
         {
             var parameters = RegularParameters.Cast<GIArg>();
 
-            if (InstanceParameter != null) {
+            if (InstanceParameter is not null) {
                 parameters = parameters.Prepend(InstanceParameter);
             }
 
-            if (ErrorParameter != null) {
+            if (ErrorParameter is not null) {
                 parameters = parameters.Append(ErrorParameter);
             }
 

@@ -47,9 +47,9 @@ namespace GISharp.CodeGen.Gir
             ThrowsGErrorException = Element.Attribute("throws").AsBool();
             IsAsync = Element.Attribute(gs + "async").AsBool();
             FinishFor = Element.Attribute(gs + "finish-for").AsString();
-            _ReturnValue = new Lazy<ReturnValue>(LazyGetReturnValue, false);
-            _Parameters = new Lazy<Parameters>(LazyGetParameters, false);
-            _ManagedParameters = new Lazy<ManagedParameters>(LazyGetManagedParameters, false);
+            _ReturnValue = new(LazyGetReturnValue, false);
+            _Parameters = new(LazyGetParameters, false);
+            _ManagedParameters = new(LazyGetManagedParameters, false);
         }
 
         ReturnValue LazyGetReturnValue() =>

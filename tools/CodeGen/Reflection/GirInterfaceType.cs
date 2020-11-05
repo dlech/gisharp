@@ -16,15 +16,15 @@ namespace GISharp.CodeGen.Reflection
         {
             if (implements.ManagedName.Contains('.')) {
                 var type = GetType(implements.ManagedName);
-                if (type != null) {
+                if (type is not null) {
                     return type;
                 }
                 throw new TypeNotFoundException(implements.ManagedName);
             }
-            
+
             var @namespace = implements.ParentNode.Namespace;
             var @interface = @namespace.Interfaces.SingleOrDefault(x => x.GirName == implements.GirName);
-            if (@interface != null) {
+            if (@interface is not null) {
                 return new GirInterfaceType(@interface);
             }
 
@@ -35,20 +35,20 @@ namespace GISharp.CodeGen.Reflection
         {
             if (prerequisite.GirName.Contains('.')) {
                 var type = GetType(prerequisite.GirName);
-                if (type != null) {
+                if (type is not null) {
                     return type;
                 }
                 throw new TypeNotFoundException(prerequisite.GirName);
             }
-            
+
             var @namespace = prerequisite.ParentNode.Namespace;
             var @interface = @namespace.Interfaces.SingleOrDefault(x => x.GirName == prerequisite.GirName);
-            if (@interface != null) {
+            if (@interface is not null) {
                 return new GirInterfaceType(@interface);
             }
 
             var @class = @namespace.Classes.SingleOrDefault(x => x.GirName == prerequisite.GirName);
-            if (@class != null) {
+            if (@class is not null) {
                 var classType = new GirClassType(@class);
                 return typeof(GInterface<>).MakeGenericType(classType);
             }

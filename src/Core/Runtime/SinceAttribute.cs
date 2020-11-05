@@ -11,7 +11,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Gets the version in which the API was introduced.
         /// </summary>
-        public Version Version { get; private set; }
+        public Version Version { get; }
 
         /// <summary>
         /// Creates a new instance.

@@ -8,7 +8,7 @@ namespace GISharp.Lib.GLib
     {
         static partial void CheckNewArgs(VariantType type)
         {
-            if (type == null) {
+            if (type is null) {
                 return;
             }
             if (!type.IsContainer) {

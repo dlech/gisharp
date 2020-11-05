@@ -51,7 +51,7 @@ namespace GISharp.Lib.Gio
 
         static IntPtr NewFromNames(string[] iconNames)
         {
-            if (iconNames == null) {
+            if (iconNames is null) {
                 throw new ArgumentNullException(nameof(iconNames));
             }
             if (iconNames.Length == 0) {

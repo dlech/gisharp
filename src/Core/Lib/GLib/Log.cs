@@ -364,7 +364,7 @@ namespace GISharp.Lib.GLib
 
             public Logger(string? domain = null)
             {
-                if (domain != null) {
+                if (domain is not null) {
                     this.domain = domain;
                 }
             }

@@ -132,7 +132,7 @@ namespace GISharp.Lib.GIRepository
 
         void LoadType (TypeInfo type)
         {
-            g_arg_info_load_type (Handle, type == null ? IntPtr.Zero : type.Handle);
+            g_arg_info_load_type (Handle, type is null ? IntPtr.Zero : type.Handle);
         }
 
         [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -157,15 +157,15 @@ namespace GISharp.Lib.GIRepository
         public ArgInfo (IntPtr raw) : base (raw)
         {
             var callable = (CallableInfo)Container!;
-            _Closure = new Lazy<ArgInfo?>(() =>
+            _Closure = new(() =>
                 callable.Args.ElementAtOrDefault (ClosureIndex));
-            _Destroy = new Lazy<ArgInfo?>(() =>
+            _Destroy = new(() =>
                 callable.Args.ElementAtOrDefault (DestroyIndex));
-            _ArrayLength = new Lazy<ArgInfo?>(() =>
+            _ArrayLength = new(() =>
                 callable.Args.ElementAtOrDefault (TypeInfo.ArrayLengthIndex));
-            _Index = new Lazy<int> (() => callable.Args.IndexOf (this));
-            _InIndex = new Lazy<int> (() => callable.InArgs.IndexOf (this));
-            _OutIndex = new Lazy<int> (() => callable.OutArgs.IndexOf (this));
+            _Index = new(() => callable.Args.IndexOf (this));
+            _InIndex = new(() => callable.InArgs.IndexOf (this));
+            _OutIndex = new(() => callable.OutArgs.IndexOf (this));
         }
     }
 }

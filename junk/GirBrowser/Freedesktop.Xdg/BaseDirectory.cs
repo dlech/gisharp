@@ -212,14 +212,14 @@ namespace GISharp.GirBrowser.Freedesktop.Xdg
         {
             var dirs = Environment.GetEnvironmentVariable (envVar)
                                   ?.Split (Path.PathSeparator).ToList ();
-            if (dirs != null) {
+            if (dirs is not null) {
                 foreach (var dir in dirs.ToArray ()) {
                     if (!Path.IsPathRooted (dir)) {
                         dirs.Remove (dir);
                     }
                 }
             }
-            if (dirs == null || !dirs.Any ()) {
+            if (dirs is null || !dirs.Any ()) {
                 return defaultValues;
             }
             return dirs?.ToArray ();

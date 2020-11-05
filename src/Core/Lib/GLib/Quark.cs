@@ -43,7 +43,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static explicit operator Quark(string? value)
         {
-            if (value == null) {
+            if (value is null) {
                 return Quark.Zero;
             }
             var ret = Quark.TryString(value);

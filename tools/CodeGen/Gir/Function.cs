@@ -19,7 +19,7 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "function") {
                 throw new ArgumentException("Requrires <function> element", nameof(element));
             }
-            _FinishForFunction = new Lazy<GIFunction>(LazyGetFinishForFunction);
+            _FinishForFunction = new(LazyGetFinishForFunction);
         }
 
         GIFunction LazyGetFinishForFunction =>

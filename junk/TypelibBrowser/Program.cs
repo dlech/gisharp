@@ -24,24 +24,24 @@ namespace GISharp.TypelibBrowser
             window.SelectedNamespaceChanged += (sender, e) => {
                 window.ClearTypelibInfo();
                 window.ClearInfos();
-                if (e.Namespace == null) {
+                if (e.Namespace is null) {
                     // TODO: show placeholder that indicates no namespace is selected?
                     return;
                 }
                 var @namespace = Repository.Namespaces[e.Namespace];
                 window.SetTypelibInfo(@namespace.TypelibPath,
                     string.Join(", ", @namespace.Versions),
-                    @namespace.Dependencies == null ? null : string.Join(", ", @namespace.Dependencies),
+                    @namespace.Dependencies is null ? null : string.Join(", ", @namespace.Dependencies),
                     string.Join(", ", @namespace.SharedLibraries));
                 window.AddInfo(new InfoTreeModelImpl (@namespace.Infos));
             };
             window.SelectedInfoChanged += (sender, e) => {
                 window.ClearTypeInfo();
-                if (e.UserData == null) {
+                if (e.UserData is null) {
                     return;
                 }
                 var node = e.UserData as InfoTreeModelImpl.Info;
-                if (node != null) {
+                if (node is not null) {
                     window.SetTypeInfo (node.BaseInfo);
                 }
             };

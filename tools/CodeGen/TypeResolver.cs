@@ -27,7 +27,7 @@ namespace GISharp.CodeGen
         public static Assembly Resolve (object sender, ResolveEventArgs e)
         {
             foreach (var assembly in assemblyCache.Values) {
-                if (assembly.GetType (e.Name) != null) {
+                if (assembly.GetType (e.Name) is not null) {
                     return assembly;
                 }
             }

@@ -13,7 +13,7 @@ namespace GISharp.Lib.GIRepository
         private IntPtr _data3;
         private IntPtr _data4;
 
-        public readonly static AttributeIter Zero = new AttributeIter ();
+        public readonly static AttributeIter Zero = new();
 
         public static AttributeIter New (IntPtr raw)
         {

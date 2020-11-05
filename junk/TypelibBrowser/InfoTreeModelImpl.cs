@@ -50,7 +50,7 @@ namespace GISharp.TypelibBrowser
         {
             var path = new TreePath ();
             var node = GetNode (iter);
-            while (node != null) {
+            while (node is not null) {
                 path.PrependIndex (node.Index);
                 node = node.Parent;
             }
@@ -60,7 +60,7 @@ namespace GISharp.TypelibBrowser
         public void GetValue (TreeIter iter, int column, ref global::GLib.Value value)
         {
             var node = GetNode (iter);
-            if (node == null) {
+            if (node is null) {
                 return;
             }
             switch (column) {
@@ -91,10 +91,10 @@ namespace GISharp.TypelibBrowser
         public bool IterNext (ref TreeIter iter)
         {
             var node = GetNode (iter);
-            if (node == null) {
+            if (node is null) {
                 return false;
             }
-            var siblings = node.Parent == null ? topLevelGroups : node.Parent.Children;
+            var siblings = node.Parent is null ? topLevelGroups : node.Parent.Children;
             if (node.Index + 1 >= siblings.Count) {
                 return false;
             }
@@ -117,7 +117,7 @@ namespace GISharp.TypelibBrowser
         public int IterNChildren (TreeIter iter)
         {
             var node = GetNode (iter);
-            if (node == null) {
+            if (node is null) {
                 return topLevelGroups.Count;
             }
             return node.Children.Count;
@@ -127,7 +127,7 @@ namespace GISharp.TypelibBrowser
         {
             iter = TreeIter.Zero;
             var node = GetNode (parent);
-            var children = node == null ? topLevelGroups : node.Children;
+            var children = node is null ? topLevelGroups : node.Children;
             if (n >= children.Count) {
                 return false;
             }
@@ -139,7 +139,7 @@ namespace GISharp.TypelibBrowser
         {
             iter = TreeIter.Zero;
             var node = GetNode (child);
-            if (node == null || node.Parent == null) {
+            if (node is null || node.Parent is null) {
                 return false;
             }
             iter = node.Parent.Iter;
@@ -212,12 +212,12 @@ namespace GISharp.TypelibBrowser
 
         public class Group : INode
         {
-            public TreeIter Iter { get; private set; }
-            public int Index { get; private set; }
-            public string Name { get; private set; }
+            public TreeIter Iter { get; }
+            public int Index { get; }
+            public string Name { get; }
             public string Path {
                 get {
-                    if (Parent == null) {
+                    if (Parent is null) {
                         return Name;
                     }
                     return Parent.Path + "." + Name;
@@ -227,9 +227,9 @@ namespace GISharp.TypelibBrowser
             public bool IsGType { get { return false; } }
             public bool IsGTypeStruct { get { return false; } }
             public bool IsErrorDomain { get { return false; } }
-            public Info Parent { get; private set; }
+            public Info Parent { get; }
             INode INode.Parent { get { return Parent; } }
-            public IReadOnlyList<Info> Children { get; private set; }
+            public IReadOnlyList<Info> Children { get; }
             IReadOnlyList<INode> INode.Children { get { return Children; } }
 
             public Group (string name, int index, Info parent, IEnumerable<BaseInfo> children)
@@ -246,9 +246,9 @@ namespace GISharp.TypelibBrowser
 
         public class Info : INode
         {
-            public BaseInfo BaseInfo { get; private set; }
-            public TreeIter Iter { get; private set; }
-            public int Index { get; private set; }
+            public BaseInfo BaseInfo { get; }
+            public TreeIter Iter { get; }
+            public int Index { get; }
             public string Namespace { get { return BaseInfo.Namespace; } }
             public string Name { get { return BaseInfo.Name.ToString() ?? "<unnamed>"; } }
             public string Path { get { return Parent.Path + "." + Name; } }
@@ -256,7 +256,7 @@ namespace GISharp.TypelibBrowser
             public bool IsGType {
                 get {
                     var typeInfo = BaseInfo as RegisteredTypeInfo;
-                    if (typeInfo == null) {
+                    if (typeInfo is null) {
                         return false;
                     }
                     return !string.IsNullOrEmpty(typeInfo.TypeInit);
@@ -265,7 +265,7 @@ namespace GISharp.TypelibBrowser
             public bool IsGTypeStruct {
                 get {
                     var structInfo = BaseInfo as StructInfo;
-                    if (structInfo == null) {
+                    if (structInfo is null) {
                         return false;
                     }
                     return structInfo.IsGTypeStruct;
@@ -274,13 +274,13 @@ namespace GISharp.TypelibBrowser
             public bool IsErrorDomain {
                 get {
                     var enumInfo = BaseInfo as EnumInfo;
-                    if (enumInfo == null) {
+                    if (enumInfo is null) {
                         return false;
                     }
-                    return enumInfo.ErrorDomain != null;
+                    return enumInfo.ErrorDomain is not null;
                 }
             }
-            public Group Parent { get; private set; }
+            public Group Parent { get; }
             INode INode.Parent { get { return Parent; } }
             Lazy<IReadOnlyList<Group>> _Children;
             public IReadOnlyList<Group> Children { get { return _Children.Value; } }
@@ -288,7 +288,7 @@ namespace GISharp.TypelibBrowser
 
             public Info (BaseInfo info, int index, Group parent)
             {
-                if (info == null) {
+                if (info is null) {
                     throw new ArgumentNullException ("info");
                 }
                 BaseInfo = info;
@@ -309,7 +309,7 @@ namespace GISharp.TypelibBrowser
                         } else if (typeof(PropertyInfo).IsAssignableFrom(property.PropertyType)) {
                             var value = (BaseInfo)property.GetValue (info);
                                 childGroups.Add (new InfoGrouping (property.Name,
-                                value == null ? new BaseInfo[] { } : new [] { value }));
+                                value is null ? new BaseInfo[] { } : new [] { value }));
                         }
                     }
                     return recursiveAddGroupings (childGroups, this);
@@ -342,7 +342,7 @@ namespace GISharp.TypelibBrowser
 
             #region IGrouping implementation
 
-            public string Key { get; private set; }
+            public string Key { get; }
 
             #endregion
 

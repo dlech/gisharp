@@ -20,7 +20,7 @@ namespace GISharp.Lib.GIRepository
         static FunctionInfo ()
         {
             invokeMethodInfo = typeof (FunctionInfo).GetMethod (nameof (FunctionInfo.DynamicInvoke));
-            if (invokeMethodInfo == null) {
+            if (invokeMethodInfo is null) {
                 throw new MissingMethodException (
                     typeof (FunctionInfo).FullName,
                     nameof (FunctionInfo.Invoke));
@@ -145,7 +145,7 @@ namespace GISharp.Lib.GIRepository
                     case InfoType.Object:
                     case InfoType.Struct:
                     case InfoType.Union:
-                        if (obj.Value == null) {
+                        if (obj.Value is null) {
                             arg.Pointer = IntPtr.Zero;
                         } else {
                             dynamic dObj = obj.Value;
@@ -296,10 +296,10 @@ namespace GISharp.Lib.GIRepository
         public object? DynamicInvoke(CallInfo callInfo, dynamic instance, params DynamicMetaObject[] args)
         {
             var methodOffset = IsMethod ? 1 : 0;
-            if (instance == null && IsMethod) {
+            if (instance is null && IsMethod) {
                 throw new ArgumentNullException (nameof (instance), "Methods require instance");
             }
-            if (instance != null && !IsMethod) {
+            if (instance is not null && !IsMethod) {
                 throw new ArgumentException ("Instance provided for static method", nameof (instance));
             }
 
@@ -314,13 +314,13 @@ namespace GISharp.Lib.GIRepository
                 matchArgs.RemoveAt (ReturnTypeInfo.ArrayLengthIndex);
             }
             foreach (var arg in Args) {
-                if (arg.Closure != null) {
+                if (arg.Closure is not null) {
                     matchArgs.Remove (arg.Closure);
                 }
-                if (arg.Destroy != null) {
+                if (arg.Destroy is not null) {
                     matchArgs.Remove (arg.Destroy);
                 }
-                if (arg.ArrayLength != null) {
+                if (arg.ArrayLength is not null) {
                     matchArgs.Remove (arg.ArrayLength);
                 }
             }
@@ -331,7 +331,7 @@ namespace GISharp.Lib.GIRepository
             }
             foreach (var name in callInfo.ArgumentNames) {
                 var arg = matchArgs.Find(x => x.Name == name);
-                if (arg != null!) {
+                if (arg is not null) {
                     matchArgs.Remove (arg);
                     matchArgs.Add (arg);
                 }

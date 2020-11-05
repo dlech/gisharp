@@ -22,7 +22,7 @@ namespace GISharp.CodeGen.Gir
             : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
             ErrorDomain = Element.Attribute(glib + "error-domain").AsString();
-            _Members = new Lazy<List<Member>>(() => LazyGetMembers().ToList());            
+            _Members = new(() => LazyGetMembers().ToList());
         }
 
         IEnumerable<Member> LazyGetMembers() =>

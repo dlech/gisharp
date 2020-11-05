@@ -24,7 +24,7 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "implements") {
                 throw new ArgumentException("Requrires <implements> element", nameof(element));
             }
-            _Type = new Lazy<System.Type>(LazyGetType);
+            _Type = new(LazyGetType);
         }
 
         System.Type LazyGetType() => GirInterfaceType.ResolveType(this);

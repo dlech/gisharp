@@ -1437,8 +1437,8 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public SynchronizationContext SynchronizationContext {
             get {
-                if (_SynchronizationContext == null) {
-                    _SynchronizationContext = new GSynchronizationContext(this);
+                if (_SynchronizationContext is null) {
+                    _SynchronizationContext = new(this);
                 }
                 return _SynchronizationContext;
             }

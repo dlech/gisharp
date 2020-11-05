@@ -18,8 +18,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<ConstantInfo> Constants {
             get {
-                if (constants == null) {
-                    constants = new InfoDictionary<ConstantInfo> (NConstants, GetConstant);
+                if (constants is null) {
+                    constants = new(NConstants, GetConstant);
                 }
                 return constants;
             }
@@ -29,8 +29,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<FieldInfo> Fields {
             get {
-                if (fields == null) {
-                    fields = new InfoDictionary<FieldInfo> (NFields, GetField);
+                if (fields is null) {
+                    fields = new(NFields, GetField);
                 }
                 return fields;
             }
@@ -40,8 +40,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<InterfaceInfo> Interfaces {
             get {
-                if (interfaces == null) {
-                    interfaces = new InfoDictionary<InterfaceInfo> (NInterfaces, GetInterface);
+                if (interfaces is null) {
+                    interfaces = new(NInterfaces, GetInterface);
                 }
                 return interfaces;
             }
@@ -51,8 +51,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<FunctionInfo> Methods {
             get {
-                if (methods == null) {
-                    methods = new InfoDictionary<FunctionInfo> (NMethods, GetMethod);
+                if (methods is null) {
+                    methods = new(NMethods, GetMethod);
                 }
                 return methods;
             }
@@ -62,8 +62,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<PropertyInfo> Properties {
             get {
-                if (properties == null) {
-                    properties = new InfoDictionary<PropertyInfo> (NProperties, GetProperty);
+                if (properties is null) {
+                    properties = new(NProperties, GetProperty);
                 }
                 return properties;
             }
@@ -73,8 +73,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<SignalInfo> Signals {
             get {
-                if (signals == null) {
-                    signals = new InfoDictionary<SignalInfo> (NSignals, GetSignal);
+                if (signals is null) {
+                    signals = new(NSignals, GetSignal);
                 }
                 return signals;
             }
@@ -84,8 +84,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<VFuncInfo> VFuncs {
             get {
-                if (vFuncs == null) {
-                    vFuncs = new InfoDictionary<VFuncInfo> (NVfuncs, GetVFunc);
+                if (vFuncs is null) {
+                    vFuncs = new(NVfuncs, GetVFunc);
                 }
                 return vFuncs;
             }

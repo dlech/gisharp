@@ -26,7 +26,7 @@ namespace GISharp.CodeGen.Syntax
         /// <returns>The documentation comment trivia list.</returns>
         public static SyntaxTriviaList GetDocCommentTrivia(this Doc doc, bool extraFixups = true)
         {
-            if (doc == null) {
+            if (doc is null) {
                 return default;
             }
 
@@ -36,7 +36,7 @@ namespace GISharp.CodeGen.Syntax
             using (var reader = new StringReader(doc.Text)) {
                 if (doc.ParentNode is ReturnValue) {
                     builder.AppendLine("/// <returns>");
-                    while ((line = reader.ReadLine()) != null) {
+                    while ((line = reader.ReadLine()) is not null) {
                         builder.AppendFormat("/// {0}", new XText(line));
                         builder.AppendLine();
                     }
@@ -45,7 +45,7 @@ namespace GISharp.CodeGen.Syntax
                 else if (doc.ParentNode is GIArg arg) {
                     builder.AppendFormat("/// <param name=\"{0}\">", arg.ManagedName.Replace("@", ""));
                     builder.AppendLine();
-                    while ((line = reader.ReadLine()) != null) {
+                    while ((line = reader.ReadLine()) is not null) {
                         builder.AppendFormat("/// {0}", new XText(line));
                         builder.AppendLine();
                     }
@@ -53,7 +53,7 @@ namespace GISharp.CodeGen.Syntax
                 }
                 else {
                     builder.AppendLine("/// <summary>");
-                    while ((line = reader.ReadLine()) != null) {
+                    while ((line = reader.ReadLine()) is not null) {
                         // summary is only the first paragraph
                         if (string.IsNullOrWhiteSpace(line)) {
                             break;
@@ -62,10 +62,10 @@ namespace GISharp.CodeGen.Syntax
                         builder.AppendLine();
                     }
                     builder.AppendLine("/// </summary>");
-                    if (line != null) {
+                    if (line is not null) {
                         // if there are more lines, they go in the remarks
                         builder.AppendLine("/// <remarks>");
-                        while ((line = reader.ReadLine()) != null) {
+                        while ((line = reader.ReadLine()) is not null) {
                             builder.AppendFormat("/// {0}", new XText(line));
                             builder.AppendLine();
                         }
@@ -86,7 +86,7 @@ namespace GISharp.CodeGen.Syntax
                     var consts = Regex.Matches(text, "%" + prefix + @"_\w+");
                     foreach (Match c in consts.OrderByDescending(x => x.Value.Length)) {
                         var member = (GIBase)ns.FindNodeByCIdentifier(c.Value.Substring(1));
-                        if (member == null) {
+                        if (member is null) {
                             continue;
                         }
                         var parent = (GIBase)member.ParentNode;
@@ -97,7 +97,7 @@ namespace GISharp.CodeGen.Syntax
                     foreach (Match t in typeRefs.OrderByDescending(x => x.Value.Length)) {
                         var type = ns.AllTypes
                             .SingleOrDefault(x => ((x as GIRegisteredType)?.CType ?? (x as Callback)?.CType) == t.Value.Substring(1));
-                        if (type == null) {
+                        if (type is null) {
                             continue;
                         }
                         builder.Replace(t.Value, $"<see cref=\"{type.ManagedName}\"/>");
@@ -108,13 +108,13 @@ namespace GISharp.CodeGen.Syntax
                 var paramRefs = Regex.Matches(text, @"@\w+");
                 foreach (Match p in paramRefs.OrderByDescending(x => x.Value.Length)) {
                     var callable = doc.Ancestors.OfType<GICallable>().SingleOrDefault();
-                    if (callable == null) {
+                    if (callable is null) {
                         var property = doc.Ancestors.OfType<ManagedProperty>().SingleOrDefault();
-                        if (property != null) {
+                        if (property is not null) {
                             callable = property.Getter;
                         }
                     }
-                    if (callable != null) {
+                    if (callable is not null) {
                         // if this is an instance parameter, replace it with "this instance'
                         var instanceParam = callable.Parameters.InstanceParameter;
                         if (instanceParam?.GirName == p.Value.Substring(1)) {
@@ -152,7 +152,7 @@ namespace GISharp.CodeGen.Syntax
                     var funcs = Regex.Matches(text, prefix + @"_\w+(?=\(\))");
                     foreach (Match f in funcs) {
                         var callable = (GICallable)ns.FindNodeByCIdentifier(f.Value);
-                        if (callable == null) {
+                        if (callable is null) {
                             continue;
                         }
                         var parent = (GIBase)callable.ParentNode;

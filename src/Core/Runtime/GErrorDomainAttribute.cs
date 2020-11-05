@@ -14,7 +14,7 @@ namespace GISharp.Runtime
         /// Gets the name of the error domain.
         /// </summary>
         /// <value>The name of the error domain.</value>
-        public string ErrorDomain { get; private set; }
+        public string ErrorDomain { get; }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="GErrorDomainAttribute"/> class.
@@ -47,7 +47,7 @@ namespace GISharp.Runtime
         {
             var type = value.GetType();
             var attr = type.GetCustomAttribute<GErrorDomainAttribute> ();
-            if (attr == null) {
+            if (attr is null) {
                 throw new ArgumentException ("Enum type must have ErrorDomainAttribute", nameof (value));
             }
             var quark = Quark.FromString (attr.ErrorDomain);

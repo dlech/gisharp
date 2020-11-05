@@ -48,7 +48,7 @@ namespace GISharp.Runtime
         public static string? TryGetGPropertyName(this PropertyInfo info)
         {
             var propAttr = info.GetCustomAttribute<GPropertyAttribute?>(true);
-            if (propAttr == null) {
+            if (propAttr is null) {
                 propAttr = info.TryGetMatchingInterfacePropertyInfo()?
                     .GetCustomAttribute<GPropertyAttribute?>();
             }

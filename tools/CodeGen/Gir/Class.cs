@@ -36,8 +36,8 @@ namespace GISharp.CodeGen.Gir
             }
             IsAbstract = Element.Attribute("abstract").AsBool();
             Parent = Element.Attribute("parent").Value;
-            _ParentType = new Lazy<System.Type>(LazyGetParentType);
-            _Implements = new Lazy<List<Implements>>(() => LazyGetImplements().ToList());
+            _ParentType = new(LazyGetParentType);
+            _Implements = new(() => LazyGetImplements().ToList());
         }
 
         System.Type LazyGetParentType() =>

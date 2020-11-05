@@ -12,34 +12,34 @@ namespace GISharp.Runtime
         /// <summary>
         /// Gets the signal name.
         /// </summary>
-        public string? Name { get; private set; }
+        public string? Name { get; }
 
         /// <summary>
         /// See <see cref="Lib.GObject.SignalFlags.RunFirst"/>,
         /// <see cref="Lib.GObject.SignalFlags.RunLast"/> and
         /// <see cref="Lib.GObject.SignalFlags.RunCleanup"/>
         /// </summary>
-        public EmissionStage When;
+        public EmissionStage When { get; init; }
 
         /// <summary>
         /// See <see cref="Lib.GObject.SignalFlags.NoRecurse"/>
         /// </summary>
-        public bool IsNoRecurse;
+        public bool IsNoRecurse { get; init; }
 
         /// <summary>
         /// See <see cref="Lib.GObject.SignalFlags.Detailed"/>
         /// </summary>
-        public bool IsDetailed;
+        public bool IsDetailed { get; init; }
 
         /// <summary>
         /// See <see cref="Lib.GObject.SignalFlags.Action"/>
         /// </summary>
-        public bool IsAction;
+        public bool IsAction { get; init; }
 
         /// <summary>
         /// See <see cref="Lib.GObject.SignalFlags.IsNoHooks"/>
         /// </summary>
-        public bool IsNoHooks;
+        public bool IsNoHooks { get; init; }
 
         /// <summary>
         /// Creates a new instance.

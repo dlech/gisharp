@@ -27,14 +27,14 @@ namespace GISharp.Lib.GIRepository.Dynamic
         {
             var methodInfo = default (FunctionInfo);
             ObjectInfo? i = Info;
-            while (i != null) {
+            while (i is not null) {
                 methodInfo = i.FindMethod (binder.Name);
-                if (methodInfo != null) {
+                if (methodInfo is not null) {
                     break;
                 }
                 i = i.Parent;
             }
-            if (methodInfo != null) {
+            if (methodInfo is not null) {
                 var expression = methodInfo.GetInvokeExpression (binder.CallInfo, binder.ReturnType, null, args);
                 return new DynamicMetaObject (expression, typeRestriction);
             }

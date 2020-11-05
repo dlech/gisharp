@@ -29,7 +29,7 @@ namespace GISharp.Lib.GLib
         /// <exception name="NullReferenceException">
         /// If this points to <c>null</c>, e.g. <c>default(UnownedUtf8).Handle</c>.
         /// </exception>
-        public IntPtr Handle => handle is null ? throw new NullReferenceException() : (IntPtr)handle;
+        public IntPtr Handle => handle == null ? throw new NullReferenceException() : (IntPtr)handle;
 
         [DllImport("c")]
         static extern UIntPtr strlen(IntPtr s);
@@ -924,7 +924,7 @@ namespace GISharp.Lib.GLib
             if (ownership == Transfer.None) {
                 this.handle = g_strdup(handle);
             }
-            _Value = new Lazy<string>(GetValue);
+            _Value = new(GetValue);
         }
 
         /// <inheritdoc/>

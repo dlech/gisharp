@@ -11,10 +11,10 @@ namespace GISharp.CodeGen.Reflection
 
         internal GirGenericType(GirType type, params Type[] parameters)
         {
-            if (type == null) {
+            if (type is null) {
                 throw new ArgumentNullException (nameof(type));
             }
-            if (parameters == null) {
+            if (parameters is null) {
                 throw new ArgumentNullException (nameof(parameters));
             }
             this.type = type;

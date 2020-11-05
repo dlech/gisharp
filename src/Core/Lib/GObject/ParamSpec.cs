@@ -435,7 +435,7 @@ namespace GISharp.Lib.GObject
             }
             set {
                 var this_ = Handle;
-                if (value == null) {
+                if (value is null) {
                     g_param_spec_set_qdata(this_, quark, IntPtr.Zero);
                 }
                 else {

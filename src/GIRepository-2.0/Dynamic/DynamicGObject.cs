@@ -50,7 +50,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
 
         public void SetProperty(string name, object? value)
         {
-            if (name == null) {
+            if (name is null) {
                 throw new ArgumentNullException (nameof (name));
             }
             var namePtr = GMarshal.StringToUtf8Ptr (name);
@@ -72,7 +72,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
 
         public object? GetProperty(string name)
         {
-            if (name == null) {
+            if (name is null) {
                 throw new ArgumentNullException (nameof (name));
             }
             var namePtr = GMarshal.StringToUtf8Ptr (name);
@@ -161,22 +161,22 @@ namespace GISharp.Lib.GIRepository.Dynamic
         {
             var methodInfo = default (FunctionInfo);
             ObjectInfo? i = Info;
-            while (i != null) {
+            while (i is not null) {
                 methodInfo = i.FindMethod (binder.Name);
-                if (methodInfo != null) {
+                if (methodInfo is not null) {
                     break;
                 }
                 i = i.Parent;
             }
-            if (methodInfo == null) {
+            if (methodInfo is null) {
                 foreach (var iface in Info.Interfaces) {
                     methodInfo = iface.FindMethod (binder.Name);
-                    if (methodInfo != null) {
+                    if (methodInfo is not null) {
                         break;
                     }
                 }
             }
-            if (methodInfo != null) {
+            if (methodInfo is not null) {
                 var expression = methodInfo.GetInvokeExpression (binder.CallInfo, binder.ReturnType, Object, args);
                 return new DynamicMetaObject (expression, typeRestrictions);
             }

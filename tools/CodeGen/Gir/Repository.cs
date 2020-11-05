@@ -35,8 +35,8 @@ namespace GISharp.CodeGen.Gir
                 throw new ArgumentException("Bad GIR version.", nameof(document));
             }
 
-            _Namespace = new Lazy<Namespace>(LazyGetNamespace, false);
-            _Package = new Lazy<Package>(LazyGetPackage, false);
+            _Namespace = new(LazyGetNamespace, false);
+            _Package = new(LazyGetPackage, false);
         }
 
         Namespace LazyGetNamespace() =>

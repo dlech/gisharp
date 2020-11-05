@@ -13,7 +13,7 @@ namespace GISharp.GirBrowser
     {
         static readonly XNamespace glib = "http://www.gtk.org/introspection/glib/1.0";
 
-        readonly Dictionary<XElement, TreeIter> iterMap = new Dictionary<XElement, TreeIter> ();
+        readonly Dictionary<XElement, TreeIter> iterMap = new();
         readonly NamespaceInfo namespaceInfo;
 
         public readonly XElement Root;
@@ -21,7 +21,7 @@ namespace GISharp.GirBrowser
         public GirTreeModel (XElement root)
         {
             Root = root;
-            namespaceInfo = new NamespaceInfo (root.Document);
+            namespaceInfo = new(root.Document);
         }
 
         #region TreeModelImplementor implementation
@@ -58,10 +58,10 @@ namespace GISharp.GirBrowser
             var element = getNode (iter);
             var path = new TreePath ();
 
-            if (element == null) {
+            if (element is null) {
                 return path;
             }
-            while (element.Parent != null) {
+            while (element.Parent is not null) {
                 path.PrependIndex (element.ElementsBeforeSelf ().Count ());
                 element = element.Parent;
             }
@@ -89,20 +89,20 @@ namespace GISharp.GirBrowser
                 value = new GLib.Value (IterNChildren (iter).ToString ());
                 break;
             case 3: // color - all columns
-                if (element.Attribute ("deprecated") != null) {
+                if (element.Attribute ("deprecated") is not null) {
                     value = new GLib.Value ("red");
-                } else if (element.Attribute (glib + "is-gtype-struct-for") != null) {
+                } else if (element.Attribute (glib + "is-gtype-struct-for") is not null) {
                     value = new GLib.Value ("magenta");
-                } else if (element.Attribute (glib + "get-type") != null) {
+                } else if (element.Attribute (glib + "get-type") is not null) {
                     value = new GLib.Value ("blue");
-                } else if (element.Attribute (glib + "error-domain") != null) {
+                } else if (element.Attribute (glib + "error-domain") is not null) {
                     value = new GLib.Value ("orange");
                 } else {
                     value = new GLib.Value ("black");
                 }
                 break;
             case 4: // strikethrough - all columns
-                value = new GLib.Value (element.Attribute ("moved-to") != null);
+                value = new GLib.Value (element.Attribute ("moved-to") is not null);
                 break;
             }
         }
@@ -111,7 +111,7 @@ namespace GISharp.GirBrowser
         {
             var element = getNode (iter);
 
-            if (element == null || !element.ElementsAfterSelf ().Any ()) {
+            if (element is null || !element.ElementsAfterSelf ().Any ()) {
                 return false;
             }
             iter = getIter (element.ElementsAfterSelf ().First ());
@@ -124,7 +124,7 @@ namespace GISharp.GirBrowser
             iter = TreeIter.Zero;
             var element = getNode (parent);
 
-            if (element == null) {
+            if (element is null) {
                 iter = getIter (Root);
                 return true;
             }
@@ -147,7 +147,7 @@ namespace GISharp.GirBrowser
         {
             var element = getNode (iter);
 
-            if (element == null) {
+            if (element is null) {
                 return 1;
             }
             if (!element.HasElements) {
@@ -162,7 +162,7 @@ namespace GISharp.GirBrowser
             iter = TreeIter.Zero;
             var element = getNode (parent);
 
-            if (element == null) {
+            if (element is null) {
                 iter = getIter (Root);
                 return true;
             }
@@ -180,7 +180,7 @@ namespace GISharp.GirBrowser
             iter = TreeIter.Zero;
             var element = getNode (child);
 
-            if (element == null || element.Parent == null) {
+            if (element is null || element.Parent is null) {
                 return false;
             }
             iter = getIter (element.Parent);
@@ -213,7 +213,7 @@ namespace GISharp.GirBrowser
         public Dictionary<string, string> GetAttributes (TreeIter iter)
         {
             var element = getNode (iter);
-            if (element == null || !element.HasAttributes) {
+            if (element is null || !element.HasAttributes) {
                 return null;
             }
             var defaultNamespace = element.GetDefaultNamespace ();
@@ -237,11 +237,11 @@ namespace GISharp.GirBrowser
         public string GetText (TreeIter iter)
         {
             var element = getNode (iter);
-            if (element == null) {
+            if (element is null) {
                 return null;
             }
             var textNode = element.Nodes ().OfType <XText> ().SingleOrDefault ();
-            if (textNode != null) {
+            if (textNode is not null) {
                 return textNode.Value;
             }
             return null;
@@ -250,7 +250,7 @@ namespace GISharp.GirBrowser
         public string GetCodeFragment (TreeIter iter)
         {
             var element = getNode (iter);
-            if (element == null) {
+            if (element is null) {
                 return null;
             }
 

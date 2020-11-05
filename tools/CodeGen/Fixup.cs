@@ -32,8 +32,8 @@ namespace GISharp.CodeGen
         static XmlNamespaceManager _Manager;
         static XmlNamespaceManager Manager {
             get {
-                if (_Manager == null) {
-                    _Manager = new XmlNamespaceManager(new NameTable());
+                if (_Manager is null) {
+                    _Manager = new(new NameTable());
                     _Manager.AddNamespace(string.Empty, gi.NamespaceName);
                     // default namespace does not seem to work in XPathGetElement(s) extension methods
                     // so we add a named namespace for it too.
@@ -54,10 +54,10 @@ namespace GISharp.CodeGen
         /// <param name="writer">TextWriter where the YAML will be written</param>
         public static void Generate(this XDocument gir, TextWriter writer)
         {
-            if (gir == null) {
+            if (gir is null) {
                 throw new ArgumentNullException(nameof(gir));
             }
-            if (writer == null) {
+            if (writer is null) {
                 throw new ArgumentNullException(nameof(writer));
             }
 
@@ -95,7 +95,7 @@ namespace GISharp.CodeGen
         /// <param name="yaml"/>YAML text data</param>
         public static Command[] Parse(TextReader reader)
         {
-            if (reader == null) {
+            if (reader is null) {
                 throw new ArgumentNullException(nameof(reader));
             }
 
@@ -123,10 +123,10 @@ namespace GISharp.CodeGen
 
         public static void ApplyFixup(this XDocument document, IEnumerable<Command> commands)
         {
-            if (document == null) {
+            if (document is null) {
                 throw new ArgumentNullException(nameof(document));
             }
-            if (commands == null) {
+            if (commands is null) {
                 throw new ArgumentNullException(nameof(commands));
             }
 
@@ -135,7 +135,7 @@ namespace GISharp.CodeGen
                 case AddElement addElement:
                     var newElement = ParseElement(addElement.Xml);
                     var addParent = document.XPathSelectElement(addElement.Xpath, Manager);
-                    if (addParent == null) {
+                    if (addParent is null) {
                         Log.Warning($"Could not find element at '{addElement.Xpath}'");
                         break;
                     }
@@ -174,7 +174,7 @@ namespace GISharp.CodeGen
                     }
                     foreach (var element in changeAttrElements) {
                         var attribute = element.Attribute(changeAttrNamespace + changeAttrLocalName);
-                        var oldValue = attribute == null ? string.Empty : attribute.Value;
+                        var oldValue = attribute is null ? string.Empty : attribute.Value;
                         var newValue = string.IsNullOrEmpty(changeAttr.Regex) ? changeAttr.Replace
                             : Regex.Replace(oldValue, changeAttr.Regex, changeAttr.Replace);
                         element.SetAttributeValue(changeAttrNamespace + changeAttrLocalName, newValue);
@@ -189,7 +189,7 @@ namespace GISharp.CodeGen
                         elementNamespace = (XNamespace)Manager.LookupNamespace(elementParts[0]);
                     }
                     var elementsToChange = document.XPathSelectElements(changeElement.Xpath, Manager);
-                    if (elementsToChange == null) {
+                    if (elementsToChange is null) {
                         Log.Warning($"Could not find elements matching '{changeElement.Xpath}'");
                         break;
                     }
@@ -203,7 +203,7 @@ namespace GISharp.CodeGen
                         Log.Warning($"Could not find any elements matching '{moveElement.Xpath}'");
                     }
                     var moveParent = document.XPathSelectElement(moveElement.NewParentXpath, Manager);
-                    if (moveParent == null) {
+                    if (moveParent is null) {
                         Log.Warning($"Could not find element at '{moveElement.NewParentXpath}'");
                         break;
                     }
@@ -227,22 +227,22 @@ namespace GISharp.CodeGen
         static bool IsSkipped(this XElement element)
         {
             return !element.Attribute("introspectable").AsBool(true)
-                || element.Attribute("moved-to") != null
-                || element.Attribute("shadowed-by") != null
+                || element.Attribute("moved-to") is not null
+                || element.Attribute("shadowed-by") is not null
                 || IsCallableWithVarArgs()
                 || IsAutoptrAlias();
 
             bool IsCallableWithVarArgs()
             {
                 var parameters = element.Element(gi + "parameters");
-                if (parameters == null) {
+                if (parameters is null) {
                     return false;
                 }
                 foreach (var child in parameters.Elements(gi + "parameter")) {
                     if (child.Element(gi + "type")?.Attribute("name").AsString() == "va_list") {
                         return true;
                     }
-                    if (child.Element(gi + "varargs") != null) {
+                    if (child.Element(gi + "varargs") is not null) {
                         return true;
                     }
                 }
@@ -275,7 +275,7 @@ namespace GISharp.CodeGen
 
                 // if it is a callback, change it to an IntPtr
                 var callbackElement = element.Element(gi + "callback");
-                if (callbackElement != null) {
+                if (callbackElement is not null) {
                     callbackElement.Name = gi + "type";
                     callbackElement.SetAttributeValue("name", "gpointer");
                     // sometimes, the callback node also has introspectable="0"
@@ -287,7 +287,7 @@ namespace GISharp.CodeGen
 
             foreach (var element in document.Descendants(gi + "record")
                 .Where(x => x.Attribute("name").Value.EndsWith("Private"))) {
-                if (element.Attribute("introspectable") != null) {
+                if (element.Attribute("introspectable") is not null) {
                     continue;
                 }
                 element.SetAttributeValue("introspectable", "0");
@@ -306,12 +306,12 @@ namespace GISharp.CodeGen
             // scrape version attribute from member doc
 
             foreach (var element in document.Descendants(gi + "member")) {
-                if (element.Attribute("since") != null) {
+                if (element.Attribute("since") is not null) {
                     continue;
                 }
 
                 var docElement = element.Element(gi + "doc");
-                if (docElement == null) {
+                if (docElement is null) {
                     continue;
                 }
 
@@ -328,12 +328,12 @@ namespace GISharp.CodeGen
             // scrape deprecated-version attribute from member doc
 
             foreach (var element in document.Descendants(gi + "member")) {
-                if (element.Attribute("since") != null) {
+                if (element.Attribute("since") is not null) {
                     continue;
                 }
 
                 var docElement = element.Element(gi + "doc");
-                if (docElement == null) {
+                if (docElement is null) {
                     continue;
                 }
 
@@ -356,7 +356,7 @@ namespace GISharp.CodeGen
                 var errorDomain = element.Parent.Attribute("name").AsString() + "Error";
                 var errorDomainElement = document.Descendants(gi + "enumeration")
                     .SingleOrDefault(x => x.Attribute("name").AsString() == errorDomain);
-                if (errorDomainElement == null) {
+                if (errorDomainElement is null) {
                     continue;
                 }
                 element.Remove();
@@ -391,7 +391,7 @@ namespace GISharp.CodeGen
             // if arrays don't have a length or fixed-size, assume zero-terminated
 
             foreach (var element in document.Descendants(gi + "array")) {
-                if (element.Attribute("length") == null && element.Attribute("fixed-size") == null) {
+                if (element.Attribute("length") is null && element.Attribute("fixed-size") is null) {
                     element.SetAttributeValue("zero-terminated", "1");
                 }
             }
@@ -399,7 +399,7 @@ namespace GISharp.CodeGen
             // add error parameters for anything that throws
 
             var elementsThatThrow = document.Descendants()
-                .Where(d => d.Attribute("throws") != null);
+                .Where(d => d.Attribute("throws") is not null);
             foreach (var element in elementsThatThrow) {
                 var errorElement = new XElement(gs + "error-parameter",
                     new XAttribute("name", "error"),
@@ -409,7 +409,7 @@ namespace GISharp.CodeGen
                     new XElement(gi + "type",
                         new XAttribute("name", "GLib.Error"),
                         new XAttribute(c + "type", "GError**")));
-                if (element.Element(gi + "parameters") == null) {
+                if (element.Element(gi + "parameters") is null) {
                     element.Add(new XElement(gi + "parameters"));
                 }
                 element.Element(gi + "parameters").Add(errorElement);
@@ -418,20 +418,20 @@ namespace GISharp.CodeGen
             // set a value for parameters without transfer-ownership attribute
 
             foreach (var element in document.Descendants(gi + "return-value")
-                .Where(x => x.Attribute("transfer-ownership") == null)) {
+                .Where(x => x.Attribute("transfer-ownership") is null)) {
                 element.SetAttributeValue("transfer-ownership", "full");
             }
 
             foreach (var element in document.Descendants(gi + "parameter")
                 .Concat(document.Descendants(gi + "instance-parameter"))
-                .Where(x => x.Attribute("transfer-ownership") == null)) {
+                .Where(x => x.Attribute("transfer-ownership") is null)) {
                 element.SetAttributeValue("transfer-ownership", "none");
             }
 
             // create dll-name attributes
 
-            foreach (var element in document.Descendants().Where(x => x.Element(gi + "parameters") != null || x.Element(gi + "return-value") != null)) {
-                if (element.Attribute(gs + "dll-name") != null) {
+            foreach (var element in document.Descendants().Where(x => x.Element(gi + "parameters") is not null || x.Element(gi + "return-value") is not null)) {
+                if (element.Attribute(gs + "dll-name") is not null) {
                     // don't overwrite value from fixup.yml
                     continue;
                 }
@@ -441,7 +441,7 @@ namespace GISharp.CodeGen
             // create managed-name attributes
 
             foreach (var element in document.Descendants()) {
-                if (element.Attribute(gs + "managed-name") != null) {
+                if (element.Attribute(gs + "managed-name") is not null) {
                     continue;
                 }
 
@@ -452,7 +452,7 @@ namespace GISharp.CodeGen
 
                 // C arrays don't have a name attribute
 
-                if (element.Name == gi + "array" && element.Attribute("name") == null) {
+                if (element.Name == gi + "array" && element.Attribute("name") is null) {
                     // special case for null-terminated arrays of strings
                     if (element.Attribute("zero-terminated").AsBool()) {
                         var elementType = element.Element(gi + "type").Attribute("name").AsString();
@@ -471,7 +471,7 @@ namespace GISharp.CodeGen
                 }
 
                 var attr = element.Attribute("name");
-                if (attr == null) {
+                if (attr is null) {
                     continue;
                 }
                 var name = attr.Value;
@@ -489,7 +489,7 @@ namespace GISharp.CodeGen
 
                 // replace name by shadows if it exists (i.e. drop _full suffix)
                 var shadows = element.Attribute("shadows");
-                if (shadows != null) {
+                if (shadows is not null) {
                     name = shadows.Value;
                 }
 
@@ -519,7 +519,7 @@ namespace GISharp.CodeGen
                 // check various conditions where we might want camelCase
                 var camelCase = false;
                 var accessModifier = element.Attribute(gs + "access-modifiers");
-                if (accessModifier != null && (element.Name == gi + "field" || element.Name == gi + "constant")) {
+                if (accessModifier is not null && (element.Name == gi + "field" || element.Name == gi + "constant")) {
                     camelCase = accessModifier.Value.Contains("private");
                 }
                 if (element.Name == gi + "parameter" || element.Name == gi + "instance-parameter" || element.Name == gs + "error-parameter") {
@@ -548,7 +548,7 @@ namespace GISharp.CodeGen
 
                 var callbackElement = element.Element(gi + "parameters").Elements(gi + "parameter")
                     .SingleOrDefault(x => x.Element(gi + "type")?.Attribute(c + "type").AsString() == "GAsyncReadyCallback");
-                if (callbackElement == null) {
+                if (callbackElement is null) {
                     // this doesn't fit the code generator async pattern
                     continue;
                 }
@@ -560,14 +560,14 @@ namespace GISharp.CodeGen
                 var finishMethodElement = element.Parent.Elements()
                     .SingleOrDefault(x => x.Attribute(gs + "finish-for").AsString() == asyncMethodName);
 
-                if (finishMethodElement == null) {
+                if (finishMethodElement is null) {
                     // try to find a matching method heuristically
                     var finishMethodName = asyncMethodName.Replace("_async", "_finish");
                     finishMethodElement = element.Parent.Elements(gi + "function")
                         .Concat(element.Parent.Elements(gi + "method"))
                         .SingleOrDefault(x => x.Attribute("name").AsString() == finishMethodName);
 
-                    if (finishMethodElement == null) {
+                    if (finishMethodElement is null) {
                         continue;
                     }
 
@@ -714,7 +714,7 @@ namespace GISharp.CodeGen
                 .Where(d => d.Attribute("name").Value == "to_string"
                    && !d.Element(gi + "parameters").Elements(gi + "parameter").Any());
             foreach (var element in elementsWithToStringFunction) {
-                if (element.Attribute(gs + "to-string") != null) {
+                if (element.Attribute(gs + "to-string") is not null) {
                     continue;
                 }
                 element.SetAttributeValue(gs + "to-string", "1");
@@ -745,13 +745,13 @@ namespace GISharp.CodeGen
                     continue;
                 }
 
-                if (element.Attribute(gs + "is-pointer") != null) {
+                if (element.Attribute(gs + "is-pointer") is not null) {
                     // don't overwrite existing values
                     continue;
                 }
 
                 var cType = element.Attribute(c + "type").AsString();
-                if (cType == null) {
+                if (cType is null) {
                     // if there is no C type, it is probably a pointer
                     element.SetAttributeValue(gs + "is-pointer", "1");
                 }
@@ -765,7 +765,7 @@ namespace GISharp.CodeGen
             foreach (var element in document.Descendants(gi + "return-value")
                 .Where(x => x.Element(gi + "type")?.Attribute("name").AsString() == "gboolean"
                     && x.Parent.Attribute("throws").AsBool())) {
-                if (element.Attribute("skip") != null) {
+                if (element.Attribute("skip") is not null) {
                     continue;
                 }
                 element.SetAttributeValue("skip", "1");
@@ -777,20 +777,20 @@ namespace GISharp.CodeGen
                 .Concat(document.Descendants(gi + "constructor"))
                 .Concat(document.Descendants(gi + "method"))
                 .Concat(document.Descendants(glib + "signal"))
-                .Where(x => x.Element(gi + "parameters") == null)) {
+                .Where(x => x.Element(gi + "parameters") is null)) {
                 element.Add(new XElement(gi + "parameters"));
             }
 
             // set a value for parameters without direction attribute
 
             foreach (var element in document.Descendants(gi + "return-value")
-                .Where(x => x.Attribute("direction") == null)) {
+                .Where(x => x.Attribute("direction") is null)) {
                 element.SetAttributeValue("direction", "out");
             }
 
             foreach (var element in document.Descendants(gi + "parameter")
                 .Concat(document.Descendants(gi + "instance-parameter"))
-                .Where(x => x.Attribute("direction") == null)) {
+                .Where(x => x.Attribute("direction") is null)) {
                 element.SetAttributeValue("direction", "in");
             }
 
@@ -798,7 +798,7 @@ namespace GISharp.CodeGen
 
             foreach (var element in document.Descendants(gi + "parameter")
                 .Concat(document.Descendants(gi + "instance-parameter"))
-                .Where(x => x.Element(gi + "array") != null
+                .Where(x => x.Element(gi + "array") is not null
                     && x.Attribute("direction").AsString() == "out"
                     && x.Attribute("caller-allocates").AsBool())) {
                 element.SetAttributeValue("direction", "in");
@@ -849,7 +849,7 @@ namespace GISharp.CodeGen
             // callback parameters without user data cannot be handled by the code generator
 
             foreach (var element in document.Descendants(gi + "parameter")
-                .Where(x => x.Attribute("scope") != null && x.Attribute("closure") == null)) {
+                .Where(x => x.Attribute("scope") is not null && x.Attribute("closure") is null)) {
                 // destroy notify parameters generally do not have a closure attribute.
                 // however, if they are the target of a destroy attribute, then we can
                 // allow them because the code generator knows how to handle this case
@@ -875,7 +875,7 @@ namespace GISharp.CodeGen
 
             // fix up the async method return value based on the finish method
 
-            foreach (var element in document.Descendants().Where(x => x.Attribute(gs + "finish-for") != null)) {
+            foreach (var element in document.Descendants().Where(x => x.Attribute(gs + "finish-for") is not null)) {
                 var returnValues = new System.Collections.Generic.List<XElement>();
                 var finishReturnValueElement = element.Element(gi + "return-value");
                 if (!finishReturnValueElement.Attribute("skip").AsBool() &&
@@ -904,7 +904,7 @@ namespace GISharp.CodeGen
             // fix the callback type names for (unmanaged) parameters
 
             foreach (var element in document.Descendants(gi + "parameter")
-                .Where(p => p.Parent.Name == gi + "parameters" && p.Attribute("scope") != null)) {
+                .Where(p => p.Parent.Name == gi + "parameters" && p.Attribute("scope") is not null)) {
                 var typeElement = element.Element(gi + "type");
                 var managedName = typeElement.Attribute(gs + "managed-name").Value;
                 if (managedName == typeof(Delegate).ToString()) {
@@ -932,7 +932,7 @@ namespace GISharp.CodeGen
                    && !d.Attribute(gs + "extension-method").AsBool()
                    && !d.Attribute(gs + "pinvoke-only").AsBool()
                    && (d.Attribute("name").Value.StartsWith("get_", StringComparison.Ordinal) || d.Attribute("name").Value.StartsWith("is_", StringComparison.Ordinal))
-                   && (d.Element(gs + "managed-parameters") == null || !d.Element(gs + "managed-parameters").Elements(gi + "parameter").Any()));
+                   && (d.Element(gs + "managed-parameters") is null || !d.Element(gs + "managed-parameters").Elements(gi + "parameter").Any()));
             foreach (var element in getters) {
                 var methodName = element.Attribute(gs + "managed-name").Value;
                 var propertyName = methodName;
@@ -966,7 +966,7 @@ namespace GISharp.CodeGen
                    && !d.Attribute(gs + "pinvoke-only").AsBool()
                    && d.Attribute("name").Value.StartsWith("set_", StringComparison.Ordinal)
                    && d.Element(gi + "return-value")?.Element(gi + "type").Attribute("name").AsString("none") == "none"
-                   && d.Element(gs + "managed-parameters") != null
+                   && d.Element(gs + "managed-parameters") is not null
                    && d.Element(gs + "managed-parameters").Elements(gi + "parameter").Count() == 1);
             foreach (var element in setters) {
                 var name = element.Attribute(gs + "managed-name").Value;
@@ -974,7 +974,7 @@ namespace GISharp.CodeGen
                 name = name.Substring(3);
                 var matchingGetter = element.Parent.Elements(element.Name)
                     .SingleOrDefault(e => e.Attribute(gs + "property-getter-for").AsString() == name);
-                if (matchingGetter == null) {
+                if (matchingGetter is null) {
                     // we don't want set-only properties
                     continue;
                 }
@@ -1000,7 +1000,7 @@ namespace GISharp.CodeGen
                 var managedName = element.Attribute(gs + "managed-name").Value;
                 var managedPropertyElement = element.Parent.Elements(gs + "managed-property")
                     .SingleOrDefault(x => x.Attribute(gs + "managed-name").Value == managedName);
-                if (managedPropertyElement == null) {
+                if (managedPropertyElement is null) {
                     continue;
                 }
                 element.SetAttributeValue(gs + "managed-name", managedName + "_");
@@ -1015,10 +1015,10 @@ namespace GISharp.CodeGen
         public static void Validate(this XDocument doc)
         {
             foreach (var e in doc.Descendants().Where(d => ElementsThatDefineAType.Contains(d.Name))) {
-                if (e.Attribute("name") == null) {
+                if (e.Attribute("name") is null) {
                     Log.Warning($"Missing name attribute at {e.GetXPath()}");
                 }
-                if (e.Attribute(gs + "managed-name") == null) {
+                if (e.Attribute(gs + "managed-name") is null) {
                     Log.Warning($"Missing gs:managed-name attribute at {e.GetXPath()}");
                 }
             }
@@ -1088,9 +1088,9 @@ namespace GISharp.CodeGen
             // reorder the parameters to that those with default values are at
             // the end and params are at the very end
 
-            list = list.Where(p => p.Attribute(gs + "default") == null && p.Attribute(gs + "params") == null)
-                       .Union(list.Where(p => p.Attribute(gs + "default") != null && p.Attribute(gs + "params") == null))
-                       .Union(list.Where(p => p.Attribute(gs + "params") != null)).ToList();
+            list = list.Where(p => p.Attribute(gs + "default") is null && p.Attribute(gs + "params") is null)
+                       .Union(list.Where(p => p.Attribute(gs + "default") is not null && p.Attribute(gs + "params") is null))
+                       .Union(list.Where(p => p.Attribute(gs + "params") is not null)).ToList();
 
             // In the GObject type system, enums and interfaces can have methods.
             // This is not allowed directly in C#, but it can be made to work
@@ -1099,7 +1099,7 @@ namespace GISharp.CodeGen
 
             if (parameters.Parent.Attribute(gs + "extension-method").AsBool()) {
                 var instanceParameter = parameters.Element(gi + "instance-parameter");
-                if (instanceParameter != null) {
+                if (instanceParameter is not null) {
                     list.Insert(0, instanceParameter);
                 }
             }
@@ -1209,7 +1209,7 @@ namespace GISharp.CodeGen
 
         public static string GetXPath(this XElement element)
         {
-            if (element == null) {
+            if (element is null) {
                 throw new ArgumentNullException(nameof(element));
             }
 
@@ -1224,7 +1224,7 @@ namespace GISharp.CodeGen
                 builder.Append(':');
                 builder.Append(e.Name.LocalName);
                 var nameAttr = e.Attribute("name")?.Value;
-                if (nameAttr != null) {
+                if (nameAttr is not null) {
                     builder.AppendFormat("[@name='{0}']", nameAttr);
                 }
             }
@@ -1310,7 +1310,7 @@ namespace GISharp.CodeGen
 
         public static bool AsBool(this XAttribute attr, bool defaultValue = false)
         {
-            if (attr == null) {
+            if (attr is null) {
                 return defaultValue;
             }
             return attr.Value != "0";
@@ -1318,7 +1318,7 @@ namespace GISharp.CodeGen
 
         public static int AsInt(this XAttribute attr, int defaultValue = 0)
         {
-            if (attr == null) {
+            if (attr is null) {
                 return defaultValue;
             }
             return int.Parse(attr.Value);
@@ -1326,7 +1326,7 @@ namespace GISharp.CodeGen
 
         public static string AsString(this XAttribute attr, string defaultValue = null)
         {
-            if (attr == null) {
+            if (attr is null) {
                 return defaultValue;
             }
             return attr.Value;
@@ -1354,7 +1354,7 @@ namespace GISharp.CodeGen
 
         public static string ToPascalCase(this string str)
         {
-            if (str == null) {
+            if (str is null) {
                 return null;
             }
 
@@ -1375,7 +1375,7 @@ namespace GISharp.CodeGen
 
         public static string ToCamelCase(this string str)
         {
-            if (str == null) {
+            if (str is null) {
                 return null;
             }
             str = str.ToPascalCase();

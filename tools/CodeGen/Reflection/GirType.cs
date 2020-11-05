@@ -26,7 +26,7 @@ namespace GISharp.CodeGen.Reflection
         protected GirType(GIRegisteredType type)
         {
             this.type = type ?? throw new ArgumentNullException(nameof(type));
-            _Module = new Lazy<Module>(() => new GirModule(type.Namespace), false);
+            _Module = new(() => new GirModule(type.Namespace), false);
         }
 
         /// <summary>
@@ -35,7 +35,7 @@ namespace GISharp.CodeGen.Reflection
         public static System.Type ResolveManagedType(Gir.GIType node)
         {
             if (node.ParentNode is Gir.Field field) {
-                if (field.Callback != null) {
+                if (field.Callback is not null) {
                     return new GirDelegateType(field.Callback, true);
                 }
             }
@@ -100,7 +100,7 @@ namespace GISharp.CodeGen.Reflection
             // if there is no '.', then this type must be declared in the GIR namespace
             if (!typeName.Contains('.')) {
                 var typeNode = node.Namespace.AllTypes.SingleOrDefault(x => x.GirName == node.GirName);
-                if (typeNode == null) {
+                if (typeNode is null) {
                     // OK, maybe it is defined in the Core assembly
                     typeName = $"GISharp.Lib.{node.Namespace.Name}.{typeName}";
                 }
@@ -129,14 +129,14 @@ namespace GISharp.CodeGen.Reflection
 
             // otherwise, the type is declared in another assembly
             var type = GetType(typeName);
-            if (type != null) {
+            if (type is not null) {
                 if (type.IsAbstract && type.IsSealed) {
                     // if we got a static class, it must be the extension class
                     // for an interface.
                     var index = typeName.LastIndexOf('.') + 1;
                     typeName = typeName.Substring(0, index) + "I" + typeName.Substring(index);
                     type = GetType(typeName);
-                    if (type != null) {
+                    if (type is not null) {
                         return type;
                     }
                     throw new TypeNotFoundException(typeName);
@@ -153,14 +153,14 @@ namespace GISharp.CodeGen.Reflection
         public static System.Type ResolveUnmanagedType(Gir.GIType node)
         {
             if (node.ParentNode is Gir.Field field) {
-                if (field.Callback != null) {
+                if (field.Callback is not null) {
                     return new GirDelegateType(field.Callback, true);
                 }
             }
 
             var typeName = node.GirName;
 
-            if (node is Gir.Array && typeName == null) {
+            if (node is Gir.Array && typeName is null) {
                 var elementType = node.TypeParameters.Single();
                 return elementType.UnmanagedType.MakePointerType();
             }
@@ -246,7 +246,7 @@ namespace GISharp.CodeGen.Reflection
                 throw new NotSupportedException("va_list is not supported");
             }
 
-            if (type != null) {
+            if (type is not null) {
                 if (node.IsPointer) {
                     return type.MakePointerType();
                 }
@@ -261,7 +261,7 @@ namespace GISharp.CodeGen.Reflection
             var isDelegate = false;
 
             if (node.ParentNode is GIArg arg) {
-                isDelegate = arg.Scope != null;
+                isDelegate = arg.Scope is not null;
             }
 
             if (isDelegate) {
@@ -270,7 +270,7 @@ namespace GISharp.CodeGen.Reflection
 
             // assuming this is a value type
             type = GetType(typeName);
-            if (type != null) {
+            if (type is not null) {
                 if (type.IsValueType) {
                     return type;
                 }
@@ -285,7 +285,7 @@ namespace GISharp.CodeGen.Reflection
             }
 
             var typeNode = node.Namespace.AllTypes.SingleOrDefault(x => x.GirName == node.GirName);
-            if (typeNode == null) {
+            if (typeNode is null) {
                 throw new TypeNotFoundException(node.GirName);
             }
             var girType = default(System.Type);
@@ -296,7 +296,7 @@ namespace GISharp.CodeGen.Reflection
                 girType = new GirEnumType(@enum);
             }
             else if (typeNode is Record record) {
-                if (record.GTypeName != null || record.IsDisguised) {
+                if (record.GTypeName is not null || record.IsDisguised) {
                     return typeof(IntPtr);
                 }
                 girType = new GirRecordType(record);
@@ -311,7 +311,7 @@ namespace GISharp.CodeGen.Reflection
                 return typeof(IntPtr);
             }
 
-            if (girType == null) {
+            if (girType is null) {
                 throw new NotSupportedException($"Unknown GIR node type: {typeNode.GetType().Name}");
             }
 
@@ -323,7 +323,7 @@ namespace GISharp.CodeGen.Reflection
             var typeName = @class.Parent;
             if (!typeName.Contains('.')) {
                 var match = @class.Namespace.Classes.SingleOrDefault(x => x.GirName == typeName);
-                if (match != null) {
+                if (match is not null) {
                     return new GirClassType(match);
                 }
                 typeName = $"{@class.Namespace.Name}.{typeName}";
@@ -331,7 +331,7 @@ namespace GISharp.CodeGen.Reflection
             typeName = $"GISharp.Lib.{typeName}";
 
             var type = GetType(typeName);
-            if (type != null) {
+            if (type is not null) {
                 return type;
             }
 
@@ -345,11 +345,11 @@ namespace GISharp.CodeGen.Reflection
                 var @interface = (Interface)prerequisite.ParentNode;
                 var @namespace = @interface.Namespace;
                 var match = @namespace.Interfaces.SingleOrDefault(x => x.GirName == typeName);
-                if (match != null) {
+                if (match is not null) {
                     return new GirInterfaceType(match);
                 }
                 var @class = @namespace.Classes.SingleOrDefault(x => x.GirName == typeName);
-                if (@class != null) {
+                if (@class is not null) {
                     return typeof(GInterface<>).MakeGenericType(new GirClassType(@class));
                 }
                 typeName = $"{@namespace.Name}.{typeName}";
@@ -357,7 +357,7 @@ namespace GISharp.CodeGen.Reflection
             typeName = $"GISharp.Lib.{typeName}";
 
             var type = GetType(typeName);
-            if (type != null) {
+            if (type is not null) {
                 return type;
             }
 
@@ -400,12 +400,12 @@ namespace GISharp.CodeGen.Reflection
 
         public override bool IsSubclassOf(System.Type c)
         {
-            if (c == null) {
+            if (c is null) {
                 throw new ArgumentNullException(nameof(c));
             }
 
             var baseType = BaseType;
-            while (baseType != null) {
+            while (baseType is not null) {
                 if (c == baseType) {
                     return true;
                 }

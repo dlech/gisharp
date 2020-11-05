@@ -152,7 +152,7 @@ namespace GISharp.Lib.GObject
         }
 
         PropertyChangedEventHandler? propertyChangedHandler;
-        readonly object propertyChangedHandlerLock = new object ();
+        readonly object propertyChangedHandlerLock = new();
         SignalHandler? notifySignalHandler;
 
         SignalHandler ConnectNotifySignal ()
@@ -170,7 +170,7 @@ namespace GISharp.Lib.GObject
         event PropertyChangedEventHandler INotifyPropertyChanged.PropertyChanged {
             add {
                 lock (propertyChangedHandlerLock) {
-                    if (propertyChangedHandler == null) {
+                    if (propertyChangedHandler is null) {
                         notifySignalHandler = ConnectNotifySignal ();
                     }
                     propertyChangedHandler += value;
@@ -179,7 +179,7 @@ namespace GISharp.Lib.GObject
             remove {
                 lock (propertyChangedHandlerLock) {
                     propertyChangedHandler -= value;
-                    if (propertyChangedHandler == null) {
+                    if (propertyChangedHandler is null) {
                         notifySignalHandler?.Disconnect ();
                         notifySignalHandler = null;
                     }
@@ -248,13 +248,13 @@ namespace GISharp.Lib.GObject
             try {
                 for (int i = 0; i < parameters.Length; i += 2) {
                     var name = parameters[i] as string;
-                    if (name == null) {
+                    if (name is null) {
                         var message = $"Expecting string at index {i}";
                         throw new ArgumentException(message, nameof(parameters));
                     }
                     var objClass = TypeClass.GetInstance<ObjectClass>(gtype);
                     var paramSpec = objClass.FindProperty(name);
-                    if (paramSpec == null) {
+                    if (paramSpec is null) {
                         var message = $"Could not find property '{name}'";
                         throw new ArgumentException(message, nameof(parameters));
                     }
@@ -431,7 +431,7 @@ namespace GISharp.Lib.GObject
             var target_ = target.Handle;
 
             var sourcePropertyInfo = GetType ().GetProperty (sourceProperty);
-            if (sourcePropertyInfo == null) {
+            if (sourcePropertyInfo is null) {
                 throw new ArgumentException ("No matching property", nameof (sourceProperty));
             }
             sourceProperty = sourcePropertyInfo.TryGetGPropertyName() ??
@@ -441,7 +441,7 @@ namespace GISharp.Lib.GObject
             var sourceProperty_ = sourcePropertyUtf8.Handle;
 
             var targetPropertyInfo = target.GetType ().GetProperty (targetProperty);
-            if (targetPropertyInfo == null) {
+            if (targetPropertyInfo is null) {
                 throw new ArgumentException ("No matching property", nameof (targetProperty));
             }
             targetProperty = targetPropertyInfo.TryGetGPropertyName() ??
@@ -555,12 +555,12 @@ namespace GISharp.Lib.GObject
                 CreateNotifyDelegate(BindingTransformFunc? transformTo, BindingTransformFunc? transformFrom) {
                     var userData = new BindingTransformFuncData();
 
-                    if (transformTo != null) {
+                    if (transformTo is not null) {
                         userData.TransformTo = transformTo;
                         userData.UnmangedTransformTo = TransformToFunc;
                     }
 
-                    if (transformFrom != null) {
+                    if (transformFrom is not null) {
                         userData.TransformFrom = transformFrom;
                         userData.UnmanagedTransformFrom = TransformFromFunc;
                     }
@@ -705,7 +705,7 @@ namespace GISharp.Lib.GObject
         {
             var this_ = Handle;
             var pspec = GClass.FindProperty(propertyName);
-            if (pspec == null) {
+            if (pspec is null) {
                 var message = $"No such property \"{propertyName}\"";
                 throw new ArgumentException(message, nameof(propertyName));
             }
@@ -923,7 +923,7 @@ namespace GISharp.Lib.GObject
         {
             var this_ = Handle;
             var pspec = GClass.FindProperty(propertyName);
-            if (pspec == null) {
+            if (pspec is null) {
                 var message = $"No such property \"{propertyName}\"";
                 throw new ArgumentException(message, nameof(propertyName));
             }
@@ -1006,7 +1006,7 @@ namespace GISharp.Lib.GObject
             set {
                 var this_ = Handle;
                 var key_ = GMarshal.StringToUtf8Ptr (key);
-                if (value == null) {
+                if (value is null) {
                     g_object_set_data(this_, key_, IntPtr.Zero);
                 }
                 else {
@@ -1056,7 +1056,7 @@ namespace GISharp.Lib.GObject
             }
             set {
                 var this_ = Handle;
-                if (value == null) {
+                if (value is null) {
                     g_object_set_qdata(this_, quark, IntPtr.Zero);
                 }
                 else {

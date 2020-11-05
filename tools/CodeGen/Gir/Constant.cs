@@ -30,7 +30,7 @@ namespace GISharp.CodeGen.Gir
             }
             Value = Element.Attribute("value").Value;
             CType = Element.Attribute(c + "type").Value;
-            _Type = new Lazy<GIType>(LazyGetType, false);
+            _Type = new(LazyGetType, false);
         }
 
         GIType LazyGetType() =>

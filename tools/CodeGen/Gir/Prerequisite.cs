@@ -28,7 +28,7 @@ namespace GISharp.CodeGen.Gir
                 throw new ArgumentException("Requrires <prerequisite> element", nameof(element));
             }
             GirName = element.Attribute("name").Value;
-            _Type = new Lazy<System.Type>(LazyGetType);
+            _Type = new(LazyGetType);
         }
 
         System.Type LazyGetType() => GirInterfaceType.ResolveType(this);

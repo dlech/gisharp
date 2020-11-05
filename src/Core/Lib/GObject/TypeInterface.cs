@@ -58,7 +58,7 @@ namespace GISharp.Lib.GObject
                     var instanceMethod = map.TargetMethods[i];
 
                     var attr = ifaceMethod.GetCustomAttribute<GVirtualMethodAttribute>();
-                    if (attr == null) {
+                    if (attr is null) {
                         continue;
                     }
 

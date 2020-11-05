@@ -23,7 +23,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Property construction flags
         /// </summary>
-        public GPropertyConstruct Construct { get; set; }
+        public GPropertyConstruct Construct { get; init; }
 
         /// <summary>
         /// Creates a new instance.

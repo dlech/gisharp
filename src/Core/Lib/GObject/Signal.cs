@@ -12,7 +12,8 @@ namespace GISharp.Lib.GObject
 {
     public static class Signal
     {
-        static Regex signalNameRegex = new Regex("^[a-zA-Z](?:[a-zA-Z0-9_]*|[a-zA-Z0-9-]*)$", RegexOptions.CultureInvariant);
+        static Regex signalNameRegex = new("^[a-zA-Z](?:[a-zA-Z0-9_]*|[a-zA-Z0-9-]*)$",
+            RegexOptions.CultureInvariant);
 
         ///<summary>
         /// Tests if a signal name is valid.
@@ -152,7 +153,7 @@ namespace GISharp.Lib.GObject
         //public static void ChainFromOverridden (Value[] instanceAndParams, Value returnValue)
         //{
         //    var instanceAndParams_ = MarshalG.OpaqueCArrayToPtr<Value> (instanceAndParams, false);
-        //    var returnValue_ = returnValue == null ? IntPtr.Zero : returnValue.Handle;
+        //    var returnValue_ = returnValue is null ? IntPtr.Zero : returnValue.Handle;
         //    g_signal_chain_from_overridden (instanceAndParams_, returnValue_);
         //    MarshalG.Free (instanceAndParams_);
         //}
@@ -214,9 +215,9 @@ namespace GISharp.Lib.GObject
         ///// </returns>
         //public static culong ConnectClosure(Object instance, string detailedSignal, Closure closure, bool after)
         //{
-        //    var instance_ = instance == null ? IntPtr.Zero : instance.Handle;
+        //    var instance_ = instance is null ? IntPtr.Zero : instance.Handle;
         //    var detailedSignal_ = MarshalG.StringToUtf8Ptr (detailedSignal);
-        //    var closure_ = closure == null ? IntPtr.Zero : closure.Handle;
+        //    var closure_ = closure is null ? IntPtr.Zero : closure.Handle;
         //    var ret = g_signal_connect_closure (instance_, detailedSignal_, closure_, after);
         //    MarshalG.Free (detailedSignal_);
         //    return ret;
@@ -881,10 +882,10 @@ namespace GISharp.Lib.GObject
         {
             var signalName_ = signalName.Handle;
             var classClosure_ = classClosure?.Handle ?? IntPtr.Zero;
-            var accumulator_ = accumulator == null ? default(UnmanagedSignalAccumulator)
+            var accumulator_ = accumulator is null ? default(UnmanagedSignalAccumulator)
                 : throw new NotImplementedException("need to implement UnmanagedSignalAccumulator factory");
             var accuData_ = IntPtr.Zero;
-            var cMarshaller_ = cMarshaller == null ? default(UnmanagedSignalCMarshaller)
+            var cMarshaller_ = cMarshaller is null ? default(UnmanagedSignalCMarshaller)
                 : throw new NotImplementedException("need to implement UnmangagedSignalCMarshaller factory");
             var nParams = paramTypes.Length;
 
@@ -950,7 +951,7 @@ namespace GISharp.Lib.GObject
         ///// </param>
         //public static void OverrideClassClosure (uint signalId, GType instanceType, Closure classClosure)
         //{
-        //    var classClosure_ = classClosure == null ? IntPtr.Zero : classClosure.Handle;
+        //    var classClosure_ = classClosure is null ? IntPtr.Zero : classClosure.Handle;
         //    g_signal_override_class_closure (signalId, instanceType, classClosure_);
         //}
 

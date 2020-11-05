@@ -50,7 +50,7 @@ namespace GISharp.CodeGen.Gir
             IsConstruct = Element.Attribute("construct").AsBool(false);
             IsConstructOnly = Element.Attribute("construct-only").AsBool(false);
             Ownership = Element.Attribute("transfer-ownership").AsTransfer(null);
-            _Type = new Lazy<GIType>(LazyGetType, false);
+            _Type = new(LazyGetType, false);
         }
 
         GIType LazyGetType() =>

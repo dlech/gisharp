@@ -295,7 +295,7 @@ namespace GISharp.Lib.GIRepository
         {
             var builder = new StringBuilder ();
             BaseInfo? current = this;
-            while (current != null) {
+            while (current is not null) {
                 if (current.Name.HasValue) {
                     builder.Insert(0, current.Name.ToString());
                     builder.Insert (0, ".");

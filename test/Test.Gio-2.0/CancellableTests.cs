@@ -126,7 +126,7 @@ namespace GISharp.Test.Gio
         [EditorBrowsable(EditorBrowsableState.Never)]
         public TestCancellable(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
-            tokenSource = new CancellationTokenSource();
+            tokenSource = new();
         }
 
         protected override void DoCancelled()

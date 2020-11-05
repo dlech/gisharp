@@ -9,9 +9,9 @@ namespace GISharp.Lib.GIRepository.Dynamic
 {
     public class DynamicStruct : IDynamicMetaObjectProvider
 	{
-		public IntPtr Handle { get; private set; }
+		public IntPtr Handle { get; }
 
-        public StructInfo Info { get; private set; }
+        public StructInfo Info { get; }
 
         public DynamicStruct (IntPtr handle, StructInfo info)
         {
@@ -24,6 +24,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
             return new DynamicStructMetaObject (parameter, this);
         }
 	}
+
     class DynamicStructMetaObject : DynamicMetaObject
     {
         readonly BindingRestrictions typeRestrictions;
@@ -39,7 +40,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         public override DynamicMetaObject BindInvokeMember (InvokeMemberBinder binder, DynamicMetaObject[] args)
         {
             var methodInfo = Struct.Info.Methods.SingleOrDefault (m => m.Name == binder.Name);
-            if (methodInfo != null) {
+            if (methodInfo is not null) {
                 var expression = methodInfo.GetInvokeExpression (binder.CallInfo, binder.ReturnType, Struct, args);
                 return new DynamicMetaObject (expression, typeRestrictions);
             }

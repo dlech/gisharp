@@ -35,7 +35,7 @@ namespace GISharp.CodeGen.Syntax
                 list = list.Add(Token(AbstractKeyword));
             }
 
-            if (@class.GTypeStruct == null) {
+            if (@class.GTypeStruct is null) {
                 // if there is no GType Struct, then we know this class cannot
                 // be inherited, so call it sealed
                 list = list.Add(Token(SealedKeyword));
@@ -81,7 +81,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(@class.VirtualMethods.GetMemberDeclarations())
                 .AddRange(@class.Implements.GetVirtualMethodMemberDeclarations());
 
-            if (@class.GTypeName != null) {
+            if (@class.GTypeName is not null) {
                 members = members.Insert(0, @class.GetGTypeFieldDeclaration());
             }
 

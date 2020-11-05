@@ -12,12 +12,12 @@ namespace GISharp.Runtime
         /// <summary>
         /// Gets the maximum value.
         /// </summary>
-        public static readonly CLong MinValue = new CLong(minValue);
+        public static readonly CLong MinValue = new(minValue);
 
         /// <summary>
         /// Gets the minimum value.
         /// </summary>
-        public static readonly CLong MaxValue = new CLong(maxValue);
+        public static readonly CLong MaxValue = new(maxValue);
 
         /// <summary>
         /// Add

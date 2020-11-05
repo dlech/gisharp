@@ -18,7 +18,7 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "alias") {
                 throw new ArgumentException("Requrires <alias> element", nameof(element));
             }
-            _Type = new Lazy<GIType>(LazyGetType, false);
+            _Type = new(LazyGetType, false);
         }
 
         GIType LazyGetType() =>

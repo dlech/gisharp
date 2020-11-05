@@ -8,7 +8,7 @@ namespace GISharp.Runtime
     [AttributeUsage (AttributeTargets.All)]
     public sealed class DeprecatedSinceAttribute : Attribute
     {
-        public Version Version { get; private set; }
+        public Version Version { get; }
 
         public DeprecatedSinceAttribute (string version)
         {

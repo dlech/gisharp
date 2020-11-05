@@ -27,9 +27,9 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gs + "managed-parameters") {
                 throw new ArgumentException("Requrires <gs:managed-parameters> element", nameof(element));
             }
-            _ThisParameter = new Lazy<InstanceParameter>(LazyGetThisParameter, false);
-            _RegularParameters = new Lazy<List<Parameter>>(() => LazyGetRegularParameters().ToList(), false);
-            _AllParameters = new Lazy<List<GIArg>>(() => LazyGetAllParameters().ToList(), false);
+            _ThisParameter = new(LazyGetThisParameter, false);
+            _RegularParameters = new(() => LazyGetRegularParameters().ToList(), false);
+            _AllParameters = new(() => LazyGetAllParameters().ToList(), false);
         }
 
         InstanceParameter LazyGetThisParameter() =>
@@ -42,7 +42,7 @@ namespace GISharp.CodeGen.Gir
         {
             var parameters = RegularParameters.Cast<GIArg>();
 
-            if (ThisParameter != null) {
+            if (ThisParameter is not null) {
                 parameters = parameters.Prepend(ThisParameter);
             }
 

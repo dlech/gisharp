@@ -799,7 +799,7 @@ namespace GISharp.Lib.GLib
 
         public static implicit operator Span<T>(Array<T>? array)
         {
-            if (array == null) {
+            if (array is null) {
                 return default;
             }
 

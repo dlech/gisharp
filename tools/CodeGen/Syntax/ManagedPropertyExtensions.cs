@@ -39,7 +39,7 @@ namespace GISharp.CodeGen.Syntax
             syntax = syntax.AddAccessorListAccessors(getAccessor);
 
             var setter = property.Setter;
-            if (setter != null) {
+            if (setter is not null) {
                 var nullForgiving = "";
                 if (!setter.Parameters.Last().IsNullable && getter.ReturnValue.IsNullable) {
                     if (getter.ReturnValue.IsUnownedUtf8()) {

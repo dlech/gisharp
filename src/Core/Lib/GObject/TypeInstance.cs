@@ -36,7 +36,7 @@ namespace GISharp.Lib.GObject
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected TypeInstance(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
-            _GClass = new Lazy<ObjectClass>(GetGClass);
+            _GClass = new(GetGClass);
         }
 
         ObjectClass GetGClass()

@@ -94,21 +94,21 @@ namespace GISharp.CodeGen.Gir
             GTypeName = element.Attribute(glib + "type-name").AsString();
             GTypeGetter = element.Attribute (glib + "get-type").AsString();
             GTypeStruct = element.Attribute (glib + "type-struct").AsString();
-            _GTypeStructNode = new Lazy<Record>(LazyGetGTypeStructNode, false);
-            _Constants = new Lazy<List<Constant>>(() => LazyGetConstants().ToList(), false);
-            _Fields = new Lazy<List<Field>>(() => LazyGetFields().ToList(), false);
-            _Properties = new Lazy<List<Property>>(() => LazyGetProperties().ToList(), false);
-            _ManagedProperties = new Lazy<List<ManagedProperty>>(() => LazyGetManagedProperties().ToList(), false);
-            _Signals = new Lazy<List<Signal>>(() => LazyGetSignals().ToList(), false);
-            _Constructors = new Lazy<List<Constructor>>(() => LazyGetConstructors().ToList(), false);
-            _Functions = new Lazy<List<Function>>(() => LazyGetFunctions().ToList(), false);
-            _Methods = new Lazy<List<Method>>(() => LazyGetMethods().ToList(), false);
-            _VirtualMethods = new Lazy<List<VirtualMethod>>(() => LazyGetVirtualMethods().ToList(), false);
+            _GTypeStructNode = new(LazyGetGTypeStructNode, false);
+            _Constants = new(() => LazyGetConstants().ToList(), false);
+            _Fields = new(() => LazyGetFields().ToList(), false);
+            _Properties = new(() => LazyGetProperties().ToList(), false);
+            _ManagedProperties = new(() => LazyGetManagedProperties().ToList(), false);
+            _Signals = new(() => LazyGetSignals().ToList(), false);
+            _Constructors = new(() => LazyGetConstructors().ToList(), false);
+            _Functions = new(() => LazyGetFunctions().ToList(), false);
+            _Methods = new(() => LazyGetMethods().ToList(), false);
+            _VirtualMethods = new(() => LazyGetVirtualMethods().ToList(), false);
         }
 
         Record LazyGetGTypeStructNode()
         {
-            if (GTypeStruct == null) {
+            if (GTypeStruct is null) {
                 return null;
             }
             return (Record)GirNode.GetNode(Element.Parent.Elements(gi + "record")

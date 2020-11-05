@@ -9,13 +9,13 @@ namespace GISharp.Lib.GIRepository
 
         internal NamespaceCollection ()
         {
-            namespaceMap = new Dictionary<string, Namespace> ();
+            namespaceMap = new();
         }
 
         Namespace EnsureNamespace (string @namespace)
         {
             if (!namespaceMap.ContainsKey (@namespace)) {
-                namespaceMap[@namespace] = new Namespace (@namespace);
+                namespaceMap[@namespace] = new(@namespace);
             }
             return namespaceMap[@namespace];
         }

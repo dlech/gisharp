@@ -106,16 +106,16 @@ namespace GISharp.CodeGen.Gir
             SharedLibraries = element.Attribute("shared-library").Value.Split(',');
             CIdentifierPrefixes = element.Attribute(c + "identifier-prefixes").Value.Split(',');
             CSymbolPrefixes = element.Attribute(c + "symbol-prefixes").Value.Split(',');
-            _Aliases = new Lazy<List<Alias>>(() => LazyGetAliases().ToList(), false);
-            _Bitfields = new Lazy<List<Bitfield>>(() => LazyGetBitfields().ToList(), false);
-            _Callbacks = new Lazy<List<Callback>>(() => LazyGetCallbacks().ToList(), false);
-            _Classes = new Lazy<List<Class>>(() => LazyGetClasses().ToList(), false);
-            _Enumerations = new Lazy<List<Enumeration>>(() => LazyGetEnumerations().ToList(), false);
-            _Interfaces = new Lazy<List<Interface>>(() => LazyGetInterfaces().ToList(), false);
-            _Records = new Lazy<List<Record>>(() => LazyGetRecords().ToList(), false);
-            _StaticClasses = new Lazy<List<StaticClass>>(() => LazyGetStaticClasses().ToList(), false);
-            _Unions = new Lazy<List<Union>>(() => LazyGetUnions().ToList(), false);
-            _AllTypes = new Lazy<List<GIBase>>(() => LazyGetAllTypes().ToList(), false);
+            _Aliases = new(() => LazyGetAliases().ToList(), false);
+            _Bitfields = new(() => LazyGetBitfields().ToList(), false);
+            _Callbacks = new(() => LazyGetCallbacks().ToList(), false);
+            _Classes = new(() => LazyGetClasses().ToList(), false);
+            _Enumerations = new(() => LazyGetEnumerations().ToList(), false);
+            _Interfaces = new(() => LazyGetInterfaces().ToList(), false);
+            _Records = new(() => LazyGetRecords().ToList(), false);
+            _StaticClasses = new(() => LazyGetStaticClasses().ToList(), false);
+            _Unions = new(() => LazyGetUnions().ToList(), false);
+            _AllTypes = new(() => LazyGetAllTypes().ToList(), false);
         }
 
         /// <summary>

@@ -69,11 +69,11 @@ namespace GISharp.CodeGen.Syntax
                 break;
             case Record record:
                 // TODO: add special handling for IsSource
-                if (record.GTypeName != null || record.IsDisguised || record.IsSource) {
+                if (record.GTypeName is not null || record.IsDisguised || record.IsSource) {
                     yield return record.GetClassDeclaration()
                         .WithMembers(record.GetClassMembers());
                 }
-                else if (record.IsGTypeStructFor != null) {
+                else if (record.IsGTypeStructFor is not null) {
                     yield return record.GetGTypeStructClassDeclaration()
                         .WithMembers(record.GetGTypeStructClassMembers());
                 }

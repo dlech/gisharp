@@ -30,7 +30,7 @@ namespace GISharp.CodeGen.Syntax
                 // if there is a "doc-deprecated" annotation, use it as the
                 // message parameter of ObsoleteAttribute
 
-                if (member.DocDeprecated != null) {
+                if (member.DocDeprecated is not null) {
                     var arg = AttributeArgument(LiteralExpression(StringLiteralExpression,
                         Literal(member.DocDeprecated.Text)));
                     attr = attr.AddArgumentListArguments(arg);
@@ -40,7 +40,7 @@ namespace GISharp.CodeGen.Syntax
 
                 // translate the "deprecated-version" annotation to a DeprecatedSinceAttribute
 
-                if (member.DeprecatedVersion != null) {
+                if (member.DeprecatedVersion is not null) {
                     var arg = AttributeArgument(LiteralExpression(StringLiteralExpression,
                         Literal(member.DeprecatedVersion)));
                     var attr2 = Attribute(ParseName(typeof(DeprecatedSinceAttribute).FullName))
@@ -51,7 +51,7 @@ namespace GISharp.CodeGen.Syntax
 
             // If there is a "version" GIR annotation, convert it to a GISharp SinceAttribute
 
-            if (member.Version != null) {
+            if (member.Version is not null) {
                 var attrName = ParseName(typeof(GISharp.Runtime.SinceAttribute).FullName);
                 var arg = AttributeArgument(LiteralExpression(StringLiteralExpression,
                     Literal(member.Version)));
@@ -67,7 +67,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = TokenList();
 
-            if (member.AccessModifiers == null) {
+            if (member.AccessModifiers is null) {
                 list = list.Add(Token(PublicKeyword));
             }
             else {

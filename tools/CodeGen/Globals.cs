@@ -57,7 +57,7 @@ namespace GISharp.CodeGen
         /// </summary>
         public static bool IsSubclassOf<T>(this Type type)
         {
-            if (type == null) {
+            if (type is null) {
                 throw new ArgumentNullException(nameof(type));
             }
             try {

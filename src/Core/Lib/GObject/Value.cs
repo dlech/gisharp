@@ -2188,7 +2188,7 @@ namespace GISharp.Lib.GObject
         //public void SetParamTakeOwnership(ParamSpec param)
         //{
         //    AssertInitialized ();
-        //    var param_ = param == null ? IntPtr.Zero : param.Handle;
+        //    var param_ = param is null ? IntPtr.Zero : param.Handle;
         //    g_value_set_param_take_ownership(Handle, param_);
         //}
 
@@ -2586,7 +2586,7 @@ namespace GISharp.Lib.GObject
         //public void TakeParam(ParamSpec param)
         //{
         //    AssertInitialized ();
-        //    var param_ = param == null ? IntPtr.Zero : param.Handle;
+        //    var param_ = param is null ? IntPtr.Zero : param.Handle;
         //    g_value_take_param(Handle, param_);
         //}
 
@@ -2681,7 +2681,7 @@ namespace GISharp.Lib.GObject
         //public void TakeVariant(GISharp.Lib.GLib.Variant variant)
         //{
         //    AssertInitialized ();
-        //    var variant_ = variant == null ? IntPtr.Zero : variant.Handle;
+        //    var variant_ = variant is null ? IntPtr.Zero : variant.Handle;
         //    g_value_take_variant(Handle, variant_);
         //}
 

@@ -55,7 +55,7 @@ namespace GISharp.Test.Gio
         {
         }
 
-        public ActionSet Actions { get; } = new ActionSet();
+        public ActionSet Actions { get; } = new();
 
         void IActionMap.DoAddAction(IAction action)
         {

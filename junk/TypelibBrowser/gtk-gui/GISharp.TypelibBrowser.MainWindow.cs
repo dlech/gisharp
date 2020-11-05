@@ -5,75 +5,75 @@ namespace GISharp.TypelibBrowser
 	public partial class MainWindow
 	{
 		private global::Gtk.VBox vbox5;
-		
+
 		private global::Gtk.HButtonBox hbuttonbox1;
-		
+
 		private global::Gtk.Button backButton;
-		
+
 		private global::Gtk.Button forwardButton;
-		
+
 		private global::Gtk.HBox hbox1;
-		
+
 		private global::Gtk.VBox vbox1;
-		
+
 		private global::Gtk.HBox hbox3;
-		
+
 		private global::Gtk.Frame frame3;
-		
+
 		private global::Gtk.Alignment GtkAlignment3;
-		
+
 		private global::Gtk.ScrolledWindow scrolledwindow1;
-		
+
 		private global::Gtk.NodeView namespaceNodeview;
-		
+
 		private global::Gtk.Label GtkLabel2;
-		
+
 		private global::Gtk.Frame frame4;
-		
+
 		private global::Gtk.Alignment GtkAlignment4;
-		
+
 		private global::Gtk.ScrolledWindow scrolledwindow3;
-		
+
 		private global::Gtk.TreeView infoTreeview;
-		
+
 		private global::Gtk.Label GtkLabel3;
-		
+
 		private global::Gtk.Frame typeInfoFrame1;
-		
+
 		private global::Gtk.Alignment GtkAlignment2;
-		
+
 		private global::Gtk.ScrolledWindow scrolledwindow4;
-		
+
 		private global::Gtk.Table table3;
-		
+
 		private global::Gtk.Label dependsLabel;
-		
+
 		private global::Gtk.Label label6;
-		
+
 		private global::Gtk.Label label7;
-		
+
 		private global::Gtk.Label label8;
-		
+
 		private global::Gtk.Label label9;
-		
+
 		private global::Gtk.Label libraryLabel;
-		
+
 		private global::Gtk.Label pathLabel;
-		
+
 		private global::Gtk.Label versionsLabel;
-		
+
 		private global::Gtk.Label typeInfoLabel1;
-		
+
 		private global::Gtk.VBox vbox2;
-		
+
 		private global::Gtk.Frame typeInfoFrame;
-		
+
 		private global::Gtk.Alignment GtkAlignment5;
-		
+
 		private global::Gtk.ScrolledWindow scrolledwindow2;
-		
+
 		private global::Gtk.VBox typeInfoVbox;
-		
+
 		private global::Gtk.Label typeInfoLabel;
 
 		protected virtual void Build ()
@@ -383,7 +383,7 @@ namespace GISharp.TypelibBrowser
 			global::Gtk.Box.BoxChild w35 = ((global::Gtk.Box.BoxChild)(this.vbox5 [this.hbox1]));
 			w35.Position = 1;
 			this.Add (this.vbox5);
-			if ((this.Child != null)) {
+			if ((this.Child is not null)) {
 				this.Child.ShowAll ();
 			}
 			this.forwardButton.Hide ();

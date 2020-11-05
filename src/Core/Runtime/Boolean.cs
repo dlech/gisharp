@@ -4,8 +4,8 @@ namespace GISharp.Runtime
 {
     public readonly struct Boolean : IEquatable<bool>
     {
-        public static readonly Boolean True = new Boolean(1);
-        public static readonly Boolean False = new Boolean(0);
+        public static readonly Boolean True = new(1);
+        public static readonly Boolean False = new(0);
 
         readonly int value;
 

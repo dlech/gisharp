@@ -69,7 +69,7 @@ namespace GISharp.CodeGen.Gir
             IsHash = Element.Attribute(gs + "hash").AsBool();
             IsEqual = Element.Attribute(gs + "equal").AsBool();
             IsToString = Element.Attribute(gs + "to-string").AsBool();
-            _FinishForFunction = new Lazy<GIFunction>(LazyGetFinishForFunction);
+            _FinishForFunction = new(LazyGetFinishForFunction);
         }
 
         GIFunction LazyGetFinishForFunction =>

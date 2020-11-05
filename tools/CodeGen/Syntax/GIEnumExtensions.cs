@@ -33,7 +33,7 @@ namespace GISharp.CodeGen.Syntax
                 list = list.Add(AttributeList().AddAttributes(flagsAttribute));
             }
 
-            if (@enum.ErrorDomain != null) {
+            if (@enum.ErrorDomain is not null) {
                 var attrName = ParseName(typeof(GErrorDomainAttribute).FullName);
                 var domainArg = ParseExpression($"\"{@enum.ErrorDomain}\"");
                 var domainAttribute = Attribute(attrName)
@@ -61,7 +61,7 @@ namespace GISharp.CodeGen.Syntax
         public static ClassDeclarationSyntax GetExtClassDeclaration(this GIEnum @enum)
         {
             var name = @enum.ManagedName +
-                (@enum.ErrorDomain == null ? "Extensions" : "Domain");
+                (@enum.ErrorDomain is null ? "Extensions" : "Domain");
 
             return ClassDeclaration(name)
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword))
@@ -82,7 +82,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(@enum.Functions.GetMemberDeclarations())
                 .AddRange(@enum.Methods.GetMemberDeclarations());
 
-            if (@enum.GTypeName != null) {
+            if (@enum.GTypeName is not null) {
                 members = members.Insert(0, @enum.GetGTypeFieldDeclaration());
             }
 

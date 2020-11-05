@@ -281,10 +281,10 @@ namespace GISharp.Lib.GObject
                 uint propId = 1; // propId 0 is used internally, so we start with 1
                 foreach (var propInfo in type.GetProperties()) {
                     GPropertyAttribute? gPropertyAttr = propInfo.GetCustomAttribute<GPropertyAttribute>(true);
-                    if (gPropertyAttr == null) {
+                    if (gPropertyAttr is null) {
                         // maybe the property is declared in an interface
                         gPropertyAttr = propInfo.TryGetMatchingInterfacePropertyInfo()?.GetCustomAttribute<GPropertyAttribute>(true);
-                        if (gPropertyAttr == null) {
+                        if (gPropertyAttr is null) {
                             // only register properties with [GProperty] attribute
                             continue;
                         }
@@ -296,7 +296,7 @@ namespace GISharp.Lib.GObject
                     }
 
                     var name = propInfo.TryGetGPropertyName();
-                    if (name == null) {
+                    if (name is null) {
                         // this property is not to be registered with the GObject type system
                         continue;
                     }
@@ -332,7 +332,7 @@ namespace GISharp.Lib.GObject
                     // ExplicitNotify was not set.
                     flags |= ParamFlags.ExplicitNotify;
 
-                    if (propInfo.GetCustomAttribute<ObsoleteAttribute>(true) != null) {
+                    if (propInfo.GetCustomAttribute<ObsoleteAttribute>(true) is not null) {
                         flags |= ParamFlags.Deprecated;
                     }
 
@@ -404,7 +404,7 @@ namespace GISharp.Lib.GObject
                         // TODO: need to pass variant type using attribute?
                         // for now, always using any type
                         var variantType = VariantType.Any;
-                        pspec = new ParamSpecVariant(name, nick, blurb, variantType, defaultValue == null ? null : (Variant)defaultValue, flags);
+                        pspec = new ParamSpecVariant(name, nick, blurb, variantType, defaultValue is null ? null : (Variant)defaultValue, flags);
                     }
                     else {
                         // TODO: Need more specific exception
@@ -412,7 +412,7 @@ namespace GISharp.Lib.GObject
                     }
 
                     var methodInfo = propInfo.GetAccessors().First();
-                    if (methodInfo.GetBaseDefinition() != methodInfo || propInfo.TryGetMatchingInterfacePropertyInfo() != null) {
+                    if (methodInfo.GetBaseDefinition() != methodInfo || propInfo.TryGetMatchingInterfacePropertyInfo() is not null) {
                         // if this type did not declare the property, the we know
                         // we are overriding a property from a base class or interface
                         var namePtr = GMarshal.StringToUtf8Ptr(name);
@@ -433,7 +433,7 @@ namespace GISharp.Lib.GObject
                     }
 
                     var signalAttr = eventInfo.GetCustomAttribute<GSignalAttribute>(true);
-                    if (signalAttr == null) {
+                    if (signalAttr is null) {
                         // events without SignalAttribute are not installed
                         continue;
                     }
@@ -476,7 +476,7 @@ namespace GISharp.Lib.GObject
                         flags |= SignalFlags.IsNoHooks;
                     }
 
-                    if (eventInfo.GetCustomAttribute<ObsoleteAttribute>(true) != null) {
+                    if (eventInfo.GetCustomAttribute<ObsoleteAttribute>(true) is not null) {
                         flags |= SignalFlags.Deprecated;
                     }
 
@@ -510,7 +510,7 @@ namespace GISharp.Lib.GObject
                     }
                     var baseMethod = method.GetBaseDefinition();
                     var attr = baseMethod.GetCustomAttribute<GVirtualMethodAttribute>();
-                    if (attr == null) {
+                    if (attr is null) {
                         // this is not a GType virtual method
                         continue;
                     }

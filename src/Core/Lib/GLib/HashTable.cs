@@ -16,8 +16,8 @@ namespace GISharp.Lib.GLib
     [GType ("GHashTable", IsProxyForUnmanagedType = true)]
     public abstract class HashTable : Boxed
     {
-        protected readonly static ConditionalWeakTable<Delegate, UnmanagedHashFunc> HashFuncTable;
-        protected readonly static ConditionalWeakTable<Delegate, UnmanagedEqualFunc> KeyEqualFuncTable;
+        protected readonly static ConditionalWeakTable<Delegate, UnmanagedHashFunc> HashFuncTable = new();
+        protected readonly static ConditionalWeakTable<Delegate, UnmanagedEqualFunc> KeyEqualFuncTable = new();
 
         /// <summary>
         /// For internal runtime use only.
@@ -42,12 +42,6 @@ namespace GISharp.Lib.GLib
         static extern GType g_hash_table_get_type ();
 
         static readonly GType _GType = g_hash_table_get_type();
-
-        static HashTable ()
-        {
-            HashFuncTable = new ConditionalWeakTable<Delegate, UnmanagedHashFunc> ();
-            KeyEqualFuncTable = new ConditionalWeakTable<Delegate, UnmanagedEqualFunc> ();
-        }
 
         /// <summary>
         /// Creates a new #GHashTable with a reference count of 1.

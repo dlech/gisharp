@@ -37,9 +37,9 @@ namespace GISharp.CodeGen.Gir
         {
             CType = element.Attribute(c + "type").AsString();
             IsPointer = element.Attribute(gs + "is-pointer").AsBool();
-            _TypeParameters = new Lazy<List<GIType>>(() => LazyGetTypeParameters().ToList());
-            _UnmanagedType = new Lazy<System.Type>(LazyGetUnmanagedType);
-            _ManagedType = new Lazy<System.Type>(LazyGetManagedType);
+            _TypeParameters = new(() => LazyGetTypeParameters().ToList());
+            _UnmanagedType = new(LazyGetUnmanagedType);
+            _ManagedType = new(LazyGetManagedType);
         }
 
         IEnumerable<GIType> LazyGetTypeParameters() =>

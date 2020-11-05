@@ -44,20 +44,20 @@ namespace GISharp.CodeGen.Gir
         {
             Element = element ?? throw new ArgumentNullException(nameof(element));
             ParentNode = parent;
-            _Ancestors = new Lazy<List<GirNode>>(() => LazyGetAncestors().ToList());
-            _Doc = new Lazy<Doc>(LazyGetDoc, false);
+            _Ancestors = new(() => LazyGetAncestors().ToList());
+            _Doc = new(LazyGetDoc, false);
             element.AddAnnotation(this);
         }
 
         public static GirNode GetNode(XElement element)
         {
-            if (element == null) {
+            if (element is null) {
                 return null;
             }
 
             // if this element already has a node object attached, use it
             var node = element.Annotation<GirNode>();
-            if (node != null) {
+            if (node is not null) {
                 return node;
             }
 
@@ -172,7 +172,7 @@ namespace GISharp.CodeGen.Gir
         IEnumerable<GirNode> LazyGetAncestors()
         {
             var node = this;
-            while ((node = node.ParentNode) != null) {
+            while ((node = node.ParentNode) is not null) {
                 yield return node;
             }
         }

@@ -67,7 +67,7 @@ namespace GISharp.Lib.GObject
             try {
                 var closure = Opaque.GetInstance<Closure>(closure_, Transfer.None);
                 object? returnValue = null;
-                if (returnValue_ != null) {
+                if (returnValue_ is not null) {
                     returnValue = returnValue_->Get();
                 }
                 var paramValues = new object?[nParamValues_];
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GObject
                 var marshalData = (UserData)gcHandle.Target;
                 marshalData.ClosureMarshal(closure, ref returnValue, paramValues, invocationHint);
 
-                if (returnValue_ != null) {
+                if (returnValue_ is not null) {
                     returnValue_->Set(returnValue!);
                 }
                 if (marshalData.Scope == CallbackScope.Async) {

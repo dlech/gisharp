@@ -21,10 +21,10 @@ namespace GISharp.Lib.GLib
 
         class UserData
         {
-            public StringList Strings { get; } = new StringList();
-            public ArgList Args { get; } = new ArgList();
-            public CallbackList Callbacks { get; } = new CallbackList();
-            public DestroyList DestroyCallbacks { get; } = new DestroyList();
+            public StringList Strings { get; } = new();
+            public ArgList Args { get; } = new();
+            public CallbackList Callbacks { get; } = new();
+            public DestroyList DestroyCallbacks { get; } = new();
         }
 
         static (IntPtr, UserData) New(UnownedUtf8 name, UnownedUtf8 description, UnownedUtf8 helpDescription)
@@ -103,7 +103,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void AddFlag(string longName, char shortName, Action<bool> callback, string description, OptionFlags flags = OptionFlags.None)
         {
-            if (callback == null) {
+            if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
@@ -131,7 +131,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void AddString(string longName, char shortName, Action<Utf8> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
-            if (callback == null) {
+            if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
@@ -162,7 +162,7 @@ namespace GISharp.Lib.GLib
         public void AddInt(string longName, char shortName, Action<int> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
-            if (callback == null) {
+            if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
@@ -192,7 +192,7 @@ namespace GISharp.Lib.GLib
         public void AddFilename(string longName, char shortName, Action<Filename> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
-            if (callback == null) {
+            if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
@@ -223,7 +223,7 @@ namespace GISharp.Lib.GLib
         public void AddStringArray(string longName, char shortName, Action<Strv> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
-            if (callback == null) {
+            if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
@@ -254,7 +254,7 @@ namespace GISharp.Lib.GLib
         public void AddFilenameArray(string longName, char shortName, Action<FilenameArray> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
-            if (callback == null) {
+            if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
@@ -285,7 +285,7 @@ namespace GISharp.Lib.GLib
         public void AddDouble(string longName, char shortName, Action<double> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
-            if (callback == null) {
+            if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
@@ -315,7 +315,7 @@ namespace GISharp.Lib.GLib
         public void AddCallback(string longName, char shortName, OptionArgFunc callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
             var this_ = Handle;
-            if (callback == null) {
+            if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));

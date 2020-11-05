@@ -94,12 +94,12 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary (int count, Func<int, T> getInfoAtIndex)
         {
-            if (getInfoAtIndex == null) {
+            if (getInfoAtIndex is null) {
                 throw new ArgumentException (nameof (getInfoAtIndex));
             }
             _Count = count;
-            nameMap = new Dictionary<string, int> (count);
-            infos = new List<T> (count);
+            nameMap = new(count);
+            infos = new(count);
             for (int i = 0; i < count; i++) {
                 var info = getInfoAtIndex (i);
                 infos.Add (info);

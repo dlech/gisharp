@@ -17,7 +17,7 @@ namespace GISharp.Lib.GObject
         {
             public readonly int Offset;
             public readonly Func<MethodInfo, Delegate> Create;
-            public readonly Dictionary<IntPtr, Delegate> Overloads = new Dictionary<IntPtr, Delegate>();
+            public readonly Dictionary<IntPtr, Delegate> Overloads = new();
 
             public VirtualMethodInfo(int offset, Func<MethodInfo, Delegate> create)
             {

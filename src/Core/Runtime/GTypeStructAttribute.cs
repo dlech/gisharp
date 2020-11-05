@@ -16,7 +16,7 @@ namespace GISharp.Runtime
         /// This type must be a derivative of <see cref="Lib.GObject.TypeClass"/>
         /// for objects or <see cref="Lib.GObject.TypeInterface"/> for interfaces.
         /// </remarks>
-        public Type GTypeStruct { get; private set; }
+        public Type GTypeStruct { get; }
 
         /// <summary>
         /// Creates a new instance.

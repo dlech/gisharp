@@ -21,7 +21,7 @@ namespace GISharp.CodeGen.Syntax
         public static FieldDeclarationSyntax GetDeclaration(this Field field)
         {
             var type = field.Type.UnmanagedType.ToSyntax();
-            if (field.Callback != null) {
+            if (field.Callback is not null) {
                 type = typeof(IntPtr).ToSyntax();
             }
             else if (!field.Type.IsPointer && !field.Type.ManagedType.IsValueType) {

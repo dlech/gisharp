@@ -102,7 +102,7 @@ namespace GISharp.Runtime
         /// </remarks>
         public static IntPtr ByteStringToPtr(byte[]? bytes)
         {
-            if (bytes == null) {
+            if (bytes is null) {
                 return IntPtr.Zero;
             }
             var ptr = g_malloc (new UIntPtr ((ulong)bytes.Length + 1));
@@ -135,7 +135,7 @@ namespace GISharp.Runtime
         /// </remarks>
         public static IntPtr StringToUtf8Ptr(string? str)
         {
-            if (str == null) {
+            if (str is null) {
                 return IntPtr.Zero;
             }
             return ByteStringToPtr (Encoding.UTF8.GetBytes (str));
@@ -164,10 +164,10 @@ namespace GISharp.Runtime
 
         public static IntPtr StringArrayToGStrvPtr(string[]? strings)
         {
-            if (strings == null) {
+            if (strings is null) {
                 return IntPtr.Zero;
             }
-            if (strings.Any (s => s == null)) {
+            if (strings.Any (s => s is null)) {
                 throw new ArgumentException ("All array elements must be non-null.", nameof (strings));
             }
             var ptr = Alloc ((strings.Length + 1) * IntPtr.Size);
@@ -307,7 +307,7 @@ namespace GISharp.Runtime
         /// </exception>
         public static IntPtr CArrayToPtr<T> (T[] array, bool nullTerminated) where T : struct
         {
-            if (array == null) {
+            if (array is null) {
                 return IntPtr.Zero;
             }
             var elementSize = Marshal.SizeOf<T> ();

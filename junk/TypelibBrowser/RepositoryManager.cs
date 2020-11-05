@@ -42,7 +42,7 @@ namespace GISharp.TypelibBrowser
                     namespaces.Add (@namespace);
                     try {
                         Repository.Require (@namespace);
-                        if (TypelibLoaded != null) {
+                        if (TypelibLoaded is not null) {
                             TypelibLoaded (this, new TypelibLoadedEventArgs (
                                 @namespace, Repository.Namespaces[@namespace].Version));
                         }
@@ -56,15 +56,15 @@ namespace GISharp.TypelibBrowser
 
     public class TypelibLoadedEventArgs : EventArgs
     {
-        public string Namespace { get; private set; }
-        public string Version { get; private set; }
+        public string Namespace { get; }
+        public string Version { get; }
 
         public TypelibLoadedEventArgs(string @namespace, string version)
         {
-            if (@namespace == null) {
+            if (@namespace is null) {
                 throw new ArgumentNullException ("namespace");
             }
-            if (version == null) {
+            if (version is null) {
                 throw new ArgumentNullException ("version");
             }
             Namespace = @namespace;

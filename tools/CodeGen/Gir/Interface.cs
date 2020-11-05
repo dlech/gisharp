@@ -15,7 +15,7 @@ namespace GISharp.CodeGen.Gir
             if (element.Name != gi + "interface") {
                 throw new ArgumentException("Requrires <interface> element", nameof(element));
             }
-            _Prerequisites = new Lazy<List<Prerequisite>>(() => LazyGetPrerequisites().ToList());
+            _Prerequisites = new(() => LazyGetPrerequisites().ToList());
         }
 
         IEnumerable<Prerequisite> LazyGetPrerequisites() =>

@@ -23,8 +23,8 @@ namespace GISharp.Lib.GIRepository
 
         public static NamespaceCollection Namespaces {
             get {
-                if (namespaces == null) {
-                    namespaces = new NamespaceCollection();
+                if (namespaces is null) {
+                    namespaces = new();
                 }
                 return namespaces!; // shouldn't need ! here (compiler bug?)
             }

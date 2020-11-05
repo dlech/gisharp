@@ -33,9 +33,9 @@ namespace GISharp.CodeGen.Gir
                 throw new ArgumentException("Requrires <gs:managed-property> element", nameof(element));
             }
 
-            _Type = new Lazy<GIType>(LazyGetType, false);
-            _Getter = new Lazy<GIFunction>(LazyGetGetter, false);
-            _Setter = new Lazy<GIFunction>(LazyGetSetter, false);
+            _Type = new(LazyGetType, false);
+            _Getter = new(LazyGetGetter, false);
+            _Setter = new(LazyGetSetter, false);
         }
 
         GIType LazyGetType() =>

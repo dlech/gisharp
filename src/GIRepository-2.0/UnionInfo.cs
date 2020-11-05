@@ -17,8 +17,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<FieldInfo> Fields {
             get {
-                if (fields == null) {
-                    fields = new InfoDictionary<FieldInfo> (NFields, GetField);
+                if (fields is null) {
+                    fields = new(NFields, GetField);
                 }
                 return fields;
             }
@@ -28,8 +28,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<FunctionInfo> Methods {
             get {
-                if (methods == null) {
-                    methods = new InfoDictionary<FunctionInfo> (NMethods, GetMethod);
+                if (methods is null) {
+                    methods = new(NMethods, GetMethod);
                 }
                 return methods;
             }

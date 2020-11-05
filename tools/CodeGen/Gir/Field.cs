@@ -43,13 +43,13 @@ namespace GISharp.CodeGen.Gir
             Readable = Element.Attribute("readable").AsBool(true);
             Writeable = Element.Attribute("writeable").AsBool(false);
             Private = Element.Attribute("private").AsBool(false);
-            _Type = new Lazy<GIType>(LazyGetType, false);
-            _Callback = new Lazy<Callback>(LazyGetCallback, false);
+            _Type = new(LazyGetType, false);
+            _Callback = new(LazyGetCallback, false);
         }
 
         GIType LazyGetType() =>
             (GIType)GetNode(Element.Element(gi + "type") ?? Element.Element(gi + "array"));
-        
+
         Callback LazyGetCallback() =>
             (Callback)GetNode(Element.Element(gi + "callback"));
     }

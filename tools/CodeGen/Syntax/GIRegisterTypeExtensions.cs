@@ -18,7 +18,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static FieldDeclarationSyntax GetGTypeFieldDeclaration(this GIRegisteredType type)
         {
-            if (type.GTypeName == null) {
+            if (type.GTypeName is null) {
                 throw new InvalidOperationException("Type is not a GType");
             }
             // emits: static readonly GType _GType = xxx_get_type();
@@ -37,7 +37,7 @@ namespace GISharp.CodeGen.Syntax
             var list = type.GetCommonAttributeLists();
 
             // If type is a GType, then decorate it with the GTypeAttribute
-            if (type.GTypeName != null) {
+            if (type.GTypeName is not null) {
                 var attrName = ParseName(typeof(GTypeAttribute).FullName);
 
                 var name = $"\"{type.GTypeName}\"";
@@ -52,7 +52,7 @@ namespace GISharp.CodeGen.Syntax
             }
 
             // If a type has an associate GType struct, decorate it with the GTypeStructAttribute
-            if (type.GTypeStruct != null) {
+            if (type.GTypeStruct is not null) {
                 var attrName = ParseName(typeof(GTypeStructAttribute).FullName);
                 var typeArg = AttributeArgument(ParseExpression($"typeof({type.GTypeStruct})"));
 

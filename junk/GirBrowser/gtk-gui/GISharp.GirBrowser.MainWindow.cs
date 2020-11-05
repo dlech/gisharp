@@ -5,85 +5,85 @@ namespace GISharp.GirBrowser
 	public partial class MainWindow
 	{
 		private global::Gtk.VBox vbox2;
-		
+
 		private global::Gtk.HBox hbox3;
-		
+
 		private global::Gtk.Frame frame1;
-		
+
 		private global::Gtk.Alignment GtkAlignment;
-		
+
 		private global::Gtk.VBox vbox1;
-		
+
 		private global::Gtk.HBox hbox2;
-		
+
 		private global::Gtk.Label label1;
-		
+
 		private global::Gtk.Entry girFileNameEntry;
-		
+
 		private global::Gtk.Button girBrowseButton;
-		
+
 		private global::Gtk.Button girLoadButton;
-		
+
 		private global::Gtk.HPaned hpaned1;
-		
+
 		private global::Gtk.ScrolledWindow scrolledwindow1;
-		
+
 		private global::Gtk.TreeView girTreeView;
-		
+
 		private global::Gtk.VPaned vpaned1;
-		
+
 		private global::Gtk.ScrolledWindow scrolledwindow2;
-		
+
 		private global::Gtk.NodeView girAttrNodeView;
-		
+
 		private global::Gtk.ScrolledWindow GtkScrolledWindow;
-		
+
 		private global::Gtk.TextView girTextView;
-		
+
 		private global::Gtk.Label GtkLabel2;
-		
+
 		private global::Gtk.Frame frame2;
-		
+
 		private global::Gtk.Alignment GtkAlignment1;
-		
+
 		private global::Gtk.VBox vbox3;
-		
+
 		private global::Gtk.HBox hbox4;
-		
+
 		private global::Gtk.Label label3;
-		
+
 		private global::Gtk.Entry fixupFileNameEntry;
-		
+
 		private global::Gtk.Button fixupBrowseButton;
-		
+
 		private global::Gtk.Button fixupApplyButton;
-		
+
 		private global::Gtk.HPaned hpaned2;
-		
+
 		private global::Gtk.ScrolledWindow scrolledwindow3;
-		
+
 		private global::Gtk.TreeView fixupTreeView;
-		
+
 		private global::Gtk.VPaned vpaned2;
-		
+
 		private global::Gtk.ScrolledWindow scrolledwindow4;
-		
+
 		private global::Gtk.NodeView fixupAttrNodeView;
-		
+
 		private global::Gtk.ScrolledWindow GtkScrolledWindow1;
-		
+
 		private global::Gtk.TextView fixupTextView;
-		
+
 		private global::Gtk.Label GtkLabel7;
-		
+
 		private global::Gtk.Frame frame3;
-		
+
 		private global::Gtk.Alignment GtkAlignment2;
-		
+
 		private global::Gtk.ScrolledWindow GtkScrolledWindow2;
-		
+
 		private global::Gtk.TextView generatedTextView;
-		
+
 		private global::Gtk.Label GtkLabel8;
 
 		protected virtual void Build ()
@@ -381,7 +381,7 @@ namespace GISharp.GirBrowser
 			global::Gtk.Box.BoxChild w37 = ((global::Gtk.Box.BoxChild)(this.vbox2 [this.frame3]));
 			w37.Position = 1;
 			this.Add (this.vbox2);
-			if ((this.Child != null)) {
+			if ((this.Child is not null)) {
 				this.Child.ShowAll ();
 			}
 			this.DefaultWidth = 1222;

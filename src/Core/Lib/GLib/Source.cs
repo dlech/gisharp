@@ -92,7 +92,7 @@ namespace GISharp.Lib.GLib
 #pragma warning restore CS0649
         }
 
-        static unsafe SourceFuncs managedSourceFuncs = new SourceFuncs {
+        static unsafe SourceFuncs managedSourceFuncs = new() {
             OnPrepare = PrepareManagedSource,
             OnCheck = CheckManagedSource,
             OnDispatch = DispatchManagedSource,

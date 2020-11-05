@@ -47,8 +47,8 @@ namespace GISharp.CodeGen.Gir
             IsDisguised = Element.Attribute("disguised").AsBool();
             IsGTypeStructFor = element.Attribute(glib + "is-gtype-struct-for").AsString();
             IsSource = element.Attribute(gs + "source").AsBool();
-            _IsGTypeStructForType = new Lazy<GIRegisteredType>(LazyGetIsGTypeStructForType, false);
-            _BaseType = new Lazy<System.Type>(LazyGetBaseType, false);
+            _IsGTypeStructForType = new(LazyGetIsGTypeStructForType, false);
+            _BaseType = new(LazyGetBaseType, false);
         }
 
         GIRegisteredType LazyGetIsGTypeStructForType() =>
@@ -56,7 +56,7 @@ namespace GISharp.CodeGen.Gir
 
         System.Type LazyGetBaseType()
         {
-            if (IsGTypeStructFor != null) {
+            if (IsGTypeStructFor is not null) {
                 if (Fields.Any()) {
                     // in GType structs, the first field is always the base type
                     return Fields.First().Type.ManagedType;
@@ -70,7 +70,7 @@ namespace GISharp.CodeGen.Gir
             if (IsSource) {
                 return typeof(Source);
             }
-            if (GTypeName != null) {
+            if (GTypeName is not null) {
                 return typeof(Boxed);
             }
             if (IsDisguised) {

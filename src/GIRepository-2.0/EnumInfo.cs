@@ -18,8 +18,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<ValueInfo> Values {
             get {
-                if (values == null) {
-                    values = new InfoDictionary<ValueInfo> (NValues, GetValue);
+                if (values is null) {
+                    values = new(NValues, GetValue);
                 }
                 return values;
             }
@@ -29,8 +29,8 @@ namespace GISharp.Lib.GIRepository
 
         public InfoDictionary<FunctionInfo> Methods {
             get {
-                if (methods == null) {
-                    methods = new InfoDictionary<FunctionInfo> (NMethods, GetMethod);
+                if (methods is null) {
+                    methods = new(NMethods, GetMethod);
                 }
                 return methods;
             }

@@ -82,7 +82,7 @@ namespace GISharp.CodeGen.Syntax
                 members = members.Insert(0, record.Fields.GetStructDeclaration());
             }
 
-            if (record.GTypeName != null) {
+            if (record.GTypeName is not null) {
                 members = members.Insert(0, record.GetGTypeFieldDeclaration());
             }
 
@@ -95,7 +95,7 @@ namespace GISharp.CodeGen.Syntax
                 typeof(IntPtr), typeof(Transfer)));
             var argList = ParseArgumentList("(handle, ownership)");
 
-            if (record.GTypeName != null) {
+            if (record.GTypeName is not null) {
                 // GType records inherit from GBoxed, so they need an extra arg
                 var gtypeArg = Argument(ParseExpression("_GType"));
                 argList = argList.WithArguments(argList.Arguments.Insert(0, gtypeArg));
@@ -137,7 +137,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = TokenList(Token(PublicKeyword));
 
-            if (record.IsGTypeStructFor != null &&
+            if (record.IsGTypeStructFor is not null &&
                 record.BaseType == typeof(TypeInterface)) {
                 // interfaces cannot be inherited
                 list = list.Add(Token(SealedKeyword));
@@ -171,7 +171,7 @@ namespace GISharp.CodeGen.Syntax
 
             // emit the unmanaged delegate types for callback fields
 
-            foreach (var f in record.Fields.Where(x => x.Callback != null)) {
+            foreach (var f in record.Fields.Where(x => x.Callback is not null)) {
                 try {
                     list = list.Add(f.Callback.GetManagedDeclaration())
                         .Add(f.Callback.GetUnmanagedDeclaration())
@@ -196,7 +196,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddModifiers(Token(StaticKeyword));
 
             constructor = constructor.AddBodyStatements(record.Fields
-                .Where(x => x.Callback != null)
+                .Where(x => x.Callback is not null)
                 .SelectMany(x => x.GetVirtualMethodRegisterStatements()).ToArray());
 
             return constructor;

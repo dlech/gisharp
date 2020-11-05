@@ -66,7 +66,7 @@ namespace GISharp.GirBrowser
                 (from a in e.Attributes()
                     where (!a.IsNamespaceDeclaration)
                     select new XAttribute(a.Name.LocalName, a.Value)) : null);
-        }      
+        }
 
         void fixupApplyButton_Clicked (object sender, EventArgs e)
         {
@@ -210,13 +210,13 @@ namespace GISharp.GirBrowser
             var model = treeView.Model as TreeModelAdapter;
             var impl = model.Implementor as GirTreeModel;
             var attributes = impl.GetAttributes (iter);
-            if (attributes != null) {
+            if (attributes is not null) {
                 foreach (var item in attributes) {
                     nodeView.NodeStore.AddNode (new AttributeNode (item.Key, item.Value));
                 }
             }
             var text = impl.GetText (iter);
-            if (text != null) {
+            if (text is not null) {
                 textView.Buffer.Text = text;
             }
         }
@@ -237,10 +237,10 @@ namespace GISharp.GirBrowser
             }
 
             [TreeNodeValue (Column = 0)]
-            public string Key { get; private set; }
+            public string Key { get; }
 
             [TreeNodeValue (Column = 1)]
-            public string Value { get; private set; }
+            public string Value { get; }
         }
     }
 }

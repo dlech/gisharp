@@ -280,8 +280,8 @@ namespace GISharp.Lib.GLib
 
         public IndexedCollection<Variant> ChildValues {
             get {
-                if (childValues == null) {
-                    childValues = new IndexedCollection<Variant>(nChildren, getChildValue);
+                if (childValues is null) {
+                    childValues = new(nChildren, getChildValue);
                 }
                 return childValues;
             }
@@ -548,16 +548,16 @@ namespace GISharp.Lib.GLib
 
         static void CheckNewArrayArgs(VariantType? childType, UnownedCPtrArray<Variant> children)
         {
-            if (childType == null && (children.Data.Length == 0)) {
+            if (childType is null && (children.Data.Length == 0)) {
                 throw new ArgumentException("Must specify child type when no children", nameof(childType));
             }
-            if (childType == null && children.Data.Length == 0) {
+            if (childType is null && children.Data.Length == 0) {
                 throw new ArgumentException("childType and children cannot both be null");
             }
             if (children.Data.Length != 0) {
                 var testChildType = childType ?? children[0].Type;
                 foreach (var item in children) {
-                    if (item == null) {
+                    if (item is null) {
                         throw new ArgumentException("Array cannot have null elements", nameof(children));
                     }
                     if (item.Type != testChildType) {

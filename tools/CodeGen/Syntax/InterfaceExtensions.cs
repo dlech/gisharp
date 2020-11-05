@@ -48,7 +48,7 @@ namespace GISharp.CodeGen.Syntax
                 .AddRange(@interface.Functions.GetMemberDeclarations())
                 .AddRange(@interface.VirtualMethods.GetMemberDeclarations(true));
 
-            if (@interface.GTypeName != null) {
+            if (@interface.GTypeName is not null) {
                 members = members.Insert(0, @interface.GetGTypeFieldDeclaration());
             }
 

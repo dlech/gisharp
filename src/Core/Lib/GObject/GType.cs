@@ -24,8 +24,8 @@ namespace GISharp.Lib.GObject
     public struct GType
     {
         static readonly Quark managedTypeQuark = Quark.FromString("gisharp-gtype-managed-type-quark");
-        static readonly Dictionary<Type, GType> typeMap;
-        static object mapLock;
+        static readonly Dictionary<Type, GType> typeMap = new();
+        static object mapLock = new();
 
 #pragma warning disable 414
         // There is an unfortunate bug that g_type_add_interface_static() will
@@ -44,9 +44,6 @@ namespace GISharp.Lib.GObject
 
         static GType()
         {
-            typeMap = new Dictionary<Type, GType>();
-            mapLock = new object();
-
             // add the built-in fundamental types
             lock (mapLock) {
                 GType gtype;
@@ -837,7 +834,7 @@ namespace GISharp.Lib.GObject
                 foreach (var pspec in ObjectClass.ListProperties(objClassPtr)) {
                     var prop = type.GetProperties(BindFlags.Public | BindFlags.NonPublic | BindFlags.Instance)
                         .SingleOrDefault(p => p.TryGetGPropertyName() == pspec.Name);
-                    if (prop == null) {
+                    if (prop is null) {
                         var message = $"Could not find matching property for \"{pspec.Name}\" in type {type.FullName}";
                         throw new ArgumentException(message, nameof(type));
                     }
@@ -865,7 +862,7 @@ namespace GISharp.Lib.GObject
 
                 var gtypeAttribute = type.GetCustomAttributes()
                     .OfType<GTypeAttribute>().SingleOrDefault();
-                if (gtypeAttribute == null) {
+                if (gtypeAttribute is null) {
                     throw new ArgumentException($"Type '{type}' is missing GType attribute. Boxed<T> can be used for manged types.");
                 }
 
@@ -881,7 +878,7 @@ namespace GISharp.Lib.GObject
                         implementationType = type.BaseType;
                     }
                     var gtypeField = implementationType.GetField("_GType", BindFlags.Static | BindFlags.NonPublic);
-                    if (gtypeField == null) {
+                    if (gtypeField is null) {
                         var message = $"Could not find _GType field for {implementationType.FullName}.";
                         throw new ArgumentException(message, nameof(type));
                     }
@@ -938,7 +935,7 @@ namespace GISharp.Lib.GObject
                             continue;
                         }
                         var gtypeAttr = ifaceType.GetCustomAttribute<GTypeAttribute>();
-                        if (gtypeAttr == null) {
+                        if (gtypeAttr is null) {
                             // only care about interfaces registered with the
                             // GObject type system
                             continue;
@@ -972,7 +969,7 @@ namespace GISharp.Lib.GObject
                     var names = type.GetEnumNames();
                     var flagsAttribute = type.GetCustomAttributes()
                         .OfType<FlagsAttribute>().SingleOrDefault();
-                    if (flagsAttribute == null) {
+                    if (flagsAttribute is null) {
                         var gtypeValues = new EnumValue[values.Length + 1];
                         for (int i = 0; i < values.Length; i++) {
                             var enumValueField = type.GetField(names[i]);
@@ -1066,11 +1063,11 @@ namespace GISharp.Lib.GObject
                             .FirstOrDefault(t => t.GetCustomAttributes()
                                .OfType<GTypeAttribute>()
                                .Any(a => a.Name == name));
-                        if (matchingType != null) {
+                        if (matchingType is not null) {
                             break;
                         }
                     }
-                    if (matchingType == null) {
+                    if (matchingType is null) {
                         // TODO: More specific exception type
                         var message = $"Could not find type for GType '{Name}' in loaded assemblies.";
                         throw new Exception(message);
@@ -1265,7 +1262,7 @@ namespace GISharp.Lib.GObject
                     var oldData = (GCHandle)oldData_;
                     oldData.Free();
                 }
-                if (value == null) {
+                if (value is null) {
                     g_type_set_qdata(this, quark, IntPtr.Zero);
                 }
                 else {
@@ -2545,11 +2542,11 @@ namespace GISharp.Lib.GObject
         {
             Type gtypeStructType;
             var gtypeStructAttr = type.GetCustomAttribute<GTypeStructAttribute>(true);
-            if (gtypeStructAttr == null) {
+            if (gtypeStructAttr is null) {
                 if (type.IsEnum) {
                     // GTypeStructAttribute is not needed on Enums/Flags
                     var flagsAttr = type.GetCustomAttribute<FlagsAttribute>();
-                    if (flagsAttr == null) {
+                    if (flagsAttr is null) {
                         gtypeStructType = typeof(EnumClass);
                     }
                     else {
@@ -2565,7 +2562,7 @@ namespace GISharp.Lib.GObject
                 gtypeStructType = gtypeStructAttr.GTypeStruct;
             }
 
-            if (gtypeStructType == null) {
+            if (gtypeStructType is null) {
                 throw new ArgumentException($"Type '{type.FullName}' does not specify GTypeStruct", nameof(type));
             }
 

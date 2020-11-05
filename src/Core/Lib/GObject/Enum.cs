@@ -8,8 +8,8 @@ namespace GISharp.Lib.GObject
     [AttributeUsage (AttributeTargets.Field)]
     public class EnumValueAttribute : Attribute
     {
-        public string? Name { get; private set; }
-        public string? Nick { get; private set; }
+        public string? Name { get; }
+        public string? Nick { get; }
 
         public EnumValueAttribute (string? name = null, string? nick = null)
         {
@@ -47,7 +47,7 @@ namespace GISharp.Lib.GObject
         ///     { MY_ENUM_BAR, "MY_ENUM_BAR", "bar" },
         ///     { 0, NULL, NULL }
         ///   };
-        /// 
+        ///
         ///   g_enum_complete_type_info (type, info, values);
         /// }
         /// ]|
@@ -95,7 +95,7 @@ namespace GISharp.Lib.GObject
         ///     { MY_ENUM_BAR, "MY_ENUM_BAR", "bar" },
         ///     { 0, NULL, NULL }
         ///   };
-        /// 
+        ///
         ///   g_enum_complete_type_info (type, info, values);
         /// }
         /// ]|

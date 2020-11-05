@@ -24,7 +24,7 @@ namespace GISharp.Lib.GIRepository
             }
 
             this.@namespace = @namespace;
-            _Infos = new Lazy<InfoDictionary<BaseInfo>> (() => Repository.GetInfos (@namespace));
+            _Infos = new(() => Repository.GetInfos (@namespace));
         }
 
         /// <summary>

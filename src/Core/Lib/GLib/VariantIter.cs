@@ -97,7 +97,7 @@ namespace GISharp.Lib.GLib
         [ExcludeFromCodeCoverage]
         void IEnumerator.Reset()
         {
-            if (value == null) {
+            if (value is null) {
                 throw new InvalidOperationException("Initial value is unknown.");
             }
             g_variant_iter_init(Handle, value.Handle);

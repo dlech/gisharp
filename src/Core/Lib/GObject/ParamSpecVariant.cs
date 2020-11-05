@@ -67,7 +67,7 @@ namespace GISharp.Lib.GObject
 
         static IntPtr New(string name, string nick, string blurb, VariantType type, Variant? defaultValue, ParamFlags flags)
         {
-            if (defaultValue != null && !defaultValue.IsOfType (type)) {
+            if (defaultValue is not null && !defaultValue.IsOfType (type)) {
                 throw new ArgumentException ("default value does not match type", nameof (defaultValue));
             }
             var namePtr = GMarshal.StringToUtf8Ptr (name);
