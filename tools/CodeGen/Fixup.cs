@@ -371,9 +371,11 @@ namespace GISharp.CodeGen
 
             // Fix up error quark functions
 
-            var errorDomains = document.Descendants(gi + "function")
+            // Some types have an "error_quark" function that needs to be moved
+            // to the *Error enum.
+            var errorQuarkFunctions = document.Descendants(gi + "function")
                 .Where(x => x.Attribute("name").AsString() == "error_quark");
-            foreach (var element in errorDomains) {
+            foreach (var element in errorQuarkFunctions) {
                 var errorDomain = element.Parent.Attribute("name").AsString() + "Error";
                 var errorDomainElement = document.Descendants(gi + "enumeration")
                     .SingleOrDefault(x => x.Attribute("name").AsString() == errorDomain);
@@ -383,6 +385,14 @@ namespace GISharp.CodeGen
                 element.Remove();
                 element.SetAttributeValue("name", "get_quark");
                 errorDomainElement.Add(element);
+            }
+
+            // Other *Error types just have a quark function that need to have
+            // the get_ prefix added.
+            var quarkFunctions = document.Descendants(gi + "function")
+                .Where(x => x.Attribute("name").AsString() == "quark");
+            foreach (var element in quarkFunctions) {
+                element.SetAttributeValue("name", "get_quark");
             }
 
             // add functions for GType getters
