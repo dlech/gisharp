@@ -509,7 +509,7 @@ namespace GISharp.Lib.GObject
                     g_signal_emitv(instanceAndParams, signalId, detail, null);
                 }
                 else {
-                    var returnValue = new Value(GType.Of(type));
+                    var returnValue = new Value(type.ToGType());
                     g_signal_emitv(instanceAndParams, signalId, detail, &returnValue);
                     ret = returnValue.Get();
                     returnValue.Unset();
@@ -746,9 +746,9 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        public static uint TryLookup<T> (string name)
+        public static uint TryLookup<T>(string name)
         {
-            return TryLookup (name, typeof(T).GetGType ());
+            return TryLookup(name, GType.Of<T>());
         }
 
         /// <summary>

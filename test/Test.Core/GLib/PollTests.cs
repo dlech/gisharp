@@ -9,7 +9,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestGType()
         {
-            var gtype = typeof(PollFD).GetGType();
+            var gtype = GType.Of<PollFD>();
             Assert.That(gtype, Is.Not.EqualTo(GType.Invalid));
             Assert.That<string?>(gtype.Name, Is.EqualTo("GPollFD"));
         }

@@ -293,7 +293,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestGType()
         {
-            var gtype = typeof(Array<int>).GetGType();
+            var gtype = GType.Of<Array<int>>();
             Assert.That(gtype, Is.Not.EqualTo(GType.Invalid));
             Assert.That<string?>(gtype.Name, Is.EqualTo("GArray"));
         }

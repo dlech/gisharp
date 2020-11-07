@@ -13,14 +13,14 @@ namespace GISharp.Test.Core.GObject
         {
             // invalid because TestEnum1 does not have [GType] attribute so it
             // can't be registered.
-            Assert.That(() => typeof(TestEnum1).GetGType(), Throws.ArgumentException);
+            Assert.That(() => GType.Of<TestEnum1>(), Throws.ArgumentException);
         }
 
         [Test]
         public void TestRegister2 ()
         {
             // invalid because underlying type is too big.
-            Assert.That (() => typeof (TestEnum2).GetGType (),
+            Assert.That(() => GType.Of<TestEnum2>(),
                 Throws.ArgumentException);
         }
 
@@ -29,7 +29,7 @@ namespace GISharp.Test.Core.GObject
         {
             // invalid because IsProxyForUnmanagedType = true but there is no
             // matching GType property.
-            Assert.That (() => typeof (TestEnum3).GetGType (),
+            Assert.That(() => GType.Of<TestEnum3>(),
                 Throws.ArgumentException);
         }
 
@@ -37,12 +37,12 @@ namespace GISharp.Test.Core.GObject
         public void TestRegister4 ()
         {
             // this should register successfully
-            var testEnum4GType = typeof (TestEnum4).GetGType ();
+            var testEnum4GType = GType.Of<TestEnum4>();
             Assert.That (testEnum4GType, Is.Not.EqualTo (GType.Invalid),
                          "Failed to register an enum");
 
             // make sure the type is not re-registed.
-            Assert.That (testEnum4GType, Is.EqualTo (typeof (TestEnum4).GetGType ()));
+            Assert.That(testEnum4GType, Is.EqualTo (GType.Of<TestEnum4>()));
 
             // a couple more GType checks
             Assert.That ((Type)testEnum4GType, Is.EqualTo (typeof (TestEnum4)));
@@ -62,7 +62,7 @@ namespace GISharp.Test.Core.GObject
         public void TestRegister5 ()
         {
             // make sure that we can override name and nick with attributes
-            var testEnum5GType = typeof(TestEnum5).GetGType ();
+            var testEnum5GType = GType.Of<TestEnum5>();
             Assert.That<string?>(testEnum5GType.Name, Is.EqualTo("TestEnum5GTypeName"));
             using (var enum5TypeClass = (EnumClass)TypeClass.Get (testEnum5GType)) {
                 var value1 = GISharp.Lib.GObject.Enum.GetValue (enum5TypeClass, 1);

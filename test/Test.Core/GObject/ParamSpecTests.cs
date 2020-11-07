@@ -335,7 +335,7 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestParamSpecOverride ()
         {
-            Assert.That<string?>(typeof(ParamSpecOverride).GetGType().Name, Is.EqualTo("GParamOverride"));
+            Assert.That<string?>(GType.Of<ParamSpecOverride>().Name, Is.EqualTo("GParamOverride"));
         }
 
         static ParamSpec getItemAt(PtrArray<ParamSpec> array, int index)

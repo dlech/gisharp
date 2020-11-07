@@ -15,7 +15,7 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestUnmanagedTypeRegistration()
         {
-            Assert.That(() => typeof(INetworkMonitor).GetGType(), Throws.Nothing);
+            Assert.That(() => GType.Of<INetworkMonitor>(), Throws.Nothing);
         }
 
         [Test]

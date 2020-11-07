@@ -13,14 +13,14 @@ namespace GISharp.Test.Core.GObject
         {
             // invalid because TestFlags1 does not have [GType] attribute so it
             // can't be registered
-            Assert.That(() => typeof(TestFlags1).GetGType(), Throws.ArgumentException);
+            Assert.That(() => GType.Of<TestFlags1>(), Throws.ArgumentException);
         }
 
         [Test]
         public void TestRegister2 ()
         {
             // invalid because underlying type is too big.
-            Assert.That (() => typeof (TestFlags2).GetGType (),
+            Assert.That(() => GType.Of<TestFlags2>(),
                 Throws.ArgumentException);
         }
 
@@ -29,7 +29,7 @@ namespace GISharp.Test.Core.GObject
         {
             // invalid because IsProxyForUnmanagedType = true but there is not
             // a matching _GType property.
-            Assert.That (() => typeof (TestFlags3).GetGType (),
+            Assert.That(() => GType.Of<TestFlags3>(),
                 Throws.ArgumentException);
         }
 
@@ -37,12 +37,12 @@ namespace GISharp.Test.Core.GObject
         public void TestRegister4 ()
         {
             // this should register successfully
-            var testFlags4GType = typeof (TestFlags4).GetGType ();
+            var testFlags4GType = GType.Of<TestFlags4>();
             Assert.That (testFlags4GType, Is.Not.EqualTo (GType.Invalid),
                          "Failed to register flags");
 
             // make sure the type is not re-registed.
-            Assert.That (testFlags4GType, Is.EqualTo (typeof (TestFlags4).GetGType ()));
+            Assert.That(testFlags4GType, Is.EqualTo (GType.Of<TestFlags4>()));
 
             // a couple more GType checks
             Assert.That ((Type)testFlags4GType, Is.EqualTo (typeof (TestFlags4)));
@@ -63,7 +63,7 @@ namespace GISharp.Test.Core.GObject
         public void TestRegister5 ()
         {
             // make sure that we can override name and nick with attributes
-            var testFlags5GType = typeof(TestFlags5).GetGType ();
+            var testFlags5GType = GType.Of<TestFlags5>();
             Assert.That<string?>(testFlags5GType.Name, Is.EqualTo("TestFlags5GTypeName"));
             using (var flags5TypeClass = (FlagsClass)TypeClass.Get (testFlags5GType)) {
                 var value1 = Flags.GetFirstValue (flags5TypeClass, 1);

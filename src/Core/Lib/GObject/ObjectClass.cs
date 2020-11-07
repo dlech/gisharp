@@ -239,7 +239,7 @@ namespace GISharp.Lib.GObject
         /// <param name="type">The managed type to register.</param>
         internal static TypeInfo GetTypeInfo(Type type)
         {
-            var parentGType = type.BaseType.GetGType();
+            var parentGType = type.BaseType.ToGType();
             var parentTypeQuery = parentGType.Query();
             var ret = new TypeInfo {
                 ClassSize = (ushort)parentTypeQuery.ClassSize,
@@ -483,11 +483,11 @@ namespace GISharp.Lib.GObject
                     // figure out the parameter types
 
                     var methodInfo = eventInfo.EventHandlerType.GetMethod("Invoke");
-                    var returnGType = methodInfo.ReturnType.GetGType();
+                    var returnGType = methodInfo.ReturnType.ToGType();
                     var parameters = methodInfo.GetParameters();
                     var parameterGTypes = new GType[parameters.Length];
                     for (int i = 0; i < parameters.Length; i++) {
-                        parameterGTypes[i] = parameters[i].ParameterType.GetGType();
+                        parameterGTypes[i] = parameters[i].ParameterType.ToGType();
                     }
 
                     // create a closure that will be called when the signal is emitted

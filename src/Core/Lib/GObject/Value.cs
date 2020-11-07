@@ -458,7 +458,7 @@ namespace GISharp.Lib.GObject
 
         public static explicit operator Value(Object value)
         {
-            return new Value(GType.Of(value.GetType()), value);
+            return new Value(value.GetGType(), value);
         }
 
         public static explicit operator string?(Value value)
@@ -488,7 +488,7 @@ namespace GISharp.Lib.GObject
 
         public static explicit operator Value(ParamSpec value)
         {
-            return new Value(GType.Of(value.GetType()), value);
+            return new Value(value.GetGType(), value);
         }
 
         public static explicit operator Boxed?(Value value)
@@ -503,7 +503,7 @@ namespace GISharp.Lib.GObject
 
         public static explicit operator Value(Boxed value)
         {
-            return new Value(GType.Of(value.GetType()), value);
+            return new Value(value.GetGType(), value);
         }
 
         public static explicit operator GType(Value value)
@@ -2818,7 +2818,7 @@ namespace GISharp.Lib.GObject
             Set(value);
         }
 
-        public Value(Type type, object? value) : this(type.GetGType())
+        public Value(Type type, object? value) : this(type.ToGType())
         {
             Set(value);
         }

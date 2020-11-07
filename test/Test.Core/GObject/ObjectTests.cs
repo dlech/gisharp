@@ -93,15 +93,15 @@ namespace GISharp.Test.Core.GObject
             // type system.
 
             // Objects without the GType attribute will fail.
-            Assert.That(() => typeof(TestObject1).GetGType(),
+            Assert.That(() => GType.Of<TestObject1>(),
                 Throws.ArgumentException);
 
             // Objects that do not inherit from GISharp.Core.Object fail
-            Assert.That(() => typeof(TestObject2).GetGType(),
+            Assert.That(() => GType.Of<TestObject2>(),
                 Throws.ArgumentException);
 
             // this one should actually work since it is setup correctly
-            var testObject3GType = typeof(TestObject3).GetGType();
+            var testObject3GType = GType.Of<TestObject3>();
             Assert.That(testObject3GType, Is.Not.EqualTo(GType.Invalid));
 
             Assert.That(() => new TestObject3(), Throws.Nothing);
@@ -136,8 +136,8 @@ namespace GISharp.Test.Core.GObject
 
                 Assert.That(((TestObjectPropertiesBase)obj).IntValue, Is.EqualTo(0));
 
-                using (var baseObjClass = (ObjectClass)TypeClass.Get(typeof(TestObjectPropertiesBase).GetGType()))
-                using (var subclassObjClass = (ObjectClass)TypeClass.Get(typeof(TestObjectPropertiesSubclass).GetGType())) {
+                using (var baseObjClass = (ObjectClass)TypeClass.Get(GType.Of<TestObjectPropertiesBase>()))
+                using (var subclassObjClass = (ObjectClass)TypeClass.Get(GType.Of<TestObjectPropertiesSubclass>())) {
                     using (var baseIntValueProp = baseObjClass.FindProperty(nameof(obj.IntValue))!)
                     using (var subclassIntValueProp = subclassObjClass.FindProperty(nameof(obj.IntValue))!) {
                         // ...so ParamSpecs should not be the same

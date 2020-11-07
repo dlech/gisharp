@@ -8,7 +8,7 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestGType ()
         {
-            var gtype = typeof (BindingFlags).GetGType ();
+            var gtype = GType.Of<BindingFlags>();
             Assert.That<string?>(gtype.Name, Is.EqualTo("GBindingFlags"));
         }
     }

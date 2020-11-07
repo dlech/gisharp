@@ -905,7 +905,7 @@ namespace GISharp.Lib.GObject
                                           typeof(Object).FullName);
                         throw new ArgumentException(message, nameof(type));
                     }
-                    var parentGType = type.BaseType.GetGType();
+                    var parentGType = type.BaseType.ToGType();
                     var parentTypeclass = TypeClass.Get(parentGType);
                     var parentTypeInfo = ObjectClass.GetTypeInfo(type);
 
@@ -940,7 +940,7 @@ namespace GISharp.Lib.GObject
                             // GObject type system
                             continue;
                         }
-                        var ifaceGType = ifaceType.GetGType();
+                        var ifaceGType = ifaceType.ToGType();
                         var prereqs = TypeInterface.GetPrerequisites(ifaceGType);
                         foreach (var p in prereqs.Span) {
                             if (!p.ToType().IsAssignableFrom(type)) {
@@ -1019,7 +1019,7 @@ namespace GISharp.Lib.GObject
             throw new NotImplementedException();
         }
 
-        public static GType Of(Type type)
+        internal static GType FromType(Type type)
         {
             lock (mapLock) {
                 if (typeMap.ContainsKey(type)) {
@@ -1037,15 +1037,21 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Gets the GObject type for a managed type.`
+        /// </summary>
+        /// <remarks>
+        /// This is the analog of <c>typeof</c> operator for GObject types.
+        /// </remarks>
         public static GType Of<T>()
         {
-            return Of(typeof(T));
+            return FromType(typeof(T));
         }
 
         public static explicit operator GType(Type type)
         {
             try {
-                return Of(type);
+                return FromType(type);
             }
             catch (Exception ex) {
                 throw new InvalidCastException("Could not get GType from type.", ex);
@@ -2588,9 +2594,9 @@ namespace GISharp.Lib.GObject
         /// <exception cref="ArgumentException">
         /// Thrown if <paramref name="type"/> is not decorated with <see cref="GTypeAttribute"/>
         /// </exception>
-        public static GType GetGType(this Type type)
+        public static GType ToGType(this Type type)
         {
-            return GType.Of(type);
+            return GType.FromType(type);
         }
 
         /// <summary>
@@ -2606,7 +2612,7 @@ namespace GISharp.Lib.GObject
         /// </exception>
         public static GType GetGType(this object obj)
         {
-            return GType.Of(obj.GetType());
+            return GType.FromType(obj.GetType());
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
