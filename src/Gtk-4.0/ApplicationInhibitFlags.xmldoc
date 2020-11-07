@@ -1,0 +1,36 @@
+<declaration>
+
+<member name='ApplicationInhibitFlags.Logout'>
+<summary>
+Inhibit ending the user session
+    by logging out or by shutting down the computer
+</summary>
+</member>
+
+<member name='ApplicationInhibitFlags.Switch'>
+<summary>
+Inhibit user switching
+</summary>
+</member>
+
+<member name='ApplicationInhibitFlags.Suspend'>
+<summary>
+Inhibit suspending the
+    session or computer
+</summary>
+</member>
+
+<member name='ApplicationInhibitFlags.Idle'>
+<summary>
+Inhibit the session being
+    marked as idle (and possibly locked)
+</summary>
+</member>
+
+<member name='ApplicationInhibitFlags'>
+<summary>
+Types of user actions that may be blocked by gtk_application_inhibit().
+</summary>
+</member>
+
+</declaration>

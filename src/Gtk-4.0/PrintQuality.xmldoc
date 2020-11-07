@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='PrintQuality.Low'>
+<summary>
+Low quality.
+</summary>
+</member>
+
+<member name='PrintQuality.Normal'>
+<summary>
+Normal quality.
+</summary>
+</member>
+
+<member name='PrintQuality.High'>
+<summary>
+High quality.
+</summary>
+</member>
+
+<member name='PrintQuality.Draft'>
+<summary>
+Draft quality.
+</summary>
+</member>
+
+<member name='PrintQuality'>
+<summary>
+See also gtk_print_settings_set_quality().
+</summary>
+</member>
+
+</declaration>

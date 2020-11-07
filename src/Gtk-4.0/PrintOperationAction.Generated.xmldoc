@@ -1,0 +1,36 @@
+<declaration>
+
+<member name='PrintOperationAction.PrintDialog'>
+<summary>
+Show the print dialog.
+</summary>
+</member>
+
+<member name='PrintOperationAction.Print'>
+<summary>
+Start to print without showing
+    the print dialog, based on the current print settings.
+</summary>
+</member>
+
+<member name='PrintOperationAction.Preview'>
+<summary>
+Show the print preview.
+</summary>
+</member>
+
+<member name='PrintOperationAction.Export'>
+<summary>
+Export to a file. This requires
+    the export-filename property to be set.
+</summary>
+</member>
+
+<member name='PrintOperationAction'>
+<summary>
+The <paramref name="action"/> parameter to gtk_print_operation_run()
+determines what action the print operation should perform.
+</summary>
+</member>
+
+</declaration>

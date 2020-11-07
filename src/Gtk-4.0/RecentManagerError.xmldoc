@@ -1,0 +1,59 @@
+<declaration>
+
+<member name='RecentManagerError.NotFound'>
+<summary>
+the URI specified does not exists in
+  the recently used resources list.
+</summary>
+</member>
+
+<member name='RecentManagerError.InvalidUri'>
+<summary>
+the URI specified is not valid.
+</summary>
+</member>
+
+<member name='RecentManagerError.InvalidEncoding'>
+<summary>
+the supplied string is not
+  UTF-8 encoded.
+</summary>
+</member>
+
+<member name='RecentManagerError.NotRegistered'>
+<summary>
+no application has registered
+  the specified item.
+</summary>
+</member>
+
+<member name='RecentManagerError.Read'>
+<summary>
+failure while reading the recently used
+  resources file.
+</summary>
+</member>
+
+<member name='RecentManagerError.Write'>
+<summary>
+failure while writing the recently used
+  resources file.
+</summary>
+</member>
+
+<member name='RecentManagerError.Unknown'>
+<summary>
+unspecified error.
+</summary>
+</member>
+
+<member name='RecentManagerError'>
+<summary>
+Error codes for #GtkRecentManager operations
+</summary>
+</member>
+
+<member name='RecentManagerErrorDomain.Quark()'>
+</member>
+
+</declaration>

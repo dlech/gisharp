@@ -1,0 +1,22 @@
+<declaration>
+
+<member name='TextViewLayer.BelowText'>
+<summary>
+The layer rendered below the text (but above the background).
+</summary>
+</member>
+
+<member name='TextViewLayer.AboveText'>
+<summary>
+The layer rendered above the text.
+</summary>
+</member>
+
+<member name='TextViewLayer'>
+<summary>
+Used to reference the layers of #GtkTextView for the purpose of customized
+drawing with the ::snapshot_layer vfunc.
+</summary>
+</member>
+
+</declaration>

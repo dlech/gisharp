@@ -1,0 +1,105 @@
+<declaration>
+
+<member name='ScrollType.None'>
+<summary>
+No scrolling.
+</summary>
+</member>
+
+<member name='ScrollType.Jump'>
+<summary>
+Jump to new location.
+</summary>
+</member>
+
+<member name='ScrollType.StepBackward'>
+<summary>
+Step backward.
+</summary>
+</member>
+
+<member name='ScrollType.StepForward'>
+<summary>
+Step forward.
+</summary>
+</member>
+
+<member name='ScrollType.PageBackward'>
+<summary>
+Page backward.
+</summary>
+</member>
+
+<member name='ScrollType.PageForward'>
+<summary>
+Page forward.
+</summary>
+</member>
+
+<member name='ScrollType.StepUp'>
+<summary>
+Step up.
+</summary>
+</member>
+
+<member name='ScrollType.StepDown'>
+<summary>
+Step down.
+</summary>
+</member>
+
+<member name='ScrollType.PageUp'>
+<summary>
+Page up.
+</summary>
+</member>
+
+<member name='ScrollType.PageDown'>
+<summary>
+Page down.
+</summary>
+</member>
+
+<member name='ScrollType.StepLeft'>
+<summary>
+Step to the left.
+</summary>
+</member>
+
+<member name='ScrollType.StepRight'>
+<summary>
+Step to the right.
+</summary>
+</member>
+
+<member name='ScrollType.PageLeft'>
+<summary>
+Page to the left.
+</summary>
+</member>
+
+<member name='ScrollType.PageRight'>
+<summary>
+Page to the right.
+</summary>
+</member>
+
+<member name='ScrollType.Start'>
+<summary>
+Scroll to start.
+</summary>
+</member>
+
+<member name='ScrollType.End'>
+<summary>
+Scroll to end.
+</summary>
+</member>
+
+<member name='ScrollType'>
+<summary>
+Scrolling types.
+</summary>
+</member>
+
+</declaration>

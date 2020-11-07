@@ -1,0 +1,37 @@
+<declaration>
+
+<member name='ConstraintStrength.Required'>
+<summary>
+The constraint is required towards solving the layout
+</summary>
+</member>
+
+<member name='ConstraintStrength.Strong'>
+<summary>
+A strong constraint
+</summary>
+</member>
+
+<member name='ConstraintStrength.Medium'>
+<summary>
+A medium constraint
+</summary>
+</member>
+
+<member name='ConstraintStrength.Weak'>
+<summary>
+A weak constraint
+</summary>
+</member>
+
+<member name='ConstraintStrength'>
+<summary>
+The strength of a constraint, expressed as a symbolic constant.
+</summary>
+<remarks>
+The strength of a #GtkConstraint can be expressed with any positive
+integer; the values of this enumeration can be used for readability.
+</remarks>
+</member>
+
+</declaration>

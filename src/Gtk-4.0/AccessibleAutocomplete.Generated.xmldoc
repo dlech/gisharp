@@ -1,0 +1,42 @@
+<declaration>
+
+<member name='AccessibleAutocomplete.None'>
+<summary>
+Automatic suggestions are not displayed.
+</summary>
+</member>
+
+<member name='AccessibleAutocomplete.Inline'>
+<summary>
+When a user is providing input, text
+   suggesting one way to complete the provided input may be dynamically
+   inserted after the caret.
+</summary>
+</member>
+
+<member name='AccessibleAutocomplete.List'>
+<summary>
+When a user is providing input, an element
+   containing a collection of values that could complete the provided input
+   may be displayed.
+</summary>
+</member>
+
+<member name='AccessibleAutocomplete.Both'>
+<summary>
+When a user is providing input, an element
+   containing a collection of values that could complete the provided input
+   may be displayed. If displayed, one value in the collection is automatically
+   selected, and the text needed to complete the automatically selected value
+   appears after the caret in the input.
+</summary>
+</member>
+
+<member name='AccessibleAutocomplete'>
+<summary>
+The possible values for the <see cref="AccessibleProperty.Autocomplete"/>
+accessible property.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='PageOrientation.Portrait'>
+<summary>
+Portrait mode.
+</summary>
+</member>
+
+<member name='PageOrientation.Landscape'>
+<summary>
+Landscape mode.
+</summary>
+</member>
+
+<member name='PageOrientation.ReversePortrait'>
+<summary>
+Reverse portrait mode.
+</summary>
+</member>
+
+<member name='PageOrientation.ReverseLandscape'>
+<summary>
+Reverse landscape mode.
+</summary>
+</member>
+
+<member name='PageOrientation'>
+<summary>
+See also gtk_print_settings_set_orientation().
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='TreeViewDropPosition.Before'>
+<summary>
+dropped row is inserted before
+</summary>
+</member>
+
+<member name='TreeViewDropPosition.After'>
+<summary>
+dropped row is inserted after
+</summary>
+</member>
+
+<member name='TreeViewDropPosition.IntoOrBefore'>
+<summary>
+dropped row becomes a child or is inserted before
+</summary>
+</member>
+
+<member name='TreeViewDropPosition.IntoOrAfter'>
+<summary>
+dropped row becomes a child or is inserted after
+</summary>
+</member>
+
+<member name='TreeViewDropPosition'>
+<summary>
+An enum for determining where a dropped row goes.
+</summary>
+</member>
+
+</declaration>

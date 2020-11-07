@@ -1,0 +1,32 @@
+<declaration>
+
+<member name='BaselinePosition.Top'>
+<summary>
+Align the baseline at the top
+</summary>
+</member>
+
+<member name='BaselinePosition.Center'>
+<summary>
+Center the baseline
+</summary>
+</member>
+
+<member name='BaselinePosition.Bottom'>
+<summary>
+Align the baseline at the bottom
+</summary>
+</member>
+
+<member name='BaselinePosition'>
+<summary>
+Whenever a container has some form of natural row it may align
+children in that row along a common typographical baseline. If
+the amount of vertical space in the row is taller than the total
+requested height of the baseline-aligned children then it can use a
+<see cref="BaselinePosition"/> to select where to put the baseline inside the
+extra available space.
+</summary>
+</member>
+
+</declaration>

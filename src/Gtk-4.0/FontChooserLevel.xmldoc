@@ -1,0 +1,44 @@
+<declaration>
+
+<member name='FontChooserLevel.Family'>
+<summary>
+Allow selecting a font family
+</summary>
+</member>
+
+<member name='FontChooserLevel.Style'>
+<summary>
+Allow selecting a specific font face
+</summary>
+</member>
+
+<member name='FontChooserLevel.Size'>
+<summary>
+Allow selecting a specific font size
+</summary>
+</member>
+
+<member name='FontChooserLevel.Variations'>
+<summary>
+Allow changing OpenType font variation axes
+</summary>
+</member>
+
+<member name='FontChooserLevel.Features'>
+<summary>
+Allow selecting specific OpenType font features
+</summary>
+</member>
+
+<member name='FontChooserLevel'>
+<summary>
+This enumeration specifies the granularity of font selection
+that is desired in a font chooser.
+</summary>
+<remarks>
+This enumeration may be extended in the future; applications should
+ignore unknown values.
+</remarks>
+</member>
+
+</declaration>

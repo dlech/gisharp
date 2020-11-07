@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='PrintDuplex.Simplex'>
+<summary>
+No duplex.
+</summary>
+</member>
+
+<member name='PrintDuplex.Horizontal'>
+<summary>
+Horizontal duplex.
+</summary>
+</member>
+
+<member name='PrintDuplex.Vertical'>
+<summary>
+Vertical duplex.
+</summary>
+</member>
+
+<member name='PrintDuplex'>
+<summary>
+See also gtk_print_settings_set_duplex().
+</summary>
+</member>
+
+</declaration>

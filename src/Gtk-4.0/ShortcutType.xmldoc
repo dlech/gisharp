@@ -1,0 +1,72 @@
+<declaration>
+
+<member name='ShortcutType.Accelerator'>
+<summary>
+The shortcut is a keyboard accelerator. The #GtkShortcutsShortcut:accelerator
+  property will be used.
+</summary>
+</member>
+
+<member name='ShortcutType.GesturePinch'>
+<summary>
+The shortcut is a pinch gesture. GTK+ provides an icon and subtitle.
+</summary>
+</member>
+
+<member name='ShortcutType.GestureStretch'>
+<summary>
+The shortcut is a stretch gesture. GTK+ provides an icon and subtitle.
+</summary>
+</member>
+
+<member name='ShortcutType.GestureRotateClockwise'>
+<summary>
+The shortcut is a clockwise rotation gesture. GTK+ provides an icon and subtitle.
+</summary>
+</member>
+
+<member name='ShortcutType.GestureRotateCounterclockwise'>
+<summary>
+The shortcut is a counterclockwise rotation gesture. GTK+ provides an icon and subtitle.
+</summary>
+</member>
+
+<member name='ShortcutType.GestureTwoFingerSwipeLeft'>
+<summary>
+The shortcut is a two-finger swipe gesture. GTK+ provides an icon and subtitle.
+</summary>
+</member>
+
+<member name='ShortcutType.GestureTwoFingerSwipeRight'>
+<summary>
+The shortcut is a two-finger swipe gesture. GTK+ provides an icon and subtitle.
+</summary>
+</member>
+
+<member name='ShortcutType.Gesture'>
+<summary>
+The shortcut is a gesture. The #GtkShortcutsShortcut:icon property will be
+  used.
+</summary>
+</member>
+
+<member name='ShortcutType.GestureSwipeLeft'>
+<summary>
+The shortcut is a swipe gesture. GTK+ provides an icon and subtitle.
+</summary>
+</member>
+
+<member name='ShortcutType.GestureSwipeRight'>
+<summary>
+The shortcut is a swipe gesture. GTK+ provides an icon and subtitle.
+</summary>
+</member>
+
+<member name='ShortcutType'>
+<summary>
+GtkShortcutType specifies the kind of shortcut that is being described.
+More values may be added to this enumeration over time.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,100 @@
+<declaration>
+
+<member name='InputHints.None'>
+<summary>
+No special behaviour suggested
+</summary>
+</member>
+
+<member name='InputHints.Spellcheck'>
+<summary>
+Suggest checking for typos
+</summary>
+</member>
+
+<member name='InputHints.NoSpellcheck'>
+<summary>
+Suggest not checking for typos
+</summary>
+</member>
+
+<member name='InputHints.WordCompletion'>
+<summary>
+Suggest word completion
+</summary>
+</member>
+
+<member name='InputHints.Lowercase'>
+<summary>
+Suggest to convert all text to lowercase
+</summary>
+</member>
+
+<member name='InputHints.UppercaseChars'>
+<summary>
+Suggest to capitalize all text
+</summary>
+</member>
+
+<member name='InputHints.UppercaseWords'>
+<summary>
+Suggest to capitalize the first
+    character of each word
+</summary>
+</member>
+
+<member name='InputHints.UppercaseSentences'>
+<summary>
+Suggest to capitalize the
+    first word of each sentence
+</summary>
+</member>
+
+<member name='InputHints.InhibitOsk'>
+<summary>
+Suggest to not show an onscreen keyboard
+    (e.g for a calculator that already has all the keys).
+</summary>
+</member>
+
+<member name='InputHints.VerticalWriting'>
+<summary>
+The text is vertical
+</summary>
+</member>
+
+<member name='InputHints.Emoji'>
+<summary>
+Suggest offering Emoji support
+</summary>
+</member>
+
+<member name='InputHints.NoEmoji'>
+<summary>
+Suggest not offering Emoji support
+</summary>
+</member>
+
+<member name='InputHints.Private'>
+<summary>
+Request that the input method should not
+   update personalized data (like typing history)
+</summary>
+</member>
+
+<member name='InputHints'>
+<summary>
+Describes hints that might be taken into account by input methods
+or applications. Note that input methods may already tailor their
+behaviour according to the <see cref="InputPurpose"/> of the entry.
+</summary>
+<remarks>
+Some common sense is expected when using these flags - mixing
+<paramref name="gtkInputHintLowercase"/> with any of the uppercase hints makes no sense.
+
+This enumeration may be extended in the future; input methods should
+ignore unknown values.
+</remarks>
+</member>
+
+</declaration>

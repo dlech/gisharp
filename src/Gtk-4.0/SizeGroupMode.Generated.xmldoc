@@ -1,0 +1,34 @@
+<declaration>
+
+<member name='SizeGroupMode.None'>
+<summary>
+group has no effect
+</summary>
+</member>
+
+<member name='SizeGroupMode.Horizontal'>
+<summary>
+group affects horizontal requisition
+</summary>
+</member>
+
+<member name='SizeGroupMode.Vertical'>
+<summary>
+group affects vertical requisition
+</summary>
+</member>
+
+<member name='SizeGroupMode.Both'>
+<summary>
+group affects both horizontal and vertical requisition
+</summary>
+</member>
+
+<member name='SizeGroupMode'>
+<summary>
+The mode of the size group determines the directions in which the size
+group affects the requested sizes of its component widgets.
+</summary>
+</member>
+
+</declaration>

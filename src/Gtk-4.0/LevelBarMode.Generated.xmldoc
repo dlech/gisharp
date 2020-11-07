@@ -1,0 +1,23 @@
+<declaration>
+
+<member name='LevelBarMode.Continuous'>
+<summary>
+the bar has a continuous mode
+</summary>
+</member>
+
+<member name='LevelBarMode.Discrete'>
+<summary>
+the bar has a discrete mode
+</summary>
+</member>
+
+<member name='LevelBarMode'>
+<summary>
+Describes how #GtkLevelBar contents should be rendered.
+Note that this enumeration could be extended with additional modes
+in the future.
+</summary>
+</member>
+
+</declaration>

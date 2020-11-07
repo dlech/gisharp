@@ -1,0 +1,39 @@
+<declaration>
+
+<member name='AccessibleInvalidState.False'>
+<summary>
+There are no detected errors in the value
+</summary>
+</member>
+
+<member name='AccessibleInvalidState.True'>
+<summary>
+The value entered by the user has failed validation
+</summary>
+</member>
+
+<member name='AccessibleInvalidState.Grammar'>
+<summary>
+A grammatical error was detected
+</summary>
+</member>
+
+<member name='AccessibleInvalidState.Spelling'>
+<summary>
+A spelling error was detected
+</summary>
+</member>
+
+<member name='AccessibleInvalidState'>
+<summary>
+The possible values for the <see cref="AccessibleState.Invalid"/>
+accessible state.
+</summary>
+<remarks>
+Note that the <see cref="AccessibleInvalidState.False"/> and
+<see cref="AccessibleInvalidState.True"/> have the same values
+as <c>false</c> and <c>true</c>.
+</remarks>
+</member>
+
+</declaration>

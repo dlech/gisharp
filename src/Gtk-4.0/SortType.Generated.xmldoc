@@ -1,0 +1,21 @@
+<declaration>
+
+<member name='SortType.Ascending'>
+<summary>
+Sorting is in ascending order.
+</summary>
+</member>
+
+<member name='SortType.Descending'>
+<summary>
+Sorting is in descending order.
+</summary>
+</member>
+
+<member name='SortType'>
+<summary>
+Determines the direction of a sort.
+</summary>
+</member>
+
+</declaration>

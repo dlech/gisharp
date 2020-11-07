@@ -1,0 +1,29 @@
+<declaration>
+
+<member name='TreeModelFlags.ItersPersist'>
+<summary>
+iterators survive all signals
+    emitted by the tree
+</summary>
+</member>
+
+<member name='TreeModelFlags.ListOnly'>
+<summary>
+the model is a list only, and never
+    has children
+</summary>
+</member>
+
+<member name='TreeModelFlags'>
+<summary>
+These flags indicate various properties of a #GtkTreeModel.
+</summary>
+<remarks>
+They are returned by gtk_tree_model_get_flags(), and must be
+static for the lifetime of the object. A more complete description
+of #GTK_TREE_MODEL_ITERS_PERSIST can be found in the overview of
+this section.
+</remarks>
+</member>
+
+</declaration>

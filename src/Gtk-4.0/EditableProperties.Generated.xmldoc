@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='EditableProperties.PropText'>
+</member>
+
+<member name='EditableProperties.PropCursorPosition'>
+</member>
+
+<member name='EditableProperties.PropSelectionBound'>
+</member>
+
+<member name='EditableProperties.PropEditable'>
+</member>
+
+<member name='EditableProperties.PropWidthChars'>
+</member>
+
+<member name='EditableProperties.PropMaxWidthChars'>
+</member>
+
+<member name='EditableProperties.PropXalign'>
+</member>
+
+<member name='EditableProperties.PropEnableUndo'>
+</member>
+
+<member name='EditableProperties.NumProperties'>
+</member>
+
+<member name='EditableProperties'>
+</member>
+
+</declaration>

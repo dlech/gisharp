@@ -1,0 +1,24 @@
+<declaration>
+
+<member name='IconThemeError.NotFound'>
+<summary>
+The icon specified does not exist in the theme
+</summary>
+</member>
+
+<member name='IconThemeError.Failed'>
+<summary>
+An unspecified error occurred.
+</summary>
+</member>
+
+<member name='IconThemeError'>
+<summary>
+Error codes for GtkIconTheme operations.
+</summary>
+</member>
+
+<member name='IconThemeErrorDomain.Quark'>
+</member>
+
+</declaration>

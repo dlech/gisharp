@@ -1,0 +1,23 @@
+<declaration>
+
+<member name='Orientation.Horizontal'>
+<summary>
+The element is in horizontal orientation.
+</summary>
+</member>
+
+<member name='Orientation.Vertical'>
+<summary>
+The element is in vertical orientation.
+</summary>
+</member>
+
+<member name='Orientation'>
+<summary>
+Represents the orientation of widgets and other objects which can be switched
+between horizontal and vertical orientation on the fly, like #GtkBox or
+#GtkGesturePan.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='Unit.None'>
+<summary>
+No units.
+</summary>
+</member>
+
+<member name='Unit.Points'>
+<summary>
+Dimensions in points.
+</summary>
+</member>
+
+<member name='Unit.Inch'>
+<summary>
+Dimensions in inches.
+</summary>
+</member>
+
+<member name='Unit.Mm'>
+<summary>
+Dimensions in millimeters
+</summary>
+</member>
+
+<member name='Unit'>
+<summary>
+See also gtk_print_settings_set_paper_width().
+</summary>
+</member>
+
+</declaration>

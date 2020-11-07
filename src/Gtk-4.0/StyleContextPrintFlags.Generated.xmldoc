@@ -1,0 +1,37 @@
+<declaration>
+
+<member name='StyleContextPrintFlags.None'>
+<summary>
+Default value.
+</summary>
+</member>
+
+<member name='StyleContextPrintFlags.Recurse'>
+<summary>
+Print the entire tree of
+    CSS nodes starting at the style context's node
+</summary>
+</member>
+
+<member name='StyleContextPrintFlags.ShowStyle'>
+<summary>
+Show the values of the
+    CSS properties for each node
+</summary>
+</member>
+
+<member name='StyleContextPrintFlags.ShowChange'>
+<summary>
+Show information about
+    what changes affect the styles
+</summary>
+</member>
+
+<member name='StyleContextPrintFlags'>
+<summary>
+Flags that modify the behavior of gtk_style_context_to_string().
+New values may be added to this enumeration.
+</summary>
+</member>
+
+</declaration>

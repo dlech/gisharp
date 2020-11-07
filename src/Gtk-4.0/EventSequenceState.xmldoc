@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='EventSequenceState.None'>
+<summary>
+The sequence is handled, but not grabbed.
+</summary>
+</member>
+
+<member name='EventSequenceState.Claimed'>
+<summary>
+The sequence is handled and grabbed.
+</summary>
+</member>
+
+<member name='EventSequenceState.Denied'>
+<summary>
+The sequence is denied.
+</summary>
+</member>
+
+<member name='EventSequenceState'>
+<summary>
+Describes the state of a #GdkEventSequence in a #GtkGesture.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,70 @@
+<declaration>
+
+<member name='RevealerTransitionType.None'>
+<summary>
+No transition
+</summary>
+</member>
+
+<member name='RevealerTransitionType.Crossfade'>
+<summary>
+Fade in
+</summary>
+</member>
+
+<member name='RevealerTransitionType.SlideRight'>
+<summary>
+Slide in from the left
+</summary>
+</member>
+
+<member name='RevealerTransitionType.SlideLeft'>
+<summary>
+Slide in from the right
+</summary>
+</member>
+
+<member name='RevealerTransitionType.SlideUp'>
+<summary>
+Slide in from the bottom
+</summary>
+</member>
+
+<member name='RevealerTransitionType.SlideDown'>
+<summary>
+Slide in from the top
+</summary>
+</member>
+
+<member name='RevealerTransitionType.SwingRight'>
+<summary>
+Floop in from the left
+</summary>
+</member>
+
+<member name='RevealerTransitionType.SwingLeft'>
+<summary>
+Floop in from the right
+</summary>
+</member>
+
+<member name='RevealerTransitionType.SwingUp'>
+<summary>
+Floop in from the bottom
+</summary>
+</member>
+
+<member name='RevealerTransitionType.SwingDown'>
+<summary>
+Floop in from the top
+</summary>
+</member>
+
+<member name='RevealerTransitionType'>
+<summary>
+These enumeration values describe the possible transitions
+when the child of a #GtkRevealer widget is shown or hidden.
+</summary>
+</member>
+
+</declaration>

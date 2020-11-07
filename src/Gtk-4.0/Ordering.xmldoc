@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='Ordering.Smaller'>
+<summary>
+the first value is smaller than the second
+</summary>
+</member>
+
+<member name='Ordering.Equal'>
+<summary>
+the two values are equal
+</summary>
+</member>
+
+<member name='Ordering.Larger'>
+<summary>
+the first value is larger than the second
+</summary>
+</member>
+
+<member name='Ordering'>
+<summary>
+Describes the way two values can be compared.
+</summary>
+<remarks>
+These values can be used with a #GCompareFunc. However, a
+#GCompareFunc is allowed to return any integer values.
+For converting such a value to a <see cref="Ordering"/>, use
+gtk_ordering_from_cmpfunc().
+</remarks>
+</member>
+
+</declaration>

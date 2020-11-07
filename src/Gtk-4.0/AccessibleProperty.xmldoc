@@ -1,0 +1,151 @@
+<declaration>
+
+<member name='AccessibleProperty.Autocomplete'>
+<summary>
+Indicates whether inputting text
+   could trigger display of one or more predictions of the user's intended
+   value for a combobox, searchbox, or textbox and specifies how predictions
+   would be presented if they were made. Value type: <see cref="AccessibleAutocomplete"/>
+</summary>
+</member>
+
+<member name='AccessibleProperty.Description'>
+<summary>
+Defines a string value that describes
+   or annotates the current element. Value type: string
+</summary>
+</member>
+
+<member name='AccessibleProperty.HasPopup'>
+<summary>
+Indicates the availability and type of
+   interactive popup element, such as menu or dialog, that can be triggered
+   by an element.
+</summary>
+</member>
+
+<member name='AccessibleProperty.KeyShortcuts'>
+<summary>
+Indicates keyboard shortcuts that an
+   author has implemented to activate or give focus to an element. Value type:
+   string
+</summary>
+</member>
+
+<member name='AccessibleProperty.Label'>
+<summary>
+Defines a string value that labels the current
+   element. Value type: string
+</summary>
+</member>
+
+<member name='AccessibleProperty.Level'>
+<summary>
+Defines the hierarchical level of an element
+   within a structure. Value type: integer
+</summary>
+</member>
+
+<member name='AccessibleProperty.Modal'>
+<summary>
+Indicates whether an element is modal when
+   displayed. Value type: boolean
+</summary>
+</member>
+
+<member name='AccessibleProperty.MultiLine'>
+<summary>
+Indicates whether a text box accepts
+   multiple lines of input or only a single line. Value type: boolean
+</summary>
+</member>
+
+<member name='AccessibleProperty.MultiSelectable'>
+<summary>
+Indicates that the user may select
+   more than one item from the current selectable descendants. Value type:
+   boolean
+</summary>
+</member>
+
+<member name='AccessibleProperty.Orientation'>
+<summary>
+Indicates whether the element's
+   orientation is horizontal, vertical, or unknown/ambiguous. Value type:
+   <see cref="Orientation"/>
+</summary>
+</member>
+
+<member name='AccessibleProperty.Placeholder'>
+<summary>
+Defines a short hint (a word or short
+   phrase) intended to aid the user with data entry when the control has no
+   value. A hint could be a sample value or a brief description of the expected
+   format. Value type: string
+</summary>
+</member>
+
+<member name='AccessibleProperty.ReadOnly'>
+<summary>
+Indicates that the element is not editable,
+   but is otherwise operable. Value type: boolean
+</summary>
+</member>
+
+<member name='AccessibleProperty.Required'>
+<summary>
+Indicates that user input is required on
+   the element before a form may be submitted. Value type: boolean
+</summary>
+</member>
+
+<member name='AccessibleProperty.RoleDescription'>
+<summary>
+Defines a human-readable,
+   author-localized description for the role of an element. Value type: string
+</summary>
+</member>
+
+<member name='AccessibleProperty.Sort'>
+<summary>
+Indicates if items in a table or grid are
+   sorted in ascending or descending order. Possible property values are in
+   the <see cref="AccessibleSort"/> enumeration. Value type: <see cref="AccessibleSort"/>
+</summary>
+</member>
+
+<member name='AccessibleProperty.ValueMax'>
+<summary>
+Defines the maximum allowed value for a
+   range widget. Value type: double
+</summary>
+</member>
+
+<member name='AccessibleProperty.ValueMin'>
+<summary>
+Defines the minimum allowed value for a
+   range widget. Value type: double
+</summary>
+</member>
+
+<member name='AccessibleProperty.ValueNow'>
+<summary>
+Defines the current value for a range widget.
+   Value type: double
+</summary>
+</member>
+
+<member name='AccessibleProperty.ValueText'>
+<summary>
+Defines the human readable text alternative
+   of aria-valuenow for a range widget. Value type: string
+</summary>
+</member>
+
+<member name='AccessibleProperty'>
+<summary>
+The possible accessible properties of a #GtkAccessible.
+</summary>
+</member>
+
+</declaration>

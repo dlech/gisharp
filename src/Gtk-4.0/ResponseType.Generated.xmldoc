@@ -1,0 +1,78 @@
+<declaration>
+
+<member name='ResponseType.None'>
+<summary>
+Returned if an action widget has no response id,
+    or if the dialog gets programmatically hidden or destroyed
+</summary>
+</member>
+
+<member name='ResponseType.Reject'>
+<summary>
+Generic response id, not used by GTK dialogs
+</summary>
+</member>
+
+<member name='ResponseType.Accept'>
+<summary>
+Generic response id, not used by GTK dialogs
+</summary>
+</member>
+
+<member name='ResponseType.DeleteEvent'>
+<summary>
+Returned if the dialog is deleted
+</summary>
+</member>
+
+<member name='ResponseType.Ok'>
+<summary>
+Returned by OK buttons in GTK dialogs
+</summary>
+</member>
+
+<member name='ResponseType.Cancel'>
+<summary>
+Returned by Cancel buttons in GTK dialogs
+</summary>
+</member>
+
+<member name='ResponseType.Close'>
+<summary>
+Returned by Close buttons in GTK dialogs
+</summary>
+</member>
+
+<member name='ResponseType.Yes'>
+<summary>
+Returned by Yes buttons in GTK dialogs
+</summary>
+</member>
+
+<member name='ResponseType.No'>
+<summary>
+Returned by No buttons in GTK dialogs
+</summary>
+</member>
+
+<member name='ResponseType.Apply'>
+<summary>
+Returned by Apply buttons in GTK dialogs
+</summary>
+</member>
+
+<member name='ResponseType.Help'>
+<summary>
+Returned by Help buttons in GTK dialogs
+</summary>
+</member>
+
+<member name='ResponseType'>
+<summary>
+Predefined values for use as response ids in gtk_dialog_add_button().
+All predefined values are negative; GTK leaves values of 0 or greater for
+application-defined response ids.
+</summary>
+</member>
+
+</declaration>

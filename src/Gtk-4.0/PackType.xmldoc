@@ -1,0 +1,21 @@
+<declaration>
+
+<member name='PackType.Start'>
+<summary>
+The child is packed into the start of the box
+</summary>
+</member>
+
+<member name='PackType.End'>
+<summary>
+The child is packed into the end of the box
+</summary>
+</member>
+
+<member name='PackType'>
+<summary>
+Represents the packing location #GtkBox children
+</summary>
+</member>
+
+</declaration>

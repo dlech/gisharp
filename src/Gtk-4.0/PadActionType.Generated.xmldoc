@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='PadActionType.Button'>
+<summary>
+Action is triggered by a pad button
+</summary>
+</member>
+
+<member name='PadActionType.Ring'>
+<summary>
+Action is triggered by a pad ring
+</summary>
+</member>
+
+<member name='PadActionType.Strip'>
+<summary>
+Action is triggered by a pad strip
+</summary>
+</member>
+
+<member name='PadActionType'>
+<summary>
+The type of a pad action.
+</summary>
+</member>
+
+</declaration>

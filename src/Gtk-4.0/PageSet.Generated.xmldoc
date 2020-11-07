@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='PageSet.All'>
+<summary>
+All pages.
+</summary>
+</member>
+
+<member name='PageSet.Even'>
+<summary>
+Even pages.
+</summary>
+</member>
+
+<member name='PageSet.Odd'>
+<summary>
+Odd pages.
+</summary>
+</member>
+
+<member name='PageSet'>
+<summary>
+See also gtk_print_job_set_page_set().
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,121 @@
+<declaration>
+
+<member name='License.Unknown'>
+<summary>
+No license specified
+</summary>
+</member>
+
+<member name='License.Custom'>
+<summary>
+A license text is going to be specified by the
+  developer
+</summary>
+</member>
+
+<member name='License.Gpl20'>
+<summary>
+The GNU General Public License, version 2.0 or later
+</summary>
+</member>
+
+<member name='License.Gpl30'>
+<summary>
+The GNU General Public License, version 3.0 or later
+</summary>
+</member>
+
+<member name='License.Lgpl21'>
+<summary>
+The GNU Lesser General Public License, version 2.1 or later
+</summary>
+</member>
+
+<member name='License.Lgpl30'>
+<summary>
+The GNU Lesser General Public License, version 3.0 or later
+</summary>
+</member>
+
+<member name='License.Bsd'>
+<summary>
+The BSD standard license
+</summary>
+</member>
+
+<member name='License.MitX11'>
+<summary>
+The MIT/X11 standard license
+</summary>
+</member>
+
+<member name='License.Artistic'>
+<summary>
+The Artistic License, version 2.0
+</summary>
+</member>
+
+<member name='License.Gpl20Only'>
+<summary>
+The GNU General Public License, version 2.0 only
+</summary>
+</member>
+
+<member name='License.Gpl30Only'>
+<summary>
+The GNU General Public License, version 3.0 only
+</summary>
+</member>
+
+<member name='License.Lgpl21Only'>
+<summary>
+The GNU Lesser General Public License, version 2.1 only
+</summary>
+</member>
+
+<member name='License.Lgpl30Only'>
+<summary>
+The GNU Lesser General Public License, version 3.0 only
+</summary>
+</member>
+
+<member name='License.Agpl30'>
+<summary>
+The GNU Affero General Public License, version 3.0 or later
+</summary>
+</member>
+
+<member name='License.Agpl30Only'>
+<summary>
+The GNU Affero General Public License, version 3.0 only
+</summary>
+</member>
+
+<member name='License.Bsd3'>
+<summary>
+The 3-clause BSD licence
+</summary>
+</member>
+
+<member name='License.Apache20'>
+<summary>
+The Apache License, version 2.0
+</summary>
+</member>
+
+<member name='License.Mpl20'>
+<summary>
+The Mozilla Public License, version 2.0
+</summary>
+</member>
+
+<member name='License'>
+<summary>
+The type of license for an application.
+</summary>
+<remarks>
+This enumeration can be expanded at later date.
+</remarks>
+</member>
+
+</declaration>

@@ -1,0 +1,29 @@
+<declaration>
+
+<member name='SensitivityType.Auto'>
+<summary>
+The arrow is made insensitive if the
+  thumb is at the end
+</summary>
+</member>
+
+<member name='SensitivityType.On'>
+<summary>
+The arrow is always sensitive
+</summary>
+</member>
+
+<member name='SensitivityType.Off'>
+<summary>
+The arrow is always insensitive
+</summary>
+</member>
+
+<member name='SensitivityType'>
+<summary>
+Determines how GTK handles the sensitivity of stepper arrows
+at the end of range widgets.
+</summary>
+</member>
+
+</declaration>

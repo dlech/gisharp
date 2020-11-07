@@ -1,0 +1,500 @@
+<declaration>
+
+<member name='AccessibleRole.Alert'>
+<summary>
+An element with important, and usually
+  time-sensitive, information
+</summary>
+</member>
+
+<member name='AccessibleRole.AlertDialog'>
+<summary>
+A type of dialog that contains an
+  alert message
+</summary>
+</member>
+
+<member name='AccessibleRole.Banner'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Button'>
+<summary>
+An input element that allows for
+  user-triggered actions when clicked or pressed
+</summary>
+</member>
+
+<member name='AccessibleRole.Caption'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Cell'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Checkbox'>
+<summary>
+A checkable input element that has
+  three possible values: `true`, `false`, or `mixed`
+</summary>
+</member>
+
+<member name='AccessibleRole.ColumnHeader'>
+<summary>
+A header in a columned list.
+</summary>
+</member>
+
+<member name='AccessibleRole.ComboBox'>
+<summary>
+An input that controls another element,
+  such as a list or a grid, that can dynamically pop up to help the user
+  set the value of the input
+</summary>
+</member>
+
+<member name='AccessibleRole.Command'>
+<summary>
+Abstract role.
+</summary>
+</member>
+
+<member name='AccessibleRole.Composite'>
+<summary>
+Abstract role.
+</summary>
+</member>
+
+<member name='AccessibleRole.Dialog'>
+<summary>
+A dialog is a window that is designed to interrupt
+   the current processing of an application in order to prompt the user to enter
+   information or require a response.
+</summary>
+</member>
+
+<member name='AccessibleRole.Document'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Feed'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Form'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Generic'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Grid'>
+<summary>
+A grid of items.
+</summary>
+</member>
+
+<member name='AccessibleRole.GridCell'>
+<summary>
+An item in a grid or tree grid.
+</summary>
+</member>
+
+<member name='AccessibleRole.Group'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Heading'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Img'>
+<summary>
+An image.
+</summary>
+</member>
+
+<member name='AccessibleRole.Input'>
+<summary>
+Abstract role.
+</summary>
+</member>
+
+<member name='AccessibleRole.Label'>
+<summary>
+A visible name or caption for a user interface component.
+</summary>
+</member>
+
+<member name='AccessibleRole.Landmark'>
+<summary>
+Abstract role.
+</summary>
+</member>
+
+<member name='AccessibleRole.Legend'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Link'>
+<summary>
+A clickable link.
+</summary>
+</member>
+
+<member name='AccessibleRole.List'>
+<summary>
+A list of items.
+</summary>
+</member>
+
+<member name='AccessibleRole.ListBox'>
+<summary>
+Unused.
+</summary>
+</member>
+
+<member name='AccessibleRole.ListItem'>
+<summary>
+An item in a list.
+</summary>
+</member>
+
+<member name='AccessibleRole.Log'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Main'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Marquee'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Math'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Meter'>
+<summary>
+An element that represents a value within a known range.
+</summary>
+</member>
+
+<member name='AccessibleRole.Menu'>
+<summary>
+A menu.
+</summary>
+</member>
+
+<member name='AccessibleRole.MenuBar'>
+<summary>
+A menubar.
+</summary>
+</member>
+
+<member name='AccessibleRole.MenuItem'>
+<summary>
+An item in a menu.
+</summary>
+</member>
+
+<member name='AccessibleRole.MenuItemCheckbox'>
+<summary>
+A check item in a menu.
+</summary>
+</member>
+
+<member name='AccessibleRole.MenuItemRadio'>
+<summary>
+A radio item in a menu.
+</summary>
+</member>
+
+<member name='AccessibleRole.Navigation'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.None'>
+<summary>
+An element that is not represented to accessibility technologies.
+</summary>
+</member>
+
+<member name='AccessibleRole.Note'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Option'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Presentation'>
+<summary>
+An element that is not represented to accessibility technologies.
+</summary>
+</member>
+
+<member name='AccessibleRole.ProgressBar'>
+<summary>
+An element that displays the progress
+   status for tasks that take a long time.
+</summary>
+</member>
+
+<member name='AccessibleRole.Radio'>
+<summary>
+A checkable input in a group of radio roles,
+   only one of which can be checked at a time.
+</summary>
+</member>
+
+<member name='AccessibleRole.RadioGroup'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Range'>
+<summary>
+Abstract role.
+</summary>
+</member>
+
+<member name='AccessibleRole.Region'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Row'>
+<summary>
+A row in a columned list.
+</summary>
+</member>
+
+<member name='AccessibleRole.RowGroup'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.RowHeader'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Scrollbar'>
+<summary>
+A graphical object that controls the scrolling
+   of content within a viewing area, regardless of whether the content is fully
+   displayed within the viewing area.
+</summary>
+</member>
+
+<member name='AccessibleRole.Search'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.SearchBox'>
+<summary>
+A type of textbox intended for specifying
+   search criteria.
+</summary>
+</member>
+
+<member name='AccessibleRole.Section'>
+<summary>
+Abstract role.
+</summary>
+</member>
+
+<member name='AccessibleRole.SectionHead'>
+<summary>
+Abstract role.
+</summary>
+</member>
+
+<member name='AccessibleRole.Select'>
+<summary>
+Abstract role.
+</summary>
+</member>
+
+<member name='AccessibleRole.Separator'>
+<summary>
+A divider that separates and distinguishes
+   sections of content or groups of menuitems.
+</summary>
+</member>
+
+<member name='AccessibleRole.Slider'>
+<summary>
+A user input where the user selects a value
+   from within a given range.
+</summary>
+</member>
+
+<member name='AccessibleRole.SpinButton'>
+<summary>
+A form of range that expects the user to
+   select from among discrete choices.
+</summary>
+</member>
+
+<member name='AccessibleRole.Status'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Structure'>
+<summary>
+Abstract role.
+</summary>
+</member>
+
+<member name='AccessibleRole.Switch'>
+<summary>
+A type of checkbox that represents on/off values,
+   as opposed to checked/unchecked values.
+</summary>
+</member>
+
+<member name='AccessibleRole.Tab'>
+<summary>
+An item in a list of tab used for switching pages.
+</summary>
+</member>
+
+<member name='AccessibleRole.Table'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.TabList'>
+<summary>
+A list of tabs for switching pages.
+</summary>
+</member>
+
+<member name='AccessibleRole.TabPanel'>
+<summary>
+A page in a notebook or stack.
+</summary>
+</member>
+
+<member name='AccessibleRole.TextBox'>
+<summary>
+A type of input that allows free-form text
+   as its value.
+</summary>
+</member>
+
+<member name='AccessibleRole.Time'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Timer'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Toolbar'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Tooltip'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Tree'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.TreeGrid'>
+<summary>
+A treeview-like, columned list.
+</summary>
+</member>
+
+<member name='AccessibleRole.TreeItem'>
+<summary>
+Unused
+</summary>
+</member>
+
+<member name='AccessibleRole.Widget'>
+<summary>
+An interactive component of a graphical user
+   interface. This is the role that GTK uses by default for widgets.
+</summary>
+</member>
+
+<member name='AccessibleRole.Window'>
+<summary>
+An application window.
+</summary>
+</member>
+
+<member name='AccessibleRole'>
+<summary>
+The accessible role for a #GtkAccessible implementation.
+</summary>
+<remarks>
+Abstract roles are only used as part of the ontology; application
+developers must not use abstract roles in their code.
+</remarks>
+</member>
+
+</declaration>

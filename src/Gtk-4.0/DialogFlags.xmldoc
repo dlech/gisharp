@@ -1,0 +1,30 @@
+<declaration>
+
+<member name='DialogFlags.Modal'>
+<summary>
+Make the constructed dialog modal,
+    see gtk_window_set_modal()
+</summary>
+</member>
+
+<member name='DialogFlags.DestroyWithParent'>
+<summary>
+Destroy the dialog when its
+    parent is destroyed, see gtk_window_set_destroy_with_parent()
+</summary>
+</member>
+
+<member name='DialogFlags.UseHeaderBar'>
+<summary>
+Create dialog with actions in header
+    bar instead of action area
+</summary>
+</member>
+
+<member name='DialogFlags'>
+<summary>
+Flags used to influence dialog construction.
+</summary>
+</member>
+
+</declaration>

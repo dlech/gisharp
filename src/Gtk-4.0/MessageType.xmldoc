@@ -1,0 +1,39 @@
+<declaration>
+
+<member name='MessageType.Info'>
+<summary>
+Informational message
+</summary>
+</member>
+
+<member name='MessageType.Warning'>
+<summary>
+Non-fatal warning message
+</summary>
+</member>
+
+<member name='MessageType.Question'>
+<summary>
+Question requiring a choice
+</summary>
+</member>
+
+<member name='MessageType.Error'>
+<summary>
+Fatal error message
+</summary>
+</member>
+
+<member name='MessageType.Other'>
+<summary>
+None of the above
+</summary>
+</member>
+
+<member name='MessageType'>
+<summary>
+The type of message being displayed in the dialog.
+</summary>
+</member>
+
+</declaration>

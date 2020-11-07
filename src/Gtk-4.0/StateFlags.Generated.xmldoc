@@ -1,0 +1,107 @@
+<declaration>
+
+<member name='StateFlags.Normal'>
+<summary>
+State during normal operation
+</summary>
+</member>
+
+<member name='StateFlags.Active'>
+<summary>
+Widget is active
+</summary>
+</member>
+
+<member name='StateFlags.Prelight'>
+<summary>
+Widget has a mouse pointer over it
+</summary>
+</member>
+
+<member name='StateFlags.Selected'>
+<summary>
+Widget is selected
+</summary>
+</member>
+
+<member name='StateFlags.Insensitive'>
+<summary>
+Widget is insensitive
+</summary>
+</member>
+
+<member name='StateFlags.Inconsistent'>
+<summary>
+Widget is inconsistent
+</summary>
+</member>
+
+<member name='StateFlags.Focused'>
+<summary>
+Widget has the keyboard focus
+</summary>
+</member>
+
+<member name='StateFlags.Backdrop'>
+<summary>
+Widget is in a background toplevel window
+</summary>
+</member>
+
+<member name='StateFlags.DirLtr'>
+<summary>
+Widget is in left-to-right text direction
+</summary>
+</member>
+
+<member name='StateFlags.DirRtl'>
+<summary>
+Widget is in right-to-left text direction
+</summary>
+</member>
+
+<member name='StateFlags.Link'>
+<summary>
+Widget is a link
+</summary>
+</member>
+
+<member name='StateFlags.Visited'>
+<summary>
+The location the widget points to has already been visited
+</summary>
+</member>
+
+<member name='StateFlags.Checked'>
+<summary>
+Widget is checked
+</summary>
+</member>
+
+<member name='StateFlags.DropActive'>
+<summary>
+Widget is highlighted as a drop target for DND
+</summary>
+</member>
+
+<member name='StateFlags.FocusVisible'>
+<summary>
+Widget has the visible focus
+</summary>
+</member>
+
+<member name='StateFlags.FocusWithin'>
+<summary>
+Widget contains the keyboard focus
+</summary>
+</member>
+
+<member name='StateFlags'>
+<summary>
+Describes a widget state. Widget states are used to match the widget
+against CSS pseudo-classes. Note that GTK extends the regular CSS
+classes and sometimes uses different names.
+</summary>
+</member>
+
+</declaration>

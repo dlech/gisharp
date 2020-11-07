@@ -1,0 +1,52 @@
+<declaration>
+
+<member name='SpinType.StepForward'>
+<summary>
+Increment by the adjustments step increment.
+</summary>
+</member>
+
+<member name='SpinType.StepBackward'>
+<summary>
+Decrement by the adjustments step increment.
+</summary>
+</member>
+
+<member name='SpinType.PageForward'>
+<summary>
+Increment by the adjustments page increment.
+</summary>
+</member>
+
+<member name='SpinType.PageBackward'>
+<summary>
+Decrement by the adjustments page increment.
+</summary>
+</member>
+
+<member name='SpinType.Home'>
+<summary>
+Go to the adjustments lower bound.
+</summary>
+</member>
+
+<member name='SpinType.End'>
+<summary>
+Go to the adjustments upper bound.
+</summary>
+</member>
+
+<member name='SpinType.UserDefined'>
+<summary>
+Change by a specified amount.
+</summary>
+</member>
+
+<member name='SpinType'>
+<summary>
+The values of the GtkSpinType enumeration are used to specify the
+change to make in gtk_spin_button_spin().
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,93 @@
+<declaration>
+
+<member name='InputPurpose.FreeForm'>
+<summary>
+Allow any character
+</summary>
+</member>
+
+<member name='InputPurpose.Alpha'>
+<summary>
+Allow only alphabetic characters
+</summary>
+</member>
+
+<member name='InputPurpose.Digits'>
+<summary>
+Allow only digits
+</summary>
+</member>
+
+<member name='InputPurpose.Number'>
+<summary>
+Edited field expects numbers
+</summary>
+</member>
+
+<member name='InputPurpose.Phone'>
+<summary>
+Edited field expects phone number
+</summary>
+</member>
+
+<member name='InputPurpose.Url'>
+<summary>
+Edited field expects URL
+</summary>
+</member>
+
+<member name='InputPurpose.Email'>
+<summary>
+Edited field expects email address
+</summary>
+</member>
+
+<member name='InputPurpose.Name'>
+<summary>
+Edited field expects the name of a person
+</summary>
+</member>
+
+<member name='InputPurpose.Password'>
+<summary>
+Like <see cref="InputPurpose.FreeForm"/>, but characters are hidden
+</summary>
+</member>
+
+<member name='InputPurpose.Pin'>
+<summary>
+Like <see cref="InputPurpose.Digits"/>, but characters are hidden
+</summary>
+</member>
+
+<member name='InputPurpose.Terminal'>
+<summary>
+Allow any character, in addition to control codes
+</summary>
+</member>
+
+<member name='InputPurpose'>
+<summary>
+Describes primary purpose of the input widget. This information is
+useful for on-screen keyboards and similar input methods to decide
+which keys should be presented to the user.
+</summary>
+<remarks>
+Note that the purpose is not meant to impose a totally strict rule
+about allowed characters, and does not replace input validation.
+It is fine for an on-screen keyboard to let the user override the
+character set restriction that is expressed by the purpose. The
+application is expected to validate the entry contents, even if
+it specified a purpose.
+
+The difference between <see cref="InputPurpose.Digits"/> and
+<see cref="InputPurpose.Number"/> is that the former accepts only digits
+while the latter also some punctuation (like commas or points, plus,
+minus) and “e” or “E” as in 3.14E+000.
+
+This enumeration may be extended in the future; input methods should
+interpret unknown values as “free form”.
+</remarks>
+</member>
+
+</declaration>

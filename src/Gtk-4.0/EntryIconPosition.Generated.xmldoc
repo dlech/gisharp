@@ -1,0 +1,21 @@
+<declaration>
+
+<member name='EntryIconPosition.Primary'>
+<summary>
+At the beginning of the entry (depending on the text direction).
+</summary>
+</member>
+
+<member name='EntryIconPosition.Secondary'>
+<summary>
+At the end of the entry (depending on the text direction).
+</summary>
+</member>
+
+<member name='EntryIconPosition'>
+<summary>
+Specifies the side of the entry at which an icon is placed.
+</summary>
+</member>
+
+</declaration>

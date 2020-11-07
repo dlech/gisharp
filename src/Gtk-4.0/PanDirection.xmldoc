@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='PanDirection.Left'>
+<summary>
+panned towards the left
+</summary>
+</member>
+
+<member name='PanDirection.Right'>
+<summary>
+panned towards the right
+</summary>
+</member>
+
+<member name='PanDirection.Up'>
+<summary>
+panned upwards
+</summary>
+</member>
+
+<member name='PanDirection.Down'>
+<summary>
+panned downwards
+</summary>
+</member>
+
+<member name='PanDirection'>
+<summary>
+Describes the panning direction of a #GtkGesturePan
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,46 @@
+<declaration>
+
+<member name='EventControllerScrollFlags.None'>
+<summary>
+Don't emit scroll.
+</summary>
+</member>
+
+<member name='EventControllerScrollFlags.Vertical'>
+<summary>
+Emit scroll with vertical deltas.
+</summary>
+</member>
+
+<member name='EventControllerScrollFlags.Horizontal'>
+<summary>
+Emit scroll with horizontal deltas.
+</summary>
+</member>
+
+<member name='EventControllerScrollFlags.Discrete'>
+<summary>
+Only emit deltas that are multiples of 1.
+</summary>
+</member>
+
+<member name='EventControllerScrollFlags.Kinetic'>
+<summary>
+Emit #GtkEventControllerScroll::decelerate
+  after continuous scroll finishes.
+</summary>
+</member>
+
+<member name='EventControllerScrollFlags.BothAxes'>
+<summary>
+Emit scroll on both axes.
+</summary>
+</member>
+
+<member name='EventControllerScrollFlags'>
+<summary>
+Describes the behavior of a #GtkEventControllerScroll.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,66 @@
+<declaration>
+
+<member name='MovementStep.LogicalPositions'>
+<summary>
+Move forward or back by graphemes
+</summary>
+</member>
+
+<member name='MovementStep.VisualPositions'>
+<summary>
+Move left or right by graphemes
+</summary>
+</member>
+
+<member name='MovementStep.Words'>
+<summary>
+Move forward or back by words
+</summary>
+</member>
+
+<member name='MovementStep.DisplayLines'>
+<summary>
+Move up or down lines (wrapped lines)
+</summary>
+</member>
+
+<member name='MovementStep.DisplayLineEnds'>
+<summary>
+Move to either end of a line
+</summary>
+</member>
+
+<member name='MovementStep.Paragraphs'>
+<summary>
+Move up or down paragraphs (newline-ended lines)
+</summary>
+</member>
+
+<member name='MovementStep.ParagraphEnds'>
+<summary>
+Move to either end of a paragraph
+</summary>
+</member>
+
+<member name='MovementStep.Pages'>
+<summary>
+Move by pages
+</summary>
+</member>
+
+<member name='MovementStep.BufferEnds'>
+<summary>
+Move to ends of the buffer
+</summary>
+</member>
+
+<member name='MovementStep.HorizontalPages'>
+<summary>
+Move horizontally by pages
+</summary>
+</member>
+
+<member name='MovementStep'>
+</member>
+
+</declaration>

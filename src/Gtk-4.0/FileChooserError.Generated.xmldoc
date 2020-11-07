@@ -1,0 +1,42 @@
+<declaration>
+
+<member name='FileChooserError.Nonexistent'>
+<summary>
+Indicates that a file does not exist.
+</summary>
+</member>
+
+<member name='FileChooserError.BadFilename'>
+<summary>
+Indicates a malformed filename.
+</summary>
+</member>
+
+<member name='FileChooserError.AlreadyExists'>
+<summary>
+Indicates a duplicate path (e.g. when
+ adding a bookmark).
+</summary>
+</member>
+
+<member name='FileChooserError.IncompleteHostname'>
+<summary>
+Indicates an incomplete hostname
+ (e.g. "http://foo" without a slash after that).
+</summary>
+</member>
+
+<member name='FileChooserError'>
+<summary>
+These identify the various errors that can occur while calling
+#GtkFileChooser functions.
+</summary>
+</member>
+
+<member name='FileChooserErrorDomain.Quark'>
+<summary>
+Registers an error quark for #GtkFileChooser if necessary.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,30 @@
+<declaration>
+
+<member name='SorterOrder.Partial'>
+<summary>
+A partial order. Any <see cref="Ordering"/> is possible.
+</summary>
+</member>
+
+<member name='SorterOrder.None'>
+<summary>
+No order, all elements are considered equal.
+    gtk_sorter_compare() will only return <see cref="Ordering.Equal"/>.
+</summary>
+</member>
+
+<member name='SorterOrder.Total'>
+<summary>
+A total order. gtk_sorter_compare() will only
+    return <see cref="Ordering.Equal"/> if an item is compared with itself. Two
+    different items will never cause this value to be returned.
+</summary>
+</member>
+
+<member name='SorterOrder'>
+<summary>
+Describes the type of order that a #GtkSorter may describe.
+</summary>
+</member>
+
+</declaration>

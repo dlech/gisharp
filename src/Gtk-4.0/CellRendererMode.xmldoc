@@ -1,0 +1,30 @@
+<declaration>
+
+<member name='CellRendererMode.Inert'>
+<summary>
+The cell is just for display
+ and cannot be interacted with.  Note that this doesn’t mean that eg. the
+ row being drawn can’t be selected -- just that a particular element of
+ it cannot be individually modified.
+</summary>
+</member>
+
+<member name='CellRendererMode.Activatable'>
+<summary>
+The cell can be clicked.
+</summary>
+</member>
+
+<member name='CellRendererMode.Editable'>
+<summary>
+The cell can be edited or otherwise modified.
+</summary>
+</member>
+
+<member name='CellRendererMode'>
+<summary>
+Identifies how the user can interact with a particular cell.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,39 @@
+<declaration>
+
+<member name='CornerType.TopLeft'>
+<summary>
+Place the scrollbars on the right and bottom of the
+ widget (default behaviour).
+</summary>
+</member>
+
+<member name='CornerType.BottomLeft'>
+<summary>
+Place the scrollbars on the top and right of the
+ widget.
+</summary>
+</member>
+
+<member name='CornerType.TopRight'>
+<summary>
+Place the scrollbars on the left and bottom of the
+ widget.
+</summary>
+</member>
+
+<member name='CornerType.BottomRight'>
+<summary>
+Place the scrollbars on the top and left of the
+ widget.
+</summary>
+</member>
+
+<member name='CornerType'>
+<summary>
+Specifies which corner a child widget should be placed in when packed into
+a #GtkScrolledWindow. This is effectively the opposite of where the scroll
+bars are placed.
+</summary>
+</member>
+
+</declaration>

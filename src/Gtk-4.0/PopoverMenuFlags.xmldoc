@@ -1,0 +1,18 @@
+<declaration>
+
+<member name='PopoverMenuFlags.Nested'>
+<summary>
+Create submenus as nested
+   popovers. Without this flag, submenus are created as
+   sliding pages that replace the main menu.
+</summary>
+</member>
+
+<member name='PopoverMenuFlags'>
+<summary>
+Flags that affect how popover menus are created from
+a menu model.
+</summary>
+</member>
+
+</declaration>

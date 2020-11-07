@@ -1,0 +1,31 @@
+<declaration>
+
+<member name='ShortcutScope.Local'>
+<summary>
+Shortcuts are handled inside
+    the widget the controller belongs to.
+</summary>
+</member>
+
+<member name='ShortcutScope.Managed'>
+<summary>
+Shortcuts are handled by
+    the first ancestor that is a #GtkShortcutManager
+</summary>
+</member>
+
+<member name='ShortcutScope.Global'>
+<summary>
+Shortcuts are handled by
+    the root widget.
+</summary>
+</member>
+
+<member name='ShortcutScope'>
+<summary>
+Describes where #GtkShortcuts added to a
+#GtkShortcutController get handled.
+</summary>
+</member>
+
+</declaration>

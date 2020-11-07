@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='TextDirection.None'>
+<summary>
+No direction.
+</summary>
+</member>
+
+<member name='TextDirection.Ltr'>
+<summary>
+Left to right text direction.
+</summary>
+</member>
+
+<member name='TextDirection.Rtl'>
+<summary>
+Right to left text direction.
+</summary>
+</member>
+
+<member name='TextDirection'>
+<summary>
+Reading directions for text.
+</summary>
+</member>
+
+</declaration>

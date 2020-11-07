@@ -1,0 +1,34 @@
+<declaration>
+
+<member name='PositionType.Left'>
+<summary>
+The feature is at the left edge.
+</summary>
+</member>
+
+<member name='PositionType.Right'>
+<summary>
+The feature is at the right edge.
+</summary>
+</member>
+
+<member name='PositionType.Top'>
+<summary>
+The feature is at the top edge.
+</summary>
+</member>
+
+<member name='PositionType.Bottom'>
+<summary>
+The feature is at the bottom edge.
+</summary>
+</member>
+
+<member name='PositionType'>
+<summary>
+Describes which edge of a widget a certain feature is positioned at, e.g.
+the tabs of a #GtkNotebook, or the label of a #GtkScale.
+</summary>
+</member>
+
+</declaration>

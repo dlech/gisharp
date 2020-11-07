@@ -1,0 +1,52 @@
+<declaration>
+
+<member name='ButtonsType.None'>
+<summary>
+no buttons at all
+</summary>
+</member>
+
+<member name='ButtonsType.Ok'>
+<summary>
+an OK button
+</summary>
+</member>
+
+<member name='ButtonsType.Close'>
+<summary>
+a Close button
+</summary>
+</member>
+
+<member name='ButtonsType.Cancel'>
+<summary>
+a Cancel button
+</summary>
+</member>
+
+<member name='ButtonsType.YesNo'>
+<summary>
+Yes and No buttons
+</summary>
+</member>
+
+<member name='ButtonsType.OkCancel'>
+<summary>
+OK and Cancel buttons
+</summary>
+</member>
+
+<member name='ButtonsType'>
+<summary>
+Prebuilt sets of buttons for the dialog. If
+none of these choices are appropriate, simply use <see cref="ButtonsType.None"/>
+then call gtk_dialog_add_buttons().
+</summary>
+<remarks>
+&gt; Please note that <see cref="ButtonsType.Ok"/>, <see cref="ButtonsType.YesNo"/>
+&gt; and <see cref="ButtonsType.OkCancel"/> are discouraged by the
+&gt; [GNOME Human Interface Guidelines](http://library.gnome.org/devel/hig-book/stable/).
+</remarks>
+</member>
+
+</declaration>

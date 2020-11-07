@@ -1,0 +1,48 @@
+<declaration>
+
+<member name='ConstraintVflParserError.InvalidSymbol'>
+<summary>
+Invalid or unknown symbol
+</summary>
+</member>
+
+<member name='ConstraintVflParserError.InvalidAttribute'>
+<summary>
+Invalid or unknown attribute
+</summary>
+</member>
+
+<member name='ConstraintVflParserError.InvalidView'>
+<summary>
+Invalid or unknown view
+</summary>
+</member>
+
+<member name='ConstraintVflParserError.InvalidMetric'>
+<summary>
+Invalid or unknown metric
+</summary>
+</member>
+
+<member name='ConstraintVflParserError.InvalidPriority'>
+<summary>
+Invalid or unknown priority
+</summary>
+</member>
+
+<member name='ConstraintVflParserError.InvalidRelation'>
+<summary>
+Invalid or unknown relation
+</summary>
+</member>
+
+<member name='ConstraintVflParserError'>
+<summary>
+Domain for VFL parsing errors.
+</summary>
+</member>
+
+<member name='ConstraintVflParserErrorDomain.Quark'>
+</member>
+
+</declaration>

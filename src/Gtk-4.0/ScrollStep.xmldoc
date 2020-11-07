@@ -1,0 +1,42 @@
+<declaration>
+
+<member name='ScrollStep.Steps'>
+<summary>
+Scroll in steps.
+</summary>
+</member>
+
+<member name='ScrollStep.Pages'>
+<summary>
+Scroll by pages.
+</summary>
+</member>
+
+<member name='ScrollStep.Ends'>
+<summary>
+Scroll to ends.
+</summary>
+</member>
+
+<member name='ScrollStep.HorizontalSteps'>
+<summary>
+Scroll in horizontal steps.
+</summary>
+</member>
+
+<member name='ScrollStep.HorizontalPages'>
+<summary>
+Scroll by horizontal pages.
+</summary>
+</member>
+
+<member name='ScrollStep.HorizontalEnds'>
+<summary>
+Scroll to the horizontal ends.
+</summary>
+</member>
+
+<member name='ScrollStep'>
+</member>
+
+</declaration>

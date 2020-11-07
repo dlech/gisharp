@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='Justification.Left'>
+<summary>
+The text is placed at the left edge of the label.
+</summary>
+</member>
+
+<member name='Justification.Right'>
+<summary>
+The text is placed at the right edge of the label.
+</summary>
+</member>
+
+<member name='Justification.Center'>
+<summary>
+The text is placed in the center of the label.
+</summary>
+</member>
+
+<member name='Justification.Fill'>
+<summary>
+The text is placed is distributed across the label.
+</summary>
+</member>
+
+<member name='Justification'>
+<summary>
+Used for justifying the text inside a #GtkLabel widget.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='FileChooserAction.Open'>
+<summary>
+Indicates open mode.  The file chooser
+ will only let the user pick an existing file.
+</summary>
+</member>
+
+<member name='FileChooserAction.Save'>
+<summary>
+Indicates save mode.  The file chooser
+ will let the user pick an existing file, or type in a new
+ filename.
+</summary>
+</member>
+
+<member name='FileChooserAction.SelectFolder'>
+<summary>
+Indicates an Open mode for
+ selecting folders.  The file chooser will let the user pick an
+ existing folder.
+</summary>
+</member>
+
+<member name='FileChooserAction'>
+<summary>
+Describes whether a #GtkFileChooser is being used to open existing files
+or to save to a possibly new file.
+</summary>
+</member>
+
+</declaration>

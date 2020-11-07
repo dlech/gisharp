@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='PickFlags.Default'>
+<summary>
+The default behavior, include widgets that are receiving events
+</summary>
+</member>
+
+<member name='PickFlags.Insensitive'>
+<summary>
+Include widgets that are insensitive
+</summary>
+</member>
+
+<member name='PickFlags.NonTargetable'>
+<summary>
+Include widgets that are marked as non-targetable. See #GtkWidget:can-target
+</summary>
+</member>
+
+<member name='PickFlags'>
+<summary>
+Flags that influence the behavior of gtk_widget_pick()
+</summary>
+</member>
+
+</declaration>

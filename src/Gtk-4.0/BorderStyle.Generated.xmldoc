@@ -1,0 +1,69 @@
+<declaration>
+
+<member name='BorderStyle.None'>
+<summary>
+No visible border
+</summary>
+</member>
+
+<member name='BorderStyle.Hidden'>
+<summary>
+Same as <paramref name="gtkBorderStyleNone"/>
+</summary>
+</member>
+
+<member name='BorderStyle.Solid'>
+<summary>
+A single line segment
+</summary>
+</member>
+
+<member name='BorderStyle.Inset'>
+<summary>
+Looks as if the content is sunken into the canvas
+</summary>
+</member>
+
+<member name='BorderStyle.Outset'>
+<summary>
+Looks as if the content is coming out of the canvas
+</summary>
+</member>
+
+<member name='BorderStyle.Dotted'>
+<summary>
+A series of round dots
+</summary>
+</member>
+
+<member name='BorderStyle.Dashed'>
+<summary>
+A series of square-ended dashes
+</summary>
+</member>
+
+<member name='BorderStyle.Double'>
+<summary>
+Two parallel lines with some space between them
+</summary>
+</member>
+
+<member name='BorderStyle.Groove'>
+<summary>
+Looks as if it were carved in the canvas
+</summary>
+</member>
+
+<member name='BorderStyle.Ridge'>
+<summary>
+Looks as if it were coming out of the canvas
+</summary>
+</member>
+
+<member name='BorderStyle'>
+<summary>
+Describes how the border of a UI element should be rendered.
+</summary>
+</member>
+
+</declaration>

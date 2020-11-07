@@ -1,0 +1,35 @@
+<declaration>
+
+<member name='TextSearchFlags.VisibleOnly'>
+<summary>
+Search only visible data. A search match may
+have invisible text interspersed.
+</summary>
+</member>
+
+<member name='TextSearchFlags.TextOnly'>
+<summary>
+Search only text. A match may have paintables or
+child widgets mixed inside the matched range.
+</summary>
+</member>
+
+<member name='TextSearchFlags.CaseInsensitive'>
+<summary>
+The text will be matched regardless of
+what case it is in.
+</summary>
+</member>
+
+<member name='TextSearchFlags'>
+<summary>
+Flags affecting how a search is done.
+</summary>
+<remarks>
+If neither #GTK_TEXT_SEARCH_VISIBLE_ONLY nor #GTK_TEXT_SEARCH_TEXT_ONLY are
+enabled, the match must be exact; the special 0xFFFC character will match
+embedded paintables or child widgets.
+</remarks>
+</member>
+
+</declaration>

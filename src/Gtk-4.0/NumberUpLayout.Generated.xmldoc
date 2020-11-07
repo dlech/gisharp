@@ -1,0 +1,58 @@
+<declaration>
+
+<member name='NumberUpLayout.Lrtb'>
+<summary>
+![](layout-lrtb.png)
+</summary>
+</member>
+
+<member name='NumberUpLayout.Lrbt'>
+<summary>
+![](layout-lrbt.png)
+</summary>
+</member>
+
+<member name='NumberUpLayout.Rltb'>
+<summary>
+![](layout-rltb.png)
+</summary>
+</member>
+
+<member name='NumberUpLayout.Rlbt'>
+<summary>
+![](layout-rlbt.png)
+</summary>
+</member>
+
+<member name='NumberUpLayout.Tblr'>
+<summary>
+![](layout-tblr.png)
+</summary>
+</member>
+
+<member name='NumberUpLayout.Tbrl'>
+<summary>
+![](layout-tbrl.png)
+</summary>
+</member>
+
+<member name='NumberUpLayout.Btlr'>
+<summary>
+![](layout-btlr.png)
+</summary>
+</member>
+
+<member name='NumberUpLayout.Btrl'>
+<summary>
+![](layout-btrl.png)
+</summary>
+</member>
+
+<member name='NumberUpLayout'>
+<summary>
+Used to determine the layout of pages on a sheet when printing
+multiple pages per sheet.
+</summary>
+</member>
+
+</declaration>

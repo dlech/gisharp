@@ -1,0 +1,24 @@
+<declaration>
+
+<member name='CellRendererAccelMode.Gtk'>
+<summary>
+GTK accelerators mode
+</summary>
+</member>
+
+<member name='CellRendererAccelMode.Other'>
+<summary>
+Other accelerator mode
+</summary>
+</member>
+
+<member name='CellRendererAccelMode'>
+<summary>
+Determines if the edited accelerators are GTK accelerators. If
+they are, consumed modifiers are suppressed, only accelerators
+accepted by GTK are allowed, and the accelerators are rendered
+in the same way as they are in menus.
+</summary>
+</member>
+
+</declaration>

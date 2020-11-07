@@ -1,0 +1,45 @@
+<declaration>
+
+<member name='TextWindowType.Widget'>
+<summary>
+Window that floats over scrolling areas.
+</summary>
+</member>
+
+<member name='TextWindowType.Text'>
+<summary>
+Scrollable text window.
+</summary>
+</member>
+
+<member name='TextWindowType.Left'>
+<summary>
+Left side border window.
+</summary>
+</member>
+
+<member name='TextWindowType.Right'>
+<summary>
+Right side border window.
+</summary>
+</member>
+
+<member name='TextWindowType.Top'>
+<summary>
+Top border window.
+</summary>
+</member>
+
+<member name='TextWindowType.Bottom'>
+<summary>
+Bottom border window.
+</summary>
+</member>
+
+<member name='TextWindowType'>
+<summary>
+Used to reference the parts of #GtkTextView.
+</summary>
+</member>
+
+</declaration>

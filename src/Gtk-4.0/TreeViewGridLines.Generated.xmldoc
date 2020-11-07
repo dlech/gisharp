@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='TreeViewGridLines.None'>
+<summary>
+No grid lines.
+</summary>
+</member>
+
+<member name='TreeViewGridLines.Horizontal'>
+<summary>
+Horizontal grid lines.
+</summary>
+</member>
+
+<member name='TreeViewGridLines.Vertical'>
+<summary>
+Vertical grid lines.
+</summary>
+</member>
+
+<member name='TreeViewGridLines.Both'>
+<summary>
+Horizontal and vertical grid lines.
+</summary>
+</member>
+
+<member name='TreeViewGridLines'>
+<summary>
+Used to indicate which grid lines to draw in a tree view.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,45 @@
+<declaration>
+
+<member name='DirectionType.TabForward'>
+<summary>
+Move forward.
+</summary>
+</member>
+
+<member name='DirectionType.TabBackward'>
+<summary>
+Move backward.
+</summary>
+</member>
+
+<member name='DirectionType.Up'>
+<summary>
+Move up.
+</summary>
+</member>
+
+<member name='DirectionType.Down'>
+<summary>
+Move down.
+</summary>
+</member>
+
+<member name='DirectionType.Left'>
+<summary>
+Move left.
+</summary>
+</member>
+
+<member name='DirectionType.Right'>
+<summary>
+Move right.
+</summary>
+</member>
+
+<member name='DirectionType'>
+<summary>
+Focus movement types.
+</summary>
+</member>
+
+</declaration>

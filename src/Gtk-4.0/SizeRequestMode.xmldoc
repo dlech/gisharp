@@ -1,0 +1,28 @@
+<declaration>
+
+<member name='SizeRequestMode.HeightForWidth'>
+<summary>
+Prefer height-for-width geometry management
+</summary>
+</member>
+
+<member name='SizeRequestMode.WidthForHeight'>
+<summary>
+Prefer width-for-height geometry management
+</summary>
+</member>
+
+<member name='SizeRequestMode.ConstantSize'>
+<summary>
+Don’t trade height-for-width or width-for-height
+</summary>
+</member>
+
+<member name='SizeRequestMode'>
+<summary>
+Specifies a preference for height-for-width or
+width-for-height geometry management.
+</summary>
+</member>
+
+</declaration>

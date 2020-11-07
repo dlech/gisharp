@@ -1,0 +1,51 @@
+<declaration>
+
+<member name='SystemSetting.Dpi'>
+<summary>
+the #GtkSettings:gtk-xft-dpi setting has changed
+</summary>
+</member>
+
+<member name='SystemSetting.FontName'>
+<summary>
+The #GtkSettings:gtk-font-name setting has changed
+</summary>
+</member>
+
+<member name='SystemSetting.FontConfig'>
+<summary>
+The font configuration has changed in a way that
+    requires text to be redrawn. This can be any of the
+    #GtkSettings:gtk-xft-antialias, #GtkSettings:gtk-xft-hinting,
+    #GtkSettings:gtk-xft-hintstyle, #GtkSettings:gtk-xft-rgba or
+    #GtkSettings:gtk-fontconfig-timestamp settings
+</summary>
+</member>
+
+<member name='SystemSetting.Display'>
+<summary>
+The display has changed
+</summary>
+</member>
+
+<member name='SystemSetting.IconTheme'>
+<summary>
+The icon theme has changed in a way that requires
+    icons to be looked up again
+</summary>
+</member>
+
+<member name='SystemSetting'>
+<summary>
+Values that can be passed to the GtkWidgetClass.system_setting_changed
+vfunc to indicate that a system setting has changed and widgets may
+need to drop caches, or react otherwise.
+</summary>
+<remarks>
+Most of the values correspond to #GtkSettings properties.
+
+More values may be added over time.
+</remarks>
+</member>
+
+</declaration>

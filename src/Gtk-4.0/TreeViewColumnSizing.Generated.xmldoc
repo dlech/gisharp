@@ -1,0 +1,29 @@
+<declaration>
+
+<member name='TreeViewColumnSizing.GrowOnly'>
+<summary>
+Columns only get bigger in reaction to changes in the model
+</summary>
+</member>
+
+<member name='TreeViewColumnSizing.Autosize'>
+<summary>
+Columns resize to be the optimal size every time the model changes.
+</summary>
+</member>
+
+<member name='TreeViewColumnSizing.Fixed'>
+<summary>
+Columns are a fixed numbers of pixels wide.
+</summary>
+</member>
+
+<member name='TreeViewColumnSizing'>
+<summary>
+The sizing method the column uses to determine its width.  Please note
+that <paramref name="gtkTreeViewColumnAutosize"/> are inefficient for large views, and
+can make columns appear choppy.
+</summary>
+</member>
+
+</declaration>

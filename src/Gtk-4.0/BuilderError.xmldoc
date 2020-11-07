@@ -1,0 +1,114 @@
+<declaration>
+
+<member name='BuilderError.InvalidTypeFunction'>
+<summary>
+A type-func attribute didn’t name
+ a function that returns a #GType.
+</summary>
+</member>
+
+<member name='BuilderError.UnhandledTag'>
+<summary>
+The input contained a tag that #GtkBuilder
+ can’t handle.
+</summary>
+</member>
+
+<member name='BuilderError.MissingAttribute'>
+<summary>
+An attribute that is required by
+ #GtkBuilder was missing.
+</summary>
+</member>
+
+<member name='BuilderError.InvalidAttribute'>
+<summary>
+#GtkBuilder found an attribute that
+ it doesn’t understand.
+</summary>
+</member>
+
+<member name='BuilderError.InvalidTag'>
+<summary>
+#GtkBuilder found a tag that
+ it doesn’t understand.
+</summary>
+</member>
+
+<member name='BuilderError.MissingPropertyValue'>
+<summary>
+A required property value was
+ missing.
+</summary>
+</member>
+
+<member name='BuilderError.InvalidValue'>
+<summary>
+#GtkBuilder couldn’t parse
+ some attribute value.
+</summary>
+</member>
+
+<member name='BuilderError.VersionMismatch'>
+<summary>
+The input file requires a newer version
+ of GTK.
+</summary>
+</member>
+
+<member name='BuilderError.DuplicateId'>
+<summary>
+An object id occurred twice.
+</summary>
+</member>
+
+<member name='BuilderError.ObjectTypeRefused'>
+<summary>
+A specified object type is of the same type or
+ derived from the type of the composite class being extended with builder XML.
+</summary>
+</member>
+
+<member name='BuilderError.TemplateMismatch'>
+<summary>
+The wrong type was specified in a composite class’s template XML
+</summary>
+</member>
+
+<member name='BuilderError.InvalidProperty'>
+<summary>
+The specified property is unknown for the object class.
+</summary>
+</member>
+
+<member name='BuilderError.InvalidSignal'>
+<summary>
+The specified signal is unknown for the object class.
+</summary>
+</member>
+
+<member name='BuilderError.InvalidId'>
+<summary>
+An object id is unknown.
+</summary>
+</member>
+
+<member name='BuilderError.InvalidFunction'>
+<summary>
+A function could not be found. This often happens
+    when symbols are set to be kept private. Compiling code with -rdynamic or using the
+    `gmodule-export-2.0` pkgconfig module can fix this problem.
+</summary>
+</member>
+
+<member name='BuilderError'>
+<summary>
+Error codes that identify various errors that can occur while using
+#GtkBuilder.
+</summary>
+</member>
+
+<member name='BuilderErrorDomain.Quark()'>
+</member>
+
+</declaration>

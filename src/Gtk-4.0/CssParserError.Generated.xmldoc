@@ -1,0 +1,45 @@
+<declaration>
+
+<member name='CssParserError.Failed'>
+<summary>
+Unknown failure.
+</summary>
+</member>
+
+<member name='CssParserError.Syntax'>
+<summary>
+The given text does not form valid
+    syntax
+</summary>
+</member>
+
+<member name='CssParserError.Import'>
+<summary>
+Failed to import a resource
+</summary>
+</member>
+
+<member name='CssParserError.Name'>
+<summary>
+The given name has not been defined
+</summary>
+</member>
+
+<member name='CssParserError.UnknownValue'>
+<summary>
+The given value is not
+    correct
+</summary>
+</member>
+
+<member name='CssParserError'>
+<summary>
+Errors that can occur while parsing CSS.
+</summary>
+<remarks>
+These errors are unexpected and will cause parts of the given CSS
+to be ignored.
+</remarks>
+</member>
+
+</declaration>

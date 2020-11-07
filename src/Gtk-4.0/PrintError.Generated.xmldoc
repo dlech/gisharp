@@ -1,0 +1,41 @@
+<declaration>
+
+<member name='PrintError.General'>
+<summary>
+An unspecified error occurred.
+</summary>
+</member>
+
+<member name='PrintError.InternalError'>
+<summary>
+An internal error occurred.
+</summary>
+</member>
+
+<member name='PrintError.Nomem'>
+<summary>
+A memory allocation failed.
+</summary>
+</member>
+
+<member name='PrintError.InvalidFile'>
+<summary>
+An error occurred while loading a page setup
+    or paper size from a key file.
+</summary>
+</member>
+
+<member name='PrintError'>
+<summary>
+Error codes that identify various errors that can occur while
+using the GTK printing support.
+</summary>
+</member>
+
+<member name='PrintErrorDomain.Quark'>
+<summary>
+Registers an error quark for #GtkPrintOperation if necessary.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,151 @@
+<declaration>
+
+<member name='StackTransitionType.None'>
+<summary>
+No transition
+</summary>
+</member>
+
+<member name='StackTransitionType.Crossfade'>
+<summary>
+A cross-fade
+</summary>
+</member>
+
+<member name='StackTransitionType.SlideRight'>
+<summary>
+Slide from left to right
+</summary>
+</member>
+
+<member name='StackTransitionType.SlideLeft'>
+<summary>
+Slide from right to left
+</summary>
+</member>
+
+<member name='StackTransitionType.SlideUp'>
+<summary>
+Slide from bottom up
+</summary>
+</member>
+
+<member name='StackTransitionType.SlideDown'>
+<summary>
+Slide from top down
+</summary>
+</member>
+
+<member name='StackTransitionType.SlideLeftRight'>
+<summary>
+Slide from left or right according to the children order
+</summary>
+</member>
+
+<member name='StackTransitionType.SlideUpDown'>
+<summary>
+Slide from top down or bottom up according to the order
+</summary>
+</member>
+
+<member name='StackTransitionType.OverUp'>
+<summary>
+Cover the old page by sliding up
+</summary>
+</member>
+
+<member name='StackTransitionType.OverDown'>
+<summary>
+Cover the old page by sliding down
+</summary>
+</member>
+
+<member name='StackTransitionType.OverLeft'>
+<summary>
+Cover the old page by sliding to the left
+</summary>
+</member>
+
+<member name='StackTransitionType.OverRight'>
+<summary>
+Cover the old page by sliding to the right
+</summary>
+</member>
+
+<member name='StackTransitionType.UnderUp'>
+<summary>
+Uncover the new page by sliding up
+</summary>
+</member>
+
+<member name='StackTransitionType.UnderDown'>
+<summary>
+Uncover the new page by sliding down
+</summary>
+</member>
+
+<member name='StackTransitionType.UnderLeft'>
+<summary>
+Uncover the new page by sliding to the left
+</summary>
+</member>
+
+<member name='StackTransitionType.UnderRight'>
+<summary>
+Uncover the new page by sliding to the right
+</summary>
+</member>
+
+<member name='StackTransitionType.OverUpDown'>
+<summary>
+Cover the old page sliding up or uncover the new page sliding down, according to order
+</summary>
+</member>
+
+<member name='StackTransitionType.OverDownUp'>
+<summary>
+Cover the old page sliding down or uncover the new page sliding up, according to order
+</summary>
+</member>
+
+<member name='StackTransitionType.OverLeftRight'>
+<summary>
+Cover the old page sliding left or uncover the new page sliding right, according to order
+</summary>
+</member>
+
+<member name='StackTransitionType.OverRightLeft'>
+<summary>
+Cover the old page sliding right or uncover the new page sliding left, according to order
+</summary>
+</member>
+
+<member name='StackTransitionType.RotateLeft'>
+<summary>
+Pretend the pages are sides of a cube and rotate that cube to the left
+</summary>
+</member>
+
+<member name='StackTransitionType.RotateRight'>
+<summary>
+Pretend the pages are sides of a cube and rotate that cube to the right
+</summary>
+</member>
+
+<member name='StackTransitionType.RotateLeftRight'>
+<summary>
+Pretend the pages are sides of a cube and rotate that cube to the left or right according to the children order
+</summary>
+</member>
+
+<member name='StackTransitionType'>
+<summary>
+These enumeration values describe the possible transitions
+between pages in a #GtkStack widget.
+</summary>
+<remarks>
+New values may be added to this enumeration over time.
+</remarks>
+</member>
+
+</declaration>

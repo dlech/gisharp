@@ -1,0 +1,35 @@
+<declaration>
+
+<member name='IconSize.Inherit'>
+<summary>
+Keep the size of the parent element
+</summary>
+</member>
+
+<member name='IconSize.Normal'>
+<summary>
+Size similar to text size
+</summary>
+</member>
+
+<member name='IconSize.Large'>
+<summary>
+Large size, for example in an icon view
+</summary>
+</member>
+
+<member name='IconSize'>
+<summary>
+Built-in icon sizes.
+</summary>
+<remarks>
+Icon sizes default to being inherited. Where they cannot be
+inherited, text size is the default.
+
+All widgets which use GtkIconSize set the normal-icons or large-icons
+style classes correspondingly, and let themes determine the actual size
+to be used with the -gtk-icon-size CSS property.
+</remarks>
+</member>
+
+</declaration>

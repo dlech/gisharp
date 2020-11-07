@@ -1,0 +1,52 @@
+<declaration>
+
+<member name='CellRendererState.Selected'>
+<summary>
+The cell is currently selected, and
+ probably has a selection colored background to render to.
+</summary>
+</member>
+
+<member name='CellRendererState.Prelit'>
+<summary>
+The mouse is hovering over the cell.
+</summary>
+</member>
+
+<member name='CellRendererState.Insensitive'>
+<summary>
+The cell is drawn in an insensitive manner
+</summary>
+</member>
+
+<member name='CellRendererState.Sorted'>
+<summary>
+The cell is in a sorted row
+</summary>
+</member>
+
+<member name='CellRendererState.Focused'>
+<summary>
+The cell is in the focus row.
+</summary>
+</member>
+
+<member name='CellRendererState.Expandable'>
+<summary>
+The cell is in a row that can be expanded
+</summary>
+</member>
+
+<member name='CellRendererState.Expanded'>
+<summary>
+The cell is in a row that is expanded
+</summary>
+</member>
+
+<member name='CellRendererState'>
+<summary>
+Tells how a cell is to be rendered.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,39 @@
+<declaration>
+
+<member name='ArrowType.Up'>
+<summary>
+Represents an upward pointing arrow.
+</summary>
+</member>
+
+<member name='ArrowType.Down'>
+<summary>
+Represents a downward pointing arrow.
+</summary>
+</member>
+
+<member name='ArrowType.Left'>
+<summary>
+Represents a left pointing arrow.
+</summary>
+</member>
+
+<member name='ArrowType.Right'>
+<summary>
+Represents a right pointing arrow.
+</summary>
+</member>
+
+<member name='ArrowType.None'>
+<summary>
+No arrow.
+</summary>
+</member>
+
+<member name='ArrowType'>
+<summary>
+Used to indicate the direction in which an arrow should point.
+</summary>
+</member>
+
+</declaration>

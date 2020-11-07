@@ -1,0 +1,39 @@
+<declaration>
+
+<member name='ImageType.Empty'>
+<summary>
+there is no image displayed by the widget
+</summary>
+</member>
+
+<member name='ImageType.IconName'>
+<summary>
+the widget contains a named icon
+</summary>
+</member>
+
+<member name='ImageType.Gicon'>
+<summary>
+the widget contains a #GIcon
+</summary>
+</member>
+
+<member name='ImageType.Paintable'>
+<summary>
+the widget contains a #GdkPaintable
+</summary>
+</member>
+
+<member name='ImageType'>
+<summary>
+Describes the image data representation used by a #GtkImage. If you
+want to get the image from the widget, you can only get the
+currently-stored representation. e.g.  if the
+gtk_image_get_storage_type() returns #GTK_IMAGE_PAINTABLE, then you can
+call gtk_image_get_paintable().  For empty images, you can request any
+storage type (call any of the "get" functions), but they will all
+return <c>null</c> values.
+</summary>
+</member>
+
+</declaration>

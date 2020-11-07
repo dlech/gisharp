@@ -1,0 +1,11 @@
+# DebugFlags
+
+# Create Current property from get/set_debug_flags()
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[contains(@name,'_debug_flags')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:bitfield[@name='DebugFlags']
+- !change-attribute 
+  name: name
+  regex: ^(get_|set_)debug_flags
+  replace: $1_current
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='DebugFlags']/gi:function[contains(@name,'_debug_flags')]

@@ -1,0 +1,63 @@
+<declaration>
+
+<member name='DeleteType.Chars'>
+<summary>
+Delete characters.
+</summary>
+</member>
+
+<member name='DeleteType.WordEnds'>
+<summary>
+Delete only the portion of the word to the
+  left/right of cursor if we’re in the middle of a word.
+</summary>
+</member>
+
+<member name='DeleteType.Words'>
+<summary>
+Delete words.
+</summary>
+</member>
+
+<member name='DeleteType.DisplayLines'>
+<summary>
+Delete display-lines. Display-lines
+  refers to the visible lines, with respect to the current line
+  breaks. As opposed to paragraphs, which are defined by line
+  breaks in the input.
+</summary>
+</member>
+
+<member name='DeleteType.DisplayLineEnds'>
+<summary>
+Delete only the portion of the
+  display-line to the left/right of cursor.
+</summary>
+</member>
+
+<member name='DeleteType.ParagraphEnds'>
+<summary>
+Delete to the end of the
+  paragraph. Like C-k in Emacs (or its reverse).
+</summary>
+</member>
+
+<member name='DeleteType.Paragraphs'>
+<summary>
+Delete entire line. Like C-k in pico.
+</summary>
+</member>
+
+<member name='DeleteType.Whitespace'>
+<summary>
+Delete only whitespace. Like M-\ in Emacs.
+</summary>
+</member>
+
+<member name='DeleteType'>
+<summary>
+See also: #GtkEntry::delete-from-cursor.
+</summary>
+</member>
+
+</declaration>

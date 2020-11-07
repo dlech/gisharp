@@ -1,0 +1,45 @@
+<declaration>
+
+<member name='IconViewDropPosition.NoDrop'>
+<summary>
+no drop possible
+</summary>
+</member>
+
+<member name='IconViewDropPosition.DropInto'>
+<summary>
+dropped item replaces the item
+</summary>
+</member>
+
+<member name='IconViewDropPosition.DropLeft'>
+<summary>
+dropped item is inserted to the left
+</summary>
+</member>
+
+<member name='IconViewDropPosition.DropRight'>
+<summary>
+dropped item is inserted to the right
+</summary>
+</member>
+
+<member name='IconViewDropPosition.DropAbove'>
+<summary>
+dropped item is inserted above
+</summary>
+</member>
+
+<member name='IconViewDropPosition.DropBelow'>
+<summary>
+dropped item is inserted below
+</summary>
+</member>
+
+<member name='IconViewDropPosition'>
+<summary>
+An enum for determining where a dropped item goes.
+</summary>
+</member>
+
+</declaration>

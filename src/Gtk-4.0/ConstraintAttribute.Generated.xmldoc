@@ -1,0 +1,90 @@
+<declaration>
+
+<member name='ConstraintAttribute.None'>
+<summary>
+No attribute, used for constant
+  relations
+</summary>
+</member>
+
+<member name='ConstraintAttribute.Left'>
+<summary>
+The left edge of a widget, regardless of
+  text direction
+</summary>
+</member>
+
+<member name='ConstraintAttribute.Right'>
+<summary>
+The right edge of a widget, regardless
+  of text direction
+</summary>
+</member>
+
+<member name='ConstraintAttribute.Top'>
+<summary>
+The top edge of a widget
+</summary>
+</member>
+
+<member name='ConstraintAttribute.Bottom'>
+<summary>
+The bottom edge of a widget
+</summary>
+</member>
+
+<member name='ConstraintAttribute.Start'>
+<summary>
+The leading edge of a widget, depending
+  on text direction; equivalent to <see cref="ConstraintAttribute.Left"/> for LTR
+  languages, and <see cref="ConstraintAttribute.Right"/> for RTL ones
+</summary>
+</member>
+
+<member name='ConstraintAttribute.End'>
+<summary>
+The trailing edge of a widget, depending
+  on text direction; equivalent to <see cref="ConstraintAttribute.Right"/> for LTR
+  languages, and <see cref="ConstraintAttribute.Left"/> for RTL ones
+</summary>
+</member>
+
+<member name='ConstraintAttribute.Width'>
+<summary>
+The width of a widget
+</summary>
+</member>
+
+<member name='ConstraintAttribute.Height'>
+<summary>
+The height of a widget
+</summary>
+</member>
+
+<member name='ConstraintAttribute.CenterX'>
+<summary>
+The center of a widget, on the
+  horizontal axis
+</summary>
+</member>
+
+<member name='ConstraintAttribute.CenterY'>
+<summary>
+The center of a widget, on the
+  vertical axis
+</summary>
+</member>
+
+<member name='ConstraintAttribute.Baseline'>
+<summary>
+The baseline of a widget
+</summary>
+</member>
+
+<member name='ConstraintAttribute'>
+<summary>
+The widget attributes that can be used when creating a #GtkConstraint.
+</summary>
+</member>
+
+</declaration>

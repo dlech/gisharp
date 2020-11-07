@@ -1,0 +1,70 @@
+<declaration>
+
+<member name='DebugFlags.Text'>
+</member>
+
+<member name='DebugFlags.Tree'>
+</member>
+
+<member name='DebugFlags.Keybindings'>
+</member>
+
+<member name='DebugFlags.Modules'>
+</member>
+
+<member name='DebugFlags.Geometry'>
+</member>
+
+<member name='DebugFlags.Icontheme'>
+</member>
+
+<member name='DebugFlags.Printing'>
+</member>
+
+<member name='DebugFlags.Builder'>
+</member>
+
+<member name='DebugFlags.SizeRequest'>
+</member>
+
+<member name='DebugFlags.NoCssCache'>
+</member>
+
+<member name='DebugFlags.Interactive'>
+</member>
+
+<member name='DebugFlags.Touchscreen'>
+</member>
+
+<member name='DebugFlags.Actions'>
+</member>
+
+<member name='DebugFlags.Layout'>
+</member>
+
+<member name='DebugFlags.Snapshot'>
+</member>
+
+<member name='DebugFlags.Constraints'>
+</member>
+
+<member name='DebugFlags.BuilderObjects'>
+</member>
+
+<member name='DebugFlags.A11y'>
+</member>
+
+<member name='DebugFlags'>
+</member>
+
+<member name='DebugFlagsExtensions.Current'>
+<summary>
+Returns the GTK debug flags that are currently active.
+</summary>
+<remarks>
+This function is intended for GTK modules that want
+to adjust their debug output based on GTK debug flags.
+</remarks>
+</member>
+
+</declaration>

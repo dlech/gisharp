@@ -1,0 +1,39 @@
+<declaration>
+
+<member name='SorterChange.Different'>
+<summary>
+The sorter change cannot be described
+    by any of the other enumeration values
+</summary>
+</member>
+
+<member name='SorterChange.Inverted'>
+<summary>
+The sort order was inverted. Comparisons
+    that returned <see cref="Ordering.Smaller"/> now return <see cref="Ordering.Larger"/>
+    and vice versa. Other comparisons return the same values as before.
+</summary>
+</member>
+
+<member name='SorterChange.LessStrict'>
+<summary>
+The sorter is less strict: Comparisons
+    may now return <see cref="Ordering.Equal"/> that did not do so before.
+</summary>
+</member>
+
+<member name='SorterChange.MoreStrict'>
+<summary>
+The sorter is more strict: Comparisons
+    that did return <see cref="Ordering.Equal"/> may not do so anymore.
+</summary>
+</member>
+
+<member name='SorterChange'>
+<summary>
+Describes changes in a sorter in more detail and allows users
+to optimize resorting.
+</summary>
+</member>
+
+</declaration>

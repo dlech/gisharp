@@ -1,0 +1,8 @@
+# ConstraintVflParserError
+
+# Fix missing word
+- !change-attribute
+  name: name
+  regex: ^(.*)$
+  replace: invalid_$1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='ConstraintVflParserError']/gi:member

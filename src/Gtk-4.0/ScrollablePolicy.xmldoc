@@ -1,0 +1,22 @@
+<declaration>
+
+<member name='ScrollablePolicy.Minimum'>
+<summary>
+Scrollable adjustments are based on the minimum size
+</summary>
+</member>
+
+<member name='ScrollablePolicy.Natural'>
+<summary>
+Scrollable adjustments are based on the natural size
+</summary>
+</member>
+
+<member name='ScrollablePolicy'>
+<summary>
+Defines the policy to be used in a scrollable widget when updating
+the scrolled window adjustments in a given orientation.
+</summary>
+</member>
+
+</declaration>

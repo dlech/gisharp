@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='ConstraintRelation.Le'>
+<summary>
+Less than, or equal
+</summary>
+</member>
+
+<member name='ConstraintRelation.Eq'>
+<summary>
+Equal
+</summary>
+</member>
+
+<member name='ConstraintRelation.Ge'>
+<summary>
+Greater than, or equal
+</summary>
+</member>
+
+<member name='ConstraintRelation'>
+<summary>
+The relation between two terms of a constraint.
+</summary>
+</member>
+
+</declaration>

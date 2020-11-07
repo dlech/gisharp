@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='PrintPages.All'>
+<summary>
+All pages.
+</summary>
+</member>
+
+<member name='PrintPages.Current'>
+<summary>
+Current page.
+</summary>
+</member>
+
+<member name='PrintPages.Ranges'>
+<summary>
+Range of pages.
+</summary>
+</member>
+
+<member name='PrintPages.Selection'>
+<summary>
+Selected pages.
+</summary>
+</member>
+
+<member name='PrintPages'>
+<summary>
+See also gtk_print_job_set_pages()
+</summary>
+</member>
+
+</declaration>
