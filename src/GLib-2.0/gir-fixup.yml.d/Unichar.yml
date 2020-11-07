@@ -38,23 +38,23 @@
 - !set-attribute
   name: gs:pinvoke-only
   value: 1
-  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='to_utf8']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='to_utf8']
 - !set-attribute
   name: gs:pinvoke-only
   value: 1
-  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']
 
 # Fix array parameter in fully_decompose()
 - !add-element
   xml: <gi:array length="2" zero-terminated="0" c:type="gunichar*"/>
-  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']
 - !set-attribute
   name: c:type
   value: gunichar
-  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']/gi:type
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']/gi:type
 - !move-element
-  xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']/gi:type
-  new-parent-xpath: gi:repository/gi:namespace[@name='GLib']/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']/gi:array
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']/gi:type
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='UnicharExtensions']/gi:function[@name='fully_decompose']/gi:parameters/gi:parameter[@name='result']/gi:array
 
 # Fix names
 - !change-attribute
