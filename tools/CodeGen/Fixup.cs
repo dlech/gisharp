@@ -261,7 +261,18 @@ namespace GISharp.CodeGen
 
         public static void ApplyBuiltinFixup(this XDocument document)
         {
-            var dllName = document.Element(gi + "repository").Element(gi + "package").Attribute("name").Value;
+            // scrape the dll name from the shared-library attribute
+            var sharedLibrary = document.Element(gi + "repository").Element(gi + "namespace").Attribute("shared-library").AsString();
+            // strip the file extension
+            var dllName = Path.GetFileNameWithoutExtension(sharedLibrary);
+            // strip the ABI version, if any
+            if (Regex.Match(dllName, @"\d+\.\d+\.\d+$").Success) {
+                dllName = dllName.Substring(0, dllName.LastIndexOf("."));
+            }
+            // strip the lib prefix
+            if (dllName.StartsWith("lib")) {
+                dllName = dllName.Substring(3);
+            }
 
             // add the gs namespace prefix
 
