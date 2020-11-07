@@ -83,7 +83,7 @@ namespace GISharp.CodeGen.Syntax
                 builder.Replace("%FALSE", "<c>false</c>");
 
                 foreach (var prefix in ns.CIdentifierPrefixes) {
-                    var consts = Regex.Matches(text, "%" + prefix + @"_\w+");
+                    var consts = Regex.Matches(text, @$"%{prefix.ToUpperInvariant()}_\w+");
                     foreach (Match c in consts.OrderByDescending(x => x.Value.Length)) {
                         var member = (GIBase)ns.FindNodeByCIdentifier(c.Value.Substring(1));
                         if (member is null) {
