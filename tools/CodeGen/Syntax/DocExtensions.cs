@@ -155,7 +155,9 @@ namespace GISharp.CodeGen.Syntax
                         if (callable is null) {
                             continue;
                         }
-                        var parent = (GIBase)callable.ParentNode;
+                        if (callable.ParentNode is not GIBase parent) {
+                            continue;
+                        }
                         var method = callable.ManagedName;
                         if (callable is Constructor) {
                             // constructors are special
