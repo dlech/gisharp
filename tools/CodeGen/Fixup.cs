@@ -267,6 +267,16 @@ namespace GISharp.CodeGen
 
             document.Root.SetAttributeValue(XNamespace.Xmlns + "gs", gs.NamespaceName);
 
+            // ensure that functions without parameters have an empty <parameters> element
+
+            foreach (var element in document.Descendants(gi + "function")
+                .Concat(document.Descendants(gi + "constructor"))
+                .Concat(document.Descendants(gi + "method"))
+                .Concat(document.Descendants(glib + "signal"))
+                .Where(x => x.Element(gi + "parameters") is null)) {
+                element.Add(new XElement(gi + "parameters"));
+            }
+
             // all fields must be included for proper struct sizes
 
             foreach (var element in document.Descendants(gi + "field")
@@ -380,7 +390,8 @@ namespace GISharp.CodeGen
                         new XElement(
                             gi + "type",
                             new XAttribute("name", "GType"),
-                            new XAttribute(c + "type", "GType"))));
+                            new XAttribute(c + "type", "GType"))),
+                    new XElement(gi + "parameters"));
                 // GLib get_type functions are defined in GObject library
                 if (dllName == "glib-2.0") {
                     functionElement.SetAttributeValue(gs + "dll-name", "gobject-2.0");
@@ -769,16 +780,6 @@ namespace GISharp.CodeGen
                     continue;
                 }
                 element.SetAttributeValue("skip", "1");
-            }
-
-            // ensure that functions without parameters have an empty <parameters> element
-
-            foreach (var element in document.Descendants(gi + "function")
-                .Concat(document.Descendants(gi + "constructor"))
-                .Concat(document.Descendants(gi + "method"))
-                .Concat(document.Descendants(glib + "signal"))
-                .Where(x => x.Element(gi + "parameters") is null)) {
-                element.Add(new XElement(gi + "parameters"));
             }
 
             // set a value for parameters without direction attribute
