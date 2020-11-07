@@ -71,7 +71,7 @@ namespace GISharp.CodeGen.Gir
                 return typeof(Source);
             }
             if (GTypeName is not null) {
-                return typeof(Boxed);
+                return typeof(Lib.GObject.Boxed);
             }
             if (IsDisguised) {
                 return typeof(Opaque);
