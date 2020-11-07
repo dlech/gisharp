@@ -872,7 +872,10 @@ namespace GISharp.Lib.GObject
                     // actual implementation.
                     var implementationType = type;
                     if (type.IsEnum) {
-                        implementationType = type.Assembly.GetType(type.FullName + "Extensions") ?? implementationType;
+                        // Error domain enums have "Domain" suffix for extensions class.
+                        var suffix = type.CustomAttributes.Any(x => x.AttributeType == typeof(GErrorDomainAttribute))
+                            ? "Domain" : "Extensions";
+                        implementationType = type.Assembly.GetType(type.FullName + suffix) ?? implementationType;
                     }
                     else if (type.IsGenericType && type.BaseType != typeof(Boxed)) {
                         implementationType = type.BaseType;
