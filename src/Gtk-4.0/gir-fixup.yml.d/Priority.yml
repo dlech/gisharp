@@ -1,0 +1,14 @@
+# Priority
+
+# static class for priotity constants
+- !add-element
+  xml: <gs:static-class name='Priority' />
+  xpath: gi:repository/gi:namespace
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'PRIORITY_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Priority']
+- !change-attribute
+  name: name
+  regex: PRIORITY_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Priority']/gi:constant
