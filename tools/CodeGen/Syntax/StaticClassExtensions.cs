@@ -30,6 +30,7 @@ namespace GISharp.CodeGen.Syntax
         {
             return List<MemberDeclarationSyntax>()
                 .AddRange(staticClass.Constants.GetMemberDeclarations())
+                .AddRange(staticClass.ManagedProperties.GetMemberDeclarations())
                 .AddRange(staticClass.Functions.GetMemberDeclarations())
                 .AddRange(staticClass.Methods.GetMemberDeclarations());
         }
