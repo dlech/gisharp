@@ -1,0 +1,40 @@
+# Version
+
+# static class for version info
+- !add-element
+  xml: <gs:static-class name='Version' />
+  xpath: gi:repository/gi:namespace
+
+# constants = compile-time info
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[contains(@name,'_VERSION') and not(starts-with(@name,'PRINT_')) or contains(@name,'_AGE')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant[contains(@name,'_VERSION')]
+- !change-attribute
+  name: name
+  regex: (\w+_AGE)
+  replace: COMPILE_TIME_$1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant
+
+# functions = run-time info
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[contains(@name,'_version') or contains(@name,'_age')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:function[contains(@name,'_version') and not(contains(@name,'check'))]
+- !change-attribute
+  name: name
+  regex: get_(\w+_age)
+  replace: get_run_time_$1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:function
+
+# remove redundant version in name
+- !set-attribute
+  name: name
+  value: check
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:function[@name='check_version']

@@ -1,0 +1,103 @@
+<declaration>
+
+<member name='Version.CompileTimeBinaryAge'>
+<summary>
+Like <see cref="Version.RunTimeBinaryAge"/>, but from the headers used at
+application compile time, rather than from the library linked
+against at application run time.
+</summary>
+</member>
+
+<member name='Version.CompileTimeInterfaceAge'>
+<summary>
+Like <see cref="Version.RunTimeInterfaceAge"/>, but from the headers used at
+application compile time, rather than from the library linked
+against at application run time.
+</summary>
+</member>
+
+<member name='Version.majorVersion'>
+<summary>
+Like <see cref="Version.MajorVersion"/>, but from the headers used at
+application compile time, rather than from the library linked
+against at application run time.
+</summary>
+</member>
+
+<member name='Version.microVersion'>
+<summary>
+Like <see cref="Version.MicroVersion"/>, but from the headers used at
+application compile time, rather than from the library linked
+against at application run time.
+</summary>
+</member>
+
+<member name='Version.minorVersion'>
+<summary>
+Like <see cref="Version.MinorVersion"/>, but from the headers used at
+application compile time, rather than from the library linked
+against at application run time.
+</summary>
+</member>
+
+<member name='Version.RunTimeBinaryAge'>
+<summary>
+Returns the binary age as passed to `libtool`
+when building the GTK library the process is running against.
+If `libtool` means nothing to you, don't
+worry about it.
+</summary>
+</member>
+
+<member name='Version.RunTimeInterfaceAge'>
+<summary>
+Returns the interface age as passed to `libtool`
+when building the GTK library the process is running against.
+If `libtool` means nothing to you, don't
+worry about it.
+</summary>
+</member>
+
+<member name='Version.MajorVersion'>
+<summary>
+Returns the major version number of the GTK library.
+(e.g. in GTK version 3.1.5 this is 3.)
+</summary>
+<remarks>
+This function is in the library, so it represents the GTK library
+your code is running against. Contrast with the #GTK_MAJOR_VERSION
+macro, which represents the major version of the GTK headers you
+have included when compiling your code.
+</remarks>
+</member>
+
+<member name='Version.MicroVersion'>
+<summary>
+Returns the micro version number of the GTK library.
+(e.g. in GTK version 3.1.5 this is 5.)
+</summary>
+<remarks>
+This function is in the library, so it represents the GTK library
+your code is are running against. Contrast with the
+#GTK_MICRO_VERSION macro, which represents the micro version of the
+GTK headers you have included when compiling your code.
+</remarks>
+</member>
+
+<member name='Version.MinorVersion'>
+<summary>
+Returns the minor version number of the GTK library.
+(e.g. in GTK version 3.1.5 this is 1.)
+</summary>
+<remarks>
+This function is in the library, so it represents the GTK library
+your code is are running against. Contrast with the
+#GTK_MINOR_VERSION macro, which represents the minor version of the
+GTK headers you have included when compiling your code.
+</remarks>
+</member>
+
+<member name='Version'>
+</member>
+
+</declaration>
