@@ -10,7 +10,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
     {
         readonly BindingRestrictions typeRestriction;
 
-        Namespace Namespace { get { return (Namespace)Value; } }
+        Namespace Namespace { get { return (Namespace)Value!; } }
 
         public NamespaceDynamicMetaObject (Expression expression, Namespace @namespace)
             : base (expression, BindingRestrictions.Empty, @namespace)

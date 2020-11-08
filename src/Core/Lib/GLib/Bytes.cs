@@ -221,8 +221,11 @@ namespace GISharp.Lib.GLib
         /// greater, and zero if <paramref name="other"/> is equal to this
         /// </returns>
         [Since("2.32")]
-        public int CompareTo(Bytes other)
+        public int CompareTo(Bytes? other)
         {
+            if (other is null) {
+                return 1;
+            }
             var this_ = Handle;
             var other_ = other.Handle;
             var ret = g_bytes_compare(this_, other_);
@@ -278,6 +281,19 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             IntPtr bytes2);
 
+        private static bool Equal(Bytes? bytes1, Bytes? bytes2) {
+            if (bytes1 is null) {
+                return bytes2 is null;
+            }
+            if (bytes2 is null) {
+                return false;
+            }
+            var bytes1_ = bytes1.Handle;
+            var bytes2_ = bytes2.Handle;
+            var ret = g_bytes_equal(bytes1_, bytes2_);
+            return ret;
+        }
+
         /// <summary>
         /// Compares the two #GBytes values being pointed to and returns
         /// %TRUE if they are equal.
@@ -293,15 +309,12 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if the two keys match.
         /// </returns>
         [Since("2.32")]
-        public bool Equals(Bytes other)
+        public bool Equals(Bytes? other)
         {
-            var this_ = Handle;
-            var other_ = other.Handle;
-            var ret = g_bytes_equal(this_, other_);
-            return ret;
+            return Equal(this, other);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Bytes bytes) {
                 return Equals(bytes);
@@ -311,12 +324,12 @@ namespace GISharp.Lib.GLib
 
         public static bool operator ==(Bytes? one, Bytes? two)
         {
-            return object.Equals(one, two);
+            return Equal(one, two);
         }
 
         public static bool operator !=(Bytes? one, Bytes? two)
         {
-            return !object.Equals(one, two);
+            return !Equal(one, two);
         }
 
         /// <summary>

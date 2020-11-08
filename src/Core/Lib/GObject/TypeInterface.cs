@@ -48,7 +48,7 @@ namespace GISharp.Lib.GObject
         {
             try {
                 var gcHandle = (GCHandle)userData;
-                var types = (Tuple<Type, Type>)gcHandle.Target;
+                var types = (Tuple<Type, Type>)gcHandle.Target!;
                 var interfaceType = types.Item1;
                 var instanceType = types.Item2;
                 var map = instanceType.GetInterfaceMap(interfaceType);

@@ -341,7 +341,7 @@ namespace GISharp.Lib.GLib
         {
             try {
                 var gcHandle = (GCHandle)data_;
-                var userData = (UserData)gcHandle.Target;
+                var userData = (UserData)gcHandle.Target!;
                 gcHandle.Free();
 
                 foreach (var s in userData.Strings) {
@@ -363,7 +363,7 @@ namespace GISharp.Lib.GLib
         static unsafe Runtime.Boolean OnParsed(IntPtr context_, IntPtr group_, IntPtr data_, ref IntPtr error_)
         {
             try {
-                var userData = (UserData)GCHandle.FromIntPtr(data_).Target;
+                var userData = (UserData)GCHandle.FromIntPtr(data_).Target!;
                 foreach (var callback in userData.Callbacks) {
                     callback();
                 }

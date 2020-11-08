@@ -22,7 +22,7 @@ namespace GISharp.Runtime
         public bool Equals(Void other) => true;
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Void) {
                 return true;

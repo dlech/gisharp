@@ -132,7 +132,7 @@ namespace GISharp.Lib.Gio
                 var numDirs = (System.UInt64)numDirs_;
                 var numFiles = (System.UInt64)numFiles_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (UserData)gcHandle.Target;
+                var userData = (UserData)gcHandle.Target!;
                 userData.ManagedDelegate(reporting, currentSize, numDirs, numFiles);
                 if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
                 {

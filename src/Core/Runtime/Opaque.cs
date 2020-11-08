@@ -135,7 +135,7 @@ namespace GISharp.Runtime
                 type = gtype.GetGTypeStruct ();
             }
 
-            return (IOpaque)Activator.CreateInstance(type, handle, ownership);
+            return (IOpaque)Activator.CreateInstance(type, handle, ownership)!;
         }
 
         /// <inheritdoc />
@@ -145,7 +145,7 @@ namespace GISharp.Runtime
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Opaque opaque) {
                 return handle == opaque.handle;

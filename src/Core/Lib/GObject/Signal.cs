@@ -377,7 +377,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static SignalHandler Connect<T, U>(this Object instance, UnownedUtf8 detailedSignal,
             System.Func<T, (U, UnmanagedClosureNotify, IntPtr)> unmanagedCallbackFactory,
-            T handler, ConnectFlags connectFlags = default)
+            T handler, ConnectFlags connectFlags = default) where T : Delegate where U : Delegate
         {
             var instance_ = instance.Handle;
             var detailedSignal_ = detailedSignal.Handle;

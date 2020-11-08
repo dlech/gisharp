@@ -282,7 +282,7 @@ namespace GISharp.CodeGen.Syntax
                 if (arg.IsNullable) {
                     var callbackType = arg.Type.ManagedType.ToSyntax();
                     var defaultValue = $"default({callbackType})";
-                    getter = $"{arg.ManagedName}_ == null ? {defaultValue} : {getter}";
+                    getter = $"{arg.ManagedName}_ == System.IntPtr.Zero ? {defaultValue} : {getter}";
                 }
                 expressions.Add(ParseExpression($"{arg.ManagedName} = {getter}"));
             }

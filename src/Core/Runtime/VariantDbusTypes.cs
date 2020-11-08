@@ -53,14 +53,19 @@ namespace GISharp.Runtime
             value = path;
         }
 
-        /// <inheritdoc />
-        public bool Equals(DBusObjectPath other)
+        private static bool Equal(DBusObjectPath? one, DBusObjectPath? two)
         {
-            return value == other.value;
+            return one?.value == two?.value;
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public bool Equals(DBusObjectPath? other)
+        {
+            return Equal(this, other);
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object? obj)
         {
             if (obj is DBusObjectPath path) {
                 return Equals(path);
@@ -79,7 +84,7 @@ namespace GISharp.Runtime
         /// </summary>
         public static bool operator ==(DBusObjectPath? one, DBusObjectPath? two)
         {
-            return Equals(one, two);
+            return Equal(one, two);
         }
 
         /// <summary>
@@ -87,7 +92,7 @@ namespace GISharp.Runtime
         /// </summary>
         public static bool operator !=(DBusObjectPath? one, DBusObjectPath? two)
         {
-            return !Equals(one, two);
+            return !Equal(one, two);
         }
 
         /// <summary>
@@ -125,14 +130,19 @@ namespace GISharp.Runtime
             value = signature;
         }
 
-        /// <inheritdoc />
-        public bool Equals(DBusSignature other)
+        private static bool Equal(DBusSignature? one, DBusSignature? two)
         {
-            return value == other.value;
+            return one?.value == two?.value;
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public bool Equals(DBusSignature? other)
+        {
+            return Equal(this, other);
+        }
+
+        /// <inheritdoc />
+        public override bool Equals(object? obj)
         {
             if (obj is DBusSignature signature) {
                 Equals(signature);
@@ -151,7 +161,7 @@ namespace GISharp.Runtime
         /// </summary>
         public static bool operator ==(DBusSignature? one, DBusSignature? two)
         {
-            return Equals(one, two);
+            return Equal(one, two);
         }
 
         /// <summary>
@@ -159,7 +169,7 @@ namespace GISharp.Runtime
         /// </summary>
         public static bool operator !=(DBusSignature? one, DBusSignature? two)
         {
-            return !Equals(one, two);
+            return !Equal(one, two);
         }
 
         /// <summary>

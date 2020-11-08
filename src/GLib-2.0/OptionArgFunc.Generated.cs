@@ -104,7 +104,7 @@ namespace GISharp.Lib.GLib
                 var optionName = new GISharp.Lib.GLib.UnownedUtf8(optionName_, -1);
                 var value = new GISharp.Lib.GLib.UnownedUtf8(value_, -1);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
-                var data = (UserData)gcHandle.Target;
+                var data = (UserData)gcHandle.Target!;
                 data.ManagedDelegate(optionName, value);
                 if (data.Scope == GISharp.Runtime.CallbackScope.Async)
                 {

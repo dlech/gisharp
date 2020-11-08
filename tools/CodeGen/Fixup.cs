@@ -608,7 +608,7 @@ namespace GISharp.CodeGen
                 }
             }
 
-            // flag ref functions
+            // flag ref methods
 
             var elementsWithRefMethod = document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "ref"
@@ -618,7 +618,7 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "pinvoke-only", "1");
             }
 
-            // flag unref functions
+            // flag unref methods
 
             var elementsWithUnrefMethod = document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "unref"
@@ -628,7 +628,7 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "pinvoke-only", "1");
             }
 
-            // flag copy functions
+            // flag copy methods
 
             var elementsWithCopyMethod = document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "copy"
@@ -638,7 +638,7 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "pinvoke-only", "1");
             }
 
-            // flag free functions
+            // flag free methods
 
             var elementsWithFreeMethod = document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "free"
@@ -648,7 +648,7 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "pinvoke-only", "1");
             }
 
-            // flag compare functions
+            // flag compare methods
 
             var elementsWithCompareFunction = document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "compare"
@@ -658,30 +658,7 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "managed-name", "CompareTo");
             }
 
-            // flag hash functions
-
-            foreach (var element in document.Descendants(gi + "function")
-                .Where(d => d.Attribute("name").Value == "hash"
-                   && d.Element(gi + "parameters").Elements(gi + "parameter").Count() == 1
-                   && d.Element(gi + "return-value")?.Element(gi + "type")?.Attribute("name")?.Value == "guint")) {
-                if (!element.Attribute(gs + "hash").AsBool(true)) {
-                    continue;
-                }
-
-                // it is common to have a hash function with gconstpointer type
-                // instead of a method with the instance type so we need to
-                // convert it to a method and fix the type
-
-                element.SetAttributeValue(gs + "hash", "1");
-                element.Name = gi + "method";
-
-                var instanceParam = element.Element(gi + "parameters").Element(gi + "parameter");
-                instanceParam.Name = gi + "instance-parameter";
-                var instanceType = element.Parent.Attribute("name").Value;
-                var typeElement = instanceParam.Element(gi + "type");
-                typeElement.SetAttributeValue("name", instanceType);
-                typeElement.SetAttributeValue(gs + "managed-name", instanceType);
-            }
+            // flag hash methods
 
             foreach (var element in document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "hash"
@@ -691,42 +668,15 @@ namespace GISharp.CodeGen
                     continue;
                 }
 
+                element.SetAttributeValue(gs + "hash", 1);
+
                 // change stuff to override built-in .NET method
                 element.SetAttributeValue(gs + "managed-name", "GetHashCode");
                 element.Element(gi + "return-value").Element(gi + "type")
                     .SetAttributeValue(gs + "managed-name", typeof(int));
             }
 
-            // flag equals functions
-
-            foreach (var element in document.Descendants(gi + "function")
-                .Where(d => d.Attribute("name").Value == "equal"
-                   && d.Element(gi + "parameters").Elements(gi + "parameter").Count() == 2
-                   && d.Element(gi + "return-value")?.Element(gi + "type")?.Attribute("name")?.Value == "gboolean")) {
-                if (!element.Attribute(gs + "equal").AsBool(true)) {
-                    continue;
-                }
-                element.SetAttributeValue(gs + "equal", "1");
-
-                // it is common to have an equal function with gconstpointer type
-                // instead of a method with the instance type so we need to
-                // convert it to a method and fix the type
-
-                element.SetAttributeValue(gs + "equal", "1");
-                element.Name = gi + "method";
-
-                var instanceParam = element.Element(gi + "parameters").Element(gi + "parameter");
-                instanceParam.Name = gi + "instance-parameter";
-                var instanceType = element.Parent.Attribute("name").Value;
-                var typeElement = instanceParam.Element(gi + "type");
-                typeElement.SetAttributeValue("name", instanceType);
-                typeElement.SetAttributeValue(gs + "managed-name", instanceType);
-
-                var otherParam = element.Element(gi + "parameters").Element(gi + "parameter");
-                typeElement = otherParam.Element(gi + "type");
-                typeElement.SetAttributeValue("name", instanceType);
-                typeElement.SetAttributeValue(gs + "managed-name", instanceType);
-            }
+            // flag equal methods
 
             foreach (var element in document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "equal"
@@ -736,11 +686,13 @@ namespace GISharp.CodeGen
                     continue;
                 }
 
+                element.SetAttributeValue(gs + "equal", 1);
+
                 // change name to match IEquatable<T> built-in .NET method
                 element.SetAttributeValue(gs + "managed-name", "Equals");
             }
 
-            // flag to_string functions
+            // flag to_string methods
 
             var elementsWithToStringFunction = document.Descendants(gi + "method")
                 .Where(d => d.Attribute("name").Value == "to_string"

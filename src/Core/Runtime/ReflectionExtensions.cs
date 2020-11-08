@@ -21,7 +21,7 @@ namespace GISharp.Runtime
         public static PropertyInfo? TryGetMatchingInterfacePropertyInfo(this PropertyInfo info)
         {
             var accessor = info.GetGetMethod() ?? info.GetSetMethod();
-            var interfaceMapping = info.DeclaringType.GetInterfaces()
+            var interfaceMapping = info.DeclaringType!.GetInterfaces()
                 .Select(t => info.DeclaringType.GetInterfaceMap(t))
                 .SingleOrDefault(m => m.TargetMethods.Contains(accessor));
             if (interfaceMapping.Equals(default(InterfaceMapping))) {
@@ -47,10 +47,10 @@ namespace GISharp.Runtime
         /// <param name="info">The property to inspect.</param>
         public static string? TryGetGPropertyName(this PropertyInfo info)
         {
-            var propAttr = info.GetCustomAttribute<GPropertyAttribute?>(true);
+            var propAttr = info.GetCustomAttribute<GPropertyAttribute>(true);
             if (propAttr is null) {
                 propAttr = info.TryGetMatchingInterfacePropertyInfo()?
-                    .GetCustomAttribute<GPropertyAttribute?>();
+                    .GetCustomAttribute<GPropertyAttribute>();
             }
             return propAttr?.Name ?? info.Name;
         }

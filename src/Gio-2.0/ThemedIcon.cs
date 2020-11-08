@@ -76,13 +76,13 @@ namespace GISharp.Lib.Gio
         }
 
         /// <inheritdoc />
-        public bool Equals(IIcon other)
+        public bool Equals(IIcon? other)
         {
             return Icon.Equals(this, other);
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             return Icon.Equals(this, obj as IIcon);
         }

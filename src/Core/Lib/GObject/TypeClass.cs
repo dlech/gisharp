@@ -125,7 +125,7 @@ namespace GISharp.Lib.GObject
         internal static void InstallVirtualMethodOverload(IntPtr class_, Type type, MethodInfo methodInfo)
         {
             // Ensure that the virtual methods have been registered
-            RuntimeHelpers.RunClassConstructor(type.DeclaringType.TypeHandle);
+            RuntimeHelpers.RunClassConstructor(type.DeclaringType!.TypeHandle);
 
             var info = virtualMethods[type];
             var callback = info.Create(methodInfo);

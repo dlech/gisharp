@@ -14,7 +14,7 @@ namespace GISharp.Lib.GIRepository
     /// <summary>
     /// GIBaseInfo is the common base struct of all other *Info classes.
     /// </summary>
-    [DebuggerDisplay ("{Namespace}.{Name}")]
+    [DebuggerDisplay("{Namespace}.{Name}")]
     public abstract class BaseInfo : IEquatable<BaseInfo>, IDisposable
     {
         public IntPtr Handle { get; private set; }
@@ -33,10 +33,10 @@ namespace GISharp.Lib.GIRepository
                 throw new ArgumentException("Null pointer", nameof(raw));
             }
             if (!owned) {
-                g_base_info_ref (raw);
+                g_base_info_ref(raw);
             }
             Type type = typeof(BaseInfo);
-            switch ((InfoType)g_base_info_get_type (raw)) {
+            switch ((InfoType)g_base_info_get_type(raw)) {
             case InfoType.Arg:
                 type = typeof(ArgInfo);
                 break;
@@ -91,7 +91,7 @@ namespace GISharp.Lib.GIRepository
                 type = typeof(VFuncInfo);
                 break;
             }
-            return (T)Activator.CreateInstance (type, new object[] { raw });
+            return (T)Activator.CreateInstance(type, new object[] { raw })!;
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace GISharp.Lib.GIRepository
             get {
                 AttributeIter iter = AttributeIter.Zero;
                 while (IterateAttributes(ref iter, out var key, out var value)) {
-                    yield return new KeyValuePair<string, string> (key, value);
+                    yield return new KeyValuePair<string, string>(key, value);
                 }
             }
         }
@@ -112,14 +112,25 @@ namespace GISharp.Lib.GIRepository
 
         #region IEquatable implementation
 
-        public bool Equals(BaseInfo other)
+        private static bool Equal(BaseInfo? info1, BaseInfo? info2)
         {
-            return g_base_info_equal(Handle, other.Handle);
+            if (info1 is null) {
+                return info2 is null;
+            }
+            if (info2 is null) {
+                return false;
+            }
+            return g_base_info_equal(info1.Handle, info2.Handle);
+        }
+
+        public bool Equals(BaseInfo? other)
+        {
+            return Equal(this, other);
         }
 
         #endregion
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is BaseInfo info) {
                 return Equals(info);
@@ -127,23 +138,23 @@ namespace GISharp.Lib.GIRepository
             return base.Equals(obj);
         }
 
-        public override int GetHashCode ()
+        public override int GetHashCode()
         {
-            return Handle.GetHashCode ();
+            return Handle.GetHashCode();
         }
 
         public static bool operator ==(BaseInfo? info1, BaseInfo? info2)
         {
-            return object.Equals(info1, info2);
+            return Equal(info1, info2);
         }
 
         public static bool operator !=(BaseInfo? info1, BaseInfo? info2)
         {
-            return !object.Equals(info1, info2);
+            return !Equal(info1, info2);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_base_info_get_attribute (IntPtr raw, IntPtr name);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_base_info_get_attribute(IntPtr raw, IntPtr name);
 
         /// <summary>
         /// Retrieve an arbitrary attribute associated with this node.
@@ -152,13 +163,13 @@ namespace GISharp.Lib.GIRepository
         /// <param name="name">Name.</param>
         public NullableUnownedUtf8 GetAttribute(UnownedUtf8 name)
         {
-            var ret_ = g_base_info_get_attribute (Handle, name.Handle);
+            var ret_ = g_base_info_get_attribute(Handle, name.Handle);
             var ret = new NullableUnownedUtf8(ret_, -1);
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_base_info_get_container (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_base_info_get_container(IntPtr raw);
 
         /// <summary>
         /// Gets the container.
@@ -177,8 +188,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_base_info_get_name (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_base_info_get_name(IntPtr raw);
 
         /// <summary>
         /// Gets the name.
@@ -201,8 +212,8 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_base_info_get_namespace (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_base_info_get_namespace(IntPtr raw);
 
         /// <summary>
         /// Gets the namespace.
@@ -211,13 +222,13 @@ namespace GISharp.Lib.GIRepository
         public UnownedUtf8 Namespace {
             get {
                 var ret_ = g_base_info_get_namespace(Handle);
-                var ret = new UnownedUtf8(ret_ , -1);
+                var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_base_info_get_type (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_base_info_get_type(IntPtr raw);
 
         /// <summary>
         /// Gets the info type of the BaseInfo.
@@ -225,7 +236,7 @@ namespace GISharp.Lib.GIRepository
         /// <value>The info type.</value>
         public InfoType InfoType {
             get {
-                int raw_ret = g_base_info_get_type (Handle);
+                int raw_ret = g_base_info_get_type(Handle);
                 var ret = (InfoType)raw_ret;
                 return ret;
             }
@@ -240,7 +251,7 @@ namespace GISharp.Lib.GIRepository
         /// <value><c>true</c> if this instance is deprecated; otherwise, <c>false</c>.</value>
         public bool IsDeprecated {
             get {
-                bool raw_ret = g_base_info_is_deprecated (Handle);
+                bool raw_ret = g_base_info_is_deprecated(Handle);
                 bool ret = raw_ret;
                 return ret;
             }
@@ -257,54 +268,55 @@ namespace GISharp.Lib.GIRepository
             return ret;
         }
 
-        protected BaseInfo (IntPtr raw)
+        protected BaseInfo(IntPtr raw)
         {
             Handle = raw;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_base_info_ref (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_base_info_ref(IntPtr raw);
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_base_info_unref (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_base_info_unref(IntPtr raw);
 
-        ~BaseInfo ()
+        ~BaseInfo()
         {
-            Dispose (false);
+            Dispose(false);
         }
 
         #region IDisposable implementation
 
-        public void Dispose ()
+        public void Dispose()
         {
-            Dispose (true);
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion
 
-        protected virtual void Dispose (bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (Handle != IntPtr.Zero) {
                 var oldHandle = Handle;
                 Handle = IntPtr.Zero;
-                g_base_info_unref (oldHandle);
+                g_base_info_unref(oldHandle);
             }
         }
 
-        public override string ToString ()
+        public override string ToString()
         {
-            var builder = new StringBuilder ();
+            var builder = new StringBuilder();
             BaseInfo? current = this;
             while (current is not null) {
                 if (current.Name.HasValue) {
                     builder.Insert(0, current.Name.ToString());
-                    builder.Insert (0, ".");
+                    builder.Insert(0, ".");
                 }
-                builder.Insert (0, current.InfoType);
-                builder.Insert (0, ".");
+                builder.Insert(0, current.InfoType);
+                builder.Insert(0, ".");
                 current = current.Container;
             }
-            return string.Format ("{0}{1}", Namespace, builder);
+            return string.Format("{0}{1}", Namespace, builder);
         }
     }
 }

@@ -29,7 +29,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
     {
         readonly BindingRestrictions typeRestrictions;
 
-        public DynamicStruct Struct { get { return (DynamicStruct)Value; } }
+        public DynamicStruct Struct { get { return (DynamicStruct)Value!; } }
 
         public DynamicStructMetaObject (Expression expression, DynamicStruct obj)
             : base (expression, BindingRestrictions.Empty, obj)

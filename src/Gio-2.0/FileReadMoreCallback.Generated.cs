@@ -99,7 +99,7 @@ namespace GISharp.Lib.Gio
                 var fileContents = new GISharp.Lib.GLib.UnownedUtf8(fileContents_, -1);
                 var fileSize = (System.Int64)fileSize_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)callbackData_;
-                var callbackData = (UserData)gcHandle.Target;
+                var callbackData = (UserData)gcHandle.Target!;
                 var ret = callbackData.ManagedDelegate(fileContents, fileSize);
                 if (callbackData.Scope == GISharp.Runtime.CallbackScope.Async)
                 {

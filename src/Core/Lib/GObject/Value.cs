@@ -223,14 +223,14 @@ namespace GISharp.Lib.GObject
                         // It is not possible to cast to UnownedUtf8 since it
                         // is a ref struct. Reflection got us into this situation,
                         // so reflection is the only way out.
-                        var utf8_ = (IntPtr)unownedUtf8HandleProperty.GetValue(obj);
+                        var utf8_ = (IntPtr)unownedUtf8HandleProperty.GetValue(obj)!;
                         g_value_set_string(ref this, utf8_);
                     }
                     else if (obj?.GetType() == typeof(NullableUnownedUtf8)) {
                         // It is not possible to cast to NullableUnownedUtf8 since it
                         // is a ref struct. Reflection got us into this situation,
                         // so reflection is the only way out.
-                        var utf8_ = (IntPtr)nullableUnownedUtf8HandleProperty.GetValue(obj);
+                        var utf8_ = (IntPtr)nullableUnownedUtf8HandleProperty.GetValue(obj)!;
                         g_value_set_string(ref this, utf8_);
                     }
                     else {
@@ -251,10 +251,10 @@ namespace GISharp.Lib.GObject
         }
 
         static readonly PropertyInfo unownedUtf8HandleProperty =
-            typeof(UnownedUtf8).GetProperty(nameof(UnownedUtf8.Handle));
+            typeof(UnownedUtf8).GetProperty(nameof(UnownedUtf8.Handle))!;
 
         static readonly PropertyInfo nullableUnownedUtf8HandleProperty =
-            typeof(NullableUnownedUtf8).GetProperty(nameof(NullableUnownedUtf8.Handle));
+            typeof(NullableUnownedUtf8).GetProperty(nameof(NullableUnownedUtf8.Handle))!;
 
         /// <summary>
         /// Gets the GType of the stored value.

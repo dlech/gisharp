@@ -1462,7 +1462,7 @@ namespace GISharp.Lib.GLib
             return new GSynchronizationContext(context);
         }
 
-        public override void Post(SendOrPostCallback d, object state)
+        public override void Post(SendOrPostCallback d, object? state)
         {
             using var source = new IdleSource();
             source.SetCallback(() => {
@@ -1472,7 +1472,7 @@ namespace GISharp.Lib.GLib
             source.Attach(context);
         }
 
-        public override void Send(SendOrPostCallback d, object state)
+        public override void Send(SendOrPostCallback d, object? state)
         {
             context.Invoke(() => {
                 d.Invoke(state);

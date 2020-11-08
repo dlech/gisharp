@@ -213,7 +213,7 @@ namespace GISharp.CodeGen.Syntax
 
             var ghHandleType = typeof(GCHandle).FullName;
             yield return ParseStatement($"var gcHandle = ({ghHandleType}){dataParamName}_;\n");
-            yield return ParseStatement($"var {dataParamName} = (UserData)gcHandle.Target;\n");
+            yield return ParseStatement($"var {dataParamName} = (UserData)gcHandle.Target!;\n");
 
             var skipReturnValue = callback.ThrowsGErrorException && callback.ReturnValue.Type.UnmanagedType == typeof(Runtime.Boolean);
 

@@ -94,7 +94,7 @@ namespace GISharp.Runtime
         public bool Equals(long other) => value.Equals(other);
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is CLong clong) {
                 return value == clong.value;

@@ -449,7 +449,7 @@ System.IntPtr userData);
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileIOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
+                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doQueryInfoAsync = (QueryInfoAsync)methodInfo.CreateDelegate(typeof(QueryInfoAsync), stream);
                         doQueryInfoAsync(attributes, ioPriority, callback, cancellable);

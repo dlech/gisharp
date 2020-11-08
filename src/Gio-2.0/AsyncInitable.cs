@@ -9,6 +9,6 @@ namespace GISharp.Lib.Gio
         // method which causes them to be split between the interface and the
         // extension methods class
         private static readonly IntPtr newAsyncCallback_ = (IntPtr)typeof(AsyncInitable)
-            .GetField(nameof(newAsyncCallback_), Static | NonPublic).GetValue(null);
+            .GetField(nameof(newAsyncCallback_), Static | NonPublic)!.GetValue(null)!;
     }
 }

@@ -119,7 +119,7 @@ namespace GISharp.Lib.GObject
         {
         }
 
-        public T Value => (T)GCHandle.FromIntPtr(Handle).Target;
+        public T Value => (T)GCHandle.FromIntPtr(Handle).Target!;
 
         static IntPtr CopyManagedType(IntPtr boxed)
         {

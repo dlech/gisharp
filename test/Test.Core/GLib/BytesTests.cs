@@ -72,8 +72,8 @@ namespace GISharp.Test.Core.GLib
             using (var b3 = new Bytes(1, 2, 4)) {
                 Assert.That(b1, Is.EqualTo(b2));
                 Assert.That(b1, Is.Not.EqualTo(b3));
-                Assert.That(object.Equals(b1, b2), Is.True);
-                Assert.That(object.Equals(b1, b3), Is.False);
+                Assert.That(Equals(b1, b2), Is.True);
+                Assert.That(Equals(b1, b3), Is.False);
                 Assert.That(b1 == b2);
                 Assert.That(b1 != b3);
             }

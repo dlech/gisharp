@@ -17,3 +17,15 @@
   regex: new_(.*)
   replace: get_$1
   xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[starts-with(@name,'new_')]
+
+# change equal and hash to methods and fix type
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:function[@name='equal' or @name='hash']
+- !set-attribute 
+  name: name
+  value: DateTime
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:method[@name='equal' or @name='hash']/gi:parameters/gi:parameter/gi:type
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:record[@name='DateTime']/gi:method[@name='equal' or @name='hash']/gi:parameters/gi:parameter[1]

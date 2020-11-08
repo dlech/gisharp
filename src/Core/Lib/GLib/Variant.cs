@@ -2515,8 +2515,11 @@ namespace GISharp.Lib.GLib
         ///          positive value if a &gt; b.
         /// </returns>
         [Since("2.26")]
-        public int CompareTo(Variant other)
+        public int CompareTo(Variant? other)
         {
+            if (other is null) {
+                return 1;
+            }
             var this_ = Handle;
             var other_ = other.Handle;
             if (Type != other.Type) {
@@ -2575,6 +2578,20 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             IntPtr two);
 
+        private static bool Equal(Variant? one, Variant? two)
+        {
+            if (one is null) {
+                return two is null;
+            }
+            if (two is null) {
+                return false;
+            }
+            var one_ = one.Handle;
+            var two_ = two.Handle;
+            var ret = g_variant_equal(one_, two_);
+            return ret;
+        }
+
         /// <summary>
         /// Checks if @one and @two have the same type and value.
         /// </summary>
@@ -2589,15 +2606,12 @@ namespace GISharp.Lib.GLib
         /// %TRUE if @one and @two are equal
         /// </returns>
         [Since("2.24")]
-        public bool Equals(Variant other)
+        public bool Equals(Variant? other)
         {
-            var this_ = Handle;
-            var other_ = other.Handle;
-            var ret = g_variant_equal(this_, other_);
-            return ret;
+            return Equal(this, other);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Variant variant) {
                 return Equals(variant);
@@ -2607,12 +2621,12 @@ namespace GISharp.Lib.GLib
 
         public static bool operator ==(Variant? one, Variant? two)
         {
-            return object.Equals(one, two);
+            return Equal(one, two);
         }
 
         public static bool operator !=(Variant? one, Variant? two)
         {
-            return !object.Equals(one, two);
+            return !Equal(one, two);
         }
 
         /// <summary>

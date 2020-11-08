@@ -115,7 +115,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         {
             try {
                 var gcHandle = (GCHandle)marshalData;
-                var callback = (System.Func<object?[], object?>)gcHandle.Target;
+                var callback = (System.Func<object?[], object?>)gcHandle.Target!;
 
                 var parameters = new object?[nParamValues];
                 for (int i = 0; i < nParamValues; i++) {
@@ -144,7 +144,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         {
             try {
                 var gcHandle = (GCHandle)marshalData;
-                var callback = (System.Func<object?>)gcHandle.Target;
+                var callback = (System.Func<object?>)gcHandle.Target!;
 
                 var ret = callback.Invoke();
                 returnValue[0].Set(ret);
@@ -169,7 +169,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         {
             try {
                 var gcHandle = (GCHandle)marshalData;
-                var callback = (Action<object?[]>)gcHandle.Target;
+                var callback = (Action<object?[]>)gcHandle.Target!;
 
                 var parameters = new object?[nParamValues];
                 for (int i = 0; i < nParamValues; i++) {
@@ -197,7 +197,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         {
             try {
                 var gcHandle = (GCHandle)marshalData;
-                var callback = (Action)gcHandle.Target;
+                var callback = (Action)gcHandle.Target!;
 
                 callback.Invoke();
             }

@@ -186,7 +186,7 @@ namespace GISharp.Lib.GLib
         {
             var ret_ = g_slist_copy (handle);
             var ret = Activator.CreateInstance (GetType (), ret_, Transfer.Container);
-            return (SList)ret;
+            return (SList)ret!;
         }
 
         /// <summary>

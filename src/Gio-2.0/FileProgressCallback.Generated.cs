@@ -95,7 +95,7 @@ namespace GISharp.Lib.Gio
                 var currentNumBytes = (System.Int64)currentNumBytes_;
                 var totalNumBytes = (System.Int64)totalNumBytes_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (UserData)gcHandle.Target;
+                var userData = (UserData)gcHandle.Target!;
                 userData.ManagedDelegate(currentNumBytes, totalNumBytes);
                 if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
                 {

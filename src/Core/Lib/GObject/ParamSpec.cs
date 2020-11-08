@@ -490,9 +490,9 @@ namespace GISharp.Lib.GObject
                 if (gcHandle.IsAllocated) {
                     // the GC handle looks good, so we should have the managed
                     // proxy for the unmanged object here
-                    var target = (ParamSpec)gcHandle.Target;
+                    var target = (ParamSpec)gcHandle.Target!;
                     // make sure the managed object has not been disposed
-                    if (target?.handle == handle) {
+                    if (target.handle == handle) {
                         // release the extra reference, if there is one
                         if (ownership != Transfer.None) {
                             g_param_spec_unref(handle);
@@ -511,7 +511,7 @@ namespace GISharp.Lib.GObject
             var gtype = Marshal.PtrToStructure<GType>(ptr);
             var type = gtype.ToType();
 
-            return (T)Activator.CreateInstance(type, handle, ownership);
+            return (T)Activator.CreateInstance(type, handle, ownership)!;
         }
 
         /// <summary>

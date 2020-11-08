@@ -103,7 +103,7 @@ namespace GISharp.Lib.GLib
                 var context = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionContext>(context_, GISharp.Runtime.Transfer.None)!;
                 var group = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>(group_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
-                var data = (UserData)gcHandle.Target;
+                var data = (UserData)gcHandle.Target!;
                 data.ManagedDelegate(context, group);
                 if (data.Scope == GISharp.Runtime.CallbackScope.Async)
                 {

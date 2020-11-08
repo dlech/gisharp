@@ -24,6 +24,30 @@ namespace GISharp.CodeGen.Syntax
                     yield return checkArgs;
                     var declaration = method.GetInstanceMethodDeclaration()
                         .WithBody(Block(method.GetInvokeStatements(method.CIdentifier)));
+
+                    if (method.IsEqual && !method.IsExtensionMethod) {
+                        // IEquatable parameter is always nullable so we need
+                        // to correct the type and add a null check
+                        var otherParam = method.ManagedParameters.RegularParameters.Single();
+                        if (!otherParam.IsNullable && !otherParam.Type.ManagedType.IsValueType) {
+                            var oldParam = declaration.ParameterList.Parameters.Single();
+                            var newParam = oldParam.WithType(NullableType(oldParam.Type));
+                            declaration = declaration.ReplaceNode(oldParam, newParam);
+                        }
+                        if (!otherParam.Type.ManagedType.IsValueType) {
+                            declaration = declaration.WithBody(Block(
+                                declaration.Body.Statements.Prepend(
+                                    IfStatement(
+                                        ParseExpression($"{otherParam.ManagedName} is null"),
+                                        Block(
+                                            ReturnStatement(LiteralExpression(FalseLiteralExpression))
+                                        )
+                                    )
+                                )
+                            ));
+                        }
+                    }
+
                     yield return declaration;
                 }
 
@@ -50,6 +74,10 @@ namespace GISharp.CodeGen.Syntax
                         /// </summary>
                         "));
                     yield return takeOverride;
+                }
+
+                if (method.IsEqual && !method.IsExtensionMethod) {
+                    yield return method.GetOverrideEqualsMethodDeclaration();
                 }
             }
 
@@ -96,6 +124,29 @@ namespace GISharp.CodeGen.Syntax
                 syntax = syntax.WithLeadingTrivia(trivia)
                     .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
             }
+
+            return syntax;
+        }
+
+        /// <summary>
+        /// Gets a method declaration that overrides object.Equals.
+        /// </summary>
+        static MethodDeclarationSyntax GetOverrideEqualsMethodDeclaration(this Method method)
+        {
+            var type = method.Parameters.InstanceParameter.Type.ManagedType.FullName;
+            var identifier = method.Parameters.InstanceParameter.Type.ManagedType.Name.ToCamelCase();
+            var syntax = MethodDeclaration(ParseTypeName(typeof(bool).FullName), "Equals")
+                .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
+                .AddParameterListParameters(Parameter(Identifier("other"))
+                    .WithType(ParseTypeName($"{typeof(object).FullName}?")))
+                .AddBodyStatements(
+                    IfStatement(
+                        ParseExpression($"other is {type} {identifier}"),
+                        Block(ReturnStatement(ParseExpression($"Equals({identifier})")))
+                    ),
+                    ReturnStatement(ParseExpression($"base.Equals(other)"))
+                )
+                .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc/>\n"));
 
             return syntax;
         }

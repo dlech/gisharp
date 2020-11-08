@@ -889,7 +889,7 @@ the newly created <see cref="DateTime"/> which
 </returns>
 </member>
 
-<member name='DateTime.Equals(GISharp.Lib.GLib.DateTime)'>
+<member name='DateTime.Equals(GISharp.Lib.GLib.DateTime?)'>
 <summary>
 Checks to see if this instance and <paramref name="dt2"/> are equal.
 </summary>

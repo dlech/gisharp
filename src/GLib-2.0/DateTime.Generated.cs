@@ -2202,16 +2202,32 @@ namespace GISharp.Lib.GLib
         System.IntPtr dt2);
         static partial void CheckEqualsArgs(GISharp.Lib.GLib.DateTime dt2);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Equals(GISharp.Lib.GLib.DateTime)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Equals(GISharp.Lib.GLib.DateTime?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public unsafe System.Boolean Equals(GISharp.Lib.GLib.DateTime dt2)
+        public unsafe System.Boolean Equals(GISharp.Lib.GLib.DateTime? dt2)
         {
+            if (dt2 is null)
+            {
+                return false;
+            }
+
             CheckEqualsArgs(dt2);
             var dt1_ = Handle;
             var dt2_ = dt2.Handle;
             var ret_ = g_date_time_equal(dt1_,dt2_);
             var ret = (System.Boolean)ret_;
             return ret;
+        }
+
+        /// <inheritdoc/>
+        public override System.Boolean Equals(System.Object? other)
+        {
+            if (other is GISharp.Lib.GLib.DateTime dateTime)
+            {
+                return Equals(dateTime);
+            }
+
+            return base.Equals(other);
         }
 
         /// <summary>

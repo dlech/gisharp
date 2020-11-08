@@ -8,7 +8,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
     {
         readonly BindingRestrictions typeRestriction;
 
-        EnumInfo Info { get { return (EnumInfo)Value; } }
+        EnumInfo Info { get { return (EnumInfo)Value!; } }
 
         public EnumInfoDynamicMetaObject (Expression parameter, EnumInfo info)
             : base (parameter, BindingRestrictions.Empty, info)

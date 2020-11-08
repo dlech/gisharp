@@ -68,9 +68,9 @@ namespace GISharp.Lib.Gio
         {
             try {
                 var userData = (GCHandle)userData_;
-                var completionSource = (TaskCompletionSource<Runtime.Void>)userData.Target;
+                var completionSource = (TaskCompletionSource<Runtime.Void>)userData.Target!;
                 userData.Free();
-                var progressCallbackDestroy = (System.Action)completionSource.Task.AsyncState;
+                var progressCallbackDestroy = (System.Action)completionSource.Task.AsyncState!;
                 progressCallbackDestroy?.Invoke();
                 var error_ = IntPtr.Zero;
                 g_file_copy_finish(file_, res_, ref error_);

@@ -243,7 +243,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target!;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 g_async_initable_init_finish(initable_, res_, ref error_);
@@ -301,7 +301,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GObject.Object>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GObject.Object>)userData.Target!;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 var ret_ = g_async_initable_new_finish(initable_,res_,ref error_);

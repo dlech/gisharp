@@ -17,57 +17,57 @@ namespace GISharp.Lib.GIRepository
     {
         static readonly System.Reflection.MethodInfo invokeMethodInfo;
 
-        static FunctionInfo ()
+        static FunctionInfo()
         {
-            invokeMethodInfo = typeof (FunctionInfo).GetMethod (nameof (FunctionInfo.DynamicInvoke));
+            invokeMethodInfo = typeof(FunctionInfo).GetMethod(nameof(FunctionInfo.DynamicInvoke))!;
             if (invokeMethodInfo is null) {
-                throw new MissingMethodException (
-                    typeof (FunctionInfo).FullName,
-                    nameof (FunctionInfo.Invoke));
+                throw new MissingMethodException(
+                    typeof(FunctionInfo).FullName,
+                    nameof(FunctionInfo.Invoke));
             }
         }
 
         public bool IsConstructor {
             get {
-                return Flags.HasFlag (FunctionInfoFlags.IsConstructor);
+                return Flags.HasFlag(FunctionInfoFlags.IsConstructor);
             }
         }
 
         public bool IsGetter {
             get {
-                return Flags.HasFlag (FunctionInfoFlags.IsGetter);
+                return Flags.HasFlag(FunctionInfoFlags.IsGetter);
             }
         }
 
         public bool IsSetter {
             get {
-                return Flags.HasFlag (FunctionInfoFlags.IsSetter);
+                return Flags.HasFlag(FunctionInfoFlags.IsSetter);
             }
         }
 
         public bool Throws {
             get {
-                return Flags.HasFlag (FunctionInfoFlags.Throws);
+                return Flags.HasFlag(FunctionInfoFlags.Throws);
             }
         }
 
         public bool WrapsVfunc {
             get {
-                return Flags.HasFlag (FunctionInfoFlags.WrapsVfunc);
+                return Flags.HasFlag(FunctionInfoFlags.WrapsVfunc);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern FunctionInfoFlags g_function_info_get_flags (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern FunctionInfoFlags g_function_info_get_flags(IntPtr raw);
 
         FunctionInfoFlags Flags {
             get {
-                return g_function_info_get_flags (Handle);
+                return g_function_info_get_flags(Handle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_function_info_get_property (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_function_info_get_property(IntPtr raw);
 
         public PropertyInfo? Property {
             get {
@@ -76,13 +76,13 @@ namespace GISharp.Lib.GIRepository
                 if (!IsGetter && !IsSetter) {
                     return null;
                 }
-                IntPtr raw_ret = g_function_info_get_property (Handle);
+                IntPtr raw_ret = g_function_info_get_property(Handle);
                 return GetInstanceOrNull<PropertyInfo>(raw_ret);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_function_info_get_symbol (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_function_info_get_symbol(IntPtr raw);
 
         public UnownedUtf8 Symbol {
             get {
@@ -91,15 +91,15 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_function_info_get_vfunc (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_function_info_get_vfunc(IntPtr raw);
 
         public VFuncInfo? VFunc {
             get {
                 if (!WrapsVfunc) {
                     return null;
                 }
-                IntPtr raw_ret = g_function_info_get_vfunc (Handle);
+                IntPtr raw_ret = g_function_info_get_vfunc(Handle);
                 return GetInstanceOrNull<VFuncInfo>(raw_ret);
             }
         }
@@ -126,14 +126,14 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        public DynamicMetaObject GetMetaObject (Expression parameter)
+        public DynamicMetaObject GetMetaObject(Expression parameter)
         {
-            return new FunctionInfoDynamicMetaObject (parameter, this);
+            return new FunctionInfoDynamicMetaObject(parameter, this);
         }
 
         static Argument MarshalInArg(TypeInfo typeInfo, DynamicMetaObject obj, ref Action? free)
         {
-            var arg = new Argument ();
+            var arg = new Argument();
 
             if (typeInfo.IsPointer) {
                 switch (typeInfo.Tag) {
@@ -147,32 +147,33 @@ namespace GISharp.Lib.GIRepository
                     case InfoType.Union:
                         if (obj.Value is null) {
                             arg.Pointer = IntPtr.Zero;
-                        } else {
+                        }
+                        else {
                             dynamic dObj = obj.Value;
                             arg.Pointer = dObj.Handle;
                         }
                         break;
                     default:
-                        throw new NotImplementedException ();
+                        throw new NotImplementedException();
                     }
                     break;
                 case TypeTag.UTF8:
-                    var utf8Ptr = GMarshal.StringToUtf8Ptr ((string)obj.Value);
+                    var utf8Ptr = GMarshal.StringToUtf8Ptr((string)obj.Value!);
                     arg.Pointer = utf8Ptr;
-                    free += () => GMarshal.Free (utf8Ptr);
+                    free += () => GMarshal.Free(utf8Ptr);
                     break;
                 case TypeTag.Array:
-                    var elementType = typeInfo.GetParamType (0);
+                    var elementType = typeInfo.GetParamType(0);
                     switch (typeInfo.ArrayType) {
                     case ArrayType.C:
                         switch (elementType.Tag) {
                         case TypeTag.UTF8:
-                            var strvPtr = GMarshal.StringArrayToGStrvPtr ((string[])obj.Value);
+                            var strvPtr = GMarshal.StringArrayToGStrvPtr((string[])obj.Value!);
                             arg.Pointer = strvPtr;
-                            free += () => GMarshal.FreeGStrv (strvPtr);
+                            free += () => GMarshal.FreeGStrv(strvPtr);
                             break;
                         case TypeTag.Filename:
-                            var filenames = new FilenameArray((string[])obj.Value);
+                            var filenames = new FilenameArray((string[])obj.Value!);
                             arg.Pointer = filenames.Handle;
                             free += () => filenames.Dispose();
                             break;
@@ -181,55 +182,56 @@ namespace GISharp.Lib.GIRepository
                         }
                         break;
                     default:
-                        throw new NotImplementedException ();
+                        throw new NotImplementedException();
                     }
                     break;
                 default:
-                    throw new NotImplementedException ();
+                    throw new NotImplementedException();
                 }
-            } else {
+            }
+            else {
                 switch (typeInfo.Tag) {
                 case TypeTag.Boolean:
-                    arg.Boolean = (bool)obj.Value;
+                    arg.Boolean = (bool)obj.Value!;
                     break;
                 case TypeTag.Int8:
-                    arg.Int8 = (sbyte)obj.Value;
+                    arg.Int8 = (sbyte)obj.Value!;
                     break;
                 case TypeTag.UInt8:
-                    arg.UInt8 = (byte)obj.Value;
+                    arg.UInt8 = (byte)obj.Value!;
                     break;
                 case TypeTag.Int16:
-                    arg.Int16 = (short)obj.Value;
+                    arg.Int16 = (short)obj.Value!;
                     break;
                 case TypeTag.UInt16:
-                    arg.UInt16 = (ushort)obj.Value;
+                    arg.UInt16 = (ushort)obj.Value!;
                     break;
                 case TypeTag.Int32:
-                    arg.Int32 = (int)obj.Value;
+                    arg.Int32 = (int)obj.Value!;
                     break;
                 case TypeTag.UInt32:
-                    arg.UInt32 = (uint)obj.Value;
+                    arg.UInt32 = (uint)obj.Value!;
                     break;
                 case TypeTag.Int64:
-                    arg.Int64 = (long)obj.Value;
+                    arg.Int64 = (long)obj.Value!;
                     break;
                 case TypeTag.UInt64:
-                    arg.UInt64 = (ulong)obj.Value;
+                    arg.UInt64 = (ulong)obj.Value!;
                     break;
                 case TypeTag.Interface:
                     var iface = typeInfo.Interface!;
                     switch (iface.InfoType) {
                     case InfoType.Enum:
                     case InfoType.Flags:
-                        var valueInfo = (ValueInfo)obj.Value;
+                        var valueInfo = (ValueInfo)obj.Value!;
                         arg.Int64 = valueInfo.Value;
                         break;
                     default:
-                        throw new NotImplementedException ();
+                        throw new NotImplementedException();
                     }
                     break;
                 default:
-                    throw new NotImplementedException ();
+                    throw new NotImplementedException();
                 }
             }
 
@@ -243,14 +245,14 @@ namespace GISharp.Lib.GIRepository
                 case TypeTag.Array:
                     switch (info.ArrayType) {
                     case ArrayType.C:
-                        var arrayType = info.GetParamType (0);
+                        var arrayType = info.GetParamType(0);
                         if (arrayType.Tag == TypeTag.UTF8 && info.IsZeroTerminated) {
                             // This is a Strv
-                            return GMarshal.GStrvPtrToStringArray (arg.Pointer, ownership != Transfer.Nothing, ownership == Transfer.Everything);
+                            return GMarshal.GStrvPtrToStringArray(arg.Pointer, ownership != Transfer.Nothing, ownership == Transfer.Everything);
                         }
-                        throw new NotImplementedException ();
+                        throw new NotImplementedException();
                     default:
-                        throw new NotImplementedException ();
+                        throw new NotImplementedException();
                     }
                 case TypeTag.UTF8:
                     var ret = new NullableUnownedUtf8(arg.Pointer, -1).ToString();
@@ -262,21 +264,22 @@ namespace GISharp.Lib.GIRepository
                         if (arg.Pointer == IntPtr.Zero) {
                             return null;
                         }
-                        return new DynamicGObject (arg.Pointer);
+                        return new DynamicGObject(arg.Pointer);
                     case InfoType.Struct:
                         if (arg.Pointer == IntPtr.Zero) {
                             return null;
                         }
-                        return new DynamicStruct (arg.Pointer, (StructInfo)info.Interface);
+                        return new DynamicStruct(arg.Pointer, (StructInfo)info.Interface);
                     default:
-                        throw new NotImplementedException ();
+                        throw new NotImplementedException();
                     }
                 case TypeTag.Void:
                     return arg.Pointer;
                 default:
-                    throw new NotImplementedException ();
+                    throw new NotImplementedException();
                 }
-            } else {
+            }
+            else {
                 return info.Tag switch {
                     TypeTag.Boolean => arg.Boolean,
                     TypeTag.Int8 => arg.Int8,
@@ -297,62 +300,62 @@ namespace GISharp.Lib.GIRepository
         {
             var methodOffset = IsMethod ? 1 : 0;
             if (instance is null && IsMethod) {
-                throw new ArgumentNullException (nameof (instance), "Methods require instance");
+                throw new ArgumentNullException(nameof(instance), "Methods require instance");
             }
             if (instance is not null && !IsMethod) {
-                throw new ArgumentException ("Instance provided for static method", nameof (instance));
+                throw new ArgumentException("Instance provided for static method", nameof(instance));
             }
 
             foreach (var name in callInfo.ArgumentNames) {
-                if (!Args.ContainsKey (name)) {
-                    throw new ArgumentException ("Invalid named parameter", name);
+                if (!Args.ContainsKey(name)) {
+                    throw new ArgumentException("Invalid named parameter", name);
                 }
             }
 
-            var matchArgs = Args.ToList ();
+            var matchArgs = Args.ToList();
             if (ReturnTypeInfo.ArrayLengthIndex >= 0) {
-                matchArgs.RemoveAt (ReturnTypeInfo.ArrayLengthIndex);
+                matchArgs.RemoveAt(ReturnTypeInfo.ArrayLengthIndex);
             }
             foreach (var arg in Args) {
                 if (arg.Closure is not null) {
-                    matchArgs.Remove (arg.Closure);
+                    matchArgs.Remove(arg.Closure);
                 }
                 if (arg.Destroy is not null) {
-                    matchArgs.Remove (arg.Destroy);
+                    matchArgs.Remove(arg.Destroy);
                 }
                 if (arg.ArrayLength is not null) {
-                    matchArgs.Remove (arg.ArrayLength);
+                    matchArgs.Remove(arg.ArrayLength);
                 }
             }
             if (matchArgs.Count != args.Length) {
                 var names = string.Join(", ", matchArgs.Select(x => x.Name.ToString()));
                 var message = $"Bad arg count - expecting {matchArgs.Count}: {names}";
-                throw new ArgumentException (message);
+                throw new ArgumentException(message);
             }
             foreach (var name in callInfo.ArgumentNames) {
                 var arg = matchArgs.Find(x => x.Name == name);
                 if (arg is not null) {
-                    matchArgs.Remove (arg);
-                    matchArgs.Add (arg);
+                    matchArgs.Remove(arg);
+                    matchArgs.Add(arg);
                 }
             }
 
             var inArgs = new Argument[InArgs.Count + methodOffset];
             var outArgs = new Argument[OutArgs.Count];
-            var freeInArgs = default (Action);
-            var freeOutArgs = default (Action);
+            var freeInArgs = default(Action);
+            var freeOutArgs = default(Action);
 
             if (IsMethod) {
                 inArgs[0].Pointer = instance!.Handle;
             }
             foreach (var arg in matchArgs) {
                 if (arg.InIndex >= 0) {
-                    inArgs[arg.InIndex + methodOffset] = MarshalInArg (arg.TypeInfo, args[matchArgs.IndexOf (arg)], ref freeInArgs);
+                    inArgs[arg.InIndex + methodOffset] = MarshalInArg(arg.TypeInfo, args[matchArgs.IndexOf(arg)], ref freeInArgs);
                 }
             }
 
             try {
-                var retArg = Invoke (inArgs, outArgs);
+                var retArg = Invoke(inArgs, outArgs);
 
                 // TODO: marshal out args
 
@@ -360,10 +363,11 @@ namespace GISharp.Lib.GIRepository
                     return default;
                 }
 
-                var ret = MarshalOutArg (retArg, ReturnTypeInfo, CallerOwns, ref freeOutArgs);
+                var ret = MarshalOutArg(retArg, ReturnTypeInfo, CallerOwns, ref freeOutArgs);
 
                 return ret;
-            } finally {
+            }
+            finally {
                 freeInArgs?.Invoke();
                 freeOutArgs?.Invoke();
             }
@@ -371,16 +375,16 @@ namespace GISharp.Lib.GIRepository
 
         public Expression GetInvokeExpression(CallInfo callInfo, Type returnType, dynamic? instance, DynamicMetaObject[] args)
         {
-            var expression = Expression.Call (Expression.Constant (this),
+            var expression = Expression.Call(Expression.Constant(this),
                                               invokeMethodInfo,
-                                              Expression.Constant (callInfo),
-                                              Expression.Constant (instance),
-                                              Expression.Constant (args));
+                                              Expression.Constant(callInfo),
+                                              Expression.Constant(instance),
+                                              Expression.Constant(args));
 
             return expression;
         }
 
-        public FunctionInfo (IntPtr raw) : base (raw)
+        public FunctionInfo(IntPtr raw) : base(raw)
         {
         }
     }

@@ -873,6 +873,20 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             IntPtr type2);
 
+        private static bool Equal(VariantType? type1, VariantType? type2)
+        {
+            if (type1 is null) {
+                return type2 is null;
+            }
+            if (type2 is null) {
+                return false;
+            }
+            var type1_ = type1.Handle;
+            var type2_ = type2.Handle;
+            var ret = g_variant_type_equal(type1_, type2_);
+            return ret;
+        }
+
         /// <summary>
         /// Compares this type and <paramref name="other"/> for equality.
         /// </summary>
@@ -889,15 +903,12 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if this type and <paramref name="other"/> are exactly equal
         /// </returns>
         [Since("2.24")]
-        public bool Equals(VariantType other)
+        public bool Equals(VariantType? other)
         {
-            var this_ = Handle;
-            var other_ = other.Handle;
-            var ret = g_variant_type_equal(this_, other_);
-            return ret;
+            return Equal(this, other);
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is VariantType type2) {
                 return Equals(type2);
@@ -907,12 +918,12 @@ namespace GISharp.Lib.GLib
 
         public static bool operator ==(VariantType? one, VariantType? two)
         {
-            return object.Equals(one, two);
+            return Equal(one, two);
         }
 
         public static bool operator !=(VariantType? one, VariantType? two)
         {
-            return !object.Equals(one, two);
+            return !Equal(one, two);
         }
 
         /// <summary>

@@ -15,26 +15,26 @@ namespace GISharp.Lib.GIRepository
 
         public readonly static AttributeIter Zero = new();
 
-        public static AttributeIter New (IntPtr raw)
+        public static AttributeIter New(IntPtr raw)
         {
             if (raw == IntPtr.Zero)
                 return Zero;
-            return (AttributeIter)Marshal.PtrToStructure (raw, typeof (AttributeIter));
+            return (AttributeIter)Marshal.PtrToStructure(raw, typeof(AttributeIter))!;
         }
 
-        public bool Equals (AttributeIter other)
+        public bool Equals(AttributeIter other)
         {
-            return true && _data.Equals (other._data) && _data2.Equals (other._data2) && _data3.Equals (other._data3) && _data4.Equals (other._data4);
+            return true && _data.Equals(other._data) && _data2.Equals(other._data2) && _data3.Equals(other._data3) && _data4.Equals(other._data4);
         }
 
-        public override bool Equals (object obj)
+        public override bool Equals(object? obj)
         {
-            return obj is AttributeIter && Equals ((AttributeIter)obj);
+            return obj is AttributeIter iter && Equals(iter);
         }
 
-        public override int GetHashCode ()
+        public override int GetHashCode()
         {
-            return this.GetType ().FullName.GetHashCode () ^ _data.GetHashCode () ^ _data2.GetHashCode () ^ _data3.GetHashCode () ^ _data4.GetHashCode ();
+            return GetType().FullName!.GetHashCode() ^ _data.GetHashCode() ^ _data2.GetHashCode() ^ _data3.GetHashCode() ^ _data4.GetHashCode();
         }
     }
 }

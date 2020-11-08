@@ -79,7 +79,7 @@ namespace GISharp.Lib.GObject
                     invocationHint = Marshal.PtrToStructure<SignalInvocationHint>(invocationHint_);
                 }
                 var gcHandle = (GCHandle)marshalData_;
-                var marshalData = (UserData)gcHandle.Target;
+                var marshalData = (UserData)gcHandle.Target!;
                 marshalData.ClosureMarshal(closure, ref returnValue, paramValues, invocationHint);
 
                 if (returnValue_ is not null) {

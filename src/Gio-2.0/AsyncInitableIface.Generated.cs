@@ -73,7 +73,7 @@ System.IntPtr userData);
                     {
                         var initable = (GISharp.Lib.Gio.IAsyncInitable)GISharp.Lib.GObject.Object.GetInstance(initable_, GISharp.Runtime.Transfer.None)!;
                         var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == null ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
+                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doInitAsync = (InitAsync)methodInfo.CreateDelegate(typeof(InitAsync), initable);
                         doInitAsync(ioPriority, callback, cancellable);

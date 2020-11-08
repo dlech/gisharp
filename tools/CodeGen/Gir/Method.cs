@@ -1,8 +1,6 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
-using GISharp.Runtime;
 
 namespace GISharp.CodeGen.Gir
 {
@@ -73,7 +71,7 @@ namespace GISharp.CodeGen.Gir
         }
 
         GIFunction LazyGetFinishForFunction =>
-            (GIFunction)GirNode.GetNode(Element.Parent.Elements(gi + "function")
+            (GIFunction)GetNode(Element.Parent.Elements(gi + "function")
                 .Concat(Element.Parent.Elements(gi + "method"))
                 .FirstOrDefault(x => x.Attribute("name")?.Value == FinishFor));
     }

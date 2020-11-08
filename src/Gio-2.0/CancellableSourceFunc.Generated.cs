@@ -93,7 +93,7 @@ namespace GISharp.Lib.Gio
             {
                 var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (UserData)gcHandle.Target;
+                var userData = (UserData)gcHandle.Target!;
                 var ret = userData.ManagedDelegate(cancellable);
                 if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
                 {

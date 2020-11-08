@@ -68,7 +68,7 @@ namespace GISharp.Lib.GLib
         public bool Equals(Rune other) => value == (uint)other.Value;
 
         /// <inheritdoc/>
-        public override bool Equals(object other)
+        public override bool Equals(object? other)
         {
             if (other is Unichar unichar) {
                 return Equals(unichar);

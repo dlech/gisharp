@@ -228,7 +228,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>)userData.Target!;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 g_input_stream_close_finish(stream_, result_, ref error_);
@@ -613,7 +613,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target!;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 g_input_stream_read_all_finish(stream_, result_,out var bytesRead_, ref error_);
@@ -931,7 +931,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Bytes>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Bytes>)userData.Target!;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 var ret_ = g_input_stream_read_bytes_finish(stream_,result_,ref error_);
@@ -987,7 +987,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target!;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 var ret_ = g_input_stream_read_finish(stream_,result_,ref error_);
@@ -1237,7 +1237,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target!;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 var ret_ = g_input_stream_skip_finish(stream_,result_,ref error_);

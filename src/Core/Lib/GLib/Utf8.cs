@@ -159,7 +159,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Utf8 utf8) {
                 return Equals(utf8);
@@ -506,7 +506,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public override bool Equals(object other)
+        public override bool Equals(object? other)
         {
             if (!HasValue) {
                 return other is null;
@@ -976,7 +976,7 @@ namespace GISharp.Lib.GLib
             }
             var ret = Marshal.PtrToStringUni(ret_);
             g_free(ret_);
-            return ret;
+            return ret!;
         }
 
         /// <summary>
@@ -1143,7 +1143,7 @@ namespace GISharp.Lib.GLib
             /* direction:out */
             out IntPtr error);
 
-        int IComparable.CompareTo(object obj)
+        int IComparable.CompareTo(object? obj)
         {
             if (obj is Utf8 other) {
                 return ((IComparable<Utf8>)this).CompareTo(other);
@@ -1159,91 +1159,91 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_strcmp0(IntPtr str1, IntPtr str2);
 
-        int IComparable<Utf8>.CompareTo(Utf8 other) => g_strcmp0(Handle, other.Handle);
+        int IComparable<Utf8>.CompareTo(Utf8? other) => g_strcmp0(Handle, other?.Handle ?? IntPtr.Zero);
 
-        int IComparable<string>.CompareTo(string other) => Value.CompareTo(other);
+        int IComparable<string>.CompareTo(string? other) => Value.CompareTo(other);
 
         public TypeCode GetTypeCode()
         {
             return Value.GetTypeCode();
         }
 
-        bool IConvertible.ToBoolean(IFormatProvider provider)
+        bool IConvertible.ToBoolean(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToBoolean(provider);
         }
 
-        byte IConvertible.ToByte(IFormatProvider provider)
+        byte IConvertible.ToByte(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToByte(provider);
         }
 
-        char IConvertible.ToChar(IFormatProvider provider)
+        char IConvertible.ToChar(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToChar(provider);
         }
 
-        DateTime IConvertible.ToDateTime(IFormatProvider provider)
+        DateTime IConvertible.ToDateTime(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToDateTime(provider);
         }
 
-        decimal IConvertible.ToDecimal(IFormatProvider provider)
+        decimal IConvertible.ToDecimal(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToDecimal(provider);
         }
 
-        double IConvertible.ToDouble(IFormatProvider provider)
+        double IConvertible.ToDouble(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToDouble(provider);
         }
 
-        short IConvertible.ToInt16(IFormatProvider provider)
+        short IConvertible.ToInt16(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToInt16(provider);
         }
 
-        int IConvertible.ToInt32(IFormatProvider provider)
+        int IConvertible.ToInt32(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToInt32(provider);
         }
 
-        long IConvertible.ToInt64(IFormatProvider provider)
+        long IConvertible.ToInt64(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToInt64(provider);
         }
 
-        sbyte IConvertible.ToSByte(IFormatProvider provider)
+        sbyte IConvertible.ToSByte(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToSByte(provider);
         }
 
-        float IConvertible.ToSingle(IFormatProvider provider)
+        float IConvertible.ToSingle(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToSingle(provider);
         }
 
-        string IConvertible.ToString(IFormatProvider provider)
+        string IConvertible.ToString(IFormatProvider? provider)
         {
             return Value.ToString(provider);
         }
 
-        object IConvertible.ToType(Type conversionType, IFormatProvider provider)
+        object IConvertible.ToType(Type conversionType, IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToType(conversionType, provider);
         }
 
-        ushort IConvertible.ToUInt16(IFormatProvider provider)
+        ushort IConvertible.ToUInt16(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToUInt16(provider);
         }
 
-        uint IConvertible.ToUInt32(IFormatProvider provider)
+        uint IConvertible.ToUInt32(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToUInt32(provider);
         }
 
-        ulong IConvertible.ToUInt64(IFormatProvider provider)
+        ulong IConvertible.ToUInt64(IFormatProvider? provider)
         {
             return ((IConvertible)Value).ToUInt64(provider);
         }
@@ -1251,7 +1251,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_str_equal(IntPtr v1, IntPtr v2);
 
-        public bool Equals(Utf8 other)
+        public bool Equals(Utf8? other)
         {
             if (other is null) {
                 throw new ArgumentNullException(nameof(other));
@@ -1263,7 +1263,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        public bool Equals(string other)
+        public bool Equals(string? other)
         {
             if (other is null) {
                 throw new ArgumentNullException(nameof(other));
@@ -1272,7 +1272,7 @@ namespace GISharp.Lib.GLib
             return Value.Equals(other);
         }
 
-        public unsafe bool Equals(Utf8String other)
+        public unsafe bool Equals(Utf8String? other)
         {
             if (other is null) {
                 throw new ArgumentNullException(nameof(other));
@@ -1285,7 +1285,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is Utf8 utf8) {
                 return Equals(utf8);

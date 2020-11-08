@@ -284,21 +284,21 @@ namespace GISharp.Lib.GObject
         static unsafe void ManagedClosureFuncCallback(Closure closure, ref object? returnValue, object?[] paramValues, SignalInvocationHint? invocationHintPtr)
         {
             var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
-            var callback = (Func<object?[], object>)gcHandle.Target;
+            var callback = (Func<object?[], object>)gcHandle.Target!;
             returnValue = callback(paramValues);
         }
 
         static void ManagedClosureActionCallback(Closure closure, ref object? returnValue, object?[] paramValues, SignalInvocationHint? invocationHintPtr)
         {
             var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
-            var callback = (Action<object?[]>)gcHandle.Target;
+            var callback = (Action<object?[]>)gcHandle.Target!;
             callback(paramValues);
         }
 
         static void ManagedClosureVoidActionCallback(Closure closure, ref object? returnValue, object?[] paramValues, SignalInvocationHint? invocationHintPtr)
         {
             var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
-            var callback = (Action)gcHandle.Target;
+            var callback = (Action)gcHandle.Target!;
             callback();
         }
 
@@ -714,18 +714,18 @@ namespace GISharp.Lib.GObject
                     var obj = Object.GetInstance(data_, Transfer.None);
 
                     var gcHandle = (GCHandle)marshalData_;
-                    var marshalData = (UnmanagedSignalClosureMarshalData)gcHandle.Target;
+                    var marshalData = (UnmanagedSignalClosureMarshalData)gcHandle.Target!;
 
                     var paramValues = new object?[nParamValues_];
                     for (int i = 0; i < paramValues.Length; i++) {
                         paramValues[i] = paramValues_[i].Get();
                     }
-                    var args = (GSignalEventArgs)Activator.CreateInstance(marshalData.EventArgsType, paramValues);
+                    var args = (GSignalEventArgs)Activator.CreateInstance(marshalData.EventArgsType, paramValues)!;
 
                     marshalData.SignalHandler(obj, args);
 
                     if (returnValue_ is not null) {
-                        returnValue_->Set(args.GetType().GetProperty("ReturnValue").GetValue(args));
+                        returnValue_->Set(args.GetType().GetProperty("ReturnValue")!.GetValue(args));
                     }
                 }
                 catch (Exception ex) {

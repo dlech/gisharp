@@ -239,7 +239,8 @@ namespace GISharp.Lib.GObject
         /// <param name="type">The managed type to register.</param>
         internal static TypeInfo GetTypeInfo(Type type)
         {
-            var parentGType = type.BaseType.ToGType();
+            var parentGType = type.BaseType?.ToGType() ??
+                throw new ArgumentException("class without base type", nameof(type));
             var parentTypeQuery = parentGType.Query();
             var ret = new TypeInfo {
                 ClassSize = (ushort)parentTypeQuery.ClassSize,
@@ -268,7 +269,7 @@ namespace GISharp.Lib.GObject
                 // Can't use type.GetGType() here since the type registration has
                 // not finished. So, we get the GType this way instead.
                 var gtype = Marshal.PtrToStructure<GType>(class_);
-                var type = (Type)GCHandle.FromIntPtr(userData_).Target;
+                var type = (Type)GCHandle.FromIntPtr(userData_).Target!;
 
                 // override property native accessors
 
@@ -482,7 +483,7 @@ namespace GISharp.Lib.GObject
 
                     // figure out the parameter types
 
-                    var methodInfo = eventInfo.EventHandlerType.GetMethod("Invoke");
+                    var methodInfo = eventInfo.EventHandlerType!.GetMethod("Invoke")!;
                     var returnGType = methodInfo.ReturnType.ToGType();
                     var parameters = methodInfo.GetParameters();
                     var parameterGTypes = new GType[parameters.Length];
@@ -492,11 +493,11 @@ namespace GISharp.Lib.GObject
 
                     // create a closure that will be called when the signal is emitted
 
-                    var fieldInfo = type.GetField(eventInfo.Name, Instance | NonPublic);
+                    var fieldInfo = type.GetField(eventInfo.Name, Instance | NonPublic)!;
 
                     var closure = new Closure((p) => {
-                        var eventDelegate = (MulticastDelegate)fieldInfo.GetValue(p[0]);
-                        return eventDelegate.DynamicInvoke(p.Skip(1).ToArray());
+                        var eventDelegate = (MulticastDelegate)fieldInfo.GetValue(p[0])!;
+                        return eventDelegate.DynamicInvoke(p.Skip(1).ToArray())!;
                     });
 
                     // register the signal

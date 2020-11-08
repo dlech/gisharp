@@ -11,8 +11,8 @@ namespace GISharp.Runtime
     /// </summary>
     public static class GMarshal
     {
-        [DllImport ("glib-2.0")]
-        extern static IntPtr g_malloc (UIntPtr nBytes);
+        [DllImport("glib-2.0")]
+        extern static IntPtr g_malloc(UIntPtr nBytes);
 
         /// <summary>
         /// Allocates <paramref name="size"/> bytes of memory.
@@ -20,16 +20,16 @@ namespace GISharp.Runtime
         /// </summary>
         /// <param name="size">The number of bytes to allocate.</param>
         /// <exception cref="ArgumentException">If size is less than 0.</exception>
-        public static IntPtr Alloc (int size)
+        public static IntPtr Alloc(int size)
         {
             if (size < 0) {
-                throw new ArgumentException ("Size must be >= 0", nameof (size));
+                throw new ArgumentException("Size must be >= 0", nameof(size));
             }
-            return g_malloc ((UIntPtr)(uint)size);
+            return g_malloc((UIntPtr)(uint)size);
         }
 
-        [DllImport ("glib-2.0")]
-        extern static IntPtr g_malloc0 (UIntPtr nBytes);
+        [DllImport("glib-2.0")]
+        extern static IntPtr g_malloc0(UIntPtr nBytes);
 
         /// <summary>
         /// Allocates <paramref name="size"/> bytes of memory, initialized to 0's.
@@ -37,16 +37,16 @@ namespace GISharp.Runtime
         /// </summary>
         /// <param name="size">The number of bytes to allocate.</param>
         /// <exception cref="ArgumentException">If size is less than 0.</exception>
-        public static IntPtr Alloc0 (int size)
+        public static IntPtr Alloc0(int size)
         {
             if (size < 0) {
-                throw new ArgumentException ("Size must be >= 0", nameof (size));
+                throw new ArgumentException("Size must be >= 0", nameof(size));
             }
-            return g_malloc0 ((UIntPtr)(uint)size);
+            return g_malloc0((UIntPtr)(uint)size);
         }
 
-        [DllImport ("glib-2.0")]
-        extern static void g_free (IntPtr ptr);
+        [DllImport("glib-2.0")]
+        extern static void g_free(IntPtr ptr);
 
         /// <summary>
         /// Free the specified pointer with g_free.
@@ -56,9 +56,9 @@ namespace GISharp.Runtime
         /// The pointer being freed must have been allocated using g_malloc.
         /// Also, there is no need to check for IntPtr.Zero.
         /// </remarks>
-        public static void Free (IntPtr ptr)
+        public static void Free(IntPtr ptr)
         {
-            g_free (ptr);
+            g_free(ptr);
         }
 
         /// <summary>
@@ -76,18 +76,18 @@ namespace GISharp.Runtime
             if (ptr == IntPtr.Zero) {
                 return null;
             }
-            var bytes = new System.Collections.Generic.List<byte> ();
+            var bytes = new System.Collections.Generic.List<byte>();
             var offset = 0;
             while (true) {
-                var b = Marshal.ReadByte (ptr, offset++);
+                var b = Marshal.ReadByte(ptr, offset++);
                 if (b == 0)
                     break;
-                bytes.Add (b);
+                bytes.Add(b);
             }
             if (freePtr) {
-                g_free (ptr);
+                g_free(ptr);
             }
-            return bytes.ToArray ();
+            return bytes.ToArray();
         }
 
         /// <summary>
@@ -105,9 +105,9 @@ namespace GISharp.Runtime
             if (bytes is null) {
                 return IntPtr.Zero;
             }
-            var ptr = g_malloc (new UIntPtr ((ulong)bytes.Length + 1));
-            Marshal.Copy (bytes, 0, ptr, bytes.Length);
-            Marshal.WriteByte (ptr, bytes.Length, 0);
+            var ptr = g_malloc(new UIntPtr((ulong)bytes.Length + 1));
+            Marshal.Copy(bytes, 0, ptr, bytes.Length);
+            Marshal.WriteByte(ptr, bytes.Length, 0);
             return ptr;
         }
 
@@ -122,7 +122,7 @@ namespace GISharp.Runtime
             if (ptr == IntPtr.Zero) {
                 return null;
             }
-            return Encoding.UTF8.GetString (PtrToByteString (ptr, freePtr));
+            return Encoding.UTF8.GetString(PtrToByteString(ptr, freePtr)!);
         }
 
         /// <summary>
@@ -138,7 +138,7 @@ namespace GISharp.Runtime
             if (str is null) {
                 return IntPtr.Zero;
             }
-            return ByteStringToPtr (Encoding.UTF8.GetBytes (str));
+            return ByteStringToPtr(Encoding.UTF8.GetBytes(str));
         }
 
         public static string[]? GStrvPtrToStringArray(IntPtr ptr, bool freePtr = false, bool freeElements = false)
@@ -146,20 +146,20 @@ namespace GISharp.Runtime
             if (ptr == IntPtr.Zero) {
                 return null;
             }
-            var strings = new System.Collections.Generic.List<string> ();
+            var strings = new System.Collections.Generic.List<string>();
             IntPtr current;
             var offset = 0;
-            while ((current = Marshal.ReadIntPtr (ptr, offset)) != IntPtr.Zero) {
-                strings.Add (Utf8PtrToString(current)!);
+            while ((current = Marshal.ReadIntPtr(ptr, offset)) != IntPtr.Zero) {
+                strings.Add(Utf8PtrToString(current)!);
                 if (freeElements) {
-                    g_free (current);
+                    g_free(current);
                 }
                 offset += IntPtr.Size;
             }
             if (freePtr) {
-                g_free (ptr);
+                g_free(ptr);
             }
-            return strings.ToArray ();
+            return strings.ToArray();
         }
 
         public static IntPtr StringArrayToGStrvPtr(string[]? strings)
@@ -167,42 +167,42 @@ namespace GISharp.Runtime
             if (strings is null) {
                 return IntPtr.Zero;
             }
-            if (strings.Any (s => s is null)) {
-                throw new ArgumentException ("All array elements must be non-null.", nameof (strings));
+            if (strings.Any(s => s is null)) {
+                throw new ArgumentException("All array elements must be non-null.", nameof(strings));
             }
-            var ptr = Alloc ((strings.Length + 1) * IntPtr.Size);
+            var ptr = Alloc((strings.Length + 1) * IntPtr.Size);
             var offset = 0;
             foreach (var str in strings) {
-                Marshal.WriteIntPtr (ptr, offset, StringToUtf8Ptr (str));
+                Marshal.WriteIntPtr(ptr, offset, StringToUtf8Ptr(str));
                 offset += IntPtr.Size;
             }
-            Marshal.WriteIntPtr (ptr, offset, IntPtr.Zero);
+            Marshal.WriteIntPtr(ptr, offset, IntPtr.Zero);
             return ptr;
         }
 
-        [DllImport ("glib-2.0")]
-        extern static void g_strfreev (IntPtr list);
+        [DllImport("glib-2.0")]
+        extern static void g_strfreev(IntPtr list);
 
         /// <summary>
         /// Frees an unmanaged null terminated string array (GStrv).
         /// </summary>
         /// <param name="ptr">Pointer to the unmanaged array.</param>
-        public static void FreeGStrv (IntPtr ptr)
+        public static void FreeGStrv(IntPtr ptr)
         {
-            g_strfreev (ptr);
+            g_strfreev(ptr);
         }
 
         struct GList
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             public IntPtr Data;
             public IntPtr Next;
             public IntPtr Prev;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
-        [DllImport ("glib-2.0")]
-        extern static void g_list_free (IntPtr list);
+        [DllImport("glib-2.0")]
+        extern static void g_list_free(IntPtr list);
 
         /// <summary>
         /// Marshals a GList of strings to a managed string array.
@@ -215,26 +215,26 @@ namespace GISharp.Runtime
             var ret = new System.Collections.Generic.List<string?>();
             var itemPtr = ptr;
             while (itemPtr != IntPtr.Zero) {
-                var item = Marshal.PtrToStructure<GList> (itemPtr);
-                ret.Add (Utf8PtrToString (item.Data));
+                var item = Marshal.PtrToStructure<GList>(itemPtr);
+                ret.Add(Utf8PtrToString(item.Data));
                 itemPtr = item.Next;
             }
             if (freePtr) {
-                g_list_free (ptr);
+                g_list_free(ptr);
             }
-            return ret.ToArray ();
+            return ret.ToArray();
         }
 
         struct GSList
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             public IntPtr Data;
             public IntPtr Next;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
-        [DllImport ("glib-2.0")]
-        extern static void g_slist_free (IntPtr list);
+        [DllImport("glib-2.0")]
+        extern static void g_slist_free(IntPtr list);
 
         /// <summary>
         /// Marshals a GSList of strings to a managed string array.
@@ -247,14 +247,14 @@ namespace GISharp.Runtime
             var ret = new System.Collections.Generic.List<string?>();
             var itemPtr = ptr;
             while (itemPtr != IntPtr.Zero) {
-                var item = Marshal.PtrToStructure<GSList> (itemPtr);
-                ret.Add (Utf8PtrToString (item.Data));
+                var item = Marshal.PtrToStructure<GSList>(itemPtr);
+                ret.Add(Utf8PtrToString(item.Data));
                 itemPtr = item.Next;
             }
             if (freePtr) {
-                g_slist_free (ptr);
+                g_slist_free(ptr);
             }
-            return ret.ToArray ();
+            return ret.ToArray();
         }
 
         /// <summary>
@@ -271,26 +271,27 @@ namespace GISharp.Runtime
                 return null;
             }
             T[] array;
-            var elementSize = Marshal.SizeOf<T> ();
+            var elementSize = Marshal.SizeOf<T>();
             if (length.HasValue) {
                 array = new T[length.Value];
                 var current = ptr;
                 for (int i = 0; i < array.Length; i++) {
-                    array[i] = Marshal.PtrToStructure<T> (current);
+                    array[i] = Marshal.PtrToStructure<T>(current);
                     current += elementSize;
                 }
-            } else {
-                var list = new System.Collections.Generic.List<T> ();
+            }
+            else {
+                var list = new System.Collections.Generic.List<T>();
                 T item;
                 var current = ptr;
-                while (!(item = Marshal.PtrToStructure<T> (current)).Equals (default(T))) {
-                    list.Add (item);
+                while (!(item = Marshal.PtrToStructure<T>(current)).Equals(default(T))) {
+                    list.Add(item);
                     current += elementSize;
                 }
-                array = list.ToArray ();
+                array = list.ToArray();
             }
             if (freePtr) {
-                Free (ptr);
+                Free(ptr);
             }
 
             return array;
@@ -305,26 +306,26 @@ namespace GISharp.Runtime
         /// <exception cref="NotSupportedException">
         /// Thrown if array element type is not a value type
         /// </exception>
-        public static IntPtr CArrayToPtr<T> (T[] array, bool nullTerminated) where T : struct
+        public static IntPtr CArrayToPtr<T>(T[] array, bool nullTerminated) where T : struct
         {
             if (array is null) {
                 return IntPtr.Zero;
             }
-            var elementSize = Marshal.SizeOf<T> ();
-            var ptr = Alloc ((array.Length + (nullTerminated ? 1 : 0)) * elementSize);
+            var elementSize = Marshal.SizeOf<T>();
+            var ptr = Alloc((array.Length + (nullTerminated ? 1 : 0)) * elementSize);
             var current = ptr;
             for (int i = 0; i < array.Length; i++) {
-                Marshal.StructureToPtr<T> ((T)array.GetValue (i), current, false);
+                Marshal.StructureToPtr((T)array.GetValue(i)!, current, false);
                 current += elementSize;
             }
             if (nullTerminated) {
-                Marshal.StructureToPtr (default(T), current, false);
+                Marshal.StructureToPtr(default(T), current, false);
             }
             return ptr;
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_set_error_literal (IntPtr err, Quark domain, int code, IntPtr message);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_set_error_literal(IntPtr err, Quark domain, int code, IntPtr message);
 
         /// <summary>
         /// Does nothing if err is NULL; if err is non-NULL, then *err must be NULL.
@@ -334,11 +335,11 @@ namespace GISharp.Runtime
         /// <param name="domain">error domain.</param>
         /// <param name="code">error code.</param>
         /// <param name="message">error message.</param>
-        public static void SetError (IntPtr error, Quark domain, int code, string message)
+        public static void SetError(IntPtr error, Quark domain, int code, string message)
         {
-            var messagePtr = StringToUtf8Ptr (message);
-            g_set_error_literal (error, domain, code, messagePtr);
-            Free (messagePtr);
+            var messagePtr = StringToUtf8Ptr(message);
+            g_set_error_literal(error, domain, code, messagePtr);
+            Free(messagePtr);
         }
 
         /// <summary>
@@ -350,12 +351,12 @@ namespace GISharp.Runtime
         /// <param name="code">error code.</param>
         /// <param name="format">error message format string.</param>
         /// <param name="args">error message format args.</param>
-        public static void SetError (IntPtr error, Quark domain, int code, string format, params object[] args)
+        public static void SetError(IntPtr error, Quark domain, int code, string format, params object[] args)
         {
-            SetError (error, domain, code, string.Format (format, args));
+            SetError(error, domain, code, string.Format(format, args));
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern unsafe void g_propagate_error(IntPtr* dest, IntPtr src);
 
         /// <summary>
@@ -388,17 +389,17 @@ namespace GISharp.Runtime
             var src_ = src.Take();
             g_propagate_error(dest, src_);
         }
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_clear_error (IntPtr err);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_clear_error(IntPtr err);
 
         /// <summary>
         /// If err or *err is NULL, does nothing. Otherwise, calls g_error_free()
         /// on *err and sets *err to NULL.
         /// </summary>
         /// <param name="err">Error.</param>
-        public static void ClearError (IntPtr err)
+        public static void ClearError(IntPtr err)
         {
-            g_clear_error (err);
+            g_clear_error(err);
         }
 
         /// <summary>

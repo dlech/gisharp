@@ -10,7 +10,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
     {
         readonly BindingRestrictions typeRestriction;
 
-        FunctionInfo Info { get { return (FunctionInfo)Value; } }
+        FunctionInfo Info => (FunctionInfo)Value!;
 
         public FunctionInfoDynamicMetaObject (Expression parameter, FunctionInfo info)
             : base (parameter, BindingRestrictions.Empty, info)

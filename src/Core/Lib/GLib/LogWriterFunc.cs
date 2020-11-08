@@ -96,7 +96,7 @@ namespace GISharp.Lib.GLib
             try {
                 var gcHandle = (GCHandle)userData_;
                 var fields = new ReadOnlySpan<LogField>(fields_, (int)nFields_);
-                var userData = (UserData)gcHandle.Target;
+                var userData = (UserData)gcHandle.Target!;
                 var ret = userData.Func(logLevel_, fields);
                 if (userData.Scope == CallbackScope.Async) {
                     gcHandle.Free();

@@ -1,0 +1,14 @@
+# Icon
+
+# Change hash to method and fix type
+
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']/gi:function[@name='hash']
+- !set-attribute 
+  name: name
+  value: Icon
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']/gi:method[@name='hash']/gi:parameters/gi:parameter/gi:type
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:interface[@name='Icon']/gi:method[@name='hash']/gi:parameters/gi:parameter[1]

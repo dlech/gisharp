@@ -588,10 +588,10 @@ namespace GISharp.Lib.GObject
             return a.value != b.value;
         }
 
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
-            if (obj is GType) {
-                return this == (GType)obj;
+            if (obj is GType type) {
+                return this == type;
             }
             return false;
         }
@@ -878,14 +878,14 @@ namespace GISharp.Lib.GObject
                         implementationType = type.Assembly.GetType(type.FullName + suffix) ?? implementationType;
                     }
                     else if (type.IsGenericType && type.BaseType != typeof(Boxed)) {
-                        implementationType = type.BaseType;
+                        implementationType = type.BaseType ?? throw new ArgumentException("generic type without base type", nameof(type));
                     }
                     var gtypeField = implementationType.GetField("_GType", BindFlags.Static | BindFlags.NonPublic);
                     if (gtypeField is null) {
                         var message = $"Could not find _GType field for {implementationType.FullName}.";
                         throw new ArgumentException(message, nameof(type));
                     }
-                    var gtype = (GType)gtypeField.GetValue(null);
+                    var gtype = (GType)gtypeField.GetValue(null)!;
                     if (gtype == Invalid) {
                         throw new InvalidOperationException("Something bad happend while registering wrapped type.");
                     }
@@ -908,7 +908,7 @@ namespace GISharp.Lib.GObject
                                           typeof(Object).FullName);
                         throw new ArgumentException(message, nameof(type));
                     }
-                    var parentGType = type.BaseType.ToGType();
+                    var parentGType = type.BaseType?.ToGType() ?? throw new ArgumentException("class without base type", nameof(type));
                     var parentTypeclass = TypeClass.Get(parentGType);
                     var parentTypeInfo = ObjectClass.GetTypeInfo(type);
 
@@ -976,7 +976,7 @@ namespace GISharp.Lib.GObject
                         var gtypeValues = new EnumValue[values.Length + 1];
                         for (int i = 0; i < values.Length; i++) {
                             var enumValueField = type.GetField(names[i]);
-                            var enumValueAttr = enumValueField.GetCustomAttributes()
+                            var enumValueAttr = enumValueField?.GetCustomAttributes()
                                 .OfType<EnumValueAttribute>()
                                 .SingleOrDefault();
                             var valueName = enumValueAttr?.Name ?? names[i];
@@ -998,7 +998,7 @@ namespace GISharp.Lib.GObject
                         var gtypeValues = new FlagsValue[values.Length + 1];
                         for (int i = 0; i < values.Length; i++) {
                             var enumValueField = type.GetField(names[i]);
-                            var enumValueAttr = enumValueField
+                            var enumValueAttr = enumValueField?
                                 .GetCustomAttributes()
                                 .OfType<EnumValueAttribute>()
                                 .SingleOrDefault();

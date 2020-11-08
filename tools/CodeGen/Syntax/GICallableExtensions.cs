@@ -240,7 +240,7 @@ namespace GISharp.CodeGen.Syntax
             var completionType = returnType.IsGenericType
                     ? typeof(TaskCompletionSource<>).MakeGenericType(returnType.GenericTypeArguments)
                     : typeof(TaskCompletionSource<Runtime.Void>);
-            var targetExpression = $"var completionSource = ({completionType.ToSyntax()})userData.Target";
+            var targetExpression = $"var completionSource = ({completionType.ToSyntax()})userData.Target!";
             tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(ParseExpression(targetExpression)));
 
             var gcHandleFreeExpression = "userData.Free()";

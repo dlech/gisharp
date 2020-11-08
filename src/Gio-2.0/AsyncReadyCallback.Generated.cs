@@ -100,7 +100,7 @@ namespace GISharp.Lib.Gio
                 var sourceObject = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(sourceObject_, GISharp.Runtime.Transfer.None);
                 var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (UserData)gcHandle.Target;
+                var userData = (UserData)gcHandle.Target!;
                 userData.ManagedDelegate(sourceObject, res);
                 if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
                 {

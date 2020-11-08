@@ -59,7 +59,7 @@ namespace GISharp.Lib.GLib
         {
             try {
                 var gcHandle = (GCHandle)userData_;
-                var userData = (UserData)gcHandle.Target;
+                var userData = (UserData)gcHandle.Target!;
                 var ret = userData.Func();
                 if (userData.Scope == CallbackScope.Async) {
                     gcHandle.Free();

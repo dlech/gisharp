@@ -118,7 +118,7 @@ namespace GISharp.Lib.GLib
             try {
                 var offset = Marshal.OffsetOf<ManagedSource>(nameof(ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr(Marshal.ReadIntPtr(sourcePtr, (int)offset));
-                var source = (Source)gcHandle.Target;
+                var source = (Source)gcHandle.Target!;
                 return source.OnPrepare(out *timeout);
             }
             catch (Exception ex) {
@@ -149,7 +149,7 @@ namespace GISharp.Lib.GLib
             try {
                 var offset = Marshal.OffsetOf<ManagedSource>(nameof(ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr(Marshal.ReadIntPtr(sourcePtr, (int)offset));
-                var source = (Source)gcHandle.Target;
+                var source = (Source)gcHandle.Target!;
                 return source.OnCheck();
             }
             catch (Exception ex) {
@@ -173,7 +173,7 @@ namespace GISharp.Lib.GLib
             try {
                 var offset = Marshal.OffsetOf<ManagedSource>(nameof(ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr(Marshal.ReadIntPtr(source_, (int)offset));
-                var source = (Source)gcHandle.Target;
+                var source = (Source)gcHandle.Target!;
                 var callback = Marshal.GetDelegateForFunctionPointer<UnmanagedSourceFunc>(callback_);
                 return source.OnDispatch(() => callback(userData_));
             }
@@ -203,7 +203,7 @@ namespace GISharp.Lib.GLib
             try {
                 var offset = Marshal.OffsetOf<ManagedSource>(nameof(ManagedSource.gcHandle));
                 var gcHandle = GCHandle.FromIntPtr(Marshal.ReadIntPtr(sourcePtr, (int)offset));
-                var source = (Source)gcHandle.Target;
+                var source = (Source)gcHandle.Target!;
                 source.OnFinalize();
                 gcHandle.Free();
             }

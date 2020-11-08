@@ -71,7 +71,7 @@ namespace GISharp.Runtime
         }
 
         /// <inheritdoc />
-        public override bool Equals(object obj)
+        public override bool Equals(object? obj)
         {
             if (obj is OpaqueInt other) {
                 return Value == other.Value;

@@ -14,7 +14,7 @@ namespace GISharp.Lib.GLib
     /// custom log handler functions behave similarly, so that logging calls in user
     /// code do not need modifying to add a new-line character to the message if the
     /// log handler is changed.
-    /// 
+    ///
     /// This is not used if structured logging is enabled; see
     /// [Using Structured Logging][using-structured-logging].
     /// </remarks>
@@ -42,7 +42,7 @@ namespace GISharp.Lib.GLib
     /// custom log handler functions behave similarly, so that logging calls in user
     /// code do not need modifying to add a new-line character to the message if the
     /// log handler is changed.
-    /// 
+    ///
     /// This is not used if structured logging is enabled; see
     /// [Using Structured Logging][using-structured-logging].
     /// </remarks>
@@ -86,7 +86,7 @@ namespace GISharp.Lib.GLib
         {
             try {
                 var gcHandle = (GCHandle)userData_;
-                var userData = (UserData)gcHandle.Target;
+                var userData = (UserData)gcHandle.Target!;
                 var logDomain = new NullableUnownedUtf8(logDomain_, -1);
                 var message = new NullableUnownedUtf8(message_, -1);
                 userData.Func(logDomain, logLevel_, message);

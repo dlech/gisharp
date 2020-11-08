@@ -253,7 +253,7 @@ namespace GISharp.Lib.Gio
             try
             {
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
-                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>)userData.Target;
+                var completionSource = (System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>)userData.Target!;
                 userData.Free();
                 var error_ = System.IntPtr.Zero;
                 var ret_ = g_file_io_stream_query_info_finish(stream_,result_,ref error_);

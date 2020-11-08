@@ -92,7 +92,7 @@ namespace GISharp.Lib.GLib
             {
                 var str = new GISharp.Lib.GLib.UnownedUtf8(str_, -1);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
-                var data = (UserData)gcHandle.Target;
+                var data = (UserData)gcHandle.Target!;
                 var ret = data.ManagedDelegate(str);
                 if (data.Scope == GISharp.Runtime.CallbackScope.Async)
                 {

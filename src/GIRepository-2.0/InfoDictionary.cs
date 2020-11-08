@@ -13,7 +13,7 @@ namespace GISharp.Lib.GIRepository
     /// <remarks>
     /// Members are read at initalization and cached for faster lookup later.
     /// </remarks>
-    [DebuggerDisplay ("Count: {Count}")]
+    [DebuggerDisplay("Count: {Count}")]
     public sealed class InfoDictionary<T> : IOrderedDictionary, IEnumerable<T> where T : BaseInfo
     {
         readonly Dictionary<string, int> nameMap;
@@ -42,12 +42,12 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        object IOrderedDictionary.this[int index] {
+        object? IOrderedDictionary.this[int index] {
             get {
                 return this[index];
             }
             set {
-                throw new InvalidOperationException ();
+                throw new InvalidOperationException();
             }
         }
 
@@ -57,12 +57,12 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        object IDictionary.this[object key] {
+        object? IDictionary.this[object key] {
             get {
-                return this[key.ToString ()];
+                return this[(string)key];
             }
             set {
-                throw new InvalidOperationException ();
+                throw new InvalidOperationException();
             }
         }
 
@@ -78,7 +78,7 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        public object SyncRoot { get { throw new InvalidOperationException (); } }
+        public object SyncRoot { get { throw new InvalidOperationException(); } }
 
         public ICollection<T> Values {
             get {
@@ -92,67 +92,67 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        public InfoDictionary (int count, Func<int, T> getInfoAtIndex)
+        public InfoDictionary(int count, Func<int, T> getInfoAtIndex)
         {
             if (getInfoAtIndex is null) {
-                throw new ArgumentException (nameof (getInfoAtIndex));
+                throw new ArgumentException(nameof(getInfoAtIndex));
             }
             _Count = count;
             nameMap = new(count);
             infos = new(count);
             for (int i = 0; i < count; i++) {
-                var info = getInfoAtIndex (i);
-                infos.Add (info);
+                var info = getInfoAtIndex(i);
+                infos.Add(info);
                 nameMap.Add(info.Name.ToString(), i);
             }
         }
 
-        void IDictionary.Add (object key, object value)
+        void IDictionary.Add(object key, object? value)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        void IDictionary.Clear ()
+        void IDictionary.Clear()
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public bool ContainsKey (string key)
+        public bool ContainsKey(string key)
         {
-            return nameMap.ContainsKey (key);
+            return nameMap.ContainsKey(key);
         }
 
-        bool IDictionary.Contains (object key)
+        bool IDictionary.Contains(object key)
         {
-            return ContainsKey (key.ToString ());
+            return ContainsKey((string)key);
         }
 
-        void ICollection.CopyTo (Array array, int index)
+        void ICollection.CopyTo(Array array, int index)
         {
-            infos.CopyTo ((T[])array, index);
+            infos.CopyTo((T[])array, index);
         }
 
-        public IEnumerator<T> GetEnumerator ()
+        public IEnumerator<T> GetEnumerator()
         {
-            return infos.GetEnumerator ();
+            return infos.GetEnumerator();
         }
 
-        IEnumerator IEnumerable.GetEnumerator ()
+        IEnumerator IEnumerable.GetEnumerator()
         {
-            return infos.GetEnumerator ();
+            return infos.GetEnumerator();
         }
 
-        IDictionaryEnumerator IOrderedDictionary.GetEnumerator ()
+        IDictionaryEnumerator IOrderedDictionary.GetEnumerator()
         {
-            return new Enumerator (infos);
+            return new Enumerator(infos);
         }
 
-        IDictionaryEnumerator IDictionary.GetEnumerator ()
+        IDictionaryEnumerator IDictionary.GetEnumerator()
         {
-            return new Enumerator (infos);
+            return new Enumerator(infos);
         }
 
-        public int IndexOf (T info)
+        public int IndexOf(T info)
         {
             int index;
             if (nameMap.TryGetValue(info.Name.ToString(), out index)) {
@@ -161,19 +161,19 @@ namespace GISharp.Lib.GIRepository
             return -1;
         }
 
-        void IOrderedDictionary.Insert (int index, object key, object value)
+        void IOrderedDictionary.Insert(int index, object key, object? value)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        void IDictionary.Remove (object key)
+        void IDictionary.Remove(object key)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        void IOrderedDictionary.RemoveAt (int index)
+        void IOrderedDictionary.RemoveAt(int index)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
         class Enumerator : IDictionaryEnumerator
@@ -206,18 +206,18 @@ namespace GISharp.Lib.GIRepository
                 }
             }
 
-            public Enumerator (List<T> list)
+            public Enumerator(List<T> list)
             {
                 this.list = list;
             }
 
-            public bool MoveNext ()
+            public bool MoveNext()
             {
                 index++;
                 return index >= list.Count;
             }
 
-            public void Reset ()
+            public void Reset()
             {
                 index = 0;
             }
