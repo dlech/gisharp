@@ -1,0 +1,18 @@
+# Initialize
+
+# static class for initialization
+- !add-element
+  xml: <gs:static-class name='Initialize' />
+  xpath: gi:repository/gi:namespace
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='disable_setlocale']
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Initialize']
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[contains(@name,'init') and not(starts-with(@name,'im_'))]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Initialize']
+
+# more .NET-like name
+- !set-attribute
+  name: name
+  value: try_init
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Initialize']/gi:function[@name='init_check']

@@ -1,0 +1,69 @@
+<declaration>
+
+<member name='Initialize.IsInitialized'>
+<summary>
+Use this function to check if GTK has been initialized with <see cref="Initialize.Init()"/>
+or <see cref="Initialize.TryInit()"/>.
+</summary>
+</member>
+
+<member name='Initialize.DisableSetlocale()'>
+<summary>
+Prevents <see cref="Initialize.Init()"/>, <see cref="Initialize.TryInit()"/> and
+gtk_parse_args() from automatically
+calling `setlocale (LC_ALL, "")`. You would
+want to use this function if you wanted to set the locale for
+your program to something other than the user’s locale, or if
+you wanted to set different values for different locale categories.
+</summary>
+<remarks>
+Most programs should not need to call this function.
+</remarks>
+</member>
+
+<member name='Initialize.Init()'>
+<summary>
+Call this function before using any other GTK functions in your GUI
+applications.  It will initialize everything needed to operate the
+toolkit and parses some standard command line options.
+</summary>
+<remarks>
+If you are using #GtkApplication, you don't have to call <see cref="Initialize.Init()"/>
+or <see cref="Initialize.TryInit()"/>; the #GApplication::startup handler
+does it for you.
+
+This function will terminate your program if it was unable to
+initialize the windowing system for some reason. If you want
+your program to fall back to a textual interface you want to
+call <see cref="Initialize.TryInit()"/> instead.
+
+GTK calls `signal (SIGPIPE, SIG_IGN)`
+during initialization, to ignore SIGPIPE signals, since these are
+almost never wanted in graphical applications. If you do need to
+handle SIGPIPE for some reason, reset the handler after <see cref="Initialize.Init()"/>,
+but notice that other libraries (e.g. libdbus or gvfs) might do
+similar things.
+</remarks>
+</member>
+
+<member name='Initialize.TryInit()'>
+<summary>
+This function does the same work as <see cref="Initialize.Init()"/> with only a single
+change: It does not terminate the program if the windowing system
+can’t be initialized. Instead it returns <c>false</c> on failure.
+</summary>
+<remarks>
+This way the application can fall back to some other means of
+communication with the user - for example a curses or command line
+interface.
+</remarks>
+<returns>
+<c>true</c> if the windowing system has been successfully
+    initialized, <c>false</c> otherwise
+</returns>
+</member>
+
+<member name='Initialize'>
+</member>
+
+</declaration>
