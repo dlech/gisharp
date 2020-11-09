@@ -9,30 +9,30 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
+            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
-            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='Struct.LookupAction']/*" />
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.LookupAction']/*" />
             public System.IntPtr LookupAction;
 
-            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='Struct.AddAction']/*" />
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.AddAction']/*" />
             public System.IntPtr AddAction;
 
-            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='Struct.RemoveAction']/*" />
+            /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.RemoveAction']/*" />
             public System.IntPtr RemoveAction;
 #pragma warning restore CS0649
         }
 
         static ActionMapInterface()
         {
-            System.Int32 lookupActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.LookupAction));
+            System.Int32 lookupActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.LookupAction));
             RegisterVirtualMethod(lookupActionOffset, LookupActionMarshal.Create);
-            System.Int32 addActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AddAction));
+            System.Int32 addActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AddAction));
             RegisterVirtualMethod(addActionOffset, AddActionMarshal.Create);
-            System.Int32 removeActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.RemoveAction));
+            System.Int32 removeActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.RemoveAction));
             RegisterVirtualMethod(removeActionOffset, RemoveActionMarshal.Create);
         }
 

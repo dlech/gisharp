@@ -8,36 +8,36 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
+            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.Hash']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Hash']/*" />
             public System.IntPtr Hash;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.Equal']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Equal']/*" />
             public System.IntPtr Equal;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.ToTokens']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ToTokens']/*" />
             public System.IntPtr ToTokens;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.FromTokens']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.FromTokens']/*" />
             public System.IntPtr FromTokens;
 
-            /// <include file="IconIface.xmldoc" path="declaration/member[@name='Struct.Serialize']/*" />
+            /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Serialize']/*" />
             public System.IntPtr Serialize;
 #pragma warning restore CS0649
         }
 
         static IconIface()
         {
-            System.Int32 hashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Hash));
+            System.Int32 hashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Hash));
             RegisterVirtualMethod(hashOffset, HashMarshal.Create);
-            System.Int32 equalOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Equal));
+            System.Int32 equalOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Equal));
             RegisterVirtualMethod(equalOffset, EqualMarshal.Create);
-            System.Int32 serializeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Serialize));
+            System.Int32 serializeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Serialize));
             RegisterVirtualMethod(serializeOffset, SerializeMarshal.Create);
         }
 

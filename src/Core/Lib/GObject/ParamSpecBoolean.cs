@@ -11,20 +11,18 @@ namespace GISharp.Lib.GObject
     [GType("GParamBoolean", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecBoolean : ParamSpec
     {
-        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct>(nameof(Struct.DefaultValue));
-
-        new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
-            public bool DefaultValue;
+            public ParamSpec.UnmanagedStruct ParentInstance;
+            public Runtime.Boolean DefaultValue;
 #pragma warning restore CS0649
         }
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new bool DefaultValue => Marshal.PtrToStructure<bool>(Handle + (int)defaultValueOffset);
+        public unsafe new Runtime.Boolean DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.
@@ -73,7 +71,7 @@ namespace GISharp.Lib.GObject
         /// <remarks>
         /// In many cases, it may be more appropriate to use an enum with
         /// <see cref="ParamSpecEnum"/>, both to improve code clarity by using
-        /// explicitly named values, and to allow for more values to be added 
+        /// explicitly named values, and to allow for more values to be added
         /// in future without breaking API.
         /// </remarks>
         public ParamSpecBoolean(string name, string nick, string blurb, bool defaultValue, ParamFlags flags)

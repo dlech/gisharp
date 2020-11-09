@@ -1,9 +1,9 @@
 <declaration>
 
-<member name='Struct.ParentInstance'>
+<member name='UnmanagedStruct.ParentInstance'>
 </member>
 
-<member name='Struct.Priv'>
+<member name='UnmanagedStruct.Priv'>
 </member>
 
 <member name='FileOutputStream.Etag'>

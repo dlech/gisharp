@@ -14,10 +14,8 @@ namespace GISharp.Lib.GLib
     [GType ("GByteArray", IsProxyForUnmanagedType = true)]
     public sealed class ByteArray : Boxed, IReadOnlyList<byte>, IList<byte>
     {
-        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Data));
-        static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct> (nameof(Struct.Len));
-
-        struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
             #pragma warning disable CS0649
             public IntPtr Data;
@@ -25,9 +23,9 @@ namespace GISharp.Lib.GLib
             #pragma warning restore CS0649
         }
 
-        IntPtr Data_ => Marshal.ReadIntPtr(Handle, (int)dataOffset);
+        unsafe IntPtr Data_ => ((UnmanagedStruct*)Handle)->Data;
 
-        uint Len => (uint)Marshal.ReadInt32(Handle + (int)lenOffset);
+        unsafe uint Len => ((UnmanagedStruct*)Handle)->Len;
 
         public unsafe Span<byte> Data => new Span<byte>(Data_.ToPointer(), (int)Len);
 

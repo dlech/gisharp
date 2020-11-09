@@ -13,10 +13,10 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe FileAttributeInfo this[int index] {
             get {
-                if (index >= Count) {
+                if (index < 0 || index >= Count) {
                     throw new IndexOutOfRangeException();
                 }
-                var infos_ = Marshal.PtrToStructure<Struct>(Handle).Infos;
+                var infos_ = ((UnmanagedStruct*)Handle)->Infos;
                 var info = infos_[index];
                 return info;
             }
@@ -25,7 +25,7 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// the number of values in the list.
         /// </summary>
-        public int Count => Marshal.PtrToStructure<Struct>(Handle).NInfos;
+        public unsafe int Count => ((UnmanagedStruct*)Handle)->NInfos;
 
         private IEnumerator<FileAttributeInfo> GetEnumerator()
         {

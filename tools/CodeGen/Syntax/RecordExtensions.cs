@@ -161,10 +161,6 @@ namespace GISharp.CodeGen.Syntax
             var structDeclaration = record.Fields.GetStructDeclaration()
                 .AddModifiers(Token(NewKeyword));
 
-            if (record.BaseType != typeof(TypeInterface)) {
-                structDeclaration = structDeclaration.AddModifiers(Token(ProtectedKeyword));
-            }
-
             list = list.Add(structDeclaration);
 
             list = list.Add(record.GetGTypeStructStaticConstructor());

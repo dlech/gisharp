@@ -9,83 +9,83 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
+            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.HasAction']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.HasAction']/*" />
             public System.IntPtr HasAction;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ListActions']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ListActions']/*" />
             public System.IntPtr ListActions;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionEnabled']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionEnabled']/*" />
             public System.IntPtr GetActionEnabled;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionParameterType']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionParameterType']/*" />
             public System.IntPtr GetActionParameterType;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionStateType']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionStateType']/*" />
             public System.IntPtr GetActionStateType;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionStateHint']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionStateHint']/*" />
             public System.IntPtr GetActionStateHint;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.GetActionState']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionState']/*" />
             public System.IntPtr GetActionState;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ChangeActionState']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ChangeActionState']/*" />
             public System.IntPtr ChangeActionState;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActivateAction']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActivateAction']/*" />
             public System.IntPtr ActivateAction;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActionAdded']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionAdded']/*" />
             public System.IntPtr ActionAdded;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActionRemoved']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionRemoved']/*" />
             public System.IntPtr ActionRemoved;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActionEnabledChanged']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionEnabledChanged']/*" />
             public System.IntPtr ActionEnabledChanged;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.ActionStateChanged']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionStateChanged']/*" />
             public System.IntPtr ActionStateChanged;
 
-            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='Struct.QueryAction']/*" />
+            /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryAction']/*" />
             public System.IntPtr QueryAction;
 #pragma warning restore CS0649
         }
 
         static ActionGroupInterface()
         {
-            System.Int32 hasActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.HasAction));
+            System.Int32 hasActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.HasAction));
             RegisterVirtualMethod(hasActionOffset, HasActionMarshal.Create);
-            System.Int32 listActionsOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ListActions));
+            System.Int32 listActionsOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ListActions));
             RegisterVirtualMethod(listActionsOffset, ListActionsMarshal.Create);
-            System.Int32 getActionEnabledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionEnabled));
+            System.Int32 getActionEnabledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionEnabled));
             RegisterVirtualMethod(getActionEnabledOffset, GetActionEnabledMarshal.Create);
-            System.Int32 getActionParameterTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionParameterType));
+            System.Int32 getActionParameterTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionParameterType));
             RegisterVirtualMethod(getActionParameterTypeOffset, GetActionParameterTypeMarshal.Create);
-            System.Int32 getActionStateTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionStateType));
+            System.Int32 getActionStateTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionStateType));
             RegisterVirtualMethod(getActionStateTypeOffset, GetActionStateTypeMarshal.Create);
-            System.Int32 getActionStateHintOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionStateHint));
+            System.Int32 getActionStateHintOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionStateHint));
             RegisterVirtualMethod(getActionStateHintOffset, GetActionStateHintMarshal.Create);
-            System.Int32 getActionStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetActionState));
+            System.Int32 getActionStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetActionState));
             RegisterVirtualMethod(getActionStateOffset, GetActionStateMarshal.Create);
-            System.Int32 changeActionStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ChangeActionState));
+            System.Int32 changeActionStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ChangeActionState));
             RegisterVirtualMethod(changeActionStateOffset, ChangeActionStateMarshal.Create);
-            System.Int32 activateActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActivateAction));
+            System.Int32 activateActionOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActivateAction));
             RegisterVirtualMethod(activateActionOffset, ActivateActionMarshal.Create);
-            System.Int32 actionAddedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActionAdded));
+            System.Int32 actionAddedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionAdded));
             RegisterVirtualMethod(actionAddedOffset, ActionAddedMarshal.Create);
-            System.Int32 actionRemovedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActionRemoved));
+            System.Int32 actionRemovedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionRemoved));
             RegisterVirtualMethod(actionRemovedOffset, ActionRemovedMarshal.Create);
-            System.Int32 actionEnabledChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActionEnabledChanged));
+            System.Int32 actionEnabledChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionEnabledChanged));
             RegisterVirtualMethod(actionEnabledChangedOffset, ActionEnabledChangedMarshal.Create);
-            System.Int32 actionStateChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ActionStateChanged));
+            System.Int32 actionStateChangedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ActionStateChanged));
             RegisterVirtualMethod(actionStateChangedOffset, ActionStateChangedMarshal.Create);
         }
 

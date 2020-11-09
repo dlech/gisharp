@@ -25,7 +25,7 @@ namespace GISharp.CodeGen.Syntax
                 type = typeof(IntPtr).ToSyntax();
             }
             else if (!field.Type.IsPointer && !field.Type.ManagedType.IsValueType) {
-                type = ParseTypeName($"{field.Type.ManagedType}.Struct");
+                type = ParseTypeName($"{field.Type.ManagedType}.UnmanagedStruct");
             }
             else if (field.Type.IsPointer && field.Type.ManagedType.IsValueType
                     && field.Type.ManagedType != typeof(IntPtr)) {
@@ -56,7 +56,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var variableType = ParseTypeName(typeof(int).FullName);
             var variableName = field.ManagedName.ToCamelCase() + "Offset";
-            var valueExpression = ParseExpression(string.Format("({0}){1}.{2}<Struct>(nameof(Struct.{3}))",
+            var valueExpression = ParseExpression(string.Format("({0}){1}.{2}<UnmanagedStruct>(nameof(UnmanagedStruct.{3}))",
                 variableType,
                 typeof(Marshal),
                 nameof(Marshal.OffsetOf),
@@ -100,8 +100,8 @@ namespace GISharp.CodeGen.Syntax
                     .Append(Trivia(warningRestore))
                     .Append(EndOfLine("\n"))));
 
-            return StructDeclaration("Struct")
-                .AddModifiers(Token(UnsafeKeyword))
+            return StructDeclaration("UnmanagedStruct")
+                .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword))
                 .WithMembers(structMembers)
                 .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
                 /// Unmanaged data structure

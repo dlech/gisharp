@@ -11,12 +11,11 @@ namespace GISharp.Lib.GObject
     [GType("GParamUnichar", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecUnichar : ParamSpec
     {
-        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct>(nameof(Struct.DefaultValue));
-
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
             public uint DefaultValue;
 #pragma warning restore CS0649
         }
@@ -24,7 +23,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new int DefaultValue => Marshal.ReadInt32(Handle, (int)defaultValueOffset);
+        public unsafe new uint DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.
@@ -69,7 +68,7 @@ namespace GISharp.Lib.GObject
 
         /// <summary>
         /// Creates a new <see cref="ParamSpecUnichar"/> instance specifying a
-        /// <see cref="GType.UInt"/> property. <see cref="Value"/> structures 
+        /// <see cref="GType.UInt"/> property. <see cref="Value"/> structures
         /// for this property can be accessed with <see cref="Value.UInt"/>.
         /// </summary>
         public ParamSpecUnichar(string name, string nick, string blurb, int defaultValue, ParamFlags flags)

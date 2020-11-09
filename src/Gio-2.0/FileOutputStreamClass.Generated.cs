@@ -8,75 +8,75 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new protected struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
-            public GISharp.Lib.Gio.OutputStreamClass.Struct ParentClass;
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
+            public GISharp.Lib.Gio.OutputStreamClass.UnmanagedStruct ParentClass;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.Tell']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Tell']/*" />
             public System.IntPtr Tell;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.CanSeek']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanSeek']/*" />
             public System.IntPtr CanSeek;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.Seek']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Seek']/*" />
             public System.IntPtr Seek;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.CanTruncate']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanTruncate']/*" />
             public System.IntPtr CanTruncate;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.TruncateFn']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.TruncateFn']/*" />
             public System.IntPtr TruncateFn;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.QueryInfo']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfo']/*" />
             public System.IntPtr QueryInfo;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.QueryInfoAsync']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoAsync']/*" />
             public System.IntPtr QueryInfoAsync;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.QueryInfoFinish']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoFinish']/*" />
             public System.IntPtr QueryInfoFinish;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GetEtag']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetEtag']/*" />
             public System.IntPtr GetEtag;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved1']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
             public System.IntPtr GReserved1;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved2']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved2']/*" />
             public System.IntPtr GReserved2;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved3']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved3']/*" />
             public System.IntPtr GReserved3;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
+            /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }
 
         static FileOutputStreamClass()
         {
-            System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Tell));
+            System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Tell));
             RegisterVirtualMethod(tellOffset, TellMarshal.Create);
-            System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CanSeek));
+            System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanSeek));
             RegisterVirtualMethod(canSeekOffset, CanSeekMarshal.Create);
-            System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Seek));
+            System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Seek));
             RegisterVirtualMethod(seekOffset, SeekMarshal.Create);
-            System.Int32 canTruncateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CanTruncate));
+            System.Int32 canTruncateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanTruncate));
             RegisterVirtualMethod(canTruncateOffset, CanTruncateMarshal.Create);
-            System.Int32 truncateFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.TruncateFn));
+            System.Int32 truncateFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TruncateFn));
             RegisterVirtualMethod(truncateFnOffset, TruncateFnMarshal.Create);
-            System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfo));
+            System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfo));
             RegisterVirtualMethod(queryInfoOffset, QueryInfoMarshal.Create);
-            System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoAsync));
+            System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoAsync));
             RegisterVirtualMethod(queryInfoAsyncOffset, QueryInfoAsyncMarshal.Create);
-            System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoFinish));
+            System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoFinish));
             RegisterVirtualMethod(queryInfoFinishOffset, QueryInfoFinishMarshal.Create);
-            System.Int32 getEtagOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetEtag));
+            System.Int32 getEtagOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetEtag));
             RegisterVirtualMethod(getEtagOffset, GetEtagMarshal.Create);
         }
 

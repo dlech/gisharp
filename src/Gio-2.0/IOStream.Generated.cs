@@ -13,13 +13,13 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe protected new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="IOStream.xmldoc" path="declaration/member[@name='Struct.ParentInstance']/*" />
-            public GISharp.Lib.GObject.Object.Struct ParentInstance;
+            /// <include file="IOStream.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentInstance']/*" />
+            public GISharp.Lib.GObject.Object.UnmanagedStruct ParentInstance;
 
-            /// <include file="IOStream.xmldoc" path="declaration/member[@name='Struct.Priv']/*" />
+            /// <include file="IOStream.xmldoc" path="declaration/member[@name='UnmanagedStruct.Priv']/*" />
             public System.IntPtr Priv;
 #pragma warning restore CS0649
         }

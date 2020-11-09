@@ -12,10 +12,11 @@ namespace GISharp.Lib.GObject
     [GType("GParamParam", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecParam : ParamSpec
     {
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
 #pragma warning restore CS0649
         }
 

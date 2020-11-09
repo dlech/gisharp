@@ -8,35 +8,35 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new protected struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
+            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.Cancelled']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Cancelled']/*" />
             public System.IntPtr Cancelled;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved1']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
             public System.IntPtr GReserved1;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved2']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved2']/*" />
             public System.IntPtr GReserved2;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved3']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved3']/*" />
             public System.IntPtr GReserved3;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
+            /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }
 
         static CancellableClass()
         {
-            System.Int32 cancelledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Cancelled));
+            System.Int32 cancelledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Cancelled));
             RegisterVirtualMethod(cancelledOffset, CancelledMarshal.Create);
         }
 

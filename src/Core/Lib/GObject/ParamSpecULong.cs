@@ -13,14 +13,11 @@ namespace GISharp.Lib.GObject
     [GType("GParamULong", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecULong : ParamSpec
     {
-        static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Minimum));
-        static readonly IntPtr maximumOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Maximum));
-        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct>(nameof(Struct.DefaultValue));
-
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
             public culong Minimum;
             public culong Maximum;
             public culong DefaultValue;
@@ -30,17 +27,17 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public culong Minimum => Marshal.PtrToStructure<culong>(Handle + (int)minimumOffset);
+        public unsafe culong Minimum => ((UnmanagedStruct*)Handle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public culong Maximum => Marshal.PtrToStructure<culong>(Handle + (int)maximumOffset);
+        public unsafe culong Maximum => ((UnmanagedStruct*)Handle)->Maximum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public new culong DefaultValue => Marshal.PtrToStructure<culong>(Handle + (int)defaultValueOffset);
+        public unsafe new culong DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.

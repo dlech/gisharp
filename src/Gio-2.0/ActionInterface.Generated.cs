@@ -9,55 +9,55 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
+            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetName']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetName']/*" />
             public System.IntPtr GetName;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetParameterType']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetParameterType']/*" />
             public System.IntPtr GetParameterType;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetStateType']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetStateType']/*" />
             public System.IntPtr GetStateType;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetStateHint']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetStateHint']/*" />
             public System.IntPtr GetStateHint;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetEnabled']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetEnabled']/*" />
             public System.IntPtr GetEnabled;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.GetState']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetState']/*" />
             public System.IntPtr GetState;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.ChangeState']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ChangeState']/*" />
             public System.IntPtr ChangeState;
 
-            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='Struct.Activate']/*" />
+            /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Activate']/*" />
             public System.IntPtr Activate;
 #pragma warning restore CS0649
         }
 
         static ActionInterface()
         {
-            System.Int32 getNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetName));
+            System.Int32 getNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetName));
             RegisterVirtualMethod(getNameOffset, GetNameMarshal.Create);
-            System.Int32 getParameterTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetParameterType));
+            System.Int32 getParameterTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetParameterType));
             RegisterVirtualMethod(getParameterTypeOffset, GetParameterTypeMarshal.Create);
-            System.Int32 getStateTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateType));
+            System.Int32 getStateTypeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetStateType));
             RegisterVirtualMethod(getStateTypeOffset, GetStateTypeMarshal.Create);
-            System.Int32 getStateHintOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStateHint));
+            System.Int32 getStateHintOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetStateHint));
             RegisterVirtualMethod(getStateHintOffset, GetStateHintMarshal.Create);
-            System.Int32 getEnabledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetEnabled));
+            System.Int32 getEnabledOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetEnabled));
             RegisterVirtualMethod(getEnabledOffset, GetEnabledMarshal.Create);
-            System.Int32 getStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetState));
+            System.Int32 getStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetState));
             RegisterVirtualMethod(getStateOffset, GetStateMarshal.Create);
-            System.Int32 changeStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ChangeState));
+            System.Int32 changeStateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ChangeState));
             RegisterVirtualMethod(changeStateOffset, ChangeStateMarshal.Create);
-            System.Int32 activateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Activate));
+            System.Int32 activateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Activate));
             RegisterVirtualMethod(activateOffset, ActivateMarshal.Create);
         }
 

@@ -18,20 +18,23 @@ namespace GISharp.Lib.GObject
     public class Object : TypeInstance, INotifyPropertyChanged
     {
         static readonly Quark toggleRefGCHandleQuark = Quark.FromString("gisharp-gobject-toggle-ref-gc-handle-quark");
-        static readonly int refCountOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.RefCount));
 
         UnmanagedToggleNotify toggleNotifyDelegate;
 
-        protected new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public TypeInstance.Struct GTypeInstance;
+            public TypeInstance.UnmanagedStruct GTypeInstance;
             public uint RefCount;
             public IntPtr Qdata;
 #pragma warning restore CS0649
         }
 
-        uint RefCount => (uint)Marshal.ReadInt32(Handle, refCountOffset);
+        unsafe uint RefCount => ((UnmanagedStruct*)Handle)->RefCount;
+
+        readonly ObjectClass objectClass;
+        readonly ObjectClass? parentObjectClass;
 
         /// <summary>
         /// For internal runtime use only.
@@ -57,6 +60,12 @@ namespace GISharp.Lib.GObject
             // If this is the last normal reference, toggleNotifyCallback will be called immediately
             // to convert the strong reference to a weak reference
             g_object_unref(handle);
+
+            objectClass = (ObjectClass)GetTypeClass();
+            var parentGType = GetGType().Parent;
+            if (parentGType.IsClassed) {
+                parentObjectClass = TypeClass.GetInstance<ObjectClass>(GetGType().Parent);
+            }
         }
 
         protected override void Dispose(bool disposing)
@@ -532,19 +541,19 @@ namespace GISharp.Lib.GObject
             var target_ = target.Handle;
             var targetProperty_ = targetProperty.Handle;
 
-            var (transformTo_, transformFrom_, notify_, userData_) = UnmangedBindingTransformFuncFactory.CreateNotifyDelegate(transformTo, transformFrom);
+            var (transformTo_, transformFrom_, notify_, userData_) = UnmanagedBindingTransformFuncFactory.CreateNotifyDelegate(transformTo, transformFrom);
             var ret_ = g_object_bind_property_full(this_, sourceProperty_, target_, targetProperty_, flags,
                                                    transformTo_, transformFrom_, userData_, notify_);
             var ret = GetInstance<Binding>(ret_, Transfer.None)!;
             return ret;
         }
 
-        static class UnmangedBindingTransformFuncFactory
+        static class UnmanagedBindingTransformFuncFactory
         {
             class BindingTransformFuncData
             {
                 public BindingTransformFunc? TransformTo;
-                public UnmanagedBindingTransformFunc? UnmangedTransformTo;
+                public UnmanagedBindingTransformFunc? UnmanagedTransformTo;
                 public BindingTransformFunc? TransformFrom;
                 public UnmanagedBindingTransformFunc? UnmanagedTransformFrom;
                 public UnmanagedDestroyNotify? UnmanagedNotify;
@@ -557,7 +566,7 @@ namespace GISharp.Lib.GObject
 
                 if (transformTo is not null) {
                     userData.TransformTo = transformTo;
-                    userData.UnmangedTransformTo = TransformToFunc;
+                    userData.UnmanagedTransformTo = TransformToFunc;
                 }
 
                 if (transformFrom is not null) {
@@ -569,7 +578,7 @@ namespace GISharp.Lib.GObject
 
                 var userData_ = GCHandle.Alloc(userData);
 
-                return (userData.UnmangedTransformTo, userData.UnmanagedTransformFrom, userData.UnmanagedNotify!, (IntPtr)userData_);
+                return (userData.UnmanagedTransformTo, userData.UnmanagedTransformFrom, userData.UnmanagedNotify!, (IntPtr)userData_);
             }
 
             static bool TransformToFunc(IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
@@ -704,7 +713,7 @@ namespace GISharp.Lib.GObject
         public object? GetProperty(UnownedUtf8 propertyName)
         {
             var this_ = Handle;
-            var pspec = GClass.FindProperty(propertyName);
+            var pspec = objectClass.FindProperty(propertyName);
             if (pspec is null) {
                 var message = $"No such property \"{propertyName}\"";
                 throw new ArgumentException(message, nameof(propertyName));
@@ -922,7 +931,7 @@ namespace GISharp.Lib.GObject
         public void SetProperty(UnownedUtf8 propertyName, object? value)
         {
             var this_ = Handle;
-            var pspec = GClass.FindProperty(propertyName);
+            var pspec = objectClass.FindProperty(propertyName);
             if (pspec is null) {
                 var message = $"No such property \"{propertyName}\"";
                 throw new ArgumentException(message, nameof(propertyName));
@@ -1066,12 +1075,10 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        internal protected virtual void OnNotify(ParamSpec pspec)
-        {
-            var this_ = Handle;
-            var pspec_ = pspec.Handle;
-            TypeClass.GetInstance<ObjectClass>(_GType).OnNotify?.Invoke(this_, pspec_);
-        }
+        /// <summary>
+        /// the class closure for the notify signal
+        /// </summary>
+        protected virtual void DoNotify(ParamSpec pspec) => parentObjectClass?.DoNotify(this, pspec);
 
         /// <summary>
         /// Gets a managed proxy for a an unmanged GObject.

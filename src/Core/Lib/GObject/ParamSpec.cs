@@ -25,21 +25,17 @@ namespace GISharp.Lib.GObject
     {
         static readonly Quark managedProxyGCHandleQuark = Quark.FromString("gisharp-gobject-paramspec-managed-proxy-instance-quark");
 
-        static readonly IntPtr flagsOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Flags));
-        static readonly IntPtr valueTypeOffset = Marshal.OffsetOf<Struct>(nameof(Struct.ValueType));
-        static readonly IntPtr ownerTypeOffset = Marshal.OffsetOf<Struct>(nameof(Struct.OwnerType));
-        static readonly IntPtr refCountOffset = Marshal.OffsetOf<Struct>(nameof(Struct.RefCount));
-
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        protected new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
             /// private GTypeInstance portion
             /// </summary>
-            public TypeInstance.Struct GTypeInstance;
+            public TypeInstance.UnmanagedStruct GTypeInstance;
 
             /// <summary>
             /// name of this parameter: always an interned string
@@ -74,19 +70,19 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// <see cref="ParamFlags"/> flags for this parameter
         /// </summary>
-        ParamFlags Flags => (ParamFlags)Marshal.ReadInt32(handle, (int)flagsOffset);
+        unsafe ParamFlags Flags => ((UnmanagedStruct*)Handle)->Flags;
 
         /// <summary>
         /// The <see cref="Value"/> type for this parameter
         /// </summary>
-        public GType ValueType => Marshal.PtrToStructure<GType>(handle + (int)valueTypeOffset);
+        public unsafe GType ValueType => ((UnmanagedStruct*)Handle)->ValueType;
 
         /// <summary>
         /// <see cref="GType"/> type that uses (introduces) this parameter
         /// </summary>
-        GType OwnerType => Marshal.PtrToStructure<GType>(handle + (int)ownerTypeOffset);
+        unsafe GType OwnerType => ((UnmanagedStruct*)Handle)->OwnerType;
 
-        uint RefCount => Marshal.PtrToStructure<uint>(handle + (int)refCountOffset);
+        unsafe uint RefCount => ((UnmanagedStruct*)Handle)->RefCount;
 
         /// <summary>
         /// For internal runtime use only.

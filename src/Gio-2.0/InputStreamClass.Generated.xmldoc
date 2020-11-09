@@ -1,48 +1,48 @@
 <declaration>
 
-<member name='Struct.ParentClass'>
+<member name='UnmanagedStruct.ParentClass'>
 </member>
 
-<member name='Struct.ReadFn'>
+<member name='UnmanagedStruct.ReadFn'>
 </member>
 
-<member name='Struct.Skip'>
+<member name='UnmanagedStruct.Skip'>
 </member>
 
-<member name='Struct.CloseFn'>
+<member name='UnmanagedStruct.CloseFn'>
 </member>
 
-<member name='Struct.ReadAsync'>
+<member name='UnmanagedStruct.ReadAsync'>
 </member>
 
-<member name='Struct.ReadFinish'>
+<member name='UnmanagedStruct.ReadFinish'>
 </member>
 
-<member name='Struct.SkipAsync'>
+<member name='UnmanagedStruct.SkipAsync'>
 </member>
 
-<member name='Struct.SkipFinish'>
+<member name='UnmanagedStruct.SkipFinish'>
 </member>
 
-<member name='Struct.CloseAsync'>
+<member name='UnmanagedStruct.CloseAsync'>
 </member>
 
-<member name='Struct.CloseFinish'>
+<member name='UnmanagedStruct.CloseFinish'>
 </member>
 
-<member name='Struct.GReserved1'>
+<member name='UnmanagedStruct.GReserved1'>
 </member>
 
-<member name='Struct.GReserved2'>
+<member name='UnmanagedStruct.GReserved2'>
 </member>
 
-<member name='Struct.GReserved3'>
+<member name='UnmanagedStruct.GReserved3'>
 </member>
 
-<member name='Struct.GReserved4'>
+<member name='UnmanagedStruct.GReserved4'>
 </member>
 
-<member name='Struct.GReserved5'>
+<member name='UnmanagedStruct.GReserved5'>
 </member>
 
 <member name='ReadFn'>

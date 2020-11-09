@@ -8,75 +8,75 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new protected struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
+            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.ReadFn']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadFn']/*" />
             public System.IntPtr ReadFn;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.Skip']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Skip']/*" />
             public System.IntPtr Skip;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFn']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFn']/*" />
             public System.IntPtr CloseFn;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.ReadAsync']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadAsync']/*" />
             public System.IntPtr ReadAsync;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.ReadFinish']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadFinish']/*" />
             public System.IntPtr ReadFinish;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.SkipAsync']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.SkipAsync']/*" />
             public System.IntPtr SkipAsync;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.SkipFinish']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.SkipFinish']/*" />
             public System.IntPtr SkipFinish;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseAsync']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseAsync']/*" />
             public System.IntPtr CloseAsync;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFinish']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFinish']/*" />
             public System.IntPtr CloseFinish;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved1']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
             public System.IntPtr GReserved1;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved2']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved2']/*" />
             public System.IntPtr GReserved2;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved3']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved3']/*" />
             public System.IntPtr GReserved3;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
+            /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }
 
         static InputStreamClass()
         {
-            System.Int32 readFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReadFn));
+            System.Int32 readFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFn));
             RegisterVirtualMethod(readFnOffset, ReadFnMarshal.Create);
-            System.Int32 skipOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Skip));
+            System.Int32 skipOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Skip));
             RegisterVirtualMethod(skipOffset, SkipMarshal.Create);
-            System.Int32 closeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseFn));
+            System.Int32 closeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFn));
             RegisterVirtualMethod(closeFnOffset, CloseFnMarshal.Create);
-            System.Int32 readAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReadAsync));
+            System.Int32 readAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadAsync));
             RegisterVirtualMethod(readAsyncOffset, ReadAsyncMarshal.Create);
-            System.Int32 readFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReadFinish));
+            System.Int32 readFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFinish));
             RegisterVirtualMethod(readFinishOffset, ReadFinishMarshal.Create);
-            System.Int32 skipAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SkipAsync));
+            System.Int32 skipAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SkipAsync));
             RegisterVirtualMethod(skipAsyncOffset, SkipAsyncMarshal.Create);
-            System.Int32 skipFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SkipFinish));
+            System.Int32 skipFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SkipFinish));
             RegisterVirtualMethod(skipFinishOffset, SkipFinishMarshal.Create);
-            System.Int32 closeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseAsync));
+            System.Int32 closeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseAsync));
             RegisterVirtualMethod(closeAsyncOffset, CloseAsyncMarshal.Create);
-            System.Int32 closeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseFinish));
+            System.Int32 closeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFinish));
             RegisterVirtualMethod(closeFinishOffset, CloseFinishMarshal.Create);
         }
 

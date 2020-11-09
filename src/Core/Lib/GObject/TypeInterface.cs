@@ -12,18 +12,17 @@ namespace GISharp.Lib.GObject
     /// </summary>
     public abstract class TypeInterface : TypeClass
     {
-        static readonly IntPtr gInstanceTypeOffset = Marshal.OffsetOf<Struct>(nameof(Struct.GInstanceType));
-
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        protected new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
             /// The parent type class structure
             /// </summary>
-            public TypeClass.Struct TypeClass;
+            public TypeClass.UnmanagedStruct TypeClass;
             /// <summary>
             /// The instance type
             /// </summary>
@@ -34,7 +33,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Gets the instance type
         /// </summary>
-        public GType InstanceType => Marshal.PtrToStructure<GType>(Handle + (int)gInstanceTypeOffset);
+        public unsafe GType InstanceType => ((UnmanagedStruct*)Handle)->GInstanceType;
 
         /// <summary>
         /// For internal runtime use only.

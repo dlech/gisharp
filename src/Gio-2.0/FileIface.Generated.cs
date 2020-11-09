@@ -8,480 +8,480 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
+            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Dup']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dup']/*" />
             public System.IntPtr Dup;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Hash']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Hash']/*" />
             public System.IntPtr Hash;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Equal']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Equal']/*" />
             public System.IntPtr Equal;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.IsNative']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.IsNative']/*" />
             public System.IntPtr IsNative;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.HasUriScheme']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.HasUriScheme']/*" />
             public System.IntPtr HasUriScheme;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetUriScheme']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetUriScheme']/*" />
             public System.IntPtr GetUriScheme;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetBasename']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetBasename']/*" />
             public System.IntPtr GetBasename;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetPath']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetPath']/*" />
             public System.IntPtr GetPath;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetUri']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetUri']/*" />
             public System.IntPtr GetUri;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetParseName']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetParseName']/*" />
             public System.IntPtr GetParseName;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetParent']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetParent']/*" />
             public System.IntPtr GetParent;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.PrefixMatches']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.PrefixMatches']/*" />
             public System.IntPtr PrefixMatches;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetRelativePath']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetRelativePath']/*" />
             public System.IntPtr GetRelativePath;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ResolveRelativePath']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ResolveRelativePath']/*" />
             public System.IntPtr ResolveRelativePath;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.GetChildForDisplayName']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetChildForDisplayName']/*" />
             public System.IntPtr GetChildForDisplayName;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EnumerateChildren']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EnumerateChildren']/*" />
             public System.IntPtr EnumerateChildren;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EnumerateChildrenAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EnumerateChildrenAsync']/*" />
             public System.IntPtr EnumerateChildrenAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EnumerateChildrenFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EnumerateChildrenFinish']/*" />
             public System.IntPtr EnumerateChildrenFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryInfo']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfo']/*" />
             public System.IntPtr QueryInfo;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryInfoAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoAsync']/*" />
             public System.IntPtr QueryInfoAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryInfoFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoFinish']/*" />
             public System.IntPtr QueryInfoFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryFilesystemInfo']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryFilesystemInfo']/*" />
             public System.IntPtr QueryFilesystemInfo;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryFilesystemInfoAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryFilesystemInfoAsync']/*" />
             public System.IntPtr QueryFilesystemInfoAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryFilesystemInfoFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryFilesystemInfoFinish']/*" />
             public System.IntPtr QueryFilesystemInfoFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.FindEnclosingMount']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.FindEnclosingMount']/*" />
             public System.IntPtr FindEnclosingMount;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.FindEnclosingMountAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.FindEnclosingMountAsync']/*" />
             public System.IntPtr FindEnclosingMountAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.FindEnclosingMountFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.FindEnclosingMountFinish']/*" />
             public System.IntPtr FindEnclosingMountFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetDisplayName']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetDisplayName']/*" />
             public System.IntPtr SetDisplayName;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetDisplayNameAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetDisplayNameAsync']/*" />
             public System.IntPtr SetDisplayNameAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetDisplayNameFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetDisplayNameFinish']/*" />
             public System.IntPtr SetDisplayNameFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QuerySettableAttributes']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QuerySettableAttributes']/*" />
             public System.IntPtr QuerySettableAttributes;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QuerySettableAttributesAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QuerySettableAttributesAsync']/*" />
             public System.IntPtr QuerySettableAttributesAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QuerySettableAttributesFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QuerySettableAttributesFinish']/*" />
             public System.IntPtr QuerySettableAttributesFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryWritableNamespaces']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryWritableNamespaces']/*" />
             public System.IntPtr QueryWritableNamespaces;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryWritableNamespacesAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryWritableNamespacesAsync']/*" />
             public System.IntPtr QueryWritableNamespacesAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.QueryWritableNamespacesFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryWritableNamespacesFinish']/*" />
             public System.IntPtr QueryWritableNamespacesFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetAttribute']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetAttribute']/*" />
             public System.IntPtr SetAttribute;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetAttributesFromInfo']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetAttributesFromInfo']/*" />
             public System.IntPtr SetAttributesFromInfo;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetAttributesAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetAttributesAsync']/*" />
             public System.IntPtr SetAttributesAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SetAttributesFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetAttributesFinish']/*" />
             public System.IntPtr SetAttributesFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReadFn']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadFn']/*" />
             public System.IntPtr ReadFn;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReadAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadAsync']/*" />
             public System.IntPtr ReadAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReadFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadFinish']/*" />
             public System.IntPtr ReadFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.AppendTo']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.AppendTo']/*" />
             public System.IntPtr AppendTo;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.AppendToAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.AppendToAsync']/*" />
             public System.IntPtr AppendToAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.AppendToFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.AppendToFinish']/*" />
             public System.IntPtr AppendToFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Create']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Create']/*" />
             public System.IntPtr Create;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateAsync']/*" />
             public System.IntPtr CreateAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateFinish']/*" />
             public System.IntPtr CreateFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Replace']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Replace']/*" />
             public System.IntPtr Replace;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceAsync']/*" />
             public System.IntPtr ReplaceAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceFinish']/*" />
             public System.IntPtr ReplaceFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.DeleteFile']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.DeleteFile']/*" />
             public System.IntPtr DeleteFile;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.DeleteFileAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.DeleteFileAsync']/*" />
             public System.IntPtr DeleteFileAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.DeleteFileFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.DeleteFileFinish']/*" />
             public System.IntPtr DeleteFileFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Trash']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Trash']/*" />
             public System.IntPtr Trash;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.TrashAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.TrashAsync']/*" />
             public System.IntPtr TrashAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.TrashFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.TrashFinish']/*" />
             public System.IntPtr TrashFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeDirectory']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeDirectory']/*" />
             public System.IntPtr MakeDirectory;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeDirectoryAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeDirectoryAsync']/*" />
             public System.IntPtr MakeDirectoryAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeDirectoryFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeDirectoryFinish']/*" />
             public System.IntPtr MakeDirectoryFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeSymbolicLink']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeSymbolicLink']/*" />
             public System.IntPtr MakeSymbolicLink;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeSymbolicLinkAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeSymbolicLinkAsync']/*" />
             public System.IntPtr MakeSymbolicLinkAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MakeSymbolicLinkFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeSymbolicLinkFinish']/*" />
             public System.IntPtr MakeSymbolicLinkFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Copy']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Copy']/*" />
             public System.IntPtr Copy;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CopyAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CopyAsync']/*" />
             public System.IntPtr CopyAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CopyFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CopyFinish']/*" />
             public System.IntPtr CopyFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.Move']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Move']/*" />
             public System.IntPtr Move;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MoveAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MoveAsync']/*" />
             public System.IntPtr MoveAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MoveFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MoveFinish']/*" />
             public System.IntPtr MoveFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MountMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MountMountable']/*" />
             public System.IntPtr MountMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MountMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MountMountableFinish']/*" />
             public System.IntPtr MountMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.UnmountMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.UnmountMountable']/*" />
             public System.IntPtr UnmountMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.UnmountMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.UnmountMountableFinish']/*" />
             public System.IntPtr UnmountMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EjectMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EjectMountable']/*" />
             public System.IntPtr EjectMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EjectMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EjectMountableFinish']/*" />
             public System.IntPtr EjectMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MountEnclosingVolume']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MountEnclosingVolume']/*" />
             public System.IntPtr MountEnclosingVolume;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MountEnclosingVolumeFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MountEnclosingVolumeFinish']/*" />
             public System.IntPtr MountEnclosingVolumeFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MonitorDir']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MonitorDir']/*" />
             public System.IntPtr MonitorDir;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MonitorFile']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MonitorFile']/*" />
             public System.IntPtr MonitorFile;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.OpenReadwrite']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.OpenReadwrite']/*" />
             public System.IntPtr OpenReadwrite;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.OpenReadwriteAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.OpenReadwriteAsync']/*" />
             public System.IntPtr OpenReadwriteAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.OpenReadwriteFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.OpenReadwriteFinish']/*" />
             public System.IntPtr OpenReadwriteFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateReadwrite']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateReadwrite']/*" />
             public System.IntPtr CreateReadwrite;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateReadwriteAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateReadwriteAsync']/*" />
             public System.IntPtr CreateReadwriteAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.CreateReadwriteFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateReadwriteFinish']/*" />
             public System.IntPtr CreateReadwriteFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceReadwrite']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceReadwrite']/*" />
             public System.IntPtr ReplaceReadwrite;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceReadwriteAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceReadwriteAsync']/*" />
             public System.IntPtr ReplaceReadwriteAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.ReplaceReadwriteFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceReadwriteFinish']/*" />
             public System.IntPtr ReplaceReadwriteFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.StartMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.StartMountable']/*" />
             public System.IntPtr StartMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.StartMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.StartMountableFinish']/*" />
             public System.IntPtr StartMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.StopMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.StopMountable']/*" />
             public System.IntPtr StopMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.StopMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.StopMountableFinish']/*" />
             public System.IntPtr StopMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.SupportsThreadContexts']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SupportsThreadContexts']/*" />
             public GISharp.Runtime.Boolean SupportsThreadContexts;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.UnmountMountableWithOperation']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.UnmountMountableWithOperation']/*" />
             public System.IntPtr UnmountMountableWithOperation;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.UnmountMountableWithOperationFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.UnmountMountableWithOperationFinish']/*" />
             public System.IntPtr UnmountMountableWithOperationFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EjectMountableWithOperation']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EjectMountableWithOperation']/*" />
             public System.IntPtr EjectMountableWithOperation;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.EjectMountableWithOperationFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EjectMountableWithOperationFinish']/*" />
             public System.IntPtr EjectMountableWithOperationFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.PollMountable']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.PollMountable']/*" />
             public System.IntPtr PollMountable;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.PollMountableFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.PollMountableFinish']/*" />
             public System.IntPtr PollMountableFinish;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MeasureDiskUsage']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MeasureDiskUsage']/*" />
             public System.IntPtr MeasureDiskUsage;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MeasureDiskUsageAsync']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MeasureDiskUsageAsync']/*" />
             public System.IntPtr MeasureDiskUsageAsync;
 
-            /// <include file="FileIface.xmldoc" path="declaration/member[@name='Struct.MeasureDiskUsageFinish']/*" />
+            /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MeasureDiskUsageFinish']/*" />
             public System.IntPtr MeasureDiskUsageFinish;
 #pragma warning restore CS0649
         }
 
         static FileIface()
         {
-            System.Int32 dupOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Dup));
+            System.Int32 dupOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Dup));
             RegisterVirtualMethod(dupOffset, DupMarshal.Create);
-            System.Int32 hashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Hash));
+            System.Int32 hashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Hash));
             RegisterVirtualMethod(hashOffset, HashMarshal.Create);
-            System.Int32 equalOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Equal));
+            System.Int32 equalOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Equal));
             RegisterVirtualMethod(equalOffset, EqualMarshal.Create);
-            System.Int32 isNativeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.IsNative));
+            System.Int32 isNativeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.IsNative));
             RegisterVirtualMethod(isNativeOffset, IsNativeMarshal.Create);
-            System.Int32 hasUriSchemeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.HasUriScheme));
+            System.Int32 hasUriSchemeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.HasUriScheme));
             RegisterVirtualMethod(hasUriSchemeOffset, HasUriSchemeMarshal.Create);
-            System.Int32 getUriSchemeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetUriScheme));
+            System.Int32 getUriSchemeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUriScheme));
             RegisterVirtualMethod(getUriSchemeOffset, GetUriSchemeMarshal.Create);
-            System.Int32 getBasenameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetBasename));
+            System.Int32 getBasenameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetBasename));
             RegisterVirtualMethod(getBasenameOffset, GetBasenameMarshal.Create);
-            System.Int32 getPathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetPath));
+            System.Int32 getPathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetPath));
             RegisterVirtualMethod(getPathOffset, GetPathMarshal.Create);
-            System.Int32 getUriOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetUri));
+            System.Int32 getUriOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUri));
             RegisterVirtualMethod(getUriOffset, GetUriMarshal.Create);
-            System.Int32 getParseNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetParseName));
+            System.Int32 getParseNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetParseName));
             RegisterVirtualMethod(getParseNameOffset, GetParseNameMarshal.Create);
-            System.Int32 getParentOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetParent));
+            System.Int32 getParentOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetParent));
             RegisterVirtualMethod(getParentOffset, GetParentMarshal.Create);
-            System.Int32 prefixMatchesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PrefixMatches));
+            System.Int32 prefixMatchesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PrefixMatches));
             RegisterVirtualMethod(prefixMatchesOffset, PrefixMatchesMarshal.Create);
-            System.Int32 getRelativePathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetRelativePath));
+            System.Int32 getRelativePathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetRelativePath));
             RegisterVirtualMethod(getRelativePathOffset, GetRelativePathMarshal.Create);
-            System.Int32 resolveRelativePathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ResolveRelativePath));
+            System.Int32 resolveRelativePathOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ResolveRelativePath));
             RegisterVirtualMethod(resolveRelativePathOffset, ResolveRelativePathMarshal.Create);
-            System.Int32 getChildForDisplayNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetChildForDisplayName));
+            System.Int32 getChildForDisplayNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetChildForDisplayName));
             RegisterVirtualMethod(getChildForDisplayNameOffset, GetChildForDisplayNameMarshal.Create);
-            System.Int32 enumerateChildrenAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.EnumerateChildrenAsync));
+            System.Int32 enumerateChildrenAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.EnumerateChildrenAsync));
             RegisterVirtualMethod(enumerateChildrenAsyncOffset, EnumerateChildrenAsyncMarshal.Create);
-            System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfo));
+            System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfo));
             RegisterVirtualMethod(queryInfoOffset, QueryInfoMarshal.Create);
-            System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoAsync));
+            System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoAsync));
             RegisterVirtualMethod(queryInfoAsyncOffset, QueryInfoAsyncMarshal.Create);
-            System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoFinish));
+            System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoFinish));
             RegisterVirtualMethod(queryInfoFinishOffset, QueryInfoFinishMarshal.Create);
-            System.Int32 queryFilesystemInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryFilesystemInfo));
+            System.Int32 queryFilesystemInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryFilesystemInfo));
             RegisterVirtualMethod(queryFilesystemInfoOffset, QueryFilesystemInfoMarshal.Create);
-            System.Int32 queryFilesystemInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryFilesystemInfoAsync));
+            System.Int32 queryFilesystemInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryFilesystemInfoAsync));
             RegisterVirtualMethod(queryFilesystemInfoAsyncOffset, QueryFilesystemInfoAsyncMarshal.Create);
-            System.Int32 queryFilesystemInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryFilesystemInfoFinish));
+            System.Int32 queryFilesystemInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryFilesystemInfoFinish));
             RegisterVirtualMethod(queryFilesystemInfoFinishOffset, QueryFilesystemInfoFinishMarshal.Create);
-            System.Int32 findEnclosingMountAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.FindEnclosingMountAsync));
+            System.Int32 findEnclosingMountAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.FindEnclosingMountAsync));
             RegisterVirtualMethod(findEnclosingMountAsyncOffset, FindEnclosingMountAsyncMarshal.Create);
-            System.Int32 setDisplayNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetDisplayName));
+            System.Int32 setDisplayNameOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetDisplayName));
             RegisterVirtualMethod(setDisplayNameOffset, SetDisplayNameMarshal.Create);
-            System.Int32 setDisplayNameAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetDisplayNameAsync));
+            System.Int32 setDisplayNameAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetDisplayNameAsync));
             RegisterVirtualMethod(setDisplayNameAsyncOffset, SetDisplayNameAsyncMarshal.Create);
-            System.Int32 setDisplayNameFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetDisplayNameFinish));
+            System.Int32 setDisplayNameFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetDisplayNameFinish));
             RegisterVirtualMethod(setDisplayNameFinishOffset, SetDisplayNameFinishMarshal.Create);
-            System.Int32 querySettableAttributesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QuerySettableAttributes));
+            System.Int32 querySettableAttributesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QuerySettableAttributes));
             RegisterVirtualMethod(querySettableAttributesOffset, QuerySettableAttributesMarshal.Create);
-            System.Int32 queryWritableNamespacesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryWritableNamespaces));
+            System.Int32 queryWritableNamespacesOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryWritableNamespaces));
             RegisterVirtualMethod(queryWritableNamespacesOffset, QueryWritableNamespacesMarshal.Create);
-            System.Int32 setAttributeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetAttribute));
+            System.Int32 setAttributeOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttribute));
             RegisterVirtualMethod(setAttributeOffset, SetAttributeMarshal.Create);
-            System.Int32 setAttributesFromInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetAttributesFromInfo));
+            System.Int32 setAttributesFromInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttributesFromInfo));
             RegisterVirtualMethod(setAttributesFromInfoOffset, SetAttributesFromInfoMarshal.Create);
-            System.Int32 setAttributesAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetAttributesAsync));
+            System.Int32 setAttributesAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttributesAsync));
             RegisterVirtualMethod(setAttributesAsyncOffset, SetAttributesAsyncMarshal.Create);
-            System.Int32 setAttributesFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SetAttributesFinish));
+            System.Int32 setAttributesFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SetAttributesFinish));
             RegisterVirtualMethod(setAttributesFinishOffset, SetAttributesFinishMarshal.Create);
-            System.Int32 readFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReadFn));
+            System.Int32 readFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFn));
             RegisterVirtualMethod(readFnOffset, ReadFnMarshal.Create);
-            System.Int32 readAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReadAsync));
+            System.Int32 readAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadAsync));
             RegisterVirtualMethod(readAsyncOffset, ReadAsyncMarshal.Create);
-            System.Int32 readFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReadFinish));
+            System.Int32 readFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReadFinish));
             RegisterVirtualMethod(readFinishOffset, ReadFinishMarshal.Create);
-            System.Int32 appendToOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AppendTo));
+            System.Int32 appendToOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AppendTo));
             RegisterVirtualMethod(appendToOffset, AppendToMarshal.Create);
-            System.Int32 appendToAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AppendToAsync));
+            System.Int32 appendToAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AppendToAsync));
             RegisterVirtualMethod(appendToAsyncOffset, AppendToAsyncMarshal.Create);
-            System.Int32 appendToFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AppendToFinish));
+            System.Int32 appendToFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AppendToFinish));
             RegisterVirtualMethod(appendToFinishOffset, AppendToFinishMarshal.Create);
-            System.Int32 createOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Create));
+            System.Int32 createOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Create));
             RegisterVirtualMethod(createOffset, CreateMarshal.Create);
-            System.Int32 createAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateAsync));
+            System.Int32 createAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateAsync));
             RegisterVirtualMethod(createAsyncOffset, CreateAsyncMarshal.Create);
-            System.Int32 createFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateFinish));
+            System.Int32 createFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateFinish));
             RegisterVirtualMethod(createFinishOffset, CreateFinishMarshal.Create);
-            System.Int32 replaceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Replace));
+            System.Int32 replaceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Replace));
             RegisterVirtualMethod(replaceOffset, ReplaceMarshal.Create);
-            System.Int32 replaceAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceAsync));
+            System.Int32 replaceAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceAsync));
             RegisterVirtualMethod(replaceAsyncOffset, ReplaceAsyncMarshal.Create);
-            System.Int32 replaceFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceFinish));
+            System.Int32 replaceFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceFinish));
             RegisterVirtualMethod(replaceFinishOffset, ReplaceFinishMarshal.Create);
-            System.Int32 deleteFileOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.DeleteFile));
+            System.Int32 deleteFileOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DeleteFile));
             RegisterVirtualMethod(deleteFileOffset, DeleteFileMarshal.Create);
-            System.Int32 deleteFileAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.DeleteFileAsync));
+            System.Int32 deleteFileAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DeleteFileAsync));
             RegisterVirtualMethod(deleteFileAsyncOffset, DeleteFileAsyncMarshal.Create);
-            System.Int32 deleteFileFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.DeleteFileFinish));
+            System.Int32 deleteFileFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.DeleteFileFinish));
             RegisterVirtualMethod(deleteFileFinishOffset, DeleteFileFinishMarshal.Create);
-            System.Int32 trashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Trash));
+            System.Int32 trashOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Trash));
             RegisterVirtualMethod(trashOffset, TrashMarshal.Create);
-            System.Int32 trashAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.TrashAsync));
+            System.Int32 trashAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TrashAsync));
             RegisterVirtualMethod(trashAsyncOffset, TrashAsyncMarshal.Create);
-            System.Int32 trashFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.TrashFinish));
+            System.Int32 trashFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TrashFinish));
             RegisterVirtualMethod(trashFinishOffset, TrashFinishMarshal.Create);
-            System.Int32 makeDirectoryOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MakeDirectory));
+            System.Int32 makeDirectoryOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeDirectory));
             RegisterVirtualMethod(makeDirectoryOffset, MakeDirectoryMarshal.Create);
-            System.Int32 makeDirectoryAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MakeDirectoryAsync));
+            System.Int32 makeDirectoryAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeDirectoryAsync));
             RegisterVirtualMethod(makeDirectoryAsyncOffset, MakeDirectoryAsyncMarshal.Create);
-            System.Int32 makeDirectoryFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MakeDirectoryFinish));
+            System.Int32 makeDirectoryFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeDirectoryFinish));
             RegisterVirtualMethod(makeDirectoryFinishOffset, MakeDirectoryFinishMarshal.Create);
-            System.Int32 makeSymbolicLinkOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MakeSymbolicLink));
+            System.Int32 makeSymbolicLinkOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MakeSymbolicLink));
             RegisterVirtualMethod(makeSymbolicLinkOffset, MakeSymbolicLinkMarshal.Create);
-            System.Int32 copyOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Copy));
+            System.Int32 copyOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Copy));
             RegisterVirtualMethod(copyOffset, CopyMarshal.Create);
-            System.Int32 copyAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CopyAsync));
+            System.Int32 copyAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CopyAsync));
             RegisterVirtualMethod(copyAsyncOffset, CopyAsyncMarshal.Create);
-            System.Int32 copyFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CopyFinish));
+            System.Int32 copyFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CopyFinish));
             RegisterVirtualMethod(copyFinishOffset, CopyFinishMarshal.Create);
-            System.Int32 moveOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Move));
+            System.Int32 moveOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Move));
             RegisterVirtualMethod(moveOffset, MoveMarshal.Create);
-            System.Int32 mountMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MountMountableFinish));
+            System.Int32 mountMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MountMountableFinish));
             RegisterVirtualMethod(mountMountableFinishOffset, MountMountableFinishMarshal.Create);
-            System.Int32 unmountMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.UnmountMountableFinish));
+            System.Int32 unmountMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.UnmountMountableFinish));
             RegisterVirtualMethod(unmountMountableFinishOffset, UnmountMountableFinishMarshal.Create);
-            System.Int32 ejectMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.EjectMountableFinish));
+            System.Int32 ejectMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.EjectMountableFinish));
             RegisterVirtualMethod(ejectMountableFinishOffset, EjectMountableFinishMarshal.Create);
-            System.Int32 mountEnclosingVolumeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MountEnclosingVolumeFinish));
+            System.Int32 mountEnclosingVolumeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MountEnclosingVolumeFinish));
             RegisterVirtualMethod(mountEnclosingVolumeFinishOffset, MountEnclosingVolumeFinishMarshal.Create);
-            System.Int32 openReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OpenReadwrite));
+            System.Int32 openReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.OpenReadwrite));
             RegisterVirtualMethod(openReadwriteOffset, OpenReadwriteMarshal.Create);
-            System.Int32 openReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OpenReadwriteAsync));
+            System.Int32 openReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.OpenReadwriteAsync));
             RegisterVirtualMethod(openReadwriteAsyncOffset, OpenReadwriteAsyncMarshal.Create);
-            System.Int32 openReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.OpenReadwriteFinish));
+            System.Int32 openReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.OpenReadwriteFinish));
             RegisterVirtualMethod(openReadwriteFinishOffset, OpenReadwriteFinishMarshal.Create);
-            System.Int32 createReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateReadwrite));
+            System.Int32 createReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateReadwrite));
             RegisterVirtualMethod(createReadwriteOffset, CreateReadwriteMarshal.Create);
-            System.Int32 createReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateReadwriteAsync));
+            System.Int32 createReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateReadwriteAsync));
             RegisterVirtualMethod(createReadwriteAsyncOffset, CreateReadwriteAsyncMarshal.Create);
-            System.Int32 createReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CreateReadwriteFinish));
+            System.Int32 createReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CreateReadwriteFinish));
             RegisterVirtualMethod(createReadwriteFinishOffset, CreateReadwriteFinishMarshal.Create);
-            System.Int32 replaceReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceReadwrite));
+            System.Int32 replaceReadwriteOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceReadwrite));
             RegisterVirtualMethod(replaceReadwriteOffset, ReplaceReadwriteMarshal.Create);
-            System.Int32 replaceReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceReadwriteAsync));
+            System.Int32 replaceReadwriteAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceReadwriteAsync));
             RegisterVirtualMethod(replaceReadwriteAsyncOffset, ReplaceReadwriteAsyncMarshal.Create);
-            System.Int32 replaceReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.ReplaceReadwriteFinish));
+            System.Int32 replaceReadwriteFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.ReplaceReadwriteFinish));
             RegisterVirtualMethod(replaceReadwriteFinishOffset, ReplaceReadwriteFinishMarshal.Create);
-            System.Int32 startMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.StartMountableFinish));
+            System.Int32 startMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.StartMountableFinish));
             RegisterVirtualMethod(startMountableFinishOffset, StartMountableFinishMarshal.Create);
-            System.Int32 stopMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.StopMountableFinish));
+            System.Int32 stopMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.StopMountableFinish));
             RegisterVirtualMethod(stopMountableFinishOffset, StopMountableFinishMarshal.Create);
-            System.Int32 unmountMountableWithOperationFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.UnmountMountableWithOperationFinish));
+            System.Int32 unmountMountableWithOperationFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.UnmountMountableWithOperationFinish));
             RegisterVirtualMethod(unmountMountableWithOperationFinishOffset, UnmountMountableWithOperationFinishMarshal.Create);
-            System.Int32 ejectMountableWithOperationFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.EjectMountableWithOperationFinish));
+            System.Int32 ejectMountableWithOperationFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.EjectMountableWithOperationFinish));
             RegisterVirtualMethod(ejectMountableWithOperationFinishOffset, EjectMountableWithOperationFinishMarshal.Create);
-            System.Int32 pollMountableOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PollMountable));
+            System.Int32 pollMountableOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PollMountable));
             RegisterVirtualMethod(pollMountableOffset, PollMountableMarshal.Create);
-            System.Int32 pollMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PollMountableFinish));
+            System.Int32 pollMountableFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PollMountableFinish));
             RegisterVirtualMethod(pollMountableFinishOffset, PollMountableFinishMarshal.Create);
-            System.Int32 measureDiskUsageFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.MeasureDiskUsageFinish));
+            System.Int32 measureDiskUsageFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.MeasureDiskUsageFinish));
             RegisterVirtualMethod(measureDiskUsageFinishOffset, MeasureDiskUsageFinishMarshal.Create);
         }
 

@@ -9,89 +9,89 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new protected struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
+            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Startup']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Startup']/*" />
             public System.IntPtr Startup;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Activate']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Activate']/*" />
             public System.IntPtr Activate;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Open']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Open']/*" />
             public System.IntPtr Open;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.CommandLine']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CommandLine']/*" />
             public System.IntPtr CommandLine;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.LocalCommandLine']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.LocalCommandLine']/*" />
             public System.IntPtr LocalCommandLine;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.BeforeEmit']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.BeforeEmit']/*" />
             public System.IntPtr BeforeEmit;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.AfterEmit']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.AfterEmit']/*" />
             public System.IntPtr AfterEmit;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.AddPlatformData']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.AddPlatformData']/*" />
             public System.IntPtr AddPlatformData;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.QuitMainloop']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QuitMainloop']/*" />
             public System.IntPtr QuitMainloop;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.RunMainloop']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.RunMainloop']/*" />
             public System.IntPtr RunMainloop;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Shutdown']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Shutdown']/*" />
             public System.IntPtr Shutdown;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.DbusRegister']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.DbusRegister']/*" />
             public System.IntPtr DbusRegister;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.DbusUnregister']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.DbusUnregister']/*" />
             public System.IntPtr DbusUnregister;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.HandleLocalOptions']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.HandleLocalOptions']/*" />
             public System.IntPtr HandleLocalOptions;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.NameLost']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.NameLost']/*" />
             public System.IntPtr NameLost;
 
-            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='Struct.Padding']/*" />
+            /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding']/*" />
             public System.IntPtr* Padding;
 #pragma warning restore CS0649
         }
 
         static ApplicationClass()
         {
-            System.Int32 startupOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Startup));
+            System.Int32 startupOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Startup));
             RegisterVirtualMethod(startupOffset, StartupMarshal.Create);
-            System.Int32 activateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Activate));
+            System.Int32 activateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Activate));
             RegisterVirtualMethod(activateOffset, ActivateMarshal.Create);
-            System.Int32 openOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Open));
+            System.Int32 openOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Open));
             RegisterVirtualMethod(openOffset, OpenMarshal.Create);
-            System.Int32 commandLineOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CommandLine));
+            System.Int32 commandLineOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CommandLine));
             RegisterVirtualMethod(commandLineOffset, CommandLineMarshal.Create);
-            System.Int32 localCommandLineOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.LocalCommandLine));
+            System.Int32 localCommandLineOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.LocalCommandLine));
             RegisterVirtualMethod(localCommandLineOffset, TryLocalCommandLineMarshal.Create);
-            System.Int32 beforeEmitOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.BeforeEmit));
+            System.Int32 beforeEmitOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.BeforeEmit));
             RegisterVirtualMethod(beforeEmitOffset, BeforeEmitMarshal.Create);
-            System.Int32 afterEmitOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AfterEmit));
+            System.Int32 afterEmitOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AfterEmit));
             RegisterVirtualMethod(afterEmitOffset, AfterEmitMarshal.Create);
-            System.Int32 addPlatformDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.AddPlatformData));
+            System.Int32 addPlatformDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.AddPlatformData));
             RegisterVirtualMethod(addPlatformDataOffset, AddPlatformDataMarshal.Create);
-            System.Int32 quitMainloopOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QuitMainloop));
+            System.Int32 quitMainloopOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QuitMainloop));
             RegisterVirtualMethod(quitMainloopOffset, QuitMainloopMarshal.Create);
-            System.Int32 runMainloopOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.RunMainloop));
+            System.Int32 runMainloopOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.RunMainloop));
             RegisterVirtualMethod(runMainloopOffset, RunMainloopMarshal.Create);
-            System.Int32 shutdownOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Shutdown));
+            System.Int32 shutdownOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Shutdown));
             RegisterVirtualMethod(shutdownOffset, ShutdownMarshal.Create);
-            System.Int32 handleLocalOptionsOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.HandleLocalOptions));
+            System.Int32 handleLocalOptionsOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.HandleLocalOptions));
             RegisterVirtualMethod(handleLocalOptionsOffset, HandleLocalOptionsMarshal.Create);
-            System.Int32 nameLostOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.NameLost));
+            System.Int32 nameLostOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.NameLost));
             RegisterVirtualMethod(nameLostOffset, NameLostMarshal.Create);
         }
 

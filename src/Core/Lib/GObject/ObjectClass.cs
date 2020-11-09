@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GLib;
@@ -19,76 +20,96 @@ namespace GISharp.Lib.GObject
     /// </summary>
     public class ObjectClass : TypeClass
     {
-        static readonly int onConstructorOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnConstructor));
-        static readonly int onSetPropertyOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnSetProperty));
-        static readonly int onGetPropertyOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnGetProperty));
-        static readonly int onDisposeOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnDispose));
-        static readonly int onFinalizeOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnFinalize));
-        static readonly int onDispatchPropertiesChangedOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnDispatchPropertiesChanged));
-        static readonly int onNotifyOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnNotify));
-        static readonly int onConstructedOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.OnConstructed));
-
-        static readonly UnmanagedSetProperty managedSetPropertyDelegate = ManagedClassSetProperty;
-        static readonly IntPtr managedSetPropertyPtr = Marshal.GetFunctionPointerForDelegate(managedSetPropertyDelegate);
-        static readonly UnmanagedSetProperty managedGetPropertyDelegate = ManagedClassGetProperty;
-        static readonly IntPtr managedGetPropertyPtr = Marshal.GetFunctionPointerForDelegate(managedGetPropertyDelegate);
-        static readonly UnmanagedNotify managedNotifyDelegate = ManagedNotify;
-        static readonly IntPtr managedNotifyPtr = Marshal.GetFunctionPointerForDelegate(managedNotifyDelegate);
-
         /// <summary>
         /// The unmanaged data structure
         /// </summary>
-        new protected struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
 #pragma warning disable CS0169
             /// <summary>
             /// The parent type class
             /// </summary>
-            public TypeClass.Struct GTypeClass;
+            public TypeClass.UnmanagedStruct GTypeClass;
 
             IntPtr constructProperties;
 
             /* seldom overidden */
+
             /// <summary>
-            /// <see cref="UnmanagedConstructor"/>
+            /// the constructor function is called by g_object_new() to complete
+            /// the object initialization after all the construction properties are
+            /// set. The first thing a constructor implementation must do is chain
+            /// up to the constructor of the parent class. Overriding constructor
+            /// should be rarely needed, e.g. to handle construct properties, or to
+            /// implement singletons.
             /// </summary>
-            public IntPtr OnConstructor;
+            public delegate* unmanaged[Cdecl]<GType, uint, IntPtr, IntPtr> Constructor;
+
             /* overridable methods */
+
             /// <summary>
-            /// <see cref="UnmanagedSetProperty"/>
+            /// the generic setter for all properties of this type. Should be
+            /// overridden for every type with properties. If implementations of
+            /// set_property don't emit property change notification explicitly,
+            /// this will be done implicitly by the type system. However, if the
+            /// notify signal is emitted explicitly, the type system will not emit
+            /// it a second time.
             /// </summary>
-            public IntPtr OnSetProperty;
+            public delegate* unmanaged[Cdecl]<IntPtr, uint, Value*, IntPtr, void> SetProperty;
+
             /// <summary>
-            /// <see cref="UnmanagedGetProperty"/>
+            /// the generic getter for all properties of this type. Should be
+            /// overridden for every type with properties.
             /// </summary>
-            public IntPtr OnGetProperty;
+            public delegate* unmanaged[Cdecl]<IntPtr, uint, Value*, IntPtr, void> GetProperty;
+
             /// <summary>
-            /// <see cref="UnmanagedDispose"/>
+            /// the dispose function is supposed to drop all references to other
+            /// objects, but keep the instance otherwise intact, so that client
+            /// method invocations still work. It may be run multiple times (due
+            /// to reference loops). Before returning, dispose should chain up to
+            /// the dispose method of the parent class.
             /// </summary>
-            public IntPtr OnDispose;
+            public delegate* unmanaged[Cdecl]<IntPtr, void> Dispose;
+
             /// <summary>
-            /// <see cref="UnmanagedFinalize"/>
+            /// instance finalization function, should finish the finalization of
+            /// the instance begun in dispose and chain up to the finalize method
+            /// of the parent class.
             /// </summary>
-            public IntPtr OnFinalize;
+            public delegate* unmanaged[Cdecl]<IntPtr, void> Finalize;
+
             /* seldom overidden */
+
             /// <summary>
-            /// <see cref="UnmanagedDispatchPropertiesChanged"/>
+            /// emits property change notification for a bunch of properties.
+            /// Overriding dispatch_properties_changed should be rarely needed.
             /// </summary>
-            public IntPtr OnDispatchPropertiesChanged;
+            public delegate* unmanaged[Cdecl]<IntPtr, uint, IntPtr*, void> DispatchPropertiesChanged;
+
             /* signals */
+
             /// <summary>
-            /// <see cref="UnmanagedNotify"/>
+            /// the class closure for the notify signal
             /// </summary>
-            public IntPtr OnNotify;
+            public delegate* unmanaged[Cdecl]<IntPtr, IntPtr, void> Notify;
 
             /* called when done constructing */
-            /// <summary>
-            /// <see cref="UnmanagedConstructed"/>
-            /// </summary>
-            public IntPtr OnConstructed;
 
-            UIntPtr flags;
+            /// <summary>
+            /// the constructed function is called by g_object_new() as the final
+            /// step of the object creation process. At the point of the call, all
+            /// construction properties have been set on the object. The purpose of
+            /// this call is to allow for object initialisation steps that can only
+            /// be performed after construction properties have been set. constructed
+            /// implementors should chain up to the constructed call of their parent
+            /// class to allow it to complete its initialisation.
+            /// </summary>
+            public delegate* unmanaged[Cdecl]<IntPtr, void> Constructed;
+
+            nuint flags;
             IntPtr dummy0;
             IntPtr dummy1;
             IntPtr dummy2;
@@ -100,106 +121,28 @@ namespace GISharp.Lib.GObject
         }
 
         /// <summary>
-        /// the constructor function is called by g_object_new() to complete
-        /// the object initialization after all the construction properties are
-        /// set. The first thing a constructor implementation must do is chain
-        /// up to the constructor of the parent class. Overriding constructor
-        /// should be rarely needed, e.g. to handle construct properties, or to
-        /// implement singletons.
+        /// the class closure for the notify signal
         /// </summary>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate IntPtr UnmanagedConstructor(GType type, uint nConstructProperties, IntPtr constructProperties);
-
-        /// <summary>
-        /// <see cref="UnmanagedConstructor"/>
-        /// </summary>
-        public UnmanagedConstructor OnConstructor =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedConstructor>(Handle, onConstructedOffset)!;
-
-        /// <summary>
-        /// the generic setter for all properties of this type. Should be
-        /// overridden for every type with properties. If implementations of
-        /// set_property don't emit property change notification explicitly,
-        /// this will be done implicitly by the type system. However, if the
-        /// notify signal is emitted explicitly, the type system will not emit
-        /// it a second time.
-        /// </summary>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedSetProperty(IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
-
-        /// <summary>
-        /// <see cref="UnmanagedSetProperty"/>
-        /// </summary>
-        public UnmanagedSetProperty OnSetProperty =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedSetProperty>(Handle, onSetPropertyOffset)!;
-
-        /// <summary>
-        /// the generic getter for all properties of this type. Should be
-        /// overridden for every type with properties.
-        /// </summary>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedGetProperty(IntPtr @object, uint propertyId, ref Value value, IntPtr pspec);
-
-        /// <summary>
-        /// <see cref="UnmanagedGetProperty"/>
-        /// </summary>
-        public UnmanagedGetProperty OnGetProperty =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedGetProperty>(Handle, onGetPropertyOffset)!;
-
-        /// <summary>
-        /// the dispose function is supposed to drop all references to other
-        /// objects, but keep the instance otherwise intact, so that client
-        /// method invocations still work. It may be run multiple times (due
-        /// to reference loops). Before returning, dispose should chain up to
-        /// the dispose method of the parent class.
-        /// </summary>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedDispose(IntPtr @object);
-
-        /// <summary>
-        /// <see cref="UnmanagedDispose"/>
-        /// </summary>
-        public UnmanagedDispose OnDispose =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedDispose>(Handle, onDisposeOffset)!;
-
-        /// <summary>
-        /// instance finalization function, should finish the finalization of
-        /// the instance begun in dispose and chain up to the finalize method
-        /// of the parent class.
-        /// </summary>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedFinalize(IntPtr @object);
-
-        /// <summary>
-        /// <see cref="UnmanagedFinalize"/>
-        /// </summary>
-        public UnmanagedFinalize OnFinalize =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedFinalize>(Handle, onFinalizeOffset)!;
-
-        /// <summary>
-        /// emits property change notification for a bunch of properties.
-        /// Overriding dispatch_properties_changed should be rarely needed.
-        /// </summary>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedDispatchPropertiesChanged(IntPtr @object, uint nPspecs, IntPtr pspec);
-
-        /// <summary>
-        /// <see cref="UnmanagedDispatchPropertiesChanged"/>
-        /// </summary>
-        public UnmanagedDispatchPropertiesChanged OnDispatchPropertiesChanged =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedDispatchPropertiesChanged>(Handle, onDispatchPropertiesChangedOffset)!;
+        public unsafe void DoDispatchPropertiesChanged(Object @object, UnownedCPtrArray<ParamSpec> pspecs)
+        {
+            var objectClass = (UnmanagedStruct*)Handle;
+            var object_ = @object.Handle;
+            var nPspecs_ = (uint)pspecs.Length;
+            fixed (IntPtr* pspecs_ = pspecs) {
+                objectClass->DispatchPropertiesChanged(object_, nPspecs_, pspecs_);
+            }
+        }
 
         /// <summary>
         /// the class closure for the notify signal
         /// </summary>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedNotify(IntPtr @object, IntPtr pspec);
-
-        /// <summary>
-        /// <see cref="UnmanagedNotify"/>
-        /// </summary>
-        public UnmanagedNotify OnNotify =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedNotify>(Handle, onNotifyOffset)!;
+        public unsafe void DoNotify(Object @object, ParamSpec pspec)
+        {
+            var objectClass = (UnmanagedStruct*)Handle;
+            var object_ = @object.Handle;
+            var pspec_ = pspec.Handle;
+            objectClass->Notify(object_, pspec_);
+        }
 
         /// <summary>
         /// the constructed function is called by g_object_new() as the final
@@ -210,15 +153,12 @@ namespace GISharp.Lib.GObject
         /// implementors should chain up to the constructed call of their parent
         /// class to allow it to complete its initialisation.
         /// </summary>
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedConstructed(IntPtr @object);
-
-        /// <summary>
-        /// <see cref="UnmanagedConstructed"/>
-        /// </summary>
-        public UnmanagedConstructed OnConstructed =>
-            GMarshal.GetVirtualMethodDelegate<UnmanagedConstructed>(Handle, onConstructedOffset)!;
-
+        public unsafe void DoConstructed(Object @object)
+        {
+            var objectClass = (UnmanagedStruct*)Handle;
+            var object_ = @object.Handle;
+            objectClass->Constructed(object_);
+        }
 
         /// <summary>
         /// For internal runtime use only.
@@ -244,7 +184,7 @@ namespace GISharp.Lib.GObject
             var parentTypeQuery = parentGType.Query();
             var ret = new TypeInfo {
                 ClassSize = (ushort)parentTypeQuery.ClassSize,
-                ClassInit = Marshal.GetFunctionPointerForDelegate(InitManagedClassDelegate),
+                ClassInit = &InitManagedClass,
                 ClassData = (IntPtr)GCHandle.Alloc(type),
                 InstanceSize = (ushort)parentTypeQuery.InstanceSize,
             };
@@ -252,30 +192,27 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        static TypeInfo.UnmanagedClassInitFunc InitManagedClassDelegate = InitManagedClass;
-
         /// <summary>
         /// ClassInit callback for managed classes.
         /// </summary>
-        /// <param name="class_">Pointer to <see cref="Struct"/>.</param>
-        /// <param name="userData_">Pointer to user data from <see cref="TypeInfo"/>.</param>
+        /// <param name="class_">Pointer to <see cref="UnmanagedStruct"/>.</param>
+        /// <param name="classData_">Pointer to user data from <see cref="TypeInfo"/>.</param>
         /// <remarks>
         /// This takes care of overriding the methods to make the managed type
         /// interop with the GObject type system.
         /// </remarks>
-        static void InitManagedClass(IntPtr class_, IntPtr userData_)
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static unsafe void InitManagedClass(IntPtr gClass_, IntPtr classData_)
         {
             try {
-                // Can't use type.GetGType() here since the type registration has
-                // not finished. So, we get the GType this way instead.
-                var gtype = Marshal.PtrToStructure<GType>(class_);
-                var type = (Type)GCHandle.FromIntPtr(userData_).Target!;
+                var objectClass = (UnmanagedStruct*)gClass_;
+                var gtype = objectClass->GTypeClass.GType;
+                var type = (Type)GCHandle.FromIntPtr(classData_).Target!;
 
-                // override property native accessors
+                // override property accessors
 
-                Marshal.WriteIntPtr(class_, onSetPropertyOffset, managedSetPropertyPtr);
-                Marshal.WriteIntPtr(class_, onGetPropertyOffset, managedGetPropertyPtr);
-                Marshal.WriteIntPtr(class_, onNotifyOffset, managedNotifyPtr);
+                objectClass->SetProperty = &ManagedClassSetProperty;
+                objectClass->GetProperty = &ManagedClassGetProperty;
 
                 // Install Properties
 
@@ -417,11 +354,11 @@ namespace GISharp.Lib.GObject
                         // if this type did not declare the property, the we know
                         // we are overriding a property from a base class or interface
                         var namePtr = GMarshal.StringToUtf8Ptr(name);
-                        g_object_class_override_property(class_, propId, namePtr);
+                        g_object_class_override_property(objectClass, propId, namePtr);
                         GMarshal.Free(namePtr);
                     }
                     else {
-                        g_object_class_install_property(class_, propId, pspec.Handle);
+                        g_object_class_install_property(objectClass, propId, pspec.Handle);
                         GC.KeepAlive(pspec);
                     }
                     propId++;
@@ -515,7 +452,7 @@ namespace GISharp.Lib.GObject
                         // this is not a GType virtual method
                         continue;
                     }
-                    TypeClass.InstallVirtualMethodOverload(class_, attr.DelegateType, method);
+                    InstallVirtualMethodOverload((IntPtr)objectClass, attr.DelegateType, method);
                 }
             }
             catch (Exception ex) {
@@ -523,40 +460,30 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static unsafe void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, Value* value, IntPtr pspecPtr)
         {
             try {
                 var obj = Object.GetInstance(objPtr, Transfer.None);
                 var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None)!;
 
                 var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark]!;
-                propInfo.SetValue(obj, value.Get());
+                propInfo.SetValue(obj, value->Get());
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
             }
         }
 
-        static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, ref Value value, IntPtr pspecPtr)
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static unsafe void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, Value* value, IntPtr pspecPtr)
         {
             try {
                 var obj = Object.GetInstance(objPtr, Transfer.None);
                 var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None)!;
 
                 var propInfo = (PropertyInfo)pspec[managedClassPropertyInfoQuark]!;
-                value.Set(propInfo.GetValue(obj));
-            }
-            catch (Exception ex) {
-                ex.LogUnhandledException();
-            }
-        }
-
-        static void ManagedNotify(IntPtr object_, IntPtr pspec_)
-        {
-            try {
-                var obj = Object.GetInstance(object_, Transfer.None)!;
-                var pspec = ParamSpec.GetInstance(pspec_, Transfer.None)!;
-                obj.OnNotify(pspec);
+                value->Set(propInfo.GetValue(obj));
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
@@ -798,10 +725,10 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_object_class_install_property(
+        static unsafe extern void g_object_class_install_property(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
-            IntPtr oclass,
+            UnmanagedStruct* oclass,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint propertyId,
@@ -828,10 +755,15 @@ namespace GISharp.Lib.GObject
         /// <param name="pspec">
         /// the #GParamSpec for the new property
         /// </param>
-        public void InstallProperty(uint propertyId, ParamSpec pspec)
+        public unsafe void InstallProperty(uint propertyId, ParamSpec pspec)
         {
-            g_object_class_install_property(Handle, propertyId, pspec.Handle);
-            GC.KeepAlive(pspec);
+            if (pspec is null) {
+                throw new ArgumentNullException(nameof(pspec));
+            }
+
+            var handle_ = (UnmanagedStruct*)Handle;
+            var pspec_ = pspec.Handle;
+            g_object_class_install_property(handle_, propertyId, pspec_);
         }
 
         /// <summary>
@@ -872,9 +804,9 @@ namespace GISharp.Lib.GObject
             return ListProperties(Handle);
         }
 
-        internal static CPtrArray<ParamSpec> ListProperties(IntPtr handle)
+        internal static CPtrArray<ParamSpec> ListProperties(IntPtr handle_)
         {
-            var ret_ = g_object_class_list_properties(handle, out var nProperties_);
+            var ret_ = g_object_class_list_properties(handle_, out var nProperties_);
             var ret = CPtrArray.GetInstance<ParamSpec>(ret_, (int)nProperties_, Transfer.Container);
             return ret;
         }
@@ -912,10 +844,10 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_object_class_override_property(
+        static unsafe extern void g_object_class_override_property(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
-            IntPtr oclass,
+            UnmanagedStruct* oclass,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint propertyId,

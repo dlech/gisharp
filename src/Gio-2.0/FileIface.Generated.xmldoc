@@ -1,321 +1,321 @@
 <declaration>
 
-<member name='Struct.GIface'>
+<member name='UnmanagedStruct.GIface'>
 <summary>
 The parent interface.
 </summary>
 </member>
 
-<member name='Struct.Dup'>
+<member name='UnmanagedStruct.Dup'>
 </member>
 
-<member name='Struct.Hash'>
+<member name='UnmanagedStruct.Hash'>
 </member>
 
-<member name='Struct.Equal'>
+<member name='UnmanagedStruct.Equal'>
 </member>
 
-<member name='Struct.IsNative'>
+<member name='UnmanagedStruct.IsNative'>
 </member>
 
-<member name='Struct.HasUriScheme'>
+<member name='UnmanagedStruct.HasUriScheme'>
 </member>
 
-<member name='Struct.GetUriScheme'>
+<member name='UnmanagedStruct.GetUriScheme'>
 </member>
 
-<member name='Struct.GetBasename'>
+<member name='UnmanagedStruct.GetBasename'>
 </member>
 
-<member name='Struct.GetPath'>
+<member name='UnmanagedStruct.GetPath'>
 </member>
 
-<member name='Struct.GetUri'>
+<member name='UnmanagedStruct.GetUri'>
 </member>
 
-<member name='Struct.GetParseName'>
+<member name='UnmanagedStruct.GetParseName'>
 </member>
 
-<member name='Struct.GetParent'>
+<member name='UnmanagedStruct.GetParent'>
 </member>
 
-<member name='Struct.PrefixMatches'>
+<member name='UnmanagedStruct.PrefixMatches'>
 </member>
 
-<member name='Struct.GetRelativePath'>
+<member name='UnmanagedStruct.GetRelativePath'>
 </member>
 
-<member name='Struct.ResolveRelativePath'>
+<member name='UnmanagedStruct.ResolveRelativePath'>
 </member>
 
-<member name='Struct.GetChildForDisplayName'>
+<member name='UnmanagedStruct.GetChildForDisplayName'>
 </member>
 
-<member name='Struct.EnumerateChildren'>
+<member name='UnmanagedStruct.EnumerateChildren'>
 </member>
 
-<member name='Struct.EnumerateChildrenAsync'>
+<member name='UnmanagedStruct.EnumerateChildrenAsync'>
 </member>
 
-<member name='Struct.EnumerateChildrenFinish'>
+<member name='UnmanagedStruct.EnumerateChildrenFinish'>
 </member>
 
-<member name='Struct.QueryInfo'>
+<member name='UnmanagedStruct.QueryInfo'>
 </member>
 
-<member name='Struct.QueryInfoAsync'>
+<member name='UnmanagedStruct.QueryInfoAsync'>
 </member>
 
-<member name='Struct.QueryInfoFinish'>
+<member name='UnmanagedStruct.QueryInfoFinish'>
 </member>
 
-<member name='Struct.QueryFilesystemInfo'>
+<member name='UnmanagedStruct.QueryFilesystemInfo'>
 </member>
 
-<member name='Struct.QueryFilesystemInfoAsync'>
+<member name='UnmanagedStruct.QueryFilesystemInfoAsync'>
 </member>
 
-<member name='Struct.QueryFilesystemInfoFinish'>
+<member name='UnmanagedStruct.QueryFilesystemInfoFinish'>
 </member>
 
-<member name='Struct.FindEnclosingMount'>
+<member name='UnmanagedStruct.FindEnclosingMount'>
 </member>
 
-<member name='Struct.FindEnclosingMountAsync'>
+<member name='UnmanagedStruct.FindEnclosingMountAsync'>
 </member>
 
-<member name='Struct.FindEnclosingMountFinish'>
+<member name='UnmanagedStruct.FindEnclosingMountFinish'>
 </member>
 
-<member name='Struct.SetDisplayName'>
+<member name='UnmanagedStruct.SetDisplayName'>
 </member>
 
-<member name='Struct.SetDisplayNameAsync'>
+<member name='UnmanagedStruct.SetDisplayNameAsync'>
 </member>
 
-<member name='Struct.SetDisplayNameFinish'>
+<member name='UnmanagedStruct.SetDisplayNameFinish'>
 </member>
 
-<member name='Struct.QuerySettableAttributes'>
+<member name='UnmanagedStruct.QuerySettableAttributes'>
 </member>
 
-<member name='Struct.QuerySettableAttributesAsync'>
+<member name='UnmanagedStruct.QuerySettableAttributesAsync'>
 </member>
 
-<member name='Struct.QuerySettableAttributesFinish'>
+<member name='UnmanagedStruct.QuerySettableAttributesFinish'>
 </member>
 
-<member name='Struct.QueryWritableNamespaces'>
+<member name='UnmanagedStruct.QueryWritableNamespaces'>
 </member>
 
-<member name='Struct.QueryWritableNamespacesAsync'>
+<member name='UnmanagedStruct.QueryWritableNamespacesAsync'>
 </member>
 
-<member name='Struct.QueryWritableNamespacesFinish'>
+<member name='UnmanagedStruct.QueryWritableNamespacesFinish'>
 </member>
 
-<member name='Struct.SetAttribute'>
+<member name='UnmanagedStruct.SetAttribute'>
 </member>
 
-<member name='Struct.SetAttributesFromInfo'>
+<member name='UnmanagedStruct.SetAttributesFromInfo'>
 </member>
 
-<member name='Struct.SetAttributesAsync'>
+<member name='UnmanagedStruct.SetAttributesAsync'>
 </member>
 
-<member name='Struct.SetAttributesFinish'>
+<member name='UnmanagedStruct.SetAttributesFinish'>
 </member>
 
-<member name='Struct.ReadFn'>
+<member name='UnmanagedStruct.ReadFn'>
 </member>
 
-<member name='Struct.ReadAsync'>
+<member name='UnmanagedStruct.ReadAsync'>
 </member>
 
-<member name='Struct.ReadFinish'>
+<member name='UnmanagedStruct.ReadFinish'>
 </member>
 
-<member name='Struct.AppendTo'>
+<member name='UnmanagedStruct.AppendTo'>
 </member>
 
-<member name='Struct.AppendToAsync'>
+<member name='UnmanagedStruct.AppendToAsync'>
 </member>
 
-<member name='Struct.AppendToFinish'>
+<member name='UnmanagedStruct.AppendToFinish'>
 </member>
 
-<member name='Struct.Create'>
+<member name='UnmanagedStruct.Create'>
 </member>
 
-<member name='Struct.CreateAsync'>
+<member name='UnmanagedStruct.CreateAsync'>
 </member>
 
-<member name='Struct.CreateFinish'>
+<member name='UnmanagedStruct.CreateFinish'>
 </member>
 
-<member name='Struct.Replace'>
+<member name='UnmanagedStruct.Replace'>
 </member>
 
-<member name='Struct.ReplaceAsync'>
+<member name='UnmanagedStruct.ReplaceAsync'>
 </member>
 
-<member name='Struct.ReplaceFinish'>
+<member name='UnmanagedStruct.ReplaceFinish'>
 </member>
 
-<member name='Struct.DeleteFile'>
+<member name='UnmanagedStruct.DeleteFile'>
 </member>
 
-<member name='Struct.DeleteFileAsync'>
+<member name='UnmanagedStruct.DeleteFileAsync'>
 </member>
 
-<member name='Struct.DeleteFileFinish'>
+<member name='UnmanagedStruct.DeleteFileFinish'>
 </member>
 
-<member name='Struct.Trash'>
+<member name='UnmanagedStruct.Trash'>
 </member>
 
-<member name='Struct.TrashAsync'>
+<member name='UnmanagedStruct.TrashAsync'>
 </member>
 
-<member name='Struct.TrashFinish'>
+<member name='UnmanagedStruct.TrashFinish'>
 </member>
 
-<member name='Struct.MakeDirectory'>
+<member name='UnmanagedStruct.MakeDirectory'>
 </member>
 
-<member name='Struct.MakeDirectoryAsync'>
+<member name='UnmanagedStruct.MakeDirectoryAsync'>
 </member>
 
-<member name='Struct.MakeDirectoryFinish'>
+<member name='UnmanagedStruct.MakeDirectoryFinish'>
 </member>
 
-<member name='Struct.MakeSymbolicLink'>
+<member name='UnmanagedStruct.MakeSymbolicLink'>
 </member>
 
-<member name='Struct.MakeSymbolicLinkAsync'>
+<member name='UnmanagedStruct.MakeSymbolicLinkAsync'>
 </member>
 
-<member name='Struct.MakeSymbolicLinkFinish'>
+<member name='UnmanagedStruct.MakeSymbolicLinkFinish'>
 </member>
 
-<member name='Struct.Copy'>
+<member name='UnmanagedStruct.Copy'>
 </member>
 
-<member name='Struct.CopyAsync'>
+<member name='UnmanagedStruct.CopyAsync'>
 </member>
 
-<member name='Struct.CopyFinish'>
+<member name='UnmanagedStruct.CopyFinish'>
 </member>
 
-<member name='Struct.Move'>
+<member name='UnmanagedStruct.Move'>
 </member>
 
-<member name='Struct.MoveAsync'>
+<member name='UnmanagedStruct.MoveAsync'>
 </member>
 
-<member name='Struct.MoveFinish'>
+<member name='UnmanagedStruct.MoveFinish'>
 </member>
 
-<member name='Struct.MountMountable'>
+<member name='UnmanagedStruct.MountMountable'>
 </member>
 
-<member name='Struct.MountMountableFinish'>
+<member name='UnmanagedStruct.MountMountableFinish'>
 </member>
 
-<member name='Struct.UnmountMountable'>
+<member name='UnmanagedStruct.UnmountMountable'>
 </member>
 
-<member name='Struct.UnmountMountableFinish'>
+<member name='UnmanagedStruct.UnmountMountableFinish'>
 </member>
 
-<member name='Struct.EjectMountable'>
+<member name='UnmanagedStruct.EjectMountable'>
 </member>
 
-<member name='Struct.EjectMountableFinish'>
+<member name='UnmanagedStruct.EjectMountableFinish'>
 </member>
 
-<member name='Struct.MountEnclosingVolume'>
+<member name='UnmanagedStruct.MountEnclosingVolume'>
 </member>
 
-<member name='Struct.MountEnclosingVolumeFinish'>
+<member name='UnmanagedStruct.MountEnclosingVolumeFinish'>
 </member>
 
-<member name='Struct.MonitorDir'>
+<member name='UnmanagedStruct.MonitorDir'>
 </member>
 
-<member name='Struct.MonitorFile'>
+<member name='UnmanagedStruct.MonitorFile'>
 </member>
 
-<member name='Struct.OpenReadwrite'>
+<member name='UnmanagedStruct.OpenReadwrite'>
 </member>
 
-<member name='Struct.OpenReadwriteAsync'>
+<member name='UnmanagedStruct.OpenReadwriteAsync'>
 </member>
 
-<member name='Struct.OpenReadwriteFinish'>
+<member name='UnmanagedStruct.OpenReadwriteFinish'>
 </member>
 
-<member name='Struct.CreateReadwrite'>
+<member name='UnmanagedStruct.CreateReadwrite'>
 </member>
 
-<member name='Struct.CreateReadwriteAsync'>
+<member name='UnmanagedStruct.CreateReadwriteAsync'>
 </member>
 
-<member name='Struct.CreateReadwriteFinish'>
+<member name='UnmanagedStruct.CreateReadwriteFinish'>
 </member>
 
-<member name='Struct.ReplaceReadwrite'>
+<member name='UnmanagedStruct.ReplaceReadwrite'>
 </member>
 
-<member name='Struct.ReplaceReadwriteAsync'>
+<member name='UnmanagedStruct.ReplaceReadwriteAsync'>
 </member>
 
-<member name='Struct.ReplaceReadwriteFinish'>
+<member name='UnmanagedStruct.ReplaceReadwriteFinish'>
 </member>
 
-<member name='Struct.StartMountable'>
+<member name='UnmanagedStruct.StartMountable'>
 </member>
 
-<member name='Struct.StartMountableFinish'>
+<member name='UnmanagedStruct.StartMountableFinish'>
 </member>
 
-<member name='Struct.StopMountable'>
+<member name='UnmanagedStruct.StopMountable'>
 </member>
 
-<member name='Struct.StopMountableFinish'>
+<member name='UnmanagedStruct.StopMountableFinish'>
 </member>
 
-<member name='Struct.SupportsThreadContexts'>
+<member name='UnmanagedStruct.SupportsThreadContexts'>
 <summary>
 a boolean that indicates whether the <see cref="IFile"/> implementation supports thread-default contexts. Since 2.22.
 </summary>
 </member>
 
-<member name='Struct.UnmountMountableWithOperation'>
+<member name='UnmanagedStruct.UnmountMountableWithOperation'>
 </member>
 
-<member name='Struct.UnmountMountableWithOperationFinish'>
+<member name='UnmanagedStruct.UnmountMountableWithOperationFinish'>
 </member>
 
-<member name='Struct.EjectMountableWithOperation'>
+<member name='UnmanagedStruct.EjectMountableWithOperation'>
 </member>
 
-<member name='Struct.EjectMountableWithOperationFinish'>
+<member name='UnmanagedStruct.EjectMountableWithOperationFinish'>
 </member>
 
-<member name='Struct.PollMountable'>
+<member name='UnmanagedStruct.PollMountable'>
 </member>
 
-<member name='Struct.PollMountableFinish'>
+<member name='UnmanagedStruct.PollMountableFinish'>
 </member>
 
-<member name='Struct.MeasureDiskUsage'>
+<member name='UnmanagedStruct.MeasureDiskUsage'>
 </member>
 
-<member name='Struct.MeasureDiskUsageAsync'>
+<member name='UnmanagedStruct.MeasureDiskUsageAsync'>
 </member>
 
-<member name='Struct.MeasureDiskUsageFinish'>
+<member name='UnmanagedStruct.MeasureDiskUsageFinish'>
 </member>
 
 <member name='Dup'>

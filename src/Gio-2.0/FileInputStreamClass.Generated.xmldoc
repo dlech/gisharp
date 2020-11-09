@@ -1,39 +1,39 @@
 <declaration>
 
-<member name='Struct.ParentClass'>
+<member name='UnmanagedStruct.ParentClass'>
 </member>
 
-<member name='Struct.Tell'>
+<member name='UnmanagedStruct.Tell'>
 </member>
 
-<member name='Struct.CanSeek'>
+<member name='UnmanagedStruct.CanSeek'>
 </member>
 
-<member name='Struct.Seek'>
+<member name='UnmanagedStruct.Seek'>
 </member>
 
-<member name='Struct.QueryInfo'>
+<member name='UnmanagedStruct.QueryInfo'>
 </member>
 
-<member name='Struct.QueryInfoAsync'>
+<member name='UnmanagedStruct.QueryInfoAsync'>
 </member>
 
-<member name='Struct.QueryInfoFinish'>
+<member name='UnmanagedStruct.QueryInfoFinish'>
 </member>
 
-<member name='Struct.GReserved1'>
+<member name='UnmanagedStruct.GReserved1'>
 </member>
 
-<member name='Struct.GReserved2'>
+<member name='UnmanagedStruct.GReserved2'>
 </member>
 
-<member name='Struct.GReserved3'>
+<member name='UnmanagedStruct.GReserved3'>
 </member>
 
-<member name='Struct.GReserved4'>
+<member name='UnmanagedStruct.GReserved4'>
 </member>
 
-<member name='Struct.GReserved5'>
+<member name='UnmanagedStruct.GReserved5'>
 </member>
 
 <member name='Tell'>

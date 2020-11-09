@@ -12,26 +12,24 @@ namespace GISharp.Lib.GObject
     [GType("GParamFlags", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecFlags : ParamSpec
     {
-        static readonly IntPtr flagsClassOffset = Marshal.OffsetOf<Struct>(nameof(Struct.FlagsClass));
-        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct>(nameof(Struct.DefaultValue));
-
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
             public IntPtr FlagsClass;
             public int DefaultValue;
 #pragma warning restore CS0649
         }
 
-        public IntPtr FlagsClass => Marshal.ReadIntPtr(Handle, (int)flagsClassOffset);
+        public unsafe IntPtr FlagsClass => ((UnmanagedStruct*)Handle)->FlagsClass;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new System.Enum DefaultValue {
+        public unsafe new System.Enum DefaultValue {
             get {
-                var ret_ = Marshal.ReadInt32(Handle, (int)defaultValueOffset);
+                var ret_ = ((UnmanagedStruct*)Handle)->DefaultValue;
                 var ret = (System.Enum)System.Enum.ToObject(FlagsType, ret_);
                 return ret;
             }

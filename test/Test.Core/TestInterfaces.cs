@@ -33,14 +33,15 @@ namespace GISharp.Test.Core
     {
         static InitableIface()
         {
-            var initOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.Init));
+            var initOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Init));
             RegisterVirtualMethod(initOffset, InitFactory.Create);
         }
 
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public TypeInterface.Struct GIface;
+            public TypeInterface.UnmanagedStruct GIface;
             public IntPtr Init;
 #pragma warning restore CS0649
         }
@@ -167,20 +168,21 @@ namespace GISharp.Test.Core
     {
         static NetworkMonitorInterface()
         {
-            var networkChangedOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.NetworkChanged));
-            TypeClass.RegisterVirtualMethod(networkChangedOffset, NetworkChangedFactory.Create);
-            var canReachOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.CanReach));
-            TypeClass.RegisterVirtualMethod(canReachOffset, CanReachFactory.Create);
-            var canReachAsyncOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.CanReachAsync));
-            TypeClass.RegisterVirtualMethod(canReachAsyncOffset, CanReachAsyncFactory.Create);
-            var canReachAsyncFinishOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.CanReachAsyncFinish));
-            TypeClass.RegisterVirtualMethod(canReachAsyncFinishOffset, CanReachAsyncFinishFactory.Create);
+            var networkChangedOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.NetworkChanged));
+            RegisterVirtualMethod(networkChangedOffset, NetworkChangedFactory.Create);
+            var canReachOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanReach));
+            RegisterVirtualMethod(canReachOffset, CanReachFactory.Create);
+            var canReachAsyncOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanReachAsync));
+            RegisterVirtualMethod(canReachAsyncOffset, CanReachAsyncFactory.Create);
+            var canReachAsyncFinishOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanReachAsyncFinish));
+            RegisterVirtualMethod(canReachAsyncFinishOffset, CanReachAsyncFinishFactory.Create);
         }
 
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public TypeInterface.Struct GIface;
+            public TypeInterface.UnmanagedStruct GIface;
             public IntPtr NetworkChanged;
             public IntPtr CanReach;
             public IntPtr CanReachAsync;
@@ -443,11 +445,12 @@ namespace GISharp.Test.Core
 
     sealed class AsyncResultIface : TypeInterface
     {
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
 #pragma warning disable CS0169
-            TypeInterface.Struct gIface;
+            TypeInterface.UnmanagedStruct gIface;
 #pragma warning restore CS0169
             public IntPtr GetUserData;
             public IntPtr GetSourceObject;
@@ -457,11 +460,11 @@ namespace GISharp.Test.Core
 
         static AsyncResultIface()
         {
-            var getUserDataOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.GetUserData));
+            var getUserDataOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUserData));
             RegisterVirtualMethod(getUserDataOffset, GetUserDataFactory.Create);
-            var getSourceObjectOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.GetSourceObject));
+            var getSourceObjectOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetSourceObject));
             RegisterVirtualMethod(getSourceObjectOffset, GetSourceObjectFactory.Create);
-            var isTaggedOffset = (int)Marshal.OffsetOf<Struct>(nameof(Struct.IsTagged));
+            var isTaggedOffset = (int)Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.IsTagged));
             RegisterVirtualMethod(isTaggedOffset, IsTaggedFactory.Create);
         }
 

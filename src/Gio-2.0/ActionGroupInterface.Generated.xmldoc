@@ -1,48 +1,48 @@
 <declaration>
 
-<member name='Struct.GIface'>
+<member name='UnmanagedStruct.GIface'>
 </member>
 
-<member name='Struct.HasAction'>
+<member name='UnmanagedStruct.HasAction'>
 </member>
 
-<member name='Struct.ListActions'>
+<member name='UnmanagedStruct.ListActions'>
 </member>
 
-<member name='Struct.GetActionEnabled'>
+<member name='UnmanagedStruct.GetActionEnabled'>
 </member>
 
-<member name='Struct.GetActionParameterType'>
+<member name='UnmanagedStruct.GetActionParameterType'>
 </member>
 
-<member name='Struct.GetActionStateType'>
+<member name='UnmanagedStruct.GetActionStateType'>
 </member>
 
-<member name='Struct.GetActionStateHint'>
+<member name='UnmanagedStruct.GetActionStateHint'>
 </member>
 
-<member name='Struct.GetActionState'>
+<member name='UnmanagedStruct.GetActionState'>
 </member>
 
-<member name='Struct.ChangeActionState'>
+<member name='UnmanagedStruct.ChangeActionState'>
 </member>
 
-<member name='Struct.ActivateAction'>
+<member name='UnmanagedStruct.ActivateAction'>
 </member>
 
-<member name='Struct.ActionAdded'>
+<member name='UnmanagedStruct.ActionAdded'>
 </member>
 
-<member name='Struct.ActionRemoved'>
+<member name='UnmanagedStruct.ActionRemoved'>
 </member>
 
-<member name='Struct.ActionEnabledChanged'>
+<member name='UnmanagedStruct.ActionEnabledChanged'>
 </member>
 
-<member name='Struct.ActionStateChanged'>
+<member name='UnmanagedStruct.ActionStateChanged'>
 </member>
 
-<member name='Struct.QueryAction'>
+<member name='UnmanagedStruct.QueryAction'>
 </member>
 
 <member name='HasAction'>

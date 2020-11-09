@@ -13,17 +13,16 @@ namespace GISharp.Lib.GObject
     [GType ("GParamGType", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecGType : ParamSpec
     {
-        static readonly IntPtr isATypeOffset = Marshal.OffsetOf<Struct> (nameof (Struct.IsAType));
-        
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
             #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
             public GType IsAType;
             #pragma warning restore CS0649
         }
 
-        public GType IsAType => Marshal.PtrToStructure<GType>(Handle + (int)isATypeOffset);
+        public unsafe GType IsAType => ((UnmanagedStruct*)Handle)->IsAType;
 
         /// <summary>
         /// For internal runtime use only.

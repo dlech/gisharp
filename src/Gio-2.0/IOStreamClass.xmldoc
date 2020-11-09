@@ -1,51 +1,51 @@
 <declaration>
 
-<member name='Struct.ParentClass'>
+<member name='UnmanagedStruct.ParentClass'>
 </member>
 
-<member name='Struct.GetInputStream'>
+<member name='UnmanagedStruct.GetInputStream'>
 </member>
 
-<member name='Struct.GetOutputStream'>
+<member name='UnmanagedStruct.GetOutputStream'>
 </member>
 
-<member name='Struct.CloseFn'>
+<member name='UnmanagedStruct.CloseFn'>
 </member>
 
-<member name='Struct.CloseAsync'>
+<member name='UnmanagedStruct.CloseAsync'>
 </member>
 
-<member name='Struct.CloseFinish'>
+<member name='UnmanagedStruct.CloseFinish'>
 </member>
 
-<member name='Struct.GReserved1'>
+<member name='UnmanagedStruct.GReserved1'>
 </member>
 
-<member name='Struct.GReserved2'>
+<member name='UnmanagedStruct.GReserved2'>
 </member>
 
-<member name='Struct.GReserved3'>
+<member name='UnmanagedStruct.GReserved3'>
 </member>
 
-<member name='Struct.GReserved4'>
+<member name='UnmanagedStruct.GReserved4'>
 </member>
 
-<member name='Struct.GReserved5'>
+<member name='UnmanagedStruct.GReserved5'>
 </member>
 
-<member name='Struct.GReserved6'>
+<member name='UnmanagedStruct.GReserved6'>
 </member>
 
-<member name='Struct.GReserved7'>
+<member name='UnmanagedStruct.GReserved7'>
 </member>
 
-<member name='Struct.GReserved8'>
+<member name='UnmanagedStruct.GReserved8'>
 </member>
 
-<member name='Struct.GReserved9'>
+<member name='UnmanagedStruct.GReserved9'>
 </member>
 
-<member name='Struct.GReserved10'>
+<member name='UnmanagedStruct.GReserved10'>
 </member>
 
 <member name='GetInputStream'>

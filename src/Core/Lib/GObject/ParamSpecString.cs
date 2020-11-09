@@ -12,16 +12,11 @@ namespace GISharp.Lib.GObject
     [GType("GParamString", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecString : ParamSpec
     {
-        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct>(nameof(Struct.DefaultValue));
-        static readonly IntPtr csetFirstOffset = Marshal.OffsetOf<Struct>(nameof(Struct.CsetFirst));
-        static readonly IntPtr csetNthOffset = Marshal.OffsetOf<Struct>(nameof(Struct.CsetNth));
-        static readonly IntPtr substitutorOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Substitutor));
-        static readonly IntPtr bitfieldOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Bitfield));
-
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
             public IntPtr DefaultValue;
             public IntPtr CsetFirst;
             public IntPtr CsetNth;
@@ -33,9 +28,9 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new UnownedUtf8 DefaultValue {
+        public unsafe new UnownedUtf8 DefaultValue {
             get {
-                var ret_ = Marshal.ReadIntPtr(Handle, (int)defaultValueOffset);
+                var ret_ = ((UnmanagedStruct*)Handle)->DefaultValue;
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -44,9 +39,9 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// a string containing the allowed values for the first byte
         /// </summary>
-        public NullableUnownedUtf8 CsetFirst {
+        public unsafe NullableUnownedUtf8 CsetFirst {
             get {
-                var ret_ = Marshal.ReadIntPtr(Handle, (int)csetFirstOffset);
+                var ret_ = ((UnmanagedStruct*)Handle)->CsetFirst;
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -55,9 +50,9 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// a string containing the allowed values for the subsequent bytes
         /// </summary>
-        public NullableUnownedUtf8 CsetNth {
+        public unsafe NullableUnownedUtf8 CsetNth {
             get {
-                var ret_ = Marshal.ReadIntPtr(Handle, (int)csetNthOffset);
+                var ret_ = ((UnmanagedStruct*)Handle)->CsetNth;
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -67,9 +62,9 @@ namespace GISharp.Lib.GObject
         /// the replacement byte for bytes which don't match <see cref="CsetFirst"/>
         /// or <see cref="CsetNth"/> .
         /// </summary>
-        public sbyte Substitutor => (sbyte)Marshal.ReadByte(Handle, (int)substitutorOffset);
+        public unsafe sbyte Substitutor => ((UnmanagedStruct*)Handle)->Substitutor;
 
-        uint Bitfield => (uint)Marshal.ReadInt32(Handle, (int)bitfieldOffset);
+        unsafe uint Bitfield => ((UnmanagedStruct*)Handle)->Bitfield;
 
         /// <summary>
         /// For internal runtime use only.

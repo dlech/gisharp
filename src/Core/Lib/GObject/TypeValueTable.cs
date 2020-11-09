@@ -20,29 +20,30 @@ namespace GISharp.Lib.GObject
         {
         }
 
-        struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
             #pragma warning disable CS0649
-            public UnmangedValueInit ValueInitImpl;
+            public UnmanagedValueInit ValueInitImpl;
 
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            public delegate void UnmangedValueInit(
+            public delegate void UnmanagedValueInit(
                 /* <type name="Value" type="GValue*" managed-name="Value" /> */
                 /* transfer-ownership:none */
                 ref Value value);
 
-            public UnmangedValueFree ValueFreeImpl;
+            public UnmanagedValueFree ValueFreeImpl;
 
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            public delegate void UnmangedValueFree(
+            public delegate void UnmanagedValueFree(
                 /* <type name="Value" type="GValue*" managed-name="Value" /> */
                 /* transfer-ownership:none */
                 ref Value value);
 
-            public UnmangedValueCopy ValueCopyImpl;
+            public UnmanagedValueCopy ValueCopyImpl;
 
             [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-            public delegate void UnmangedValueCopy(
+            public delegate void UnmanagedValueCopy(
                 /* <type name="Value" type="const GValue*" managed-name="Value" /> */
                 /* transfer-ownership:none */
                 ref Value srcValue,
@@ -164,7 +165,7 @@ namespace GISharp.Lib.GObject
         public static TypeValueTable Peek(GType type)
         {
             var ret_ = g_type_value_table_peek(type);
-            var ret = Opaque.GetInstance<TypeValueTable>(ret_, Transfer.None);
+            var ret = GetInstance<TypeValueTable>(ret_, Transfer.None);
             return ret;
         }
     }

@@ -13,13 +13,11 @@ namespace GISharp.Lib.GObject
     [GType("GParamValueArray", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecValueArray : ParamSpec
     {
-        static readonly IntPtr elementSpecOffset = Marshal.OffsetOf<Struct>(nameof(Struct.ElementSpec));
-        static readonly IntPtr fixedNElementsOffset = Marshal.OffsetOf<Struct>(nameof(Struct.FixedNElements));
-
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
             public IntPtr ElementSpec;
             public uint FixedNElements;
 #pragma warning restore CS0649
@@ -29,9 +27,9 @@ namespace GISharp.Lib.GObject
         /// a <see cref="ParamSpec"/> describing the elements contained in arrays
         /// of this property, may be <c>null</c>
         /// </summary>
-        public ParamSpec? ElementSpec {
+        public unsafe ParamSpec? ElementSpec {
             get {
-                var ret_ = Marshal.ReadIntPtr(Handle, (int)elementSpecOffset);
+                var ret_ = ((UnmanagedStruct*)Handle)->ElementSpec;
                 var ret = GetInstance(ret_, Transfer.None)!;
                 return ret;
             }
@@ -40,7 +38,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// if greater than 0, arrays of this property will always have this many elements
         /// </summary>
-        public uint FixedNElements => (uint)Marshal.ReadInt32(Handle, (int)fixedNElementsOffset);
+        public unsafe uint FixedNElements => ((UnmanagedStruct*)Handle)->FixedNElements;
 
         /// <summary>
         /// For internal runtime use only.
@@ -86,7 +84,7 @@ namespace GISharp.Lib.GObject
 
         /// <summary>
         /// Creates a new <see cref="ParamSpecValueArray" /> instance specifying
-        /// a G_TYPE_VALUE_ARRAY property. 
+        /// a G_TYPE_VALUE_ARRAY property.
         /// </summary>
         public ParamSpecValueArray(string name, string nick, string blurb, ParamSpec elementSpec, ParamFlags flags)
             : this(New(name, nick, blurb, elementSpec, flags), Transfer.None)

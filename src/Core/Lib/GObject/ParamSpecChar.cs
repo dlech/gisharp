@@ -12,14 +12,11 @@ namespace GISharp.Lib.GObject
     [GType("GParamChar", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecChar : ParamSpec
     {
-        static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Minimum));
-        static readonly IntPtr maximumOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Maximum));
-        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct>(nameof(Struct.DefaultValue));
-
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
             public sbyte Minimum;
             public sbyte Maximum;
             public sbyte DefaultValue;
@@ -29,17 +26,17 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public sbyte Minimum => (sbyte)Marshal.ReadByte(Handle, (int)minimumOffset);
+        public unsafe sbyte Minimum => ((UnmanagedStruct*)Handle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public sbyte Maximum => (sbyte)Marshal.ReadByte(Handle, (int)maximumOffset);
+        public unsafe sbyte Maximum => ((UnmanagedStruct*)Handle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new sbyte DefaultValue => (sbyte)Marshal.ReadByte(Handle, (int)defaultValueOffset);
+        public unsafe new sbyte DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.

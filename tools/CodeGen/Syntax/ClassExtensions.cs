@@ -65,7 +65,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (@class.Fields.Any()) {
                 members = members.Add(@class.Fields.GetStructDeclaration()
-                    .AddModifiers(Token(ProtectedKeyword), Token(NewKeyword)));
+                    .AddModifiers(Token(NewKeyword)));
             }
 
             members = members

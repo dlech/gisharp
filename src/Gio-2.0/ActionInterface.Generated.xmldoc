@@ -1,30 +1,30 @@
 <declaration>
 
-<member name='Struct.GIface'>
+<member name='UnmanagedStruct.GIface'>
 </member>
 
-<member name='Struct.GetName'>
+<member name='UnmanagedStruct.GetName'>
 </member>
 
-<member name='Struct.GetParameterType'>
+<member name='UnmanagedStruct.GetParameterType'>
 </member>
 
-<member name='Struct.GetStateType'>
+<member name='UnmanagedStruct.GetStateType'>
 </member>
 
-<member name='Struct.GetStateHint'>
+<member name='UnmanagedStruct.GetStateHint'>
 </member>
 
-<member name='Struct.GetEnabled'>
+<member name='UnmanagedStruct.GetEnabled'>
 </member>
 
-<member name='Struct.GetState'>
+<member name='UnmanagedStruct.GetState'>
 </member>
 
-<member name='Struct.ChangeState'>
+<member name='UnmanagedStruct.ChangeState'>
 </member>
 
-<member name='Struct.Activate'>
+<member name='UnmanagedStruct.Activate'>
 </member>
 
 <member name='GetName'>

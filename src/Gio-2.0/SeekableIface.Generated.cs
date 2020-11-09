@@ -8,40 +8,40 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
+            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.Tell']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Tell']/*" />
             public System.IntPtr Tell;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.CanSeek']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanSeek']/*" />
             public System.IntPtr CanSeek;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.Seek']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Seek']/*" />
             public System.IntPtr Seek;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.CanTruncate']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanTruncate']/*" />
             public System.IntPtr CanTruncate;
 
-            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='Struct.TruncateFn']/*" />
+            /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.TruncateFn']/*" />
             public System.IntPtr TruncateFn;
 #pragma warning restore CS0649
         }
 
         static SeekableIface()
         {
-            System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Tell));
+            System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Tell));
             RegisterVirtualMethod(tellOffset, TellMarshal.Create);
-            System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CanSeek));
+            System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanSeek));
             RegisterVirtualMethod(canSeekOffset, CanSeekMarshal.Create);
-            System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Seek));
+            System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Seek));
             RegisterVirtualMethod(seekOffset, SeekMarshal.Create);
-            System.Int32 canTruncateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CanTruncate));
+            System.Int32 canTruncateOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanTruncate));
             RegisterVirtualMethod(canTruncateOffset, CanTruncateMarshal.Create);
-            System.Int32 truncateFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.TruncateFn));
+            System.Int32 truncateFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.TruncateFn));
             RegisterVirtualMethod(truncateFnOffset, TruncateFnMarshal.Create);
         }
 

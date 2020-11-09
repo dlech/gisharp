@@ -1,54 +1,54 @@
 <declaration>
 
-<member name='Struct.ParentClass'>
+<member name='UnmanagedStruct.ParentClass'>
 </member>
 
-<member name='Struct.Startup'>
+<member name='UnmanagedStruct.Startup'>
 </member>
 
-<member name='Struct.Activate'>
+<member name='UnmanagedStruct.Activate'>
 </member>
 
-<member name='Struct.Open'>
+<member name='UnmanagedStruct.Open'>
 </member>
 
-<member name='Struct.CommandLine'>
+<member name='UnmanagedStruct.CommandLine'>
 </member>
 
-<member name='Struct.LocalCommandLine'>
+<member name='UnmanagedStruct.LocalCommandLine'>
 </member>
 
-<member name='Struct.BeforeEmit'>
+<member name='UnmanagedStruct.BeforeEmit'>
 </member>
 
-<member name='Struct.AfterEmit'>
+<member name='UnmanagedStruct.AfterEmit'>
 </member>
 
-<member name='Struct.AddPlatformData'>
+<member name='UnmanagedStruct.AddPlatformData'>
 </member>
 
-<member name='Struct.QuitMainloop'>
+<member name='UnmanagedStruct.QuitMainloop'>
 </member>
 
-<member name='Struct.RunMainloop'>
+<member name='UnmanagedStruct.RunMainloop'>
 </member>
 
-<member name='Struct.Shutdown'>
+<member name='UnmanagedStruct.Shutdown'>
 </member>
 
-<member name='Struct.DbusRegister'>
+<member name='UnmanagedStruct.DbusRegister'>
 </member>
 
-<member name='Struct.DbusUnregister'>
+<member name='UnmanagedStruct.DbusUnregister'>
 </member>
 
-<member name='Struct.HandleLocalOptions'>
+<member name='UnmanagedStruct.HandleLocalOptions'>
 </member>
 
-<member name='Struct.NameLost'>
+<member name='UnmanagedStruct.NameLost'>
 </member>
 
-<member name='Struct.Padding'>
+<member name='UnmanagedStruct.Padding'>
 </member>
 
 <member name='Startup'>

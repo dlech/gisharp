@@ -55,10 +55,8 @@ namespace GISharp.Lib.GObject
     [GType ("GClosure", IsProxyForUnmanagedType = true)]
     public sealed class Closure : Boxed
     {
-        static readonly IntPtr bitFieldsOffset = Marshal.OffsetOf<Struct> (nameof (Struct.BitFields));
-        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct> (nameof (Struct.Data));
-
-        struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
     #pragma warning disable CS0649
             public uint BitFields;
@@ -77,11 +75,11 @@ namespace GISharp.Lib.GObject
                 IntPtr marshalData);
         }
 
-        uint BitFields => (uint)Marshal.ReadInt32(Handle, (int)bitFieldsOffset);
+        unsafe uint BitFields => ((UnmanagedStruct*)Handle)->BitFields;
 
         uint RefCount => BitFields & 0x7FFF;
 
-        IntPtr Data => Marshal.ReadIntPtr(Handle, (int)dataOffset);
+        unsafe IntPtr Data => ((UnmanagedStruct*)Handle)->Data;
 
         /// <summary>
         /// For internal runtime use only.
@@ -147,7 +145,7 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             IntPtr @object);
 
-        static readonly int sizeOfStruct = Marshal.SizeOf<Struct>();
+        static readonly int sizeOfStruct = Marshal.SizeOf<UnmanagedStruct>();
 
         static IntPtr NewObject(int sizeofClosure, Object @object)
         {
@@ -710,7 +708,7 @@ namespace GISharp.Lib.GObject
             static unsafe void UnmanagedClosureMarshal(IntPtr closure_, Value* returnValue_, uint nParamValues_, Value* paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
             {
                 try {
-                    var data_ = Marshal.ReadIntPtr(closure_, (int)dataOffset);
+                    var data_ = ((UnmanagedStruct*)closure_)->Data;
                     var obj = Object.GetInstance(data_, Transfer.None);
 
                     var gcHandle = (GCHandle)marshalData_;
@@ -748,7 +746,7 @@ namespace GISharp.Lib.GObject
         struct ManagedClosure
         {
             #pragma warning disable CS0649
-            public Struct Closure;
+            public UnmanagedStruct Closure;
             public IntPtr ManagedClosureGCHandle;
             public IntPtr CallbackGCHandle;
             #pragma warning restore CS0649

@@ -16,11 +16,8 @@ namespace GISharp.Lib.GLib
     [GType("GError", IsProxyForUnmanagedType = true)]
     public sealed class Error : Boxed
     {
-        static readonly IntPtr domainOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Domain));
-        static readonly IntPtr codeOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Code));
-        static readonly IntPtr messageOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Message));
-
-        struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             public Quark Domain;
@@ -33,21 +30,21 @@ namespace GISharp.Lib.GLib
         /// Gets the error domain (aka error quark).
         /// </summary>
         /// <value>The domain value.</value>
-        public Quark Domain => (uint)Marshal.ReadInt32(Handle, (int)domainOffset);
+        public unsafe Quark Domain => ((UnmanagedStruct*)Handle)->Domain;
 
         /// <summary>
         /// Gets the error code.
         /// </summary>
         /// <value>The code.</value>
-        public int Code => Marshal.ReadInt32(Handle, (int)codeOffset);
+        public unsafe int Code => ((UnmanagedStruct*)Handle)->Code;
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
         /// <value>The message.</value>
-        public UnownedUtf8 Message {
+        public unsafe UnownedUtf8 Message {
             get {
-                var ret_ = Marshal.ReadIntPtr(Handle, (int)messageOffset);
+                var ret_ = ((UnmanagedStruct*)Handle)->Message;
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }

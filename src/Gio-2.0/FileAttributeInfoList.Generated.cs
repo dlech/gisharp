@@ -11,13 +11,13 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe struct Struct
+        public unsafe struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='Struct.Infos']/*" />
+            /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='UnmanagedStruct.Infos']/*" />
             public GISharp.Lib.Gio.FileAttributeInfo* Infos;
 
-            /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='Struct.NInfos']/*" />
+            /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='UnmanagedStruct.NInfos']/*" />
             public System.Int32 NInfos;
 #pragma warning restore CS0649
         }

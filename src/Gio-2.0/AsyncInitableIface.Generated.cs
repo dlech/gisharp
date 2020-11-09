@@ -9,25 +9,25 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
+            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
-            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='Struct.InitAsync']/*" />
+            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.InitAsync']/*" />
             public System.IntPtr InitAsync;
 
-            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='Struct.InitFinish']/*" />
+            /// <include file="AsyncInitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.InitFinish']/*" />
             public System.IntPtr InitFinish;
 #pragma warning restore CS0649
         }
 
         static AsyncInitableIface()
         {
-            System.Int32 initAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.InitAsync));
+            System.Int32 initAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.InitAsync));
             RegisterVirtualMethod(initAsyncOffset, InitAsyncMarshal.Create);
-            System.Int32 initFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.InitFinish));
+            System.Int32 initFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.InitFinish));
             RegisterVirtualMethod(initFinishOffset, InitFinishMarshal.Create);
         }
 

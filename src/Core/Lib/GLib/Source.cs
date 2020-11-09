@@ -47,7 +47,8 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        internal struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             // This is an opaque struct, so the fields should not be used. We
@@ -87,7 +88,7 @@ namespace GISharp.Lib.GLib
         struct ManagedSource
         {
 #pragma warning disable CS0649
-            public Struct source;
+            public UnmanagedStruct source;
             public IntPtr gcHandle;
 #pragma warning restore CS0649
         }

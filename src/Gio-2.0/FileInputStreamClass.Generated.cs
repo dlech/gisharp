@@ -8,60 +8,60 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new protected struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
-            public GISharp.Lib.Gio.InputStreamClass.Struct ParentClass;
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
+            public GISharp.Lib.Gio.InputStreamClass.UnmanagedStruct ParentClass;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.Tell']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Tell']/*" />
             public System.IntPtr Tell;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.CanSeek']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanSeek']/*" />
             public System.IntPtr CanSeek;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.Seek']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Seek']/*" />
             public System.IntPtr Seek;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.QueryInfo']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfo']/*" />
             public System.IntPtr QueryInfo;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.QueryInfoAsync']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoAsync']/*" />
             public System.IntPtr QueryInfoAsync;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.QueryInfoFinish']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoFinish']/*" />
             public System.IntPtr QueryInfoFinish;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved1']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
             public System.IntPtr GReserved1;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved2']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved2']/*" />
             public System.IntPtr GReserved2;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved3']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved3']/*" />
             public System.IntPtr GReserved3;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
+            /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 #pragma warning restore CS0649
         }
 
         static FileInputStreamClass()
         {
-            System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Tell));
+            System.Int32 tellOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Tell));
             RegisterVirtualMethod(tellOffset, TellMarshal.Create);
-            System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CanSeek));
+            System.Int32 canSeekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CanSeek));
             RegisterVirtualMethod(canSeekOffset, CanSeekMarshal.Create);
-            System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Seek));
+            System.Int32 seekOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Seek));
             RegisterVirtualMethod(seekOffset, SeekMarshal.Create);
-            System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfo));
+            System.Int32 queryInfoOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfo));
             RegisterVirtualMethod(queryInfoOffset, QueryInfoMarshal.Create);
-            System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoAsync));
+            System.Int32 queryInfoAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoAsync));
             RegisterVirtualMethod(queryInfoAsyncOffset, QueryInfoAsyncMarshal.Create);
-            System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.QueryInfoFinish));
+            System.Int32 queryInfoFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.QueryInfoFinish));
             RegisterVirtualMethod(queryInfoFinishOffset, QueryInfoFinishMarshal.Create);
         }
 

@@ -9,20 +9,20 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="InitableIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            /// <include file="InitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
+            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
-            /// <include file="InitableIface.xmldoc" path="declaration/member[@name='Struct.Init']/*" />
+            /// <include file="InitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Init']/*" />
             public System.IntPtr Init;
 #pragma warning restore CS0649
         }
 
         static InitableIface()
         {
-            System.Int32 initOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Init));
+            System.Int32 initOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Init));
             RegisterVirtualMethod(initOffset, InitMarshal.Create);
         }
 

@@ -11,15 +11,11 @@ namespace GISharp.Lib.GObject
     [GType("GParamDouble", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecDouble : ParamSpec
     {
-        static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Minimum));
-        static readonly IntPtr maximumOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Maximum));
-        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct>(nameof(Struct.DefaultValue));
-        static readonly IntPtr epsilonOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Epsilon));
-
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
             public double Minimum;
             public double Maximum;
             public double DefaultValue;
@@ -30,19 +26,19 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public double Minimum => Marshal.PtrToStructure<double>(Handle + (int)minimumOffset);
+        public unsafe double Minimum => ((UnmanagedStruct*)Handle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public double Maximum => Marshal.PtrToStructure<double>(Handle + (int)maximumOffset);
+        public unsafe double Maximum => ((UnmanagedStruct*)Handle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new double DefaultValue => Marshal.PtrToStructure<double>(Handle + (int)defaultValueOffset);
+        public unsafe new double DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
 
-        public double Epsilon => Marshal.PtrToStructure<double>(Handle + (int)epsilonOffset);
+        public unsafe double Epsilon => ((UnmanagedStruct*)Handle)->Epsilon;
 
         /// <summary>
         /// For internal runtime use only.

@@ -8,30 +8,30 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='Struct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.Struct GIface;
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
+            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
-            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='Struct.GetUserData']/*" />
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetUserData']/*" />
             public System.IntPtr GetUserData;
 
-            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='Struct.GetSourceObject']/*" />
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetSourceObject']/*" />
             public System.IntPtr GetSourceObject;
 
-            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='Struct.IsTagged']/*" />
+            /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.IsTagged']/*" />
             public System.IntPtr IsTagged;
 #pragma warning restore CS0649
         }
 
         static AsyncResultIface()
         {
-            System.Int32 getUserDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetUserData));
+            System.Int32 getUserDataOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetUserData));
             RegisterVirtualMethod(getUserDataOffset, GetUserDataMarshal.Create);
-            System.Int32 getSourceObjectOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetSourceObject));
+            System.Int32 getSourceObjectOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetSourceObject));
             RegisterVirtualMethod(getSourceObjectOffset, GetSourceObjectMarshal.Create);
-            System.Int32 isTaggedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.IsTagged));
+            System.Int32 isTaggedOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.IsTagged));
             RegisterVirtualMethod(isTaggedOffset, IsTaggedMarshal.Create);
         }
 

@@ -17,23 +17,21 @@ namespace GISharp.Lib.GLib
     [GType("GPtrArray", IsProxyForUnmanagedType = true)]
     public abstract class PtrArray : Boxed
     {
-        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
-        static readonly IntPtr lenOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Len));
-
-        struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public IntPtr Data;
+            public void* Data;
             public uint Len;
 #pragma warning restore CS0649
         }
 
-        private protected unsafe void* Data_ => (Struct*)Marshal.ReadIntPtr(Handle, (int)dataOffset);
+        private protected unsafe void* Data_ => ((UnmanagedStruct*)Handle)->Data;
 
         /// <summary>
         /// number of pointers in the array
         /// </summary>
-        private protected uint Len => (uint)Marshal.ReadInt32(Handle, (int)lenOffset);
+        private protected unsafe uint Len => ((UnmanagedStruct*)Handle)->Len;
 
         /// <summary>
         /// For internal runtime use only.

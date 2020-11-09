@@ -36,7 +36,8 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        protected struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -104,7 +105,7 @@ namespace GISharp.Lib.GObject
         /// Registers a virtual method
         /// </summary>
         /// <param name="offset">
-        /// The offset to the virtual function pointer in <see cref="Struct"/>
+        /// The offset to the virtual function pointer in <see cref="UnmanagedStruct"/>
         /// </param>
         /// <param name="create">
         /// The unmanged delegate factory create method

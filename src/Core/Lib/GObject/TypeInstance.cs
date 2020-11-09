@@ -16,19 +16,14 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        protected struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
             /// <summary>
             /// Pointer to GObjectClass
             /// </summary>
-            public IntPtr GClass;
+            public TypeClass.UnmanagedStruct* GClass;
         }
-
-        /// <summary>
-        /// Gets the GObject object class.
-        /// </summary>
-        protected ObjectClass GClass => _GClass.Value;
-        readonly Lazy<ObjectClass> _GClass;
 
         /// <summary>
         /// For internal runtime use only.
@@ -36,14 +31,17 @@ namespace GISharp.Lib.GObject
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected TypeInstance(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
-            _GClass = new(GetGClass);
         }
 
-        ObjectClass GetGClass()
+        /// <summary>
+        /// Gets the <see cref="GType"/> for this instance.
+        /// </summary>
+        public unsafe GType GetGType()
         {
-            var ret_ = Marshal.ReadIntPtr(Handle);
-            var ret = new ObjectClass(ret_, Transfer.None);
-            return ret;
+            var typeInstance = (UnmanagedStruct*)Handle;
+            return typeInstance->GClass->GType;
         }
+
+        public unsafe TypeClass GetTypeClass() => TypeClass.Get(GetGType());
     }
 }

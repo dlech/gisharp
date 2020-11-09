@@ -8,105 +8,105 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new protected struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
+            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WriteFn']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WriteFn']/*" />
             public System.IntPtr WriteFn;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.Splice']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Splice']/*" />
             public System.IntPtr Splice;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.Flush']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Flush']/*" />
             public System.IntPtr Flush;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFn']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFn']/*" />
             public System.IntPtr CloseFn;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WriteAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WriteAsync']/*" />
             public System.IntPtr WriteAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WriteFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WriteFinish']/*" />
             public System.IntPtr WriteFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.SpliceAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.SpliceAsync']/*" />
             public System.IntPtr SpliceAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.SpliceFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.SpliceFinish']/*" />
             public System.IntPtr SpliceFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.FlushAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.FlushAsync']/*" />
             public System.IntPtr FlushAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.FlushFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.FlushFinish']/*" />
             public System.IntPtr FlushFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseAsync']/*" />
             public System.IntPtr CloseAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.CloseFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFinish']/*" />
             public System.IntPtr CloseFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WritevFn']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WritevFn']/*" />
             public System.IntPtr WritevFn;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WritevAsync']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WritevAsync']/*" />
             public System.IntPtr WritevAsync;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.WritevFinish']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WritevFinish']/*" />
             public System.IntPtr WritevFinish;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved4']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
             public System.IntPtr GReserved4;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved5']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
             public System.IntPtr GReserved5;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved6']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved6']/*" />
             public System.IntPtr GReserved6;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved7']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved7']/*" />
             public System.IntPtr GReserved7;
 
-            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Struct.GReserved8']/*" />
+            /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved8']/*" />
             public System.IntPtr GReserved8;
 #pragma warning restore CS0649
         }
 
         static OutputStreamClass()
         {
-            System.Int32 writeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WriteFn));
+            System.Int32 writeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.WriteFn));
             RegisterVirtualMethod(writeFnOffset, WriteFnMarshal.Create);
-            System.Int32 spliceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Splice));
+            System.Int32 spliceOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Splice));
             RegisterVirtualMethod(spliceOffset, SpliceMarshal.Create);
-            System.Int32 flushOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.Flush));
+            System.Int32 flushOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.Flush));
             RegisterVirtualMethod(flushOffset, FlushMarshal.Create);
-            System.Int32 closeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseFn));
+            System.Int32 closeFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFn));
             RegisterVirtualMethod(closeFnOffset, CloseFnMarshal.Create);
-            System.Int32 writeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WriteAsync));
+            System.Int32 writeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.WriteAsync));
             RegisterVirtualMethod(writeAsyncOffset, WriteAsyncMarshal.Create);
-            System.Int32 writeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WriteFinish));
+            System.Int32 writeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.WriteFinish));
             RegisterVirtualMethod(writeFinishOffset, WriteFinishMarshal.Create);
-            System.Int32 spliceAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SpliceAsync));
+            System.Int32 spliceAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SpliceAsync));
             RegisterVirtualMethod(spliceAsyncOffset, SpliceAsyncMarshal.Create);
-            System.Int32 spliceFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.SpliceFinish));
+            System.Int32 spliceFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.SpliceFinish));
             RegisterVirtualMethod(spliceFinishOffset, SpliceFinishMarshal.Create);
-            System.Int32 flushAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.FlushAsync));
+            System.Int32 flushAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.FlushAsync));
             RegisterVirtualMethod(flushAsyncOffset, FlushAsyncMarshal.Create);
-            System.Int32 flushFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.FlushFinish));
+            System.Int32 flushFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.FlushFinish));
             RegisterVirtualMethod(flushFinishOffset, FlushFinishMarshal.Create);
-            System.Int32 closeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseAsync));
+            System.Int32 closeAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseAsync));
             RegisterVirtualMethod(closeAsyncOffset, CloseAsyncMarshal.Create);
-            System.Int32 closeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.CloseFinish));
+            System.Int32 closeFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.CloseFinish));
             RegisterVirtualMethod(closeFinishOffset, CloseFinishMarshal.Create);
-            System.Int32 writevFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WritevFn));
+            System.Int32 writevFnOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.WritevFn));
             RegisterVirtualMethod(writevFnOffset, WritevFnMarshal.Create);
-            System.Int32 writevAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WritevAsync));
+            System.Int32 writevAsyncOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.WritevAsync));
             RegisterVirtualMethod(writevAsyncOffset, WritevAsyncMarshal.Create);
-            System.Int32 writevFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.WritevFinish));
+            System.Int32 writevFinishOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.WritevFinish));
             RegisterVirtualMethod(writevFinishOffset, WritevFinishMarshal.Create);
         }
 

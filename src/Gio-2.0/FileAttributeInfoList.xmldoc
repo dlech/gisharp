@@ -1,12 +1,12 @@
 <declaration>
 
-<member name='Struct.Infos'>
+<member name='UnmanagedStruct.Infos'>
 <summary>
 an array of #GFileAttributeInfos.
 </summary>
 </member>
 
-<member name='Struct.NInfos'>
+<member name='UnmanagedStruct.NInfos'>
 <summary>
 the number of values in the array.
 </summary>

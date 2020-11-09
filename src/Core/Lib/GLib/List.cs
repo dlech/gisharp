@@ -931,10 +931,8 @@ namespace GISharp.Lib.GLib
 
     public sealed class ListEnumerator<T> : Opaque, IEnumerator<T> where T : Opaque?
     {
-        static readonly IntPtr dataOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Data));
-        static readonly IntPtr nextOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Next));
-
-        struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             public IntPtr Data;
@@ -954,17 +952,17 @@ namespace GISharp.Lib.GLib
 
         public void Reset() => next = start;
 
-        public T Current => GetInstance<T>(Marshal.ReadIntPtr(Handle, (int)dataOffset), Transfer.None);
+        public unsafe T Current => GetInstance<T>(((UnmanagedStruct*)Handle)->Data, Transfer.None);
 
         object? IEnumerator.Current => Current;
 
-        public bool MoveNext()
+        public unsafe bool MoveNext()
         {
             if (next == IntPtr.Zero) {
                 return false;
             }
             handle = next;
-            next = Marshal.ReadIntPtr(Handle, (int)nextOffset);
+            next = ((UnmanagedStruct*)Handle)->Next;
             return true;
         }
     }

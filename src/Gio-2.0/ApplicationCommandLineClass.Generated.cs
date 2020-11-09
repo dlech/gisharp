@@ -9,33 +9,33 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Unmanaged data structure
         /// </summary>
-        unsafe new protected struct Struct
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.Struct ParentClass;
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
+            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.PrintLiteral']/*" />
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.PrintLiteral']/*" />
             public System.IntPtr PrintLiteral;
 
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.PrinterrLiteral']/*" />
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.PrinterrLiteral']/*" />
             public System.IntPtr PrinterrLiteral;
 
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.GetStdin']/*" />
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetStdin']/*" />
             public System.IntPtr GetStdin;
 
-            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='Struct.Padding']/*" />
+            /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding']/*" />
             public System.IntPtr* Padding;
 #pragma warning restore CS0649
         }
 
         static ApplicationCommandLineClass()
         {
-            System.Int32 printLiteralOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PrintLiteral));
+            System.Int32 printLiteralOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PrintLiteral));
             RegisterVirtualMethod(printLiteralOffset, PrintLiteralMarshal.Create);
-            System.Int32 printerrLiteralOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.PrinterrLiteral));
+            System.Int32 printerrLiteralOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.PrinterrLiteral));
             RegisterVirtualMethod(printerrLiteralOffset, PrinterrLiteralMarshal.Create);
-            System.Int32 getStdinOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<Struct>(nameof(Struct.GetStdin));
+            System.Int32 getStdinOffset = (System.Int32)System.Runtime.InteropServices.Marshal.OffsetOf<UnmanagedStruct>(nameof(UnmanagedStruct.GetStdin));
             RegisterVirtualMethod(getStdinOffset, GetStdinMarshal.Create);
         }
 

@@ -1,66 +1,66 @@
 <declaration>
 
-<member name='Struct.ParentClass'>
+<member name='UnmanagedStruct.ParentClass'>
 </member>
 
-<member name='Struct.WriteFn'>
+<member name='UnmanagedStruct.WriteFn'>
 </member>
 
-<member name='Struct.Splice'>
+<member name='UnmanagedStruct.Splice'>
 </member>
 
-<member name='Struct.Flush'>
+<member name='UnmanagedStruct.Flush'>
 </member>
 
-<member name='Struct.CloseFn'>
+<member name='UnmanagedStruct.CloseFn'>
 </member>
 
-<member name='Struct.WriteAsync'>
+<member name='UnmanagedStruct.WriteAsync'>
 </member>
 
-<member name='Struct.WriteFinish'>
+<member name='UnmanagedStruct.WriteFinish'>
 </member>
 
-<member name='Struct.SpliceAsync'>
+<member name='UnmanagedStruct.SpliceAsync'>
 </member>
 
-<member name='Struct.SpliceFinish'>
+<member name='UnmanagedStruct.SpliceFinish'>
 </member>
 
-<member name='Struct.FlushAsync'>
+<member name='UnmanagedStruct.FlushAsync'>
 </member>
 
-<member name='Struct.FlushFinish'>
+<member name='UnmanagedStruct.FlushFinish'>
 </member>
 
-<member name='Struct.CloseAsync'>
+<member name='UnmanagedStruct.CloseAsync'>
 </member>
 
-<member name='Struct.CloseFinish'>
+<member name='UnmanagedStruct.CloseFinish'>
 </member>
 
-<member name='Struct.WritevFn'>
+<member name='UnmanagedStruct.WritevFn'>
 </member>
 
-<member name='Struct.WritevAsync'>
+<member name='UnmanagedStruct.WritevAsync'>
 </member>
 
-<member name='Struct.WritevFinish'>
+<member name='UnmanagedStruct.WritevFinish'>
 </member>
 
-<member name='Struct.GReserved4'>
+<member name='UnmanagedStruct.GReserved4'>
 </member>
 
-<member name='Struct.GReserved5'>
+<member name='UnmanagedStruct.GReserved5'>
 </member>
 
-<member name='Struct.GReserved6'>
+<member name='UnmanagedStruct.GReserved6'>
 </member>
 
-<member name='Struct.GReserved7'>
+<member name='UnmanagedStruct.GReserved7'>
 </member>
 
-<member name='Struct.GReserved8'>
+<member name='UnmanagedStruct.GReserved8'>
 </member>
 
 <member name='WriteFn'>

@@ -1,18 +1,18 @@
 <declaration>
 
-<member name='Struct.ParentClass'>
+<member name='UnmanagedStruct.ParentClass'>
 </member>
 
-<member name='Struct.PrintLiteral'>
+<member name='UnmanagedStruct.PrintLiteral'>
 </member>
 
-<member name='Struct.PrinterrLiteral'>
+<member name='UnmanagedStruct.PrinterrLiteral'>
 </member>
 
-<member name='Struct.GetStdin'>
+<member name='UnmanagedStruct.GetStdin'>
 </member>
 
-<member name='Struct.Padding'>
+<member name='UnmanagedStruct.Padding'>
 </member>
 
 <member name='PrintLiteral'>

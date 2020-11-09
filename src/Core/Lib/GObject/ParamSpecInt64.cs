@@ -11,14 +11,11 @@ namespace GISharp.Lib.GObject
     [GType("GParamInt64", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecInt64 : ParamSpec
     {
-        static readonly IntPtr minimumOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Minimum));
-        static readonly IntPtr maximumOffset = Marshal.OffsetOf<Struct>(nameof(Struct.Maximum));
-        static readonly IntPtr defaultValueOffset = Marshal.OffsetOf<Struct>(nameof(Struct.DefaultValue));
-
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public ParamSpec.Struct ParentInstance;
+            public ParamSpec.UnmanagedStruct ParentInstance;
             public long Minimum;
             public long Maximum;
             public long DefaultValue;
@@ -28,17 +25,17 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public long Minimum => Marshal.ReadInt64(Handle, (int)minimumOffset);
+        public unsafe long Minimum => ((UnmanagedStruct*)Handle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public long Maximum => Marshal.ReadInt64(Handle, (int)maximumOffset);
+        public unsafe long Maximum => ((UnmanagedStruct*)Handle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public new long DefaultValue => Marshal.ReadInt64(Handle, (int)defaultValueOffset);
+        public unsafe new long DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.

@@ -14,13 +14,14 @@ namespace GISharp.Lib.GLib
     [GType("GArray", IsProxyForUnmanagedType = true)]
     public abstract class Array : Boxed
     {
-        private protected unsafe struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
         {
             public void* Data;
             public uint Len;
         }
 
-        public unsafe int Length => (int)((Struct*)Handle)->Len;
+        public unsafe int Length => (int)((UnmanagedStruct*)Handle)->Len;
 
         /// <summary>
         /// For internal runtime use only.
@@ -584,7 +585,7 @@ namespace GISharp.Lib.GLib
 
         public unsafe Span<T> Data {
             get {
-                var this_ = (Struct*)Handle;
+                var this_ = (UnmanagedStruct*)Handle;
                 var ret = new Span<T>(this_->Data, (int)this_->Len);
                 return ret;
             }

@@ -11,13 +11,14 @@ namespace GISharp.Lib.GObject
     /// </summary>
     public sealed class FlagsClass : TypeClass
     {
-        new struct Struct
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe new struct UnmanagedStruct
         {
             #pragma warning disable CS0649
             /// <summary>
             /// the parent class
             /// </summary>
-            public TypeClass.Struct GTypeClass;
+            public TypeClass.UnmanagedStruct GTypeClass;
 
             /// <summary>
             /// a mask covering all possible values.
