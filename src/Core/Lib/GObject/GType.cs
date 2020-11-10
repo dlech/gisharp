@@ -773,7 +773,7 @@ namespace GISharp.Lib.GObject
         /// Asserts that the name of the type is a valid GType name.
         /// </summary>
         /// <param name="name">The type name.</param>
-        /// <exception cref="InvalidGTypeNameException">
+        /// <exception cref="ArgumentException">
         /// Thrown if <paramref name="name"/> is not valid (see remarks).
         /// </exception>
         /// <remarks>
@@ -785,16 +785,16 @@ namespace GISharp.Lib.GObject
         public static void AssertGTypeName(string name)
         {
             if (name.Length < 3) {
-                var message = string.Format($"The name '{name}' is too short.", nameof(name));
-                throw new InvalidGTypeNameException(message);
+                var message = $"The name '{name}' is too short.";
+                throw new ArgumentException(message, nameof(name));
             }
             if (Regex.IsMatch(name[0].ToString(), "[^A-Za-z_]")) {
-                var message = string.Format($"The name '{name}' must start with letter or underscore.", nameof(name));
-                throw new InvalidGTypeNameException(message);
+                var message = $"The name '{name}' must start with letter or underscore.";
+                throw new ArgumentException(message, nameof(name));
             }
             if (Regex.IsMatch(name, "[^0-9A-Za-z_\\-\\+]")) {
-                var message = string.Format($"The name '{name}' contains an invalid character.", nameof(name));
-                throw new InvalidGTypeNameException(message);
+                var message = $"The name '{name}' contains an invalid character.";
+                throw new ArgumentException(message, nameof(name));
             }
         }
 
@@ -2516,13 +2516,6 @@ namespace GISharp.Lib.GObject
             }
         }
 #endif
-    }
-
-    public class InvalidGTypeNameException : Exception
-    {
-        public InvalidGTypeNameException(string message) : base(message)
-        {
-        }
     }
 
     public static class GTypeExtenstions

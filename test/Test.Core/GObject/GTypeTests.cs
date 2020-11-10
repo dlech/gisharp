@@ -190,7 +190,7 @@ namespace GISharp.Test.Core.GObject
             Assert.That (GType.FromName ("there-should-never-be-a-type-with-this-name"),
                          Is.EqualTo (GType.Invalid));
             Assert.That (() => GType.FromName ("name has invalid characters"),
-                         Throws.TypeOf<InvalidGTypeNameException> ());
+                         Throws.ArgumentException);
         }
 
         [Test]
