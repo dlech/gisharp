@@ -14,74 +14,67 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestWrite()
         {
-            using (var buffer = new ByteArray())
-            using (var stream = new TestOutputStream()) {
-                buffer.SetSize(10);
-                var count = stream.Write(buffer);
-                Assert.That(count, Is.EqualTo(10));
-            }
+            using var buffer = new ByteArray();
+            using var stream = TestOutputStream.New();
+            buffer.SetSize(10);
+            var count = stream.Write(buffer);
+            Assert.That(count, Is.EqualTo(10));
         }
 
         [Test]
         public void TestWriteAll()
         {
-            using (var buffer = new ByteArray())
-            using (var stream = new TestOutputStream()) {
-                buffer.SetSize(10);
-                stream.WriteAll(buffer, out var read);
-                Assert.That(read, Is.EqualTo(10));
-            }
+            using var buffer = new ByteArray();
+            using var stream = TestOutputStream.New();
+            buffer.SetSize(10);
+            stream.WriteAll(buffer, out var read);
+            Assert.That(read, Is.EqualTo(10));
         }
 
         [Test]
         public void TestWriteAllAsync()
         {
             RunAsyncTest(async () => {
-                using (var buffer = new ByteArray())
-                using (var stream = new TestOutputStream()) {
-                    buffer.SetSize(10);
-                    var count = await stream.WriteAllAsync(buffer);
-                    Assert.That(count, Is.EqualTo(10));
-                }
+                using var buffer = new ByteArray();
+                using var stream = TestOutputStream.New();
+                buffer.SetSize(10);
+                var count = await stream.WriteAllAsync(buffer);
+                Assert.That(count, Is.EqualTo(10));
             });
         }
 
         [Test]
         public void TestSplice()
         {
-            using (var instream = new TestInputStream())
-            using (var stream = new TestOutputStream()) {
-                var count = stream.Splice(instream, OutputStreamSpliceFlags.None);
-                Assert.That(count, Is.EqualTo(0));
-            }
+            using var instream = TestInputStream.New();
+            using var stream = TestOutputStream.New();
+            var count = stream.Splice(instream, OutputStreamSpliceFlags.None);
+            Assert.That(count, Is.EqualTo(0));
         }
 
         [Test]
         public void TestFlush()
         {
-            using (var stream = new TestOutputStream()) {
-                stream.Flush();
-            }
+            using var stream = TestOutputStream.New();
+            stream.Flush();
         }
 
         [Test]
         public void TestClose()
         {
-            using (var stream = new TestOutputStream()) {
-                stream.Close();
-            }
+            using var stream = TestOutputStream.New();
+            stream.Close();
         }
 
         [Test]
         public void TestWritesync()
         {
             RunAsyncTest(async () => {
-                using (var buffer = new ByteArray())
-                using (var stream = new TestOutputStream()) {
-                    buffer.SetSize(10);
-                    var count = await stream.WriteAsync(buffer);
-                    Assert.That(count, Is.EqualTo(10));
-                }
+                using var buffer = new ByteArray();
+                using var stream = TestOutputStream.New();
+                buffer.SetSize(10);
+                var count = await stream.WriteAsync(buffer);
+                Assert.That(count, Is.EqualTo(10));
             });
         }
 
@@ -90,11 +83,10 @@ namespace GISharp.Test.Gio
         public void TestSpliceAsync()
         {
             RunAsyncTest(async () => {
-                using (var instream = new TestInputStream())
-                using (var stream = new TestOutputStream()) {
-                    var actual = await stream.SpliceAsync(instream, OutputStreamSpliceFlags.None);
-                    Assert.That(actual, Has.Count.EqualTo(10));
-                }
+                using var instream = TestInputStream.New();
+                using var stream = TestOutputStream.New();
+                var actual = await stream.SpliceAsync(instream, OutputStreamSpliceFlags.None);
+                Assert.That(actual, Has.Count.EqualTo(10));
             });
         }
 
@@ -102,9 +94,8 @@ namespace GISharp.Test.Gio
         public void TestFlushAsync()
         {
             RunAsyncTest(async () => {
-                using (var stream = new TestOutputStream()) {
-                    await stream.FlushAsync();
-                }
+                using var stream = TestOutputStream.New();
+                await stream.FlushAsync();
             });
         }
 
@@ -112,10 +103,9 @@ namespace GISharp.Test.Gio
         public void TestCloseAsync()
         {
             RunAsyncTest(async () => {
-                using (var stream = new TestOutputStream()) {
-                    await stream.CloseAsync();
-                    Assert.That(stream.IsClosed, Is.True);
-                }
+                using var stream = TestOutputStream.New();
+                await stream.CloseAsync();
+                Assert.That(stream.IsClosed, Is.True);
             });
         }
     }
@@ -123,8 +113,9 @@ namespace GISharp.Test.Gio
     [GType]
     class TestOutputStream : OutputStream
     {
-        public TestOutputStream() : this(New<TestOutputStream>(), Transfer.Full)
+        public static TestOutputStream New()
         {
+            return CreateInstance<TestOutputStream>();
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -147,7 +138,7 @@ namespace GISharp.Test.Gio
 
         protected override int DoWriteFn(ReadOnlySpan<byte> buffer, Cancellable? cancellable = null)
         {
-           return buffer.Length;
+            return buffer.Length;
         }
     }
 }

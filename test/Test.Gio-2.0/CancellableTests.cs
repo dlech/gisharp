@@ -15,39 +15,35 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestIsCancelled()
         {
-            using (var c = new Cancellable()) {
-                Assert.That(c.IsCancelled, Is.False);
-                c.Cancel();
-                Assert.That(c.IsCancelled, Is.True);
-            }
+            using var c = new Cancellable();
+            Assert.That(c.IsCancelled, Is.False);
+            c.Cancel();
+            Assert.That(c.IsCancelled, Is.True);
         }
 
         [Test]
         public void TestSetErrorIfCancelled()
         {
-            using (var c = new Cancellable()) {
-                Assert.That(() => c.ThrowIfCancelled(), Throws.Nothing);
-                c.Cancel();
-                Assert.That(() => c.ThrowIfCancelled(), ThrowsGErrorException(IOErrorEnum.Cancelled));
-            }
+            using var c = new Cancellable();
+            Assert.That(() => c.ThrowIfCancelled(), Throws.Nothing);
+            c.Cancel();
+            Assert.That(() => c.ThrowIfCancelled(), ThrowsGErrorException(IOErrorEnum.Cancelled));
         }
 
         [Test]
         public void TestGetFd()
         {
-            using (var c = new Cancellable()) {
-                Assert.That(c.Fd, Is.GreaterThan(-1));
-                c.ReleaseFd();
-            }
+            using var c = new Cancellable();
+            Assert.That(c.Fd, Is.GreaterThan(-1));
+            c.ReleaseFd();
         }
 
         [Test]
         public void TestMakePollFd()
         {
-            using (var c = new Cancellable()) {
-                Assert.That(c.TryMakePollfd(out var pollFD), Is.True);
-                c.ReleaseFd();
-            }
+            using var c = new Cancellable();
+            Assert.That(c.TryMakePollfd(out var pollFD), Is.True);
+            c.ReleaseFd();
         }
 
         [Test]
@@ -56,71 +52,67 @@ namespace GISharp.Test.Gio
             // have to test Push and Pop in same method since they affect a
             // global variable.
 
-            using (var c = new Cancellable()) {
-                c.PushCurrent();
-                Assert.That(Cancellable.Current, Is.SameAs(c));
-                c.PopCurrent();
-                Assert.That(Cancellable.Current, Is.Null);
-            }
+            using var c = new Cancellable();
+            c.PushCurrent();
+            Assert.That(Cancellable.Current, Is.SameAs(c));
+            c.PopCurrent();
+            Assert.That(Cancellable.Current, Is.Null);
         }
 
         [Test]
         public void TestReset()
         {
-            using (var c = new Cancellable()) {
-                c.Reset();
-            }
+            using var c = new Cancellable();
+            c.Reset();
         }
 
         [Test]
         public void TestConnectDisconnect()
         {
-            using (var c = new Cancellable()) {
-                var handlerInvoked = false;
-                var handler = new CancellableSourceFunc(_ => handlerInvoked = true);
-                var id = c.Connect(handler);
-                c.Cancel();
-                Assert.That(handlerInvoked, Is.True);
+            using var c = new Cancellable();
+            var handlerInvoked = false;
+            var handler = new CancellableSourceFunc(_ => handlerInvoked = true);
+            var id = c.Connect(handler);
+            c.Cancel();
+            Assert.That(handlerInvoked, Is.True);
 
-                handlerInvoked = false;
-                c.Reset();
+            handlerInvoked = false;
+            c.Reset();
 
-                c.Disconnect(id);
-                c.Cancel();
-                Assert.That(handlerInvoked, Is.False);
-            }
+            c.Disconnect(id);
+            c.Cancel();
+            Assert.That(handlerInvoked, Is.False);
         }
 
         [Test]
         public void TestCancelledSignal()
         {
-            using (var c = new Cancellable()) {
-                bool handlerInvoked = false;
-                c.CancelledSignal += (s, a) => handlerInvoked = true;
-                c.Cancel();
-                Assert.That(handlerInvoked, Is.True);
-            }
+            using var c = new Cancellable();
+            bool handlerInvoked = false;
+            c.CancelledSignal += (s, a) => handlerInvoked = true;
+            c.Cancel();
+            Assert.That(handlerInvoked, Is.True);
         }
 
         [Test]
         public void TestSubclassing()
         {
-            using (var c = new TestCancellable()) {
-                c.Cancel();
-                Assert.That(c.Token.IsCancellationRequested, Is.True);
-            }
+            using var c = TestCancellable.New();
+            c.Cancel();
+            Assert.That(c.Token.IsCancellationRequested, Is.True);
         }
     }
 
     [GType]
     sealed class TestCancellable : Cancellable
     {
-        CancellationTokenSource tokenSource;
+        readonly CancellationTokenSource tokenSource;
 
         public CancellationToken Token => tokenSource.Token;
 
-        public TestCancellable() : this(New<TestCancellable>(), Transfer.Full)
+        public static TestCancellable New()
         {
+            return CreateInstance<TestCancellable>();
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
@@ -139,6 +131,7 @@ namespace GISharp.Test.Gio
             if (disposing) {
                 tokenSource?.Dispose();
             }
+            base.Dispose(disposing);
         }
     }
 }

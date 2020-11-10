@@ -16,21 +16,22 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestGetSourceObject()
         {
-            using (var source = new Object())
-            using (var ar = new TestAsyncResult(source)) {
-                Assert.That(ar.GetSourceObject(), Is.SameAs(source));
-            }
+            using var source = new Object();
+            using var ar = TestAsyncResult.New(source);
+            Assert.That(ar.GetSourceObject(), Is.SameAs(source));
         }
     }
 
     [GType]
     class TestAsyncResult : Object, IAsyncResult
     {
-        readonly Object? source;
+        Object? source;
 
-        public TestAsyncResult(Object? source) : this(New<TestAsyncResult>(), Transfer.Full)
+        public static TestAsyncResult New(Object? source)
         {
-            this.source = source;
+            var instance = CreateInstance<TestAsyncResult>();
+            instance.source = source;
+            return instance;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

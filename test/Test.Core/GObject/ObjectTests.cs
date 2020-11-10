@@ -15,37 +15,36 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestReferences()
         {
-            using (var o1 = new Object()) {
-                var handle = o1.Handle;
+            using var o1 = new Object();
+            var handle = o1.Handle;
 
-                // getting an object that already exists should return that object
-                var o2 = Object.GetInstance(handle, Transfer.None)!;
-                try {
-                    Assert.That(ReferenceEquals(o1, o2), Is.True);
+            // getting an object that already exists should return that object
+            var o2 = Object.GetInstance(handle, Transfer.None)!;
+            try {
+                Assert.That(ReferenceEquals(o1, o2), Is.True);
 
-                    // Simulate unmanaged code taking a reference so that the handle is
-                    // not freed when o1 is disposed.
-                    g_object_ref(handle);
+                // Simulate unmanaged code taking a reference so that the handle is
+                // not freed when o1 is disposed.
+                g_object_ref(handle);
 
-                    // After an object is disposed we should get a new object rather
-                    // than the disposed object.
-                    o1.Dispose();
+                // After an object is disposed we should get a new object rather
+                // than the disposed object.
+                o1.Dispose();
 
-                    // Normally, we would not dispose an object if there is a possibility
-                    // that it could be used again because it will loose any state that
-                    // is stored in the managed object. Instead, a GCHandle will keep
-                    // the object alive as long as unmanaged code has a reference to the
-                    // object.
+                // Normally, we would not dispose an object if there is a possibility
+                // that it could be used again because it will loose any state that
+                // is stored in the managed object. Instead, a GCHandle will keep
+                // the object alive as long as unmanaged code has a reference to the
+                // object.
 
-                    // Transfer.All means the new object takes ownership of the reference
-                    // from the manual call to g_object_ref(), so we don't need to call
-                    // g_object_unref() manually.
-                    o2 = Object.GetInstance(handle, Transfer.Full)!;
-                    Assert.That(ReferenceEquals(o1, o2), Is.False);
-                }
-                finally {
-                    o2.Dispose();
-                }
+                // Transfer.All means the new object takes ownership of the reference
+                // from the manual call to g_object_ref(), so we don't need to call
+                // g_object_unref() manually.
+                o2 = Object.GetInstance(handle, Transfer.Full)!;
+                Assert.That(ReferenceEquals(o1, o2), Is.False);
+            }
+            finally {
+                o2.Dispose();
             }
         }
 
@@ -104,100 +103,95 @@ namespace GISharp.Test.Core.GObject
             var testObject3GType = GType.Of<TestObject3>();
             Assert.That(testObject3GType, Is.Not.EqualTo(GType.Invalid));
 
-            Assert.That(() => new TestObject3(), Throws.Nothing);
+            Assert.That(() => TestObject3.New().Dispose(), Throws.Nothing);
         }
 
         [Test]
         public void TestSubclassPropertyRegistration()
         {
-            using (var obj = new TestObjectPropertiesBase()) {
-                // check if setting properties from unmanged code works
-                Assume.That(obj.IntValue, Is.EqualTo(0));
-                obj.SetProperty(nameof(obj.IntValue), 1);
-                Assert.That(obj.IntValue, Is.EqualTo(1));
+            using var obj = TestObjectPropertiesBase.New();
+            // check if setting properties from unmanged code works
+            Assume.That(obj.IntValue, Is.EqualTo(0));
+            obj.SetProperty(nameof(obj.IntValue), 1);
+            Assert.That(obj.IntValue, Is.EqualTo(1));
 
-                // also make sure that non-GTypes get boxed
-                Assume.That(obj.ObjectProperty, Is.Null);
-                var expectedObj =new object();
-                obj.SetProperty(nameof(obj.ObjectProperty), new Boxed<object?>(expectedObj));
-                Assert.That(obj.ObjectProperty?.Value, Is.SameAs(expectedObj));
-            }
+            // also make sure that non-GTypes get boxed
+            Assume.That(obj.ObjectProperty, Is.Null);
+            var expectedObj = new object();
+            obj.SetProperty(nameof(obj.ObjectProperty), new Boxed<object?>(expectedObj));
+            Assert.That(obj.ObjectProperty?.Value, Is.SameAs(expectedObj));
         }
 
         [Test]
         public void TestSubclassPropertyOverride()
         {
-            using (var obj = new TestObjectPropertiesSubclass()) {
-                // the new keyword does not override a property, just hides it...
+            using var obj = TestObjectPropertiesSubclass.New();
+            // the new keyword does not override a property, just hides it...
 
-                Assume.That(obj.IntValue, Is.EqualTo(0));
-                obj.SetProperty(nameof(obj.IntValue), 1);
-                Assert.That(obj.IntValue, Is.EqualTo(1));
+            Assume.That(obj.IntValue, Is.EqualTo(0));
+            obj.SetProperty(nameof(obj.IntValue), 1);
+            Assert.That(obj.IntValue, Is.EqualTo(1));
 
-                Assert.That(((TestObjectPropertiesBase)obj).IntValue, Is.EqualTo(0));
+            Assert.That(((TestObjectPropertiesBase)obj).IntValue, Is.EqualTo(0));
 
-                using (var baseObjClass = (ObjectClass)TypeClass.Get(GType.Of<TestObjectPropertiesBase>()))
-                using (var subclassObjClass = (ObjectClass)TypeClass.Get(GType.Of<TestObjectPropertiesSubclass>())) {
-                    using (var baseIntValueProp = baseObjClass.FindProperty(nameof(obj.IntValue))!)
-                    using (var subclassIntValueProp = subclassObjClass.FindProperty(nameof(obj.IntValue))!) {
-                        // ...so ParamSpecs should not be the same
-                        Assert.That(baseIntValueProp.Handle, Is.Not.EqualTo(subclassIntValueProp.Handle));
-                    }
-
-                    // But the override keyword replaces property...
-
-                    Assume.That(obj.BoolValue, Is.False);
-                    obj.SetProperty("bool-value", true);
-                    Assert.That(obj.BoolValue, Is.True);
-
-                    Assert.That(((TestObjectPropertiesBase)obj).BoolValue, Is.True);
-
-                    using (var baseBoolValueProp = baseObjClass.FindProperty("bool-value")!)
-                    using (var subclassBoolValueProp = subclassObjClass.FindProperty("bool-value")!) {
-                        // ...so ParamSpecs should be the same
-                        Assert.That(baseBoolValueProp.Handle, Is.EqualTo(subclassBoolValueProp.Handle));
-                    }
-                }
+            using var baseObjClass = (ObjectClass)TypeClass.Get(GType.Of<TestObjectPropertiesBase>());
+            using var subclassObjClass = (ObjectClass)TypeClass.Get(GType.Of<TestObjectPropertiesSubclass>());
+            using (var baseIntValueProp = baseObjClass.FindProperty(nameof(obj.IntValue))!)
+            using (var subclassIntValueProp = subclassObjClass.FindProperty(nameof(obj.IntValue))!) {
+                // ...so ParamSpecs should not be the same
+                Assert.That(baseIntValueProp.Handle, Is.Not.EqualTo(subclassIntValueProp.Handle));
             }
+
+            // But the override keyword replaces property...
+
+            Assume.That(obj.BoolValue, Is.False);
+            obj.SetProperty("bool-value", true);
+            Assert.That(obj.BoolValue, Is.True);
+
+            Assert.That(((TestObjectPropertiesBase)obj).BoolValue, Is.True);
+
+            using var baseBoolValueProp = baseObjClass.FindProperty("bool-value")!;
+            using var subclassBoolValueProp = subclassObjClass.FindProperty("bool-value")!;
+            // ...so ParamSpecs should be the same
+            Assert.That(baseBoolValueProp.Handle, Is.EqualTo(subclassBoolValueProp.Handle));
         }
 
         [Test]
         public void TestPropertyChangeNotification()
         {
-            using (var obj = new TestObjectPropertiesBase()) {
-                var notificationCount = 0;
+            using var obj = TestObjectPropertiesBase.New();
+            var notificationCount = 0;
 
-                ((INotifyPropertyChanged)obj).PropertyChanged += (sender, e) => {
-                    Assert.That(e.PropertyName == nameof(obj.DoubleValue));
-                    notificationCount++;
-                };
+            ((INotifyPropertyChanged)obj).PropertyChanged += (sender, e) => {
+                Assert.That(e.PropertyName == nameof(obj.DoubleValue));
+                notificationCount++;
+            };
 
-                // IntValue does not notify of property change
-                obj.IntValue = 1;
-                Assert.That(notificationCount, Is.EqualTo(0));
+            // IntValue does not notify of property change
+            obj.IntValue = 1;
+            Assert.That(notificationCount, Is.EqualTo(0));
 
-                // likewise, setting the property from unmanged code should not
-                // trigger a change either
-                obj.SetProperty(nameof(obj.IntValue), 1);
-                Assert.That(notificationCount, Is.EqualTo(0));
+            // likewise, setting the property from unmanged code should not
+            // trigger a change either
+            obj.SetProperty(nameof(obj.IntValue), 1);
+            Assert.That(notificationCount, Is.EqualTo(0));
 
-                // DoubleValue does notify
-                obj.DoubleValue = 1;
-                Assert.That(notificationCount, Is.EqualTo(1));
+            // DoubleValue does notify
+            obj.DoubleValue = 1;
+            Assert.That(notificationCount, Is.EqualTo(1));
 
-                // also make sure changing the property from unmanged code
-                // notifies and that it only notifies once
-                obj.SetProperty(nameof(obj.DoubleValue), 1.0);
-                Assert.That(notificationCount, Is.EqualTo(2));
-            }
+            // also make sure changing the property from unmanged code
+            // notifies and that it only notifies once
+            obj.SetProperty(nameof(obj.DoubleValue), 1.0);
+            Assert.That(notificationCount, Is.EqualTo(2));
         }
 
         [Test]
         public void TestPropertyComponentModelAttributes()
         {
             // check that ComponentModel attributes map to ParamSpec
-            using (var baseObj = new TestObjectPropertiesBase())
-            using (var baseObjClass = (ObjectClass)TypeClass.Get(baseObj.GetGType()))
+            using (var baseObj = TestObjectPropertiesBase.New())
+            using (var baseObjClass = TypeClass.GetInstance<ObjectClass>(baseObj.GetGType()))
             using (var basePspec = baseObjClass.FindProperty("bool-value")!) {
                 Assert.That<string>(basePspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
                 Assert.That<string>(basePspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
@@ -209,30 +203,28 @@ namespace GISharp.Test.Core.GObject
             // The subclass will inherit the values of the parent class.
             // If the subclass tries to declare an attribute again, it will
             // be ignored as is the case with DefaultValueAttribute here.
-            using (var subObj = new TestObjectPropertiesSubclass())
-            using (var subObjClass = (ObjectClass)TypeClass.Get(subObj.GetGType()))
-            using (var subPspec = subObjClass.FindProperty("bool-value")!) {
-                Assert.That<string>(subPspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
-                Assert.That<string>(subPspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
-                Assert.That<string>(subPspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
-                Assert.That(subPspec.DefaultValue.Get(),
-                    Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
-            }
+            using var subObj = TestObjectPropertiesSubclass.New();
+            using var subObjClass = TypeClass.GetInstance<ObjectClass>(subObj.GetGType());
+            using var subPspec = subObjClass.FindProperty("bool-value")!;
+            Assert.That<string>(subPspec.Name, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyName));
+            Assert.That<string>(subPspec.Nick, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyNick));
+            Assert.That<string>(subPspec.Blurb, Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyBlurb));
+            Assert.That(subPspec.DefaultValue.Get(),
+                Is.EqualTo(TestObjectPropertiesBase.BoolValuePropertyDefaultValue));
         }
 
         [Test]
         public void TestSignalRegistration()
         {
-            using (var obj = new TestObjectSignal()) {
-                var eventCount = 0;
+            using var obj = TestObjectSignal.New();
+            var eventCount = 0;
 
-                obj.EventHappened += () => eventCount++;
+            obj.EventHappened += () => eventCount++;
 
-                // check that emitting the signal from unmanaged code fires the event
-                obj.OnEventHappened();
+            // check that emitting the signal from unmanaged code fires the event
+            obj.OnEventHappened();
 
-                Assert.That(eventCount, Is.EqualTo(1));
-            }
+            Assert.That(eventCount, Is.EqualTo(1));
         }
 
         // This will fail because it lacks the GTypeAttribute
@@ -249,8 +241,9 @@ namespace GISharp.Test.Core.GObject
         [GType]
         class TestObject3 : Object
         {
-            public TestObject3() : this(New<TestObject3>(), Transfer.Full)
+            public static TestObject3 New()
             {
+                return CreateInstance<TestObject3>();
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
@@ -291,8 +284,9 @@ namespace GISharp.Test.Core.GObject
             [GProperty]
             public Boxed<object?>? ObjectProperty { get; set; }
 
-            public TestObjectPropertiesBase() : this(New<TestObjectPropertiesBase>(), Transfer.Full)
+            public static TestObjectPropertiesBase New()
             {
+                return CreateInstance<TestObjectPropertiesBase>();
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
@@ -314,8 +308,9 @@ namespace GISharp.Test.Core.GObject
             [DefaultValue(!BoolValuePropertyDefaultValue)]
             public override bool BoolValue { get; set; } = !BoolValuePropertyDefaultValue;
 
-            public TestObjectPropertiesSubclass() : this(New<TestObjectPropertiesSubclass>(), Transfer.Full)
+            public static new TestObjectPropertiesSubclass New()
             {
+                return CreateInstance<TestObjectPropertiesSubclass>();
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]
@@ -336,8 +331,9 @@ namespace GISharp.Test.Core.GObject
                 this.Emit(eventHappendSignalId);
             }
 
-            public TestObjectSignal() : this(New<TestObjectSignal>(), Transfer.Full)
+            public static TestObjectSignal New()
             {
+                return CreateInstance<TestObjectSignal>();
             }
 
             [EditorBrowsable(EditorBrowsableState.Never)]

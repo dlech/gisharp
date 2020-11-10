@@ -147,8 +147,7 @@ namespace GISharp.Lib.GObject
             if (gtype == GType.Variant) {
                 return Variant;
             }
-            // TODO: Need more specific exception
-            throw new Exception("unhandled GType");
+            throw new GTypeException($"unhandled GType: {ValueGType}");
         }
 
         public void Set(object? obj)
@@ -241,8 +240,7 @@ namespace GISharp.Lib.GObject
                     Variant = (Variant?)obj;
                 }
                 else {
-                    // TODO: Need more specific exception
-                    throw new Exception("unhandled GType");
+                    throw new GTypeException($"unhandled GType: {type}");
                 }
             }
             catch (InvalidCastException ex) {

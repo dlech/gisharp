@@ -16,142 +16,129 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestEnabledProperty()
         {
-            using (var obj = new TestAction()) {
-                // default value is true
-                Assert.That(obj.Enabled, Is.True);
-                Assert.That(obj.GetEnabled(), Is.True);
-                Assert.That(obj.GetProperty("enabled"), Is.True);
-            }
+            using var obj = TestAction.New();
+            // default value is true
+            Assert.That(obj.Enabled, Is.True);
+            Assert.That(obj.GetEnabled(), Is.True);
+            Assert.That(obj.GetProperty("enabled"), Is.True);
         }
 
         [Test]
         public void TestNameProperty()
         {
             var expected = "test-action-name";
-            using (var obj = new TestAction(expected)) {
-                Assert.That<string>(obj.Name!, Is.EqualTo(expected));
-                Assert.That<string>(obj.GetName(), Is.EqualTo(expected));
-                Assert.That(obj.GetProperty("name"), Is.EqualTo(expected));
-            }
+            using var obj = TestAction.New(expected);
+            Assert.That<string>(obj.Name!, Is.EqualTo(expected));
+            Assert.That<string>(obj.GetName(), Is.EqualTo(expected));
+            Assert.That(obj.GetProperty("name"), Is.EqualTo(expected));
         }
 
         [Test]
         public void TestParameterTypeProperty()
         {
-            using (var obj = new TestAction()) {
-                Assert.That(obj.ParameterType, Is.EqualTo(VariantType.Boolean));
-                Assert.That(obj.GetParameterType(), Is.EqualTo(VariantType.Boolean));
-                Assert.That(obj.GetProperty("parameter-type"), Is.EqualTo(VariantType.Boolean));
-            }
+            using var obj = TestAction.New();
+            Assert.That(obj.ParameterType, Is.EqualTo(VariantType.Boolean));
+            Assert.That(obj.GetParameterType(), Is.EqualTo(VariantType.Boolean));
+            Assert.That(obj.GetProperty("parameter-type"), Is.EqualTo(VariantType.Boolean));
         }
 
         [Test]
         public void TestStateProperty()
         {
-            using (var obj = new TestAction()) {
-                Assert.That((int)obj.State!, Is.EqualTo(2));
-                Assert.That((int)obj.GetState(), Is.EqualTo(2));
-                Assert.That((int)(Variant)obj.GetProperty("state")!, Is.EqualTo(2));
-            }
+            using var obj = TestAction.New();
+            Assert.That((int)obj.State!, Is.EqualTo(2));
+            Assert.That((int)obj.GetState(), Is.EqualTo(2));
+            Assert.That((int)(Variant)obj.GetProperty("state")!, Is.EqualTo(2));
         }
 
         [Test]
         public void TestStateTypeProperty()
         {
-            using (var obj = new TestAction()) {
-                Assert.That(obj.StateType, Is.EqualTo(VariantType.Int32));
-                Assert.That(obj.GetStateType(), Is.EqualTo(VariantType.Int32));
-                Assert.That(obj.GetProperty("state-type"), Is.EqualTo(VariantType.Int32));
-            }
+            using var obj = TestAction.New();
+            Assert.That(obj.StateType, Is.EqualTo(VariantType.Int32));
+            Assert.That(obj.GetStateType(), Is.EqualTo(VariantType.Int32));
+            Assert.That(obj.GetProperty("state-type"), Is.EqualTo(VariantType.Int32));
         }
 
         [Test]
         public void TestThatActivateImplementationIsCalled()
         {
-            using (var obj = new TestAction())
-            using (var parameter = new Variant(1)) {
-                Assume.That(obj.ActivateCallbackCount, Is.EqualTo(0));
-                obj.Activate(parameter);
-                Assert.That(obj.ActivateCallbackCount, Is.EqualTo(1));
-            }
+            using var obj = TestAction.New();
+            using var parameter = new Variant(1);
+            Assume.That(obj.ActivateCallbackCount, Is.EqualTo(0));
+            obj.Activate(parameter);
+            Assert.That(obj.ActivateCallbackCount, Is.EqualTo(1));
         }
 
         [Test]
         public void TestThatChangeStateImplementationIsCalled()
         {
-            using (var obj = new TestAction())
-            using (var value = new Variant(1)) {
-                Assume.That(obj.ChangeStateCallbackCount, Is.EqualTo(0));
-                obj.ChangeState(value);
-                Assert.That(obj.ChangeStateCallbackCount, Is.EqualTo(1));
-            }
+            using var obj = TestAction.New();
+            using var value = new Variant(1);
+            Assume.That(obj.ChangeStateCallbackCount, Is.EqualTo(0));
+            obj.ChangeState(value);
+            Assert.That(obj.ChangeStateCallbackCount, Is.EqualTo(1));
         }
 
         [Test]
         public void TestThatGetEnabledImplementationIsCalled()
         {
-            using (var obj = new TestAction()) {
-                Assume.That(obj.GetEnabledCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetEnabled();
-                Assert.That(actual, Is.True);
-                Assert.That(obj.GetEnabledCallbackCount, Is.EqualTo(1));
-            }
+            using var obj = TestAction.New();
+            Assume.That(obj.GetEnabledCallbackCount, Is.EqualTo(0));
+            var actual = obj.GetEnabled();
+            Assert.That(actual, Is.True);
+            Assert.That(obj.GetEnabledCallbackCount, Is.EqualTo(1));
         }
 
         [Test]
         public void TestThatGetNameImplementationIsCalled()
         {
             const string expected = "test-action-name";
-            using (var obj = new TestAction(expected)) {
-                Assume.That(obj.GetNameCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetName();
-                Assert.That<string>(actual, Is.EqualTo(expected));
-                Assert.That(obj.GetNameCallbackCount, Is.EqualTo(1));
-            }
+            using var obj = TestAction.New(expected);
+            Assume.That(obj.GetNameCallbackCount, Is.EqualTo(0));
+            var actual = obj.GetName();
+            Assert.That<string>(actual, Is.EqualTo(expected));
+            Assert.That(obj.GetNameCallbackCount, Is.EqualTo(1));
         }
 
         [Test]
         public void TestThatGetParameterTypeImplementationIsCalled()
         {
-            using (var obj = new TestAction()) {
-                Assume.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetParameterType();
-                Assert.That(actual, Is.EqualTo(VariantType.Boolean));
-                Assert.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(1));
-            }
+            using var obj = TestAction.New();
+            Assume.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(0));
+            var actual = obj.GetParameterType();
+            Assert.That(actual, Is.EqualTo(VariantType.Boolean));
+            Assert.That(obj.GetParameterTypeCallbackCount, Is.EqualTo(1));
         }
 
         [Test]
         public void TestThatGetStateImplementationIsCalled()
         {
-            using (var obj = new TestAction()) {
-                Assume.That(obj.GetStateCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetState();
-                Assert.That((int)actual, Is.EqualTo(2));
-                Assert.That(obj.GetStateCallbackCount, Is.EqualTo(1));
-            }
+            using var obj = TestAction.New();
+            Assume.That(obj.GetStateCallbackCount, Is.EqualTo(0));
+            var actual = obj.GetState();
+            Assert.That((int)actual, Is.EqualTo(2));
+            Assert.That(obj.GetStateCallbackCount, Is.EqualTo(1));
         }
 
         [Test]
         public void TestThatGetStateHintImplementationIsCalled()
         {
-            using (var obj = new TestAction()) {
-                Assume.That(obj.GetStateHintCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetStateHint();
-                Assert.That(actual, Is.Null);
-                Assert.That(obj.GetStateHintCallbackCount, Is.EqualTo(1));
-            }
+            using var obj = TestAction.New();
+            Assume.That(obj.GetStateHintCallbackCount, Is.EqualTo(0));
+            var actual = obj.GetStateHint();
+            Assert.That(actual, Is.Null);
+            Assert.That(obj.GetStateHintCallbackCount, Is.EqualTo(1));
         }
 
         [Test]
         public void TestThatGetStateTypeImplementationIsCalled()
         {
-            using (var obj = new TestAction()) {
-                Assume.That(obj.GetStateTypeCallbackCount, Is.EqualTo(0));
-                var actual = obj.GetStateType();
-                Assert.That(actual, Is.EqualTo(VariantType.Int32));
-                Assert.That(obj.GetStateTypeCallbackCount, Is.EqualTo(1));
-            }
+            using var obj = TestAction.New();
+            Assume.That(obj.GetStateTypeCallbackCount, Is.EqualTo(0));
+            var actual = obj.GetStateType();
+            Assert.That(actual, Is.EqualTo(VariantType.Int32));
+            Assert.That(obj.GetStateTypeCallbackCount, Is.EqualTo(1));
         }
 
         [Test]
@@ -232,7 +219,7 @@ namespace GISharp.Test.Gio
     [GType]
     class TestAction : Object, IAction
     {
-        readonly Utf8? name;
+        Utf8? name;
 
         public bool Enabled => ((IAction)this).DoGetEnabled();
 
@@ -308,13 +295,13 @@ namespace GISharp.Test.Gio
             return VariantType.Int32;
         }
 
-        public TestAction() : this("TestAction")
-        {
-        }
+        public static TestAction New() => New("TestAction");
 
-        public TestAction(string name) : this(New<TestAction>(), Transfer.Full)
+        public static TestAction New(string name)
         {
-            this.name = name;
+            var instance = CreateInstance<TestAction>();
+            instance.name = name;
+            return instance;
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

@@ -15,141 +15,127 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestListActions()
         {
-            using (var ag = new TestActionGroup())
-            using (var list = ag.ListActions()) {
-                Assert.That<string>(list.First(), Is.EqualTo("test-action-1"));
-            }
+            using var ag = TestActionGroup.New();
+            using var list = ag.ListActions();
+            Assert.That<string>(list.First(), Is.EqualTo("test-action-1"));
         }
 
         [Test]
         public void TestQueryAction()
         {
-            using (var ag = new TestActionGroup()) {
-                if (ag.TryQueryAction("does-not-exist", out var enabled, out var paramType,
-                    out var stateType, out var stateHint, out var state)) {
-                    Assert.Fail("The action does not exist, so we should not get here.");
-                }
+            using var ag = TestActionGroup.New();
+            if (ag.TryQueryAction("does-not-exist", out var enabled, out var paramType,
+                out var stateType, out var stateHint, out var state)) {
+                Assert.Fail("The action does not exist, so we should not get here.");
             }
         }
 
         [Test]
         public void TestHasAction()
         {
-            using (var ag = new TestActionGroup()) {
-                Assert.That(ag.HasAction("does-not-exist")!, Is.False);
-            }
+            using var ag = TestActionGroup.New();
+            Assert.That(ag.HasAction("does-not-exist")!, Is.False);
         }
 
         [Test]
         public void TestGetActionEnabled()
         {
-            using (var ag = new TestActionGroup()) {
-                Assert.That(ag.GetActionEnabled("does-not-exist")!, Is.False);
-            }
+            using var ag = TestActionGroup.New();
+            Assert.That(ag.GetActionEnabled("does-not-exist")!, Is.False);
         }
 
         [Test]
         public void TestGetParameterType()
         {
-            using (var ag = new TestActionGroup()) {
-                Assert.That(ag.GetActionParameterType("does-not-exist")!, Is.EqualTo(VariantType.Int32));
-            }
+            using var ag = TestActionGroup.New();
+            Assert.That(ag.GetActionParameterType("does-not-exist")!, Is.EqualTo(VariantType.Int32));
         }
 
         [Test]
         public void TestGetStateType()
         {
-            using (var ag = new TestActionGroup()) {
-                Assert.That(ag.GetActionStateType("does-not-exist")!, Is.EqualTo(VariantType.Boolean));
-            }
+            using var ag = TestActionGroup.New();
+            Assert.That(ag.GetActionStateType("does-not-exist")!, Is.EqualTo(VariantType.Boolean));
         }
 
         [Test]
         public void TestGetActionStateHint()
         {
-            using (var ag = new TestActionGroup()) {
-                Assert.That((int)ag.GetActionStateHint("does-not-exist")!, Is.EqualTo(1));
-            }
+            using var ag = TestActionGroup.New();
+            Assert.That((int)ag.GetActionStateHint("does-not-exist")!, Is.EqualTo(1));
         }
 
         [Test]
         public void TestGetActionState()
         {
-            using (var ag = new TestActionGroup()) {
-                Assert.That((int)ag.GetActionState("does-not-exist")!, Is.EqualTo(2));
-            }
+            using var ag = TestActionGroup.New();
+            Assert.That((int)ag.GetActionState("does-not-exist")!, Is.EqualTo(2));
         }
 
         [Test]
         public void TestChangeActionState()
         {
-            using (var ag = new TestActionGroup()) {
-                var expected = new Variant(7);
-                var actual = default(Variant);
-                ag.StateChanged += (s, a) => actual = a;
-                ag.ChangeActionState("does-not-exist", expected);
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var ag = TestActionGroup.New();
+            var expected = new Variant(7);
+            var actual = default(Variant);
+            ag.StateChanged += (s, a) => actual = a;
+            ag.ChangeActionState("does-not-exist", expected);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestActivateAction()
         {
-            using (var ag = new TestActionGroup()) {
-                var expected = new Variant(9);
-                var actual = default(Variant);
-                ag.ActionActivated += (s, a) => actual = a;
-                ag.ActivateAction("does-not-exist", expected);
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var ag = TestActionGroup.New();
+            var expected = new Variant(9);
+            var actual = default(Variant);
+            ag.ActionActivated += (s, a) => actual = a;
+            ag.ActivateAction("does-not-exist", expected);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestActionAdded()
         {
-            using (var ag = new TestActionGroup()) {
-                var actual = default(string);
-                const string expected = "some-action";
-                ag.ActionAddedSignal += (s, a) => actual = a.ActionName;
-                ActionGroup.ActionAdded(ag, expected);
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var ag = TestActionGroup.New();
+            var actual = default(string);
+            const string expected = "some-action";
+            ag.ActionAddedSignal += (s, a) => actual = a.ActionName;
+            ActionGroup.ActionAdded(ag, expected);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestActionRemoved()
         {
-            using (var ag = new TestActionGroup()) {
-                var actual = default(string);
-                const string expected = "some-action";
-                ag.ActionRemovedSignal += (s, a) => actual = a.ActionName;
-                ActionGroup.ActionRemoved(ag, expected);
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var ag = TestActionGroup.New();
+            var actual = default(string);
+            const string expected = "some-action";
+            ag.ActionRemovedSignal += (s, a) => actual = a.ActionName;
+            ActionGroup.ActionRemoved(ag, expected);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestActionEnabledChanged()
         {
-            using (var ag = new TestActionGroup()) {
-                var actual = default(string);
-                const string expected = "some-action";
-                ag.ActionEnabledChangedSignal += (s, a) => actual = a.ActionName;
-                ActionGroup.ActionEnabledChanged(ag, expected, true);
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var ag = TestActionGroup.New();
+            var actual = default(string);
+            const string expected = "some-action";
+            ag.ActionEnabledChangedSignal += (s, a) => actual = a.ActionName;
+            ActionGroup.ActionEnabledChanged(ag, expected, true);
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestActionStateChanged()
         {
-            using (var ag = new TestActionGroup()) {
-                var actual = default(string);
-                const string expected = "some-action";
-                ag.ActionStateChangedSignal += (s, a) => actual = a.ActionName;
-                ActionGroup.ActionStateChanged(ag, expected, new Variant(11));
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var ag = TestActionGroup.New();
+            var actual = default(string);
+            const string expected = "some-action";
+            ag.ActionStateChangedSignal += (s, a) => actual = a.ActionName;
+            ActionGroup.ActionStateChanged(ag, expected, new Variant(11));
+            Assert.That(actual, Is.EqualTo(expected));
         }
     }
 
@@ -158,7 +144,12 @@ namespace GISharp.Test.Gio
     {
         static readonly GType gtype = GType.Of<TestActionGroup>();
 
-        public TestActionGroup() : base(New<TestActionGroup>(), Transfer.Full)
+        public static TestActionGroup New()
+        {
+            return CreateInstance<TestActionGroup>();
+        }
+
+        public TestActionGroup(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 

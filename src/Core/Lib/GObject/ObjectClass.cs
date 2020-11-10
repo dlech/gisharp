@@ -209,8 +209,9 @@ namespace GISharp.Lib.GObject
                 var gtype = objectClass->GTypeClass.GType;
                 var type = (Type)GCHandle.FromIntPtr(classData_).Target!;
 
-                // override property accessors
+                // override virtual methods
 
+                objectClass->Constructor = &ManagedClassConstructor;
                 objectClass->SetProperty = &ManagedClassSetProperty;
                 objectClass->GetProperty = &ManagedClassGetProperty;
 
@@ -345,8 +346,7 @@ namespace GISharp.Lib.GObject
                         pspec = new ParamSpecVariant(name, nick, blurb, variantType, defaultValue is null ? null : (Variant)defaultValue, flags);
                     }
                     else {
-                        // TODO: Need more specific exception
-                        throw new Exception("unhandled GType");
+                        throw new GTypeException($"unhandled GType: {propertyGType}");
                     }
 
                     var methodInfo = propInfo.GetAccessors().First();
@@ -457,6 +457,37 @@ namespace GISharp.Lib.GObject
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
+            }
+        }
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static unsafe IntPtr ManagedClassConstructor(GType type_, uint nConstructProperties_, IntPtr constructProperties_)
+        {
+            try {
+                // find the first unmanaged type ancestor (indicated by not having
+                // ManagedClassConstructor overload) and chain up to that constructor
+                // to create the new unmanaged object instance
+                var objectClass = g_type_class_peek(type_);
+                var parentClass = (UnmanagedStruct*)objectClass;
+                for (; ; ) {
+                    parentClass = (UnmanagedStruct*)g_type_class_peek_parent((IntPtr)parentClass);
+                    if (parentClass->Constructor != (delegate* unmanaged[Cdecl]<GType, uint, IntPtr, IntPtr>)&ManagedClassConstructor) {
+                        break;
+                    }
+                }
+                var handle_ = parentClass->Constructor(type_, 0, IntPtr.Zero);
+
+                // then create the managed component of the class - the managed
+                // constructor will attach the managed instance to the unmanaged
+                // instance via qdata so we don't need to do anything with the
+                // managed instance here
+                Object.GetInstance(handle_, Transfer.None);
+
+                return handle_;
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+                return default;
             }
         }
 

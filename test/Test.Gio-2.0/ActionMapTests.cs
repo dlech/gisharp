@@ -17,41 +17,43 @@ namespace GISharp.Test.Gio
         public void TestLookupAction()
         {
             const string name = "test-action-name";
-            using (var am = new TestActionMap())
-            using (var expected = new TestAction(name)) {
-                am.Actions.Add(expected);
-                Assert.That(am.LookupAction(name), Is.SameAs(expected));
-            }
+            using var am = TestActionMap.New();
+            using var expected = TestAction.New(name);
+            am.Actions.Add(expected);
+            Assert.That(am.LookupAction(name), Is.SameAs(expected));
         }
 
         [Test]
         public void TestAddAction()
         {
             const string name = "test-action-name";
-            using (var am = new TestActionMap())
-            using (var expected = new TestAction(name)) {
-                am.AddAction(expected);
-                Assert.That(am.Actions, Has.Member(expected));
-            }
+            using var am = TestActionMap.New();
+            using var expected = TestAction.New(name);
+            am.AddAction(expected);
+            Assert.That(am.Actions, Has.Member(expected));
         }
 
         [Test]
         public void TestRemoveAction()
         {
             const string name = "test-action-name";
-            using (var am = new TestActionMap())
-            using (var expected = new TestAction(name)) {
-                am.Actions.Add(expected);
-                am.RemoveAction(name);
-                Assert.That(am.Actions, Has.No.Member(expected));
-            }
+            using var am = TestActionMap.New();
+            using var expected = TestAction.New(name);
+            am.Actions.Add(expected);
+            am.RemoveAction(name);
+            Assert.That(am.Actions, Has.No.Member(expected));
         }
     }
 
     [GType]
     class TestActionMap : Object, IActionMap
     {
-        public TestActionMap() : base(New<TestActionMap>(), Transfer.Full)
+        public static TestActionMap New()
+        {
+            return CreateInstance<TestActionMap>();
+        }
+
+        public TestActionMap(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 

@@ -6,6 +6,7 @@ using GISharp.Runtime;
 using GISharp.Lib.GObject;
 using GISharp.Lib.GLib;
 
+using Object = GISharp.Lib.GObject.Object;
 using static GISharp.TestHelpers;
 
 namespace GISharp.Test.Core.GObject
@@ -21,51 +22,47 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestVirtualMethod()
         {
-            using (var obj = new TestNetworkMonitor()) {
-                Assume.That(obj.CanReachCallCount, Is.EqualTo(0));
-                obj.CanReach(IntPtr.Zero);
-                Assert.That(obj.CanReachCallCount, Is.EqualTo(1));
-            }
+            using var obj = TestNetworkMonitor.New();
+            Assume.That(obj.CanReachCallCount, Is.EqualTo(0));
+            obj.CanReach(IntPtr.Zero);
+            Assert.That(obj.CanReachCallCount, Is.EqualTo(1));
         }
 
         [Test]
         public void TestAsyncVirtualMethod()
         {
             RunAsyncTest(async () => {
-                using (var obj = new TestNetworkMonitor()) {
-                    var result = await obj.CanReachAsync(IntPtr.Zero);
-                    Assert.That(result, Is.True);
-                }
+                using var obj = TestNetworkMonitor.New();
+                var result = await obj.CanReachAsync(IntPtr.Zero);
+                Assert.That(result, Is.True);
             });
         }
 
         [Test]
         public void TestProperty()
         {
-            using (var obj = new TestNetworkMonitor()) {
-                var value = obj.GetProperty("connectivity");
-                Assert.That(value, Is.EqualTo(NetworkConnectivity.Local));
-            }
+            using var obj = TestNetworkMonitor.New();
+            var value = obj.GetProperty("connectivity");
+            Assert.That(value, Is.EqualTo(NetworkConnectivity.Local));
         }
 
         [Test]
         public void TestSignal()
         {
-            using (var obj = new TestNetworkMonitor()) {
-                var callbackCount = 0;
-                obj.NetworkChanged += available => callbackCount++;
+            using var obj = TestNetworkMonitor.New();
+            var callbackCount = 0;
+            obj.NetworkChanged += available => callbackCount++;
 
-                var id = Signal.TryLookup<TestNetworkMonitor>("network-changed");
-                Assume.That(id, Is.Not.EqualTo(0));
-                obj.Emit(id, Quark.Zero, true);
+            var id = Signal.TryLookup<TestNetworkMonitor>("network-changed");
+            Assume.That(id, Is.Not.EqualTo(0));
+            obj.Emit(id, Quark.Zero, true);
 
-                Assert.That(callbackCount, Is.EqualTo(1));
-            }
+            Assert.That(callbackCount, Is.EqualTo(1));
         }
     }
 
     [GType]
-    class TestNetworkMonitor : Lib.GObject.Object, INetworkMonitor
+    class TestNetworkMonitor : Object, INetworkMonitor
     {
         public int CanReachCallCount { get; private set; }
 
@@ -105,8 +102,9 @@ namespace GISharp.Test.Core.GObject
 
         #endregion
 
-        public TestNetworkMonitor() : this(New<TestNetworkMonitor>(), Transfer.Full)
+        public static TestNetworkMonitor New()
         {
+            return CreateInstance<TestNetworkMonitor>();
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]

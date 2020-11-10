@@ -42,6 +42,11 @@ namespace GISharp.Lib.GObject
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Object(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
+            if (g_object_get_qdata(handle, toggleRefGCHandleQuark) != IntPtr.Zero) {
+                var message = "This object already has a managed instance attached to it, use GetInstance() instead";
+                throw new ArgumentException(message, nameof(handle));
+            }
+
             if (ownership == Transfer.None) {
                 this.handle = g_object_ref_sink(handle);
             }
@@ -248,7 +253,7 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        protected static unsafe IntPtr New<T>(params object[] parameters) where T : Object
+        private static unsafe IntPtr New<T>(params object[] parameters) where T : Object
         {
             var gtype = GType.Of<T>();
             var nParameters = parameters.Length / 2;
@@ -298,7 +303,7 @@ namespace GISharp.Lib.GObject
         public static T CreateInstance<T>(params object[] parameters) where T : Object
         {
             var handle = New<T>(parameters);
-            var instance = (T)Activator.CreateInstance(typeof(T), handle)!;
+            var instance = GetInstance<T>(handle, Transfer.Full)!;
 
             return instance;
         }
