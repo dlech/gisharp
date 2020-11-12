@@ -1,5 +1,6 @@
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -94,10 +95,10 @@ namespace GISharp.Lib.GLib
         }
 
         static unsafe SourceFuncs managedSourceFuncs = new() {
-            OnPrepare = PrepareManagedSource,
-            OnCheck = CheckManagedSource,
-            OnDispatch = DispatchManagedSource,
-            OnFinalize = FinalizeManagedSource,
+            Prepare = &PrepareManagedSource,
+            Check = &CheckManagedSource,
+            Dispatch = &DispatchManagedSource,
+            Finalize = &FinalizeManagedSource,
         };
 
         /// <summary>
@@ -114,13 +115,14 @@ namespace GISharp.Lib.GLib
         [Since("2.32")]
         public const bool Remove_ = false;
 
-        static unsafe bool PrepareManagedSource(IntPtr sourcePtr, int* timeout)
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static unsafe Runtime.Boolean PrepareManagedSource(UnmanagedStruct* source_, int* timeout_)
         {
             try {
-                var offset = Marshal.OffsetOf<ManagedSource>(nameof(ManagedSource.gcHandle));
-                var gcHandle = GCHandle.FromIntPtr(Marshal.ReadIntPtr(sourcePtr, (int)offset));
+                var managedSource = (ManagedSource*)source_;
+                var gcHandle = GCHandle.FromIntPtr(managedSource->gcHandle);
                 var source = (Source)gcHandle.Target!;
-                return source.OnPrepare(out *timeout);
+                return source.OnPrepare(out *timeout_);
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
@@ -145,11 +147,12 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         protected virtual bool OnPrepare(out int timeout) => throw new NotImplementedException();
 
-        static bool CheckManagedSource(IntPtr sourcePtr)
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static unsafe Runtime.Boolean CheckManagedSource(UnmanagedStruct* source_)
         {
             try {
-                var offset = Marshal.OffsetOf<ManagedSource>(nameof(ManagedSource.gcHandle));
-                var gcHandle = GCHandle.FromIntPtr(Marshal.ReadIntPtr(sourcePtr, (int)offset));
+                var managedSource = (ManagedSource*)source_;
+                var gcHandle = GCHandle.FromIntPtr(managedSource->gcHandle);
                 var source = (Source)gcHandle.Target!;
                 return source.OnCheck();
             }
@@ -169,13 +172,15 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         protected virtual bool OnCheck() => throw new NotImplementedException();
 
-        static Runtime.Boolean DispatchManagedSource(IntPtr source_, IntPtr callback_, IntPtr userData_)
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static unsafe Runtime.Boolean DispatchManagedSource(UnmanagedStruct* source_,
+            IntPtr callback_, IntPtr userData_)
         {
             try {
-                var offset = Marshal.OffsetOf<ManagedSource>(nameof(ManagedSource.gcHandle));
-                var gcHandle = GCHandle.FromIntPtr(Marshal.ReadIntPtr(source_, (int)offset));
+                var managedSource = (ManagedSource*)source_;
+                var callback = (delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean>)callback_;
+                var gcHandle = GCHandle.FromIntPtr(managedSource->gcHandle);
                 var source = (Source)gcHandle.Target!;
-                var callback = Marshal.GetDelegateForFunctionPointer<UnmanagedSourceFunc>(callback_);
                 return source.OnDispatch(() => callback(userData_));
             }
             catch (Exception ex) {
@@ -199,11 +204,12 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         protected virtual bool OnDispatch(SourceFunc callback) => throw new NotImplementedException();
 
-        static void FinalizeManagedSource(IntPtr sourcePtr)
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static unsafe void FinalizeManagedSource(UnmanagedStruct* source_)
         {
             try {
-                var offset = Marshal.OffsetOf<ManagedSource>(nameof(ManagedSource.gcHandle));
-                var gcHandle = GCHandle.FromIntPtr(Marshal.ReadIntPtr(sourcePtr, (int)offset));
+                var managedSource = (ManagedSource*)source_;
+                var gcHandle = GCHandle.FromIntPtr(managedSource->gcHandle);
                 var source = (Source)gcHandle.Target!;
                 source.OnFinalize();
                 gcHandle.Free();
@@ -245,7 +251,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_source_new(
             /* <type name="SourceFuncs" type="GSourceFuncs*" managed-name="SourceFuncs" /> */
             /* transfer-ownership:none */
-            ref SourceFuncs sourceFuncs,
+            in SourceFuncs sourceFuncs,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint structSize);
@@ -253,7 +259,7 @@ namespace GISharp.Lib.GLib
         static IntPtr NewManagedSource()
         {
             var structSize = Marshal.SizeOf<ManagedSource>();
-            var ret = g_source_new(ref managedSourceFuncs, (uint)structSize);
+            var ret = g_source_new(managedSourceFuncs, (uint)structSize);
             return ret;
         }
 
@@ -264,12 +270,11 @@ namespace GISharp.Lib.GLib
         /// The source will not initially be associated with any <see cref="MainContext"/>
         /// and must be added to one with <see cref="Attach"/> before it will be executed.
         /// </remarks>
-        Source() : this(NewManagedSource(), Transfer.Full)
+        unsafe Source() : this(NewManagedSource(), Transfer.Full)
         {
-            var offset = Marshal.OffsetOf<ManagedSource>(nameof(ManagedSource.gcHandle));
+            var managedSource = (ManagedSource*)handle;
             // This handle is freed from unmanged code in the FinalizeManagedSource callback.
-            var gcHandle = GCHandle.ToIntPtr(GCHandle.Alloc(this));
-            Marshal.WriteIntPtr(handle, (int)offset, gcHandle);
+            managedSource->gcHandle = GCHandle.ToIntPtr(GCHandle.Alloc(this));
         }
 
         /// <summary>
@@ -1281,7 +1286,7 @@ namespace GISharp.Lib.GLib
         /// <param name="marshalToPointer">
         /// the unmanaged callback marshal to pointer method
         /// </param>
-        protected void SetCallback<T>(T func, Func<T, CallbackScope, (IntPtr, IntPtr, IntPtr)> marshalToPointer)
+        protected void SetCallback<T>(T func, Func<T, CallbackScope, (IntPtr, IntPtr, IntPtr)> marshalToPointer) where T : Delegate
         {
             var this_ = Handle;
             var (func_, notify_, data_) = marshalToPointer(func, CallbackScope.Notified);
@@ -1318,7 +1323,7 @@ namespace GISharp.Lib.GLib
             IntPtr callbackData,
             /* <type name="SourceCallbackFuncs" type="GSourceCallbackFuncs*" managed-name="SourceCallbackFuncs" /> */
             /* transfer-ownership:none */
-            SourceCallbackFuncs callbackFuncs);
+            in SourceCallbackFuncs callbackFuncs);
 
         /// <summary>
         /// Sets whether a source can be called recursively. If @can_recurse is
@@ -1536,59 +1541,17 @@ namespace GISharp.Lib.GLib
     /// check function, it tests the results of the poll() call to see if the
     /// required condition has been met, and returns %TRUE if so.
     /// </remarks>
-    struct SourceFuncs
+    unsafe struct SourceFuncs
     {
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public unsafe delegate bool UnmanagedPrepare(
-            /* <type name="Source" type="GSource*" managed-name="Source" /> */
-            /* transfer-ownership:none */
-            IntPtr source,
-            /* <type name="gint" type="gint*" managed-name="Gint" /> */
-            /* transfer-ownership:none */
-            int* timeout);
-
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        public UnmanagedPrepare OnPrepare;
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool UnmanagedCheck(
-            /* <type name="Source" type="GSource*" managed-name="Source" /> */
-            /* transfer-ownership:none */
-            IntPtr source);
-
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        public UnmanagedCheck OnCheck;
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate Runtime.Boolean UnmanagedDispatch(
-            /* <type name="Source" type="GSource*" managed-name="Source" /> */
-            /* transfer-ownership:none */
-            IntPtr source,
-            /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
-            /* transfer-ownership:none closure:2 */
-            IntPtr callback,
-            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-            /* transfer-ownership:none nullable:1 allow-none:1 closure:2 */
-            IntPtr userData);
-
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        public UnmanagedDispatch OnDispatch;
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedFinalize(
-            /* <type name="Source" type="GSource*" managed-name="Source" /> */
-            /* transfer-ownership:none */
-            IntPtr source);
-
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        public UnmanagedFinalize OnFinalize;
+        public delegate* unmanaged[Cdecl]<Source.UnmanagedStruct*, int*, Runtime.Boolean> Prepare;
+        public delegate* unmanaged[Cdecl]<Source.UnmanagedStruct*, Runtime.Boolean> Check;
+        public delegate* unmanaged[Cdecl]<Source.UnmanagedStruct*, IntPtr, IntPtr, Runtime.Boolean> Dispatch;
+        public delegate* unmanaged[Cdecl]<Source.UnmanagedStruct*, void> Finalize;
 
         // private fields
 #pragma warning disable CS0169
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        UnmanagedSourceFunc ClosureCallback;
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        UnmanagedClosureMarshal ClosureMarshal;
+        delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean> closureCallback;
+        delegate* unmanaged[Cdecl]<IntPtr, Value*, uint, Value*, IntPtr, IntPtr, void> closureMarshal;
 #pragma warning restore CS0169
     }
 
@@ -1596,50 +1559,12 @@ namespace GISharp.Lib.GLib
     /// The `GSourceCallbackFuncs` struct contains
     /// functions for managing callback objects.
     /// </summary>
-    struct SourceCallbackFuncs
+    unsafe struct SourceCallbackFuncs
     {
 #pragma warning disable CS0649
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedRef(
-            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-            /* transfer-ownership:none */
-            IntPtr cbData);
-
-        public delegate void Ref(IntPtr cbData);
-
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        public UnmanagedRef OnRef;
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedUnref(
-            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-            /* transfer-ownership:none */
-            IntPtr cbData);
-
-        public delegate void Unref(IntPtr cbData);
-
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        public UnmanagedUnref OnUnref;
-
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate void UnmanagedGet(
-            /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-            /* transfer-ownership:none */
-            IntPtr cbData,
-            /* <type name="Source" type="GSource*" managed-name="Source" /> */
-            /* transfer-ownership:none */
-            IntPtr source,
-            /* <type name="SourceFunc" type="GSourceFunc*" managed-name="SourceFunc" /> */
-            /* transfer-ownership:none closure:3 */
-            SourceFunc func,
-            /* <type name="gpointer" type="gpointer*" managed-name="Gpointer" /> */
-            /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr data);
-
-        public delegate void Get(IntPtr cbData, Source source, SourceFunc func);
-
-        [MarshalAs(UnmanagedType.FunctionPtr)]
-        public UnmanagedGet OnGet;
+        public delegate* unmanaged[Cdecl]<IntPtr, void> Ref;
+        public delegate* unmanaged[Cdecl]<IntPtr, void> Unref;
+        public delegate* unmanaged[Cdecl]<IntPtr, IntPtr, SourceFuncs*, IntPtr> Get;
 #pragma warning restore CS0649
     }
 }
