@@ -103,13 +103,15 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_object_remove_toggle_ref(IntPtr @object, UnmanagedToggleNotify notify, IntPtr data);
 
-        static void toggleNotifyCallback(IntPtr data, IntPtr @object, Runtime.Boolean isLastRef)
+        static void toggleNotifyCallback(IntPtr data, IntPtr @object, Runtime.Boolean isLastRef_)
         {
             try {
                 // free the existing GCHandle
                 var gcHandle = (GCHandle)g_object_get_qdata(@object, toggleRefGCHandleQuark);
                 var obj = (Object)gcHandle.Target!;
                 gcHandle.Free();
+
+                var isLastRef = isLastRef_.IsTrue();
 
                 // alloc a new GCHandle with weak/strong reference depending on isLastRef
                 gcHandle = GCHandle.Alloc(obj, isLastRef ? GCHandleType.Weak : GCHandleType.Normal);
@@ -321,7 +323,9 @@ namespace GISharp.Lib.GObject
 
         bool IsFloating {
             get {
-                return g_object_is_floating(Handle);
+                var ret_ = g_object_is_floating(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 

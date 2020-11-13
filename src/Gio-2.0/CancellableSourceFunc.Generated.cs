@@ -50,7 +50,7 @@ namespace GISharp.Lib.Gio
             {
                 var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
                 var ret_ = unmanagedCallback(cancellable_,userData_);
-                var ret = (System.Boolean)ret_;
+                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }
 
@@ -99,7 +99,7 @@ namespace GISharp.Lib.Gio
                 {
                     Destroy(userData_);
                 }
-                var ret_ = (GISharp.Runtime.Boolean)ret;
+                var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                 return ret_;
             }
             catch (System.Exception ex)

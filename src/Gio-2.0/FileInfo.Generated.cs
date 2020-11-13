@@ -253,7 +253,7 @@ namespace GISharp.Lib.Gio
             var info_ = Handle;
             var attribute_ = attribute.Handle;
             var ret_ = g_file_info_get_attribute_boolean(info_,attribute_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -348,7 +348,7 @@ namespace GISharp.Lib.Gio
             type = (GISharp.Lib.Gio.FileAttributeType)type_;
             valuePp = (System.IntPtr)valuePp_;
             status = (GISharp.Lib.Gio.FileAttributeStatus)status_;
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -906,7 +906,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsBackupArgs();
             var info_ = Handle;
             var ret_ = g_file_info_get_is_backup(info_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -933,7 +933,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsHiddenArgs();
             var info_ = Handle;
             var ret_ = g_file_info_get_is_hidden(info_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -960,7 +960,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsSymlinkArgs();
             var info_ = Handle;
             var ret_ = g_file_info_get_is_symlink(info_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1204,7 +1204,7 @@ namespace GISharp.Lib.Gio
             var info_ = Handle;
             var attribute_ = attribute.Handle;
             var ret_ = g_file_info_has_attribute(info_,attribute_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1243,7 +1243,7 @@ namespace GISharp.Lib.Gio
             var info_ = Handle;
             var nameSpace_ = nameSpace.Handle;
             var ret_ = g_file_info_has_namespace(info_,nameSpace_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1396,7 +1396,7 @@ namespace GISharp.Lib.Gio
             CheckSetAttributeBooleanArgs(attribute, attrValue);
             var info_ = Handle;
             var attribute_ = attribute.Handle;
-            var attrValue_ = (GISharp.Runtime.Boolean)attrValue;
+            var attrValue_ = GISharp.Runtime.BooleanExtensions.ToBoolean(attrValue);
             g_file_info_set_attribute_boolean(info_, attribute_, attrValue_);
         }
 
@@ -1628,7 +1628,7 @@ namespace GISharp.Lib.Gio
             var attribute_ = attribute.Handle;
             var status_ = (GISharp.Lib.Gio.FileAttributeStatus)status;
             var ret_ = g_file_info_set_attribute_status(info_,attribute_,status_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1966,7 +1966,7 @@ namespace GISharp.Lib.Gio
         {
             CheckSetIsHiddenArgs(isHidden);
             var info_ = Handle;
-            var isHidden_ = (GISharp.Runtime.Boolean)isHidden;
+            var isHidden_ = GISharp.Runtime.BooleanExtensions.ToBoolean(isHidden);
             g_file_info_set_is_hidden(info_, isHidden_);
         }
 
@@ -1996,7 +1996,7 @@ namespace GISharp.Lib.Gio
         {
             CheckSetIsSymlinkArgs(isSymlink);
             var info_ = Handle;
-            var isSymlink_ = (GISharp.Runtime.Boolean)isSymlink;
+            var isSymlink_ = GISharp.Runtime.BooleanExtensions.ToBoolean(isSymlink);
             g_file_info_set_is_symlink(info_, isSymlink_);
         }
 

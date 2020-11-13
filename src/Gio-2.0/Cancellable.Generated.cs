@@ -339,7 +339,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsCancelledArgs();
             var cancellable_ = Handle;
             var ret_ = g_cancellable_is_cancelled(cancellable_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -395,7 +395,7 @@ namespace GISharp.Lib.Gio
             var cancellable_ = Handle;
             var ret_ = g_cancellable_make_pollfd(cancellable_,out var pollfd_);
             pollfd = (GISharp.Lib.GLib.PollFD)pollfd_;
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

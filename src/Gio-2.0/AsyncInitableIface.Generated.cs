@@ -126,7 +126,7 @@ ref System.IntPtr error);
                         var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
                         var doInitFinish = (InitFinish)methodInfo.CreateDelegate(typeof(InitFinish), initable);
                         doInitFinish(res);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {

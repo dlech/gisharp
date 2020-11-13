@@ -258,7 +258,8 @@ namespace GISharp.Lib.GLib
         [Since("2.50")]
         public static Utf8 FormatFields(LogLevelFlags logLevel, LogField[] fields, bool useColor = false)
         {
-            var ret_ = g_log_writer_format_fields(logLevel, fields, (nuint)fields.Length, useColor);
+            var useColor_ = useColor.ToBoolean();
+            var ret_ = g_log_writer_format_fields(logLevel, fields, (nuint)fields.Length, useColor_);
             var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -344,7 +345,8 @@ namespace GISharp.Lib.GLib
         [Since("2.50")]
         public static bool IsJournald(int outputFd)
         {
-            var ret = g_log_writer_is_journald(outputFd);
+            var ret_ = g_log_writer_is_journald(outputFd);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -550,7 +552,8 @@ namespace GISharp.Lib.GLib
         [Since("2.50")]
         public static bool SupportsColor(int outputFd)
         {
-            var ret = g_log_writer_supports_color(outputFd);
+            var ret_ = g_log_writer_supports_color(outputFd);
+            var ret = ret_.IsTrue();
             return ret;
         }
 

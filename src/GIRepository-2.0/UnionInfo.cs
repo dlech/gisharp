@@ -144,8 +144,8 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsDiscriminated {
             get {
-                bool raw_ret = g_union_info_is_discriminated (Handle);
-                bool ret = raw_ret;
+                var ret_ = g_union_info_is_discriminated(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }

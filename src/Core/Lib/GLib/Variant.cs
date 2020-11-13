@@ -276,7 +276,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_variant_is_floating(IntPtr value);
 
-        bool IsFloating => g_variant_is_floating(Handle);
+        bool IsFloating => g_variant_is_floating(Handle).IsTrue();
 
         public IndexedCollection<Variant> ChildValues {
             get {
@@ -746,7 +746,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         static IntPtr NewBoolean(bool value)
         {
-            var ret = g_variant_new_boolean(value);
+            var value_ = value.ToBoolean();
+            var ret = g_variant_new_boolean(value_);
             return ret;
         }
 
@@ -2094,7 +2095,8 @@ namespace GISharp.Lib.GLib
         public static bool IsObjectPath(UnownedUtf8 @string)
         {
             var string_ = @string.Handle;
-            var ret = g_variant_is_object_path(@string_);
+            var ret_ = g_variant_is_object_path(@string_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -2141,7 +2143,8 @@ namespace GISharp.Lib.GLib
         public static bool IsSignature(UnownedUtf8 @string)
         {
             var string_ = @string.Handle;
-            var ret = g_variant_is_signature(@string_);
+            var ret_ = g_variant_is_signature(@string_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -2402,7 +2405,9 @@ namespace GISharp.Lib.GLib
         {
             var this_ = Handle;
             var formatString_ = formatString.Handle;
-            var ret = g_variant_check_format_string(this_, formatString_, copyOnly);
+            var copyOnly_ = copyOnly.ToBoolean();
+            var ret_ = g_variant_check_format_string(this_, formatString_, copyOnly_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -2588,7 +2593,8 @@ namespace GISharp.Lib.GLib
             }
             var one_ = one.Handle;
             var two_ = two.Handle;
-            var ret = g_variant_equal(one_, two_);
+            var ret_ = g_variant_equal(one_, two_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -2667,7 +2673,8 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.Boolean)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_boolean(Handle);
+                var ret_ = g_variant_get_boolean(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -3969,7 +3976,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsContainer {
             get {
-                var ret = g_variant_is_container(Handle);
+                var ret_ = g_variant_is_container(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -4021,7 +4029,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsNormalForm {
             get {
-                var ret = g_variant_is_normal_form(Handle);
+                var ret_ = g_variant_is_normal_form(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -4064,7 +4073,8 @@ namespace GISharp.Lib.GLib
         {
             var this_ = Handle;
             var type_ = type.Handle;
-            var ret = g_variant_is_of_type(this_, type_);
+            var ret_ = g_variant_is_of_type(this_, type_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -4266,7 +4276,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public Utf8 Print(bool typeAnnotate)
         {
-            var ret_ = g_variant_print(Handle, typeAnnotate);
+            var typeAnnotate_ = typeAnnotate.ToBoolean();
+            var ret_ = g_variant_print(Handle, typeAnnotate_);
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }

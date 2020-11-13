@@ -710,7 +710,8 @@ namespace GISharp.Lib.GLib
         public static bool StringIsValid(UnownedUtf8 typeString)
         {
             var typeString_ = typeString.Handle;
-            var ret = g_variant_type_string_is_valid(typeString_);
+            var ret_ = g_variant_type_string_is_valid(typeString_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -830,7 +831,7 @@ namespace GISharp.Lib.GLib
         public VariantType ElementType {
             get {
                 var this_ = Handle;
-                if (!g_variant_type_is_array(this_) && !g_variant_type_is_maybe(this_)) {
+                if (g_variant_type_is_array(this_).IsFalse() && g_variant_type_is_maybe(this_).IsFalse()) {
                     throw new InvalidOperationException();
                 }
                 var ret_ = g_variant_type_element(this_);
@@ -883,7 +884,8 @@ namespace GISharp.Lib.GLib
             }
             var type1_ = type1.Handle;
             var type2_ = type2.Handle;
-            var ret = g_variant_type_equal(type1_, type2_);
+            var ret_ = g_variant_type_equal(type1_, type2_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -981,10 +983,10 @@ namespace GISharp.Lib.GLib
         public IEnumerable<VariantType> Items {
             get {
                 var this_ = Handle;
-                if (!g_variant_type_is_tuple(this_) && !g_variant_type_is_dict_entry(this_)) {
+                if (g_variant_type_is_tuple(this_).IsFalse() && g_variant_type_is_dict_entry(this_).IsFalse()) {
                     throw new InvalidOperationException("only valid for tuple an dictionary entry types");
                 }
-                if (g_variant_type_equal(this_, Tuple.Handle)) {
+                if (g_variant_type_equal(this_, Tuple.Handle).IsTrue()) {
                     throw new InvalidOperationException("only valid for non-generic tuple types");
                 }
                 for (var ret_ = g_variant_type_first(this_); ret_ != IntPtr.Zero; ret_ = g_variant_type_next(ret_)) {
@@ -1089,7 +1091,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsArray {
             get {
-                var ret = g_variant_type_is_array(Handle);
+                var ret_ = g_variant_type_is_array(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -1139,7 +1142,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsBasic {
             get {
-                var ret = g_variant_type_is_basic(Handle);
+                var ret_ = g_variant_type_is_basic(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -1187,7 +1191,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsContainer {
             get {
-                var ret = g_variant_type_is_container(Handle);
+                var ret_ = g_variant_type_is_container(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -1239,7 +1244,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsDefinite {
             get {
-                var ret = g_variant_type_is_definite(Handle);
+                var ret_ = g_variant_type_is_definite(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -1283,7 +1289,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsDictionaryEntry {
             get {
-                var ret = g_variant_type_is_dict_entry(Handle);
+                var ret_ = g_variant_type_is_dict_entry(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -1327,7 +1334,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsMaybe {
             get {
-                var ret = g_variant_type_is_maybe(Handle);
+                var ret_ = g_variant_type_is_maybe(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -1380,7 +1388,8 @@ namespace GISharp.Lib.GLib
         {
             var this_ = Handle;
             var supertype_ = supertype.Handle;
-            var ret = g_variant_type_is_subtype_of(this_, supertype_);
+            var ret_ = g_variant_type_is_subtype_of(this_, supertype_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -1425,7 +1434,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsTuple {
             get {
-                var ret = g_variant_type_is_tuple(Handle);
+                var ret_ = g_variant_type_is_tuple(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -1457,7 +1467,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsVariant {
             get {
-                var ret = g_variant_type_is_variant(Handle);
+                var ret_ = g_variant_type_is_variant(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -1501,7 +1512,7 @@ namespace GISharp.Lib.GLib
         public VariantType Key {
             get {
                 var this_ = Handle;
-                if (!g_variant_type_is_dict_entry(this_)) {
+                if (g_variant_type_is_dict_entry(this_).IsFalse()) {
                     throw new InvalidOperationException("only valid for dictionary entry types");
                 }
                 var ret_ = g_variant_type_key(this_);
@@ -1557,10 +1568,10 @@ namespace GISharp.Lib.GLib
         public int Count {
             get {
                 var this_ = Handle;
-                if (!g_variant_type_is_tuple(this_) && !g_variant_type_is_dict_entry(this_)) {
+                if (g_variant_type_is_tuple(this_).IsFalse() && g_variant_type_is_dict_entry(this_).IsFalse()) {
                     throw new InvalidOperationException("only valid for tuple an dictionary entry types");
                 }
-                if (g_variant_type_equal(this_, Tuple.Handle)) {
+                if (g_variant_type_equal(this_, Tuple.Handle).IsTrue()) {
                     throw new InvalidOperationException("only valid for non-generic tuple types");
                 }
                 var ret = g_variant_type_n_items(this_);
@@ -1654,7 +1665,7 @@ namespace GISharp.Lib.GLib
         public VariantType Value {
             get {
                 var this_ = Handle;
-                if (!g_variant_type_is_dict_entry(this_)) {
+                if (g_variant_type_is_dict_entry(this_).IsFalse()) {
                     throw new InvalidOperationException("only valid for dictionary entry types");
                 }
                 var ret_ = g_variant_type_value(this_);

@@ -175,6 +175,9 @@ namespace GISharp.CodeGen.Syntax
                     var ref_ = declareVariable ? "ref " : $"({unmanagedType.GetElementType()})";
                     expressions.Add(ParseExpression($"{arg.ManagedName}_ = {ref_}{arg.ManagedName}"));
                 }
+                else if (type == typeof(bool)) {
+                    expressions.Add(ParseExpression($"{arg.ManagedName}_ = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.ToBoolean)}({arg.ManagedName})"));
+                }
                 else {
                     expressions.Add(ParseExpression($"{arg.ManagedName}_ = ({unmanagedType}){arg.ManagedName}"));
                 }
@@ -241,6 +244,9 @@ namespace GISharp.CodeGen.Syntax
                 // value types are used directly
                 if (arg is ReturnValue && arg.Type.IsPointer && type != typeof(IntPtr)) {
                     expressions.Add(ParseExpression($"{arg.ManagedName} = ({arg.ManagedName}_ == null) ? default({arg.Type.ManagedType}?) : ({arg.Type.ManagedType})(*{arg.ManagedName}_)"));
+                }
+                else if (type == typeof(bool)) {
+                    expressions.Add(ParseExpression($"{arg.ManagedName} = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.IsTrue)}({arg.ManagedName}_)"));
                 }
                 else {
                     expressions.Add(ParseExpression($"{arg.ManagedName} = ({arg.Type.ManagedType}){arg.ManagedName}_"));

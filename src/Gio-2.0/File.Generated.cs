@@ -1886,7 +1886,7 @@ namespace GISharp.Lib.Gio
             var file1_ = file1.Handle;
             var file2_ = file2.Handle;
             var ret_ = g_file_equal(file1_,file2_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -2298,7 +2298,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var parent_ = parent?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_file_has_parent(file_,parent_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -2348,7 +2348,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var prefix_ = prefix.Handle;
             var ret_ = g_file_has_prefix(file_,prefix_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -2388,7 +2388,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var uriScheme_ = uriScheme.Handle;
             var ret_ = g_file_has_uri_scheme(file_,uriScheme_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -2461,7 +2461,7 @@ namespace GISharp.Lib.Gio
             CheckIsNativeArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_is_native(file_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -3943,7 +3943,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_file_query_exists(file_,cancellable_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -4847,7 +4847,7 @@ namespace GISharp.Lib.Gio
             CheckReplaceArgs(file, etag, makeBackup, flags, cancellable);
             var file_ = file.Handle;
             var etag_ = etag.Handle;
-            var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
+            var makeBackup_ = GISharp.Runtime.BooleanExtensions.ToBoolean(makeBackup);
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -4939,7 +4939,7 @@ namespace GISharp.Lib.Gio
             CheckReplaceAsyncArgs(file, etag, makeBackup, flags, ioPriority, cancellable);
             var file_ = file.Handle;
             var etag_ = etag.Handle;
-            var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
+            var makeBackup_ = GISharp.Runtime.BooleanExtensions.ToBoolean(makeBackup);
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -5046,7 +5046,7 @@ namespace GISharp.Lib.Gio
             ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
             var length_ = (System.UIntPtr)contents.Length;
             var etag_ = etag.Handle;
-            var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
+            var makeBackup_ = GISharp.Runtime.BooleanExtensions.ToBoolean(makeBackup);
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -5154,7 +5154,7 @@ namespace GISharp.Lib.Gio
             ref readonly var contents_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(contents);
             var length_ = (System.UIntPtr)contents.Length;
             var etag_ = etag.Handle;
-            var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
+            var makeBackup_ = GISharp.Runtime.BooleanExtensions.ToBoolean(makeBackup);
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Utf8>();
@@ -5240,7 +5240,7 @@ namespace GISharp.Lib.Gio
             var file_ = file.Handle;
             var contents_ = contents.Handle;
             var etag_ = etag.Handle;
-            var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
+            var makeBackup_ = GISharp.Runtime.BooleanExtensions.ToBoolean(makeBackup);
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Utf8>();
@@ -5443,7 +5443,7 @@ namespace GISharp.Lib.Gio
             CheckReplaceReadwriteArgs(file, etag, makeBackup, flags, cancellable);
             var file_ = file.Handle;
             var etag_ = etag.Handle;
-            var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
+            var makeBackup_ = GISharp.Runtime.BooleanExtensions.ToBoolean(makeBackup);
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
@@ -5538,7 +5538,7 @@ namespace GISharp.Lib.Gio
             CheckReplaceReadwriteAsyncArgs(file, etag, makeBackup, flags, ioPriority, cancellable);
             var file_ = file.Handle;
             var etag_ = etag.Handle;
-            var makeBackup_ = (GISharp.Runtime.Boolean)makeBackup;
+            var makeBackup_ = GISharp.Runtime.BooleanExtensions.ToBoolean(makeBackup);
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
@@ -6722,7 +6722,7 @@ namespace GISharp.Lib.Gio
             CheckSupportsThreadContextsArgs(file);
             var file_ = file.Handle;
             var ret_ = g_file_supports_thread_contexts(file_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

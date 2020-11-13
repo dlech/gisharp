@@ -102,7 +102,7 @@ namespace GISharp.Lib.GLib
             var dict_ = Handle;
             var key_ = key.Handle;
             var ret_ = g_variant_dict_contains(dict_,key_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -301,7 +301,7 @@ namespace GISharp.Lib.GLib
             var dict_ = Handle;
             var key_ = key.Handle;
             var ret_ = g_variant_dict_remove(dict_,key_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

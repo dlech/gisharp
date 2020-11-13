@@ -3,6 +3,7 @@
 
 using System;
 using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
 {
@@ -14,7 +15,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool GetField (IntPtr mem, out Argument value)
         {
-            return g_field_info_get_field (Handle, mem, out value);
+            var ret_ = g_field_info_get_field(Handle, mem, out value);
+            var ret = ret_.IsTrue();
+            return ret;
         }
 
         [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -59,7 +62,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool SetField (IntPtr mem, Argument value)
         {
-            return g_field_info_set_field (Handle, mem, ref value);
+            var ret_ = g_field_info_set_field(Handle, mem, ref value);
+            var ret = ret_.IsTrue();
+            return ret;
         }
 
         public FieldInfo (IntPtr raw) : base (raw)

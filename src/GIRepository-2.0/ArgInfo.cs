@@ -4,6 +4,7 @@
 using System;
 using System.Linq;
 using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
 {
@@ -96,7 +97,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsCallerAllocates {
             get {
-                return g_arg_info_is_caller_allocates (Handle);
+                var ret_ = g_arg_info_is_caller_allocates(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -105,7 +108,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsOptional {
             get {
-                return g_arg_info_is_optional (Handle);
+                var ret_ = g_arg_info_is_optional(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -114,7 +119,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsReturnValue {
             get {
-                return g_arg_info_is_return_value (Handle);
+                var ret_ = g_arg_info_is_return_value(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -123,7 +130,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsSkip {
             get {
-                return g_arg_info_is_skip (Handle);
+                var ret_ = g_arg_info_is_skip(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -140,7 +149,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool MayBeNull {
             get {
-                return g_arg_info_may_be_null (Handle);
+                var ret_ =  g_arg_info_may_be_null(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 

@@ -120,7 +120,9 @@ namespace GISharp.Lib.GIRepository
             if (info2 is null) {
                 return false;
             }
-            return g_base_info_equal(info1.Handle, info2.Handle);
+            var ret_ = g_base_info_equal(info1.Handle, info2.Handle);
+            var ret = ret_.IsTrue();
+            return ret;
         }
 
         public bool Equals(BaseInfo? other)
@@ -251,8 +253,8 @@ namespace GISharp.Lib.GIRepository
         /// <value><c>true</c> if this instance is deprecated; otherwise, <c>false</c>.</value>
         public bool IsDeprecated {
             get {
-                bool raw_ret = g_base_info_is_deprecated(Handle);
-                bool ret = raw_ret;
+                var ret_ = g_base_info_is_deprecated(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -262,7 +264,8 @@ namespace GISharp.Lib.GIRepository
 
         bool IterateAttributes(ref AttributeIter iterator, out UnownedUtf8 name, out UnownedUtf8 value)
         {
-            var ret = g_base_info_iterate_attributes(Handle, ref iterator, out var name_, out var value_);
+            var ret_ = g_base_info_iterate_attributes(Handle, ref iterator, out var name_, out var value_);
+            var ret = ret_.IsTrue();
             name = ret ? new UnownedUtf8(name_, -1) : default!;
             value = ret ? new UnownedUtf8(value_, -1) : default!;
             return ret;

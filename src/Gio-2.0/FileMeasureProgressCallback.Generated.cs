@@ -83,7 +83,7 @@ namespace GISharp.Lib.Gio
 
             unsafe void managedCallback(System.Boolean reporting, System.UInt64 currentSize, System.UInt64 numDirs, System.UInt64 numFiles)
             {
-                var reporting_ = (GISharp.Runtime.Boolean)reporting;
+                var reporting_ = GISharp.Runtime.BooleanExtensions.ToBoolean(reporting);
                 var currentSize_ = (System.UInt64)currentSize;
                 var numDirs_ = (System.UInt64)numDirs;
                 var numFiles_ = (System.UInt64)numFiles;
@@ -127,7 +127,7 @@ namespace GISharp.Lib.Gio
         {
             try
             {
-                var reporting = (System.Boolean)reporting_;
+                var reporting = GISharp.Runtime.BooleanExtensions.IsTrue(reporting_);
                 var currentSize = (System.UInt64)currentSize_;
                 var numDirs = (System.UInt64)numDirs_;
                 var numFiles = (System.UInt64)numFiles_;

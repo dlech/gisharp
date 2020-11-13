@@ -101,7 +101,9 @@ namespace GISharp.Lib.GModule
         /// <value><c>true</c> if modules are supported.</value>
         public static bool Supported {
             get {
-                return g_module_supported ();
+                var ret_ = g_module_supported();
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -216,7 +218,7 @@ namespace GISharp.Lib.GModule
                 var symbolName_ = GMarshal.StringToUtf8Ptr (symbolName);
                 try {
                     IntPtr symbol;
-                    if (!g_module_symbol (Handle, symbolName_, out symbol)) {
+                    if (g_module_symbol(Handle, symbolName_, out symbol).IsFalse()) {
                         throw new ModuleErrorException (Error);
                     }
                     return symbol;

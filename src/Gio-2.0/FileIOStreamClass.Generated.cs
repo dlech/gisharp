@@ -157,7 +157,7 @@ System.IntPtr stream);
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileIOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var doCanSeek = (CanSeek)methodInfo.CreateDelegate(typeof(CanSeek), stream);
                         var ret = doCanSeek();
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -218,7 +218,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doSeek = (Seek)methodInfo.CreateDelegate(typeof(Seek), stream);
                         doSeek(offset, type, cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -267,7 +267,7 @@ System.IntPtr stream);
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileIOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var doCanTruncate = (CanTruncate)methodInfo.CreateDelegate(typeof(CanTruncate), stream);
                         var ret = doCanTruncate();
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -324,7 +324,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doTruncateFn = (TruncateFn)methodInfo.CreateDelegate(typeof(TruncateFn), stream);
                         doTruncateFn(size, cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {

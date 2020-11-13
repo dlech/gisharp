@@ -73,7 +73,8 @@ namespace GISharp.Lib.GLib
         {
             var this_ = Handle;
             var str_ = str.Handle;
-            var ret = g_strv_contains(this_, str_);
+            var ret_ = g_strv_contains(this_, str_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 

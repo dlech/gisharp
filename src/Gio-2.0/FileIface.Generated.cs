@@ -612,7 +612,7 @@ System.IntPtr file2);
                         var file2 = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file2_, GISharp.Runtime.Transfer.None)!;
                         var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), file1);
                         var ret = doEqual(file2);
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -658,7 +658,7 @@ System.IntPtr file);
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var doIsNative = (IsNative)methodInfo.CreateDelegate(typeof(IsNative), file);
                         var ret = doIsNative();
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -708,7 +708,7 @@ System.IntPtr uriScheme);
                         var uriScheme = new GISharp.Lib.GLib.UnownedUtf8(uriScheme_, -1);
                         var doHasUriScheme = (HasUriScheme)methodInfo.CreateDelegate(typeof(HasUriScheme), file);
                         var ret = doHasUriScheme(uriScheme);
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -1034,7 +1034,7 @@ System.IntPtr file);
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var doPrefixMatches = (PrefixMatches)methodInfo.CreateDelegate(typeof(PrefixMatches), prefix);
                         var ret = doPrefixMatches(file);
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -2041,7 +2041,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doSetAttribute = (SetAttribute)methodInfo.CreateDelegate(typeof(SetAttribute), file);
                         doSetAttribute(attribute, type, valueP, flags, cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -2105,7 +2105,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doSetAttributesFromInfo = (SetAttributesFromInfo)methodInfo.CreateDelegate(typeof(SetAttributesFromInfo), file);
                         doSetAttributesFromInfo(info, flags, cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -2230,7 +2230,7 @@ ref System.IntPtr error);
                         var doSetAttributesFinish = (SetAttributesFinish)methodInfo.CreateDelegate(typeof(SetAttributesFinish), file);
                         doSetAttributesFinish(result,out var info);
                         info_ = info.Take();
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -2823,7 +2823,7 @@ ref System.IntPtr error);
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_, -1);
-                        var makeBackup = (System.Boolean)makeBackup_;
+                        var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doReplace = (Replace)methodInfo.CreateDelegate(typeof(Replace), file);
@@ -2898,7 +2898,7 @@ System.IntPtr userData);
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_, -1);
-                        var makeBackup = (System.Boolean)makeBackup_;
+                        var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
@@ -3011,7 +3011,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doDeleteFile = (DeleteFile)methodInfo.CreateDelegate(typeof(DeleteFile), file);
                         doDeleteFile(cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3124,7 +3124,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doDeleteFileFinish = (DeleteFileFinish)methodInfo.CreateDelegate(typeof(DeleteFileFinish), file);
                         doDeleteFileFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3180,7 +3180,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doTrash = (Trash)methodInfo.CreateDelegate(typeof(Trash), file);
                         doTrash(cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3293,7 +3293,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doTrashFinish = (TrashFinish)methodInfo.CreateDelegate(typeof(TrashFinish), file);
                         doTrashFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3349,7 +3349,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doMakeDirectory = (MakeDirectory)methodInfo.CreateDelegate(typeof(MakeDirectory), file);
                         doMakeDirectory(cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3462,7 +3462,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doMakeDirectoryFinish = (MakeDirectoryFinish)methodInfo.CreateDelegate(typeof(MakeDirectoryFinish), file);
                         doMakeDirectoryFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3522,7 +3522,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doMakeSymbolicLink = (MakeSymbolicLink)methodInfo.CreateDelegate(typeof(MakeSymbolicLink), file);
                         doMakeSymbolicLink(symlinkValue, cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3593,7 +3593,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doCopy = (Copy)methodInfo.CreateDelegate(typeof(Copy), source);
                         doCopy(destination, flags, progressCallback, cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3721,7 +3721,7 @@ ref System.IntPtr error);
                         var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
                         var doCopyFinish = (CopyFinish)methodInfo.CreateDelegate(typeof(CopyFinish), file);
                         doCopyFinish(res);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3792,7 +3792,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doMove = (Move)methodInfo.CreateDelegate(typeof(Move), source);
                         doMove(destination, flags, progressCallback, cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3905,7 +3905,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doUnmountMountableFinish = (UnmountMountableFinish)methodInfo.CreateDelegate(typeof(UnmountMountableFinish), file);
                         doUnmountMountableFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -3961,7 +3961,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doEjectMountableFinish = (EjectMountableFinish)methodInfo.CreateDelegate(typeof(EjectMountableFinish), file);
                         doEjectMountableFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -4017,7 +4017,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doMountEnclosingVolumeFinish = (MountEnclosingVolumeFinish)methodInfo.CreateDelegate(typeof(MountEnclosingVolumeFinish), location);
                         doMountEnclosingVolumeFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -4430,7 +4430,7 @@ ref System.IntPtr error);
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_, -1);
-                        var makeBackup = (System.Boolean)makeBackup_;
+                        var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doReplaceReadwrite = (ReplaceReadwrite)methodInfo.CreateDelegate(typeof(ReplaceReadwrite), file);
@@ -4505,7 +4505,7 @@ System.IntPtr userData);
                     {
                         var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
                         var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_, -1);
-                        var makeBackup = (System.Boolean)makeBackup_;
+                        var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
                         var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
@@ -4618,7 +4618,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doStartMountableFinish = (StartMountableFinish)methodInfo.CreateDelegate(typeof(StartMountableFinish), file);
                         doStartMountableFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -4674,7 +4674,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doStopMountableFinish = (StopMountableFinish)methodInfo.CreateDelegate(typeof(StopMountableFinish), file);
                         doStopMountableFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -4730,7 +4730,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doUnmountMountableWithOperationFinish = (UnmountMountableWithOperationFinish)methodInfo.CreateDelegate(typeof(UnmountMountableWithOperationFinish), file);
                         doUnmountMountableWithOperationFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -4786,7 +4786,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doEjectMountableWithOperationFinish = (EjectMountableWithOperationFinish)methodInfo.CreateDelegate(typeof(EjectMountableWithOperationFinish), file);
                         doEjectMountableWithOperationFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -4895,7 +4895,7 @@ ref System.IntPtr error);
                         var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
                         var doPollMountableFinish = (PollMountableFinish)methodInfo.CreateDelegate(typeof(PollMountableFinish), file);
                         doPollMountableFinish(result);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {
@@ -4963,7 +4963,7 @@ ref System.IntPtr error);
                         diskUsage_ = (System.UInt64)diskUsage;
                         numDirs_ = (System.UInt64)numDirs;
                         numFiles_ = (System.UInt64)numFiles;
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {

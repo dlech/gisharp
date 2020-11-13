@@ -126,7 +126,7 @@ namespace GISharp.Lib.Gio
             var res_ = res.Handle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             var ret_ = g_async_result_is_tagged(res_,sourceTag_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
     }

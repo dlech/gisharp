@@ -233,7 +233,7 @@ namespace GISharp.Lib.Gio
         {
             CheckSetEnabledArgs(enabled);
             var simple_ = Handle;
-            var enabled_ = (GISharp.Runtime.Boolean)enabled;
+            var enabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(enabled);
             g_simple_action_set_enabled(simple_, enabled_);
         }
 

@@ -231,7 +231,7 @@ namespace GISharp.Lib.Gio
         {
             var stream_ = Handle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileInputStreamClass.UnmanagedCanSeek>(_GType)!(stream_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

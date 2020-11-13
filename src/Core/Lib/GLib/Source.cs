@@ -122,7 +122,8 @@ namespace GISharp.Lib.GLib
                 var managedSource = (ManagedSource*)source_;
                 var gcHandle = GCHandle.FromIntPtr(managedSource->gcHandle);
                 var source = (Source)gcHandle.Target!;
-                return source.OnPrepare(out *timeout_);
+                var ret = source.OnPrepare(out *timeout_);
+                return ret.ToBoolean();
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
@@ -154,7 +155,8 @@ namespace GISharp.Lib.GLib
                 var managedSource = (ManagedSource*)source_;
                 var gcHandle = GCHandle.FromIntPtr(managedSource->gcHandle);
                 var source = (Source)gcHandle.Target!;
-                return source.OnCheck();
+                var ret = source.OnCheck();
+                return ret.ToBoolean();
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
@@ -181,7 +183,8 @@ namespace GISharp.Lib.GLib
                 var callback = (delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean>)callback_;
                 var gcHandle = GCHandle.FromIntPtr(managedSource->gcHandle);
                 var source = (Source)gcHandle.Target!;
-                return source.OnDispatch(() => callback(userData_));
+                var ret = source.OnDispatch(() => callback(userData_).IsTrue());
+                return ret.ToBoolean();
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
@@ -675,12 +678,14 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool CanRecurse {
             get {
-                var ret = g_source_get_can_recurse(Handle);
+                var ret_ = g_source_get_can_recurse(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
 
             set {
-                g_source_set_can_recurse(Handle, value);
+                var canRecurse_ = value.ToBoolean();
+                g_source_set_can_recurse(Handle, canRecurse_);
             }
         }
 
@@ -1080,7 +1085,8 @@ namespace GISharp.Lib.GLib
         [Since("2.12")]
         public bool IsDestroyed {
             get {
-                var ret = g_source_is_destroyed(Handle);
+                var ret_ = g_source_is_destroyed(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }

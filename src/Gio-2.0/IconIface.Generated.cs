@@ -122,7 +122,7 @@ System.IntPtr icon2);
                         var icon2 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance(icon2_, GISharp.Runtime.Transfer.None);
                         var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), icon1);
                         var ret = doEqual(icon2);
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)

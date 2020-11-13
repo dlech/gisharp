@@ -4,6 +4,7 @@
 using System;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GObject;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
 {
@@ -34,7 +35,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool TrueStopsEmit {
             get {
-                return g_signal_info_true_stops_emit (Handle);
+                var ret_ = g_signal_info_true_stops_emit(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 

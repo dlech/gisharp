@@ -176,7 +176,7 @@ namespace GISharp.Lib.Gio
             var icon1_ = icon1?.Handle ?? System.IntPtr.Zero;
             var icon2_ = icon2?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_icon_equal(icon1_,icon2_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

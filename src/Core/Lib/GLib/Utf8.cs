@@ -1259,7 +1259,8 @@ namespace GISharp.Lib.GLib
 
             var this_ = Handle;
             var other_ = other.Handle;
-            var ret = g_str_equal(this_, other_);
+            var ret_ = g_str_equal(this_, other_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -1280,7 +1281,8 @@ namespace GISharp.Lib.GLib
 
             var this_ = Handle;
             fixed (byte* other_ = other) {
-                var ret = g_str_equal(this_, (IntPtr)other_);
+                var ret_ = g_str_equal(this_, (IntPtr)other_);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }

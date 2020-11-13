@@ -25,9 +25,10 @@ namespace GISharp.Lib.GLib
         public static Memory<Unichar> FullyDecompose(this Unichar ch, bool compat = false)
         {
             Memory<Unichar> result = new Unichar[maxDecompositionLength];
+            var compat_ = compat.ToBoolean();
             ref readonly var result_ = ref MemoryMarshal.GetReference(result.Span);
             var resultLen_ = (UIntPtr)maxDecompositionLength;
-            var ret = g_unichar_fully_decompose(ch, compat, result_, resultLen_);
+            var ret = g_unichar_fully_decompose(ch, compat_, result_, resultLen_);
             return result.Slice(0, (int)ret);
         }
     }

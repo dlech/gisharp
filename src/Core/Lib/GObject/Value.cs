@@ -631,7 +631,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static bool TypeCompatible(GType srcType, GType destType)
         {
-            var ret = g_value_type_compatible(srcType, destType);
+            var ret_ = g_value_type_compatible(srcType, destType);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -678,7 +679,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static bool TypeTransformable(GType srcType, GType destType)
         {
-            var ret = g_value_type_transformable(srcType, destType);
+            var ret_ = g_value_type_transformable(srcType, destType);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -918,7 +920,8 @@ namespace GISharp.Lib.GObject
         bool Boolean {
             get {
                 AssertType(GType.Boolean);
-                var ret = g_value_get_boolean(in this);
+                var ret_ = g_value_get_boolean(in this);
+                var ret = ret_.IsTrue();
                 return ret;
             }
 
@@ -2735,8 +2738,8 @@ namespace GISharp.Lib.GObject
         public bool TryTransform(ref Value destValue)
         {
             AssertInitialized();
-            var ret = g_value_transform(in this, ref destValue);
-
+            var ret_ = g_value_transform(in this, ref destValue);
+            var ret = ret_.IsTrue();
             return ret;
         }
 

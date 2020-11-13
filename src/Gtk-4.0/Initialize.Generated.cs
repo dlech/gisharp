@@ -95,7 +95,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckTryInitArgs();
             var ret_ = gtk_init_check();
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -117,7 +117,7 @@ namespace GISharp.Lib.Gtk
         {
             CheckGetIsInitializedArgs();
             var ret_ = gtk_is_initialized();
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
     }

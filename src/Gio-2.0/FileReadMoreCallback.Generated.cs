@@ -55,7 +55,7 @@ namespace GISharp.Lib.Gio
                 var fileContents_ = fileContents.Handle;
                 var fileSize_ = (System.Int64)fileSize;
                 var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_);
-                var ret = (System.Boolean)ret_;
+                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
             }
 
@@ -105,7 +105,7 @@ namespace GISharp.Lib.Gio
                 {
                     Destroy(callbackData_);
                 }
-                var ret_ = (GISharp.Runtime.Boolean)ret;
+                var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                 return ret_;
             }
             catch (System.Exception ex)

@@ -25,7 +25,7 @@ namespace GISharp.Lib.GObject
 
         static IntPtr New()
         {
-            return g_param_spec_pool_new(false);
+            return g_param_spec_pool_new(Runtime.Boolean.False);
         }
 
         public ParamSpecPool() : this(New(), Transfer.Full)

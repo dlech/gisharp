@@ -473,7 +473,9 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsAbstract {
             get {
-                return g_type_test_flags(this, TypeFlags.Abstract);
+                var ret_ = g_type_test_flags(this, TypeFlags.Abstract);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -509,7 +511,9 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public bool IsValueType {
             get {
-                return g_type_check_is_value_type(this);
+                var ret_ = g_type_check_is_value_type(this);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -518,7 +522,9 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public bool IsClassed {
             get {
-                return g_type_test_flags(this, TypeFlags.Classed);
+                var ret_ = g_type_test_flags(this, TypeFlags.Classed);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -531,7 +537,9 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsInstantiatable {
             get {
-                return g_type_test_flags(this, TypeFlags.Instantiatable);
+                var ret_ = g_type_test_flags(this, TypeFlags.Instantiatable);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -544,7 +552,9 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsDerivable {
             get {
-                return g_type_test_flags(this, TypeFlags.Derivable);
+                var ret_ =  g_type_test_flags(this, TypeFlags.Derivable);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -557,7 +567,9 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsDeepDerivable {
             get {
-                return g_type_test_flags(this, TypeFlags.DeepDerivable);
+                var ret_ =  g_type_test_flags(this, TypeFlags.DeepDerivable);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -723,7 +735,8 @@ namespace GISharp.Lib.GObject
 
         public bool IsA(GType type)
         {
-            var ret = g_type_is_a(this, type);
+            var ret_ = g_type_is_a(this, type);
+            var ret = ret_.IsTrue();
             return ret;
         }
 

@@ -124,7 +124,7 @@ System.IntPtr actionName);
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doHasAction = (HasAction)methodInfo.CreateDelegate(typeof(HasAction), actionGroup);
                         var ret = doHasAction(actionName);
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -222,7 +222,7 @@ System.IntPtr actionName);
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doGetActionEnabled = (GetActionEnabled)methodInfo.CreateDelegate(typeof(GetActionEnabled), actionGroup);
                         var ret = doGetActionEnabled(actionName);
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -665,7 +665,7 @@ GISharp.Runtime.Boolean enabled);
                     {
                         var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance(actionGroup_, GISharp.Runtime.Transfer.None)!;
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
-                        var enabled = (System.Boolean)enabled_;
+                        var enabled = GISharp.Runtime.BooleanExtensions.IsTrue(enabled_);
                         var doActionEnabledChanged = (ActionEnabledChanged)methodInfo.CreateDelegate(typeof(ActionEnabledChanged), actionGroup);
                         doActionEnabledChanged(actionName, enabled);
                     }

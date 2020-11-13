@@ -65,7 +65,7 @@ namespace GISharp.Lib.Gio
             CheckCanSeekArgs(seekable);
             var seekable_ = seekable.Handle;
             var ret_ = g_seekable_can_seek(seekable_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -94,7 +94,7 @@ namespace GISharp.Lib.Gio
             CheckCanTruncateArgs(seekable);
             var seekable_ = seekable.Handle;
             var ret_ = g_seekable_can_truncate(seekable_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

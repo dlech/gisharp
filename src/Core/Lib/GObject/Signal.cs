@@ -640,7 +640,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static bool HasHandlerPending (Object instance, uint signalId, Quark detail, bool mayBeBlocked)
         {
-            var ret = g_signal_has_handler_pending (instance.Handle, signalId, detail, mayBeBlocked);
+            var ret_ = g_signal_has_handler_pending(instance.Handle, signalId, detail, mayBeBlocked);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -1090,7 +1091,8 @@ namespace GISharp.Lib.GObject
         public static bool TryParseName(UnownedUtf8 detailedSignal, GType itype, out uint signalId, out Quark detail, bool forceDetailQuark = false)
         {
             var detailedSignal_ = detailedSignal.Handle;
-            var ret = g_signal_parse_name(detailedSignal_, itype, out signalId, out detail, forceDetailQuark);
+            var ret_ = g_signal_parse_name(detailedSignal_, itype, out signalId, out detail, forceDetailQuark);
+            var ret = ret_.IsTrue();
             return ret;
         }
 

@@ -39,7 +39,8 @@ namespace GISharp.Lib.GLib
         {
             var func = Marshal.GetDelegateForFunctionPointer<UnmanagedSourceFunc>(func_);
             return new SourceFunc(() => {
-                var ret = func(userData_);
+                var ret_ = func(userData_);
+                var ret = ret_.IsTrue();
                 return ret;
             });
         }
@@ -64,7 +65,7 @@ namespace GISharp.Lib.GLib
                 if (userData.Scope == CallbackScope.Async) {
                     gcHandle.Free();
                 }
-                return ret;
+                return ret.ToBoolean();
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();

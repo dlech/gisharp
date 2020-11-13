@@ -22,7 +22,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new Runtime.Boolean DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
+        public unsafe new bool DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue.IsTrue();
 
         /// <summary>
         /// For internal runtime use only.
@@ -44,21 +44,22 @@ namespace GISharp.Lib.GObject
 
         static IntPtr New(string name, string nick, string blurb, bool defaultValue, ParamFlags flags)
         {
-            var namePtr = GMarshal.StringToUtf8Ptr(name);
-            var nickPtr = GMarshal.StringToUtf8Ptr(nick);
-            var blurbPtr = GMarshal.StringToUtf8Ptr(blurb);
-            var ret = g_param_spec_boolean(namePtr, nickPtr, blurbPtr, defaultValue, flags);
+            var name_ = GMarshal.StringToUtf8Ptr(name);
+            var nick_ = GMarshal.StringToUtf8Ptr(nick);
+            var blurb_ = GMarshal.StringToUtf8Ptr(blurb);
+            var defaultValue_ = defaultValue.ToBoolean();
+            var ret = g_param_spec_boolean(name_, nick_, blurb_, defaultValue_, flags);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().
             if (!flags.HasFlag(ParamFlags.StaticName)) {
-                GMarshal.Free(namePtr);
+                GMarshal.Free(name_);
             }
             if (!flags.HasFlag(ParamFlags.StaticNick)) {
-                GMarshal.Free(nickPtr);
+                GMarshal.Free(nick_);
             }
             if (!flags.HasFlag(ParamFlags.StaticBlurb)) {
-                GMarshal.Free(blurbPtr);
+                GMarshal.Free(blurb_);
             }
 
             return ret;

@@ -128,7 +128,7 @@ namespace GISharp.Lib.GLib
             var b_ = (GISharp.Lib.GLib.Unichar)b;
             var ret_ = g_unichar_compose(a_,b_,out var ch_);
             ch = (GISharp.Lib.GLib.Unichar)ch_;
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -195,7 +195,7 @@ namespace GISharp.Lib.GLib
             var ret_ = g_unichar_decompose(ch_,out var a_,out var b_);
             a = (GISharp.Lib.GLib.Unichar)a_;
             b = (GISharp.Lib.GLib.Unichar)b_;
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -328,7 +328,7 @@ namespace GISharp.Lib.GLib
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
             var ret_ = g_unichar_get_mirror_char(ch_,out var mirroredCh_);
             mirroredCh = (GISharp.Lib.GLib.Unichar)mirroredCh_;
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -395,7 +395,7 @@ namespace GISharp.Lib.GLib
             CheckIsAlphaNumericArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isalnum(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -425,7 +425,7 @@ namespace GISharp.Lib.GLib
             CheckIsAlphaArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isalpha(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -455,7 +455,7 @@ namespace GISharp.Lib.GLib
             CheckIsControlArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iscntrl(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -484,7 +484,7 @@ namespace GISharp.Lib.GLib
             CheckIsDefinedArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isdefined(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -514,7 +514,7 @@ namespace GISharp.Lib.GLib
             CheckIsDigitArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isdigit(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -546,7 +546,7 @@ namespace GISharp.Lib.GLib
             CheckIsGraphArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isgraph(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -576,7 +576,7 @@ namespace GISharp.Lib.GLib
             CheckIsLowerArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_islower(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -615,7 +615,7 @@ namespace GISharp.Lib.GLib
             CheckIsMarkArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_ismark(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -646,7 +646,7 @@ namespace GISharp.Lib.GLib
             CheckIsPrintableArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isprint(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -676,7 +676,7 @@ namespace GISharp.Lib.GLib
             CheckIsPunctuationArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_ispunct(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -711,7 +711,7 @@ namespace GISharp.Lib.GLib
             CheckIsSpaceArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isspace(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -744,7 +744,7 @@ namespace GISharp.Lib.GLib
             CheckIsTitleArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_istitle(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -772,7 +772,7 @@ namespace GISharp.Lib.GLib
             CheckIsUpperArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isupper(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -801,7 +801,7 @@ namespace GISharp.Lib.GLib
             CheckIsWideArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iswide(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -841,7 +841,7 @@ namespace GISharp.Lib.GLib
             CheckIsWideCjkArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iswide_cjk(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -869,7 +869,7 @@ namespace GISharp.Lib.GLib
             CheckIsHexDigitArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_isxdigit(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -908,7 +908,7 @@ namespace GISharp.Lib.GLib
             CheckIsZeroWidthArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_iszerowidth(c_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1081,7 +1081,7 @@ namespace GISharp.Lib.GLib
             CheckValidateArgs(ch);
             var ch_ = (GISharp.Lib.GLib.Unichar)ch;
             var ret_ = g_unichar_validate(ch_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

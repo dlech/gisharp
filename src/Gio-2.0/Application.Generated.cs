@@ -430,7 +430,7 @@ namespace GISharp.Lib.Gio
             CheckIdIsValidArgs(applicationId);
             var applicationId_ = applicationId.Handle;
             var ret_ = g_application_id_is_valid(applicationId_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -906,7 +906,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsBusyArgs();
             var application_ = Handle;
             var ret_ = g_application_get_is_busy(application_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -939,7 +939,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsRegisteredArgs();
             var application_ = Handle;
             var ret_ = g_application_get_is_registered(application_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -978,7 +978,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsRemoteArgs();
             var application_ = Handle;
             var ret_ = g_application_get_is_remote(application_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1949,7 +1949,7 @@ namespace GISharp.Lib.Gio
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedTryLocalCommandLine>(_GType)!(application_,ref arguments_,out var exitStatus_);
             arguments = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(arguments_, GISharp.Runtime.Transfer.Full)!;
             exitStatus = (System.Int32)exitStatus_;
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1959,7 +1959,7 @@ namespace GISharp.Lib.Gio
         {
             var application_ = Handle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedNameLost>(_GType)!(application_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

@@ -428,7 +428,7 @@ namespace GISharp.Lib.Gio
             CheckHasPendingArgs();
             var stream_ = Handle;
             var ret_ = g_io_stream_has_pending(stream_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -457,7 +457,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsClosedArgs();
             var stream_ = Handle;
             var ret_ = g_io_stream_is_closed(stream_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

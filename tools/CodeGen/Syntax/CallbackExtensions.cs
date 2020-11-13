@@ -105,7 +105,7 @@ namespace GISharp.CodeGen.Syntax
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
             else if (callback.ReturnValue.Type.UnmanagedType == typeof(Runtime.Boolean)) {
-                var returnStatement = ReturnStatement(ParseExpression("true"));
+                var returnStatement = ReturnStatement(ParseExpression("GISharp.Runtime.Boolean.True"));
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
 
@@ -228,7 +228,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (skipReturnValue) {
                 // callbacks that throw and return bool should always return true
-                yield return ParseStatement("return true;\n");
+                yield return ParseStatement("return GISharp.Runtime.Boolean.True;\n");
             }
             else if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
                 foreach (var s in callback.ReturnValue.GetMarshalManagedToUnmanagedStatements()) {

@@ -253,7 +253,7 @@ namespace GISharp.Lib.Gio
             CheckActionEnabledChangedArgs(actionGroup, actionName, enabled);
             var actionGroup_ = actionGroup.Handle;
             var actionName_ = actionName.Handle;
-            var enabled_ = (GISharp.Runtime.Boolean)enabled;
+            var enabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(enabled);
             g_action_group_action_enabled_changed(actionGroup_, actionName_, enabled_);
         }
 
@@ -466,7 +466,7 @@ namespace GISharp.Lib.Gio
             var actionGroup_ = actionGroup.Handle;
             var actionName_ = actionName.Handle;
             var ret_ = g_action_group_get_action_enabled(actionGroup_,actionName_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -706,7 +706,7 @@ namespace GISharp.Lib.Gio
             var actionGroup_ = actionGroup.Handle;
             var actionName_ = actionName.Handle;
             var ret_ = g_action_group_has_action(actionGroup_,actionName_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -837,12 +837,12 @@ namespace GISharp.Lib.Gio
             var actionGroup_ = actionGroup.Handle;
             var actionName_ = actionName.Handle;
             var ret_ = g_action_group_query_action(actionGroup_,actionName_,out var enabled_,out var parameterType_,out var stateType_,out var stateHint_,out var state_);
-            enabled = (System.Boolean)enabled_;
+            enabled = GISharp.Runtime.BooleanExtensions.IsTrue(enabled_);
             parameterType = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(parameterType_, GISharp.Runtime.Transfer.Full)!;
             stateType = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(stateType_, GISharp.Runtime.Transfer.Full)!;
             stateHint = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(stateHint_, GISharp.Runtime.Transfer.Full)!;
             state = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(state_, GISharp.Runtime.Transfer.Full)!;
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
     }

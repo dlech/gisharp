@@ -346,7 +346,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         private protected bool Remove(IntPtr data)
         {
-            var ret = g_ptr_array_remove(Handle, data);
+            var ret_ = g_ptr_array_remove(Handle, data);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -394,7 +395,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         private protected bool RemoveFast(IntPtr data)
         {
-            var ret = g_ptr_array_remove_fast(Handle, data);
+            var ret_ = g_ptr_array_remove_fast(Handle, data);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -736,8 +738,9 @@ namespace GISharp.Lib.GLib
         private protected unsafe bool Find(IntPtr needle, out int index)
         {
             uint index_;
-            var ret = g_ptr_array_find(Handle, needle, &index_);
+            var ret_ = g_ptr_array_find(Handle, needle, &index_);
             index = (int)index_;
+            var ret = ret_.IsTrue();
             return ret;
         }
     }

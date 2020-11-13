@@ -319,7 +319,7 @@ namespace GISharp.Lib.Gio
             CheckGetIsRemoteArgs();
             var cmdline_ = Handle;
             var ret_ = g_application_command_line_get_is_remote(cmdline_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

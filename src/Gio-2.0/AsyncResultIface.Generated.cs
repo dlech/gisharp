@@ -162,7 +162,7 @@ System.IntPtr sourceTag);
                         var sourceTag = (System.IntPtr)sourceTag_;
                         var doIsTagged = (IsTagged)methodInfo.CreateDelegate(typeof(IsTagged), res);
                         var ret = doIsTagged(sourceTag);
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)

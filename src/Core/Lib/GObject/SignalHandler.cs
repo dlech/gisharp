@@ -2,7 +2,7 @@ using System;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GLib;
-
+using GISharp.Runtime;
 using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
@@ -181,7 +181,9 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public bool IsConnected {
             get {
-                return g_signal_handler_is_connected (instance.Handle, handlerId);
+                var ret_ = g_signal_handler_is_connected (instance.Handle, handlerId);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 

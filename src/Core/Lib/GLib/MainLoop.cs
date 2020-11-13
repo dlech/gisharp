@@ -57,7 +57,8 @@ namespace GISharp.Lib.GLib
 
         static IntPtr New(MainContext? context = null, bool isRunning = false)
         {
-            var ret = g_main_loop_new (context?.Handle ?? IntPtr.Zero, isRunning);
+            var isRunning_ = isRunning.ToBoolean();
+            var ret = g_main_loop_new(context?.Handle ?? IntPtr.Zero, isRunning_);
             return ret;
         }
 
@@ -140,7 +141,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool IsRunning {
             get {
-                var ret = g_main_loop_is_running(Handle);
+                var ret_ = g_main_loop_is_running(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }

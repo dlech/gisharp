@@ -118,8 +118,8 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsForeign {
             get {
-                bool raw_ret = g_struct_info_is_foreign(Handle);
-                bool ret = raw_ret;
+                var ret_ = g_struct_info_is_foreign(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -129,8 +129,8 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsGTypeStruct {
             get {
-                bool raw_ret = g_struct_info_is_gtype_struct(Handle);
-                bool ret = raw_ret;
+                var ret_ = g_struct_info_is_gtype_struct(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }

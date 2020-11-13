@@ -214,7 +214,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetHelpArgs(mainHelp, group);
             var context_ = Handle;
-            var mainHelp_ = (GISharp.Runtime.Boolean)mainHelp;
+            var mainHelp_ = GISharp.Runtime.BooleanExtensions.ToBoolean(mainHelp);
             var group_ = group?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_option_context_get_help(context_,mainHelp_,group_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
@@ -247,7 +247,7 @@ namespace GISharp.Lib.GLib
             CheckGetHelpEnabledArgs();
             var context_ = Handle;
             var ret_ = g_option_context_get_help_enabled(context_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -277,7 +277,7 @@ namespace GISharp.Lib.GLib
             CheckGetIgnoreUnknownOptionsArgs();
             var context_ = Handle;
             var ret_ = g_option_context_get_ignore_unknown_options(context_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -340,7 +340,7 @@ namespace GISharp.Lib.GLib
             CheckGetStrictPosixArgs();
             var context_ = Handle;
             var ret_ = g_option_context_get_strict_posix(context_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -440,7 +440,7 @@ namespace GISharp.Lib.GLib
         {
             CheckSetHelpEnabledArgs(helpEnabled);
             var context_ = Handle;
-            var helpEnabled_ = (GISharp.Runtime.Boolean)helpEnabled;
+            var helpEnabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(helpEnabled);
             g_option_context_set_help_enabled(context_, helpEnabled_);
         }
 
@@ -479,7 +479,7 @@ namespace GISharp.Lib.GLib
         {
             CheckSetIgnoreUnknownOptionsArgs(ignoreUnknown);
             var context_ = Handle;
-            var ignoreUnknown_ = (GISharp.Runtime.Boolean)ignoreUnknown;
+            var ignoreUnknown_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ignoreUnknown);
             g_option_context_set_ignore_unknown_options(context_, ignoreUnknown_);
         }
 
@@ -568,7 +568,7 @@ namespace GISharp.Lib.GLib
         {
             CheckSetStrictPosixArgs(strictPosix);
             var context_ = Handle;
-            var strictPosix_ = (GISharp.Runtime.Boolean)strictPosix;
+            var strictPosix_ = GISharp.Runtime.BooleanExtensions.ToBoolean(strictPosix);
             g_option_context_set_strict_posix(context_, strictPosix_);
         }
 

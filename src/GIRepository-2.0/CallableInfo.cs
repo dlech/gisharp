@@ -28,7 +28,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool CanThrowGError {
             get {
-                return g_callable_info_can_throw_gerror (Handle);
+                var ret_ = g_callable_info_can_throw_gerror(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -103,12 +105,14 @@ namespace GISharp.Lib.GIRepository
 
         bool Invoke(IntPtr function, Argument[] inArgs, Argument[] outArgs, out Argument returnValue, bool isMethod, bool throws)
         {
-            IntPtr error_;
-            bool ret = g_callable_info_invoke (Handle, function, inArgs, (inArgs is null ? 0 : inArgs.Length), outArgs, (outArgs is null ? 0 : outArgs.Length), out returnValue, isMethod, throws, out error_);
+            var isMethod_ = isMethod.ToBoolean();
+            var throws_ = throws.ToBoolean();
+            var ret_ = g_callable_info_invoke(Handle, function, inArgs, inArgs is null ? 0 : inArgs.Length, outArgs, outArgs is null ? 0 : outArgs.Length, out returnValue, isMethod_, throws_, out IntPtr error_);
             if (error_ != IntPtr.Zero) {
                 var error = new Error (error_, Runtime.Transfer.Full);
                 throw new GErrorException (error);
             }
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -117,7 +121,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsMethod {
             get {
-                return g_callable_info_is_method (Handle);
+                var ret_ = g_callable_info_is_method(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -126,7 +132,8 @@ namespace GISharp.Lib.GIRepository
 
         bool IterateReturnAttributes(ref AttributeIter iterator, out UnownedUtf8 name, out UnownedUtf8 value)
         {
-            var ret = g_callable_info_iterate_return_attributes(Handle, ref iterator, out var name_, out var value_);
+            var ret_ = g_callable_info_iterate_return_attributes(Handle, ref iterator, out var name_, out var value_);
+            var ret = ret_.IsTrue();
             name = ret ? new UnownedUtf8(name_, -1) : default!;
             value = ret ? new UnownedUtf8(value_, -1) : default!;
             return ret;
@@ -162,7 +169,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool MayReturnNull {
             get {
-                return g_callable_info_may_return_null (Handle);
+                var ret_ = g_callable_info_may_return_null(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 
@@ -171,7 +180,9 @@ namespace GISharp.Lib.GIRepository
 
         public bool SkipReturn {
             get {
-                return g_callable_info_skip_return (Handle);
+                var ret_ = g_callable_info_skip_return(Handle);
+                var ret = ret_.IsTrue();
+                return ret;
             }
         }
 

@@ -172,7 +172,7 @@ namespace GISharp.Lib.Gio
             var result_ = result.Handle;
             var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_task_is_valid(result_,sourceObject_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -296,7 +296,7 @@ namespace GISharp.Lib.Gio
             CheckGetCheckCancellableArgs();
             var task_ = Handle;
             var ret_ = g_task_get_check_cancellable(task_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -327,7 +327,7 @@ namespace GISharp.Lib.Gio
             CheckGetCompletedArgs();
             var task_ = Handle;
             var ret_ = g_task_get_completed(task_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -448,7 +448,7 @@ namespace GISharp.Lib.Gio
             CheckGetReturnOnCancelArgs();
             var task_ = Handle;
             var ret_ = g_task_get_return_on_cancel(task_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -566,7 +566,7 @@ namespace GISharp.Lib.Gio
             CheckHadErrorArgs();
             var task_ = Handle;
             var ret_ = g_task_had_error(task_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -806,7 +806,7 @@ namespace GISharp.Lib.Gio
         {
             CheckReturnBooleanArgs(result);
             var task_ = Handle;
-            var result_ = (GISharp.Runtime.Boolean)result;
+            var result_ = GISharp.Runtime.BooleanExtensions.ToBoolean(result);
             g_task_return_boolean(task_, result_);
         }
 
@@ -882,7 +882,7 @@ namespace GISharp.Lib.Gio
             CheckReturnErrorIfCancelledArgs();
             var task_ = Handle;
             var ret_ = g_task_return_error_if_cancelled(task_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1119,7 +1119,7 @@ namespace GISharp.Lib.Gio
         {
             CheckSetCheckCancellableArgs(checkCancellable);
             var task_ = Handle;
-            var checkCancellable_ = (GISharp.Runtime.Boolean)checkCancellable;
+            var checkCancellable_ = GISharp.Runtime.BooleanExtensions.ToBoolean(checkCancellable);
             g_task_set_check_cancellable(task_, checkCancellable_);
         }
 
@@ -1263,9 +1263,9 @@ namespace GISharp.Lib.Gio
         {
             CheckSetReturnOnCancelArgs(returnOnCancel);
             var task_ = Handle;
-            var returnOnCancel_ = (GISharp.Runtime.Boolean)returnOnCancel;
+            var returnOnCancel_ = GISharp.Runtime.BooleanExtensions.ToBoolean(returnOnCancel);
             var ret_ = g_task_set_return_on_cancel(task_,returnOnCancel_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

@@ -367,7 +367,7 @@ namespace GISharp.Lib.GLib
                 foreach (var callback in userData.Callbacks) {
                     callback();
                 }
-                return true;
+                return Runtime.Boolean.True;
             }
             catch (GErrorException ex) {
                 GMarshal.PropagateError(ref error_, ex.Error);
@@ -376,7 +376,7 @@ namespace GISharp.Lib.GLib
                 // FIXME: marshal Exception to Error
                 ex.LogUnhandledException();
             }
-            return false;
+            return default;
         }
     }
 }

@@ -326,7 +326,7 @@ out System.Int32 exitStatus);
                         var ret = doTryLocalCommandLine(ref arguments,out var exitStatus);
                         arguments_ = arguments.Take();
                         exitStatus_ = (System.Int32)exitStatus;
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -687,7 +687,7 @@ System.IntPtr application);
                         var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>(application_, GISharp.Runtime.Transfer.None)!;
                         var doNameLost = (NameLost)methodInfo.CreateDelegate(typeof(NameLost), application);
                         var ret = doNameLost();
-                        var ret_ = (GISharp.Runtime.Boolean)ret;
+                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                         return ret_;
                     }
                     catch (System.Exception ex)

@@ -110,7 +110,7 @@ namespace GISharp.Lib.GLib
                 {
                     Destroy(data_);
                 }
-                return true;
+                return GISharp.Runtime.Boolean.True;
             }
             catch (System.Exception ex)
             {

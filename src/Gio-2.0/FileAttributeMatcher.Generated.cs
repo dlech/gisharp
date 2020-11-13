@@ -111,7 +111,7 @@ namespace GISharp.Lib.Gio
             var matcher_ = Handle;
             var ns_ = ns.Handle;
             var ret_ = g_file_attribute_matcher_enumerate_namespace(matcher_,ns_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -177,7 +177,7 @@ namespace GISharp.Lib.Gio
             var matcher_ = Handle;
             var attribute_ = attribute.Handle;
             var ret_ = g_file_attribute_matcher_matches(matcher_,attribute_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -213,7 +213,7 @@ namespace GISharp.Lib.Gio
             var matcher_ = Handle;
             var attribute_ = attribute.Handle;
             var ret_ = g_file_attribute_matcher_matches_only(matcher_,attribute_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

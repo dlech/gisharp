@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using System.Runtime.InteropServices;
 
 namespace GISharp.Runtime
 {
@@ -42,8 +41,6 @@ namespace GISharp.Runtime
 
     public class CArray<T> : CArray, IReadOnlyList<T> where T : unmanaged
     {
-        static readonly int sizeOfT = Marshal.SizeOf<T>();
-
         public CArray(IntPtr handle, int length, Transfer ownership) : base(handle, length, ownership)
         {
         }
@@ -52,14 +49,13 @@ namespace GISharp.Runtime
         {
         }
 
-        public T this[int index] {
+        public unsafe T this[int index] {
             get {
-                var this_ = Handle;
+                var this_ = (T*)Handle;
                 if (index < 0 || index >= Length) {
                     throw new ArgumentOutOfRangeException(nameof(index));
                 }
-                var offset = sizeOfT * index;
-                var ret = Marshal.PtrToStructure<T>(this_ + offset);
+                var ret = this_[index];
                 return ret;
             }
         }

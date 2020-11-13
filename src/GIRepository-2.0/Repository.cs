@@ -224,7 +224,8 @@ namespace GISharp.Lib.GIRepository
         /// <param name="version">Required version or <c>null</c> for latest.</param>
         public static bool IsRegistered(UnownedUtf8 @namespace, NullableUnownedUtf8 version = default)
         {
-            var ret = g_irepository_is_registered(IntPtr.Zero, @namespace.Handle, version.Handle);
+            var ret_ = g_irepository_is_registered(IntPtr.Zero, @namespace.Handle, version.Handle);
+            var ret = ret_.IsTrue();
             return ret;
         }
 

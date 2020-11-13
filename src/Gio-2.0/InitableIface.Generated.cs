@@ -64,7 +64,7 @@ ref System.IntPtr error);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doInit = (Init)methodInfo.CreateDelegate(typeof(Init), initable);
                         doInit(cancellable);
-                        return true;
+                        return GISharp.Runtime.Boolean.True;
                     }
                     catch (GISharp.Runtime.GErrorException ex)
                     {

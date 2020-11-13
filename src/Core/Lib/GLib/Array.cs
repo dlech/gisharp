@@ -89,7 +89,9 @@ namespace GISharp.Lib.GLib
             if (elementSize < 0) {
                 throw new ArgumentOutOfRangeException(nameof(elementSize));
             }
-            var ret_ = g_array_new(zeroTerminated, clear, (uint)elementSize);
+            var zeroTerminated_ = zeroTerminated.ToBoolean();
+            var clear_ = clear.ToBoolean();
+            var ret_ = g_array_new(zeroTerminated_, clear_, (uint)elementSize);
             return ret_;
         }
 
@@ -131,7 +133,9 @@ namespace GISharp.Lib.GLib
             if (reservedSize < 0) {
                 throw new ArgumentOutOfRangeException(nameof(reservedSize));
             }
-            var ret_ = g_array_sized_new(zeroTerminated, clear, (uint)elementSize, (uint)reservedSize);
+            var zeroTerminated_ = zeroTerminated.ToBoolean();
+            var clear_ = clear.ToBoolean();
+            var ret_ = g_array_sized_new(zeroTerminated_, clear_, (uint)elementSize, (uint)reservedSize);
             return ret_;
         }
 

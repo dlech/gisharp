@@ -68,7 +68,7 @@ namespace GISharp.Lib.Gio
             CheckNameIsValidArgs(actionName);
             var actionName_ = actionName.Handle;
             var ret_ = g_action_name_is_valid(actionName_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -363,7 +363,7 @@ namespace GISharp.Lib.Gio
             CheckGetEnabledArgs(action);
             var action_ = action.Handle;
             var ret_ = g_action_get_enabled(action_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

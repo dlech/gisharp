@@ -154,7 +154,8 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public bool Matches(Quark domain, int code)
         {
-            var ret = g_error_matches(Handle, domain, code);
+            var ret_ = g_error_matches(Handle, domain, code);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -175,7 +176,8 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public bool Matches(System.Enum code)
         {
-            var ret = g_error_matches(Handle, code.GetGErrorDomain(), (int)(object)code);
+            var ret_ = g_error_matches(Handle, code.GetGErrorDomain(), Convert.ToInt32(code));
+            var ret = ret_.IsTrue();
             return ret;
         }
 

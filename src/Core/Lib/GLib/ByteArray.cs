@@ -499,7 +499,7 @@ namespace GISharp.Lib.GLib
         public (IntPtr, int) TakeData()
         {
             var length = (int)Len;
-            var data = g_byte_array_free(Handle, false);
+            var data = g_byte_array_free(Handle, Runtime.Boolean.False);
             handle = IntPtr.Zero; // object becomes disposed
             return (data, length);
         }

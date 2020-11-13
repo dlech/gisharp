@@ -290,7 +290,8 @@ namespace GISharp.Lib.GLib
             }
             var bytes1_ = bytes1.Handle;
             var bytes2_ = bytes2.Handle;
-            var ret = g_bytes_equal(bytes1_, bytes2_);
+            var ret_ = g_bytes_equal(bytes1_, bytes2_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 

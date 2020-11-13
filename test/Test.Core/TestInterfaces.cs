@@ -107,12 +107,13 @@ namespace GISharp.Test.Core
         public static bool Init(this IInitable initable)
         {
             var instance = (Object)initable;
-            var ret = g_initable_init(instance.Handle, IntPtr.Zero, out var errorPtr);
+            var ret_ = g_initable_init(instance.Handle, IntPtr.Zero, out var errorPtr);
             GC.KeepAlive(instance);
             if (errorPtr != IntPtr.Zero) {
                 var error = Opaque.GetInstance<Error>(errorPtr, Transfer.Full);
                 throw new GErrorException(error);
             }
+            var ret = ret_.IsTrue();
             return ret;
         }
     }
@@ -263,7 +264,7 @@ namespace GISharp.Test.Core
                         var doCanReachAsync = (CanReachAsync)methodInfo.CreateDelegate(typeof(CanReachAsync), monitor);
                         var task = doCanReachAsync(connectable_, cancellable_);
                         task.ContinueWith(x => {
-                            GTask.g_task_return_boolean(task_, x.Result);
+                            GTask.g_task_return_boolean(task_, x.Result.ToBoolean());
                         });
                     }
                     catch (Exception ex) {
@@ -318,9 +319,8 @@ namespace GISharp.Test.Core
         public static bool GetNetworkAvailable(this INetworkMonitor monitor)
         {
             var instance = (Object)monitor;
-            var ret = g_network_monitor_get_network_available(instance.Handle);
-            GC.KeepAlive(instance);
-
+            var ret_ = g_network_monitor_get_network_available(instance.Handle);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -330,9 +330,8 @@ namespace GISharp.Test.Core
         public static bool GetNetworkMetered(this INetworkMonitor monitor)
         {
             var instance = (Object)monitor;
-            var ret = g_network_monitor_get_network_metered(instance.Handle);
-            GC.KeepAlive(instance);
-
+            var ret_ = g_network_monitor_get_network_metered(instance.Handle);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -342,13 +341,13 @@ namespace GISharp.Test.Core
         public static bool CanReach(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default)
         {
             var instance = (Object)monitor;
-            var ret = g_network_monitor_can_reach(instance.Handle, connectable, cancellable, out var errorPtr);
-            GC.KeepAlive(instance);
+            var ret_ = g_network_monitor_can_reach(instance.Handle, connectable, cancellable, out var errorPtr);
             if (errorPtr != IntPtr.Zero) {
                 var error = Opaque.GetInstance<Error>(errorPtr, Transfer.Full);
                 throw new GErrorException(error);
             }
 
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -377,12 +376,13 @@ namespace GISharp.Test.Core
                 userData.Free();
 
                 var error_ = IntPtr.Zero;
-                var ret = g_network_monitor_can_reach_finish(sourceObject_, result_, ref error_);
+                var ret_ = g_network_monitor_can_reach_finish(sourceObject_, result_, ref error_);
                 if (error_ != IntPtr.Zero) {
                     var error = Opaque.GetInstance<Error>(error_, Transfer.Full);
                     completion.SetException(new GErrorException(error));
                 }
                 else {
+                    var ret = ret_.IsTrue();
                     completion.SetResult(ret);
                 }
             }
@@ -587,11 +587,12 @@ namespace GISharp.Test.Core
         public bool PropagateBoolean()
         {
             var error_ = IntPtr.Zero;
-            var ret = g_task_propagate_boolean(Handle, ref error_);
+            var ret_ = g_task_propagate_boolean(Handle, ref error_);
             if (error_ != IntPtr.Zero) {
                 var error = Opaque.GetInstance<Error>(error_, Transfer.Full);
                 throw new GErrorException(error);
             }
+            var ret = ret_.IsTrue();
             return ret;
         }
     }

@@ -490,7 +490,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool Acquire()
         {
-            var ret = g_main_context_acquire(Handle);
+            var ret_ = g_main_context_acquire(Handle);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -900,7 +901,8 @@ namespace GISharp.Lib.GLib
         [Since("2.10")]
         public bool IsOwner {
             get {
-                var ret = g_main_context_is_owner(Handle);
+                var ret_ = g_main_context_is_owner(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -963,7 +965,9 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool Iteration(bool mayBlock)
         {
-            var ret = g_main_context_iteration(Handle, mayBlock);
+            var mayBlock_ = mayBlock.ToBoolean();
+            var ret_ = g_main_context_iteration(Handle, mayBlock_);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -992,7 +996,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool CheckPending()
         {
-            var ret = g_main_context_pending(Handle);
+            var ret_ = g_main_context_pending(Handle);
+            var ret = ret_.IsTrue();
             return ret;
         }
 
@@ -1071,8 +1076,9 @@ namespace GISharp.Lib.GLib
         public unsafe bool Prepare(out int priority)
         {
             int priority_;
-            var ret = g_main_context_prepare(Handle, &priority_);
+            var ret_ = g_main_context_prepare(Handle, &priority_);
             priority = priority_;
+            var ret = ret_.IsTrue();
             return ret;
         }
 

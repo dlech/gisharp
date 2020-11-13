@@ -67,7 +67,7 @@ namespace GISharp.Lib.GLib
             var isoDate_ = isoDate.Handle;
             var ret_ = g_time_val_from_iso8601(isoDate_,out var time_);
             time = (GISharp.Lib.GLib.TimeVal)time_;
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

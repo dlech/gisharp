@@ -148,8 +148,8 @@ namespace GISharp.Lib.GIRepository
 
         public bool Abstract {
             get {
-                bool raw_ret = g_object_info_get_abstract (Handle);
-                bool ret = raw_ret;
+                var ret_ = g_object_info_get_abstract(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -187,8 +187,8 @@ namespace GISharp.Lib.GIRepository
 
         public bool Fundamental {
             get {
-                bool raw_ret = g_object_info_get_fundamental (Handle);
-                bool ret = raw_ret;
+                var ret_ = g_object_info_get_fundamental(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }

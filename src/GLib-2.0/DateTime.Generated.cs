@@ -1921,7 +1921,7 @@ namespace GISharp.Lib.GLib
             CheckGetIsDaylightSavingsArgs();
             var datetime_ = Handle;
             var ret_ = g_date_time_is_daylight_savings(datetime_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -2035,7 +2035,7 @@ namespace GISharp.Lib.GLib
             var datetime_ = Handle;
             ref readonly var tv_ = ref tv;
             var ret_ = g_date_time_to_timeval(datetime_,tv_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -2215,7 +2215,7 @@ namespace GISharp.Lib.GLib
             var dt1_ = Handle;
             var dt2_ = dt2.Handle;
             var ret_ = g_date_time_equal(dt1_,dt2_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

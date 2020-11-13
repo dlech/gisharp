@@ -118,8 +118,8 @@ namespace GISharp.Lib.GIRepository
         {
             fixed (Argument* inArgs_ = inArgs)
             fixed (Argument* outArgs_ = outArgs) {
-                if (!g_function_info_invoke(Handle, inArgs_, inArgs.Length, outArgs_, outArgs.Length, out var ret, out var err_)) {
-                    var err = new GLib.Error(err_, Runtime.Transfer.Full);
+                if (g_function_info_invoke(Handle, inArgs_, inArgs.Length, outArgs_, outArgs.Length, out var ret, out var err_).IsFalse()) {
+                    var err = new Error(err_, Runtime.Transfer.Full);
                     throw new GErrorException(err);
                 }
                 return ret;

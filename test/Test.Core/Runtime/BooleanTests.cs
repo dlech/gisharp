@@ -10,7 +10,7 @@ namespace GISharp.Test.Runtime
         [Test]
         public void TestSizeOf()
         {
-            Assert.That(Marshal.SizeOf<Boolean>(), Is.EqualTo(sizeof(int)));
+            Assert.That(sizeof(Boolean), Is.EqualTo(sizeof(int)));
         }
     }
 }

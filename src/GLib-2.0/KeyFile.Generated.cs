@@ -222,7 +222,7 @@ namespace GISharp.Lib.GLib
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1364,7 +1364,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var ret_ = g_key_file_has_group(keyFile_,groupName_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 
@@ -1951,7 +1951,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = Handle;
             var groupName_ = groupName.Handle;
             var key_ = key.Handle;
-            var value_ = (GISharp.Runtime.Boolean)value;
+            var value_ = GISharp.Runtime.BooleanExtensions.ToBoolean(value);
             g_key_file_set_boolean(keyFile_, groupName_, key_, value_);
         }
 

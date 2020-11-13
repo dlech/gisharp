@@ -4,6 +4,7 @@
 using System;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
 {
@@ -80,8 +81,8 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsPointer {
             get {
-                bool raw_ret = g_type_info_is_pointer (Handle);
-                bool ret = raw_ret;
+                var ret_ = g_type_info_is_pointer(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }
@@ -91,8 +92,8 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsZeroTerminated {
             get {
-                bool raw_ret = g_type_info_is_zero_terminated (Handle);
-                bool ret = raw_ret;
+                var ret_ = g_type_info_is_zero_terminated(Handle);
+                var ret = ret_.IsTrue();
                 return ret;
             }
         }

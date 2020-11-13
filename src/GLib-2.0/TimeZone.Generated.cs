@@ -516,7 +516,7 @@ namespace GISharp.Lib.GLib
             var tz_ = Handle;
             var interval_ = (System.Int32)interval;
             var ret_ = g_time_zone_is_dst(tz_,interval_);
-            var ret = (System.Boolean)ret_;
+            var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
 

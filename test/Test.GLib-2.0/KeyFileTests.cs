@@ -152,20 +152,19 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestBooleanList()
         {
-            using (var keyFile = new KeyFile()) {
-                Assert.That(() => keyFile.GetBooleanList(TestGroup, TestKey1),
-                    ThrowsGErrorException(KeyFileError.GroupNotFound),
-                    "Trying to get a non-existant group should throw an exception");
+            using var keyFile = new KeyFile();
+            Assert.That(() => keyFile.GetBooleanList(TestGroup, TestKey1),
+                ThrowsGErrorException(KeyFileError.GroupNotFound),
+                "Trying to get a non-existant group should throw an exception");
 
-                var expected = new Runtime.Boolean[] { true, false };
-                keyFile.SetBooleanList(TestGroup, TestKey1, expected);
-                var actual = keyFile.GetBooleanList(TestGroup, TestKey1);
-                Assert.That(actual, Is.EquivalentTo(expected));
+            var expected = new Runtime.Boolean[] { Runtime.Boolean.True, Runtime.Boolean.False };
+            keyFile.SetBooleanList(TestGroup, TestKey1, expected);
+            var actual = keyFile.GetBooleanList(TestGroup, TestKey1);
+            Assert.That(actual, Is.EquivalentTo(expected));
 
-                Assert.That(() => keyFile.GetBooleanList(TestGroup, TestKey2),
-                    ThrowsGErrorException(KeyFileError.KeyNotFound),
-                    "Trying to get a non-existant key should throw an exception");
-            }
+            Assert.That(() => keyFile.GetBooleanList(TestGroup, TestKey2),
+                ThrowsGErrorException(KeyFileError.KeyNotFound),
+                "Trying to get a non-existant key should throw an exception");
         }
 
         [Test]

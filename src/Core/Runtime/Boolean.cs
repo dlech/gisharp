@@ -1,37 +1,64 @@
-using System;
 
 namespace GISharp.Runtime
 {
-    public readonly struct Boolean : IEquatable<bool>
+    /// <summary>
+    /// Managed wrapper for <c>gboolean</c> type.
+    /// </summary>
+    /// <remarks>
+    /// The builtin <see cref="bool"/> .NET type is not blittable and therefor
+    /// not usable with unmanaged functions directly. This is particularly
+    /// a problem with unmanaged function pointer (<c>delegate* unmanaged[Cdecl] &lt;&gt;</c>)
+    /// return values and also in unmanged structs and arrays where the size of boolean
+    /// value is expected to be 4 bytes.
+    /// </remarks>
+    public enum Boolean : int
     {
-        public static readonly Boolean True = new(1);
-        public static readonly Boolean False = new(0);
+        /// <summary>
+        /// The <c>false</c> value for the <c>gboolean</c> type.
+        /// </summary>
+        False = 0,
 
-        readonly int value;
+        /// <summary>
+        /// The <c>true</c> value for the <c>gboolean</c> type.
+        /// </summary>
+        True = 1,
+    }
 
-        private Boolean(int value)
-        {
-            this.value = value;
-        }
+    public static class BooleanExtensions
+    {
+        /// <summary>
+        /// Tests if an unmanaged boolean <paramref name="value"/> is true.
+        /// </summary>
+        /// <param name="value">
+        /// The value to test.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the <paramref name="value"/> is non-zero, otherwise <c>false</c>.
+        /// </returns>
+        public static bool IsTrue(this Boolean value) => value != 0;
 
-        public override string ToString()
-        {
-            return value == 0 ? false.ToString() : true.ToString();
-        }
+        /// <summary>
+        /// Tests if an unmanaged boolean <paramref name="value"/> is false.
+        /// </summary>
+        /// <param name="value">
+        /// The value to test.
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if the <paramref name="value"/> is zero, otherwise <c>false</c>.
+        /// </returns>
+        public static bool IsFalse(this Boolean value) => value == 0;
 
-        bool IEquatable<bool>.Equals(bool other)
-        {
-            return this == other;
-        }
-
-        public static implicit operator bool(Boolean b)
-        {
-            return b.value != 0;
-        }
-
-        public static implicit operator Boolean(bool b)
-        {
-            return b ? True : False;
-        }
+        /// <summary>
+        /// Converts a managed <see cref="bool"/> <paramref name="value"/> to an
+        /// unmanged <see cref="Boolean"/> value.
+        /// </summary>
+        /// <param name="value">
+        /// The managaged value.
+        /// </param>
+        /// <returns>
+        /// <see cref="Boolean.True"/> if <paramref name="value"/> is <c>true</c>,
+        /// otherwise <see cref="Boolean.False"/>.
+        /// </returns>
+        public static Boolean ToBoolean(this bool value) => value ? Boolean.True : Boolean.False;
     }
 }
