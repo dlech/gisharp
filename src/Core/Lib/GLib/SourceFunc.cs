@@ -1,5 +1,6 @@
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -9,35 +10,15 @@ namespace GISharp.Lib.GLib
     /// Specifies the type of function passed to <see cref="Timeout.Add"/>,
     /// and <see cref="Idle.Add"/>.
     /// </summary>
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate Runtime.Boolean UnmanagedSourceFunc(
-        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 closure:0 */
-        IntPtr userData);
-
-    /// <summary>
-    /// Specifies the type of function passed to <see cref="Timeout.Add"/>,
-    /// and <see cref="Idle.Add"/>.
-    /// </summary>
     public delegate bool SourceFunc();
 
     public static class SourceFuncMarshal
     {
-        class UserData
-        {
-            public readonly SourceFunc Func;
-            public readonly CallbackScope Scope;
+        record UserData(SourceFunc Func, CallbackScope Scope);
 
-            public UserData(SourceFunc func, CallbackScope scope)
-            {
-                Func = func;
-                Scope = scope;
-            }
-        }
-
-        public static SourceFunc FromPointer(IntPtr func_, IntPtr userData_)
+        public unsafe static SourceFunc FromPointer(IntPtr func_, IntPtr userData_)
         {
-            var func = Marshal.GetDelegateForFunctionPointer<UnmanagedSourceFunc>(func_);
+            var func = (delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean>)func_;
             return new SourceFunc(() => {
                 var ret_ = func(userData_);
                 var ret = ret_.IsTrue();
@@ -45,17 +26,16 @@ namespace GISharp.Lib.GLib
             });
         }
 
-        public static (IntPtr func_, IntPtr destroy_, IntPtr userData_) ToPointer(SourceFunc func, CallbackScope scope)
+        public unsafe static (IntPtr func_, IntPtr destroy_, IntPtr userData_) ToPointer(SourceFunc func, CallbackScope scope)
         {
-            var data = new UserData(func, scope);
-            var gcHandle = GCHandle.Alloc(data);
-            var userData_ = (IntPtr)gcHandle;
+            delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean> unmanagedFunc = &UnmanagedFunc;
+            delegate* unmanaged[Cdecl]<IntPtr, void> unmanagedNotify = &UnmanagedNotify;
+            var userData = GCHandle.Alloc(new UserData(func, scope));
 
-            return (unmanagedFunc_, unmanagedNotify_, userData_);
+            return ((IntPtr)unmanagedFunc, (IntPtr)unmanagedNotify, (IntPtr)userData);
         }
 
-        static readonly UnmanagedSourceFunc UnmanagedFuncDelegate = UnmanagedFunc;
-        static readonly IntPtr unmanagedFunc_ = Marshal.GetFunctionPointerForDelegate(UnmanagedFuncDelegate);
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static Runtime.Boolean UnmanagedFunc(IntPtr userData_)
         {
             try {
@@ -73,8 +53,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static readonly UnmanagedDestroyNotify UnmanagedNotifyDelegate = UnmanagedNotify;
-        static readonly IntPtr unmanagedNotify_ = Marshal.GetFunctionPointerForDelegate(UnmanagedNotifyDelegate);
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static void UnmanagedNotify(IntPtr userData_)
         {
             try {
