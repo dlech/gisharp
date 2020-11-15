@@ -7,8 +7,8 @@ export DYLD_LIBRARY_PATH=/System/Library/Frameworks/ImageIO.framework/Versions/A
 
 export GenerateFullPaths=true
 
-dotnet test test/Test.Core/
-dotnet test test/Test.GIRepository-2.0/
-dotnet test test/Test.GLib-2.0/
-dotnet test test/Test.Gio-2.0/
-dotnet test test/Test.Gtk-4.0/
+dotnet test --blame test/Test.Core/
+dotnet test --blame test/Test.GIRepository-2.0/
+dotnet test --blame test/Test.GLib-2.0/
+dotnet test --blame test/Test.Gio-2.0/
+dotnet test --blame test/Test.Gtk-4.0/
