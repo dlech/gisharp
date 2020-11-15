@@ -7,6 +7,9 @@ using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
 {
+    /// <summary>
+    /// Handle to a signal handler that was attached to an object.
+    /// </summary>
     public sealed class SignalHandler
     {
         readonly Object instance;

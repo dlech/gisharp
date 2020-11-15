@@ -7,6 +7,9 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
+    /// <summary>
+    /// <see cref="Source"/> that is dispatched after a timeout has expired.
+    /// </summary>
     public sealed class TimeoutSource : Source
     {
         /// <summary>
@@ -164,6 +167,10 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        /// <summary>
+        /// Sets the callback function for a source. The callback for a source is
+        /// called from the source's dispatch function.
+        /// </summary>
         public void SetCallback(SourceFunc func)
         {
             SetCallback(func, SourceFuncMarshal.ToPointer);

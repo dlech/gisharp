@@ -12,12 +12,26 @@ namespace GISharp.Lib.GObject
     [GType("GParamVariant", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecVariant : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecVariant"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
+
+            /// <summary>
+            /// a GVariantType, or NULL
+            /// </summary>
             public IntPtr VariantType;
+
+            /// <summary>
+            /// a GVariant, or NULL
+            /// </summary>
             public IntPtr DefaultValue;
 #pragma warning restore CS0649
         }

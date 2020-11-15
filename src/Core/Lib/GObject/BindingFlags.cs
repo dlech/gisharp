@@ -5,7 +5,7 @@ using GISharp.Runtime;
 namespace GISharp.Lib.GObject
 {
     /// <summary>
-    /// Flags to be passed to <see cref="Object.BindProperty(GLib.UnownedUtf8,Object,GLib.UnownedUtf8,BindingFlags)"/>.
+    /// Flags to be passed to <see cref="Object.BindProperty(GLib.UnownedUtf8,Object,GLib.UnownedUtf8,BindingFlags,BindingTransformFunc,BindingTransformFunc)"/>.
     /// </summary>
     /// <remarks>
     /// This enumeration can be extended at later date.
@@ -39,11 +39,15 @@ namespace GISharp.Lib.GObject
         /// booleans, setting one to <c>true</c> will result in the other being
         /// set to <c>false</c> and vice versa. This flag will only work for
         /// boolean properties, and cannot be used when passing custom
-        /// transformation functions to <see cref="Object.BindProperty(GLib.UnownedUtf8,Object,GLib.UnownedUtf8,BindingFlags)"/>.
+        /// transformation functions to
+        /// <see cref="Object.BindProperty(GLib.UnownedUtf8,Object,GLib.UnownedUtf8,BindingFlags,BindingTransformFunc,BindingTransformFunc)"/>.
         /// </summary>
         InvertBoolean = 0x4,
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="BindingFlags"/>.
+    /// </summary>
     public static class BindingFlagsExtensions
     {
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]

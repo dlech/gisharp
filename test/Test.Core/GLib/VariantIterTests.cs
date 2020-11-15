@@ -26,18 +26,18 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestNextValue()
         {
-            using (var vt = VariantType.String)
-            using (var v = new Variant(vt, UnownedCPtrArray<Variant>.Empty))
-            using (var iter = new VariantIter(v)) {
-                Assert.That(iter.MoveNext(), Is.False);
+            {
+                using var vt = VariantType.String;
+                using var v = new Variant(vt, UnownedCPtrArray<Variant>.Empty);
+                using var iter = new VariantIter(v);
+                Assert.That(iter.TryNextValue(), Is.Null);
             }
-
-            using (var vt = VariantType.String)
-            using (var test = new Variant("test"))
-            using (var v = Variant.CreateArray(vt, test))
-            using (var iter = new VariantIter(v)) {
-                Assert.That(iter.MoveNext(), Is.True);
-                Assert.That(iter.Current, Is.EqualTo(test));
+            {
+                using var vt = VariantType.String;
+                using var test = new Variant("test");
+                using var v = Variant.CreateArray(vt, test);
+                using var iter = new VariantIter(v);
+                Assert.That(iter.TryNextValue(), Is.EqualTo(test));
             }
         }
     }

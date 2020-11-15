@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel;
 namespace GISharp.Lib.GLib
 {
     /// <summary>
@@ -14,43 +15,49 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// internal flag
         /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         Recursion = 1,
+
         /// <summary>
         /// internal flag
         /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         Fatal = 2,
+
         /// <summary>
-        /// log level for errors, see g_error().
-        ///     This level is also used for messages produced by g_assert().
+        /// log level for errors, see <see cref="Log.Error"/>
         /// </summary>
         Error = 4,
+
         /// <summary>
-        /// log level for critical warning messages, see g_critical().
+        /// log level for critical warning messages, see <see cref="Log.Critical"/>
         /// </summary>
-        /// <remarks>
-        /// This level is also used for messages produced by g_return_if_fail()
-        /// and g_return_val_if_fail().
-        /// </remarks>
         Critical = 8,
+
         /// <summary>
-        /// log level for warnings, see g_warning()
+        /// log level for warnings, see <see cref="Log.Warning"/>
         /// </summary>
         Warning = 16,
+
         /// <summary>
-        /// log level for messages, see g_message()
+        /// log level for messages, see <see cref="Log.Message"/>
         /// </summary>
         Message = 32,
+
         /// <summary>
-        /// log level for informational messages, see g_info()
+        /// log level for informational messages, see <see cref="Log.Info"/>
         /// </summary>
         Info = 64,
+
         /// <summary>
-        /// log level for debug messages, see g_debug()
+        /// log level for debug messages, see <see cref="Log.Debug"/>
         /// </summary>
         Debug = 128,
+
         /// <summary>
         /// a mask including all log levels
         /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         Mask = -4
     }
 }

@@ -12,17 +12,35 @@ namespace GISharp.Lib.GObject
     [GType("GParamFlags", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecFlags : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecFlags"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
-            public IntPtr FlagsClass;
+
+            /// <summary>
+            /// the GFlagsClass for the flags
+            /// </summary>
+            public FlagsClass.UnmanagedStruct* FlagsClass;
+
+            /// <summary>
+            /// default value for the property specified
+            /// </summary>
             public int DefaultValue;
 #pragma warning restore CS0649
         }
 
-        public unsafe IntPtr FlagsClass => ((UnmanagedStruct*)Handle)->FlagsClass;
+        /// <summary>
+        /// the <see cref="FlagsClass"/> for the flags
+        /// </summary>
+        public unsafe FlagsClass FlagsClass =>
+            Opaque.GetInstance<FlagsClass>((IntPtr)((UnmanagedStruct*)Handle)->FlagsClass, Transfer.None);
 
         /// <summary>
         /// default value for the property specified
@@ -30,7 +48,8 @@ namespace GISharp.Lib.GObject
         public unsafe new System.Enum DefaultValue {
             get {
                 var ret_ = ((UnmanagedStruct*)Handle)->DefaultValue;
-                var ret = (System.Enum)System.Enum.ToObject(FlagsType, ret_);
+                var gType = ((UnmanagedStruct*)Handle)->FlagsClass->GTypeClass.GType;
+                var ret = (System.Enum)System.Enum.ToObject(gType.ToType(), ret_);
                 return ret;
             }
         }
@@ -41,13 +60,6 @@ namespace GISharp.Lib.GObject
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecFlags(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
-        }
-
-        public Type FlagsType {
-            get {
-                var type = Marshal.PtrToStructure<GType>(FlagsClass);
-                return type.ToType();
-            }
         }
 
         static readonly GType _GType = paramSpecTypes[11];

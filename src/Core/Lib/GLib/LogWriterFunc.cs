@@ -55,6 +55,9 @@ namespace GISharp.Lib.GLib
     [Since("2.50")]
     public delegate LogWriterOutput LogWriterFunc(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields);
 
+    /// <summary>
+    /// Factory functions for marshaling <see cref="LogWriterFunc"/>.
+    /// </summary>
     public static class LogWriterFuncFactory
     {
         class UserData
@@ -73,6 +76,9 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// Marshals an unmanaged function pointer to a managed delegate.
+        /// </summary>
         public unsafe static LogWriterFunc Create(UnmanagedLogWriterFunc func, IntPtr userData)
         {
             return new LogWriterFunc((logLevel, fields) => {
@@ -83,6 +89,9 @@ namespace GISharp.Lib.GLib
             });
         }
 
+        /// <summary>
+        /// Marshals a managed delegate to an unmanaged function pointer.
+        /// </summary>
         public static unsafe (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) Create(LogWriterFunc func, CallbackScope scope)
         {
             var data = new UserData(func, UnmanagedFunc, UnmanagedNotify, scope);

@@ -6,6 +6,9 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
+    /// <summary>
+    /// <see cref="Source"/> that runs when the event loop is idle.
+    /// </summary>
     public sealed class IdleSource : Source
     {
         /// <summary>
@@ -59,14 +62,21 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public IdleSource(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 
+        /// <summary>
+        /// Sets the callback function for a source. The callback for a source is
+        /// called from the source's dispatch function.
+        /// </summary>
         public void SetCallback(SourceFunc func)
         {
-            SetCallback<SourceFunc>(func, SourceFuncMarshal.ToPointer);
+            SetCallback(func, SourceFuncMarshal.ToPointer);
         }
     }
 }

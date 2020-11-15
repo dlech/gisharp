@@ -10,7 +10,7 @@ namespace GISharp.Lib.Gio
         private static readonly GISharp.Lib.GObject.GType _GType = g_input_stream_get_type();
 
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="InputStream"/>.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {

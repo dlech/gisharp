@@ -14,7 +14,7 @@ namespace GISharp.Lib.GObject
     public abstract class TypeInstance : Opaque
     {
         /// <summary>
-        /// The unmanaged data structure.
+        /// The unmanaged data structure for <see cref="TypeInstance"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe struct UnmanagedStruct
@@ -42,6 +42,9 @@ namespace GISharp.Lib.GObject
             return typeInstance->GClass->GType;
         }
 
+        /// <summary>
+        /// Gets the <see cref="TypeClass"/> for this instance.
+        /// </summary>
         public unsafe TypeClass GetTypeClass() => TypeClass.Get(GetGType());
     }
 }

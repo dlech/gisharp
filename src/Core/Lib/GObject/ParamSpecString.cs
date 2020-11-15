@@ -12,15 +12,42 @@ namespace GISharp.Lib.GObject
     [GType("GParamString", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecString : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecString"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
+
+            /// <summary>
+            /// default value for the property specified
+            /// </summary>
             public IntPtr DefaultValue;
+
+            /// <summary>
+            /// a string containing the allowed values for the first byte
+            /// </summary>
             public IntPtr CsetFirst;
+
+            /// <summary>
+            /// a string containing the allowed values for the subsequent bytes
+            /// </summary>
             public IntPtr CsetNth;
+
+            /// <summary>
+            /// the replacement byte for bytes which don't match cset_first or cset_nth .
+            /// </summary>
             public sbyte Substitutor;
+
+            /// <summary>
+            /// null_fold_if_empty : 1; replace empty string by NULL
+            /// ensure_non_null : 1; replace NULL strings by an empty string
+            /// </summary>
             public uint Bitfield;
 #pragma warning restore CS0649
         }

@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     public sealed class ActionGroupInterface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="ActionGroupInterface"/>.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {

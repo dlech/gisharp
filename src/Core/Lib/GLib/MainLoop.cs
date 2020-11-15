@@ -25,6 +25,7 @@ namespace GISharp.Lib.GLib
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_main_loop_ref (IntPtr loop);
 
+        /// <inheritdoc/>
         public override IntPtr Take() => g_main_loop_ref(Handle);
 
         [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

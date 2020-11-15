@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     public sealed class AsyncInitableIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="AsyncInitableIface"/>.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {

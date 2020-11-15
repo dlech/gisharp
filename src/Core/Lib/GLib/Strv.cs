@@ -11,9 +11,15 @@ using System.Runtime.CompilerServices;
 
 namespace GISharp.Lib.GLib
 {
+    /// <summary>
+    /// Wrapper around unmanaged null-terminated array of null-terminated UTF-8 strings.
+    /// </summary>
     [GType("GStrv", IsProxyForUnmanagedType = true)]
     public sealed class Strv : Boxed, IReadOnlyList<Utf8>
     {
+        /// <summary>
+        /// Gets the managed UTF-16 value of this string.
+        /// </summary>
         public string[] Value => _Value.Value;
         readonly Lazy<string[]> _Value;
 
@@ -22,6 +28,9 @@ namespace GISharp.Lib.GLib
             return GMarshal.StringArrayToGStrvPtr(value);
         }
 
+        /// <summary>
+        /// Creates a new unmanaged string array.
+        /// </summary>
         public Strv(params string[] value) : this(New(value), Transfer.Full)
         {
         }
@@ -35,6 +44,10 @@ namespace GISharp.Lib.GLib
             _Value = new Lazy<string[]>(() => this.Select(x => (string)x).ToArray());
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Strv(IntPtr handle, int length, Transfer ownership) : this(handle, ownership)
         {
             // TODO: cache the length
@@ -68,6 +81,12 @@ namespace GISharp.Lib.GLib
         [Since("2.44")]
         static extern Runtime.Boolean g_strv_contains(IntPtr strv, IntPtr str);
 
+        /// <summary>
+        /// Checks if this instance contains <paramref name="str"/>.
+        /// </summary>
+        /// <param name="str">
+        /// a string
+        /// </param>
         [Since("2.44")]
         public bool Contains(UnownedUtf8 str)
         {
@@ -78,6 +97,9 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
+        /// <summary>
+        /// Converts and unmanaged UTF-8 string array to a manged UTF-16 string array.
+        /// </summary>
         public static explicit operator string[](Strv strv)
         {
             return strv.Value;
@@ -96,6 +118,9 @@ namespace GISharp.Lib.GLib
 
         IEnumerator IEnumerable.GetEnumerator() => GetIEnumerator();
 
+        /// <summary>
+        /// Implements type needed in <c>foreach</c> loops.
+        /// </summary>
         public class Enumerator
         {
             private readonly Strv instance;
@@ -106,12 +131,18 @@ namespace GISharp.Lib.GLib
                 this.instance = instance;
             }
 
+            /// <summary>
+            /// Implements property needed in <c>foreach</c> loops.
+            /// </summary>
             public UnownedUtf8 Current {
                 get {
                     return new UnownedUtf8(ptr, -1);
                 }
             }
 
+            /// <summary>
+            /// Implements method needed in <c>foreach</c> loops.
+            /// </summary>
             public bool MoveNext() {
                 ptr = Marshal.ReadIntPtr(instance.Handle, offset);
                 offset += IntPtr.Size;
@@ -119,8 +150,14 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// Function needed for use in <c>foreach</c> loops.
+        /// </summary>
         public Enumerator GetEnumerator() => new Enumerator(this);
 
+        /// <summary>
+        /// Returns a reference to unmanaged string array.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe ref readonly IntPtr GetPinnableReference()
         {

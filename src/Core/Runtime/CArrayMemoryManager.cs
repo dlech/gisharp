@@ -1,9 +1,13 @@
 using System;
 using System.Buffers;
+using System.ComponentModel;
 using System.Runtime.InteropServices;
 
 namespace GISharp.Runtime
 {
+    /// <summary>
+    /// Managed wrapper around unmanged C array.
+    /// </summary>
     public unsafe sealed class CArrayMemoryManager<T> : MemoryManager<T> where T : unmanaged
     {
         T* handle;
@@ -11,8 +15,15 @@ namespace GISharp.Runtime
         int refCount;
         bool disposed;
 
+        /// <summary>
+        /// Pointer to the unmanged array.
+        /// </summary>
         public IntPtr Handle => handle == null ? throw new ObjectDisposedException(null) : (IntPtr)handle;
 
+        /// <summary>
+        /// Creates a new memory manager for unmanged C arrays.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public CArrayMemoryManager(IntPtr handle, int length, Transfer ownership) {
             if (ownership == Transfer.None) {
                 throw new NotSupportedException("Unowned arrays should use ReadOnlySpan<T>");
@@ -25,12 +36,14 @@ namespace GISharp.Runtime
             refCount = 1;
         }
 
+        /// <inheritdoc/>
         public override Span<T> GetSpan()
         {
             // FIXME: what about case of null-terminated array?
             return new Span<T>(handle, length);
         }
 
+        /// <inheritdoc/>
         public override MemoryHandle Pin(int elementIndex = 0)
         {
             lock (this) {
@@ -42,6 +55,7 @@ namespace GISharp.Runtime
             }
         }
 
+        /// <inheritdoc/>
         public override void Unpin()
         {
             lock (this) {
@@ -53,6 +67,7 @@ namespace GISharp.Runtime
             }
         }
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             lock (this) {

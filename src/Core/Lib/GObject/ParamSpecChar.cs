@@ -12,13 +12,31 @@ namespace GISharp.Lib.GObject
     [GType("GParamChar", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecChar : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecChar"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
+
+            /// <summary>
+            /// minimum value for the property specified
+            /// </summary>
             public sbyte Minimum;
+
+            /// <summary>
+            /// maximum value for the property specified
+            /// </summary>
             public sbyte Maximum;
+
+            /// <summary>
+            /// default value for the property specified
+            /// </summary>
             public sbyte DefaultValue;
 #pragma warning restore CS0649
         }

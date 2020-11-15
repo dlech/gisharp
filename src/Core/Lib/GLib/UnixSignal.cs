@@ -4,6 +4,9 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
+    /// <summary>
+    /// Functions for creating and attaching <see cref="UnixSignalSource"/>s.
+    /// </summary>
     public static class UnixSignal
     {
         const int SIGHUP = 1;
@@ -56,7 +59,7 @@ namespace GISharp.Lib.GLib
             IntPtr notify);
 
         /// <summary>
-        /// A convenience function for <see cref="UnixSignalSource.UnixSignalSource"/>, which
+        /// A convenience function for <see cref="UnixSignalSource(int)"/>, which
         /// attaches to the default <see cref="MainContext"/>.  You can remove the watch
         /// using <see cref="Source.Remove"/>.
         /// </summary>

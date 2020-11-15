@@ -14,20 +14,27 @@ namespace GISharp.Runtime
         public Error Error { get; }
 
         /// <summary>
-        /// Create a new instance from a GError.
+        /// Create a new instance from a <see cref="Error"/>.
         /// </summary>
-        public GErrorException (Error error) : base (error.Message)
+        /// <param name="error">
+        /// The <see cref="Error"/>.
+        /// </param>
+        public GErrorException(Error error) : base(error.Message)
         {
             Error = error;
         }
 
-        
-        public GErrorException(Enum code, string message) : this (new Error(code, message))
-        {
-        }
 
-        public GErrorException(Enum code, string foramt, params object[] args)
-            : this (new Error(code, foramt, args))
+        /// <summary>
+        /// Create a new instance from a an error domain enum member.
+        /// </summary>
+        /// <param name="code">
+        /// A member of an enum that is decorated with <see cref="GErrorDomainAttribute"/>.
+        /// </param>
+        /// <param name="message">
+        /// A helpful error message.
+        /// </param>
+        public GErrorException(Enum code, string message) : this(new Error(code, message))
         {
         }
 
@@ -45,9 +52,9 @@ namespace GISharp.Runtime
         /// Thrown if the type of <paramref name="value" /> does not have an
         /// <see cref="GErrorDomainAttribute" />.
         /// </exception>
-        public bool Matches (Enum value)
+        public bool Matches(Enum value)
         {
-            return Error.Matches (value.GetGErrorDomain (), Convert.ToInt32 (value));
+            return Error.Matches(value.GetGErrorDomain(), Convert.ToInt32(value));
         }
     }
 }

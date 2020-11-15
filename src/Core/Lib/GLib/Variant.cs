@@ -249,6 +249,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
@@ -261,6 +262,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_ref(IntPtr value);
 
+        /// <inheritdoc/>
         public override IntPtr Take() => g_variant_ref(Handle);
 
         [PtrArrayFreeFunc]
@@ -278,9 +280,18 @@ namespace GISharp.Lib.GLib
 
         bool IsFloating => g_variant_is_floating(Handle).IsTrue();
 
+        /// <summary>
+        /// Reads a child item out of a container <see cref="Variant"/> instance.  This
+        /// includes variants, maybes, arrays, tuples and dictionary
+        /// entries.  It is an error to call this function on any other type of
+        /// <see cref="Variant"/>.
+        /// </summary>
         public IndexedCollection<Variant> ChildValues {
             get {
                 if (childValues is null) {
+                    if (!Type.IsContainer) {
+                        throw new InvalidOperationException("Variant must be a container type");
+                    }
                     childValues = new(nChildren, getChildValue);
                 }
                 return childValues;
@@ -289,6 +300,9 @@ namespace GISharp.Lib.GLib
 
         // explicit cast operators
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="bool"/>.
+        /// </summary>
         public static explicit operator bool(Variant value)
         {
             if (value.Type != VariantType.Boolean) {
@@ -297,11 +311,17 @@ namespace GISharp.Lib.GLib
             return value.Boolean;
         }
 
+        /// <summary>
+        /// Coverts <see cref="bool"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(bool value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="byte"/>.
+        /// </summary>
         public static explicit operator byte(Variant v)
         {
             if (v.Type != VariantType.Byte) {
@@ -310,11 +330,17 @@ namespace GISharp.Lib.GLib
             return v.Byte;
         }
 
+        /// <summary>
+        /// Coverts <see cref="byte"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(byte value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="byte"/> array.
+        /// </summary>
         public static explicit operator byte[](Variant v)
         {
             if (v.Type != VariantType.ByteString) {
@@ -323,11 +349,17 @@ namespace GISharp.Lib.GLib
             return v.Bytestring;
         }
 
+        /// <summary>
+        /// Coverts <see cref="byte"/> array to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(byte[] value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to array of <see cref="byte"/> arrays.
+        /// </summary>
         public static explicit operator byte[][](Variant v)
         {
             if (v.Type != VariantType.ByteStringArray) {
@@ -336,11 +368,17 @@ namespace GISharp.Lib.GLib
             return v.GetBytestringArray();
         }
 
+        /// <summary>
+        /// Coverts array of <see cref="byte"/> arrays to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(byte[][] value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="double"/>.
+        /// </summary>
         public static explicit operator double(Variant v)
         {
             if (v.Type != VariantType.Double) {
@@ -349,10 +387,17 @@ namespace GISharp.Lib.GLib
             return v.Double;
         }
 
+        /// <summary>
+        /// Coverts <see cref="double"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(double value)
         {
             return new Variant(value);
         }
+
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="DBusHandle"/>.
+        /// </summary>
 
         public static explicit operator DBusHandle(Variant v)
         {
@@ -362,11 +407,17 @@ namespace GISharp.Lib.GLib
             return v.DBusHandle;
         }
 
+        /// <summary>
+        /// Coverts <see cref="DBusHandle"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(DBusHandle value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="short"/>.
+        /// </summary>
         public static explicit operator short(Variant v)
         {
             if (v.Type != VariantType.Int16) {
@@ -375,11 +426,17 @@ namespace GISharp.Lib.GLib
             return v.Int16;
         }
 
+        /// <summary>
+        /// Coverts <see cref="short"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(short value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="int"/>.
+        /// </summary>
         public static explicit operator int(Variant v)
         {
             if (v.Type != VariantType.Int32) {
@@ -388,11 +445,17 @@ namespace GISharp.Lib.GLib
             return v.Int32;
         }
 
+        /// <summary>
+        /// Coverts <see cref="int"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(int value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="long"/>.
+        /// </summary>
         public static explicit operator long(Variant v)
         {
             if (v.Type != VariantType.Int64) {
@@ -401,11 +464,17 @@ namespace GISharp.Lib.GLib
             return v.Int64;
         }
 
+        /// <summary>
+        /// Coverts <see cref="long"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(long value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="DBusObjectPath"/>.
+        /// </summary>
         public static explicit operator DBusObjectPath(Variant v)
         {
             if (v.Type != VariantType.DBusObjectPath) {
@@ -414,11 +483,17 @@ namespace GISharp.Lib.GLib
             return (string)v.getString();
         }
 
+        /// <summary>
+        /// Coverts <see cref="DBusObjectPath"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(DBusObjectPath value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="DBusSignature"/>.
+        /// </summary>
         public static explicit operator DBusSignature(Variant v)
         {
             if (v.Type != VariantType.DBusSignature) {
@@ -427,6 +502,9 @@ namespace GISharp.Lib.GLib
             return (string)v.getString();
         }
 
+        /// <summary>
+        /// Coverts <see cref="DBusSignature"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(DBusSignature value)
         {
             return new Variant(value);
@@ -434,6 +512,9 @@ namespace GISharp.Lib.GLib
 
         // TODO cast Maybe to nullable types
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="PtrArray{T}"/>.
+        /// </summary>
         public static explicit operator PtrArray<Variant>(Variant v)
         {
             if (!v.Type.IsContainer) {
@@ -442,11 +523,17 @@ namespace GISharp.Lib.GLib
             return v.ChildValues.ToPtrArray<Variant>();
         }
 
+        /// <summary>
+        /// Coverts <see cref="UnownedCPtrArray{T}"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(UnownedCPtrArray<Variant> value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="DBusObjectPath"/> array.
+        /// </summary>
         public static explicit operator DBusObjectPath[](Variant v)
         {
             if (v.Type != VariantType.DBusObjectPathArray) {
@@ -455,11 +542,17 @@ namespace GISharp.Lib.GLib
             return v.Objv;
         }
 
+        /// <summary>
+        /// Coverts <see cref="DBusObjectPath"/> array to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(DBusObjectPath[] value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="string"/>.
+        /// </summary>
         public static explicit operator string(Variant v)
         {
             if (v.Type != VariantType.String) {
@@ -468,11 +561,17 @@ namespace GISharp.Lib.GLib
             return v.getString();
         }
 
+        /// <summary>
+        /// Coverts <see cref="string"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(string value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="Strv"/>.
+        /// </summary>
         public static explicit operator Strv?(Variant v)
         {
             if (v.Type != VariantType.StringArray) {
@@ -481,6 +580,9 @@ namespace GISharp.Lib.GLib
             return v.Strv;
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="string"/> array.
+        /// </summary>
         public static explicit operator string[]?(Variant v)
         {
             if (v.Type != VariantType.StringArray) {
@@ -489,11 +591,17 @@ namespace GISharp.Lib.GLib
             return v.Strv?.Value;
         }
 
+        /// <summary>
+        /// Coverts <see cref="string"/> array to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(string[] value)
         {
             return new Variant(new Strv(value));
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="ushort"/>.
+        /// </summary>
         public static explicit operator ushort(Variant v)
         {
             if (v.Type != VariantType.UInt16) {
@@ -502,11 +610,17 @@ namespace GISharp.Lib.GLib
             return v.Uint16;
         }
 
+        /// <summary>
+        /// Coverts <see cref="ushort"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(ushort value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="uint"/>.
+        /// </summary>
         public static explicit operator uint(Variant v)
         {
             if (v.Type != VariantType.UInt32) {
@@ -515,11 +629,17 @@ namespace GISharp.Lib.GLib
             return v.Uint32;
         }
 
+        /// <summary>
+        /// Coverts <see cref="uint"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(uint value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="ulong"/>.
+        /// </summary>
         public static explicit operator ulong(Variant v)
         {
             if (v.Type != VariantType.UInt64) {
@@ -528,11 +648,17 @@ namespace GISharp.Lib.GLib
             return v.Uint64;
         }
 
+        /// <summary>
+        /// Coverts <see cref="ulong"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(ulong value)
         {
             return new Variant(value);
         }
 
+        /// <summary>
+        /// Coverts <see cref="Variant"/> to <see cref="KeyValuePair{K,V}"/>.
+        /// </summary>
         public static explicit operator KeyValuePair<Variant, Variant>(Variant v)
         {
             if (!v.Type.IsDictionaryEntry) {
@@ -541,6 +667,9 @@ namespace GISharp.Lib.GLib
             return new KeyValuePair<Variant, Variant>(v.ChildValues[0], v.ChildValues[1]);
         }
 
+        /// <summary>
+        /// Coverts <see cref="KeyValuePair{K,V}"/> to <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant(KeyValuePair<Variant, Variant> value)
         {
             return new Variant(value.Key, value.Value);
@@ -930,6 +1059,10 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// Constructs an array of bytestring <see cref="Variant"/> from the given array of
+        /// strings.
+        /// </summary>
         public Variant(byte[][] value) : this(NewBytestringArray(value), Transfer.None)
         {
         }
@@ -1012,6 +1145,11 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        /// <summary>
+        /// Creates a new dictionary entry <see cref="Variant"/>. <c>TKey</c>
+        /// and <c>TValue</c> must be non-null. key must be a value of a basic
+        /// type (ie: not a container).
+        /// </summary>
         [Since("2.24")]
         public Variant(KeyValuePair<Variant, Variant> value)
             : this(value.Key, value.Value)
@@ -1259,6 +1397,14 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
+        /// <summary>
+        /// Creates a new handle <see cref="Variant"/> instance.
+        /// </summary>
+        /// <remarks>
+        /// By convention, handles are indexes into an array of file descriptors
+        /// that are sent alongside a D-Bus message. If you're not interacting
+        /// with D-Bus, you probably don't need them.
+        /// </remarks>
         [Since("2.24")]
         public Variant(DBusHandle value) : this(NewDBusHandle(value), Transfer.None)
         {
@@ -1511,20 +1657,24 @@ namespace GISharp.Lib.GLib
             IntPtr objectPath);
 
         [Since("2.24")]
-        static IntPtr NewDBusObjectPath(DBusObjectPath value)
+        static IntPtr NewDBusObjectPath(DBusObjectPath objectPath)
         {
-            var valuePtr = GMarshal.StringToUtf8Ptr(value);
+            var objectPath_ = GMarshal.StringToUtf8Ptr(objectPath);
             try {
-                var ret = g_variant_new_object_path(valuePtr);
+                var ret = g_variant_new_object_path(objectPath_);
                 return ret;
             }
             finally {
-                GMarshal.Free(valuePtr);
+                GMarshal.Free(objectPath_);
             }
         }
 
+        /// <summary>
+        /// Creates a D-Bus object path <see cref="Variant"/> with the contents
+        /// of <paramref name="objectPath"/>.
+        /// </summary>
         [Since("2.24")]
-        public Variant(DBusObjectPath value) : this(NewDBusObjectPath(value), Transfer.None)
+        public Variant(DBusObjectPath objectPath) : this(NewDBusObjectPath(objectPath), Transfer.None)
         {
         }
 
@@ -1562,24 +1712,27 @@ namespace GISharp.Lib.GLib
             nint length);
 
         [Since("2.30")]
-        static IntPtr NewDBusObjectPathArray(DBusObjectPath[] value)
+        static IntPtr NewDBusObjectPathArray(DBusObjectPath[] paths)
         {
-            var strv = new string[value.Length];
-            for (int i = 0; i < value.Length; i++) {
-                strv[i] = value[i];
+            var strv = new string[paths.Length];
+            for (int i = 0; i < paths.Length; i++) {
+                strv[i] = paths[i];
             }
-            var ptr = GMarshal.StringArrayToGStrvPtr(strv);
+            var strv_ = GMarshal.StringArrayToGStrvPtr(strv);
             try {
-                var ret = g_variant_new_objv(ptr, -1);
+                var ret = g_variant_new_objv(strv_, -1);
                 return ret;
             }
             finally {
-                GMarshal.FreeGStrv(ptr);
+                GMarshal.FreeGStrv(strv_);
             }
         }
 
+        /// <summary>
+        /// Constructs an array of object paths <see cref="Variant"/> from the given array of paths.
+        /// </summary>
         [Since("2.30")]
-        public Variant(DBusObjectPath[] value) : this(NewDBusObjectPathArray(value), Transfer.None)
+        public Variant(DBusObjectPath[] paths) : this(NewDBusObjectPathArray(paths), Transfer.None)
         {
         }
 
@@ -1604,20 +1757,24 @@ namespace GISharp.Lib.GLib
             IntPtr signature);
 
         [Since("2.24")]
-        static IntPtr NewDBusSignature(DBusSignature value)
+        static IntPtr NewDBusSignature(DBusSignature signature)
         {
-            var valuePtr = GMarshal.StringToUtf8Ptr(value);
+            var signature_ = GMarshal.StringToUtf8Ptr(signature);
             try {
-                var ret = g_variant_new_signature(valuePtr);
+                var ret = g_variant_new_signature(signature_);
                 return ret;
             }
             finally {
-                GMarshal.Free(valuePtr);
+                GMarshal.Free(signature_);
             }
         }
 
+        /// <summary>
+        /// Creates a D-Bus type signature <see cref="Variant"/> with the
+        /// contents of <paramref name="signature"/>.
+        /// </summary>
         [Since("2.24")]
-        public Variant(DBusSignature value) : this(NewDBusSignature(value), Transfer.None)
+        public Variant(DBusSignature signature) : this(NewDBusSignature(signature), Transfer.None)
         {
         }
 
@@ -2535,21 +2692,33 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
+        /// <summary>
+        /// Compares two <see cref="Variant"/>s.
+        /// </summary>
         public static bool operator >=(Variant one, Variant two)
         {
             return one.CompareTo(two) >= 0;
         }
 
+        /// <summary>
+        /// Compares two <see cref="Variant"/>s.
+        /// </summary>
         public static bool operator >(Variant one, Variant two)
         {
             return one.CompareTo(two) > 0;
         }
 
+        /// <summary>
+        /// Compares two <see cref="Variant"/>s.
+        /// </summary>
         public static bool operator <(Variant one, Variant two)
         {
             return one.CompareTo(two) < 0;
         }
 
+        /// <summary>
+        /// Compares two <see cref="Variant"/>s.
+        /// </summary>
         public static bool operator <=(Variant one, Variant two)
         {
             return one.CompareTo(two) <= 0;
@@ -2617,6 +2786,7 @@ namespace GISharp.Lib.GLib
             return Equal(this, other);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
             if (obj is Variant variant) {
@@ -2625,11 +2795,17 @@ namespace GISharp.Lib.GLib
             return base.Equals(obj);
         }
 
+        /// <summary>
+        /// Compares two <see cref="Variant"/>s for equality.
+        /// </summary>
         public static bool operator ==(Variant? one, Variant? two)
         {
             return Equal(one, two);
         }
 
+        /// <summary>
+        /// Compares two <see cref="Variant"/>s for inequality.
+        /// </summary>
         public static bool operator !=(Variant? one, Variant? two)
         {
             return !Equal(one, two);
@@ -3585,9 +3761,6 @@ namespace GISharp.Lib.GLib
         /// type.  This includes the types %G_VARIANT_TYPE_STRING,
         /// %G_VARIANT_TYPE_OBJECT_PATH and %G_VARIANT_TYPE_SIGNATURE.
         /// </summary>
-        /// <param name="length">
-        /// the length
-        /// </param>
         /// <returns>
         /// the string
         /// </returns>
@@ -4345,7 +4518,8 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        public IEnumerator<Variant> GetEnumerator() => new VariantIter(this);
+        private IEnumerator<Variant> GetEnumerator() => new VariantIter(this);
+        IEnumerator<Variant> IEnumerable<Variant>.GetEnumerator() => GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
     }
 }

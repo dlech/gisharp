@@ -5,14 +5,23 @@ namespace GISharp.Runtime
     /// <summary>
     /// Indicates the library version in which the attribute target was deprecated.
     /// </summary>
-    [AttributeUsage (AttributeTargets.All)]
+    [AttributeUsage(AttributeTargets.All)]
     public sealed class DeprecatedSinceAttribute : Attribute
     {
+        /// <summary>
+        /// The version when the target was deprecated.
+        /// </summary>
         public Version Version { get; }
 
-        public DeprecatedSinceAttribute (string version)
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
+        /// <param name="version">
+        /// The version.
+        /// </param>
+        public DeprecatedSinceAttribute(string version)
         {
-            Version = Version.Parse (version);
+            Version = Version.Parse(version);
         }
     }
 }

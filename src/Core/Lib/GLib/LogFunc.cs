@@ -48,6 +48,9 @@ namespace GISharp.Lib.GLib
     /// </remarks>
     public delegate void LogFunc(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message);
 
+    /// <summary>
+    /// Functions for marshaling <see cref="LogFunc"/>.
+    /// </summary>
     public static class LogFuncFactory
     {
         class UserData
@@ -66,6 +69,9 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// Marshals an unmanged function pointer to a managed delegate.
+        /// </summary>
         public static LogFunc Create(UnmanagedLogFunc logFunc_, IntPtr userData_)
         {
             return new LogFunc((logDomain, logLevel, message) => {
@@ -75,6 +81,9 @@ namespace GISharp.Lib.GLib
             });
         }
 
+        /// <summary>
+        /// Marshals a managed function delegate to an unmanged function pointer.
+        /// </summary>
         public static (UnmanagedLogFunc, UnmanagedDestroyNotify, IntPtr) Create(LogFunc func, CallbackScope scope) {
             var data = new UserData(func, UnmanagedCallback, Destroy, scope);
             var gcHandle = GCHandle.Alloc(data);

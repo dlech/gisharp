@@ -11,6 +11,9 @@ namespace GISharp.Lib.GObject
     /// </summary>
     public sealed class FlagsClass : TypeClass
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="FlagsClass"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
@@ -38,6 +41,9 @@ namespace GISharp.Lib.GObject
             #pragma warning restore CS0649
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public FlagsClass (IntPtr handle, Transfer ownership) : base (handle, ownership)
         {

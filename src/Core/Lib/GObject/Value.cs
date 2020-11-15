@@ -78,6 +78,9 @@ namespace GISharp.Lib.GObject
             = new Dictionary<Tuple<GType, GType>, GCHandle>();
         static readonly object transformFuncMapLock = new object();
 
+        /// <summary>
+        /// Gets the value.
+        /// </summary>
         public object? Get()
         {
             AssertInitialized();
@@ -150,6 +153,9 @@ namespace GISharp.Lib.GObject
             throw new GTypeException($"unhandled GType: {ValueGType}");
         }
 
+        /// <summary>
+        /// Sets the value.
+        /// </summary>
         public void Set(object? obj)
         {
             AssertInitialized();
@@ -264,6 +270,9 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="bool"/>.
+        /// </summary>
         public static explicit operator bool(Value value)
         {
             try {
@@ -274,11 +283,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="bool"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(bool value)
         {
             return new Value(GType.Boolean, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="sbyte"/>.
+        /// </summary>
         public static explicit operator sbyte(Value value)
         {
             try {
@@ -289,11 +304,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="sbyte"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(sbyte value)
         {
             return new Value(GType.Char, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="byte"/>.
+        /// </summary>
         public static explicit operator byte(Value value)
         {
             try {
@@ -304,11 +325,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="byte"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(byte value)
         {
             return new Value(GType.UChar, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="int"/>.
+        /// </summary>
         public static explicit operator int(Value value)
         {
             try {
@@ -319,11 +346,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="int"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(int value)
         {
             return new Value(GType.Int, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="uint"/>.
+        /// </summary>
         public static explicit operator uint(Value value)
         {
             try {
@@ -334,11 +367,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="uint"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(uint value)
         {
             return new Value(GType.UInt, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="long"/>.
+        /// </summary>
         public static explicit operator long(Value value)
         {
             try {
@@ -349,11 +388,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="long"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(long value)
         {
             return new Value(GType.Int64, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="ulong"/>.
+        /// </summary>
         public static explicit operator ulong(Value value)
         {
             try {
@@ -364,11 +409,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="ulong"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(ulong value)
         {
             return new Value(GType.UInt64, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="clong"/>.
+        /// </summary>
         public static explicit operator clong(Value value)
         {
             try {
@@ -379,11 +430,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="clong"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(clong value)
         {
             return new Value(GType.Long, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="culong"/>.
+        /// </summary>
         public static explicit operator culong(Value value)
         {
             try {
@@ -394,11 +451,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="culong"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(culong value)
         {
             return new Value(GType.ULong, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="float"/>.
+        /// </summary>
         public static explicit operator float(Value value)
         {
             try {
@@ -409,11 +472,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="float"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(float value)
         {
             return new Value(GType.Float, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="double"/>.
+        /// </summary>
         public static explicit operator double(Value value)
         {
             try {
@@ -424,11 +493,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="double"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(double value)
         {
             return new Value(GType.Double, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="IntPtr"/>.
+        /// </summary>
         public static explicit operator IntPtr(Value value)
         {
             try {
@@ -439,11 +514,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="IntPtr"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(IntPtr value)
         {
             return new Value(GType.Pointer, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="Object"/>.
+        /// </summary>
         public static explicit operator Object?(Value value)
         {
             try {
@@ -454,11 +535,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="Object"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(Object value)
         {
             return new Value(value.GetGType(), value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="string"/>.
+        /// </summary>
         public static explicit operator string?(Value value)
         {
             try {
@@ -469,11 +556,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="string"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(string? value)
         {
             return new Value(GType.String, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="ParamSpec"/>.
+        /// </summary>
         public static explicit operator ParamSpec?(Value value)
         {
             try {
@@ -484,11 +577,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="ParamSpec"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(ParamSpec value)
         {
             return new Value(value.GetGType(), value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="Boxed"/>.
+        /// </summary>
         public static explicit operator Boxed?(Value value)
         {
             try {
@@ -499,11 +598,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="Boxed"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(Boxed value)
         {
             return new Value(value.GetGType(), value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="GType"/>.
+        /// </summary>
         public static explicit operator GType(Value value)
         {
             try {
@@ -514,11 +619,17 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="GType"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(GType value)
         {
             return new Value(GType.Type, value);
         }
 
+        /// <summary>
+        /// Converts a <see cref="Value"/> to a <see cref="Variant"/>.
+        /// </summary>
         public static explicit operator Variant?(Value value)
         {
             try {
@@ -529,6 +640,9 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a <see cref="Variant"/> to a <see cref="Value"/>.
+        /// </summary>
         public static explicit operator Value(Variant? value)
         {
             return new Value(GType.Variant, value);
@@ -1823,61 +1937,6 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vBoxed);
 
-        ///// <summary>
-        ///// This is an internal function introduced mainly for C marshallers.
-        ///// </summary>
-        ///// <param name="value">
-        ///// a valid #GValue of %G_TYPE_BOXED derived type
-        ///// </param>
-        ///// <param name="vBoxed">
-        ///// duplicated unowned boxed value to be set
-        ///// </param>
-        ////[Obsolete ("Use g_value_take_boxed() instead.")]
-        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /////* <type name="none" type="void" managed-name="None" /> */
-        /////* transfer-ownership:none */
-        //static extern void g_value_set_boxed_take_ownership (
-        //    /* <type name="Value" type="GValue*" managed-name="Value" /> */
-        //    /* transfer-ownership:none */
-        //    ref Value value,
-        //    /* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
-        //    /* transfer-ownership:none nullable:1 allow-none:1 */
-        //    IntPtr vBoxed);
-
-        ///// <summary>
-        ///// This is an internal function introduced mainly for C marshallers.
-        ///// </summary>
-        ///// <param name="vBoxed">
-        ///// duplicated unowned boxed value to be set
-        ///// </param>
-        //[Obsolete ("Use g_value_take_boxed() instead.")]
-        //public void SetBoxedTakeOwnership (IntPtr vBoxed)
-        //{
-        //    AssertInitialized ();
-        //    g_value_set_boxed_take_ownership (Handle, vBoxed);
-        //}
-
-        ///// <summary>
-        ///// Set the contents of a %G_TYPE_CHAR #GValue to @v_char.
-        ///// </summary>
-        ///// <param name="value">
-        ///// a valid #GValue of type %G_TYPE_CHAR
-        ///// </param>
-        ///// <param name="vChar">
-        ///// character value to be set
-        ///// </param>
-        ////[Obsolete ("This function's input type is broken, see g_value_set_schar()")]
-        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /////* <type name="none" type="void" managed-name="None" /> */
-        /////* transfer-ownership:none */
-        //static extern void g_value_set_char (
-        ///* <type name="Value" type="GValue*" managed-name="Value" /> */
-        ///* transfer-ownership:none */
-        //ref Value value,
-        ///* <type name="gchar" type="gchar" managed-name="Gchar" /> */
-        ///* transfer-ownership:none */
-        //sbyte vChar);
-
         /// <summary>
         /// Set the contents of a %G_TYPE_DOUBLE #GValue to @v_double.
         /// </summary>
@@ -2104,40 +2163,6 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vObject);
 
-        ///// <summary>
-        ///// This is an internal function introduced mainly for C marshallers.
-        ///// </summary>
-        ///// <param name="value">
-        ///// a valid #GValue of %G_TYPE_OBJECT derived type
-        ///// </param>
-        ///// <param name="vObject">
-        ///// object value to be set
-        ///// </param>
-        ////[Obsolete ("Use g_value_take_object() instead.")]
-        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /////* <type name="none" type="void" managed-name="None" /> */
-        /////* transfer-ownership:none */
-        //static extern void g_value_set_object_take_ownership (
-        ///* <type name="Value" type="GValue*" managed-name="Value" /> */
-        ///* transfer-ownership:none */
-        //ref Value value,
-        ///* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        ///* transfer-ownership:none nullable:1 allow-none:1 */
-        //IntPtr vObject);
-
-        ///// <summary>
-        ///// This is an internal function introduced mainly for C marshallers.
-        ///// </summary>
-        ///// <param name="vObject">
-        ///// object value to be set
-        ///// </param>
-        //[Obsolete ("Use g_value_take_object() instead.")]
-        //public void SetObjectTakeOwnership (IntPtr vObject)
-        //{
-        //    AssertInitialized ();
-        //    g_value_set_object_take_ownership (Handle, vObject);
-        //}
-
         /// <summary>
         /// Set the contents of a %G_TYPE_PARAM #GValue to @param.
         /// </summary>
@@ -2157,41 +2182,6 @@ namespace GISharp.Lib.GObject
             /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr param);
-
-        ///// <summary>
-        ///// This is an internal function introduced mainly for C marshallers.
-        ///// </summary>
-        ///// <param name="value">
-        ///// a valid #GValue of type %G_TYPE_PARAM
-        ///// </param>
-        ///// <param name="param">
-        ///// the #GParamSpec to be set
-        ///// </param>
-        ////[Obsolete ("Use g_value_take_param() instead.")]
-        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /////* <type name="none" type="void" managed-name="None" /> */
-        /////* transfer-ownership:none */
-        //static extern void g_value_set_param_take_ownership (
-        ///* <type name="Value" type="GValue*" managed-name="Value" /> */
-        ///* transfer-ownership:none */
-        //ref Value value,
-        ///* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" /> */
-        ///* transfer-ownership:none nullable:1 allow-none:1 */
-        //IntPtr param);
-
-        ///// <summary>
-        ///// This is an internal function introduced mainly for C marshallers.
-        ///// </summary>
-        ///// <param name="param">
-        ///// the #GParamSpec to be set
-        ///// </param>
-        ////[Obsolete ("Use g_value_take_param() instead.")]
-        //public void SetParamTakeOwnership(ParamSpec param)
-        //{
-        //    AssertInitialized ();
-        //    var param_ = param is null ? IntPtr.Zero : param.Handle;
-        //    g_value_set_param_take_ownership(Handle, param_);
-        //}
 
         /// <summary>
         /// Set the contents of a pointer #GValue to @v_pointer.
@@ -2234,41 +2224,41 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             sbyte vChar);
 
-        ///// <summary>
-        ///// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
-        ///// The boxed value is assumed to be static, and is thus not duplicated
-        ///// when setting the #GValue.
-        ///// </summary>
-        ///// <param name="value">
-        ///// a valid #GValue of %G_TYPE_BOXED derived type
-        ///// </param>
-        ///// <param name="vBoxed">
-        ///// static boxed value to be set
-        ///// </param>
-        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /////* <type name="none" type="void" managed-name="None" /> */
-        /////* transfer-ownership:none */
-        //static extern void g_value_set_static_boxed (
-        ///* <type name="Value" type="GValue*" managed-name="Value" /> */
-        ///* transfer-ownership:none */
-        //ref Value value,
-        ///* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
-        ///* transfer-ownership:none nullable:1 allow-none:1 */
-        //IntPtr vBoxed);
-
         /// <summary>
         /// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
         /// The boxed value is assumed to be static, and is thus not duplicated
         /// when setting the #GValue.
         /// </summary>
+        /// <param name="value">
+        /// a valid #GValue of %G_TYPE_BOXED derived type
+        /// </param>
         /// <param name="vBoxed">
         /// static boxed value to be set
         /// </param>
-        //public void SetStaticBoxed (IntPtr vBoxed)
-        //{
-        //    AssertInitialized ();
-        //    g_value_set_static_boxed (Handle, vBoxed);
-        //}
+        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_value_set_static_boxed(
+            /* <type name="Value" type="GValue*" managed-name="Value" /> */
+            /* transfer-ownership:none */
+            ref Value value,
+            /* <type name="gpointer" type="gconstpointer" managed-name="Gpointer" /> */
+            /* transfer-ownership:none nullable:1 allow-none:1 */
+            IntPtr vBoxed);
+
+        // /// <summary>
+        // /// Set the contents of a %G_TYPE_BOXED derived #GValue to @v_boxed.
+        // /// The boxed value is assumed to be static, and is thus not duplicated
+        // /// when setting the #GValue.
+        // /// </summary>
+        // /// <param name="vBoxed">
+        // /// static boxed value to be set
+        // /// </param>
+        // public void SetStaticBoxed(IntPtr vBoxed)
+        // {
+        //    AssertInitialized();
+        //    g_value_set_static_boxed(Handle, vBoxed);
+        // }
 
         /// <summary>
         /// Set the contents of a %G_TYPE_STRING #GValue to @v_string.
@@ -2327,42 +2317,6 @@ namespace GISharp.Lib.GObject
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr vString);
-
-        ///// <summary>
-        ///// This is an internal function introduced mainly for C marshallers.
-        ///// </summary>
-        ///// <param name="value">
-        ///// a valid #GValue of type %G_TYPE_STRING
-        ///// </param>
-        ///// <param name="vString">
-        ///// duplicated unowned string to be set
-        ///// </param>
-        ////[Obsolete ("Use g_value_take_string() instead.")]
-        ////[DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        /////* <type name="none" type="void" managed-name="None" /> */
-        /////* transfer-ownership:none */
-        //static extern void g_value_set_string_take_ownership(
-        //    /* <type name="Value" type="GValue*" managed-name="Value" /> */
-        //    /* transfer-ownership:none */
-        //    ref Value value,
-        //    /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
-        //    /* transfer-ownership:none nullable:1 allow-none:1 */
-        //    IntPtr vString);
-
-        ///// <summary>
-        ///// This is an internal function introduced mainly for C marshallers.
-        ///// </summary>
-        ///// <param name="vString">
-        ///// duplicated unowned string to be set
-        ///// </param>
-        //[Obsolete ("Use g_value_take_string() instead.")]
-        //public void SetStringTakeOwnership(string vString)
-        //{
-        //    AssertInitialized ();
-        //    var vString_ = MarshalG.StringToUtf8Ptr(vString);
-        //    g_value_set_string_take_ownership(Handle, vString_);
-        //    MarshalG.Free(vString_);
-        //}
 
         /// <summary>
         /// Set the contents of a %G_TYPE_UCHAR #GValue to @v_uchar.
@@ -2814,11 +2768,29 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Value"/> instance.
+        /// </summary>
+        /// <param name="type">
+        /// A GObject type.
+        /// </param>
+        /// <param name="value">
+        /// The value to assign.
+        /// </param>
         public Value(GType type, object? value) : this(type)
         {
             Set(value);
         }
 
+        /// <summary>
+        /// Creates a new <see cref="Value"/> instance.
+        /// </summary>
+        /// <param name="type">
+        /// A managed type.
+        /// </param>
+        /// <param name="value">
+        /// The value to assign.
+        /// </param>
         public Value(Type type, object? value) : this(type.ToGType())
         {
             Set(value);

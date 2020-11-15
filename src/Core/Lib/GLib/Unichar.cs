@@ -128,7 +128,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Converts <see cref="Unicar"/> to <see cref="int"/>.
+        /// Converts <see cref="Unichar"/> to <see cref="int"/>.
         /// </summary>
         public static explicit operator int(Unichar c)
         {
@@ -191,7 +191,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Converts <see cref="Unicar"/> to <see cref="uint"/>.
+        /// Converts <see cref="Unichar"/> to <see cref="uint"/>.
         /// </summary>
         public static explicit operator uint(Unichar c)
         {

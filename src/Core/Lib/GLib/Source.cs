@@ -20,12 +20,14 @@ namespace GISharp.Lib.GLib
     [GType("GSource", IsProxyForUnmanagedType = true)]
     public abstract class Source : Boxed
     {
+        /// <summary>
+        /// <see cref="Source"/> user data that acts as handle for source.
+        /// </summary>
         public sealed class UserData : IDisposable
         {
             internal readonly IntPtr Handle;
 
-            [EditorBrowsable(EditorBrowsableState.Never)]
-            public UserData(IntPtr userData)
+            internal UserData(IntPtr userData)
             {
                 Handle = userData;
             }
@@ -48,25 +50,30 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// The unmanaged data structure for <see cref="Source"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+#pragma warning disable CS0169
             // This is an opaque struct, so the fields should not be used. We
             // just need them to get the correct struct size.
-            public IntPtr CallbackData;
-            public IntPtr CallbackFuncs;
-            public IntPtr SourceFuncs;
-            public uint RefCount;
-            public IntPtr Context;
-            public int Priority;
-            public uint Flags;
-            public uint SourceId;
-            public IntPtr PollFds;
-            public IntPtr Prev;
-            public IntPtr Next;
-            public IntPtr Name;
-            public IntPtr Priv;
+            private IntPtr callbackData;
+            private IntPtr callbackFuncs;
+            private IntPtr sourceFuncs;
+            private uint refCount;
+            private IntPtr context;
+            private int priority;
+            private uint flags;
+            private uint sourceId;
+            private IntPtr pollFds;
+            private IntPtr prev;
+            private IntPtr next;
+            private IntPtr name;
+            private IntPtr priv;
+#pragma warning restore CS0169
 #pragma warning restore CS0649
         }
 
@@ -81,6 +88,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_source_ref(IntPtr source);
 
+        /// <inheritdoc/>
         public override IntPtr Take() => g_source_ref(Handle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -324,8 +332,8 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The id of a <see cref="Source"/> is given by <see cref="Id"/>, or will be
         /// returned by the functions <see cref="Attach"/>, <see cref="Idle.Add"/>,
-        /// <see cref="Timeout.Add"/>, <see cref="ChildWatch.Add"/>
-        /// and <see cref="Gio.AddWatch"/>.
+        /// <see cref="Timeout.Add"/>, <see cref="M:ChildWatch.Add"/>
+        /// and <see cref="M:Gio.AddWatch"/>.
         ///
         /// You must use <see cref="Destroy"/> for sources
         /// added to a non-default main context.
@@ -501,7 +509,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// If you don't need <paramref name="childSource"/> to do anything on its own when it
-        /// triggers, you can call <see cref="SetDummyCallback"/> on it to set a
+        /// triggers, you can call <see cref="M:SetDummyCallback"/> on it to set a
         /// callback that does nothing (except return <c>true</c> if appropriate).
         ///
         /// This API is only intended to be used by implementations of <see cref="Source"/>.
@@ -553,7 +561,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Adds a file descriptor to the set of file descriptors polled for
-        /// this source. This is usually combined with <see cref="Source.IdleSource"/> to add an
+        /// this source. This is usually combined with <see cref="Source()"/> to add an
         /// event source. The event source's check function will typically test
         /// the revents field in the <see cref="PollFD"/> struct and return <c>true</c> if events need
         /// to be processed.
@@ -564,7 +572,7 @@ namespace GISharp.Lib.GLib
         ///
         /// Using this API forces the linear scanning of event sources on each
         /// main loop iteration.  Newly-written event sources should try to use
-        /// <see cref="AddUnixFd"/> instead of this API.
+        /// <see cref="M:AddUnixFd"/> instead of this API.
         /// </remarks>
         /// <param name="fd">
         /// a <see cref="PollFD"/> structure holding information about a file
@@ -1289,6 +1297,9 @@ namespace GISharp.Lib.GLib
         /// Typically, you won't use this function. Instead use functions specific
         /// to the type of source you are using.
         /// </remarks>
+        /// <param name="func">
+        /// the managed callback
+        /// </param>
         /// <param name="marshalToPointer">
         /// the unmanaged callback marshal to pointer method
         /// </param>

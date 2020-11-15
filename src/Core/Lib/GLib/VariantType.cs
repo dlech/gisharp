@@ -910,6 +910,7 @@ namespace GISharp.Lib.GLib
             return Equal(this, other);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
             if (obj is VariantType type2) {
@@ -918,11 +919,17 @@ namespace GISharp.Lib.GLib
             return base.Equals(obj);
         }
 
+        /// <summary>
+        /// Compares two <see cref="VariantType"/>s for equality.
+        /// </summary>
         public static bool operator ==(VariantType? one, VariantType? two)
         {
             return Equal(one, two);
         }
 
+        /// <summary>
+        /// Compares two <see cref="VariantType"/>s for inequality.
+        /// </summary>
         public static bool operator !=(VariantType? one, VariantType? two)
         {
             return !Equal(one, two);

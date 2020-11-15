@@ -12,20 +12,28 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public delegate bool SourceFunc();
 
+    /// <summary>
+    /// Factory functions for marshaling <see cref="SourceFunc"/> to unmanaged code.
+    /// </summary>
     public static class SourceFuncMarshal
     {
         record UserData(SourceFunc Func, CallbackScope Scope);
 
-        public unsafe static SourceFunc FromPointer(IntPtr func_, IntPtr userData_)
+        /// <summary>
+        /// Marshals an unmanged function pointer to a <see cref="SourceFunc"/>.
+        /// </summary>
+        public unsafe static SourceFunc FromPointer(delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean> func_, IntPtr userData_)
         {
-            var func = (delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean>)func_;
             return new SourceFunc(() => {
-                var ret_ = func(userData_);
+                var ret_ = func_(userData_);
                 var ret = ret_.IsTrue();
                 return ret;
             });
         }
 
+        /// <summary>
+        /// Marshals to a <see cref="SourceFunc"/> to an unmanged function pointer.
+        /// </summary>
         public unsafe static (IntPtr func_, IntPtr destroy_, IntPtr userData_) ToPointer(SourceFunc func, CallbackScope scope)
         {
             delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean> unmanagedFunc = &UnmanagedFunc;

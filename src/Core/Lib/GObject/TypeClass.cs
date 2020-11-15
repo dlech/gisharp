@@ -34,7 +34,7 @@ namespace GISharp.Lib.GObject
             new Dictionary<Type, VirtualMethodInfo>();
 
         /// <summary>
-        /// The unmanaged data structure.
+        /// The unmanaged data structure for <see cref="TypeClass"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe struct UnmanagedStruct

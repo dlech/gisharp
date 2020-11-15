@@ -13,7 +13,7 @@ namespace GISharp.Lib.GObject
     public abstract class TypeInterface : TypeClass
     {
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="TypeInterface"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct

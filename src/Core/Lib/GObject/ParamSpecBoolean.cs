@@ -11,10 +11,21 @@ namespace GISharp.Lib.GObject
     [GType("GParamBoolean", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecBoolean : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecBoolean"/>.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
+
+            /// <summary>
+            /// default value for the property specified
+            /// </summary>
             public Runtime.Boolean DefaultValue;
 #pragma warning restore CS0649
         }

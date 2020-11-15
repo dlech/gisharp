@@ -53,7 +53,7 @@ namespace GISharp.Runtime
         static IntPtr New(string[] filenames) {
             var ptr = GMarshal.Alloc(IntPtr.Size * filenames.Length + 1);
             for (int i = 0; i < filenames.Length; i++) {
-                Marshal.WriteIntPtr(ptr, IntPtr.Size * i, new Filename(filenames[i]).Take());
+                Marshal.WriteIntPtr(ptr, IntPtr.Size * i, ((Filename)filenames[i]).Take());
             }
             // null termination
             Marshal.WriteIntPtr(ptr, IntPtr.Size * filenames.Length, IntPtr.Zero);

@@ -11,14 +11,37 @@ namespace GISharp.Lib.GObject
     [GType("GParamFloat", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecFloat : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecFloat"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
+
+            /// <summary>
+            /// minimum value for the property specified
+            /// </summary>
             public float Minimum;
+
+            /// <summary>
+            /// maximum value for the property specified
+            /// </summary>
             public float Maximum;
+
+            /// <summary>
+            /// default value for the property specified
+            /// </summary>
             public float DefaultValue;
+
+            /// <summary>
+            /// values closer than epsilon will be considered identical by
+            /// g_param_values_cmp(); the default value is 1e-30.
+            /// </summary>
             public float Epsilon;
 #pragma warning restore CS0649
         }
@@ -38,6 +61,10 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe new float DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
 
+        /// <summary>
+        /// values closer than epsilon will be considered identical by
+        /// g_param_values_cmp(); the default value is 1e-30.
+        /// </summary>
         public unsafe float Epsilon => ((UnmanagedStruct*)Handle)->Epsilon;
 
         /// <summary>

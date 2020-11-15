@@ -86,20 +86,23 @@ namespace GISharp.Lib.GObject
     /// and target properties, instead of relying on the last reference on the
     /// binding, source, and target instances to drop.
     /// </remarks>
-    [Since ("2.26")]
-    [GType ("GBinding", IsProxyForUnmanagedType = true)]
+    [Since("2.26")]
+    [GType("GBinding", IsProxyForUnmanagedType = true)]
     public sealed class Binding : Object
     {
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Binding (IntPtr handle, Transfer ownership)
-            : base (handle, ownership)
+        public Binding(IntPtr handle, Transfer ownership)
+            : base(handle, ownership)
         {
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GType g_binding_get_type ();
+        static extern GType g_binding_get_type();
 
         static readonly GType _GType = g_binding_get_type();
 
@@ -112,11 +115,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the #GBindingFlags used by the #GBinding
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
         /* transfer-ownership:none */
-        static extern BindingFlags g_binding_get_flags (
+        static extern BindingFlags g_binding_get_flags(
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
             IntPtr binding);
@@ -128,7 +131,7 @@ namespace GISharp.Lib.GObject
         /// the <see cref="BindingFlags"/> used by the <see cref="Binding"/>
         /// </value>
         [GProperty("flags")]
-        [Since ("2.26")]
+        [Since("2.26")]
         public BindingFlags Flags {
             get {
                 var ret = g_binding_get_flags(Handle);
@@ -145,11 +148,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the source #GObject
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="GObject*" managed-name="Object" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_binding_get_source (
+        static extern IntPtr g_binding_get_source(
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
             IntPtr binding);
@@ -161,7 +164,7 @@ namespace GISharp.Lib.GObject
         /// the source <see cref="Object"/>
         /// </returns>
         [GProperty("source")]
-        [Since ("2.26")]
+        [Since("2.26")]
         public Object Source {
             get {
                 var ret_ = g_binding_get_source(Handle);
@@ -180,11 +183,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the name of the source property
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_binding_get_source_property (
+        static extern IntPtr g_binding_get_source_property(
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
             IntPtr binding);
@@ -197,7 +200,7 @@ namespace GISharp.Lib.GObject
         /// the name of the source property
         /// </returns>
         [GProperty("source-property")]
-        [Since ("2.26")]
+        [Since("2.26")]
         public UnownedUtf8 SourceProperty {
             get {
                 var ret_ = g_binding_get_source_property(Handle);
@@ -215,11 +218,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the target #GObject
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Object" type="GObject*" managed-name="Object" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_binding_get_target (
+        static extern IntPtr g_binding_get_target(
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
             IntPtr binding);
@@ -231,7 +234,7 @@ namespace GISharp.Lib.GObject
         /// the target <see cref="Object"/>
         /// </returns>
         [GProperty("target")]
-        [Since ("2.26")]
+        [Since("2.26")]
         public Object Target {
             get {
                 var ret_ = g_binding_get_target(Handle);
@@ -250,11 +253,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the name of the target property
         /// </returns>
-        [Since ("2.26")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.26")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_binding_get_target_property (
+        static extern IntPtr g_binding_get_target_property(
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
             IntPtr binding);
@@ -267,7 +270,7 @@ namespace GISharp.Lib.GObject
         /// the name of the target property
         /// </returns>
         [GProperty("target-property")]
-        [Since ("2.26")]
+        [Since("2.26")]
         public UnownedUtf8 TargetProperty {
             get {
                 var ret_ = g_binding_get_target_property(Handle);
@@ -289,11 +292,11 @@ namespace GISharp.Lib.GObject
         /// <param name="binding">
         /// a #GBinding
         /// </param>
-        [Since ("2.38")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.38")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_binding_unbind (
+        static extern void g_binding_unbind(
             /* <type name="Binding" type="GBinding*" managed-name="Binding" /> */
             /* transfer-ownership:none */
             IntPtr binding);
@@ -303,8 +306,8 @@ namespace GISharp.Lib.GObject
         /// property expressed by this instance. This object can no longer
         /// be used after calling <see cref="Unbind"/> (it becomes disposed).
         /// </summary>
-        [Since ("2.38")]
-        public void Unbind ()
+        [Since("2.38")]
+        public void Unbind()
         {
             // Note: this releases a reference to handle
             g_binding_unbind(Handle);

@@ -141,6 +141,9 @@ namespace GISharp.Runtime
             return ByteStringToPtr(Encoding.UTF8.GetBytes(str));
         }
 
+        /// <summary>
+        /// Converts a <see cref="Strv"/> to a managed array of managed UTF-16 strings.
+        /// </summary>
         public static string[]? GStrvPtrToStringArray(IntPtr ptr, bool freePtr = false, bool freeElements = false)
         {
             if (ptr == IntPtr.Zero) {
@@ -162,6 +165,9 @@ namespace GISharp.Runtime
             return strings.ToArray();
         }
 
+        /// <summary>
+        /// Converts an array of managed UTF-16 strings to <see cref="Strv"/>.
+        /// </summary>
         public static IntPtr StringArrayToGStrvPtr(string[]? strings)
         {
             if (strings is null) {

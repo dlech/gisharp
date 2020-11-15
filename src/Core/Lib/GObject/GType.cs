@@ -590,16 +590,23 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Compares two GTypes for equality.
+        /// </summary>
         public static bool operator ==(GType a, GType b)
         {
             return a.value == b.value;
         }
 
+        /// <summary>
+        /// Compares two GTypes for inequality.
+        /// </summary>
         public static bool operator !=(GType a, GType b)
         {
             return a.value != b.value;
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
             if (obj is GType type) {
@@ -608,11 +615,13 @@ namespace GISharp.Lib.GObject
             return false;
         }
 
+        /// <inheritdoc/>
         public override int GetHashCode()
         {
             return value.GetHashCode();
         }
 
+        /// <inheritdoc/>
         public override string ToString()
         {
             return (string?)Name ?? "invalid";
@@ -733,6 +742,17 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_type_is_a(GType type, GType is_a_type);
 
+        /// <summary>
+        /// If <paramref name="type"/> is a derivable type, check whether this
+        /// type is a descendant of <paramref name="type"/>. If <paramref name="type"/>
+        /// is an interface, check whether this type conforms to it.
+        /// </summary>
+        /// <param name="type">
+        /// possible ancestor of this type or interface that this type could conform to
+        /// </param>
+        /// <returns>
+        /// <c>true</c> if this type is a <paramref name="type"/>.
+        /// </returns>
         public bool IsA(GType type)
         {
             var ret_ = g_type_is_a(this, type);
@@ -990,7 +1010,7 @@ namespace GISharp.Lib.GObject
                         for (int i = 0; i < values.Length; i++) {
                             var enumValueField = type.GetField(names[i]);
                             var enumValueAttr = enumValueField?.GetCustomAttributes()
-                                .OfType<EnumValueAttribute>()
+                                .OfType<GEnumMemberAttribute>()
                                 .SingleOrDefault();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
@@ -1013,7 +1033,7 @@ namespace GISharp.Lib.GObject
                             var enumValueField = type.GetField(names[i]);
                             var enumValueAttr = enumValueField?
                                 .GetCustomAttributes()
-                                .OfType<EnumValueAttribute>()
+                                .OfType<GEnumMemberAttribute>()
                                 .SingleOrDefault();
                             var valueName = enumValueAttr?.Name ?? names[i];
                             var valueNick = enumValueAttr?.Nick ?? names[i];
@@ -1064,16 +1084,22 @@ namespace GISharp.Lib.GObject
             return FromType(typeof(T));
         }
 
+        /// <summary>
+        /// Converts a managed type to a GType.
+        /// </summary>
         public static explicit operator GType(Type type)
         {
             try {
                 return FromType(type);
             }
-            catch (Exception ex) {
+            catch (GTypeException ex) {
                 throw new InvalidCastException("Could not get GType from type.", ex);
             }
         }
 
+        /// <summary>
+        /// Gets the corresponding managed type for a GType.
+        /// </summary>
         public Type ToType()
         {
             lock (mapLock) {
@@ -1100,12 +1126,15 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Converts a GType to the corresponding managed type.
+        /// </summary>
         public static explicit operator Type(GType type)
         {
             try {
                 return type.ToType();
             }
-            catch (Exception ex) {
+            catch (GTypeException ex) {
                 throw new InvalidCastException("Could not get type from GType.", ex);
             }
         }
@@ -2530,7 +2559,10 @@ namespace GISharp.Lib.GObject
 #endif
     }
 
-    public static class GTypeExtenstions
+    /// <summary>
+    /// Extension methods for <see cref="GType"/>
+    /// </summary>
+    public static class GTypeExtensions
     {
         /// <summary>
         /// Gets the type name used by the GObject type system.
@@ -2555,6 +2587,9 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
+        /// <summary>
+        /// Gets the managed type for a the GType class.
+        /// </summary>
         public static Type GetGTypeStruct(this Type type)
         {
             Type gtypeStructType;
@@ -2586,6 +2621,9 @@ namespace GISharp.Lib.GObject
             return gtypeStructType;
         }
 
+        /// <summary>
+        /// Gets the managed type for a the GType class.
+        /// </summary>
         public static Type GetGTypeStruct(this GType type)
         {
             return type.ToType().GetGTypeStruct();

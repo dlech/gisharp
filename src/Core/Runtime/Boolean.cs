@@ -24,6 +24,9 @@ namespace GISharp.Runtime
         True = 1,
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="Boolean"/>.
+    /// </summary>
     public static class BooleanExtensions
     {
         /// <summary>

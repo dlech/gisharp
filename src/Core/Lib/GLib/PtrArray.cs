@@ -14,14 +14,25 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Contains the public fields of a pointer array.
     /// </summary>
+    /// <seealso cref="PtrArray{T}"/>
     [GType("GPtrArray", IsProxyForUnmanagedType = true)]
     public abstract class PtrArray : Boxed
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="List"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// points to the array of pointers, which may be moved when the array grows
+            /// </summary>
             public void* Data;
+
+            /// <summary>
+            /// number of pointers in the array
+            /// </summary>
             public uint Len;
 #pragma warning restore CS0649
         }
@@ -44,6 +55,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_ptr_array_ref(IntPtr array);
 
+        /// <inheritdoc/>
         public override IntPtr Take() => g_ptr_array_ref(Handle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -258,11 +270,21 @@ namespace GISharp.Lib.GLib
             IntPtr array,
             bool freeSeg);
 
+        /// <summary>
+        /// Takes ownership of the unmanaged array.
+        /// </summary>
+        /// <returns>
+        /// Pointer to the array and length of the array.
+        /// </returns>
+        /// <remarks>
+        /// The managed wrapper will become disposed after calling this method.
+        /// </remarks>
         public (IntPtr, int) TakeData()
         {
             var length = (int)Len;
             var data = g_ptr_array_free(Handle, false);
             handle = IntPtr.Zero; // object becomes disposed
+            GC.SuppressFinalize(this);
             return (data, length);
         }
 
@@ -558,8 +580,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Sets a function for freeing each element when this array is destroyed
-        /// either via <see cref="Unref"/> , when <see cref="Free"/>  is called
-        /// with @freeSegment set to <c>true</c> or when removing elements.
+        /// or when removing elements.
         /// </summary>
         /// <param name="elementFreeFunc">
         /// A function to free elements with
@@ -745,6 +766,9 @@ namespace GISharp.Lib.GLib
         }
     }
 
+    /// <summary>
+    /// Contains the public fields of a pointer array.
+    /// </summary>
     public sealed class PtrArray<T> : PtrArray, IReadOnlyList<T>, IList<T>
         where T : Opaque
     {
@@ -945,6 +969,9 @@ namespace GISharp.Lib.GLib
             Sort(compareFunc_);
         }
 
+        /// <summary>
+        /// Gets or sets the element of the array at <paramref name="index"/>.
+        /// </summary>
         public T this[int index] {
             get {
                 try {
@@ -1007,6 +1034,7 @@ namespace GISharp.Lib.GLib
             return IndexOf(data) >= 0;
         }
 
+        /// <inheritdoc/>
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (arrayIndex < 0) {
@@ -1020,6 +1048,9 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// Gets the number of elements in the array.
+        /// </summary>
         public int Count => (int)Len;
 
         IEnumerator<T> GetEnumerator()
@@ -1033,21 +1064,9 @@ namespace GISharp.Lib.GLib
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
-        public void TakeOwnershipOfElements()
-        {
-            if (OwnsElements) {
-                throw new InvalidOperationException("Elements are already owned");
-            }
-            for (int i = 0; i < Len; i++) {
-                var offset = IntPtr.Size * i;
-                var ptr = Marshal.ReadIntPtr(Handle, offset);
-                ptr = elementCopyFunc(ptr);
-                Marshal.WriteIntPtr(Handle, offset, ptr);
-            }
-            SetFreeFunc(elementFreeFunc);
-            OwnsElements = true;
-        }
-
+        /// <summary>
+        /// Converts a <see cref="PtrArray{T}"/> to an unowned C array.
+        /// </summary>
         public static implicit operator UnownedCPtrArray<T>(PtrArray<T>? array)
         {
             if (array is null) {
@@ -1057,8 +1076,14 @@ namespace GISharp.Lib.GLib
         }
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="PtrArray{T}"/>.
+    /// </summary>
     public static class PtrArrayExtensions
     {
+        /// <summary>
+        /// Creates a new <see cref="PtrArray{T}"/> from an enumerable source.
+        /// </summary>
         public static PtrArray<T> ToPtrArray<T>(this IEnumerable<T> source) where T : Opaque
         {
             var size = 0;

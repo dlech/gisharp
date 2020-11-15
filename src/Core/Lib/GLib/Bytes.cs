@@ -34,7 +34,7 @@ namespace GISharp.Lib.GLib
     /// The data pointed to by this bytes must not be modified. For a mutable
     /// array of bytes see #GByteArray. Use g_bytes_unref_to_array() to create a
     /// mutable array for a #GBytes sequence. To create an immutable <see cref="Bytes"/> from
-    /// a mutable <see cref="ByteArray"/>, use the <see cref="ByteArray.ToBytes"/> function.
+    /// a mutable <see cref="ByteArray"/>, use the <see cref="M:ByteArray.ToBytes"/> function.
     /// </remarks>
     [Since("2.32")]
     [GType("GBytes", IsProxyForUnmanagedType = true)]
@@ -51,6 +51,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_bytes_ref(IntPtr array);
 
+        /// <inheritdoc/>
         public override IntPtr Take() => g_bytes_ref(Handle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -232,21 +233,33 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
+        /// <summary>
+        /// Compares two <see cref="Bytes"/>.
+        /// </summary>
         public static bool operator >=(Bytes one, Bytes two)
         {
             return one.CompareTo(two) >= 0;
         }
 
+        /// <summary>
+        /// Compares two <see cref="Bytes"/>.
+        /// </summary>
         public static bool operator >(Bytes one, Bytes two)
         {
             return one.CompareTo(two) > 0;
         }
 
+        /// <summary>
+        /// Compares two <see cref="Bytes"/>.
+        /// </summary>
         public static bool operator <(Bytes one, Bytes two)
         {
             return one.CompareTo(two) < 0;
         }
 
+        /// <summary>
+        /// Compares two <see cref="Bytes"/>.
+        /// </summary>
         public static bool operator <=(Bytes one, Bytes two)
         {
             return one.CompareTo(two) <= 0;
@@ -315,6 +328,7 @@ namespace GISharp.Lib.GLib
             return Equal(this, other);
         }
 
+        /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
             if (obj is Bytes bytes) {
@@ -323,11 +337,17 @@ namespace GISharp.Lib.GLib
             return base.Equals(obj);
         }
 
+        /// <summary>
+        /// Compares two <see cref="Bytes"/> for equality.
+        /// </summary>
         public static bool operator ==(Bytes? one, Bytes? two)
         {
             return Equal(one, two);
         }
 
+        /// <summary>
+        /// Compares two <see cref="Bytes"/> for inequality.
+        /// </summary>
         public static bool operator !=(Bytes? one, Bytes? two)
         {
             return !Equal(one, two);
@@ -367,6 +387,9 @@ namespace GISharp.Lib.GLib
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
             nuint* size);
 
+        /// <summary>
+        /// The array data as a <see cref="ReadOnlySpan{T}"/> of bytes.
+        /// </summary>
         public unsafe ReadOnlySpan<byte> Data {
             get {
                 var this_ = Handle;
@@ -529,15 +552,28 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static unsafe extern IntPtr g_bytes_unref_to_data(IntPtr bytes, UIntPtr* size);
 
+        /// <summary>
+        /// Takes ownership of the unmanaged array.
+        /// </summary>
+        /// <returns>
+        /// Pointer to the array and length of the array.
+        /// </returns>
+        /// <remarks>
+        /// The managed wrapper will become disposed after calling this method.
+        /// </remarks>
         public unsafe (IntPtr, int) TakeData()
         {
             var this_ = Handle;
             handle = IntPtr.Zero; // object becomes disposed
+            GC.SuppressFinalize(this);
             UIntPtr size_;
             var data_ = g_bytes_unref_to_data(this_, &size_);
             return (data_, (int)size_);
         }
 
+        /// <summary>
+        /// Gets an element in the array.
+        /// </summary>
         public byte this[int index] {
             get {
                 try {

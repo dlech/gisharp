@@ -26,7 +26,7 @@ namespace GISharp.Lib.GObject
         static readonly Quark managedProxyGCHandleQuark = Quark.FromString("gisharp-gobject-paramspec-managed-proxy-instance-quark");
 
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="ParamSpec"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct

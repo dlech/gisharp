@@ -63,6 +63,9 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none */
         static extern Quark g_convert_error_quark();
 
+        /// <summary>
+        /// Error quark for <see cref="ConvertError"/> domain.
+        /// </summary>
         public static Quark Quark => g_convert_error_quark();
     }
 }

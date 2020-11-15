@@ -6,6 +6,9 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
+    /// <summary>
+    /// Functions for manipulating the log writer.
+    /// </summary>
     public static class LogWriter
     {
         /// <summary>
@@ -624,6 +627,26 @@ namespace GISharp.Lib.GLib
             g_log_structured_array(logLevel, fields, (nuint)fields.Length);
         }
 
+        /// <summary>
+        /// Log a message with structured data. The message will be passed through to the
+        /// log writer set by the application using <see cref="SetFunc"/>. If the
+        /// message is fatal (i.e. its log level is <see cref="LogLevelFlags.Error"/>), the program will
+        /// be aborted at the end of this function.
+        /// </summary>
+        /// <remarks>
+        /// See g_log_structured() for more documentation.
+        ///
+        /// This assumes that <paramref name="logLevel"/> is already present in
+        /// <paramref name="fields"/> (typically as the <c>PRIORITY</c> field).
+        /// </remarks>
+        /// <param name="logLevel">
+        /// log level, either from <see cref="LogLevelFlags"/>, or a user-defined
+        /// level
+        /// </param>
+        /// <param name="fields">
+        /// key–value pairs of structured data to add
+        /// to the log message
+        /// </param>
         [Since("2.50")]
         public static void Log(LogLevelFlags logLevel, IDictionary<string, string> fields)
         {
@@ -654,7 +677,9 @@ namespace GISharp.Lib.GLib
             Log(logLevel, fields);
         }
 
-        [Since("2.50")]
+        /// <summary>
+        /// A convenience function to log a normal message.
+        /// </summary>
         public static void Message(string message,
                                    [CallerFilePath] string file = "",
                                    [CallerLineNumber] int line = 0,
@@ -663,7 +688,26 @@ namespace GISharp.Lib.GLib
             Log(LogLevelFlags.Message, message, file, line, member);
         }
 
-        [Since("2.50")]
+        /// <summary>
+        /// A convenience function to log a warning message. The message
+        /// should typically <i>not</i> be translated to the user's language.
+        /// </summary>
+        /// <remarks>
+        /// This is not intended for end user error reporting. Use of
+        /// <see cref="Error"/> is preferred for that instead, as it allows
+        /// calling functions to perform actions conditional on the type of error.
+        ///
+        /// Warning messages are intended to be used in the event of unexpected
+        /// external conditions (system misconfiguration, missing files, other
+        /// trusted programs violating protocol, invalid contents in trusted
+        /// files, etc.)
+        ///
+        /// If attempting to deal with programmer errors (for example, incorrect
+        /// function parameters) then you should use <see cref="Critical"/> instead.
+        ///
+        /// You can make warnings fatal at runtime by setting the <c>G_DEBUG</c>
+        /// environment variable.
+        /// </remarks>
         public static void Warning(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
@@ -672,7 +716,21 @@ namespace GISharp.Lib.GLib
             Log(LogLevelFlags.Warning, message, file, line, member);
         }
 
-        [Since("2.50")]
+        /// <summary>
+        /// Logs a "critical warning" (<see cref="LogLevelFlags.Critical"/>).
+        /// The message should typically <i>not</i> be translated to the user's
+        /// language.
+        /// </summary>
+        /// <remarks>
+        /// Critical warnings are intended to be used in the event of an error
+        /// that originated in the current process (a programmer error). Logging
+        /// of a critical error is by definition an indication of a bug somewhere
+        /// in the current program (or its libraries).
+        ///
+        /// You can make critical warnings fatal at runtime by setting the
+        /// <c>G_DEBUG</c> environment variable (see Running GLib Applications).
+        /// You can also use <see cref="Log.SetAlwaysFatal"/>.
+        /// </remarks>
         public static void Critical(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
@@ -681,7 +739,21 @@ namespace GISharp.Lib.GLib
             Log(LogLevelFlags.Critical, message, file, line, member);
         }
 
-        [Since("2.50")]
+        /// <summary>
+        /// A convenience function to log an error message. The message
+        /// should typically <i>not</i> be translated to the user's language.
+        /// </summary>
+        /// <remarks>
+        /// This is not intended for end user error reporting. Use of
+        /// <see cref="Error"/> is preferred for that instead, as it allows
+        /// calling functions to perform actions conditional on the type of error.
+        ///
+        /// Error messages are always fatal, resulting in a call to
+        /// G_BREAKPOINT() to terminate the application. This function will
+        /// result in a core dump; don't use it for errors you expect. Using
+        /// this function indicates a bug in your program, i.e. an assertion
+        /// failure.
+        /// </remarks>
         public static void Error(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
@@ -690,7 +762,10 @@ namespace GISharp.Lib.GLib
             Log(LogLevelFlags.Error, message, file, line, member);
         }
 
-        [Since("2.50")]
+        /// <summary>
+        /// A convenience function to log an informational message. Seldom used.
+        /// </summary>
+        [Since("2.40")]
         public static void Info(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
@@ -699,7 +774,11 @@ namespace GISharp.Lib.GLib
             Log(LogLevelFlags.Info, message, file, line, member);
         }
 
-        [Since("2.50")]
+        /// <summary>
+        /// A convenience function to log a debug message. The message
+        /// should typically <i>not</i> be translated to the user's language.
+        /// </summary>
+        [Since("2.6")]
         public static void Debug(string message,
                                     [CallerFilePath] string file = "",
                                     [CallerLineNumber] int line = 0,
@@ -708,12 +787,17 @@ namespace GISharp.Lib.GLib
             Log(LogLevelFlags.Debug, message, file, line, member);
         }
 
+        /// <summary>
+        /// convenience form of <see cref="Log(LogLevelFlags,string,string,int,string)"/>,
+        /// recommended to be added to functions when debugging. It prints the
+        /// current monotonic time and the code location.
+        /// </summary>
         [Since("2.50")]
         public static void DebugHere([CallerFilePath] string file = "",
                                       [CallerLineNumber] int line = 0,
                                       [CallerMemberName] string member = "")
         {
-            var message = string.Format($"{Environment.TickCount}: {file}:{line}:{member}()");
+            var message = $"{Environment.TickCount}: {file}:{line}:{member}()";
             Log(LogLevelFlags.Debug, message, file, line, member);
         }
 

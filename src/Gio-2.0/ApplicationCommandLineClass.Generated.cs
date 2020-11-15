@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     public class ApplicationCommandLineClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="ApplicationCommandLineClass"/>.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {

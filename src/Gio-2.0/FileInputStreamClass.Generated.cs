@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     public class FileInputStreamClass : GISharp.Lib.Gio.InputStreamClass
     {
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="FileInputStreamClass"/>.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {

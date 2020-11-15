@@ -16,12 +16,26 @@ namespace GISharp.Lib.GLib
     [GType("GError", IsProxyForUnmanagedType = true)]
     public sealed class Error : Boxed
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="Error"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// error domain, e.g. G_FILE_ERROR
+            /// </summary>
             public Quark Domain;
+
+            /// <summary>
+            /// error code, e.g. G_FILE_ERROR_NOENT
+            /// </summary>
             public int Code;
+
+            /// <summary>
+            /// human-readable informative error message
+            /// </summary>
             public IntPtr Message;
 #pragma warning restore CS0649
         }
@@ -160,11 +174,10 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Returns <c>true</c> if error matches <paramref name="domain"/> and
+        /// Returns <c>true</c> if error matches
         /// <paramref name="code"/>, <c>false</c> otherwise.
         /// </summary>
         /// <returns>The matches.</returns>
-        /// <param name="domain">An error domain.</param>
         /// <param name="code">An error code.</param>
         /// <remarks>
         /// If domain contains a <c>Failed</c> (or otherwise generic) error code,

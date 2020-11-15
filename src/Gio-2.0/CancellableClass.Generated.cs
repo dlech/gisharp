@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     public class CancellableClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="CancellableClass"/>.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {

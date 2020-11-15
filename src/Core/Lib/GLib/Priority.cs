@@ -1,6 +1,9 @@
 ﻿
 namespace GISharp.Lib.GLib
 {
+    /// <summary>
+    /// Commonly used priority values.
+    /// </summary>
     public static class Priority
     {
         /// <summary>

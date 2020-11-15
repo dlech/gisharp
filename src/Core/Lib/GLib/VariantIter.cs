@@ -9,7 +9,7 @@ using GISharp.Runtime;
 namespace GISharp.Lib.GLib
 {
     /// <summary>
-    /// #GVariantIter is an opaque data structure and can only be accessed
+    /// <see cref="VariantIter"/> is an opaque data structure and can only be accessed
     /// using the following functions.
     /// </summary>
     public sealed class VariantIter : Opaque, IEnumerator<Variant>
@@ -17,6 +17,9 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_variant_iter_copy(IntPtr iter);
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public VariantIter(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
@@ -28,6 +31,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_variant_iter_free(IntPtr iter);
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
@@ -64,8 +68,8 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Initialises (without allocating) a #GVariantIter.  @iter may be
-        /// completely uninitialised prior to this call; its old value is
+        /// Initializes (without allocating) a #GVariantIter.  @iter may be
+        /// completely uninitialized prior to this call; its old value is
         /// ignored.
         /// </summary>
         /// <remarks>
@@ -191,18 +195,21 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             IntPtr iter);
 
-        public bool MoveNext()
+        /// <summary>
+        /// Gets the next item in the container. If no more items remain then <c>null</c> is returned.
+        /// </summary>
+        public Variant? TryNextValue()
         {
             var ret_ = g_variant_iter_next_value(Handle);
-            if (ret_ == IntPtr.Zero) {
-                current = null;
-                return false;
-            }
             current = GetInstance<Variant>(ret_, Transfer.Full);
-            return true;
+            return current;
         }
 
-        public Variant Current => current ?? throw new InvalidOperationException();
+        bool IEnumerator.MoveNext() => TryNextValue() != null;
+
+        private Variant Current => current ?? throw new InvalidOperationException();
+
+        Variant IEnumerator<Variant>.Current => Current;
 
         object IEnumerator.Current => Current;
     }

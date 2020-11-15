@@ -25,6 +25,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_main_context_ref(IntPtr context);
 
+        /// <inheritdoc/>
         public override IntPtr Take() => g_main_context_ref(Handle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -529,7 +530,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Adds a file descriptor to the set of file descriptors polled for
         /// this context. This will very seldom be used directly. Instead
-        /// a typical event source will use <see cref="Source.AddUnixFd"/> instead.
+        /// a typical event source will use <see cref="M:Source.AddUnixFd"/> instead.
         /// </summary>
         /// <param name="fd">
         /// a <see cref="PollFD"/> structure holding information about a file
@@ -740,9 +741,6 @@ namespace GISharp.Lib.GLib
         /// If multiple sources exist with the same user data, the first
         /// one found will be returned.
         /// </remarks>
-        /// <param name="context">
-        /// a #GMainContext
-        /// </param>
         /// <param name="userData">
         /// the user_data for the callback.
         /// </param>
@@ -1463,11 +1461,13 @@ namespace GISharp.Lib.GLib
             this.context = context;
         }
 
+        /// <inheritdoc/>
         public override SynchronizationContext CreateCopy()
         {
             return new GSynchronizationContext(context);
         }
 
+        /// <inheritdoc/>
         public override void Post(SendOrPostCallback d, object? state)
         {
             using var source = new IdleSource();

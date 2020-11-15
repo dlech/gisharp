@@ -1,10 +1,12 @@
 using System;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
 {
+    /// <summary>
+    /// Functions for working with <see cref="GType.Flags"/>.
+    /// </summary>
     public static class Flags
     {
         /// <summary>
@@ -23,10 +25,10 @@ namespace GISharp.Lib.GObject
         ///  enumeration values. The array is terminated by a struct with all
         ///  members being 0.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static unsafe extern void g_flags_complete_type_info (
+        static unsafe extern void g_flags_complete_type_info(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType gFlagsType,
@@ -75,10 +77,10 @@ namespace GISharp.Lib.GObject
         /// the first #GFlagsValue which is set in
         ///          @value, or %NULL if none is set
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_flags_get_first_value (
+        static extern IntPtr g_flags_get_first_value(
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
             IntPtr flagsClass,
@@ -99,10 +101,10 @@ namespace GISharp.Lib.GObject
         /// the first #GFlagsValue which is set in
         ///          @value, or %NULL if none is set
         /// </returns>
-        public static FlagsValue GetFirstValue (FlagsClass flagsClass, uint value)
+        public static FlagsValue GetFirstValue(FlagsClass flagsClass, uint value)
         {
-            var ret_ = g_flags_get_first_value (flagsClass.Handle, value);
-            var ret = Marshal.PtrToStructure<FlagsValue> (ret_);
+            var ret_ = g_flags_get_first_value(flagsClass.Handle, value);
+            var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
             return ret;
         }
@@ -120,10 +122,10 @@ namespace GISharp.Lib.GObject
         /// the #GFlagsValue with name @name,
         ///          or %NULL if there is no flag with that name
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_flags_get_value_by_name (
+        static extern IntPtr g_flags_get_value_by_name(
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
             IntPtr flagsClass,
@@ -167,10 +169,10 @@ namespace GISharp.Lib.GObject
         /// the #GFlagsValue with nickname @nick,
         ///          or %NULL if there is no flag with that nickname
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="FlagsValue" type="GFlagsValue*" managed-name="FlagsValue" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_flags_get_value_by_nick (
+        static extern IntPtr g_flags_get_value_by_nick(
             /* <type name="FlagsClass" type="GFlagsClass*" managed-name="FlagsClass" /> */
             /* transfer-ownership:none */
             IntPtr flagsClass,
@@ -203,9 +205,16 @@ namespace GISharp.Lib.GObject
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern unsafe GType g_flags_register_static(
-            IntPtr typeName, 
+            IntPtr typeName,
             FlagsValue* values);
 
+        /// <summary>
+        /// Registers type_name as the name of a new static type derived from
+        /// parent_type . The type system uses the information contained in the
+        /// GTypeInfo structure pointed to by info to manage the type and its
+        /// instances (if not abstract). The value of flags determines the
+        /// nature (e.g. abstract or not) of the type.
+        /// </summary>
         public static unsafe GType RegisterStatic(string typeName, ReadOnlyMemory<FlagsValue> values)
         {
             GType.AssertGTypeName(typeName);
@@ -222,7 +231,8 @@ namespace GISharp.Lib.GObject
                 var ret = g_flags_register_static(typeName_, values_);
                 // Pinned memory of values is never freed for the lifetime of the program
                 return ret;
-            } catch {
+            }
+            catch {
                 handle.Dispose();
                 throw;
             }
@@ -254,6 +264,9 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public UnownedUtf8 Nick => new UnownedUtf8(valueNick, -1);
 
+        /// <summary>
+        /// Creates a new instance.
+        /// </summary>
         public FlagsValue(uint value, Utf8 name, Utf8 nick)
         {
             this.value = value;

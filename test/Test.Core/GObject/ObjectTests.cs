@@ -277,7 +277,7 @@ namespace GISharp.Test.Core.GObject
                 }
                 set {
                     _DoubleValue = value;
-                    EmitNotify(nameof(DoubleValue));
+                    Notify(nameof(DoubleValue));
                 }
             }
 

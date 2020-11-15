@@ -5,8 +5,9 @@ using GISharp.Runtime;
 namespace GISharp.Lib.GLib
 {
     /// <summary>
-    /// Error codes returned by parsing text-format GVariants.
+    /// Error codes returned by parsing text-format <see cref="Variant"/>s.
     /// </summary>
+    /// <seealso cref="VariantParseErrorDomain"/>
     [GErrorDomain ("g-variant-parse-error-quark")]
     public enum VariantParseError
     {
@@ -84,6 +85,9 @@ namespace GISharp.Lib.GLib
         ValueExpected = 17
     }
 
+    /// <summary>
+    /// Extension methods for <see cref="VariantParseError"/>.
+    /// </summary>
     public static class VariantParseErrorDomain
     {
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -91,6 +95,9 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none */
         static extern Quark g_variant_parse_error_quark();
 
+        /// <summary>
+        /// Error domain for <see cref="Variant"/> text format parsing.
+        /// </summary>
         public static Quark Quark {
             get {
                 var ret = g_variant_parse_error_quark();

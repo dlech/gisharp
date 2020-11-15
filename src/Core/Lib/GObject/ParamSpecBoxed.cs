@@ -11,10 +11,16 @@ namespace GISharp.Lib.GObject
     [GType("GParamBoxed", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecBoxed : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecBoxed"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
 #pragma warning restore CS0649
         }

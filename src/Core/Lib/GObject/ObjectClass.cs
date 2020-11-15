@@ -21,7 +21,7 @@ namespace GISharp.Lib.GObject
     public class ObjectClass : TypeClass
     {
         /// <summary>
-        /// The unmanaged data structure
+        /// The unmanaged data structure for <see cref="ObjectClass"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
@@ -195,7 +195,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// ClassInit callback for managed classes.
         /// </summary>
-        /// <param name="class_">Pointer to <see cref="UnmanagedStruct"/>.</param>
+        /// <param name="gClass_">Pointer to <see cref="UnmanagedStruct"/>.</param>
         /// <param name="classData_">Pointer to user data from <see cref="TypeInfo"/>.</param>
         /// <remarks>
         /// This takes care of overriding the methods to make the managed type
@@ -885,6 +885,41 @@ namespace GISharp.Lib.GObject
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name);
+
+        /// <summary>
+        /// Registers <paramref name="propertyId"/> as referring to a property with the name
+        /// <paramref name="name"/> in a parent class or in an interface implemented by this instance.
+        /// This allows this class to "override" a property implementation in
+        /// a parent class or to provide the implementation of a property from
+        /// an interface.
+        /// </summary>
+        /// <remarks>
+        /// Internally, overriding is implemented by creating a property of type
+        /// <see cref="ParamSpecOverride"/>; generally operations that query the properties of
+        /// the object class, such as <see cref="FindProperty"/> or
+        /// <see cref="ListProperties()"/> will return the overridden
+        /// property. However, in one case, the <c>constructProperties</c> argument of
+        /// the <see cref="UnmanagedStruct.Constructor"/> virtual function, the
+        /// <see cref="ParamSpecOverride"/> is passed
+        /// instead, so that the @param_id field of the <see cref="ParamSpec"/> will be
+        /// correct.  For virtually all uses, this makes no difference. If you
+        /// need to get the overridden property, you can call
+        /// <see cref="ParamSpec.RedirectTarget"/>.
+        /// </remarks>
+        /// <param name="propertyId">
+        /// the new property ID
+        /// </param>
+        /// <param name="name">
+        /// the name of a property registered in a parent class or
+        /// in an interface of this class.
+        /// </param>
+        [Since("2.4")]
+        public unsafe void OverrideProperty(uint propertyId, UnownedUtf8 name)
+        {
+            var oclass_ = (UnmanagedStruct*)Handle;
+            var name_ = name.Handle;
+            g_object_class_override_property(oclass_, propertyId, name_);
+        }
     }
 
     /// <summary>

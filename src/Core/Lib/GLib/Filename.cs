@@ -5,6 +5,10 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
+    /// <summary>
+    /// String using OS-specific encoding. Used for filenames, environment
+    /// variables and process arguments.
+    /// </summary>
     public sealed class Filename : Opaque
     {
         /// <summary>
@@ -20,6 +24,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
@@ -51,30 +56,39 @@ namespace GISharp.Lib.GLib
             IntPtr args);
 
         /// <summary>
-        /// Behaves exactly like g_build_filename(), but takes the path elements
-        /// as a string array, instead of varargs. This function is mainly
-        /// meant for language bindings.
+        /// Creates a filename from a series of elements using the correct separator for filenames.
         /// </summary>
+        /// <remarks>
+        /// <para>
+        /// On Unix, this function behaves identically to
+        /// <c>g_build_path(G_DIR_SEPARATOR_S, first_element, ....)</c>.
+        /// </para>
+        /// <para>
+        /// On Windows, it takes into account that either the backslash (<c>\</c> or
+        /// slash (<c>/</c>) can be used as separator in filenames, but otherwise
+        /// behaves as on UNIX. When file pathname separators need to be inserted,
+        /// the one that last previously occurred in the parameters (reading from
+        /// left to right) is used.
+        /// </para>
+        /// <para>
+        /// No attempt is made to force the resulting filename to be an absolute
+        /// path. If the first element is a relative path, the result will be a
+        /// relative path.
+        /// </para>
+        /// </remarks>
         /// <param name="args">
-        /// %NULL-terminated array of strings containing the path elements.
+        /// null-terminated array of strings containing the path elements.
         /// </param>
         /// <returns>
-        /// a newly-allocated string that must be freed with g_free().
+        /// a newly-allocated string.
         /// </returns>
         [Since("2.8")]
-        static IntPtr BuildFilename(Strv args)
+        public static Filename Build(Strv args)
         {
             var args_ = args.Handle;
             var ret_ = g_build_filenamev(args_);
-            return ret_;
-        }
-
-        public Filename(Strv args) : this(BuildFilename(args), Transfer.Full)
-        {
-        }
-
-        public Filename(params string[] args) : this(new Strv(args))
-        {
+            var ret = new Filename(ret_, Transfer.Full);
+            return ret;
         }
 
         /// <summary>
@@ -377,7 +391,7 @@ namespace GISharp.Lib.GLib
                 var error = GetInstance<Error>(error_, Transfer.Full);
                 throw new GErrorException(error);
             }
-            var ret = Opaque.GetInstance<Filename>(ret_, Transfer.Full);
+            var ret = GetInstance<Filename>(ret_, Transfer.Full);
             return ret;
         }
 
@@ -522,12 +536,20 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
+        /// <summary>
+        /// Converts an unmanged string with OS filename encoding to a managaged
+        /// UTF-16 string.
+        /// </summary>
         public static implicit operator string(Filename filename)
         {
             using var utf8 = filename.ToUtf8();
             return utf8.ToString();
         }
 
+        /// <summary>
+        /// Converts a managed UTF-16 string to an unmanged string with OS
+        /// filename encoding.
+        /// </summary>
         public static implicit operator Filename(string str)
         {
             using var utf8 = new Utf8(str);

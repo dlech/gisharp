@@ -7,6 +7,9 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
 {
+    /// <summary>
+    /// A mechanism to wrap opaque C structures registered by the type system
+    /// </summary>
     [GType("GBoxed", IsProxyForUnmanagedType = true)]
     public abstract class Boxed : Opaque
     {
@@ -14,6 +17,9 @@ namespace GISharp.Lib.GObject
 
         readonly GType gType;
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected Boxed(GType gType, IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
@@ -31,6 +37,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
@@ -89,6 +96,9 @@ namespace GISharp.Lib.GObject
 
     }
 
+    /// <summary>
+    /// Type for boxing managed (non-GType) types for passing to unmanaged code.
+    /// </summary>
     [GType(IsProxyForUnmanagedType = true)]
     public sealed class Boxed<T> : Boxed
     {
@@ -106,6 +116,10 @@ namespace GISharp.Lib.GObject
         }
         static readonly GType _GType = GetGType();
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public Boxed(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
         }
@@ -115,10 +129,19 @@ namespace GISharp.Lib.GObject
             return (IntPtr)GCHandle.Alloc(obj);
         }
 
+        /// <summary>
+        /// Creates a new boxed wrapper around a managed object.
+        /// </summary>
+        /// <param name="obj">
+        /// The managed object.
+        /// </param>
         public Boxed(T obj) : base(_GType, New(obj), Transfer.Full)
         {
         }
 
+        /// <summary>
+        /// Gets the managed instance wrapped by this boxed instance.
+        /// </summary>
         public T Value => (T)GCHandle.FromIntPtr(Handle).Target!;
 
         static IntPtr CopyManagedType(IntPtr boxed)

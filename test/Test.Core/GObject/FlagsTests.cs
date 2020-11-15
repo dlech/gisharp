@@ -122,9 +122,9 @@ namespace GISharp.Test.Core.GObject
         [Flags, GType ("TestFlags5GTypeName")]
         public enum TestFlags5
         {
-            [EnumValue ("test_flags_5_value_one")]
+            [GEnumMember ("test_flags_5_value_one")]
             One = 1,
-            [EnumValue (nick: "test_flags_5_value_two")]
+            [GEnumMember (nick: "test_flags_5_value_two")]
             Two = 2,
             Four = 4,
         }

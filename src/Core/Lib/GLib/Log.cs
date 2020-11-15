@@ -46,16 +46,54 @@ namespace GISharp.Lib.GLib
             g_log(logDomain.Handle, logLevel, stringFormat_, message.Handle);
         }
 
+        /// <summary>
+        /// A convenience function to log a normal message.
+        /// </summary>
         public static void Message(NullableUnownedUtf8 message)
         {
             Log_(DefaultDomain, LogLevelFlags.Message, message);
         }
 
+        /// <summary>
+        /// A convenience function to log a warning message. The message
+        /// should typically <i>not</i> be translated to the user's language.
+        /// </summary>
+        /// <remarks>
+        /// This is not intended for end user error reporting. Use of
+        /// <see cref="Error"/> is preferred for that instead, as it allows
+        /// calling functions to perform actions conditional on the type of error.
+        ///
+        /// Warning messages are intended to be used in the event of unexpected
+        /// external conditions (system misconfiguration, missing files, other
+        /// trusted programs violating protocol, invalid contents in trusted
+        /// files, etc.)
+        ///
+        /// If attempting to deal with programmer errors (for example, incorrect
+        /// function parameters) then you should use <see cref="Critical"/> instead.
+        ///
+        /// You can make warnings fatal at runtime by setting the <c>G_DEBUG</c>
+        /// environment variable.
+        /// </remarks>
         public static void Warning(NullableUnownedUtf8 message)
         {
             Log_(DefaultDomain, LogLevelFlags.Warning, message);
         }
 
+        /// <summary>
+        /// Logs a "critical warning" (<see cref="LogLevelFlags.Critical"/>).
+        /// The message should typically <i>not</i> be translated to the user's
+        /// language.
+        /// </summary>
+        /// <remarks>
+        /// Critical warnings are intended to be used in the event of an error
+        /// that originated in the current process (a programmer error). Logging
+        /// of a critical error is by definition an indication of a bug somewhere
+        /// in the current program (or its libraries).
+        ///
+        /// You can make critical warnings fatal at runtime by setting the
+        /// <c>G_DEBUG</c> environment variable (see Running GLib Applications).
+        /// You can also use <see cref="Log.SetAlwaysFatal"/>.
+        /// </remarks>
         public static void Critical(NullableUnownedUtf8 message)
         {
             Log_(DefaultDomain, LogLevelFlags.Critical, message);
@@ -63,6 +101,21 @@ namespace GISharp.Lib.GLib
 
 // GLib will abort the program after logging the error
 #pragma warning disable CS8763
+        /// <summary>
+        /// A convenience function to log an error message. The message
+        /// should typically <i>not</i> be translated to the user's language.
+        /// </summary>
+        /// <remarks>
+        /// This is not intended for end user error reporting. Use of
+        /// <see cref="Error"/> is preferred for that instead, as it allows
+        /// calling functions to perform actions conditional on the type of error.
+        ///
+        /// Error messages are always fatal, resulting in a call to
+        /// G_BREAKPOINT() to terminate the application. This function will
+        /// result in a core dump; don't use it for errors you expect. Using
+        /// this function indicates a bug in your program, i.e. an assertion
+        /// failure.
+        /// </remarks>
         [DoesNotReturn]
         public static void Error(NullableUnownedUtf8 message)
         {
@@ -70,11 +123,18 @@ namespace GISharp.Lib.GLib
         }
 #pragma warning restore CS8763
 
+        /// <summary>
+        /// A convenience function to log an informational message. Seldom used.
+        /// </summary>
         public static void Info(NullableUnownedUtf8 message)
         {
             Log_(DefaultDomain, LogLevelFlags.Info, message);
         }
 
+        /// <summary>
+        /// A convenience function to log a debug message. The message
+        /// should typically <i>not</i> be translated to the user's language.
+        /// </summary>
         public static void Debug(NullableUnownedUtf8 message)
         {
             Log_(DefaultDomain, LogLevelFlags.Debug, message);
@@ -346,14 +406,51 @@ namespace GISharp.Lib.GLib
 
         static GCHandle defaultHandler;
 
-        public class LoggerProvider : ILoggerProvider
+        /// <summary>
+        /// Class implementing the standard <see cref="ILoggerProvider"/> interface
+        /// that uses GLib logging as the backend.
+        /// </summary>
+        /// <remarks>
+        /// <para>
+        /// Note that log levels do not map directly between <see cref="LogLevel"/>
+        /// and <see cref="LogLevelFlags"/>. Most importantly, <c>Critical</c>
+        /// and <c>Error</c> have opposite meanings.
+        /// </para>
+        ///
+        /// <para>
+        /// The full mapping is:
+        /// <list type="bullet">
+        /// <item><description>
+        /// <see cref="LogLevel.Trace"/> => <see cref="LogLevelFlags.Debug"/>
+        /// </description></item>
+        /// <item><description>
+        /// <see cref="LogLevel.Debug"/> => <see cref="LogLevelFlags.Info"/>
+        /// </description></item>
+        /// <item><description>
+        /// <see cref="LogLevel.Information"/> => <see cref="LogLevelFlags.Message"/>
+        /// </description></item>
+        /// <item><description>
+        /// <see cref="LogLevel.Warning"/> => <see cref="LogLevelFlags.Warning"/>
+        /// </description></item>
+        /// <item><description>
+        /// <see cref="LogLevel.Error"/> => <see cref="LogLevelFlags.Critical"/>
+        /// </description></item>
+        /// <item><description>
+        /// <see cref="LogLevel.Critical"/> => <see cref="LogLevelFlags.Error"/>
+        /// </description></item>
+        /// </list>
+        /// </para>
+        /// </remarks>
+        public sealed class LoggerProvider : ILoggerProvider
         {
+            /// <inheritdoc/>
+
             public ILogger CreateLogger(string categoryName)
             {
                 return new Logger(categoryName);
             }
 
-            public void Dispose()
+            void IDisposable.Dispose()
             {
             }
         }
@@ -403,7 +500,7 @@ namespace GISharp.Lib.GLib
                     LogLevel.Error => LogLevelFlags.Critical,
                     LogLevel.Critical => LogLevelFlags.Error,
                     LogLevel.None => default,
-                    _ => throw new ArgumentException()
+                    _ => throw new ArgumentException("Unknown log level", nameof(logLevel))
                 };
             }
         }

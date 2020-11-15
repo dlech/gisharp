@@ -13,12 +13,28 @@ namespace GISharp.Lib.GObject
     [GType("GParamValueArray", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecValueArray : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecValueArray"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
+
+            /// <summary>
+            /// a GParamSpec describing the elements contained in arrays of
+            /// this property, may be NULL
+            /// </summary>
             public IntPtr ElementSpec;
+
+            /// <summary>
+            /// if greater than 0, arrays of this property will always have
+            /// this many elements
+            /// </summary>
             public uint FixedNElements;
 #pragma warning restore CS0649
         }

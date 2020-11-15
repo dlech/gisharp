@@ -72,6 +72,9 @@ namespace GISharp.Lib.GModule
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Module(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
@@ -83,6 +86,7 @@ namespace GISharp.Lib.GModule
         [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_module_close(IntPtr module);
 
+        /// <inheritdoc/>
         protected override void Dispose (bool disposing)
         {
             if (Handle != IntPtr.Zero) {

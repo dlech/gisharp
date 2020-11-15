@@ -69,7 +69,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Calls to <seealso cref="Object.SetProperty"/> for this
         /// property will not automatically result in a "notify" signal being
-        /// emitted: the implementation must call <see cref="Object.Notify"/>
+        /// emitted: the implementation must call <see cref="Object.Notify(GLib.UnownedUtf8)"/>
         /// themselves in case the property actually changes.
         /// </summary>
         [Since ("2.42")]

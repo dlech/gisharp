@@ -55,24 +55,20 @@ namespace GISharp.Lib.GObject
     [GType ("GClosure", IsProxyForUnmanagedType = true)]
     public sealed class Closure : Boxed
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="Closure"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe struct UnmanagedStruct
         {
     #pragma warning disable CS0649
-            public uint BitFields;
-            public IntPtr Marshal;
-            public IntPtr Data;
-            public IntPtr Notifiers;
+    #pragma warning disable CS0169
+            internal uint BitFields;
+            private IntPtr marshal;
+            internal IntPtr Data;
+            private IntPtr notifiers;
+    #pragma warning restore CS0169
     #pragma warning restore CS0649
-
-            [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-            public unsafe delegate void UnmanagedMarshal(
-                IntPtr closure,
-                Value* returnValue,
-                uint nParamValues,
-                Value* paramValues,
-                IntPtr invocationHint,
-                IntPtr marshalData);
         }
 
         unsafe uint BitFields => ((UnmanagedStruct*)Handle)->BitFields;
@@ -93,6 +89,7 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_closure_ref (IntPtr closure);
 
+        /// <inheritdoc/>
         public override IntPtr Take() => g_closure_ref(Handle);
 
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -101,6 +98,9 @@ namespace GISharp.Lib.GObject
         [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_closure_unref (IntPtr closure);
 
+        /// <summary>
+        /// Indicates whether the closure is currently being invoked with <see cref="Invoke"/>.
+        /// </summary>
         public bool InMarshal {
             get {
                 var ret_ = BitFields >> 30;
@@ -109,6 +109,9 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <summary>
+        /// Indicates whether the closure has been invalidated by <see cref="Invalidate"/>.
+        /// </summary>
         public bool IsInvalid {
             get {
                 var ret_ = BitFields >> 31;
@@ -164,6 +167,9 @@ namespace GISharp.Lib.GObject
         /// @object and the created closure. This function is mainly useful
         /// when implementing new types of closures.
         /// </summary>
+        /// <param name="callback">
+        /// Callback that will be called when the closure is invoked.
+        /// </param>
         /// <param name="object">
         /// a #GObject pointer to store in the @data field of the newly
         ///  allocated #GClosure
@@ -171,7 +177,7 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// a newly allocated #GClosure
         /// </returns>
-        public Closure(Func<object[], object> callback, GISharp.Lib.GObject.Object @object)
+        public Closure(Func<object[], object> callback, Object @object)
             : this(NewObject(Marshal.SizeOf<ManagedClosure> (), @object), Transfer.None)
         {
             SetCallback(callback, ManagedClosureFuncCallback);

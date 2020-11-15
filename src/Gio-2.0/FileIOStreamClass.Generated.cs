@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     public class FileIOStreamClass : GISharp.Lib.Gio.IOStreamClass
     {
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="FileIOStreamClass"/>.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {

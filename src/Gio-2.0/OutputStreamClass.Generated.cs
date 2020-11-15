@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     public class OutputStreamClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="OutputStreamClass"/>.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {

@@ -12,17 +12,35 @@ namespace GISharp.Lib.GObject
     [GType("GParamEnum", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecEnum : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecEnum"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
-            public IntPtr EnumClass;
+
+            /// <summary>
+            /// the GEnumClass for the enum
+            /// </summary>
+            public EnumClass.UnmanagedStruct* EnumClass;
+
+            /// <summary>
+            /// default value for the property specified
+            /// </summary>
             public int DefaultValue;
 #pragma warning restore CS0649
         }
 
-        unsafe IntPtr EnumClass => ((UnmanagedStruct*)Handle)->EnumClass;
+        /// <summary>
+        /// the <see cref="EnumClass"/> for the enum
+        /// </summary>
+        public unsafe EnumClass EnumClass =>
+            Opaque.GetInstance<EnumClass>((IntPtr)((UnmanagedStruct*)Handle)->EnumClass, Transfer.None);
 
         /// <summary>
         /// default value for the property specified
@@ -30,7 +48,8 @@ namespace GISharp.Lib.GObject
         public unsafe new System.Enum DefaultValue {
             get {
                 var ret_ = ((UnmanagedStruct*)Handle)->DefaultValue;
-                var ret = (System.Enum)System.Enum.ToObject(EnumType, ret_);
+                var gType = ((UnmanagedStruct*)Handle)->EnumClass->GTypeClass.GType;
+                var ret = (System.Enum)System.Enum.ToObject(gType.ToType(), ret_);
                 return ret;
             }
         }
@@ -41,13 +60,6 @@ namespace GISharp.Lib.GObject
         [EditorBrowsable(EditorBrowsableState.Never)]
         public ParamSpecEnum(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
-        }
-
-        public Type EnumType {
-            get {
-                var type = Marshal.PtrToStructure<GType>(EnumClass);
-                return type.ToType();
-            }
         }
 
         static readonly GType _GType = paramSpecTypes[10];

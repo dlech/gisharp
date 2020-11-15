@@ -11,7 +11,7 @@ namespace GISharp.Lib.Gio
         private static readonly GISharp.Lib.GObject.GType _GType = g_application_get_type();
 
         /// <summary>
-        /// Unmanaged data structure
+        /// The unmanaged data structure for <see cref="Application"/>.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {

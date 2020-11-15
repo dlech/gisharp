@@ -10,6 +10,10 @@ using culong = GISharp.Runtime.CULong;
 
 namespace GISharp.Lib.GObject
 {
+    /// <summary>
+    /// GObject signals operations.
+    /// </summary>
+    /// <seealso cref="Object"/>
     public static class Signal
     {
         static Regex signalNameRegex = new("^[a-zA-Z](?:[a-zA-Z0-9_]*|[a-zA-Z0-9-]*)$",
@@ -365,6 +369,9 @@ namespace GISharp.Lib.GObject
         /// </param>
         /// <param name="detailedSignal">
         /// a string of the form "signal-name::detail".
+        /// </param>
+        /// <param name="unmanagedCallbackFactory">
+        /// Factory function to marshal <paramref name="handler"/> to an unmanaged function pointer.
         /// </param>
         /// <param name="handler">
         /// the #GCallback to connect.
@@ -747,7 +754,26 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        public static uint TryLookup<T>(string name)
+        /// <summary>
+        /// Given the name of the signal and the type of object it connects to, gets
+        /// the signal's identifying integer. Emitting the signal by number is
+        /// somewhat faster than using the name each time.
+        /// </summary>
+        /// <remarks>
+        /// Also tries the ancestors of the given type.
+        ///
+        /// See <see cref="ValidateName"/> for details on allowed signal names.
+        /// </remarks>
+        /// <typeparam name="T">
+        /// the type that the signal operates on.
+        /// </typeparam>
+        /// <param name="name">
+        /// the signal's name.
+        /// </param>
+        /// <returns>
+        /// the signal's identifying number, or 0 if no signal was found.
+        /// </returns>
+        public static uint TryLookup<T>(UnownedUtf8 name)
         {
             return TryLookup(name, GType.Of<T>());
         }

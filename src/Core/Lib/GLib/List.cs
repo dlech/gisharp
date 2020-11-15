@@ -11,8 +11,35 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// The <see cref="List"/> struct is used for each element in a doubly-linked list.
     /// </summary>
+    /// <seealso cref="List{T}"/>
     public abstract class List : Opaque
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="List"/>.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe struct UnmanagedStruct
+        {
+#pragma warning disable CS0649
+            /// <summary>
+            /// holds the element's data, which can be a pointer to any kind of
+            /// data, or any integer value using the Type Conversion Macros
+            /// </summary>
+            public IntPtr Data;
+
+            /// <summary>
+            /// contains the link to the next element in the list
+            /// </summary>
+            public IntPtr Next;
+
+            /// <summary>
+            /// contains the link to the previous element in the list
+            /// </summary>
+            public IntPtr Prev;
+#pragma warning restore CS0649
+        }
+
+        /// <inheritdoc/>
         public override IntPtr Handle {
             get {
                 // null handle is OK here
@@ -20,6 +47,9 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         protected List(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
@@ -38,6 +68,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_list_free(IntPtr list);
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             g_list_free(handle);
@@ -182,7 +213,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that this is a "shallow" copy. If the list elements
         /// consist of pointers to data, the pointers are copied but
-        /// the actual data is not. See <see cref="CopyDeep"/> if you need
+        /// the actual data is not. See <see cref="M:CopyDeep"/> if you need
         /// to copy the data as well.
         /// </remarks>
         /// <returns>
@@ -599,7 +630,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// This iterates over the whole list to count its elements.
-        /// Use a <see cref="GISharp.Lib.GLib.Queue"/> instead of a List if you
+        /// Use a <see cref="T:GLib.Queue"/> instead of a List if you
         /// regularly need the number of items.
         /// </remarks>
         /// <returns>
@@ -929,18 +960,11 @@ namespace GISharp.Lib.GLib
             IntPtr userData);
     }
 
+    /// <summary>
+    /// Enumerates a <see cref="List{T}"/>.
+    /// </summary>
     public sealed class ListEnumerator<T> : Opaque, IEnumerator<T> where T : Opaque?
     {
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe struct UnmanagedStruct
-        {
-#pragma warning disable CS0649
-            public IntPtr Data;
-            public IntPtr Next;
-            public IntPtr Prev;
-#pragma warning restore CS0649
-        }
-
         readonly IntPtr start;
         IntPtr next;
 
@@ -950,30 +974,42 @@ namespace GISharp.Lib.GLib
             Reset();
         }
 
+        /// <inheritdoc/>
         public void Reset() => next = start;
 
-        public unsafe T Current => GetInstance<T>(((UnmanagedStruct*)Handle)->Data, Transfer.None);
+        /// <inheritdoc/>
+        public unsafe T Current => GetInstance<T>(((List.UnmanagedStruct*)Handle)->Data, Transfer.None);
 
         object? IEnumerator.Current => Current;
 
+        /// <inheritdoc/>
         public unsafe bool MoveNext()
         {
             if (next == IntPtr.Zero) {
                 return false;
             }
             handle = next;
-            next = ((UnmanagedStruct*)Handle)->Next;
+            next = ((List.UnmanagedStruct*)Handle)->Next;
             return true;
         }
     }
 
+    /// <summary>
+    /// The <see cref="List{T}"/> struct is used for each element in a doubly-linked list.
+    /// </summary>
     [GType("GList", IsProxyForUnmanagedType = true)]
     public sealed class List<T> : List, IEnumerable<T> where T : Opaque?
     {
+        /// <summary>
+        /// Creates a new empty list.
+        /// </summary>
         public List() : this(IntPtr.Zero, Transfer.Container)
         {
         }
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public List(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
@@ -1016,7 +1052,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Note that this is a "shallow" copy. If the list elements
         /// consist of pointers to data, the pointers are copied but
-        /// the actual data is not. See <see cref="CopyDeep"/> if you need
+        /// the actual data is not. See <see cref="M:CopyDeep"/> if you need
         /// to copy the data as well.
         /// </remarks>
         /// <returns>

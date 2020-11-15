@@ -21,13 +21,18 @@ namespace GISharp.Lib.GObject
 
         UnmanagedToggleNotify toggleNotifyDelegate;
 
+        /// <summary>
+        /// The unmanaged data structure for <see cref="Object"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
-            public TypeInstance.UnmanagedStruct GTypeInstance;
-            public uint RefCount;
-            public IntPtr Qdata;
+            internal TypeInstance.UnmanagedStruct GTypeInstance;
+            internal uint RefCount;
+#pragma warning disable CS0169
+            private IntPtr qdata;
+#pragma warning restore CS0169
 #pragma warning restore CS0649
         }
 
@@ -73,6 +78,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
+        /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
@@ -89,6 +95,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_ref(IntPtr @object);
 
+        /// <inheritdoc/>
         public override IntPtr Take() => g_object_ref(Handle);
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -127,12 +134,21 @@ namespace GISharp.Lib.GObject
 
         static GType _GType => g_object_get_type();
 
+        /// <summary>
+        /// Event args for <see cref="NotifySignal"/>.
+        /// </summary>
         public sealed class NotifySignalEventArgs : GSignalEventArgs
         {
             readonly object[] args;
 
+            /// <summary>
+            /// the <see cref="ParamSpec"/> of the property which changed.
+            /// </summary>
             public ParamSpec Pspec => (ParamSpec)args[0];
 
+            /// <summary>
+            /// Creates a new instance.
+            /// </summary>
             public NotifySignalEventArgs(params object[] args)
             {
                 this.args = args ?? throw new ArgumentNullException(nameof(args));
@@ -142,6 +158,22 @@ namespace GISharp.Lib.GObject
         readonly GSignalManager<NotifySignalEventArgs> notifySignalManager =
                 new GSignalManager<NotifySignalEventArgs>("notify", _GType);
 
+        /// <summary>
+        /// The notify signal is emitted on an object when one of its
+        /// properties has its value set through <see cref="SetProperty"/>, et al.
+        /// </summary>
+        /// <remarks>
+        /// Note that getting this signal doesn’t itself guarantee that the
+        /// value of the property has actually changed. When it is emitted is
+        /// determined by the derived GObject class. If the implementor did not
+        /// create the property with <see cref="ParamFlags.ExplicitNotify"/>,
+        /// then any call to <see cref="SetProperty"/> results in
+        /// <see cref="NotifySignal"/> being emitted, even if the new value is
+        /// the same as the old. If they did pass <see cref="ParamFlags.ExplicitNotify"/>,
+        /// then this signal is emitted only when they explicitly call
+        /// <see cref="Notify(UnownedUtf8)"/> or <see cref="Notify(ParamSpec)"/>,
+        /// and common practice is to do that only when the value has actually changed.
+        /// </remarks>
         [GSignal("notify", When = EmissionStage.First, IsNoRecurse = true, IsDetailed = true, IsAction = true, IsNoHooks = true)]
         public event EventHandler<NotifySignalEventArgs> NotifySignal {
             add => notifySignalManager.Add(this, value);
@@ -310,6 +342,9 @@ namespace GISharp.Lib.GObject
             return instance;
         }
 
+        /// <summary>
+        /// Creates a new instance of a <see cref="Object"/>.
+        /// </summary>
         public Object() : this(New<Object>(), Transfer.Full)
         {
             if (GetType() != typeof(Object)) {
@@ -781,7 +816,7 @@ namespace GISharp.Lib.GObject
         /// <param name="propertyName">
         /// the name of a property installed on the class of @object.
         /// </param>
-        public void EmitNotify(UnownedUtf8 propertyName)
+        public void Notify(UnownedUtf8 propertyName)
         {
             var this_ = Handle;
             var propertyName_ = propertyName.Handle;
@@ -892,7 +927,7 @@ namespace GISharp.Lib.GObject
         /// the #GParamSpec of a property installed on the class of @object.
         /// </param>
         [Since("2.26")]
-        public void EmitNotify(ParamSpec pspec)
+        public void Notify(ParamSpec pspec)
         {
             var this_ = Handle;
             var pspec_ = pspec.Handle;
@@ -1009,6 +1044,12 @@ namespace GISharp.Lib.GObject
             IntPtr data,
             UnmanagedDestroyNotify destroy);
 
+        /// <summary>
+        /// Gets and sets a named field from the objects table of associations
+        /// </summary>
+        /// <param name="key">
+        /// name of the key for that association
+        /// </param>
         public object? this[string key] {
             get {
                 var this_ = Handle;
@@ -1066,6 +1107,12 @@ namespace GISharp.Lib.GObject
             IntPtr data,
             UnmanagedDestroyNotify destroy);
 
+        /// <summary>
+        /// Gets and sets user data.
+        /// </summary>
+        /// <param name="quark">
+        /// A <see cref="Quark"/>, naming the user data
+        /// </param>
         public object? this[Quark quark] {
             get {
                 var ret_ = g_object_get_qdata(Handle, quark);

@@ -53,6 +53,14 @@ namespace GISharp.Lib.GObject
         /* transfer-ownership:none */
         IntPtr closure);
 
+    /// <summary>
+    /// The signal accumulator is a special callback function that can be used
+    /// to collect return values of the various callbacks that are called
+    /// during a signal emission. The signal accumulator is specified at signal
+    /// creation time, if it is left %NULL, no accumulation of callback return
+    /// values is performed. The return value of signal emissions is then the
+    /// value returned by the last callback.
+    /// </summary>
     public delegate bool SignalAccumulator(SignalInvocationHint invocationHint, ref Value returnAccu, ref Value handlerReturn);
 
     /// <summary>
@@ -117,6 +125,15 @@ namespace GISharp.Lib.GObject
         /* transfer-ownership:none nullable:1 allow-none:1 */
         IntPtr marshalData);
 
+    /// <summary>
+    /// A function to be called to transform <paramref name="fromValue"/> to <paramref name="toValue"/>.
+    /// </summary>
+    /// <remarks>
+    /// If this is the <c>transformTo</c> function of a binding, then <paramref name="fromValue"/>
+    /// is the <c>sourceProperty</c> on the source object, and <paramref name="toValue"/>
+    /// is the <c>targetProperty</c> on the target object. If this is the <c>transformFrom</c>
+    /// function of a <see cref="BindingFlags.Bidirectional"/> binding, then those roles are reversed.
+    /// </remarks>
     [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
     public delegate bool UnmanagedBindingTransformFunc (
         IntPtr binding,

@@ -18,11 +18,21 @@ namespace GISharp.Lib.GObject
     [GType ("GParamOverride", IsProxyForUnmanagedType = true)]
     public sealed class ParamSpecOverride : ParamSpec
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="ParamSpecOverride"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe new struct UnmanagedStruct
         {
             #pragma warning disable CS0649
+            /// <summary>
+            /// private #GParamSpec portion
+            /// </summary>
             public ParamSpec.UnmanagedStruct ParentInstance;
+
+            /// <summary>
+            /// The property that is being overridden
+            /// </summary>
             public IntPtr Overridden;
             #pragma warning restore CS0649
         }

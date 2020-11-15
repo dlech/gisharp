@@ -1,7 +1,5 @@
 using System;
-using System.Linq;
 
-using GISharp.Lib.GObject;
 using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.Runtime
@@ -28,6 +26,9 @@ namespace GISharp.Runtime
     /// </example>
     public interface GInterface<T> : IOpaque, IDisposable where T : Object
     {
+        /// <summary>
+        /// Casts the interface to its prerequisite class type.
+        /// </summary>
         public sealed T AsObject() => (T)this;
     }
 }

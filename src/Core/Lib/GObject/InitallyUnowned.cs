@@ -10,17 +10,20 @@ namespace GISharp.Lib.GObject
     /// are private to the #GInitiallyUnowned implementation and should never be
     /// accessed directly.
     /// </summary>
-    [GType ("GInitiallyUnowned", IsProxyForUnmanagedType = true)]
-    [GTypeStruct (typeof(InitiallyUnownedClass))]
+    [GType("GInitiallyUnowned", IsProxyForUnmanagedType = true)]
+    [GTypeStruct(typeof(InitiallyUnownedClass))]
     public class InitiallyUnowned : Object
     {
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_initially_unowned_get_type ();
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_initially_unowned_get_type();
 
-        static readonly GType _GType = g_initially_unowned_get_type ();
+        static readonly GType _GType = g_initially_unowned_get_type();
 
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public InitiallyUnowned (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public InitiallyUnowned(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
     }

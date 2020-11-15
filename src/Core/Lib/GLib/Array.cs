@@ -11,16 +11,35 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Contains the public fields of a GArray.
     /// </summary>
+    /// <seealso cref="Array{T}"/>
     [GType("GArray", IsProxyForUnmanagedType = true)]
     public abstract class Array : Boxed
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="Array"/>.
+        /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe struct UnmanagedStruct
         {
-            public void* Data;
-            public uint Len;
+#pragma warning disable CS0649
+            /// <summary>
+            /// a pointer to the element data. The data may be moved as elements
+            /// are added to the GArray.
+            /// </summary>
+            internal void* Data;
+
+            /// <summary>
+            /// the number of elements in the GArray not including the possible
+            /// terminating zero element.
+            /// </summary>
+            internal uint Len;
+#pragma warning restore CS0649
         }
 
+        /// <summary>
+        /// Gets the number of elements in the array including the possible
+        /// terminating zero element.
+        /// </summary>
         public unsafe int Length => (int)((UnmanagedStruct*)Handle)->Len;
 
         /// <summary>
@@ -34,6 +53,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_array_ref(IntPtr array);
 
+        /// <inheritdoc/>
         public override IntPtr Take() => g_array_ref(Handle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -460,7 +480,7 @@ namespace GISharp.Lib.GLib
 
         /// <summary>
         /// Sets the size of the array, expanding it if necessary. If the array
-        /// was created with <paramref name="clear"/> set to <c>true</c>, the
+        /// was created with <c>>clear</c> set to <c>true</c>, the
         /// new elements are set to 0.
         /// </summary>
         /// <param name="length">
@@ -557,10 +577,20 @@ namespace GISharp.Lib.GLib
             IntPtr array,
             bool freeSegment);
 
+        /// <summary>
+        /// Takes ownership of the unmanaged array.
+        /// </summary>
+        /// <returns>
+        /// Pointer to the array and length of the array.
+        /// </returns>
+        /// <remarks>
+        /// The managed wrapper will become disposed after calling this method.
+        /// </remarks>
         public (IntPtr, int) TakeData()
         {
             var this_ = Handle;
             handle = IntPtr.Zero; // object becomes disposed
+            GC.SuppressFinalize(this);
 
             var length = (int)Length;
             var data = g_array_free(this_, false);
@@ -576,6 +606,9 @@ namespace GISharp.Lib.GLib
         }
     }
 
+    /// <summary>
+    /// Contains the public fields of a GArray.
+    /// </summary>
     [GType("GArray", IsProxyForUnmanagedType = true)]
     public sealed class Array<T> : Array, IReadOnlyList<T>, IList<T> where T : unmanaged
     {
@@ -587,6 +620,10 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        /// <summary>
+        /// a <see cref="Span{T}"/> to the element data. The data may be moved as elements
+        /// are added to the <see cref="Array"/>.
+        /// </summary>
         public unsafe Span<T> Data {
             get {
                 var this_ = (UnmanagedStruct*)Handle;
@@ -724,6 +761,7 @@ namespace GISharp.Lib.GLib
 
         bool ICollection<T>.IsReadOnly => false;
 
+        /// <inheritdoc/>
         public T this[int index] {
             get {
                 try {
@@ -743,6 +781,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <inheritdoc/>
         public bool Contains(T other)
         {
             for (int i = 0; i < Length; i++) {
@@ -753,6 +792,7 @@ namespace GISharp.Lib.GLib
             return false;
         }
 
+        /// <inheritdoc/>
         public void CopyTo(T[] array, int arrayIndex)
         {
             if (arrayIndex < 0) {
@@ -766,6 +806,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
+        /// <inheritdoc/>
         public int IndexOf(T data)
         {
             for (int i = 0; i < Length; i++) {
@@ -776,6 +817,7 @@ namespace GISharp.Lib.GLib
             return -1;
         }
 
+        /// <inheritdoc/>
         public bool Remove(T data)
         {
             for (int i = 0; i < Length; i++) {
@@ -802,6 +844,9 @@ namespace GISharp.Lib.GLib
 
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
+        /// <summary>
+        /// Converts an <see cref="Array{T}"/> to a <see cref="Span{T}"/>.
+        /// </summary>
         public static implicit operator Span<T>(Array<T>? array)
         {
             if (array is null) {

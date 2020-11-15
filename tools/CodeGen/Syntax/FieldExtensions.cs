@@ -100,11 +100,13 @@ namespace GISharp.CodeGen.Syntax
                     .Append(Trivia(warningRestore))
                     .Append(EndOfLine("\n"))));
 
+            var declaringType = (GIRegisteredType)fields.First().ParentNode;
+
             return StructDeclaration("UnmanagedStruct")
                 .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword))
                 .WithMembers(structMembers)
-                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
-                /// Unmanaged data structure
+                .WithLeadingTrivia(ParseLeadingTrivia($@"/// <summary>
+                /// The unmanaged data structure for <see cref=""{declaringType.ManagedName}""/>.
                 /// </summary>
                 "));
         }

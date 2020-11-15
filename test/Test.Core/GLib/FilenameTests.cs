@@ -13,20 +13,18 @@ namespace GISharp.Test.Core.GLib
         public void TestDisplayBasename()
         {
             var fullPath = Path.GetFullPath("test");
-            using (var f = new Filename(fullPath)) {
-                using var baseName = f.DisplayBasename;
-                Assert.That<string>(baseName, Is.EqualTo(Path.GetFileName(fullPath)));
-            }
+            using var f = (Filename)fullPath;
+            using var baseName = f.DisplayBasename;
+            Assert.That<string>(baseName, Is.EqualTo(Path.GetFileName(fullPath)));
         }
 
         [Test]
         public void TestDisplayName()
         {
             var fullPath = Path.GetFullPath("test");
-            using (var f = new Filename(fullPath)) {
-                using var displayName = f.DisplayName;
-                Assert.That<string>(displayName, Is.EqualTo(fullPath));
-            }
+            using var f = (Filename)fullPath;
+            using var displayName = f.DisplayName;
+            Assert.That<string>(displayName, Is.EqualTo(fullPath));
         }
 
         [Test]
@@ -49,13 +47,13 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestToUri()
         {
-            using (var f = new Filename("test")) {
+            using (var f = (Filename)"test") {
                 Assert.That(() => f.ToUri(),
                     ThrowsGErrorException(ConvertError.NotAbsolutePath));
             }
 
             var fullPath = Path.GetFullPath("test");
-            using (var f = new Filename(fullPath)) {
+            using (var f = (Filename)fullPath) {
                 using var uri = f.ToUri();
                 Assert.That<string>(uri, Is.EqualTo(new Uri(fullPath)));
             }
