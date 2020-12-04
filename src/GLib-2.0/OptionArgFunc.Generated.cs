@@ -85,7 +85,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToPointer(GISharp.Lib.GLib.OptionArgFunc? callback, GISharp.Runtime.CallbackScope scope)
+        public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.OptionArgFunc? callback, GISharp.Runtime.CallbackScope scope)
         {
             if (callback == null)
             {

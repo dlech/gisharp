@@ -153,57 +153,94 @@ the application flags
 </param>
 </member>
 
-<member name='ActivateSignalEventArgs'>
+<member name='ActivateSignalHandler'>
 <summary>
 The ::activate signal is emitted on the primary instance when an
 activation occurs. See <see cref="Application.Activate()"/>.
 </summary>
+<param name="application">
+the instance on which the signal was invoked
+</param>
 </member>
 
 <member name='Application.ActivateSignal'>
-<summary>
-The ::activate signal is emitted on the primary instance when an
-activation occurs. See <see cref="Application.Activate()"/>.
-</summary>
+<seealso cref="ActivateSignalHandler"/>
 </member>
 
-<member name='CommandLineSignalEventArgs.CommandLine'>
+<member name='CommandLineSignalHandler'>
 <summary>
+The ::command-line signal is emitted on the primary instance when
+a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> and
+the <see cref="ApplicationCommandLine"/> documentation for more information.
+</summary>
+<param name="application">
+the instance on which the signal was invoked
+</param>
+<param name="commandLine">
 a <see cref="ApplicationCommandLine"/> representing the
     passed commandline
-</summary>
-</member>
-
-<member name='CommandLineSignalEventArgs.ReturnValue'>
+</param>
 <returns>
 An integer that is set as the exit status for the calling
   process. See <see cref="ApplicationCommandLine.SetExitStatus(System.Int32)"/>.
 </returns>
 </member>
 
-<member name='CommandLineSignalEventArgs'>
-<summary>
-The ::command-line signal is emitted on the primary instance when
-a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> and
-the <see cref="ApplicationCommandLine"/> documentation for more information.
-</summary>
-</member>
-
 <member name='Application.CommandLineSignal'>
-<summary>
-The ::command-line signal is emitted on the primary instance when
-a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> and
-the <see cref="ApplicationCommandLine"/> documentation for more information.
-</summary>
+<seealso cref="CommandLineSignalHandler"/>
 </member>
 
-<member name='HandleLocalOptionsSignalEventArgs.Options'>
+<member name='HandleLocalOptionsSignalHandler'>
 <summary>
+The ::handle-local-options signal is emitted on the local instance
+after the parsing of the commandline options has occurred.
+</summary>
+<remarks>
+You can add options to be recognised during commandline option
+parsing using <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> and
+<see cref="Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
+
+Signal handlers can inspect <paramref name="options"/> (along with values pointed to
+from the <see cref="GLib.OptionEntry.ArgData"/> of an installed <see cref="GLib.OptionEntry"/>s) in order to
+decide to perform certain actions, including direct local handling
+(which may be useful for options like --version).
+
+In the event that the application is marked
+<see cref="ApplicationFlags.HandlesCommandLine"/> the "normal processing" will
+send the <paramref name="options"/> dictionary to the primary instance where it can be
+read with <see cref="ApplicationCommandLine.GetOptions()"/>.  The signal
+handler can modify the dictionary before returning, and the
+modified dictionary will be sent.
+
+In the event that <see cref="ApplicationFlags.HandlesCommandLine"/> is not set,
+"normal processing" will treat the remaining uncollected command
+line arguments as filenames or URIs.  If there are no arguments,
+the application is activated by <see cref="Application.Activate()"/>.  One or
+more arguments results in a call to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/>.
+
+If you want to handle the local commandline arguments for yourself
+by converting them to calls to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> or
+<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
+the application first.  You should probably not call
+<see cref="Application.Activate()"/> for yourself, however: just return -1 and
+allow the default handler to do it for you.  This will ensure that
+the `--gapplication-service` switch works properly (i.e. no activation
+in that case).
+
+Note that this signal is emitted from the default implementation of
+local_command_line().  If you override that function and don't
+chain up then this signal will never be emitted.
+
+You can override local_command_line() if you need more powerful
+capabilities than what is provided here, but this should not
+normally be required.
+</remarks>
+<param name="application">
+the instance on which the signal was invoked
+</param>
+<param name="options">
 the options dictionary
-</summary>
-</member>
-
-<member name='HandleLocalOptionsSignalEventArgs.ReturnValue'>
+</param>
 <returns>
 an exit code. If you have handled your options and want
 to exit the process, return a non-negative option, 0 for success,
@@ -212,180 +249,77 @@ the default option processing continue.
 </returns>
 </member>
 
-<member name='HandleLocalOptionsSignalEventArgs'>
-<summary>
-The ::handle-local-options signal is emitted on the local instance
-after the parsing of the commandline options has occurred.
-</summary>
-<remarks>
-You can add options to be recognised during commandline option
-parsing using <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> and
-<see cref="Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
-
-Signal handlers can inspect <see cref="Options"/> (along with values pointed to
-from the <see cref="GLib.OptionEntry.ArgData"/> of an installed <see cref="GLib.OptionEntry"/>s) in order to
-decide to perform certain actions, including direct local handling
-(which may be useful for options like --version).
-
-In the event that the application is marked
-<see cref="ApplicationFlags.HandlesCommandLine"/> the "normal processing" will
-send the <see cref="Options"/> dictionary to the primary instance where it can be
-read with <see cref="ApplicationCommandLine.GetOptions()"/>.  The signal
-handler can modify the dictionary before returning, and the
-modified dictionary will be sent.
-
-In the event that <see cref="ApplicationFlags.HandlesCommandLine"/> is not set,
-"normal processing" will treat the remaining uncollected command
-line arguments as filenames or URIs.  If there are no arguments,
-the application is activated by <see cref="Application.Activate()"/>.  One or
-more arguments results in a call to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/>.
-
-If you want to handle the local commandline arguments for yourself
-by converting them to calls to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> or
-<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
-the application first.  You should probably not call
-<see cref="Application.Activate()"/> for yourself, however: just return -1 and
-allow the default handler to do it for you.  This will ensure that
-the `--gapplication-service` switch works properly (i.e. no activation
-in that case).
-
-Note that this signal is emitted from the default implementation of
-local_command_line().  If you override that function and don't
-chain up then this signal will never be emitted.
-
-You can override local_command_line() if you need more powerful
-capabilities than what is provided here, but this should not
-normally be required.
-</remarks>
-</member>
-
 <member name='Application.HandleLocalOptionsSignal'>
-<summary>
-The ::handle-local-options signal is emitted on the local instance
-after the parsing of the commandline options has occurred.
-</summary>
-<remarks>
-You can add options to be recognised during commandline option
-parsing using <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/> and
-<see cref="Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
-
-Signal handlers can inspect <see cref="HandleLocalOptionsSignalEventArgs.Options"/> (along with values pointed to
-from the <see cref="GLib.OptionEntry.ArgData"/> of an installed <see cref="GLib.OptionEntry"/>s) in order to
-decide to perform certain actions, including direct local handling
-(which may be useful for options like --version).
-
-In the event that the application is marked
-<see cref="ApplicationFlags.HandlesCommandLine"/> the "normal processing" will
-send the <see cref="HandleLocalOptionsSignalEventArgs.Options"/> dictionary to the primary instance where it can be
-read with <see cref="ApplicationCommandLine.GetOptions()"/>.  The signal
-handler can modify the dictionary before returning, and the
-modified dictionary will be sent.
-
-In the event that <see cref="ApplicationFlags.HandlesCommandLine"/> is not set,
-"normal processing" will treat the remaining uncollected command
-line arguments as filenames or URIs.  If there are no arguments,
-the application is activated by <see cref="Application.Activate()"/>.  One or
-more arguments results in a call to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/>.
-
-If you want to handle the local commandline arguments for yourself
-by converting them to calls to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> or
-<see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
-the application first.  You should probably not call
-<see cref="Application.Activate()"/> for yourself, however: just return -1 and
-allow the default handler to do it for you.  This will ensure that
-the `--gapplication-service` switch works properly (i.e. no activation
-in that case).
-
-Note that this signal is emitted from the default implementation of
-local_command_line().  If you override that function and don't
-chain up then this signal will never be emitted.
-
-You can override local_command_line() if you need more powerful
-capabilities than what is provided here, but this should not
-normally be required.
-</remarks>
+<seealso cref="HandleLocalOptionsSignalHandler"/>
 </member>
 
-<member name='NameLostSignalEventArgs.ReturnValue'>
+<member name='NameLostSignalHandler'>
+<summary>
+The ::name-lost signal is emitted only on the registered primary instance
+when a new instance has taken over. This can only happen if the application
+is using the <see cref="ApplicationFlags.AllowReplacement"/> flag.
+</summary>
+<remarks>
+The default handler for this signal calls <see cref="Application.Quit()"/>.
+</remarks>
+<param name="application">
+the instance on which the signal was invoked
+</param>
 <returns>
 <c>true</c> if the signal has been handled
 </returns>
 </member>
 
-<member name='NameLostSignalEventArgs'>
-<summary>
-The ::name-lost signal is emitted only on the registered primary instance
-when a new instance has taken over. This can only happen if the application
-is using the <see cref="ApplicationFlags.AllowReplacement"/> flag.
-</summary>
-<remarks>
-The default handler for this signal calls <see cref="Application.Quit()"/>.
-</remarks>
-</member>
-
 <member name='Application.NameLostSignal'>
-<summary>
-The ::name-lost signal is emitted only on the registered primary instance
-when a new instance has taken over. This can only happen if the application
-is using the <see cref="ApplicationFlags.AllowReplacement"/> flag.
-</summary>
-<remarks>
-The default handler for this signal calls <see cref="Application.Quit()"/>.
-</remarks>
+<seealso cref="NameLostSignalHandler"/>
 </member>
 
-<member name='OpenSignalEventArgs.Files'>
-<summary>
-an array of <see cref="IFile"/>s
-</summary>
-</member>
-
-<member name='OpenSignalEventArgs.Hint'>
-<summary>
-a hint provided by the calling instance
-</summary>
-</member>
-
-<member name='OpenSignalEventArgs'>
+<member name='OpenSignalHandler'>
 <summary>
 The ::open signal is emitted on the primary instance when there are
 files to open. See <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> for more information.
 </summary>
+<param name="application">
+the instance on which the signal was invoked
+</param>
+<param name="files">
+an array of #GFiles
+</param>
+<param name="hint">
+a hint provided by the calling instance
+</param>
 </member>
 
 <member name='Application.OpenSignal'>
-<summary>
-The ::open signal is emitted on the primary instance when there are
-files to open. See <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> for more information.
-</summary>
+<seealso cref="OpenSignalHandler"/>
 </member>
 
-<member name='ShutdownSignalEventArgs'>
+<member name='ShutdownSignalHandler'>
 <summary>
 The ::shutdown signal is emitted only on the registered primary instance
 immediately after the main loop terminates.
 </summary>
+<param name="application">
+the instance on which the signal was invoked
+</param>
 </member>
 
 <member name='Application.ShutdownSignal'>
-<summary>
-The ::shutdown signal is emitted only on the registered primary instance
-immediately after the main loop terminates.
-</summary>
+<seealso cref="ShutdownSignalHandler"/>
 </member>
 
-<member name='StartupSignalEventArgs'>
+<member name='StartupSignalHandler'>
 <summary>
 The ::startup signal is emitted on the primary instance immediately
 after registration. See <see cref="Application.Register(GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
+<param name="application">
+the instance on which the signal was invoked
+</param>
 </member>
 
 <member name='Application.StartupSignal'>
-<summary>
-The ::startup signal is emitted on the primary instance immediately
-after registration. See <see cref="Application.Register(GISharp.Lib.Gio.Cancellable)"/>.
-</summary>
+<seealso cref="StartupSignalHandler"/>
 </member>
 
 <member name='Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)'>

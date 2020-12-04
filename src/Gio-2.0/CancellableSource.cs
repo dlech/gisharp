@@ -1,6 +1,4 @@
 
-using GISharp.Runtime;
-
 namespace GISharp.Lib.Gio
 {
     partial class CancellableSource
@@ -8,8 +6,7 @@ namespace GISharp.Lib.Gio
         /// <inheritdoc />
         public void SetCallback(CancellableSourceFunc func)
         {
-            SetCallback<CancellableSourceFunc>(func,
-                CancellableSourceFuncMarshal.ToPointer);
+            SetCallback(func, CancellableSourceFuncMarshal.ToUnmanagedFunctionPointer);
         }
     }
 }

@@ -83,7 +83,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public static (uint id, Source.UserData userData) Add(SourceFunc function, int priority = Priority.DefaultIdle)
         {
-            var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
+            var (function_, notify_, data_) = SourceFuncMarshal.ToUnmanagedFunctionPointer(function, CallbackScope.Notified);
             var ret = g_idle_add_full(priority, function_, data_, notify_);
             var userData = new Source.UserData(data_);
             return (ret, userData);

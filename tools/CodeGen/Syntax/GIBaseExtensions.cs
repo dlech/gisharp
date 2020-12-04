@@ -80,6 +80,7 @@ namespace GISharp.CodeGen.Syntax
         internal static void LogException(this GIBase member, Exception ex)
         {
             Log.Warning($"Problem with {member.Element.GetXPath()}: {ex.Message}");
+            Log.Debug(ex.StackTrace);
         }
     }
 }

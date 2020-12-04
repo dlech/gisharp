@@ -52,7 +52,7 @@ namespace GISharp.Lib.GObject
     /// - g_closure_invalidate() and invalidation notifiers allow callbacks to be
     ///   automatically removed when the objects they point to go away.
     /// </remarks>
-    [GType ("GClosure", IsProxyForUnmanagedType = true)]
+    [GType("GClosure", IsProxyForUnmanagedType = true)]
     public sealed class Closure : Boxed
     {
         /// <summary>
@@ -61,14 +61,14 @@ namespace GISharp.Lib.GObject
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe struct UnmanagedStruct
         {
-    #pragma warning disable CS0649
-    #pragma warning disable CS0169
+#pragma warning disable CS0649
+#pragma warning disable CS0169
             internal uint BitFields;
             private IntPtr marshal;
             internal IntPtr Data;
             private IntPtr notifiers;
-    #pragma warning restore CS0169
-    #pragma warning restore CS0649
+#pragma warning restore CS0169
+#pragma warning restore CS0649
         }
 
         unsafe uint BitFields => ((UnmanagedStruct*)Handle)->BitFields;
@@ -83,20 +83,20 @@ namespace GISharp.Lib.GObject
         [EditorBrowsable(EditorBrowsableState.Never)]
         public Closure(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
         {
-            g_closure_sink (this.handle);
+            g_closure_sink(this.handle);
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_closure_ref (IntPtr closure);
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_closure_ref(IntPtr closure);
 
         /// <inheritdoc/>
         public override IntPtr Take() => g_closure_ref(Handle);
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_closure_sink (IntPtr closure);
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_closure_sink(IntPtr closure);
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_closure_unref (IntPtr closure);
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_closure_unref(IntPtr closure);
 
         /// <summary>
         /// Indicates whether the closure is currently being invoked with <see cref="Invoke"/>.
@@ -104,7 +104,7 @@ namespace GISharp.Lib.GObject
         public bool InMarshal {
             get {
                 var ret_ = BitFields >> 30;
-                var ret = Convert.ToBoolean (ret_ & 0x1);
+                var ret = Convert.ToBoolean(ret_ & 0x1);
                 return ret;
             }
         }
@@ -115,7 +115,7 @@ namespace GISharp.Lib.GObject
         public bool IsInvalid {
             get {
                 var ret_ = BitFields >> 31;
-                var ret = Convert.ToBoolean (ret_ & 0x1);
+                var ret = Convert.ToBoolean(ret_ & 0x1);
                 return ret;
             }
         }
@@ -137,10 +137,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// a newly allocated #GClosure
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_closure_new_object (
+        static extern IntPtr g_closure_new_object(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint sizeofClosure,
@@ -178,7 +178,7 @@ namespace GISharp.Lib.GObject
         /// a newly allocated #GClosure
         /// </returns>
         public Closure(Func<object[], object> callback, Object @object)
-            : this(NewObject(Marshal.SizeOf<ManagedClosure> (), @object), Transfer.None)
+            : this(NewObject(Marshal.SizeOf<ManagedClosure>(), @object), Transfer.None)
         {
             SetCallback(callback, ManagedClosureFuncCallback);
         }
@@ -232,10 +232,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// a newly allocated #GClosure
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_closure_new_simple (
+        static extern IntPtr g_closure_new_simple(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint sizeofClosure,
@@ -243,17 +243,17 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             IntPtr data);
 
-        static IntPtr NewSimple (uint sizeofClosure, IntPtr data)
+        static IntPtr NewSimple(uint sizeofClosure, IntPtr data)
         {
-            var ret = g_closure_new_simple (sizeofClosure, data);
+            var ret = g_closure_new_simple(sizeofClosure, data);
             return ret;
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Closure"/> class.
         /// </summary>
-        public Closure (Func<object[], object> callback)
-            : this(NewSimple ((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
+        public Closure(Func<object[], object> callback)
+            : this(NewSimple((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
         {
             SetCallback(callback, ManagedClosureFuncCallback);
         }
@@ -261,8 +261,8 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Initializes a new instance of the <see cref="Closure"/> class.
         /// </summary>
-        public Closure (Action<object[]> callback)
-            : this (NewSimple((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
+        public Closure(Action<object[]> callback)
+            : this(NewSimple((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
         {
             SetCallback(callback, ManagedClosureActionCallback);
         }
@@ -270,13 +270,13 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Initializes a new instance of the <see cref="Closure"/> class.
         /// </summary>
-        public Closure (Action callback)
-            : this (NewSimple((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
+        public Closure(Action callback)
+            : this(NewSimple((uint)Marshal.SizeOf<ManagedClosure>(), IntPtr.Zero), Transfer.None)
         {
             SetCallback(callback, ManagedClosureVoidActionCallback);
         }
 
-        void SetCallback (Delegate callback, ClosureMarshal callbackWrapper)
+        void SetCallback(Delegate callback, ClosureMarshal callbackWrapper)
         {
             var gcHandle = GCHandle.Alloc(callback, GCHandleType.Weak);
             Marshal.WriteIntPtr(handle, (int)callbackGCHandleOffset, (IntPtr)gcHandle);
@@ -306,8 +306,8 @@ namespace GISharp.Lib.GObject
             callback();
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_closure_get_type ();
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern GType g_closure_get_type();
 
         static readonly GType _GType = g_closure_get_type();
 
@@ -328,10 +328,10 @@ namespace GISharp.Lib.GObject
         /// <param name="notifyFunc">
         /// the callback function to register
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_closure_add_finalize_notifier (
+        static extern void g_closure_add_finalize_notifier(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
@@ -357,10 +357,10 @@ namespace GISharp.Lib.GObject
         /// <param name="notifyFunc">
         /// the callback function to register
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_closure_add_invalidate_notifier (
+        static extern void g_closure_add_invalidate_notifier(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
@@ -392,10 +392,10 @@ namespace GISharp.Lib.GObject
         /// <param name="postMarshalNotify">
         /// a function to call after the closure callback
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_closure_add_marshal_guards (
+        static extern void g_closure_add_marshal_guards(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
@@ -431,10 +431,10 @@ namespace GISharp.Lib.GObject
         /// <param name="closure">
         /// GClosure to invalidate
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_closure_invalidate (
+        static extern void g_closure_invalidate(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure);
@@ -455,7 +455,7 @@ namespace GISharp.Lib.GObject
         /// reference count of a closure drops to zero (unless it has already
         /// been invalidated before).
         /// </remarks>
-        public void Invalidate ()
+        public void Invalidate()
         {
             g_closure_invalidate(Handle);
         }
@@ -482,10 +482,10 @@ namespace GISharp.Lib.GObject
         /// <param name="invocationHint">
         /// a context-dependent invocation hint
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern unsafe void g_closure_invoke (
+        static extern unsafe void g_closure_invoke(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
@@ -516,7 +516,7 @@ namespace GISharp.Lib.GObject
         {
             var this_ = Handle;
             if (paramValues is null) {
-                throw new ArgumentNullException (nameof (paramValues));
+                throw new ArgumentNullException(nameof(paramValues));
             }
 
             var returnValue = new Value(GType.Of<T>());
@@ -557,10 +557,10 @@ namespace GISharp.Lib.GObject
         /// <param name="notifyFunc">
         /// the callback function to remove
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_closure_remove_finalize_notifier (
+        static extern void g_closure_remove_finalize_notifier(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
@@ -587,10 +587,10 @@ namespace GISharp.Lib.GObject
         /// <param name="notifyFunc">
         /// the callback function to remove
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_closure_remove_invalidate_notifier (
+        static extern void g_closure_remove_invalidate_notifier(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
@@ -615,10 +615,10 @@ namespace GISharp.Lib.GObject
         /// <param name="marshal">
         /// a #GClosureMarshal function
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_closure_set_marshal (
+        static extern void g_closure_set_marshal(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
@@ -652,10 +652,10 @@ namespace GISharp.Lib.GObject
         /// <param name="metaMarshal">
         /// a #GClosureMarshal function
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_closure_set_meta_marshal (
+        static extern void g_closure_set_meta_marshal(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
@@ -666,96 +666,13 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             UnmanagedClosureMarshal metaMarshal);
 
-        /// <summary>
-        /// Creates a new closure object for a signal implemented as an event handler
-        /// </summary>
-        public static Closure CreateFor<T>(Object instance, EventHandler<T> handler)
-            where T : GSignalEventArgs
-        {
-            var closure_ = NewObject(Marshal.SizeOf<ManagedClosure>(), instance);
-
-            var (func_, notify_, data_) = SignalClosureMarshalFactory.Create(handler);
-            g_closure_set_meta_marshal(closure_, data_, func_);
-            g_closure_add_invalidate_notifier(closure_, data_, notify_);
-
-            return new Closure(closure_, Transfer.None);
-        }
-
-        static class SignalClosureMarshalFactory
-        {
-            class UnmanagedSignalClosureMarshalData {
-                public readonly EventHandler<GSignalEventArgs> SignalHandler;
-                public readonly Type EventArgsType;
-                public readonly UnmanagedClosureMarshal UnmanagedClosureMarshal;
-                public readonly UnmanagedClosureNotify UnmanagedClosureNotify;
-
-                public UnmanagedSignalClosureMarshalData(EventHandler<GSignalEventArgs> signalHandler, Type eventArgsType,
-                    UnmanagedClosureMarshal unmanagedClosureMarshal, UnmanagedClosureNotify unmanagedClosureNotify)
-                {
-                    SignalHandler = signalHandler;
-                    EventArgsType = eventArgsType;
-                    UnmanagedClosureMarshal = unmanagedClosureMarshal;
-                    UnmanagedClosureNotify = unmanagedClosureNotify;
-                }
-            }
-
-            public unsafe static(UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr) Create<T>(EventHandler<T> handler)
-                where T : GSignalEventArgs
-            {
-                // hack to make EventHandler<T> covariant
-                EventHandler<GSignalEventArgs> handlerAction = (s, a) => handler(s, (T)a);
-
-                var userData = new UnmanagedSignalClosureMarshalData(handlerAction, typeof(T), UnmanagedClosureMarshal, UnmanagedClosureNotify);
-                var userData_ = GCHandle.Alloc(userData);
-
-                return (userData.UnmanagedClosureMarshal, userData.UnmanagedClosureNotify, (IntPtr)userData_);
-            }
-
-            static unsafe void UnmanagedClosureMarshal(IntPtr closure_, Value* returnValue_, uint nParamValues_, Value* paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
-            {
-                try {
-                    var data_ = ((UnmanagedStruct*)closure_)->Data;
-                    var obj = Object.GetInstance(data_, Transfer.None);
-
-                    var gcHandle = (GCHandle)marshalData_;
-                    var marshalData = (UnmanagedSignalClosureMarshalData)gcHandle.Target!;
-
-                    var paramValues = new object?[nParamValues_];
-                    for (int i = 0; i < paramValues.Length; i++) {
-                        paramValues[i] = paramValues_[i].Get();
-                    }
-                    var args = (GSignalEventArgs)Activator.CreateInstance(marshalData.EventArgsType, paramValues)!;
-
-                    marshalData.SignalHandler(obj, args);
-
-                    if (returnValue_ is not null) {
-                        returnValue_->Set(args.GetType().GetProperty("ReturnValue")!.GetValue(args));
-                    }
-                }
-                catch (Exception ex) {
-                    ex.LogUnhandledException();
-                }
-            }
-
-            static void UnmanagedClosureNotify(IntPtr data_, IntPtr closure_)
-            {
-                try {
-                    var gcHandle = (GCHandle)data_;
-                    gcHandle.Free();
-                }
-                catch (Exception ex) {
-                    ex.LogUnhandledException();
-                }
-            }
-        }
-
         struct ManagedClosure
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             public UnmanagedStruct Closure;
             public IntPtr ManagedClosureGCHandle;
             public IntPtr CallbackGCHandle;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
         static IntPtr managedClosureGCHandleOffset = Marshal.OffsetOf<ManagedClosure>(nameof(ManagedClosure.ManagedClosureGCHandle));

@@ -100,7 +100,7 @@ namespace GISharp.Test.Gio
             using var ag = TestActionGroup.New();
             var actual = default(string);
             const string expected = "some-action";
-            ag.ActionAddedSignal += (s, a) => actual = a.ActionName;
+            ag.ActionAddedSignal += (action, actionName) => actual = actionName;
             ActionGroup.ActionAdded(ag, expected);
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -111,7 +111,7 @@ namespace GISharp.Test.Gio
             using var ag = TestActionGroup.New();
             var actual = default(string);
             const string expected = "some-action";
-            ag.ActionRemovedSignal += (s, a) => actual = a.ActionName;
+            ag.ActionRemovedSignal += (action, actionName) => actual = actionName;
             ActionGroup.ActionRemoved(ag, expected);
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -122,7 +122,7 @@ namespace GISharp.Test.Gio
             using var ag = TestActionGroup.New();
             var actual = default(string);
             const string expected = "some-action";
-            ag.ActionEnabledChangedSignal += (s, a) => actual = a.ActionName;
+            ag.ActionEnabledChangedSignal += (action, actionName, enabled) => actual = actionName;
             ActionGroup.ActionEnabledChanged(ag, expected, true);
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -133,7 +133,7 @@ namespace GISharp.Test.Gio
             using var ag = TestActionGroup.New();
             var actual = default(string);
             const string expected = "some-action";
-            ag.ActionStateChangedSignal += (s, a) => actual = a.ActionName;
+            ag.ActionStateChangedSignal += (action, actionName, value) => actual = actionName;
             ActionGroup.ActionStateChanged(ag, expected, new Variant(11));
             Assert.That(actual, Is.EqualTo(expected));
         }
@@ -177,34 +177,34 @@ namespace GISharp.Test.Gio
 
         void IActionGroup.DoActivateAction(UnownedUtf8 actionName, Variant? parameter) => ActionActivated?.Invoke(this, parameter);
 
-        readonly GSignalManager<ActionGroup.ActionAddedSignalEventArgs> actionAddedSignalManager =
-            new GSignalManager<ActionGroup.ActionAddedSignalEventArgs>("action-added", gtype);
+        readonly GSignalManager<IActionGroup.ActionAddedSignalHandler> actionAddedSignalManager =
+            new("action-added", gtype);
 
-        public event EventHandler<ActionGroup.ActionAddedSignalEventArgs> ActionAddedSignal {
+        public event IActionGroup.ActionAddedSignalHandler ActionAddedSignal {
             add => actionAddedSignalManager.Add(this, value);
             remove => actionAddedSignalManager.Remove(value);
         }
 
-        readonly GSignalManager<ActionGroup.ActionEnabledChangedSignalEventArgs> actionEnabledChangedSignalManager =
-            new GSignalManager<ActionGroup.ActionEnabledChangedSignalEventArgs>("action-enabled-changed", gtype);
+        readonly GSignalManager<IActionGroup.ActionEnabledChangedSignalHandler> actionEnabledChangedSignalManager =
+            new("action-enabled-changed", gtype);
 
-        public event EventHandler<ActionGroup.ActionEnabledChangedSignalEventArgs> ActionEnabledChangedSignal {
+        public event IActionGroup.ActionEnabledChangedSignalHandler ActionEnabledChangedSignal {
             add => actionEnabledChangedSignalManager.Add(this, value);
             remove => actionEnabledChangedSignalManager.Remove(value);
         }
 
-        readonly GSignalManager<ActionGroup.ActionRemovedSignalEventArgs> actionRemovedSignalManager =
-            new GSignalManager<ActionGroup.ActionRemovedSignalEventArgs>("action-removed", gtype);
+        readonly GSignalManager<IActionGroup.ActionRemovedSignalHandler> actionRemovedSignalManager =
+            new("action-removed", gtype);
 
-        public event EventHandler<ActionGroup.ActionRemovedSignalEventArgs> ActionRemovedSignal {
+        public event IActionGroup.ActionRemovedSignalHandler ActionRemovedSignal {
             add => actionRemovedSignalManager.Add(this, value);
             remove => actionRemovedSignalManager.Remove(value);
         }
 
-        readonly GSignalManager<ActionGroup.ActionStateChangedSignalEventArgs> actionStateChangedSignalManager =
-            new GSignalManager<ActionGroup.ActionStateChangedSignalEventArgs>("action-state-changed", gtype);
+        readonly GSignalManager<IActionGroup.ActionStateChangedSignalHandler> actionStateChangedSignalManager =
+            new("action-state-changed", gtype);
 
-        public event EventHandler<ActionGroup.ActionStateChangedSignalEventArgs> ActionStateChangedSignal {
+        public event IActionGroup.ActionStateChangedSignalHandler ActionStateChangedSignal {
             add => actionStateChangedSignalManager.Add(this, value);
             remove => actionStateChangedSignalManager.Remove(value);
         }

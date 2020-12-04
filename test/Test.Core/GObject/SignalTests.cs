@@ -66,36 +66,35 @@ namespace GISharp.Test.Core.GObject
             int handler1Count = 0;
             int handler2Count = 0;
 
-            using (var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
-                false, ParamFlags.Readwrite | ParamFlags.StaticStrings))
-            using (var obj = new Object()) {
-                var id = Signal.TryLookup("notify", GType.Object);
-                Assume.That(id, Is.Not.EqualTo(0));
+            using var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
+                false, ParamFlags.Readwrite | ParamFlags.StaticStrings);
+            using var obj = new Object();
+            var id = Signal.TryLookup("notify", GType.Object);
+            Assume.That(id, Is.Not.EqualTo(0));
 
-                EventHandler<Object.NotifySignalEventArgs> handler1 = (s, e) => {
-                    handler1Count++;
-                    if (stopEmission) {
-                        obj.StopEmission(id);
-                    }
-                };
+            Object.NotifySignalHandler handler1 = (o, p) => {
+                handler1Count++;
+                if (stopEmission) {
+                    obj.StopEmission(id);
+                }
+            };
 
-                EventHandler<Object.NotifySignalEventArgs> handler2 = (s, e) => handler2Count++;
+            Object.NotifySignalHandler handler2 = (o, p) => handler2Count++;
 
-                obj.NotifySignal += handler1;
-                obj.NotifySignal += handler2;
+            obj.NotifySignal += handler1;
+            obj.NotifySignal += handler2;
 
-                // make sure our callbacks are working
-                obj.Emit(id, 0, pspec);
-                Assume.That(handler1Count, Is.EqualTo(1));
-                Assume.That(handler2Count, Is.EqualTo(1));
+            // make sure our callbacks are working
+            obj.Emit(id, 0, pspec);
+            Assume.That(handler1Count, Is.EqualTo(1));
+            Assume.That(handler2Count, Is.EqualTo(1));
 
-                // now try to stop the emission
-                stopEmission = true;
-                obj.Emit(id, 0, pspec);
+            // now try to stop the emission
+            stopEmission = true;
+            obj.Emit(id, 0, pspec);
 
-                Assert.That(handler1Count, Is.EqualTo(2));
-                Assert.That(handler2Count, Is.EqualTo(1));
-            }
+            Assert.That(handler1Count, Is.EqualTo(2));
+            Assert.That(handler2Count, Is.EqualTo(1));
         }
 
         [Test]
@@ -105,33 +104,32 @@ namespace GISharp.Test.Core.GObject
             int handler1Count = 0;
             int handler2Count = 0;
 
-            using (var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
-                false, ParamFlags.Readwrite | ParamFlags.StaticStrings))
-            using (var obj = new Object()) {
-                EventHandler<Object.NotifySignalEventArgs> handler1 = (s, e) => {
-                    handler1Count++;
-                    if (stopEmission) {
-                        obj.StopEmissionByName("notify::test-param");
-                    }
-                };
+            using var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
+                false, ParamFlags.Readwrite | ParamFlags.StaticStrings);
+            using var obj = new Object();
+            Object.NotifySignalHandler handler1 = (o, p) => {
+                handler1Count++;
+                if (stopEmission) {
+                    obj.StopEmissionByName("notify::test-param");
+                }
+            };
 
-                EventHandler<Object.NotifySignalEventArgs> handler2 = (s, e) => handler2Count++;
+            Object.NotifySignalHandler handler2 = (o, p) => handler2Count++;
 
-                obj.NotifySignal += handler1;
-                obj.NotifySignal += handler2;
+            obj.NotifySignal += handler1;
+            obj.NotifySignal += handler2;
 
-                // make sure our callbacks are working
-                obj.Notify(pspec);
-                Assume.That(handler1Count, Is.EqualTo(1));
-                Assume.That(handler2Count, Is.EqualTo(1));
+            // make sure our callbacks are working
+            obj.Notify(pspec);
+            Assume.That(handler1Count, Is.EqualTo(1));
+            Assume.That(handler2Count, Is.EqualTo(1));
 
-                // now try to stop the emission
-                stopEmission = true;
-                obj.Notify(pspec);
+            // now try to stop the emission
+            stopEmission = true;
+            obj.Notify(pspec);
 
-                Assert.That(handler1Count, Is.EqualTo(2));
-                Assert.That(handler2Count, Is.EqualTo(1));
-            }
+            Assert.That(handler1Count, Is.EqualTo(2));
+            Assert.That(handler2Count, Is.EqualTo(1));
         }
     }
 }

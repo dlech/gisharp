@@ -1,6 +1,6 @@
 using System;
-using System.Collections.Concurrent;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 using System.Reflection;
@@ -135,28 +135,53 @@ namespace GISharp.Lib.GObject
         static GType _GType => g_object_get_type();
 
         /// <summary>
-        /// Event args for <see cref="NotifySignal"/>.
+        /// Callback for <see cref="NotifySignal"/>.
         /// </summary>
-        public sealed class NotifySignalEventArgs : GSignalEventArgs
+        /// <param name="gobject">
+        /// the object which received the signal.
+        /// </param>
+        /// <param name="pspec">
+        /// the <see cref="ParamSpec"/> of the property which changed.
+        /// </param>
+        [GCallback(typeof(NotifySignalHandlerMarshal))]
+        public delegate void NotifySignalHandler(Object gobject, ParamSpec pspec);
+
+        static class NotifySignalHandlerMarshal
         {
-            readonly object[] args;
+            record UserData(NotifySignalHandler Callback, CallbackScope Scope);
 
-            /// <summary>
-            /// the <see cref="ParamSpec"/> of the property which changed.
-            /// </summary>
-            public ParamSpec Pspec => (ParamSpec)args[0];
-
-            /// <summary>
-            /// Creates a new instance.
-            /// </summary>
-            public NotifySignalEventArgs(params object[] args)
+            public static unsafe (IntPtr unmanagedFunctionPointer, IntPtr destroyNotifyFunctionPointer, IntPtr userData)
+                ToUnmanagedFunctionPointer(Delegate callback, CallbackScope scope)
             {
-                this.args = args ?? throw new ArgumentNullException(nameof(args));
+                var unmanagedFunctionPointer_ =
+                    (IntPtr)(delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void>)&ManagedNotifySignalHandler;
+                var destroyNotifyFunctionPointer_ = GMarshal.DestroyGCHandleFunctionPointer;
+                var userData_ = (IntPtr)GCHandle.Alloc(new UserData((NotifySignalHandler)callback, scope));
+
+                return (unmanagedFunctionPointer_, destroyNotifyFunctionPointer_, userData_);
+            }
+
+            [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+            static void ManagedNotifySignalHandler(IntPtr gobject_, IntPtr pspec_, IntPtr userData_)
+            {
+                try {
+                    var gobject = GetInstance<Object>(gobject_, Transfer.None)!;
+                    var pspec = ParamSpec.GetInstance(pspec_, Transfer.None)!;
+                    var gcHandle = GCHandle.FromIntPtr(userData_);
+                    var userData = (UserData)gcHandle.Target!;
+                    userData.Callback(gobject, pspec);
+                    if (userData.Scope == CallbackScope.Async) {
+                        gcHandle.Free();
+                    }
+                }
+                catch (Exception ex) {
+                    ex.LogUnhandledException();
+                }
             }
         }
 
-        readonly GSignalManager<NotifySignalEventArgs> notifySignalManager =
-                new GSignalManager<NotifySignalEventArgs>("notify", _GType);
+        readonly GSignalManager<NotifySignalHandler> notifySignalManager =
+                new GSignalManager<NotifySignalHandler>("notify", _GType);
 
         /// <summary>
         /// The notify signal is emitted on an object when one of its
@@ -175,7 +200,7 @@ namespace GISharp.Lib.GObject
         /// and common practice is to do that only when the value has actually changed.
         /// </remarks>
         [GSignal("notify", When = EmissionStage.First, IsNoRecurse = true, IsDetailed = true, IsAction = true, IsNoHooks = true)]
-        public event EventHandler<NotifySignalEventArgs> NotifySignal {
+        public event NotifySignalHandler NotifySignal {
             add => notifySignalManager.Add(this, value);
             remove => notifySignalManager.Remove(value);
         }
@@ -207,7 +232,7 @@ namespace GISharp.Lib.GObject
         {
             var detailedSignalPtr = GMarshal.StringToUtf8Ptr("notify");
             var id = Signal.g_signal_connect_data(handle, detailedSignalPtr,
-                nativeNotifyPtr, IntPtr.Zero, null, default);
+                nativeNotifyPtr, IntPtr.Zero, IntPtr.Zero, default);
             GMarshal.Free(detailedSignalPtr);
 
             return new SignalHandler(this, id);

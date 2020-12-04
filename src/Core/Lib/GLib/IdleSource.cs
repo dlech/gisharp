@@ -76,7 +76,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void SetCallback(SourceFunc func)
         {
-            SetCallback(func, SourceFuncMarshal.ToPointer);
+            SetCallback(func, SourceFuncMarshal.ToUnmanagedFunctionPointer);
         }
     }
 }

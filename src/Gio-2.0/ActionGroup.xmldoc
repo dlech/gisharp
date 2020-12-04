@@ -1,31 +1,77 @@
 <declaration>
 
-<member name='IActionGroup.ActionAddedSignal'>
+<member name='ActionAddedSignalHandler'>
 <summary>
 Signals that a new action was just added to the group.
 This signal is emitted after the action has been added
 and is now visible.
 </summary>
+<param name="actionGroup">
+the instance on which the signal was invoked
+</param>
+<param name="actionName">
+the name of the action in <paramref name="actionGroup"/>
+</param>
 </member>
 
-<member name='IActionGroup.ActionEnabledChangedSignal'>
+<member name='IActionGroup.ActionAddedSignal'>
+<seealso cref="ActionAddedSignalHandler"/>
+</member>
+
+<member name='ActionEnabledChangedSignalHandler'>
 <summary>
 Signals that the enabled status of the named action has changed.
 </summary>
+<param name="actionGroup">
+the instance on which the signal was invoked
+</param>
+<param name="actionName">
+the name of the action in <paramref name="actionGroup"/>
+</param>
+<param name="enabled">
+whether the action is enabled or not
+</param>
 </member>
 
-<member name='IActionGroup.ActionRemovedSignal'>
+<member name='IActionGroup.ActionEnabledChangedSignal'>
+<seealso cref="ActionEnabledChangedSignalHandler"/>
+</member>
+
+<member name='ActionRemovedSignalHandler'>
 <summary>
 Signals that an action is just about to be removed from the group.
 This signal is emitted before the action is removed, so the action
 is still visible and can be queried from the signal handler.
 </summary>
+<param name="actionGroup">
+the instance on which the signal was invoked
+</param>
+<param name="actionName">
+the name of the action in <paramref name="actionGroup"/>
+</param>
 </member>
 
-<member name='IActionGroup.ActionStateChangedSignal'>
+<member name='IActionGroup.ActionRemovedSignal'>
+<seealso cref="ActionRemovedSignalHandler"/>
+</member>
+
+<member name='ActionStateChangedSignalHandler'>
 <summary>
 Signals that the state of the named action has changed.
 </summary>
+<param name="actionGroup">
+the instance on which the signal was invoked
+</param>
+<param name="actionName">
+the name of the action in <paramref name="actionGroup"/>
+</param>
+<param name="value">
+the new value of the state
+</param>
+</member>
+
+<member name='IActionGroup.ActionStateChangedSignal'>
+<seealso cref="ActionStateChangedSignalHandler"/>
 </member>
 
 <member name='IActionGroup.DoActionAdded(GISharp.Lib.GLib.UnownedUtf8)'>
@@ -317,70 +363,6 @@ the virtual functions <see cref="ActionGroup.ListActions(GISharp.Lib.Gio.IAction
 not be implemented - their "wrappers" are actually implemented with
 calls to <see cref="ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,out System.Boolean,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.VariantType,out GISharp.Lib.GLib.Variant,out GISharp.Lib.GLib.Variant)"/>.
 </remarks>
-</member>
-
-<member name='ActionAddedSignalEventArgs.ActionName'>
-<summary>
-the name of the action in this action group
-</summary>
-</member>
-
-<member name='ActionAddedSignalEventArgs'>
-<summary>
-Signals that a new action was just added to the group.
-This signal is emitted after the action has been added
-and is now visible.
-</summary>
-</member>
-
-<member name='ActionEnabledChangedSignalEventArgs.ActionName'>
-<summary>
-the name of the action in this action group
-</summary>
-</member>
-
-<member name='ActionEnabledChangedSignalEventArgs.Enabled'>
-<summary>
-whether the action is enabled or not
-</summary>
-</member>
-
-<member name='ActionEnabledChangedSignalEventArgs'>
-<summary>
-Signals that the enabled status of the named action has changed.
-</summary>
-</member>
-
-<member name='ActionRemovedSignalEventArgs.ActionName'>
-<summary>
-the name of the action in this action group
-</summary>
-</member>
-
-<member name='ActionRemovedSignalEventArgs'>
-<summary>
-Signals that an action is just about to be removed from the group.
-This signal is emitted before the action is removed, so the action
-is still visible and can be queried from the signal handler.
-</summary>
-</member>
-
-<member name='ActionStateChangedSignalEventArgs.ActionName'>
-<summary>
-the name of the action in this action group
-</summary>
-</member>
-
-<member name='ActionStateChangedSignalEventArgs.Value'>
-<summary>
-the new value of the state
-</summary>
-</member>
-
-<member name='ActionStateChangedSignalEventArgs'>
-<summary>
-Signals that the state of the named action has changed.
-</summary>
 </member>
 
 <member name='ActionGroup.ActionAdded(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)'>

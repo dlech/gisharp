@@ -321,7 +321,7 @@ namespace GISharp.Lib.GLib
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
             var description_ = AllocString(description ?? throw new ArgumentNullException(nameof(description)));
             var argDescription_ = AllocString(argDescription);
-            var (callback_, destroy_, data_) = OptionArgFuncMarshal.ToPointer(callback, CallbackScope.Notified);
+            var (callback_, destroy_, data_) = OptionArgFuncMarshal.ToUnmanagedFunctionPointer(callback, CallbackScope.Notified);
             userData.DestroyCallbacks.Add((destroy_, data_));
 
             AddEntry(new OptionEntry {

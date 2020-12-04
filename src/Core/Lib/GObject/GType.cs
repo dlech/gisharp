@@ -552,7 +552,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsDerivable {
             get {
-                var ret_ =  g_type_test_flags(this, TypeFlags.Derivable);
+                var ret_ = g_type_test_flags(this, TypeFlags.Derivable);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -567,7 +567,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public bool IsDeepDerivable {
             get {
-                var ret_ =  g_type_test_flags(this, TypeFlags.DeepDerivable);
+                var ret_ = g_type_test_flags(this, TypeFlags.DeepDerivable);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1503,7 +1503,7 @@ namespace GISharp.Lib.GObject
         [Since ("2.4")]
         public static IDisposable AddInterfaceCheck(TypeInterfaceCheckFunc checkFunc)
         {
-            var (checkFunc_, destroy_, checkData_) = TypeInterfaceCheckFuncMarshal.ToPointer(checkFunc, CallbackScope.Notified);
+            var (checkFunc_, destroy_, checkData_) = TypeInterfaceCheckFuncMarshal.ToUnmanagedFunctionPointer(checkFunc, CallbackScope.Notified);
             g_type_add_interface_check(checkData_, checkFunc_);
 
             return new RemoveInterfaceCheck(checkFunc_, destroy_, checkData_);

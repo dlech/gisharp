@@ -447,6 +447,31 @@ namespace GISharp.CodeGen
                 element.Element(gi + "parameters").Add(errorElement);
             }
 
+            // add instance parameter and user data parameter for signals
+
+            foreach (var element in document.Descendants(glib + "signal")) {
+                var parametersElement = element.Element(gi + "parameters");
+                var declaringType = element.Parent.Attribute("name").AsString();
+                parametersElement.AddFirst(new XElement(gi + "instance-parameter",
+                    new XAttribute("name", declaringType.ToCamelCase()),
+                    new XAttribute("transfer-ownership", "none"),
+                    new XElement(gi + "doc", "the instance on which the signal was invoked"),
+                    new XElement(gi + "type",
+                        new XAttribute("name", declaringType),
+                        new XAttribute(c + "name", "gpointer")
+                    )
+                ));
+                parametersElement.Add(new XElement(gi + "parameter",
+                    new XAttribute("name", "user_data"),
+                    new XAttribute("transfer-ownership", "none"),
+                    new XAttribute("closure", parametersElement.Elements(gi + "parameter").Count()),
+                    new XElement(gi + "type",
+                        new XAttribute("name", "gpointer"),
+                        new XAttribute(c + "name", "gpointer")
+                    )
+                ));
+            }
+
             // set a value for parameters without transfer-ownership attribute
 
             foreach (var element in document.Descendants(gi + "return-value")
@@ -788,8 +813,6 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue("direction", "in");
             }
 
-            // TODO: add instance parameter and user data parameter for signals
-
             // make all cancellable parameters have default value
 
             foreach (var element in document.Descendants(gi + "parameter")
@@ -1071,7 +1094,7 @@ namespace GISharp.CodeGen
             // using extension methods, in which case we will need the instance
             // parameter. Otherwise, the instance parameter is skipped.
 
-            if (parameters.Parent.Attribute(gs + "extension-method").AsBool()) {
+            if (parameters.Parent.Attribute(gs + "extension-method").AsBool() || parameters.Parent.Name == glib + "signal") {
                 var instanceParameter = parameters.Element(gi + "instance-parameter");
                 if (instanceParameter is not null) {
                     list.Insert(0, instanceParameter);

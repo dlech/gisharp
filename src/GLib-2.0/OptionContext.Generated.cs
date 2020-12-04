@@ -661,7 +661,7 @@ namespace GISharp.Lib.GLib
         {
             CheckSetTranslateFuncArgs(func);
             var context_ = Handle;
-            var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToPointer(func, GISharp.Runtime.CallbackScope.Notified);
+            var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToUnmanagedFunctionPointer(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_context_set_translate_func(context_, func_, data_, destroyNotify_);
         }
 

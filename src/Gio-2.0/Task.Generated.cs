@@ -122,7 +122,7 @@ namespace GISharp.Lib.Gio
         {
             CheckNewArgs(sourceObject, callback, cancellable);
             var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
-            var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var ret_ = g_task_new(sourceObject_,cancellable_,callback_,callbackData_);
             return ret_;
@@ -232,7 +232,7 @@ namespace GISharp.Lib.Gio
         {
             CheckReportErrorArgs(sourceObject, callback, sourceTag, error);
             var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
-            var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var sourceTag_ = (System.IntPtr)sourceTag;
             var error_ = error.Take();
             g_task_report_error(sourceObject_, callback_, callbackData_, sourceTag_, error_);

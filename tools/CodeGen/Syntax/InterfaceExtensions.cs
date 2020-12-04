@@ -1,8 +1,5 @@
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -77,7 +74,6 @@ namespace GISharp.CodeGen.Syntax
         {
             var members = List<MemberDeclarationSyntax>()
                 .AddRange(@interface.ManagedProperties.GetMemberDeclarations())
-                .AddRange(@interface.Signals.Select(x => x.GetEventArgsClassDeclaration()))
                 .AddRange(@interface.Methods.GetMemberDeclarations());
 
             return List(members);

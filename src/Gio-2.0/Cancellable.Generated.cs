@@ -73,25 +73,66 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='CancelledSignalEventArgs']/*" />
-        public sealed class CancelledSignalEventArgs : GISharp.Runtime.GSignalEventArgs
-        {
-            readonly System.Object[] args;
+        readonly GISharp.Runtime.GSignalManager<CancelledSignalHandler> cancelledSignalSignalManager = new GISharp.Runtime.GSignalManager<CancelledSignalHandler>("cancelled", _GType);
 
-            /// <summary>
-            /// Creates a new instance.
-            /// </summary>
-            public CancelledSignalEventArgs(params System.Object[] args)
-            {
-                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
-            }
-        }
-
-        readonly GISharp.Runtime.GSignalManager<CancelledSignalEventArgs> cancelledSignalSignalManager = new GISharp.Runtime.GSignalManager<CancelledSignalEventArgs>("cancelled", _GType);
+        /// <include file="Cancellable.xmldoc" path="declaration/member[@name='CancelledSignalHandler']/*" />
+        [GISharp.Runtime.GCallbackAttribute(typeof(CancelledSignalHandlerMarshal))]
+        public delegate void CancelledSignalHandler(GISharp.Lib.Gio.Cancellable cancellable);
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.CancelledSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("cancelled", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<CancelledSignalEventArgs> CancelledSignal { add => cancelledSignalSignalManager.Add(this, value); remove => cancelledSignalSignalManager.Remove(value); }
+        public event CancelledSignalHandler CancelledSignal { add => cancelledSignalSignalManager.Add(this, value); remove => cancelledSignalSignalManager.Remove(value); }
+
+        private static class CancelledSignalHandlerMarshal
+        {
+            record UserData(CancelledSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
+
+            public static unsafe CancelledSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            {
+                var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, void>)callback_;
+                void managedCallback(GISharp.Lib.Gio.Cancellable cancellable)
+                {
+                    var cancellable_ = cancellable.Handle;
+                    unmanagedCallback(cancellable_, userData_);
+                }
+
+                return managedCallback;
+            }
+
+            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            {
+                if (callback == null)
+                {
+                    return default;
+                }
+
+                var userData = new UserData((CancelledSignalHandler)callback, scope);
+                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, void>)&ManagedCallback;
+                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
+                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
+                return (callback_, destroy_, userData_);
+            }
+
+            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+            static unsafe void ManagedCallback(System.IntPtr cancellable_, System.IntPtr userData_)
+            {
+                try
+                {
+                    var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None)!;
+                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                    var userData = (UserData)gcHandle.Target!;
+                    userData.Callback(cancellable);
+                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
+                    {
+                        gcHandle.Free();
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                }
+            }
+        }
 
         static partial void CheckGetCurrentArgs();
 
@@ -222,7 +263,7 @@ namespace GISharp.Lib.Gio
         {
             CheckConnectArgs(callback);
             var cancellable_ = Handle;
-            var (callback_, dataDestroyFunc_, data_) = GISharp.Lib.Gio.CancellableSourceFuncMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Notified);
+            var (callback_, dataDestroyFunc_, data_) = GISharp.Lib.Gio.CancellableSourceFuncMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Notified);
             var ret_ = g_cancellable_connect(cancellable_,callback_,data_,dataDestroyFunc_);
             var ret = (GISharp.Runtime.CULong)ret_;
             return ret;

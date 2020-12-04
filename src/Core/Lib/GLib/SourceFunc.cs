@@ -34,7 +34,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Marshals to a <see cref="SourceFunc"/> to an unmanged function pointer.
         /// </summary>
-        public unsafe static (IntPtr func_, IntPtr destroy_, IntPtr userData_) ToPointer(SourceFunc func, CallbackScope scope)
+        public unsafe static (IntPtr func_, IntPtr destroy_, IntPtr userData_) ToUnmanagedFunctionPointer(SourceFunc func, CallbackScope scope)
         {
             delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean> unmanagedFunc = &UnmanagedFunc;
             delegate* unmanaged[Cdecl]<IntPtr, void> unmanagedNotify = &UnmanagedNotify;

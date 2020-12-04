@@ -45,55 +45,50 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestSetEnabled()
         {
-            using (var sa = new SimpleAction("test-action", VariantType.Boolean)) {
-                Assume.That(sa.Enabled, Is.True);
-                sa.SetEnabled(false);
-                Assert.That(sa.Enabled, Is.False);
-            }
+            using var sa = new SimpleAction("test-action", VariantType.Boolean);
+            Assume.That(sa.Enabled, Is.True);
+            sa.SetEnabled(false);
+            Assert.That(sa.Enabled, Is.False);
         }
 
         [Test]
         public void TestSetState()
         {
-            using (var sa = new SimpleAction("test-action", VariantType.Boolean, (Variant)false)) {
-                Assume.That((bool)sa.State!, Is.False);
-                sa.SetState((Variant)true);
-                Assert.That((bool)sa.State!, Is.True);
-            }
+            using var sa = new SimpleAction("test-action", VariantType.Boolean, (Variant)false);
+            Assume.That((bool)sa.State!, Is.False);
+            sa.SetState((Variant)true);
+            Assert.That((bool)sa.State!, Is.True);
         }
 
         [Test]
         public void TestSetStateHint()
         {
-            using (var sa = new SimpleAction("test-action", VariantType.Boolean, (Variant)false)) {
-                Assume.That(sa.GetStateHint(), Is.Null);
-                sa.SetStateHint((Variant)true);
-                Assert.That((bool)sa.GetStateHint()!, Is.True);
-            }
+            using var sa = new SimpleAction("test-action", VariantType.Boolean, (Variant)false);
+            Assume.That(sa.GetStateHint(), Is.Null);
+            sa.SetStateHint((Variant)true);
+            Assert.That((bool)sa.GetStateHint()!, Is.True);
         }
 
         [Test]
         public void TestActivateSignal()
         {
-            using (var sa = new SimpleAction("test-action", VariantType.Boolean)) {
-                var parameter = default(Variant)!;
-                sa.ActivateSignal += (s, a) => parameter = a.Parameter;
-                sa.Activate((Variant)true);
-                Assert.That(parameter, Is.Not.Null, "Event was not called");
-                Assert.That((bool)parameter, Is.True);
-            }
+            using var sa = new SimpleAction("test-action", VariantType.Boolean);
+            var parameter = default(Variant);
+            sa.ActivateSignal += (a, p) => parameter = p;
+            sa.Activate((Variant)true);
+            Assert.That(parameter, Is.Not.Null, "Event was not called");
+            Assert.That((bool)parameter!, Is.True);
         }
 
         [Test]
         public void TestChangeStateSignal()
         {
-            using (var sa = new SimpleAction("test-action", null, (Variant)5)) {
-                var value = default(Variant)!;
-                sa.ChangeStateSignal += (s, a) => value = a.Value;
-                sa.ChangeState((Variant)10);
-                Assert.That(value, Is.Not.Null, "Event was not called");
-                Assert.That((int)value, Is.EqualTo(10));
-            }
+            using var sa = new SimpleAction("test-action", null, (Variant)5);
+            var value = default(Variant)!;
+            sa.ChangeStateSignal += (a, v) => value = v;
+            sa.ChangeState((Variant)10);
+            Assert.That(value, Is.Not.Null, "Event was not called");
+            Assert.That((int)value, Is.EqualTo(10));
         }
     }
 }

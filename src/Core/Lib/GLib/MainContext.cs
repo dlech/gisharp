@@ -862,7 +862,7 @@ namespace GISharp.Lib.GLib
         public void Invoke(SourceFunc function, int priority = Priority.Default)
         {
             var this_ = Handle;
-            var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
+            var (function_, notify_, data_) = SourceFuncMarshal.ToUnmanagedFunctionPointer(function, CallbackScope.Notified);
             g_main_context_invoke_full(this_, priority, function_, data_, notify_);
         }
 

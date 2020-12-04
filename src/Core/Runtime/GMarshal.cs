@@ -1,5 +1,6 @@
 using System;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using GISharp.Lib.GLib;
@@ -59,6 +60,26 @@ namespace GISharp.Runtime
         public static void Free(IntPtr ptr)
         {
             g_free(ptr);
+        }
+
+        /// <summary>
+        /// Gets an unmanaged function pointer for <see cref="DestroyNotify"/>
+        /// that expects the user data to be a <see cref="GCHandle"/> and
+        /// frees it.
+        /// </summary>
+        public static unsafe IntPtr DestroyGCHandleFunctionPointer =>
+            (IntPtr)(delegate* unmanaged[Cdecl]<IntPtr, void>)&destroyGCHandle;
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static void destroyGCHandle(IntPtr userData_)
+        {
+            try {
+                var gcHandle = GCHandle.FromIntPtr(userData_);
+                gcHandle.Free();
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+            }
         }
 
         /// <summary>

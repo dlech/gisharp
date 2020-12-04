@@ -115,7 +115,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public static (uint id, Source.UserData handuserDatale) Add(uint interval, SourceFunc function, int priority = Priority.Default)
         {
-            var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
+            var (function_, notify_, data_) = SourceFuncMarshal.ToUnmanagedFunctionPointer(function, CallbackScope.Notified);
             var ret = g_timeout_add_full(priority, interval, function_, data_, notify_);
             var userData = new Source.UserData(data_);
             return (ret, userData);
@@ -252,7 +252,7 @@ namespace GISharp.Lib.GLib
         [Since("2.14")]
         public static (uint id, Source.UserData userData) AddSeconds(uint interval, SourceFunc function, int priority = Priority.Default)
         {
-            var (function_, notify_, data_) = SourceFuncMarshal.ToPointer(function, CallbackScope.Notified);
+            var (function_, notify_, data_) = SourceFuncMarshal.ToUnmanagedFunctionPointer(function, CallbackScope.Notified);
             var ret = g_timeout_add_seconds_full(priority, interval, function_, data_, notify_);
             var userData = new Source.UserData(data_);
             return (ret, userData);

@@ -127,10 +127,10 @@ namespace GISharp.Lib.GObject
         /// <param name="returnValue">
         /// Location for the return value.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_chain_from_overridden (
+        static extern void g_signal_chain_from_overridden(
             /* <array zero-terminated="0" type="GValue*">
                 <type name="Value" type="GValue" managed-name="Value" />
                 </array> */
@@ -181,7 +181,7 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
         static extern culong g_signal_connect_closure(
@@ -293,17 +293,17 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static SignalHandler Connect(this Object instance, uint signalId, Quark detail, Closure closure, bool after = false)
         {
-           var instance_ = instance.Handle;
-           if (signalId == 0) {
-               throw new ArgumentOutOfRangeException(nameof(signalId));
-           }
-           var closure_ = closure.Handle;
-           var ret = g_signal_connect_closure_by_id(instance_, signalId, detail, closure_, after);
-           if (ret == 0) {
-               // warning will be logged
-               throw new ArgumentException();
-           }
-           return new SignalHandler(instance, ret);
+            var instance_ = instance.Handle;
+            if (signalId == 0) {
+                throw new ArgumentOutOfRangeException(nameof(signalId));
+            }
+            var closure_ = closure.Handle;
+            var ret = g_signal_connect_closure_by_id(instance_, signalId, detail, closure_, after);
+            if (ret == 0) {
+                // warning will be logged
+                throw new ArgumentException();
+            }
+            return new SignalHandler(instance, ret);
         }
 
         /// <summary>
@@ -352,7 +352,7 @@ namespace GISharp.Lib.GObject
             IntPtr data,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none */
-            UnmanagedClosureNotify? destroyData,
+            IntPtr destroyData,
             /* <type name="ConnectFlags" type="GConnectFlags" managed-name="ConnectFlags" /> */
             /* transfer-ownership:none */
             ConnectFlags connectFlags);
@@ -370,9 +370,6 @@ namespace GISharp.Lib.GObject
         /// <param name="detailedSignal">
         /// a string of the form "signal-name::detail".
         /// </param>
-        /// <param name="unmanagedCallbackFactory">
-        /// Factory function to marshal <paramref name="handler"/> to an unmanaged function pointer.
-        /// </param>
         /// <param name="handler">
         /// the #GCallback to connect.
         /// </param>
@@ -382,22 +379,21 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the handler id (always greater than 0 for successful connections)
         /// </returns>
-        public static SignalHandler Connect<T, U>(this Object instance, UnownedUtf8 detailedSignal,
-            System.Func<T, (U, UnmanagedClosureNotify, IntPtr)> unmanagedCallbackFactory,
-            T handler, ConnectFlags connectFlags = default) where T : Delegate where U : Delegate
+        public static SignalHandler Connect<T>(this Object instance, UnownedUtf8 detailedSignal,
+            T handler, ConnectFlags connectFlags = default) where T : Delegate
         {
             var instance_ = instance.Handle;
             var detailedSignal_ = detailedSignal.Handle;
-            var (handler_, notify_, data_) = unmanagedCallbackFactory.Invoke(handler);
-            var handlerPtr = Marshal.GetFunctionPointerForDelegate(handler_);
-            var ret = g_signal_connect_data(instance_, detailedSignal_, handlerPtr, data_, notify_, connectFlags);
+            var unmanagedCallbackFactory = handler.GetToUnmanagedFunctionPointer();
+            var (handler_, notify_, data_) = unmanagedCallbackFactory(handler, CallbackScope.Notified);
+            var ret = g_signal_connect_data(instance_, detailedSignal_, handler_, data_, notify_, connectFlags);
 
             if (ret == 0) {
                 // TODO: More specific exception
-                throw new Exception ("Failed to connect signal.");
+                throw new Exception("Failed to connect signal.");
             }
 
-            return new SignalHandler (instance, ret);
+            return new SignalHandler(instance, ret);
         }
 
         /// <summary>
@@ -423,7 +419,7 @@ namespace GISharp.Lib.GObject
         /// store the return value of the signal emission. This must be provided if the
         /// specified signal returns a value, but may be ignored otherwise.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern unsafe void g_signal_emitv(
@@ -489,13 +485,13 @@ namespace GISharp.Lib.GObject
 
         static unsafe object? Emit(Type type, Object instance, uint signalId, Quark detail, object[] parameters)
         {
-            var query = Signal.Query (signalId);
-            if (!instance.GetGType ().IsA (query.IType)) {
-                throw new ArgumentException ("Instance type does not match signal type");
+            var query = Signal.Query(signalId);
+            if (!instance.GetGType().IsA(query.IType)) {
+                throw new ArgumentException("Instance type does not match signal type");
             }
             if (query.ParamTypes.Length != parameters.Length) {
                 var message = $"Incorrect number of parameters, expecting {query.ParamTypes.Length}, but got {parameters.Length}";
-                throw new ArgumentException (message);
+                throw new ArgumentException(message);
             }
 
             var instanceAndParams = stackalloc Value[parameters.Length + 1];
@@ -540,10 +536,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the invocation hint of the innermost signal  emission.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
         /* transfer-ownership:none */
-        static extern SignalInvocationHint g_signal_get_invocation_hint (
+        static extern SignalInvocationHint g_signal_get_invocation_hint(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance);
@@ -557,9 +553,9 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the invocation hint of the innermost signal  emission.
         /// </returns>
-        static SignalInvocationHint GetInvocationHint (Object instance)
+        static SignalInvocationHint GetInvocationHint(Object instance)
         {
-            var ret = g_signal_get_invocation_hint (instance.Handle);
+            var ret = g_signal_get_invocation_hint(instance.Handle);
 
             return ret;
         }
@@ -645,7 +641,7 @@ namespace GISharp.Lib.GObject
         /// %TRUE if a handler is connected to the signal, %FALSE
         ///          otherwise.
         /// </returns>
-        public static bool HasHandlerPending (Object instance, uint signalId, Quark detail, bool mayBeBlocked)
+        public static bool HasHandlerPending(Object instance, uint signalId, Quark detail, bool mayBeBlocked)
         {
             var ret_ = g_signal_has_handler_pending(instance.Handle, signalId, detail, mayBeBlocked);
             var ret = ret_.IsTrue();
@@ -666,12 +662,12 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// Newly allocated array of signal IDs.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <array length="1" zero-terminated="0" type="guint*">
          *   <type name="guint" type="guint" managed-name="Guint" />
          * </array> */
         /* transfer-ownership:full */
-        static extern IntPtr g_signal_list_ids (
+        static extern IntPtr g_signal_list_ids(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType itype,
@@ -693,7 +689,7 @@ namespace GISharp.Lib.GObject
         public static ReadOnlyMemory<uint> ListIds(GType itype)
         {
             uint nIds_;
-            var ret_ = g_signal_list_ids (itype, out nIds_);
+            var ret_ = g_signal_list_ids(itype, out nIds_);
             var ret = new CArrayMemoryManager<uint>(ret_, (int)nIds_, Transfer.Full);
             return ret.Memory;
         }
@@ -717,10 +713,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the signal's identifying number, or 0 if no signal was found.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
-        static extern uint g_signal_lookup (
+        static extern uint g_signal_lookup(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr name,
@@ -790,10 +786,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the signal name, or %NULL if the signal number was invalid.
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_signal_name (
+        static extern IntPtr g_signal_name(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId);
@@ -867,7 +863,7 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the signal id
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         static extern uint g_signal_newv(
@@ -942,10 +938,10 @@ namespace GISharp.Lib.GObject
         /// <param name="classClosure">
         /// the closure.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_override_class_closure (
+        static extern void g_signal_override_class_closure(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -1003,11 +999,11 @@ namespace GISharp.Lib.GObject
         /// <param name="classHandler">
         /// the handler.
         /// </param>
-        [Since ("2.18")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [Since("2.18")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_override_class_handler (
+        static extern void g_signal_override_class_handler(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr signalName,
@@ -1161,10 +1157,10 @@ namespace GISharp.Lib.GObject
         /// A user provided structure that is
         ///  filled in with constant values upon success.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_query (
+        static extern void g_signal_query(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -1185,11 +1181,11 @@ namespace GISharp.Lib.GObject
         /// <exception cref="ArgumentOutOfRangeException">
         /// Throw if and invalid signal id is passed in.
         /// </exception>
-        public static SignalQuery Query (uint signalId)
+        public static SignalQuery Query(uint signalId)
         {
-            g_signal_query (signalId, out var query);
+            g_signal_query(signalId, out var query);
             if (query.SignalId == 0) {
-                throw new ArgumentOutOfRangeException (nameof (signalId));
+                throw new ArgumentOutOfRangeException(nameof(signalId));
             }
             return query;
         }
@@ -1249,10 +1245,10 @@ namespace GISharp.Lib.GObject
         /// <param name="detail">
         /// the detail which the signal was emitted with.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_stop_emission (
+        static extern void g_signal_stop_emission(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -1301,10 +1297,10 @@ namespace GISharp.Lib.GObject
         /// <param name="detailedSignal">
         /// a string of the form "signal-name::detail".
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_stop_emission_by_name (
+        static extern void g_signal_stop_emission_by_name(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -1347,10 +1343,10 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// a new #GCClosure
         /// </returns>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_signal_type_cclosure_new (
+        static extern IntPtr g_signal_type_cclosure_new(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType itype,

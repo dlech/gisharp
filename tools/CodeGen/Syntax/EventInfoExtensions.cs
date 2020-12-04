@@ -11,7 +11,7 @@ namespace GISharp.CodeGen.Syntax
     static class EventInfoExtensions
     {
         // Gets an event declaration like:
-        // public event EventHandler<SomethingChangedEventArgs> SomethingChanged {
+        // public event SomethingChangedSignalHandler SomethingChangedSignal {
         //      add => somethingChangedSignalManager.Add(this, value);
         //      remove => somethingChangedSignalManager.Remove(value);
         // }
@@ -19,10 +19,7 @@ namespace GISharp.CodeGen.Syntax
         {
             // TODO: would be better to use info.EventHandlerType, but this
             // needs to be implented in GirEventInfo
-            var typeName = ParseTypeName($"{typeof(EventHandler)}<{info.DeclaringType}.{info.Name}EventArgs>");
-            if (info.DeclaringType.IsInterface) {
-                typeName = ParseTypeName($"{typeName}".Replace(".I", "."));
-            }
+            var typeName = ParseTypeName($"{info.DeclaringType}.{info.Name}Handler");
             var signalManager = $"{info.Name.ToCamelCase()}SignalManager";
 
             var addExpression = ParseExpression($"{signalManager}.Add(this, value)");
@@ -47,19 +44,16 @@ namespace GISharp.CodeGen.Syntax
         }
 
         // generates a field like:
-        // readonly GSignalManager<SomethingChangedEventArgs> somethingChangedSignalManager =
-        //      new GSignalManager<SomethingChangedEventArgs>("something-changed", _GType);
+        // readonly GSignalManager<SomethingChangedSignalHandler> somethingChangedSignalManager =
+        //      new GSignalManager<SomethingChangedSignalHandler>("something-changed", _GType);
         internal static FieldDeclarationSyntax GetGSignalManagerFieldDeclaration(this EventInfo info)
         {
             // TODO: would be better to use info.EventHandlerType, but this
             // needs to be implented in GirEventInfo
             var typeName = ParseTypeName(info.DeclaringType.ToString());
-            if (info.DeclaringType.IsInterface) {
-                typeName = ParseTypeName($"{typeName}".Replace(".I", "."));
-            }
             var managerType = typeof(GSignalManager<>).FullName;
             managerType = managerType.Substring(0, managerType.IndexOf('`'));
-            managerType += $"<{typeName}.{info.Name}EventArgs>";
+            managerType += $"<{typeName}.{info.Name}Handler>";
             var signalName = info.GetCustomAttribute<GSignalAttribute>().Name;
             var init = string.Format("new {0}(\"{1}\", _GType)",
                 managerType,

@@ -917,7 +917,7 @@ namespace GISharp.Lib.Gio
             var source_ = source.Handle;
             var destination_ = destination.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
-            var (progressCallback_, destroy_, progressCallbackData_) = GISharp.Lib.Gio.FileProgressCallbackMarshal.ToPointer(progressCallback, GISharp.Runtime.CallbackScope.Call);
+            var (progressCallback_, destroy_, progressCallbackData_) = GISharp.Lib.Gio.FileProgressCallbackMarshal.ToUnmanagedFunctionPointer(progressCallback, GISharp.Runtime.CallbackScope.Call);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             g_file_copy(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_, ref error_);
@@ -3537,7 +3537,7 @@ namespace GISharp.Lib.Gio
             var source_ = source.Handle;
             var destination_ = destination.Handle;
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
-            var (progressCallback_, destroy_, progressCallbackData_) = GISharp.Lib.Gio.FileProgressCallbackMarshal.ToPointer(progressCallback, GISharp.Runtime.CallbackScope.Call);
+            var (progressCallback_, destroy_, progressCallbackData_) = GISharp.Lib.Gio.FileProgressCallbackMarshal.ToUnmanagedFunctionPointer(progressCallback, GISharp.Runtime.CallbackScope.Call);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             g_file_move(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_, ref error_);
@@ -3831,7 +3831,7 @@ namespace GISharp.Lib.Gio
         {
             CheckPollMountableArgs(file, callback, cancellable);
             var file_ = file.Handle;
-            var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToPointer(callback, GISharp.Runtime.CallbackScope.Async);
+            var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
             g_file_poll_mountable(file_, cancellable_, callback_, userData_);
         }

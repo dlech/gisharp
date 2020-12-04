@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -8,20 +7,20 @@ using System.Text;
 using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GLib;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 using Object = GISharp.Lib.GObject.Object;
+using Signal = GISharp.CodeGen.Gir.Signal;
 
 namespace GISharp.CodeGen.Syntax
 {
     public static class GIArgExtensions
     {
         static readonly XNamespace gi = Globals.CoreNamespace;
-        static readonly XNamespace gs = GISharp.CodeGen.Globals.GISharpNamespace;
+        static readonly XNamespace gs = Globals.GISharpNamespace;
 
         public static ParameterSyntax GetParameter(this GIArg arg, string suffix = "", bool unownedUtf8AsString = false)
         {
@@ -83,7 +82,7 @@ namespace GISharp.CodeGen.Syntax
                 else if (arg.IsParams) {
                     yield return Token(ParamsKeyword);
                 }
-                else if (arg is InstanceParameter) {
+                else if (arg is InstanceParameter && !(arg.ParentNode.ParentNode is Signal)) {
                     yield return Token(ThisKeyword);
                 }
                 else if (byRef && !(arg.Type is Gir.Array)) {
@@ -189,7 +188,7 @@ namespace GISharp.CodeGen.Syntax
                 var userData = userDataArg.ManagedName;
                 var scope = $"{typeof(CallbackScope)}.{arg.Scope.ToPascalCase()}";
                 var marshal = $"{type}Marshal";
-                var getter = $"{marshal}.ToPointer({arg.ManagedName}, {scope})";
+                var getter = $"{marshal}.ToUnmanagedFunctionPointer({arg.ManagedName}, {scope})";
                 var identifiers = $"{arg.ManagedName}_, {destroy}_, {userData}_";
                 expressions.Add(ParseExpression($"({identifiers}) = {getter}"));
             }

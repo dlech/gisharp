@@ -144,53 +144,132 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivateSignalEventArgs']/*" />
-        public sealed class ActivateSignalEventArgs : GISharp.Runtime.GSignalEventArgs
-        {
-            readonly System.Object[] args;
+        readonly GISharp.Runtime.GSignalManager<ChangeStateSignalHandler> changeStateSignalSignalManager = new GISharp.Runtime.GSignalManager<ChangeStateSignalHandler>("change-state", _GType);
+        readonly GISharp.Runtime.GSignalManager<ActivateSignalHandler> activateSignalSignalManager = new GISharp.Runtime.GSignalManager<ActivateSignalHandler>("activate", _GType);
 
-            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivateSignalEventArgs.Parameter']/*" />
-            public GISharp.Lib.GLib.Variant Parameter => (GISharp.Lib.GLib.Variant)args[1];
-
-            /// <summary>
-            /// Creates a new instance.
-            /// </summary>
-            public ActivateSignalEventArgs(params System.Object[] args)
-            {
-                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
-            }
-        }
-
-        readonly GISharp.Runtime.GSignalManager<ActivateSignalEventArgs> activateSignalSignalManager = new GISharp.Runtime.GSignalManager<ActivateSignalEventArgs>("activate", _GType);
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ActivateSignalHandler']/*" />
+        [GISharp.Runtime.GCallbackAttribute(typeof(ActivateSignalHandlerMarshal))]
+        public delegate void ActivateSignalHandler(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? parameter);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.ActivateSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<ActivateSignalEventArgs> ActivateSignal { add => activateSignalSignalManager.Add(this, value); remove => activateSignalSignalManager.Remove(value); }
+        public event ActivateSignalHandler ActivateSignal { add => activateSignalSignalManager.Add(this, value); remove => activateSignalSignalManager.Remove(value); }
 
-        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ChangeStateSignalEventArgs']/*" />
-        public sealed class ChangeStateSignalEventArgs : GISharp.Runtime.GSignalEventArgs
+        private static class ActivateSignalHandlerMarshal
         {
-            readonly System.Object[] args;
+            record UserData(ActivateSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ChangeStateSignalEventArgs.Value']/*" />
-            public GISharp.Lib.GLib.Variant Value => (GISharp.Lib.GLib.Variant)args[1];
-
-            /// <summary>
-            /// Creates a new instance.
-            /// </summary>
-            public ChangeStateSignalEventArgs(params System.Object[] args)
+            public static unsafe ActivateSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
-                this.args = args ?? throw new System.ArgumentNullException(nameof(args));
+                var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)callback_;
+                void managedCallback(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? parameter)
+                {
+                    var simpleAction_ = simpleAction.Handle;
+                    var parameter_ = parameter?.Handle ?? System.IntPtr.Zero;
+                    unmanagedCallback(simpleAction_, parameter_, userData_);
+                }
+
+                return managedCallback;
+            }
+
+            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            {
+                if (callback == null)
+                {
+                    return default;
+                }
+
+                var userData = new UserData((ActivateSignalHandler)callback, scope);
+                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)&ManagedCallback;
+                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
+                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
+                return (callback_, destroy_, userData_);
+            }
+
+            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+            static unsafe void ManagedCallback(System.IntPtr simpleAction_, System.IntPtr parameter_, System.IntPtr userData_)
+            {
+                try
+                {
+                    var simpleAction = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.SimpleAction>(simpleAction_, GISharp.Runtime.Transfer.None)!;
+                    var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
+                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                    var userData = (UserData)gcHandle.Target!;
+                    userData.Callback(simpleAction, parameter);
+                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
+                    {
+                        gcHandle.Free();
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                }
             }
         }
 
-        readonly GISharp.Runtime.GSignalManager<ChangeStateSignalEventArgs> changeStateSignalSignalManager = new GISharp.Runtime.GSignalManager<ChangeStateSignalEventArgs>("change-state", _GType);
+        /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='ChangeStateSignalHandler']/*" />
+        [GISharp.Runtime.GCallbackAttribute(typeof(ChangeStateSignalHandlerMarshal))]
+        public delegate void ChangeStateSignalHandler(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? value);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.ChangeStateSignal']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
         [GISharp.Runtime.GSignalAttribute("change-state", When = GISharp.Runtime.EmissionStage.Last)]
-        public event System.EventHandler<ChangeStateSignalEventArgs> ChangeStateSignal { add => changeStateSignalSignalManager.Add(this, value); remove => changeStateSignalSignalManager.Remove(value); }
+        public event ChangeStateSignalHandler ChangeStateSignal { add => changeStateSignalSignalManager.Add(this, value); remove => changeStateSignalSignalManager.Remove(value); }
+
+        private static class ChangeStateSignalHandlerMarshal
+        {
+            record UserData(ChangeStateSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
+
+            public static unsafe ChangeStateSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            {
+                var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)callback_;
+                void managedCallback(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? value)
+                {
+                    var simpleAction_ = simpleAction.Handle;
+                    var value_ = value?.Handle ?? System.IntPtr.Zero;
+                    unmanagedCallback(simpleAction_, value_, userData_);
+                }
+
+                return managedCallback;
+            }
+
+            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            {
+                if (callback == null)
+                {
+                    return default;
+                }
+
+                var userData = new UserData((ChangeStateSignalHandler)callback, scope);
+                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)&ManagedCallback;
+                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
+                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
+                return (callback_, destroy_, userData_);
+            }
+
+            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+            static unsafe void ManagedCallback(System.IntPtr simpleAction_, System.IntPtr value_, System.IntPtr userData_)
+            {
+                try
+                {
+                    var simpleAction = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.SimpleAction>(simpleAction_, GISharp.Runtime.Transfer.None)!;
+                    var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
+                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                    var userData = (UserData)gcHandle.Target!;
+                    userData.Callback(simpleAction, value);
+                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
+                    {
+                        gcHandle.Free();
+                    }
+                }
+                catch (System.Exception ex)
+                {
+                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
+                }
+            }
+        }
 
         static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

@@ -1,6 +1,6 @@
 
 using System;
-using System.Collections.Concurrent;
+using System.Runtime.CompilerServices;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using Object = GISharp.Lib.GObject.Object;
@@ -10,18 +10,18 @@ namespace GISharp.Runtime
     /// <summary>
     /// Class for wiring GSignals to C# events.
     /// </summary>
-    public class GSignalManager<TEventArgs> where TEventArgs : GSignalEventArgs
+    public class GSignalManager<T> where T : Delegate
     {
-        readonly ConcurrentDictionary<EventHandler<TEventArgs>, SignalHandler> notifiedHandlers =
-            new ConcurrentDictionary<EventHandler<TEventArgs>, SignalHandler>();
-        readonly uint notifySignalId;
+        readonly ConditionalWeakTable<T, SignalHandler> notifiedHandlers = new();
+        readonly Utf8 signalName;
 
         /// <summary>
         /// Creates a new instance.
         /// </summary>
         public GSignalManager(string signalName, GType type)
         {
-            notifySignalId = Signal.TryLookup(signalName, type);
+            this.signalName = signalName;
+            var notifySignalId = Signal.TryLookup(this.signalName, type);
             if (notifySignalId == 0) {
                 throw new ArgumentException("could not find matching signal");
             }
@@ -31,13 +31,15 @@ namespace GISharp.Runtime
         /// Connects an event handler to a GObject signal. Use this as the
         /// add accessor of an event implementation.
         /// </summary>
-        public void Add(Object obj, EventHandler<TEventArgs> handler)
+        public void Add(Object obj, T handler)
         {
-            var closure = Closure.CreateFor(obj, handler);
-            var signalHandler = obj.Connect(notifySignalId, Quark.Zero, closure);
-            if (!notifiedHandlers.TryAdd(handler, signalHandler)) {
+            var signalHandler = obj.Connect(signalName, handler);
+            try {
+                notifiedHandlers.Add(handler, signalHandler);
+            }
+            catch {
                 signalHandler.Disconnect();
-                throw new InvalidOperationException("delegate is already connected");
+                throw;
             }
         }
 
@@ -45,10 +47,11 @@ namespace GISharp.Runtime
         /// Disconnects an event handler from a GObject signal. Use this as the
         /// remove accessor of an event implementation.
         /// </summary>
-        public void Remove(EventHandler<TEventArgs> handler)
+        public void Remove(T handler)
         {
-            if (notifiedHandlers.TryRemove(handler, out var signalHandler)) {
+            if (notifiedHandlers.TryGetValue(handler, out var signalHandler)) {
                 signalHandler.Disconnect();
+                notifiedHandlers.Remove(handler);
             }
         }
     }

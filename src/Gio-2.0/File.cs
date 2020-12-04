@@ -47,7 +47,7 @@ namespace GISharp.Lib.Gio
             var flags_ = flags;
             var ioPriority_ = ioPriority;
             var cancellable_ = cancellable?.Handle ?? IntPtr.Zero;
-            var (progressCallback_, progressCallbackDestroy_, progressCallbackData_) = FileProgressCallbackMarshal.ToPointer(progressCallback, CallbackScope.Notified);
+            var (progressCallback_, progressCallbackDestroy_, progressCallbackData_) = FileProgressCallbackMarshal.ToUnmanagedFunctionPointer(progressCallback, CallbackScope.Notified);
 
             // no parameter in g_file_copy_async() for destroy function, so we
             // attach it to the TaskCompletionSource

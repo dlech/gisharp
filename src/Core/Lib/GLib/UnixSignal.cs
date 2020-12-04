@@ -84,7 +84,7 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentException("Only SIGHUP, SIGINT, SIGQUIT allowed", nameof(signum));
             }
             // TODO: add check for SIGUSR1, SIGUSR2, SIGWINCH based on runtime version
-            var (handler_, notify_, userData_) = SourceFuncMarshal.ToPointer(handler, CallbackScope.Notified);
+            var (handler_, notify_, userData_) = SourceFuncMarshal.ToUnmanagedFunctionPointer(handler, CallbackScope.Notified);
             var ret = g_unix_signal_add_full(priority, signum, handler_, userData_, notify_);
             var sourceHandle = new Source.UserData(userData_);
             return (ret, sourceHandle);

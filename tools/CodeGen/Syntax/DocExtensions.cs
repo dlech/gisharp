@@ -141,7 +141,6 @@ namespace GISharp.CodeGen.Syntax
                     // otherwise replace it with a paramref element
                     // TODO: can probably do a better job of detecting @ ref
                     // to fields/virtual methods and signal callback parameters
-                    // (EventArgs)
                     var name = p.Value.Substring(1).ToCamelCase().Replace("@", "");
                     builder.Replace(p.Value, $"<paramref name=\"{name}\"/>");
                 }

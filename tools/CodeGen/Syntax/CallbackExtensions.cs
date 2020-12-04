@@ -361,11 +361,11 @@ namespace GISharp.CodeGen.Syntax
                 .WithLeadingTrivia(callback.GetMarshalFromPointerMethodDocumentationCommentTrivia());
             list = list.Add(fromPointerMethod);
 
-            // emit ToPointer() method for managed>unmanaged
+            // emit ToUnmanagedFunctionPointer() method for managed>unmanaged
 
             var toPointerMethodParams = $"({managedDelegateFieldType}? callback, {scopeFieldType} scope)";
             var toPointerReturnType = ParseTypeName(string.Format("({0} callback_, {0} notify_, {0} userData_)", typeof(IntPtr)));
-            var create2Method = MethodDeclaration(toPointerReturnType, "ToPointer")
+            var create2Method = MethodDeclaration(toPointerReturnType, "ToUnmanagedFunctionPointer")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
                 .WithParameterList(ParseParameterList(toPointerMethodParams))
                 .WithBody(Block(callback.GetMarshalToPointerMethodStatements()))

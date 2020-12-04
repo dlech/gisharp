@@ -199,7 +199,7 @@ namespace GISharp.Lib.GLib
         {
             CheckSetTranslateFuncArgs(func);
             var group_ = Handle;
-            var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToPointer(func, GISharp.Runtime.CallbackScope.Notified);
+            var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToUnmanagedFunctionPointer(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_group_set_translate_func(group_, func_, data_, destroyNotify_);
         }
 
