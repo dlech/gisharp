@@ -8,7 +8,7 @@ namespace GISharp.Lib.GObject
     /// to hand parameter name/value pairs to g_object_newv().
     /// </summary>
     [DeprecatedSince("2.54")]
-    public unsafe ref struct Parameter
+    public unsafe struct Parameter
     {
         #pragma warning disable CS0649
         /// <summary>
