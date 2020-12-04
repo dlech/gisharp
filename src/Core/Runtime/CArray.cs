@@ -22,7 +22,7 @@ namespace GISharp.Runtime
         protected CArray(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {
-                handle = IntPtr.Zero;
+                this.handle = IntPtr.Zero;
                 throw new NotSupportedException();
             }
             if (length < 0) {
