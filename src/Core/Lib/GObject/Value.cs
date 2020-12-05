@@ -16,7 +16,7 @@ namespace GISharp.Lib.GObject
     /// </summary>
     [GType("GValue", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay("{ToString ()}")]
-    public ref struct Value
+    public struct Value
     {
         GType type;
 
@@ -30,7 +30,7 @@ namespace GISharp.Lib.GObject
         ValueDataUnion data1;
 
         [StructLayout(LayoutKind.Explicit)]
-        ref struct ValueDataUnion
+        struct ValueDataUnion
         {
             [FieldOffset(0)]
             int vInt;
@@ -816,7 +816,7 @@ namespace GISharp.Lib.GObject
             in Value srcValue,
             /* <type name="Value" type="GValue*" managed-name="Value" /> */
             /* transfer-ownership:none */
-            out Value destValue);
+            ref Value destValue);
 
         /// <summary>
         /// Copies the value of @src_value into @dest_value.
@@ -824,10 +824,11 @@ namespace GISharp.Lib.GObject
         /// <param name="destValue">
         /// An initialized #GValue structure of the same type as @src_value.
         /// </param>
-        public void Copy(out Value destValue)
+        public void Copy(ref Value destValue)
         {
             AssertInitialized();
-            g_value_copy(in this, out destValue);
+            destValue.AssertInitialized();
+            g_value_copy(in this, ref destValue);
         }
 
         /// <summary>
