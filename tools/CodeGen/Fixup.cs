@@ -1019,6 +1019,13 @@ namespace GISharp.CodeGen
                     Log.Warning($"Missing gs:managed-name attribute at {e.GetXPath()}");
                 }
             }
+
+            foreach (var e in doc.Descendants(gi + "namespace").Elements(gi + "constant").Where(x => !x.IsSkipped())) {
+                Log.Warning($"Unused constant at {e.GetXPath()}");
+            }
+            foreach (var e in doc.Descendants(gi + "namespace").Elements(gi + "function").Where(x => !x.IsSkipped())) {
+                Log.Warning($"Unused function at {e.GetXPath()}");
+            }
         }
 
         /// <summary>

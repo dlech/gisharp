@@ -1689,3 +1689,47 @@
   name: introspectable
   value: 0
   xpath: gi:repository/gi:namespace/gi:function[@name='warn_message']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:constant[@name='TEST_OPTION_ISOLATE_DIRS']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:constant[@name='VERSION_MIN_REQUIRED']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[@name='canonicalize_filename']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_console_charset']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_language_names_with_category']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[@name='get_os_info']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[@name='number_parser_error_quark']
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unicode_canonical_')]
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'rc_box_')]
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'ref_count_')]
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'ref_string_')]
