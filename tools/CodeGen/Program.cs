@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Reflection;
 using System.Security;
+using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
@@ -285,9 +286,12 @@ namespace GISharp.CodeGen
 
             var slashReplacer = new Regex("^/// ", RegexOptions.Multiline);
 
-            foreach (var f in Directory.GetFiles(projectDirPath, "*.Generated.*")) {
-                File.Delete(f);
-            }
+            // temporary file where output will be written
+            var tempFile = Path.GetTempFileName();
+
+            // there may be existing generated files that need to be deleted
+            var filesToDelete = Directory.GetFiles(projectDirPath, "*.Generated.*").ToList();
+            filesToDelete.Add(tempFile);
 
             Log.Message($"Writing '*.Generated.*'...");
             foreach (var (name, unit) in codeCompileUnits) {
@@ -328,21 +332,41 @@ namespace GISharp.CodeGen
                 var modifiedUnit = unit.ReplaceNodes(unit.ChildNodes(), replaceLeadingTrivia);
                 collectedDocs.AppendLine("</declaration>");
 
-                var generatedFilePath = Path.Combine(projectDirPath, name + ".Generated.cs");
-                using (var generatedFile = new StreamWriter(generatedFilePath)) {
-                    Formatter.Format(modifiedUnit, workspace).WriteTo(generatedFile);
+                static string Hash(string path)
+                {
+                    using var md5 = MD5.Create();
+                    using var stream = File.OpenRead(path);
+                    var hash = md5.ComputeHash(stream);
+                    return BitConverter.ToString(hash);
                 }
 
-                var generateDocPath = Path.Combine(projectDirPath, name + ".Generated.xmldoc");
-                using (var generatedFile = new StreamWriter(generateDocPath)) {
+                using (var generatedFile = new StreamWriter(tempFile)) {
+                    Formatter.Format(modifiedUnit, workspace).WriteTo(generatedFile);
+                }
+                var generatedFilePath = Path.Combine(projectDirPath, $"{name}.Generated.cs");
+                if (Hash(tempFile) != Hash(generatedFilePath)) {
+                    File.Copy(tempFile, generatedFilePath);
+                }
+                filesToDelete.Remove(generatedFilePath);
+
+                using (var generatedFile = new StreamWriter(tempFile)) {
                     generatedFile.Write(collectedDocs.ToString());
                 }
+                var generateDocPath = Path.Combine(projectDirPath, $"{name}.Generated.xmldoc");
+                if (Hash(tempFile) != Hash(generateDocPath)) {
+                    File.Copy(tempFile, generateDocPath);
+                }
+                filesToDelete.Remove(generateDocPath);
 
                 // create the hand-maintained file only if it doesn't already exist
                 var docPath = Path.Combine(projectDirPath, docFileName);
                 if (!File.Exists(docPath)) {
                     File.Copy(generateDocPath, docPath);
                 }
+            }
+
+            foreach (var f in filesToDelete) {
+                File.Delete(f);
             }
 
             Log.Message("Done.");
