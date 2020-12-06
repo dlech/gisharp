@@ -456,9 +456,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.32")]
-        static extern void g_array_set_clear_func(
+        static unsafe extern void g_array_set_clear_func(
             IntPtr array,
-            UnmanagedDestroyNotify clearFunc);
+            delegate* unmanaged[Cdecl]<IntPtr, void> clearFunc);
 
         /// <summary>
         /// Sets the size of the array, expanding it if necessary. If the array
@@ -567,9 +567,9 @@ namespace GISharp.Lib.GLib
         /// data to pass to @compare_func
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_array_sort_with_data(
+        static unsafe extern void g_array_sort_with_data(
             IntPtr array,
-            UnmanagedCompareDataFunc compareFunc,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> compareFunc,
             IntPtr userData);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

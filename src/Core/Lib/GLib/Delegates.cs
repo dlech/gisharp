@@ -16,15 +16,12 @@ namespace GISharp.Lib.GLib
     /// <param name="b">
     /// a value to compare with
     /// </param>
-    /// <param name="userData">
-    /// user data
-    /// </param>
     /// <returns>
-    /// negative value if @a &lt; @b; zero if @a = @b; positive
-    ///          value if @a &gt; @b
+    /// negative value if <paramref name="a"/> &lt; <paramref name="b"/>;
+    /// zero if <paramref name="a"/> = <paramref name="b"/>; positive
+    /// value if <paramref name="a"/> &gt; <paramref name="b"/>
     /// </returns>
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate int UnmanagedCompareDataFunc ([In] IntPtr a, [In] IntPtr b, [In] IntPtr userData);
+    public delegate int CompareDataFunc<T>(T a, T b) where T : IOpaque;
 
     /// <summary>
     /// Specifies the type of a comparison function used to compare two
@@ -43,7 +40,7 @@ namespace GISharp.Lib.GLib
     ///          value if @a &gt; @b
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate int UnmanagedCompareFunc (IntPtr a, IntPtr b);
+    public delegate int UnmanagedCompareFunc(IntPtr a, IntPtr b);
 
     /// <summary>
     /// Specifies the type of a comparison function used to compare two
@@ -61,7 +58,7 @@ namespace GISharp.Lib.GLib
     /// negative value if @a &lt; @b; zero if @a = @b; positive
     ///          value if @a &gt; @b
     /// </returns>
-    public delegate int CompareFunc<T> (T a, T b);
+    public delegate int CompareFunc<T>(T a, T b);
 
     /// <summary>
     /// A function of this signature is used to copy data when doing a deep-copy.
@@ -77,7 +74,7 @@ namespace GISharp.Lib.GLib
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     [Since("2.4")]
-    public delegate IntPtr UnmanagedCopyFunc ([In] IntPtr src, [In] IntPtr data);
+    public delegate IntPtr UnmanagedCopyFunc([In] IntPtr src, [In] IntPtr data);
 
     /// <summary>
     /// A function of this signature is used to copy data when doing a deep-copy.
@@ -89,7 +86,7 @@ namespace GISharp.Lib.GLib
     /// the copy
     /// </returns>
     [Since("2.4")]
-    public delegate T CopyFunc<T> (T src) where T : Opaque;
+    public delegate T CopyFunc<T>(T src) where T : Opaque;
 
     /// <summary>
     /// Specifies the type of a function used to test two values for
@@ -122,7 +119,7 @@ namespace GISharp.Lib.GLib
     /// <returns>
     /// <c>true</c> if <paramref name="a"/> = <paramref name="b"/>; <c>false</c> otherwise
     /// </returns>
-    public delegate bool EqualFunc<T> (T a, T b) where T : Opaque;
+    public delegate bool EqualFunc<T>(T a, T b) where T : Opaque;
 
     /// <summary>
     /// Specifies the type of functions passed to g_list_foreach() and
@@ -135,7 +132,7 @@ namespace GISharp.Lib.GLib
     /// user data passed to g_list_foreach() or g_slist_foreach()
     /// </param>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void UnmanagedFunc ([In] IntPtr data, [In] IntPtr userData);
+    public delegate void UnmanagedFunc([In] IntPtr data, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of functions passed to g_list_foreach() and
@@ -144,7 +141,7 @@ namespace GISharp.Lib.GLib
     /// <param name="data">
     /// the element's data
     /// </param>
-    public delegate void Func<T> (T data);
+    public delegate void Func<T>(T data);
 
     /// <summary>
     /// Specifies the type of the hash function which is passed to
@@ -155,16 +152,16 @@ namespace GISharp.Lib.GLib
     /// The functions g_direct_hash(), g_int_hash() and g_str_hash() provide
     /// hash functions which can be used when the key is a #gpointer, #gint*,
     /// and #gchar* respectively.
-    /// 
+    ///
     /// g_direct_hash() is also the appropriate hash function for keys
     /// of the form `GINT_TO_POINTER (n)` (or similar macros).
-    /// 
+    ///
     /// &lt;!-- FIXME: Need more here. --&gt; A good hash functions should produce
     /// hash values that are evenly distributed over a fairly large range.
     /// The modulus is taken with the hash table size (a prime number) to
     /// find the 'bucket' to place each key into. The function should also
     /// be very fast, since it is called for each key lookup.
-    /// 
+    ///
     /// Note that the hash functions provided by GLib have these qualities,
     /// but are not particularly robust against manufactured keys that
     /// cause hash collisions. Therefore, you should consider choosing
@@ -173,7 +170,7 @@ namespace GISharp.Lib.GLib
     /// Using g_str_hash() in that situation might make your application
     /// vulnerable to
     /// [Algorithmic Complexity Attacks](https://lwn.net/Articles/474912/).
-    /// 
+    ///
     /// The key to choosing a good hash is unpredictability.  Even
     /// cryptographic hashes are very easy to find collisions for when the
     /// remainder is taken modulo a somewhat predictable prime number.  There
@@ -186,7 +183,7 @@ namespace GISharp.Lib.GLib
     /// the hash value corresponding to the key
     /// </returns>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate uint UnmanagedHashFunc ([In] IntPtr key);
+    public delegate uint UnmanagedHashFunc([In] IntPtr key);
 
     /// <summary>
     /// Specifies the type of the hash function which is passed to
@@ -197,16 +194,16 @@ namespace GISharp.Lib.GLib
     /// The functions g_direct_hash(), g_int_hash() and g_str_hash() provide
     /// hash functions which can be used when the key is a #gpointer, #gint*,
     /// and #gchar* respectively.
-    /// 
+    ///
     /// g_direct_hash() is also the appropriate hash function for keys
     /// of the form `GINT_TO_POINTER (n)` (or similar macros).
-    /// 
+    ///
     /// &lt;!-- FIXME: Need more here. --&gt; A good hash functions should produce
     /// hash values that are evenly distributed over a fairly large range.
     /// The modulus is taken with the hash table size (a prime number) to
     /// find the 'bucket' to place each key into. The function should also
     /// be very fast, since it is called for each key lookup.
-    /// 
+    ///
     /// Note that the hash functions provided by GLib have these qualities,
     /// but are not particularly robust against manufactured keys that
     /// cause hash collisions. Therefore, you should consider choosing
@@ -215,7 +212,7 @@ namespace GISharp.Lib.GLib
     /// Using g_str_hash() in that situation might make your application
     /// vulnerable to
     /// [Algorithmic Complexity Attacks](https://lwn.net/Articles/474912/).
-    /// 
+    ///
     /// The key to choosing a good hash is unpredictability.  Even
     /// cryptographic hashes are very easy to find collisions for when the
     /// remainder is taken modulo a somewhat predictable prime number.  There
@@ -227,7 +224,7 @@ namespace GISharp.Lib.GLib
     /// <returns>
     /// the hash value corresponding to the key
     /// </returns>
-    public delegate uint HashFunc<T> (T key) where T : Opaque;
+    public delegate uint HashFunc<T>(T key) where T : Opaque;
 
 
     /// <summary>
@@ -245,7 +242,7 @@ namespace GISharp.Lib.GLib
     /// user data passed to <see cref="HashTable{K,V}.Foreach"/>
     /// </param>
     [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void UnmanagedHFunc ([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
+    public delegate void UnmanagedHFunc([In] IntPtr key, [In] IntPtr value, [In] IntPtr userData);
 
     /// <summary>
     /// Specifies the type of the function passed to <see cref="HashTable{K,V}.Foreach"/>.
@@ -258,7 +255,7 @@ namespace GISharp.Lib.GLib
     /// the value corresponding to the key
     /// </param>
     // Analysis disable InconsistentNaming
-    public delegate void HFunc<K,V> (K key, V value);
+    public delegate void HFunc<K, V>(K key, V value);
     // Analysis restore InconsistentNaming
 
     /// <summary>
@@ -301,18 +298,18 @@ namespace GISharp.Lib.GLib
     ///     <see cref="HashTable{K,V}"/>
     /// </returns>
     // Analysis disable InconsistentNaming
-    public delegate bool HRFunc<K,V> (K key, V value);
+    public delegate bool HRFunc<K, V>(K key, V value);
     // Analysis restore InconsistentNaming
 
     /// <summary>
     /// Specifies the type of function passed to <see cref="MainContext.PollFunc"/>.
     /// The semantics of the function should match those of the poll() system call.
     /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate int UnmanagedPollFunc (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate int UnmanagedPollFunc(
         /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
         /* transfer-ownership:none */
-        [MarshalAs (UnmanagedType.LPArray, SizeParamIndex = 1)] PollFD[] ufds,
+        [MarshalAs(UnmanagedType.LPArray, SizeParamIndex = 1)] PollFD[] ufds,
         /* <type name="guint" type="guint" managed-name="Guint" /> */
         /* transfer-ownership:none */
         uint nfsd,

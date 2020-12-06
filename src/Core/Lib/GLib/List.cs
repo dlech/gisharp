@@ -587,10 +587,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.10")]
-        static extern IntPtr g_list_insert_sorted_with_data(
+        static unsafe extern IntPtr g_list_insert_sorted_with_data(
             IntPtr list,
             IntPtr data,
-            UnmanagedCompareDataFunc func,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> func,
             IntPtr userData);
 
         /// <summary>
@@ -954,9 +954,9 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_sort_with_data(
+        static unsafe extern IntPtr g_list_sort_with_data(
             IntPtr list,
-            UnmanagedCompareDataFunc compareFunc,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> compareFunc,
             IntPtr userData);
     }
 

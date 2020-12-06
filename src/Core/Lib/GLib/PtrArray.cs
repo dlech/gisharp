@@ -702,9 +702,9 @@ namespace GISharp.Lib.GLib
         /// data to pass to @compareFunc
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_sort_with_data(
+        static unsafe extern void g_ptr_array_sort_with_data(
             IntPtr array,
-            UnmanagedCompareDataFunc compareFunc,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> compareFunc,
             IntPtr userData);
 
         /// <summary>
