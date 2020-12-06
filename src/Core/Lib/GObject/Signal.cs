@@ -496,8 +496,7 @@ namespace GISharp.Lib.GObject
 
             var instanceAndParams = stackalloc Value[parameters.Length + 1];
 
-            instanceAndParams[0].Init(instance.GetGType());
-            instanceAndParams[0].Set(instance);
+            instanceAndParams[0].Init(instance);
 
             for (var i = 0; i < parameters.Length; i++) {
                 var paramGType = parameters[i]?.GetGType() ?? query.ParamTypes[i];

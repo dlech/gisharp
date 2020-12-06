@@ -1817,24 +1817,24 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             IntPtr instance);
 
-        ///// <summary>
-        ///// Initializes and sets @value from an instantiatable type via the
-        ///// value_table's collect_value() function.
-        ///// </summary>
-        ///// <remarks>
-        ///// Note: The @value will be initialised with the exact type of
-        ///// @instance.  If you wish to set the @value's type to a different GType
-        ///// (such as a parent class GType), you need to manually call
-        ///// g_value_init() and g_value_set_instance().
-        ///// </remarks>
-        ///// <param name="instance">
-        ///// the instance
-        ///// </param>
-        //[Since ("2.42")]
-        //public void InitFromInstance (IntPtr instance)
-        //{
-        //    g_value_init_from_instance (ref this, instance);
-        //}
+        /// <summary>
+        /// Initializes and sets this value from an instantiatable type via the
+        /// value_table's collect_value() function.
+        /// </summary>
+        /// <remarks>
+        /// Note: This value will be initialized with the exact type of
+        /// <paramref name="instance"/>.  If you wish to set the this value's type to a different GType
+        /// (such as a parent class GType), you need to manually call
+        /// <see cref="Init(GType)"/> and <see cref="Set(TypeInstance)"/>.
+        /// </remarks>
+        /// <param name="instance">
+        /// the instance
+        /// </param>
+        [Since("2.42")]
+        public void Init(TypeInstance instance)
+        {
+            g_value_init_from_instance(ref this, instance.Handle);
+        }
 
         /// <summary>
         /// Returns the value contents as pointer. This function asserts that
@@ -2060,18 +2060,21 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr instance);
 
-        ///// <summary>
-        ///// Sets @value from an instantiatable type via the
-        ///// value_table's collect_value() function.
-        ///// </summary>
-        ///// <param name="instance">
-        ///// the instance
-        ///// </param>
-        //public void SetInstance (IntPtr instance)
-        //{
-        //    AssertInitialized ();
-        //    g_value_set_instance (Handle, instance);
-        //}
+        /// <summary>
+        /// Sets this value from an instantiatable type via the
+        /// value_table's collect_value() function.
+        /// </summary>
+        /// <param name="instance">
+        /// the instance
+        /// </param>
+        public void Set(TypeInstance? instance)
+        {
+            AssertInitialized();
+            if (instance != null && g_value_type_compatible(instance.GetGType(), type).IsFalse()) {
+                throw new ArgumentException("instance type is not compatible", nameof(instance));
+            }
+            g_value_set_instance(ref this, instance?.Handle ?? IntPtr.Zero);
+        }
 
         /// <summary>
         /// Set the contents of a %G_TYPE_INT #GValue to @v_int.
@@ -2236,7 +2239,7 @@ namespace GISharp.Lib.GObject
         /// <param name="vBoxed">
         /// static boxed value to be set
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
         static extern void g_value_set_static_boxed(

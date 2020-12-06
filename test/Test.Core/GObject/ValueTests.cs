@@ -314,7 +314,7 @@ namespace GISharp.Test.Core.GObject
         [Test]
         public void TestParam()
         {
-            var v = new Value(GType.Of<ParamSpecInt>());
+            var v = new Value(GType.Of<ParamSpecBoolean>());
             Assert.That(v.ValueGType, Is.Not.EqualTo(GType.Param));
             Assert.That(v.ValueGType.Fundamental, Is.EqualTo(GType.Param));
             using var expected = new ParamSpecBoolean("test", "test", "test", false, default);
