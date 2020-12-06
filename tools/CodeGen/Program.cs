@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Reflection;
@@ -10,6 +9,7 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 using Buildalyzer;
+using Buildalyzer.Environment;
 using GISharp.CodeGen.Gir;
 using GISharp.CodeGen.Syntax;
 using GISharp.Lib.GLib;
@@ -249,28 +249,24 @@ namespace GISharp.CodeGen
             TypeResolver.LoadAssembly(typeof(Runtime.Opaque).Assembly);
             TypeResolver.LoadAssembly(typeof(ReadOnlySpan<>).Assembly);
 
-            foreach (var projRef in projectAnalyzer.Build().SelectMany(x => x.ProjectReferences).Distinct()) {
+            // create a temporary build directory so we don't interfere with IDEs by building in-place
+            var buildPath = Path.Combine(Path.GetTempPath(), "gisharp-codegen");
+
+            EnvironmentOptions CreateOptions(ProjectAnalyzer project)
+            {
+                var options = new EnvironmentOptions {
+                    DesignTime = false
+                };
+                var guid = project.ProjectGuid.ToString();
+                options.EnvironmentVariables["IntermediateOutputPath"] = Path.Combine(buildPath, guid, "obj");
+                options.EnvironmentVariables["OutputPath"] = Path.Combine(buildPath, guid, "bin");
+                return options;
+            }
+
+            foreach (var projRef in projectAnalyzer.Build(CreateOptions(projectAnalyzer))
+                                                   .SelectMany(x => x.ProjectReferences).Distinct()) {
                 var proj = manager.GetProject(projRef);
-                var targetPath = proj.Build().Single().GetProperty("TargetPath");
-
-                // build the project references to ensure they are not out of date.
-                // theoretically, we could use MSBUild programmatically
-                // but it is really quirky and doesn't "just work"
-                var dotnet = Process.Start(new ProcessStartInfo("dotnet", $"build {projRef}") {
-                    RedirectStandardOutput = true,
-                    RedirectStandardError = true,
-                });
-                dotnet.OutputDataReceived += (s, e) => {
-                    Log.Info(e.Data);
-                };
-                dotnet.ErrorDataReceived += (s, e) => {
-                    Log.Critical(e.Data);
-                };
-                dotnet.WaitForExit();
-                if (dotnet.ExitCode != 0) {
-                    Environment.Exit(dotnet.ExitCode);
-                }
-
+                var targetPath = proj.Build(CreateOptions(proj)).Single().GetProperty("TargetPath");
                 TypeResolver.LoadAssembly(Assembly.LoadFile(targetPath));
             }
 
@@ -368,6 +364,7 @@ namespace GISharp.CodeGen
             foreach (var f in filesToDelete) {
                 File.Delete(f);
             }
+            Directory.Delete(buildPath, true);
 
             Log.Message("Done.");
         }
