@@ -1,4 +1,5 @@
 using System;
+using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -106,28 +107,14 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Creates a new <see cref="Bytes"/> from <paramref name="data"/>.
         /// </summary>
+        /// <remarks>
+        /// A copy of the memory is created.
+        /// </remarks>
         /// <param name="data">
         /// the data to be used for the bytes
         /// </param>
-        /// <returns>
-        /// a new <see cref="Bytes"/>
-        /// </returns>
         [Since("2.32")]
         public Bytes(ReadOnlySpan<byte> data) : this(New(data), Transfer.Full)
-        {
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="Bytes"/> from <paramref name="data"/>.
-        /// </summary>
-        /// <param name="data">
-        /// the data to be used for the bytes
-        /// </param>
-        /// <returns>
-        /// a new <see cref="Bytes"/>
-        /// </returns>
-        [Since("2.32")]
-        public Bytes(params byte[] data) : this(data.AsSpan())
         {
         }
 
@@ -174,10 +161,48 @@ namespace GISharp.Lib.GLib
             nuint size,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            UnmanagedDestroyNotify freeFunc,
+            delegate* unmanaged[Cdecl]<IntPtr, void> freeFunc,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            void* userData);
+            IntPtr userData);
+
+        static unsafe IntPtr New(ReadOnlyMemory<byte> data)
+        {
+            var memoryHandle = data.Pin();
+            var data_ = (byte*)memoryHandle.Pointer;
+            var size_ = (nuint)data.Length;
+            var freeFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&FreeMemoryHandle;
+            var userData_ = (IntPtr)GCHandle.Alloc(memoryHandle);
+            var ret_ = g_bytes_new_with_free_func(data_, size_, freeFunc_, userData_);
+            return ret_;
+        }
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static void FreeMemoryHandle(IntPtr userData_)
+        {
+            try {
+                var gcHandle = GCHandle.FromIntPtr(userData_);
+                var memoryHandle = (MemoryHandle)gcHandle.Target!;
+                memoryHandle.Dispose();
+                gcHandle.Free();
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+            }
+        }
+
+        /// <summary>
+        /// Creates a <see cref="Bytes"/> from <paramref name="data"/>.
+        /// </summary>
+        /// <remarks>
+        /// The memory is used directly and must not be modified. For managed
+        /// memory, it means that it will be pinned until all references to the
+        /// <see cref="Bytes"/> instance have been released.
+        /// </remarks>
+        /// <param name="data">
+        /// the data to be used for the bytes
+        /// </param>
+        public Bytes(ReadOnlyMemory<byte> data) : this(New(data), Transfer.Full) { }
 
         /// <summary>
         /// Compares the two #GBytes values.
@@ -294,7 +319,8 @@ namespace GISharp.Lib.GLib
             /* transfer-ownership:none */
             IntPtr bytes2);
 
-        private static bool Equal(Bytes? bytes1, Bytes? bytes2) {
+        private static bool Equal(Bytes? bytes1, Bytes? bytes2)
+        {
             if (bytes1 is null) {
                 return bytes2 is null;
             }

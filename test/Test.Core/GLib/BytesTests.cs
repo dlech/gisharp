@@ -11,10 +11,16 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestNew()
         {
-            using (var b = new Bytes(new byte[0])) {
+            using (var b = new Bytes(ReadOnlySpan<byte>.Empty)) {
                 Assert.That(b.Size, Is.EqualTo(0));
             }
-            using (var b = new Bytes(new byte[] { 1 })) {
+            using (var b = new Bytes(new ReadOnlySpan<byte>(new byte[] { 1 }))) {
+                Assert.That(b.Size, Is.EqualTo(1));
+            }
+            using (var b = new Bytes(ReadOnlyMemory<byte>.Empty)) {
+                Assert.That(b.Size, Is.EqualTo(0));
+            }
+            using (var b = new Bytes(new ReadOnlyMemory<byte>(new byte[] { 1 }))) {
                 Assert.That(b.Size, Is.EqualTo(1));
             }
         }
@@ -22,7 +28,8 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestNewFromBytes()
         {
-            using var b1 = new Bytes(new byte[] { 1, 2, 3, 4 });
+            ReadOnlyMemory<byte> data = new byte[] { 1, 2, 3, 4 };
+            using var b1 = new Bytes(data);
             using var b2 = b1.NewFromBytes(1, 2);
             // b2 takes a reference to b1 in unmanaged code.
             // to make sure this works, we release the managed
@@ -49,9 +56,12 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestCompare()
         {
-            using var b1 = new Bytes(1, 2, 0);
-            using var b2 = new Bytes(1, 2, 1);
-            using var b3 = new Bytes(1, 2, 2);
+            ReadOnlyMemory<byte> data1 = new byte[] { 1, 2, 0 };
+            ReadOnlyMemory<byte> data2 = new byte[] { 1, 2, 1 };
+            ReadOnlyMemory<byte> data3 = new byte[] { 1, 2, 3 };
+            using var b1 = new Bytes(data1);
+            using var b2 = new Bytes(data2);
+            using var b3 = new Bytes(data3);
             Assert.That(b1, Is.LessThan(b2));
             Assert.That(b3, Is.GreaterThan(b2));
             Assert.That(b1 < b2);
@@ -63,9 +73,11 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestEquals()
         {
-            using var b1 = new Bytes(1, 2, 3);
-            using var b2 = new Bytes(1, 2, 3);
-            using var b3 = new Bytes(1, 2, 4);
+            ReadOnlyMemory<byte> data1 = new byte[] { 1, 2, 3 };
+            ReadOnlyMemory<byte> data2 = new byte[] { 1, 2, 4 };
+            using var b1 = new Bytes(data1);
+            using var b2 = new Bytes(data1);
+            using var b3 = new Bytes(data2);
             Assert.That(b1, Is.EqualTo(b2));
             Assert.That(b1, Is.Not.EqualTo(b3));
             Assert.That(Equals(b1, b2), Is.True);
@@ -77,8 +89,9 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestHash()
         {
-            using var b1 = new Bytes(1, 2, 3);
-            using var b2 = new Bytes(1, 2, 3);
+            ReadOnlyMemory<byte> data = new byte[] { 1, 2, 3 };
+            using var b1 = new Bytes(data);
+            using var b2 = new Bytes(data);
             var set = new HashSet<object> { b1, b2 };
             Assert.That(set.Count, Is.EqualTo(1));
         }
@@ -86,7 +99,8 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestSize()
         {
-            using var b = new Bytes(new byte[5]);
+            ReadOnlyMemory<byte> data = new byte[5];
+            using var b = new Bytes(data);
             Assert.That(b.Size, Is.EqualTo(5));
 
             b.Dispose();
@@ -96,7 +110,8 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestIndexer()
         {
-            using var b = new Bytes(new byte[] { 1, 2, 3 });
+            ReadOnlyMemory<byte> data = new byte[] { 1, 2, 3 };
+            using var b = new Bytes(data);
             Assert.That(() => b[-1], Throws.TypeOf<ArgumentOutOfRangeException>());
             Assert.That(b[0], Is.EqualTo(1));
             Assert.That(b[1], Is.EqualTo(2));
@@ -110,7 +125,8 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestGetEnumerator()
         {
-            using var bytes = new Bytes(new byte[] { 1, 2, 3 });
+            ReadOnlyMemory<byte> data = new byte[] { 1, 2, 3 };
+            using var bytes = new Bytes(data);
             var expected = 1;
             foreach (var b in bytes) {
                 Assert.That(b, Is.EqualTo(expected++));
