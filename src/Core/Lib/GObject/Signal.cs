@@ -7,6 +7,7 @@ using GISharp.Runtime;
 using GISharp.Lib.GLib;
 
 using culong = GISharp.Runtime.CULong;
+using Boolean = GISharp.Runtime.Boolean;
 
 namespace GISharp.Lib.GObject
 {
@@ -69,7 +70,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        static extern culong g_signal_add_emission_hook(
+        static unsafe extern culong g_signal_add_emission_hook(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -78,40 +79,57 @@ namespace GISharp.Lib.GObject
             Quark detail,
             /* <type name="SignalEmissionHook" type="GSignalEmissionHook" managed-name="SignalEmissionHook" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            UnmanagedSignalEmissionHook hookFunc,
+            IntPtr hookFunc,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr hookData,
             /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GLib.DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            UnmanagedDestroyNotify dataDestroy);
+            IntPtr dataDestroy);
 
-        ///// <summary>
-        ///// Adds an emission hook for a signal, which will get called for any emission
-        ///// of that signal, independent of the instance. This is possible only
-        ///// for signals which don't have #G_SIGNAL_NO_HOOKS flag set.
-        ///// </summary>
-        ///// <param name="signalId">
-        ///// the signal identifier, as returned by g_signal_lookup().
-        ///// </param>
-        ///// <param name="detail">
-        ///// the detail on which to call the hook.
-        ///// </param>
-        ///// <param name="hookFunc">
-        ///// a #GSignalEmissionHook function.
-        ///// </param>
-        ///// <returns>
-        ///// the hook id, for later use with g_signal_remove_emission_hook().
-        ///// </returns>
-        //public static culong AddEmissionHook (uint signalId, Quark detail, SignalEmissionHook hookFunc)
-        //{
-        //    var hookFunc_ = SignalEmissionHookFactory.Create (hookFunc, false);
-        //    var hookFuncHandle = GCHandle.Alloc (hookFunc);
-        //    var dataDestroy_ = DestoryNotifyFactory.Create (hookFuncHandle);
-        //    var hookData_ = GCHandle.ToIntPtr (GCHandle.Alloc (dataDestroy_));
-        //    var ret = g_signal_add_emission_hook (signalId, detail, hookFunc_, hookData_, dataDestroy_);
-        //    return ret;
-        //}
+        /// <summary>
+        /// Adds an emission hook for a signal, which will get called for any emission
+        /// of that signal, independent of the instance. This is possible only
+        /// for signals which don't have <see cref="SignalFlags.NoHooks"/> flag set.
+        /// </summary>
+        /// <param name="signalId">
+        /// the signal identifier, as returned by <see cref="TryLookup"/>.
+        /// </param>
+        /// <param name="detail">
+        /// the detail on which to call the hook.
+        /// </param>
+        /// <param name="hookFunc">
+        /// a <see cref="SignalEmissionHook"/> function.
+        /// </param>
+        /// <returns>
+        /// the hook id, for later use with <see cref="RemoveEmissionHook"/>.
+        /// </returns>
+        public static culong AddEmissionHook(uint signalId, Quark detail, SignalEmissionHook hookFunc)
+        {
+            var marshalCallback = hookFunc.GetToUnmanagedFunctionPointer();
+            var (hookFunc_, dataDestroy_, hookData_) = marshalCallback(hookFunc, CallbackScope.Notified);
+            var ret = g_signal_add_emission_hook(signalId, detail, hookFunc_, hookData_, dataDestroy_);
+            return ret;
+        }
+
+        /// <summary>
+        /// Adds an emission hook for a signal, which will get called for any emission
+        /// of that signal, independent of the instance. This is possible only
+        /// for signals which don't have <see cref="SignalFlags.NoHooks"/> flag set.
+        /// </summary>
+        /// <param name="signalId">
+        /// the signal identifier, as returned by <see cref="TryLookup"/>.
+        /// </param>
+        /// <param name="hookFunc">
+        /// a <see cref="SignalEmissionHook"/> function.
+        /// </param>
+        /// <returns>
+        /// the hook id, for later use with <see cref="RemoveEmissionHook"/>.
+        /// </returns>
+        public static culong AddEmissionHook(uint signalId, SignalEmissionHook hookFunc)
+        {
+            return AddEmissionHook(signalId, Quark.Zero, hookFunc);
+        }
 
         /// <summary>
         /// Calls the original class closure of a signal. This function should only

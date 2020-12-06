@@ -37,7 +37,7 @@ namespace GISharp.Runtime
         public bool IsAction { get; init; }
 
         /// <summary>
-        /// See <see cref="Lib.GObject.SignalFlags.IsNoHooks"/>
+        /// See <see cref="Lib.GObject.SignalFlags.NoHooks"/>
         /// </summary>
         public bool IsNoHooks { get; init; }
 

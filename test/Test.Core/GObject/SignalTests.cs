@@ -131,5 +131,31 @@ namespace GISharp.Test.Core.GObject
             Assert.That(handler1Count, Is.EqualTo(2));
             Assert.That(handler2Count, Is.EqualTo(1));
         }
+
+        [Test]
+        public void TestEmissionHook()
+        {
+            var signalId = Signal.TryLookup<TestNetworkMonitor>("network-changed");
+            Assume.That(signalId, Is.Not.Zero);
+            var callbackCount = 0;
+            var hookId = Signal.AddEmissionHook(signalId, Quark.Zero,
+                (in SignalInvocationHint ihint, Span<Value> paramValues) => {
+                    Assert.That(ihint.SignalId, Is.EqualTo(signalId));
+                    Assert.That(paramValues[0].ValueGType, Is.EqualTo(GType.Of<TestNetworkMonitor>()));
+                    Assert.That((bool)paramValues[1], Is.True);
+                    callbackCount++;
+                    return true;
+                });
+
+            using var monitor = TestNetworkMonitor.New();
+            monitor.Emit(signalId, Quark.Zero, true);
+            Assert.That(callbackCount, Is.EqualTo(1));
+            monitor.Emit(signalId, Quark.Zero, true);
+            Assert.That(callbackCount, Is.EqualTo(2));
+
+            Signal.RemoveEmissionHook(signalId, hookId);
+            monitor.Emit(signalId, Quark.Zero, true);
+            Assert.That(callbackCount, Is.EqualTo(2));
+        }
     }
 }

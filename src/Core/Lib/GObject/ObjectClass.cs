@@ -411,7 +411,7 @@ namespace GISharp.Lib.GObject
                     }
 
                     if (signalAttr.IsNoHooks) {
-                        flags |= SignalFlags.IsNoHooks;
+                        flags |= SignalFlags.NoHooks;
                     }
 
                     if (eventInfo.GetCustomAttribute<ObsoleteAttribute>(true) is not null) {

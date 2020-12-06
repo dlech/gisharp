@@ -52,7 +52,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// No emissions hooks are supported for this signal.
         /// </summary>
-        IsNoHooks = 0x00000040,
+        NoHooks = 0x00000040,
 
         /// <summary>
         /// Varargs signal emission will always collect the

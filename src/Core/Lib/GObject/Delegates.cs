@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
+using Boolean = GISharp.Runtime.Boolean;
 
 namespace GISharp.Lib.GObject
 {
@@ -10,25 +12,54 @@ namespace GISharp.Lib.GObject
     /// allows you to tie a hook to the signal type, so that it will trap all
     /// emissions of that signal, from any object.
     /// </summary>
+    /// <param name="ihint">
+    /// Signal invocation hint
+    /// </param>
+    /// <param name="paramValues">
+    /// the instance on which the signal was emitted, followed by the parameters of the emission.
+    /// </param>
     /// <remarks>
-    /// You may not attach these to signals created with the #G_SIGNAL_NO_HOOKS flag.
+    /// You may not attach these to signals created with the <see cref="SignalFlags.NoHooks"/> flag.
     /// </remarks>
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    delegate bool UnmanagedSignalEmissionHook(
-        /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
-        /* transfer-ownership:none */
-        SignalInvocationHint ihint,
-        /* <type name="guint" type="guint" managed-name="Guint" /> */
-        /* transfer-ownership:none */
-        uint nParamValues,
-        /* <array length="1" zero-terminated="0" type="GValue*">
-            <type name="Value" type="GValue" managed-name="Value" />
-            </array> */
-        /* transfer-ownership:none */
-        IntPtr paramValues,
-        /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
-        /* transfer-ownership:none */
-        IntPtr data);
+    [GCallback(typeof(SignalEmissionHookMarshal))]
+    public delegate bool SignalEmissionHook(in SignalInvocationHint ihint, Span<Value> paramValues);
+
+    internal static class SignalEmissionHookMarshal
+    {
+        private record UserData(SignalEmissionHook Callback, CallbackScope Scope);
+
+        public static unsafe (IntPtr, IntPtr, IntPtr) ToUnmanagedFunctionPointer(Delegate callback, CallbackScope scope)
+        {
+            var userData = new UserData((SignalEmissionHook)callback, scope);
+            var callback_ = (IntPtr)(delegate* unmanaged[Cdecl]<SignalInvocationHint*, uint, Value*, IntPtr, Boolean>)&ManagedCallback;
+            var notify_ = GMarshal.DestroyGCHandleFunctionPointer;
+            var userData_ = (IntPtr)GCHandle.Alloc(userData);
+            return (callback_, notify_, userData_);
+        }
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private static unsafe Boolean ManagedCallback(
+            SignalInvocationHint* ihint_, uint nParamValues_, Value* paramValues_, IntPtr userData_)
+        {
+            try {
+                ref var ihint = ref Unsafe.AsRef<SignalInvocationHint>(ihint_);
+                var nParamValues = (int)nParamValues_;
+                var paramValues = new Span<Value>(paramValues_, nParamValues);
+                var gcHandle = GCHandle.FromIntPtr(userData_);
+                var userData = (UserData)gcHandle.Target!;
+                var ret = userData.Callback(ihint, paramValues);
+                var ret_ = ret.ToBoolean();
+                if (userData.Scope == CallbackScope.Async) {
+                    gcHandle.Free();
+                }
+                return ret_;
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+                return default;
+            }
+        }
+    }
 
     /// <summary>
     /// The type used for the various notification callbacks which can be registered
