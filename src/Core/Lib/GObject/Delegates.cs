@@ -13,8 +13,8 @@ namespace GISharp.Lib.GObject
     /// <remarks>
     /// You may not attach these to signals created with the #G_SIGNAL_NO_HOOKS flag.
     /// </remarks>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate bool UnmanagedSignalEmissionHook (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    delegate bool UnmanagedSignalEmissionHook(
         /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
         /* transfer-ownership:none */
         SignalInvocationHint ihint,
@@ -31,20 +31,10 @@ namespace GISharp.Lib.GObject
         IntPtr data);
 
     /// <summary>
-    /// The type used for callback functions in structure definitions and function
-    /// signatures. This doesn't mean that all callback functions must take no
-    /// parameters and return void. The required signature of a callback function
-    /// is determined by the context in which is used (e.g. the signal to which it
-    /// is connected). Use G_CALLBACK() to cast the callback function to a #GCallback.
-    /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void UnmanagedCallback();
-
-    /// <summary>
     /// The type used for the various notification callbacks which can be registered
     /// on closures.
     /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     public delegate void UnmanagedClosureNotify(
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none */
@@ -71,8 +61,8 @@ namespace GISharp.Lib.GObject
     /// values is performed. The return value of signal emissions is then the
     /// value returned by the last callback.
     /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    delegate bool UnmanagedSignalAccumulator (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    delegate bool UnmanagedSignalAccumulator(
         /* <type name="SignalInvocationHint" type="GSignalInvocationHint*" managed-name="SignalInvocationHint" /> */
         /* transfer-ownership:none */
         SignalInvocationHint ihint,
@@ -102,7 +92,7 @@ namespace GISharp.Lib.GObject
     /// mechanism takes over responsibility of actual function invocation for the
     /// signal system.
     /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
     unsafe delegate void UnmanagedSignalCMarshaller(
         /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
         /* transfer-ownership:none */
@@ -134,8 +124,8 @@ namespace GISharp.Lib.GObject
     /// is the <c>targetProperty</c> on the target object. If this is the <c>transformFrom</c>
     /// function of a <see cref="BindingFlags.Bidirectional"/> binding, then those roles are reversed.
     /// </remarks>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate bool UnmanagedBindingTransformFunc (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate bool UnmanagedBindingTransformFunc(
         IntPtr binding,
         ref Value fromValue,
         ref Value toValue,
@@ -150,7 +140,7 @@ namespace GISharp.Lib.GObject
     /// is the <c>targetProperty</c> on the target object. If this is the <c>transformFrom</c>
     /// function of a <see cref="BindingFlags.Bidirectional"/> binding, then those roles are reversed.
     /// </remarks>
-    public delegate bool BindingTransformFunc (
+    public delegate bool BindingTransformFunc(
         Binding binding,
         ref Value fromValue,
         ref Value toValue);

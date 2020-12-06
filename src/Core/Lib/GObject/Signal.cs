@@ -1002,7 +1002,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_override_class_handler(
+        static unsafe extern void g_signal_override_class_handler(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr signalName,
@@ -1011,7 +1011,7 @@ namespace GISharp.Lib.GObject
             GType instanceType,
             /* <type name="Callback" type="GCallback" managed-name="Callback" /> */
             /* transfer-ownership:none */
-            UnmanagedCallback classHandler);
+            IntPtr classHandler);
 
         ///// <summary>
         ///// Overrides the class closure (i.e. the default handler) for the
