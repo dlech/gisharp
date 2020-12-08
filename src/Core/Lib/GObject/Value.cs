@@ -1408,7 +1408,6 @@ namespace GISharp.Lib.GObject
             set {
                 AssertType(GType.Object);
                 g_value_set_object(ref this, value?.Handle ?? IntPtr.Zero);
-                GC.KeepAlive(value);
             }
         }
 
@@ -1446,7 +1445,6 @@ namespace GISharp.Lib.GObject
             set {
                 AssertType(GType.Param);
                 g_value_set_param(ref this, value?.Handle ?? IntPtr.Zero);
-                GC.KeepAlive(value);
             }
         }
 
@@ -1740,7 +1738,6 @@ namespace GISharp.Lib.GObject
             set {
                 AssertType(GType.Variant);
                 g_value_set_variant(ref this, value?.Handle ?? IntPtr.Zero);
-                GC.KeepAlive(value);
             }
         }
 

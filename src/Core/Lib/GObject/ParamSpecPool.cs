@@ -84,7 +84,6 @@ namespace GISharp.Lib.GObject
             var this_ = Handle;
             var pspec_ = pspec.Handle;
             g_param_spec_pool_remove(this_, pspec_);
-            GC.KeepAlive(pspec);
         }
 
         [DllImport("gobject-2.0")]

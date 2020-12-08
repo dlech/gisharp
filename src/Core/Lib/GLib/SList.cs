@@ -511,7 +511,6 @@ namespace GISharp.Lib.GLib
         protected void InsertSorted(IntPtr data, UnmanagedCompareFunc func)
         {
             handle = g_slist_insert_sorted(handle, data, func);
-            GC.KeepAlive(func);
         }
 
         /// <summary>
@@ -852,7 +851,6 @@ namespace GISharp.Lib.GLib
         protected void Sort(UnmanagedCompareFunc compareFunc)
         {
             handle = g_slist_sort(handle, compareFunc);
-            GC.KeepAlive(compareFunc);
         }
 
         /// <summary>

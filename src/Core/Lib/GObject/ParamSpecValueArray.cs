@@ -81,7 +81,6 @@ namespace GISharp.Lib.GObject
             var blurbPtr = GMarshal.StringToUtf8Ptr(blurb);
             var elementSpecPtr = elementSpec?.Handle ?? IntPtr.Zero;
             var ret = g_param_spec_value_array(namePtr, nickPtr, blurbPtr, elementSpecPtr, flags);
-            GC.KeepAlive(elementSpec);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().

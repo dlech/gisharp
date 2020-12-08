@@ -672,7 +672,6 @@ namespace GISharp.Lib.GLib
         {
             ReadOnlySpan<IntPtr> array = items.Select(x => x.Handle).ToArray();
             var ret = NewTuple(array);
-            GC.KeepAlive(items);
             return ret;
         }
 

@@ -108,7 +108,6 @@ namespace GISharp.Test.Core
         {
             var instance = (Object)initable;
             var ret_ = g_initable_init(instance.Handle, IntPtr.Zero, out var errorPtr);
-            GC.KeepAlive(instance);
             if (errorPtr != IntPtr.Zero) {
                 var error = Opaque.GetInstance<Error>(errorPtr, Transfer.Full);
                 throw new GErrorException(error);
