@@ -341,7 +341,7 @@ namespace GISharp.CodeGen
                 }
                 var generatedFilePath = Path.Combine(projectDirPath, $"{name}.Generated.cs");
                 if (Hash(tempFile) != Hash(generatedFilePath)) {
-                    File.Copy(tempFile, generatedFilePath);
+                    File.Copy(tempFile, generatedFilePath, overwrite: true);
                 }
                 filesToDelete.Remove(generatedFilePath);
 
@@ -350,7 +350,7 @@ namespace GISharp.CodeGen
                 }
                 var generateDocPath = Path.Combine(projectDirPath, $"{name}.Generated.xmldoc");
                 if (Hash(tempFile) != Hash(generateDocPath)) {
-                    File.Copy(tempFile, generateDocPath);
+                    File.Copy(tempFile, generateDocPath, overwrite: true);
                 }
                 filesToDelete.Remove(generateDocPath);
 
