@@ -26,7 +26,7 @@ Defines an element's column index or
 <member name='AccessibleRelation.ColIndexText'>
 <summary>
 Defines a human readable text
-  alternative of <paramref name="gtkAccessibleRelationColIndex"/>. Value type: string
+  alternative of <see cref="AccessibleRelation.ColIndex"/>. Value type: string
 </summary>
 </member>
 
@@ -139,6 +139,9 @@ The possible accessible relations of a #GtkAccessible.
 Accessible relations can be references to other widgets,
 integers or strings.
 </summary>
+</member>
+
+<member name='AccessibleRelationExtensions.InitValue(GISharp.Lib.Gtk.AccessibleRelation,GISharp.Lib.GObject.Value)'>
 </member>
 
 </declaration>

@@ -148,4 +148,7 @@ The possible accessible properties of a #GtkAccessible.
 </summary>
 </member>
 
+<member name='AccessiblePropertyExtensions.InitValue(GISharp.Lib.Gtk.AccessibleProperty,GISharp.Lib.GObject.Value)'>
+</member>
+
 </declaration>

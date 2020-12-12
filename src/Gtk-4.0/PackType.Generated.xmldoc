@@ -2,19 +2,20 @@
 
 <member name='PackType.Start'>
 <summary>
-The child is packed into the start of the box
+The child is packed into the start of the widget
 </summary>
 </member>
 
 <member name='PackType.End'>
 <summary>
-The child is packed into the end of the box
+The child is packed into the end of the widget
 </summary>
 </member>
 
 <member name='PackType'>
 <summary>
-Represents the packing location #GtkBox children
+Represents the packing location of a children in its parent.
+See #GtkWindowControls for example.
 </summary>
 </member>
 

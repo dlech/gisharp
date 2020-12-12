@@ -141,4 +141,7 @@ integers or strings.
 </summary>
 </member>
 
+<member name='AccessibleRelationExtensions.InitValue(GISharp.Lib.Gtk.AccessibleRelation,GISharp.Lib.GObject.Value)'>
+</member>
+
 </declaration>

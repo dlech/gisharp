@@ -67,4 +67,7 @@ The possible accessible states of a #GtkAccessible.
 </summary>
 </member>
 
+<member name='AccessibleStateExtensions.InitValue(GISharp.Lib.Gtk.AccessibleState,GISharp.Lib.GObject.Value)'>
+</member>
+
 </declaration>

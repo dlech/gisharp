@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gtk
     public static partial class Version
     {
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.CompileTimeBinaryAge']/*" />
-        public const System.Int32 CompileTimeBinaryAge = 9904;
+        public const System.Int32 CompileTimeBinaryAge = 9905;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.CompileTimeInterfaceAge']/*" />
         public const System.Int32 CompileTimeInterfaceAge = 0;
@@ -15,7 +15,7 @@ namespace GISharp.Lib.Gtk
         private const System.Int32 majorVersion = 3;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.microVersion']/*" />
-        private const System.Int32 microVersion = 4;
+        private const System.Int32 microVersion = 5;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.minorVersion']/*" />
         private const System.Int32 minorVersion = 99;
@@ -40,7 +40,7 @@ namespace GISharp.Lib.Gtk
         /// <summary>
         /// Checks that the GTK library in use is compatible with the
         /// given version. Generally you would pass in the constants
-        /// #GTK_MAJOR_VERSION, #GTK_MINOR_VERSION, #GTK_MICRO_VERSION
+        /// %GTK_MAJOR_VERSION, %GTK_MINOR_VERSION, %GTK_MICRO_VERSION
         /// as the three arguments to this function; that produces
         /// a check that the library in use is compatible with
         /// the version of GTK the application or module was compiled
@@ -159,7 +159,7 @@ namespace GISharp.Lib.Gtk
         /// </summary>
         /// <remarks>
         /// This function is in the library, so it represents the GTK library
-        /// your code is running against. Contrast with the #GTK_MAJOR_VERSION
+        /// your code is running against. Contrast with the %GTK_MAJOR_VERSION
         /// macro, which represents the major version of the GTK headers you
         /// have included when compiling your code.
         /// </remarks>
@@ -188,7 +188,7 @@ namespace GISharp.Lib.Gtk
         /// <remarks>
         /// This function is in the library, so it represents the GTK library
         /// your code is are running against. Contrast with the
-        /// #GTK_MICRO_VERSION macro, which represents the micro version of the
+        /// %GTK_MICRO_VERSION macro, which represents the micro version of the
         /// GTK headers you have included when compiling your code.
         /// </remarks>
         /// <returns>
@@ -216,7 +216,7 @@ namespace GISharp.Lib.Gtk
         /// <remarks>
         /// This function is in the library, so it represents the GTK library
         /// your code is are running against. Contrast with the
-        /// #GTK_MINOR_VERSION macro, which represents the minor version of the
+        /// %GTK_MINOR_VERSION macro, which represents the minor version of the
         /// GTK headers you have included when compiling your code.
         /// </remarks>
         /// <returns>

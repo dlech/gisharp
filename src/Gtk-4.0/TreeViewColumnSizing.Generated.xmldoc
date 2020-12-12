@@ -21,7 +21,7 @@ Columns are a fixed numbers of pixels wide.
 <member name='TreeViewColumnSizing'>
 <summary>
 The sizing method the column uses to determine its width.  Please note
-that <paramref name="gtkTreeViewColumnAutosize"/> are inefficient for large views, and
+that <see cref="TreeViewColumnSizing.Autosize"/> are inefficient for large views, and
 can make columns appear choppy.
 </summary>
 </member>

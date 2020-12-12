@@ -118,7 +118,8 @@ An item in a grid or tree grid.
 
 <member name='AccessibleRole.Group'>
 <summary>
-Unused
+An element that groups multiple widgets. GTK uses
+  this role for various containers, like #GtkBox, #GtkViewport, and #GtkHeaderBar.
 </summary>
 </member>
 

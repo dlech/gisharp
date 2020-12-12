@@ -50,13 +50,13 @@ Edited field expects the name of a person
 
 <member name='InputPurpose.Password'>
 <summary>
-Like <paramref name="gtkInputPurposeFreeForm"/>, but characters are hidden
+Like <see cref="InputPurpose.FreeForm"/>, but characters are hidden
 </summary>
 </member>
 
 <member name='InputPurpose.Pin'>
 <summary>
-Like <paramref name="gtkInputPurposeDigits"/>, but characters are hidden
+Like <see cref="InputPurpose.Digits"/>, but characters are hidden
 </summary>
 </member>
 
@@ -80,8 +80,8 @@ character set restriction that is expressed by the purpose. The
 application is expected to validate the entry contents, even if
 it specified a purpose.
 
-The difference between <paramref name="gtkInputPurposeDigits"/> and
-<paramref name="gtkInputPurposeNumber"/> is that the former accepts only digits
+The difference between <see cref="InputPurpose.Digits"/> and
+<see cref="InputPurpose.Number"/> is that the former accepts only digits
 while the latter also some punctuation (like commas or points, plus,
 minus) and “e” or “E” as in 3.14E+000.
 

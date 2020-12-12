@@ -30,7 +30,7 @@ using the filter to optimize refiltering items.
 </summary>
 <remarks>
 If you are writing an implementation and are not sure which
-value to pass, <paramref name="gtkFilterChangeDifferent"/> is always a correct
+value to pass, <see cref="FilterChange.Different"/> is always a correct
 choice.
 </remarks>
 </member>

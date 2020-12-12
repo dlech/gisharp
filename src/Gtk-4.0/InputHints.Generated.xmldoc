@@ -90,7 +90,7 @@ behaviour according to the <see cref="InputPurpose"/> of the entry.
 </summary>
 <remarks>
 Some common sense is expected when using these flags - mixing
-<paramref name="gtkInputHintLowercase"/> with any of the uppercase hints makes no sense.
+<see cref="InputHints.Lowercase"/> with any of the uppercase hints makes no sense.
 
 This enumeration may be extended in the future; input methods should
 ignore unknown values.

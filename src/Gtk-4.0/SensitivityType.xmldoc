@@ -2,27 +2,27 @@
 
 <member name='SensitivityType.Auto'>
 <summary>
-The arrow is made insensitive if the
-  thumb is at the end
+The control is made insensitive if no
+  action can be triggered
 </summary>
 </member>
 
 <member name='SensitivityType.On'>
 <summary>
-The arrow is always sensitive
+The control is always sensitive
 </summary>
 </member>
 
 <member name='SensitivityType.Off'>
 <summary>
-The arrow is always insensitive
+The control is always insensitive
 </summary>
 </member>
 
 <member name='SensitivityType'>
 <summary>
-Determines how GTK handles the sensitivity of stepper arrows
-at the end of range widgets.
+Determines how GTK handles the sensitivity of various controls,
+such as combo box buttons.
 </summary>
 </member>
 

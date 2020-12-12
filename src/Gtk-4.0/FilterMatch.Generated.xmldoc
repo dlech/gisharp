@@ -27,7 +27,7 @@ Describes the known strictness of a filter.
 </summary>
 <remarks>
 Note that for filters where the strictness is not known,
-%<paramref name="gtkFilterMatchSome"/> is always an acceptable value,
+<see cref="FilterMatch.Some"/> is always an acceptable value,
 even if a filter does match all or no items.
 </remarks>
 </member>
