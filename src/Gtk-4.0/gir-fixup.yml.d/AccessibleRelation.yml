@@ -1,0 +1,9 @@
+# AccessibleRelation
+
+# Change functions to methods
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='AccessibleRelation']/gi:function[gi:parameters/gi:parameter[position()=1]/gi:type[@name='AccessibleRelation']]
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='AccessibleRelation']/gi:method/gi:parameters/gi:parameter[position()=1]

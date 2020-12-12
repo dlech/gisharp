@@ -53,7 +53,11 @@ namespace GISharp.Lib.Gtk
     {
         private static readonly GISharp.Lib.GObject.GType _GType = gtk_accessible_property_get_type();
 
-        static partial void CheckInitValueArgs(GISharp.Lib.Gtk.AccessibleProperty property, GISharp.Lib.GObject.Value value);
+        static partial void CheckGetGTypeArgs();
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
+        /* transfer-ownership:full direction:out */
+        private static extern unsafe GISharp.Lib.GObject.GType gtk_accessible_property_get_type();
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
@@ -64,20 +68,15 @@ GISharp.Lib.Gtk.AccessibleProperty property,
 /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value value);
+        static partial void CheckInitValueArgs(this GISharp.Lib.Gtk.AccessibleProperty property, GISharp.Lib.GObject.Value value);
 
         /// <include file="AccessibleProperty.xmldoc" path="declaration/member[@name='AccessiblePropertyExtensions.InitValue(GISharp.Lib.Gtk.AccessibleProperty,GISharp.Lib.GObject.Value)']/*" />
-        public static unsafe void InitValue(GISharp.Lib.Gtk.AccessibleProperty property, GISharp.Lib.GObject.Value value)
+        public unsafe static void InitValue(this GISharp.Lib.Gtk.AccessibleProperty property, GISharp.Lib.GObject.Value value)
         {
             CheckInitValueArgs(property, value);
             var property_ = (GISharp.Lib.Gtk.AccessibleProperty)property;
             var value_ = (GISharp.Lib.GObject.Value)value;
             gtk_accessible_property_init_value(property_, value_);
         }
-
-        static partial void CheckGetGTypeArgs();
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
-        /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe GISharp.Lib.GObject.GType gtk_accessible_property_get_type();
     }
 }
