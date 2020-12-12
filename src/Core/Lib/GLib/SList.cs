@@ -38,7 +38,7 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected SList(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        private protected SList(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership != Transfer.Container) {
                 throw new NotSupportedException();
@@ -48,7 +48,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        protected SList() : this(IntPtr.Zero, Transfer.Container)
+        private protected SList() : this(IntPtr.Zero, Transfer.Container)
         {
         }
 
@@ -100,7 +100,7 @@ namespace GISharp.Lib.GLib
         /// <param name="list2">
         /// the <see cref="SList"/> to add to the end of the first <see cref="SList"/>
         /// </param>
-        protected void Concat(SList list2)
+        private protected void Concat(SList list2)
         {
             handle = g_slist_concat(handle, list2.handle);
             list2.handle = IntPtr.Zero;
@@ -160,7 +160,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        protected void Append(IntPtr data)
+        private protected void Append(IntPtr data)
         {
             handle = g_slist_append(handle, data);
         }
@@ -196,7 +196,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a copy of @list
         /// </returns>
-        protected SList Copy()
+        private protected SList Copy()
         {
             var ret_ = g_slist_copy(handle);
             var ret = Activator.CreateInstance(GetType(), ret_, Transfer.Container);
@@ -330,8 +330,24 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_slist_foreach(
             IntPtr list,
-            UnmanagedFunc func,
+            IntPtr func,
             IntPtr userData);
+
+        /// <summary>
+        /// Calls a function for each element of a <see cref="SList"/>.
+        /// </summary>
+        /// <param name="func">
+        /// the function to call with each element's data
+        /// </param>
+        private protected unsafe void Foreach<T>(Func<T> func) where T : IOpaque?
+        {
+            var list_ = Handle;
+            var marshalCallback = func.GetToUnmanagedFunctionPointer();
+            var (func_, notify_, userData_) = marshalCallback(func, CallbackScope.Call);
+            g_slist_foreach(list_, func_, userData_);
+            var notify = (delegate* unmanaged[Cdecl]<IntPtr, void>)notify_;
+            notify(userData_);
+        }
 
         /// <summary>
         /// Frees one #GSList element.
@@ -390,7 +406,7 @@ namespace GISharp.Lib.GLib
         /// the index of the element containing the data,
         ///     or -1 if the data is not found
         /// </returns>
-        protected int IndexOf(IntPtr data)
+        private protected int IndexOf(IntPtr data)
         {
             var ret = g_slist_index(handle, data);
             return ret;
@@ -432,7 +448,7 @@ namespace GISharp.Lib.GLib
         /// of elements in the list, the new element is added on
         /// to the end of the list.
         /// </param>
-        protected void Insert(IntPtr data, int position)
+        private protected void Insert(IntPtr data, int position)
         {
             handle = g_slist_insert(handle, data, position);
         }
@@ -467,7 +483,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// data to put in the newly-inserted node
         /// </param>
-        protected void InsertBefore(IntPtr sibling, IntPtr data)
+        private protected void InsertBefore(IntPtr sibling, IntPtr data)
         {
             handle = g_slist_insert_before(handle, sibling, data);
         }
@@ -508,7 +524,7 @@ namespace GISharp.Lib.GLib
         /// It should return a number &gt; 0 if the first parameter
         /// comes after the second parameter in the sort order.
         /// </param>
-        protected void InsertSorted(IntPtr data, UnmanagedCompareFunc func)
+        private protected void InsertSorted(IntPtr data, UnmanagedCompareFunc func)
         {
             handle = g_slist_insert_sorted(handle, data, func);
         }
@@ -878,7 +894,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Enumerator for <see cref="SList{T}"/>.
     /// </summary>
-    public sealed class SListEnumerator<T> : Opaque, IEnumerator<T> where T : Opaque?
+    public sealed class SListEnumerator<T> : Opaque, IEnumerator<T> where T : IOpaque?
     {
         readonly IntPtr start;
         IntPtr next;
@@ -913,7 +929,7 @@ namespace GISharp.Lib.GLib
     /// A singally linked list.
     /// </summary>
     [GType("GSList", IsProxyForUnmanagedType = true)]
-    public sealed class SList<T> : SList, IEnumerable<T> where T : Opaque?
+    public sealed class SList<T> : SList, IEnumerable<T> where T : IOpaque?
     {
         /// <summary>
         /// Creates a new empty list.
@@ -982,6 +998,21 @@ namespace GISharp.Lib.GLib
         {
             var ret = base.Copy();
             return (SList<T>)ret;
+        }
+
+        /// <summary>
+        /// Calls a function for each element of a <see cref="SList"/>.
+        /// </summary>
+        /// <remarks>
+        /// Not recommended for use in managed code. Use built-in foreach statement instead.
+        /// </remarks>
+        /// <param name="func">
+        /// the function to call with each element's data
+        /// </param>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Foreach(Func<T> func)
+        {
+            Foreach<T>(func);
         }
 
         /// <summary>

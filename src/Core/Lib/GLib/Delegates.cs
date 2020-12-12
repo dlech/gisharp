@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -122,26 +123,43 @@ namespace GISharp.Lib.GLib
     public delegate bool EqualFunc<T>(T a, T b) where T : Opaque;
 
     /// <summary>
-    /// Specifies the type of functions passed to g_list_foreach() and
-    /// g_slist_foreach().
+    /// Specifies the type of functions passed to <see cref="List.Foreach"/> and
+    /// <see cref="SList.Foreach"/>.
     /// </summary>
     /// <param name="data">
     /// the element's data
     /// </param>
-    /// <param name="userData">
-    /// user data passed to g_list_foreach() or g_slist_foreach()
-    /// </param>
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate void UnmanagedFunc([In] IntPtr data, [In] IntPtr userData);
+    [GCallback(typeof(FuncMarshal))]
+    public delegate void Func<T>(T data) where T : IOpaque?;
 
-    /// <summary>
-    /// Specifies the type of functions passed to g_list_foreach() and
-    /// g_slist_foreach().
-    /// </summary>
-    /// <param name="data">
-    /// the element's data
-    /// </param>
-    public delegate void Func<T>(T data);
+    internal static class FuncMarshal
+    {
+        private record UserData(Type T, Delegate Callback, CallbackScope Scope);
+
+        public static unsafe (IntPtr, IntPtr, IntPtr) ToUnmanagedFunctionPointer(Delegate func, CallbackScope scope)
+        {
+            var callback_ = (IntPtr)(delegate* unmanaged[Cdecl]<IntPtr, IntPtr, void>)&ManagedCallback;
+            var notify_ = GMarshal.DestroyGCHandleFunctionPointer;
+            var type = func.GetType().GenericTypeArguments[0];
+            var userData = new UserData(type, func, scope);
+            var userData_ = (IntPtr)GCHandle.Alloc(userData);
+            return (callback_, notify_, userData_);
+        }
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private static void ManagedCallback(IntPtr data_, IntPtr userData_)
+        {
+            try {
+                var gcHandle = GCHandle.FromIntPtr(userData_);
+                var userData = (UserData)gcHandle.Target!;
+                var data = Opaque.GetInstance(userData.T, data_, Transfer.None);
+                userData.Callback.DynamicInvoke(data);
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+            }
+        }
+    }
 
     /// <summary>
     /// Specifies the type of the hash function which is passed to

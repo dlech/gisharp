@@ -51,7 +51,7 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected List(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        private protected List(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership != Transfer.Container) {
                 throw new NotSupportedException();
@@ -61,7 +61,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        protected List() : this(IntPtr.Zero, Transfer.Container)
+        private protected List() : this(IntPtr.Zero, Transfer.Container)
         {
         }
 
@@ -183,7 +183,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        protected void Append(IntPtr data)
+        private protected void Append(IntPtr data)
         {
             handle = g_list_append(handle, data);
         }
@@ -219,7 +219,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the start of the new list that holds the same data as @list
         /// </returns>
-        protected List Copy()
+        private protected List Copy()
         {
             var ret_ = g_list_copy(handle);
             var ret = Activator.CreateInstance(GetType(), ret_, Transfer.Container);
@@ -360,8 +360,24 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_list_foreach(
             IntPtr list,
-            UnmanagedFunc func,
+            IntPtr func,
             IntPtr userData);
+
+        /// <summary>
+        /// Calls a function for each element of a <see cref="List"/>.
+        /// </summary>
+        /// <param name="func">
+        /// the function to call with each element's data
+        /// </param>
+        private protected unsafe void Foreach<T>(Func<T> func) where T : Opaque?
+        {
+            var list_ = Handle;
+            var marshalCallback = func.GetToUnmanagedFunctionPointer();
+            var (func_, notify_, userData_) = marshalCallback(func, CallbackScope.Call);
+            g_list_foreach(list_, func_, userData_);
+            var notify = (delegate* unmanaged[Cdecl]<IntPtr, void>)notify_;
+            notify(userData_);
+        }
 
         /// <summary>
         /// Convenience method, which frees all the memory used by a #GList,
@@ -409,7 +425,7 @@ namespace GISharp.Lib.GLib
         /// the index of the element containing the data,
         ///     or -1 if the data is not found
         /// </returns>
-        protected int IndexOf(IntPtr data)
+        private protected int IndexOf(IntPtr data)
         {
             var ret = g_list_index(handle, data);
             return ret;
@@ -460,7 +476,7 @@ namespace GISharp.Lib.GLib
         /// negative, or is larger than the number of elements in the
         /// list, the new element is added on to the end of the list.
         /// </param>
-        protected void Insert(IntPtr data, int position)
+        private protected void Insert(IntPtr data, int position)
         {
             handle = g_list_insert(handle, data, position);
         }
@@ -497,7 +513,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        protected void InsertBefore(IntPtr sibling, IntPtr data)
+        private protected void InsertBefore(IntPtr sibling, IntPtr data)
         {
             handle = g_list_insert_before(handle, sibling, data);
         }
@@ -551,7 +567,7 @@ namespace GISharp.Lib.GLib
         /// return a number &gt; 0 if the first parameter comes after the
         /// second parameter in the sort order.
         /// </param>
-        protected void InsertSorted(IntPtr data, UnmanagedCompareFunc func)
+        private protected void InsertSorted(IntPtr data, UnmanagedCompareFunc func)
         {
             handle = g_list_insert_sorted(handle, data, func);
         }
@@ -774,7 +790,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data for the new element
         /// </param>
-        protected void Prepend(IntPtr data)
+        private protected void Prepend(IntPtr data)
         {
             handle = g_list_prepend(handle, data);
         }
@@ -806,7 +822,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// the data of the element to remove
         /// </param>
-        protected void Remove(IntPtr data)
+        private protected void Remove(IntPtr data)
         {
             handle = g_list_remove(handle, data);
         }
@@ -840,7 +856,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">
         /// data to remove
         /// </param>
-        protected void RemoveAll(IntPtr data)
+        private protected void RemoveAll(IntPtr data)
         {
             handle = g_list_remove_all(handle, data);
         }
@@ -930,7 +946,7 @@ namespace GISharp.Lib.GLib
         /// first element comes before the second, or a positive value if
         /// the first element comes after the second.
         /// </param>
-        protected void Sort(UnmanagedCompareFunc compareFunc)
+        private protected void Sort(UnmanagedCompareFunc compareFunc)
         {
             handle = g_list_sort(handle, compareFunc);
         }
@@ -1061,6 +1077,21 @@ namespace GISharp.Lib.GLib
         {
             var ret = base.Copy();
             return (List<T>)ret;
+        }
+
+        /// <summary>
+        /// Calls a function for each element of a <see cref="List"/>.
+        /// </summary>
+        /// <remarks>
+        /// Not recommended for use in managed code. Use built-in foreach statement instead.
+        /// </remarks>
+        /// <param name="func">
+        /// the function to call with each element's data
+        /// </param>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Foreach(Func<T> func)
+        {
+            Foreach<T>(func);
         }
 
         /// <summary>

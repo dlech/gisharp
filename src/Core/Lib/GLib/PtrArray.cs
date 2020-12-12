@@ -239,7 +239,7 @@ namespace GISharp.Lib.GLib
         [Since("2.4")]
         static extern void g_ptr_array_foreach(
             IntPtr array,
-            UnmanagedFunc func,
+            IntPtr func,
             IntPtr userData);
 
         /// <summary>
