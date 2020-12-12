@@ -223,15 +223,15 @@ namespace GISharp.CodeGen
             if (fixupDirExists) {
                 fixupFiles.AddRange(Directory.EnumerateFiles(fixupDirPath, "*.yml"));
             }
-            try {
-                foreach (var file in fixupFiles) {
+            foreach (var file in fixupFiles) {
+                try {
                     using var reader = new StreamReader(file);
                     commands.AddRange(Fixup.Parse(reader));
                 }
-            }
-            catch (Exception ex) {
-                var msg = $"Fixup file error: {ex.Message}";
-                Log.Error(msg);
+                catch (Exception ex) {
+                    var msg = $"Fixup file error: {ex.Message} in '{file}'";
+                    Log.Error(msg);
+                }
             }
 
             // Apply the fixups to the GIR XML
