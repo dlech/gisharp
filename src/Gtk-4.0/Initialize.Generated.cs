@@ -21,7 +21,7 @@ namespace GISharp.Lib.Gtk
         /// <remarks>
         /// Most programs should not need to call this function.
         /// </remarks>
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
         private static extern unsafe void gtk_disable_setlocale();
@@ -57,7 +57,7 @@ namespace GISharp.Lib.Gtk
         /// but notice that other libraries (e.g. libdbus or gvfs) might do
         /// similar things.
         /// </remarks>
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
         private static extern unsafe void gtk_init();
@@ -85,7 +85,7 @@ namespace GISharp.Lib.Gtk
         /// %TRUE if the windowing system has been successfully
         ///     initialized, %FALSE otherwise
         /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
         private static extern unsafe GISharp.Runtime.Boolean gtk_init_check();
@@ -108,7 +108,7 @@ namespace GISharp.Lib.Gtk
         /// <returns>
         /// the initialization status
         /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:out */
         private static extern unsafe GISharp.Runtime.Boolean gtk_is_initialized();

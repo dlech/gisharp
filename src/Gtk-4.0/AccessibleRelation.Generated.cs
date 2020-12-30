@@ -52,11 +52,11 @@ namespace GISharp.Lib.Gtk
         private static readonly GISharp.Lib.GObject.GType _GType = gtk_accessible_relation_get_type();
 
         static partial void CheckGetGTypeArgs();
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
         private static extern unsafe GISharp.Lib.GObject.GType gtk_accessible_relation_get_type();
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
         private static extern unsafe void gtk_accessible_relation_init_value(

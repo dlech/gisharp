@@ -1,12 +1,21 @@
 <declaration>
 
 <member name='NotebookTab.First'>
+<summary>
+the first tab in the notebook
+</summary>
 </member>
 
 <member name='NotebookTab.Last'>
+<summary>
+the last tab in the notebook
+</summary>
 </member>
 
 <member name='NotebookTab'>
+<summary>
+The parameter used in the action signals of #GtkNotebook.
+</summary>
 </member>
 
 </declaration>

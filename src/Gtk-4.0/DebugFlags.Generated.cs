@@ -67,7 +67,7 @@ namespace GISharp.Lib.Gtk
         /// <returns>
         /// the GTK debug flags.
         /// </returns>
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="DebugFlags" type="GtkDebugFlags" managed-name="DebugFlags" /> */
         /* transfer-ownership:none direction:out */
         private static extern unsafe GISharp.Lib.Gtk.DebugFlags gtk_get_debug_flags();
@@ -88,7 +88,7 @@ namespace GISharp.Lib.Gtk
         /// <param name="flags">
         /// the debug flags to set
         /// </param>
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:out */
         private static extern unsafe void gtk_set_debug_flags(
@@ -104,7 +104,7 @@ namespace GISharp.Lib.Gtk
         }
 
         static partial void CheckGetGTypeArgs();
-        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:out */
         private static extern unsafe GISharp.Lib.GObject.GType gtk_debug_flags_get_type();
