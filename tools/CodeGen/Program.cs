@@ -330,10 +330,15 @@ namespace GISharp.CodeGen
 
                 static string Hash(string path)
                 {
-                    using var md5 = MD5.Create();
-                    using var stream = File.OpenRead(path);
-                    var hash = md5.ComputeHash(stream);
-                    return BitConverter.ToString(hash);
+                    try {
+                        using var md5 = MD5.Create();
+                        using var stream = File.OpenRead(path);
+                        var hash = md5.ComputeHash(stream);
+                        return BitConverter.ToString(hash);
+                    }
+                    catch (FileNotFoundException) {
+                        return null;
+                    }
                 }
 
                 using (var generatedFile = new StreamWriter(tempFile)) {
