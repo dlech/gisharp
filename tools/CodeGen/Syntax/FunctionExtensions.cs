@@ -29,6 +29,9 @@ namespace GISharp.CodeGen.Syntax
 
                 if (function.IsCompare) {
                     yield return function.GetIComparableInterfaceMethodDeclaration();
+                    foreach (var op in function.GetComparisonOperatorDeclarations()) {
+                        yield return op;
+                    }
                 }
 
                 if (function.FinishFor is not null) {
@@ -68,6 +71,10 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         static MethodDeclarationSyntax GetIComparableInterfaceMethodDeclaration(this Function function)
         {
+            if (!function.IsCompare) {
+                throw new ArgumentException("function must be flagged as gs:special-func=compare",
+                    nameof(function));
+            }
             var argType = function.ManagedParameters.Last().Type.ManagedType;
             var otherParamType = argType.ToSyntax();
             var nullCheck = "";
@@ -88,6 +95,51 @@ namespace GISharp.CodeGen.Syntax
                 "));
 
             return declaration;
+        }
+
+        /// <summary>
+        /// Gets comparison operator declarations for all 4 comparison types.
+        /// </summary>
+        /// <remarks>
+        /// Implementation is like this:
+        /// <code>
+        /// public static bool operator >(T a, T b)
+        /// {
+        ///      return Compare(a, b) > 0;
+        /// }
+        /// </code>
+        /// </remarks>
+        static IEnumerable<OperatorDeclarationSyntax> GetComparisonOperatorDeclarations(this Function function)
+        {
+            if (!function.IsCompare) {
+                throw new ArgumentException("function must be flagged as gs:special-func=compare",
+                    nameof(function));
+            }
+
+            var returnType = ParseName("System.Boolean");
+            var operators = new[] {
+                Token(LessThanToken),
+                Token(GreaterThanToken),
+                Token(LessThanEqualsToken),
+                Token(GreaterThanEqualsToken),
+            };
+
+            var parameterList = function.ManagedParameters.GetParameterList();
+
+            foreach (var op in operators) {
+                var declaration = OperatorDeclaration(returnType, op)
+                    .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                    .WithParameterList(parameterList)
+                    .AddBodyStatements(
+                        ReturnStatement(ParseExpression(
+                            $@"{function.ManagedName}({string.Join(
+                                ", ", parameterList.Parameters.Select(x => x.Identifier.ToFullString())
+                            )}) {op.ToFullString()} 0"
+                        ))
+                    )
+                    .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc/>\n"));
+                yield return declaration;
+            }
         }
 
         static SyntaxList<StatementSyntax> GetFinishMethodStatements(this Function function)
