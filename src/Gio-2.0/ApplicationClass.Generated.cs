@@ -11,58 +11,58 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
+            private readonly GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Startup']/*" />
-            public System.IntPtr Startup;
+            public readonly System.IntPtr Startup;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Activate']/*" />
-            public System.IntPtr Activate;
+            public readonly System.IntPtr Activate;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Open']/*" />
-            public System.IntPtr Open;
+            public readonly System.IntPtr Open;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CommandLine']/*" />
-            public System.IntPtr CommandLine;
+            public readonly System.IntPtr CommandLine;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.LocalCommandLine']/*" />
-            public System.IntPtr LocalCommandLine;
+            public readonly System.IntPtr LocalCommandLine;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.BeforeEmit']/*" />
-            public System.IntPtr BeforeEmit;
+            public readonly System.IntPtr BeforeEmit;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.AfterEmit']/*" />
-            public System.IntPtr AfterEmit;
+            public readonly System.IntPtr AfterEmit;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.AddPlatformData']/*" />
-            public System.IntPtr AddPlatformData;
+            public readonly System.IntPtr AddPlatformData;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QuitMainloop']/*" />
-            public System.IntPtr QuitMainloop;
+            public readonly System.IntPtr QuitMainloop;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.RunMainloop']/*" />
-            public System.IntPtr RunMainloop;
+            public readonly System.IntPtr RunMainloop;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Shutdown']/*" />
-            public System.IntPtr Shutdown;
+            public readonly System.IntPtr Shutdown;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.DbusRegister']/*" />
-            public System.IntPtr DbusRegister;
+            public readonly System.IntPtr DbusRegister;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.DbusUnregister']/*" />
-            public System.IntPtr DbusUnregister;
+            public readonly System.IntPtr DbusUnregister;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.HandleLocalOptions']/*" />
-            public System.IntPtr HandleLocalOptions;
+            public readonly System.IntPtr HandleLocalOptions;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.NameLost']/*" />
-            public System.IntPtr NameLost;
+            public readonly System.IntPtr NameLost;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding']/*" />
-            public System.IntPtr* Padding;
-#pragma warning restore CS0649
+            private fixed System.Int64 Padding[7];
+#pragma warning restore CS0169, CS0649
         }
 
         static ApplicationClass()

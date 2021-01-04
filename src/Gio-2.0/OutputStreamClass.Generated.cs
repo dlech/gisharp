@@ -10,70 +10,70 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
+            public readonly GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WriteFn']/*" />
-            public System.IntPtr WriteFn;
+            public readonly System.IntPtr WriteFn;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Splice']/*" />
-            public System.IntPtr Splice;
+            public readonly System.IntPtr Splice;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Flush']/*" />
-            public System.IntPtr Flush;
+            public readonly System.IntPtr Flush;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFn']/*" />
-            public System.IntPtr CloseFn;
+            public readonly System.IntPtr CloseFn;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WriteAsync']/*" />
-            public System.IntPtr WriteAsync;
+            public readonly System.IntPtr WriteAsync;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WriteFinish']/*" />
-            public System.IntPtr WriteFinish;
+            public readonly System.IntPtr WriteFinish;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.SpliceAsync']/*" />
-            public System.IntPtr SpliceAsync;
+            public readonly System.IntPtr SpliceAsync;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.SpliceFinish']/*" />
-            public System.IntPtr SpliceFinish;
+            public readonly System.IntPtr SpliceFinish;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.FlushAsync']/*" />
-            public System.IntPtr FlushAsync;
+            public readonly System.IntPtr FlushAsync;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.FlushFinish']/*" />
-            public System.IntPtr FlushFinish;
+            public readonly System.IntPtr FlushFinish;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseAsync']/*" />
-            public System.IntPtr CloseAsync;
+            public readonly System.IntPtr CloseAsync;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFinish']/*" />
-            public System.IntPtr CloseFinish;
+            public readonly System.IntPtr CloseFinish;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WritevFn']/*" />
-            public System.IntPtr WritevFn;
+            public readonly System.IntPtr WritevFn;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WritevAsync']/*" />
-            public System.IntPtr WritevAsync;
+            public readonly System.IntPtr WritevAsync;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.WritevFinish']/*" />
-            public System.IntPtr WritevFinish;
+            public readonly System.IntPtr WritevFinish;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
-            public System.IntPtr GReserved4;
+            public readonly System.IntPtr GReserved4;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
-            public System.IntPtr GReserved5;
+            public readonly System.IntPtr GReserved5;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved6']/*" />
-            public System.IntPtr GReserved6;
+            public readonly System.IntPtr GReserved6;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved7']/*" />
-            public System.IntPtr GReserved7;
+            public readonly System.IntPtr GReserved7;
 
             /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved8']/*" />
-            public System.IntPtr GReserved8;
-#pragma warning restore CS0649
+            public readonly System.IntPtr GReserved8;
+#pragma warning restore CS0169, CS0649
         }
 
         static OutputStreamClass()

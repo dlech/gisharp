@@ -10,52 +10,52 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
+            public readonly GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadFn']/*" />
-            public System.IntPtr ReadFn;
+            public readonly System.IntPtr ReadFn;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Skip']/*" />
-            public System.IntPtr Skip;
+            public readonly System.IntPtr Skip;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFn']/*" />
-            public System.IntPtr CloseFn;
+            public readonly System.IntPtr CloseFn;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadAsync']/*" />
-            public System.IntPtr ReadAsync;
+            public readonly System.IntPtr ReadAsync;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadFinish']/*" />
-            public System.IntPtr ReadFinish;
+            public readonly System.IntPtr ReadFinish;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.SkipAsync']/*" />
-            public System.IntPtr SkipAsync;
+            public readonly System.IntPtr SkipAsync;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.SkipFinish']/*" />
-            public System.IntPtr SkipFinish;
+            public readonly System.IntPtr SkipFinish;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseAsync']/*" />
-            public System.IntPtr CloseAsync;
+            public readonly System.IntPtr CloseAsync;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFinish']/*" />
-            public System.IntPtr CloseFinish;
+            public readonly System.IntPtr CloseFinish;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
-            public System.IntPtr GReserved1;
+            public readonly System.IntPtr GReserved1;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved2']/*" />
-            public System.IntPtr GReserved2;
+            public readonly System.IntPtr GReserved2;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved3']/*" />
-            public System.IntPtr GReserved3;
+            public readonly System.IntPtr GReserved3;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
-            public System.IntPtr GReserved4;
+            public readonly System.IntPtr GReserved4;
 
             /// <include file="InputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
-            public System.IntPtr GReserved5;
-#pragma warning restore CS0649
+            public readonly System.IntPtr GReserved5;
+#pragma warning restore CS0169, CS0649
         }
 
         static InputStreamClass()

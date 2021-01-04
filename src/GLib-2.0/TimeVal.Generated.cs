@@ -3,15 +3,15 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal']/*" />
-    public partial struct TimeVal
+    public unsafe partial struct TimeVal
     {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TvSec']/*" />
-        public GISharp.Runtime.CLong TvSec;
+        public readonly GISharp.Runtime.CLong TvSec;
 
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TvUsec']/*" />
-        public GISharp.Runtime.CLong TvUsec;
-#pragma warning restore CS0649
+        public readonly GISharp.Runtime.CLong TvUsec;
+#pragma warning restore CS0169, CS0649
         static partial void CheckTryFromIso8601Args(GISharp.Lib.GLib.UnownedUtf8 isoDate);
 
         /// <summary>

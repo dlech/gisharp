@@ -3,29 +3,29 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry']/*" />
-    public partial struct OptionEntry
+    public unsafe partial struct OptionEntry
     {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.LongName']/*" />
-        public System.IntPtr LongName;
+        public readonly System.IntPtr LongName;
 
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.ShortName']/*" />
-        public System.SByte ShortName;
+        public readonly System.SByte ShortName;
 
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.Flags']/*" />
-        public System.Int32 Flags;
+        public readonly System.Int32 Flags;
 
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.Arg']/*" />
-        public GISharp.Lib.GLib.OptionArg Arg;
+        public readonly GISharp.Lib.GLib.OptionArg Arg;
 
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.ArgData']/*" />
-        public System.IntPtr ArgData;
+        public readonly System.IntPtr ArgData;
 
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.Description']/*" />
-        public System.IntPtr Description;
+        public readonly System.IntPtr Description;
 
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.ArgDescription']/*" />
-        public System.IntPtr ArgDescription;
-#pragma warning restore CS0649
+        public readonly System.IntPtr ArgDescription;
+#pragma warning restore CS0169, CS0649
     }
 }

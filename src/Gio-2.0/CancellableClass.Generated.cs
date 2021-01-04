@@ -10,28 +10,28 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
+            public readonly GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Cancelled']/*" />
-            public System.IntPtr Cancelled;
+            public readonly System.IntPtr Cancelled;
 
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
-            public System.IntPtr GReserved1;
+            public readonly System.IntPtr GReserved1;
 
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved2']/*" />
-            public System.IntPtr GReserved2;
+            public readonly System.IntPtr GReserved2;
 
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved3']/*" />
-            public System.IntPtr GReserved3;
+            public readonly System.IntPtr GReserved3;
 
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
-            public System.IntPtr GReserved4;
+            public readonly System.IntPtr GReserved4;
 
             /// <include file="CancellableClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
-            public System.IntPtr GReserved5;
-#pragma warning restore CS0649
+            public readonly System.IntPtr GReserved5;
+#pragma warning restore CS0169, CS0649
         }
 
         static CancellableClass()

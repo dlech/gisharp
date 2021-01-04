@@ -11,13 +11,13 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="InitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
+            public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="InitableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Init']/*" />
-            public System.IntPtr Init;
-#pragma warning restore CS0649
+            public readonly System.IntPtr Init;
+#pragma warning restore CS0169, CS0649
         }
 
         static InitableIface()

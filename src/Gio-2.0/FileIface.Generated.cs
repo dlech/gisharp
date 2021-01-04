@@ -10,319 +10,319 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
+            public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dup']/*" />
-            public System.IntPtr Dup;
+            public readonly System.IntPtr Dup;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Hash']/*" />
-            public System.IntPtr Hash;
+            public readonly System.IntPtr Hash;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Equal']/*" />
-            public System.IntPtr Equal;
+            public readonly System.IntPtr Equal;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.IsNative']/*" />
-            public System.IntPtr IsNative;
+            public readonly System.IntPtr IsNative;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.HasUriScheme']/*" />
-            public System.IntPtr HasUriScheme;
+            public readonly System.IntPtr HasUriScheme;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetUriScheme']/*" />
-            public System.IntPtr GetUriScheme;
+            public readonly System.IntPtr GetUriScheme;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetBasename']/*" />
-            public System.IntPtr GetBasename;
+            public readonly System.IntPtr GetBasename;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetPath']/*" />
-            public System.IntPtr GetPath;
+            public readonly System.IntPtr GetPath;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetUri']/*" />
-            public System.IntPtr GetUri;
+            public readonly System.IntPtr GetUri;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetParseName']/*" />
-            public System.IntPtr GetParseName;
+            public readonly System.IntPtr GetParseName;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetParent']/*" />
-            public System.IntPtr GetParent;
+            public readonly System.IntPtr GetParent;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.PrefixMatches']/*" />
-            public System.IntPtr PrefixMatches;
+            public readonly System.IntPtr PrefixMatches;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetRelativePath']/*" />
-            public System.IntPtr GetRelativePath;
+            public readonly System.IntPtr GetRelativePath;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ResolveRelativePath']/*" />
-            public System.IntPtr ResolveRelativePath;
+            public readonly System.IntPtr ResolveRelativePath;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetChildForDisplayName']/*" />
-            public System.IntPtr GetChildForDisplayName;
+            public readonly System.IntPtr GetChildForDisplayName;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EnumerateChildren']/*" />
-            public System.IntPtr EnumerateChildren;
+            public readonly System.IntPtr EnumerateChildren;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EnumerateChildrenAsync']/*" />
-            public System.IntPtr EnumerateChildrenAsync;
+            public readonly System.IntPtr EnumerateChildrenAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EnumerateChildrenFinish']/*" />
-            public System.IntPtr EnumerateChildrenFinish;
+            public readonly System.IntPtr EnumerateChildrenFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfo']/*" />
-            public System.IntPtr QueryInfo;
+            public readonly System.IntPtr QueryInfo;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoAsync']/*" />
-            public System.IntPtr QueryInfoAsync;
+            public readonly System.IntPtr QueryInfoAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoFinish']/*" />
-            public System.IntPtr QueryInfoFinish;
+            public readonly System.IntPtr QueryInfoFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryFilesystemInfo']/*" />
-            public System.IntPtr QueryFilesystemInfo;
+            public readonly System.IntPtr QueryFilesystemInfo;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryFilesystemInfoAsync']/*" />
-            public System.IntPtr QueryFilesystemInfoAsync;
+            public readonly System.IntPtr QueryFilesystemInfoAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryFilesystemInfoFinish']/*" />
-            public System.IntPtr QueryFilesystemInfoFinish;
+            public readonly System.IntPtr QueryFilesystemInfoFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.FindEnclosingMount']/*" />
-            public System.IntPtr FindEnclosingMount;
+            public readonly System.IntPtr FindEnclosingMount;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.FindEnclosingMountAsync']/*" />
-            public System.IntPtr FindEnclosingMountAsync;
+            public readonly System.IntPtr FindEnclosingMountAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.FindEnclosingMountFinish']/*" />
-            public System.IntPtr FindEnclosingMountFinish;
+            public readonly System.IntPtr FindEnclosingMountFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetDisplayName']/*" />
-            public System.IntPtr SetDisplayName;
+            public readonly System.IntPtr SetDisplayName;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetDisplayNameAsync']/*" />
-            public System.IntPtr SetDisplayNameAsync;
+            public readonly System.IntPtr SetDisplayNameAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetDisplayNameFinish']/*" />
-            public System.IntPtr SetDisplayNameFinish;
+            public readonly System.IntPtr SetDisplayNameFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QuerySettableAttributes']/*" />
-            public System.IntPtr QuerySettableAttributes;
+            public readonly System.IntPtr QuerySettableAttributes;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QuerySettableAttributesAsync']/*" />
-            public System.IntPtr QuerySettableAttributesAsync;
+            public readonly System.IntPtr QuerySettableAttributesAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QuerySettableAttributesFinish']/*" />
-            public System.IntPtr QuerySettableAttributesFinish;
+            public readonly System.IntPtr QuerySettableAttributesFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryWritableNamespaces']/*" />
-            public System.IntPtr QueryWritableNamespaces;
+            public readonly System.IntPtr QueryWritableNamespaces;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryWritableNamespacesAsync']/*" />
-            public System.IntPtr QueryWritableNamespacesAsync;
+            public readonly System.IntPtr QueryWritableNamespacesAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryWritableNamespacesFinish']/*" />
-            public System.IntPtr QueryWritableNamespacesFinish;
+            public readonly System.IntPtr QueryWritableNamespacesFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetAttribute']/*" />
-            public System.IntPtr SetAttribute;
+            public readonly System.IntPtr SetAttribute;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetAttributesFromInfo']/*" />
-            public System.IntPtr SetAttributesFromInfo;
+            public readonly System.IntPtr SetAttributesFromInfo;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetAttributesAsync']/*" />
-            public System.IntPtr SetAttributesAsync;
+            public readonly System.IntPtr SetAttributesAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SetAttributesFinish']/*" />
-            public System.IntPtr SetAttributesFinish;
+            public readonly System.IntPtr SetAttributesFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadFn']/*" />
-            public System.IntPtr ReadFn;
+            public readonly System.IntPtr ReadFn;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadAsync']/*" />
-            public System.IntPtr ReadAsync;
+            public readonly System.IntPtr ReadAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReadFinish']/*" />
-            public System.IntPtr ReadFinish;
+            public readonly System.IntPtr ReadFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.AppendTo']/*" />
-            public System.IntPtr AppendTo;
+            public readonly System.IntPtr AppendTo;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.AppendToAsync']/*" />
-            public System.IntPtr AppendToAsync;
+            public readonly System.IntPtr AppendToAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.AppendToFinish']/*" />
-            public System.IntPtr AppendToFinish;
+            public readonly System.IntPtr AppendToFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Create']/*" />
-            public System.IntPtr Create;
+            public readonly System.IntPtr Create;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateAsync']/*" />
-            public System.IntPtr CreateAsync;
+            public readonly System.IntPtr CreateAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateFinish']/*" />
-            public System.IntPtr CreateFinish;
+            public readonly System.IntPtr CreateFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Replace']/*" />
-            public System.IntPtr Replace;
+            public readonly System.IntPtr Replace;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceAsync']/*" />
-            public System.IntPtr ReplaceAsync;
+            public readonly System.IntPtr ReplaceAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceFinish']/*" />
-            public System.IntPtr ReplaceFinish;
+            public readonly System.IntPtr ReplaceFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.DeleteFile']/*" />
-            public System.IntPtr DeleteFile;
+            public readonly System.IntPtr DeleteFile;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.DeleteFileAsync']/*" />
-            public System.IntPtr DeleteFileAsync;
+            public readonly System.IntPtr DeleteFileAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.DeleteFileFinish']/*" />
-            public System.IntPtr DeleteFileFinish;
+            public readonly System.IntPtr DeleteFileFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Trash']/*" />
-            public System.IntPtr Trash;
+            public readonly System.IntPtr Trash;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.TrashAsync']/*" />
-            public System.IntPtr TrashAsync;
+            public readonly System.IntPtr TrashAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.TrashFinish']/*" />
-            public System.IntPtr TrashFinish;
+            public readonly System.IntPtr TrashFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeDirectory']/*" />
-            public System.IntPtr MakeDirectory;
+            public readonly System.IntPtr MakeDirectory;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeDirectoryAsync']/*" />
-            public System.IntPtr MakeDirectoryAsync;
+            public readonly System.IntPtr MakeDirectoryAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeDirectoryFinish']/*" />
-            public System.IntPtr MakeDirectoryFinish;
+            public readonly System.IntPtr MakeDirectoryFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeSymbolicLink']/*" />
-            public System.IntPtr MakeSymbolicLink;
+            public readonly System.IntPtr MakeSymbolicLink;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeSymbolicLinkAsync']/*" />
-            public System.IntPtr MakeSymbolicLinkAsync;
+            public readonly System.IntPtr MakeSymbolicLinkAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MakeSymbolicLinkFinish']/*" />
-            public System.IntPtr MakeSymbolicLinkFinish;
+            public readonly System.IntPtr MakeSymbolicLinkFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Copy']/*" />
-            public System.IntPtr Copy;
+            public readonly System.IntPtr Copy;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CopyAsync']/*" />
-            public System.IntPtr CopyAsync;
+            public readonly System.IntPtr CopyAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CopyFinish']/*" />
-            public System.IntPtr CopyFinish;
+            public readonly System.IntPtr CopyFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Move']/*" />
-            public System.IntPtr Move;
+            public readonly System.IntPtr Move;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MoveAsync']/*" />
-            public System.IntPtr MoveAsync;
+            public readonly System.IntPtr MoveAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MoveFinish']/*" />
-            public System.IntPtr MoveFinish;
+            public readonly System.IntPtr MoveFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MountMountable']/*" />
-            public System.IntPtr MountMountable;
+            public readonly System.IntPtr MountMountable;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MountMountableFinish']/*" />
-            public System.IntPtr MountMountableFinish;
+            public readonly System.IntPtr MountMountableFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.UnmountMountable']/*" />
-            public System.IntPtr UnmountMountable;
+            public readonly System.IntPtr UnmountMountable;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.UnmountMountableFinish']/*" />
-            public System.IntPtr UnmountMountableFinish;
+            public readonly System.IntPtr UnmountMountableFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EjectMountable']/*" />
-            public System.IntPtr EjectMountable;
+            public readonly System.IntPtr EjectMountable;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EjectMountableFinish']/*" />
-            public System.IntPtr EjectMountableFinish;
+            public readonly System.IntPtr EjectMountableFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MountEnclosingVolume']/*" />
-            public System.IntPtr MountEnclosingVolume;
+            public readonly System.IntPtr MountEnclosingVolume;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MountEnclosingVolumeFinish']/*" />
-            public System.IntPtr MountEnclosingVolumeFinish;
+            public readonly System.IntPtr MountEnclosingVolumeFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MonitorDir']/*" />
-            public System.IntPtr MonitorDir;
+            public readonly System.IntPtr MonitorDir;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MonitorFile']/*" />
-            public System.IntPtr MonitorFile;
+            public readonly System.IntPtr MonitorFile;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.OpenReadwrite']/*" />
-            public System.IntPtr OpenReadwrite;
+            public readonly System.IntPtr OpenReadwrite;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.OpenReadwriteAsync']/*" />
-            public System.IntPtr OpenReadwriteAsync;
+            public readonly System.IntPtr OpenReadwriteAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.OpenReadwriteFinish']/*" />
-            public System.IntPtr OpenReadwriteFinish;
+            public readonly System.IntPtr OpenReadwriteFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateReadwrite']/*" />
-            public System.IntPtr CreateReadwrite;
+            public readonly System.IntPtr CreateReadwrite;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateReadwriteAsync']/*" />
-            public System.IntPtr CreateReadwriteAsync;
+            public readonly System.IntPtr CreateReadwriteAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CreateReadwriteFinish']/*" />
-            public System.IntPtr CreateReadwriteFinish;
+            public readonly System.IntPtr CreateReadwriteFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceReadwrite']/*" />
-            public System.IntPtr ReplaceReadwrite;
+            public readonly System.IntPtr ReplaceReadwrite;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceReadwriteAsync']/*" />
-            public System.IntPtr ReplaceReadwriteAsync;
+            public readonly System.IntPtr ReplaceReadwriteAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ReplaceReadwriteFinish']/*" />
-            public System.IntPtr ReplaceReadwriteFinish;
+            public readonly System.IntPtr ReplaceReadwriteFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.StartMountable']/*" />
-            public System.IntPtr StartMountable;
+            public readonly System.IntPtr StartMountable;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.StartMountableFinish']/*" />
-            public System.IntPtr StartMountableFinish;
+            public readonly System.IntPtr StartMountableFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.StopMountable']/*" />
-            public System.IntPtr StopMountable;
+            public readonly System.IntPtr StopMountable;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.StopMountableFinish']/*" />
-            public System.IntPtr StopMountableFinish;
+            public readonly System.IntPtr StopMountableFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.SupportsThreadContexts']/*" />
-            public GISharp.Runtime.Boolean SupportsThreadContexts;
+            public readonly GISharp.Runtime.Boolean SupportsThreadContexts;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.UnmountMountableWithOperation']/*" />
-            public System.IntPtr UnmountMountableWithOperation;
+            public readonly System.IntPtr UnmountMountableWithOperation;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.UnmountMountableWithOperationFinish']/*" />
-            public System.IntPtr UnmountMountableWithOperationFinish;
+            public readonly System.IntPtr UnmountMountableWithOperationFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EjectMountableWithOperation']/*" />
-            public System.IntPtr EjectMountableWithOperation;
+            public readonly System.IntPtr EjectMountableWithOperation;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.EjectMountableWithOperationFinish']/*" />
-            public System.IntPtr EjectMountableWithOperationFinish;
+            public readonly System.IntPtr EjectMountableWithOperationFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.PollMountable']/*" />
-            public System.IntPtr PollMountable;
+            public readonly System.IntPtr PollMountable;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.PollMountableFinish']/*" />
-            public System.IntPtr PollMountableFinish;
+            public readonly System.IntPtr PollMountableFinish;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MeasureDiskUsage']/*" />
-            public System.IntPtr MeasureDiskUsage;
+            public readonly System.IntPtr MeasureDiskUsage;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MeasureDiskUsageAsync']/*" />
-            public System.IntPtr MeasureDiskUsageAsync;
+            public readonly System.IntPtr MeasureDiskUsageAsync;
 
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.MeasureDiskUsageFinish']/*" />
-            public System.IntPtr MeasureDiskUsageFinish;
-#pragma warning restore CS0649
+            public readonly System.IntPtr MeasureDiskUsageFinish;
+#pragma warning restore CS0169, CS0649
         }
 
         static FileIface()

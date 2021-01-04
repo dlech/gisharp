@@ -11,22 +11,22 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
+            private readonly GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
             /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.PrintLiteral']/*" />
-            public System.IntPtr PrintLiteral;
+            public readonly System.IntPtr PrintLiteral;
 
             /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.PrinterrLiteral']/*" />
-            public System.IntPtr PrinterrLiteral;
+            public readonly System.IntPtr PrinterrLiteral;
 
             /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetStdin']/*" />
-            public System.IntPtr GetStdin;
+            public readonly System.IntPtr GetStdin;
 
             /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding']/*" />
-            public System.IntPtr* Padding;
-#pragma warning restore CS0649
+            private fixed System.Int64 Padding[11];
+#pragma warning restore CS0169, CS0649
         }
 
         static ApplicationCommandLineClass()

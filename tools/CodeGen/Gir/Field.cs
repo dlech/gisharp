@@ -1,6 +1,4 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
 
 namespace GISharp.CodeGen.Gir
@@ -10,17 +8,17 @@ namespace GISharp.CodeGen.Gir
         /// <summary>
         /// Gets if the field is readable
         /// </summary>
-        public bool Readable { get; }
+        public bool IsReadable { get; }
 
         /// <summary>
         /// Gets if the field is writeable
         /// </summary>
-        public bool Writeable { get; }
+        public bool IsWriteable { get; }
 
         /// <summary>
         /// Gets if the field is private
         /// </summary>
-        public bool Private { get; }
+        public bool IsPrivate { get; }
 
         /// <summary>
         /// Gets the type of the field
@@ -40,9 +38,9 @@ namespace GISharp.CodeGen.Gir
                 throw new ArgumentException("Requrires <field> element", nameof(element));
             }
 
-            Readable = Element.Attribute("readable").AsBool(true);
-            Writeable = Element.Attribute("writeable").AsBool(false);
-            Private = Element.Attribute("private").AsBool(false);
+            IsReadable = Element.Attribute("readable").AsBool(true);
+            IsWriteable = Element.Attribute("writeable").AsBool(false);
+            IsPrivate = Element.Attribute("private").AsBool(false);
             _Type = new(LazyGetType, false);
             _Callback = new(LazyGetCallback, false);
         }

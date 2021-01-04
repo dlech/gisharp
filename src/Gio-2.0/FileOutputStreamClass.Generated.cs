@@ -10,52 +10,52 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
-            public GISharp.Lib.Gio.OutputStreamClass.UnmanagedStruct ParentClass;
+            public readonly GISharp.Lib.Gio.OutputStreamClass.UnmanagedStruct ParentClass;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Tell']/*" />
-            public System.IntPtr Tell;
+            public readonly System.IntPtr Tell;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanSeek']/*" />
-            public System.IntPtr CanSeek;
+            public readonly System.IntPtr CanSeek;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Seek']/*" />
-            public System.IntPtr Seek;
+            public readonly System.IntPtr Seek;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanTruncate']/*" />
-            public System.IntPtr CanTruncate;
+            public readonly System.IntPtr CanTruncate;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.TruncateFn']/*" />
-            public System.IntPtr TruncateFn;
+            public readonly System.IntPtr TruncateFn;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfo']/*" />
-            public System.IntPtr QueryInfo;
+            public readonly System.IntPtr QueryInfo;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoAsync']/*" />
-            public System.IntPtr QueryInfoAsync;
+            public readonly System.IntPtr QueryInfoAsync;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoFinish']/*" />
-            public System.IntPtr QueryInfoFinish;
+            public readonly System.IntPtr QueryInfoFinish;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetEtag']/*" />
-            public System.IntPtr GetEtag;
+            public readonly System.IntPtr GetEtag;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
-            public System.IntPtr GReserved1;
+            public readonly System.IntPtr GReserved1;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved2']/*" />
-            public System.IntPtr GReserved2;
+            public readonly System.IntPtr GReserved2;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved3']/*" />
-            public System.IntPtr GReserved3;
+            public readonly System.IntPtr GReserved3;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
-            public System.IntPtr GReserved4;
+            public readonly System.IntPtr GReserved4;
 
             /// <include file="FileOutputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
-            public System.IntPtr GReserved5;
-#pragma warning restore CS0649
+            public readonly System.IntPtr GReserved5;
+#pragma warning restore CS0169, CS0649
         }
 
         static FileOutputStreamClass()

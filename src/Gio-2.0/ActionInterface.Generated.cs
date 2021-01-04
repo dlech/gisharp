@@ -11,34 +11,34 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
+            public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetName']/*" />
-            public System.IntPtr GetName;
+            public readonly System.IntPtr GetName;
 
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetParameterType']/*" />
-            public System.IntPtr GetParameterType;
+            public readonly System.IntPtr GetParameterType;
 
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetStateType']/*" />
-            public System.IntPtr GetStateType;
+            public readonly System.IntPtr GetStateType;
 
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetStateHint']/*" />
-            public System.IntPtr GetStateHint;
+            public readonly System.IntPtr GetStateHint;
 
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetEnabled']/*" />
-            public System.IntPtr GetEnabled;
+            public readonly System.IntPtr GetEnabled;
 
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetState']/*" />
-            public System.IntPtr GetState;
+            public readonly System.IntPtr GetState;
 
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ChangeState']/*" />
-            public System.IntPtr ChangeState;
+            public readonly System.IntPtr ChangeState;
 
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Activate']/*" />
-            public System.IntPtr Activate;
-#pragma warning restore CS0649
+            public readonly System.IntPtr Activate;
+#pragma warning restore CS0169, CS0649
         }
 
         static ActionInterface()

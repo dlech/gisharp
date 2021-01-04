@@ -10,25 +10,25 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
+            public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Hash']/*" />
-            public System.IntPtr Hash;
+            public readonly System.IntPtr Hash;
 
             /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Equal']/*" />
-            public System.IntPtr Equal;
+            public readonly System.IntPtr Equal;
 
             /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ToTokens']/*" />
-            public System.IntPtr ToTokens;
+            public readonly System.IntPtr ToTokens;
 
             /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.FromTokens']/*" />
-            public System.IntPtr FromTokens;
+            public readonly System.IntPtr FromTokens;
 
             /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Serialize']/*" />
-            public System.IntPtr Serialize;
-#pragma warning restore CS0649
+            public readonly System.IntPtr Serialize;
+#pragma warning restore CS0169, CS0649
         }
 
         static IconIface()

@@ -11,19 +11,19 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
+            public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.LookupAction']/*" />
-            public System.IntPtr LookupAction;
+            public readonly System.IntPtr LookupAction;
 
             /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.AddAction']/*" />
-            public System.IntPtr AddAction;
+            public readonly System.IntPtr AddAction;
 
             /// <include file="ActionMapInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.RemoveAction']/*" />
-            public System.IntPtr RemoveAction;
-#pragma warning restore CS0649
+            public readonly System.IntPtr RemoveAction;
+#pragma warning restore CS0169, CS0649
         }
 
         static ActionMapInterface()

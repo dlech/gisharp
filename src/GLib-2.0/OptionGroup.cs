@@ -1,6 +1,5 @@
 
 using System;
-using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -92,10 +91,9 @@ namespace GISharp.Lib.GLib
 
         unsafe void AddEntry(OptionEntry entry)
         {
-            using (var array = new Array<OptionEntry>(true, false, 1) { entry }) {
-                ref readonly var entries_ = ref MemoryMarshal.GetReference(array.Data);
-                g_option_group_add_entries(Handle, entries_);
-            }
+            using var array = new Array<OptionEntry>(true, false, 1) { entry };
+            ref readonly var entries_ = ref MemoryMarshal.GetReference(array.Data);
+            g_option_group_add_entries(Handle, entries_);
         }
 
         /// <summary>
@@ -115,15 +113,15 @@ namespace GISharp.Lib.GLib
                 callback(arg);
             });
 
-            AddEntry(new OptionEntry {
-                LongName = longName_,
-                ShortName = (sbyte)shortName,
-                Flags = (int)flags,
-                Arg = OptionArg.None,
-                ArgData = arg_,
-                Description = description_,
-                ArgDescription = IntPtr.Zero
-            });
+            AddEntry(new OptionEntry(
+                longName_,
+                shortName,
+                flags,
+                OptionArg.None,
+                arg_,
+                description_,
+                IntPtr.Zero
+            ));
         }
 
         /// <summary>
@@ -145,15 +143,15 @@ namespace GISharp.Lib.GLib
                 callback(str);
             });
 
-            AddEntry(new OptionEntry {
-                LongName = longName_,
-                ShortName = (sbyte)shortName,
-                Flags = (int)flags,
-                Arg = OptionArg.String,
-                ArgData = arg_,
-                Description = description_,
-                ArgDescription = argDescription_
-            });
+            AddEntry(new OptionEntry(
+                longName_,
+                shortName,
+                flags,
+                OptionArg.String,
+                arg_,
+                description_,
+                argDescription_
+            ));
         }
 
         /// <summary>
@@ -175,15 +173,15 @@ namespace GISharp.Lib.GLib
                 callback(arg);
             });
 
-            AddEntry(new OptionEntry {
-                LongName = longName_,
-                ShortName = (sbyte)shortName,
-                Flags = (int)flags,
-                Arg = OptionArg.Int,
-                ArgData = arg_,
-                Description = description_,
-                ArgDescription = argDescription_
-            });
+            AddEntry(new OptionEntry(
+                longName_,
+                shortName,
+                flags,
+                OptionArg.Int,
+                arg_,
+                description_,
+                argDescription_
+            ));
         }
 
         /// <summary>
@@ -206,15 +204,15 @@ namespace GISharp.Lib.GLib
                 callback(filename);
             });
 
-            AddEntry(new OptionEntry {
-                LongName = longName_,
-                ShortName = (sbyte)shortName,
-                Flags = (int)flags,
-                Arg = OptionArg.Filename,
-                ArgData = arg_,
-                Description = description_,
-                ArgDescription = argDescription_
-            });
+            AddEntry(new OptionEntry(
+                longName_,
+                shortName,
+                flags,
+                OptionArg.Filename,
+                arg_,
+                description_,
+                argDescription_
+            ));
         }
 
         /// <summary>
@@ -237,15 +235,15 @@ namespace GISharp.Lib.GLib
                 callback(strv);
             });
 
-            AddEntry(new OptionEntry {
-                LongName = longName_,
-                ShortName = (sbyte)shortName,
-                Flags = (int)flags,
-                Arg = OptionArg.StringArray,
-                ArgData = arg_,
-                Description = description_,
-                ArgDescription = argDescription_
-            });
+            AddEntry(new OptionEntry(
+                longName_,
+                shortName,
+                flags,
+                OptionArg.StringArray,
+                arg_,
+                description_,
+                argDescription_
+            ));
         }
 
         /// <summary>
@@ -268,15 +266,15 @@ namespace GISharp.Lib.GLib
                 callback(strv);
             });
 
-            AddEntry(new OptionEntry {
-                LongName = longName_,
-                ShortName = (sbyte)shortName,
-                Flags = (int)flags,
-                Arg = OptionArg.FilenameArray,
-                ArgData = arg_,
-                Description = description_,
-                ArgDescription = argDescription_
-            });
+            AddEntry(new OptionEntry(
+                longName_,
+                shortName,
+                flags,
+                OptionArg.FilenameArray,
+                arg_,
+                description_,
+                argDescription_
+            ));
         }
 
         /// <summary>
@@ -298,15 +296,15 @@ namespace GISharp.Lib.GLib
                 callback(arg);
             });
 
-            AddEntry(new OptionEntry {
-                LongName = longName_,
-                ShortName = (sbyte)shortName,
-                Flags = (int)flags,
-                Arg = OptionArg.Double,
-                ArgData = arg_,
-                Description = description_,
-                ArgDescription = argDescription_
-            });
+            AddEntry(new OptionEntry(
+                longName_,
+                shortName,
+                flags,
+                OptionArg.Double,
+                arg_,
+                description_,
+                argDescription_
+            ));
         }
 
         /// <summary>
@@ -324,15 +322,15 @@ namespace GISharp.Lib.GLib
             var (callback_, destroy_, data_) = OptionArgFuncMarshal.ToUnmanagedFunctionPointer(callback, CallbackScope.Notified);
             userData.DestroyCallbacks.Add((destroy_, data_));
 
-            AddEntry(new OptionEntry {
-                LongName = longName_,
-                ShortName = (sbyte)shortName,
-                Flags = (int)flags,
-                Arg = OptionArg.Callback,
-                ArgData = callback_,
-                Description = description_,
-                ArgDescription = argDescription_
-            });
+            AddEntry(new OptionEntry(
+                longName_,
+                shortName,
+                flags,
+                OptionArg.Callback,
+                callback_,
+                description_,
+                argDescription_
+            ));
         }
 
         static readonly UnmanagedDestroyNotify DestroyUserDataDelegate = DestroyUserData;

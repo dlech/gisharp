@@ -10,43 +10,43 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
-            public GISharp.Lib.Gio.InputStreamClass.UnmanagedStruct ParentClass;
+            public readonly GISharp.Lib.Gio.InputStreamClass.UnmanagedStruct ParentClass;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Tell']/*" />
-            public System.IntPtr Tell;
+            public readonly System.IntPtr Tell;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanSeek']/*" />
-            public System.IntPtr CanSeek;
+            public readonly System.IntPtr CanSeek;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Seek']/*" />
-            public System.IntPtr Seek;
+            public readonly System.IntPtr Seek;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfo']/*" />
-            public System.IntPtr QueryInfo;
+            public readonly System.IntPtr QueryInfo;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoAsync']/*" />
-            public System.IntPtr QueryInfoAsync;
+            public readonly System.IntPtr QueryInfoAsync;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryInfoFinish']/*" />
-            public System.IntPtr QueryInfoFinish;
+            public readonly System.IntPtr QueryInfoFinish;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
-            public System.IntPtr GReserved1;
+            public readonly System.IntPtr GReserved1;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved2']/*" />
-            public System.IntPtr GReserved2;
+            public readonly System.IntPtr GReserved2;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved3']/*" />
-            public System.IntPtr GReserved3;
+            public readonly System.IntPtr GReserved3;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
-            public System.IntPtr GReserved4;
+            public readonly System.IntPtr GReserved4;
 
             /// <include file="FileInputStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
-            public System.IntPtr GReserved5;
-#pragma warning restore CS0649
+            public readonly System.IntPtr GReserved5;
+#pragma warning restore CS0169, CS0649
         }
 
         static FileInputStreamClass()

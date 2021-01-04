@@ -13,13 +13,13 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='UnmanagedStruct.Infos']/*" />
-            public GISharp.Lib.Gio.FileAttributeInfo* Infos;
+            public readonly GISharp.Lib.Gio.FileAttributeInfo* Infos;
 
             /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='UnmanagedStruct.NInfos']/*" />
-            public System.Int32 NInfos;
-#pragma warning restore CS0649
+            public readonly System.Int32 NInfos;
+#pragma warning restore CS0169, CS0649
         }
 
         /// <summary>

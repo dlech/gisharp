@@ -10,19 +10,19 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
+            public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetUserData']/*" />
-            public System.IntPtr GetUserData;
+            public readonly System.IntPtr GetUserData;
 
             /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetSourceObject']/*" />
-            public System.IntPtr GetSourceObject;
+            public readonly System.IntPtr GetSourceObject;
 
             /// <include file="AsyncResultIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.IsTagged']/*" />
-            public System.IntPtr IsTagged;
-#pragma warning restore CS0649
+            public readonly System.IntPtr IsTagged;
+#pragma warning restore CS0169, CS0649
         }
 
         static AsyncResultIface()

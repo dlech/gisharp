@@ -11,52 +11,52 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
+            public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.HasAction']/*" />
-            public System.IntPtr HasAction;
+            public readonly System.IntPtr HasAction;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ListActions']/*" />
-            public System.IntPtr ListActions;
+            public readonly System.IntPtr ListActions;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionEnabled']/*" />
-            public System.IntPtr GetActionEnabled;
+            public readonly System.IntPtr GetActionEnabled;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionParameterType']/*" />
-            public System.IntPtr GetActionParameterType;
+            public readonly System.IntPtr GetActionParameterType;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionStateType']/*" />
-            public System.IntPtr GetActionStateType;
+            public readonly System.IntPtr GetActionStateType;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionStateHint']/*" />
-            public System.IntPtr GetActionStateHint;
+            public readonly System.IntPtr GetActionStateHint;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetActionState']/*" />
-            public System.IntPtr GetActionState;
+            public readonly System.IntPtr GetActionState;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ChangeActionState']/*" />
-            public System.IntPtr ChangeActionState;
+            public readonly System.IntPtr ChangeActionState;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActivateAction']/*" />
-            public System.IntPtr ActivateAction;
+            public readonly System.IntPtr ActivateAction;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionAdded']/*" />
-            public System.IntPtr ActionAdded;
+            public readonly System.IntPtr ActionAdded;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionRemoved']/*" />
-            public System.IntPtr ActionRemoved;
+            public readonly System.IntPtr ActionRemoved;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionEnabledChanged']/*" />
-            public System.IntPtr ActionEnabledChanged;
+            public readonly System.IntPtr ActionEnabledChanged;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.ActionStateChanged']/*" />
-            public System.IntPtr ActionStateChanged;
+            public readonly System.IntPtr ActionStateChanged;
 
             /// <include file="ActionGroupInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.QueryAction']/*" />
-            public System.IntPtr QueryAction;
-#pragma warning restore CS0649
+            public readonly System.IntPtr QueryAction;
+#pragma warning restore CS0169, CS0649
         }
 
         static ActionGroupInterface()

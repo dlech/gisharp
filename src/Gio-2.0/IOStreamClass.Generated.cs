@@ -10,55 +10,55 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
-            public GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
+            public readonly GISharp.Lib.GObject.ObjectClass.UnmanagedStruct ParentClass;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetInputStream']/*" />
-            public System.IntPtr GetInputStream;
+            public readonly System.IntPtr GetInputStream;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GetOutputStream']/*" />
-            public System.IntPtr GetOutputStream;
+            public readonly System.IntPtr GetOutputStream;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFn']/*" />
-            public System.IntPtr CloseFn;
+            public readonly System.IntPtr CloseFn;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseAsync']/*" />
-            public System.IntPtr CloseAsync;
+            public readonly System.IntPtr CloseAsync;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.CloseFinish']/*" />
-            public System.IntPtr CloseFinish;
+            public readonly System.IntPtr CloseFinish;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved1']/*" />
-            public System.IntPtr GReserved1;
+            public readonly System.IntPtr GReserved1;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved2']/*" />
-            public System.IntPtr GReserved2;
+            public readonly System.IntPtr GReserved2;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved3']/*" />
-            public System.IntPtr GReserved3;
+            public readonly System.IntPtr GReserved3;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved4']/*" />
-            public System.IntPtr GReserved4;
+            public readonly System.IntPtr GReserved4;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved5']/*" />
-            public System.IntPtr GReserved5;
+            public readonly System.IntPtr GReserved5;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved6']/*" />
-            public System.IntPtr GReserved6;
+            public readonly System.IntPtr GReserved6;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved7']/*" />
-            public System.IntPtr GReserved7;
+            public readonly System.IntPtr GReserved7;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved8']/*" />
-            public System.IntPtr GReserved8;
+            public readonly System.IntPtr GReserved8;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved9']/*" />
-            public System.IntPtr GReserved9;
+            public readonly System.IntPtr GReserved9;
 
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.GReserved10']/*" />
-            public System.IntPtr GReserved10;
-#pragma warning restore CS0649
+            public readonly System.IntPtr GReserved10;
+#pragma warning restore CS0169, CS0649
         }
 
         static IOStreamClass()

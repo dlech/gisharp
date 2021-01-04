@@ -22,7 +22,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var identifier = record.ManagedName;
             return StructDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
                 .WithLeadingTrivia(record.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
@@ -34,7 +34,7 @@ namespace GISharp.CodeGen.Syntax
         {
             return List<MemberDeclarationSyntax>()
                 .AddRange(record.Constants.GetMemberDeclarations())
-                .AddRange(record.Fields.GetStructDeclaration().Members)
+                .AddRange(record.Fields.GetStructDeclaration(forUnmanagedStruct: false).Members)
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
                 .AddRange(record.Functions.GetMemberDeclarations())
                 .AddRange(record.Methods.GetMemberDeclarations());

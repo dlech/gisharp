@@ -15,13 +15,13 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentInstance']/*" />
-            public GISharp.Lib.Gio.IOStream.UnmanagedStruct ParentInstance;
+            public readonly GISharp.Lib.Gio.IOStream.UnmanagedStruct ParentInstance;
 
             /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='UnmanagedStruct.Priv']/*" />
-            public System.IntPtr Priv;
-#pragma warning restore CS0649
+            private readonly System.IntPtr Priv;
+#pragma warning restore CS0169, CS0649
         }
 
         /// <include file="FileIOStream.xmldoc" path="declaration/member[@name='FileIOStream.Etag']/*" />

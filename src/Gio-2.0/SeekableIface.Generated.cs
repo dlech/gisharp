@@ -10,25 +10,25 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
             /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
-            public GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
+            public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct GIface;
 
             /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Tell']/*" />
-            public System.IntPtr Tell;
+            public readonly System.IntPtr Tell;
 
             /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanSeek']/*" />
-            public System.IntPtr CanSeek;
+            public readonly System.IntPtr CanSeek;
 
             /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.Seek']/*" />
-            public System.IntPtr Seek;
+            public readonly System.IntPtr Seek;
 
             /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.CanTruncate']/*" />
-            public System.IntPtr CanTruncate;
+            public readonly System.IntPtr CanTruncate;
 
             /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.TruncateFn']/*" />
-            public System.IntPtr TruncateFn;
-#pragma warning restore CS0649
+            public readonly System.IntPtr TruncateFn;
+#pragma warning restore CS0169, CS0649
         }
 
         static SeekableIface()

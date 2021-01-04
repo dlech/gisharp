@@ -3,14 +3,14 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector']/*" />
-    public partial struct OutputVector
+    public unsafe partial struct OutputVector
     {
-#pragma warning disable CS0649
+#pragma warning disable CS0169, CS0649
         /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector.Buffer']/*" />
-        public System.IntPtr Buffer;
+        public readonly System.IntPtr Buffer;
 
         /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector.Size']/*" />
-        public System.UIntPtr Size;
-#pragma warning restore CS0649
+        public readonly System.UIntPtr Size;
+#pragma warning restore CS0169, CS0649
     }
 }
