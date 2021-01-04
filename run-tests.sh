@@ -7,8 +7,13 @@ export DYLD_LIBRARY_PATH=/System/Library/Frameworks/ImageIO.framework/Versions/A
 
 export GenerateFullPaths=true
 
-dotnet test --blame test/Test.Core/
-dotnet test --blame test/Test.GIRepository-2.0/
-dotnet test --blame test/Test.GLib-2.0/
-dotnet test --blame test/Test.Gio-2.0/
-dotnet test --blame test/Test.Gtk-4.0/
+if [ $# -gt 0 ]; then
+    projects="$@"
+else
+    # order matters - dependencies first
+    projects="Core GIRepository-2.0 GLib-2.0 Gio-2.0 Gtk-4.0"
+fi
+
+for p in $projects; do
+    dotnet test --blame test/Test.$p/
+done
