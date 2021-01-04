@@ -680,7 +680,9 @@ namespace GISharp.CodeGen
                    && d.Element(gi + "parameters").Elements(gi + "parameter").Count() == 1);
             foreach (var element in elementsWithCompareFunction) {
                 element.SetAttributeValue(gs + "special-func", "compare");
-                element.SetAttributeValue(gs + "managed-name", "CompareTo");
+                // convert to function
+                element.Name = gi + "function";
+                element.Element(gi + "parameters").Element(gi + "instance-parameter").Name = gi + "parameter";
             }
 
             // flag hash methods

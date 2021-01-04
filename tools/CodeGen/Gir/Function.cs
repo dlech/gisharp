@@ -9,6 +9,11 @@ namespace GISharp.CodeGen.Gir
     public sealed class Function : GIFunction
     {
         /// <summary>
+        /// Tests if this function is a compare function
+        /// </summary>
+        public bool IsCompare => Element.Attribute(gs + "special-func").AsString() == "compare";
+
+        /// <summary>
         /// Gets the async function that this function finishes, if any
         /// </summary>
         public GIFunction FinishForFunction => _FinishForFunction.Value;

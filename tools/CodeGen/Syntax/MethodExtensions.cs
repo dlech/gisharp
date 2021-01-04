@@ -175,12 +175,6 @@ namespace GISharp.CodeGen.Syntax
                     typeName = string.Format("{0}<{1}>", typeName, type.ManagedName);
                     list = list.Add(SimpleBaseType(ParseTypeName(typeName)));
                 }
-                if (method.IsCompare) {
-                    // if we have an Compare method, then we implement the IComparable<T> interface
-                    var typeName = string.Concat(typeof(IComparable<>).FullName.TakeWhile(x => x != '`'));
-                    typeName = string.Format("{0}<{1}>", typeName, type.ManagedName);
-                    list = list.Add(SimpleBaseType(ParseTypeName(typeName)));
-                }
             }
             return list;
         }

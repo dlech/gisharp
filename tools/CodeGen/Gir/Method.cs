@@ -44,11 +44,6 @@ namespace GISharp.CodeGen.Gir
         public bool IsEqual { get; }
 
         /// <summary>
-        /// Tests if this method is a compare method
-        /// </summary>
-        public bool IsCompare => Element.Attribute(gs + "special-func").AsString() == "compare";
-
-        /// <summary>
         /// Indicates that this method is a to-string method
         /// </summary>
         public bool IsToString { get; }

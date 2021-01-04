@@ -52,6 +52,7 @@ namespace GISharp.CodeGen.Syntax
             var list = SeparatedList<BaseTypeSyntax>()
                 .Add(SimpleBaseType(@class.ParentType.ToSyntax()))
                 .AddRange(@class.Implements.Select(x => SimpleBaseType(x.ManagedType.ToSyntax())))
+                .AddRange(@class.Functions.GetBaseListTypes())
                 .AddRange(@class.Methods.GetBaseListTypes());
             return BaseList(list);
         }

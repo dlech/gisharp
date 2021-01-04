@@ -2647,15 +2647,15 @@ namespace GISharp.Lib.GLib
         internal static readonly UnmanagedCompareFunc CompareDelegate = g_variant_compare;
 
         /// <summary>
-        /// Compares @one and @two.
+        /// Compares <parmref name="one"/> and <parmref name="two"/>.
         /// </summary>
         /// <remarks>
-        /// The types of @one and @two are #gconstpointer only to allow use of
+        /// The types of <parmref name="one"/> and <parmref name="two"/> are #gconstpointer only to allow use of
         /// this function with #GTree, #GPtrArray, etc.  They must each be a
         /// #GVariant.
         ///
         /// Comparison is only defined for basic types (ie: booleans, numbers,
-        /// strings).  For booleans, %FALSE is less than %TRUE.  Numbers are
+        /// strings).  For booleans, <c>false</c> is less than <c>true</c>.  Numbers are
         /// ordered in the usual way.  Strings are in ASCII lexographical order.
         ///
         /// It is a programmer error to attempt to compare container values or
@@ -2665,31 +2665,38 @@ namespace GISharp.Lib.GLib
         /// well-behaved when it comes to comparison of doubles; in particular,
         /// the handling of incomparable values (ie: NaN) is undefined.
         ///
-        /// If you only require an equality comparison, g_variant_equal() is more
+        /// If you only require an equality comparison, <see cref="Equal"/> is more
         /// general.
         /// </remarks>
-        /// <param name="other">
-        /// a #GVariant instance of the same type
+        /// <param name="one">
+        /// a basic-typed <see cref="Variant"/> instance
+        /// </param>
+        /// <param name="two">
+        /// a <see cref="Variant"/> instance of the same type
         /// </param>
         /// <returns>
-        /// negative value if a &lt; b;
-        ///          zero if a = b;
-        ///          positive value if a &gt; b.
+        /// negative value if <parmref name="one"/> &lt; <parmref name="two"/>;
+        ///          zero if <parmref name="one"/> = <parmref name="two"/>;
+        ///          positive value if <parmref name="one"/> &gt; <parmref name="two"/>.
         /// </returns>
         [Since("2.26")]
-        public int CompareTo(Variant? other)
+        public static int Compare(Variant one, Variant two)
         {
-            if (other is null) {
-                return 1;
-            }
-            var this_ = Handle;
-            var other_ = other.Handle;
-            if (Type != other.Type) {
-                var message = $"Variant types must match but have '{Type}' and '{other.Type}'";
+            var one_ = one.Handle;
+            var two_ = two.Handle;
+            if (one.Type != two.Type) {
+                var message = $"Variant types must match but have '{one.Type}' and '{two.Type}'";
                 throw new InvalidOperationException(message);
             }
-            var ret = g_variant_compare(this_, other_);
+            var ret = g_variant_compare(one_, two_);
             return ret;
+        }
+
+        /// <inheritdoc/>
+        /// <seealso cref="Compare"/>
+        public int CompareTo(Variant? other)
+        {
+            return Compare(this, other ?? throw new ArgumentNullException(nameof(other)));
         }
 
         /// <summary>
@@ -2697,7 +2704,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static bool operator >=(Variant one, Variant two)
         {
-            return one.CompareTo(two) >= 0;
+            return Compare(one, two) >= 0;
         }
 
         /// <summary>
@@ -2705,7 +2712,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static bool operator >(Variant one, Variant two)
         {
-            return one.CompareTo(two) > 0;
+            return Compare(one, two) > 0;
         }
 
         /// <summary>
@@ -2713,7 +2720,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static bool operator <(Variant one, Variant two)
         {
-            return one.CompareTo(two) < 0;
+            return Compare(one, two) < 0;
         }
 
         /// <summary>
@@ -2721,7 +2728,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static bool operator <=(Variant one, Variant two)
         {
-            return one.CompareTo(two) <= 0;
+            return Compare(one, two) <= 0;
         }
 
         /// <summary>

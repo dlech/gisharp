@@ -238,24 +238,31 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This function can be used to sort GBytes instances in lexographical order.
         /// </remarks>
-        /// <param name="other">
-        /// a <see cref="Bytes"/> to compare with this
+        /// <param name="bytes1">
+        /// a <see cref="Bytes"/>
+        /// </param>
+        /// <param name="bytes2">
+        /// a <see cref="Bytes"/> to compare with <paramref name="bytes1"/>
         /// </param>
         /// <returns>
-        /// a negative value if <paramref name="other"/> is lesser, a positive
-        /// value if <paramref name="other"/> is
-        /// greater, and zero if <paramref name="other"/> is equal to this
+        /// a negative value if <paramref name="bytes2"/> is lesser, a positive
+        /// value if <paramref name="bytes2"/> is
+        /// greater, and zero if <paramref name="bytes2"/> is equal to <paramref name="bytes1"/>
         /// </returns>
         [Since("2.32")]
+        public static int Compare(Bytes bytes1, Bytes bytes2)
+        {
+            var bytes1_ = bytes1.Handle;
+            var bytes2_ = bytes2.Handle;
+            var ret = g_bytes_compare(bytes1_, bytes2_);
+            return ret;
+        }
+
+        /// <inheritdoc/>
+        /// <seealso cref="Compare"/>
         public int CompareTo(Bytes? other)
         {
-            if (other is null) {
-                return 1;
-            }
-            var this_ = Handle;
-            var other_ = other.Handle;
-            var ret = g_bytes_compare(this_, other_);
-            return ret;
+            return Compare(this, other ?? throw new ArgumentNullException(nameof(other)));
         }
 
         /// <summary>
@@ -263,7 +270,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static bool operator >=(Bytes one, Bytes two)
         {
-            return one.CompareTo(two) >= 0;
+            return Compare(one, two) >= 0;
         }
 
         /// <summary>
@@ -271,7 +278,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static bool operator >(Bytes one, Bytes two)
         {
-            return one.CompareTo(two) > 0;
+            return Compare(one, two) > 0;
         }
 
         /// <summary>
@@ -279,7 +286,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static bool operator <(Bytes one, Bytes two)
         {
-            return one.CompareTo(two) < 0;
+            return Compare(one, two) < 0;
         }
 
         /// <summary>
@@ -287,7 +294,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static bool operator <=(Bytes one, Bytes two)
         {
-            return one.CompareTo(two) <= 0;
+            return Compare(one, two) <= 0;
         }
 
         /// <summary>
