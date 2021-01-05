@@ -311,7 +311,7 @@ System.IntPtr userData);
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(stream_, GISharp.Runtime.Transfer.None)!;
-                        var buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
+                        var buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef<System.Byte>(buffer_), (int)count_);
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);

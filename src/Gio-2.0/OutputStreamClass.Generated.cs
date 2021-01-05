@@ -153,7 +153,7 @@ ref System.IntPtr error);
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
-                        var buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
+                        var buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef<System.Byte>(buffer_), (int)count_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doWriteFn = (WriteFn)methodInfo.CreateDelegate(typeof(WriteFn), stream);
                         var ret = doWriteFn(buffer, cancellable);
@@ -402,7 +402,7 @@ System.IntPtr userData);
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
-                        var buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef(buffer_), (int)count_);
+                        var buffer = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<System.Byte>(ref System.Runtime.CompilerServices.Unsafe.AsRef<System.Byte>(buffer_), (int)count_);
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
@@ -870,7 +870,7 @@ ref System.IntPtr error);
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
-                        var vectors = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<GISharp.Lib.Gio.OutputVector>(ref System.Runtime.CompilerServices.Unsafe.AsRef(vectors_), (int)nVectors_);
+                        var vectors = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<GISharp.Lib.Gio.OutputVector>(ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.Gio.OutputVector>(vectors_), (int)nVectors_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
                         var doWritevFn = (WritevFn)methodInfo.CreateDelegate(typeof(WritevFn), stream);
                         doWritevFn(vectors,out var bytesWritten, cancellable);
@@ -943,7 +943,7 @@ System.IntPtr userData);
                     try
                     {
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>(stream_, GISharp.Runtime.Transfer.None)!;
-                        var vectors = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<GISharp.Lib.Gio.OutputVector>(ref System.Runtime.CompilerServices.Unsafe.AsRef(vectors_), (int)nVectors_);
+                        var vectors = System.Runtime.InteropServices.MemoryMarshal.CreateReadOnlySpan<GISharp.Lib.Gio.OutputVector>(ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.Gio.OutputVector>(vectors_), (int)nVectors_);
                         var ioPriority = (System.Int32)ioPriority_;
                         var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
                         var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);

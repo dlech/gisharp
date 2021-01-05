@@ -234,7 +234,7 @@ namespace GISharp.CodeGen.Syntax
                 if (isSpan) {
                     var create = $"{typeof(MemoryMarshal)}.{nameof(MemoryMarshal.CreateReadOnlySpan)}";
                     var elementType = array.TypeParameters.Single().ManagedType.ToSyntax();
-                    var cast = $"{typeof(Unsafe)}.{nameof(Unsafe.AsRef)}";
+                    var cast = $"{typeof(Unsafe)}.{nameof(Unsafe.AsRef)}<{elementType}>";
                     getter = $"{create}<{elementType}>(ref {cast}({arg.ManagedName}_), {lengthArg})";
                 }
                 expressions.Add(ParseExpression($"{arg.ManagedName} = {getter}"));
