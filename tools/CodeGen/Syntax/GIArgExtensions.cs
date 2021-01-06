@@ -292,7 +292,9 @@ namespace GISharp.CodeGen.Syntax
                 expressions.Add(ParseExpression($"{arg.ManagedName} = {getter}"));
             }
             else {
-                expressions.Add(ParseExpression($"throw new System.NotImplementedException(\"{nameof(GetMarshalUnmanagedToManagedStatements)}\")"));
+                expressions.Add(ParseExpression(
+                    $"throw new System.NotImplementedException(\"{nameof(GetMarshalUnmanagedToManagedStatements)}() for {type}\")"
+                ));
                 declareVariable = false;
             }
 

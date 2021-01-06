@@ -38,14 +38,15 @@ namespace GISharp.CodeGen
         /// GetInterfaces. We get around this by getting the generic type
         /// that it was created from.
         /// </remarks>
-        public static Type[] SafeGetInterfaces (this Type type)
+        public static Type[] SafeGetInterfaces(this Type type)
         {
             try {
-                return type.GetInterfaces ();
-            } catch (NotSupportedException) {
+                return type.GetInterfaces();
+            }
+            catch (NotSupportedException) {
                 if (type.IsGenericType) {
-                    var genericType = type.GetGenericTypeDefinition ();
-                    return genericType.GetInterfaces ();
+                    var genericType = type.GetGenericTypeDefinition();
+                    return genericType.GetInterfaces();
                 }
                 throw;
             }
@@ -61,6 +62,9 @@ namespace GISharp.CodeGen
                 throw new ArgumentNullException(nameof(type));
             }
             try {
+                if (type.IsConstructedGenericType) {
+                    return type.GetGenericTypeDefinition().IsSubclassOf<T>();
+                }
                 return type.IsSubclassOf(typeof(T));
             }
             catch (NotSupportedException) {

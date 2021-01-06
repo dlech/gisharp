@@ -11,9 +11,10 @@ namespace GISharp.CodeGen.Reflection
 {
     sealed class GirVirtualMethodInfo : MethodInfo
     {
-        VirtualMethod method;
+        readonly VirtualMethod method;
 
-        public GirVirtualMethodInfo(VirtualMethod method) {
+        public GirVirtualMethodInfo(VirtualMethod method)
+        {
             this.method = method ?? throw new ArgumentNullException(nameof(method));
         }
 
@@ -42,8 +43,7 @@ namespace GISharp.CodeGen.Reflection
 
         public override RuntimeMethodHandle MethodHandle => throw new NotSupportedException();
 
-        public override System.Type DeclaringType => method.ParentNode switch
-        {
+        public override System.Type DeclaringType => method.ParentNode switch {
             Class @class => new GirClassType(@class),
             Interface @interface => new GirInterfaceType(@interface),
             Record record => new GirRecordType(record),

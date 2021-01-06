@@ -12,52 +12,43 @@ namespace GISharp.CodeGen.Reflection
         internal GirGenericType(GirType type, params Type[] parameters)
         {
             if (type is null) {
-                throw new ArgumentNullException (nameof(type));
+                throw new ArgumentNullException(nameof(type));
             }
             if (parameters is null) {
-                throw new ArgumentNullException (nameof(parameters));
+                throw new ArgumentNullException(nameof(parameters));
             }
             this.type = type;
             this.parameters = parameters;
         }
 
-        public override bool IsGenericType {
-            get {
-                return true;
-            }
-        }
+        public override bool IsGenericType => true;
 
-        public override Type[] GenericTypeArguments {
-            get {
-                return parameters;
-            }
-        }
+        public override bool IsConstructedGenericType => false;
 
-        public override Type GetGenericTypeDefinition ()
-        {
-            return type;
-        }
+        public override Type[] GenericTypeArguments => parameters;
+
+        public override Type GetGenericTypeDefinition() => type;
 
         #region implemented abstract members of MemberInfo
 
-        public override bool IsDefined (Type attributeType, bool inherit)
+        public override bool IsDefined(Type attributeType, bool inherit)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override object[] GetCustomAttributes (bool inherit)
+        public override object[] GetCustomAttributes(bool inherit)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override object[] GetCustomAttributes (Type attributeType, bool inherit)
+        public override object[] GetCustomAttributes(Type attributeType, bool inherit)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
         public override string Name {
             get {
-                return string.Format ("{0}`{1}[{2}]", type.Name, parameters.Length, string.Join (",", parameters.Select (p => p.FullName)));
+                return string.Format("{0}`{1}[{2}]", type.Name, parameters.Length, string.Join(",", parameters.Select(p => p.FullName)));
             }
         }
 
@@ -65,173 +56,123 @@ namespace GISharp.CodeGen.Reflection
 
         #region implemented abstract members of Type
 
-        public override Type GetInterface (string name, bool ignoreCase)
+        public override Type GetInterface(string name, bool ignoreCase)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override Type[] GetInterfaces ()
+        public override Type[] GetInterfaces()
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override Type GetElementType ()
+        public override Type GetElementType()
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override EventInfo GetEvent (string name, BindingFlags bindingAttr)
+        public override EventInfo GetEvent(string name, BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override EventInfo[] GetEvents (BindingFlags bindingAttr)
+        public override EventInfo[] GetEvents(BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override FieldInfo GetField (string name, BindingFlags bindingAttr)
+        public override FieldInfo GetField(string name, BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override FieldInfo[] GetFields (BindingFlags bindingAttr)
+        public override FieldInfo[] GetFields(BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override MemberInfo[] GetMembers (BindingFlags bindingAttr)
+        public override MemberInfo[] GetMembers(BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        protected override MethodInfo GetMethodImpl (string name, BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
+        protected override MethodInfo GetMethodImpl(string name, BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override MethodInfo[] GetMethods (BindingFlags bindingAttr)
+        public override MethodInfo[] GetMethods(BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override Type GetNestedType (string name, BindingFlags bindingAttr)
+        public override Type GetNestedType(string name, BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override Type[] GetNestedTypes (BindingFlags bindingAttr)
+        public override Type[] GetNestedTypes(BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        public override PropertyInfo[] GetProperties (BindingFlags bindingAttr)
+        public override PropertyInfo[] GetProperties(BindingFlags bindingAttr)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        protected override PropertyInfo GetPropertyImpl (string name, BindingFlags bindingAttr, Binder binder, Type returnType, Type[] types, ParameterModifier[] modifiers)
+        protected override PropertyInfo GetPropertyImpl(string name, BindingFlags bindingAttr, Binder binder, Type returnType, Type[] types, ParameterModifier[] modifiers)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        protected override ConstructorInfo GetConstructorImpl (BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
+        protected override ConstructorInfo GetConstructorImpl(BindingFlags bindingAttr, Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        protected override TypeAttributes GetAttributeFlagsImpl ()
+        protected override TypeAttributes GetAttributeFlagsImpl()
         {
-            throw new InvalidOperationException ();
+            throw new InvalidOperationException();
         }
 
-        protected override bool HasElementTypeImpl ()
+        protected override bool HasElementTypeImpl() => true;
+
+        protected override bool IsArrayImpl() => true;
+
+        protected override bool IsByRefImpl() => false;
+
+        protected override bool IsCOMObjectImpl() => false;
+
+        protected override bool IsPointerImpl() => false;
+
+        protected override bool IsPrimitiveImpl() => false;
+
+        public override ConstructorInfo[] GetConstructors(BindingFlags bindingAttr)
         {
-            return true;
+            throw new InvalidOperationException();
         }
 
-        protected override bool IsArrayImpl ()
+        public override object InvokeMember(string name, BindingFlags invokeAttr, Binder binder, object target, object[] args, ParameterModifier[] modifiers, System.Globalization.CultureInfo culture, string[] namedParameters)
         {
-            return true;
+            throw new InvalidOperationException();
         }
 
-        protected override bool IsByRefImpl ()
-        {
-            return false;
-        }
+        public override Assembly Assembly => Assembly.GetExecutingAssembly();
 
-        protected override bool IsCOMObjectImpl ()
-        {
-            return false;
-        }
+        public override string AssemblyQualifiedName => throw new InvalidOperationException();
 
-        protected override bool IsPointerImpl ()
-        {
-            return false;
-        }
+        public override Type BaseType => type.BaseType;
 
-        protected override bool IsPrimitiveImpl ()
-        {
-            return false;
-        }
+        public override string FullName => Namespace + "." + Name;
 
-        public override ConstructorInfo[] GetConstructors (BindingFlags bindingAttr)
-        {
-            throw new InvalidOperationException ();
-        }
+        public override Guid GUID => throw new InvalidOperationException();
 
-        public override object InvokeMember (string name, BindingFlags invokeAttr, Binder binder, object target, object[] args, ParameterModifier[] modifiers, System.Globalization.CultureInfo culture, string[] namedParameters)
-        {
-            throw new InvalidOperationException ();
-        }
+        public override Module Module => throw new InvalidOperationException();
 
-        public override Assembly Assembly {
-            get {
-                return Assembly.GetExecutingAssembly ();
-            }
-        }
+        public override string Namespace => type.Namespace;
 
-        public override string AssemblyQualifiedName {
-            get {
-                throw new InvalidOperationException ();
-            }
-        }
-
-        public override Type BaseType {
-            get {
-                return type.BaseType;
-            }
-        }
-
-        public override string FullName {
-            get {
-                return Namespace + "." + Name;
-            }
-        }
-
-        public override Guid GUID {
-            get {
-                throw new InvalidOperationException ();
-            }
-        }
-
-        public override Module Module {
-            get {
-                throw new InvalidOperationException ();
-            }
-        }
-
-        public override string Namespace {
-            get {
-                return type.Namespace;
-            }
-        }
-
-        public override Type UnderlyingSystemType {
-            get {
-                return type;
-            }
-        }
+        public override Type UnderlyingSystemType => type;
 
         #endregion
     }

@@ -31,6 +31,7 @@ namespace GISharp.CodeGen.Reflection
         {
             throw new NotSupportedException();
         }
+        public override bool IsConstructedGenericType => false;
 
         public override string Name => type.Name + "*";
 
@@ -107,7 +108,7 @@ namespace GISharp.CodeGen.Reflection
             throw new NotSupportedException();
         }
 
-        protected override ConstructorInfo GetConstructorImpl (BindingFlags bindingAttr,
+        protected override ConstructorInfo GetConstructorImpl(BindingFlags bindingAttr,
             Binder binder, CallingConventions callConvention, Type[] types, ParameterModifier[] modifiers)
         {
             throw new NotSupportedException();

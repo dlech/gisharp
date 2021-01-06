@@ -35,6 +35,8 @@ namespace GISharp.CodeGen.Reflection
 
         public override Guid GUID => throw new NotSupportedException();
 
+        public override bool IsConstructedGenericType => false;
+
         public override Module Module => throw new NotSupportedException();
 
         public override string Namespace => $"GISharp.Lib.{callback.Namespace.Name}";
