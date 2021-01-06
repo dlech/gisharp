@@ -1,9 +1,6 @@
 ﻿using System;
-using System.IO;
 using System.Linq;
-using System.Collections.Generic;
 using System.Reflection;
-using System.Reflection.Emit;
 
 using GISharp.Runtime;
 using GISharp.CodeGen.Gir;
@@ -32,9 +29,9 @@ namespace GISharp.CodeGen.Reflection
         /// <summary>
         /// Resolves a GIR type node to the cooresponding .NET type
         /// </summary>
-        public static System.Type ResolveManagedType(Gir.GIType node)
+        public static System.Type ResolveManagedType(GIType node)
         {
-            if (node.ParentNode is Gir.Field field) {
+            if (node.ParentNode is Field field) {
                 if (field.Callback is not null) {
                     return new GirDelegateType(field.Callback, true);
                 }
@@ -133,8 +130,8 @@ namespace GISharp.CodeGen.Reflection
                 if (type.IsAbstract && type.IsSealed) {
                     // if we got a static class, it must be the extension class
                     // for an interface.
-                    var index = typeName.LastIndexOf('.') + 1;
-                    typeName = typeName.Substring(0, index) + "I" + typeName.Substring(index);
+                    var index = typeName.LastIndexOf('.');
+                    typeName = $"{typeName[..index]}I{typeName[(index + 1)..]}";
                     type = GetType(typeName);
                     if (type is not null) {
                         return type;
@@ -152,7 +149,7 @@ namespace GISharp.CodeGen.Reflection
         /// </summary>
         public static System.Type ResolveUnmanagedType(GIType node)
         {
-            if (node.ParentNode is Gir.Field field) {
+            if (node.ParentNode is Field field) {
                 if (field.Callback is not null) {
                     return new GirDelegateType(field.Callback, true);
                 }
@@ -342,8 +339,7 @@ namespace GISharp.CodeGen.Reflection
         {
             var typeName = prerequisite.GirName;
             if (!typeName.Contains('.')) {
-                var @interface = (Interface)prerequisite.ParentNode;
-                var @namespace = @interface.Namespace;
+                var @namespace = prerequisite.ParentNode.Namespace;
                 var match = @namespace.Interfaces.SingleOrDefault(x => x.GirName == typeName);
                 if (match is not null) {
                     return new GirInterfaceType(match);
