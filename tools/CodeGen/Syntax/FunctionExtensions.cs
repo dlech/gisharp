@@ -84,6 +84,7 @@ namespace GISharp.CodeGen.Syntax
                 nullCheck = $"?? throw new System.ArgumentNullException(nameof(other))";
             }
 
+            var declaringType = (GIRegisteredType)function.ParentNode;
             var declaration = MethodDeclaration(ParseName("System.Int32"), "CompareTo")
                 .AddModifiers(Token(PublicKeyword))
                 .AddParameterListParameters(Parameter(Identifier("other")).WithType(otherParamType))
@@ -91,7 +92,7 @@ namespace GISharp.CodeGen.Syntax
                     ReturnStatement(ParseExpression($"{function.ManagedName}(this, other{nullCheck})"))
                 )
                 .WithLeadingTrivia(ParseLeadingTrivia($@"/// <inheritdoc/>
-                /// <seealso cref=""GISharp.Lib.{function.Namespace.Name}.{function.ManagedName}""/>
+                /// <seealso cref=""GISharp.Lib.{function.Namespace.Name}.{declaringType.ManagedName}.{function.ManagedName}""/>
                 "));
 
             return declaration;
