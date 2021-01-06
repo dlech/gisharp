@@ -43,9 +43,11 @@ namespace GISharp.CodeGen.Reflection
                 if (typeName == typeof(Strv).ToString()) {
                     return typeof(Strv);
                 }
+
                 if (typeName == typeof(FilenameArray).ToString()) {
                     return typeof(FilenameArray);
                 }
+
                 if (typeName == typeof(CArray).ToString()) {
                     var arrayElementType = ResolveManagedType(node.TypeParameters.Single());
                     if (arrayElementType.IsOpaque() || arrayElementType.IsGInterface()) {
@@ -58,6 +60,33 @@ namespace GISharp.CodeGen.Reflection
                     }
                     return typeof(CArray<>).MakeGenericType(arrayElementType);
                 }
+
+                if (typeName == typeof(Lib.GLib.Array).ToString()) {
+                    var arrayElementType = ResolveManagedType(node.TypeParameters.Single());
+                    return typeof(Array<>).MakeGenericType(arrayElementType);
+                }
+
+                if (typeName == typeof(PtrArray).ToString()) {
+                    var arrayElementType = ResolveManagedType(node.TypeParameters.Single());
+                    return typeof(PtrArray<>).MakeGenericType(arrayElementType);
+                }
+
+                if (typeName == typeof(List).ToString()) {
+                    var arrayElementType = ResolveManagedType(node.TypeParameters.Single());
+                    return typeof(List<>).MakeGenericType(arrayElementType);
+                }
+
+                if (typeName == typeof(SList).ToString()) {
+                    var arrayElementType = ResolveManagedType(node.TypeParameters.Single());
+                    return typeof(SList<>).MakeGenericType(arrayElementType);
+                }
+
+                if (typeName == typeof(HashTable).ToString()) {
+                    var keyType = ResolveManagedType(node.TypeParameters.First());
+                    var valueType = ResolveManagedType(node.TypeParameters.Last());
+                    return typeof(HashTable<,>).MakeGenericType(keyType, valueType);
+                }
+
                 if (typeName == typeof(Task).ToString()) {
                     System.Type tupleType;
                     switch (node.TypeParameters.Count()) {
@@ -91,7 +120,8 @@ namespace GISharp.CodeGen.Reflection
                     return typeof(Task<>).MakeGenericType(tupleType.MakeGenericType(node.TypeParameters
                         .Select(x => ResolveManagedType(x)).ToArray()));
                 }
-                throw new NotImplementedException();
+
+                throw new NotImplementedException($"Unknown type with type parameters: {typeName}");
             }
 
             // if there is no '.', then this type must be declared in the GIR namespace
