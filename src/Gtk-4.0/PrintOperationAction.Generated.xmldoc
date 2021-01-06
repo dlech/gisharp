@@ -28,7 +28,7 @@ Export to a file. This requires
 
 <member name='PrintOperationAction'>
 <summary>
-The <paramref name="action"/> parameter to gtk_print_operation_run()
+The <c>action</c> parameter to gtk_print_operation_run()
 determines what action the print operation should perform.
 </summary>
 </member>

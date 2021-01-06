@@ -1054,7 +1054,7 @@ Regardless of which of these entry points is used to start the
 application, GApplication passes some ‘platform data’ from the
 launching instance to the primary instance, in the form of a
 #GVariant dictionary mapping strings to variants. To use platform
-data, override the <paramref name="beforeEmit"/> or <paramref name="afterEmit"/> virtual functions
+data, override the <see cref="DoBeforeEmit"/> or <see cref="DoAfterEmit"/> virtual functions
 in your <see cref="Application"/> subclass. When dealing with
 <see cref="ApplicationCommandLine"/> objects, the platform data is
 directly available via <see cref="ApplicationCommandLine.GetCwd()"/>,
@@ -1067,7 +1067,7 @@ operating system, but it always includes the current directory (key
 variables and their values) of the calling process (key "environ").
 The environment is only added to the platform data if the
 <see cref="ApplicationFlags.SendEnvironment"/> flag is set. <see cref="Application"/> subclasses
-can add their own platform data by overriding the <paramref name="addPlatformData"/>
+can add their own platform data by overriding the <see cref="DoAddPlatformData"/>
 virtual function. For instance, #GtkApplication adds startup notification
 data in this way.
 

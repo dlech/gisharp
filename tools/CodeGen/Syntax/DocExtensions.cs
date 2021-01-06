@@ -83,9 +83,9 @@ namespace GISharp.CodeGen.Syntax
                 builder.Replace("%FALSE", "<c>false</c>");
 
                 foreach (var prefix in ns.CIdentifierPrefixes) {
-                    var consts = Regex.Matches(text, @$"%{prefix.ToUpperInvariant()}_\w+");
-                    foreach (Match c in consts.OrderByDescending(x => x.Value.Length)) {
-                        var member = (GIBase)ns.FindNodeByCIdentifier(c.Value.Substring(1));
+                    var constants = Regex.Matches(text, @$"%{prefix.ToUpperInvariant()}_\w+");
+                    foreach (Match c in constants.OrderByDescending(x => x.Value.Length)) {
+                        var member = (GIBase)ns.FindNodeByCIdentifier(c.Value[1..]);
                         if (member is null) {
                             continue;
                         }
@@ -96,7 +96,7 @@ namespace GISharp.CodeGen.Syntax
                     var typeRefs = Regex.Matches(text, "#" + prefix + @"\w+");
                     foreach (Match t in typeRefs.OrderByDescending(x => x.Value.Length)) {
                         var type = ns.AllTypes
-                            .SingleOrDefault(x => ((x as GIRegisteredType)?.CType ?? (x as Callback)?.CType) == t.Value.Substring(1));
+                            .SingleOrDefault(x => ((x as GIRegisteredType)?.CType ?? (x as Callback)?.CType) == t.Value[1..]);
                         if (type is null) {
                             continue;
                         }
@@ -117,39 +117,58 @@ namespace GISharp.CodeGen.Syntax
                     if (callable is not null) {
                         // if this is an instance parameter, replace it with "this instance'
                         var instanceParam = callable.Parameters.InstanceParameter;
-                        if (instanceParam?.GirName == p.Value.Substring(1)) {
+                        if (instanceParam?.GirName == p.Value[1..]) {
                             builder.Replace(p.Value, $"this instance");
                             continue;
                         }
 
                         // if this is an error argument, cref GErrorException instead
                         var errorParam = callable.Parameters.ErrorParameter;
-                        if (errorParam?.GirName == p.Value.Substring(1)) {
+                        if (errorParam?.GirName == p.Value[1..]) {
                             builder.Replace(p.Value, $"<see cref=\"{typeof(GErrorException)}\"/>");
                             continue;
                         }
 
                         // if this is an array length argument
                         foreach (var (arg, type) in callable.Parameters.Select(x => (x, x.Type as Gir.Array)).Where(x => x.Item2?.LengthIndex >= 0)) {
-                            if (callable.Parameters.RegularParameters.ElementAt(type.LengthIndex).GirName == p.Value.Substring(1)) {
+                            if (callable.Parameters.RegularParameters.ElementAt(type.LengthIndex).GirName == p.Value[1..]) {
                                 builder.Replace(p.Value, $"the length of <paramref name=\"{arg.ManagedName}\"/>");
                                 continue;
                             }
                         }
                     }
 
+                    if (doc.ParentNode is GIRegisteredType declaringType) {
+                        if (declaringType.Fields.SingleOrDefault(x => x.GirName == p.Value[1..]) is Field field) {
+                            builder.Replace(p.Value, $"<see cref=\"{field.ManagedName}\"/>");
+                            continue;
+                        }
+
+                        // virtual methods are declared in the GType struct for a type
+                        if (declaringType.GTypeStruct is not null && declaringType.ParentNode is Namespace @namespace) {
+                            var gtype = @namespace.Records.Single(x => x is GIRegisteredType t && t.GirName == declaringType.GTypeStruct) as GIRegisteredType;
+                            if (gtype.Fields.SingleOrDefault(x => x.GirName == p.Value[1..]) is Field gtypeField) {
+                                builder.Replace(p.Value, $"<see cref=\"Do{gtypeField.ManagedName}\"/>");
+                                continue;
+                            }
+                        }
+
+                        builder.Replace(p.Value, $"<c>{p.Value[1..].ToCamelCase()}</c>");
+                        continue;
+                    }
+
                     // otherwise replace it with a paramref element
                     // TODO: can probably do a better job of detecting @ ref
-                    // to fields/virtual methods and signal callback parameters
-                    var name = p.Value.Substring(1).ToCamelCase().Replace("@", "");
+                    // signal callback parameters
+                    var name = p.Value[1..].ToCamelCase().Replace("@", "");
                     builder.Replace(p.Value, $"<paramref name=\"{name}\"/>");
                 }
 
                 // find all references to functions/methods in this namespace
                 // These references look like "prefix_name()"
                 foreach (var prefix in ns.CSymbolPrefixes) {
-                    var funcs = Regex.Matches(text, prefix + @"_\w+(?=\(\))");
-                    foreach (Match f in funcs) {
+                    var functions = Regex.Matches(text, prefix + @"_\w+(?=\(\))");
+                    foreach (Match f in functions) {
                         var callable = (GICallable)ns.FindNodeByCIdentifier(f.Value);
                         if (callable is null) {
                             continue;

@@ -581,7 +581,7 @@ Here is an example for chained asynchronous operations:
           GSource *source;
 
           source = cake_decorator_wait_source_new (cake);
-          // Attach <paramref name="source"/> to <paramref name="task"/>'s GMainContext and have it call
+          // Attach <c>source</c> to <c>task</c>'s GMainContext and have it call
           // decorator_ready() when it is ready.
           g_task_attach_source (task, source, decorator_ready);
           g_source_unref (source);

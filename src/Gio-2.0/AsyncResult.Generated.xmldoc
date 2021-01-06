@@ -50,7 +50,7 @@ success or failure, the object the asynchronous function was
 started for and any error codes returned. The asynchronous callback
 function is then expected to call the corresponding "_finish()"
 function, passing the object the function was called for, the
-<see cref="IAsyncResult"/> instance, and (optionally) an <paramref name="error"/> to grab any
+<see cref="IAsyncResult"/> instance, and (optionally) an <c>error</c> to grab any
 error conditions that may have occurred.
 
 The "_finish()" function for an operation takes the generic result
