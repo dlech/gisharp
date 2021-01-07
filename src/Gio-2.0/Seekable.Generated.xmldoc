@@ -122,7 +122,7 @@ Tests if the stream supports the <see cref="SeekableIface"/>.
 a <see cref="ISeekable"/>.
 </param>
 <returns>
-<c>true</c> if this instance can be seeked. <c>false</c> otherwise.
+<c>true</c> if <paramref name="seekable"/> can be seeked. <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -203,7 +203,7 @@ partial result will be returned, without an error.
 a <see cref="ISeekable"/>.
 </param>
 <param name="offset">
-new length for this instance, in bytes.
+new length for <paramref name="seekable"/>, in bytes.
 </param>
 <param name="cancellable">
 optional <see cref="Cancellable"/> object, <c>null</c> to ignore.

@@ -2,7 +2,7 @@
 
 <member name='IAction.Enabled'>
 <summary>
-If <paramref name="action"/> is currently enabled.
+If <c>action</c> is currently enabled.
 </summary>
 <remarks>
 If the action is disabled then calls to <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> and
@@ -319,7 +319,7 @@ the parameter to the activation
 
 <member name='Action.ChangeState(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)'>
 <summary>
-Request for the state of this instance to be changed to <paramref name="value"/>.
+Request for the state of <paramref name="action"/> to be changed to <paramref name="value"/>.
 </summary>
 <remarks>
 The action must be stateful and <paramref name="value"/> must be of the correct type.
@@ -341,7 +341,7 @@ the new state
 
 <member name='Action.GetEnabled(GISharp.Lib.Gio.IAction)'>
 <summary>
-Checks if this instance is currently enabled.
+Checks if <paramref name="action"/> is currently enabled.
 </summary>
 <remarks>
 An action must be enabled in order to be activated or in order to
@@ -357,7 +357,7 @@ whether the action is enabled
 
 <member name='Action.GetName(GISharp.Lib.Gio.IAction)'>
 <summary>
-Queries the name of this instance.
+Queries the name of <paramref name="action"/>.
 </summary>
 <param name="action">
 a <see cref="IAction"/>
@@ -370,7 +370,7 @@ the name of the action
 <member name='Action.GetParameterType(GISharp.Lib.Gio.IAction)'>
 <summary>
 Queries the type of the parameter that must be given when activating
-this instance.
+<paramref name="action"/>.
 </summary>
 <remarks>
 When activating the action using <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/>, the #GVariant
@@ -389,7 +389,7 @@ the parameter type
 
 <member name='Action.GetState(GISharp.Lib.Gio.IAction)'>
 <summary>
-Queries the current state of this instance.
+Queries the current state of <paramref name="action"/>.
 </summary>
 <remarks>
 If the action is not stateful then <c>null</c> will be returned.  If the
@@ -410,7 +410,7 @@ the current state of the action
 <member name='Action.GetStateHint(GISharp.Lib.Gio.IAction)'>
 <summary>
 Requests a hint about the valid range of values for the state of
-this instance.
+<paramref name="action"/>.
 </summary>
 <remarks>
 If <c>null</c> is returned it either means that the action is not stateful
@@ -439,7 +439,7 @@ the state range hint
 
 <member name='Action.GetStateType(GISharp.Lib.Gio.IAction)'>
 <summary>
-Queries the type of the state of this instance.
+Queries the type of the state of <paramref name="action"/>.
 </summary>
 <remarks>
 If the action is stateful (e.g. created with

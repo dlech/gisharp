@@ -81,7 +81,7 @@ strings are not translated.
 </summary>
 <remarks>
 Note that option groups have their own translation functions,
-this function only affects the <paramref name="parameterString"/> (see <see cref="OptionContext.OptionContext(GISharp.Lib.GLib.NullableUnownedUtf8)"/>),
+this function only affects the <c>parameterString</c> (see <see cref="OptionContext.OptionContext(GISharp.Lib.GLib.NullableUnownedUtf8)"/>),
 the summary (see <see cref="OptionContext.SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8)"/>) and the description
 (see <see cref="OptionContext.SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8)"/>).
 

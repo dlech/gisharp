@@ -12,7 +12,7 @@ This is as defined by Unicode 6.1.
 
 <member name='UnicharExtensions.BreakType(GISharp.Lib.GLib.Unichar)'>
 <summary>
-Determines the break type of this instance. this instance should be a Unicode character
+Determines the break type of <paramref name="c"/>. <paramref name="c"/> should be a Unicode character
 (to derive a character from UTF-8 encoded text, use
 <see cref="Utf8.Characters"/>). The break type is used to find word and line
 breaks ("text boundaries"), Pango implements the Unicode boundary
@@ -23,7 +23,7 @@ as pango_break() instead of caring about break types yourself.
 a Unicode character
 </param>
 <returns>
-the break type of this instance
+the break type of <paramref name="c"/>
 </returns>
 </member>
 
@@ -47,13 +47,13 @@ Unicode canonical composition algorithm.
 <remarks>
 This function includes algorithmic Hangul Jamo composition,
 but it is not exactly the inverse of <see cref="UnicharExtensions.TryDecompose(GISharp.Lib.GLib.Unichar,out GISharp.Lib.GLib.Unichar,out GISharp.Lib.GLib.Unichar)"/>.
-No composition can have either of this instance or <paramref name="b"/> equal to zero.
+No composition can have either of <paramref name="a"/> or <paramref name="b"/> equal to zero.
 To be precise, this function composes if and only if
 there exists a Primary Composite P which is canonically
-equivalent to the sequence &lt;this instance,<paramref name="b"/>&gt;.  See the Unicode
+equivalent to the sequence &lt;<paramref name="a"/>,<paramref name="b"/>&gt;.  See the Unicode
 Standard for the definition of Primary Composite.
 
-If this instance and <paramref name="b"/> do not compose a new character, <paramref name="ch"/> is set to zero.
+If <paramref name="a"/> and <paramref name="b"/> do not compose a new character, <paramref name="ch"/> is set to zero.
 
 See
 [UAX#15](http://unicode.org/reports/tr15/)
@@ -86,13 +86,13 @@ decompositions which replace a character by a single
 other character. In the case of singletons *<paramref name="b"/> will
 be set to zero.
 
-If this instance is not decomposable, *<paramref name="a"/> is set to this instance and *<paramref name="b"/>
+If <paramref name="ch"/> is not decomposable, *<paramref name="a"/> is set to <paramref name="ch"/> and *<paramref name="b"/>
 is set to zero.
 
 Note that the way Unicode decomposition pairs are
 defined, it is guaranteed that <paramref name="b"/> would not decompose
 further, but <paramref name="a"/> may itself decompose.  To get the full
-canonical decomposition for this instance, one would need to
+canonical decomposition for <paramref name="ch"/>, one would need to
 recursively call this function on <paramref name="a"/>.  Or use
 <see cref="UnicharExtensions.FullyDecompose"/>.
 
@@ -104,10 +104,10 @@ for details.
 a Unicode character
 </param>
 <param name="a">
-return location for the first component of this instance
+return location for the first component of <paramref name="ch"/>
 </param>
 <param name="b">
-return location for the second component of this instance
+return location for the second component of <paramref name="ch"/>
 </param>
 <returns>
 <c>true</c> if the character could be decomposed
@@ -123,7 +123,7 @@ digit.
 a Unicode character
 </param>
 <returns>
-If this instance is a decimal digit (according to
+If <paramref name="c"/> is a decimal digit (according to
 <see cref="UnicharExtensions.IsDigit(GISharp.Lib.GLib.Unichar)"/>), its numeric value. Otherwise, -1.
 </returns>
 </member>
@@ -136,8 +136,8 @@ to left. For instance, "(" would become its mirror image, ")", in
 right-to-left text.
 </summary>
 <remarks>
-If this instance has the Unicode mirrored property and there is another unicode
-character that typically has a glyph that is the mirror image of this instance's
+If <paramref name="ch"/> has the Unicode mirrored property and there is another unicode
+character that typically has a glyph that is the mirror image of <paramref name="ch"/>'s
 glyph and <paramref name="mirroredCh"/> is set, it puts that character in the address
 pointed to by <paramref name="mirroredCh"/>.  Otherwise the original character is put.
 </remarks>
@@ -148,14 +148,14 @@ a Unicode character
 location to store the mirrored character
 </param>
 <returns>
-<c>true</c> if this instance has a mirrored character, <c>false</c> otherwise
+<c>true</c> if <paramref name="ch"/> has a mirrored character, <c>false</c> otherwise
 </returns>
 </member>
 
 <member name='UnicharExtensions.GetScript(GISharp.Lib.GLib.Unichar)'>
 <summary>
 Looks up the <see cref="UnicodeScript"/> for a particular character (as defined
-by Unicode Standard Annex \#24). No check is made for this instance being a
+by Unicode Standard Annex \#24). No check is made for <paramref name="ch"/> being a
 valid Unicode character; if you pass in invalid character, the
 result is undefined.
 </summary>
@@ -181,7 +181,7 @@ with <see cref="Utf8.Characters"/>.
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is an alphanumeric character
+<c>true</c> if <paramref name="c"/> is an alphanumeric character
 </returns>
 </member>
 
@@ -195,7 +195,7 @@ Given some UTF-8 text, obtain a character value with
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is an alphabetic character
+<c>true</c> if <paramref name="c"/> is an alphabetic character
 </returns>
 </member>
 
@@ -209,7 +209,7 @@ Given some UTF-8 text, obtain a character value with
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is a control character
+<c>true</c> if <paramref name="c"/> is a control character
 </returns>
 </member>
 
@@ -236,7 +236,7 @@ some UTF-8 text, obtain a character value with <see cref="Utf8.Characters"/>.
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is a digit
+<c>true</c> if <paramref name="c"/> is a digit
 </returns>
 </member>
 
@@ -252,7 +252,7 @@ spaces. Given some UTF-8 text, obtain a character value with
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is printable unless it's a space
+<c>true</c> if <paramref name="c"/> is printable unless it's a space
 </returns>
 </member>
 
@@ -266,7 +266,7 @@ Given some UTF-8 text, obtain a character value with
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is a lowercase letter
+<c>true</c> if <paramref name="c"/> is a lowercase letter
 </returns>
 </member>
 
@@ -287,7 +287,7 @@ scripts.
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is a mark character
+<c>true</c> if <paramref name="c"/> is a mark character
 </returns>
 </member>
 
@@ -302,7 +302,7 @@ Given some UTF-8 text, obtain a character value with
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is printable
+<c>true</c> if <paramref name="c"/> is printable
 </returns>
 </member>
 
@@ -316,7 +316,7 @@ Given some UTF-8 text, obtain a character value with
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is a punctuation or symbol character
+<c>true</c> if <paramref name="c"/> is a punctuation or symbol character
 </returns>
 </member>
 
@@ -335,7 +335,7 @@ is fairly complex.)
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is a space character
+<c>true</c> if <paramref name="c"/> is a space character
 </returns>
 </member>
 
@@ -364,7 +364,7 @@ Determines if a character is uppercase.
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is an uppercase character
+<c>true</c> if <paramref name="c"/> is an uppercase character
 </returns>
 </member>
 
@@ -444,9 +444,9 @@ Converts a character to lower case.
 a Unicode character.
 </param>
 <returns>
-the result of converting this instance to lower case.
-              If this instance is not an upperlower or titlecase character,
-              or has no lowercase equivalent this instance is returned unchanged.
+the result of converting <paramref name="c"/> to lower case.
+              If <paramref name="c"/> is not an upperlower or titlecase character,
+              or has no lowercase equivalent <paramref name="c"/> is returned unchanged.
 </returns>
 </member>
 
@@ -458,9 +458,9 @@ Converts a character to the titlecase.
 a Unicode character
 </param>
 <returns>
-the result of converting this instance to titlecase.
-              If this instance is not an uppercase or lowercase character,
-              this instance is returned unchanged.
+the result of converting <paramref name="c"/> to titlecase.
+              If <paramref name="c"/> is not an uppercase or lowercase character,
+              <paramref name="c"/> is returned unchanged.
 </returns>
 </member>
 
@@ -472,9 +472,9 @@ Converts a character to uppercase.
 a Unicode character
 </param>
 <returns>
-the result of converting this instance to uppercase.
-              If this instance is not a lowercase or titlecase character,
-              or has no upper case equivalent this instance is returned unchanged.
+the result of converting <paramref name="c"/> to uppercase.
+              If <paramref name="c"/> is not a lowercase or titlecase character,
+              or has no upper case equivalent <paramref name="c"/> is returned unchanged.
 </returns>
 </member>
 
@@ -492,15 +492,15 @@ the type of the character.
 
 <member name='UnicharExtensions.Validate(GISharp.Lib.GLib.Unichar)'>
 <summary>
-Checks whether this instance is a valid Unicode character. Some possible
-integer values of this instance will not be valid. 0 is considered a valid
+Checks whether <paramref name="ch"/> is a valid Unicode character. Some possible
+integer values of <paramref name="ch"/> will not be valid. 0 is considered a valid
 character, though it's normally a string terminator.
 </summary>
 <param name="ch">
 a Unicode character
 </param>
 <returns>
-<c>true</c> if this instance is a valid Unicode character
+<c>true</c> if <paramref name="ch"/> is a valid Unicode character
 </returns>
 </member>
 
@@ -513,7 +513,7 @@ digit.
 a Unicode character
 </param>
 <returns>
-If this instance is a hex digit (according to
+If <paramref name="c"/> is a hex digit (according to
 <see cref="UnicharExtensions.IsHexDigit(GISharp.Lib.GLib.Unichar)"/>), its numeric value. Otherwise, -1.
 </returns>
 </member>

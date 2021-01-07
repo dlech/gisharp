@@ -201,7 +201,7 @@ parsing using <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GI
 <see cref="Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)"/>.
 
 Signal handlers can inspect <paramref name="options"/> (along with values pointed to
-from the <paramref name="argData"/> of an installed #GOptionEntrys) in order to
+from the <c>argData</c> of an installed #GOptionEntrys) in order to
 decide to perform certain actions, including direct local handling
 (which may be useful for options like --version).
 
@@ -438,11 +438,11 @@ This function is comparable to g_option_context_add_main_entries().
 
 After the commandline arguments are parsed, the
 <see cref="Application"/>::handle-local-options signal will be emitted.  At this
-point, the application can inspect the values pointed to by <paramref name="argData"/>
+point, the application can inspect the values pointed to by <c>argData</c>
 in the given #GOptionEntrys.
 
 Unlike #GOptionContext, <see cref="Application"/> supports giving a <c>null</c>
-<paramref name="argData"/> for a non-callback #GOptionEntry.  This results in the
+<c>argData</c> for a non-callback #GOptionEntry.  This results in the
 argument in question being packed into a #GVariantDict which is also
 passed to <see cref="Application"/>::handle-local-options, where it can be
 inspected and modified.  If <see cref="ApplicationFlags.HandlesCommandLine"/> is
@@ -457,7 +457,7 @@ In general, it is recommended that all commandline arguments are
 parsed locally.  The options dictionary should then be used to
 transmit the result of the parsing to the primary instance, where
 g_variant_dict_lookup() can be used.  For local options, it is
-possible to either use <paramref name="argData"/> in the usual way, or to consult (and
+possible to either use <c>argData</c> in the usual way, or to consult (and
 potentially remove) the option from the options dictionary.
 
 This function is new in GLib 2.40.  Before then, the only real choice
@@ -470,7 +470,7 @@ treated as errors.  Unrecognised options have never been ignored when
 
 If <see cref="Application"/>::handle-local-options needs to see the list of
 filenames, then the use of %G_OPTION_REMAINING is recommended.  If
-<paramref name="argData"/> is <c>null</c> then %G_OPTION_REMAINING can be used as a key into
+<c>argData</c> is <c>null</c> then %G_OPTION_REMAINING can be used as a key into
 the options dictionary.  If you do use %G_OPTION_REMAINING then you
 need to handle these arguments for yourself because once they are
 consumed, they will no longer be visible to the default handling
@@ -501,7 +501,7 @@ Adds a #GOptionGroup to the commandline handling of this instance.
 This function is comparable to g_option_context_add_group().
 
 Unlike <see cref="Application.AddMainOptionEntries(System.ReadOnlySpan{GISharp.Lib.GLib.OptionEntry})"/>, this function does
-not deal with <c>null</c> <paramref name="argData"/> and never transmits options to the
+not deal with <c>null</c> <c>argData</c> and never transmits options to the
 primary instance.
 
 The reason for that is because, by the time the options arrive at the
@@ -904,12 +904,12 @@ The application must be registered before calling this function.
 <member name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv,System.Int32)'>
 <summary>
 This virtual function is always invoked in the local instance. It
-gets passed a pointer to a <c>null</c>-terminated copy of <paramref name="argv"/> and is
+gets passed a pointer to a <c>null</c>-terminated copy of <c>argv</c> and is
 expected to remove arguments that it handled (shifting up remaining
 arguments).
 </summary>
 <remarks>
-The last argument to local_command_line() is a pointer to the <paramref name="status"/>
+The last argument to local_command_line() is a pointer to the <c>status</c>
 variable which can used to set the exit status that is returned from
 <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/>.
 

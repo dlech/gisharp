@@ -13,7 +13,7 @@ The long name of an option can be used to specify it
 <member name='OptionEntry.ShortName'>
 <summary>
 If an option has a short name, it can be specified
-    `-short_name` in a commandline. <paramref name="shortName"/> must be  a printable
+    `-short_name` in a commandline. <c>shortName</c> must be  a printable
     ASCII character different from '-', or zero if the option has no
     short name.
 </summary>
@@ -33,11 +33,11 @@ The type of the option, as a <see cref="OptionArg"/>
 
 <member name='OptionEntry.ArgData'>
 <summary>
-If the <paramref name="arg"/> type is <see cref="OptionArg.Callback"/>, then <paramref name="argData"/>
+If the <c>arg</c> type is <see cref="OptionArg.Callback"/>, then <c>argData</c>
     must point to a <see cref="OptionArgFunc"/> callback function, which will be
-    called to handle the extra argument. Otherwise, <paramref name="argData"/> is a
+    called to handle the extra argument. Otherwise, <c>argData</c> is a
     pointer to a location to store the value, the required type of
-    the location depends on the <paramref name="arg"/> type:
+    the location depends on the <c>arg</c> type:
     - <see cref="OptionArg.None"/>: %gboolean
     - <see cref="OptionArg.String"/>: %gchar*
     - <see cref="OptionArg.Int"/>: %gint
@@ -45,10 +45,10 @@ If the <paramref name="arg"/> type is <see cref="OptionArg.Callback"/>, then <pa
     - <see cref="OptionArg.StringArray"/>: %gchar**
     - <see cref="OptionArg.FilenameArray"/>: %gchar**
     - <see cref="OptionArg.Double"/>: %gdouble
-    If <paramref name="arg"/> type is <see cref="OptionArg.String"/> or <see cref="OptionArg.Filename"/>,
+    If <c>arg</c> type is <see cref="OptionArg.String"/> or <see cref="OptionArg.Filename"/>,
     the location will contain a newly allocated string if the option
     was given. That string needs to be freed by the callee using g_free().
-    Likewise if <paramref name="arg"/> type is <see cref="OptionArg.StringArray"/> or
+    Likewise if <c>arg</c> type is <see cref="OptionArg.StringArray"/> or
     <see cref="OptionArg.FilenameArray"/>, the data should be freed using g_strfreev().
 </summary>
 </member>
@@ -56,7 +56,7 @@ If the <paramref name="arg"/> type is <see cref="OptionArg.Callback"/>, then <pa
 <member name='OptionEntry.Description'>
 <summary>
 the description for the option in `--help`
-    output. The <paramref name="description"/> is translated using the <paramref name="translateFunc"/>
+    output. The <c>description</c> is translated using the <c>translateFunc</c>
     of the group, see <see cref="OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 </member>
@@ -64,8 +64,8 @@ the description for the option in `--help`
 <member name='OptionEntry.ArgDescription'>
 <summary>
 The placeholder to use for the extra argument parsed
-    by the option in `--help` output. The <paramref name="argDescription"/> is translated
-    using the <paramref name="translateFunc"/> of the group, see
+    by the option in `--help` output. The <c>argDescription</c> is translated
+    using the <c>translateFunc</c> of the group, see
     <see cref="OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)"/>.
 </summary>
 </member>

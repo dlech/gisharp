@@ -9,10 +9,10 @@ The substring will contain <paramref name="endPos"/> - <paramref name="startPos"
 a UTF-8 encoded string
 </param>
 <param name="startPos">
-a character offset within this instance
+a character offset within <paramref name="str"/>
 </param>
 <param name="endPos">
-another character offset within this instance
+another character offset within <paramref name="str"/>
 </param>
 <returns>
 a newly allocated copy of the requested

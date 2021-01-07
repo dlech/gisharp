@@ -453,7 +453,7 @@ namespace GISharp.CodeGen
                 var parametersElement = element.Element(gi + "parameters");
                 var declaringType = element.Parent.Attribute("name").AsString();
                 parametersElement.AddFirst(new XElement(gi + "instance-parameter",
-                    new XAttribute("name", declaringType.ToCamelCase()),
+                    new XAttribute("name", declaringType.ToSnakeCase()),
                     new XAttribute("transfer-ownership", "none"),
                     new XElement(gi + "doc", "the instance on which the signal was invoked"),
                     new XElement(gi + "type",
@@ -1391,6 +1391,17 @@ namespace GISharp.CodeGen
             if (ParseToken(str).IsReservedKeyword()) {
                 str = "@" + str;
             }
+            return str;
+        }
+
+        public static string ToSnakeCase(this string str)
+        {
+            if (str is null) {
+                return null;
+            }
+
+            str = Regex.Replace(str, @"[A-Z]", m => $"_{m.Value.ToLowerInvariant()}")[1..];
+
             return str;
         }
 

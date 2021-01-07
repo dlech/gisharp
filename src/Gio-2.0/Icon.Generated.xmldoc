@@ -111,7 +111,7 @@ Gets a hash for an icon.
 #gconstpointer to an icon object.
 </param>
 <returns>
-a #guint containing a hash for the this instance, suitable for
+a #guint containing a hash for the <paramref name="icon"/>, suitable for
 use in a #GHashTable or similar data structure.
 </returns>
 </member>
@@ -127,7 +127,7 @@ pointer to the first <see cref="IIcon"/>.
 pointer to the second <see cref="IIcon"/>.
 </param>
 <returns>
-<c>true</c> if this instance is equal to <paramref name="icon2"/>. <c>false</c> otherwise.
+<c>true</c> if <paramref name="icon1"/> is equal to <paramref name="icon2"/>. <c>false</c> otherwise.
 </returns>
 </member>
 
@@ -149,22 +149,22 @@ a #GVariant, or <c>null</c> when serialization fails. The #GVariant will not be 
 
 <member name='Icon.ToString(GISharp.Lib.Gio.IIcon)'>
 <summary>
-Generates a textual representation of this instance that can be used for
-serialization such as when passing this instance to a different process or
+Generates a textual representation of <paramref name="icon"/> that can be used for
+serialization such as when passing <paramref name="icon"/> to a different process or
 saving it to persistent storage. Use <see cref="Icon.NewForString(GISharp.Lib.GLib.UnownedUtf8)"/> to
-get this instance back from the returned string.
+get <paramref name="icon"/> back from the returned string.
 </summary>
 <remarks>
 The encoding of the returned string is proprietary to <see cref="IIcon"/> except
 in the following two cases
 
-- If this instance is a <see cref="IFile"/>Icon, the returned string is a native path
+- If <paramref name="icon"/> is a <see cref="IFile"/>Icon, the returned string is a native path
   (such as `/path/to/my icon.png`) without escaping
-  if the <see cref="IFile"/> for this instance is a native file.  If the file is not
+  if the <see cref="IFile"/> for <paramref name="icon"/> is a native file.  If the file is not
   native, the returned string is the result of <see cref="File.GetUri(GISharp.Lib.Gio.IFile)"/>
   (such as `sftp://path/to/my%20icon.png`).
 
-- If this instance is a <see cref="ThemedIcon"/> with exactly one name and no fallbacks,
+- If <paramref name="icon"/> is a <see cref="ThemedIcon"/> with exactly one name and no fallbacks,
   the encoding is simply the name (such as `network-server`).
 </remarks>
 <param name="icon">
@@ -172,7 +172,7 @@ a <see cref="IIcon"/>.
 </param>
 <returns>
 An allocated NUL-terminated UTF8 string or
-<c>null</c> if this instance can't be serialized. Use g_free() to free.
+<c>null</c> if <paramref name="icon"/> can't be serialized. Use g_free() to free.
 </returns>
 </member>
 

@@ -275,9 +275,9 @@ On error
 <member name='KeyFile.GetComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Retrieves a comment above <paramref name="key"/> from <paramref name="groupName"/>.
-If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be read from above
+If <paramref name="key"/> is <c>null</c> then <c>comment</c> will be read from above
 <paramref name="groupName"/>. If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then
-<paramref name="comment"/> will be read from above the first group in the file.
+<c>comment</c> will be read from above the first group in the file.
 </summary>
 <remarks>
 Note that the returned string does not include the '#' comment markers,
@@ -776,8 +776,8 @@ On error
 <member name='KeyFile.RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Removes a comment above <paramref name="key"/> from <paramref name="groupName"/>.
-If <paramref name="key"/> is <c>null</c> then <paramref name="comment"/> will be removed above <paramref name="groupName"/>.
-If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then <paramref name="comment"/> will
+If <paramref name="key"/> is <c>null</c> then <c>comment</c> will be removed above <paramref name="groupName"/>.
+If both <paramref name="key"/> and <paramref name="groupName"/> are <c>null</c>, then <c>comment</c> will
 be removed above the first group in the file.
 </summary>
 <param name="groupName">

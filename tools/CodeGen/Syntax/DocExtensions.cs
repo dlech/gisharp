@@ -117,24 +117,30 @@ namespace GISharp.CodeGen.Syntax
                     if (callable is not null) {
                         // if this is an instance parameter, replace it with "this instance'
                         var instanceParam = callable.Parameters.InstanceParameter;
-                        if (instanceParam?.GirName == p.Value[1..]) {
+                        if (instanceParam?.GirName == p.Value[1..] && !(callable is Method m && m.IsExtensionMethod)) {
                             builder.Replace(p.Value, $"this instance");
                             continue;
                         }
 
-                        // if this is an error argument, cref GErrorException instead
+                        // if this is an error parameter, cref GErrorException instead
                         var errorParam = callable.Parameters.ErrorParameter;
                         if (errorParam?.GirName == p.Value[1..]) {
                             builder.Replace(p.Value, $"<see cref=\"{typeof(GErrorException)}\"/>");
                             continue;
                         }
 
-                        // if this is an array length argument
-                        foreach (var (arg, type) in callable.Parameters.Select(x => (x, x.Type as Gir.Array)).Where(x => x.Item2?.LengthIndex >= 0)) {
+                        // if this is an array length parameter
+                        foreach (var (arrayArg, type) in callable.Parameters.Select(x => (x, x.Type as Gir.Array)).Where(x => x.Item2?.LengthIndex >= 0)) {
                             if (callable.Parameters.RegularParameters.ElementAt(type.LengthIndex).GirName == p.Value[1..]) {
-                                builder.Replace(p.Value, $"the length of <paramref name=\"{arg.ManagedName}\"/>");
+                                builder.Replace(p.Value, $"the length of <paramref name=\"{arrayArg.ManagedName}\"/>");
                                 continue;
                             }
+                        }
+
+                        // this is a regular parameter
+                        if (callable.Parameters.SingleOrDefault(x => x.GirName == p.Value[1..]) is GIArg arg) {
+                            builder.Replace(p.Value, $"<paramref name=\"{arg.ManagedName.Replace("@", "")}\"/>");
+                            continue;
                         }
                     }
 
@@ -157,11 +163,9 @@ namespace GISharp.CodeGen.Syntax
                         continue;
                     }
 
-                    // otherwise replace it with a paramref element
-                    // TODO: can probably do a better job of detecting @ ref
-                    // signal callback parameters
-                    var name = p.Value[1..].ToCamelCase().Replace("@", "");
-                    builder.Replace(p.Value, $"<paramref name=\"{name}\"/>");
+                    // not sure what this is. probably a reference to a parameter
+                    // elsewhere. just use code formatting for now
+                    builder.Replace(p.Value, $"<c>{p.Value[1..].ToCamelCase()}</c>");
                 }
 
                 // find all references to functions/methods in this namespace

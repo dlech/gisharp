@@ -988,7 +988,7 @@ the Unicode script for <paramref name="iso15924"/>, or
 
 <member name='UnicodeScriptExtensions.ToIso15924(GISharp.Lib.GLib.UnicodeScript)'>
 <summary>
-Looks up the ISO 15924 code for this instance.  ISO 15924 assigns four-letter
+Looks up the ISO 15924 code for <paramref name="script"/>.  ISO 15924 assigns four-letter
 codes to scripts.  For example, the code for Arabic is 'Arab'.  The
 four letter codes are encoded as a <see cref="uint"/> by this function in a
 big-endian fashion.  That is, the code returned for Arabic is
@@ -1003,9 +1003,9 @@ for details.
 a Unicode script
 </param>
 <returns>
-the ISO 15924 code for this instance, encoded as an integer,
-  of zero if this instance is <see cref="UnicodeScript.InvalidCode"/> or
-  ISO 15924 code 'Zzzz' (script code for UNKNOWN) if this instance is not understood.
+the ISO 15924 code for <paramref name="script"/>, encoded as an integer,
+  of zero if <paramref name="script"/> is <see cref="UnicodeScript.InvalidCode"/> or
+  ISO 15924 code 'Zzzz' (script code for UNKNOWN) if <paramref name="script"/> is not understood.
 </returns>
 </member>
 

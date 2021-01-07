@@ -59,7 +59,7 @@ name.
 
 <member name='ActionMap.AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)'>
 <summary>
-Adds an action to the this instance.
+Adds an action to the <paramref name="actionMap"/>.
 </summary>
 <remarks>
 If the action map already contains an action with the same name
@@ -77,7 +77,7 @@ a <see cref="IAction"/>
 
 <member name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Looks up the action with the name <paramref name="actionName"/> in this instance.
+Looks up the action with the name <paramref name="actionName"/> in <paramref name="actionMap"/>.
 </summary>
 <remarks>
 If no such action exists, returns <c>null</c>.

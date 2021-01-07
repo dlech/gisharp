@@ -2158,7 +2158,7 @@ On error
 
 <member name='File.AppendToAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Asynchronously opens this instance for appending.
+Asynchronously opens <paramref name="file"/> for appending.
 </summary>
 <remarks>
 For more details, see <see cref="File.AppendTo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> which is
@@ -2181,7 +2181,7 @@ optional <see cref="Cancellable"/> object,
 
 <member name='File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Copies the file this instance to the location specified by <paramref name="destination"/>.
+Copies the file <paramref name="source"/> to the location specified by <paramref name="destination"/>.
 Can not handle recursive copies of directories.
 </summary>
 <remarks>
@@ -2190,7 +2190,7 @@ existing <paramref name="destination"/> file is overwritten.
 
 If the flag <see cref="FileCopyFlags.NoFollowSymlinks"/> is specified then symlinks
 will be copied as symlinks, otherwise the target of the
-this instance symlink will be copied.
+<paramref name="source"/> symlink will be copied.
 
 If the flag <see cref="FileCopyFlags.AllMetadata"/> is specified then all the metadata
 that is possible to copy is copied, not just the default subset (which,
@@ -2206,7 +2206,7 @@ It is guaranteed
 that this callback will be called after all data has been transferred with
 the total number of bytes copied during the operation.
 
-If the this instance file does not exist, then the <see cref="IOErrorEnum.NotFound"/> error
+If the <paramref name="source"/> file does not exist, then the <see cref="IOErrorEnum.NotFound"/> error
 is returned, independent on the status of the <paramref name="destination"/>.
 
 If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists, then
@@ -2247,7 +2247,7 @@ On error
 
 <member name='File.CopyAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Copies the file attributes from this instance to <paramref name="destination"/>.
+Copies the file attributes from <paramref name="source"/> to <paramref name="destination"/>.
 </summary>
 <remarks>
 Normally only a subset of the file attributes are copied,
@@ -2415,11 +2415,11 @@ optional <see cref="Cancellable"/> object,
 
 <member name='File.Delete(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Deletes a file. If the this instance is a directory, it will only be
+Deletes a file. If the <paramref name="file"/> is a directory, it will only be
 deleted if it is empty. This has the same semantics as g_unlink().
 </summary>
 <remarks>
-If this instance doesn’t exist, <see cref="IOErrorEnum.NotFound"/> will be returned. This allows
+If <paramref name="file"/> doesn’t exist, <see cref="IOErrorEnum.NotFound"/> will be returned. This allows
 for deletion to be implemented avoiding
 [time-of-check to time-of-use races](https://en.wikipedia.org/wiki/Time-of-check_to_time-of-use):
 |[
@@ -2452,7 +2452,7 @@ On error
 
 <member name='File.DeleteAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Asynchronously delete a file. If the this instance is a directory, it will
+Asynchronously delete a file. If the <paramref name="file"/> is a directory, it will
 only be deleted if it is empty.  This has the same semantics as
 g_unlink().
 </summary>
@@ -2541,7 +2541,7 @@ the first <see cref="IFile"/>
 the second <see cref="IFile"/>
 </param>
 <returns>
-<c>true</c> if this instance and <paramref name="file2"/> are equal.
+<c>true</c> if <paramref name="file1"/> and <paramref name="file2"/> are equal.
 </returns>
 </member>
 
@@ -2574,7 +2574,7 @@ string containing the <see cref="IFile"/>'s
 
 <member name='File.GetChild(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filename)'>
 <summary>
-Gets a child of this instance with basename equal to <paramref name="name"/>.
+Gets a child of <paramref name="file"/> with basename equal to <paramref name="name"/>.
 </summary>
 <remarks>
 Note that the file with that specific name might not exist, but
@@ -2597,7 +2597,7 @@ a <see cref="IFile"/> to a child specified by <paramref name="name"/>.
 
 <member name='File.GetChildForDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
-Gets the child of this instance for a given <paramref name="displayName"/> (i.e. a UTF-8
+Gets the child of <paramref name="file"/> for a given <paramref name="displayName"/> (i.e. a UTF-8
 version of the name). If this function fails, it returns <c>null</c>
 and <see cref="GISharp.Runtime.GErrorException"/> will be set. This is very useful when constructing a
 <see cref="IFile"/> for a new file and the user entered the filename in the
@@ -2625,8 +2625,8 @@ On error
 
 <member name='File.GetParent(GISharp.Lib.Gio.IFile)'>
 <summary>
-Gets the parent directory for the this instance.
-If the this instance represents the root directory of the
+Gets the parent directory for the <paramref name="file"/>.
+If the <paramref name="file"/> represents the root directory of the
 file system, then <c>null</c> will be returned.
 </summary>
 <remarks>
@@ -2644,7 +2644,7 @@ a <see cref="IFile"/> structure to the
 
 <member name='File.GetParseName(GISharp.Lib.Gio.IFile)'>
 <summary>
-Gets the parse name of the this instance.
+Gets the parse name of the <paramref name="file"/>.
 A parse name is a UTF-8 string that describes the
 file such that one can get the <see cref="IFile"/> back using
 <see cref="IFile.ParseName(GISharp.Lib.GLib.UnownedUtf8)"/>.
@@ -2690,7 +2690,7 @@ string containing the <see cref="IFile"/>'s path,
 
 <member name='File.GetRelativePath(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)'>
 <summary>
-Gets the path for <paramref name="descendant"/> relative to this instance.
+Gets the path for <paramref name="descendant"/> relative to <paramref name="parent"/>.
 </summary>
 <remarks>
 This call does no blocking I/O.
@@ -2703,7 +2703,7 @@ input <see cref="IFile"/>
 </param>
 <returns>
 string with the relative path from
-    <paramref name="descendant"/> to this instance, or <c>null</c> if <paramref name="descendant"/> doesn't have this instance as
+    <paramref name="descendant"/> to <paramref name="parent"/>, or <c>null</c> if <paramref name="descendant"/> doesn't have <paramref name="parent"/> as
     prefix. The returned string should be freed with g_free() when
     no longer needed.
 </returns>
@@ -2711,7 +2711,7 @@ string with the relative path from
 
 <member name='File.GetUri(GISharp.Lib.Gio.IFile)'>
 <summary>
-Gets the URI for the this instance.
+Gets the URI for the <paramref name="file"/>.
 </summary>
 <remarks>
 This call does no blocking I/O.
@@ -2750,12 +2750,12 @@ a string containing the URI scheme for the given
 
 <member name='File.HasParent(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile?)'>
 <summary>
-Checks if this instance has a parent, and optionally, if it is <paramref name="parent"/>.
+Checks if <paramref name="file"/> has a parent, and optionally, if it is <paramref name="parent"/>.
 </summary>
 <remarks>
-If <paramref name="parent"/> is <c>null</c> then this function returns <c>true</c> if this instance has any
+If <paramref name="parent"/> is <c>null</c> then this function returns <c>true</c> if <paramref name="file"/> has any
 parent at all.  If <paramref name="parent"/> is non-<c>null</c> then <c>true</c> is only returned
-if this instance is an immediate child of <paramref name="parent"/>.
+if <paramref name="file"/> is an immediate child of <paramref name="parent"/>.
 </remarks>
 <param name="file">
 input <see cref="IFile"/>
@@ -2764,17 +2764,17 @@ input <see cref="IFile"/>
 the parent to check for, or <c>null</c>
 </param>
 <returns>
-<c>true</c> if this instance is an immediate child of <paramref name="parent"/> (or any parent in
+<c>true</c> if <paramref name="file"/> is an immediate child of <paramref name="parent"/> (or any parent in
          the case that <paramref name="parent"/> is <c>null</c>).
 </returns>
 </member>
 
 <member name='File.HasPrefix(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)'>
 <summary>
-Checks whether this instance has the prefix specified by <paramref name="prefix"/>.
+Checks whether <paramref name="file"/> has the prefix specified by <paramref name="prefix"/>.
 </summary>
 <remarks>
-In other words, if the names of initial elements of this instance's
+In other words, if the names of initial elements of <paramref name="file"/>'s
 pathname match <paramref name="prefix"/>. Only full pathname elements are matched,
 so a path like /foo is not considered a prefix of /foobar, only
 of /foo/bar.
@@ -2783,8 +2783,8 @@ A <see cref="IFile"/> is not a prefix of itself. If you want to check for
 equality, use <see cref="File.Equals(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile)"/>.
 
 This call does no I/O, as it works purely on names. As such it can
-sometimes return <c>false</c> even if this instance is inside a <paramref name="prefix"/> (from a
-filesystem point of view), because the prefix of this instance is an alias
+sometimes return <c>false</c> even if <paramref name="file"/> is inside a <paramref name="prefix"/> (from a
+filesystem point of view), because the prefix of <paramref name="file"/> is an alias
 of <paramref name="prefix"/>.
 </remarks>
 <param name="file">
@@ -2830,7 +2830,7 @@ This call does no blocking I/O.
 #gconstpointer to a <see cref="IFile"/>
 </param>
 <returns>
-0 if this instance is not a valid <see cref="IFile"/>, otherwise an
+0 if <paramref name="file"/> is not a valid <see cref="IFile"/>, otherwise an
     integer that can be used as hash value for the <see cref="IFile"/>.
     This function is intended for easily hashing a <see cref="IFile"/> to
     add to a #GHashTable or similar data structure.
@@ -2856,16 +2856,16 @@ This call does no blocking I/O.
 input <see cref="IFile"/>
 </param>
 <returns>
-<c>true</c> if this instance is native
+<c>true</c> if <paramref name="file"/> is native
 </returns>
 </member>
 
 <member name='File.LoadBytes(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Utf8?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Loads the contents of this instance and returns it as <see cref="GLib.Bytes"/>.
+Loads the contents of <paramref name="file"/> and returns it as <see cref="GLib.Bytes"/>.
 </summary>
 <remarks>
-If this instance is a resource:// based URI, the resulting bytes will reference the
+If <paramref name="file"/> is a resource:// based URI, the resulting bytes will reference the
 embedded resource instead of a copy. Otherwise, this is equivalent to calling
 <see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{System.Byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> and g_bytes_new_take().
 
@@ -2895,10 +2895,10 @@ On error
 
 <member name='File.LoadBytesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Asynchronously loads the contents of this instance as <see cref="GLib.Bytes"/>.
+Asynchronously loads the contents of <paramref name="file"/> as <see cref="GLib.Bytes"/>.
 </summary>
 <remarks>
-If this instance is a resource:// based URI, the resulting bytes will reference the
+If <paramref name="file"/> is a resource:// based URI, the resulting bytes will reference the
 embedded resource instead of a copy. Otherwise, this is equivalent to calling
 <see cref="File.LoadContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> and g_bytes_new_take().
 
@@ -2942,7 +2942,7 @@ On error
 
 <member name='File.LoadContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Starts an asynchronous load of the this instance's contents.
+Starts an asynchronous load of the <paramref name="file"/>'s contents.
 </summary>
 <remarks>
 For more details, see <see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{System.Byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> which is
@@ -3061,7 +3061,7 @@ On error
 
 <member name='File.MakeSymbolicLink(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filename,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Creates a symbolic link named this instance which contains the string
+Creates a symbolic link named <paramref name="file"/> which contains the string
 <paramref name="symlinkValue"/>.
 </summary>
 <remarks>
@@ -3151,7 +3151,7 @@ On error
 
 <member name='File.Move(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Tries to move the file or directory this instance to the location specified
+Tries to move the file or directory <paramref name="source"/> to the location specified
 by <paramref name="destination"/>. If native move operations are supported then this is
 used, otherwise a copy + delete fallback is used. The native
 implementation may support moving directories (for instance on moves
@@ -3171,7 +3171,7 @@ It is
 guaranteed that this callback will be called after all data has been
 transferred with the total number of bytes copied during the operation.
 
-If the this instance file does not exist, then the <see cref="IOErrorEnum.NotFound"/>
+If the <paramref name="source"/> file does not exist, then the <see cref="IOErrorEnum.NotFound"/>
 error is returned, independent on the status of the <paramref name="destination"/>.
 
 If <see cref="FileCopyFlags.Overwrite"/> is not specified and the target exists,
@@ -3245,7 +3245,7 @@ On error
 
 <member name='File.OpenReadwriteAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Asynchronously opens this instance for reading and writing.
+Asynchronously opens <paramref name="file"/> for reading and writing.
 </summary>
 <remarks>
 For more details, see <see cref="File.OpenReadwrite(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> which is
@@ -3279,7 +3279,7 @@ input <see cref="IFile"/>
 </param>
 <returns>
 string containing the <see cref="IFile"/>'s path,
-    or <c>null</c> if no such path exists. The returned string is owned by this instance.
+    or <c>null</c> if no such path exists. The returned string is owned by <paramref name="file"/>.
 </returns>
 </member>
 
@@ -3390,7 +3390,7 @@ The <see cref="FileType"/> of the file and <see cref="FileType.Unknown"/>
 <member name='File.QueryFilesystemInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Similar to <see cref="File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>, but obtains information
-about the filesystem the this instance is on, rather than the file itself.
+about the filesystem the <paramref name="file"/> is on, rather than the file itself.
 For instance the amount of space available and the type of
 the filesystem.
 </summary>
@@ -3438,7 +3438,7 @@ On error
 <member name='File.QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously gets the requested information about the filesystem
-that the specified this instance is on. The result is a <see cref="FileInfo"/> object
+that the specified <paramref name="file"/> is on. The result is a <see cref="FileInfo"/> object
 that contains key-value attributes (such as type or size for the
 file).
 </summary>
@@ -3463,7 +3463,7 @@ optional <see cref="Cancellable"/> object,
 
 <member name='File.QueryInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Gets the requested information about specified this instance.
+Gets the requested information about specified <paramref name="file"/>.
 The result is a <see cref="FileInfo"/> object that contains key-value
 attributes (such as the type or size of the file).
 </summary>
@@ -3509,7 +3509,7 @@ optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
 <returns>
-a <see cref="FileInfo"/> for the given this instance, or <c>null</c>
+a <see cref="FileInfo"/> for the given <paramref name="file"/>, or <c>null</c>
     on error. Free the returned object with g_object_unref().
 </returns>
 <exception name="GISharp.Runtime.GErrorException">
@@ -3519,7 +3519,7 @@ On error
 
 <member name='File.QueryInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Asynchronously gets the requested information about specified this instance.
+Asynchronously gets the requested information about specified <paramref name="file"/>.
 The result is a <see cref="FileInfo"/> object that contains key-value attributes
 (such as type or size for the file).
 </summary>
@@ -3632,7 +3632,7 @@ On error
 
 <member name='File.ReadAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Asynchronously opens this instance for reading.
+Asynchronously opens <paramref name="file"/> for reading.
 </summary>
 <remarks>
 For more details, see <see cref="File.Read(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> which is
@@ -3673,7 +3673,7 @@ by triggering the cancellable object from another thread. If the
 operation was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be
 returned.
 
-If you pass in a non-<c>null</c> <paramref name="etag"/> value and this instance already exists, then
+If you pass in a non-<c>null</c> <paramref name="etag"/> value and <paramref name="file"/> already exists, then
 this value is compared to the current entity tag of the file, and if
 they differ an <see cref="IOErrorEnum.WrongEtag"/> error is returned. This
 generally means that the file has been changed since you last read
@@ -3754,14 +3754,14 @@ optional <see cref="Cancellable"/> object,
 
 <member name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Replaces the contents of this instance with <paramref name="contents"/>.
+Replaces the contents of <paramref name="file"/> with <paramref name="contents"/>.
 </summary>
 <remarks>
 If <paramref name="etag"/> is specified (not <c>null</c>), any existing file must have that etag,
 or the error <see cref="IOErrorEnum.WrongEtag"/> will be returned.
 
 If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to make a backup
-of this instance. Internally, it uses <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>, so will try to replace the
+of <paramref name="file"/>. Internally, it uses <see cref="File.Replace(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>, so will try to replace the
 file contents in the safest way possible. For example, atomic renames are
 used when replacing local files’ contents.
 
@@ -3776,7 +3776,7 @@ changed the next time it is saved over.
 input <see cref="IFile"/>
 </param>
 <param name="contents">
-a string containing the new contents for this instance
+a string containing the new contents for <paramref name="file"/>
 </param>
 <param name="etag">
 the old [entity-tag][gfile-etag] for the document,
@@ -3803,7 +3803,7 @@ On error
 
 <member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Starts an asynchronous replacement of this instance with the given
+Starts an asynchronous replacement of <paramref name="file"/> with the given
 <paramref name="contents"/>. <paramref name="etag"/> will replace the document's
 current entity tag.
 </summary>
@@ -3813,7 +3813,7 @@ triggering the cancellable object from another thread. If the operation
 was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned.
 
 If <paramref name="makeBackup"/> is <c>true</c>, this function will attempt to
-make a backup of this instance.
+make a backup of <paramref name="file"/>.
 
 Note that no copy of <paramref name="contents"/> will be made, so it must stay valid
 until the async task is completed. See <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/>
@@ -3827,7 +3827,7 @@ input <see cref="IFile"/>
 string of contents to replace the file with
 </param>
 <param name="etag">
-a new [entity tag][gfile-etag] for the this instance, or <c>null</c>
+a new [entity tag][gfile-etag] for the <paramref name="file"/>, or <c>null</c>
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -3854,7 +3854,7 @@ input <see cref="IFile"/>
 a #GBytes
 </param>
 <param name="etag">
-a new [entity tag][gfile-etag] for the this instance, or <c>null</c>
+a new [entity tag][gfile-etag] for the <paramref name="file"/>, or <c>null</c>
 </param>
 <param name="makeBackup">
 <c>true</c> if a backup should be created
@@ -3941,7 +3941,7 @@ optional <see cref="Cancellable"/> object,
 
 <member name='File.ResolveRelativePath(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Filename)'>
 <summary>
-Resolves a relative path for this instance to an absolute path.
+Resolves a relative path for <paramref name="file"/> to an absolute path.
 </summary>
 <remarks>
 This call does no blocking I/O.
@@ -3954,7 +3954,7 @@ a given relative path string
 </param>
 <returns>
 <see cref="IFile"/> to the resolved path.
-    <c>null</c> if <paramref name="relativePath"/> is <c>null</c> or if this instance is invalid.
+    <c>null</c> if <paramref name="relativePath"/> is <c>null</c> or if <paramref name="file"/> is invalid.
     Free the returned object with g_object_unref().
 </returns>
 </member>
@@ -4185,7 +4185,7 @@ On error
 
 <member name='File.SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Asynchronously sets the attributes of this instance with <paramref name="info"/>.
+Asynchronously sets the attributes of <paramref name="file"/> with <paramref name="info"/>.
 </summary>
 <remarks>
 For more details, see <see cref="File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>,
@@ -4245,11 +4245,11 @@ On error
 
 <member name='File.SetDisplayName(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Renames this instance to the specified display name.
+Renames <paramref name="file"/> to the specified display name.
 </summary>
 <remarks>
 The display name is converted from UTF-8 to the correct encoding
-for the target filesystem if possible and the this instance is renamed to this.
+for the target filesystem if possible and the <paramref name="file"/> is renamed to this.
 
 If you want to implement a rename operation in the user interface the
 edit name (<see cref="FileAttribute.StandardEditName"/>) should be used as the
@@ -4273,7 +4273,7 @@ optional <see cref="Cancellable"/> object,
     <c>null</c> to ignore
 </param>
 <returns>
-a <see cref="IFile"/> specifying what this instance was renamed to,
+a <see cref="IFile"/> specifying what <paramref name="file"/> was renamed to,
     or <c>null</c> if there was an error.
     Free the returned object with g_object_unref().
 </returns>
@@ -4345,22 +4345,22 @@ On error
 
 <member name='File.SupportsThreadContexts(GISharp.Lib.Gio.IFile)'>
 <summary>
-Checks if this instance supports
+Checks if <paramref name="file"/> supports
 [thread-default contexts][g-main-context-push-thread-default-context].
 If this returns <c>false</c>, you cannot perform asynchronous operations on
-this instance in a thread that has a thread-default context.
+<paramref name="file"/> in a thread that has a thread-default context.
 </summary>
 <param name="file">
 a <see cref="IFile"/>
 </param>
 <returns>
-Whether or not this instance supports thread-default contexts.
+Whether or not <paramref name="file"/> supports thread-default contexts.
 </returns>
 </member>
 
 <member name='File.Trash(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Sends this instance to the "Trashcan", if possible. This is similar to
+Sends <paramref name="file"/> to the "Trashcan", if possible. This is similar to
 deleting it, but the user can recover it before emptying the trashcan.
 Not all file systems support trashing, so this call can return the
 <see cref="IOErrorEnum.NotSupported"/> error. Since GLib 2.66, the `x-gvfs-notrash` unix
@@ -4386,7 +4386,7 @@ On error
 
 <member name='File.TrashAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Asynchronously sends this instance to the Trash location, if possible.
+Asynchronously sends <paramref name="file"/> to the Trash location, if possible.
 </summary>
 <param name="file">
 input <see cref="IFile"/>

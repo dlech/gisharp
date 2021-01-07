@@ -68,7 +68,7 @@ the value to insert
 Looks up a value in a <see cref="VariantDict"/>.
 </summary>
 <remarks>
-If <paramref name="key"/> is not found in <paramref name="dictionary"/>, <c>null</c> is returned.
+If <paramref name="key"/> is not found in <c>dictionary</c>, <c>null</c> is returned.
 
 The <paramref name="expectedType"/> string specifies what type of value is expected.
 If the value associated with <paramref name="key"/> has a different type then <c>null</c> is

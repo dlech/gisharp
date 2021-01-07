@@ -2,7 +2,7 @@
 
 <member name='SimpleAction.Enabled'>
 <summary>
-If <paramref name="action"/> is currently enabled.
+If <c>action</c> is currently enabled.
 </summary>
 <remarks>
 If the action is disabled then calls to <see cref="Action.Activate(GISharp.Lib.Gio.IAction,GISharp.Lib.GLib.Variant)"/> and
