@@ -22,7 +22,7 @@ namespace GISharp.CodeGen.Syntax
         static readonly XNamespace gi = Globals.CoreNamespace;
         static readonly XNamespace gs = Globals.GISharpNamespace;
 
-        public static ParameterSyntax GetParameter(this GIArg arg, string suffix = "", bool unownedUtf8AsString = false)
+        public static ParameterSyntax GetParameter(this GIArg arg, string suffix = "")
         {
             if (arg is ReturnValue) {
                 throw new ArgumentException("Return value can't be a parameter", nameof(arg));
@@ -41,12 +41,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (managed && arg.TransferOwnership == "none") {
                 if (type == typeof(Utf8)) {
-                    if (unownedUtf8AsString) {
-                        type = typeof(string);
-                    }
-                    else {
-                        type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
-                    }
+                    type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
                 }
                 else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(CArray<>)) {
                     type = typeof(ReadOnlySpan<>).MakeGenericType(type.GetGenericArguments());

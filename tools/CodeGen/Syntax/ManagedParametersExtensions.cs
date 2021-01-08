@@ -1,10 +1,5 @@
 using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -15,9 +10,9 @@ namespace GISharp.CodeGen.Syntax
 {
     public static class ManagedParametersExtensions
     {
-        public static ParameterListSyntax GetParameterList(this ManagedParameters parameters, bool unownedUtf8AsString = false)
+        public static ParameterListSyntax GetParameterList(this ManagedParameters parameters)
         {
-            return ParameterList(SeparatedList(parameters.Select(x => x.GetParameter(unownedUtf8AsString: unownedUtf8AsString))));
+            return ParameterList(SeparatedList(parameters.Select(x => x.GetParameter())));
         }
 
         public static ArgumentListSyntax GetArgumentList(this ManagedParameters parameters, string suffix = "", bool declareOutVars = true)
