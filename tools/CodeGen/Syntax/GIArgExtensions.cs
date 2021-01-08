@@ -24,6 +24,10 @@ namespace GISharp.CodeGen.Syntax
 
         public static ParameterSyntax GetParameter(this GIArg arg, string suffix = "", bool unownedUtf8AsString = false)
         {
+            if (arg is ReturnValue) {
+                throw new ArgumentException("Return value can't be a parameter", nameof(arg));
+            }
+
             var managed = arg.ParentNode is ManagedParameters;
             var type = managed ? arg.Type.ManagedType : arg.Type.UnmanagedType;
             var byRef = false;
@@ -56,10 +60,6 @@ namespace GISharp.CodeGen.Syntax
 
             IEnumerable<SyntaxToken> getModifiers()
             {
-                if (arg is ReturnValue) {
-                    yield break;
-                }
-
                 if (arg.ParentNode is Parameters) {
                     if (arg.Direction == "inout") {
                         yield return Token(RefKeyword);

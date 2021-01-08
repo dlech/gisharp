@@ -24,6 +24,11 @@ namespace GISharp.CodeGen.Gir
         public string FinishFor { get; }
 
         /// <summary>
+        /// Indicates that a method should be generated to check the return value.
+        /// </summary>
+        public bool IsCheckReturn { get; }
+
+        /// <summary>
         /// Gets the return value for this callable
         /// </summary>
         public ReturnValue ReturnValue => _ReturnValue.Value;
@@ -47,6 +52,7 @@ namespace GISharp.CodeGen.Gir
             ThrowsGErrorException = Element.Attribute("throws").AsBool();
             IsAsync = Element.Attribute(gs + "async").AsBool();
             FinishFor = Element.Attribute(gs + "finish-for").AsString();
+            IsCheckReturn = Element.Attribute(gs + "check-return").AsBool();
             _ReturnValue = new(LazyGetReturnValue, false);
             _Parameters = new(LazyGetParameters, false);
             _ManagedParameters = new(LazyGetManagedParameters, false);

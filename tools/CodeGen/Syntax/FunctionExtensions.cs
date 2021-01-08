@@ -18,8 +18,10 @@ namespace GISharp.CodeGen.Syntax
         {
             IEnumerable<MemberDeclarationSyntax> getMembers()
             {
-                var checkArgsMethod = function.GetCheckArgsMethodDeclaration();
-                yield return checkArgsMethod;
+                yield return function.GetCheckArgsMethodDeclaration();
+                if (function.IsCheckReturn) {
+                    yield return function.GetCheckReturnMethodDeclaration();
+                }
 
                 yield return function.GetExternMethodDeclaration();
                 if (!function.IsPInvokeOnly) {

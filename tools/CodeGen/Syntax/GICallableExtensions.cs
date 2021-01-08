@@ -30,6 +30,39 @@ namespace GISharp.CodeGen.Syntax
         }
 
         /// <summary>
+        /// Gets a partial static method declaration for checking managed return value.
+        /// </summary>
+        internal static MethodDeclarationSyntax GetCheckReturnMethodDeclaration(this GICallable callable)
+        {
+            var declaration = MethodDeclaration(IdentifierName("void"), $"Check{callable.ManagedName}Return")
+                .AddModifiers(Token(StaticKeyword), Token(PartialKeyword))
+                .WithSemicolonToken(Token(SemicolonToken));
+
+            if (callable is Constructor) {
+                declaration = declaration.AddParameterListParameters(
+                    Parameter(Identifier("ret_")).WithType(ParseTypeName("System.IntPtr"))
+                );
+            }
+            else if (callable.IsAsync) {
+                throw new NotSupportedException("doesn't make sense to check return of async methods");
+            }
+            else if (
+                callable.ReturnValue.Type.UnmanagedType != typeof(void) &&
+                !callable.ReturnValue.IsSkip
+            ) {
+                var type = callable.ReturnValue.Type.ManagedType.ToSyntax();
+                if (callable.ReturnValue.IsNullable) {
+                    type = NullableType(type);
+                }
+                declaration = declaration.AddParameterListParameters(
+                    Parameter(Identifier("ret")).WithType(type)
+                );
+            }
+
+            return declaration;
+        }
+
+        /// <summary>
         /// Gets statements for invoking a callable
         /// </summary>
         /// <remarks>
@@ -174,7 +207,11 @@ namespace GISharp.CodeGen.Syntax
 
             // emit the return statement
 
-            if (callable is Constructor) {
+            if (callable is Constructor constructor) {
+                if (callable.IsCheckReturn) {
+                    var expression = ParseExpression($"Check{callable.ManagedName}Return(ret_)");
+                    yield return ExpressionStatement(expression);
+                }
                 // constructor static methods return the unmanaged value directly
                 // for use in the actual C# constructor
                 yield return ReturnStatement(ParseExpression("ret_"));
@@ -185,6 +222,10 @@ namespace GISharp.CodeGen.Syntax
             else if (callable.ReturnValue.Type.UnmanagedType != typeof(void) && !callable.ReturnValue.IsSkip) {
                 foreach (var s in callable.ReturnValue.GetMarshalUnmanagedToManagedStatements()) {
                     yield return s;
+                }
+                if (callable.IsCheckReturn) {
+                    var expression = ParseExpression($"Check{callable.ManagedName}Return(ret)");
+                    yield return ExpressionStatement(expression);
                 }
                 yield return ReturnStatement(ParseExpression("ret"));
             }
