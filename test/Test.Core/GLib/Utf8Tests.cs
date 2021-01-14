@@ -1,4 +1,7 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using NUnit.Framework;
@@ -8,8 +11,16 @@ namespace GISharp.Test.Core
     public class Utf8Tests : Tests
     {
         const string testString = "test-string-with-ůŋįçøđê-😀";
-        readonly Utf8String testUtf8String = new Utf8String(testString);
-        readonly Utf8 testUtf8 = new Utf8(testString);
+        readonly byte[] testStringBytes = Encoding.UTF8.GetBytes(testString);
+        readonly int[] testStringCodePoints = GetCodePoints(testString).ToArray();
+        readonly Utf8 testUtf8 = new(testString);
+
+        static IEnumerable<int> GetCodePoints(string str)
+        {
+            for (var i = 0; i < str.Length; i += char.IsSurrogatePair(str, i) ? 2 : 1) {
+                yield return char.ConvertToUtf32(str, i);
+            }
+        }
 
         [Test]
         public void TestString()
@@ -69,75 +80,17 @@ namespace GISharp.Test.Core
         }
 
         [Test]
-        public void TestUtf8String()
-        {
-            {
-                var utf8 = new UnownedUtf8(testUtf8.Handle, -1);
-                Assert.That(utf8.ToUtf8String(), Is.EqualTo(testUtf8String));
-                Assert.That((Utf8String)utf8, Is.EqualTo(testUtf8String));
-                Assert.That(utf8 == testUtf8String, Is.True);
-                Assert.That(utf8 == default(Utf8String?), Is.False);
-                Assert.That(utf8 != testUtf8String, Is.False);
-                Assert.That(utf8 != default(Utf8String?), Is.True);
-                Assert.That(testUtf8String == utf8, Is.True);
-                Assert.That(default(Utf8String?) == utf8, Is.False);
-                Assert.That(testUtf8String != utf8, Is.False);
-                Assert.That(default(Utf8String?) != utf8, Is.True);
-            }
-            {
-                var utf8 = new NullableUnownedUtf8(testUtf8.Handle, -1);
-                Assert.That(utf8.ToUtf8String(), Is.EqualTo(testUtf8String));
-                Assert.That((Utf8String?)utf8, Is.EqualTo(testUtf8String));
-                Assert.That(utf8 == testUtf8String, Is.True);
-                Assert.That(utf8 == default(Utf8String?), Is.False);
-                Assert.That(utf8 != testUtf8String, Is.False);
-                Assert.That(utf8 != default(Utf8String?), Is.True);
-                Assert.That(testUtf8String == utf8, Is.True);
-                Assert.That(default(Utf8String?) == utf8, Is.False);
-                Assert.That(testUtf8String != utf8, Is.False);
-                Assert.That(default(Utf8String?) != utf8, Is.True);
-            }
-            {
-                var utf8 = new NullableUnownedUtf8(IntPtr.Zero, 0);
-                Assert.That(utf8.ToUtf8String(), Is.EqualTo(Utf8String.Empty));
-                Assert.That((Utf8String?)utf8, Is.Null);
-                Assert.That(utf8 == testUtf8String, Is.False);
-                Assert.That(utf8 == default(Utf8String?), Is.True);
-                Assert.That(utf8 != testUtf8String, Is.True);
-                Assert.That(utf8 != default(Utf8String?), Is.False);
-                Assert.That(testUtf8String == utf8, Is.False);
-                Assert.That(default(Utf8String?) == utf8, Is.True);
-                Assert.That(testUtf8String != utf8, Is.True);
-                Assert.That(default(Utf8String?) != utf8, Is.False);
-            }
-            using (var utf8 = new Utf8(testUtf8String)) {
-                Assert.That(utf8.Length, Is.EqualTo(testUtf8String.Length));
-                Assert.That(utf8.ToUtf8String(), Is.EqualTo(testUtf8String));
-                Assert.That(utf8 == testUtf8String, Is.True);
-                Assert.That(utf8 == default(Utf8String?), Is.False);
-                Assert.That(utf8 != testUtf8String, Is.False);
-                Assert.That(utf8 != default(Utf8String?), Is.True);
-                Assert.That(testUtf8String == utf8, Is.True);
-                Assert.That(default(Utf8String?) == utf8, Is.False);
-                Assert.That(testUtf8String != utf8, Is.False);
-                Assert.That(default(Utf8String?) != utf8, Is.True);
-            }
-        }
-
-        [Test]
         public void TestBytes()
         {
-             using (var utf8 = new Utf8(testString)) {
-                Assert.That(utf8.Bytes, Is.EquivalentTo(testUtf8String.Bytes));
-            }
+            using var utf8 = new Utf8(testString);
+            Assert.That(utf8.Bytes, Is.EquivalentTo(testStringBytes));
         }
 
         [Test]
         public void TestUnichars()
         {
-             using (var utf8 = new Utf8(testString)) {
-                Assert.That(utf8.Characters, Is.EquivalentTo(testUtf8String.Runes));
-            }
+            using var utf8 = new Utf8(testString);
+            Assert.That(utf8.Characters, Is.EquivalentTo(testStringCodePoints));
         }
 
         [Test]

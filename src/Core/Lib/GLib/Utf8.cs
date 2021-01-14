@@ -84,14 +84,6 @@ namespace GISharp.Lib.GLib
             return new ReadOnlySpan<byte>((byte*)Handle, Length);
         }
 
-        /// <summary>
-        /// Creates a <see cref="Utf8Span"/> of the unmanaged memory.
-        /// </summary>
-        public Utf8Span AsUtf8Span()
-        {
-            return Utf8Span.UnsafeCreateWithoutValidation(AsReadOnlySpan());
-        }
-
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern bool g_str_equal(IntPtr v1, IntPtr v2);
 
@@ -143,21 +135,6 @@ namespace GISharp.Lib.GLib
             return ToString() == other;
         }
 
-        /// <summary>
-        /// Compares two strings for byte-by-byte equality and returns
-        /// <c>true</c> if they are equal.
-        /// </summary>
-        public unsafe bool Equals(Utf8String? other)
-        {
-            if (other is null) {
-                return false;
-            }
-            fixed (byte* p = other) {
-                var ret = g_str_equal(Handle, (IntPtr)p);
-                return ret;
-            }
-        }
-
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
@@ -166,9 +143,6 @@ namespace GISharp.Lib.GLib
             }
             if (obj is string str) {
                 return ToString() == str;
-            }
-            if (obj is Utf8String utf8String) {
-                return Equals(utf8String);
             }
             return false;
         }
@@ -200,11 +174,6 @@ namespace GISharp.Lib.GLib
         public override string ToString() => Encoding.UTF8.GetString(AsReadOnlySpan());
 
         /// <summary>
-        /// Converts this instance to a <see cref="Utf8String"/>.
-        /// </summary>
-        public Utf8String ToUtf8String() => new Utf8String(AsReadOnlySpan());
-
-        /// <summary>
         /// Converts <see cref="UnownedUtf8"/> to <see cref="Utf8"/>.
         /// </summary>
         /// <remarks>
@@ -216,17 +185,6 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Converts <see cref="UnownedUtf8"/> to <see cref="ToUtf8String"/>.
-        /// </summary>
-        /// <remarks>
-        /// This is the equivalent of <see cref="ToUtf8String"/>.
-        /// </remarks>
-        public static explicit operator Utf8String(UnownedUtf8 value)
-        {
-            return value.ToUtf8String();
-        }
-
-        /// <summary>
         /// Converts <see cref="UnownedUtf8"/> to <c>string</c>.
         /// </summary>
         /// <remarks>
@@ -235,17 +193,6 @@ namespace GISharp.Lib.GLib
         public static implicit operator string(UnownedUtf8 value)
         {
             return value.ToString();
-        }
-
-        /// <summary>
-        /// Converts <see cref="UnownedUtf8"/> to <see cref="Utf8Span"/>.
-        /// </summary>
-        /// <remarks>
-        /// This is the equivalent of <see cref="AsUtf8Span"/>.
-        /// </remarks>
-        public static implicit operator Utf8Span(UnownedUtf8 value)
-        {
-            return Utf8Span.UnsafeCreateWithoutValidation(value.AsReadOnlySpan());
         }
 
         /// <summary>
@@ -354,38 +301,6 @@ namespace GISharp.Lib.GLib
         public static bool operator !=(string? a, UnownedUtf8 b)
         {
             return a != b.ToString();
-        }
-
-        /// <summary>
-        /// Compares two strings for equality.
-        /// </summary>
-        public static bool operator ==(UnownedUtf8 a, Utf8String? b)
-        {
-            return a.Equals(b);
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte inequality.
-        /// </summary>
-        public static bool operator !=(UnownedUtf8 a, Utf8String? b)
-        {
-            return !a.Equals(b);
-        }
-
-        /// <summary>
-        /// Compares two strings for equality.
-        /// </summary>
-        public static bool operator ==(Utf8String? a, UnownedUtf8 b)
-        {
-            return b.Equals(a);
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte inequality.
-        /// </summary>
-        public static bool operator !=(Utf8String? a, UnownedUtf8 b)
-        {
-            return !b.Equals(a);
         }
     }
 
@@ -511,16 +426,6 @@ namespace GISharp.Lib.GLib
             return Value.Equals(other);
         }
 
-        /// <summary>
-        /// Compares two strings for equality.
-        /// </summary>
-        public unsafe bool Equals(Utf8String? other)
-        {
-            fixed (byte* other_ = other) {
-                return g_strcmp0(Handle, (IntPtr)other_) == 0;
-            }
-        }
-
         /// <inheritdoc/>
         public override bool Equals(object? other)
         {
@@ -533,9 +438,6 @@ namespace GISharp.Lib.GLib
             if (other is string str) {
                 return Value.Equals(str);
             }
-            // if (other is Utf8String utf8String) {
-            //     return Value.Equals(utf8String);
-            // }
             return false;
         }
 
@@ -558,17 +460,6 @@ namespace GISharp.Lib.GLib
                 return value.ToString();
             }
             return string.Empty;
-        }
-
-        /// <summary>
-        /// Converts this instance to a <see cref="Utf8String"/>.
-        /// </summary>
-        public Utf8String ToUtf8String()
-        {
-            if (HasValue) {
-                return value.ToUtf8String();
-            }
-            return Utf8String.Empty;
         }
 
         /// <summary>
@@ -707,61 +598,6 @@ namespace GISharp.Lib.GLib
         /// This is the inverse of to <see cref="Equals(string)"/>
         /// </remarks>
         public static bool operator !=(string? a, NullableUnownedUtf8 b)
-        {
-            return !b.Equals(a);
-        }
-
-        /// <summary>
-        /// Converts an unowned string to an owned string.
-        /// </summary>
-        public static explicit operator Utf8String?(NullableUnownedUtf8 value)
-        {
-            if (value.HasValue) {
-                return value.ToUtf8String();
-            }
-            return null;
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte equality.
-        /// </summary>
-        /// <remarks>
-        /// This is equivalent to <see cref="Equals(Utf8String)"/>
-        /// </remarks>
-        public static bool operator ==(NullableUnownedUtf8 a, Utf8String? b)
-        {
-            return a.Equals(b);
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte inequality.
-        /// </summary>
-        /// <remarks>
-        /// This is the inverse of to <see cref="Equals(Utf8String)"/>
-        /// </remarks>
-        public static bool operator !=(NullableUnownedUtf8 a, Utf8String? b)
-        {
-            return !a.Equals(b);
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte equality.
-        /// </summary>
-        /// <remarks>
-        /// This is equivalent to <see cref="Equals(Utf8String)"/>
-        /// </remarks>
-        public static bool operator ==(Utf8String? a, NullableUnownedUtf8 b)
-        {
-            return b.Equals(a);
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte inequality.
-        /// </summary>
-        /// <remarks>
-        /// This is the inverse of to <see cref="Equals(Utf8String)"/>
-        /// </remarks>
-        public static bool operator !=(Utf8String? a, NullableUnownedUtf8 b)
         {
             return !b.Equals(a);
         }
@@ -909,33 +745,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        private unsafe static IntPtr New(Utf8String value)
-        {
-            if (value is null) {
-                throw new ArgumentNullException(nameof(value));
-            }
-
-            fixed (byte* p = value) {
-                return g_strdup((IntPtr)p);
-            }
-        }
-
-        /// <summary>
-        /// Creates a new <see cref="Utf8"/> from <paramref name="value"/>.
-        /// </summary>
-        /// <param name="value">
-        /// A managed UTF-8 string.
-        /// </param>
-        /// <exception name="ArgumentNullException">
-        /// <paramref name="value"/> is <c>null</c>.
-        /// </exception>
-        /// <remarks>
-        /// <paramref name="value"/> is copied from managed memory to unmanaged memory.
-        /// </remarks>
-        public Utf8(Utf8String value) : this(New(value), Transfer.Full)
-        {
-        }
-
         /// <summary>
         /// Creates a new <see cref="Utf8"/> string.
         /// </summary>
@@ -999,14 +808,6 @@ namespace GISharp.Lib.GLib
         public override string ToString()
         {
             return Value;
-        }
-
-        /// <summary>
-        /// Convers this string to a managed <see cref="Utf8String"/>.
-        /// </summary>
-        public unsafe Utf8String ToUtf8String()
-        {
-            return new Utf8String((byte*)Handle);
         }
 
         string GetValue()
@@ -1323,23 +1124,6 @@ namespace GISharp.Lib.GLib
             return Value.Equals(other);
         }
 
-        /// <summary>
-        /// Compares two strings for byte-by-byte equality.
-        /// </summary>
-        public unsafe bool Equals(Utf8String? other)
-        {
-            if (other is null) {
-                throw new ArgumentNullException(nameof(other));
-            }
-
-            var this_ = Handle;
-            fixed (byte* other_ = other) {
-                var ret_ = g_str_equal(this_, (IntPtr)other_);
-                var ret = ret_.IsTrue();
-                return ret;
-            }
-        }
-
         /// <inheritdoc/>
         public override bool Equals(object? obj)
         {
@@ -1348,9 +1132,6 @@ namespace GISharp.Lib.GLib
             }
             if (obj is string str) {
                 return Equals(str);
-            }
-            if (obj is Utf8String utf8String) {
-                return Equals(utf8String);
             }
             return base.Equals(obj);
         }
@@ -1490,57 +1271,6 @@ namespace GISharp.Lib.GLib
         public static bool operator !=(string? a, Utf8? b)
         {
             return !EqualsString(b, a);
-        }
-
-        /// <summary>
-        /// Converts an unmanaged UTF-8 string to a managed UTF-8 string.
-        /// </summary>
-        public unsafe static explicit operator Utf8String(Utf8 utf8)
-        {
-            return new Utf8String((byte*)utf8.Handle);
-        }
-
-        static bool EqualsUtf8String(Utf8? a, Utf8String? b)
-        {
-            if (a is null && b is null) {
-                return true;
-            }
-            if (a is null || b is null) {
-                return false;
-            }
-            return a.Equals(b);
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte equality.
-        /// </summary>
-        public static bool operator ==(Utf8? a, Utf8String? b)
-        {
-            return EqualsUtf8String(a, b);
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte inequality.
-        /// </summary>
-        public static bool operator !=(Utf8? a, Utf8String? b)
-        {
-            return !EqualsUtf8String(a, b);
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte equality.
-        /// </summary>
-        public static bool operator ==(Utf8String? a, Utf8? b)
-        {
-            return EqualsUtf8String(b, a);
-        }
-
-        /// <summary>
-        /// Compares two strings for byte-by-byte inequality.
-        /// </summary>
-        public static bool operator !=(Utf8String? a, Utf8? b)
-        {
-            return !EqualsUtf8String(b, a);
         }
     }
 
