@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2017-2021 David Lechner <david@lechnology.com>
+
 using System;
 using System.Buffers;
 using System.Collections;

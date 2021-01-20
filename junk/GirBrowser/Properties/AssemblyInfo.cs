@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2015-2019 David Lechner <david@lechnology.com>
+
 ﻿using System.Reflection;
 using System.Runtime.CompilerServices;
 

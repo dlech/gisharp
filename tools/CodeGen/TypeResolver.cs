@@ -1,4 +1,7 @@
-﻿using System;
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+
+using System;
 using System.Reflection;
 using System.Collections.Generic;
 
@@ -7,7 +10,7 @@ namespace GISharp.CodeGen
     public static class TypeResolver
     {
         static readonly Dictionary<string, Assembly> assemblyCache =
-            new Dictionary<string, Assembly> ();
+            new Dictionary<string, Assembly>();
 
         public static void LoadAssembly(Assembly assembly)
         {
@@ -24,10 +27,10 @@ namespace GISharp.CodeGen
             LoadAssembly(assembly);
         }
 
-        public static Assembly Resolve (object sender, ResolveEventArgs e)
+        public static Assembly Resolve(object sender, ResolveEventArgs e)
         {
             foreach (var assembly in assemblyCache.Values) {
-                if (assembly.GetType (e.Name) is not null) {
+                if (assembly.GetType(e.Name) is not null) {
                     return assembly;
                 }
             }

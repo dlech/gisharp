@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,7 +43,7 @@ namespace GISharp.CodeGen.Syntax
         static LiteralExpressionSyntax GetValueAsLiteralExpression(string type, string value)
         {
             string message;
-    
+
             switch (type) {
             case "bool":
             case "System.Boolean":

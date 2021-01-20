@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+
 ﻿using NUnit.Framework;
 using System;
 using System.Collections.Generic;

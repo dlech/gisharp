@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+
 using System;
 using System.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -21,9 +24,10 @@ namespace GISharp.CodeGen.Syntax
             if (typeName == "System.Void") {
                 // C# can't use System.Void
                 fixedUpTypeName = "void";
-            } else if (typeName.Contains("`")) {
+            }
+            else if (typeName.Contains("`")) {
                 // Generics need fixing up
-                fixedUpTypeName = typeName.Remove(typeName.IndexOf ('`'));
+                fixedUpTypeName = typeName.Remove(typeName.IndexOf('`'));
             }
 
             if (type.IsGenericType) {

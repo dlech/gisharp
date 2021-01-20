@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: MIT
+// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+
 namespace GISharp.Lib.GLib
 {
     /// <summary>
