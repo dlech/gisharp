@@ -653,14 +653,14 @@ namespace GISharp.Lib.GLib
         /// number of elements preallocated
         /// </param>
         public Array(bool zeroTerminated, bool clear = false, int reservedSize = 10)
-            : this(SizedNew(zeroTerminated, clear, Marshal.SizeOf<T>(), reservedSize), Transfer.Full)
+            : this(SizedNew(zeroTerminated, clear, GMarshal.SizeOf<T>(), reservedSize), Transfer.Full)
         {
         }
 
         /// <summary>
         /// Initializes a new instance of the <see cref="Array{T}"/> class.
         /// </summary>
-        public Array() : this(New(false, false, Marshal.SizeOf<T>()), Transfer.Full)
+        public Array() : this(New(false, false, GMarshal.SizeOf<T>()), Transfer.Full)
         {
         }
 

@@ -1281,13 +1281,13 @@ namespace GISharp.Lib.GLib
         /// a floating reference to a new array #GVariant instance
         /// </returns>
         [Since("2.32")]
-        static Variant NewFixedArray<T>(VariantType elementType, T[] elements) where T : struct
+        static Variant NewFixedArray<T>(VariantType elementType, T[] elements) where T : unmanaged
         {
             var gch = GCHandle.Alloc(elements, GCHandleType.Pinned);
             try {
                 var elements_ = gch.AddrOfPinnedObject();
                 var nElements = (nuint)elements.Length;
-                var elementSize = (nuint)Marshal.SizeOf<T>();
+                var elementSize = (nuint)GMarshal.SizeOf<T>();
                 var ret = g_variant_new_fixed_array(elementType.Handle, elements_, nElements, elementSize);
                 return new Variant(ret, Transfer.None);
             }
@@ -3328,7 +3328,7 @@ namespace GISharp.Lib.GLib
             if (!IsOfType(VariantType.Array)) {
                 throw new InvalidOperationException();
             }
-            var elementSize = (nuint)Marshal.SizeOf<T>();
+            var elementSize = (nuint)GMarshal.SizeOf<T>();
             var ret_ = g_variant_get_fixed_array(this_, out var nElements_, elementSize);
             var ret = new ReadOnlySpan<T>(ret_, (int)nElements_);
             return ret;

@@ -86,6 +86,17 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
+        /// Like <see cref="Marshal.SizeOf{T}()"/> but can handle enum types.
+        /// </summary>
+        public static int SizeOf<T>()
+        {
+            if (typeof(T).IsEnum) {
+                return Marshal.SizeOf(typeof(T).GetEnumUnderlyingType());
+            }
+            return Marshal.SizeOf<T>();
+        }
+
+        /// <summary>
         /// Marshals a C string pointer to a byte array.
         /// </summary>
         /// <returns>The string as a byte array.</returns>
@@ -295,13 +306,13 @@ namespace GISharp.Runtime
         /// <param name="length">The length of the array or null if the array is null-terminated.</param>
         /// <param name="freePtr">Setting to <c>true</c> will call g_free() on <paramref name="ptr"/>.</param>
         /// <typeparam name="T">The array element type.</typeparam>
-        public static T[]? PtrToCArray<T>(IntPtr ptr, int? length, bool freePtr = false) where T : struct
+        public static T[]? PtrToCArray<T>(IntPtr ptr, int? length, bool freePtr = false) where T : unmanaged
         {
             if (ptr == IntPtr.Zero) {
                 return null;
             }
             T[] array;
-            var elementSize = Marshal.SizeOf<T>();
+            var elementSize = SizeOf<T>();
             if (length.HasValue) {
                 array = new T[length.Value];
                 var current = ptr;
@@ -336,12 +347,12 @@ namespace GISharp.Runtime
         /// <exception cref="NotSupportedException">
         /// Thrown if array element type is not a value type
         /// </exception>
-        public static IntPtr CArrayToPtr<T>(T[] array, bool nullTerminated) where T : struct
+        public static IntPtr CArrayToPtr<T>(T[] array, bool nullTerminated) where T : unmanaged
         {
             if (array is null) {
                 return IntPtr.Zero;
             }
-            var elementSize = Marshal.SizeOf<T>();
+            var elementSize = SizeOf<T>();
             var ptr = Alloc((array.Length + (nullTerminated ? 1 : 0)) * elementSize);
             var current = ptr;
             for (int i = 0; i < array.Length; i++) {
