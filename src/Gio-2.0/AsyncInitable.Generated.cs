@@ -86,7 +86,7 @@ namespace GISharp.Lib.Gio
             var nParameters_ = (System.UInt32)nParameters;
             var parameters_ = (GISharp.Lib.GObject.Parameter)parameters;
             var ioPriority_ = (System.Int32)ioPriority;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GObject.Object>();
             var callback_ = newAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
@@ -197,9 +197,9 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Threading.Tasks.Task InitAsync(this GISharp.Lib.Gio.IAsyncInitable initable, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckInitAsyncArgs(initable, ioPriority, cancellable);
-            var initable_ = initable.Handle;
+            var initable_ = initable.UnsafeHandle;
             var ioPriority_ = (System.Int32)ioPriority;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
             var callback_ = initAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);

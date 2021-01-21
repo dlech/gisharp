@@ -74,11 +74,11 @@ namespace GISharp.Lib.GObject
 #pragma warning restore CS0649
         }
 
-        unsafe uint BitFields => ((UnmanagedStruct*)Handle)->BitFields;
+        unsafe uint BitFields => ((UnmanagedStruct*)UnsafeHandle)->BitFields;
 
         uint RefCount => BitFields & 0x7FFF;
 
-        unsafe IntPtr Data => ((UnmanagedStruct*)Handle)->Data;
+        unsafe IntPtr Data => ((UnmanagedStruct*)UnsafeHandle)->Data;
 
         /// <summary>
         /// For internal runtime use only.
@@ -93,7 +93,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_closure_ref(IntPtr closure);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_closure_ref(Handle);
+        public override IntPtr Take() => g_closure_ref(UnsafeHandle);
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_closure_sink(IntPtr closure);
@@ -159,7 +159,7 @@ namespace GISharp.Lib.GObject
                 const string message = "size must be at least as big as Closure.Struct";
                 throw new ArgumentOutOfRangeException(message, nameof(sizeofClosure));
             }
-            var object_ = @object.Handle;
+            var object_ = @object.UnsafeHandle;
             var ret = g_closure_new_object((uint)sizeofClosure, object_);
             return ret;
         }
@@ -460,7 +460,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public void Invalidate()
         {
-            g_closure_invalidate(Handle);
+            g_closure_invalidate(UnsafeHandle);
         }
 
         /// <summary>
@@ -517,7 +517,7 @@ namespace GISharp.Lib.GObject
         /// <returns>The return value of the closure invocation</returns>
         public unsafe T Invoke<T>(params object?[] paramValues)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (paramValues is null) {
                 throw new ArgumentNullException(nameof(paramValues));
             }

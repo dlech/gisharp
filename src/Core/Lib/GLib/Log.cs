@@ -42,11 +42,11 @@ namespace GISharp.Lib.GLib
         static extern void g_log(IntPtr logDomain, LogLevelFlags logLevel, IntPtr format, IntPtr arg);
 
         static readonly Utf8 stringFormat = "%s";
-        static readonly IntPtr stringFormat_ = stringFormat.Handle;
+        static readonly IntPtr stringFormat_ = stringFormat.UnsafeHandle;
 
         static void Log_(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
         {
-            g_log(logDomain.Handle, logLevel, stringFormat_, message.Handle);
+            g_log(logDomain.UnsafeHandle, logLevel, stringFormat_, message.UnsafeHandle);
         }
 
         /// <summary>
@@ -102,7 +102,7 @@ namespace GISharp.Lib.GLib
             Log_(DefaultDomain, LogLevelFlags.Critical, message);
         }
 
-// GLib will abort the program after logging the error
+        // GLib will abort the program after logging the error
 #pragma warning disable CS8763
         /// <summary>
         /// A convenience function to log an error message. The message
@@ -151,7 +151,7 @@ namespace GISharp.Lib.GLib
         /// code does not know about managed exceptions. So all exceptions in
         /// callbacks need to be caught and this function should be called.
         /// </remarks>
-        public static void LogUnhandledException(this Exception ex, [CallerMemberName]string caller = "")
+        public static void LogUnhandledException(this Exception ex, [CallerMemberName] string caller = "")
         {
             try {
                 var domain = ex?.TargetSite?.Module?.Name;
@@ -260,8 +260,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         public static void DefaultHandler(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, NullableUnownedUtf8 message)
         {
-            var logDomain_ = logDomain.Handle;
-            var message_ = message.Handle;
+            var logDomain_ = logDomain.UnsafeHandle;
+            var message_ = message.UnsafeHandle;
             g_log_default_handler(logDomain_, logLevel, message_, IntPtr.Zero);
         }
 
@@ -306,7 +306,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public static void RemoveHandler(UnownedUtf8 logDomain, uint handlerId)
         {
-            var logDomain_ = logDomain.Handle;
+            var logDomain_ = logDomain.UnsafeHandle;
             g_log_remove_handler(logDomain_, handlerId);
         }
 
@@ -494,8 +494,7 @@ namespace GISharp.Lib.GLib
 
             static LogLevelFlags MapLogLevel(LogLevel logLevel)
             {
-                return logLevel switch
-                {
+                return logLevel switch {
                     LogLevel.Trace => LogLevelFlags.Debug,
                     LogLevel.Debug => LogLevelFlags.Info,
                     LogLevel.Information => LogLevelFlags.Message,
@@ -594,7 +593,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public static LogLevelFlags SetFatalMask(UnownedUtf8 logDomain, LogLevelFlags fatalMask)
         {
-            var logDomain_ = logDomain.Handle;
+            var logDomain_ = logDomain.UnsafeHandle;
             var ret = g_log_set_fatal_mask(logDomain_, fatalMask);
             return ret;
         }
@@ -700,7 +699,7 @@ namespace GISharp.Lib.GLib
         [Since("2.46")]
         public static uint SetHandler(NullableUnownedUtf8 logDomain, LogLevelFlags logLevels, LogFunc logFunc)
         {
-            var logDomain_ = logDomain.Handle;
+            var logDomain_ = logDomain.UnsafeHandle;
             var (logFunc_, destroy_, userData_) = LogFuncFactory.Create(logFunc, CallbackScope.Notified);
             var ret = g_log_set_handler_full(logDomain_, logLevels, logFunc_, userData_, destroy_);
             return ret;

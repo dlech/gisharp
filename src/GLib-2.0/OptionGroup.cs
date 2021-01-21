@@ -31,9 +31,9 @@ namespace GISharp.Lib.GLib
 
         static (IntPtr, UserData) New(UnownedUtf8 name, UnownedUtf8 description, UnownedUtf8 helpDescription)
         {
-            var name_ = name.Handle;
-            var description_ = description.Handle;
-            var helpDescription_ = helpDescription.Handle;
+            var name_ = name.UnsafeHandle;
+            var description_ = description.UnsafeHandle;
+            var helpDescription_ = helpDescription.UnsafeHandle;
             var userData = new UserData();
             var userData_ = (IntPtr)GCHandle.Alloc(userData);
             var ret = g_option_group_new(name_, description_, helpDescription_, userData_, destroy_);
@@ -78,7 +78,7 @@ namespace GISharp.Lib.GLib
         {
             var utf8 = (Utf8)str;
             userData.Strings.Add(utf8);
-            return utf8?.Handle ?? IntPtr.Zero;
+            return utf8?.UnsafeHandle ?? IntPtr.Zero;
         }
 
         /// <summary>
@@ -96,7 +96,7 @@ namespace GISharp.Lib.GLib
         {
             using var array = new Array<OptionEntry>(true, false, 1) { entry };
             ref readonly var entries_ = ref MemoryMarshal.GetReference(array.Data);
-            g_option_group_add_entries(Handle, entries_);
+            g_option_group_add_entries(UnsafeHandle, entries_);
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void AddInt(string longName, char shortName, Action<int> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
@@ -192,7 +192,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void AddFilename(string longName, char shortName, Action<Filename> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
@@ -223,7 +223,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void AddStringArray(string longName, char shortName, Action<Strv> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
@@ -254,7 +254,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void AddFilenameArray(string longName, char shortName, Action<FilenameArray> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
@@ -285,7 +285,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void AddDouble(string longName, char shortName, Action<double> callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }
@@ -315,7 +315,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void AddCallback(string longName, char shortName, OptionArgFunc callback, string description, string argDescription, OptionFlags flags = OptionFlags.None)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (callback is null) {
                 throw new ArgumentNullException(nameof(callback));
             }

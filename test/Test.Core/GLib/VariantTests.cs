@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -415,7 +415,7 @@ namespace GISharp.Test.Core.GLib
 
         static Variant getItemAt(PtrArray<Variant> array, int index)
         {
-            var data_ = Marshal.ReadIntPtr(array.Handle);
+            var data_ = Marshal.ReadIntPtr(array.UnsafeHandle);
             var ptr = Marshal.ReadIntPtr(data_, IntPtr.Size * index);
             return Opaque.GetInstance<Variant>(ptr, Transfer.None);
         }
@@ -423,7 +423,7 @@ namespace GISharp.Test.Core.GLib
         static int GetRefCount(Variant variant)
         {
             // WARNING: GVariant is a private structure, so this could break!
-            return Marshal.ReadInt32(variant.Handle, IntPtr.Size * 4 + sizeof(int));
+            return Marshal.ReadInt32(variant.UnsafeHandle, IntPtr.Size * 4 + sizeof(int));
         }
 
         static readonly PropertyInfo isFloatingProp =

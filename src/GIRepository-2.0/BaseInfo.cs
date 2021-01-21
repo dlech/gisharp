@@ -20,7 +20,7 @@ namespace GISharp.Lib.GIRepository
     [DebuggerDisplay("{Namespace}.{Name}")]
     public abstract class BaseInfo : IEquatable<BaseInfo>, IDisposable
     {
-        public IntPtr Handle { get; private set; }
+        public IntPtr UnsafeHandle { get; private set; }
 
         internal static T? GetInstanceOrNull<T>(IntPtr raw, bool owned = true) where T : BaseInfo
         {
@@ -123,7 +123,7 @@ namespace GISharp.Lib.GIRepository
             if (info2 is null) {
                 return false;
             }
-            var ret_ = g_base_info_equal(info1.Handle, info2.Handle);
+            var ret_ = g_base_info_equal(info1.UnsafeHandle, info2.UnsafeHandle);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -145,7 +145,7 @@ namespace GISharp.Lib.GIRepository
 
         public override int GetHashCode()
         {
-            return Handle.GetHashCode();
+            return UnsafeHandle.GetHashCode();
         }
 
         public static bool operator ==(BaseInfo? info1, BaseInfo? info2)
@@ -168,7 +168,7 @@ namespace GISharp.Lib.GIRepository
         /// <param name="name">Name.</param>
         public NullableUnownedUtf8 GetAttribute(UnownedUtf8 name)
         {
-            var ret_ = g_base_info_get_attribute(Handle, name.Handle);
+            var ret_ = g_base_info_get_attribute(UnsafeHandle, name.UnsafeHandle);
             var ret = new NullableUnownedUtf8(ret_, -1);
             return ret;
         }
@@ -187,7 +187,7 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public BaseInfo? Container {
             get {
-                var ret_ = g_base_info_get_container(Handle);
+                var ret_ = g_base_info_get_container(UnsafeHandle);
                 var ret = GetInstanceOrNull<BaseInfo>(ret_, false);
                 return ret;
             }
@@ -211,7 +211,7 @@ namespace GISharp.Lib.GIRepository
                 if (this is TypeInfo) {
                     return Utf8.Null;
                 }
-                var ret_ = g_base_info_get_name(Handle);
+                var ret_ = g_base_info_get_name(UnsafeHandle);
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -226,7 +226,7 @@ namespace GISharp.Lib.GIRepository
         /// <value>The namespace.</value>
         public UnownedUtf8 Namespace {
             get {
-                var ret_ = g_base_info_get_namespace(Handle);
+                var ret_ = g_base_info_get_namespace(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -241,7 +241,7 @@ namespace GISharp.Lib.GIRepository
         /// <value>The info type.</value>
         public InfoType InfoType {
             get {
-                int raw_ret = g_base_info_get_type(Handle);
+                int raw_ret = g_base_info_get_type(UnsafeHandle);
                 var ret = (InfoType)raw_ret;
                 return ret;
             }
@@ -256,7 +256,7 @@ namespace GISharp.Lib.GIRepository
         /// <value><c>true</c> if this instance is deprecated; otherwise, <c>false</c>.</value>
         public bool IsDeprecated {
             get {
-                var ret_ = g_base_info_is_deprecated(Handle);
+                var ret_ = g_base_info_is_deprecated(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -267,7 +267,7 @@ namespace GISharp.Lib.GIRepository
 
         bool IterateAttributes(ref AttributeIter iterator, out UnownedUtf8 name, out UnownedUtf8 value)
         {
-            var ret_ = g_base_info_iterate_attributes(Handle, ref iterator, out var name_, out var value_);
+            var ret_ = g_base_info_iterate_attributes(UnsafeHandle, ref iterator, out var name_, out var value_);
             var ret = ret_.IsTrue();
             name = ret ? new UnownedUtf8(name_, -1) : default!;
             value = ret ? new UnownedUtf8(value_, -1) : default!;
@@ -276,7 +276,7 @@ namespace GISharp.Lib.GIRepository
 
         protected BaseInfo(IntPtr raw)
         {
-            Handle = raw;
+            UnsafeHandle = raw;
         }
 
         [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -302,9 +302,9 @@ namespace GISharp.Lib.GIRepository
 
         protected virtual void Dispose(bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                var oldHandle = Handle;
-                Handle = IntPtr.Zero;
+            if (UnsafeHandle != IntPtr.Zero) {
+                var oldHandle = UnsafeHandle;
+                UnsafeHandle = IntPtr.Zero;
                 g_base_info_unref(oldHandle);
             }
         }

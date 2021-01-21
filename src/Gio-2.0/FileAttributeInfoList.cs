@@ -19,7 +19,7 @@ namespace GISharp.Lib.Gio
                 if (index < 0 || index >= Count) {
                     throw new IndexOutOfRangeException();
                 }
-                var infos_ = ((UnmanagedStruct*)Handle)->Infos;
+                var infos_ = ((UnmanagedStruct*)UnsafeHandle)->Infos;
                 var info = infos_[index];
                 return info;
             }
@@ -28,7 +28,7 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// the number of values in the list.
         /// </summary>
-        public unsafe int Count => ((UnmanagedStruct*)Handle)->NInfos;
+        public unsafe int Count => ((UnmanagedStruct*)UnsafeHandle)->NInfos;
 
         private IEnumerator<FileAttributeInfo> GetEnumerator()
         {

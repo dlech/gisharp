@@ -137,7 +137,7 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public BindingFlags Flags {
             get {
-                var ret = g_binding_get_flags(Handle);
+                var ret = g_binding_get_flags(UnsafeHandle);
                 return ret;
             }
         }
@@ -170,7 +170,7 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public Object Source {
             get {
-                var ret_ = g_binding_get_source(Handle);
+                var ret_ = g_binding_get_source(UnsafeHandle);
                 var ret = Object.GetInstance(ret_, Transfer.None)!;
                 return ret;
             }
@@ -206,7 +206,7 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public UnownedUtf8 SourceProperty {
             get {
-                var ret_ = g_binding_get_source_property(Handle);
+                var ret_ = g_binding_get_source_property(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -240,7 +240,7 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public Object Target {
             get {
-                var ret_ = g_binding_get_target(Handle);
+                var ret_ = g_binding_get_target(UnsafeHandle);
                 var ret = Object.GetInstance(ret_, Transfer.None)!;
                 return ret;
             }
@@ -276,7 +276,7 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public UnownedUtf8 TargetProperty {
             get {
-                var ret_ = g_binding_get_target_property(Handle);
+                var ret_ = g_binding_get_target_property(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -313,7 +313,7 @@ namespace GISharp.Lib.GObject
         public void Unbind()
         {
             // Note: this releases a reference to handle
-            g_binding_unbind(Handle);
+            g_binding_unbind(UnsafeHandle);
             handle = IntPtr.Zero;
         }
     }

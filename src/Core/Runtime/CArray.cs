@@ -52,7 +52,7 @@ namespace GISharp.Runtime
         /// </remarks>
         public (IntPtr handle, int length) TakeData()
         {
-            var ret = (Handle, Length);
+            var ret = (UnsafeHandle, Length);
             handle = IntPtr.Zero;
             GC.SuppressFinalize(this);
             return ret;
@@ -92,7 +92,7 @@ namespace GISharp.Runtime
         /// </exception>
         public unsafe T this[int index] {
             get {
-                var this_ = (T*)Handle;
+                var this_ = (T*)UnsafeHandle;
                 if (index < 0 || index >= Length) {
                     throw new IndexOutOfRangeException(nameof(index));
                 }
@@ -122,7 +122,7 @@ namespace GISharp.Runtime
         /// </summary>
         public static unsafe implicit operator ReadOnlySpan<T>(CArray<T> array)
         {
-            return new ReadOnlySpan<T>((void*)array.Handle, array.Length);
+            return new ReadOnlySpan<T>((void*)array.UnsafeHandle, array.Length);
         }
     }
 }

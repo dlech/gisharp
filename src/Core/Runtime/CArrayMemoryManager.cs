@@ -21,13 +21,14 @@ namespace GISharp.Runtime
         /// <summary>
         /// Pointer to the unmanged array.
         /// </summary>
-        public IntPtr Handle => handle == null ? throw new ObjectDisposedException(null) : (IntPtr)handle;
+        public IntPtr UnsafeHandle => handle == null ? throw new ObjectDisposedException(null) : (IntPtr)handle;
 
         /// <summary>
         /// Creates a new memory manager for unmanged C arrays.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public CArrayMemoryManager(IntPtr handle, int length, Transfer ownership) {
+        public CArrayMemoryManager(IntPtr handle, int length, Transfer ownership)
+        {
             if (ownership == Transfer.None) {
                 throw new NotSupportedException("Unowned arrays should use ReadOnlySpan<T>");
             }

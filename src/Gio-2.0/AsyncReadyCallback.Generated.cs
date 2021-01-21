@@ -56,8 +56,8 @@ namespace GISharp.Lib.Gio
 
             unsafe void managedCallback(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.IAsyncResult res)
             {
-                var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
-                var res_ = res.Handle;
+                var sourceObject_ = sourceObject?.UnsafeHandle ?? System.IntPtr.Zero;
+                var res_ = res.UnsafeHandle;
                 unmanagedCallback(sourceObject_, res_, userData_);
             }
 

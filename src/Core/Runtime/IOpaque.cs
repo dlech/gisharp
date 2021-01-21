@@ -13,7 +13,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Gets the handle to the unmanged data structure
         /// </summary>
-        IntPtr Handle { get; }
+        IntPtr UnsafeHandle { get; }
 
         /// <summary>
         /// Takes ownership of (or a reference to) the unmanaged data structure

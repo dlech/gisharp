@@ -878,8 +878,8 @@ namespace GISharp.Lib.GLib
         [Since("2.50")]
         public static void Log(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, Variant fields)
         {
-            var logDomain_ = logDomain.Handle;
-            var fields_ = fields.Handle;
+            var logDomain_ = logDomain.UnsafeHandle;
+            var fields_ = fields.UnsafeHandle;
             if (fields.Type != VariantType.VariantDictionary) {
                 throw new ArgumentException("Requires VariantType.VarDict", nameof(fields));
             }

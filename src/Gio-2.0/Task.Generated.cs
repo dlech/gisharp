@@ -122,9 +122,9 @@ namespace GISharp.Lib.Gio
         static unsafe System.IntPtr New(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckNewArgs(sourceObject, callback, cancellable);
-            var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
+            var sourceObject_ = sourceObject?.UnsafeHandle ?? System.IntPtr.Zero;
             var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var ret_ = g_task_new(sourceObject_,cancellable_,callback_,callbackData_);
             return ret_;
         }
@@ -170,8 +170,8 @@ namespace GISharp.Lib.Gio
         public static unsafe System.Boolean IsValid(GISharp.Lib.Gio.IAsyncResult result, GISharp.Lib.GObject.Object? sourceObject)
         {
             CheckIsValidArgs(result, sourceObject);
-            var result_ = result.Handle;
-            var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
+            var result_ = result.UnsafeHandle;
+            var sourceObject_ = sourceObject?.UnsafeHandle ?? System.IntPtr.Zero;
             var ret_ = g_task_is_valid(result_,sourceObject_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -232,7 +232,7 @@ namespace GISharp.Lib.Gio
         public static unsafe void ReportError(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, System.IntPtr sourceTag, GISharp.Lib.GLib.Error error)
         {
             CheckReportErrorArgs(sourceObject, callback, sourceTag, error);
-            var sourceObject_ = sourceObject?.Handle ?? System.IntPtr.Zero;
+            var sourceObject_ = sourceObject?.UnsafeHandle ?? System.IntPtr.Zero;
             var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var sourceTag_ = (System.IntPtr)sourceTag;
             var error_ = error.Take();
@@ -268,7 +268,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.Gio.Cancellable GetCancellable()
         {
             CheckGetCancellableArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_cancellable(task_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -295,7 +295,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.Boolean GetCheckCancellable()
         {
             CheckGetCheckCancellableArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_check_cancellable(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -326,7 +326,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.Boolean GetCompleted()
         {
             CheckGetCompletedArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_completed(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -362,7 +362,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.GLib.MainContext GetContext()
         {
             CheckGetContextArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_context(task_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -391,7 +391,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetName()
         {
             CheckGetNameArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_name(task_);
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
             return ret;
@@ -420,7 +420,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.Int32 GetPriority()
         {
             CheckGetPriorityArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_priority(task_);
             var ret = (System.Int32)ret_;
             return ret;
@@ -447,7 +447,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.Boolean GetReturnOnCancel()
         {
             CheckGetReturnOnCancelArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_return_on_cancel(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -477,7 +477,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.GObject.Object? GetSourceObject()
         {
             CheckGetSourceObjectArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_source_object(task_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
@@ -506,7 +506,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.IntPtr GetSourceTag()
         {
             CheckGetSourceTagArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_source_tag(task_);
             var ret = (System.IntPtr)ret_;
             return ret;
@@ -535,7 +535,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.IntPtr GetTaskData()
         {
             CheckGetTaskDataArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_get_task_data(task_);
             var ret = (System.IntPtr)ret_;
             return ret;
@@ -565,7 +565,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean HadError()
         {
             CheckHadErrorArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_had_error(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -608,7 +608,7 @@ namespace GISharp.Lib.Gio
         public unsafe void PropagateBoolean()
         {
             CheckPropagateBooleanArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             g_task_propagate_boolean(task_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -655,7 +655,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Int32 PropagateInt()
         {
             CheckPropagateIntArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_task_propagate_int(task_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -706,7 +706,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.IntPtr PropagatePointer()
         {
             CheckPropagatePointerArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_task_propagate_pointer(task_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -765,7 +765,7 @@ namespace GISharp.Lib.Gio
         public unsafe void PropagateValue(out GISharp.Lib.GObject.Value value)
         {
             CheckPropagateValueArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             g_task_propagate_value(task_,out var value_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -806,7 +806,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ReturnBoolean(System.Boolean result)
         {
             CheckReturnBooleanArgs(result);
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var result_ = GISharp.Runtime.BooleanExtensions.ToBoolean(result);
             g_task_return_boolean(task_, result_);
         }
@@ -849,7 +849,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ReturnError(GISharp.Lib.GLib.Error error)
         {
             CheckReturnErrorArgs(error);
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var error_ = error.Take();
             g_task_return_error(task_, error_);
         }
@@ -881,7 +881,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean ReturnErrorIfCancelled()
         {
             CheckReturnErrorIfCancelledArgs();
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var ret_ = g_task_return_error_if_cancelled(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -916,7 +916,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ReturnInt(System.Int32 result)
         {
             CheckReturnIntArgs(result);
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var result_ = (System.IntPtr)result;
             g_task_return_int(task_, result_);
         }
@@ -1003,7 +1003,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ReturnValue(GISharp.Lib.GObject.Value result)
         {
             CheckReturnValueArgs(result);
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var result_ = (GISharp.Lib.GObject.Value)result;
             g_task_return_value(task_, result_);
         }
@@ -1119,7 +1119,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetCheckCancellable(System.Boolean checkCancellable)
         {
             CheckSetCheckCancellableArgs(checkCancellable);
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var checkCancellable_ = GISharp.Runtime.BooleanExtensions.ToBoolean(checkCancellable);
             g_task_set_check_cancellable(task_, checkCancellable_);
         }
@@ -1159,8 +1159,8 @@ namespace GISharp.Lib.Gio
         private unsafe void SetName(GISharp.Lib.GLib.NullableUnownedUtf8 name)
         {
             CheckSetNameArgs(name);
-            var task_ = Handle;
-            var name_ = name.Handle;
+            var task_ = UnsafeHandle;
+            var name_ = name.UnsafeHandle;
             g_task_set_name(task_, name_);
         }
 
@@ -1197,7 +1197,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetPriority(System.Int32 priority)
         {
             CheckSetPriorityArgs(priority);
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var priority_ = (System.Int32)priority;
             g_task_set_priority(task_, priority_);
         }
@@ -1263,7 +1263,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean SetReturnOnCancel(System.Boolean returnOnCancel)
         {
             CheckSetReturnOnCancelArgs(returnOnCancel);
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var returnOnCancel_ = GISharp.Runtime.BooleanExtensions.ToBoolean(returnOnCancel);
             var ret_ = g_task_set_return_on_cancel(task_,returnOnCancel_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -1301,7 +1301,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetSourceTag(System.IntPtr sourceTag)
         {
             CheckSetSourceTagArgs(sourceTag);
-            var task_ = Handle;
+            var task_ = UnsafeHandle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             g_task_set_source_tag(task_, sourceTag_);
         }

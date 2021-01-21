@@ -14,191 +14,191 @@ namespace GISharp.Lib.GIRepository
     public sealed class InterfaceInfo : RegisteredTypeInfo, IMethodContainer
     {
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_find_method (IntPtr raw, IntPtr name);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_find_method(IntPtr raw, IntPtr name);
 
         public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
-            var ret_ = g_interface_info_find_method(Handle, name.Handle);
+            var ret_ = g_interface_info_find_method(UnsafeHandle, name.UnsafeHandle);
             var ret = GetInstanceOrNull<FunctionInfo>(ret_);
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_find_signal (IntPtr raw, IntPtr name);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_find_signal(IntPtr raw, IntPtr name);
 
         public SignalInfo? FindSignal(UnownedUtf8 name)
         {
-            var ret_ = g_interface_info_find_signal(Handle, name.Handle);
+            var ret_ = g_interface_info_find_signal(UnsafeHandle, name.UnsafeHandle);
             var ret = GetInstanceOrNull<SignalInfo>(ret_);
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_find_vfunc (IntPtr raw, IntPtr name);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_find_vfunc(IntPtr raw, IntPtr name);
 
         public VFuncInfo? FindVFunc(UnownedUtf8 name)
         {
-            var ret_ = g_interface_info_find_vfunc(Handle, name.Handle);
+            var ret_ = g_interface_info_find_vfunc(UnsafeHandle, name.UnsafeHandle);
             var ret = GetInstanceOrNull<VFuncInfo>(ret_);
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_get_constant (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_get_constant(IntPtr raw, int index);
 
-        ConstantInfo GetConstant (int index)
+        ConstantInfo GetConstant(int index)
         {
-            IntPtr raw_ret = g_interface_info_get_constant (Handle, index);
+            IntPtr raw_ret = g_interface_info_get_constant(UnsafeHandle, index);
             return GetInstance<ConstantInfo>(raw_ret);
         }
 
         public InfoDictionary<ConstantInfo> Constants {
             get {
-                return new InfoDictionary<ConstantInfo> (NConstants, GetConstant);
+                return new InfoDictionary<ConstantInfo>(NConstants, GetConstant);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_get_iface_struct (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_get_iface_struct(IntPtr raw);
 
         public StructInfo IfaceStruct {
             get {
-                IntPtr raw_ret = g_interface_info_get_iface_struct (Handle);
+                IntPtr raw_ret = g_interface_info_get_iface_struct(UnsafeHandle);
                 return GetInstance<StructInfo>(raw_ret);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_get_method (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_get_method(IntPtr raw, int index);
 
-        FunctionInfo GetMethod (int index)
+        FunctionInfo GetMethod(int index)
         {
-            IntPtr raw_ret = g_interface_info_get_method (Handle, index);
+            IntPtr raw_ret = g_interface_info_get_method(UnsafeHandle, index);
             return GetInstance<FunctionInfo>(raw_ret);
         }
 
         public InfoDictionary<FunctionInfo> Methods {
             get {
-                return new InfoDictionary<FunctionInfo> (NMethods, GetMethod);
+                return new InfoDictionary<FunctionInfo>(NMethods, GetMethod);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_interface_info_get_n_constants (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_interface_info_get_n_constants(IntPtr raw);
 
         int NConstants {
             get {
-                return g_interface_info_get_n_constants (Handle);
+                return g_interface_info_get_n_constants(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_interface_info_get_n_methods (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_interface_info_get_n_methods(IntPtr raw);
 
         int NMethods {
             get {
-                return g_interface_info_get_n_methods (Handle);
+                return g_interface_info_get_n_methods(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_interface_info_get_n_prerequisites (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_interface_info_get_n_prerequisites(IntPtr raw);
 
         int NPrerequisites {
             get {
-                return g_interface_info_get_n_prerequisites (Handle);
+                return g_interface_info_get_n_prerequisites(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_interface_info_get_n_properties (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_interface_info_get_n_properties(IntPtr raw);
 
         int NProperties {
             get {
-                return g_interface_info_get_n_properties (Handle);
+                return g_interface_info_get_n_properties(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_interface_info_get_n_signals (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_interface_info_get_n_signals(IntPtr raw);
 
         int NSignals {
             get {
-                return g_interface_info_get_n_signals (Handle);
+                return g_interface_info_get_n_signals(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_interface_info_get_n_vfuncs (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_interface_info_get_n_vfuncs(IntPtr raw);
 
         int NVFuncs {
             get {
-                return g_interface_info_get_n_vfuncs (Handle);
+                return g_interface_info_get_n_vfuncs(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_get_prerequisite (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_get_prerequisite(IntPtr raw, int index);
 
-        BaseInfo GetPrerequisite (int index)
+        BaseInfo GetPrerequisite(int index)
         {
-            IntPtr raw_ret = g_interface_info_get_prerequisite (Handle, index);
+            IntPtr raw_ret = g_interface_info_get_prerequisite(UnsafeHandle, index);
             return GetInstance<BaseInfo>(raw_ret);
         }
 
         public InfoDictionary<BaseInfo> Prerequisites {
             get {
-                return new InfoDictionary<BaseInfo> (NPrerequisites, GetPrerequisite);
+                return new InfoDictionary<BaseInfo>(NPrerequisites, GetPrerequisite);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_get_property (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_get_property(IntPtr raw, int index);
 
-        PropertyInfo GetProperty (int index)
+        PropertyInfo GetProperty(int index)
         {
-            IntPtr raw_ret = g_interface_info_get_property (Handle, index);
+            IntPtr raw_ret = g_interface_info_get_property(UnsafeHandle, index);
             return GetInstance<PropertyInfo>(raw_ret);
         }
 
         public InfoDictionary<PropertyInfo> Properties {
             get {
-                return new InfoDictionary<PropertyInfo> (NProperties, GetProperty);
+                return new InfoDictionary<PropertyInfo>(NProperties, GetProperty);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_get_signal (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_get_signal(IntPtr raw, int index);
 
-        SignalInfo GetSignal (int index)
+        SignalInfo GetSignal(int index)
         {
-            IntPtr raw_ret = g_interface_info_get_signal (Handle, index);
+            IntPtr raw_ret = g_interface_info_get_signal(UnsafeHandle, index);
             return GetInstance<SignalInfo>(raw_ret);
         }
 
         public InfoDictionary<SignalInfo> Signals {
             get {
-                return new InfoDictionary<SignalInfo> (NSignals, GetSignal);
+                return new InfoDictionary<SignalInfo>(NSignals, GetSignal);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_interface_info_get_vfunc (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_interface_info_get_vfunc(IntPtr raw, int index);
 
-        VFuncInfo GetVFunc (int index)
+        VFuncInfo GetVFunc(int index)
         {
-            IntPtr raw_ret = g_interface_info_get_vfunc (Handle, index);
+            IntPtr raw_ret = g_interface_info_get_vfunc(UnsafeHandle, index);
             return GetInstance<VFuncInfo>(raw_ret);
         }
 
         public InfoDictionary<VFuncInfo> VFuncs {
             get {
-                return new InfoDictionary<VFuncInfo> (NVFuncs, GetVFunc);
+                return new InfoDictionary<VFuncInfo>(NVFuncs, GetVFunc);
             }
         }
 
-        public InterfaceInfo (IntPtr raw) : base (raw)
+        public InterfaceInfo(IntPtr raw) : base(raw)
         {
         }
     }

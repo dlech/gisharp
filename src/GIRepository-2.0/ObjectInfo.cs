@@ -94,299 +94,299 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_find_method (IntPtr raw, IntPtr name);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_find_method(IntPtr raw, IntPtr name);
 
         public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
-            var ret_ = g_object_info_find_method(Handle, name.Handle);
+            var ret_ = g_object_info_find_method(UnsafeHandle, name.UnsafeHandle);
             var ret = GetInstanceOrNull<FunctionInfo>(ret_);
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_find_method_using_interfaces(IntPtr raw, IntPtr name, out IntPtr implementor);
 
         public (FunctionInfo? method, ObjectInfo? implementor) FindMethodUsingInterfaces(UnownedUtf8 name)
         {
-            var ret_ = g_object_info_find_method_using_interfaces(Handle, name.Handle, out var implementor_);
+            var ret_ = g_object_info_find_method_using_interfaces(UnsafeHandle, name.UnsafeHandle, out var implementor_);
             var ret = GetInstanceOrNull<FunctionInfo>(ret_);
             var implementor = GetInstanceOrNull<ObjectInfo>(implementor_);
             return (ret, implementor);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_find_signal (IntPtr raw, IntPtr name);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_find_signal(IntPtr raw, IntPtr name);
 
         public SignalInfo? FindSignal(UnownedUtf8 name)
         {
-            var ret_ = g_object_info_find_signal(Handle, name.Handle);
+            var ret_ = g_object_info_find_signal(UnsafeHandle, name.UnsafeHandle);
             var ret = GetInstanceOrNull<SignalInfo>(ret_);
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_find_vfunc (IntPtr raw, IntPtr name);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_find_vfunc(IntPtr raw, IntPtr name);
 
         public VFuncInfo? FindVFunc(UnownedUtf8 name)
         {
-            var ret_ = g_object_info_find_vfunc(Handle, name.Handle);
+            var ret_ = g_object_info_find_vfunc(UnsafeHandle, name.UnsafeHandle);
             var ret = GetInstanceOrNull<VFuncInfo>(ret_);
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_object_info_find_vfunc_using_interfaces(IntPtr raw, IntPtr name, out IntPtr implementor);
 
         public (VFuncInfo? vfunc, ObjectInfo? implementor) FindVFuncUsingInterfaces(UnownedUtf8 name)
         {
-            var ret_ = g_object_info_find_vfunc_using_interfaces (Handle, name.Handle, out var implementor_);
+            var ret_ = g_object_info_find_vfunc_using_interfaces(UnsafeHandle, name.UnsafeHandle, out var implementor_);
             var ret = GetInstanceOrNull<VFuncInfo>(ret_);
             var implementor = GetInstanceOrNull<ObjectInfo>(implementor_);
             return (ret, implementor);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_object_info_get_abstract(IntPtr raw);
 
         public bool Abstract {
             get {
-                var ret_ = g_object_info_get_abstract(Handle);
+                var ret_ = g_object_info_get_abstract(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_class_struct (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_class_struct(IntPtr raw);
 
         public StructInfo ClassStruct {
             get {
-                IntPtr raw_ret = g_object_info_get_class_struct (Handle);
+                IntPtr raw_ret = g_object_info_get_class_struct(UnsafeHandle);
                 return GetInstance<StructInfo>(raw_ret);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_constant (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_constant(IntPtr raw, int index);
 
-        ConstantInfo GetConstant (int index)
+        ConstantInfo GetConstant(int index)
         {
-            IntPtr raw_ret = g_object_info_get_constant (Handle, index);
+            IntPtr raw_ret = g_object_info_get_constant(UnsafeHandle, index);
             return GetInstance<ConstantInfo>(raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_field (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_field(IntPtr raw, int index);
 
-        FieldInfo GetField (int index)
+        FieldInfo GetField(int index)
         {
-            IntPtr raw_ret = g_object_info_get_field (Handle, index);
+            IntPtr raw_ret = g_object_info_get_field(UnsafeHandle, index);
             return GetInstance<FieldInfo>(raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_object_info_get_fundamental(IntPtr raw);
 
         public bool Fundamental {
             get {
-                var ret_ = g_object_info_get_fundamental(Handle);
+                var ret_ = g_object_info_get_fundamental(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_get_value_function (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_get_value_function(IntPtr raw);
 
         public NullableUnownedUtf8 GetValueFunctionName {
             get {
-                var ret_ = g_object_info_get_get_value_function(Handle);
+                var ret_ = g_object_info_get_get_value_function(UnsafeHandle);
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_interface (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_interface(IntPtr raw, int index);
 
-        InterfaceInfo GetInterface (int index)
+        InterfaceInfo GetInterface(int index)
         {
-            IntPtr raw_ret = g_object_info_get_interface (Handle, index);
+            IntPtr raw_ret = g_object_info_get_interface(UnsafeHandle, index);
             return GetInstance<InterfaceInfo>(raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_method (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_method(IntPtr raw, int index);
 
-        FunctionInfo GetMethod (int index)
+        FunctionInfo GetMethod(int index)
         {
-            IntPtr raw_ret = g_object_info_get_method (Handle, index);
+            IntPtr raw_ret = g_object_info_get_method(UnsafeHandle, index);
             return GetInstance<FunctionInfo>(raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_object_info_get_n_constants (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_object_info_get_n_constants(IntPtr raw);
 
         int NConstants {
             get {
-                return g_object_info_get_n_constants (Handle);
+                return g_object_info_get_n_constants(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_object_info_get_n_fields (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_object_info_get_n_fields(IntPtr raw);
 
         int NFields {
             get {
-                return g_object_info_get_n_fields (Handle);
+                return g_object_info_get_n_fields(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_object_info_get_n_interfaces (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_object_info_get_n_interfaces(IntPtr raw);
 
         int NInterfaces {
             get {
-                return g_object_info_get_n_interfaces (Handle);
+                return g_object_info_get_n_interfaces(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_object_info_get_n_methods (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_object_info_get_n_methods(IntPtr raw);
 
         int NMethods {
             get {
-                return g_object_info_get_n_methods (Handle);
+                return g_object_info_get_n_methods(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_object_info_get_n_properties (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_object_info_get_n_properties(IntPtr raw);
 
         int NProperties {
             get {
-                return g_object_info_get_n_properties (Handle);
+                return g_object_info_get_n_properties(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_object_info_get_n_signals (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_object_info_get_n_signals(IntPtr raw);
 
         int NSignals {
             get {
-                return g_object_info_get_n_signals (Handle);
+                return g_object_info_get_n_signals(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_object_info_get_n_vfuncs (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_object_info_get_n_vfuncs(IntPtr raw);
 
         int NVfuncs {
             get {
-                return g_object_info_get_n_vfuncs (Handle);
+                return g_object_info_get_n_vfuncs(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_parent (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_parent(IntPtr raw);
 
         public ObjectInfo? Parent {
             get {
-                var ret_ = g_object_info_get_parent(Handle);
+                var ret_ = g_object_info_get_parent(UnsafeHandle);
                 var ret = GetInstanceOrNull<ObjectInfo>(ret_);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_property (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_property(IntPtr raw, int index);
 
-        PropertyInfo GetProperty (int index)
+        PropertyInfo GetProperty(int index)
         {
-            IntPtr raw_ret = g_object_info_get_property (Handle, index);
+            IntPtr raw_ret = g_object_info_get_property(UnsafeHandle, index);
             return GetInstance<PropertyInfo>(raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_ref_function (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_ref_function(IntPtr raw);
 
         public NullableUnownedUtf8 RefFunctionName {
             get {
-                var ret_ = g_object_info_get_ref_function(Handle);
+                var ret_ = g_object_info_get_ref_function(UnsafeHandle);
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_set_value_function (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_set_value_function(IntPtr raw);
 
         public NullableUnownedUtf8 SetValueFunctionName {
             get {
-                var ret_ = g_object_info_get_set_value_function(Handle);
+                var ret_ = g_object_info_get_set_value_function(UnsafeHandle);
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_signal (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_signal(IntPtr raw, int index);
 
-        SignalInfo GetSignal (int index)
+        SignalInfo GetSignal(int index)
         {
-            IntPtr raw_ret = g_object_info_get_signal (Handle, index);
+            IntPtr raw_ret = g_object_info_get_signal(UnsafeHandle, index);
             return GetInstance<SignalInfo>(raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_type_init (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_type_init(IntPtr raw);
 
         public new UnownedUtf8 TypeInit {
             get {
-                var ret_ = g_object_info_get_type_init(Handle);
+                var ret_ = g_object_info_get_type_init(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_type_name (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_type_name(IntPtr raw);
 
         public new UnownedUtf8 TypeName {
             get {
-                var ret_ = g_object_info_get_type_name (Handle);
+                var ret_ = g_object_info_get_type_name(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_unref_function (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_unref_function(IntPtr raw);
 
         public NullableUnownedUtf8 UnrefFunctionName {
             get {
-                var ret_ = g_object_info_get_unref_function(Handle);
+                var ret_ = g_object_info_get_unref_function(UnsafeHandle);
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_object_info_get_vfunc (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_object_info_get_vfunc(IntPtr raw, int index);
 
-        VFuncInfo GetVFunc (int index)
+        VFuncInfo GetVFunc(int index)
         {
-            IntPtr raw_ret = g_object_info_get_vfunc (Handle, index);
+            IntPtr raw_ret = g_object_info_get_vfunc(UnsafeHandle, index);
             return GetInstance<VFuncInfo>(raw_ret);
         }
 
-        public DynamicMetaObject GetMetaObject (Expression parameter)
+        public DynamicMetaObject GetMetaObject(Expression parameter)
         {
-            return new ObjectInfoDynamicMetaObject (parameter, this);
+            return new ObjectInfoDynamicMetaObject(parameter, this);
         }
 
-        public ObjectInfo (IntPtr raw) : base (raw)
+        public ObjectInfo(IntPtr raw) : base(raw)
         {
         }
     }

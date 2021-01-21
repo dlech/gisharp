@@ -28,8 +28,8 @@ namespace GISharp.Lib.Gio
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
                 {
-                    var actionGroup_ = actionGroup.Handle;
-                    var actionName_ = actionName.Handle;
+                    var actionGroup_ = actionGroup.UnsafeHandle;
+                    var actionName_ = actionName.UnsafeHandle;
                     unmanagedCallback(actionGroup_, actionName_, userData_);
                 }
 
@@ -90,8 +90,8 @@ namespace GISharp.Lib.Gio
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, GISharp.Runtime.Boolean, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled)
                 {
-                    var actionGroup_ = actionGroup.Handle;
-                    var actionName_ = actionName.Handle;
+                    var actionGroup_ = actionGroup.UnsafeHandle;
+                    var actionName_ = actionName.UnsafeHandle;
                     var enabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(enabled);
                     unmanagedCallback(actionGroup_, actionName_, enabled_, userData_);
                 }
@@ -154,8 +154,8 @@ namespace GISharp.Lib.Gio
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
                 {
-                    var actionGroup_ = actionGroup.Handle;
-                    var actionName_ = actionName.Handle;
+                    var actionGroup_ = actionGroup.UnsafeHandle;
+                    var actionName_ = actionName.UnsafeHandle;
                     unmanagedCallback(actionGroup_, actionName_, userData_);
                 }
 
@@ -216,9 +216,9 @@ namespace GISharp.Lib.Gio
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant value)
                 {
-                    var actionGroup_ = actionGroup.Handle;
-                    var actionName_ = actionName.Handle;
-                    var value_ = value.Handle;
+                    var actionGroup_ = actionGroup.UnsafeHandle;
+                    var actionName_ = actionName.UnsafeHandle;
+                    var value_ = value.UnsafeHandle;
                     unmanagedCallback(actionGroup_, actionName_, value_, userData_);
                 }
 
@@ -369,8 +369,8 @@ namespace GISharp.Lib.Gio
         public unsafe static void ActionAdded(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckActionAddedArgs(actionGroup, actionName);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             g_action_group_action_added(actionGroup_, actionName_);
         }
 
@@ -410,8 +410,8 @@ namespace GISharp.Lib.Gio
         public unsafe static void ActionEnabledChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled)
         {
             CheckActionEnabledChangedArgs(actionGroup, actionName, enabled);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             var enabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(enabled);
             g_action_group_action_enabled_changed(actionGroup_, actionName_, enabled_);
         }
@@ -446,8 +446,8 @@ namespace GISharp.Lib.Gio
         public unsafe static void ActionRemoved(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckActionRemovedArgs(actionGroup, actionName);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             g_action_group_action_removed(actionGroup_, actionName_);
         }
 
@@ -487,9 +487,9 @@ namespace GISharp.Lib.Gio
         public unsafe static void ActionStateChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant state)
         {
             CheckActionStateChangedArgs(actionGroup, actionName, state);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
-            var state_ = state.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
+            var state_ = state.UnsafeHandle;
             g_action_group_action_state_changed(actionGroup_, actionName_, state_);
         }
 
@@ -532,9 +532,9 @@ namespace GISharp.Lib.Gio
         public unsafe static void ActivateAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? parameter)
         {
             CheckActivateActionArgs(actionGroup, actionName, parameter);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
-            var parameter_ = parameter?.Handle ?? System.IntPtr.Zero;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
+            var parameter_ = parameter?.UnsafeHandle ?? System.IntPtr.Zero;
             g_action_group_activate_action(actionGroup_, actionName_, parameter_);
         }
 
@@ -582,9 +582,9 @@ namespace GISharp.Lib.Gio
         public unsafe static void ChangeActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant value)
         {
             CheckChangeActionStateArgs(actionGroup, actionName, value);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
-            var value_ = value.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
+            var value_ = value.UnsafeHandle;
             g_action_group_change_action_state(actionGroup_, actionName_, value_);
         }
 
@@ -622,8 +622,8 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Boolean GetActionEnabled(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionEnabledArgs(actionGroup, actionName);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             var ret_ = g_action_group_get_action_enabled(actionGroup_,actionName_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -672,8 +672,8 @@ namespace GISharp.Lib.Gio
         public unsafe static GISharp.Lib.GLib.VariantType? GetActionParameterType(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionParameterTypeArgs(actionGroup, actionName);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             var ret_ = g_action_group_get_action_parameter_type(actionGroup_,actionName_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
@@ -717,8 +717,8 @@ namespace GISharp.Lib.Gio
         public unsafe static GISharp.Lib.GLib.Variant? GetActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionStateArgs(actionGroup, actionName);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             var ret_ = g_action_group_get_action_state(actionGroup_,actionName_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -772,8 +772,8 @@ namespace GISharp.Lib.Gio
         public unsafe static GISharp.Lib.GLib.Variant? GetActionStateHint(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionStateHintArgs(actionGroup, actionName);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             var ret_ = g_action_group_get_action_state_hint(actionGroup_,actionName_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -825,8 +825,8 @@ namespace GISharp.Lib.Gio
         public unsafe static GISharp.Lib.GLib.VariantType? GetActionStateType(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionStateTypeArgs(actionGroup, actionName);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             var ret_ = g_action_group_get_action_state_type(actionGroup_,actionName_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
@@ -862,8 +862,8 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Boolean HasAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckHasActionArgs(actionGroup, actionName);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             var ret_ = g_action_group_has_action(actionGroup_,actionName_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -900,7 +900,7 @@ namespace GISharp.Lib.Gio
         public unsafe static GISharp.Lib.GLib.Strv ListActions(this GISharp.Lib.Gio.IActionGroup actionGroup)
         {
             CheckListActionsArgs(actionGroup);
-            var actionGroup_ = actionGroup.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
             var ret_ = g_action_group_list_actions(actionGroup_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -993,8 +993,8 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Boolean TryQueryAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, out System.Boolean enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state)
         {
             CheckTryQueryActionArgs(actionGroup, actionName);
-            var actionGroup_ = actionGroup.Handle;
-            var actionName_ = actionName.Handle;
+            var actionGroup_ = actionGroup.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             var ret_ = g_action_group_query_action(actionGroup_,actionName_,out var enabled_,out var parameterType_,out var stateType_,out var stateHint_,out var state_);
             enabled = GISharp.Runtime.BooleanExtensions.IsTrue(enabled_);
             parameterType = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>(parameterType_, GISharp.Runtime.Transfer.Full)!;

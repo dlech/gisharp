@@ -56,7 +56,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_bytes_ref(IntPtr array);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_bytes_ref(Handle);
+        public override IntPtr Take() => g_bytes_ref(UnsafeHandle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_bytes_unref(IntPtr array);
@@ -255,8 +255,8 @@ namespace GISharp.Lib.GLib
         [Since("2.32")]
         public static int Compare(Bytes bytes1, Bytes bytes2)
         {
-            var bytes1_ = bytes1.Handle;
-            var bytes2_ = bytes2.Handle;
+            var bytes1_ = bytes1.UnsafeHandle;
+            var bytes2_ = bytes2.UnsafeHandle;
             var ret = g_bytes_compare(bytes1_, bytes2_);
             return ret;
         }
@@ -337,8 +337,8 @@ namespace GISharp.Lib.GLib
             if (bytes2 is null) {
                 return false;
             }
-            var bytes1_ = bytes1.Handle;
-            var bytes2_ = bytes2.Handle;
+            var bytes1_ = bytes1.UnsafeHandle;
+            var bytes2_ = bytes2.UnsafeHandle;
             var ret_ = g_bytes_equal(bytes1_, bytes2_);
             var ret = ret_.IsTrue();
             return ret;
@@ -428,7 +428,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public unsafe ReadOnlySpan<byte> Data {
             get {
-                var this_ = Handle;
+                var this_ = UnsafeHandle;
                 nuint size_;
                 var ret_ = g_bytes_get_data(this_, &size_);
                 var ret = new ReadOnlySpan<byte>(ret_, (int)size_);
@@ -469,7 +469,7 @@ namespace GISharp.Lib.GLib
         [Since("2.32")]
         public int Size {
             get {
-                var this_ = Handle;
+                var this_ = UnsafeHandle;
                 var ret = g_bytes_get_size(this_);
                 return (int)ret;
             }
@@ -512,7 +512,7 @@ namespace GISharp.Lib.GLib
         [Since("2.32")]
         public override int GetHashCode()
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             var ret = g_bytes_hash(this_);
             return (int)ret;
         }
@@ -569,7 +569,7 @@ namespace GISharp.Lib.GLib
         [Since("2.32")]
         public Bytes NewFromBytes(int offset, int length)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (offset < 0) {
                 throw new ArgumentOutOfRangeException(nameof(offset));
             }
@@ -599,7 +599,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public unsafe (IntPtr, int) TakeData()
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             handle = IntPtr.Zero; // object becomes disposed
             GC.SuppressFinalize(this);
             UIntPtr size_;

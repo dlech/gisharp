@@ -53,7 +53,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Gets the GType of this type.
         /// </summary>
-        public GType GType => Marshal.PtrToStructure<GType>(Handle);
+        public GType GType => Marshal.PtrToStructure<GType>(UnsafeHandle);
 
         /// <summary>
         /// For internal runtime use only.
@@ -70,8 +70,8 @@ namespace GISharp.Lib.GObject
         /// <inheritdoc />
         protected override void Dispose(bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_type_class_unref(Handle);
+            if (UnsafeHandle != IntPtr.Zero) {
+                g_type_class_unref(UnsafeHandle);
             }
             base.Dispose(disposing);
         }
@@ -275,11 +275,11 @@ namespace GISharp.Lib.GObject
         /// <param name="privateSize">
         /// size of private structure
         /// </param>
-        [SinceAttribute ("2.4")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [SinceAttribute("2.4")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_type_class_add_private (
+        static extern void g_type_class_add_private(
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr gClass,
@@ -358,7 +358,7 @@ namespace GISharp.Lib.GObject
         /// <param name="privateSize">
         /// size of private structure
         /// </param>
-        [SinceAttribute ("2.4")]
+        [SinceAttribute("2.4")]
         public static void AddPrivate(IntPtr gClass, int privateSize)
         {
             if (privateSize < 0) {
@@ -367,10 +367,10 @@ namespace GISharp.Lib.GObject
             g_type_class_add_private(gClass, (nuint)privateSize);
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_type_class_adjust_private_offset (
+        static extern void g_type_class_adjust_private_offset(
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr gClass,
@@ -400,11 +400,11 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the offset, in bytes
         /// </returns>
-        [SinceAttribute ("2.38")]
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [SinceAttribute("2.38")]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static extern Int32 g_type_class_get_instance_private_offset (
+        static extern Int32 g_type_class_get_instance_private_offset(
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr gClass);
@@ -426,17 +426,17 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// the offset, in bytes
         /// </returns>
-        [SinceAttribute ("2.38")]
-        public static Int32 GetInstancePrivateOffset (IntPtr gClass)
+        [SinceAttribute("2.38")]
+        public static Int32 GetInstancePrivateOffset(IntPtr gClass)
         {
-            var ret = g_type_class_get_instance_private_offset (gClass);
+            var ret = g_type_class_get_instance_private_offset(gClass);
             return ret;
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* */
-        static extern IntPtr g_type_class_get_private (
+        static extern IntPtr g_type_class_get_private(
             /* <type name="TypeClass" type="GTypeClass*" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
             IntPtr klass,
@@ -444,9 +444,9 @@ namespace GISharp.Lib.GObject
             /* transfer-ownership:none */
             GType privateType);
 
-        public IntPtr GetPrivate (GType privateType)
+        public IntPtr GetPrivate(GType privateType)
         {
-            var ret = g_type_class_get_private (Handle, privateType);
+            var ret = g_type_class_get_private(UnsafeHandle, privateType);
             return ret;
         }
 
@@ -459,10 +459,10 @@ namespace GISharp.Lib.GObject
         /// <param name="gClass">
         /// a #GTypeClass structure to unref
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_type_class_unref_uncached (
+        static extern void g_type_class_unref_uncached(
             /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" /> */
             /* transfer-ownership:none */
             IntPtr gClass);
@@ -473,9 +473,9 @@ namespace GISharp.Lib.GObject
         /// of #GTypeClassCacheFuncs, avoiding the recursion which would occur
         /// otherwise.
         /// </summary>
-        public void UnrefUncached ()
+        public void UnrefUncached()
         {
-            g_type_class_unref_uncached (Handle);
+            g_type_class_unref_uncached(UnsafeHandle);
         }
 #endif
     }

@@ -39,67 +39,67 @@ namespace GISharp.Lib.GIRepository
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_enum_info_get_error_domain (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_enum_info_get_error_domain(IntPtr raw);
 
         public NullableUnownedUtf8 ErrorDomain {
             get {
-                var ret_ = g_enum_info_get_error_domain(Handle);
+                var ret_ = g_enum_info_get_error_domain(UnsafeHandle);
                 return new NullableUnownedUtf8(ret_, -1);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_enum_info_get_method (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_enum_info_get_method(IntPtr raw, int index);
 
         FunctionInfo GetMethod(int index)
         {
-            IntPtr raw_ret = g_enum_info_get_method (Handle, index);
+            IntPtr raw_ret = g_enum_info_get_method(UnsafeHandle, index);
             return GetInstance<FunctionInfo>(raw_ret);
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_enum_info_get_n_methods (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_enum_info_get_n_methods(IntPtr raw);
 
         int NMethods {
             get {
-                return g_enum_info_get_n_methods (Handle);
+                return g_enum_info_get_n_methods(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_enum_info_get_n_values (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_enum_info_get_n_values(IntPtr raw);
 
         int NValues {
             get {
-                return g_enum_info_get_n_values (Handle);
+                return g_enum_info_get_n_values(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern TypeTag g_enum_info_get_storage_type (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern TypeTag g_enum_info_get_storage_type(IntPtr raw);
 
         public TypeTag StorageType {
             get {
-                return g_enum_info_get_storage_type (Handle);
+                return g_enum_info_get_storage_type(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_enum_info_get_value (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_enum_info_get_value(IntPtr raw, int index);
 
         ValueInfo GetValue(int index)
         {
-            IntPtr raw_ret = g_enum_info_get_value (Handle, index);
+            IntPtr raw_ret = g_enum_info_get_value(UnsafeHandle, index);
             return GetInstance<ValueInfo>(raw_ret);
         }
 
-        public DynamicMetaObject GetMetaObject (Expression parameter)
+        public DynamicMetaObject GetMetaObject(Expression parameter)
         {
-            return new EnumInfoDynamicMetaObject (parameter, this);
+            return new EnumInfoDynamicMetaObject(parameter, this);
         }
 
-        public EnumInfo (IntPtr raw) : base (raw)
+        public EnumInfo(IntPtr raw) : base(raw)
         {
         }
     }

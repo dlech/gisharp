@@ -48,7 +48,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe ParamSpec? ElementSpec {
             get {
-                var ret_ = ((UnmanagedStruct*)Handle)->ElementSpec;
+                var ret_ = ((UnmanagedStruct*)UnsafeHandle)->ElementSpec;
                 var ret = GetInstance(ret_, Transfer.None)!;
                 return ret;
             }
@@ -57,7 +57,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// if greater than 0, arrays of this property will always have this many elements
         /// </summary>
-        public unsafe uint FixedNElements => ((UnmanagedStruct*)Handle)->FixedNElements;
+        public unsafe uint FixedNElements => ((UnmanagedStruct*)UnsafeHandle)->FixedNElements;
 
         /// <summary>
         /// For internal runtime use only.
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GObject
             var namePtr = GMarshal.StringToUtf8Ptr(name);
             var nickPtr = GMarshal.StringToUtf8Ptr(nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr(blurb);
-            var elementSpecPtr = elementSpec?.Handle ?? IntPtr.Zero;
+            var elementSpecPtr = elementSpec?.UnsafeHandle ?? IntPtr.Zero;
             var ret = g_param_spec_value_array(namePtr, nickPtr, blurbPtr, elementSpecPtr, flags);
 
             // Any strings that have the cooresponding static flag set must not

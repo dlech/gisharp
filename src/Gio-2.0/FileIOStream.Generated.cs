@@ -68,7 +68,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.GLib.Utf8 GetEtag()
         {
             CheckGetEtagArgs();
-            var stream_ = Handle;
+            var stream_ = UnsafeHandle;
             var ret_ = g_file_io_stream_get_etag(stream_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -133,9 +133,9 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.FileInfo QueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckQueryInfoArgs(attributes, cancellable);
-            var stream_ = Handle;
-            var attributes_ = attributes.Handle;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var stream_ = UnsafeHandle;
+            var attributes_ = attributes.UnsafeHandle;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_file_io_stream_query_info(stream_,attributes_,cancellable_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -207,10 +207,10 @@ namespace GISharp.Lib.Gio
         public unsafe System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckQueryInfoAsyncArgs(attributes, ioPriority, cancellable);
-            var stream_ = Handle;
-            var attributes_ = attributes.Handle;
+            var stream_ = UnsafeHandle;
+            var attributes_ = attributes.UnsafeHandle;
             var ioPriority_ = (System.Int32)ioPriority;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
             var callback_ = queryInfoAsyncCallback_;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
@@ -280,7 +280,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedCanSeek))]
         protected virtual unsafe System.Boolean DoCanSeek()
         {
-            var stream_ = Handle;
+            var stream_ = UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedCanSeek>(_GType)!(stream_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -290,7 +290,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedCanTruncate))]
         protected virtual unsafe System.Boolean DoCanTruncate()
         {
-            var stream_ = Handle;
+            var stream_ = UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedCanTruncate>(_GType)!(stream_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -301,7 +301,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedGetEtag))]
         protected virtual unsafe GISharp.Lib.GLib.Utf8 DoGetEtag()
         {
-            var stream_ = Handle;
+            var stream_ = UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedGetEtag>(_GType)!(stream_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -312,9 +312,9 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedQueryInfo))]
         protected virtual unsafe GISharp.Lib.Gio.FileInfo DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;
-            var attributes_ = attributes.Handle;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var stream_ = UnsafeHandle;
+            var attributes_ = attributes.UnsafeHandle;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedQueryInfo>(_GType)!(stream_,attributes_,cancellable_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -332,11 +332,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedQueryInfoAsync))]
         protected virtual unsafe void DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;
-            var attributes_ = attributes.Handle;
+            var stream_ = UnsafeHandle;
+            var attributes_ = attributes.UnsafeHandle;
             var ioPriority_ = (System.Int32)ioPriority;
             var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedQueryInfoAsync>(_GType)!(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
         }
 
@@ -345,8 +345,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedQueryInfoFinish))]
         protected virtual unsafe GISharp.Lib.Gio.FileInfo DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
-            var stream_ = Handle;
-            var result_ = result.Handle;
+            var stream_ = UnsafeHandle;
+            var result_ = result.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedQueryInfoFinish>(_GType)!(stream_,result_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -363,10 +363,10 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedSeek))]
         protected virtual unsafe void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;
+            var stream_ = UnsafeHandle;
             var offset_ = (System.Int64)offset;
             var type_ = (GISharp.Lib.GLib.SeekType)type;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedSeek>(_GType)!(stream_, offset_, type_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -380,7 +380,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedTell))]
         protected virtual unsafe System.Int64 DoTell()
         {
-            var stream_ = Handle;
+            var stream_ = UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedTell>(_GType)!(stream_);
             var ret = (System.Int64)ret_;
             return ret;
@@ -390,9 +390,9 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileIOStreamClass.UnmanagedTruncateFn))]
         protected virtual unsafe void DoTruncateFn(System.Int64 size, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
-            var stream_ = Handle;
+            var stream_ = UnsafeHandle;
             var size_ = (System.Int64)size;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileIOStreamClass.UnmanagedTruncateFn>(_GType)!(stream_, size_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)

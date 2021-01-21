@@ -93,7 +93,7 @@ System.IntPtr action);
                         var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None)!;
                         var doGetName = (GetName)methodInfo.CreateDelegate(typeof(GetName), action);
                         var ret = doGetName();
-                        var ret_ = ret.Handle;
+                        var ret_ = ret.UnsafeHandle;
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -139,7 +139,7 @@ System.IntPtr action);
                         var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None)!;
                         var doGetParameterType = (GetParameterType)methodInfo.CreateDelegate(typeof(GetParameterType), action);
                         var ret = doGetParameterType();
-                        var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                        var ret_ = ret?.UnsafeHandle ?? System.IntPtr.Zero;
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -185,7 +185,7 @@ System.IntPtr action);
                         var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance(action_, GISharp.Runtime.Transfer.None)!;
                         var doGetStateType = (GetStateType)methodInfo.CreateDelegate(typeof(GetStateType), action);
                         var ret = doGetStateType();
-                        var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                        var ret_ = ret?.UnsafeHandle ?? System.IntPtr.Zero;
                         return ret_;
                     }
                     catch (System.Exception ex)

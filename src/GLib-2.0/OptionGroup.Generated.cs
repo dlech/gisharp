@@ -118,7 +118,7 @@ namespace GISharp.Lib.GLib
         /// Takes ownership of the unmanaged pointer without freeing it.
         /// The managed object can no longer be used (will throw disposed exception).
         /// </summary>
-        public override System.IntPtr Take() => g_option_group_ref(Handle);
+        public override System.IntPtr Take() => g_option_group_ref(UnsafeHandle);
 
         /// <summary>
         /// Associates two functions with @group which will be called
@@ -199,7 +199,7 @@ namespace GISharp.Lib.GLib
         public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
             CheckSetTranslateFuncArgs(func);
-            var group_ = Handle;
+            var group_ = UnsafeHandle;
             var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToUnmanagedFunctionPointer(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_group_set_translate_func(group_, func_, data_, destroyNotify_);
         }
@@ -232,8 +232,8 @@ namespace GISharp.Lib.GLib
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
             CheckSetTranslationDomainArgs(domain);
-            var group_ = Handle;
-            var domain_ = domain.Handle;
+            var group_ = UnsafeHandle;
+            var domain_ = domain.UnsafeHandle;
             g_option_group_set_translation_domain(group_, domain_);
         }
 

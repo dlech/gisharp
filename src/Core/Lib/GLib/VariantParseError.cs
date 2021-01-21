@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -11,7 +11,7 @@ namespace GISharp.Lib.GLib
     /// Error codes returned by parsing text-format <see cref="Variant"/>s.
     /// </summary>
     /// <seealso cref="VariantParseErrorDomain"/>
-    [GErrorDomain ("g-variant-parse-error-quark")]
+    [GErrorDomain("g-variant-parse-error-quark")]
     public enum VariantParseError
     {
         /// <summary>
@@ -150,11 +150,11 @@ namespace GISharp.Lib.GLib
         [Since("2.40")]
         public static Utf8 PrintContext(this Error error, UnownedUtf8 sourceStr)
         {
-            var error_ = error.Handle;
+            var error_ = error.UnsafeHandle;
             if (error.Domain != Quark) {
                 throw new ArgumentException("Requires VariantParseError", nameof(error));
             }
-            var sourceStr_ = sourceStr.Handle;
+            var sourceStr_ = sourceStr.UnsafeHandle;
             var ret_ = g_variant_parse_error_print_context(error_, sourceStr_);
             var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;

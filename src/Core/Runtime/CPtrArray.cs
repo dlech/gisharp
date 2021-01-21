@@ -58,7 +58,7 @@ namespace GISharp.Runtime
         /// </remarks>
         public (IntPtr handle, int length) TakeData()
         {
-            var ret = (Handle, Length);
+            var ret = (UnsafeHandle, Length);
             handle = IntPtr.Zero;
             GC.SuppressFinalize(this);
             return ret;
@@ -97,7 +97,7 @@ namespace GISharp.Runtime
         /// </exception>
         public T this[int index] {
             get {
-                var this_ = Handle;
+                var this_ = UnsafeHandle;
                 if (index < 0 || index >= Length) {
                     throw new IndexOutOfRangeException(nameof(index));
                 }
@@ -107,7 +107,7 @@ namespace GISharp.Runtime
             }
         }
 
-        private unsafe ReadOnlySpan<IntPtr> Data => new ReadOnlySpan<IntPtr>((void*)Handle, Length);
+        private unsafe ReadOnlySpan<IntPtr> Data => new ReadOnlySpan<IntPtr>((void*)UnsafeHandle, Length);
 
         /// <summary>
         /// Gets the number of elements in the array.
@@ -260,7 +260,7 @@ namespace GISharp.Runtime
             if (array is null) {
                 return UnownedCPtrArray<T>.Empty;
             }
-            return new UnownedCPtrArray<T>(array.Select(x => x.Handle).ToArray());
+            return new UnownedCPtrArray<T>(array.Select(x => x.UnsafeHandle).ToArray());
         }
     }
 }

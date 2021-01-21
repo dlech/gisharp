@@ -66,8 +66,8 @@ namespace GISharp.Lib.GObject
         /// </param>
         public void Insert(ParamSpec pspec, GType ownerType)
         {
-            var this_ = Handle;
-            var pspec_ = pspec.Handle;
+            var this_ = UnsafeHandle;
+            var pspec_ = pspec.UnsafeHandle;
             g_param_spec_pool_insert(this_, pspec_, ownerType);
         }
 
@@ -84,8 +84,8 @@ namespace GISharp.Lib.GObject
         /// </param>
         public void Remove(ParamSpec pspec)
         {
-            var this_ = Handle;
-            var pspec_ = pspec.Handle;
+            var this_ = UnsafeHandle;
+            var pspec_ = pspec.UnsafeHandle;
             g_param_spec_pool_remove(this_, pspec_);
         }
 
@@ -116,8 +116,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public ParamSpec? TryLookup(UnownedUtf8 paramName, GType ownerType, bool walkAncestors)
         {
-            var this_ = Handle;
-            var paramName_ = paramName.Handle;
+            var this_ = UnsafeHandle;
+            var paramName_ = paramName.UnsafeHandle;
             var walkAncestors_ = walkAncestors.ToBoolean();
             var ret_ = g_param_spec_pool_lookup(this_, paramName_, ownerType, walkAncestors_);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
@@ -142,7 +142,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public List<ParamSpec> List(GType ownerType)
         {
-            var ret_ = g_param_spec_pool_list_owned(Handle, ownerType);
+            var ret_ = g_param_spec_pool_list_owned(UnsafeHandle, ownerType);
             var ret = GetInstance<List<ParamSpec>>(ret_, Transfer.Container);
             return ret;
         }

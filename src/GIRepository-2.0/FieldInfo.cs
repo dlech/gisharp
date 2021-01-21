@@ -16,61 +16,61 @@ namespace GISharp.Lib.GIRepository
         [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_field_info_get_field(IntPtr raw, IntPtr mem, out Argument value);
 
-        public bool GetField (IntPtr mem, out Argument value)
+        public bool GetField(IntPtr mem, out Argument value)
         {
-            var ret_ = g_field_info_get_field(Handle, mem, out value);
+            var ret_ = g_field_info_get_field(UnsafeHandle, mem, out value);
             var ret = ret_.IsTrue();
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern FieldInfoFlags g_field_info_get_flags (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern FieldInfoFlags g_field_info_get_flags(IntPtr raw);
 
         public FieldInfoFlags Flags {
             get {
-                return g_field_info_get_flags (Handle);
+                return g_field_info_get_flags(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_field_info_get_offset (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_field_info_get_offset(IntPtr raw);
 
         public int Offset {
             get {
-                return g_field_info_get_offset (Handle);
+                return g_field_info_get_offset(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_field_info_get_size (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_field_info_get_size(IntPtr raw);
 
         public int Size {
             get {
-                return g_field_info_get_size (Handle);
+                return g_field_info_get_size(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_field_info_get_type (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_field_info_get_type(IntPtr raw);
 
         public TypeInfo TypeInfo {
             get {
-                IntPtr raw_ret = g_field_info_get_type (Handle);
+                IntPtr raw_ret = g_field_info_get_type(UnsafeHandle);
                 return GetInstance<TypeInfo>(raw_ret);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_field_info_set_field(IntPtr raw, IntPtr mem, ref Argument value);
 
-        public bool SetField (IntPtr mem, Argument value)
+        public bool SetField(IntPtr mem, Argument value)
         {
-            var ret_ = g_field_info_set_field(Handle, mem, ref value);
+            var ret_ = g_field_info_set_field(UnsafeHandle, mem, ref value);
             var ret = ret_.IsTrue();
             return ret;
         }
 
-        public FieldInfo (IntPtr raw) : base (raw)
+        public FieldInfo(IntPtr raw) : base(raw)
         {
         }
     }

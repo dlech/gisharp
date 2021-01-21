@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿using System.Threading;
+using System.Threading;
 using System.Threading.Tasks;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
@@ -67,7 +67,7 @@ namespace GISharp.Test.Core.GLib
                 using var source = new IdleSource();
                 var id = source.Attach(context);
                 var foundSource = context.FindSourceById(id);
-                Assert.That(foundSource.Handle, Is.EqualTo(source.Handle));
+                Assert.That(foundSource.UnsafeHandle, Is.EqualTo(source.UnsafeHandle));
             }
         }
 

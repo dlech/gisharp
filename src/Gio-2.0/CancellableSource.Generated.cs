@@ -47,7 +47,7 @@ namespace GISharp.Lib.Gio
         static unsafe System.IntPtr New(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckNewArgs(cancellable);
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var ret_ = g_cancellable_source_new(cancellable_);
             return ret_;
         }

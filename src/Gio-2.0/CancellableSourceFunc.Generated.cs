@@ -49,7 +49,7 @@ namespace GISharp.Lib.Gio
 
             unsafe System.Boolean managedCallback(GISharp.Lib.Gio.Cancellable? cancellable)
             {
-                var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+                var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
                 var ret_ = unmanagedCallback(cancellable_,userData_);
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;

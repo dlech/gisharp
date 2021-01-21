@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GObject;
@@ -21,7 +21,7 @@ namespace GISharp.Runtime
         /// Raw pointer value.
         /// </summary>
         /// <remarks>
-        /// This should be treated as write-only by overriding. <see cref="Handle" />
+        /// This should be treated as write-only by overriding. <see cref="UnsafeHandle" />
         /// should be used instead when reading to ensure that the pointer is
         /// still valid.
         /// </remarks>
@@ -31,10 +31,10 @@ namespace GISharp.Runtime
         /// Gets the pointer to the unmanaged GLib data structure.
         /// </summary>
         /// <value>The pointer.</value>
-        public virtual IntPtr Handle {
+        public virtual IntPtr UnsafeHandle {
             get {
                 if (handle == IntPtr.Zero) {
-                    throw new ObjectDisposedException (null);
+                    throw new ObjectDisposedException(null);
                 }
                 return handle;
             }
@@ -50,9 +50,9 @@ namespace GISharp.Runtime
         }
 
         /// <inheritdoc />
-        ~Opaque ()
+        ~Opaque()
         {
-            Dispose (false);
+            Dispose(false);
         }
 
         /// <summary>
@@ -64,7 +64,7 @@ namespace GISharp.Runtime
         /// </remarks>
         public virtual IntPtr Take()
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             handle = IntPtr.Zero;
             return this_;
         }
@@ -78,14 +78,14 @@ namespace GISharp.Runtime
         /// release all references to the <see cref="Opaque"/> so the garbage collector can reclaim the memory that the
         /// <see cref="Opaque"/> was occupying.
         /// </remarks>
-        public void Dispose ()
+        public void Dispose()
         {
-            Dispose (true);
-            GC.SuppressFinalize (this);
+            Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         /// <inheritdoc />
-        protected virtual void Dispose (bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             handle = IntPtr.Zero;
         }
@@ -105,7 +105,7 @@ namespace GISharp.Runtime
         {
             // special case for OpaqueInt so 0 doesn't become null
             if (type == typeof(OpaqueInt)) {
-                var ret = new OpaqueInt ((int)handle);
+                var ret = new OpaqueInt((int)handle);
                 return ret;
             }
 
@@ -113,29 +113,29 @@ namespace GISharp.Runtime
                 return null;
             }
 
-            if (typeof(Object).IsAssignableFrom (type)) {
+            if (typeof(Object).IsAssignableFrom(type)) {
                 return Object.GetInstance(handle, ownership);
             }
 
-            if (typeof(ParamSpec).IsAssignableFrom (type)) {
+            if (typeof(ParamSpec).IsAssignableFrom(type)) {
                 return ParamSpec.GetInstance(handle, ownership);
             }
 
-            if (typeof (Source).IsAssignableFrom (type)) {
-                type = typeof (UnmanagedSource);
+            if (typeof(Source).IsAssignableFrom(type)) {
+                type = typeof(UnmanagedSource);
             }
             else if (typeof(TypeInstance).IsAssignableFrom(type)) {
                 var gclassPtr = Marshal.ReadIntPtr(handle);
                 var gtype = Marshal.PtrToStructure<GType>(gclassPtr);
-                type = gtype.GetGTypeStruct ();
+                type = gtype.GetGTypeStruct();
             }
             else if (typeof(TypeClass).IsAssignableFrom(type)) {
-                var gtype = Marshal.PtrToStructure<GType> (handle);
-                type = gtype.GetGTypeStruct ();
+                var gtype = Marshal.PtrToStructure<GType>(handle);
+                type = gtype.GetGTypeStruct();
             }
             else if (typeof(TypeInterface).IsAssignableFrom(type)) {
-                var gtype = Marshal.PtrToStructure<GType> (handle);
-                type = gtype.GetGTypeStruct ();
+                var gtype = Marshal.PtrToStructure<GType>(handle);
+                type = gtype.GetGTypeStruct();
             }
 
             return (IOpaque)Activator.CreateInstance(type, handle, ownership)!;

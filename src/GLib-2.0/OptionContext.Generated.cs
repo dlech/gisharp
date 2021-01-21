@@ -84,7 +84,7 @@ namespace GISharp.Lib.GLib
         static unsafe System.IntPtr New(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString)
         {
             CheckNewArgs(parameterString);
-            var parameterString_ = parameterString.Handle;
+            var parameterString_ = parameterString.UnsafeHandle;
             var ret_ = g_option_context_new(parameterString_);
             return ret_;
         }
@@ -118,7 +118,7 @@ namespace GISharp.Lib.GLib
         public unsafe void AddGroup(GISharp.Lib.GLib.OptionGroup group)
         {
             CheckAddGroupArgs(group);
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var group_ = group.Take();
             g_option_context_add_group(context_, group_);
         }
@@ -166,7 +166,7 @@ namespace GISharp.Lib.GLib
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetDescription()
         {
             CheckGetDescriptionArgs();
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var ret_ = g_option_context_get_description(context_);
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
             return ret;
@@ -214,9 +214,9 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Utf8 GetHelp(System.Boolean mainHelp, GISharp.Lib.GLib.OptionGroup? group)
         {
             CheckGetHelpArgs(mainHelp, group);
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var mainHelp_ = GISharp.Runtime.BooleanExtensions.ToBoolean(mainHelp);
-            var group_ = group?.Handle ?? System.IntPtr.Zero;
+            var group_ = group?.UnsafeHandle ?? System.IntPtr.Zero;
             var ret_ = g_option_context_get_help(context_,mainHelp_,group_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -246,7 +246,7 @@ namespace GISharp.Lib.GLib
         private unsafe System.Boolean GetHelpEnabled()
         {
             CheckGetHelpEnabledArgs();
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var ret_ = g_option_context_get_help_enabled(context_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -276,7 +276,7 @@ namespace GISharp.Lib.GLib
         private unsafe System.Boolean GetIgnoreUnknownOptions()
         {
             CheckGetIgnoreUnknownOptionsArgs();
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var ret_ = g_option_context_get_ignore_unknown_options(context_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -307,7 +307,7 @@ namespace GISharp.Lib.GLib
         private unsafe GISharp.Lib.GLib.OptionGroup GetMainGroup()
         {
             CheckGetMainGroupArgs();
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var ret_ = g_option_context_get_main_group(context_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -339,7 +339,7 @@ namespace GISharp.Lib.GLib
         private unsafe System.Boolean GetStrictPosix()
         {
             CheckGetStrictPosixArgs();
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var ret_ = g_option_context_get_strict_posix(context_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -368,7 +368,7 @@ namespace GISharp.Lib.GLib
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetSummary()
         {
             CheckGetSummaryArgs();
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var ret_ = g_option_context_get_summary(context_);
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
             return ret;
@@ -406,8 +406,8 @@ namespace GISharp.Lib.GLib
         private unsafe void SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8 description)
         {
             CheckSetDescriptionArgs(description);
-            var context_ = Handle;
-            var description_ = description.Handle;
+            var context_ = UnsafeHandle;
+            var description_ = description.UnsafeHandle;
             g_option_context_set_description(context_, description_);
         }
 
@@ -440,7 +440,7 @@ namespace GISharp.Lib.GLib
         private unsafe void SetHelpEnabled(System.Boolean helpEnabled)
         {
             CheckSetHelpEnabledArgs(helpEnabled);
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var helpEnabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(helpEnabled);
             g_option_context_set_help_enabled(context_, helpEnabled_);
         }
@@ -479,7 +479,7 @@ namespace GISharp.Lib.GLib
         private unsafe void SetIgnoreUnknownOptions(System.Boolean ignoreUnknown)
         {
             CheckSetIgnoreUnknownOptionsArgs(ignoreUnknown);
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var ignoreUnknown_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ignoreUnknown);
             g_option_context_set_ignore_unknown_options(context_, ignoreUnknown_);
         }
@@ -513,7 +513,7 @@ namespace GISharp.Lib.GLib
         private unsafe void SetMainGroup(GISharp.Lib.GLib.OptionGroup group)
         {
             CheckSetMainGroupArgs(group);
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var group_ = group.Take();
             g_option_context_set_main_group(context_, group_);
         }
@@ -568,7 +568,7 @@ namespace GISharp.Lib.GLib
         private unsafe void SetStrictPosix(System.Boolean strictPosix)
         {
             CheckSetStrictPosixArgs(strictPosix);
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var strictPosix_ = GISharp.Runtime.BooleanExtensions.ToBoolean(strictPosix);
             g_option_context_set_strict_posix(context_, strictPosix_);
         }
@@ -606,8 +606,8 @@ namespace GISharp.Lib.GLib
         private unsafe void SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8 summary)
         {
             CheckSetSummaryArgs(summary);
-            var context_ = Handle;
-            var summary_ = summary.Handle;
+            var context_ = UnsafeHandle;
+            var summary_ = summary.UnsafeHandle;
             g_option_context_set_summary(context_, summary_);
         }
 
@@ -661,7 +661,7 @@ namespace GISharp.Lib.GLib
         public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
             CheckSetTranslateFuncArgs(func);
-            var context_ = Handle;
+            var context_ = UnsafeHandle;
             var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToUnmanagedFunctionPointer(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_context_set_translate_func(context_, func_, data_, destroyNotify_);
         }
@@ -694,8 +694,8 @@ namespace GISharp.Lib.GLib
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
             CheckSetTranslationDomainArgs(domain);
-            var context_ = Handle;
-            var domain_ = domain.Handle;
+            var context_ = UnsafeHandle;
+            var domain_ = domain.UnsafeHandle;
             g_option_context_set_translation_domain(context_, domain_);
         }
     }

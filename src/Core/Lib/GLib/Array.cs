@@ -43,7 +43,7 @@ namespace GISharp.Lib.GLib
         /// Gets the number of elements in the array including the possible
         /// terminating zero element.
         /// </summary>
-        public unsafe int Length => (int)((UnmanagedStruct*)Handle)->Len;
+        public unsafe int Length => (int)((UnmanagedStruct*)UnsafeHandle)->Len;
 
         /// <summary>
         /// For internal runtime use only.
@@ -57,7 +57,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_array_ref(IntPtr array);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_array_ref(Handle);
+        public override IntPtr Take() => g_array_ref(UnsafeHandle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_array_unref(IntPtr array);
@@ -191,7 +191,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected unsafe void AppendVals<T>(ReadOnlySpan<T> data) where T : unmanaged
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             fixed (void* data_ = data) {
                 var len_ = (uint)data.Length;
                 g_array_append_vals(this_, data_, len_);
@@ -221,7 +221,7 @@ namespace GISharp.Lib.GLib
         [Since("2.22")]
         public int ElementSize {
             get {
-                var this_ = Handle;
+                var this_ = UnsafeHandle;
                 var ret = g_array_get_element_size(this_);
                 return (int)ret;
             }
@@ -263,7 +263,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected unsafe void InsertVals<T>(int index, ReadOnlySpan<T> data) where T : unmanaged
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (index < 0 || index > Length) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
@@ -313,7 +313,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected unsafe void PrependVals<T>(ReadOnlySpan<T> data) where T : unmanaged
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             fixed (void* data_ = data) {
                 var len_ = (uint)data.Length;
                 g_array_prepend_vals(this_, data_, len_);
@@ -347,7 +347,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void RemoveAt(int index)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (index < 0 || index >= Length) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
@@ -385,7 +385,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void RemoveAtFast(int index)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (index < 0 || index >= Length) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
@@ -429,7 +429,7 @@ namespace GISharp.Lib.GLib
         [Since("2.4")]
         public void RemoveRange(int index, int length)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (index < 0 || index >= Length) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
@@ -491,7 +491,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void SetSize(int length)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (length < 0) {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
@@ -533,7 +533,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void Sort<T>(Comparison<T> compareFunc) where T : unmanaged
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 try {
                     var x = Marshal.PtrToStructure<T>(a);
@@ -591,7 +591,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public (IntPtr, int) TakeData()
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             handle = IntPtr.Zero; // object becomes disposed
             GC.SuppressFinalize(this);
 
@@ -629,7 +629,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public unsafe Span<T> Data {
             get {
-                var this_ = (UnmanagedStruct*)Handle;
+                var this_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret = new Span<T>(this_->Data, (int)this_->Len);
                 return ret;
             }

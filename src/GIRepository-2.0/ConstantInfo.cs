@@ -11,15 +11,15 @@ namespace GISharp.Lib.GIRepository
 {
     public sealed class ConstantInfo : BaseInfo
     {
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_constant_info_free_value (IntPtr raw, ref Argument value);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_constant_info_free_value(IntPtr raw, ref Argument value);
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_constant_info_get_type (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_constant_info_get_type(IntPtr raw);
 
         public TypeInfo TypeInfo {
             get {
-                IntPtr raw_ret = g_constant_info_get_type (Handle);
+                IntPtr raw_ret = g_constant_info_get_type(UnsafeHandle);
                 return GetInstance<TypeInfo>(raw_ret);
             }
         }
@@ -30,7 +30,7 @@ namespace GISharp.Lib.GIRepository
         public object Value {
             get {
                 Argument value;
-                var size = g_constant_info_get_value(Handle, out value);
+                var size = g_constant_info_get_value(UnsafeHandle, out value);
                 try {
                     return TypeInfo.Tag switch {
                         TypeTag.Boolean => value.Boolean,
@@ -49,12 +49,12 @@ namespace GISharp.Lib.GIRepository
                     };
                 }
                 finally {
-                    g_constant_info_free_value(Handle, ref value);
+                    g_constant_info_free_value(UnsafeHandle, ref value);
                 }
             }
         }
 
-        public ConstantInfo (IntPtr raw) : base (raw)
+        public ConstantInfo(IntPtr raw) : base(raw)
         {
         }
     }

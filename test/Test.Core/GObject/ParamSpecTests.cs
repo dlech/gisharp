@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
@@ -343,7 +343,7 @@ namespace GISharp.Test.Core.GObject
 
         static ParamSpec getItemAt(PtrArray<ParamSpec> array, int index)
         {
-            var data_ = Marshal.ReadIntPtr(array.Handle);
+            var data_ = Marshal.ReadIntPtr(array.UnsafeHandle);
             var ptr = Marshal.ReadIntPtr(data_, IntPtr.Size * index);
             return ParamSpec.GetInstance<ParamSpecBoolean>(ptr, Transfer.None)!;
         }

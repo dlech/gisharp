@@ -69,8 +69,8 @@ namespace GISharp.Lib.GObject
         [Since("2.4")]
         public ParamSpec? FindProperty(UnownedUtf8 propertyName)
         {
-            var this_ = Handle;
-            var propertyName_ = propertyName.Handle;
+            var this_ = UnsafeHandle;
+            var propertyName_ = propertyName.UnsafeHandle;
             var ret_ = g_object_interface_find_property(this_, propertyName_);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             return ret;
@@ -135,8 +135,8 @@ namespace GISharp.Lib.GObject
         [Since("2.4")]
         public void InstallProperty(ParamSpec pspec)
         {
-            var this_ = Handle;
-            var pspec_ = pspec.Handle;
+            var this_ = UnsafeHandle;
+            var pspec_ = pspec.UnsafeHandle;
             g_object_interface_install_property(this_, pspec_);
         }
 
@@ -183,7 +183,7 @@ namespace GISharp.Lib.GObject
         [Since("2.4")]
         public CPtrArray<ParamSpec> ListProperties()
         {
-            var ret_ = g_object_interface_list_properties(Handle, out var nProperties_);
+            var ret_ = g_object_interface_list_properties(UnsafeHandle, out var nProperties_);
             var ret = CPtrArray.GetInstance<ParamSpec>(ret_, (int)nProperties_, Transfer.Container);
             return ret;
         }

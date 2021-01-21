@@ -71,8 +71,8 @@ namespace GISharp.Lib.Gio
         public unsafe static void AddAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.Gio.IAction action)
         {
             CheckAddActionArgs(actionMap, action);
-            var actionMap_ = actionMap.Handle;
-            var action_ = action.Handle;
+            var actionMap_ = actionMap.UnsafeHandle;
+            var action_ = action.UnsafeHandle;
             g_action_map_add_action(actionMap_, action_);
         }
 
@@ -109,8 +109,8 @@ namespace GISharp.Lib.Gio
         public unsafe static GISharp.Lib.Gio.IAction? LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckLookupActionArgs(actionMap, actionName);
-            var actionMap_ = actionMap.Handle;
-            var actionName_ = actionName.Handle;
+            var actionMap_ = actionMap.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             var ret_ = g_action_map_lookup_action(actionMap_,actionName_);
             var ret = (GISharp.Lib.Gio.IAction?)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.None);
             return ret;
@@ -146,8 +146,8 @@ namespace GISharp.Lib.Gio
         public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckRemoveActionArgs(actionMap, actionName);
-            var actionMap_ = actionMap.Handle;
-            var actionName_ = actionName.Handle;
+            var actionMap_ = actionMap.UnsafeHandle;
+            var actionName_ = actionName.UnsafeHandle;
             g_action_map_remove_action(actionMap_, actionName_);
         }
     }

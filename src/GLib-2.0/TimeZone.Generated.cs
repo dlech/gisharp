@@ -118,7 +118,7 @@ namespace GISharp.Lib.GLib
         static unsafe System.IntPtr New(GISharp.Lib.GLib.NullableUnownedUtf8 identifier)
         {
             CheckNewArgs(identifier);
-            var identifier_ = identifier.Handle;
+            var identifier_ = identifier.UnsafeHandle;
             var ret_ = g_time_zone_new(identifier_);
             return ret_;
         }
@@ -289,7 +289,7 @@ namespace GISharp.Lib.GLib
         public unsafe System.Int32 AdjustTime(GISharp.Lib.GLib.TimeType type, in System.Int64 time)
         {
             CheckAdjustTimeArgs(type, time);
-            var tz_ = Handle;
+            var tz_ = UnsafeHandle;
             var type_ = (GISharp.Lib.GLib.TimeType)type;
             ref readonly var time_ = ref time;
             var ret_ = g_time_zone_adjust_time(tz_,type_,time_);
@@ -351,7 +351,7 @@ namespace GISharp.Lib.GLib
         public unsafe System.Int32 FindInterval(GISharp.Lib.GLib.TimeType type, System.Int64 time)
         {
             CheckFindIntervalArgs(type, time);
-            var tz_ = Handle;
+            var tz_ = UnsafeHandle;
             var type_ = (GISharp.Lib.GLib.TimeType)type;
             var time_ = (System.Int64)time;
             var ret_ = g_time_zone_find_interval(tz_,type_,time_);
@@ -395,7 +395,7 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetAbbreviation(System.Int32 interval)
         {
             CheckGetAbbreviationArgs(interval);
-            var tz_ = Handle;
+            var tz_ = UnsafeHandle;
             var interval_ = (System.Int32)interval;
             var ret_ = g_time_zone_get_abbreviation(tz_,interval_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
@@ -433,7 +433,7 @@ namespace GISharp.Lib.GLib
         private unsafe GISharp.Lib.GLib.UnownedUtf8 GetIdentifier()
         {
             CheckGetIdentifierArgs();
-            var tz_ = Handle;
+            var tz_ = UnsafeHandle;
             var ret_ = g_time_zone_get_identifier(tz_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
@@ -476,7 +476,7 @@ namespace GISharp.Lib.GLib
         public unsafe System.Int32 GetOffset(System.Int32 interval)
         {
             CheckGetOffsetArgs(interval);
-            var tz_ = Handle;
+            var tz_ = UnsafeHandle;
             var interval_ = (System.Int32)interval;
             var ret_ = g_time_zone_get_offset(tz_,interval_);
             var ret = (System.Int32)ret_;
@@ -514,7 +514,7 @@ namespace GISharp.Lib.GLib
         public unsafe System.Boolean IsDst(System.Int32 interval)
         {
             CheckIsDstArgs(interval);
-            var tz_ = Handle;
+            var tz_ = UnsafeHandle;
             var interval_ = (System.Int32)interval;
             var ret_ = g_time_zone_is_dst(tz_,interval_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -543,7 +543,7 @@ namespace GISharp.Lib.GLib
         /// Takes ownership of the unmanaged pointer without freeing it.
         /// The managed object can no longer be used (will throw disposed exception).
         /// </summary>
-        public override System.IntPtr Take() => g_time_zone_ref(Handle);
+        public override System.IntPtr Take() => g_time_zone_ref(UnsafeHandle);
 
         /// <summary>
         /// Decreases the reference count on @tz.

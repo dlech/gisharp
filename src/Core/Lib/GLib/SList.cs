@@ -30,7 +30,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc/>
-        public override IntPtr Handle {
+        public override IntPtr UnsafeHandle {
             get {
                 // null handle is OK here
                 return handle;
@@ -344,7 +344,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected unsafe void Foreach<T>(Func<T> func) where T : IOpaque?
         {
-            var list_ = Handle;
+            var list_ = UnsafeHandle;
             var marshalCallback = func.GetToUnmanagedFunctionPointer();
             var (func_, notify_, userData_) = marshalCallback(func, CallbackScope.Call);
             g_slist_foreach(list_, func_, userData_);
@@ -912,7 +912,7 @@ namespace GISharp.Lib.GLib
         public void Reset() => next = start;
 
         /// <inheritdoc/>
-        public unsafe T Current => GetInstance<T>(((SList.UnmanagedStruct*)Handle)->Data, Transfer.None);
+        public unsafe T Current => GetInstance<T>(((SList.UnmanagedStruct*)UnsafeHandle)->Data, Transfer.None);
 
         object? IEnumerator.Current => Current;
 
@@ -923,7 +923,7 @@ namespace GISharp.Lib.GLib
                 return false;
             }
             handle = next;
-            next = ((SList.UnmanagedStruct*)Handle)->Next;
+            next = ((SList.UnmanagedStruct*)UnsafeHandle)->Next;
             return true;
         }
     }
@@ -982,7 +982,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Append(T data)
         {
-            Append(data?.Handle ?? IntPtr.Zero);
+            Append(data?.UnsafeHandle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -1031,7 +1031,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public int IndexOf(T data)
         {
-            var ret = IndexOf(data?.Handle ?? IntPtr.Zero);
+            var ret = IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
             return ret;
         }
 
@@ -1049,7 +1049,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Insert(T data, int position)
         {
-            Insert(data?.Handle ?? IntPtr.Zero, position);
+            Insert(data?.UnsafeHandle ?? IntPtr.Zero, position);
         }
 
         /// <summary>
@@ -1063,7 +1063,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void InsertBefore(SListEnumerator<T>? sibling, T data)
         {
-            InsertBefore(sibling?.Handle ?? IntPtr.Zero, data?.Handle ?? IntPtr.Zero);
+            InsertBefore(sibling?.UnsafeHandle ?? IntPtr.Zero, data?.UnsafeHandle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -1092,7 +1092,7 @@ namespace GISharp.Lib.GLib
                     return default;
                 }
             };
-            InsertSorted(data?.Handle ?? IntPtr.Zero, func_);
+            InsertSorted(data?.UnsafeHandle ?? IntPtr.Zero, func_);
         }
 
         /// <summary>
@@ -1124,7 +1124,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Prepend(T data)
         {
-            Prepend(data?.Handle ?? IntPtr.Zero);
+            Prepend(data?.UnsafeHandle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -1137,7 +1137,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Remove(T data)
         {
-            Remove(data?.Handle ?? IntPtr.Zero);
+            Remove(data?.UnsafeHandle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -1151,7 +1151,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void RemoveAll(T data)
         {
-            RemoveAll(data?.Handle ?? IntPtr.Zero);
+            RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -1180,8 +1180,8 @@ namespace GISharp.Lib.GLib
             };
             Sort(compareFunc_);
         }
-        IEnumerator IEnumerable.GetEnumerator() => new SListEnumerator<T>(Handle);
+        IEnumerator IEnumerable.GetEnumerator() => new SListEnumerator<T>(UnsafeHandle);
 
-        IEnumerator<T> IEnumerable<T>.GetEnumerator() => new SListEnumerator<T>(Handle);
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => new SListEnumerator<T>(UnsafeHandle);
     }
 }

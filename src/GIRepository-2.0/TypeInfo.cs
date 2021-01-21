@@ -11,71 +11,71 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GIRepository
 {
-    [DebuggerDisplay ("{Tag}")]
+    [DebuggerDisplay("{Tag}")]
     public sealed class TypeInfo : BaseInfo
     {
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_type_info_get_array_fixed_size (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_type_info_get_array_fixed_size(IntPtr raw);
 
         public int ArrayFixedSize {
             get {
-                int raw_ret = g_type_info_get_array_fixed_size (Handle);
+                int raw_ret = g_type_info_get_array_fixed_size(UnsafeHandle);
                 int ret = raw_ret;
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_type_info_get_array_length (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_type_info_get_array_length(IntPtr raw);
 
         public int ArrayLengthIndex {
             get {
-                int raw_ret = g_type_info_get_array_length (Handle);
+                int raw_ret = g_type_info_get_array_length(UnsafeHandle);
                 int ret = raw_ret;
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern ArrayType g_type_info_get_array_type (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern ArrayType g_type_info_get_array_type(IntPtr raw);
 
         public ArrayType ArrayType {
             get {
                 if (Tag != TypeTag.Array) {
                     return ArrayType.None;
                 }
-                return g_type_info_get_array_type (Handle);
+                return g_type_info_get_array_type(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_type_info_get_interface (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_type_info_get_interface(IntPtr raw);
 
         public BaseInfo? Interface {
             get {
-                var ret_ = g_type_info_get_interface(Handle);
+                var ret_ = g_type_info_get_interface(UnsafeHandle);
                 var ret = GetInstanceOrNull<BaseInfo>(ret_);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_type_info_get_param_type (IntPtr raw, int index);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_type_info_get_param_type(IntPtr raw, int index);
 
-        public TypeInfo GetParamType (int index)
+        public TypeInfo GetParamType(int index)
         {
-            IntPtr raw_ret = g_type_info_get_param_type (Handle, index);
+            IntPtr raw_ret = g_type_info_get_param_type(UnsafeHandle, index);
             TypeInfo ret = GetInstance<TypeInfo>(raw_ret);
             return ret;
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern TypeTag g_type_info_get_tag (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern TypeTag g_type_info_get_tag(IntPtr raw);
 
         public TypeTag Tag {
             get {
-                return g_type_info_get_tag (Handle);
+                return g_type_info_get_tag(UnsafeHandle);
             }
         }
 
@@ -84,7 +84,7 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsPointer {
             get {
-                var ret_ = g_type_info_is_pointer(Handle);
+                var ret_ = g_type_info_is_pointer(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -95,13 +95,13 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsZeroTerminated {
             get {
-                var ret_ = g_type_info_is_zero_terminated(Handle);
+                var ret_ = g_type_info_is_zero_terminated(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
         }
 
-        public TypeInfo (IntPtr raw) : base (raw)
+        public TypeInfo(IntPtr raw) : base(raw)
         {
         }
     }

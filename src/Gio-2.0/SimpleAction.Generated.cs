@@ -77,8 +77,8 @@ namespace GISharp.Lib.Gio
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
         {
             CheckNewArgs(name, parameterType);
-            var name_ = name.Handle;
-            var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
+            var name_ = name.UnsafeHandle;
+            var parameterType_ = parameterType?.UnsafeHandle ?? System.IntPtr.Zero;
             var ret_ = g_simple_action_new(name_,parameterType_);
             return ret_;
         }
@@ -132,9 +132,9 @@ namespace GISharp.Lib.Gio
         static unsafe System.IntPtr NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
         {
             CheckNewStatefulArgs(name, parameterType, state);
-            var name_ = name.Handle;
-            var parameterType_ = parameterType?.Handle ?? System.IntPtr.Zero;
-            var state_ = state.Handle;
+            var name_ = name.UnsafeHandle;
+            var parameterType_ = parameterType?.UnsafeHandle ?? System.IntPtr.Zero;
+            var state_ = state.UnsafeHandle;
             var ret_ = g_simple_action_new_stateful(name_,parameterType_,state_);
             return ret_;
         }
@@ -166,8 +166,8 @@ namespace GISharp.Lib.Gio
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? parameter)
                 {
-                    var simpleAction_ = simpleAction.Handle;
-                    var parameter_ = parameter?.Handle ?? System.IntPtr.Zero;
+                    var simpleAction_ = simpleAction.UnsafeHandle;
+                    var parameter_ = parameter?.UnsafeHandle ?? System.IntPtr.Zero;
                     unmanagedCallback(simpleAction_, parameter_, userData_);
                 }
 
@@ -228,8 +228,8 @@ namespace GISharp.Lib.Gio
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? value)
                 {
-                    var simpleAction_ = simpleAction.Handle;
-                    var value_ = value?.Handle ?? System.IntPtr.Zero;
+                    var simpleAction_ = simpleAction.UnsafeHandle;
+                    var value_ = value?.UnsafeHandle ?? System.IntPtr.Zero;
                     unmanagedCallback(simpleAction_, value_, userData_);
                 }
 
@@ -312,7 +312,7 @@ namespace GISharp.Lib.Gio
         public unsafe void SetEnabled(System.Boolean enabled)
         {
             CheckSetEnabledArgs(enabled);
-            var simple_ = Handle;
+            var simple_ = UnsafeHandle;
             var enabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(enabled);
             g_simple_action_set_enabled(simple_, enabled_);
         }
@@ -354,8 +354,8 @@ namespace GISharp.Lib.Gio
         public unsafe void SetState(GISharp.Lib.GLib.Variant value)
         {
             CheckSetStateArgs(value);
-            var simple_ = Handle;
-            var value_ = value.Handle;
+            var simple_ = UnsafeHandle;
+            var value_ = value.UnsafeHandle;
             g_simple_action_set_state(simple_, value_);
         }
 
@@ -390,8 +390,8 @@ namespace GISharp.Lib.Gio
         public unsafe void SetStateHint(GISharp.Lib.GLib.Variant? stateHint)
         {
             CheckSetStateHintArgs(stateHint);
-            var simple_ = Handle;
-            var stateHint_ = stateHint?.Handle ?? System.IntPtr.Zero;
+            var simple_ = UnsafeHandle;
+            var stateHint_ = stateHint?.UnsafeHandle ?? System.IntPtr.Zero;
             g_simple_action_set_state_hint(simple_, stateHint_);
         }
 

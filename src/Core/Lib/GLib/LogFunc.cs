@@ -78,8 +78,8 @@ namespace GISharp.Lib.GLib
         public static LogFunc Create(UnmanagedLogFunc logFunc_, IntPtr userData_)
         {
             return new LogFunc((logDomain, logLevel, message) => {
-                var logDomain_ = logDomain.Handle;
-                var message_ = message.Handle;
+                var logDomain_ = logDomain.UnsafeHandle;
+                var message_ = message.UnsafeHandle;
                 logFunc_(logDomain_, logLevel, message_, userData_);
             });
         }
@@ -87,7 +87,8 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Marshals a managed function delegate to an unmanged function pointer.
         /// </summary>
-        public static (UnmanagedLogFunc, UnmanagedDestroyNotify, IntPtr) Create(LogFunc func, CallbackScope scope) {
+        public static (UnmanagedLogFunc, UnmanagedDestroyNotify, IntPtr) Create(LogFunc func, CallbackScope scope)
+        {
             var data = new UserData(func, UnmanagedCallback, Destroy, scope);
             var gcHandle = GCHandle.Alloc(data);
 

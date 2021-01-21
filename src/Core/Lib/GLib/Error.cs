@@ -47,13 +47,13 @@ namespace GISharp.Lib.GLib
         /// Gets the error domain (aka error quark).
         /// </summary>
         /// <value>The domain value.</value>
-        public unsafe Quark Domain => ((UnmanagedStruct*)Handle)->Domain;
+        public unsafe Quark Domain => ((UnmanagedStruct*)UnsafeHandle)->Domain;
 
         /// <summary>
         /// Gets the error code.
         /// </summary>
         /// <value>The code.</value>
-        public unsafe int Code => ((UnmanagedStruct*)Handle)->Code;
+        public unsafe int Code => ((UnmanagedStruct*)UnsafeHandle)->Code;
 
         /// <summary>
         /// Gets the error message.
@@ -61,7 +61,7 @@ namespace GISharp.Lib.GLib
         /// <value>The message.</value>
         public unsafe UnownedUtf8 Message {
             get {
-                var ret_ = ((UnmanagedStruct*)Handle)->Message;
+                var ret_ = ((UnmanagedStruct*)UnsafeHandle)->Message;
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -90,7 +90,7 @@ namespace GISharp.Lib.GLib
         static IntPtr NewLiteral(Quark domain, int code, string message)
         {
             using var utf8 = new Utf8(message);
-            var ret = g_error_new_literal(domain, code, utf8.Handle);
+            var ret = g_error_new_literal(domain, code, utf8.UnsafeHandle);
             return ret;
         }
 
@@ -171,7 +171,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public bool Matches(Quark domain, int code)
         {
-            var ret_ = g_error_matches(Handle, domain, code);
+            var ret_ = g_error_matches(UnsafeHandle, domain, code);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -192,7 +192,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public bool Matches(System.Enum code)
         {
-            var ret_ = g_error_matches(Handle, code.GetGErrorDomain(), Convert.ToInt32(code));
+            var ret_ = g_error_matches(UnsafeHandle, code.GetGErrorDomain(), Convert.ToInt32(code));
             var ret = ret_.IsTrue();
             return ret;
         }

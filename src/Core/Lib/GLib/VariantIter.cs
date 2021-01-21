@@ -54,7 +54,7 @@ namespace GISharp.Lib.GLib
             if (!value.IsContainer) {
                 throw new ArgumentException("must be a container", nameof(value));
             }
-            var ret = g_variant_iter_new(value.Handle);
+            var ret = g_variant_iter_new(value.UnsafeHandle);
             return ret;
         }
 
@@ -107,7 +107,7 @@ namespace GISharp.Lib.GLib
             if (value is null) {
                 throw new InvalidOperationException("Initial value is unknown.");
             }
-            g_variant_iter_init(Handle, value.Handle);
+            g_variant_iter_init(UnsafeHandle, value.UnsafeHandle);
             current = null;
         }
 
@@ -148,7 +148,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public int Count {
             get {
-                var ret = g_variant_iter_n_children(Handle);
+                var ret = g_variant_iter_n_children(UnsafeHandle);
                 return (int)ret;
             }
         }
@@ -203,7 +203,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public Variant? TryNextValue()
         {
-            var ret_ = g_variant_iter_next_value(Handle);
+            var ret_ = g_variant_iter_next_value(UnsafeHandle);
             current = GetInstance<Variant>(ret_, Transfer.Full);
             return current;
         }

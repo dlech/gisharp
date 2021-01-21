@@ -93,7 +93,7 @@ namespace GISharp.Lib.Gio
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.Cancellable cancellable)
                 {
-                    var cancellable_ = cancellable.Handle;
+                    var cancellable_ = cancellable.UnsafeHandle;
                     unmanagedCallback(cancellable_, userData_);
                 }
 
@@ -198,7 +198,7 @@ namespace GISharp.Lib.Gio
         public unsafe void Cancel()
         {
             CheckCancelArgs();
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             g_cancellable_cancel(cancellable_);
         }
 
@@ -263,7 +263,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Runtime.CULong Connect(GISharp.Lib.Gio.CancellableSourceFunc callback)
         {
             CheckConnectArgs(callback);
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             var (callback_, dataDestroyFunc_, data_) = GISharp.Lib.Gio.CancellableSourceFuncMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Notified);
             var ret_ = g_cancellable_connect(cancellable_,callback_,data_,dataDestroyFunc_);
             var ret = (GISharp.Runtime.CULong)ret_;
@@ -311,7 +311,7 @@ namespace GISharp.Lib.Gio
         public unsafe void Disconnect(GISharp.Runtime.CULong handlerId)
         {
             CheckDisconnectArgs(handlerId);
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             var handlerId_ = (GISharp.Runtime.CULong)handlerId;
             g_cancellable_disconnect(cancellable_, handlerId_);
         }
@@ -351,7 +351,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.Int32 GetFd()
         {
             CheckGetFdArgs();
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             var ret_ = g_cancellable_get_fd(cancellable_);
             var ret = (System.Int32)ret_;
             return ret;
@@ -379,7 +379,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.Boolean GetIsCancelled()
         {
             CheckGetIsCancelledArgs();
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             var ret_ = g_cancellable_is_cancelled(cancellable_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -434,7 +434,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean TryMakePollfd(out GISharp.Lib.GLib.PollFD pollfd)
         {
             CheckTryMakePollfdArgs();
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             var ret_ = g_cancellable_make_pollfd(cancellable_,out var pollfd_);
             pollfd = (GISharp.Lib.GLib.PollFD)pollfd_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -461,7 +461,7 @@ namespace GISharp.Lib.Gio
         public unsafe void PopCurrent()
         {
             CheckPopCurrentArgs();
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             g_cancellable_pop_current(cancellable_);
         }
 
@@ -492,7 +492,7 @@ namespace GISharp.Lib.Gio
         public unsafe void PushCurrent()
         {
             CheckPushCurrentArgs();
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             g_cancellable_push_current(cancellable_);
         }
 
@@ -526,7 +526,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ReleaseFd()
         {
             CheckReleaseFdArgs();
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             g_cancellable_release_fd(cancellable_);
         }
 
@@ -560,7 +560,7 @@ namespace GISharp.Lib.Gio
         public unsafe void Reset()
         {
             CheckResetArgs();
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             g_cancellable_reset(cancellable_);
         }
 
@@ -593,7 +593,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ThrowIfCancelled()
         {
             CheckThrowIfCancelledArgs();
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             g_cancellable_set_error_if_cancelled(cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -607,7 +607,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(CancellableClass.UnmanagedCancelled))]
         protected virtual unsafe void DoCancelled()
         {
-            var cancellable_ = Handle;
+            var cancellable_ = UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<CancellableClass.UnmanagedCancelled>(_GType)!(cancellable_);
         }
     }

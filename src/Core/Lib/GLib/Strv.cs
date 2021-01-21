@@ -71,7 +71,7 @@ namespace GISharp.Lib.GLib
         [Since("2.6")]
         public int Length {
             get {
-                var ret = g_strv_length(Handle);
+                var ret = g_strv_length(UnsafeHandle);
                 return (int)ret;
             }
         }
@@ -93,8 +93,8 @@ namespace GISharp.Lib.GLib
         [Since("2.44")]
         public bool Contains(UnownedUtf8 str)
         {
-            var this_ = Handle;
-            var str_ = str.Handle;
+            var this_ = UnsafeHandle;
+            var str_ = str.UnsafeHandle;
             var ret_ = g_strv_contains(this_, str_);
             var ret = ret_.IsTrue();
             return ret;
@@ -111,7 +111,7 @@ namespace GISharp.Lib.GLib
         IEnumerator<Utf8> GetIEnumerator()
         {
             IntPtr ptr, str_;
-            for (ptr = Handle; (str_ = Marshal.ReadIntPtr(ptr)) != IntPtr.Zero; ptr += IntPtr.Size) {
+            for (ptr = UnsafeHandle; (str_ = Marshal.ReadIntPtr(ptr)) != IntPtr.Zero; ptr += IntPtr.Size) {
                 var str = new Utf8(str_, Transfer.None);
                 yield return str;
             }
@@ -130,7 +130,8 @@ namespace GISharp.Lib.GLib
             private int offset;
             private IntPtr ptr;
 
-            internal Enumerator(Strv instance) {
+            internal Enumerator(Strv instance)
+            {
                 this.instance = instance;
             }
 
@@ -146,8 +147,9 @@ namespace GISharp.Lib.GLib
             /// <summary>
             /// Implements method needed in <c>foreach</c> loops.
             /// </summary>
-            public bool MoveNext() {
-                ptr = Marshal.ReadIntPtr(instance.Handle, offset);
+            public bool MoveNext()
+            {
+                ptr = Marshal.ReadIntPtr(instance.UnsafeHandle, offset);
                 offset += IntPtr.Size;
                 return ptr != IntPtr.Zero;
             }
@@ -164,7 +166,7 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe ref readonly IntPtr GetPinnableReference()
         {
-            return ref Unsafe.AsRef<IntPtr>((void*)Handle);
+            return ref Unsafe.AsRef<IntPtr>((void*)UnsafeHandle);
         }
     }
 }

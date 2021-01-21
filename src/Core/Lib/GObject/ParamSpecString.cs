@@ -60,7 +60,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe new UnownedUtf8 DefaultValue {
             get {
-                var ret_ = ((UnmanagedStruct*)Handle)->DefaultValue;
+                var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -71,7 +71,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe NullableUnownedUtf8 CsetFirst {
             get {
-                var ret_ = ((UnmanagedStruct*)Handle)->CsetFirst;
+                var ret_ = ((UnmanagedStruct*)UnsafeHandle)->CsetFirst;
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe NullableUnownedUtf8 CsetNth {
             get {
-                var ret_ = ((UnmanagedStruct*)Handle)->CsetNth;
+                var ret_ = ((UnmanagedStruct*)UnsafeHandle)->CsetNth;
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -92,9 +92,9 @@ namespace GISharp.Lib.GObject
         /// the replacement byte for bytes which don't match <see cref="CsetFirst"/>
         /// or <see cref="CsetNth"/> .
         /// </summary>
-        public unsafe sbyte Substitutor => ((UnmanagedStruct*)Handle)->Substitutor;
+        public unsafe sbyte Substitutor => ((UnmanagedStruct*)UnsafeHandle)->Substitutor;
 
-        unsafe uint Bitfield => ((UnmanagedStruct*)Handle)->Bitfield;
+        unsafe uint Bitfield => ((UnmanagedStruct*)UnsafeHandle)->Bitfield;
 
         /// <summary>
         /// For internal runtime use only.

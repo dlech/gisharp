@@ -65,7 +65,7 @@ namespace GISharp.Lib.GLib
         public static unsafe System.Boolean TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
         {
             CheckTryFromIso8601Args(isoDate);
-            var isoDate_ = isoDate.Handle;
+            var isoDate_ = isoDate.UnsafeHandle;
             var ret_ = g_time_val_from_iso8601(isoDate_,out var time_);
             time = (GISharp.Lib.GLib.TimeVal)time_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);

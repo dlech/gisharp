@@ -156,10 +156,10 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (type.IsOpaque() || type.IsGInterface()) {
                 if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
-                    expressions.Add(ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.Handle"));
+                    expressions.Add(ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.UnsafeHandle"));
                 }
                 else {
-                    var getter = arg.TransferOwnership == "none" ? "Handle" : "Take()";
+                    var getter = arg.TransferOwnership == "none" ? "UnsafeHandle" : "Take()";
                     expressions.Add(arg.IsNullable ?
                         ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}?.{getter} ?? System.IntPtr.Zero") :
                         ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.{getter}"));

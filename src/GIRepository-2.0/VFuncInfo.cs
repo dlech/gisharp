@@ -28,7 +28,7 @@ namespace GISharp.Lib.GIRepository
         /// <value>The flags.</value>
         public VFuncInfoFlags Flags {
             get {
-                int raw_ret = g_vfunc_info_get_flags(Handle);
+                int raw_ret = g_vfunc_info_get_flags(UnsafeHandle);
                 var ret = (VFuncInfoFlags)raw_ret;
                 return ret;
             }
@@ -46,7 +46,7 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public FunctionInfo? Invoker {
             get {
-                var ret_ = g_vfunc_info_get_invoker(Handle);
+                var ret_ = g_vfunc_info_get_invoker(UnsafeHandle);
                 var ret = GetInstanceOrNull<FunctionInfo>(ret_);
                 return ret;
             }
@@ -64,7 +64,7 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public int Offset {
             get {
-                int raw_ret = g_vfunc_info_get_offset(Handle);
+                int raw_ret = g_vfunc_info_get_offset(UnsafeHandle);
                 int ret = raw_ret;
                 return ret;
             }
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public SignalInfo? Signal {
             get {
-                var ret_ = g_vfunc_info_get_signal(Handle);
+                var ret_ = g_vfunc_info_get_signal(UnsafeHandle);
                 var ret = GetInstanceOrNull<SignalInfo>(ret_);
                 return ret;
             }

@@ -24,7 +24,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         }
 
         Closure* handle;
-        public IntPtr Handle =>
+        public IntPtr UnsafeHandle =>
             handle == null ? throw new ObjectDisposedException(null) : (IntPtr)handle;
 
         uint RefCount => handle->BitFields & 0x7FFF;

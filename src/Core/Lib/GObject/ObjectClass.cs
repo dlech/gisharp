@@ -128,8 +128,8 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe void DoDispatchPropertiesChanged(Object @object, UnownedCPtrArray<ParamSpec> pspecs)
         {
-            var objectClass = (UnmanagedStruct*)Handle;
-            var object_ = @object.Handle;
+            var objectClass = (UnmanagedStruct*)UnsafeHandle;
+            var object_ = @object.UnsafeHandle;
             var nPspecs_ = (uint)pspecs.Length;
             fixed (IntPtr* pspecs_ = pspecs) {
                 objectClass->DispatchPropertiesChanged(object_, nPspecs_, pspecs_);
@@ -141,9 +141,9 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe void DoNotify(Object @object, ParamSpec pspec)
         {
-            var objectClass = (UnmanagedStruct*)Handle;
-            var object_ = @object.Handle;
-            var pspec_ = pspec.Handle;
+            var objectClass = (UnmanagedStruct*)UnsafeHandle;
+            var object_ = @object.UnsafeHandle;
+            var pspec_ = pspec.UnsafeHandle;
             objectClass->Notify(object_, pspec_);
         }
 
@@ -158,8 +158,8 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe void DoConstructed(Object @object)
         {
-            var objectClass = (UnmanagedStruct*)Handle;
-            var object_ = @object.Handle;
+            var objectClass = (UnmanagedStruct*)UnsafeHandle;
+            var object_ = @object.UnsafeHandle;
             objectClass->Constructed(object_);
         }
 
@@ -361,7 +361,7 @@ namespace GISharp.Lib.GObject
                         GMarshal.Free(namePtr);
                     }
                     else {
-                        g_object_class_install_property(objectClass, propId, pspec.Handle);
+                        g_object_class_install_property(objectClass, propId, pspec.UnsafeHandle);
                         GC.KeepAlive(pspec);
                     }
                     propId++;
@@ -560,8 +560,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public ParamSpec? FindProperty(UnownedUtf8 propertyName)
         {
-            var propertyName_ = propertyName.Handle;
-            var ret_ = g_object_class_find_property(Handle, propertyName_);
+            var propertyName_ = propertyName.UnsafeHandle;
+            var ret_ = g_object_class_find_property(UnsafeHandle, propertyName_);
             var ret = ParamSpec.GetInstance(ret_, Transfer.None);
             return ret;
         }
@@ -728,7 +728,7 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public unsafe void InstallProperties(UnownedCPtrArray<ParamSpec> pspecs)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             ref readonly var pspecs_ = ref MemoryMarshal.GetReference(pspecs.Data);
             var nPspecs_ = (uint)pspecs.Data.Length;
             g_object_class_install_properties(this_, nPspecs_, pspecs_);
@@ -795,8 +795,8 @@ namespace GISharp.Lib.GObject
                 throw new ArgumentNullException(nameof(pspec));
             }
 
-            var handle_ = (UnmanagedStruct*)Handle;
-            var pspec_ = pspec.Handle;
+            var handle_ = (UnmanagedStruct*)UnsafeHandle;
+            var pspec_ = pspec.UnsafeHandle;
             g_object_class_install_property(handle_, propertyId, pspec_);
         }
 
@@ -835,7 +835,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public CPtrArray<ParamSpec> ListProperties()
         {
-            return ListProperties(Handle);
+            return ListProperties(UnsafeHandle);
         }
 
         internal static CPtrArray<ParamSpec> ListProperties(IntPtr handle_)
@@ -919,8 +919,8 @@ namespace GISharp.Lib.GObject
         [Since("2.4")]
         public unsafe void OverrideProperty(uint propertyId, UnownedUtf8 name)
         {
-            var oclass_ = (UnmanagedStruct*)Handle;
-            var name_ = name.Handle;
+            var oclass_ = (UnmanagedStruct*)UnsafeHandle;
+            var name_ = name.UnsafeHandle;
             g_object_class_override_property(oclass_, propertyId, name_);
         }
     }

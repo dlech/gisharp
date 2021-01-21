@@ -13,23 +13,23 @@ namespace GISharp.Lib.GIRepository
 {
     public sealed class SignalInfo : CallableInfo
     {
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_signal_info_get_class_closure (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_signal_info_get_class_closure(IntPtr raw);
 
         public VFuncInfo? ClassClosure {
             get {
-                var ret_ = g_signal_info_get_class_closure(Handle);
+                var ret_ = g_signal_info_get_class_closure(UnsafeHandle);
                 var ret = GetInstanceOrNull<VFuncInfo>(ret_);
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern SignalFlags g_signal_info_get_flags (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern SignalFlags g_signal_info_get_flags(IntPtr raw);
 
         public SignalFlags Flags {
             get {
-                return g_signal_info_get_flags (Handle);
+                return g_signal_info_get_flags(UnsafeHandle);
             }
         }
 
@@ -38,13 +38,13 @@ namespace GISharp.Lib.GIRepository
 
         public bool TrueStopsEmit {
             get {
-                var ret_ = g_signal_info_true_stops_emit(Handle);
+                var ret_ = g_signal_info_true_stops_emit(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
         }
 
-        public SignalInfo (IntPtr raw) : base (raw)
+        public SignalInfo(IntPtr raw) : base(raw)
         {
         }
     }

@@ -51,7 +51,7 @@ namespace GISharp.Lib.GIRepository
         [Obsolete("Not really obsolete, but unreliable.")]
         public FunctionInfo? FindMethod(UnownedUtf8 name)
         {
-            var ret_ = g_struct_info_find_method(Handle, name.Handle);
+            var ret_ = g_struct_info_find_method(UnsafeHandle, name.UnsafeHandle);
             var ret = GetInstanceOrNull<FunctionInfo>(ret_);
             return ret;
         }
@@ -61,7 +61,7 @@ namespace GISharp.Lib.GIRepository
 
         public ulong Alignment {
             get {
-                return (ulong)g_struct_info_get_alignment(Handle);
+                return (ulong)g_struct_info_get_alignment(UnsafeHandle);
             }
         }
 
@@ -70,7 +70,7 @@ namespace GISharp.Lib.GIRepository
 
         FieldInfo GetField(int index)
         {
-            IntPtr raw_ret = g_struct_info_get_field(Handle, index);
+            IntPtr raw_ret = g_struct_info_get_field(UnsafeHandle, index);
             return GetInstance<FieldInfo>(raw_ret);
         }
 
@@ -79,7 +79,7 @@ namespace GISharp.Lib.GIRepository
 
         FunctionInfo GetMethod(int index)
         {
-            IntPtr raw_ret = g_struct_info_get_method(Handle, index);
+            IntPtr raw_ret = g_struct_info_get_method(UnsafeHandle, index);
             return GetInstance<FunctionInfo>(raw_ret);
         }
 
@@ -88,7 +88,7 @@ namespace GISharp.Lib.GIRepository
 
         int NFields {
             get {
-                int raw_ret = g_struct_info_get_n_fields(Handle);
+                int raw_ret = g_struct_info_get_n_fields(UnsafeHandle);
                 int ret = raw_ret;
                 return ret;
             }
@@ -99,7 +99,7 @@ namespace GISharp.Lib.GIRepository
 
         int NMethods {
             get {
-                int raw_ret = g_struct_info_get_n_methods(Handle);
+                int raw_ret = g_struct_info_get_n_methods(UnsafeHandle);
                 int ret = raw_ret;
                 return ret;
             }
@@ -110,7 +110,7 @@ namespace GISharp.Lib.GIRepository
 
         public ulong Size {
             get {
-                UIntPtr raw_ret = g_struct_info_get_size(Handle);
+                UIntPtr raw_ret = g_struct_info_get_size(UnsafeHandle);
                 var ret = (ulong)raw_ret;
                 return ret;
             }
@@ -121,7 +121,7 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsForeign {
             get {
-                var ret_ = g_struct_info_is_foreign(Handle);
+                var ret_ = g_struct_info_is_foreign(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -132,7 +132,7 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsGTypeStruct {
             get {
-                var ret_ = g_struct_info_is_gtype_struct(Handle);
+                var ret_ = g_struct_info_is_gtype_struct(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }

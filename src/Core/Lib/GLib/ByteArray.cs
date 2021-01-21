@@ -37,13 +37,13 @@ namespace GISharp.Lib.GLib
 #pragma warning restore CS0649
         }
 
-        unsafe uint Len => ((UnmanagedStruct*)Handle)->Len;
+        unsafe uint Len => ((UnmanagedStruct*)UnsafeHandle)->Len;
 
         /// <summary>
         /// a <see cref="Span{T}"/> of the element data. The data may be moved as elements
         /// are added to the <see cref="ByteArray"/>.
         /// </summary>
-        public unsafe Span<byte> Data => new Span<byte>(((UnmanagedStruct*)Handle)->Data, (int)Len);
+        public unsafe Span<byte> Data => new Span<byte>(((UnmanagedStruct*)UnsafeHandle)->Data, (int)Len);
 
         /// <summary>
         /// For internal runtime use only.
@@ -57,7 +57,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_byte_array_ref(IntPtr array);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_byte_array_ref(Handle);
+        public override IntPtr Take() => g_byte_array_ref(UnsafeHandle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_byte_array_unref(IntPtr array);
@@ -195,7 +195,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Append(params byte[] data)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             var len = data.Length;
             g_byte_array_append(this_, data, (uint)len);
         }
@@ -271,7 +271,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Prepend(params byte[] data)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             var len = data.Length;
             g_byte_array_prepend(this_, data, (uint)len);
         }
@@ -322,7 +322,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void RemoveAt(int index)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             AssertIndexInRange(index);
             g_byte_array_remove_index(this_, (uint)index);
         }
@@ -358,7 +358,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void RemoveAtFast(int index)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             AssertIndexInRange(index);
             g_byte_array_remove_index_fast(this_, (uint)index);
         }
@@ -399,7 +399,7 @@ namespace GISharp.Lib.GLib
         [Since("2.4")]
         public void RemoveRange(int index, int length)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             AssertIndexInRange(index);
             if (length < 0 || index + length > Len) {
                 throw new ArgumentOutOfRangeException(nameof(length));
@@ -449,7 +449,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void SetSize(int length)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (length < 0) {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
@@ -498,7 +498,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Sort(Comparison<byte> compareFunc)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 var x = Marshal.ReadByte(a);
                 var y = Marshal.ReadByte(b);
@@ -525,7 +525,7 @@ namespace GISharp.Lib.GLib
         public (IntPtr, int) TakeData()
         {
             var length = (int)Len;
-            var data = g_byte_array_free(Handle, Runtime.Boolean.False);
+            var data = g_byte_array_free(UnsafeHandle, Runtime.Boolean.False);
             handle = IntPtr.Zero; // object becomes disposed
             GC.SuppressFinalize(this);
             return (data, length);

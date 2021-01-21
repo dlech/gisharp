@@ -40,12 +40,12 @@ namespace GISharp.Lib.GLib
 #pragma warning restore CS0649
         }
 
-        private protected unsafe void* Data_ => ((UnmanagedStruct*)Handle)->Data;
+        private protected unsafe void* Data_ => ((UnmanagedStruct*)UnsafeHandle)->Data;
 
         /// <summary>
         /// number of pointers in the array
         /// </summary>
-        private protected unsafe uint Len => ((UnmanagedStruct*)Handle)->Len;
+        private protected unsafe uint Len => ((UnmanagedStruct*)UnsafeHandle)->Len;
 
         /// <summary>
         /// For internal runtime use only.
@@ -59,7 +59,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_ptr_array_ref(IntPtr array);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_ptr_array_ref(Handle);
+        public override IntPtr Take() => g_ptr_array_ref(UnsafeHandle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_ptr_array_unref(IntPtr array);
@@ -223,7 +223,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void Add(IntPtr data)
         {
-            g_ptr_array_add(Handle, data);
+            g_ptr_array_add(UnsafeHandle, data);
         }
 
         /// <summary>
@@ -285,7 +285,7 @@ namespace GISharp.Lib.GLib
         public (IntPtr, int) TakeData()
         {
             var length = (int)Len;
-            var data = g_ptr_array_free(Handle, false);
+            var data = g_ptr_array_free(UnsafeHandle, false);
             handle = IntPtr.Zero; // object becomes disposed
             GC.SuppressFinalize(this);
             return (data, length);
@@ -324,7 +324,7 @@ namespace GISharp.Lib.GLib
         [Since("2.40")]
         private protected void Insert(int index, IntPtr data)
         {
-            g_ptr_array_insert(Handle, index, data);
+            g_ptr_array_insert(UnsafeHandle, index, data);
         }
 
         /// <summary>
@@ -371,7 +371,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         private protected bool Remove(IntPtr data)
         {
-            var ret_ = g_ptr_array_remove(Handle, data);
+            var ret_ = g_ptr_array_remove(UnsafeHandle, data);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -420,7 +420,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         private protected bool RemoveFast(IntPtr data)
         {
-            var ret_ = g_ptr_array_remove_fast(Handle, data);
+            var ret_ = g_ptr_array_remove_fast(UnsafeHandle, data);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -462,7 +462,7 @@ namespace GISharp.Lib.GLib
             if (index < 0 || index >= Len) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
-            var ret = g_ptr_array_remove_index(Handle, (uint)index);
+            var ret = g_ptr_array_remove_index(UnsafeHandle, (uint)index);
             return ret;
         }
 
@@ -502,7 +502,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         private protected IntPtr RemoveAtFast(int index)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (index < 0 || index >= Len) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
@@ -550,7 +550,7 @@ namespace GISharp.Lib.GLib
         [Since("2.4")]
         public void RemoveRange(int index, int length)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (index < 0) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
@@ -592,7 +592,7 @@ namespace GISharp.Lib.GLib
         [Since("2.22")]
         private protected void SetFreeFunc(UnmanagedDestroyNotify elementFreeFunc)
         {
-            g_ptr_array_set_free_func(Handle, elementFreeFunc);
+            g_ptr_array_set_free_func(UnsafeHandle, elementFreeFunc);
         }
 
         /// <summary>
@@ -623,7 +623,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void SetSize(int length)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (length < 0) {
                 throw new ArgumentOutOfRangeException(nameof(length));
             }
@@ -668,7 +668,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void Sort(Comparison<IntPtr> compareFunc)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             UnmanagedCompareFunc compareFunc_ = (a, b) => {
                 var x = Marshal.ReadIntPtr(a);
                 var y = Marshal.ReadIntPtr(b);
@@ -681,7 +681,7 @@ namespace GISharp.Lib.GLib
 
         private protected void Sort(UnmanagedCompareFunc compareFunc)
         {
-            g_ptr_array_sort(Handle, compareFunc);
+            g_ptr_array_sort(UnsafeHandle, compareFunc);
         }
 
         /// <summary>
@@ -762,7 +762,7 @@ namespace GISharp.Lib.GLib
         private protected unsafe bool Find(IntPtr needle, out int index)
         {
             uint index_;
-            var ret_ = g_ptr_array_find(Handle, needle, &index_);
+            var ret_ = g_ptr_array_find(UnsafeHandle, needle, &index_);
             index = (int)index_;
             var ret = ret_.IsTrue();
             return ret;
@@ -841,7 +841,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Add(T data)
         {
-            var data_ = data.Handle;
+            var data_ = data.UnsafeHandle;
             if (OwnsElements) {
                 data_ = elementCopyFunc(data_);
             }
@@ -867,7 +867,7 @@ namespace GISharp.Lib.GLib
             if (index < 0 || index > Len) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
-            var data_ = data.Handle;
+            var data_ = data.UnsafeHandle;
             if (OwnsElements) {
                 data_ = elementCopyFunc(data_);
             }
@@ -893,7 +893,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool Remove(T data)
         {
-            var data_ = data.Handle;
+            var data_ = data.UnsafeHandle;
             return Remove(data_);
         }
 
@@ -930,7 +930,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool RemoveFast(T data)
         {
-            var data_ = data.Handle;
+            var data_ = data.UnsafeHandle;
             return RemoveFast(data_);
         }
 
@@ -1008,7 +1008,7 @@ namespace GISharp.Lib.GLib
         /// <param name="data">Data.</param>
         public int IndexOf(T data)
         {
-            var data_ = data.Handle;
+            var data_ = data.UnsafeHandle;
             for (int i = 0; i < Len; i++) {
                 var ptr = Data[i];
                 if (ptr == data_) {

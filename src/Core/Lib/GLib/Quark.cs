@@ -88,7 +88,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public static Quark FromString(NullableUnownedUtf8 @string)
         {
-            var string_ = @string.Handle;
+            var string_ = @string.UnsafeHandle;
             var ret = g_quark_from_string(string_);
             return ret;
         }
@@ -133,7 +133,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public static Quark TryString(NullableUnownedUtf8 @string)
         {
-            var string_ = @string.Handle;
+            var string_ = @string.UnsafeHandle;
             var ret = g_quark_try_string(string_);
             return ret;
         }

@@ -43,15 +43,15 @@ namespace GISharp.Lib.GObject
         /// the <see cref="EnumClass"/> for the enum
         /// </summary>
         public unsafe EnumClass EnumClass =>
-            Opaque.GetInstance<EnumClass>((IntPtr)((UnmanagedStruct*)Handle)->EnumClass, Transfer.None);
+            Opaque.GetInstance<EnumClass>((IntPtr)((UnmanagedStruct*)UnsafeHandle)->EnumClass, Transfer.None);
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
         public unsafe new System.Enum DefaultValue {
             get {
-                var ret_ = ((UnmanagedStruct*)Handle)->DefaultValue;
-                var gType = ((UnmanagedStruct*)Handle)->EnumClass->GTypeClass.GType;
+                var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
+                var gType = ((UnmanagedStruct*)UnsafeHandle)->EnumClass->GTypeClass.GType;
                 var ret = (System.Enum)System.Enum.ToObject(gType.ToType(), ret_);
                 return ret;
             }

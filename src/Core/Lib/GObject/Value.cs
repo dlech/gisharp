@@ -225,7 +225,7 @@ namespace GISharp.Lib.GObject
                         obj = new Utf8(str);
                     }
                     if (obj is Utf8 utf8) {
-                        String = new NullableUnownedUtf8(utf8.Handle, -1);
+                        String = new NullableUnownedUtf8(utf8.UnsafeHandle, -1);
                     }
                     else if (obj?.GetType() == typeof(UnownedUtf8)) {
                         // It is not possible to cast to UnownedUtf8 since it
@@ -258,10 +258,10 @@ namespace GISharp.Lib.GObject
         }
 
         static readonly PropertyInfo unownedUtf8HandleProperty =
-            typeof(UnownedUtf8).GetProperty(nameof(UnownedUtf8.Handle))!;
+            typeof(UnownedUtf8).GetProperty(nameof(UnownedUtf8.UnsafeHandle))!;
 
         static readonly PropertyInfo nullableUnownedUtf8HandleProperty =
-            typeof(NullableUnownedUtf8).GetProperty(nameof(NullableUnownedUtf8.Handle))!;
+            typeof(NullableUnownedUtf8).GetProperty(nameof(NullableUnownedUtf8.UnsafeHandle))!;
 
         /// <summary>
         /// Gets the GType of the stored value.
@@ -903,7 +903,7 @@ namespace GISharp.Lib.GObject
         public Object DupObject()
         {
             AssertInitialized ();
-            var ret_ = g_value_dup_object(Handle);
+            var ret_ = g_value_dup_object(UnsafeHandle);
             var ret = Object.GetInstance(ret_, Transfer.All);
             return ret;
         }
@@ -939,7 +939,7 @@ namespace GISharp.Lib.GObject
         public ParamSpec DupParam()
         {
             AssertInitialized ();
-            var ret_ = g_value_dup_param(Handle);
+            var ret_ = g_value_dup_param(UnsafeHandle);
             var ret = ParamSpec.GetInstance(ret_, Transfer.All);
             return ret;
         }
@@ -974,7 +974,7 @@ namespace GISharp.Lib.GObject
         public GISharp.Lib.GLib.Variant DupVariant()
         {
             AssertInitialized ();
-            var ret_ = g_value_dup_variant(Handle);
+            var ret_ = g_value_dup_variant(UnsafeHandle);
             var ret = Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, Transfer.All);
             return ret;
         }
@@ -1007,7 +1007,7 @@ namespace GISharp.Lib.GObject
         public bool FitsPointer ()
         {
             AssertInitialized ();
-            var ret = g_value_fits_pointer (Handle);
+            var ret = g_value_fits_pointer (UnsafeHandle);
             return ret;
         }
 #endif
@@ -1081,7 +1081,7 @@ namespace GISharp.Lib.GObject
             }
             set {
                 AssertType(GType.Boxed);
-                var boxed_ = value?.Handle ?? IntPtr.Zero;
+                var boxed_ = value?.UnsafeHandle ?? IntPtr.Zero;
                 g_value_set_boxed(ref this, boxed_);
             }
         }
@@ -1410,7 +1410,7 @@ namespace GISharp.Lib.GObject
 
             set {
                 AssertType(GType.Object);
-                g_value_set_object(ref this, value?.Handle ?? IntPtr.Zero);
+                g_value_set_object(ref this, value?.UnsafeHandle ?? IntPtr.Zero);
             }
         }
 
@@ -1447,7 +1447,7 @@ namespace GISharp.Lib.GObject
 
             set {
                 AssertType(GType.Param);
-                g_value_set_param(ref this, value?.Handle ?? IntPtr.Zero);
+                g_value_set_param(ref this, value?.UnsafeHandle ?? IntPtr.Zero);
             }
         }
 
@@ -1558,7 +1558,7 @@ namespace GISharp.Lib.GObject
 
             set {
                 AssertType(GType.String);
-                g_value_set_string(ref this, value.Handle);
+                g_value_set_string(ref this, value.UnsafeHandle);
             }
         }
 
@@ -1740,7 +1740,7 @@ namespace GISharp.Lib.GObject
             }
             set {
                 AssertType(GType.Variant);
-                g_value_set_variant(ref this, value?.Handle ?? IntPtr.Zero);
+                g_value_set_variant(ref this, value?.UnsafeHandle ?? IntPtr.Zero);
             }
         }
 
@@ -1833,7 +1833,7 @@ namespace GISharp.Lib.GObject
         [Since("2.42")]
         public void Init(TypeInstance instance)
         {
-            g_value_init_from_instance(ref this, instance.Handle);
+            g_value_init_from_instance(ref this, instance.UnsafeHandle);
         }
 
         /// <summary>
@@ -2073,7 +2073,7 @@ namespace GISharp.Lib.GObject
             if (instance != null && g_value_type_compatible(instance.GetGType(), type).IsFalse()) {
                 throw new ArgumentException("instance type is not compatible", nameof(instance));
             }
-            g_value_set_instance(ref this, instance?.Handle ?? IntPtr.Zero);
+            g_value_set_instance(ref this, instance?.UnsafeHandle ?? IntPtr.Zero);
         }
 
         /// <summary>
@@ -2261,7 +2261,7 @@ namespace GISharp.Lib.GObject
         // public void SetStaticBoxed(IntPtr vBoxed)
         // {
         //    AssertInitialized();
-        //    g_value_set_static_boxed(Handle, vBoxed);
+        //    g_value_set_static_boxed(HUnsafeandle, vBoxed);
         // }
 
         /// <summary>
@@ -2298,7 +2298,7 @@ namespace GISharp.Lib.GObject
         //{
         //    AssertInitialized ();
         //    var vString_ = MarshalG.StringToUtf8Ptr (vString);
-        //    g_value_set_static_string (Handle, vString_);
+        //    g_value_set_static_string (UnsafeHandle, vString_);
         //    MarshalG.Free (vString_);
         //}
 
@@ -2459,7 +2459,7 @@ namespace GISharp.Lib.GObject
         //public void TakeBoxed (IntPtr vBoxed)
         //{
         //    AssertInitialized ();
-        //    g_value_take_boxed (Handle, vBoxed);
+        //    g_value_take_boxed (UnsafeHandle, vBoxed);
         //}
 
         /// <summary>
@@ -2507,7 +2507,7 @@ namespace GISharp.Lib.GObject
         //public void TakeObject (IntPtr vObject)
         //{
         //    AssertInitialized ();
-        //    g_value_take_object (Handle, vObject);
+        //    g_value_take_object (UnsafeHandle, vObject);
         //}
 
         /// <summary>
@@ -2545,8 +2545,8 @@ namespace GISharp.Lib.GObject
         //public void TakeParam(ParamSpec param)
         //{
         //    AssertInitialized ();
-        //    var param_ = param is null ? IntPtr.Zero : param.Handle;
-        //    g_value_take_param(Handle, param_);
+        //    var param_ = param is null ? IntPtr.Zero : param.UnsafeHandle;
+        //    g_value_take_param(UnsafeHandle, param_);
         //}
 
         /// <summary>
@@ -2581,7 +2581,7 @@ namespace GISharp.Lib.GObject
         //{
         //    AssertInitialized ();
         //    var vString_ = MarshalG.StringToUtf8Ptr (vString);
-        //    g_value_take_string (Handle, vString_);
+        //    g_value_take_string (UnsafeHandle, vString_);
         //    MarshalG.Free (vString_);
         //}
 
@@ -2640,8 +2640,8 @@ namespace GISharp.Lib.GObject
         //public void TakeVariant(GISharp.Lib.GLib.Variant variant)
         //{
         //    AssertInitialized ();
-        //    var variant_ = variant is null ? IntPtr.Zero : variant.Handle;
-        //    g_value_take_variant(Handle, variant_);
+        //    var variant_ = variant is null ? IntPtr.Zero : variant.UnsafeHandle;
+        //    g_value_take_variant(UnsafeHandle, variant_);
         //}
 
         /// <summary>

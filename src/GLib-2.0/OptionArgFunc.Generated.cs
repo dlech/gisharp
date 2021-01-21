@@ -54,8 +54,8 @@ namespace GISharp.Lib.GLib
 
             unsafe void managedCallback(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value)
             {
-                var optionName_ = optionName.Handle;
-                var value_ = value.Handle;
+                var optionName_ = optionName.UnsafeHandle;
+                var value_ = value.UnsafeHandle;
                 var error_ = System.IntPtr.Zero;
                 unmanagedCallback(optionName_, value_, data_, ref error_);
                 if (error_ != System.IntPtr.Zero)

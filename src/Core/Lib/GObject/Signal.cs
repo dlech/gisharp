@@ -178,7 +178,7 @@ namespace GISharp.Lib.GObject
         //public static void ChainFromOverridden (Value[] instanceAndParams, Value returnValue)
         //{
         //    var instanceAndParams_ = MarshalG.OpaqueCArrayToPtr<Value> (instanceAndParams, false);
-        //    var returnValue_ = returnValue is null ? IntPtr.Zero : returnValue.Handle;
+        //    var returnValue_ = returnValue is null ? IntPtr.Zero : returnValue.UnsafeHandle;
         //    g_signal_chain_from_overridden (instanceAndParams_, returnValue_);
         //    MarshalG.Free (instanceAndParams_);
         //}
@@ -240,9 +240,9 @@ namespace GISharp.Lib.GObject
         ///// </returns>
         //public static culong ConnectClosure(Object instance, string detailedSignal, Closure closure, bool after)
         //{
-        //    var instance_ = instance is null ? IntPtr.Zero : instance.Handle;
+        //    var instance_ = instance is null ? IntPtr.Zero : instance.UnsafeHandle;
         //    var detailedSignal_ = MarshalG.StringToUtf8Ptr (detailedSignal);
-        //    var closure_ = closure is null ? IntPtr.Zero : closure.Handle;
+        //    var closure_ = closure is null ? IntPtr.Zero : closure.UnsafeHandle;
         //    var ret = g_signal_connect_closure (instance_, detailedSignal_, closure_, after);
         //    MarshalG.Free (detailedSignal_);
         //    return ret;
@@ -314,11 +314,11 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static SignalHandler Connect(this Object instance, uint signalId, Quark detail, Closure closure, bool after = false)
         {
-            var instance_ = instance.Handle;
+            var instance_ = instance.UnsafeHandle;
             if (signalId == 0) {
                 throw new ArgumentOutOfRangeException(nameof(signalId));
             }
-            var closure_ = closure.Handle;
+            var closure_ = closure.UnsafeHandle;
             var ret = g_signal_connect_closure_by_id(instance_, signalId, detail, closure_, after);
             if (ret == 0) {
                 // warning will be logged
@@ -403,8 +403,8 @@ namespace GISharp.Lib.GObject
         public static SignalHandler Connect<T>(this Object instance, UnownedUtf8 detailedSignal,
             T handler, ConnectFlags connectFlags = default) where T : Delegate
         {
-            var instance_ = instance.Handle;
-            var detailedSignal_ = detailedSignal.Handle;
+            var instance_ = instance.UnsafeHandle;
+            var detailedSignal_ = detailedSignal.UnsafeHandle;
             var unmanagedCallbackFactory = handler.GetToUnmanagedFunctionPointer();
             var (handler_, notify_, data_) = unmanagedCallbackFactory(handler, CallbackScope.Notified);
             var ret = g_signal_connect_data(instance_, detailedSignal_, handler_, data_, notify_, connectFlags);
@@ -575,7 +575,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         static SignalInvocationHint GetInvocationHint(Object instance)
         {
-            var ret = g_signal_get_invocation_hint(instance.Handle);
+            var ret = g_signal_get_invocation_hint(instance.UnsafeHandle);
 
             return ret;
         }
@@ -663,7 +663,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static bool HasHandlerPending(Object instance, uint signalId, Quark detail, bool mayBeBlocked)
         {
-            var ret_ = g_signal_has_handler_pending(instance.Handle, signalId, detail, mayBeBlocked);
+            var ret_ = g_signal_has_handler_pending(instance.UnsafeHandle, signalId, detail, mayBeBlocked);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -765,7 +765,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static uint TryLookup(UnownedUtf8 name, GType itype)
         {
-            var name_ = name.Handle;
+            var name_ = name.UnsafeHandle;
             var ret = g_signal_lookup(name_, itype);
             return ret;
         }
@@ -923,8 +923,8 @@ namespace GISharp.Lib.GObject
         internal static uint Newv(UnownedUtf8 signalName, GType itype, SignalFlags signalFlags, Closure? classClosure,
             SignalAccumulator? accumulator, SignalCMarshaller? cMarshaller, GType returnType, GType[] paramTypes)
         {
-            var signalName_ = signalName.Handle;
-            var classClosure_ = classClosure?.Handle ?? IntPtr.Zero;
+            var signalName_ = signalName.UnsafeHandle;
+            var classClosure_ = classClosure?.UnsafeHandle ?? IntPtr.Zero;
             var accumulator_ = accumulator is null ? default(UnmanagedSignalAccumulator)
                 : throw new NotImplementedException("need to implement UnmanagedSignalAccumulator factory");
             var accuData_ = IntPtr.Zero;
@@ -994,7 +994,7 @@ namespace GISharp.Lib.GObject
         ///// </param>
         //public static void OverrideClassClosure (uint signalId, GType instanceType, Closure classClosure)
         //{
-        //    var classClosure_ = classClosure is null ? IntPtr.Zero : classClosure.Handle;
+        //    var classClosure_ = classClosure is null ? IntPtr.Zero : classClosure.UnsafeHandle;
         //    g_signal_override_class_closure (signalId, instanceType, classClosure_);
         //}
 
@@ -1132,7 +1132,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static bool TryParseName(UnownedUtf8 detailedSignal, GType itype, out uint signalId, out Quark detail, bool forceDetailQuark = false)
         {
-            var detailedSignal_ = detailedSignal.Handle;
+            var detailedSignal_ = detailedSignal.UnsafeHandle;
             var ret_ = g_signal_parse_name(detailedSignal_, itype, out signalId, out detail, forceDetailQuark);
             var ret = ret_.IsTrue();
             return ret;
@@ -1300,7 +1300,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void StopEmission(this Object instance, uint signalId, Quark detail = default)
         {
-            var instance_ = instance.Handle;
+            var instance_ = instance.UnsafeHandle;
             g_signal_stop_emission(instance_, signalId, detail);
         }
 
@@ -1343,8 +1343,8 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void StopEmissionByName(this Object instance, UnownedUtf8 detailedSignal)
         {
-            var instance_ = instance.Handle;
-            var detailedSignal_ = detailedSignal.Handle;
+            var instance_ = instance.UnsafeHandle;
+            var detailedSignal_ = detailedSignal.UnsafeHandle;
             g_signal_stop_emission_by_name(instance_, detailedSignal_);
         }
 

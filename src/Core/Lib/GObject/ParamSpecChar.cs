@@ -47,17 +47,17 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public unsafe sbyte Minimum => ((UnmanagedStruct*)Handle)->Minimum;
+        public unsafe sbyte Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public unsafe sbyte Maximum => ((UnmanagedStruct*)Handle)->Maximum;
+        public unsafe sbyte Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new sbyte DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
+        public unsafe new sbyte DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.

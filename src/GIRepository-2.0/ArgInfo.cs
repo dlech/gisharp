@@ -20,8 +20,8 @@ namespace GISharp.Lib.GIRepository
     /// </remarks>
     public sealed class ArgInfo : BaseInfo
     {
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_arg_info_get_closure (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_arg_info_get_closure(IntPtr raw);
 
         /// <summary>
         /// Obtain the index of the user data argument. This is only valid for
@@ -30,15 +30,15 @@ namespace GISharp.Lib.GIRepository
         /// <value>Index of the user data argument or -1 if there is none.</value>
         public int ClosureIndex {
             get {
-                return g_arg_info_get_closure (Handle);
+                return g_arg_info_get_closure(UnsafeHandle);
             }
         }
 
         readonly Lazy<ArgInfo?> _Closure;
         public ArgInfo? Closure => _Closure.Value;
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern int g_arg_info_get_destroy (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_arg_info_get_destroy(IntPtr raw);
 
         /// <summary>
         /// Obtains the index of the <see cref="GLib.UnmanagedDestroyNotify"/>
@@ -48,7 +48,7 @@ namespace GISharp.Lib.GIRepository
         /// or -1 if there is none.</value>
         public int DestroyIndex {
             get {
-                return g_arg_info_get_destroy (Handle);
+                return g_arg_info_get_destroy(UnsafeHandle);
             }
         }
 
@@ -58,39 +58,39 @@ namespace GISharp.Lib.GIRepository
         readonly Lazy<ArgInfo?> _ArrayLength;
         public ArgInfo? ArrayLength => _ArrayLength.Value;
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Direction g_arg_info_get_direction (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Direction g_arg_info_get_direction(IntPtr raw);
 
         public Direction Direction {
             get {
-                return g_arg_info_get_direction (Handle);
+                return g_arg_info_get_direction(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Transfer g_arg_info_get_ownership_transfer (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Transfer g_arg_info_get_ownership_transfer(IntPtr raw);
 
         public Transfer OwnershipTransfer {
             get {
-                return g_arg_info_get_ownership_transfer (Handle);
+                return g_arg_info_get_ownership_transfer(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern ScopeType g_arg_info_get_scope (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern ScopeType g_arg_info_get_scope(IntPtr raw);
 
         public ScopeType Scope {
             get {
-                return g_arg_info_get_scope (Handle);
+                return g_arg_info_get_scope(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_arg_info_get_type (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_arg_info_get_type(IntPtr raw);
 
         public TypeInfo TypeInfo {
             get {
-                IntPtr raw_ret = g_arg_info_get_type (Handle);
+                IntPtr raw_ret = g_arg_info_get_type(UnsafeHandle);
                 return GetInstance<TypeInfo>(raw_ret);
             }
         }
@@ -100,7 +100,7 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsCallerAllocates {
             get {
-                var ret_ = g_arg_info_is_caller_allocates(Handle);
+                var ret_ = g_arg_info_is_caller_allocates(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -111,7 +111,7 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsOptional {
             get {
-                var ret_ = g_arg_info_is_optional(Handle);
+                var ret_ = g_arg_info_is_optional(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -122,7 +122,7 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsReturnValue {
             get {
-                var ret_ = g_arg_info_is_return_value(Handle);
+                var ret_ = g_arg_info_is_return_value(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -133,18 +133,18 @@ namespace GISharp.Lib.GIRepository
 
         public bool IsSkip {
             get {
-                var ret_ = g_arg_info_is_skip(Handle);
+                var ret_ = g_arg_info_is_skip(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_arg_info_load_type (IntPtr raw, IntPtr type);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_arg_info_load_type(IntPtr raw, IntPtr type);
 
-        void LoadType (TypeInfo type)
+        void LoadType(TypeInfo type)
         {
-            g_arg_info_load_type (Handle, type is null ? IntPtr.Zero : type.Handle);
+            g_arg_info_load_type(UnsafeHandle, type is null ? IntPtr.Zero : type.UnsafeHandle);
         }
 
         [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
@@ -152,7 +152,7 @@ namespace GISharp.Lib.GIRepository
 
         public bool MayBeNull {
             get {
-                var ret_ =  g_arg_info_may_be_null(Handle);
+                var ret_ = g_arg_info_may_be_null(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -168,18 +168,18 @@ namespace GISharp.Lib.GIRepository
         public int OutIndex { get { return _OutIndex.Value; } }
 
 
-        public ArgInfo (IntPtr raw) : base (raw)
+        public ArgInfo(IntPtr raw) : base(raw)
         {
             var callable = (CallableInfo)Container!;
             _Closure = new(() =>
-                callable.Args.ElementAtOrDefault (ClosureIndex));
+                callable.Args.ElementAtOrDefault(ClosureIndex));
             _Destroy = new(() =>
-                callable.Args.ElementAtOrDefault (DestroyIndex));
+                callable.Args.ElementAtOrDefault(DestroyIndex));
             _ArrayLength = new(() =>
-                callable.Args.ElementAtOrDefault (TypeInfo.ArrayLengthIndex));
-            _Index = new(() => callable.Args.IndexOf (this));
-            _InIndex = new(() => callable.InArgs.IndexOf (this));
-            _OutIndex = new(() => callable.OutArgs.IndexOf (this));
+                callable.Args.ElementAtOrDefault(TypeInfo.ArrayLengthIndex));
+            _Index = new(() => callable.Args.IndexOf(this));
+            _InIndex = new(() => callable.InArgs.IndexOf(this));
+            _OutIndex = new(() => callable.OutArgs.IndexOf(this));
         }
     }
 }

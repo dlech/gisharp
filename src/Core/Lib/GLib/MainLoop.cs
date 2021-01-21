@@ -14,7 +14,7 @@ namespace GISharp.Lib.GLib
     /// The `GMainLoop` struct is an opaque data type
     /// representing the main event loop of a GLib or GTK+ application.
     /// </summary>
-    [GType ("GMainLoop", IsProxyForUnmanagedType = true)]
+    [GType("GMainLoop", IsProxyForUnmanagedType = true)]
     public sealed class MainLoop : Boxed
     {
         /// <summary>
@@ -25,14 +25,14 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_main_loop_ref (IntPtr loop);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_main_loop_ref(IntPtr loop);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_main_loop_ref(Handle);
+        public override IntPtr Take() => g_main_loop_ref(UnsafeHandle);
 
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_main_loop_unref (IntPtr loop);
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_main_loop_unref(IntPtr loop);
 
         /// <summary>
         /// Creates a new #GMainLoop structure.
@@ -48,11 +48,11 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a new #GMainLoop.
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_main_loop_new (
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
+        static extern IntPtr g_main_loop_new(
+            /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr context,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
@@ -62,7 +62,7 @@ namespace GISharp.Lib.GLib
         static IntPtr New(MainContext? context = null, bool isRunning = false)
         {
             var isRunning_ = isRunning.ToBoolean();
-            var ret = g_main_loop_new(context?.Handle ?? IntPtr.Zero, isRunning_);
+            var ret = g_main_loop_new(context?.UnsafeHandle ?? IntPtr.Zero, isRunning_);
             return ret;
         }
 
@@ -78,14 +78,14 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> anyway.
         /// </param>
         public MainLoop(MainContext? context = null, bool isRunning = false)
-            : this (New (context, isRunning), Transfer.Full)
+            : this(New(context, isRunning), Transfer.Full)
         {
         }
 
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="GType" managed-name="GType" /> */
         /* */
-        static extern GType g_main_loop_get_type ();
+        static extern GType g_main_loop_get_type();
 
         static readonly GType _GType = g_main_loop_get_type();
 
@@ -98,10 +98,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the #GMainContext of @loop
         /// </returns>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_main_loop_get_context (
+        static extern IntPtr g_main_loop_get_context(
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
             IntPtr loop);
@@ -114,8 +114,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public MainContext Context {
             get {
-                var ret_ = g_main_loop_get_context(Handle);
-                var ret = GetInstance<MainContext> (ret_, Transfer.None);
+                var ret_ = g_main_loop_get_context(UnsafeHandle);
+                var ret = GetInstance<MainContext>(ret_, Transfer.None);
                 return ret;
             }
         }
@@ -145,7 +145,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool IsRunning {
             get {
-                var ret_ = g_main_loop_is_running(Handle);
+                var ret_ = g_main_loop_is_running(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -162,10 +162,10 @@ namespace GISharp.Lib.GLib
         /// <param name="loop">
         /// a #GMainLoop
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_main_loop_quit (
+        static extern void g_main_loop_quit(
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
             IntPtr loop);
@@ -178,9 +178,9 @@ namespace GISharp.Lib.GLib
         /// Note that sources that have already been dispatched when
         /// <see cref="Quit"/> is called will still be executed.
         /// </remarks>
-        public void Quit ()
+        public void Quit()
         {
-            g_main_loop_quit(Handle);
+            g_main_loop_quit(UnsafeHandle);
         }
 
         /// <summary>
@@ -192,10 +192,10 @@ namespace GISharp.Lib.GLib
         /// <param name="loop">
         /// a #GMainLoop
         /// </param>
-        [DllImport ("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_main_loop_run (
+        static extern void g_main_loop_run(
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
             IntPtr loop);
@@ -209,16 +209,17 @@ namespace GISharp.Lib.GLib
         /// This also has the effect of setting the <see cref="SynchronizationContext"/>
         /// so that .NET async works transparently with the <see cref="MainLoop"/>.
         /// </remarks>
-        public void Run ()
+        public void Run()
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             var oldSyncContext = SynchronizationContext.Current;
             try {
                 var newSyncContext = Context.SynchronizationContext;
-                SynchronizationContext.SetSynchronizationContext (newSyncContext);
+                SynchronizationContext.SetSynchronizationContext(newSyncContext);
                 g_main_loop_run(this_);
-            } finally {
-                SynchronizationContext.SetSynchronizationContext (oldSyncContext);
+            }
+            finally {
+                SynchronizationContext.SetSynchronizationContext(oldSyncContext);
             }
         }
     }

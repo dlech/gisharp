@@ -10,7 +10,8 @@ namespace GISharp.Lib.GLib
 {
     partial class Utf8Extensions
     {
-        static partial void CheckSubstringArgs(this UnownedUtf8 str, clong startPos, clong endPos) {
+        static partial void CheckSubstringArgs(this UnownedUtf8 str, clong startPos, clong endPos)
+        {
             if (startPos < 0 || startPos > str.Length) {
                 throw new ArgumentOutOfRangeException(nameof(startPos));
             }
@@ -25,9 +26,9 @@ namespace GISharp.Lib.GLib
         /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
         public unsafe static Utf8 CaseFold(this UnownedUtf8 str)
         {
-            var str_ = str.Handle;
+            var str_ = str.UnsafeHandle;
             var len_ = (System.IntPtr)str.Length;
-            var ret_ = g_utf8_casefold(str_,len_);
+            var ret_ = g_utf8_casefold(str_, len_);
             var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full)!;
             return ret;
         }

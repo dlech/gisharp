@@ -36,7 +36,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Gets the instance type
         /// </summary>
-        public unsafe GType InstanceType => ((UnmanagedStruct*)Handle)->GInstanceType;
+        public unsafe GType InstanceType => ((UnmanagedStruct*)UnsafeHandle)->GInstanceType;
 
         /// <summary>
         /// For internal runtime use only.
@@ -297,8 +297,8 @@ namespace GISharp.Lib.GObject
 
         protected override void Dispose(bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
-                g_type_default_interface_unref(Handle);
+            if (UnsafeHandle != IntPtr.Zero) {
+                g_type_default_interface_unref(UnsafeHandle);
             }
             base.Dispose(disposing);
         }

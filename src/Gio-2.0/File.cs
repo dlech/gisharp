@@ -45,11 +45,11 @@ namespace GISharp.Lib.Gio
         public unsafe static Tasks.Task CopyAsync(this IFile source, IFile destination, FileCopyFlags flags, int ioPriority = Priority.Default,
             Cancellable? cancellable = null, FileProgressCallback? progressCallback = null)
         {
-            var source_ = source.Handle;
-            var destination_ = destination.Handle;
+            var source_ = source.UnsafeHandle;
+            var destination_ = destination.UnsafeHandle;
             var flags_ = flags;
             var ioPriority_ = ioPriority;
-            var cancellable_ = cancellable?.Handle ?? IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? IntPtr.Zero;
             var (progressCallback_, progressCallbackDestroy_, progressCallbackData_) = FileProgressCallbackMarshal.ToUnmanagedFunctionPointer(progressCallback, CallbackScope.Notified);
 
             // no parameter in g_file_copy_async() for destroy function, so we

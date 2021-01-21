@@ -58,7 +58,7 @@ namespace GISharp.Lib.Gio
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 attributes)
         {
             CheckNewArgs(attributes);
-            var attributes_ = attributes.Handle;
+            var attributes_ = attributes.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_new(attributes_);
             return ret_;
         }
@@ -109,8 +109,8 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8 ns)
         {
             CheckEnumerateNamespaceArgs(ns);
-            var matcher_ = Handle;
-            var ns_ = ns.Handle;
+            var matcher_ = UnsafeHandle;
+            var ns_ = ns.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_enumerate_namespace(matcher_,ns_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -139,7 +139,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.GLib.NullableUnownedUtf8 EnumerateNext()
         {
             CheckEnumerateNextArgs();
-            var matcher_ = Handle;
+            var matcher_ = UnsafeHandle;
             var ret_ = g_file_attribute_matcher_enumerate_next(matcher_);
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
             return ret;
@@ -175,8 +175,8 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean Matches(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             CheckMatchesArgs(attribute);
-            var matcher_ = Handle;
-            var attribute_ = attribute.Handle;
+            var matcher_ = UnsafeHandle;
+            var attribute_ = attribute.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_matches(matcher_,attribute_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -211,8 +211,8 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean MatchesOnly(GISharp.Lib.GLib.UnownedUtf8 attribute)
         {
             CheckMatchesOnlyArgs(attribute);
-            var matcher_ = Handle;
-            var attribute_ = attribute.Handle;
+            var matcher_ = UnsafeHandle;
+            var attribute_ = attribute.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_matches_only(matcher_,attribute_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -239,7 +239,7 @@ namespace GISharp.Lib.Gio
         /// Takes ownership of the unmanaged pointer without freeing it.
         /// The managed object can no longer be used (will throw disposed exception).
         /// </summary>
-        public override System.IntPtr Take() => g_file_attribute_matcher_ref(Handle);
+        public override System.IntPtr Take() => g_file_attribute_matcher_ref(UnsafeHandle);
 
         /// <summary>
         /// Subtracts all attributes of @subtract from @matcher and returns
@@ -278,8 +278,8 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.FileAttributeMatcher Subtract(GISharp.Lib.Gio.FileAttributeMatcher subtract)
         {
             CheckSubtractArgs(subtract);
-            var matcher_ = Handle;
-            var subtract_ = subtract.Handle;
+            var matcher_ = UnsafeHandle;
+            var subtract_ = subtract.UnsafeHandle;
             var ret_ = g_file_attribute_matcher_subtract(matcher_,subtract_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeMatcher>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -313,7 +313,7 @@ namespace GISharp.Lib.Gio
         public override System.String ToString()
         {
             CheckToStringArgs();
-            var matcher_ = Handle;
+            var matcher_ = UnsafeHandle;
             var ret_ = g_file_attribute_matcher_to_string(matcher_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;

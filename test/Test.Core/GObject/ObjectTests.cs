@@ -19,7 +19,7 @@ namespace GISharp.Test.Core.GObject
         public void TestReferences()
         {
             using var o1 = new Object();
-            var handle = o1.Handle;
+            var handle = o1.UnsafeHandle;
 
             // getting an object that already exists should return that object
             var o2 = Object.GetInstance(handle, Transfer.None)!;
@@ -71,7 +71,7 @@ namespace GISharp.Test.Core.GObject
                 weakRef = new(o);
                 // Simulate unmanaged code taking a reference. This should trigger
                 // the toggle reference which prevents the object from being GC'ed
-                handle = o.Handle;
+                handle = o.UnsafeHandle;
                 g_object_ref(handle);
             }).Invoke();
 
@@ -142,7 +142,7 @@ namespace GISharp.Test.Core.GObject
             using (var baseIntValueProp = baseObjClass.FindProperty(nameof(obj.IntValue))!)
             using (var subclassIntValueProp = subclassObjClass.FindProperty(nameof(obj.IntValue))!) {
                 // ...so ParamSpecs should not be the same
-                Assert.That(baseIntValueProp.Handle, Is.Not.EqualTo(subclassIntValueProp.Handle));
+                Assert.That(baseIntValueProp.UnsafeHandle, Is.Not.EqualTo(subclassIntValueProp.UnsafeHandle));
             }
 
             // But the override keyword replaces property...
@@ -156,7 +156,7 @@ namespace GISharp.Test.Core.GObject
             using var baseBoolValueProp = baseObjClass.FindProperty("bool-value")!;
             using var subclassBoolValueProp = subclassObjClass.FindProperty("bool-value")!;
             // ...so ParamSpecs should be the same
-            Assert.That(baseBoolValueProp.Handle, Is.EqualTo(subclassBoolValueProp.Handle));
+            Assert.That(baseBoolValueProp.UnsafeHandle, Is.EqualTo(subclassBoolValueProp.UnsafeHandle));
         }
 
         [Test]

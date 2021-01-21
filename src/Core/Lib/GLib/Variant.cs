@@ -266,7 +266,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_variant_ref(IntPtr value);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_variant_ref(Handle);
+        public override IntPtr Take() => g_variant_ref(UnsafeHandle);
 
         [PtrArrayFreeFunc]
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -281,7 +281,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Runtime.Boolean g_variant_is_floating(IntPtr value);
 
-        bool IsFloating => g_variant_is_floating(Handle).IsTrue();
+        bool IsFloating => g_variant_is_floating(UnsafeHandle).IsTrue();
 
         /// <summary>
         /// Reads a child item out of a container <see cref="Variant"/> instance.  This
@@ -779,7 +779,7 @@ namespace GISharp.Lib.GLib
         static IntPtr NewArray(VariantType? childType, UnownedCPtrArray<Variant> children)
         {
             CheckNewArrayArgs(childType, children);
-            var childType_ = childType?.Handle ?? IntPtr.Zero;
+            var childType_ = childType?.UnsafeHandle ?? IntPtr.Zero;
             ref readonly var children_ = ref MemoryMarshal.GetReference(children.Data);
             var nChildren_ = (nuint)children.Data.Length;
             var ret = g_variant_new_array(childType_, children_, nChildren_);
@@ -1119,8 +1119,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         static IntPtr NewDictEntry(Variant key, Variant value)
         {
-            var key_ = key.Handle;
-            var value_ = value.Handle;
+            var key_ = key.UnsafeHandle;
+            var value_ = value.UnsafeHandle;
             if (!key.Type.IsBasic) {
                 throw new ArgumentException("Key must be a basic variant type.", nameof(key));
             }
@@ -1288,7 +1288,7 @@ namespace GISharp.Lib.GLib
                 var elements_ = gch.AddrOfPinnedObject();
                 var nElements = (nuint)elements.Length;
                 var elementSize = (nuint)GMarshal.SizeOf<T>();
-                var ret = g_variant_new_fixed_array(elementType.Handle, elements_, nElements, elementSize);
+                var ret = g_variant_new_fixed_array(elementType.UnsafeHandle, elements_, nElements, elementSize);
                 return new Variant(ret, Transfer.None);
             }
             finally {
@@ -1608,7 +1608,7 @@ namespace GISharp.Lib.GLib
         static IntPtr NewMaybe(VariantType? childType, Variant? child)
         {
             // FIXME: check args for at least one non-null and consistent types
-            var childType_ = childType?.Handle ?? IntPtr.Zero;
+            var childType_ = childType?.UnsafeHandle ?? IntPtr.Zero;
             var child_ = child?.handle ?? IntPtr.Zero;
             var ret = g_variant_new_maybe(childType_, child_);
             return ret;
@@ -1827,7 +1827,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         static IntPtr NewStrv(Strv strv)
         {
-            var strv_ = strv.Handle;
+            var strv_ = strv.UnsafeHandle;
             var ret = g_variant_new_strv(strv_, -1);
             return ret;
         }
@@ -2187,7 +2187,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         static IntPtr NewVariant(Variant value)
         {
-            var value_ = value.Handle;
+            var value_ = value.UnsafeHandle;
             var ret = g_variant_new_variant(value_);
             return ret;
         }
@@ -2254,7 +2254,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public static bool IsObjectPath(UnownedUtf8 @string)
         {
-            var string_ = @string.Handle;
+            var string_ = @string.UnsafeHandle;
             var ret_ = g_variant_is_object_path(@string_);
             var ret = ret_.IsTrue();
             return ret;
@@ -2302,7 +2302,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public static bool IsSignature(UnownedUtf8 @string)
         {
-            var string_ = @string.Handle;
+            var string_ = @string.UnsafeHandle;
             var ret_ = g_variant_is_signature(@string_);
             var ret = ret_.IsTrue();
             return ret;
@@ -2425,8 +2425,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public static Variant Parse(VariantType? type, UnownedUtf8 text)
         {
-            var type_ = type?.Handle ?? IntPtr.Zero;
-            var text_ = text.Handle;
+            var type_ = type?.UnsafeHandle ?? IntPtr.Zero;
+            var text_ = text.UnsafeHandle;
             IntPtr error_;
             var ret = g_variant_parse(type_, text_, IntPtr.Zero, IntPtr.Zero, out error_);
             if (error_ != IntPtr.Zero) {
@@ -2485,7 +2485,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public Variant Byteswap()
         {
-            var ret_ = g_variant_byteswap(Handle);
+            var ret_ = g_variant_byteswap(UnsafeHandle);
             var ret = GetInstance<Variant>(ret_, Transfer.Full);
             return ret;
         }
@@ -2563,8 +2563,8 @@ namespace GISharp.Lib.GLib
         [Since("2.34")]
         public bool CheckFormatString(UnownedUtf8 formatString, bool copyOnly)
         {
-            var this_ = Handle;
-            var formatString_ = formatString.Handle;
+            var this_ = UnsafeHandle;
+            var formatString_ = formatString.UnsafeHandle;
             var copyOnly_ = copyOnly.ToBoolean();
             var ret_ = g_variant_check_format_string(this_, formatString_, copyOnly_);
             var ret = ret_.IsTrue();
@@ -2598,7 +2598,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public VariantClass Classify()
         {
-            var ret = g_variant_classify(Handle);
+            var ret = g_variant_classify(UnsafeHandle);
             return ret;
         }
 
@@ -2685,8 +2685,8 @@ namespace GISharp.Lib.GLib
         [Since("2.26")]
         public static int Compare(Variant one, Variant two)
         {
-            var one_ = one.Handle;
-            var two_ = two.Handle;
+            var one_ = one.UnsafeHandle;
+            var two_ = two.UnsafeHandle;
             if (one.Type != two.Type) {
                 var message = $"Variant types must match but have '{one.Type}' and '{two.Type}'";
                 throw new InvalidOperationException(message);
@@ -2770,8 +2770,8 @@ namespace GISharp.Lib.GLib
             if (two is null) {
                 return false;
             }
-            var one_ = one.Handle;
-            var two_ = two.Handle;
+            var one_ = one.UnsafeHandle;
+            var two_ = two.UnsafeHandle;
             var ret_ = g_variant_equal(one_, two_);
             var ret = ret_.IsTrue();
             return ret;
@@ -2859,7 +2859,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.Boolean)) {
                     throw new InvalidOperationException();
                 }
-                var ret_ = g_variant_get_boolean(Handle);
+                var ret_ = g_variant_get_boolean(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -2903,7 +2903,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.Byte)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_byte(Handle);
+                var ret = g_variant_get_byte(UnsafeHandle);
                 return ret;
             }
         }
@@ -2972,7 +2972,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.ByteString)) {
                     throw new InvalidOperationException();
                 }
-                var ret_ = g_variant_get_bytestring(Handle);
+                var ret_ = g_variant_get_bytestring(UnsafeHandle);
                 var ret = GMarshal.PtrToCArray<byte>(ret_, null)!;
                 return ret;
             }
@@ -3020,7 +3020,7 @@ namespace GISharp.Lib.GLib
                 throw new InvalidOperationException();
             }
             nuint length;
-            var ptr = g_variant_get_bytestring_array(Handle, &length);
+            var ptr = g_variant_get_bytestring_array(UnsafeHandle, &length);
             if (ptr == IntPtr.Zero) {
                 return new byte[0][];
             }
@@ -3100,7 +3100,7 @@ namespace GISharp.Lib.GLib
             if (index < 0) {
                 throw new ArgumentOutOfRangeException(nameof(index));
             }
-            var ret_ = g_variant_get_child_value(Handle, (nuint)index);
+            var ret_ = g_variant_get_child_value(UnsafeHandle, (nuint)index);
             var ret = GetInstance<Variant>(ret_, Transfer.Full);
             return ret;
         }
@@ -3182,7 +3182,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public IntPtr Data {
             get {
-                var ret = g_variant_get_data(Handle);
+                var ret = g_variant_get_data(UnsafeHandle);
                 return ret;
             }
         }
@@ -3225,7 +3225,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.Double)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_double(Handle);
+                var ret = g_variant_get_double(UnsafeHandle);
                 return ret;
             }
         }
@@ -3324,7 +3324,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         unsafe ReadOnlySpan<T> getFixedArray<T>() where T : unmanaged
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (!IsOfType(VariantType.Array)) {
                 throw new InvalidOperationException();
             }
@@ -3380,7 +3380,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.DBusHandle)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_handle(Handle);
+                var ret = g_variant_get_handle(UnsafeHandle);
                 return ret;
             }
         }
@@ -3423,7 +3423,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.Int16)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_int16(Handle);
+                var ret = g_variant_get_int16(UnsafeHandle);
                 return ret;
             }
         }
@@ -3466,7 +3466,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.Int32)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_int32(Handle);
+                var ret = g_variant_get_int32(UnsafeHandle);
                 return ret;
             }
         }
@@ -3509,7 +3509,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.Int64)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_int64(Handle);
+                var ret = g_variant_get_int64(UnsafeHandle);
                 return ret;
             }
         }
@@ -3546,7 +3546,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.Maybe)) {
                     throw new InvalidOperationException();
                 }
-                var ret_ = g_variant_get_maybe(Handle);
+                var ret_ = g_variant_get_maybe(UnsafeHandle);
                 var ret = GetInstance<Variant>(ret_, Transfer.Full);
                 return ret;
             }
@@ -3611,7 +3611,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         Variant NormalForm {
             get {
-                var ret_ = g_variant_get_normal_form(Handle);
+                var ret_ = g_variant_get_normal_form(UnsafeHandle);
                 var ret = GetInstance<Variant>(ret_, Transfer.Full);
                 return ret;
             }
@@ -3660,7 +3660,7 @@ namespace GISharp.Lib.GLib
                     throw new InvalidOperationException();
                 }
                 nuint length;
-                var ptr = g_variant_get_objv(Handle, &length);
+                var ptr = g_variant_get_objv(UnsafeHandle, &length);
                 if (ptr == IntPtr.Zero) {
                     return new DBusObjectPath[0];
                 }
@@ -3722,7 +3722,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public int Size {
             get {
-                var ret = g_variant_get_size(Handle);
+                var ret = g_variant_get_size(UnsafeHandle);
                 return (int)ret;
             }
         }
@@ -3781,7 +3781,7 @@ namespace GISharp.Lib.GLib
                 throw new InvalidOperationException();
             }
             nuint length_;
-            var ret_ = g_variant_get_string(Handle, &length_);
+            var ret_ = g_variant_get_string(UnsafeHandle, &length_);
             var ret = new UnownedUtf8(ret_, (int)length_);
             return ret;
         }
@@ -3837,7 +3837,7 @@ namespace GISharp.Lib.GLib
                     throw new InvalidOperationException();
                 }
                 nuint length_;
-                var ret_ = g_variant_get_strv(Handle, &length_);
+                var ret_ = g_variant_get_strv(UnsafeHandle, &length_);
                 // using Transfer.None to force deep copy - really Transfer.Container
                 var ret = GetInstance<Strv>(ret_, Transfer.None);
                 GMarshal.Free(ret_);
@@ -3873,7 +3873,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public VariantType Type {
             get {
-                var ret_ = g_variant_get_type(Handle);
+                var ret_ = g_variant_get_type(UnsafeHandle);
                 var ret = GetInstance<VariantType>(ret_, Transfer.None);
                 return ret;
             }
@@ -3910,7 +3910,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public UnownedUtf8 TypeString {
             get {
-                var ret_ = g_variant_get_type_string(Handle);
+                var ret_ = g_variant_get_type_string(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -3954,7 +3954,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.UInt16)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_uint16(Handle);
+                var ret = g_variant_get_uint16(UnsafeHandle);
                 return ret;
             }
         }
@@ -3997,7 +3997,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.UInt32)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_uint32(Handle);
+                var ret = g_variant_get_uint32(UnsafeHandle);
                 return ret;
             }
         }
@@ -4040,7 +4040,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.UInt64)) {
                     throw new InvalidOperationException();
                 }
-                var ret = g_variant_get_uint64(Handle);
+                var ret = g_variant_get_uint64(UnsafeHandle);
                 return ret;
             }
         }
@@ -4077,7 +4077,7 @@ namespace GISharp.Lib.GLib
                 if (!IsOfType(VariantType.Variant)) {
                     throw new InvalidOperationException();
                 }
-                var ret_ = g_variant_get_variant(Handle);
+                var ret_ = g_variant_get_variant(UnsafeHandle);
                 var ret = GetInstance<Variant>(ret_, Transfer.Full);
                 return ret;
             }
@@ -4128,7 +4128,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public override int GetHashCode()
         {
-            var ret = g_variant_hash(Handle);
+            var ret = g_variant_hash(UnsafeHandle);
             return ret;
         }
 
@@ -4159,7 +4159,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsContainer {
             get {
-                var ret_ = g_variant_is_container(Handle);
+                var ret_ = g_variant_is_container(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -4212,7 +4212,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsNormalForm {
             get {
-                var ret_ = g_variant_is_normal_form(Handle);
+                var ret_ = g_variant_is_normal_form(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -4254,8 +4254,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public bool IsOfType(VariantType type)
         {
-            var this_ = Handle;
-            var type_ = type.Handle;
+            var this_ = UnsafeHandle;
+            var type_ = type.UnsafeHandle;
             var ret_ = g_variant_is_of_type(this_, type_);
             var ret = ret_.IsTrue();
             return ret;
@@ -4348,9 +4348,9 @@ namespace GISharp.Lib.GLib
         [Since("2.28")]
         public Variant LookupValue(UnownedUtf8 key, VariantType? expectedType)
         {
-            var this_ = Handle;
-            var key_ = key.Handle;
-            var expectedType_ = expectedType?.Handle ?? IntPtr.Zero;
+            var this_ = UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var expectedType_ = expectedType?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_variant_lookup_value(this_, key_, expectedType_);
             var ret = GetInstance<Variant>(ret_, Transfer.Full);
             return ret;
@@ -4405,7 +4405,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         int nChildren()
         {
-            var ret = g_variant_n_children(Handle);
+            var ret = g_variant_n_children(UnsafeHandle);
             return (int)ret;
         }
 
@@ -4460,7 +4460,7 @@ namespace GISharp.Lib.GLib
         public Utf8 Print(bool typeAnnotate)
         {
             var typeAnnotate_ = typeAnnotate.ToBoolean();
-            var ret_ = g_variant_print(Handle, typeAnnotate_);
+            var ret_ = g_variant_print(UnsafeHandle, typeAnnotate_);
             var ret = GetInstance<Utf8>(ret_, Transfer.Full);
             return ret;
         }
@@ -4519,7 +4519,7 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public unsafe void Store(Span<byte> data)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (data.Length < (int)g_variant_get_size(this_)) {
                 throw new ArgumentException("Not large enough", nameof(data));
             }

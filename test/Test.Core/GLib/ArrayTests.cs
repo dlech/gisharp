@@ -280,7 +280,7 @@ namespace GISharp.Test.Core.GLib
             Assert.That(s.Length, Is.EqualTo(1));
             Assert.That(s[0], Is.EqualTo(1));
             fixed (int* p = s) {
-                Assert.That((IntPtr)p, Is.EqualTo(Marshal.ReadIntPtr(a.Handle)));
+                Assert.That((IntPtr)p, Is.EqualTo(Marshal.ReadIntPtr(a.UnsafeHandle)));
             }
         }
 
@@ -309,7 +309,7 @@ namespace GISharp.Test.Core.GLib
         /// </summary>
         public static T UnsafeItemAt<T>(this Array<T> array, int index) where T : unmanaged
         {
-            var dataPtr = Marshal.ReadIntPtr(array.Handle);
+            var dataPtr = Marshal.ReadIntPtr(array.UnsafeHandle);
             dataPtr += GMarshal.SizeOf<T>() * index;
             var item = Marshal.PtrToStructure<T>(dataPtr);
             return item;
@@ -317,7 +317,7 @@ namespace GISharp.Test.Core.GLib
 
         public static int UnsafeLength<T>(this Array<T> array) where T : unmanaged
         {
-            var len = Marshal.ReadInt32(array.Handle, IntPtr.Size);
+            var len = Marshal.ReadInt32(array.UnsafeHandle, IntPtr.Size);
             return len;
         }
     }

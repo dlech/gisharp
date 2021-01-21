@@ -53,7 +53,7 @@ namespace GISharp.Lib.GLib
         static unsafe System.IntPtr New(GISharp.Lib.GLib.Variant? fromAsv)
         {
             CheckNewArgs(fromAsv);
-            var fromAsv_ = fromAsv?.Handle ?? System.IntPtr.Zero;
+            var fromAsv_ = fromAsv?.UnsafeHandle ?? System.IntPtr.Zero;
             var ret_ = g_variant_dict_new(fromAsv_);
             return ret_;
         }
@@ -100,8 +100,8 @@ namespace GISharp.Lib.GLib
         public unsafe System.Boolean Contains(GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckContainsArgs(key);
-            var dict_ = Handle;
-            var key_ = key.Handle;
+            var dict_ = UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var ret_ = g_variant_dict_contains(dict_,key_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -138,7 +138,7 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Variant End()
         {
             CheckEndArgs();
-            var dict_ = Handle;
+            var dict_ = UnsafeHandle;
             var ret_ = g_variant_dict_end(dict_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -180,9 +180,9 @@ namespace GISharp.Lib.GLib
         public unsafe void Insert(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.Variant value)
         {
             CheckInsertArgs(key, value);
-            var dict_ = Handle;
-            var key_ = key.Handle;
-            var value_ = value.Handle;
+            var dict_ = UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var value_ = value.UnsafeHandle;
             g_variant_dict_insert_value(dict_, key_, value_);
         }
 
@@ -233,9 +233,9 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Variant Lookup(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null)
         {
             CheckLookupArgs(key, expectedType);
-            var dict_ = Handle;
-            var key_ = key.Handle;
-            var expectedType_ = expectedType?.Handle ?? System.IntPtr.Zero;
+            var dict_ = UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var expectedType_ = expectedType?.UnsafeHandle ?? System.IntPtr.Zero;
             var ret_ = g_variant_dict_lookup_value(dict_,key_,expectedType_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -267,7 +267,7 @@ namespace GISharp.Lib.GLib
         /// Takes ownership of the unmanaged pointer without freeing it.
         /// The managed object can no longer be used (will throw disposed exception).
         /// </summary>
-        public override System.IntPtr Take() => g_variant_dict_ref(Handle);
+        public override System.IntPtr Take() => g_variant_dict_ref(UnsafeHandle);
 
         /// <summary>
         /// Removes a key and its associated value from a #GVariantDict.
@@ -299,8 +299,8 @@ namespace GISharp.Lib.GLib
         public unsafe System.Boolean Remove(GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckRemoveArgs(key);
-            var dict_ = Handle;
-            var key_ = key.Handle;
+            var dict_ = UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var ret_ = g_variant_dict_remove(dict_,key_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;

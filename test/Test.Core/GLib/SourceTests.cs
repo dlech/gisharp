@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using NUnit.Framework;
 using GISharp.Lib.GLib;
 
@@ -25,7 +25,7 @@ namespace GISharp.Test.Core.GLib
                     using var source = new IdleSource();
                     source.SetCallback(() => {
                         try {
-                            Assert.That(Source.Current.Handle, Is.EqualTo(source.Handle));
+                            Assert.That(Source.Current.UnsafeHandle, Is.EqualTo(source.UnsafeHandle));
                             callbackInvoked = true;
                             return Source.Remove_;
                         }

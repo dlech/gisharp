@@ -30,9 +30,9 @@ namespace GISharp.Lib.GLib
         /// Pointer to to the unmanaged UTF-8 string.
         /// </summary>
         /// <exception name="NullReferenceException">
-        /// If this points to <c>null</c>, e.g. <c>default(UnownedUtf8).Handle</c>.
+        /// If this points to <c>null</c>, e.g. <c>default(UnownedUtf8).UnsafeHandle</c>.
         /// </exception>
-        public IntPtr Handle => handle == null ? throw new NullReferenceException() : (IntPtr)handle;
+        public IntPtr UnsafeHandle => handle == null ? throw new NullReferenceException() : (IntPtr)handle;
 
         [DllImport("c")]
         static extern UIntPtr strlen(IntPtr s);
@@ -43,7 +43,7 @@ namespace GISharp.Lib.GLib
         public int Length {
             get {
                 if (length < 0) {
-                    length = (int)strlen(Handle);
+                    length = (int)strlen(UnsafeHandle);
                 }
                 return length;
             }
@@ -84,7 +84,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public ReadOnlySpan<byte> AsReadOnlySpan()
         {
-            return new ReadOnlySpan<byte>((byte*)Handle, Length);
+            return new ReadOnlySpan<byte>((byte*)UnsafeHandle, Length);
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -96,7 +96,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public bool Equals(UnownedUtf8 other)
         {
-            var ret = g_str_equal(Handle, other.Handle);
+            var ret = g_str_equal(UnsafeHandle, other.UnsafeHandle);
             return ret;
         }
 
@@ -109,7 +109,7 @@ namespace GISharp.Lib.GLib
             if (!other.HasValue) {
                 return false;
             }
-            var ret = g_str_equal(Handle, other.Handle);
+            var ret = g_str_equal(UnsafeHandle, other.UnsafeHandle);
             return ret;
         }
 
@@ -122,7 +122,7 @@ namespace GISharp.Lib.GLib
             if (other is null) {
                 return false;
             }
-            var ret = g_str_equal(Handle, other.Handle);
+            var ret = g_str_equal(UnsafeHandle, other.UnsafeHandle);
             return ret;
         }
 
@@ -156,7 +156,7 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            var ret = g_str_hash(Handle);
+            var ret = g_str_hash(UnsafeHandle);
             return (int)ret;
         }
 
@@ -168,7 +168,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public Utf8 ToUtf8()
         {
-            var ret_ = g_strdup(Handle);
+            var ret_ = g_strdup(UnsafeHandle);
             var ret = new Utf8(ret_, Transfer.Full);
             return ret;
         }
@@ -325,7 +325,7 @@ namespace GISharp.Lib.GLib
         /// Pointer to to the unmanaged UTF-8 string if <see cref="HasValue"/>
         /// is <c>true</c>, otherwise <see cref="IntPtr.Zero"/>.
         /// </summary>
-        public IntPtr Handle => HasValue ? value.Handle : IntPtr.Zero;
+        public IntPtr UnsafeHandle => HasValue ? value.UnsafeHandle : IntPtr.Zero;
 
         /// <summary>
         /// Gets a value indicating whether this instance has a valid value.
@@ -376,7 +376,7 @@ namespace GISharp.Lib.GLib
         public NullableUnownedUtf8(UnownedUtf8 value)
         {
             // protect against NullableUnownedUtf8(default(UnownedUtf8))
-            var _ = value.Handle;
+            var _ = value.UnsafeHandle;
 
             this.value = value;
             HasValue = true;
@@ -395,7 +395,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public bool Equals(NullableUnownedUtf8 other)
         {
-            return g_strcmp0(Handle, other.Handle) == 0;
+            return g_strcmp0(UnsafeHandle, other.UnsafeHandle) == 0;
         }
 
         /// <summary>
@@ -403,7 +403,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public bool Equals(UnownedUtf8 other)
         {
-            return g_strcmp0(Handle, other.Handle) == 0;
+            return g_strcmp0(UnsafeHandle, other.UnsafeHandle) == 0;
         }
 
         /// <summary>
@@ -411,8 +411,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public bool Equals(Utf8? other)
         {
-            var otherHandle = other is null ? IntPtr.Zero : other.Handle;
-            return g_strcmp0(Handle, otherHandle) == 0;
+            var otherHandle = other is null ? IntPtr.Zero : other.UnsafeHandle;
+            return g_strcmp0(UnsafeHandle, otherHandle) == 0;
         }
 
         /// <summary>
@@ -631,7 +631,7 @@ namespace GISharp.Lib.GLib
             public IEnumerator<byte> GetEnumerator()
             {
                 byte b;
-                for (var i = 0; (b = Marshal.ReadByte(utf8.Handle, i)) != 0; i++) {
+                for (var i = 0; (b = Marshal.ReadByte(utf8.UnsafeHandle, i)) != 0; i++) {
                     yield return b;
                 }
             }
@@ -652,7 +652,7 @@ namespace GISharp.Lib.GLib
             /// <inheritdoc/>
             public IEnumerator<Unichar> GetEnumerator()
             {
-                for (var ptr = utf8.Handle; ptr != IntPtr.Zero; ptr = g_utf8_find_next_char(ptr, IntPtr.Zero)) {
+                for (var ptr = utf8.UnsafeHandle; ptr != IntPtr.Zero; ptr = g_utf8_find_next_char(ptr, IntPtr.Zero)) {
                     var ret = g_utf8_get_char(ptr);
                     if (ret == 0) {
                         // don't return the null terminator
@@ -709,7 +709,7 @@ namespace GISharp.Lib.GLib
         /// <paramref name="value"/> is converted from UTF-16 to UTF-8 and stored
         /// in unmanaged memory.
         /// </remarks>
-        public Utf8(UnownedUtf8 value) : this(value.Handle, Transfer.None)
+        public Utf8(UnownedUtf8 value) : this(value.UnsafeHandle, Transfer.None)
         {
         }
 
@@ -773,7 +773,7 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public override IntPtr Take()
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             handle = IntPtr.Zero;
             GC.SuppressFinalize(this);
             return this_;
@@ -794,12 +794,12 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Gets an unowned reference to this string.
         /// </summary>
-        public UnownedUtf8 AsUnownedUtf8() => new UnownedUtf8(Handle, length);
+        public UnownedUtf8 AsUnownedUtf8() => new UnownedUtf8(UnsafeHandle, length);
 
         /// <summary>
         /// Gets a nullable unowned reference to this string.
         /// </summary>
-        public NullableUnownedUtf8 AsNullableUnownedUtf8() => new NullableUnownedUtf8(Handle, length);
+        public NullableUnownedUtf8 AsNullableUnownedUtf8() => new NullableUnownedUtf8(UnsafeHandle, length);
 
         /// <summary>
         /// Gets the managed UTF-16 value of this string.
@@ -817,7 +817,7 @@ namespace GISharp.Lib.GLib
         {
             // TODO: replace this with Marshal.PtrToStringUTF8() when it
             // becomes part of netstandard
-            var ret_ = g_utf8_to_utf16(Handle, -1, IntPtr.Zero, IntPtr.Zero, out var error_);
+            var ret_ = g_utf8_to_utf16(UnsafeHandle, -1, IntPtr.Zero, IntPtr.Zero, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = GetInstance<Error>(error_, Transfer.Full);
                 throw new GErrorException(error);
@@ -891,7 +891,7 @@ namespace GISharp.Lib.GLib
         public int Length {
             get {
                 if (length == -1) {
-                    length = (int)strlen(Handle);
+                    length = (int)strlen(UnsafeHandle);
                 }
                 return length;
             }
@@ -935,7 +935,7 @@ namespace GISharp.Lib.GLib
         public int LengthInCharacters {
             get {
                 if (lengthInCharacters == -1) {
-                    lengthInCharacters = (int)g_utf8_strlen(Handle, -1);
+                    lengthInCharacters = (int)g_utf8_strlen(UnsafeHandle, -1);
                 }
                 return lengthInCharacters;
             }
@@ -1007,7 +1007,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_strcmp0(IntPtr str1, IntPtr str2);
 
-        int IComparable<Utf8>.CompareTo(Utf8? other) => g_strcmp0(Handle, other?.Handle ?? IntPtr.Zero);
+        int IComparable<Utf8>.CompareTo(Utf8? other) => g_strcmp0(UnsafeHandle, other?.UnsafeHandle ?? IntPtr.Zero);
 
         int IComparable<string>.CompareTo(string? other) => Value.CompareTo(other);
 
@@ -1108,8 +1108,8 @@ namespace GISharp.Lib.GLib
                 throw new ArgumentNullException(nameof(other));
             }
 
-            var this_ = Handle;
-            var other_ = other.Handle;
+            var this_ = UnsafeHandle;
+            var other_ = other.UnsafeHandle;
             var ret_ = g_str_equal(this_, other_);
             var ret = ret_.IsTrue();
             return ret;
@@ -1145,7 +1145,7 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public override int GetHashCode()
         {
-            var ret = g_str_hash(Handle);
+            var ret = g_str_hash(UnsafeHandle);
             return (int)ret;
         }
 

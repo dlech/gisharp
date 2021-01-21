@@ -106,7 +106,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static FlagsValue GetFirstValue(FlagsClass flagsClass, uint value)
         {
-            var ret_ = g_flags_get_first_value(flagsClass.Handle, value);
+            var ret_ = g_flags_get_first_value(flagsClass.UnsafeHandle, value);
             var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
             return ret;
@@ -151,8 +151,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static FlagsValue GetValueByName(FlagsClass flagsClass, UnownedUtf8 name)
         {
-            var flagsClass_ = flagsClass.Handle;
-            var name_ = name.Handle;
+            var flagsClass_ = flagsClass.UnsafeHandle;
+            var name_ = name.UnsafeHandle;
             var ret_ = g_flags_get_value_by_name(flagsClass_, name_);
             var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
@@ -198,8 +198,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static FlagsValue GetValueByNick(FlagsClass flagsClass, UnownedUtf8 nick)
         {
-            var flagsClass_ = flagsClass.Handle;
-            var nick_ = nick.Handle;
+            var flagsClass_ = flagsClass.UnsafeHandle;
+            var nick_ = nick.UnsafeHandle;
             var ret_ = g_flags_get_value_by_nick(flagsClass_, nick_);
             var ret = Marshal.PtrToStructure<FlagsValue>(ret_);
 
@@ -222,7 +222,7 @@ namespace GISharp.Lib.GObject
         {
             GType.AssertGTypeName(typeName);
             using var typeNameUtf8 = typeName.ToUtf8();
-            var typeName_ = typeNameUtf8.Handle;
+            var typeName_ = typeNameUtf8.UnsafeHandle;
             var handle = values.Pin();
             try {
                 var values_ = (FlagsValue*)handle.Pointer;

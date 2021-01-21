@@ -127,12 +127,12 @@ namespace GISharp.Test.Core.GLib
             list.Prepend(new OpaqueInt(1));
             list.Prepend(new OpaqueInt(2));
             Assume.That(list.Length, Is.EqualTo(2));
-            Assume.That(list[0].Handle, Is.EqualTo((IntPtr)2));
-            Assume.That(list[1].Handle, Is.EqualTo((IntPtr)1));
+            Assume.That(list[0].UnsafeHandle, Is.EqualTo((IntPtr)2));
+            Assume.That(list[1].UnsafeHandle, Is.EqualTo((IntPtr)1));
             list.Reverse();
             Assert.That(list.Length, Is.EqualTo(2));
-            Assume.That(list[0].Handle, Is.EqualTo((IntPtr)1));
-            Assume.That(list[1].Handle, Is.EqualTo((IntPtr)2));
+            Assume.That(list[0].UnsafeHandle, Is.EqualTo((IntPtr)1));
+            Assume.That(list[1].UnsafeHandle, Is.EqualTo((IntPtr)2));
         }
 
         [Test]
@@ -141,19 +141,19 @@ namespace GISharp.Test.Core.GLib
             var compareFuncWasCalled = false;
             Comparison<OpaqueInt> compareFunc = (a, b) => {
                 compareFuncWasCalled = true;
-                return a.Handle.ToInt32().CompareTo(b.Handle.ToInt32());
+                return a.UnsafeHandle.ToInt32().CompareTo(b.UnsafeHandle.ToInt32());
             };
             using var list = new SList<OpaqueInt>();
             list.Prepend(new OpaqueInt(1));
             list.Prepend(new OpaqueInt(2));
             Assume.That(list.Length, Is.EqualTo(2));
-            Assume.That(list[0].Handle, Is.EqualTo((IntPtr)2));
-            Assume.That(list[1].Handle, Is.EqualTo((IntPtr)1));
+            Assume.That(list[0].UnsafeHandle, Is.EqualTo((IntPtr)2));
+            Assume.That(list[1].UnsafeHandle, Is.EqualTo((IntPtr)1));
             list.Sort(compareFunc);
             Assert.That(compareFuncWasCalled);
             Assert.That(list.Length, Is.EqualTo(2));
-            Assume.That(list[0].Handle, Is.EqualTo((IntPtr)1));
-            Assume.That(list[1].Handle, Is.EqualTo((IntPtr)2));
+            Assume.That(list[0].UnsafeHandle, Is.EqualTo((IntPtr)1));
+            Assume.That(list[1].UnsafeHandle, Is.EqualTo((IntPtr)2));
         }
 
         [Test]

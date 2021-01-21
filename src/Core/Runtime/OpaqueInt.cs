@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2017-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.ComponentModel;
 using GISharp.Lib.GLib;
 
@@ -25,10 +25,10 @@ namespace GISharp.Runtime
         /// <summary>
         /// Gets the integer value.
         /// </summary>
-        public int Value => (int)Handle;
+        public int Value => (int)UnsafeHandle;
 
         /// <inheritdoc />
-        public override IntPtr Handle => handle;
+        public override IntPtr UnsafeHandle => handle;
 
         /// <summary>
         /// For internal runtime use only.

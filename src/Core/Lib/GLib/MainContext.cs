@@ -29,7 +29,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_main_context_ref(IntPtr context);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_main_context_ref(Handle);
+        public override IntPtr Take() => g_main_context_ref(UnsafeHandle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_main_context_unref(IntPtr context);
@@ -494,7 +494,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool Acquire()
         {
-            var ret_ = g_main_context_acquire(Handle);
+            var ret_ = g_main_context_acquire(UnsafeHandle);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -547,7 +547,7 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void AddPoll(in PollFD fd, int priority = Priority.Default)
         {
-            g_main_context_add_poll(Handle, fd, priority);
+            g_main_context_add_poll(UnsafeHandle, fd, priority);
         }
 
         /// <summary>
@@ -611,7 +611,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public unsafe int Check(int maxPriority, ReadOnlySpan<PollFD> fds)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             fixed (PollFD* fds_ = fds) {
                 var nFds_ = fds.Length;
                 var ret = g_main_context_check(this_, maxPriority, fds_, nFds_);
@@ -646,7 +646,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public void Dispatch()
         {
-            g_main_context_dispatch(Handle);
+            g_main_context_dispatch(UnsafeHandle);
         }
 
         /// <summary>
@@ -707,7 +707,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public Source FindSourceById(uint sourceId)
         {
-            var ret_ = g_main_context_find_source_by_id(Handle, sourceId);
+            var ret_ = g_main_context_find_source_by_id(UnsafeHandle, sourceId);
             var ret = GetInstance<Source>(ret_, Transfer.None);
             return ret;
         }
@@ -752,8 +752,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public Source? FindSourceByUserData(Source.UserData userData)
         {
-            var this_ = Handle;
-            var userData_ = userData.Handle;
+            var this_ = UnsafeHandle;
+            var userData_ = userData.UnsafeHandle;
             var ret_ = g_main_context_find_source_by_user_data(this_, userData_);
             var ret = GetInstance<Source>(ret_, Transfer.None);
             return ret;
@@ -794,12 +794,12 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public UnmanagedPollFunc PollFunc {
             get {
-                var ret = g_main_context_get_poll_func(Handle);
+                var ret = g_main_context_get_poll_func(UnsafeHandle);
                 return ret;
             }
 
             set {
-                g_main_context_set_poll_func(Handle, value);
+                g_main_context_set_poll_func(UnsafeHandle, value);
             }
         }
 
@@ -864,7 +864,7 @@ namespace GISharp.Lib.GLib
         [Since("2.28")]
         public void Invoke(SourceFunc function, int priority = Priority.Default)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             var (function_, notify_, data_) = SourceFuncMarshal.ToUnmanagedFunctionPointer(function, CallbackScope.Notified);
             g_main_context_invoke_full(this_, priority, function_, data_, notify_);
         }
@@ -902,7 +902,7 @@ namespace GISharp.Lib.GLib
         [Since("2.10")]
         public bool IsOwner {
             get {
-                var ret_ = g_main_context_is_owner(Handle);
+                var ret_ = g_main_context_is_owner(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -967,7 +967,7 @@ namespace GISharp.Lib.GLib
         public bool Iteration(bool mayBlock)
         {
             var mayBlock_ = mayBlock.ToBoolean();
-            var ret_ = g_main_context_iteration(Handle, mayBlock_);
+            var ret_ = g_main_context_iteration(UnsafeHandle, mayBlock_);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -997,7 +997,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool CheckPending()
         {
-            var ret_ = g_main_context_pending(Handle);
+            var ret_ = g_main_context_pending(UnsafeHandle);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -1025,7 +1025,7 @@ namespace GISharp.Lib.GLib
         [Since("2.22")]
         public void PopThreadDefault()
         {
-            g_main_context_pop_thread_default(Handle);
+            g_main_context_pop_thread_default(UnsafeHandle);
         }
 
         /// <summary>
@@ -1077,7 +1077,7 @@ namespace GISharp.Lib.GLib
         public unsafe bool Prepare(out int priority)
         {
             int priority_;
-            var ret_ = g_main_context_prepare(Handle, &priority_);
+            var ret_ = g_main_context_prepare(UnsafeHandle, &priority_);
             priority = priority_;
             var ret = ret_.IsTrue();
             return ret;
@@ -1180,7 +1180,7 @@ namespace GISharp.Lib.GLib
         [Since("2.22")]
         public void PushThreadDefault()
         {
-            g_main_context_push_thread_default(Handle);
+            g_main_context_push_thread_default(UnsafeHandle);
         }
 
         /// <summary>
@@ -1251,7 +1251,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public unsafe void Query(int maxPriority, out int timeout, out PollFD[] fds)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             int timeout_;
             // call first time to get the size
             var ret = g_main_context_query(this_, maxPriority, &timeout_, null, 0);
@@ -1287,7 +1287,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void Release()
         {
-            g_main_context_release(Handle);
+            g_main_context_release(UnsafeHandle);
         }
 
         /// <summary>
@@ -1321,7 +1321,7 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void RemovePoll(in PollFD fd)
         {
-            g_main_context_remove_poll(Handle, fd);
+            g_main_context_remove_poll(UnsafeHandle, fd);
         }
 
         /// <summary>
@@ -1426,7 +1426,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public void WakeUp()
         {
-            g_main_context_wakeup(Handle);
+            g_main_context_wakeup(UnsafeHandle);
         }
 
         GSynchronizationContext? _SynchronizationContext;

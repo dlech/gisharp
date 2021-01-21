@@ -107,7 +107,7 @@ System.IntPtr stream);
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var doGetInputStream = (GetInputStream)methodInfo.CreateDelegate(typeof(GetInputStream), stream);
                         var ret = doGetInputStream();
-                        var ret_ = ret.Handle;
+                        var ret_ = ret.UnsafeHandle;
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -153,7 +153,7 @@ System.IntPtr stream);
                         var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>(stream_, GISharp.Runtime.Transfer.None)!;
                         var doGetOutputStream = (GetOutputStream)methodInfo.CreateDelegate(typeof(GetOutputStream), stream);
                         var ret = doGetOutputStream();
-                        var ret_ = ret.Handle;
+                        var ret_ = ret.UnsafeHandle;
                         return ret_;
                     }
                     catch (System.Exception ex)

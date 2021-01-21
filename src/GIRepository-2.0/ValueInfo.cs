@@ -27,7 +27,7 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public long Value {
             get {
-                return g_value_info_get_value(Handle);
+                return g_value_info_get_value(UnsafeHandle);
             }
         }
 

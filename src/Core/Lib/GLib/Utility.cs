@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 namespace GISharp.Lib.GLib
@@ -40,7 +40,7 @@ namespace GISharp.Lib.GLib
                 return ret;
             }
             set {
-                g_set_application_name(value.Handle);
+                g_set_application_name(value.UnsafeHandle);
             }
         }
 
@@ -67,7 +67,7 @@ namespace GISharp.Lib.GLib
                 return ret;
             }
             set {
-                g_set_prgname(value.Handle);
+                g_set_prgname(value.UnsafeHandle);
             }
         }
     }

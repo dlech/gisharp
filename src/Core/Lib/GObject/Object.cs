@@ -39,7 +39,7 @@ namespace GISharp.Lib.GObject
 #pragma warning restore CS0649
         }
 
-        unsafe uint RefCount => ((UnmanagedStruct*)Handle)->RefCount;
+        unsafe uint RefCount => ((UnmanagedStruct*)UnsafeHandle)->RefCount;
 
         readonly ObjectClass objectClass;
         readonly ObjectClass? parentObjectClass;
@@ -99,7 +99,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_object_ref(IntPtr @object);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_object_ref(Handle);
+        public override IntPtr Take() => g_object_ref(UnsafeHandle);
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_object_unref(IntPtr @object);
@@ -386,7 +386,7 @@ namespace GISharp.Lib.GObject
 
         bool IsFloating {
             get {
-                var ret_ = g_object_is_floating(Handle);
+                var ret_ = g_object_is_floating(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -507,8 +507,8 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public Binding BindProperty(string sourceProperty, Object target, string targetProperty, BindingFlags flags = BindingFlags.Default)
         {
-            var this_ = Handle;
-            var target_ = target.Handle;
+            var this_ = UnsafeHandle;
+            var target_ = target.UnsafeHandle;
 
             var sourcePropertyInfo = GetType().GetProperty(sourceProperty);
             if (sourcePropertyInfo is null) {
@@ -518,7 +518,7 @@ namespace GISharp.Lib.GObject
                 throw new ArgumentException($"{sourcePropertyInfo.Name} is not a registered GType property",
                     nameof(sourceProperty));
             using var sourcePropertyUtf8 = new Utf8(sourceProperty);
-            var sourceProperty_ = sourcePropertyUtf8.Handle;
+            var sourceProperty_ = sourcePropertyUtf8.UnsafeHandle;
 
             var targetPropertyInfo = target.GetType().GetProperty(targetProperty);
             if (targetPropertyInfo is null) {
@@ -528,7 +528,7 @@ namespace GISharp.Lib.GObject
                 throw new ArgumentException($"{targetPropertyInfo.Name} is not a registered GType property",
                     nameof(targetProperty));
             using var targetPropertyUtf8 = new Utf8(targetProperty);
-            var targetProperty_ = targetPropertyUtf8.Handle;
+            var targetProperty_ = targetPropertyUtf8.UnsafeHandle;
 
             var ret_ = g_object_bind_property(this_, sourceProperty_, target_, targetProperty_, flags);
             var ret = GetInstance<Binding>(ret_, Transfer.None)!;
@@ -608,10 +608,10 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public Binding BindProperty(UnownedUtf8 sourceProperty, Object target, UnownedUtf8 targetProperty, BindingFlags flags, BindingTransformFunc? transformTo, BindingTransformFunc? transformFrom)
         {
-            var this_ = Handle;
-            var sourceProperty_ = sourceProperty.Handle;
-            var target_ = target.Handle;
-            var targetProperty_ = targetProperty.Handle;
+            var this_ = UnsafeHandle;
+            var sourceProperty_ = sourceProperty.UnsafeHandle;
+            var target_ = target.UnsafeHandle;
+            var targetProperty_ = targetProperty.UnsafeHandle;
 
             var (transformTo_, transformFrom_, notify_, userData_) = UnmanagedBindingTransformFuncFactory.CreateNotifyDelegate(transformTo, transformFrom);
             var ret_ = g_object_bind_property_full(this_, sourceProperty_, target_, targetProperty_, flags,
@@ -732,7 +732,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public void FreezeNotify()
         {
-            g_object_freeze_notify(Handle);
+            g_object_freeze_notify(UnsafeHandle);
         }
 
         /// <summary>
@@ -784,14 +784,14 @@ namespace GISharp.Lib.GObject
         /// </exception>
         public object? GetProperty(UnownedUtf8 propertyName)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             var pspec = objectClass.FindProperty(propertyName);
             if (pspec is null) {
                 var message = $"No such property \"{propertyName}\"";
                 throw new ArgumentException(message, nameof(propertyName));
             }
             var value = new Value(pspec.ValueType);
-            g_object_get_property(this_, pspec.Name.Handle, ref value);
+            g_object_get_property(this_, pspec.Name.UnsafeHandle, ref value);
             var ret = value.Get();
             value.Unset();
 
@@ -846,8 +846,8 @@ namespace GISharp.Lib.GObject
         /// </param>
         public void Notify(UnownedUtf8 propertyName)
         {
-            var this_ = Handle;
-            var propertyName_ = propertyName.Handle;
+            var this_ = UnsafeHandle;
+            var propertyName_ = propertyName.UnsafeHandle;
             g_object_notify(this_, propertyName_);
         }
 
@@ -957,8 +957,8 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public void Notify(ParamSpec pspec)
         {
-            var this_ = Handle;
-            var pspec_ = pspec.Handle;
+            var this_ = UnsafeHandle;
+            var pspec_ = pspec.UnsafeHandle;
             g_object_notify_by_pspec(this_, pspec_);
         }
 
@@ -1002,7 +1002,7 @@ namespace GISharp.Lib.GObject
         /// </exception>
         public void SetProperty(UnownedUtf8 propertyName, object? value)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             var pspec = objectClass.FindProperty(propertyName);
             if (pspec is null) {
                 var message = $"No such property \"{propertyName}\"";
@@ -1010,7 +1010,7 @@ namespace GISharp.Lib.GObject
             }
             var value_ = new Value(pspec.ValueType);
             value_.Set(value);
-            g_object_set_property(this_, pspec.Name.Handle, ref value_);
+            g_object_set_property(this_, pspec.Name.UnsafeHandle, ref value_);
             value_.Unset();
         }
 
@@ -1051,7 +1051,7 @@ namespace GISharp.Lib.GObject
         /// </remarks>
         public void ThawNotify()
         {
-            g_object_thaw_notify(Handle);
+            g_object_thaw_notify(UnsafeHandle);
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -1080,7 +1080,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         public object? this[string key] {
             get {
-                var this_ = Handle;
+                var this_ = UnsafeHandle;
                 var key_ = GMarshal.StringToUtf8Ptr(key);
                 var data_ = g_object_get_data(this_, key_);
                 GMarshal.Free(key_);
@@ -1091,7 +1091,7 @@ namespace GISharp.Lib.GObject
                 return data;
             }
             set {
-                var this_ = Handle;
+                var this_ = UnsafeHandle;
                 var key_ = GMarshal.StringToUtf8Ptr(key);
                 if (value is null) {
                     g_object_set_data(this_, key_, IntPtr.Zero);
@@ -1143,12 +1143,12 @@ namespace GISharp.Lib.GObject
         /// </param>
         public object? this[Quark quark] {
             get {
-                var ret_ = g_object_get_qdata(Handle, quark);
+                var ret_ = g_object_get_qdata(UnsafeHandle, quark);
                 var ret = GCHandle.FromIntPtr(ret_).Target;
                 return ret;
             }
             set {
-                var this_ = Handle;
+                var this_ = UnsafeHandle;
                 if (value is null) {
                     g_object_set_qdata(this_, quark, IntPtr.Zero);
                 }

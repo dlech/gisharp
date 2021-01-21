@@ -72,7 +72,7 @@ System.IntPtr actionName);
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doLookupAction = (LookupAction)methodInfo.CreateDelegate(typeof(LookupAction), actionMap);
                         var ret = doLookupAction(actionName);
-                        var ret_ = ret.Handle;
+                        var ret_ = ret.UnsafeHandle;
                         return ret_;
                     }
                     catch (System.Exception ex)

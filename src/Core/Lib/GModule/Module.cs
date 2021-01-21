@@ -33,7 +33,7 @@ namespace GISharp.Lib.GModule
     /// </remarks>
     public sealed class Module : Opaque
     {
-        static object errorLock = new object ();
+        static object errorLock = new object();
 
         /// <summary>
         /// The proper shared library prefix for the current platform. For
@@ -61,16 +61,17 @@ namespace GISharp.Lib.GModule
             // up being the same as G_MODULE_SUFFIX in C code.
 
             using var emptyName = (Utf8)string.Empty;
-            var path_ = g_module_build_path(IntPtr.Zero, emptyName.Handle);
+            var path_ = g_module_build_path(IntPtr.Zero, emptyName.UnsafeHandle);
             using var path = new Utf8(path_, Transfer.Full);
 
-            var parts = ((string)path).Split ('.');
+            var parts = ((string)path).Split('.');
             Prefix = parts[0];
             Suffix = parts[1];
 
             if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX)) {
                 LibrarySuffix = "dylib";
-            } else {
+            }
+            else {
                 LibrarySuffix = Suffix;
             }
         }
@@ -82,7 +83,7 @@ namespace GISharp.Lib.GModule
         public Module(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {
-                throw new NotSupportedException ();
+                throw new NotSupportedException();
             }
         }
 
@@ -90,13 +91,13 @@ namespace GISharp.Lib.GModule
         static extern Runtime.Boolean g_module_close(IntPtr module);
 
         /// <inheritdoc/>
-        protected override void Dispose (bool disposing)
+        protected override void Dispose(bool disposing)
         {
-            if (Handle != IntPtr.Zero) {
+            if (UnsafeHandle != IntPtr.Zero) {
                 // TODO: this could fail (if return false)
-                g_module_close (Handle);
+                g_module_close(UnsafeHandle);
             }
-            base.Dispose (disposing);
+            base.Dispose(disposing);
         }
 
         [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -114,8 +115,8 @@ namespace GISharp.Lib.GModule
             }
         }
 
-        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_module_build_path (IntPtr directory, IntPtr moduleName);
+        [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_module_build_path(IntPtr directory, IntPtr moduleName);
 
         /// <summary>
         /// A portable way to build the filename of a module. The platform-specific
@@ -150,20 +151,20 @@ namespace GISharp.Lib.GModule
             // but it is easy enough to implement it in managed code and we want
             // to be able to handle both "so" and "dylib" suffixes on macOS.
 
-            var prefix = moduleName.StartsWith (Prefix, StringComparison.OrdinalIgnoreCase)
+            var prefix = moduleName.StartsWith(Prefix, StringComparison.OrdinalIgnoreCase)
                                    ? string.Empty : Prefix;
             var suffix = isSharedLibrary ? LibrarySuffix : Suffix;
             var fullName = prefix + moduleName + "." + suffix;
 
-            if (string.IsNullOrEmpty (directory)) {
+            if (string.IsNullOrEmpty(directory)) {
                 return fullName;
             }
 
-            return Path.Combine (directory, fullName);
+            return Path.Combine(directory, fullName);
         }
 
-        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_module_open (IntPtr fileName, ModuleFlags flags);
+        [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_module_open(IntPtr fileName, ModuleFlags flags);
 
         /// <summary>
         /// Opens a module.
@@ -188,20 +189,21 @@ namespace GISharp.Lib.GModule
         /// <exception cref="ModuleErrorException">
         /// On failure
         /// </exception>
-        public static Module Open (string fileName, ModuleFlags flags = 0)
+        public static Module Open(string fileName, ModuleFlags flags = 0)
         {
-            var fileName_ = GMarshal.StringToUtf8Ptr (fileName);
+            var fileName_ = GMarshal.StringToUtf8Ptr(fileName);
             try {
                 lock (errorLock) {
-                    var ret_ = g_module_open (fileName_, flags);
+                    var ret_ = g_module_open(fileName_, flags);
                     if (ret_ == IntPtr.Zero) {
-                        throw new ModuleErrorException (Error);
+                        throw new ModuleErrorException(Error);
                     }
-                    var ret = Opaque.GetInstance<Module> (ret_, Transfer.Full);
+                    var ret = Opaque.GetInstance<Module>(ret_, Transfer.Full);
                     return ret;
                 }
-            } finally {
-                GMarshal.Free (fileName_);
+            }
+            finally {
+                GMarshal.Free(fileName_);
             }
         }
 
@@ -219,18 +221,19 @@ namespace GISharp.Lib.GModule
         /// <exception cref="ModuleErrorException">
         /// On failure
         /// </exception>
-        public IntPtr GetSymbol (string symbolName)
+        public IntPtr GetSymbol(string symbolName)
         {
             lock (errorLock) {
-                var symbolName_ = GMarshal.StringToUtf8Ptr (symbolName);
+                var symbolName_ = GMarshal.StringToUtf8Ptr(symbolName);
                 try {
                     IntPtr symbol;
-                    if (g_module_symbol(Handle, symbolName_, out symbol).IsFalse()) {
-                        throw new ModuleErrorException (Error);
+                    if (g_module_symbol(UnsafeHandle, symbolName_, out symbol).IsFalse()) {
+                        throw new ModuleErrorException(Error);
                     }
                     return symbol;
-                } finally {
-                    GMarshal.Free (symbolName_);
+                }
+                finally {
+                    GMarshal.Free(symbolName_);
                 }
             }
         }
@@ -247,22 +250,22 @@ namespace GISharp.Lib.GModule
         /// </remarks>
         public UnownedUtf8 Name {
             get {
-                var ret_ = g_module_name(Handle);
+                var ret_ = g_module_name(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
         }
 
-        [DllImport ("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_module_make_resident (
+        [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_module_make_resident(
             IntPtr module);
 
         /// <summary>
         /// Ensures that a module will never be unloaded.
         /// </summary>
-        public void MakeResident ()
+        public void MakeResident()
         {
-            g_module_make_resident (Handle);
+            g_module_make_resident(UnsafeHandle);
         }
 
         [DllImport("gmodule-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -274,7 +277,7 @@ namespace GISharp.Lib.GModule
         /// <value>A string describing the last module error.</value>
         static UnownedUtf8 Error {
             get {
-                var ret_ = g_module_error ();
+                var ret_ = g_module_error();
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -286,7 +289,7 @@ namespace GISharp.Lib.GModule
     /// </summary>
     public class ModuleErrorException : Exception
     {
-        internal ModuleErrorException (string message) : base (message)
+        internal ModuleErrorException(string message) : base(message)
         {
         }
     }

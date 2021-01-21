@@ -153,8 +153,8 @@ namespace GISharp.Lib.Gio
         public unsafe static void Init(this GISharp.Lib.Gio.IInitable initable, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckInitArgs(initable, cancellable);
-            var initable_ = initable.Handle;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var initable_ = initable.UnsafeHandle;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             g_initable_init(initable_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)

@@ -28,11 +28,11 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public sealed class UserData : IDisposable
         {
-            internal readonly IntPtr Handle;
+            internal readonly IntPtr UnsafeHandle;
 
             internal UserData(IntPtr userData)
             {
-                Handle = userData;
+                UnsafeHandle = userData;
             }
 
             [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -49,7 +49,7 @@ namespace GISharp.Lib.GLib
             /// </remarks>
             public void Dispose()
             {
-                g_source_remove_by_user_data(Handle);
+                g_source_remove_by_user_data(UnsafeHandle);
             }
         }
 
@@ -92,7 +92,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_source_ref(IntPtr source);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_source_ref(Handle);
+        public override IntPtr Take() => g_source_ref(UnsafeHandle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_source_unref(IntPtr source);
@@ -426,7 +426,7 @@ namespace GISharp.Lib.GLib
         [Since("2.26")]
         public static void SetNameById(uint tag, UnownedUtf8 name)
         {
-            var name_ = name.Handle;
+            var name_ = name.UnsafeHandle;
             g_source_set_name_by_id(tag, name_);
         }
 
@@ -524,8 +524,8 @@ namespace GISharp.Lib.GLib
         [Since("2.28")]
         public void AddChildSource(Source childSource)
         {
-            var this_ = Handle;
-            var childSource_ = childSource.Handle;
+            var this_ = UnsafeHandle;
+            var childSource_ = childSource.UnsafeHandle;
             g_source_add_child_source(this_, childSource_);
         }
 
@@ -584,7 +584,7 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void AddPoll(in PollFD fd)
         {
-            g_source_add_poll(Handle, fd);
+            g_source_add_poll(UnsafeHandle, fd);
         }
 
         /// <summary>
@@ -625,11 +625,11 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public uint Attach(MainContext? context)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             if (IsDestroyed) {
                 throw new InvalidOperationException("Source has already been destroyed.");
             }
-            var context_ = context?.Handle ?? IntPtr.Zero;
+            var context_ = context?.UnsafeHandle ?? IntPtr.Zero;
             var ret = g_source_attach(this_, context_);
             return ret;
         }
@@ -659,7 +659,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void Destroy()
         {
-            g_source_destroy(Handle);
+            g_source_destroy(UnsafeHandle);
         }
 
         /// <summary>
@@ -689,14 +689,14 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool CanRecurse {
             get {
-                var ret_ = g_source_get_can_recurse(Handle);
+                var ret_ = g_source_get_can_recurse(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
 
             set {
                 var canRecurse_ = value.ToBoolean();
-                g_source_set_can_recurse(Handle, canRecurse_);
+                g_source_set_can_recurse(UnsafeHandle, canRecurse_);
             }
         }
 
@@ -745,7 +745,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public MainContext Context {
             get {
-                var ret_ = g_source_get_context(Handle);
+                var ret_ = g_source_get_context(UnsafeHandle);
                 var ret = GetInstance<MainContext>(ret_, Transfer.None);
                 return ret;
             }
@@ -782,7 +782,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public uint Id {
             get {
-                var ret = g_source_get_id(Handle);
+                var ret = g_source_get_id(UnsafeHandle);
                 return ret;
             }
         }
@@ -816,13 +816,13 @@ namespace GISharp.Lib.GLib
         [Since("2.26")]
         public NullableUnownedUtf8 Name {
             get {
-                var ret_ = g_source_get_name(Handle);
+                var ret_ = g_source_get_name(UnsafeHandle);
                 var ret = new NullableUnownedUtf8(ret_, -1);
                 return ret;
             }
             set {
-                var this_ = Handle;
-                var value_ = value.Handle;
+                var this_ = UnsafeHandle;
+                var value_ = value.UnsafeHandle;
                 g_source_set_name(this_, value_);
             }
         }
@@ -852,11 +852,11 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public int Priority {
             get {
-                var ret = g_source_get_priority(Handle);
+                var ret = g_source_get_priority(UnsafeHandle);
                 return ret;
             }
             set {
-                g_source_set_priority(Handle, value);
+                g_source_set_priority(UnsafeHandle, value);
             }
         }
 
@@ -895,11 +895,11 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public long ReadyTime {
             get {
-                var ret = g_source_get_ready_time(Handle);
+                var ret = g_source_get_ready_time(UnsafeHandle);
                 return ret;
             }
             set {
-                g_source_set_ready_time(Handle, value);
+                g_source_set_ready_time(UnsafeHandle, value);
             }
         }
 
@@ -944,7 +944,7 @@ namespace GISharp.Lib.GLib
         [Since("2.28")]
         public long Time {
             get {
-                var ret = g_source_get_time(Handle);
+                var ret = g_source_get_time(UnsafeHandle);
                 return ret;
             }
         }
@@ -1096,7 +1096,7 @@ namespace GISharp.Lib.GLib
         [Since("2.12")]
         public bool IsDestroyed {
             get {
-                var ret_ = g_source_is_destroyed(Handle);
+                var ret_ = g_source_is_destroyed(UnsafeHandle);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -1141,8 +1141,8 @@ namespace GISharp.Lib.GLib
         [Since("2.28")]
         public void RemoveChildSource(Source childSource)
         {
-            var this_ = Handle;
-            var childSource_ = childSource.Handle;
+            var this_ = UnsafeHandle;
+            var childSource_ = childSource.UnsafeHandle;
             g_source_remove_child_source(this_, childSource_);
         }
 
@@ -1185,7 +1185,7 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void RemovePoll(in PollFD fd)
         {
-            g_source_remove_poll(Handle, fd);
+            g_source_remove_poll(UnsafeHandle, fd);
         }
 
         /// <summary>
@@ -1238,7 +1238,7 @@ namespace GISharp.Lib.GLib
         [Since("2.36")]
         public void RemoveUnixFd(IntPtr tag)
         {
-            g_source_remove_unix_fd(Handle, tag);
+            g_source_remove_unix_fd(UnsafeHandle, tag);
         }
 
         /// <summary>
@@ -1308,7 +1308,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         protected void SetCallback<T>(T func, Func<T, CallbackScope, (IntPtr, IntPtr, IntPtr)> marshalToPointer) where T : Delegate
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             var (func_, notify_, data_) = marshalToPointer(func, CallbackScope.Notified);
             g_source_set_callback(this_, func_, data_, notify_);
         }
@@ -1400,7 +1400,7 @@ namespace GISharp.Lib.GLib
         [Since("2.12")]
         void SetFuncs(SourceFuncs funcs)
         {
-            g_source_set_funcs(Handle, funcs);
+            g_source_set_funcs(UnsafeHandle, funcs);
         }
 
         /// <summary>

@@ -52,23 +52,23 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public unsafe double Minimum => ((UnmanagedStruct*)Handle)->Minimum;
+        public unsafe double Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public unsafe double Maximum => ((UnmanagedStruct*)Handle)->Maximum;
+        public unsafe double Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new double DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
+        public unsafe new double DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
 
         /// <summary>
         /// values closer than epsilon will be considered identical by
         /// g_param_values_cmp(); the default value is 1e-90.
         /// </summary>
-        public unsafe double Epsilon => ((UnmanagedStruct*)Handle)->Epsilon;
+        public unsafe double Epsilon => ((UnmanagedStruct*)UnsafeHandle)->Epsilon;
 
         /// <summary>
         /// For internal runtime use only.

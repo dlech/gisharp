@@ -46,17 +46,17 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public unsafe ulong Minimum => ((UnmanagedStruct*)Handle)->Minimum;
+        public unsafe ulong Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public unsafe ulong Maximum => ((UnmanagedStruct*)Handle)->Maximum;
+        public unsafe ulong Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new ulong DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue;
+        public unsafe new ulong DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.

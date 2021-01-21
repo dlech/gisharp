@@ -56,7 +56,7 @@ namespace GISharp.Lib.Gio
         static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             CheckNewArgs(iconname);
-            var iconname_ = iconname.Handle;
+            var iconname_ = iconname.UnsafeHandle;
             var ret_ = g_themed_icon_new(iconname_);
             return ret_;
         }
@@ -140,7 +140,7 @@ namespace GISharp.Lib.Gio
         static unsafe System.IntPtr NewWithDefaultFallbacks(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             CheckNewWithDefaultFallbacksArgs(iconname);
-            var iconname_ = iconname.Handle;
+            var iconname_ = iconname.UnsafeHandle;
             var ret_ = g_themed_icon_new_with_default_fallbacks(iconname_);
             return ret_;
         }
@@ -180,8 +180,8 @@ namespace GISharp.Lib.Gio
         public unsafe void AppendName(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             CheckAppendNameArgs(iconname);
-            var icon_ = Handle;
-            var iconname_ = iconname.Handle;
+            var icon_ = UnsafeHandle;
+            var iconname_ = iconname.UnsafeHandle;
             g_themed_icon_append_name(icon_, iconname_);
         }
 
@@ -208,7 +208,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.GLib.Strv GetNames()
         {
             CheckGetNamesArgs();
-            var icon_ = Handle;
+            var icon_ = UnsafeHandle;
             var ret_ = g_themed_icon_get_names(icon_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Strv>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -245,8 +245,8 @@ namespace GISharp.Lib.Gio
         public unsafe void PrependName(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
             CheckPrependNameArgs(iconname);
-            var icon_ = Handle;
-            var iconname_ = iconname.Handle;
+            var icon_ = UnsafeHandle;
+            var iconname_ = iconname.UnsafeHandle;
             g_themed_icon_prepend_name(icon_, iconname_);
         }
 

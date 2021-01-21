@@ -50,7 +50,7 @@ namespace GISharp.Lib.GLib
         static unsafe System.IntPtr New(GISharp.Lib.GLib.VariantType type)
         {
             CheckNewArgs(type);
-            var type_ = type.Handle;
+            var type_ = type.UnsafeHandle;
             var ret_ = g_variant_builder_new(type_);
             return ret_;
         }
@@ -104,8 +104,8 @@ namespace GISharp.Lib.GLib
         public unsafe void Add(GISharp.Lib.GLib.Variant value)
         {
             CheckAddArgs(value);
-            var builder_ = Handle;
-            var value_ = value.Handle;
+            var builder_ = UnsafeHandle;
+            var value_ = value.UnsafeHandle;
             g_variant_builder_add_value(builder_, value_);
         }
 
@@ -136,7 +136,7 @@ namespace GISharp.Lib.GLib
         public unsafe void Close()
         {
             CheckCloseArgs();
-            var builder_ = Handle;
+            var builder_ = UnsafeHandle;
             g_variant_builder_close(builder_);
         }
 
@@ -181,7 +181,7 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Variant End()
         {
             CheckEndArgs();
-            var builder_ = Handle;
+            var builder_ = UnsafeHandle;
             var ret_ = g_variant_builder_end(builder_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -250,8 +250,8 @@ namespace GISharp.Lib.GLib
         public unsafe void Open(GISharp.Lib.GLib.VariantType type)
         {
             CheckOpenArgs(type);
-            var builder_ = Handle;
-            var type_ = type.Handle;
+            var builder_ = UnsafeHandle;
+            var type_ = type.UnsafeHandle;
             g_variant_builder_open(builder_, type_);
         }
 
@@ -281,7 +281,7 @@ namespace GISharp.Lib.GLib
         /// Takes ownership of the unmanaged pointer without freeing it.
         /// The managed object can no longer be used (will throw disposed exception).
         /// </summary>
-        public override System.IntPtr Take() => g_variant_builder_ref(Handle);
+        public override System.IntPtr Take() => g_variant_builder_ref(UnsafeHandle);
 
         /// <summary>
         /// Decreases the reference count on @builder.

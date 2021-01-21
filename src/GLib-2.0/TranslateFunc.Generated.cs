@@ -48,7 +48,7 @@ namespace GISharp.Lib.GLib
 
             unsafe GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str)
             {
-                var str_ = str.Handle;
+                var str_ = str.UnsafeHandle;
                 var ret_ = unmanagedCallback(str_,data_);
                 var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
                 return ret;
@@ -99,7 +99,7 @@ namespace GISharp.Lib.GLib
                 {
                     Destroy(data_);
                 }
-                var ret_ = ret.Handle;
+                var ret_ = ret.UnsafeHandle;
                 return ret_;
             }
             catch (System.Exception ex)

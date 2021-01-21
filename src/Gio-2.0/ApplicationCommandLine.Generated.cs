@@ -125,8 +125,8 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.IFile CreateFileForArg(GISharp.Lib.GLib.Filename arg)
         {
             CheckCreateFileForArgArgs(arg);
-            var cmdline_ = Handle;
-            var arg_ = arg.Handle;
+            var cmdline_ = UnsafeHandle;
+            var arg_ = arg.UnsafeHandle;
             var ret_ = g_application_command_line_create_file_for_arg(cmdline_,arg_);
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -175,7 +175,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename> GetArguments()
         {
             CheckGetArgumentsArgs();
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var ret_ = g_application_command_line_get_arguments(cmdline_,out var argc_);
             var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, (int)argc_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -212,7 +212,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.GLib.Filename? GetCwd()
         {
             CheckGetCwdArgs();
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var ret_ = g_application_command_line_get_cwd(cmdline_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>(ret_, GISharp.Runtime.Transfer.None);
             return ret;
@@ -259,7 +259,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Runtime.FilenameArray GetEnvironment()
         {
             CheckGetEnvironmentArgs();
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var ret_ = g_application_command_line_get_environ(cmdline_);
             var ret = new GISharp.Runtime.FilenameArray((System.IntPtr)ret_, -1, GISharp.Runtime.Transfer.None);
             return ret;
@@ -289,7 +289,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.Int32 GetExitStatus()
         {
             CheckGetExitStatusArgs();
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var ret_ = g_application_command_line_get_exit_status(cmdline_);
             var ret = (System.Int32)ret_;
             return ret;
@@ -318,7 +318,7 @@ namespace GISharp.Lib.Gio
         private unsafe System.Boolean GetIsRemote()
         {
             CheckGetIsRemoteArgs();
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var ret_ = g_application_command_line_get_is_remote(cmdline_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -356,7 +356,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.GLib.VariantDict GetOptions()
         {
             CheckGetOptionsArgs();
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var ret_ = g_application_command_line_get_options_dict(cmdline_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>(ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -393,7 +393,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.GLib.Variant? GetPlatformData()
         {
             CheckGetPlatformDataArgs();
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var ret_ = g_application_command_line_get_platform_data(cmdline_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -432,7 +432,7 @@ namespace GISharp.Lib.Gio
         private unsafe GISharp.Lib.Gio.InputStream GetStdin()
         {
             CheckGetStdinArgs();
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var ret_ = g_application_command_line_get_stdin(cmdline_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -479,8 +479,8 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.GLib.UnownedUtf8 GetEnvironmentVariable(GISharp.Lib.GLib.Filename name)
         {
             CheckGetEnvironmentVariableArgs(name);
-            var cmdline_ = Handle;
-            var name_ = name.Handle;
+            var cmdline_ = UnsafeHandle;
+            var name_ = name.UnsafeHandle;
             var ret_ = g_application_command_line_getenv(cmdline_,name_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_, -1);
             return ret;
@@ -533,7 +533,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetExitStatus(System.Int32 exitStatus)
         {
             CheckSetExitStatusArgs(exitStatus);
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var exitStatus_ = (System.Int32)exitStatus;
             g_application_command_line_set_exit_status(cmdline_, exitStatus_);
         }
@@ -543,7 +543,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedGetStdin))]
         protected virtual unsafe GISharp.Lib.Gio.InputStream DoGetStdin()
         {
-            var cmdline_ = Handle;
+            var cmdline_ = UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedGetStdin>(_GType)!(cmdline_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -553,8 +553,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrintLiteral))]
         protected virtual unsafe void DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
-            var cmdline_ = Handle;
-            var message_ = message.Handle;
+            var cmdline_ = UnsafeHandle;
+            var message_ = message.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrintLiteral>(_GType)!(cmdline_, message_);
         }
 
@@ -562,8 +562,8 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationCommandLineClass.UnmanagedPrinterrLiteral))]
         protected virtual unsafe void DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
-            var cmdline_ = Handle;
-            var message_ = message.Handle;
+            var cmdline_ = UnsafeHandle;
+            var message_ = message.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrinterrLiteral>(_GType)!(cmdline_, message_);
         }
     }

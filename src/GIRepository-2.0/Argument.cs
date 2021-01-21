@@ -59,7 +59,7 @@ namespace GISharp.Lib.GIRepository
 
         public NullableUnownedUtf8 String {
             get => new NullableUnownedUtf8(@string, -1);
-            set => @string = value.Handle;
+            set => @string = value.UnsafeHandle;
         }
 
         public NullableUnownedUtf8 GetString(int size)

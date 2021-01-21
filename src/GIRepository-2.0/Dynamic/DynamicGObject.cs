@@ -23,11 +23,11 @@ namespace GISharp.Lib.GIRepository.Dynamic
             pspecValueTypeOffset = pspecInfo.Fields["value_type"].Offset;
         }
 
-        public IntPtr Handle { get; private set; }
+        public IntPtr UnsafeHandle { get; private set; }
 
         public DynamicGObject(IntPtr handle)
         {
-            Handle = g_object_ref(handle);
+            UnsafeHandle = g_object_ref(handle);
         }
 
         public DynamicMetaObject GetMetaObject(Expression parameter)
@@ -48,7 +48,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
 
         protected virtual void Dispose(bool disposing)
         {
-            g_object_unref(Handle);
+            g_object_unref(UnsafeHandle);
         }
 
         public void SetProperty(string name, object? value)
@@ -57,7 +57,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
                 throw new ArgumentNullException(nameof(name));
             }
             var namePtr = GMarshal.StringToUtf8Ptr(name);
-            var objectClassPtr = Marshal.ReadIntPtr(Handle);
+            var objectClassPtr = Marshal.ReadIntPtr(UnsafeHandle);
             var pspecPtr = g_object_class_find_property(objectClassPtr, namePtr);
             try {
                 if (pspecPtr == IntPtr.Zero) {
@@ -67,7 +67,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
                 var valueType = Marshal.PtrToStructure<UIntPtr>(pspecPtr + pspecValueTypeOffset);
                 var gvalue = new GValue(valueType);
                 gvalue.Set(value);
-                g_object_set_property(Handle, namePtr, in gvalue);
+                g_object_set_property(UnsafeHandle, namePtr, in gvalue);
             }
             finally {
                 GMarshal.Free(namePtr);
@@ -80,7 +80,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
                 throw new ArgumentNullException(nameof(name));
             }
             var namePtr = GMarshal.StringToUtf8Ptr(name);
-            g_object_get_property(Handle, namePtr, out var value);
+            g_object_get_property(UnsafeHandle, namePtr, out var value);
             GMarshal.Free(namePtr);
 
             return value.Get();
@@ -113,13 +113,13 @@ namespace GISharp.Lib.GIRepository.Dynamic
         ulong Connect(string signalSpec, GClosure closure, ConnectFlags flags)
         {
             using var signalSpec_ = (Utf8)signalSpec;
-            var ret = g_signal_connect_closure(Handle, signalSpec_.Handle, closure.Handle, flags);
+            var ret = g_signal_connect_closure(UnsafeHandle, signalSpec_.UnsafeHandle, closure.UnsafeHandle, flags);
             return ret;
         }
 
         public void Disconnect(ulong signalId)
         {
-            g_signal_handler_disconnect(Handle, (CULong)signalId);
+            g_signal_handler_disconnect(UnsafeHandle, (CULong)signalId);
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
@@ -156,7 +156,7 @@ namespace GISharp.Lib.GIRepository.Dynamic
         {
             typeRestrictions = BindingRestrictions.GetTypeRestriction(Expression, typeof(DynamicGObject));
 
-            var objectClassPtr = Marshal.ReadIntPtr(obj.Handle);
+            var objectClassPtr = Marshal.ReadIntPtr(obj.UnsafeHandle);
             var gtype = Marshal.PtrToStructure<GType>(objectClassPtr);
             Info = (ObjectInfo)Repository.FindByGType(gtype)!;
         }

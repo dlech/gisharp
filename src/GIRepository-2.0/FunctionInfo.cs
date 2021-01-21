@@ -65,7 +65,7 @@ namespace GISharp.Lib.GIRepository
 
         FunctionInfoFlags Flags {
             get {
-                return g_function_info_get_flags(Handle);
+                return g_function_info_get_flags(UnsafeHandle);
             }
         }
 
@@ -79,7 +79,7 @@ namespace GISharp.Lib.GIRepository
                 if (!IsGetter && !IsSetter) {
                     return null;
                 }
-                IntPtr raw_ret = g_function_info_get_property(Handle);
+                IntPtr raw_ret = g_function_info_get_property(UnsafeHandle);
                 return GetInstanceOrNull<PropertyInfo>(raw_ret);
             }
         }
@@ -89,7 +89,7 @@ namespace GISharp.Lib.GIRepository
 
         public UnownedUtf8 Symbol {
             get {
-                var ret_ = g_function_info_get_symbol(Handle);
+                var ret_ = g_function_info_get_symbol(UnsafeHandle);
                 return new UnownedUtf8(ret_, -1);
             }
         }
@@ -102,7 +102,7 @@ namespace GISharp.Lib.GIRepository
                 if (!WrapsVfunc) {
                     return null;
                 }
-                IntPtr raw_ret = g_function_info_get_vfunc(Handle);
+                IntPtr raw_ret = g_function_info_get_vfunc(UnsafeHandle);
                 return GetInstanceOrNull<VFuncInfo>(raw_ret);
             }
         }
@@ -121,7 +121,7 @@ namespace GISharp.Lib.GIRepository
         {
             fixed (Argument* inArgs_ = inArgs)
             fixed (Argument* outArgs_ = outArgs) {
-                if (g_function_info_invoke(Handle, inArgs_, inArgs.Length, outArgs_, outArgs.Length, out var ret, out var err_).IsFalse()) {
+                if (g_function_info_invoke(UnsafeHandle, inArgs_, inArgs.Length, outArgs_, outArgs.Length, out var ret, out var err_).IsFalse()) {
                     var err = new Error(err_, Runtime.Transfer.Full);
                     throw new GErrorException(err);
                 }
@@ -153,7 +153,7 @@ namespace GISharp.Lib.GIRepository
                         }
                         else {
                             dynamic dObj = obj.Value;
-                            arg.Pointer = dObj.Handle;
+                            arg.Pointer = dObj.UnsafeHandle;
                         }
                         break;
                     default:
@@ -177,7 +177,7 @@ namespace GISharp.Lib.GIRepository
                             break;
                         case TypeTag.Filename:
                             var filenames = new FilenameArray((string[])obj.Value!);
-                            arg.Pointer = filenames.Handle;
+                            arg.Pointer = filenames.UnsafeHandle;
                             free += () => filenames.Dispose();
                             break;
                         default:
@@ -349,7 +349,7 @@ namespace GISharp.Lib.GIRepository
             var freeOutArgs = default(Action);
 
             if (IsMethod) {
-                inArgs[0].Pointer = instance!.Handle;
+                inArgs[0].Pointer = instance!.UnsafeHandle;
             }
             foreach (var arg in matchArgs) {
                 if (arg.InIndex >= 0) {

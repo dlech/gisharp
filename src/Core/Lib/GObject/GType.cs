@@ -801,7 +801,7 @@ namespace GISharp.Lib.GObject
         public static GType FromName(UnownedUtf8 name)
         {
             AssertGTypeName(name);
-            var ret = g_type_from_name(name.Handle);
+            var ret = g_type_from_name(name.UnsafeHandle);
             return ret;
         }
 
@@ -853,7 +853,7 @@ namespace GISharp.Lib.GObject
         static unsafe GType RegisterStatic(GType parentType, string typeName, in TypeInfo info, TypeFlags flags)
         {
             using var typeNameUtf8 = typeName.ToUtf8();
-            var typeName_ = typeNameUtf8.Handle;
+            var typeName_ = typeNameUtf8.UnsafeHandle;
             var handle = GCHandle.Alloc(info, GCHandleType.Pinned);
             var info_ = (TypeInfo*)handle.AddrOfPinnedObject();
             var ret = g_type_register_static(parentType, typeName_, info_, flags);
@@ -1574,7 +1574,7 @@ namespace GISharp.Lib.GObject
 
         public static TypeClass CheckClassCast(TypeClass gClass, GType isAType)
         {
-            var gClass_ = gClass.Handle;
+            var gClass_ = gClass.UnsafeHandle;
             var ret_ = g_type_check_class_cast(gClass_, isAType);
             var ret = GISharp.Core.Opaque.GetInstance<TypeClass>(ret_, GISharp.Core.Transfer.All);
             return ret;
@@ -1593,7 +1593,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckClassIsA(TypeClass gClass, GType isAType)
         {
-            var gClass_ = gClass.Handle;
+            var gClass_ = gClass.UnsafeHandle;
             var ret = g_type_check_class_is_a(gClass_, isAType);
             return ret;
         }
@@ -1628,7 +1628,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static bool CheckInstance(TypeInstance instance)
         {
-            var instance_ = instance.Handle;
+            var instance_ = instance.UnsafeHandle;
             var ret = g_type_check_instance(instance_);
             return ret;
         }
@@ -1646,7 +1646,7 @@ namespace GISharp.Lib.GObject
 
         public static TypeInstance CheckInstanceCast(TypeInstance instance, GType ifaceType)
         {
-            var instance_ = instance.Handle;
+            var instance_ = instance.UnsafeHandle;
             var ret_ = g_type_check_instance_cast(instance_, ifaceType);
             var ret = GISharp.Core.Opaque.GetInstance<TypeInstance>(ret_, GISharp.Core.Transfer.All);
             return ret;
@@ -1665,7 +1665,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckInstanceIsA(TypeInstance instance, GType ifaceType)
         {
-            var instance_ = instance.Handle;
+            var instance_ = instance.UnsafeHandle;
             var ret = g_type_check_instance_is_a(instance_, ifaceType);
             return ret;
         }
@@ -1683,7 +1683,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckInstanceIsFundamentallyA(TypeInstance instance, GType fundamentalType)
         {
-            var instance_ = instance.Handle;
+            var instance_ = instance.UnsafeHandle;
             var ret = g_type_check_instance_is_fundamentally_a(instance_, fundamentalType);
             return ret;
         }
@@ -1698,7 +1698,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckValue(Value value)
         {
-            var value_ = value.Handle;
+            var value_ = value.UnsafeHandle;
             var ret = g_type_check_value(value_);
             return ret;
         }
@@ -1716,7 +1716,7 @@ namespace GISharp.Lib.GObject
 
         public static bool CheckValueHolds(Value value, GType type)
         {
-            var value_ = value.Handle;
+            var value_ = value.UnsafeHandle;
             var ret = g_type_check_value_holds(value_, type);
             return ret;
         }
@@ -1905,7 +1905,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         public static void FreeInstance(TypeInstance instance)
         {
-            var instance_ = instance.Handle;
+            var instance_ = instance.UnsafeHandle;
             g_type_free_instance(instance_);
         }
 
@@ -2220,7 +2220,7 @@ namespace GISharp.Lib.GObject
 
         public static UnownedUtf8 NameFromClass(TypeClass gClass)
         {
-            var gClass_ = gClass.Handle;
+            var gClass_ = gClass.UnsafeHandle;
             var ret_ = g_type_name_from_class(gClass_);
             var ret = new UnownedUtf8(ret_, -1);
             return ret;
@@ -2236,7 +2236,7 @@ namespace GISharp.Lib.GObject
 
         public static UnownedUtf8 NameFromInstance(TypeInstance instance)
         {
-            var instance_ = instance.Handle;
+            var instance_ = instance.UnsafeHandle;
             var ret_ = g_type_name_from_instance(instance_);
             var ret = new UnownedUtf8(ret_, -1);
             return ret;
@@ -2390,8 +2390,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static GType RegisterDynamic(GType parentType, UnownedUtf8 typeName, TypePlugin plugin, TypeFlags flags)
         {
-            var typeName_ = typeName.Handle;
-            var plugin_ = plugin.Handle;
+            var typeName_ = typeName.UnsafeHandle;
+            var plugin_ = plugin.UnsafeHandle;
             var ret = g_type_register_dynamic(parentType, typeName_, plugin_, flags);
             return ret;
         }
@@ -2472,7 +2472,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static GType RegisterFundamental(GType typeId, UnownedUtf8 typeName, TypeInfo info, TypeFundamentalInfo finfo, TypeFlags flags)
         {
-            var typeName_ = typeName.Handle;
+            var typeName_ = typeName.UnsafeHandle;
             var ret = g_type_register_fundamental(typeId, typeName_, info, finfo, flags);
             return ret;
         }

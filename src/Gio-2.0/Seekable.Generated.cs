@@ -64,7 +64,7 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Boolean CanSeek(this GISharp.Lib.Gio.ISeekable seekable)
         {
             CheckCanSeekArgs(seekable);
-            var seekable_ = seekable.Handle;
+            var seekable_ = seekable.UnsafeHandle;
             var ret_ = g_seekable_can_seek(seekable_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -93,7 +93,7 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Boolean CanTruncate(this GISharp.Lib.Gio.ISeekable seekable)
         {
             CheckCanTruncateArgs(seekable);
-            var seekable_ = seekable.Handle;
+            var seekable_ = seekable.UnsafeHandle;
             var ret_ = g_seekable_can_truncate(seekable_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -161,10 +161,10 @@ namespace GISharp.Lib.Gio
         public unsafe static void Seek(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckSeekArgs(seekable, offset, type, cancellable);
-            var seekable_ = seekable.Handle;
+            var seekable_ = seekable.UnsafeHandle;
             var offset_ = (System.Int64)offset;
             var type_ = (GISharp.Lib.GLib.SeekType)type;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             g_seekable_seek(seekable_, offset_, type_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -196,7 +196,7 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Int64 Tell(this GISharp.Lib.Gio.ISeekable seekable)
         {
             CheckTellArgs(seekable);
-            var seekable_ = seekable.Handle;
+            var seekable_ = seekable.UnsafeHandle;
             var ret_ = g_seekable_tell(seekable_);
             var ret = (System.Int64)ret_;
             return ret;
@@ -253,9 +253,9 @@ namespace GISharp.Lib.Gio
         public unsafe static void Truncate(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckTruncateArgs(seekable, offset, cancellable);
-            var seekable_ = seekable.Handle;
+            var seekable_ = seekable.UnsafeHandle;
             var offset_ = (System.Int64)offset;
-            var cancellable_ = cancellable?.Handle ?? System.IntPtr.Zero;
+            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
             var error_ = System.IntPtr.Zero;
             g_seekable_truncate(seekable_, offset_, cancellable_, ref error_);
             if (error_ != System.IntPtr.Zero)

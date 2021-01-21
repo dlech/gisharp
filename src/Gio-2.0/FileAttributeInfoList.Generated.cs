@@ -100,8 +100,8 @@ namespace GISharp.Lib.Gio
         public unsafe void Add(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.Gio.FileAttributeType type, GISharp.Lib.Gio.FileAttributeInfoFlags flags)
         {
             CheckAddArgs(name, type, flags);
-            var list_ = Handle;
-            var name_ = name.Handle;
+            var list_ = UnsafeHandle;
+            var name_ = name.UnsafeHandle;
             var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
             var flags_ = (GISharp.Lib.Gio.FileAttributeInfoFlags)flags;
             g_file_attribute_info_list_add(list_, name_, type_, flags_);
@@ -129,7 +129,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.FileAttributeInfoList Dup()
         {
             CheckDupArgs();
-            var list_ = Handle;
+            var list_ = UnsafeHandle;
             var ret_ = g_file_attribute_info_list_dup(list_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileAttributeInfoList>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -164,8 +164,8 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Lib.Gio.FileAttributeInfo? Lookup(GISharp.Lib.GLib.UnownedUtf8 name)
         {
             CheckLookupArgs(name);
-            var list_ = Handle;
-            var name_ = name.Handle;
+            var list_ = UnsafeHandle;
+            var name_ = name.UnsafeHandle;
             var ret_ = g_file_attribute_info_list_lookup(list_,name_);
             var ret = (ret_ == null) ? default(GISharp.Lib.Gio.FileAttributeInfo?) : (GISharp.Lib.Gio.FileAttributeInfo)(*ret_);
             return ret;
@@ -192,7 +192,7 @@ namespace GISharp.Lib.Gio
         /// Takes ownership of the unmanaged pointer without freeing it.
         /// The managed object can no longer be used (will throw disposed exception).
         /// </summary>
-        public override System.IntPtr Take() => g_file_attribute_info_list_ref(Handle);
+        public override System.IntPtr Take() => g_file_attribute_info_list_ref(UnsafeHandle);
 
         /// <summary>
         /// Removes a reference from the given @list. If the reference count

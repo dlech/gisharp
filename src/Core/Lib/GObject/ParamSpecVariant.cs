@@ -44,7 +44,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe VariantType? VariantType {
             get {
-                var ret_ = ((UnmanagedStruct*)Handle)->VariantType;
+                var ret_ = ((UnmanagedStruct*)UnsafeHandle)->VariantType;
                 var ret = Opaque.GetInstance<VariantType>(ret_, Transfer.None);
                 return ret;
             }
@@ -55,7 +55,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe new Variant? DefaultValue {
             get {
-                var ret_ = ((UnmanagedStruct*)Handle)->DefaultValue;
+                var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
                 var ret = Opaque.GetInstance<Variant>(ret_, Transfer.None);
                 return ret;
             }
@@ -88,8 +88,8 @@ namespace GISharp.Lib.GObject
             var namePtr = GMarshal.StringToUtf8Ptr(name);
             var nickPtr = GMarshal.StringToUtf8Ptr(nick);
             var blurbPtr = GMarshal.StringToUtf8Ptr(blurb);
-            var defaultValuePtr = defaultValue?.Handle ?? IntPtr.Zero;
-            var ret = g_param_spec_variant(namePtr, nickPtr, blurbPtr, type.Handle, defaultValuePtr, flags);
+            var defaultValuePtr = defaultValue?.UnsafeHandle ?? IntPtr.Zero;
+            var ret = g_param_spec_variant(namePtr, nickPtr, blurbPtr, type.UnsafeHandle, defaultValuePtr, flags);
 
             // Any strings that have the cooresponding static flag set must not
             // be freed because they are passed to g_intern_static_string().

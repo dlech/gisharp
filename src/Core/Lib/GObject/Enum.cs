@@ -141,7 +141,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static EnumValue GetValue(EnumClass enumClass, int value)
         {
-            var ret_ = g_enum_get_value(enumClass.Handle, value);
+            var ret_ = g_enum_get_value(enumClass.UnsafeHandle, value);
             var ret = Marshal.PtrToStructure<EnumValue>(ret_);
 
             return ret;
@@ -188,8 +188,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static EnumValue GetValueByName(EnumClass enumClass, UnownedUtf8 name)
         {
-            var enumClass_ = enumClass.Handle;
-            var name_ = name.Handle;
+            var enumClass_ = enumClass.UnsafeHandle;
+            var name_ = name.UnsafeHandle;
             var ret_ = g_enum_get_value_by_name(enumClass_, name_);
             var ret = Marshal.PtrToStructure<EnumValue>(ret_);
 
@@ -237,8 +237,8 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static EnumValue GetValueByNick(EnumClass enumClass, UnownedUtf8 nick)
         {
-            var enumClass_ = enumClass.Handle;
-            var nick_ = nick.Handle;
+            var enumClass_ = enumClass.UnsafeHandle;
+            var nick_ = nick.UnsafeHandle;
             var ret_ = g_enum_get_value_by_nick(enumClass_, nick_);
             var ret = Marshal.PtrToStructure<EnumValue>(ret_);
 
@@ -255,7 +255,7 @@ namespace GISharp.Lib.GObject
         {
             GType.AssertGTypeName(typeName);
             using var typeNameUtf8 = typeName.ToUtf8();
-            var typeName_ = typeNameUtf8.Handle;
+            var typeName_ = typeNameUtf8.UnsafeHandle;
             var handle = values.Pin();
             try {
                 var values_ = (EnumValue*)handle.Pointer;

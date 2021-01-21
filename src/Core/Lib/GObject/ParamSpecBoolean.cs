@@ -36,7 +36,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new bool DefaultValue => ((UnmanagedStruct*)Handle)->DefaultValue.IsTrue();
+        public unsafe new bool DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue.IsTrue();
 
         /// <summary>
         /// For internal runtime use only.

@@ -53,7 +53,7 @@ namespace GISharp.Lib.Gio
 
             unsafe System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize)
             {
-                var fileContents_ = fileContents.Handle;
+                var fileContents_ = fileContents.UnsafeHandle;
                 var fileSize_ = (System.Int64)fileSize;
                 var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_);
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);

@@ -35,7 +35,7 @@ namespace GISharp.Lib.Gio
         public static unsafe GISharp.Lib.Gio.IIcon Deserialize(GISharp.Lib.GLib.Variant value)
         {
             CheckDeserializeArgs(value);
-            var value_ = value.Handle;
+            var value_ = value.UnsafeHandle;
             var ret_ = g_icon_deserialize(value_);
             var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -79,7 +79,7 @@ namespace GISharp.Lib.Gio
         public static unsafe GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.UnownedUtf8 str)
         {
             CheckNewForStringArgs(str);
-            var str_ = str.Handle;
+            var str_ = str.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_icon_new_for_string(str_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -140,7 +140,7 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Int32 GetHashCode(this GISharp.Lib.Gio.IIcon icon)
         {
             CheckGetHashCodeArgs(icon);
-            var icon_ = icon.Handle;
+            var icon_ = icon.UnsafeHandle;
             var ret_ = g_icon_hash(icon_);
             var ret = (System.Int32)ret_;
             return ret;
@@ -174,8 +174,8 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Boolean Equals(this GISharp.Lib.Gio.IIcon? icon1, GISharp.Lib.Gio.IIcon? icon2)
         {
             CheckEqualsArgs(icon1, icon2);
-            var icon1_ = icon1?.Handle ?? System.IntPtr.Zero;
-            var icon2_ = icon2?.Handle ?? System.IntPtr.Zero;
+            var icon1_ = icon1?.UnsafeHandle ?? System.IntPtr.Zero;
+            var icon2_ = icon2?.UnsafeHandle ?? System.IntPtr.Zero;
             var ret_ = g_icon_equal(icon1_,icon2_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -209,7 +209,7 @@ namespace GISharp.Lib.Gio
         public unsafe static GISharp.Lib.GLib.Variant Serialize(this GISharp.Lib.Gio.IIcon icon)
         {
             CheckSerializeArgs(icon);
-            var icon_ = icon.Handle;
+            var icon_ = icon.UnsafeHandle;
             var ret_ = g_icon_serialize(icon_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -256,7 +256,7 @@ namespace GISharp.Lib.Gio
         public unsafe static GISharp.Lib.GLib.Utf8? ToString(this GISharp.Lib.Gio.IIcon icon)
         {
             CheckToStringArgs(icon);
-            var icon_ = icon.Handle;
+            var icon_ = icon.UnsafeHandle;
             var ret_ = g_icon_to_string(icon_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;

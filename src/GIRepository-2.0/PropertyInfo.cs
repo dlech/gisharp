@@ -13,35 +13,35 @@ namespace GISharp.Lib.GIRepository
     public sealed class PropertyInfo : BaseInfo
     {
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern ParamFlags g_property_info_get_flags (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern ParamFlags g_property_info_get_flags(IntPtr raw);
 
         public ParamFlags Flags {
             get {
-                return g_property_info_get_flags (Handle);
+                return g_property_info_get_flags(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Transfer g_property_info_get_ownership_transfer (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern Transfer g_property_info_get_ownership_transfer(IntPtr raw);
 
         public Transfer OwnershipTransfer {
             get {
-                return g_property_info_get_ownership_transfer (Handle);
+                return g_property_info_get_ownership_transfer(UnsafeHandle);
             }
         }
 
-        [DllImport ("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_property_info_get_type (IntPtr raw);
+        [DllImport("libgirepository-1.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern IntPtr g_property_info_get_type(IntPtr raw);
 
         public TypeInfo TypeInfo {
             get {
-                IntPtr raw_ret = g_property_info_get_type (Handle);
+                IntPtr raw_ret = g_property_info_get_type(UnsafeHandle);
                 return GetInstance<TypeInfo>(raw_ret);
             }
         }
 
-        public PropertyInfo (IntPtr raw) : base (raw)
+        public PropertyInfo(IntPtr raw) : base(raw)
         {
         }
     }

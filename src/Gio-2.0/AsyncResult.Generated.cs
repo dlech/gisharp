@@ -58,7 +58,7 @@ namespace GISharp.Lib.Gio
         public unsafe static GISharp.Lib.GObject.Object? GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
         {
             CheckGetSourceObjectArgs(res);
-            var res_ = res.Handle;
+            var res_ = res.UnsafeHandle;
             var ret_ = g_async_result_get_source_object(res_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -86,7 +86,7 @@ namespace GISharp.Lib.Gio
         public unsafe static System.IntPtr GetUserData(this GISharp.Lib.Gio.IAsyncResult res)
         {
             CheckGetUserDataArgs(res);
-            var res_ = res.Handle;
+            var res_ = res.UnsafeHandle;
             var ret_ = g_async_result_get_user_data(res_);
             var ret = (System.IntPtr)ret_;
             return ret;
@@ -124,7 +124,7 @@ namespace GISharp.Lib.Gio
         public unsafe static System.Boolean IsTagged(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag)
         {
             CheckIsTaggedArgs(res, sourceTag);
-            var res_ = res.Handle;
+            var res_ = res.UnsafeHandle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             var ret_ = g_async_result_is_tagged(res_,sourceTag_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);

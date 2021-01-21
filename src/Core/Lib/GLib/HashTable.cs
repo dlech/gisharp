@@ -32,7 +32,7 @@ namespace GISharp.Lib.GLib
         static extern IntPtr g_hash_table_ref(IntPtr hashTable);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_hash_table_ref(Handle);
+        public override IntPtr Take() => g_hash_table_ref(UnsafeHandle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_hash_table_destroy(IntPtr hashTable);
@@ -466,7 +466,7 @@ namespace GISharp.Lib.GLib
         [Since("2.12")]
         public void RemoveAll()
         {
-            g_hash_table_remove_all(Handle);
+            g_hash_table_remove_all(UnsafeHandle);
         }
 
         /// <summary>
@@ -517,7 +517,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public int Size {
             get {
-                var ret = g_hash_table_size(Handle);
+                var ret = g_hash_table_size(UnsafeHandle);
                 return (int)ret;
             }
         }
@@ -559,7 +559,7 @@ namespace GISharp.Lib.GLib
         // [Since("2.12")]
         // public void StealAll ()
         // {
-        //    g_hash_table_steal_all(Handle);
+        //    g_hash_table_steal_all(UnsafeHandle);
         // }
 
         /// <summary>
@@ -834,8 +834,8 @@ namespace GISharp.Lib.GLib
         [Since("2.32")]
         public bool TryAdd(TKey key)
         {
-            var this_ = Handle;
-            var key_ = key?.Handle ?? IntPtr.Zero;
+            var this_ = UnsafeHandle;
+            var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_add(this_, key_);
             var ret = ret_.IsTrue();
             return ret;
@@ -870,8 +870,8 @@ namespace GISharp.Lib.GLib
         [Since("2.32")]
         public bool Contains(TKey key)
         {
-            var this_ = Handle;
-            var key_ = key?.Handle ?? IntPtr.Zero;
+            var this_ = UnsafeHandle;
+            var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_contains(this_, key_);
             var ret = ret_.IsTrue();
             return ret;
@@ -905,7 +905,7 @@ namespace GISharp.Lib.GLib
         [Since("2.4")]
         public TValue Find(Predicate<KeyValuePair<TKey, TValue>> predicate)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             UnmanagedHRFunc predicate_ = (predicateKeyPtr, predicateValuePtr, predicateUserData) => {
                 var predicateKey = GetInstance<TKey>(predicateKeyPtr, Transfer.None);
                 var predicateValue = GetInstance<TValue>(predicateValuePtr, Transfer.None);
@@ -935,7 +935,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Foreach(Action<TKey, TValue> func)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             UnmanagedHFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
                 var funcKey = GetInstance<TKey>(funcKeyPtr, Transfer.None);
                 var funcValue = GetInstance<TValue>(funcValuePtr, Transfer.None);
@@ -964,7 +964,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public int ForeachRemove(Predicate<KeyValuePair<TKey, TValue>> func)
         {
-            var this_ = Handle;
+            var this_ = UnsafeHandle;
             UnmanagedHRFunc func_ = (funcKeyPtr, funcValuePtr, funcUserData) => {
                 var funcKey = GetInstance<TKey>(funcKeyPtr, Transfer.None);
                 var funcValue = GetInstance<TValue>(funcValuePtr, Transfer.None);
@@ -994,7 +994,7 @@ namespace GISharp.Lib.GLib
         ///// </returns>
         //public uint ForeachSteal (HRFunc<TKey,TValue> func)
         //{
-        //    var this_ = Handle;
+        //    var this_ = UnsafeHandle;
         //    UnmanagedHRFunc funcUnmanaged = (funcKeyPtr, funcValuePtr, funcUserData) => {
         //        var funcKey = GetInstance<TKey> (funcKeyPtr, Transfer.None);
         //        var funcValue = GetInstance<TValue> (funcValuePtr, Transfer.None);
@@ -1015,7 +1015,7 @@ namespace GISharp.Lib.GLib
         [Since("2.14")]
         public List<TKey> Keys {
             get {
-                var ret_ = g_hash_table_get_keys(Handle);
+                var ret_ = g_hash_table_get_keys(UnsafeHandle);
                 var ret = GetInstance<List<TKey>>(ret_, Transfer.Container) ?? new List<TKey>();
                 return ret;
             }
@@ -1034,7 +1034,7 @@ namespace GISharp.Lib.GLib
         [Since("2.14")]
         public List<TValue> Values {
             get {
-                var ret_ = g_hash_table_get_values(Handle);
+                var ret_ = g_hash_table_get_values(UnsafeHandle);
                 var ret = GetInstance<List<TValue>>(ret_, Transfer.Container) ?? new List<TValue>();
                 return ret;
             }
@@ -1058,9 +1058,9 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool Insert(TKey key, TValue value)
         {
-            var this_ = Handle;
-            var key_ = key?.Handle ?? IntPtr.Zero;
-            var value_ = value?.Handle ?? IntPtr.Zero;
+            var this_ = UnsafeHandle;
+            var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
+            var value_ = value?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_insert(this_, key_, value_);
             var ret = ret_.IsTrue();
             return ret;
@@ -1080,8 +1080,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public TValue Lookup(TKey key)
         {
-            var this_ = Handle;
-            var key_ = key?.Handle ?? IntPtr.Zero;
+            var this_ = UnsafeHandle;
+            var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_lookup(this_, key_);
             var ret = GetInstance<TValue>(ret_, Transfer.None);
             return ret;
@@ -1112,8 +1112,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public unsafe bool Lookup(TKey lookupKey, out TKey origKey, out TValue value)
         {
-            var this_ = Handle;
-            var lookupKey_ = lookupKey?.Handle ?? IntPtr.Zero;
+            var this_ = UnsafeHandle;
+            var lookupKey_ = lookupKey?.UnsafeHandle ?? IntPtr.Zero;
             var origKey_ = IntPtr.Zero;
             var value_ = IntPtr.Zero;
             var ret_ = g_hash_table_lookup_extended(this_, lookupKey_, &origKey_, &value_);
@@ -1134,8 +1134,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool Remove(TKey key)
         {
-            var this_ = Handle;
-            var key_ = key?.Handle ?? IntPtr.Zero;
+            var this_ = UnsafeHandle;
+            var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_remove(this_, key_);
             var ret = ret_.IsTrue();
             return ret;
@@ -1161,9 +1161,9 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool Replace(TKey key, TValue value)
         {
-            var this_ = Handle;
-            var key_ = key?.Handle ?? IntPtr.Zero;
-            var value_ = value?.Handle ?? IntPtr.Zero;
+            var this_ = UnsafeHandle;
+            var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
+            var value_ = value?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_hash_table_replace(this_, key_, value_);
             var ret = ret_.IsTrue();
             return ret;
@@ -1181,8 +1181,8 @@ namespace GISharp.Lib.GLib
         // /// </returns>
         // public bool Steal (TKey key)
         // {
-        //    var this_ = Handle;
-        //    var key_ = key?.Handle ?? IntPtr.Zero;
+        //    var this_ = UnsafeHandle;
+        //    var key_ = key?.UnsafeHandle ?? IntPtr.Zero;
         //    var ret = g_hash_table_steal(this_, key_);
         //    return ret;
         // }

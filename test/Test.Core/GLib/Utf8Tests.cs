@@ -29,7 +29,7 @@ namespace GISharp.Test.Core
         public void TestString()
         {
             {
-                var utf8 = new UnownedUtf8(testUtf8.Handle, -1);
+                var utf8 = new UnownedUtf8(testUtf8.UnsafeHandle, -1);
                 Assert.That(utf8.ToString(), Is.EqualTo(testString));
                 Assert.That((string)utf8, Is.EqualTo(testString));
                 Assert.That(utf8 == testString, Is.True);
@@ -42,7 +42,7 @@ namespace GISharp.Test.Core
                 Assert.That(default(string?) != utf8, Is.True);
             }
             {
-                var utf8 = new NullableUnownedUtf8(testUtf8.Handle, -1);
+                var utf8 = new NullableUnownedUtf8(testUtf8.UnsafeHandle, -1);
                 Assert.That(utf8.ToString(), Is.EqualTo(testString));
                 Assert.That((string?)utf8, Is.EqualTo(testString));
                 Assert.That(utf8 == testString, Is.True);

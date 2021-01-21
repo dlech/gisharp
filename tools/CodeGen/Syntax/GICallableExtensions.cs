@@ -117,7 +117,7 @@ namespace GISharp.CodeGen.Syntax
                     }
                     else {
                         // opaque type passed by reference
-                        var expression = ParseExpression($"var {identifier}_ = Handle");
+                        var expression = ParseExpression($"var {identifier}_ = UnsafeHandle");
                         yield return ExpressionStatement(expression);
                     }
                 }

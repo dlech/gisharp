@@ -39,10 +39,10 @@ namespace GISharp.Lib.GObject
         /// <param name="handlerId">
         /// Handler id of the handler to be disconnected.
         /// </param>
-        [DllImport ("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
+        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_signal_handler_disconnect (
+        static extern void g_signal_handler_disconnect(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
             IntPtr instance,
@@ -53,9 +53,9 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Disconnects a signal handler.
         /// </summary>
-        public void Disconnect ()
+        public void Disconnect()
         {
-            g_signal_handler_disconnect (instance.Handle, handlerId);
+            g_signal_handler_disconnect(instance.UnsafeHandle, handlerId);
         }
 
         /// <summary>
@@ -150,8 +150,8 @@ namespace GISharp.Lib.GObject
         ///// </returns>
         //public static SignalHandler Find(Object instance, SignalMatchType mask, uint signalId, Quark detail, Closure? closure, IntPtr func, IntPtr data)
         //{
-        //    var instance_ = instance.Handle;
-        //    var closure_ = closure?.Handle ?? IntPtr.Zero;
+        //    var instance_ = instance.UnsafeHandle;
+        //    var closure_ = closure?.UnsafeHandle ?? IntPtr.Zero;
         //    var ret = g_signal_handler_find (instance_, mask, signalId, detail, closure_, func, data);
         //    return ret;
         //}
@@ -187,7 +187,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public bool IsConnected {
             get {
-                var ret_ = g_signal_handler_is_connected (instance.Handle, handlerId);
+                var ret_ = g_signal_handler_is_connected(instance.UnsafeHandle, handlerId);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -242,9 +242,9 @@ namespace GISharp.Lib.GObject
         /// The @handler_id has to be a valid id of a signal handler that is
         /// connected to a signal of @instance and is currently blocked.
         /// </remarks>
-        public void Unblock ()
+        public void Unblock()
         {
-            g_signal_handler_unblock (instance.Handle, handlerId);
+            g_signal_handler_unblock(instance.UnsafeHandle, handlerId);
         }
     }
 }

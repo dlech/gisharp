@@ -90,7 +90,7 @@ namespace GISharp.Test.GLib
             using (var og = new OptionGroup("name", "desc", "help"))
             using (var oc = new OptionContext()) {
                 oc.AddGroup(og);
-                Assert.That(() => og.Handle, Throws.Nothing);
+                Assert.That(() => og.UnsafeHandle, Throws.Nothing);
             }
         }
 
@@ -100,7 +100,7 @@ namespace GISharp.Test.GLib
             using (var og = new OptionGroup("name", "desc", "help"))
             using (var oc = new OptionContext()) {
                 oc.MainGroup = og;
-                Assert.That(oc.MainGroup.Handle, Is.EqualTo(og.Handle));
+                Assert.That(oc.MainGroup.UnsafeHandle, Is.EqualTo(og.UnsafeHandle));
             }
         }
     }

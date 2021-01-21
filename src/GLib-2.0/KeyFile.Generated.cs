@@ -212,9 +212,9 @@ namespace GISharp.Lib.GLib
         public unsafe System.Boolean GetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetBooleanArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_boolean(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -287,9 +287,9 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Runtime.CArray<GISharp.Runtime.Boolean> GetBooleanList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetBooleanListArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_boolean_list(keyFile_,groupName_,key_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -352,9 +352,9 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Utf8 GetComment(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetCommentArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_comment(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -417,9 +417,9 @@ namespace GISharp.Lib.GLib
         public unsafe System.Double GetDouble(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetDoubleArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_double(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -492,9 +492,9 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Runtime.CArray<System.Double> GetDoubleList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetDoubleListArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_double_list(keyFile_,groupName_,key_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -541,7 +541,7 @@ namespace GISharp.Lib.GLib
         private unsafe GISharp.Lib.GLib.Strv GetGroups()
         {
             CheckGetGroupsArgs();
-            var keyFile_ = Handle;
+            var keyFile_ = UnsafeHandle;
             var ret_ = g_key_file_get_groups(keyFile_,out var length_);
             var ret = new GISharp.Lib.GLib.Strv(ret_, (int)length_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -592,9 +592,9 @@ namespace GISharp.Lib.GLib
         public unsafe System.Int64 GetInt64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetInt64Args(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_int64(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -658,9 +658,9 @@ namespace GISharp.Lib.GLib
         public unsafe System.Int32 GetInteger(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetIntegerArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_integer(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -734,9 +734,9 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Runtime.CArray<System.Int32> GetIntegerList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetIntegerListArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_integer_list(keyFile_,groupName_,key_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -798,8 +798,8 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Strv GetKeys(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
             CheckGetKeysArgs(groupName);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_keys(keyFile_,groupName_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -864,10 +864,10 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Utf8? GetLocaleForKey(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale)
         {
             CheckGetLocaleForKeyArgs(groupName, key, locale);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var locale_ = locale.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var locale_ = locale.UnsafeHandle;
             var ret_ = g_key_file_get_locale_for_key(keyFile_,groupName_,key_,locale_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -934,10 +934,10 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Utf8 GetLocaleString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale)
         {
             CheckGetLocaleStringArgs(groupName, key, locale);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var locale_ = locale.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var locale_ = locale.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_locale_string(keyFile_,groupName_,key_,locale_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1022,10 +1022,10 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Strv GetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.NullableUnownedUtf8 locale)
         {
             CheckGetLocaleStringListArgs(groupName, key, locale);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var locale_ = locale.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var locale_ = locale.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_locale_string_list(keyFile_,groupName_,key_,locale_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1061,7 +1061,7 @@ namespace GISharp.Lib.GLib
         private unsafe GISharp.Lib.GLib.Utf8 GetStartGroup()
         {
             CheckGetStartGroupArgs();
-            var keyFile_ = Handle;
+            var keyFile_ = UnsafeHandle;
             var ret_ = g_key_file_get_start_group(keyFile_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>(ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -1118,9 +1118,9 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Utf8 GetString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetStringArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_string(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1191,9 +1191,9 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Strv GetStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetStringListArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_string_list(keyFile_,groupName_,key_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1251,9 +1251,9 @@ namespace GISharp.Lib.GLib
         public unsafe System.UInt64 GetUint64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetUint64Args(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_uint64(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1316,9 +1316,9 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Utf8 GetValue(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckGetValueArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_get_value(keyFile_,groupName_,key_,ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1362,8 +1362,8 @@ namespace GISharp.Lib.GLib
         public unsafe System.Boolean HasGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
             CheckHasGroupArgs(groupName);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
             var ret_ = g_key_file_has_group(keyFile_,groupName_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -1412,8 +1412,8 @@ namespace GISharp.Lib.GLib
         public unsafe void LoadFromBytes(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.GLib.KeyFileFlags flags)
         {
             CheckLoadFromBytesArgs(bytes, flags);
-            var keyFile_ = Handle;
-            var bytes_ = bytes.Handle;
+            var keyFile_ = UnsafeHandle;
+            var bytes_ = bytes.UnsafeHandle;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
             g_key_file_load_from_bytes(keyFile_, bytes_, flags_, ref error_);
@@ -1473,8 +1473,8 @@ namespace GISharp.Lib.GLib
         public unsafe void LoadFromData(GISharp.Lib.GLib.UnownedUtf8 data, System.Int32 length, GISharp.Lib.GLib.KeyFileFlags flags)
         {
             CheckLoadFromDataArgs(data, length, flags);
-            var keyFile_ = Handle;
-            var data_ = data.Handle;
+            var keyFile_ = UnsafeHandle;
+            var data_ = data.UnsafeHandle;
             var length_ = (System.UIntPtr)length;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
@@ -1539,8 +1539,8 @@ namespace GISharp.Lib.GLib
         public unsafe void LoadFromDataDirs(GISharp.Lib.GLib.Filename file, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
         {
             CheckLoadFromDataDirsArgs(file, flags);
-            var keyFile_ = Handle;
-            var file_ = file.Handle;
+            var keyFile_ = UnsafeHandle;
+            var file_ = file.UnsafeHandle;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
             g_key_file_load_from_data_dirs(keyFile_, file_,out var fullPath_, flags_, ref error_);
@@ -1619,8 +1619,8 @@ namespace GISharp.Lib.GLib
         public unsafe void LoadFromDirs(GISharp.Lib.GLib.Filename file, GISharp.Runtime.FilenameArray searchDirs, out GISharp.Lib.GLib.Filename fullPath, GISharp.Lib.GLib.KeyFileFlags flags)
         {
             CheckLoadFromDirsArgs(file, searchDirs, flags);
-            var keyFile_ = Handle;
-            var file_ = file.Handle;
+            var keyFile_ = UnsafeHandle;
+            var file_ = file.UnsafeHandle;
             ref readonly var searchDirs_ = ref searchDirs.GetPinnableReference();
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
@@ -1684,8 +1684,8 @@ namespace GISharp.Lib.GLib
         public unsafe void LoadFromFile(GISharp.Lib.GLib.Filename file, GISharp.Lib.GLib.KeyFileFlags flags)
         {
             CheckLoadFromFileArgs(file, flags);
-            var keyFile_ = Handle;
-            var file_ = file.Handle;
+            var keyFile_ = UnsafeHandle;
+            var file_ = file.UnsafeHandle;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = System.IntPtr.Zero;
             g_key_file_load_from_file(keyFile_, file_, flags_, ref error_);
@@ -1741,9 +1741,9 @@ namespace GISharp.Lib.GLib
         public unsafe void RemoveComment(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.NullableUnownedUtf8 key)
         {
             CheckRemoveCommentArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             g_key_file_remove_comment(keyFile_, groupName_, key_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1790,8 +1790,8 @@ namespace GISharp.Lib.GLib
         public unsafe void RemoveGroup(GISharp.Lib.GLib.UnownedUtf8 groupName)
         {
             CheckRemoveGroupArgs(groupName);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             g_key_file_remove_group(keyFile_, groupName_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1843,9 +1843,9 @@ namespace GISharp.Lib.GLib
         public unsafe void RemoveKey(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckRemoveKeyArgs(groupName, key);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             g_key_file_remove_key(keyFile_, groupName_, key_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1898,8 +1898,8 @@ namespace GISharp.Lib.GLib
         public unsafe void SaveToFile(GISharp.Lib.GLib.UnownedUtf8 filename)
         {
             CheckSaveToFileArgs(filename);
-            var keyFile_ = Handle;
-            var filename_ = filename.Handle;
+            var keyFile_ = UnsafeHandle;
+            var filename_ = filename.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             g_key_file_save_to_file(keyFile_, filename_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -1949,9 +1949,9 @@ namespace GISharp.Lib.GLib
         public unsafe void SetBoolean(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Boolean value)
         {
             CheckSetBooleanArgs(groupName, key, value);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var value_ = GISharp.Runtime.BooleanExtensions.ToBoolean(value);
             g_key_file_set_boolean(keyFile_, groupName_, key_, value_);
         }
@@ -2005,9 +2005,9 @@ namespace GISharp.Lib.GLib
         public unsafe void SetBooleanList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<GISharp.Runtime.Boolean> list)
         {
             CheckSetBooleanListArgs(groupName, key, list);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             ref readonly var list_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(list);
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_boolean_list(keyFile_, groupName_, key_, list_, length_);
@@ -2069,10 +2069,10 @@ namespace GISharp.Lib.GLib
         public unsafe void SetComment(GISharp.Lib.GLib.NullableUnownedUtf8 groupName, GISharp.Lib.GLib.NullableUnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 comment)
         {
             CheckSetCommentArgs(groupName, key, comment);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var comment_ = comment.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var comment_ = comment.UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             g_key_file_set_comment(keyFile_, groupName_, key_, comment_, ref error_);
             if (error_ != System.IntPtr.Zero)
@@ -2122,9 +2122,9 @@ namespace GISharp.Lib.GLib
         public unsafe void SetDouble(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Double value)
         {
             CheckSetDoubleArgs(groupName, key, value);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var value_ = (System.Double)value;
             g_key_file_set_double(keyFile_, groupName_, key_, value_);
         }
@@ -2177,9 +2177,9 @@ namespace GISharp.Lib.GLib
         public unsafe void SetDoubleList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Double> list)
         {
             CheckSetDoubleListArgs(groupName, key, list);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             ref readonly var list_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(list);
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_double_list(keyFile_, groupName_, key_, list_, length_);
@@ -2225,9 +2225,9 @@ namespace GISharp.Lib.GLib
         public unsafe void SetInt64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int64 value)
         {
             CheckSetInt64Args(groupName, key, value);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var value_ = (System.Int64)value;
             g_key_file_set_int64(keyFile_, groupName_, key_, value_);
         }
@@ -2272,9 +2272,9 @@ namespace GISharp.Lib.GLib
         public unsafe void SetInteger(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.Int32 value)
         {
             CheckSetIntegerArgs(groupName, key, value);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var value_ = (System.Int32)value;
             g_key_file_set_integer(keyFile_, groupName_, key_, value_);
         }
@@ -2327,9 +2327,9 @@ namespace GISharp.Lib.GLib
         public unsafe void SetIntegerList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Int32> list)
         {
             CheckSetIntegerListArgs(groupName, key, list);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             ref readonly var list_ = ref System.Runtime.InteropServices.MemoryMarshal.GetReference(list);
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_integer_list(keyFile_, groupName_, key_, list_, length_);
@@ -2364,7 +2364,7 @@ namespace GISharp.Lib.GLib
         public unsafe void SetListSeparator(System.SByte separator)
         {
             CheckSetListSeparatorArgs(separator);
-            var keyFile_ = Handle;
+            var keyFile_ = UnsafeHandle;
             var separator_ = (System.SByte)separator;
             g_key_file_set_list_separator(keyFile_, separator_);
         }
@@ -2415,11 +2415,11 @@ namespace GISharp.Lib.GLib
         public unsafe void SetLocaleString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Lib.GLib.UnownedUtf8 @string)
         {
             CheckSetLocaleStringArgs(groupName, key, locale, @string);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var locale_ = locale.Handle;
-            var @string_ = @string.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var locale_ = locale.UnsafeHandle;
+            var @string_ = @string.UnsafeHandle;
             g_key_file_set_locale_string(keyFile_, groupName_, key_, locale_, @string_);
         }
 
@@ -2478,10 +2478,10 @@ namespace GISharp.Lib.GLib
         public unsafe void SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
         {
             CheckSetLocaleStringListArgs(groupName, key, locale, list);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var locale_ = locale.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var locale_ = locale.UnsafeHandle;
             ref readonly var list_ = ref list.GetPinnableReference();
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_locale_string_list(keyFile_, groupName_, key_, locale_, list_, length_);
@@ -2530,10 +2530,10 @@ namespace GISharp.Lib.GLib
         public unsafe void SetString(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 @string)
         {
             CheckSetStringArgs(groupName, key, @string);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var @string_ = @string.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var @string_ = @string.UnsafeHandle;
             g_key_file_set_string(keyFile_, groupName_, key_, @string_);
         }
 
@@ -2586,9 +2586,9 @@ namespace GISharp.Lib.GLib
         public unsafe void SetStringList(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list)
         {
             CheckSetStringListArgs(groupName, key, list);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             ref readonly var list_ = ref list.GetPinnableReference();
             var length_ = (System.UIntPtr)list.Length;
             g_key_file_set_string_list(keyFile_, groupName_, key_, list_, length_);
@@ -2634,9 +2634,9 @@ namespace GISharp.Lib.GLib
         public unsafe void SetUint64(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.UInt64 value)
         {
             CheckSetUint64Args(groupName, key, value);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
             var value_ = (System.UInt64)value;
             g_key_file_set_uint64(keyFile_, groupName_, key_, value_);
         }
@@ -2686,10 +2686,10 @@ namespace GISharp.Lib.GLib
         public unsafe void SetValue(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 value)
         {
             CheckSetValueArgs(groupName, key, value);
-            var keyFile_ = Handle;
-            var groupName_ = groupName.Handle;
-            var key_ = key.Handle;
-            var value_ = value.Handle;
+            var keyFile_ = UnsafeHandle;
+            var groupName_ = groupName.UnsafeHandle;
+            var key_ = key.UnsafeHandle;
+            var value_ = value.UnsafeHandle;
             g_key_file_set_value(keyFile_, groupName_, key_, value_);
         }
 
@@ -2735,7 +2735,7 @@ namespace GISharp.Lib.GLib
         public unsafe GISharp.Lib.GLib.Utf8 ToData(out System.Int32 length)
         {
             CheckToDataArgs();
-            var keyFile_ = Handle;
+            var keyFile_ = UnsafeHandle;
             var error_ = System.IntPtr.Zero;
             var ret_ = g_key_file_to_data(keyFile_,out var length_,ref error_);
             if (error_ != System.IntPtr.Zero)

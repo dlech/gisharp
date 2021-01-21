@@ -22,7 +22,7 @@ namespace GISharp.Test.Gio
         {
             using (var list = new FileAttributeInfoList())
             using (var list2 = list.Dup()) {
-                Assert.That(list.Handle, Is.Not.EqualTo(list2.Handle));
+                Assert.That(list.UnsafeHandle, Is.Not.EqualTo(list2.UnsafeHandle));
             }
         }
 

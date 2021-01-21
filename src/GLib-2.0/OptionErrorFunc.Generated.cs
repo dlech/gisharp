@@ -53,8 +53,8 @@ namespace GISharp.Lib.GLib
 
             unsafe void managedCallback(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group)
             {
-                var context_ = context.Handle;
-                var group_ = group.Handle;
+                var context_ = context.UnsafeHandle;
+                var group_ = group.UnsafeHandle;
                 var error_ = System.IntPtr.Zero;
                 unmanagedCallback(context_, group_, data_, ref error_);
                 if (error_ != System.IntPtr.Zero)

@@ -41,7 +41,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public unsafe GType GetGType()
         {
-            var typeInstance = (UnmanagedStruct*)Handle;
+            var typeInstance = (UnmanagedStruct*)UnsafeHandle;
             return typeInstance->GClass->GType;
         }
 

@@ -69,7 +69,7 @@ namespace GISharp.CodeGen.Syntax
                     // if there is an unmanaged ref method, use it to override the
                     // managed Take() method
                     var takeReturnType = ParseTypeName(typeof(IntPtr).FullName);
-                    var takeExpression = ParseExpression($"{method.CIdentifier}(Handle)");
+                    var takeExpression = ParseExpression($"{method.CIdentifier}(UnsafeHandle)");
                     var takeOverride = MethodDeclaration(takeReturnType, "Take")
                         .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
                         .WithExpressionBody(ArrowExpressionClause(takeExpression))

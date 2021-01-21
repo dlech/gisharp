@@ -73,19 +73,19 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// <see cref="ParamFlags"/> flags for this parameter
         /// </summary>
-        unsafe ParamFlags Flags => ((UnmanagedStruct*)Handle)->Flags;
+        unsafe ParamFlags Flags => ((UnmanagedStruct*)UnsafeHandle)->Flags;
 
         /// <summary>
         /// The <see cref="Value"/> type for this parameter
         /// </summary>
-        public unsafe GType ValueType => ((UnmanagedStruct*)Handle)->ValueType;
+        public unsafe GType ValueType => ((UnmanagedStruct*)UnsafeHandle)->ValueType;
 
         /// <summary>
         /// <see cref="GType"/> type that uses (introduces) this parameter
         /// </summary>
-        unsafe GType OwnerType => ((UnmanagedStruct*)Handle)->OwnerType;
+        unsafe GType OwnerType => ((UnmanagedStruct*)UnsafeHandle)->OwnerType;
 
-        unsafe uint RefCount => ((UnmanagedStruct*)Handle)->RefCount;
+        unsafe uint RefCount => ((UnmanagedStruct*)UnsafeHandle)->RefCount;
 
         /// <summary>
         /// For internal runtime use only.
@@ -118,7 +118,7 @@ namespace GISharp.Lib.GObject
         static extern IntPtr g_param_spec_ref(IntPtr pspec);
 
         /// <inheritdoc />
-        public override IntPtr Take() => g_param_spec_ref(Handle);
+        public override IntPtr Take() => g_param_spec_ref(UnsafeHandle);
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_param_spec_sink(IntPtr pspec);
@@ -168,7 +168,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public UnownedUtf8 Blurb {
             get {
-                var ret_ = g_param_spec_get_blurb(Handle);
+                var ret_ = g_param_spec_get_blurb(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -201,7 +201,7 @@ namespace GISharp.Lib.GObject
         [Since("2.38")]
         public Value DefaultValue {
             get {
-                var ret = g_param_spec_get_default_value(Handle);
+                var ret = g_param_spec_get_default_value(UnsafeHandle);
                 return ret;
             }
         }
@@ -235,7 +235,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public UnownedUtf8 Name {
             get {
-                var ret_ = g_param_spec_get_name(Handle);
+                var ret_ = g_param_spec_get_name(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -268,7 +268,7 @@ namespace GISharp.Lib.GObject
         [Since("2.46")]
         public Quark NameQuark {
             get {
-                var ret = g_param_spec_get_name_quark(Handle);
+                var ret = g_param_spec_get_name_quark(UnsafeHandle);
                 return ret;
             }
         }
@@ -298,7 +298,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public UnownedUtf8 Nick {
             get {
-                var ret_ = g_param_spec_get_nick(Handle);
+                var ret_ = g_param_spec_get_nick(UnsafeHandle);
                 var ret = new UnownedUtf8(ret_, -1);
                 return ret;
             }
@@ -367,7 +367,7 @@ namespace GISharp.Lib.GObject
         [Since("2.4")]
         public ParamSpec? RedirectTarget {
             get {
-                var ret_ = g_param_spec_get_redirect_target(Handle);
+                var ret_ = g_param_spec_get_redirect_target(UnsafeHandle);
                 var ret = GetInstance(ret_, Transfer.None);
                 return ret;
             }
@@ -424,7 +424,7 @@ namespace GISharp.Lib.GObject
         /// </param>
         public object? this[Quark quark] {
             get {
-                var ret = g_param_spec_get_qdata(Handle, quark);
+                var ret = g_param_spec_get_qdata(UnsafeHandle, quark);
                 if (ret == IntPtr.Zero) {
                     return null;
                 }
@@ -433,7 +433,7 @@ namespace GISharp.Lib.GObject
                 return data;
             }
             set {
-                var this_ = Handle;
+                var this_ = UnsafeHandle;
                 if (value is null) {
                     g_param_spec_set_qdata(this_, quark, IntPtr.Zero);
                 }

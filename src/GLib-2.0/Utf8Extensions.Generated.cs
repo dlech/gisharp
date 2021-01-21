@@ -701,7 +701,7 @@ namespace GISharp.Lib.GLib
         public unsafe static GISharp.Lib.GLib.Utf8 Substring(this GISharp.Lib.GLib.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos)
         {
             CheckSubstringArgs(str, startPos, endPos);
-            var str_ = str.Handle;
+            var str_ = str.UnsafeHandle;
             var startPos_ = (GISharp.Runtime.CLong)startPos;
             var endPos_ = (GISharp.Runtime.CLong)endPos;
             var ret_ = g_utf8_substring(str_,startPos_,endPos_);

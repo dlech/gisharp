@@ -88,7 +88,7 @@ namespace GISharp.Lib.GLib
         [Since("2.8")]
         public static Filename Build(Strv args)
         {
-            var args_ = args.Handle;
+            var args_ = args.UnsafeHandle;
             var ret_ = g_build_filenamev(args_);
             var ret = new Filename(ret_, Transfer.Full);
             return ret;
@@ -154,7 +154,7 @@ namespace GISharp.Lib.GLib
         [Since("2.6")]
         public Utf8 DisplayBasename {
             get {
-                var filename_ = Handle;
+                var filename_ = UnsafeHandle;
                 var ret_ = g_filename_display_basename(filename_);
                 var ret = GetInstance<Utf8>(ret_, Transfer.Full);
                 return ret;
@@ -219,7 +219,7 @@ namespace GISharp.Lib.GLib
         [Since("2.6")]
         public Utf8 DisplayName {
             get {
-                var filename_ = Handle;
+                var filename_ = UnsafeHandle;
                 var ret_ = g_filename_display_name(filename_);
                 var ret = GetInstance<Utf8>(ret_, Transfer.Full);
                 return ret;
@@ -277,7 +277,7 @@ namespace GISharp.Lib.GLib
         /// </exception>
         public static unsafe Filename FromUri(UnownedUtf8 uri, out Utf8? hostname)
         {
-            var uri_ = uri.Handle;
+            var uri_ = uri.UnsafeHandle;
             IntPtr hostname_;
             var ret_ = g_filename_from_uri(uri_, &hostname_, out var error_);
             if (error_ != IntPtr.Zero) {
@@ -304,7 +304,7 @@ namespace GISharp.Lib.GLib
         /// </exception>
         public static unsafe Filename FromUri(UnownedUtf8 uri)
         {
-            var uri_ = uri.Handle;
+            var uri_ = uri.UnsafeHandle;
             var ret_ = g_filename_from_uri(uri_, null, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = GetInstance<Error>(error_, Transfer.Full);
@@ -387,7 +387,7 @@ namespace GISharp.Lib.GLib
         /// </exception>
         public static unsafe Filename FromUtf8(Utf8 utf8string)
         {
-            var utf8string_ = utf8string.Handle;
+            var utf8string_ = utf8string.UnsafeHandle;
             nuint bytesWritten_;
             var ret_ = g_filename_from_utf8(utf8string_, -1, null, &bytesWritten_, out var error_);
             if (error_ != IntPtr.Zero) {
@@ -446,8 +446,8 @@ namespace GISharp.Lib.GLib
         /// </exception>
         public Utf8 ToUri(Utf8? hostname = null)
         {
-            var filename_ = Handle;
-            var hostname_ = hostname?.Handle ?? IntPtr.Zero;
+            var filename_ = UnsafeHandle;
+            var hostname_ = hostname?.UnsafeHandle ?? IntPtr.Zero;
             var ret_ = g_filename_to_uri(filename_, hostname_, out var error_);
             if (error_ != IntPtr.Zero) {
                 var error = GetInstance<Error>(error_, Transfer.Full);
@@ -527,7 +527,7 @@ namespace GISharp.Lib.GLib
         /// </exception>
         public unsafe Utf8 ToUtf8()
         {
-            var opsysstring_ = Handle;
+            var opsysstring_ = UnsafeHandle;
             nuint bytesWritten_;
             var ret_ = g_filename_to_utf8(opsysstring_, -1, 0, &bytesWritten_, out var error_);
             if (error_ != IntPtr.Zero) {

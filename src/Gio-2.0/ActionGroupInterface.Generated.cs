@@ -273,7 +273,7 @@ System.IntPtr actionName);
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doGetActionParameterType = (GetActionParameterType)methodInfo.CreateDelegate(typeof(GetActionParameterType), actionGroup);
                         var ret = doGetActionParameterType(actionName);
-                        var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                        var ret_ = ret?.UnsafeHandle ?? System.IntPtr.Zero;
                         return ret_;
                     }
                     catch (System.Exception ex)
@@ -323,7 +323,7 @@ System.IntPtr actionName);
                         var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_, -1);
                         var doGetActionStateType = (GetActionStateType)methodInfo.CreateDelegate(typeof(GetActionStateType), actionGroup);
                         var ret = doGetActionStateType(actionName);
-                        var ret_ = ret?.Handle ?? System.IntPtr.Zero;
+                        var ret_ = ret?.UnsafeHandle ?? System.IntPtr.Zero;
                         return ret_;
                     }
                     catch (System.Exception ex)

@@ -115,7 +115,7 @@ namespace GISharp.Lib.GObject
             // these are never freed
             GCHandle.Alloc(boxedCopy);
             GCHandle.Alloc(boxedFree);
-            return g_boxed_type_register_static(utf8.Handle, boxedCopy, boxedFree);
+            return g_boxed_type_register_static(utf8.UnsafeHandle, boxedCopy, boxedFree);
         }
         static readonly GType _GType = GetGType();
 
@@ -145,7 +145,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Gets the managed instance wrapped by this boxed instance.
         /// </summary>
-        public T Value => (T)GCHandle.FromIntPtr(Handle).Target!;
+        public T Value => (T)GCHandle.FromIntPtr(UnsafeHandle).Target!;
 
         static IntPtr CopyManagedType(IntPtr boxed)
         {
