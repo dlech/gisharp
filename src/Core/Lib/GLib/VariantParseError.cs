@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Runtime.InteropServices;
@@ -91,7 +91,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Extension methods for <see cref="VariantParseError"/>.
     /// </summary>
-    public static class VariantParseErrorDomain
+    public static unsafe class VariantParseErrorDomain
     {
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
@@ -110,7 +110,9 @@ namespace GISharp.Lib.GLib
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.40")]
-        static extern IntPtr g_variant_parse_error_print_context(IntPtr error, IntPtr sourceStr);
+        static extern byte* g_variant_parse_error_print_context(
+            Error.UnmanagedStruct* error,
+            byte* sourceStr);
 
         /// <summary>
         /// Pretty-prints a message showing the context of a <see cref="Variant"/>
@@ -150,13 +152,13 @@ namespace GISharp.Lib.GLib
         [Since("2.40")]
         public static Utf8 PrintContext(this Error error, UnownedUtf8 sourceStr)
         {
-            var error_ = error.UnsafeHandle;
-            if (error.Domain != Quark) {
+            var error_ = (Error.UnmanagedStruct*)error.UnsafeHandle;
+            if (error_->Domain != Quark) {
                 throw new ArgumentException("Requires VariantParseError", nameof(error));
             }
-            var sourceStr_ = sourceStr.UnsafeHandle;
+            var sourceStr_ = (byte*)sourceStr.UnsafeHandle;
             var ret_ = g_variant_parse_error_print_context(error_, sourceStr_);
-            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full);
+            var ret = Opaque.GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
             return ret;
         }
     }

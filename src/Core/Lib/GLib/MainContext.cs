@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -15,8 +15,16 @@ namespace GISharp.Lib.GLib
     /// type representing a set of sources to be handled in a main loop.
     /// </summary>
     [GType("GMainContext", IsProxyForUnmanagedType = true)]
-    public sealed class MainContext : Boxed
+    public sealed unsafe class MainContext : Boxed
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="MainContext"/>.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public struct UnmanagedStruct
+        {
+        }
+
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
@@ -26,13 +34,13 @@ namespace GISharp.Lib.GLib
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_main_context_ref(IntPtr context);
+        static extern UnmanagedStruct* g_main_context_ref(UnmanagedStruct* context);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_main_context_ref(UnsafeHandle);
+        public override IntPtr Take() => (IntPtr)g_main_context_ref((UnmanagedStruct*)UnsafeHandle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_main_context_unref(IntPtr context);
+        static extern void g_main_context_unref(UnmanagedStruct* context);
 
         /// <summary>
         /// Creates a new #GMainContext structure.
@@ -43,9 +51,9 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_main_context_new();
+        static extern UnmanagedStruct* g_main_context_new();
 
-        static IntPtr New()
+        static UnmanagedStruct* New()
         {
             var ret = g_main_context_new();
             return ret;
@@ -57,7 +65,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the new <see cref="MainContext"/>
         /// </returns>
-        public MainContext() : this(New(), Transfer.Full)
+        public MainContext() : this((IntPtr)New(), Transfer.Full)
         {
         }
 
@@ -73,7 +81,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_main_context_default();
+        static extern UnmanagedStruct* g_main_context_default();
 
         /// <summary>
         /// Returns the global default main context. This is the main context
@@ -87,7 +95,7 @@ namespace GISharp.Lib.GLib
         public static MainContext Default {
             get {
                 var ret_ = g_main_context_default();
-                var ret = GetInstance<MainContext>(ret_, Transfer.None);
+                var ret = GetInstance<MainContext>((IntPtr)ret_, Transfer.None);
                 return ret;
             }
         }
@@ -108,7 +116,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_main_context_ref_thread_default();
+        static extern UnmanagedStruct* g_main_context_ref_thread_default();
 
         /// <summary>
         /// Gets the thread-default <see cref="MainContext"/> for this thread.
@@ -120,7 +128,7 @@ namespace GISharp.Lib.GLib
         public static MainContext ThreadDefault {
             get {
                 var ret_ = g_main_context_ref_thread_default();
-                var ret = GetInstance<MainContext>(ret_, Transfer.Full);
+                var ret = GetInstance<MainContext>((IntPtr)ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -389,7 +397,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static unsafe extern int g_poll(
+        static extern int g_poll(
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
             PollFD* fds,
@@ -432,7 +440,7 @@ namespace GISharp.Lib.GLib
         /// if the call was interrupted.
         /// </returns>
         [Since("2.20")]
-        public static unsafe int Poll(ReadOnlySpan<PollFD> fds, int timeout)
+        public static int Poll(ReadOnlySpan<PollFD> fds, int timeout)
         {
             fixed (PollFD* fds_ = fds) {
                 var ret = g_poll(fds_, (uint)fds.Length, timeout);
@@ -473,7 +481,7 @@ namespace GISharp.Lib.GLib
         static extern Runtime.Boolean g_main_context_acquire(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context);
+            UnmanagedStruct* context);
 
         /// <summary>
         /// Tries to become the owner of the specified context.
@@ -494,7 +502,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool Acquire()
         {
-            var ret_ = g_main_context_acquire(UnsafeHandle);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_main_context_acquire(context_);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -522,10 +531,10 @@ namespace GISharp.Lib.GLib
         static extern void g_main_context_add_poll(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr context,
+            UnmanagedStruct* context,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            in PollFD fd,
+            PollFD* fd,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority);
@@ -547,7 +556,10 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void AddPoll(in PollFD fd, int priority = Priority.Default)
         {
-            g_main_context_add_poll(UnsafeHandle, fd, priority);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            fixed (PollFD* fd_ = &fd) {
+                g_main_context_add_poll(context_, fd_, priority);
+            }
         }
 
         /// <summary>
@@ -576,10 +588,10 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static unsafe extern int g_main_context_check(
+        static extern int g_main_context_check(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context,
+            UnmanagedStruct* context,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int maxPriority,
@@ -609,12 +621,12 @@ namespace GISharp.Lib.GLib
         /// <returns>
         ///<c>true</c> if some sources are ready to be dispatched.
         /// </returns>
-        public unsafe int Check(int maxPriority, ReadOnlySpan<PollFD> fds)
+        public int Check(int maxPriority, ReadOnlySpan<PollFD> fds)
         {
-            var this_ = UnsafeHandle;
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
             fixed (PollFD* fds_ = fds) {
                 var nFds_ = fds.Length;
-                var ret = g_main_context_check(this_, maxPriority, fds_, nFds_);
+                var ret = g_main_context_check(context_, maxPriority, fds_, nFds_);
                 return ret;
             }
         }
@@ -635,7 +647,7 @@ namespace GISharp.Lib.GLib
         static extern void g_main_context_dispatch(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context);
+            UnmanagedStruct* context);
 
         /// <summary>
         /// Dispatches all pending sources.
@@ -646,7 +658,8 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public void Dispatch()
         {
-            g_main_context_dispatch(UnsafeHandle);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            g_main_context_dispatch(context_);
         }
 
         /// <summary>
@@ -676,10 +689,10 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_main_context_find_source_by_id(
+        static extern Source.UnmanagedStruct* g_main_context_find_source_by_id(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr context,
+            UnmanagedStruct* context,
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint sourceId);
@@ -707,8 +720,9 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public Source FindSourceById(uint sourceId)
         {
-            var ret_ = g_main_context_find_source_by_id(UnsafeHandle, sourceId);
-            var ret = GetInstance<Source>(ret_, Transfer.None);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_main_context_find_source_by_id(context_, sourceId);
+            var ret = GetInstance<Source>((IntPtr)ret_, Transfer.None);
             return ret;
         }
 
@@ -729,13 +743,13 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
         /* transfer-ownership:none direction:out */
-        static extern unsafe IntPtr g_main_context_find_source_by_user_data(
-        /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
-        /* transfer-ownership:none direction:in */
-        IntPtr context,
-        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        IntPtr userData);
+        static extern Source.UnmanagedStruct* g_main_context_find_source_by_user_data(
+            /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
+            /* transfer-ownership:none direction:in */
+            UnmanagedStruct* context,
+            /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+            /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+            IntPtr userData);
 
         /// <summary>
         /// Finds a source with the given user data for the callback.
@@ -752,10 +766,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public Source? FindSourceByUserData(Source.UserData userData)
         {
-            var this_ = UnsafeHandle;
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
             var userData_ = userData.UnsafeHandle;
-            var ret_ = g_main_context_find_source_by_user_data(this_, userData_);
-            var ret = GetInstance<Source>(ret_, Transfer.None);
+            var ret_ = g_main_context_find_source_by_user_data(context_, userData_);
+            var ret = GetInstance<Source>((IntPtr)ret_, Transfer.None);
             return ret;
         }
 
@@ -774,7 +788,7 @@ namespace GISharp.Lib.GLib
         static extern UnmanagedPollFunc g_main_context_get_poll_func(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context);
+            UnmanagedStruct* context);
 
         /// <summary>
         /// Gets and sets the function to use to handle polling of file descriptors.
@@ -794,12 +808,14 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public UnmanagedPollFunc PollFunc {
             get {
-                var ret = g_main_context_get_poll_func(UnsafeHandle);
+                var context_ = (UnmanagedStruct*)UnsafeHandle;
+                var ret = g_main_context_get_poll_func(context_);
                 return ret;
             }
 
             set {
-                g_main_context_set_poll_func(UnsafeHandle, value);
+                var context_ = (UnmanagedStruct*)UnsafeHandle;
+                g_main_context_set_poll_func(context_, value);
             }
         }
 
@@ -837,7 +853,7 @@ namespace GISharp.Lib.GLib
         static extern void g_main_context_invoke_full(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr context,
+            UnmanagedStruct* context,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int priority,
@@ -864,9 +880,9 @@ namespace GISharp.Lib.GLib
         [Since("2.28")]
         public void Invoke(SourceFunc function, int priority = Priority.Default)
         {
-            var this_ = UnsafeHandle;
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
             var (function_, notify_, data_) = SourceFuncMarshal.ToUnmanagedFunctionPointer(function, CallbackScope.Notified);
-            g_main_context_invoke_full(this_, priority, function_, data_, notify_);
+            g_main_context_invoke_full(context_, priority, function_, data_, notify_);
         }
 
         /// <summary>
@@ -888,7 +904,7 @@ namespace GISharp.Lib.GLib
         static extern Runtime.Boolean g_main_context_is_owner(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context);
+            UnmanagedStruct* context);
 
         /// <summary>
         /// Determines whether this thread holds the (recursive)
@@ -902,7 +918,8 @@ namespace GISharp.Lib.GLib
         [Since("2.10")]
         public bool IsOwner {
             get {
-                var ret_ = g_main_context_is_owner(UnsafeHandle);
+                var context_ = (UnmanagedStruct*)UnsafeHandle;
+                var ret_ = g_main_context_is_owner(context_);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -938,7 +955,7 @@ namespace GISharp.Lib.GLib
         static extern Runtime.Boolean g_main_context_iteration(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr context,
+            UnmanagedStruct* context,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
             Runtime.Boolean mayBlock);
@@ -966,8 +983,9 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool Iteration(bool mayBlock)
         {
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
             var mayBlock_ = mayBlock.ToBoolean();
-            var ret_ = g_main_context_iteration(UnsafeHandle, mayBlock_);
+            var ret_ = g_main_context_iteration(context_, mayBlock_);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -987,7 +1005,7 @@ namespace GISharp.Lib.GLib
         static extern Runtime.Boolean g_main_context_pending(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr context);
+            UnmanagedStruct* context);
 
         /// <summary>
         /// Checks if any sources have pending events for the given context.
@@ -997,7 +1015,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool CheckPending()
         {
-            var ret_ = g_main_context_pending(UnsafeHandle);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_main_context_pending(context_);
             var ret = ret_.IsTrue();
             return ret;
         }
@@ -1016,7 +1035,7 @@ namespace GISharp.Lib.GLib
         static extern void g_main_context_pop_thread_default(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr context);
+            UnmanagedStruct* context);
 
         /// <summary>
         /// Pops this context off the thread-default context stack (verifying that
@@ -1025,7 +1044,8 @@ namespace GISharp.Lib.GLib
         [Since("2.22")]
         public void PopThreadDefault()
         {
-            g_main_context_pop_thread_default(UnsafeHandle);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            g_main_context_pop_thread_default(context_);
         }
 
         /// <summary>
@@ -1050,10 +1070,10 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
         /* transfer-ownership:none */
-        static extern unsafe Runtime.Boolean g_main_context_prepare(
+        static extern Runtime.Boolean g_main_context_prepare(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context,
+            UnmanagedStruct* context,
             /* <type name="gint" type="gint*" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int* priority);
@@ -1074,10 +1094,11 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> if some source is ready to be dispatched
         /// prior to polling.
         /// </returns>
-        public unsafe bool Prepare(out int priority)
+        public bool Prepare(out int priority)
         {
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
             int priority_;
-            var ret_ = g_main_context_prepare(UnsafeHandle, &priority_);
+            var ret_ = g_main_context_prepare(context_, &priority_);
             priority = priority_;
             var ret = ret_.IsTrue();
             return ret;
@@ -1134,7 +1155,7 @@ namespace GISharp.Lib.GLib
         static extern void g_main_context_push_thread_default(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr context);
+            UnmanagedStruct* context);
 
         /// <summary>
         /// Acquires this context and sets it as the thread-default context for the
@@ -1180,7 +1201,8 @@ namespace GISharp.Lib.GLib
         [Since("2.22")]
         public void PushThreadDefault()
         {
-            g_main_context_push_thread_default(UnsafeHandle);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            g_main_context_push_thread_default(context_);
         }
 
         /// <summary>
@@ -1214,10 +1236,10 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="Gint" /> */
         /* transfer-ownership:none */
-        static extern unsafe int g_main_context_query(
+        static extern int g_main_context_query(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context,
+            UnmanagedStruct* context,
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int maxPriority,
@@ -1249,15 +1271,15 @@ namespace GISharp.Lib.GLib
         /// <param name="fds">
         /// <see cref="PollFD"/> records that need to be polled.
         /// </param>
-        public unsafe void Query(int maxPriority, out int timeout, out PollFD[] fds)
+        public void Query(int maxPriority, out int timeout, out PollFD[] fds)
         {
-            var this_ = UnsafeHandle;
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
             int timeout_;
             // call first time to get the size
-            var ret = g_main_context_query(this_, maxPriority, &timeout_, null, 0);
+            var ret = g_main_context_query(context_, maxPriority, &timeout_, null, 0);
             // then call again with appropriate storage space
             var fds_ = stackalloc PollFD[ret];
-            ret = g_main_context_query(this_, maxPriority, &timeout_, fds_, ret);
+            ret = g_main_context_query(context_, maxPriority, &timeout_, fds_, ret);
             timeout = timeout_;
             fds = new Span<PollFD>(fds_, ret).ToArray();
         }
@@ -1277,7 +1299,7 @@ namespace GISharp.Lib.GLib
         static extern void g_main_context_release(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context);
+            UnmanagedStruct* context);
 
         /// <summary>
         /// Releases ownership of a context previously acquired by this thread
@@ -1287,7 +1309,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void Release()
         {
-            g_main_context_release(UnsafeHandle);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            g_main_context_release(context_);
         }
 
         /// <summary>
@@ -1306,10 +1329,10 @@ namespace GISharp.Lib.GLib
         static extern void g_main_context_remove_poll(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context,
+            UnmanagedStruct* context,
             /* <type name="PollFD" type="GPollFD*" managed-name="PollFD" /> */
             /* transfer-ownership:none */
-            in PollFD fd);
+            PollFD* fd);
 
         /// <summary>
         /// Removes file descriptor from the set of file descriptors to be
@@ -1321,7 +1344,10 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public void RemovePoll(in PollFD fd)
         {
-            g_main_context_remove_poll(UnsafeHandle, fd);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            fixed (PollFD* fd_ = &fd) {
+                g_main_context_remove_poll(context_, fd_);
+            }
         }
 
         /// <summary>
@@ -1346,7 +1372,7 @@ namespace GISharp.Lib.GLib
         static extern void g_main_context_set_poll_func(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context,
+            UnmanagedStruct* context,
             /* <type name="PollFunc" type="GPollFunc" managed-name="PollFunc" /> */
             /* transfer-ownership:none */
             UnmanagedPollFunc func);
@@ -1391,7 +1417,7 @@ namespace GISharp.Lib.GLib
         static extern void g_main_context_wakeup(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none */
-            IntPtr context);
+            UnmanagedStruct* context);
 
         /// <summary>
         /// If this context is currently blocking in <see cref="Iteration"/>
@@ -1426,7 +1452,8 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public void WakeUp()
         {
-            g_main_context_wakeup(UnsafeHandle);
+            var context_ = (UnmanagedStruct*)UnsafeHandle;
+            g_main_context_wakeup(context_);
         }
 
         GSynchronizationContext? _SynchronizationContext;

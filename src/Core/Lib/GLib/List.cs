@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections;
@@ -15,13 +15,13 @@ namespace GISharp.Lib.GLib
     /// The <see cref="List"/> struct is used for each element in a doubly-linked list.
     /// </summary>
     /// <seealso cref="List{T}"/>
-    public abstract class List : Opaque
+    public abstract unsafe class List : Opaque
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="List"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -69,12 +69,12 @@ namespace GISharp.Lib.GLib
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_list_free(IntPtr list);
+        static extern void g_list_free(UnmanagedStruct* list);
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
-            g_list_free(handle);
+            g_list_free((UnmanagedStruct*)handle);
             base.Dispose(disposing);
         }
 
@@ -87,7 +87,7 @@ namespace GISharp.Lib.GLib
         /// a pointer to the newly-allocated #GList element
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_alloc();
+        static extern UnmanagedStruct* g_list_alloc();
 
         /// <summary>
         /// Adds the second #GList onto the end of the first #GList.
@@ -113,9 +113,9 @@ namespace GISharp.Lib.GLib
         /// the start of the new #GList, which equals @list1 if not %NULL
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_concat(
-            IntPtr list1,
-            IntPtr list2);
+        static extern UnmanagedStruct* g_list_concat(
+            UnmanagedStruct* list1,
+            UnmanagedStruct* list2);
 
         /// <summary>
         /// Adds the second <see cref="List"/> onto the end of the first <see cref="List"/>.
@@ -128,7 +128,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         protected void Concat(List list2)
         {
-            handle = g_list_concat(handle, list2.handle);
+            var list1_ = (UnmanagedStruct*)handle;
+            var list2_ = (UnmanagedStruct*)list2.handle;
+            handle = (IntPtr)g_list_concat(list1_, list2_);
             list2.handle = IntPtr.Zero;
         }
 
@@ -167,8 +169,8 @@ namespace GISharp.Lib.GLib
         /// either @list or the new start of the #GList if @list was %NULL
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_append(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_append(
+            UnmanagedStruct* list,
             IntPtr data);
 
         /// <summary>
@@ -188,7 +190,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void Append(IntPtr data)
         {
-            handle = g_list_append(handle, data);
+            var list_ = (UnmanagedStruct*)handle;
+            handle = (IntPtr)g_list_append(list_, data);
         }
 
         /// <summary>
@@ -207,8 +210,8 @@ namespace GISharp.Lib.GLib
         /// the start of the new list that holds the same data as @list
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_copy(
-            IntPtr list);
+        static extern UnmanagedStruct* g_list_copy(
+            UnmanagedStruct* list);
 
         /// <summary>
         /// Copies a <see cref="List{T}"/>.
@@ -224,8 +227,9 @@ namespace GISharp.Lib.GLib
         /// </returns>
         private protected List Copy()
         {
-            var ret_ = g_list_copy(handle);
-            var ret = Activator.CreateInstance(GetType(), ret_, Transfer.Container);
+            var list_ = (UnmanagedStruct*)handle;
+            var ret_ = g_list_copy(list_);
+            var ret = Activator.CreateInstance(GetType(), (IntPtr)ret_, Transfer.Container);
             return (List)ret!;
         }
 
@@ -266,8 +270,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.34")]
-        static extern IntPtr g_list_copy_deep(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_copy_deep(
+            UnmanagedStruct* list,
             UnmanagedCopyFunc func,
             IntPtr userData);
 
@@ -286,8 +290,8 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_delete_link(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_delete_link(
+            UnmanagedStruct* list,
             IntPtr link);
 
         /// <summary>
@@ -303,8 +307,8 @@ namespace GISharp.Lib.GLib
         /// the found #GList element, or %NULL if it is not found
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_find(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_find(
+            UnmanagedStruct* list,
             IntPtr data);
 
         /// <summary>
@@ -329,8 +333,8 @@ namespace GISharp.Lib.GLib
         /// the found #GList element, or %NULL if it is not found
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_find_custom(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_find_custom(
+            UnmanagedStruct* list,
             IntPtr data,
             UnmanagedCompareFunc func);
 
@@ -345,8 +349,8 @@ namespace GISharp.Lib.GLib
         ///     or %NULL if the #GList has no elements
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_first(
-            IntPtr list);
+        static extern UnmanagedStruct* g_list_first(
+            UnmanagedStruct* list);
 
         /// <summary>
         /// Calls a function for each element of a #GList.
@@ -362,7 +366,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_list_foreach(
-            IntPtr list,
+            UnmanagedStruct* list,
             IntPtr func,
             IntPtr userData);
 
@@ -372,9 +376,9 @@ namespace GISharp.Lib.GLib
         /// <param name="func">
         /// the function to call with each element's data
         /// </param>
-        private protected unsafe void Foreach<T>(Func<T> func) where T : Opaque?
+        private protected void Foreach<T>(Func<T> func) where T : Opaque?
         {
-            var list_ = UnsafeHandle;
+            var list_ = (UnmanagedStruct*)UnsafeHandle;
             var marshalCallback = func.GetToUnmanagedFunctionPointer();
             var (func_, notify_, userData_) = marshalCallback(func, CallbackScope.Call);
             g_list_foreach(list_, func_, userData_);
@@ -395,7 +399,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.28")]
         static extern void g_list_free_full(
-            IntPtr list,
+            UnmanagedStruct* list,
             UnmanagedDestroyNotify freeFunc);
 
         /// <summary>
@@ -414,7 +418,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_list_index(
-            IntPtr list,
+            UnmanagedStruct* list,
             IntPtr data);
 
         /// <summary>
@@ -430,7 +434,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         private protected int IndexOf(IntPtr data)
         {
-            var ret = g_list_index(handle, data);
+            var list_ = (UnmanagedStruct*)handle;
+            var ret = g_list_index(list_, data);
             return ret;
         }
 
@@ -443,7 +448,7 @@ namespace GISharp.Lib.GLib
         /// </param>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_list_free_1(
-            IntPtr list);
+            UnmanagedStruct* list);
 
         /// <summary>
         /// Inserts a new element into the list at the given position.
@@ -463,8 +468,8 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_insert(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_insert(
+            UnmanagedStruct* list,
             IntPtr data,
             int position);
 
@@ -481,7 +486,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void Insert(IntPtr data, int position)
         {
-            handle = g_list_insert(handle, data, position);
+            var list_ = (UnmanagedStruct*)handle;
+            handle = (IntPtr)g_list_insert(list_, data, position);
         }
 
         /// <summary>
@@ -501,9 +507,9 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_insert_before(
-            IntPtr list,
-            IntPtr sibling,
+        static extern UnmanagedStruct* g_list_insert_before(
+            UnmanagedStruct* list,
+            UnmanagedStruct* sibling,
             IntPtr data);
 
         /// <summary>
@@ -518,7 +524,9 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void InsertBefore(IntPtr sibling, IntPtr data)
         {
-            handle = g_list_insert_before(handle, sibling, data);
+            var list_ = (UnmanagedStruct*)handle;
+            var sibling_ = (UnmanagedStruct*)sibling;
+            handle = (IntPtr)g_list_insert_before(list_, sibling_, data);
         }
 
         /// <summary>
@@ -547,8 +555,8 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_insert_sorted(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_insert_sorted(
+            UnmanagedStruct* list,
             IntPtr data,
             UnmanagedCompareFunc func);
 
@@ -572,7 +580,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void InsertSorted(IntPtr data, UnmanagedCompareFunc func)
         {
-            handle = g_list_insert_sorted(handle, data, func);
+            var list_ = (UnmanagedStruct*)handle;
+            handle = (IntPtr)g_list_insert_sorted(list_, data, func);
         }
 
         /// <summary>
@@ -605,10 +614,10 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.10")]
-        static unsafe extern IntPtr g_list_insert_sorted_with_data(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_insert_sorted_with_data(
+            UnmanagedStruct* list,
             IntPtr data,
-            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> func,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, int> func,
             IntPtr userData);
 
         /// <summary>
@@ -622,8 +631,8 @@ namespace GISharp.Lib.GLib
         ///     or %NULL if the #GList has no elements
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_last(
-            IntPtr list);
+        static extern UnmanagedStruct* g_list_last(
+            UnmanagedStruct* list);
 
         /// <summary>
         /// Gets the number of elements in a #GList.
@@ -641,7 +650,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern uint g_list_length(
-            IntPtr list);
+            UnmanagedStruct* list);
 
         /// <summary>
         /// Gets the number of elements in a <see cref="List"/>.
@@ -656,7 +665,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public int Length {
             get {
-                var ret = g_list_length(handle);
+                var list_ = (UnmanagedStruct*)handle;
+                var ret = g_list_length(list_);
                 return (int)ret;
             }
         }
@@ -675,8 +685,8 @@ namespace GISharp.Lib.GLib
         ///     the end of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_nth(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_nth(
+            UnmanagedStruct* list,
             uint n);
 
         /// <summary>
@@ -694,7 +704,7 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern IntPtr g_list_nth_data(
-            IntPtr list,
+            UnmanagedStruct* list,
             uint n);
 
         /// <summary>
@@ -709,7 +719,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         private protected IntPtr NthData(int n)
         {
-            var ret = g_list_nth_data(handle, (uint)n);
+            var list_ = (UnmanagedStruct*)handle;
+            var ret = g_list_nth_data(list_, (uint)n);
             return ret;
         }
 
@@ -727,8 +738,8 @@ namespace GISharp.Lib.GLib
         ///     off the end of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_nth_prev(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_nth_prev(
+            UnmanagedStruct* list,
             uint n);
 
         /// <summary>
@@ -747,8 +758,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern int g_list_position(
-            IntPtr list,
-            IntPtr llink);
+            UnmanagedStruct* list,
+            UnmanagedStruct* llink);
 
         /// <summary>
         /// Prepends a new element on to the start of the list.
@@ -779,8 +790,8 @@ namespace GISharp.Lib.GLib
         ///     start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_prepend(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_prepend(
+            UnmanagedStruct* list,
             IntPtr data);
 
         /// <summary>
@@ -795,7 +806,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void Prepend(IntPtr data)
         {
-            handle = g_list_prepend(handle, data);
+            var list_ = (UnmanagedStruct*)handle;
+            handle = (IntPtr)g_list_prepend(list_, data);
         }
 
         /// <summary>
@@ -813,8 +825,8 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_remove(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_remove(
+            UnmanagedStruct* list,
             IntPtr data);
 
         /// <summary>
@@ -827,7 +839,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void Remove(IntPtr data)
         {
-            handle = g_list_remove(handle, data);
+            var list_ = (UnmanagedStruct*)handle;
+            handle = (IntPtr)g_list_remove(list_, data);
         }
 
         /// <summary>
@@ -846,8 +859,8 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_remove_all(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_remove_all(
+            UnmanagedStruct* list,
             IntPtr data);
 
         /// <summary>
@@ -861,7 +874,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void RemoveAll(IntPtr data)
         {
-            handle = g_list_remove_all(handle, data);
+            var list_ = (UnmanagedStruct*)handle;
+            handle = (IntPtr)g_list_remove_all(list_, data);
         }
 
         /// <summary>
@@ -889,8 +903,8 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_remove_link(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_remove_link(
+            UnmanagedStruct* list,
             IntPtr llink);
 
         /// <summary>
@@ -904,8 +918,8 @@ namespace GISharp.Lib.GLib
         /// the start of the reversed #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_reverse(
-            IntPtr list);
+        static extern UnmanagedStruct* g_list_reverse(
+            UnmanagedStruct* list);
 
         /// <summary>
         /// Reverses a <see cref="List{T}"/>.
@@ -913,7 +927,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public void Reverse()
         {
-            handle = g_list_reverse(handle);
+            var list_ = (UnmanagedStruct*)handle;
+            handle = (IntPtr)g_list_reverse(list_);
         }
 
         /// <summary>
@@ -934,8 +949,8 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_list_sort(
-            IntPtr list,
+        static extern UnmanagedStruct* g_list_sort(
+            UnmanagedStruct* list,
             UnmanagedCompareFunc compareFunc);
 
         /// <summary>
@@ -951,7 +966,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         private protected void Sort(UnmanagedCompareFunc compareFunc)
         {
-            handle = g_list_sort(handle, compareFunc);
+            var list_ = (UnmanagedStruct*)handle;
+            handle = (IntPtr)g_list_sort(list_, compareFunc);
         }
 
         /// <summary>
@@ -971,16 +987,16 @@ namespace GISharp.Lib.GLib
         /// the (possibly changed) start of the #GList
         /// </returns>
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static unsafe extern IntPtr g_list_sort_with_data(
-            IntPtr list,
-            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> compareFunc,
+        static extern UnmanagedStruct* g_list_sort_with_data(
+            UnmanagedStruct* list,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, int> compareFunc,
             IntPtr userData);
     }
 
     /// <summary>
     /// Enumerates a <see cref="List{T}"/>.
     /// </summary>
-    public sealed class ListEnumerator<T> : Opaque, IEnumerator<T> where T : Opaque?
+    public sealed unsafe class ListEnumerator<T> : Opaque, IEnumerator<T> where T : Opaque?
     {
         readonly IntPtr start;
         IntPtr next;
@@ -995,12 +1011,12 @@ namespace GISharp.Lib.GLib
         public void Reset() => next = start;
 
         /// <inheritdoc/>
-        public unsafe T Current => GetInstance<T>(((List.UnmanagedStruct*)UnsafeHandle)->Data, Transfer.None);
+        public T Current => GetInstance<T>(((List.UnmanagedStruct*)UnsafeHandle)->Data, Transfer.None);
 
         object? IEnumerator.Current => Current;
 
         /// <inheritdoc/>
-        public unsafe bool MoveNext()
+        public bool MoveNext()
         {
             if (next == IntPtr.Zero) {
                 return false;

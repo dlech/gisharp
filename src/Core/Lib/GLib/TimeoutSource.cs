@@ -1,7 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
-
-
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -13,7 +11,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// <see cref="Source"/> that is dispatched after a timeout has expired.
     /// </summary>
-    public sealed class TimeoutSource : Source
+    public sealed unsafe class TimeoutSource : Source
     {
         /// <summary>
         /// Creates a new timeout source.
@@ -35,7 +33,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_timeout_source_new(
+        static extern UnmanagedStruct* g_timeout_source_new(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint interval);
@@ -57,7 +55,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the newly-created timeout source
         /// </returns>
-        static IntPtr New(uint interval)
+        static UnmanagedStruct* New(uint interval)
         {
             var ret = g_timeout_source_new(interval);
             return ret;
@@ -77,7 +75,7 @@ namespace GISharp.Lib.GLib
         /// <param name="interval">
         /// the timeout interval in milliseconds.
         /// </param>
-        public TimeoutSource(uint interval) : this(New(interval), Transfer.Full)
+        public TimeoutSource(uint interval) : this((IntPtr)New(interval), Transfer.Full)
         {
         }
 
@@ -105,7 +103,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_timeout_source_new_seconds(
+        static extern UnmanagedStruct* g_timeout_source_new_seconds(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint interval);
@@ -130,7 +128,7 @@ namespace GISharp.Lib.GLib
         /// the newly-created timeout source
         /// </returns>
         [Since("2.14")]
-        public static IntPtr NewSeconds(uint interval)
+        public static UnmanagedStruct* NewSeconds(uint interval)
         {
             var ret = g_timeout_source_new_seconds(interval);
             return ret;
@@ -158,7 +156,7 @@ namespace GISharp.Lib.GLib
         public static TimeoutSource Seconds(uint interval)
         {
             var ret_ = NewSeconds(interval);
-            var ret = new TimeoutSource(ret_, Transfer.Full);
+            var ret = new TimeoutSource((IntPtr)ret_, Transfer.Full);
             return ret;
         }
 

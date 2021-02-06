@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -15,8 +15,16 @@ namespace GISharp.Lib.GLib
     /// representing the main event loop of a GLib or GTK+ application.
     /// </summary>
     [GType("GMainLoop", IsProxyForUnmanagedType = true)]
-    public sealed class MainLoop : Boxed
+    public sealed unsafe class MainLoop : Boxed
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="MainLoop"/>.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public struct UnmanagedStruct
+        {
+        }
+
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
@@ -26,13 +34,13 @@ namespace GISharp.Lib.GLib
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_main_loop_ref(IntPtr loop);
+        static extern UnmanagedStruct* g_main_loop_ref(UnmanagedStruct* loop);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_main_loop_ref(UnsafeHandle);
+        public override IntPtr Take() => (IntPtr)g_main_loop_ref((UnmanagedStruct*)UnsafeHandle);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_main_loop_unref(IntPtr loop);
+        static extern void g_main_loop_unref(UnmanagedStruct* loop);
 
         /// <summary>
         /// Creates a new #GMainLoop structure.
@@ -51,18 +59,19 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_main_loop_new(
+        static extern UnmanagedStruct* g_main_loop_new(
             /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr context,
+            MainContext.UnmanagedStruct* context,
             /* <type name="gboolean" type="gboolean" managed-name="Gboolean" /> */
             /* transfer-ownership:none */
             Runtime.Boolean isRunning);
 
-        static IntPtr New(MainContext? context = null, bool isRunning = false)
+        static UnmanagedStruct* New(MainContext? context = null, bool isRunning = false)
         {
+            var context_ = (MainContext.UnmanagedStruct*)(context?.UnsafeHandle ?? IntPtr.Zero);
             var isRunning_ = isRunning.ToBoolean();
-            var ret = g_main_loop_new(context?.UnsafeHandle ?? IntPtr.Zero, isRunning_);
+            var ret = g_main_loop_new(context_, isRunning_);
             return ret;
         }
 
@@ -78,7 +87,7 @@ namespace GISharp.Lib.GLib
         /// <c>true</c> anyway.
         /// </param>
         public MainLoop(MainContext? context = null, bool isRunning = false)
-            : this(New(context, isRunning), Transfer.Full)
+            : this((IntPtr)New(context, isRunning), Transfer.Full)
         {
         }
 
@@ -101,10 +110,10 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" /> */
         /* transfer-ownership:none */
-        static extern IntPtr g_main_loop_get_context(
+        static extern MainContext.UnmanagedStruct* g_main_loop_get_context(
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            IntPtr loop);
+            UnmanagedStruct* loop);
 
         /// <summary>
         /// Returns the <see cref="MainContext"/> of this loop.
@@ -114,8 +123,9 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public MainContext Context {
             get {
-                var ret_ = g_main_loop_get_context(UnsafeHandle);
-                var ret = GetInstance<MainContext>(ret_, Transfer.None);
+                var loop_ = (UnmanagedStruct*)UnsafeHandle;
+                var ret_ = g_main_loop_get_context(loop_);
+                var ret = GetInstance<MainContext>((IntPtr)ret_, Transfer.None);
                 return ret;
             }
         }
@@ -135,7 +145,7 @@ namespace GISharp.Lib.GLib
         static extern Runtime.Boolean g_main_loop_is_running(
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            IntPtr loop);
+            UnmanagedStruct* loop);
 
         /// <summary>
         /// Checks to see if the main loop is currently being run via <see cref="Run"/>.
@@ -145,7 +155,8 @@ namespace GISharp.Lib.GLib
         /// </returns>
         public bool IsRunning {
             get {
-                var ret_ = g_main_loop_is_running(UnsafeHandle);
+                var loop_ = (UnmanagedStruct*)UnsafeHandle;
+                var ret_ = g_main_loop_is_running(loop_);
                 var ret = ret_.IsTrue();
                 return ret;
             }
@@ -168,7 +179,7 @@ namespace GISharp.Lib.GLib
         static extern void g_main_loop_quit(
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            IntPtr loop);
+            UnmanagedStruct* loop);
 
         /// <summary>
         /// Stops a <see cref="MainLoop"/> from running. Any calls to <see cref="Run"/>
@@ -180,7 +191,8 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public void Quit()
         {
-            g_main_loop_quit(UnsafeHandle);
+            var loop_ = (UnmanagedStruct*)UnsafeHandle;
+            g_main_loop_quit(loop_);
         }
 
         /// <summary>
@@ -198,7 +210,7 @@ namespace GISharp.Lib.GLib
         static extern void g_main_loop_run(
             /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" /> */
             /* transfer-ownership:none */
-            IntPtr loop);
+            UnmanagedStruct* loop);
 
         /// <summary>
         /// Runs a main loop until <see cref="Quit"/> is called on the loop.
@@ -211,12 +223,12 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public void Run()
         {
-            var this_ = UnsafeHandle;
+            var loop_ = (UnmanagedStruct*)UnsafeHandle;
             var oldSyncContext = SynchronizationContext.Current;
             try {
                 var newSyncContext = Context.SynchronizationContext;
                 SynchronizationContext.SetSynchronizationContext(newSyncContext);
-                g_main_loop_run(this_);
+                g_main_loop_run(loop_);
             }
             finally {
                 SynchronizationContext.SetSynchronizationContext(oldSyncContext);

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections;
@@ -15,10 +15,16 @@ namespace GISharp.Lib.GLib
     /// <see cref="VariantIter"/> is an opaque data structure and can only be accessed
     /// using the following functions.
     /// </summary>
-    public sealed class VariantIter : Opaque, IEnumerator<Variant>
+    public sealed unsafe class VariantIter : Opaque, IEnumerator<Variant>
     {
+        /// <summary>
+        /// The unmanaged data structure for <see cref="VariantIter"/>.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public struct UnmanagedStruct { }
+
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_variant_iter_copy(IntPtr iter);
+        static extern UnmanagedStruct* g_variant_iter_copy(UnmanagedStruct* iter);
 
         /// <summary>
         /// For internal runtime use only.
@@ -27,18 +33,18 @@ namespace GISharp.Lib.GLib
         public VariantIter(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership == Transfer.None) {
-                this.handle = g_variant_iter_copy(handle);
+                this.handle = (IntPtr)g_variant_iter_copy((UnmanagedStruct*)handle);
             }
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_variant_iter_free(IntPtr iter);
+        static extern void g_variant_iter_free(UnmanagedStruct* iter);
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
-                g_variant_iter_free(handle);
+                g_variant_iter_free((UnmanagedStruct*)handle);
             }
             base.Dispose(disposing);
         }
@@ -47,14 +53,15 @@ namespace GISharp.Lib.GLib
         Variant? current;
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_variant_iter_new(IntPtr value);
+        static extern UnmanagedStruct* g_variant_iter_new(Variant.UnmanagedStruct* value);
 
-        static IntPtr New(Variant value)
+        static UnmanagedStruct* New(Variant value)
         {
             if (!value.IsContainer) {
                 throw new ArgumentException("must be a container", nameof(value));
             }
-            var ret = g_variant_iter_new(value.UnsafeHandle);
+            var value_ = (Variant.UnmanagedStruct*)value.UnsafeHandle;
+            var ret = g_variant_iter_new(value_);
             return ret;
         }
 
@@ -65,7 +72,7 @@ namespace GISharp.Lib.GLib
         /// <exception cref="ArgumentException">
         /// if <paramref name="value"/> is not a container type
         /// </exception>
-        public VariantIter(Variant value) : this(New(value), Transfer.Full)
+        public VariantIter(Variant value) : this((IntPtr)New(value), Transfer.Full)
         {
             this.value = value;
         }
@@ -96,10 +103,10 @@ namespace GISharp.Lib.GLib
         static extern nuint g_variant_iter_init(
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
-            IntPtr iter,
+            UnmanagedStruct* iter,
             /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
             /* transfer-ownership:none */
-            IntPtr value);
+            Variant.UnmanagedStruct* value);
 
         [ExcludeFromCodeCoverage]
         void IEnumerator.Reset()
@@ -107,7 +114,9 @@ namespace GISharp.Lib.GLib
             if (value is null) {
                 throw new InvalidOperationException("Initial value is unknown.");
             }
-            g_variant_iter_init(UnsafeHandle, value.UnsafeHandle);
+            var iter_ = (UnmanagedStruct*)UnsafeHandle;
+            var value_ = (Variant.UnmanagedStruct*)value.UnsafeHandle;
+            g_variant_iter_init(iter_, value_);
             current = null;
         }
 
@@ -132,7 +141,7 @@ namespace GISharp.Lib.GLib
         static extern nuint g_variant_iter_n_children(
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
-            IntPtr iter);
+            UnmanagedStruct* iter);
 
         /// <summary>
         /// Gets the number of child items in the container that we are
@@ -148,7 +157,8 @@ namespace GISharp.Lib.GLib
         [Since("2.24")]
         public int Count {
             get {
-                var ret = g_variant_iter_n_children(UnsafeHandle);
+                var iter_ = (UnmanagedStruct*)UnsafeHandle;
+                var ret = g_variant_iter_n_children(iter_);
                 return (int)ret;
             }
         }
@@ -193,18 +203,19 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_variant_iter_next_value(
+        static extern Variant.UnmanagedStruct* g_variant_iter_next_value(
             /* <type name="VariantIter" type="GVariantIter*" managed-name="VariantIter" /> */
             /* transfer-ownership:none */
-            IntPtr iter);
+            UnmanagedStruct* iter);
 
         /// <summary>
         /// Gets the next item in the container. If no more items remain then <c>null</c> is returned.
         /// </summary>
         public Variant? TryNextValue()
         {
-            var ret_ = g_variant_iter_next_value(UnsafeHandle);
-            current = GetInstance<Variant>(ret_, Transfer.Full);
+            var iter_ = (UnmanagedStruct*)UnsafeHandle;
+            var ret_ = g_variant_iter_next_value(iter_);
+            current = GetInstance<Variant>((IntPtr)ret_, Transfer.Full);
             return current;
         }
 

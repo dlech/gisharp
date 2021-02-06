@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
-
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Runtime.CompilerServices;
@@ -18,14 +17,14 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Factory functions for marshaling <see cref="SourceFunc"/> to unmanaged code.
     /// </summary>
-    public static class SourceFuncMarshal
+    public static unsafe class SourceFuncMarshal
     {
         record UserData(SourceFunc Func, CallbackScope Scope);
 
         /// <summary>
         /// Marshals an unmanged function pointer to a <see cref="SourceFunc"/>.
         /// </summary>
-        public unsafe static SourceFunc FromPointer(delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean> func_, IntPtr userData_)
+        public static SourceFunc FromPointer(delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean> func_, IntPtr userData_)
         {
             return new SourceFunc(() => {
                 var ret_ = func_(userData_);
@@ -37,7 +36,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Marshals to a <see cref="SourceFunc"/> to an unmanged function pointer.
         /// </summary>
-        public unsafe static (IntPtr func_, IntPtr destroy_, IntPtr userData_) ToUnmanagedFunctionPointer(SourceFunc func, CallbackScope scope)
+        public static (IntPtr func_, IntPtr destroy_, IntPtr userData_) ToUnmanagedFunctionPointer(SourceFunc func, CallbackScope scope)
         {
             delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean> unmanagedFunc = &UnmanagedFunc;
             delegate* unmanaged[Cdecl]<IntPtr, void> unmanagedNotify = &UnmanagedNotify;

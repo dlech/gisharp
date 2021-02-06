@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
-
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -12,7 +11,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// <see cref="Source"/> that runs when the event loop is idle.
     /// </summary>
-    public sealed class IdleSource : Source
+    public sealed unsafe class IdleSource : Source
     {
         /// <summary>
         /// Creates a new idle source.
@@ -30,7 +29,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_idle_source_new();
+        static extern UnmanagedStruct* g_idle_source_new();
 
         /// <summary>
         /// Creates a new idle source.
@@ -45,7 +44,7 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// the newly-created idle source
         /// </returns>
-        static IntPtr New()
+        static UnmanagedStruct* New()
         {
             var ret = g_idle_source_new();
             return ret;
@@ -61,7 +60,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="Priority.DefaultIdle"/>, as compared to other sources which
         /// have a default priority of <see cref="Priority.Default"/>.
         /// </remarks>
-        public IdleSource() : this(New(), Transfer.Full)
+        public IdleSource() : this((IntPtr)New(), Transfer.Full)
         {
         }
 

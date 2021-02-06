@@ -368,19 +368,19 @@ namespace GISharp.Test.Core
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_network_monitor_can_reach_finish(IntPtr monitor, IntPtr result, ref IntPtr errorPtr);
+        static extern unsafe Boolean g_network_monitor_can_reach_finish(IntPtr monitor, IntPtr result, Error.UnmanagedStruct** error);
 
-        static void CanReachAsyncFinish(IntPtr sourceObject_, IntPtr result_, IntPtr userData_)
+        static unsafe void CanReachAsyncFinish(IntPtr sourceObject_, IntPtr result_, IntPtr userData_)
         {
             try {
                 var userData = (GCHandle)userData_;
                 var completion = (TaskCompletionSource<bool>)userData.Target!;
                 userData.Free();
 
-                var error_ = IntPtr.Zero;
-                var ret_ = g_network_monitor_can_reach_finish(sourceObject_, result_, ref error_);
-                if (error_ != IntPtr.Zero) {
-                    var error = Opaque.GetInstance<Error>(error_, Transfer.Full);
+                var error_ = default(Error.UnmanagedStruct*);
+                var ret_ = g_network_monitor_can_reach_finish(sourceObject_, result_, &error_);
+                if (error_ != null) {
+                    var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                     completion.SetException(new GErrorException(error));
                 }
                 else {
@@ -584,14 +584,14 @@ namespace GISharp.Test.Core
             Boolean result);
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_task_propagate_boolean(IntPtr task, ref IntPtr error);
+        static extern unsafe Boolean g_task_propagate_boolean(IntPtr task, Error.UnmanagedStruct** error);
 
-        public bool PropagateBoolean()
+        public unsafe bool PropagateBoolean()
         {
-            var error_ = IntPtr.Zero;
-            var ret_ = g_task_propagate_boolean(UnsafeHandle, ref error_);
-            if (error_ != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error>(error_, Transfer.Full);
+            var error_ = default(Error.UnmanagedStruct*);
+            var ret_ = g_task_propagate_boolean(UnsafeHandle, &error_);
+            if (error_ != null) {
+                var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
             var ret = ret_.IsTrue();

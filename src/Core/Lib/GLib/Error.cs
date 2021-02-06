@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -17,13 +17,13 @@ namespace GISharp.Lib.GLib
     /// <see cref="GErrorException"/> instead.
     /// </remarks>
     [GType("GError", IsProxyForUnmanagedType = true)]
-    public sealed class Error : Boxed
+    public sealed unsafe class Error : Boxed
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="Error"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -39,7 +39,7 @@ namespace GISharp.Lib.GLib
             /// <summary>
             /// human-readable informative error message
             /// </summary>
-            public IntPtr Message;
+            public byte* Message;
 #pragma warning restore CS0649
         }
 
@@ -47,28 +47,28 @@ namespace GISharp.Lib.GLib
         /// Gets the error domain (aka error quark).
         /// </summary>
         /// <value>The domain value.</value>
-        public unsafe Quark Domain => ((UnmanagedStruct*)UnsafeHandle)->Domain;
+        public Quark Domain => ((UnmanagedStruct*)UnsafeHandle)->Domain;
 
         /// <summary>
         /// Gets the error code.
         /// </summary>
         /// <value>The code.</value>
-        public unsafe int Code => ((UnmanagedStruct*)UnsafeHandle)->Code;
+        public int Code => ((UnmanagedStruct*)UnsafeHandle)->Code;
 
         /// <summary>
         /// Gets the error message.
         /// </summary>
         /// <value>The message.</value>
-        public unsafe UnownedUtf8 Message {
+        public UnownedUtf8 Message {
             get {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->Message;
-                var ret = new UnownedUtf8(ret_, -1);
+                var ret = new UnownedUtf8((IntPtr)ret_, -1);
                 return ret;
             }
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_error_copy(IntPtr error);
+        static extern UnmanagedStruct* g_error_copy(UnmanagedStruct* error);
 
         /// <summary>
         /// For internal runtime use only.
@@ -79,18 +79,19 @@ namespace GISharp.Lib.GLib
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_error_free(IntPtr error);
+        static extern void g_error_free(UnmanagedStruct* error);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_error_new_literal(
+        static extern UnmanagedStruct* g_error_new_literal(
             Quark domain,
             int code,
-            IntPtr message);
+            byte* message);
 
-        static IntPtr NewLiteral(Quark domain, int code, string message)
+        static UnmanagedStruct* NewLiteral(Quark domain, int code, string message)
         {
             using var utf8 = new Utf8(message);
-            var ret = g_error_new_literal(domain, code, utf8.UnsafeHandle);
+            var message_ = (byte*)utf8.UnsafeHandle;
+            var ret = g_error_new_literal(domain, code, message_);
             return ret;
         }
 
@@ -102,7 +103,7 @@ namespace GISharp.Lib.GLib
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
         public Error(Quark domain, int code, string message)
-            : this(NewLiteral(domain, code, message), Transfer.Full)
+            : this((IntPtr)NewLiteral(domain, code, message), Transfer.Full)
         {
         }
 
@@ -116,7 +117,7 @@ namespace GISharp.Lib.GLib
         /// <param name="code">Error code.</param>
         /// <param name="message">Error message.</param>
         public Error(System.Enum code, string message)
-            : this(NewLiteral(code.GetGErrorDomain(), (int)(object)code, message), Transfer.Full)
+            : this((IntPtr)NewLiteral(code.GetGErrorDomain(), (int)(object)code, message), Transfer.Full)
         {
         }
 

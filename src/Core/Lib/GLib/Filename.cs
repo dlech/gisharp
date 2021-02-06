@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -12,7 +12,7 @@ namespace GISharp.Lib.GLib
     /// String using OS-specific encoding. Used for filenames, environment
     /// variables and process arguments.
     /// </summary>
-    public sealed class Filename : Opaque
+    public sealed unsafe class Filename : Opaque
     {
         /// <summary>
         /// For internal runtime use only.
@@ -51,12 +51,12 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_build_filenamev(
+        static extern byte* g_build_filenamev(
             /* <array type="gchar**">
             *   <type name="utf8" type="gchar*" managed-name="Utf8" />
             * </array> */
             /* transfer-ownership:none */
-            IntPtr args);
+            byte** args);
 
         /// <summary>
         /// Creates a filename from a series of elements using the correct separator for filenames.
@@ -88,9 +88,9 @@ namespace GISharp.Lib.GLib
         [Since("2.8")]
         public static Filename Build(Strv args)
         {
-            var args_ = args.UnsafeHandle;
+            var args_ = (byte**)args.UnsafeHandle;
             var ret_ = g_build_filenamev(args_);
-            var ret = new Filename(ret_, Transfer.Full);
+            var ret = new Filename((IntPtr)ret_, Transfer.Full);
             return ret;
         }
 
@@ -124,10 +124,10 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_filename_display_basename(
+        static extern byte* g_filename_display_basename(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            IntPtr filename);
+            byte* filename);
 
         /// <summary>
         /// Returns the display basename for the particular filename, guaranteed
@@ -154,9 +154,9 @@ namespace GISharp.Lib.GLib
         [Since("2.6")]
         public Utf8 DisplayBasename {
             get {
-                var filename_ = UnsafeHandle;
+                var filename_ = (byte*)UnsafeHandle;
                 var ret_ = g_filename_display_basename(filename_);
-                var ret = GetInstance<Utf8>(ret_, Transfer.Full);
+                var ret = GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -190,10 +190,10 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_filename_display_name(
+        static extern byte* g_filename_display_name(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            IntPtr filename);
+            byte* filename);
 
         /// <summary>
         /// Converts a filename into a valid UTF-8 string. The conversion is
@@ -219,9 +219,9 @@ namespace GISharp.Lib.GLib
         [Since("2.6")]
         public Utf8 DisplayName {
             get {
-                var filename_ = UnsafeHandle;
+                var filename_ = (byte*)UnsafeHandle;
                 var ret_ = g_filename_display_name(filename_);
-                var ret = GetInstance<Utf8>(ret_, Transfer.Full);
+                var ret = GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
                 return ret;
             }
         }
@@ -248,16 +248,16 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="filename" type="gchar*" managed-name="Filename" /> */
         /* transfer-ownership:full */
-        static extern unsafe IntPtr g_filename_from_uri(
+        static extern byte* g_filename_from_uri(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            IntPtr uri,
+            byte* uri,
             /* <type name="utf8" type="gchar**" managed-name="Utf8" /> */
             /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-            IntPtr* hostname,
+            byte** hostname,
             /* <type name="GLib.Error" managed-name="GLib.Error" /> */
             /* direction:out */
-            out IntPtr error);
+            Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Converts an escaped ASCII-encoded URI to a local filename in the
@@ -275,17 +275,18 @@ namespace GISharp.Lib.GLib
         /// <exception name="GErrorException">
         /// On error
         /// </exception>
-        public static unsafe Filename FromUri(UnownedUtf8 uri, out Utf8? hostname)
+        public static Filename FromUri(UnownedUtf8 uri, out Utf8? hostname)
         {
-            var uri_ = uri.UnsafeHandle;
-            IntPtr hostname_;
-            var ret_ = g_filename_from_uri(uri_, &hostname_, out var error_);
-            if (error_ != IntPtr.Zero) {
-                var error = GetInstance<Error>(error_, Transfer.Full);
+            var uri_ = (byte*)uri.UnsafeHandle;
+            byte* hostname_;
+            var error_ = default(Error.UnmanagedStruct*);
+            var ret_ = g_filename_from_uri(uri_, &hostname_, &error_);
+            if (error_ != null) {
+                var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
-            hostname = GetInstance<Utf8>(hostname_, Transfer.Full);
-            var ret = GetInstance<Filename>(ret_, Transfer.Full);
+            hostname = GetInstance<Utf8>((IntPtr)hostname_, Transfer.Full);
+            var ret = GetInstance<Filename>((IntPtr)ret_, Transfer.Full);
             return ret;
         }
 
@@ -302,15 +303,16 @@ namespace GISharp.Lib.GLib
         /// <exception name="GErrorException">
         /// On error
         /// </exception>
-        public static unsafe Filename FromUri(UnownedUtf8 uri)
+        public static Filename FromUri(UnownedUtf8 uri)
         {
-            var uri_ = uri.UnsafeHandle;
-            var ret_ = g_filename_from_uri(uri_, null, out var error_);
-            if (error_ != IntPtr.Zero) {
-                var error = GetInstance<Error>(error_, Transfer.Full);
+            var uri_ = (byte*)uri.UnsafeHandle;
+            var error_ = default(Error.UnmanagedStruct*);
+            var ret_ = g_filename_from_uri(uri_, null, &error_);
+            if (error_ != null) {
+                var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
-            var ret = GetInstance<Filename>(ret_, Transfer.Full);
+            var ret = GetInstance<Filename>((IntPtr)ret_, Transfer.Full);
             return ret;
         }
 
@@ -353,10 +355,10 @@ namespace GISharp.Lib.GLib
          *   <type name="guint8" managed-name="Guint8" />
          * </array> */
         /* transfer-ownership:full */
-        static extern unsafe IntPtr g_filename_from_utf8(
+        static extern IntPtr g_filename_from_utf8(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            IntPtr utf8string,
+            byte* utf8string,
             /* <type name="gssize" type="gssize" managed-name="Gssize" /> */
             /* transfer-ownership:none */
             nint len,
@@ -368,7 +370,7 @@ namespace GISharp.Lib.GLib
             nuint* bytesWritten,
             /* <type name="GLib.Error" managed-name="GLib.Error" /> */
             /* direction:out */
-            out IntPtr error);
+            Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Converts a string from UTF-8 to the encoding GLib uses for
@@ -385,13 +387,14 @@ namespace GISharp.Lib.GLib
         /// <exception name="GErrorException">
         /// On error
         /// </exception>
-        public static unsafe Filename FromUtf8(Utf8 utf8string)
+        public static Filename FromUtf8(Utf8 utf8string)
         {
-            var utf8string_ = utf8string.UnsafeHandle;
+            var utf8string_ = (byte*)utf8string.UnsafeHandle;
             nuint bytesWritten_;
-            var ret_ = g_filename_from_utf8(utf8string_, -1, null, &bytesWritten_, out var error_);
-            if (error_ != IntPtr.Zero) {
-                var error = GetInstance<Error>(error_, Transfer.Full);
+            var error_ = default(Error.UnmanagedStruct*);
+            var ret_ = g_filename_from_utf8(utf8string_, -1, null, &bytesWritten_, &error_);
+            if (error_ != null) {
+                var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
             var ret = GetInstance<Filename>(ret_, Transfer.Full);
@@ -420,16 +423,16 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_filename_to_uri(
+        static extern byte* g_filename_to_uri(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            IntPtr filename,
+            byte* filename,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
-            IntPtr hostname,
+            byte* hostname,
             /* <type name="GLib.Error" managed-name="GLib.Error" /> */
             /* direction:out */
-            out IntPtr error);
+            Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Converts an absolute filename to an escaped ASCII-encoded URI, with the path
@@ -446,15 +449,16 @@ namespace GISharp.Lib.GLib
         /// </exception>
         public Utf8 ToUri(Utf8? hostname = null)
         {
-            var filename_ = UnsafeHandle;
-            var hostname_ = hostname?.UnsafeHandle ?? IntPtr.Zero;
-            var ret_ = g_filename_to_uri(filename_, hostname_, out var error_);
-            if (error_ != IntPtr.Zero) {
-                var error = GetInstance<Error>(error_, Transfer.Full);
+            var filename_ = (byte*)UnsafeHandle;
+            var hostname_ = (byte*)(hostname?.UnsafeHandle ?? IntPtr.Zero);
+            var error_ = default(Error.UnmanagedStruct*);
+            var ret_ = g_filename_to_uri(filename_, hostname_, &error_);
+            if (error_ != null) {
+                var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
 
-            var ret = GetInstance<Utf8>(ret_, Transfer.Full);
+            var ret = GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
             return ret;
         }
 
@@ -496,10 +500,10 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="Utf8" /> */
         /* transfer-ownership:full */
-        static extern unsafe IntPtr g_filename_to_utf8(
+        static extern byte* g_filename_to_utf8(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            IntPtr opsysstring,
+            byte* opsysstring,
             /* <type name="gssize" type="gssize" managed-name="Gssize" /> */
             /* transfer-ownership:none */
             nint len,
@@ -511,7 +515,7 @@ namespace GISharp.Lib.GLib
             nuint* bytesWritten,
             /* <type name="GLib.Error" managed-name="GLib.Error" /> */
             /* direction:out */
-            out IntPtr error);
+            Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Converts a string which is in the encoding used by GLib for
@@ -525,17 +529,18 @@ namespace GISharp.Lib.GLib
         /// <exception name="GErrorException">
         /// On error
         /// </exception>
-        public unsafe Utf8 ToUtf8()
+        public Utf8 ToUtf8()
         {
-            var opsysstring_ = UnsafeHandle;
+            var opsysstring_ = (byte*)UnsafeHandle;
             nuint bytesWritten_;
-            var ret_ = g_filename_to_utf8(opsysstring_, -1, 0, &bytesWritten_, out var error_);
-            if (error_ != IntPtr.Zero) {
-                var error = GetInstance<Error>(error_, Transfer.Full);
+            var error_ = default(Error.UnmanagedStruct*);
+            var ret_ = g_filename_to_utf8(opsysstring_, -1, 0, &bytesWritten_, &error_);
+            if (error_ != null) {
+                var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
 
-            var ret = GetInstance<Utf8>(ret_, Transfer.Full);
+            var ret = GetInstance<Utf8>((IntPtr)ret_, Transfer.Full);
             return ret;
         }
 

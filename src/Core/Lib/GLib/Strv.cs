@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
-
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections;
@@ -18,7 +17,7 @@ namespace GISharp.Lib.GLib
     /// Wrapper around unmanaged null-terminated array of null-terminated UTF-8 strings.
     /// </summary>
     [GType("GStrv", IsProxyForUnmanagedType = true)]
-    public sealed class Strv : Boxed, IReadOnlyList<Utf8>
+    public sealed unsafe class Strv : Boxed, IReadOnlyList<Utf8>
     {
         /// <summary>
         /// Gets the managed UTF-16 value of this string.
@@ -63,7 +62,7 @@ namespace GISharp.Lib.GLib
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.6")]
-        static extern uint g_strv_length(IntPtr strArray);
+        static extern uint g_strv_length(byte** strArray);
 
         /// <summary>
         /// Returns the length of this <see cref="Strv"/>.
@@ -71,7 +70,8 @@ namespace GISharp.Lib.GLib
         [Since("2.6")]
         public int Length {
             get {
-                var ret = g_strv_length(UnsafeHandle);
+                var this_ = (byte**)UnsafeHandle;
+                var ret = g_strv_length(this_);
                 return (int)ret;
             }
         }
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GLib
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.44")]
-        static extern Runtime.Boolean g_strv_contains(IntPtr strv, IntPtr str);
+        static extern Runtime.Boolean g_strv_contains(byte** strv, byte* str);
 
         /// <summary>
         /// Checks if this instance contains <paramref name="str"/>.
@@ -93,8 +93,8 @@ namespace GISharp.Lib.GLib
         [Since("2.44")]
         public bool Contains(UnownedUtf8 str)
         {
-            var this_ = UnsafeHandle;
-            var str_ = str.UnsafeHandle;
+            var this_ = (byte**)UnsafeHandle;
+            var str_ = (byte*)str.UnsafeHandle;
             var ret_ = g_strv_contains(this_, str_);
             var ret = ret_.IsTrue();
             return ret;
@@ -164,7 +164,7 @@ namespace GISharp.Lib.GLib
         /// Returns a reference to unmanaged string array.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe ref readonly IntPtr GetPinnableReference()
+        public ref readonly IntPtr GetPinnableReference()
         {
             return ref Unsafe.AsRef<IntPtr>((void*)UnsafeHandle);
         }

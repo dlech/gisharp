@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
-
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -12,7 +11,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// <see cref="Source"/> that is dispatched upon the delivery of a UNIX signal.
     /// </summary>
-    public sealed class UnixSignalSource : Source
+    public sealed unsafe class UnixSignalSource : Source
     {
         const int SIGHUP = 1;
         const int SIGINT = 2;
@@ -54,7 +53,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="Source" type="GSource*" managed-name="Source" /> */
         /* transfer-ownership:full */
-        static extern IntPtr g_unix_signal_source_new(
+        static extern UnmanagedStruct* g_unix_signal_source_new(
             /* <type name="gint" type="gint" managed-name="Gint" /> */
             /* transfer-ownership:none */
             int signum);
@@ -92,7 +91,7 @@ namespace GISharp.Lib.GLib
         /// A newly created <see cref="Source"/>
         /// </returns>
         [Since("2.30")]
-        static IntPtr New(int signum)
+        static UnmanagedStruct* New(int signum)
         {
             if (signum != SIGHUP && signum != SIGINT && signum != SIGQUIT) {
                 throw new ArgumentException("Only SIGHUP, SIGINT, SIGQUIT allowed", nameof(signum));
@@ -131,7 +130,7 @@ namespace GISharp.Lib.GLib
         /// <param name="signum">
         /// A signal number
         /// </param>
-        public UnixSignalSource(int signum) : this(New(signum), Transfer.Full)
+        public UnixSignalSource(int signum) : this((IntPtr)New(signum), Transfer.Full)
         {
         }
 

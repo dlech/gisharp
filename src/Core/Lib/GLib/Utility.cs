@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Runtime.InteropServices;
@@ -9,13 +9,13 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Miscellaneous utility functions.
     /// </summary>
-    public static class Utility
+    public static unsafe class Utility
     {
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_get_application_name();
+        static extern byte* g_get_application_name();
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_set_application_name(IntPtr applicationName);
+        static extern void g_set_application_name(byte* applicationName);
 
         /// <summary>
         /// Gets or sets a human-readable name for the application.
@@ -36,19 +36,19 @@ namespace GISharp.Lib.GLib
         public static UnownedUtf8 ApplicationName {
             get {
                 var ret_ = g_get_application_name();
-                var ret = new UnownedUtf8(ret_, -1);
+                var ret = new UnownedUtf8((IntPtr)ret_, -1);
                 return ret;
             }
             set {
-                g_set_application_name(value.UnsafeHandle);
+                g_set_application_name((byte*)value.UnsafeHandle);
             }
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_get_prgname();
+        static extern byte* g_get_prgname();
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_set_prgname(IntPtr applicationName);
+        static extern void g_set_prgname(byte* applicationName);
 
         /// <summary>
         /// Gets or sets the name of the program. This name should not be
@@ -63,11 +63,11 @@ namespace GISharp.Lib.GLib
         public static UnownedUtf8 ProgramName {
             get {
                 var ret_ = g_get_prgname();
-                var ret = new UnownedUtf8(ret_, -1);
+                var ret = new UnownedUtf8((IntPtr)ret_, -1);
                 return ret;
             }
             set {
-                g_set_prgname(value.UnsafeHandle);
+                g_set_prgname((byte*)value.UnsafeHandle);
             }
         }
     }
