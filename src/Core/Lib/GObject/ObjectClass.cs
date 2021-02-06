@@ -759,7 +759,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static unsafe extern void g_object_class_install_property(
+        static extern unsafe void g_object_class_install_property(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
             UnmanagedStruct* oclass,
@@ -878,7 +878,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static unsafe extern void g_object_class_override_property(
+        static extern unsafe void g_object_class_override_property(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
             UnmanagedStruct* oclass,

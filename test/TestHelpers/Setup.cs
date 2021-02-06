@@ -1,13 +1,13 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using NUnit.Framework;
+using NUnit.Framework.Internal;
 using GISharp.Lib.GLib;
 
 using static GISharp.Lib.GLib.LogLevelFlags;
-using NUnit.Framework.Internal;
 
 namespace GISharp.Test
 {

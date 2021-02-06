@@ -73,7 +73,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        static unsafe extern culong g_signal_add_emission_hook(
+        static extern unsafe culong g_signal_add_emission_hook(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -1023,7 +1023,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static unsafe extern void g_signal_override_class_handler(
+        static extern unsafe void g_signal_override_class_handler(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr signalName,

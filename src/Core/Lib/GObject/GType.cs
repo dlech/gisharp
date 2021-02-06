@@ -835,7 +835,7 @@ namespace GISharp.Lib.GObject
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static unsafe extern GType g_type_register_static(
+        static extern unsafe GType g_type_register_static(
             GType parentType,
             IntPtr typeName,
             TypeInfo* info,

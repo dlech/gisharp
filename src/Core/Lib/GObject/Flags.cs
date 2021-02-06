@@ -31,7 +31,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static unsafe extern void g_flags_complete_type_info(
+        static extern unsafe void g_flags_complete_type_info(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType gFlagsType,
