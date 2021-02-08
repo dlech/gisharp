@@ -37,7 +37,7 @@ namespace GISharp.Lib.Gtk
         static partial void CheckGetQuarkArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Lib.GLib.Quark gtk_recent_manager_error_quark();
 
         private static unsafe GISharp.Lib.GLib.Quark GetQuark()
@@ -51,7 +51,7 @@ namespace GISharp.Lib.Gtk
         static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
+        /* transfer-ownership:full direction:in */
         private static extern unsafe GISharp.Lib.GObject.GType gtk_recent_manager_error_get_type();
     }
 }

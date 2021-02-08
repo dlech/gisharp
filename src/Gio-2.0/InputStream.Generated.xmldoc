@@ -84,7 +84,7 @@ Checks if an input stream has pending actions.
 </returns>
 </member>
 
-<member name='InputStream.Read(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.Read(System.Span&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to read the length of <paramref name="buffer"/> bytes from the stream into the buffer starting at
 <paramref name="buffer"/>. Will block during this read.
@@ -124,13 +124,13 @@ On error
 </exception>
 </member>
 
-<member name='InputStream.ReadAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.ReadAll(System.Span&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to read the length of <paramref name="buffer"/> bytes from the stream into the buffer starting at
 <paramref name="buffer"/>. Will block during this read.
 </summary>
 <remarks>
-This function is similar to <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, except it tries to
+This function is similar to <see cref="InputStream.Read(System.Span{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, except it tries to
 read as many bytes as requested, only stopping on an error or end of stream.
 
 On a successful read of the length of <paramref name="buffer"/> bytes, or if we reached the end of the
@@ -145,7 +145,7 @@ use #GError, if this function returns <c>false</c> (and sets <see cref="GISharp.
 <paramref name="bytesRead"/> will be set to the number of bytes that were successfully
 read before the error was encountered.  This functionality is only
 available from C.  If you need it from another language then you must
-write your own loop around <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>.
+write your own loop around <see cref="InputStream.Read(System.Span{System.Byte},GISharp.Lib.Gio.Cancellable)"/>.
 </remarks>
 <param name="buffer">
 
@@ -162,13 +162,13 @@ On error
 </exception>
 </member>
 
-<member name='InputStream.ReadAllAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.ReadAllAsync(System.Memory&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous read of the length of <paramref name="buffer"/> bytes from the stream into the
 buffer starting at <paramref name="buffer"/>.
 </summary>
 <remarks>
-This is the asynchronous equivalent of <see cref="InputStream.ReadAll(System.ReadOnlySpan{System.Byte},out System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+This is the asynchronous equivalent of <see cref="InputStream.ReadAll(System.Span{System.Byte},out System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
 
 Call <see cref="InputStream.ReadAllFinish(GISharp.Lib.Gio.IAsyncResult,out System.Int32)"/> to collect the result.
 
@@ -188,7 +188,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='InputStream.ReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.ReadAsync(System.Memory&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous read of the length of <paramref name="buffer"/> bytes from the stream into the buffer
 starting at <paramref name="buffer"/>. When the operation is finished <paramref name="callback"/> will be called.
@@ -230,7 +230,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 
 <member name='InputStream.ReadBytes(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Like <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, this tries to read <paramref name="count"/> bytes from
+Like <see cref="InputStream.Read(System.Span{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, this tries to read <paramref name="count"/> bytes from
 the stream in a blocking fashion. However, rather than reading into
 a user-supplied buffer, this will create a new #GBytes containing
 the data that was read. This may be easier to use from language
@@ -321,7 +321,7 @@ On error
 Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
 </summary>
 <remarks>
-This is identical to <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
+This is identical to <see cref="InputStream.Read(System.Span{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
 but the bytes that are skipped are not returned to the user. Some
 streams have an implementation that is more efficient than reading the data.
 
@@ -432,7 +432,7 @@ On error
 </exception>
 </member>
 
-<member name='InputStream.DoReadAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='InputStream.DoReadAsync(System.Span&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous read of the length of <paramref name="buffer"/> bytes from the stream into the buffer
 starting at <paramref name="buffer"/>. When the operation is finished <paramref name="callback"/> will be called.
@@ -501,7 +501,7 @@ On error
 Tries to skip <paramref name="count"/> bytes from the stream. Will block during the operation.
 </summary>
 <remarks>
-This is identical to <see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
+This is identical to <see cref="InputStream.Read(System.Span{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, from a behaviour standpoint,
 but the bytes that are skipped are not returned to the user. Some
 streams have an implementation that is more efficient than reading the data.
 
@@ -586,7 +586,7 @@ On error
 
 <member name='InputStream'>
 <summary>
-<see cref="InputStream"/> has functions to read from a stream (<see cref="InputStream.Read(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>),
+<see cref="InputStream"/> has functions to read from a stream (<see cref="InputStream.Read(System.Span{System.Byte},GISharp.Lib.Gio.Cancellable)"/>),
 to close a stream (<see cref="InputStream.Close(GISharp.Lib.Gio.Cancellable)"/>) and to skip some content
 (<see cref="InputStream.Skip(System.Int32,GISharp.Lib.Gio.Cancellable)"/>).
 </summary>

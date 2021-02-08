@@ -2,7 +2,6 @@
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
 using GISharp.CodeGen.Gir;
@@ -65,14 +64,8 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Class @class)
         {
-            var members = List<MemberDeclarationSyntax>();
-
-            if (@class.Fields.Any()) {
-                members = members.Add(@class.Fields.GetStructDeclaration()
-                    .AddModifiers(Token(NewKeyword)));
-            }
-
-            members = members
+            var members = List<MemberDeclarationSyntax>()
+                .Add(@class.Fields.GetStructDeclaration().AddModifiers(Token(NewKeyword)))
                 .AddRange(@class.Constants.GetMemberDeclarations())
                 .AddRange(@class.Properties.GetMemberDeclarations())
                 .AddRange(@class.ManagedProperties.GetMemberDeclarations())

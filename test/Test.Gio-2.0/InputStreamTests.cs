@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.Gio;
-using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using NUnit.Framework;
 
@@ -18,9 +17,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestRead()
         {
-            using var buffer = new ByteArray();
             using var stream = TestInputStream.New();
-            buffer.SetSize(10);
+            var buffer = new byte[10];
             var count = stream.Read(buffer);
             Assert.That(count, Is.EqualTo(10));
         }
@@ -28,9 +26,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestReadAll()
         {
-            using var buffer = new ByteArray();
             using var stream = TestInputStream.New();
-            buffer.SetSize(10);
+            var buffer = new byte[10];
             stream.ReadAll(buffer, out var read);
             Assert.That(read, Is.EqualTo(10));
         }
@@ -38,9 +35,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestSkip()
         {
-            using var buffer = new ByteArray();
             using var stream = TestInputStream.New();
-            buffer.SetSize(10);
+            var buffer = new byte[10];
             var count = stream.Skip(10);
             Assert.That(count, Is.EqualTo(10));
         }
@@ -49,9 +45,8 @@ namespace GISharp.Test.Gio
         public void TestReadAsync()
         {
             RunAsyncTest(async () => {
-                using var buffer = new ByteArray();
                 using var stream = TestInputStream.New();
-                buffer.SetSize(10);
+                var buffer = new byte[10];
                 var count = await stream.ReadAsync(buffer);
                 Assert.That(count, Is.EqualTo(10));
             });
@@ -61,9 +56,8 @@ namespace GISharp.Test.Gio
         public void TestReadAllAsync()
         {
             RunAsyncTest(async () => {
-                using var buffer = new ByteArray();
                 using var stream = TestInputStream.New();
-                buffer.SetSize(10);
+                var buffer = new byte[10];
                 var count = await stream.ReadAllAsync(buffer);
                 Assert.That(count, Is.EqualTo(10));
             });

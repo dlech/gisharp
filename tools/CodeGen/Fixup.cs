@@ -461,7 +461,8 @@ namespace GISharp.CodeGen
                     new XElement(gi + "doc", "the instance on which the signal was invoked"),
                     new XElement(gi + "type",
                         new XAttribute("name", declaringType),
-                        new XAttribute(c + "name", "gpointer")
+                        new XAttribute(c + "name", "gpointer"),
+                        new XAttribute(gs + "is-pointer", "1")
                     )
                 ));
                 parametersElement.Add(new XElement(gi + "parameter",
@@ -470,7 +471,8 @@ namespace GISharp.CodeGen
                     new XAttribute("closure", parametersElement.Elements(gi + "parameter").Count()),
                     new XElement(gi + "type",
                         new XAttribute("name", "gpointer"),
-                        new XAttribute(c + "name", "gpointer")
+                        new XAttribute(c + "name", "gpointer"),
+                        new XAttribute(gs + "is-pointer", "1")
                     )
                 ));
             }
@@ -764,12 +766,36 @@ namespace GISharp.CodeGen
                     continue;
                 }
 
-                var cType = element.Attribute(c + "type").AsString();
-                if (cType is null) {
-                    // if there is no C type, it is probably a pointer
+                // special base types
+                var name = element.Attribute("name").AsString();
+                if (name == "utf8" || name == "filename") {
                     element.SetAttributeValue(gs + "is-pointer", "1");
+                    continue;
                 }
-                else if (IsPointerType(cType)) {
+
+                // https://gitlab.gnome.org/GNOME/gobject-introspection/-/blob/master/girepository/girparser.c
+                var pointerDepth = 0;
+                var cType = element.Attribute(c + "type").AsString();
+                if (cType is not null) {
+                    pointerDepth += cType.Count(x => x == '*');
+                    if (cType.StartsWith("gpointer", StringComparison.Ordinal)
+                       || cType.StartsWith("gconstpointer", StringComparison.Ordinal)) {
+                        pointerDepth++;
+                    }
+                }
+                else if (element.Ancestors(glib + "signal").Any()) {
+                    // signal parameters don't have c:type for non-basic types some reason
+                    pointerDepth++;
+                }
+
+                if (element.Parent.Name == gi + "parameter" && element.Parent.Attribute("direction").AsString("in") != "in") {
+                    pointerDepth--;
+                }
+
+                // TODO: need to handle disguised structs. This probably means
+                // resolving is-pointer later since the type may not be defined
+                // in the GIR XML.
+                if (pointerDepth > 0) {
                     element.SetAttributeValue(gs + "is-pointer", "1");
                 }
             }
@@ -787,34 +813,10 @@ namespace GISharp.CodeGen
 
             // set a value for parameters without direction attribute
 
-            foreach (var element in document.Descendants(gi + "return-value")
+            foreach (var element in document.Descendants(gi + "parameter")
+                .Concat(document.Descendants(gi + "instance-parameter"))
+                .Concat(document.Descendants(gi + "return-value"))
                 .Where(x => x.Attribute("direction") is null)) {
-                element.SetAttributeValue("direction", "out");
-            }
-
-            foreach (var element in document.Descendants(gi + "parameter")
-                .Concat(document.Descendants(gi + "instance-parameter"))
-                .Where(x => x.Attribute("direction") is null)) {
-                element.SetAttributeValue("direction", "in");
-            }
-
-            // change direction="out", caller-allocates="1" to direction="in" for arrays
-
-            foreach (var element in document.Descendants(gi + "parameter")
-                .Concat(document.Descendants(gi + "instance-parameter"))
-                .Where(x => x.Element(gi + "array") is not null
-                    && x.Attribute("direction").AsString() == "out"
-                    && x.Attribute("caller-allocates").AsBool())) {
-                element.SetAttributeValue("direction", "in");
-            }
-
-            // change direction="out", caller-allocates="1" to direction="in" for strings
-
-            foreach (var element in document.Descendants(gi + "parameter")
-                .Concat(document.Descendants(gi + "instance-parameter"))
-                .Where(x => x.Element(gi + "type")?.Attribute("name").AsString() == "utf8"
-                    && x.Attribute("direction").AsString() == "out"
-                    && x.Attribute("caller-allocates").AsBool())) {
                 element.SetAttributeValue("direction", "in");
             }
 
@@ -1195,24 +1197,6 @@ namespace GISharp.CodeGen
                 yield return "utf8";
                 yield return "filename";
                 yield return "va_list";
-            }
-        }
-
-        static bool IsPointerType(string cType)
-        {
-            if (cType.EndsWith("*", StringComparison.Ordinal)) {
-                return true;
-            }
-
-            switch (cType) {
-            case "gpointer":
-            case "gconstpointer":
-            case "GLib.Array":
-            case "GLib.PtrArray":
-            case "GLib.ByteArray":
-                return true;
-            default:
-                return false;
             }
         }
 

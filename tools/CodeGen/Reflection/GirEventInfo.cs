@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2019,2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Reflection;
@@ -24,20 +24,21 @@ namespace GISharp.CodeGen.Reflection
 
         public override string Name => signal.ManagedName;
 
-        public override System.Type ReflectedType => throw new NotSupportedException();
+        public override System.Type ReflectedType =>
+            throw new NotImplementedException("GirEventInfo.ReflectedType");
 
         public override MethodInfo GetAddMethod(bool nonPublic) => null;
 
         public override object[] GetCustomAttributes(bool inherit)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirEventInfo.GetCustomAttributes");
         }
 
         public override object[] GetCustomAttributes(System.Type attributeType, bool inherit)
         {
             if (attributeType == typeof(GSignalAttribute)) {
                 // FIXME: add additional attribute arguments
-                return new [] { new GSignalAttribute(signal.GirName) };
+                return new[] { new GSignalAttribute(signal.GirName) };
             }
 
             return null;
@@ -45,17 +46,17 @@ namespace GISharp.CodeGen.Reflection
 
         public override MethodInfo GetRaiseMethod(bool nonPublic)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirEventInfo.GetRaiseMethod");
         }
 
         public override MethodInfo GetRemoveMethod(bool nonPublic)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirEventInfo.GetRemoveMethod");
         }
 
         public override bool IsDefined(System.Type attributeType, bool inherit)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirEventInfo.IsDefined");
         }
     }
 }

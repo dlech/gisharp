@@ -94,7 +94,7 @@ defined, it is guaranteed that <paramref name="b"/> would not decompose
 further, but <paramref name="a"/> may itself decompose.  To get the full
 canonical decomposition for <paramref name="ch"/>, one would need to
 recursively call this function on <paramref name="a"/>.  Or use
-<see cref="UnicharExtensions.FullyDecompose(GISharp.Lib.GLib.Unichar,System.Boolean,System.ReadOnlySpan{GISharp.Lib.GLib.Unichar})"/>.
+<see cref="UnicharExtensions.FullyDecompose(GISharp.Lib.GLib.Unichar,System.Boolean,System.Span{GISharp.Lib.GLib.Unichar})"/>.
 
 See
 [UAX#15](http://unicode.org/reports/tr15/)

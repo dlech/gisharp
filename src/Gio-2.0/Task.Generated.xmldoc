@@ -863,7 +863,7 @@ in several ways:
   <see cref="AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/> to check if a result is tagged as
   having come from the `_async()` wrapper
   function (for "short-circuit" results, such as when passing
-  0 to <see cref="InputStream.ReadAsync(System.ReadOnlySpan{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>).
+  0 to <see cref="InputStream.ReadAsync(System.Memory{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>).
 </remarks>
 </member>
 

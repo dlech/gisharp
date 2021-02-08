@@ -27,7 +27,7 @@ This application handles opening files (in
     the primary instance). Note that this flag only affects the default
     implementation of local_command_line(), and has no effect if
     <see cref="ApplicationFlags.HandlesCommandLine"/> is given.
-    See <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/> for details.
+    See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> for details.
 </summary>
 </member>
 
@@ -36,7 +36,7 @@ This application handles opening files (in
 This application handles command line
     arguments (in the primary instance). Note that this flag only affect
     the default implementation of local_command_line().
-    See <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/> for details.
+    See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> for details.
 </summary>
 </member>
 

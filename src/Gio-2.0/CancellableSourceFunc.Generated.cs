@@ -10,11 +10,11 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.28")]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-    /* transfer-ownership:none direction:out */
+    /* transfer-ownership:none direction:in */
     public unsafe delegate GISharp.Runtime.Boolean UnmanagedCancellableSourceFunc(
     /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-    System.IntPtr cancellable,
+    GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
     System.IntPtr userData);
@@ -47,13 +47,7 @@ namespace GISharp.Lib.Gio
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedCancellableSourceFunc>(callback_);
 
-            unsafe System.Boolean managedCallback(GISharp.Lib.Gio.Cancellable? cancellable)
-            {
-                var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
-                var ret_ = unmanagedCallback(cancellable_,userData_);
-                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-                return ret;
-            }
+            unsafe System.Boolean managedCallback(GISharp.Lib.Gio.Cancellable? cancellable) { var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero); var ret_ = unmanagedCallback(cancellable_,userData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
 
             return managedCallback;
         }
@@ -88,11 +82,11 @@ namespace GISharp.Lib.Gio
             return (callback_, destroy_, userData_);
         }
 
-        static unsafe GISharp.Runtime.Boolean UnmanagedCallback(System.IntPtr cancellable_, System.IntPtr userData_)
+        static unsafe GISharp.Runtime.Boolean UnmanagedCallback(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr userData_)
         {
             try
             {
-                var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
+                var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var userData = (UserData)gcHandle.Target!;
                 var ret = userData.ManagedDelegate(cancellable);
@@ -111,7 +105,7 @@ namespace GISharp.Lib.Gio
             return default(GISharp.Runtime.Boolean);
         }
 
-        static readonly GISharp.Lib.Gio.UnmanagedCancellableSourceFunc UnmanagedCallbackDelegate = UnmanagedCallback;
+        static readonly unsafe GISharp.Lib.Gio.UnmanagedCancellableSourceFunc UnmanagedCallbackDelegate = UnmanagedCallback;
         static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
 
         static void Destroy(System.IntPtr userData_)

@@ -11,11 +11,11 @@ namespace GISharp.Lib.Gio
     /// </summary>
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-    /* transfer-ownership:none direction:out */
+    /* transfer-ownership:none direction:in */
     public unsafe delegate GISharp.Runtime.Boolean UnmanagedFileReadMoreCallback(
     /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    System.IntPtr fileContents,
+    System.Byte* fileContents,
     /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
     /* transfer-ownership:none direction:in */
     System.Int64 fileSize,
@@ -51,14 +51,7 @@ namespace GISharp.Lib.Gio
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileReadMoreCallback>(callback_);
             var callbackData_ = userData_;
 
-            unsafe System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize)
-            {
-                var fileContents_ = fileContents.UnsafeHandle;
-                var fileSize_ = (System.Int64)fileSize;
-                var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_);
-                var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
-                return ret;
-            }
+            unsafe System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize) { var fileContents_ = (System.Byte*)fileContents.UnsafeHandle; var fileSize_ = (System.Int64)fileSize; var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
 
             return managedCallback;
         }
@@ -93,11 +86,11 @@ namespace GISharp.Lib.Gio
             return (callback_, destroy_, userData_);
         }
 
-        static unsafe GISharp.Runtime.Boolean UnmanagedCallback(System.IntPtr fileContents_, System.Int64 fileSize_, System.IntPtr callbackData_)
+        static unsafe GISharp.Runtime.Boolean UnmanagedCallback(System.Byte* fileContents_, System.Int64 fileSize_, System.IntPtr callbackData_)
         {
             try
             {
-                var fileContents = new GISharp.Lib.GLib.UnownedUtf8(fileContents_, -1);
+                var fileContents = new GISharp.Lib.GLib.UnownedUtf8(fileContents_);
                 var fileSize = (System.Int64)fileSize_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)callbackData_;
                 var callbackData = (UserData)gcHandle.Target!;
@@ -117,7 +110,7 @@ namespace GISharp.Lib.Gio
             return default(GISharp.Runtime.Boolean);
         }
 
-        static readonly GISharp.Lib.Gio.UnmanagedFileReadMoreCallback UnmanagedCallbackDelegate = UnmanagedCallback;
+        static readonly unsafe GISharp.Lib.Gio.UnmanagedFileReadMoreCallback UnmanagedCallbackDelegate = UnmanagedCallback;
         static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
 
         static void Destroy(System.IntPtr userData_)

@@ -10,6 +10,13 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_task_get_type();
 
+        /// <summary>
+        /// The unmanaged data structure.
+        /// </summary>
+        public unsafe new struct UnmanagedStruct
+        {
+        }
+
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Completed_']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
         [GISharp.Runtime.GPropertyAttribute("completed")]
@@ -103,14 +110,14 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_task_new(
+        /* transfer-ownership:full direction:in */
+        private static extern unsafe GISharp.Lib.Gio.Task.UnmanagedStruct* g_task_new(
         /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr sourceObject,
+        GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable,
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
         System.IntPtr callback,
@@ -119,19 +126,19 @@ namespace GISharp.Lib.Gio
         System.IntPtr callbackData);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
-        static unsafe System.IntPtr New(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        static unsafe GISharp.Lib.Gio.Task.UnmanagedStruct* New(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckNewArgs(sourceObject, callback, cancellable);
-            var sourceObject_ = sourceObject?.UnsafeHandle ?? System.IntPtr.Zero;
+            var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero);
             var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
-            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_task_new(sourceObject_,cancellable_,callback_,callbackData_);
             return ret_;
         }
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Task(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public Task(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null) : this(New(sourceObject, callback, cancellable), GISharp.Runtime.Transfer.Full)
+        public unsafe Task(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null) : this((System.IntPtr)New(sourceObject, callback, cancellable), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -156,22 +163,22 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_task_is_valid(
         /* <type name="AsyncResult" type="gpointer" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr result,
+        GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
         /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr sourceObject);
+        GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.IsValid(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.GObject.Object?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public static unsafe System.Boolean IsValid(GISharp.Lib.Gio.IAsyncResult result, GISharp.Lib.GObject.Object? sourceObject)
         {
             CheckIsValidArgs(result, sourceObject);
-            var result_ = result.UnsafeHandle;
-            var sourceObject_ = sourceObject?.UnsafeHandle ?? System.IntPtr.Zero;
+            var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
+            var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_task_is_valid(result_,sourceObject_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -209,11 +216,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_report_error(
         /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr sourceObject,
+        GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:2 direction:in */
         System.IntPtr callback,
@@ -225,24 +232,24 @@ namespace GISharp.Lib.Gio
         System.IntPtr sourceTag,
         /* <type name="GLib.Error" type="GError*" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        System.IntPtr error);
+        GISharp.Lib.GLib.Error.UnmanagedStruct* error);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReportError(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,System.IntPtr,GISharp.Lib.GLib.Error)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
         public static unsafe void ReportError(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, System.IntPtr sourceTag, GISharp.Lib.GLib.Error error)
         {
             CheckReportErrorArgs(sourceObject, callback, sourceTag, error);
-            var sourceObject_ = sourceObject?.UnsafeHandle ?? System.IntPtr.Zero;
+            var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero);
             var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var sourceTag_ = (System.IntPtr)sourceTag;
-            var error_ = error.Take();
+            var error_ = (GISharp.Lib.GLib.Error.UnmanagedStruct*)error.Take();
             g_task_report_error(sourceObject_, callback_, callbackData_, sourceTag_, error_);
         }
 
         static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
+        /* transfer-ownership:full direction:in */
         private static extern unsafe GISharp.Lib.GObject.GType g_task_get_type();
 
         /// <summary>
@@ -257,20 +264,20 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none direction:out */
-        private static extern unsafe System.IntPtr g_task_get_cancellable(
+        /* transfer-ownership:none direction:in */
+        private static extern unsafe GISharp.Lib.Gio.Cancellable.UnmanagedStruct* g_task_get_cancellable(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetCancellableArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe GISharp.Lib.Gio.Cancellable GetCancellable()
         {
             CheckGetCancellableArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_cancellable(task_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -284,18 +291,18 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_task_get_check_cancellable(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetCheckCancellableArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.Boolean GetCheckCancellable()
         {
             CheckGetCheckCancellableArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_check_cancellable(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -315,18 +322,18 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_task_get_completed(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetCompletedArgs();
 
         [GISharp.Runtime.SinceAttribute("2.44")]
         private unsafe System.Boolean GetCompleted()
         {
             CheckGetCompletedArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_completed(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -351,20 +358,20 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.MainContext" type="GMainContext*" managed-name="GISharp.Lib.GLib.MainContext" is-pointer="1" /> */
-        /* transfer-ownership:none direction:out */
-        private static extern unsafe System.IntPtr g_task_get_context(
+        /* transfer-ownership:none direction:in */
+        private static extern unsafe GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_task_get_context(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetContextArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe GISharp.Lib.GLib.MainContext GetContext()
         {
             CheckGetContextArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_context(task_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>(ret_, GISharp.Runtime.Transfer.None)!;
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
 
@@ -380,20 +387,20 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.60")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 direction:out */
-        private static extern unsafe System.IntPtr g_task_get_name(
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern unsafe System.Byte* g_task_get_name(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetNameArgs();
 
         [GISharp.Runtime.SinceAttribute("2.60")]
         private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetName()
         {
             CheckGetNameArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_name(task_);
-            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_, -1);
+            var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
 
@@ -409,18 +416,18 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe System.Int32 g_task_get_priority(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetPriorityArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.Int32 GetPriority()
         {
             CheckGetPriorityArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_priority(task_);
             var ret = (System.Int32)ret_;
             return ret;
@@ -436,18 +443,18 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_task_get_return_on_cancel(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetReturnOnCancelArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.Boolean GetReturnOnCancel()
         {
             CheckGetReturnOnCancelArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_return_on_cancel(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -466,20 +473,20 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 direction:out */
-        private static extern unsafe System.IntPtr g_task_get_source_object(
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern unsafe GISharp.Lib.GObject.Object.UnmanagedStruct* g_task_get_source_object(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetSourceObjectArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe GISharp.Lib.GObject.Object? GetSourceObject()
         {
             CheckGetSourceObjectArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_source_object(task_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
@@ -495,18 +502,18 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 direction:out */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern unsafe System.IntPtr g_task_get_source_tag(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetSourceTagArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.IntPtr GetSourceTag()
         {
             CheckGetSourceTagArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_source_tag(task_);
             var ret = (System.IntPtr)ret_;
             return ret;
@@ -524,18 +531,18 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 direction:out */
+        /* transfer-ownership:none nullable:1 direction:in */
         private static extern unsafe System.IntPtr g_task_get_task_data(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckGetTaskDataArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private unsafe System.IntPtr GetTaskData()
         {
             CheckGetTaskDataArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_task_data(task_);
             var ret = (System.IntPtr)ret_;
             return ret;
@@ -553,11 +560,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_task_had_error(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckHadErrorArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.HadError()']/*" />
@@ -565,7 +572,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean HadError()
         {
             CheckHadErrorArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_had_error(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -593,14 +600,14 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_task_propagate_boolean(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
-        ref System.IntPtr error);
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckPropagateBooleanArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateBoolean()']/*" />
@@ -608,12 +615,12 @@ namespace GISharp.Lib.Gio
         public unsafe void PropagateBoolean()
         {
             CheckPropagateBooleanArgs();
-            var task_ = UnsafeHandle;
-            var error_ = System.IntPtr.Zero;
-            g_task_propagate_boolean(task_, ref error_);
-            if (error_ != System.IntPtr.Zero)
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
+            var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+            g_task_propagate_boolean(task_, &error_);
+            if (error_ != null)
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
         }
@@ -640,14 +647,14 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe System.IntPtr g_task_propagate_int(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
-        ref System.IntPtr error);
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckPropagateIntArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateInt()']/*" />
@@ -655,12 +662,12 @@ namespace GISharp.Lib.Gio
         public unsafe System.Int32 PropagateInt()
         {
             CheckPropagateIntArgs();
-            var task_ = UnsafeHandle;
-            var error_ = System.IntPtr.Zero;
-            var ret_ = g_task_propagate_int(task_,ref error_);
-            if (error_ != System.IntPtr.Zero)
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
+            var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+            var ret_ = g_task_propagate_int(task_,&error_);
+            if (error_ != null)
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
@@ -691,14 +698,14 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 direction:out */
+        /* transfer-ownership:full nullable:1 direction:in */
         private static extern unsafe System.IntPtr g_task_propagate_pointer(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
-        ref System.IntPtr error);
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckPropagatePointerArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagatePointer()']/*" />
@@ -706,12 +713,12 @@ namespace GISharp.Lib.Gio
         public unsafe System.IntPtr PropagatePointer()
         {
             CheckPropagatePointerArgs();
-            var task_ = UnsafeHandle;
-            var error_ = System.IntPtr.Zero;
-            var ret_ = g_task_propagate_pointer(task_,ref error_);
-            if (error_ != System.IntPtr.Zero)
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
+            var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+            var ret_ = g_task_propagate_pointer(task_,&error_);
+            if (error_ != null)
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
@@ -747,34 +754,35 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.64")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_task_propagate_value(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
-        /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
+        /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
-        out GISharp.Lib.GObject.Value value,
+        GISharp.Lib.GObject.Value* value,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
-        ref System.IntPtr error);
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckPropagateValueArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateValue(GISharp.Lib.GObject.Value)']/*" />
         [GISharp.Runtime.SinceAttribute("2.64")]
         public unsafe void PropagateValue(out GISharp.Lib.GObject.Value value)
         {
-            CheckPropagateValueArgs();
-            var task_ = UnsafeHandle;
-            var error_ = System.IntPtr.Zero;
-            g_task_propagate_value(task_,out var value_, ref error_);
-            if (error_ != System.IntPtr.Zero)
+            fixed (GISharp.Lib.GObject.Value* value_ = &value)
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
-                throw new GISharp.Runtime.GErrorException(error);
+                CheckPropagateValueArgs();
+                var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
+                var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+                g_task_propagate_value(task_, value_, &error_);
+                if (error_ != null)
+                {
+                    var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
+                    throw new GISharp.Runtime.GErrorException(error);
+                }
             }
-
-            value = (GISharp.Lib.GObject.Value)value_;
         }
 
         /// <summary>
@@ -791,11 +799,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_return_boolean(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean result);
@@ -806,7 +814,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ReturnBoolean(System.Boolean result)
         {
             CheckReturnBooleanArgs(result);
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var result_ = GISharp.Runtime.BooleanExtensions.ToBoolean(result);
             g_task_return_boolean(task_, result_);
         }
@@ -834,14 +842,14 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_return_error(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="GLib.Error" type="GError*" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        System.IntPtr error);
+        GISharp.Lib.GLib.Error.UnmanagedStruct* error);
         static partial void CheckReturnErrorArgs(GISharp.Lib.GLib.Error error);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnError(GISharp.Lib.GLib.Error)']/*" />
@@ -849,8 +857,8 @@ namespace GISharp.Lib.Gio
         public unsafe void ReturnError(GISharp.Lib.GLib.Error error)
         {
             CheckReturnErrorArgs(error);
-            var task_ = UnsafeHandle;
-            var error_ = error.Take();
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
+            var error_ = (GISharp.Lib.GLib.Error.UnmanagedStruct*)error.Take();
             g_task_return_error(task_, error_);
         }
 
@@ -869,11 +877,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_task_return_error_if_cancelled(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task);
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         static partial void CheckReturnErrorIfCancelledArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnErrorIfCancelled()']/*" />
@@ -881,7 +889,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean ReturnErrorIfCancelled()
         {
             CheckReturnErrorIfCancelledArgs();
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_return_error_if_cancelled(task_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -901,11 +909,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_return_int(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr result);
@@ -916,7 +924,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ReturnInt(System.Int32 result)
         {
             CheckReturnIntArgs(result);
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var result_ = (System.IntPtr)result;
             g_task_return_int(task_, result_);
         }
@@ -955,11 +963,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_return_pointer(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
         System.IntPtr result,
@@ -988,11 +996,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.64")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_return_value(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Value result);
@@ -1003,7 +1011,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ReturnValue(GISharp.Lib.GObject.Value result)
         {
             CheckReturnValueArgs(result);
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var result_ = (GISharp.Lib.GObject.Value)result;
             g_task_return_value(task_, result_);
         }
@@ -1032,11 +1040,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_run_in_thread(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="UnmanagedTaskThreadFunc" /> */
         /* transfer-ownership:none scope:async direction:in */
         System.IntPtr taskFunc);
@@ -1069,11 +1077,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_run_in_thread_sync(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="UnmanagedTaskThreadFunc" /> */
         /* transfer-ownership:none scope:async direction:in */
         System.IntPtr taskFunc);
@@ -1105,11 +1113,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_set_check_cancellable(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean checkCancellable);
@@ -1119,7 +1127,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetCheckCancellable(System.Boolean checkCancellable)
         {
             CheckSetCheckCancellableArgs(checkCancellable);
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var checkCancellable_ = GISharp.Runtime.BooleanExtensions.ToBoolean(checkCancellable);
             g_task_set_check_cancellable(task_, checkCancellable_);
         }
@@ -1145,22 +1153,22 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.60")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_set_name(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr name);
+        System.Byte* name);
         static partial void CheckSetNameArgs(GISharp.Lib.GLib.NullableUnownedUtf8 name);
 
         [GISharp.Runtime.SinceAttribute("2.60")]
         private unsafe void SetName(GISharp.Lib.GLib.NullableUnownedUtf8 name)
         {
             CheckSetNameArgs(name);
-            var task_ = UnsafeHandle;
-            var name_ = name.UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
+            var name_ = (System.Byte*)name.UnsafeHandle;
             g_task_set_name(task_, name_);
         }
 
@@ -1183,11 +1191,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_set_priority(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 priority);
@@ -1197,7 +1205,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetPriority(System.Int32 priority)
         {
             CheckSetPriorityArgs(priority);
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var priority_ = (System.Int32)priority;
             g_task_set_priority(task_, priority_);
         }
@@ -1248,11 +1256,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_task_set_return_on_cancel(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean returnOnCancel);
@@ -1263,7 +1271,7 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean SetReturnOnCancel(System.Boolean returnOnCancel)
         {
             CheckSetReturnOnCancelArgs(returnOnCancel);
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var returnOnCancel_ = GISharp.Runtime.BooleanExtensions.ToBoolean(returnOnCancel);
             var ret_ = g_task_set_return_on_cancel(task_,returnOnCancel_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -1287,11 +1295,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_set_source_tag(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr sourceTag);
@@ -1301,7 +1309,7 @@ namespace GISharp.Lib.Gio
         private unsafe void SetSourceTag(System.IntPtr sourceTag)
         {
             CheckSetSourceTagArgs(sourceTag);
-            var task_ = UnsafeHandle;
+            var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             g_task_set_source_tag(task_, sourceTag_);
         }
@@ -1321,11 +1329,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.36")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_task_set_task_data(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr task,
+        GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr taskData,

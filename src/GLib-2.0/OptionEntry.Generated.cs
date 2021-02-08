@@ -8,7 +8,7 @@ namespace GISharp.Lib.GLib
     {
 #pragma warning disable CS0169, CS0649
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.LongName']/*" />
-        public readonly System.IntPtr LongName;
+        public readonly System.Byte* LongName;
 
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.ShortName']/*" />
         public readonly System.SByte ShortName;
@@ -23,10 +23,10 @@ namespace GISharp.Lib.GLib
         public readonly System.IntPtr ArgData;
 
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.Description']/*" />
-        public readonly System.IntPtr Description;
+        public readonly System.Byte* Description;
 
         /// <include file="OptionEntry.xmldoc" path="declaration/member[@name='OptionEntry.ArgDescription']/*" />
-        public readonly System.IntPtr ArgDescription;
+        public readonly System.Byte* ArgDescription;
 #pragma warning restore CS0169, CS0649
     }
 }

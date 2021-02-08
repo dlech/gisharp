@@ -4,8 +4,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Runtime.CompilerServices;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
@@ -25,6 +23,57 @@ namespace GISharp.CodeGen.Syntax
         static readonly XNamespace gi = Globals.CoreNamespace;
         static readonly XNamespace gs = Globals.GISharpNamespace;
 
+        /// <summary>
+        /// Gets the managed type. If the arg is a buffer type, it gets the
+        // specialized type taking into account arg attributes such as nullability,
+        /// direction, ownership, etc.
+        /// </summary>
+        public static System.Type GetSpecializedManagedType(this GIArg arg)
+        {
+            var type = arg.Type.ManagedType;
+            var isAsync = arg.Ancestors.Any(x => x is GICallable callable && callable.IsAsync);
+
+            if (type == typeof(Utf8)) {
+                if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                    if (isAsync) {
+                        return typeof(Memory<byte>);
+                    }
+                    return typeof(Span<byte>);
+                }
+                if (arg.TransferOwnership == "none") {
+                    return arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
+                }
+            }
+
+            if (type.IsGenericType) {
+                if (type.GetGenericTypeDefinition() == typeof(CArray<>)) {
+                    if (isAsync) {
+                        if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                            return typeof(Memory<>).MakeGenericType(type.GetGenericArguments());
+                        }
+                        return typeof(ReadOnlyMemory<>).MakeGenericType(type.GetGenericArguments());
+                    }
+                    if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                        return typeof(Span<>).MakeGenericType(type.GetGenericArguments());
+                    }
+                    if (arg.TransferOwnership == "none") {
+                        return typeof(ReadOnlySpan<>).MakeGenericType(type.GetGenericArguments());
+                    }
+                }
+
+                if (type.GetGenericTypeDefinition() == typeof(CPtrArray<>)) {
+                    if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                        throw new NotImplementedException("Not sure how to handle caller allocated pointer array");
+                    }
+                    if (arg.TransferOwnership == "none") {
+                        return typeof(UnownedCPtrArray<>).MakeGenericType(type.GetGenericArguments());
+                    }
+                }
+            }
+
+            return type;
+        }
+
         public static ParameterSyntax GetParameter(this GIArg arg, string suffix = "")
         {
             if (arg is ReturnValue) {
@@ -32,49 +81,25 @@ namespace GISharp.CodeGen.Syntax
             }
 
             var managed = arg.ParentNode is ManagedParameters;
-            var type = managed ? arg.Type.ManagedType : arg.Type.UnmanagedType;
-            var byRef = false;
+            var type = managed ? arg.GetSpecializedManagedType() : arg.Type.UnmanagedType;
 
-            if (arg.Type.UnmanagedType.IsPointer) {
-                if (!managed) {
-                    type = type.GetElementType();
-                }
-                byRef = true;
-            }
-
-            if (managed && arg.TransferOwnership == "none") {
-                if (type == typeof(Utf8)) {
-                    type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
-                }
-                else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(CArray<>)) {
-                    type = typeof(ReadOnlySpan<>).MakeGenericType(type.GetGenericArguments());
-                }
-                else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(CPtrArray<>)) {
-                    type = typeof(UnownedCPtrArray<>).MakeGenericType(type.GetGenericArguments());
-                }
+            if (!managed && arg.Direction != "in" && !arg.IsCallerAllocatesBuffer()) {
+                type = type.MakePointerType();
             }
 
             var identifier = ParseToken(arg.ManagedName + suffix);
 
             IEnumerable<SyntaxToken> getModifiers()
             {
-                if (arg.ParentNode is Parameters) {
-                    if (arg.Direction == "inout") {
-                        yield return Token(RefKeyword);
-                    }
-                    else if (arg.Direction == "out") {
-                        yield return Token(OutKeyword);
-                    }
-                    else if (byRef) {
-                        yield return Token(InKeyword);
-                    }
+                // unmanaged parameters don't get modifiers
+                if (!managed) {
                     yield break;
                 }
 
                 if (arg.Direction == "inout") {
                     yield return Token(RefKeyword);
                 }
-                else if (arg.Direction == "out") {
+                else if (arg.Direction == "out" && !arg.IsCallerAllocatesBuffer()) {
                     yield return Token(OutKeyword);
                 }
                 else if (arg.IsParams) {
@@ -83,9 +108,8 @@ namespace GISharp.CodeGen.Syntax
                 else if (arg is InstanceParameter && !(arg.ParentNode.ParentNode is Signal)) {
                     yield return Token(ThisKeyword);
                 }
-                else if (byRef && !(arg.Type is Gir.Array)) {
-                    yield return Token(InKeyword);
-                }
+
+                // TODO: consider "in" keyword for large struct
             }
 
             var syntax = Parameter(identifier)
@@ -108,12 +132,20 @@ namespace GISharp.CodeGen.Syntax
         {
             var expression = arg.ManagedName + suffix;
 
-            if (arg.Direction == "inout") {
-                expression = "ref " + expression;
+            if (arg.ParentNode is ManagedParameters) {
+                if (arg.Direction == "inout") {
+                    expression = "ref " + expression;
+                }
+                else if (arg.Direction == "out" && !arg.IsCallerAllocatesBuffer()) {
+                    var @var = declareOutVars ? "var " : "";
+                    expression = $"out {@var}" + expression;
+                }
             }
-            else if (arg.Direction == "out") {
-                var var_ = declareOutVars ? "var " : "";
-                expression = $"out {var_}" + expression;
+
+            if (arg.ParentNode is Parameters) {
+                if (arg.Direction != "in" && !arg.IsCallerAllocates) {
+                    expression = "&" + expression;
+                }
             }
 
             return Argument(ParseExpression(expression));
@@ -126,25 +158,57 @@ namespace GISharp.CodeGen.Syntax
                 IdentifierName(arg.TransferOwnership.ToPascalCase()));
         }
 
-        public static StatementSyntax[] GetMarshalManagedToUnmanagedStatements(this GIArg arg, bool declareVariable = true)
+        public static LocalDeclarationStatementSyntax GetOutVariableDeclaration(this GIArg arg)
         {
+            // TODO: also handle managed type
+            var type = arg.Type.UnmanagedType;
+            return LocalDeclarationStatement(
+                VariableDeclaration(type.ToSyntax())
+                    .AddVariables(VariableDeclarator(arg.ManagedName + "_"))
+            );
+        }
+
+        public static StatementSyntax[] GetMarshalManagedToUnmanagedStatements(this GIArg arg, out FixedStatementSyntax fixedStatement, bool declareVariable = true)
+        {
+            fixedStatement = null;
+
             var expressions = new System.Collections.Generic.List<ExpressionSyntax>();
             var type = arg.Type.ManagedType;
+            var unmanagedName = arg.ManagedName + "_";
+            var unmanagedType = arg.Type.UnmanagedType;
 
-            if (arg.Type is Gir.Array array && array.GirName is null) {
-                bool isSpanLike = arg.TransferOwnership == "none";
-                if (arg.Type.ManagedType.IsGenericType && arg.Type.ManagedType.GetGenericTypeDefinition() == typeof(CArray<>) && arg.TransferOwnership == "none") {
-                    var marshal = $"{typeof(MemoryMarshal)}.{nameof(MemoryMarshal.GetReference)}";
-                    expressions.Add(ParseExpression($"{arg.ManagedName}_ = ref {marshal}({arg.ManagedName})"));
+            // explicit cast expression to unmanaged type
+            var unmanagedCast = $"({unmanagedType.ToSyntax()})";
+
+            if (arg.Type is Gir.Array array && array.GirName is null && type != typeof(Strv) && type != typeof(FilenameArray)) {
+                var isSpanLike = arg.TransferOwnership == "none";
+                var takeData = arg.TransferOwnership == "full";
+                var isAsync = arg.Ancestors.Any(x => x is GICallable callable && callable.IsAsync);
+
+                if (!takeData && !isAsync) {
+                    var isPtrArray = type.IsGenericType && type.GetGenericTypeDefinition() == typeof(CPtrArray<>);
+                    var dataType = (isPtrArray ? typeof(IntPtr).MakePointerType() : unmanagedType).ToSyntax();
+                    fixedStatement = FixedStatement(
+                        VariableDeclaration(dataType).AddVariables(
+                            VariableDeclarator($"{arg.ManagedName}Data_")
+                                .WithInitializer(EqualsValueClause(ParseExpression(arg.ManagedName)))
+                        ),
+                        Block()
+                    );
                 }
-                else {
-                    var takeData = arg.TransferOwnership == "full";
-                    var getter = takeData ? "TakeData()" : "GetPinnableReference()";
-                    getter = arg.IsNullable && takeData ?
-                        $"{arg.ManagedName}?.{getter} ?? System.IntPtr.Zero" :
-                        $"{arg.ManagedName}.{getter}";
-                    expressions.Add(ParseExpression($"{arg.ManagedName}_ = ref {getter}"));
+
+                var getter = takeData ? "TakeData()" : $"{unmanagedCast}{arg.ManagedName}Data_";
+                if (takeData) {
+                    getter = arg.IsNullable ?
+                        $"{unmanagedCast}({arg.ManagedName}?.{getter} ?? System.IntPtr.Zero)" :
+                        $"{unmanagedCast}{arg.ManagedName}.{getter}";
                 }
+                if (isAsync) {
+                    // TODO: add MemoryHandle to AsyncState and free later.
+                    getter = $"{unmanagedCast}{arg.ManagedName}.Pin().Pointer";
+                }
+
+                expressions.Add(ParseExpression($"{unmanagedName} = {getter}"));
 
                 if (array.LengthIndex >= 0) {
                     var lengthArg = arg.Callable.Parameters.RegularParameters.ElementAt(array.LengthIndex);
@@ -156,27 +220,33 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (type.IsOpaque() || type.IsGInterface()) {
                 if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
-                    expressions.Add(ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.UnsafeHandle"));
+                    expressions.Add(ParseExpression($"{unmanagedName} = {unmanagedCast}{arg.ManagedName}.UnsafeHandle"));
                 }
                 else {
                     var getter = arg.TransferOwnership == "none" ? "UnsafeHandle" : "Take()";
                     expressions.Add(arg.IsNullable ?
-                        ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}?.{getter} ?? System.IntPtr.Zero") :
-                        ParseExpression($"{arg.ManagedName}_ = {arg.ManagedName}.{getter}"));
+                        ParseExpression($"{unmanagedName} = {unmanagedCast}({arg.ManagedName}?.{getter} ?? System.IntPtr.Zero)") :
+                        ParseExpression($"{unmanagedName} = {unmanagedCast}{arg.ManagedName}.{getter}"));
                 }
             }
             else if (type.IsValueType) {
                 // value types are used directly
-                var unmanagedType = arg.Type.UnmanagedType;
-                if (unmanagedType.IsPointer) {
-                    var ref_ = declareVariable ? "ref " : $"({unmanagedType.GetElementType()})";
-                    expressions.Add(ParseExpression($"{arg.ManagedName}_ = {ref_}{arg.ManagedName}"));
+                if (arg.Direction == "out" && arg.IsCallerAllocates) {
+                    fixedStatement = FixedStatement(
+                        VariableDeclaration(unmanagedType.MakePointerType().ToSyntax())
+                            .AddVariables(VariableDeclarator(unmanagedName)
+                                .WithInitializer(EqualsValueClause(ParseExpression($"&{arg.ManagedName}")))
+                        ),
+                        Block());
+                }
+                else if (unmanagedType.IsPointer) {
+                    expressions.Add(ParseExpression($"{unmanagedName} = &{arg.ManagedName}"));
                 }
                 else if (type == typeof(bool)) {
-                    expressions.Add(ParseExpression($"{arg.ManagedName}_ = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.ToBoolean)}({arg.ManagedName})"));
+                    expressions.Add(ParseExpression($"{unmanagedName} = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.ToBoolean)}({arg.ManagedName})"));
                 }
                 else {
-                    expressions.Add(ParseExpression($"{arg.ManagedName}_ = ({unmanagedType}){arg.ManagedName}"));
+                    expressions.Add(ParseExpression($"{unmanagedName} = {unmanagedCast}{arg.ManagedName}"));
                 }
             }
             else if (type.IsDelegate()) {
@@ -187,7 +257,7 @@ namespace GISharp.CodeGen.Syntax
                 var scope = $"{typeof(CallbackScope)}.{arg.Scope.ToPascalCase()}";
                 var marshal = $"{type}Marshal";
                 var getter = $"{marshal}.ToUnmanagedFunctionPointer({arg.ManagedName}, {scope})";
-                var identifiers = $"{arg.ManagedName}_, {destroy}_, {userData}_";
+                var identifiers = $"{unmanagedName}, {destroy}_, {userData}_";
                 expressions.Add(ParseExpression($"({identifiers}) = {getter}"));
             }
             else {
@@ -196,11 +266,10 @@ namespace GISharp.CodeGen.Syntax
             }
 
             if (declareVariable) {
-                static string ref_(ExpressionSyntax e)
-                {
-                    return e.ToString().Contains(" = ref ") ? "ref readonly " : "";
-                }
-                expressions = expressions.Select(x => ParseExpression($"{ref_(x)}var {x}")).ToList();
+                expressions = expressions.Select(x => ParseExpression($"var {x}")).ToList();
+            }
+            else if (arg.Direction != "in" && !arg.IsCallerAllocates) {
+                expressions = expressions.Select(x => ParseExpression($"*{x}")).ToList();
             }
 
             return expressions.Select(x => ExpressionStatement(x)).ToArray();
@@ -209,73 +278,62 @@ namespace GISharp.CodeGen.Syntax
         public static StatementSyntax[] GetMarshalUnmanagedToManagedStatements(this GIArg arg, bool declareVariable = true)
         {
             var expressions = new System.Collections.Generic.List<ExpressionSyntax>();
-            var type = arg.Type.ManagedType;
+            var type = arg.GetSpecializedManagedType();
+            var @var = declareVariable ? "var " : "";
+            var ownership = arg.GetOwnershipTransfer();
 
-            if (arg.Type is Gir.Array array && array.GirName is null) {
+            if (type == typeof(UnownedUtf8) || type == typeof(NullableUnownedUtf8)) {
+                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = new {type}({arg.ManagedName}_)"));
+            }
+            else if (type == typeof(Strv) || type == typeof(FilenameArray)) {
+                var lengthArg = "-1";
+
+                if (arg.Type is Gir.Array v && v.LengthIndex >= 0) {
+                    // If there is a length provided for Strv, capture it
+                    var lengthParameter = arg.Callable.Parameters.RegularParameters.ElementAt(v.LengthIndex);
+                    lengthArg = $"(int){lengthParameter.ManagedName}_";
+                }
+
+                // TODO: handle nullable case
+                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = new {type}((System.IntPtr){arg.ManagedName}_, {lengthArg}, {ownership})"));
+            }
+            else if (arg.Type is Gir.Array array && array.GirName is null) {
                 var lengthArg = "-1";
                 if (array.LengthIndex >= 0) {
                     var lengthParameter = arg.Callable.Parameters.RegularParameters.ElementAt(array.LengthIndex);
                     lengthArg = $"(int){lengthParameter.ManagedName}_";
                 }
-                var isSpan = false;
-                if (arg.TransferOwnership == "none") {
-                    if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(CArray<>)) {
-                        type = typeof(ReadOnlySpan<>).MakeGenericType(type.GetGenericArguments());
-                        isSpan = true;
-                    }
-                    else if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(CPtrArray<>)) {
-                        type = typeof(UnownedCPtrArray<>).MakeGenericType(type.GetGenericArguments());
-                    }
-                }
-                var ownership = arg.GetOwnershipTransfer();
                 var getter = $"new {type.ToSyntax()}((System.IntPtr){arg.ManagedName}_, {lengthArg}, {ownership})";
-                if (isSpan) {
-                    var create = $"{typeof(MemoryMarshal)}.{nameof(MemoryMarshal.CreateReadOnlySpan)}";
-                    var elementType = array.TypeParameters.Single().ManagedType.ToSyntax();
-                    var cast = $"{typeof(Unsafe)}.{nameof(Unsafe.AsRef)}<{elementType}>";
-                    getter = $"{create}<{elementType}>(ref {cast}({arg.ManagedName}_), {lengthArg})";
+
+                var genericType = type.GetGenericTypeDefinition();
+                if (genericType == typeof(Span<>) || genericType == typeof(ReadOnlySpan<>)) {
+                    getter = $"new {type.ToSyntax()}({arg.ManagedName}_, {lengthArg})";
                 }
-                expressions.Add(ParseExpression($"{arg.ManagedName} = {getter}"));
+
+                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {getter}"));
             }
             else if (type.IsValueType) {
                 // value types are used directly
-                if (arg is ReturnValue && arg.Type.IsPointer && type != typeof(IntPtr)) {
-                    expressions.Add(ParseExpression($"{arg.ManagedName} = ({arg.ManagedName}_ == null) ? default({arg.Type.ManagedType}?) : ({arg.Type.ManagedType})(*{arg.ManagedName}_)"));
+                if (arg is ReturnValue returnValue && returnValue.IsRefReturn()) {
+                    expressions.Add(ParseExpression($"ref readonly {@var}{arg.ManagedName} = ref System.Runtime.CompilerServices.Unsafe.AsRef<{arg.Type.ManagedType}>({arg.ManagedName}_)"));
                 }
                 else if (type == typeof(bool)) {
-                    expressions.Add(ParseExpression($"{arg.ManagedName} = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.IsTrue)}({arg.ManagedName}_)"));
+                    expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.IsTrue)}({arg.ManagedName}_)"));
                 }
                 else {
-                    expressions.Add(ParseExpression($"{arg.ManagedName} = ({arg.Type.ManagedType}){arg.ManagedName}_"));
+                    expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = ({arg.Type.ManagedType}){arg.ManagedName}_"));
                 }
             }
             else if (type.IsOpaque()) {
-                // there are some special cases where there are Unowned versions of opaques
-                if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
-                    var utf8Type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
-                    expressions.Add(ParseExpression($"{arg.ManagedName} = new {utf8Type}({arg.ManagedName}_, -1)"));
-                }
-                else if (type == typeof(Strv) && arg.Type is Gir.Array v && v.LengthIndex >= 0) {
-                    // If there is a length provided for Strv, capture it
-                    var lengthParameter = arg.Callable.Parameters.RegularParameters.ElementAt(v.LengthIndex);
-                    var lengthArg = $"(int){lengthParameter.ManagedName}_";
-                    var ownership = arg.GetOwnershipTransfer();
-                    // TODO: handle nullable case
-                    expressions.Add(ParseExpression($"{arg.ManagedName} = new {typeof(Strv)}({arg.ManagedName}_, {lengthArg}, {ownership})"));
-                }
-                else {
-                    var getInstance = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}";
-                    var ownership = arg.GetOwnershipTransfer();
-                    var notNullable = arg.IsNullable ? "" : "!";
-                    expressions.Add(ParseExpression($"{arg.ManagedName} = {getInstance}<{type.ToSyntax()}>({arg.ManagedName}_, {ownership}){notNullable}"));
-                }
+                var getInstance = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}";
+                var notNullable = arg.IsNullable ? "" : "!";
+                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {getInstance}<{type.ToSyntax()}>((System.IntPtr){arg.ManagedName}_, {ownership}){notNullable}"));
             }
             else if (type.IsInterface) {
                 var getInstance = $"{typeof(Object)}.{nameof(Object.GetInstance)}";
-                var ownership = arg.GetOwnershipTransfer();
                 var nullable = arg.IsNullable ? "?" : "";
                 var notNullable = arg.IsNullable ? "" : "!";
-                expressions.Add(ParseExpression($"{arg.ManagedName} = ({type.ToSyntax()}{nullable}){getInstance}({arg.ManagedName}_, {ownership}){notNullable}"));
+                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = ({type.ToSyntax()}{nullable}){getInstance}((System.IntPtr){arg.ManagedName}_, {ownership}){notNullable}"));
             }
             else if (type.IsDelegate()) {
                 var userDataArg = arg.Callable.Parameters.ElementAt(arg.ClosureIndex);
@@ -287,21 +345,12 @@ namespace GISharp.CodeGen.Syntax
                     var defaultValue = $"default({callbackType})";
                     getter = $"{arg.ManagedName}_ == System.IntPtr.Zero ? {defaultValue} : {getter}";
                 }
-                expressions.Add(ParseExpression($"{arg.ManagedName} = {getter}"));
+                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {getter}"));
             }
             else {
                 expressions.Add(ParseExpression(
                     $"throw new System.NotImplementedException(\"{nameof(GetMarshalUnmanagedToManagedStatements)}() for {type}\")"
                 ));
-                declareVariable = false;
-            }
-
-            if (declareVariable) {
-                static string ref_(ExpressionSyntax e)
-                {
-                    return e.ToString().StartsWith("ref ") ? "ref " : "";
-                }
-                expressions = expressions.Select(x => ParseExpression($"{ref_(x)}var {x}")).ToList();
             }
 
             return expressions.Select(x => ExpressionStatement(x)).ToArray();
@@ -342,6 +391,30 @@ namespace GISharp.CodeGen.Syntax
         public static bool IsUnownedUtf8(this GIArg arg)
         {
             return arg.Type.GirName == "utf8" && arg.TransferOwnership == "none";
+        }
+
+        /// <summary>
+        /// Returns <c>true</c> if the arg is out, caller-allocates and is a
+        /// C array or string.
+        /// </summary>
+        public static bool IsCallerAllocatesBuffer(this GIArg arg)
+        {
+            if (arg.Direction != "out") {
+                return false;
+            }
+            if (!arg.IsCallerAllocates) {
+                return false;
+            }
+            if (arg.Type.GirName == "utf8") {
+                return true;
+            }
+            if (arg.Type.GirName == "filename") {
+                return true;
+            }
+            if (arg.Type is Gir.Array) {
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -190,19 +190,13 @@ namespace GISharp.CodeGen.Syntax
                         }
                         static string getManagedType(GIArg arg)
                         {
-                            var type = arg.Type.ManagedType;
-                            if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
-                                type = arg.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
-                            }
-                            if (type.IsGenericType && type.GetGenericTypeDefinition() == typeof(CArray<>)) {
-                                type = typeof(ReadOnlySpan<>).MakeGenericType(type.GetGenericArguments());
-                            }
+                            var type = arg.GetSpecializedManagedType();
 
                             var result = type.ToString();
 
                             // see rules at https://docs.microsoft.com/en-us/dotnet/csharp/language-reference/language-specification/documentation-comments#id-string-format
                             // Roslyn compiler doesn't seem to follow these rules
-                            if (arg.Direction == "out") {
+                            if (arg.Direction == "out" && !arg.IsCallerAllocatesBuffer()) {
                                 result = "out " + result;
                             }
                             if (arg.Direction == "inout") {

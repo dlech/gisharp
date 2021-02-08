@@ -10,6 +10,13 @@ namespace GISharp.Lib.GLib
         private static readonly GISharp.Lib.GObject.GType _GType = g_option_group_get_type();
 
         /// <summary>
+        /// The unmanaged data structure.
+        /// </summary>
+        public unsafe struct UnmanagedStruct
+        {
+        }
+
+        /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -50,17 +57,17 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_option_group_new(
+        /* transfer-ownership:full direction:in */
+        private static extern unsafe GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* g_option_group_new(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr name,
+        System.Byte* name,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr description,
+        System.Byte* description,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr helpDescription,
+        System.Byte* helpDescription,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData,
@@ -70,7 +77,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
+        /* transfer-ownership:full direction:in */
         private static extern unsafe GISharp.Lib.GObject.GType g_option_group_get_type();
 
         /// <summary>
@@ -85,16 +92,16 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_option_group_add_entries(
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr group,
+        GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group,
         /* <array type="const GOptionEntry*" zero-terminated="1" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="OptionEntry" type="GOptionEntry" managed-name="OptionEntry" />
 * </array> */
         /* transfer-ownership:none direction:in */
-        in GISharp.Lib.GLib.OptionEntry entries);
+        GISharp.Lib.GLib.OptionEntry* entries);
 
         /// <summary>
         /// Increments the reference count of @group by one.
@@ -108,17 +115,17 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_option_group_ref(
+        /* transfer-ownership:full direction:in */
+        private static extern unsafe GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* g_option_group_ref(
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr group);
+        GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group);
 
         /// <summary>
         /// Takes ownership of the unmanaged pointer without freeing it.
         /// The managed object can no longer be used (will throw disposed exception).
         /// </summary>
-        public override System.IntPtr Take() => g_option_group_ref(UnsafeHandle);
+        public override unsafe System.IntPtr Take() => (System.IntPtr)g_option_group_ref((GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)UnsafeHandle);
 
         /// <summary>
         /// Associates two functions with @group which will be called
@@ -142,11 +149,11 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_option_group_set_parse_hooks(
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr group,
+        GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group,
         /* <type name="OptionParseFunc" type="GOptionParseFunc" managed-name="OptionParseFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.UnmanagedOptionParseFunc? preParseFunc,
@@ -178,11 +185,11 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_option_group_set_translate_func(
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr group,
+        GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group,
         /* <type name="TranslateFunc" type="GTranslateFunc" managed-name="UnmanagedTranslateFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 direction:in */
         System.IntPtr func,
@@ -199,7 +206,7 @@ namespace GISharp.Lib.GLib
         public unsafe void SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc? func)
         {
             CheckSetTranslateFuncArgs(func);
-            var group_ = UnsafeHandle;
+            var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)UnsafeHandle;
             var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToUnmanagedFunctionPointer(func, GISharp.Runtime.CallbackScope.Notified);
             g_option_group_set_translate_func(group_, func_, data_, destroyNotify_);
         }
@@ -217,14 +224,14 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.6")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_option_group_set_translation_domain(
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr group,
+        GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr domain);
+        System.Byte* domain);
         static partial void CheckSetTranslationDomainArgs(GISharp.Lib.GLib.UnownedUtf8 domain);
 
         /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -232,8 +239,8 @@ namespace GISharp.Lib.GLib
         public unsafe void SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8 domain)
         {
             CheckSetTranslationDomainArgs(domain);
-            var group_ = UnsafeHandle;
-            var domain_ = domain.UnsafeHandle;
+            var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)UnsafeHandle;
+            var domain_ = (System.Byte*)domain.UnsafeHandle;
             g_option_group_set_translation_domain(group_, domain_);
         }
 
@@ -248,10 +255,10 @@ namespace GISharp.Lib.GLib
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_option_group_unref(
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr group);
+        GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group);
     }
 }

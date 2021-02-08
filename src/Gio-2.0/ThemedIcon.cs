@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
-
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using GISharp.Lib.GLib;
@@ -26,8 +25,8 @@ namespace GISharp.Lib.Gio
         /// </returns>
         /// <remarks>
         /// </remarks>
-        public ThemedIcon(UnownedUtf8 iconName, bool useDefaultFallbacks = false)
-            : this(useDefaultFallbacks ? NewWithDefaultFallbacks(iconName) : New(iconName), Transfer.Full)
+        public unsafe ThemedIcon(UnownedUtf8 iconName, bool useDefaultFallbacks = false)
+            : this(useDefaultFallbacks ? (IntPtr)NewWithDefaultFallbacks(iconName) : (IntPtr)New(iconName), Transfer.Full)
         {
         }
 
@@ -47,12 +46,12 @@ namespace GISharp.Lib.Gio
         /// </returns>
         /// <remarks>
         /// </remarks>
-        public ThemedIcon(string iconName, bool useDefaultFallbacks = false)
-            : this(useDefaultFallbacks ? NewWithDefaultFallbacks(iconName) : New(iconName), Transfer.Full)
+        public unsafe ThemedIcon(string iconName, bool useDefaultFallbacks = false)
+            : this(useDefaultFallbacks ? (IntPtr)NewWithDefaultFallbacks(iconName) : (IntPtr)New(iconName), Transfer.Full)
         {
         }
 
-        static IntPtr NewFromNames(string[] iconNames)
+        static unsafe UnmanagedStruct* NewFromNames(string[] iconNames)
         {
             if (iconNames is null) {
                 throw new ArgumentNullException(nameof(iconNames));
@@ -61,7 +60,7 @@ namespace GISharp.Lib.Gio
                 throw new ArgumentException("Must have at least one name", nameof(iconNames));
             }
             using var iconnames = new Strv(iconNames);
-            ref readonly var iconnames_ = ref iconnames.GetPinnableReference();
+            var iconnames_ = (byte**)iconnames.UnsafeHandle;
             var len_ = iconNames.Length;
             var ret_ = g_themed_icon_new_from_names(iconnames_, len_);
             return ret_;
@@ -73,8 +72,8 @@ namespace GISharp.Lib.Gio
         /// <param name="iconNames">
         /// an array of strings containing icon names.
         /// </param>
-        public ThemedIcon(params string[] iconNames)
-            : this(NewFromNames(iconNames), Transfer.Full)
+        public unsafe ThemedIcon(params string[] iconNames)
+            : this((IntPtr)NewFromNames(iconNames), Transfer.Full)
         {
         }
 

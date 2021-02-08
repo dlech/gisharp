@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System.Linq;
 using GISharp.CodeGen.Gir;
@@ -76,6 +76,7 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetExtClassMembers(this Interface @interface)
         {
             var members = List<MemberDeclarationSyntax>()
+                .Add(@interface.Fields.GetStructDeclaration())
                 .AddRange(@interface.ManagedProperties.GetMemberDeclarations())
                 .AddRange(@interface.Methods.GetMemberDeclarations());
 

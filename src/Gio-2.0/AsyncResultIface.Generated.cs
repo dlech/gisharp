@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     public sealed class AsyncResultIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
-        /// The unmanaged data structure for <see cref="AsyncResultIface"/>.
+        /// The unmanaged data structure.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
@@ -44,11 +44,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 direction:out */
+        /* transfer-ownership:full nullable:1 direction:in */
         public unsafe delegate System.IntPtr UnmanagedGetUserData(
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res);
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res);
 
         /// <summary>
         /// Class for marshalling <see cref="GetUserData"/> methods.
@@ -60,23 +60,7 @@ System.IntPtr res);
             /// </summary>
             public static unsafe UnmanagedGetUserData Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetUserData(System.IntPtr res_)
-                {
-                    try
-                    {
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doGetUserData = (GetUserData)methodInfo.CreateDelegate(typeof(GetUserData), res);
-                        var ret = doGetUserData();
-                        var ret_ = (System.IntPtr)ret;
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                System.IntPtr unmanagedGetUserData(GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_) { try { var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doGetUserData = (GetUserData)methodInfo.CreateDelegate(typeof(GetUserData), res); var ret = doGetUserData(); var ret_ = (System.IntPtr)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.IntPtr); }
 
                 return unmanagedGetUserData;
             }
@@ -90,11 +74,11 @@ System.IntPtr res);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetSourceObject(
+        /* transfer-ownership:full nullable:1 direction:in */
+        public unsafe delegate GISharp.Lib.GObject.Object.UnmanagedStruct* UnmanagedGetSourceObject(
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res);
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res);
 
         /// <summary>
         /// Class for marshalling <see cref="GetSourceObject"/> methods.
@@ -106,23 +90,7 @@ System.IntPtr res);
             /// </summary>
             public static unsafe UnmanagedGetSourceObject Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetSourceObject(System.IntPtr res_)
-                {
-                    try
-                    {
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doGetSourceObject = (GetSourceObject)methodInfo.CreateDelegate(typeof(GetSourceObject), res);
-                        var ret = doGetSourceObject();
-                        var ret_ = ret?.Take() ?? System.IntPtr.Zero;
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.GObject.Object.UnmanagedStruct* unmanagedGetSourceObject(GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_) { try { var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doGetSourceObject = (GetSourceObject)methodInfo.CreateDelegate(typeof(GetSourceObject), res); var ret = doGetSourceObject(); var ret_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.GObject.Object.UnmanagedStruct*); }
 
                 return unmanagedGetSourceObject;
             }
@@ -136,11 +104,11 @@ System.IntPtr res);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedIsTagged(
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr sourceTag);
@@ -155,24 +123,7 @@ System.IntPtr sourceTag);
             /// </summary>
             public static unsafe UnmanagedIsTagged Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedIsTagged(System.IntPtr res_, System.IntPtr sourceTag_)
-                {
-                    try
-                    {
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var sourceTag = (System.IntPtr)sourceTag_;
-                        var doIsTagged = (IsTagged)methodInfo.CreateDelegate(typeof(IsTagged), res);
-                        var ret = doIsTagged(sourceTag);
-                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedIsTagged(GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr sourceTag_) { try { var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var sourceTag = (System.IntPtr)sourceTag_; var doIsTagged = (IsTagged)methodInfo.CreateDelegate(typeof(IsTagged), res); var ret = doIsTagged(sourceTag); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedIsTagged;
             }

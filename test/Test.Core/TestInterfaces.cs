@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -32,7 +32,7 @@ namespace GISharp.Test.Core
         void DoInit(IntPtr cancellable);
     }
 
-    sealed class InitableIface : TypeInterface
+    sealed unsafe class InitableIface : TypeInterface
     {
         static InitableIface()
         {
@@ -41,7 +41,7 @@ namespace GISharp.Test.Core
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             public TypeInterface.UnmanagedStruct GIface;
@@ -50,7 +50,7 @@ namespace GISharp.Test.Core
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool UnmanagedInit(IntPtr initable, IntPtr cancellable, ref IntPtr error);
+        public delegate bool UnmanagedInit(IntPtr initable, IntPtr cancellable, Error.UnmanagedStruct** error);
 
         public delegate void Init(IntPtr cancellable);
 
@@ -58,7 +58,7 @@ namespace GISharp.Test.Core
         {
             public static UnmanagedInit Create(MethodInfo methodInfo)
             {
-                bool init(IntPtr initable_, IntPtr cancellable_, ref IntPtr error_)
+                bool init(IntPtr initable_, IntPtr cancellable_, Error.UnmanagedStruct** error_)
                 {
                     try {
                         var initable = (IInitable)Object.GetInstance(initable_, Transfer.None)!;
@@ -67,7 +67,7 @@ namespace GISharp.Test.Core
                         return true;
                     }
                     catch (GErrorException ex) {
-                        GMarshal.PropagateError(ref error_, ex.Error);
+                        GMarshal.PropagateError(error_, ex.Error);
                     }
                     catch (Exception ex) {
                         // FIXME: we should convert managed exception to GError
@@ -167,7 +167,7 @@ namespace GISharp.Test.Core
         static readonly GType _GType = g_network_connectivity_get_type();
     }
 
-    sealed class NetworkMonitorInterface : TypeInterface
+    sealed unsafe class NetworkMonitorInterface : TypeInterface
     {
         static NetworkMonitorInterface()
         {
@@ -182,7 +182,7 @@ namespace GISharp.Test.Core
         }
 
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             public TypeInterface.UnmanagedStruct GIface;
@@ -219,7 +219,7 @@ namespace GISharp.Test.Core
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool UnmanagedCanReach(IntPtr monitor, IntPtr connectable, IntPtr cancellable, ref IntPtr error);
+        public delegate bool UnmanagedCanReach(IntPtr monitor, IntPtr connectable, IntPtr cancellable, Error.UnmanagedStruct** error);
 
         public delegate bool CanReach(IntPtr connectable, IntPtr cancellable);
 
@@ -227,7 +227,7 @@ namespace GISharp.Test.Core
         {
             public static UnmanagedCanReach Create(MethodInfo methodInfo)
             {
-                bool canReach(IntPtr monitor_, IntPtr connectable_, IntPtr cancellable_, ref IntPtr error_)
+                bool canReach(IntPtr monitor_, IntPtr connectable_, IntPtr cancellable_, Error.UnmanagedStruct** error_)
                 {
                     try {
                         var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None)!;
@@ -236,7 +236,7 @@ namespace GISharp.Test.Core
                         return ret;
                     }
                     catch (GErrorException ex) {
-                        GMarshal.PropagateError(ref error_, ex.Error);
+                        GMarshal.PropagateError(error_, ex.Error);
                     }
                     catch (Exception ex) {
                         // FIXME: convert managed exception to GError
@@ -279,13 +279,13 @@ namespace GISharp.Test.Core
         }
 
         [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        public delegate bool UnmanagedCanReachAsyncFinish(IntPtr monitor, IntPtr result, ref IntPtr error);
+        public delegate bool UnmanagedCanReachAsyncFinish(IntPtr monitor, IntPtr result, Error.UnmanagedStruct** error);
 
         public static class CanReachAsyncFinishFactory
         {
             public static UnmanagedCanReachAsyncFinish Create(MethodInfo methodInfo)
             {
-                bool canReachAsyncFinish(IntPtr monitor_, IntPtr result_, ref IntPtr error_)
+                static bool canReachAsyncFinish(IntPtr monitor_, IntPtr result_, Error.UnmanagedStruct** error_)
                 {
                     try {
                         var monitor = (INetworkMonitor)Object.GetInstance(monitor_, Transfer.None)!;
@@ -293,7 +293,7 @@ namespace GISharp.Test.Core
                         return result.PropagateBoolean();
                     }
                     catch (GErrorException ex) {
-                        GMarshal.PropagateError(ref error_, ex.Error);
+                        GMarshal.PropagateError(error_, ex.Error);
                     }
                     catch (Exception ex) {
                         // FIXME: convert managed exception to GError
@@ -313,7 +313,7 @@ namespace GISharp.Test.Core
         }
     }
 
-    public static class NetworkMonitor
+    public static unsafe class NetworkMonitor
     {
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Boolean g_network_monitor_get_network_available(IntPtr monitor);
@@ -368,9 +368,9 @@ namespace GISharp.Test.Core
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe Boolean g_network_monitor_can_reach_finish(IntPtr monitor, IntPtr result, Error.UnmanagedStruct** error);
+        static extern Boolean g_network_monitor_can_reach_finish(IntPtr monitor, IntPtr result, Error.UnmanagedStruct** error);
 
-        static unsafe void CanReachAsyncFinish(IntPtr sourceObject_, IntPtr result_, IntPtr userData_)
+        static void CanReachAsyncFinish(IntPtr sourceObject_, IntPtr result_, IntPtr userData_)
         {
             try {
                 var userData = (GCHandle)userData_;
@@ -445,10 +445,10 @@ namespace GISharp.Test.Core
         }
     }
 
-    sealed class AsyncResultIface : TypeInterface
+    sealed unsafe class AsyncResultIface : TypeInterface
     {
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
 #pragma warning disable CS0169
@@ -559,7 +559,7 @@ namespace GISharp.Test.Core
     }
 
     [GType("GTask", IsProxyForUnmanagedType = true)]
-    sealed class GTask : Object
+    sealed unsafe class GTask : Object
     {
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_task_get_type();
@@ -584,9 +584,9 @@ namespace GISharp.Test.Core
             Boolean result);
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe Boolean g_task_propagate_boolean(IntPtr task, Error.UnmanagedStruct** error);
+        static extern Boolean g_task_propagate_boolean(IntPtr task, Error.UnmanagedStruct** error);
 
-        public unsafe bool PropagateBoolean()
+        public bool PropagateBoolean()
         {
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_task_propagate_boolean(UnsafeHandle, &error_);

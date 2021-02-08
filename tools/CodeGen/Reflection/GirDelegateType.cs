@@ -28,23 +28,28 @@ namespace GISharp.CodeGen.Reflection
             }
         }
 
-        public override Assembly Assembly => throw new NotSupportedException();
+        public override Assembly Assembly =>
+            throw new NotImplementedException("GirDelegateType.Assembly");
 
-        public override string AssemblyQualifiedName => throw new NotSupportedException();
+        public override string AssemblyQualifiedName =>
+            throw new NotImplementedException("GirDelegateType.AssemblyQualifiedName");
 
         public override System.Type BaseType => typeof(Delegate);
 
         public override string FullName => $"{Namespace}.{Name}";
 
-        public override Guid GUID => throw new NotSupportedException();
+        public override Guid GUID =>
+            throw new NotImplementedException("GirDelegateType.GUID");
 
         public override bool IsConstructedGenericType => false;
 
-        public override Module Module => throw new NotSupportedException();
+        public override Module Module =>
+            throw new NotImplementedException("GirDelegateType.Module");
 
         public override string Namespace => $"GISharp.Lib.{callback.Namespace.Name}";
 
-        public override System.Type UnderlyingSystemType => throw new NotSupportedException();
+        public override System.Type UnderlyingSystemType =>
+            throw new NotImplementedException("GirDelegateType.UnderlyingSystemType");
 
         public override string Name { get; }
 
@@ -52,89 +57,89 @@ namespace GISharp.CodeGen.Reflection
 
         public override ConstructorInfo[] GetConstructors(BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetConstructors");
         }
 
         public override object[] GetCustomAttributes(bool inherit)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetCustomAttributes");
         }
 
         public override object[] GetCustomAttributes(System.Type attributeType, bool inherit)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetCustomAttributes");
         }
 
         public override System.Type GetElementType()
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetElementType");
         }
 
         public override EventInfo GetEvent(string name, BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetEvent");
         }
 
         public override EventInfo[] GetEvents(BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetEvents");
         }
 
         public override FieldInfo GetField(string name, BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetField");
         }
 
         public override FieldInfo[] GetFields(BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetFields");
         }
 
         public override System.Type GetInterface(string name, bool ignoreCase)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetInterface");
         }
 
         public override System.Type[] GetInterfaces()
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetInterfaces");
         }
 
         public override MemberInfo[] GetMembers(BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetMembers");
         }
 
         public override MethodInfo[] GetMethods(BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetMethods");
         }
 
         public override System.Type GetNestedType(string name, BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetNestedType");
         }
 
         public override System.Type[] GetNestedTypes(BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetNestedTypes");
         }
 
         public override PropertyInfo[] GetProperties(BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetProperties");
         }
 
         public override object InvokeMember(string name, BindingFlags invokeAttr,
             Binder binder, object target, object[] args, ParameterModifier[] modifiers,
             CultureInfo culture, string[] namedParameters)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.InvokeMember");
         }
 
         public override bool IsDefined(System.Type attributeType, bool inherit)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.IsDefined");
         }
 
         protected override TypeAttributes GetAttributeFlagsImpl() => default;
@@ -143,20 +148,20 @@ namespace GISharp.CodeGen.Reflection
             Binder binder, CallingConventions callConvention, System.Type[] types,
             ParameterModifier[] modifiers)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetConstructorImpl");
         }
 
         protected override MethodInfo GetMethodImpl(string name, BindingFlags bindingAttr,
             Binder binder, CallingConventions callConvention, System.Type[] types,
             ParameterModifier[] modifiers)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetMethodImpl");
         }
 
         protected override PropertyInfo GetPropertyImpl(string name, BindingFlags bindingAttr,
             Binder binder, System.Type returnType, System.Type[] types, ParameterModifier[] modifiers)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirDelegateType.GetPropertyImpl");
         }
 
         protected override bool HasElementTypeImpl() => false;

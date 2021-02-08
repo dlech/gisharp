@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     public sealed class FileIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
-        /// The unmanaged data structure for <see cref="FileIface"/>.
+        /// The unmanaged data structure.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
@@ -494,11 +494,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedDup(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.File.UnmanagedStruct* UnmanagedDup(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="Dup"/> methods.
@@ -510,23 +510,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedDup Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedDup(System.IntPtr file_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doDup = (Dup)methodInfo.CreateDelegate(typeof(Dup), file);
-                        var ret = doDup();
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedDup(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doDup = (Dup)methodInfo.CreateDelegate(typeof(Dup), file); var ret = doDup(); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
                 return unmanagedDup;
             }
@@ -540,11 +524,11 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate System.UInt32 UnmanagedHash(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="Hash"/> methods.
@@ -556,23 +540,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.UInt32 unmanagedHash(System.IntPtr file_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), file);
-                        var ret = doHash();
-                        var ret_ = (System.UInt32)ret;
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.UInt32);
-                }
+                System.UInt32 unmanagedHash(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), file); var ret = doHash(); var ret_ = (System.UInt32)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.UInt32); }
 
                 return unmanagedHash;
             }
@@ -586,14 +554,14 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedEqual(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file1,
+GISharp.Lib.Gio.File.UnmanagedStruct* file1,
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file2);
+GISharp.Lib.Gio.File.UnmanagedStruct* file2);
 
         /// <summary>
         /// Class for marshalling <see cref="Equal"/> methods.
@@ -605,24 +573,7 @@ System.IntPtr file2);
             /// </summary>
             public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedEqual(System.IntPtr file1_, System.IntPtr file2_)
-                {
-                    try
-                    {
-                        var file1 = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file1_, GISharp.Runtime.Transfer.None)!;
-                        var file2 = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file2_, GISharp.Runtime.Transfer.None)!;
-                        var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), file1);
-                        var ret = doEqual(file2);
-                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedEqual(GISharp.Lib.Gio.File.UnmanagedStruct* file1_, GISharp.Lib.Gio.File.UnmanagedStruct* file2_) { try { var file1 = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file1_, GISharp.Runtime.Transfer.None)!; var file2 = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file2_, GISharp.Runtime.Transfer.None)!; var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), file1); var ret = doEqual(file2); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedEqual;
             }
@@ -636,11 +587,11 @@ System.IntPtr file2);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedIsNative(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="IsNative"/> methods.
@@ -652,23 +603,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedIsNative Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedIsNative(System.IntPtr file_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doIsNative = (IsNative)methodInfo.CreateDelegate(typeof(IsNative), file);
-                        var ret = doIsNative();
-                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedIsNative(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doIsNative = (IsNative)methodInfo.CreateDelegate(typeof(IsNative), file); var ret = doIsNative(); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedIsNative;
             }
@@ -682,14 +617,14 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedHasUriScheme(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr uriScheme);
+System.Byte* uriScheme);
 
         /// <summary>
         /// Class for marshalling <see cref="HasUriScheme"/> methods.
@@ -701,24 +636,7 @@ System.IntPtr uriScheme);
             /// </summary>
             public static unsafe UnmanagedHasUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedHasUriScheme(System.IntPtr file_, System.IntPtr uriScheme_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var uriScheme = new GISharp.Lib.GLib.UnownedUtf8(uriScheme_, -1);
-                        var doHasUriScheme = (HasUriScheme)methodInfo.CreateDelegate(typeof(HasUriScheme), file);
-                        var ret = doHasUriScheme(uriScheme);
-                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedHasUriScheme(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* uriScheme_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var uriScheme = new GISharp.Lib.GLib.UnownedUtf8(uriScheme_); var doHasUriScheme = (HasUriScheme)methodInfo.CreateDelegate(typeof(HasUriScheme), file); var ret = doHasUriScheme(uriScheme); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedHasUriScheme;
             }
@@ -732,11 +650,11 @@ System.IntPtr uriScheme);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetUriScheme(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate System.Byte* UnmanagedGetUriScheme(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="GetUriScheme"/> methods.
@@ -748,23 +666,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedGetUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetUriScheme(System.IntPtr file_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doGetUriScheme = (GetUriScheme)methodInfo.CreateDelegate(typeof(GetUriScheme), file);
-                        var ret = doGetUriScheme();
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                System.Byte* unmanagedGetUriScheme(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetUriScheme = (GetUriScheme)methodInfo.CreateDelegate(typeof(GetUriScheme), file); var ret = doGetUriScheme(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
                 return unmanagedGetUriScheme;
             }
@@ -778,11 +680,11 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetBasename(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate System.Byte* UnmanagedGetBasename(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="GetBasename"/> methods.
@@ -794,23 +696,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedGetBasename Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetBasename(System.IntPtr file_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doGetBasename = (GetBasename)methodInfo.CreateDelegate(typeof(GetBasename), file);
-                        var ret = doGetBasename();
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                System.Byte* unmanagedGetBasename(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetBasename = (GetBasename)methodInfo.CreateDelegate(typeof(GetBasename), file); var ret = doGetBasename(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
                 return unmanagedGetBasename;
             }
@@ -824,11 +710,11 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetPath(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate System.Byte* UnmanagedGetPath(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="GetPath"/> methods.
@@ -840,23 +726,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedGetPath Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetPath(System.IntPtr file_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doGetPath = (GetPath)methodInfo.CreateDelegate(typeof(GetPath), file);
-                        var ret = doGetPath();
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                System.Byte* unmanagedGetPath(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetPath = (GetPath)methodInfo.CreateDelegate(typeof(GetPath), file); var ret = doGetPath(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
                 return unmanagedGetPath;
             }
@@ -870,11 +740,11 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetUri(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate System.Byte* UnmanagedGetUri(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="GetUri"/> methods.
@@ -886,23 +756,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedGetUri Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetUri(System.IntPtr file_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doGetUri = (GetUri)methodInfo.CreateDelegate(typeof(GetUri), file);
-                        var ret = doGetUri();
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                System.Byte* unmanagedGetUri(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetUri = (GetUri)methodInfo.CreateDelegate(typeof(GetUri), file); var ret = doGetUri(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
                 return unmanagedGetUri;
             }
@@ -916,11 +770,11 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetParseName(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate System.Byte* UnmanagedGetParseName(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="GetParseName"/> methods.
@@ -932,23 +786,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedGetParseName Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetParseName(System.IntPtr file_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doGetParseName = (GetParseName)methodInfo.CreateDelegate(typeof(GetParseName), file);
-                        var ret = doGetParseName();
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                System.Byte* unmanagedGetParseName(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetParseName = (GetParseName)methodInfo.CreateDelegate(typeof(GetParseName), file); var ret = doGetParseName(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
                 return unmanagedGetParseName;
             }
@@ -962,11 +800,11 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full nullable:1 direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetParent(
+        /* transfer-ownership:full nullable:1 direction:in */
+        public unsafe delegate GISharp.Lib.Gio.File.UnmanagedStruct* UnmanagedGetParent(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="GetParent"/> methods.
@@ -978,23 +816,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedGetParent Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetParent(System.IntPtr file_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doGetParent = (GetParent)methodInfo.CreateDelegate(typeof(GetParent), file);
-                        var ret = doGetParent();
-                        var ret_ = ret?.Take() ?? System.IntPtr.Zero;
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedGetParent(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetParent = (GetParent)methodInfo.CreateDelegate(typeof(GetParent), file); var ret = doGetParent(); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
                 return unmanagedGetParent;
             }
@@ -1008,14 +830,14 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedPrefixMatches(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr prefix,
+GISharp.Lib.Gio.File.UnmanagedStruct* prefix,
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file);
+GISharp.Lib.Gio.File.UnmanagedStruct* file);
 
         /// <summary>
         /// Class for marshalling <see cref="PrefixMatches"/> methods.
@@ -1027,24 +849,7 @@ System.IntPtr file);
             /// </summary>
             public static unsafe UnmanagedPrefixMatches Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedPrefixMatches(System.IntPtr prefix_, System.IntPtr file_)
-                {
-                    try
-                    {
-                        var prefix = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(prefix_, GISharp.Runtime.Transfer.None)!;
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var doPrefixMatches = (PrefixMatches)methodInfo.CreateDelegate(typeof(PrefixMatches), prefix);
-                        var ret = doPrefixMatches(file);
-                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedPrefixMatches(GISharp.Lib.Gio.File.UnmanagedStruct* prefix_, GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var prefix = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)prefix_, GISharp.Runtime.Transfer.None)!; var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doPrefixMatches = (PrefixMatches)methodInfo.CreateDelegate(typeof(PrefixMatches), prefix); var ret = doPrefixMatches(file); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedPrefixMatches;
             }
@@ -1058,14 +863,14 @@ System.IntPtr file);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetRelativePath(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate System.Byte* UnmanagedGetRelativePath(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr parent,
+GISharp.Lib.Gio.File.UnmanagedStruct* parent,
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr descendant);
+GISharp.Lib.Gio.File.UnmanagedStruct* descendant);
 
         /// <summary>
         /// Class for marshalling <see cref="GetRelativePath"/> methods.
@@ -1077,24 +882,7 @@ System.IntPtr descendant);
             /// </summary>
             public static unsafe UnmanagedGetRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetRelativePath(System.IntPtr parent_, System.IntPtr descendant_)
-                {
-                    try
-                    {
-                        var parent = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(parent_, GISharp.Runtime.Transfer.None)!;
-                        var descendant = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(descendant_, GISharp.Runtime.Transfer.None)!;
-                        var doGetRelativePath = (GetRelativePath)methodInfo.CreateDelegate(typeof(GetRelativePath), parent);
-                        var ret = doGetRelativePath(descendant);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                System.Byte* unmanagedGetRelativePath(GISharp.Lib.Gio.File.UnmanagedStruct* parent_, GISharp.Lib.Gio.File.UnmanagedStruct* descendant_) { try { var parent = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)parent_, GISharp.Runtime.Transfer.None)!; var descendant = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)descendant_, GISharp.Runtime.Transfer.None)!; var doGetRelativePath = (GetRelativePath)methodInfo.CreateDelegate(typeof(GetRelativePath), parent); var ret = doGetRelativePath(descendant); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
                 return unmanagedGetRelativePath;
             }
@@ -1108,14 +896,14 @@ System.IntPtr descendant);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedResolveRelativePath(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.File.UnmanagedStruct* UnmanagedResolveRelativePath(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr relativePath);
+System.Byte* relativePath);
 
         /// <summary>
         /// Class for marshalling <see cref="ResolveRelativePath"/> methods.
@@ -1127,24 +915,7 @@ System.IntPtr relativePath);
             /// </summary>
             public static unsafe UnmanagedResolveRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedResolveRelativePath(System.IntPtr file_, System.IntPtr relativePath_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var relativePath = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>(relativePath_, GISharp.Runtime.Transfer.None)!;
-                        var doResolveRelativePath = (ResolveRelativePath)methodInfo.CreateDelegate(typeof(ResolveRelativePath), file);
-                        var ret = doResolveRelativePath(relativePath);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedResolveRelativePath(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* relativePath_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var relativePath = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)relativePath_, GISharp.Runtime.Transfer.None)!; var doResolveRelativePath = (ResolveRelativePath)methodInfo.CreateDelegate(typeof(ResolveRelativePath), file); var ret = doResolveRelativePath(relativePath); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
                 return unmanagedResolveRelativePath;
             }
@@ -1158,17 +929,17 @@ System.IntPtr relativePath);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetChildForDisplayName(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.File.UnmanagedStruct* UnmanagedGetChildForDisplayName(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr displayName,
+System.Byte* displayName,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="GetChildForDisplayName"/> methods.
@@ -1180,28 +951,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedGetChildForDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetChildForDisplayName(System.IntPtr file_, System.IntPtr displayName_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_, -1);
-                        var doGetChildForDisplayName = (GetChildForDisplayName)methodInfo.CreateDelegate(typeof(GetChildForDisplayName), file);
-                        var ret = doGetChildForDisplayName(displayName);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedGetChildForDisplayName(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* displayName_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_); var doGetChildForDisplayName = (GetChildForDisplayName)methodInfo.CreateDelegate(typeof(GetChildForDisplayName), file); var ret = doGetChildForDisplayName(displayName); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
                 return unmanagedGetChildForDisplayName;
             }
@@ -1215,14 +965,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedEnumerateChildrenAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr attributes,
+System.Byte* attributes,
 /* <type name="FileQueryInfoFlags" type="GFileQueryInfoFlags" managed-name="FileQueryInfoFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileQueryInfoFlags flags,
@@ -1231,7 +981,7 @@ GISharp.Lib.Gio.FileQueryInfoFlags flags,
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
 System.IntPtr callback,
@@ -1249,24 +999,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedEnumerateChildrenAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedEnumerateChildrenAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
-                        var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doEnumerateChildrenAsync = (EnumerateChildrenAsync)methodInfo.CreateDelegate(typeof(EnumerateChildrenAsync), file);
-                        doEnumerateChildrenAsync(attributes, flags, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedEnumerateChildrenAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doEnumerateChildrenAsync = (EnumerateChildrenAsync)methodInfo.CreateDelegate(typeof(EnumerateChildrenAsync), file); doEnumerateChildrenAsync(attributes, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedEnumerateChildrenAsync;
             }
@@ -1280,23 +1013,23 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedQueryInfo(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileInfo.UnmanagedStruct* UnmanagedQueryInfo(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr attributes,
+System.Byte* attributes,
 /* <type name="FileQueryInfoFlags" type="GFileQueryInfoFlags" managed-name="FileQueryInfoFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileQueryInfoFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="QueryInfo"/> methods.
@@ -1308,30 +1041,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedQueryInfo Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedQueryInfo(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
-                        var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doQueryInfo = (QueryInfo)methodInfo.CreateDelegate(typeof(QueryInfo), file);
-                        var ret = doQueryInfo(attributes, flags, cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileInfo.UnmanagedStruct* unmanagedQueryInfo(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryInfo = (QueryInfo)methodInfo.CreateDelegate(typeof(QueryInfo), file); var ret = doQueryInfo(attributes, flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInfo.UnmanagedStruct*); }
 
                 return unmanagedQueryInfo;
             }
@@ -1345,14 +1055,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedQueryInfoAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr attributes,
+System.Byte* attributes,
 /* <type name="FileQueryInfoFlags" type="GFileQueryInfoFlags" managed-name="FileQueryInfoFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileQueryInfoFlags flags,
@@ -1361,7 +1071,7 @@ GISharp.Lib.Gio.FileQueryInfoFlags flags,
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
 System.IntPtr callback,
@@ -1379,24 +1089,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedQueryInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedQueryInfoAsync(System.IntPtr file_, System.IntPtr attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
-                        var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doQueryInfoAsync = (QueryInfoAsync)methodInfo.CreateDelegate(typeof(QueryInfoAsync), file);
-                        doQueryInfoAsync(attributes, flags, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedQueryInfoAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryInfoAsync = (QueryInfoAsync)methodInfo.CreateDelegate(typeof(QueryInfoAsync), file); doQueryInfoAsync(attributes, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedQueryInfoAsync;
             }
@@ -1410,17 +1103,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedQueryInfoFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileInfo.UnmanagedStruct* UnmanagedQueryInfoFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="QueryInfoFinish"/> methods.
@@ -1432,28 +1125,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedQueryInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedQueryInfoFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doQueryInfoFinish = (QueryInfoFinish)methodInfo.CreateDelegate(typeof(QueryInfoFinish), file);
-                        var ret = doQueryInfoFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileInfo.UnmanagedStruct* unmanagedQueryInfoFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doQueryInfoFinish = (QueryInfoFinish)methodInfo.CreateDelegate(typeof(QueryInfoFinish), file); var ret = doQueryInfoFinish(res); var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInfo.UnmanagedStruct*); }
 
                 return unmanagedQueryInfoFinish;
             }
@@ -1467,20 +1139,20 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedQueryFilesystemInfo(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileInfo.UnmanagedStruct* UnmanagedQueryFilesystemInfo(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr attributes,
+System.Byte* attributes,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="QueryFilesystemInfo"/> methods.
@@ -1492,29 +1164,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedQueryFilesystemInfo Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedQueryFilesystemInfo(System.IntPtr file_, System.IntPtr attributes_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doQueryFilesystemInfo = (QueryFilesystemInfo)methodInfo.CreateDelegate(typeof(QueryFilesystemInfo), file);
-                        var ret = doQueryFilesystemInfo(attributes, cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileInfo.UnmanagedStruct* unmanagedQueryFilesystemInfo(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryFilesystemInfo = (QueryFilesystemInfo)methodInfo.CreateDelegate(typeof(QueryFilesystemInfo), file); var ret = doQueryFilesystemInfo(attributes, cancellable); var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInfo.UnmanagedStruct*); }
 
                 return unmanagedQueryFilesystemInfo;
             }
@@ -1528,20 +1178,20 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedQueryFilesystemInfoAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr attributes,
+System.Byte* attributes,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
@@ -1559,23 +1209,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedQueryFilesystemInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedQueryFilesystemInfoAsync(System.IntPtr file_, System.IntPtr attributes_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_, -1);
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doQueryFilesystemInfoAsync = (QueryFilesystemInfoAsync)methodInfo.CreateDelegate(typeof(QueryFilesystemInfoAsync), file);
-                        doQueryFilesystemInfoAsync(attributes, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedQueryFilesystemInfoAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryFilesystemInfoAsync = (QueryFilesystemInfoAsync)methodInfo.CreateDelegate(typeof(QueryFilesystemInfoAsync), file); doQueryFilesystemInfoAsync(attributes, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedQueryFilesystemInfoAsync;
             }
@@ -1589,17 +1223,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedQueryFilesystemInfoFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileInfo.UnmanagedStruct* UnmanagedQueryFilesystemInfoFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="QueryFilesystemInfoFinish"/> methods.
@@ -1611,28 +1245,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedQueryFilesystemInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedQueryFilesystemInfoFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doQueryFilesystemInfoFinish = (QueryFilesystemInfoFinish)methodInfo.CreateDelegate(typeof(QueryFilesystemInfoFinish), file);
-                        var ret = doQueryFilesystemInfoFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileInfo.UnmanagedStruct* unmanagedQueryFilesystemInfoFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doQueryFilesystemInfoFinish = (QueryFilesystemInfoFinish)methodInfo.CreateDelegate(typeof(QueryFilesystemInfoFinish), file); var ret = doQueryFilesystemInfoFinish(res); var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInfo.UnmanagedStruct*); }
 
                 return unmanagedQueryFilesystemInfoFinish;
             }
@@ -1646,17 +1259,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedFindEnclosingMountAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
@@ -1674,22 +1287,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedFindEnclosingMountAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedFindEnclosingMountAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doFindEnclosingMountAsync = (FindEnclosingMountAsync)methodInfo.CreateDelegate(typeof(FindEnclosingMountAsync), file);
-                        doFindEnclosingMountAsync(ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedFindEnclosingMountAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doFindEnclosingMountAsync = (FindEnclosingMountAsync)methodInfo.CreateDelegate(typeof(FindEnclosingMountAsync), file); doFindEnclosingMountAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedFindEnclosingMountAsync;
             }
@@ -1703,20 +1301,20 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedSetDisplayName(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.File.UnmanagedStruct* UnmanagedSetDisplayName(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr displayName,
+System.Byte* displayName,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="SetDisplayName"/> methods.
@@ -1728,29 +1326,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedSetDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedSetDisplayName(System.IntPtr file_, System.IntPtr displayName_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_, -1);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doSetDisplayName = (SetDisplayName)methodInfo.CreateDelegate(typeof(SetDisplayName), file);
-                        var ret = doSetDisplayName(displayName, cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedSetDisplayName(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* displayName_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetDisplayName = (SetDisplayName)methodInfo.CreateDelegate(typeof(SetDisplayName), file); var ret = doSetDisplayName(displayName, cancellable); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
                 return unmanagedSetDisplayName;
             }
@@ -1764,20 +1340,20 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedSetDisplayNameAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr displayName,
+System.Byte* displayName,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
@@ -1795,23 +1371,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedSetDisplayNameAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedSetDisplayNameAsync(System.IntPtr file_, System.IntPtr displayName_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_, -1);
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doSetDisplayNameAsync = (SetDisplayNameAsync)methodInfo.CreateDelegate(typeof(SetDisplayNameAsync), file);
-                        doSetDisplayNameAsync(displayName, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedSetDisplayNameAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* displayName_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetDisplayNameAsync = (SetDisplayNameAsync)methodInfo.CreateDelegate(typeof(SetDisplayNameAsync), file); doSetDisplayNameAsync(displayName, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedSetDisplayNameAsync;
             }
@@ -1825,17 +1385,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedSetDisplayNameFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.File.UnmanagedStruct* UnmanagedSetDisplayNameFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="SetDisplayNameFinish"/> methods.
@@ -1847,28 +1407,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedSetDisplayNameFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedSetDisplayNameFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doSetDisplayNameFinish = (SetDisplayNameFinish)methodInfo.CreateDelegate(typeof(SetDisplayNameFinish), file);
-                        var ret = doSetDisplayNameFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedSetDisplayNameFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doSetDisplayNameFinish = (SetDisplayNameFinish)methodInfo.CreateDelegate(typeof(SetDisplayNameFinish), file); var ret = doSetDisplayNameFinish(res); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
                 return unmanagedSetDisplayNameFinish;
             }
@@ -1882,17 +1421,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" managed-name="FileAttributeInfoList" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedQuerySettableAttributes(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct* UnmanagedQuerySettableAttributes(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="QuerySettableAttributes"/> methods.
@@ -1904,28 +1443,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedQuerySettableAttributes Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedQuerySettableAttributes(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doQuerySettableAttributes = (QuerySettableAttributes)methodInfo.CreateDelegate(typeof(QuerySettableAttributes), file);
-                        var ret = doQuerySettableAttributes(cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct* unmanagedQuerySettableAttributes(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQuerySettableAttributes = (QuerySettableAttributes)methodInfo.CreateDelegate(typeof(QuerySettableAttributes), file); var ret = doQuerySettableAttributes(cancellable); var ret_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*); }
 
                 return unmanagedQuerySettableAttributes;
             }
@@ -1939,17 +1457,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileAttributeInfoList" type="GFileAttributeInfoList*" managed-name="FileAttributeInfoList" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedQueryWritableNamespaces(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct* UnmanagedQueryWritableNamespaces(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="QueryWritableNamespaces"/> methods.
@@ -1961,28 +1479,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedQueryWritableNamespaces Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedQueryWritableNamespaces(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doQueryWritableNamespaces = (QueryWritableNamespaces)methodInfo.CreateDelegate(typeof(QueryWritableNamespaces), file);
-                        var ret = doQueryWritableNamespaces(cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct* unmanagedQueryWritableNamespaces(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryWritableNamespaces = (QueryWritableNamespaces)methodInfo.CreateDelegate(typeof(QueryWritableNamespaces), file); var ret = doQueryWritableNamespaces(cancellable); var ret_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*); }
 
                 return unmanagedQueryWritableNamespaces;
             }
@@ -1996,14 +1493,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedSetAttribute(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr attribute,
+System.Byte* attribute,
 /* <type name="FileAttributeType" type="GFileAttributeType" managed-name="FileAttributeType" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileAttributeType type,
@@ -2015,10 +1512,10 @@ System.IntPtr valueP,
 GISharp.Lib.Gio.FileQueryInfoFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="SetAttribute"/> methods.
@@ -2030,31 +1527,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedSetAttribute Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedSetAttribute(System.IntPtr file_, System.IntPtr attribute_, GISharp.Lib.Gio.FileAttributeType type_, System.IntPtr valueP_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var attribute = new GISharp.Lib.GLib.UnownedUtf8(attribute_, -1);
-                        var type = (GISharp.Lib.Gio.FileAttributeType)type_;
-                        var valueP = (System.IntPtr)valueP_;
-                        var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doSetAttribute = (SetAttribute)methodInfo.CreateDelegate(typeof(SetAttribute), file);
-                        doSetAttribute(attribute, type, valueP, flags, cancellable);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedSetAttribute(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attribute_, GISharp.Lib.Gio.FileAttributeType type_, System.IntPtr valueP_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attribute = new GISharp.Lib.GLib.UnownedUtf8(attribute_); var type = (GISharp.Lib.Gio.FileAttributeType)type_; var valueP = (System.IntPtr)valueP_; var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetAttribute = (SetAttribute)methodInfo.CreateDelegate(typeof(SetAttribute), file); doSetAttribute(attribute, type, valueP, flags, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedSetAttribute;
             }
@@ -2068,23 +1541,23 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedSetAttributesFromInfo(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr info,
+GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info,
 /* <type name="FileQueryInfoFlags" type="GFileQueryInfoFlags" managed-name="FileQueryInfoFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileQueryInfoFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="SetAttributesFromInfo"/> methods.
@@ -2096,29 +1569,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedSetAttributesFromInfo Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedSetAttributesFromInfo(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var info = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(info_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doSetAttributesFromInfo = (SetAttributesFromInfo)methodInfo.CreateDelegate(typeof(SetAttributesFromInfo), file);
-                        doSetAttributesFromInfo(info, flags, cancellable);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedSetAttributesFromInfo(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var info = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>((System.IntPtr)info_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetAttributesFromInfo = (SetAttributesFromInfo)methodInfo.CreateDelegate(typeof(SetAttributesFromInfo), file); doSetAttributesFromInfo(info, flags, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedSetAttributesFromInfo;
             }
@@ -2132,14 +1583,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedSetAttributesAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr info,
+GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info,
 /* <type name="FileQueryInfoFlags" type="GFileQueryInfoFlags" managed-name="FileQueryInfoFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileQueryInfoFlags flags,
@@ -2148,7 +1599,7 @@ GISharp.Lib.Gio.FileQueryInfoFlags flags,
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
 System.IntPtr callback,
@@ -2166,24 +1617,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedSetAttributesAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedSetAttributesAsync(System.IntPtr file_, System.IntPtr info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var info = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>(info_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doSetAttributesAsync = (SetAttributesAsync)methodInfo.CreateDelegate(typeof(SetAttributesAsync), file);
-                        doSetAttributesAsync(info, flags, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedSetAttributesAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var info = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>((System.IntPtr)info_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetAttributesAsync = (SetAttributesAsync)methodInfo.CreateDelegate(typeof(SetAttributesAsync), file); doSetAttributesAsync(info, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedSetAttributesAsync;
             }
@@ -2197,20 +1631,20 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedSetAttributesFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="FileInfo" type="GFileInfo**" managed-name="FileInfo" is-pointer="1" /> */
 /* direction:out caller-allocates:0 transfer-ownership:full */
-out System.IntPtr info,
+GISharp.Lib.Gio.FileInfo.UnmanagedStruct** info,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="SetAttributesFinish"/> methods.
@@ -2222,29 +1656,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedSetAttributesFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedSetAttributesFinish(System.IntPtr file_, System.IntPtr result_, out System.IntPtr info_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doSetAttributesFinish = (SetAttributesFinish)methodInfo.CreateDelegate(typeof(SetAttributesFinish), file);
-                        doSetAttributesFinish(result,out var info);
-                        info_ = info.Take();
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    info_ = default(System.IntPtr);
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedSetAttributesFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.Gio.FileInfo.UnmanagedStruct** info_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doSetAttributesFinish = (SetAttributesFinish)methodInfo.CreateDelegate(typeof(SetAttributesFinish), file); doSetAttributesFinish(result,out var info); *info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)info.Take(); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedSetAttributesFinish;
             }
@@ -2258,17 +1670,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedReadFn(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileInputStream.UnmanagedStruct* UnmanagedReadFn(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="ReadFn"/> methods.
@@ -2280,28 +1692,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedReadFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedReadFn(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doReadFn = (ReadFn)methodInfo.CreateDelegate(typeof(ReadFn), file);
-                        var ret = doReadFn(cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileInputStream.UnmanagedStruct* unmanagedReadFn(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReadFn = (ReadFn)methodInfo.CreateDelegate(typeof(ReadFn), file); var ret = doReadFn(cancellable); var ret_ = (GISharp.Lib.Gio.FileInputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInputStream.UnmanagedStruct*); }
 
                 return unmanagedReadFn;
             }
@@ -2315,17 +1706,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedReadAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
@@ -2343,22 +1734,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedReadAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedReadAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doReadAsync = (ReadAsync)methodInfo.CreateDelegate(typeof(ReadAsync), file);
-                        doReadAsync(ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedReadAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReadAsync = (ReadAsync)methodInfo.CreateDelegate(typeof(ReadAsync), file); doReadAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedReadAsync;
             }
@@ -2372,17 +1748,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileInputStream" type="GFileInputStream*" managed-name="FileInputStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedReadFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileInputStream.UnmanagedStruct* UnmanagedReadFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="ReadFinish"/> methods.
@@ -2394,28 +1770,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedReadFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedReadFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doReadFinish = (ReadFinish)methodInfo.CreateDelegate(typeof(ReadFinish), file);
-                        var ret = doReadFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileInputStream.UnmanagedStruct* unmanagedReadFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doReadFinish = (ReadFinish)methodInfo.CreateDelegate(typeof(ReadFinish), file); var ret = doReadFinish(res); var ret_ = (GISharp.Lib.Gio.FileInputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInputStream.UnmanagedStruct*); }
 
                 return unmanagedReadFinish;
             }
@@ -2429,20 +1784,20 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedAppendTo(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* UnmanagedAppendTo(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="FileCreateFlags" type="GFileCreateFlags" managed-name="FileCreateFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileCreateFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="AppendTo"/> methods.
@@ -2454,29 +1809,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedAppendTo Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedAppendTo(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doAppendTo = (AppendTo)methodInfo.CreateDelegate(typeof(AppendTo), file);
-                        var ret = doAppendTo(flags, cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedAppendTo(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doAppendTo = (AppendTo)methodInfo.CreateDelegate(typeof(AppendTo), file); var ret = doAppendTo(flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
                 return unmanagedAppendTo;
             }
@@ -2490,11 +1823,11 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedAppendToAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="FileCreateFlags" type="GFileCreateFlags" managed-name="FileCreateFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileCreateFlags flags,
@@ -2503,7 +1836,7 @@ GISharp.Lib.Gio.FileCreateFlags flags,
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
@@ -2521,23 +1854,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedAppendToAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedAppendToAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doAppendToAsync = (AppendToAsync)methodInfo.CreateDelegate(typeof(AppendToAsync), file);
-                        doAppendToAsync(flags, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedAppendToAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doAppendToAsync = (AppendToAsync)methodInfo.CreateDelegate(typeof(AppendToAsync), file); doAppendToAsync(flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedAppendToAsync;
             }
@@ -2551,17 +1868,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedAppendToFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* UnmanagedAppendToFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="AppendToFinish"/> methods.
@@ -2573,28 +1890,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedAppendToFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedAppendToFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doAppendToFinish = (AppendToFinish)methodInfo.CreateDelegate(typeof(AppendToFinish), file);
-                        var ret = doAppendToFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedAppendToFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doAppendToFinish = (AppendToFinish)methodInfo.CreateDelegate(typeof(AppendToFinish), file); var ret = doAppendToFinish(res); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
                 return unmanagedAppendToFinish;
             }
@@ -2608,20 +1904,20 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedCreate(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* UnmanagedCreate(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="FileCreateFlags" type="GFileCreateFlags" managed-name="FileCreateFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileCreateFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="Create"/> methods.
@@ -2633,29 +1929,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedCreate Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedCreate(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doCreate = (Create)methodInfo.CreateDelegate(typeof(Create), file);
-                        var ret = doCreate(flags, cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedCreate(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCreate = (Create)methodInfo.CreateDelegate(typeof(Create), file); var ret = doCreate(flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
                 return unmanagedCreate;
             }
@@ -2669,11 +1943,11 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedCreateAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="FileCreateFlags" type="GFileCreateFlags" managed-name="FileCreateFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileCreateFlags flags,
@@ -2682,7 +1956,7 @@ GISharp.Lib.Gio.FileCreateFlags flags,
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
@@ -2700,23 +1974,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedCreateAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCreateAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doCreateAsync = (CreateAsync)methodInfo.CreateDelegate(typeof(CreateAsync), file);
-                        doCreateAsync(flags, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedCreateAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCreateAsync = (CreateAsync)methodInfo.CreateDelegate(typeof(CreateAsync), file); doCreateAsync(flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedCreateAsync;
             }
@@ -2730,17 +1988,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedCreateFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* UnmanagedCreateFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="CreateFinish"/> methods.
@@ -2752,28 +2010,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedCreateFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedCreateFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doCreateFinish = (CreateFinish)methodInfo.CreateDelegate(typeof(CreateFinish), file);
-                        var ret = doCreateFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedCreateFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doCreateFinish = (CreateFinish)methodInfo.CreateDelegate(typeof(CreateFinish), file); var ret = doCreateFinish(res); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
                 return unmanagedCreateFinish;
             }
@@ -2787,14 +2024,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedReplace(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* UnmanagedReplace(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr etag,
+System.Byte* etag,
 /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Runtime.Boolean makeBackup,
@@ -2803,10 +2040,10 @@ GISharp.Runtime.Boolean makeBackup,
 GISharp.Lib.Gio.FileCreateFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="Replace"/> methods.
@@ -2818,31 +2055,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedReplace Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedReplace(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_, -1);
-                        var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doReplace = (Replace)methodInfo.CreateDelegate(typeof(Replace), file);
-                        var ret = doReplace(etag, makeBackup, flags, cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedReplace(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_); var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_); var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReplace = (Replace)methodInfo.CreateDelegate(typeof(Replace), file); var ret = doReplace(etag, makeBackup, flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
                 return unmanagedReplace;
             }
@@ -2856,14 +2069,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedReplaceAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr etag,
+System.Byte* etag,
 /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Runtime.Boolean makeBackup,
@@ -2875,7 +2088,7 @@ GISharp.Lib.Gio.FileCreateFlags flags,
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:7 direction:in */
 System.IntPtr callback,
@@ -2893,25 +2106,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedReplaceAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedReplaceAsync(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_, -1);
-                        var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doReplaceAsync = (ReplaceAsync)methodInfo.CreateDelegate(typeof(ReplaceAsync), file);
-                        doReplaceAsync(etag, makeBackup, flags, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedReplaceAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_); var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_); var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReplaceAsync = (ReplaceAsync)methodInfo.CreateDelegate(typeof(ReplaceAsync), file); doReplaceAsync(etag, makeBackup, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedReplaceAsync;
             }
@@ -2925,17 +2120,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedReplaceFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* UnmanagedReplaceFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="ReplaceFinish"/> methods.
@@ -2947,28 +2142,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedReplaceFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedReplaceFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doReplaceFinish = (ReplaceFinish)methodInfo.CreateDelegate(typeof(ReplaceFinish), file);
-                        var ret = doReplaceFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedReplaceFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doReplaceFinish = (ReplaceFinish)methodInfo.CreateDelegate(typeof(ReplaceFinish), file); var ret = doReplaceFinish(res); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
                 return unmanagedReplaceFinish;
             }
@@ -2982,17 +2156,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedDeleteFile(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="DeleteFile"/> methods.
@@ -3004,27 +2178,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedDeleteFile Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedDeleteFile(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doDeleteFile = (DeleteFile)methodInfo.CreateDelegate(typeof(DeleteFile), file);
-                        doDeleteFile(cancellable);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedDeleteFile(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doDeleteFile = (DeleteFile)methodInfo.CreateDelegate(typeof(DeleteFile), file); doDeleteFile(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedDeleteFile;
             }
@@ -3038,17 +2192,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedDeleteFileAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
@@ -3066,22 +2220,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedDeleteFileAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedDeleteFileAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doDeleteFileAsync = (DeleteFileAsync)methodInfo.CreateDelegate(typeof(DeleteFileAsync), file);
-                        doDeleteFileAsync(ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedDeleteFileAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doDeleteFileAsync = (DeleteFileAsync)methodInfo.CreateDelegate(typeof(DeleteFileAsync), file); doDeleteFileAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedDeleteFileAsync;
             }
@@ -3095,17 +2234,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedDeleteFileFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="DeleteFileFinish"/> methods.
@@ -3117,27 +2256,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedDeleteFileFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedDeleteFileFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doDeleteFileFinish = (DeleteFileFinish)methodInfo.CreateDelegate(typeof(DeleteFileFinish), file);
-                        doDeleteFileFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedDeleteFileFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doDeleteFileFinish = (DeleteFileFinish)methodInfo.CreateDelegate(typeof(DeleteFileFinish), file); doDeleteFileFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedDeleteFileFinish;
             }
@@ -3151,17 +2270,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedTrash(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="Trash"/> methods.
@@ -3173,27 +2292,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedTrash Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedTrash(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doTrash = (Trash)methodInfo.CreateDelegate(typeof(Trash), file);
-                        doTrash(cancellable);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedTrash(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doTrash = (Trash)methodInfo.CreateDelegate(typeof(Trash), file); doTrash(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedTrash;
             }
@@ -3207,17 +2306,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedTrashAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
@@ -3235,22 +2334,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedTrashAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedTrashAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doTrashAsync = (TrashAsync)methodInfo.CreateDelegate(typeof(TrashAsync), file);
-                        doTrashAsync(ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedTrashAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doTrashAsync = (TrashAsync)methodInfo.CreateDelegate(typeof(TrashAsync), file); doTrashAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedTrashAsync;
             }
@@ -3264,17 +2348,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedTrashFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="TrashFinish"/> methods.
@@ -3286,27 +2370,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedTrashFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedTrashFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doTrashFinish = (TrashFinish)methodInfo.CreateDelegate(typeof(TrashFinish), file);
-                        doTrashFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedTrashFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doTrashFinish = (TrashFinish)methodInfo.CreateDelegate(typeof(TrashFinish), file); doTrashFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedTrashFinish;
             }
@@ -3320,17 +2384,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedMakeDirectory(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="MakeDirectory"/> methods.
@@ -3342,27 +2406,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedMakeDirectory Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedMakeDirectory(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doMakeDirectory = (MakeDirectory)methodInfo.CreateDelegate(typeof(MakeDirectory), file);
-                        doMakeDirectory(cancellable);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedMakeDirectory(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doMakeDirectory = (MakeDirectory)methodInfo.CreateDelegate(typeof(MakeDirectory), file); doMakeDirectory(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedMakeDirectory;
             }
@@ -3376,17 +2420,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedMakeDirectoryAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
@@ -3404,22 +2448,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedMakeDirectoryAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedMakeDirectoryAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doMakeDirectoryAsync = (MakeDirectoryAsync)methodInfo.CreateDelegate(typeof(MakeDirectoryAsync), file);
-                        doMakeDirectoryAsync(ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedMakeDirectoryAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doMakeDirectoryAsync = (MakeDirectoryAsync)methodInfo.CreateDelegate(typeof(MakeDirectoryAsync), file); doMakeDirectoryAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedMakeDirectoryAsync;
             }
@@ -3433,17 +2462,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedMakeDirectoryFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="MakeDirectoryFinish"/> methods.
@@ -3455,27 +2484,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedMakeDirectoryFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedMakeDirectoryFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doMakeDirectoryFinish = (MakeDirectoryFinish)methodInfo.CreateDelegate(typeof(MakeDirectoryFinish), file);
-                        doMakeDirectoryFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedMakeDirectoryFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doMakeDirectoryFinish = (MakeDirectoryFinish)methodInfo.CreateDelegate(typeof(MakeDirectoryFinish), file); doMakeDirectoryFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedMakeDirectoryFinish;
             }
@@ -3489,20 +2498,20 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedMakeSymbolicLink(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr symlinkValue,
+System.Byte* symlinkValue,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="MakeSymbolicLink"/> methods.
@@ -3514,28 +2523,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedMakeSymbolicLink Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedMakeSymbolicLink(System.IntPtr file_, System.IntPtr symlinkValue_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var symlinkValue = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>(symlinkValue_, GISharp.Runtime.Transfer.None)!;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doMakeSymbolicLink = (MakeSymbolicLink)methodInfo.CreateDelegate(typeof(MakeSymbolicLink), file);
-                        doMakeSymbolicLink(symlinkValue, cancellable);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedMakeSymbolicLink(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* symlinkValue_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var symlinkValue = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)symlinkValue_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doMakeSymbolicLink = (MakeSymbolicLink)methodInfo.CreateDelegate(typeof(MakeSymbolicLink), file); doMakeSymbolicLink(symlinkValue, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedMakeSymbolicLink;
             }
@@ -3549,20 +2537,20 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedCopy(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr source,
+GISharp.Lib.Gio.File.UnmanagedStruct* source,
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr destination,
+GISharp.Lib.Gio.File.UnmanagedStruct* destination,
 /* <type name="FileCopyFlags" type="GFileCopyFlags" managed-name="FileCopyFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileCopyFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:call closure:5 direction:in */
 System.IntPtr progressCallback,
@@ -3571,7 +2559,7 @@ System.IntPtr progressCallback,
 System.IntPtr progressCallbackData,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="Copy"/> methods.
@@ -3583,30 +2571,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedCopy Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedCopy(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(source_, GISharp.Runtime.Transfer.None)!;
-                        var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(destination_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_;
-                        var progressCallback = progressCallback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doCopy = (Copy)methodInfo.CreateDelegate(typeof(Copy), source);
-                        doCopy(destination, flags, progressCallback, cancellable);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedCopy(GISharp.Lib.Gio.File.UnmanagedStruct* source_, GISharp.Lib.Gio.File.UnmanagedStruct* destination_, GISharp.Lib.Gio.FileCopyFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)destination_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_; var progressCallback = progressCallback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCopy = (Copy)methodInfo.CreateDelegate(typeof(Copy), source); doCopy(destination, flags, progressCallback, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedCopy;
             }
@@ -3620,14 +2585,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedCopyAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr source,
+GISharp.Lib.Gio.File.UnmanagedStruct* source,
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr destination,
+GISharp.Lib.Gio.File.UnmanagedStruct* destination,
 /* <type name="FileCopyFlags" type="GFileCopyFlags" managed-name="FileCopyFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileCopyFlags flags,
@@ -3636,7 +2601,7 @@ GISharp.Lib.Gio.FileCopyFlags flags,
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:6 direction:in */
 System.IntPtr progressCallback,
@@ -3660,25 +2625,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedCopyAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCopyAsync(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(source_, GISharp.Runtime.Transfer.None)!;
-                        var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(destination_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var progressCallback = progressCallback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_);
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doCopyAsync = (CopyAsync)methodInfo.CreateDelegate(typeof(CopyAsync), source);
-                        doCopyAsync(destination, flags, ioPriority, progressCallback, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedCopyAsync(GISharp.Lib.Gio.File.UnmanagedStruct* source_, GISharp.Lib.Gio.File.UnmanagedStruct* destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, System.IntPtr callback_, System.IntPtr userData_) { try { var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)destination_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var progressCallback = progressCallback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_); var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCopyAsync = (CopyAsync)methodInfo.CreateDelegate(typeof(CopyAsync), source); doCopyAsync(destination, flags, ioPriority, progressCallback, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedCopyAsync;
             }
@@ -3692,17 +2639,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedCopyFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="CopyFinish"/> methods.
@@ -3714,27 +2661,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedCopyFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedCopyFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doCopyFinish = (CopyFinish)methodInfo.CreateDelegate(typeof(CopyFinish), file);
-                        doCopyFinish(res);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedCopyFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doCopyFinish = (CopyFinish)methodInfo.CreateDelegate(typeof(CopyFinish), file); doCopyFinish(res); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedCopyFinish;
             }
@@ -3748,20 +2675,20 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedMove(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr source,
+GISharp.Lib.Gio.File.UnmanagedStruct* source,
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr destination,
+GISharp.Lib.Gio.File.UnmanagedStruct* destination,
 /* <type name="FileCopyFlags" type="GFileCopyFlags" managed-name="FileCopyFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileCopyFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:call closure:5 direction:in */
 System.IntPtr progressCallback,
@@ -3770,7 +2697,7 @@ System.IntPtr progressCallback,
 System.IntPtr progressCallbackData,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="Move"/> methods.
@@ -3782,30 +2709,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedMove Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedMove(System.IntPtr source_, System.IntPtr destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.IntPtr cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(source_, GISharp.Runtime.Transfer.None)!;
-                        var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(destination_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_;
-                        var progressCallback = progressCallback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doMove = (Move)methodInfo.CreateDelegate(typeof(Move), source);
-                        doMove(destination, flags, progressCallback, cancellable);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedMove(GISharp.Lib.Gio.File.UnmanagedStruct* source_, GISharp.Lib.Gio.File.UnmanagedStruct* destination_, GISharp.Lib.Gio.FileCopyFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)destination_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_; var progressCallback = progressCallback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doMove = (Move)methodInfo.CreateDelegate(typeof(Move), source); doMove(destination, flags, progressCallback, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedMove;
             }
@@ -3819,17 +2723,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedMountMountableFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.File.UnmanagedStruct* UnmanagedMountMountableFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="MountMountableFinish"/> methods.
@@ -3841,28 +2745,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedMountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedMountMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doMountMountableFinish = (MountMountableFinish)methodInfo.CreateDelegate(typeof(MountMountableFinish), file);
-                        var ret = doMountMountableFinish(result);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedMountMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doMountMountableFinish = (MountMountableFinish)methodInfo.CreateDelegate(typeof(MountMountableFinish), file); var ret = doMountMountableFinish(result); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
                 return unmanagedMountMountableFinish;
             }
@@ -3876,17 +2759,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedUnmountMountableFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="UnmountMountableFinish"/> methods.
@@ -3898,27 +2781,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedUnmountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedUnmountMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doUnmountMountableFinish = (UnmountMountableFinish)methodInfo.CreateDelegate(typeof(UnmountMountableFinish), file);
-                        doUnmountMountableFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedUnmountMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doUnmountMountableFinish = (UnmountMountableFinish)methodInfo.CreateDelegate(typeof(UnmountMountableFinish), file); doUnmountMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedUnmountMountableFinish;
             }
@@ -3932,17 +2795,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedEjectMountableFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="EjectMountableFinish"/> methods.
@@ -3954,27 +2817,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedEjectMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedEjectMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doEjectMountableFinish = (EjectMountableFinish)methodInfo.CreateDelegate(typeof(EjectMountableFinish), file);
-                        doEjectMountableFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedEjectMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doEjectMountableFinish = (EjectMountableFinish)methodInfo.CreateDelegate(typeof(EjectMountableFinish), file); doEjectMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedEjectMountableFinish;
             }
@@ -3988,17 +2831,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedMountEnclosingVolumeFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr location,
+GISharp.Lib.Gio.File.UnmanagedStruct* location,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="MountEnclosingVolumeFinish"/> methods.
@@ -4010,27 +2853,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedMountEnclosingVolumeFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedMountEnclosingVolumeFinish(System.IntPtr location_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var location = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(location_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doMountEnclosingVolumeFinish = (MountEnclosingVolumeFinish)methodInfo.CreateDelegate(typeof(MountEnclosingVolumeFinish), location);
-                        doMountEnclosingVolumeFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedMountEnclosingVolumeFinish(GISharp.Lib.Gio.File.UnmanagedStruct* location_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var location = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)location_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doMountEnclosingVolumeFinish = (MountEnclosingVolumeFinish)methodInfo.CreateDelegate(typeof(MountEnclosingVolumeFinish), location); doMountEnclosingVolumeFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedMountEnclosingVolumeFinish;
             }
@@ -4044,17 +2867,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedOpenReadwrite(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* UnmanagedOpenReadwrite(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="OpenReadwrite"/> methods.
@@ -4066,28 +2889,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedOpenReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedOpenReadwrite(System.IntPtr file_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doOpenReadwrite = (OpenReadwrite)methodInfo.CreateDelegate(typeof(OpenReadwrite), file);
-                        var ret = doOpenReadwrite(cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedOpenReadwrite(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doOpenReadwrite = (OpenReadwrite)methodInfo.CreateDelegate(typeof(OpenReadwrite), file); var ret = doOpenReadwrite(cancellable); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
                 return unmanagedOpenReadwrite;
             }
@@ -4101,17 +2903,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedOpenReadwriteAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
@@ -4129,22 +2931,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedOpenReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedOpenReadwriteAsync(System.IntPtr file_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doOpenReadwriteAsync = (OpenReadwriteAsync)methodInfo.CreateDelegate(typeof(OpenReadwriteAsync), file);
-                        doOpenReadwriteAsync(ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedOpenReadwriteAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doOpenReadwriteAsync = (OpenReadwriteAsync)methodInfo.CreateDelegate(typeof(OpenReadwriteAsync), file); doOpenReadwriteAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedOpenReadwriteAsync;
             }
@@ -4158,17 +2945,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedOpenReadwriteFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* UnmanagedOpenReadwriteFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="OpenReadwriteFinish"/> methods.
@@ -4180,28 +2967,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedOpenReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedOpenReadwriteFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doOpenReadwriteFinish = (OpenReadwriteFinish)methodInfo.CreateDelegate(typeof(OpenReadwriteFinish), file);
-                        var ret = doOpenReadwriteFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedOpenReadwriteFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doOpenReadwriteFinish = (OpenReadwriteFinish)methodInfo.CreateDelegate(typeof(OpenReadwriteFinish), file); var ret = doOpenReadwriteFinish(res); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
                 return unmanagedOpenReadwriteFinish;
             }
@@ -4215,20 +2981,20 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedCreateReadwrite(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* UnmanagedCreateReadwrite(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="FileCreateFlags" type="GFileCreateFlags" managed-name="FileCreateFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileCreateFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="CreateReadwrite"/> methods.
@@ -4240,29 +3006,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedCreateReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedCreateReadwrite(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doCreateReadwrite = (CreateReadwrite)methodInfo.CreateDelegate(typeof(CreateReadwrite), file);
-                        var ret = doCreateReadwrite(flags, cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedCreateReadwrite(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCreateReadwrite = (CreateReadwrite)methodInfo.CreateDelegate(typeof(CreateReadwrite), file); var ret = doCreateReadwrite(flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
                 return unmanagedCreateReadwrite;
             }
@@ -4276,11 +3020,11 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedCreateReadwriteAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="FileCreateFlags" type="GFileCreateFlags" managed-name="FileCreateFlags" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.FileCreateFlags flags,
@@ -4289,7 +3033,7 @@ GISharp.Lib.Gio.FileCreateFlags flags,
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
@@ -4307,23 +3051,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedCreateReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCreateReadwriteAsync(System.IntPtr file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doCreateReadwriteAsync = (CreateReadwriteAsync)methodInfo.CreateDelegate(typeof(CreateReadwriteAsync), file);
-                        doCreateReadwriteAsync(flags, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedCreateReadwriteAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCreateReadwriteAsync = (CreateReadwriteAsync)methodInfo.CreateDelegate(typeof(CreateReadwriteAsync), file); doCreateReadwriteAsync(flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedCreateReadwriteAsync;
             }
@@ -4337,17 +3065,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedCreateReadwriteFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* UnmanagedCreateReadwriteFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="CreateReadwriteFinish"/> methods.
@@ -4359,28 +3087,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedCreateReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedCreateReadwriteFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doCreateReadwriteFinish = (CreateReadwriteFinish)methodInfo.CreateDelegate(typeof(CreateReadwriteFinish), file);
-                        var ret = doCreateReadwriteFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedCreateReadwriteFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doCreateReadwriteFinish = (CreateReadwriteFinish)methodInfo.CreateDelegate(typeof(CreateReadwriteFinish), file); var ret = doCreateReadwriteFinish(res); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
                 return unmanagedCreateReadwriteFinish;
             }
@@ -4394,14 +3101,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedReplaceReadwrite(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* UnmanagedReplaceReadwrite(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr etag,
+System.Byte* etag,
 /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Runtime.Boolean makeBackup,
@@ -4410,10 +3117,10 @@ GISharp.Runtime.Boolean makeBackup,
 GISharp.Lib.Gio.FileCreateFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="ReplaceReadwrite"/> methods.
@@ -4425,31 +3132,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedReplaceReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedReplaceReadwrite(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_, -1);
-                        var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doReplaceReadwrite = (ReplaceReadwrite)methodInfo.CreateDelegate(typeof(ReplaceReadwrite), file);
-                        var ret = doReplaceReadwrite(etag, makeBackup, flags, cancellable);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedReplaceReadwrite(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_); var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_); var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReplaceReadwrite = (ReplaceReadwrite)methodInfo.CreateDelegate(typeof(ReplaceReadwrite), file); var ret = doReplaceReadwrite(etag, makeBackup, flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
                 return unmanagedReplaceReadwrite;
             }
@@ -4463,14 +3146,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedReplaceReadwriteAsync(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr etag,
+System.Byte* etag,
 /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Runtime.Boolean makeBackup,
@@ -4482,7 +3165,7 @@ GISharp.Lib.Gio.FileCreateFlags flags,
 System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:7 direction:in */
 System.IntPtr callback,
@@ -4500,25 +3183,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedReplaceReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedReplaceReadwriteAsync(System.IntPtr file_, System.IntPtr etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_, -1);
-                        var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_);
-                        var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_;
-                        var ioPriority = (System.Int32)ioPriority_;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doReplaceReadwriteAsync = (ReplaceReadwriteAsync)methodInfo.CreateDelegate(typeof(ReplaceReadwriteAsync), file);
-                        doReplaceReadwriteAsync(etag, makeBackup, flags, ioPriority, callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedReplaceReadwriteAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_); var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_); var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReplaceReadwriteAsync = (ReplaceReadwriteAsync)methodInfo.CreateDelegate(typeof(ReplaceReadwriteAsync), file); doReplaceReadwriteAsync(etag, makeBackup, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedReplaceReadwriteAsync;
             }
@@ -4532,17 +3197,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="FileIOStream" type="GFileIOStream*" managed-name="FileIOStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedReplaceReadwriteFinish(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* UnmanagedReplaceReadwriteFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr res,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="ReplaceReadwriteFinish"/> methods.
@@ -4554,28 +3219,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedReplaceReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedReplaceReadwriteFinish(System.IntPtr file_, System.IntPtr res_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(res_, GISharp.Runtime.Transfer.None)!;
-                        var doReplaceReadwriteFinish = (ReplaceReadwriteFinish)methodInfo.CreateDelegate(typeof(ReplaceReadwriteFinish), file);
-                        var ret = doReplaceReadwriteFinish(res);
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedReplaceReadwriteFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doReplaceReadwriteFinish = (ReplaceReadwriteFinish)methodInfo.CreateDelegate(typeof(ReplaceReadwriteFinish), file); var ret = doReplaceReadwriteFinish(res); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
                 return unmanagedReplaceReadwriteFinish;
             }
@@ -4589,17 +3233,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedStartMountableFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="StartMountableFinish"/> methods.
@@ -4611,27 +3255,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedStartMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedStartMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doStartMountableFinish = (StartMountableFinish)methodInfo.CreateDelegate(typeof(StartMountableFinish), file);
-                        doStartMountableFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedStartMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doStartMountableFinish = (StartMountableFinish)methodInfo.CreateDelegate(typeof(StartMountableFinish), file); doStartMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedStartMountableFinish;
             }
@@ -4645,17 +3269,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedStopMountableFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="StopMountableFinish"/> methods.
@@ -4667,27 +3291,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedStopMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedStopMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doStopMountableFinish = (StopMountableFinish)methodInfo.CreateDelegate(typeof(StopMountableFinish), file);
-                        doStopMountableFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedStopMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doStopMountableFinish = (StopMountableFinish)methodInfo.CreateDelegate(typeof(StopMountableFinish), file); doStopMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedStopMountableFinish;
             }
@@ -4701,17 +3305,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedUnmountMountableWithOperationFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="UnmountMountableWithOperationFinish"/> methods.
@@ -4723,27 +3327,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedUnmountMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedUnmountMountableWithOperationFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doUnmountMountableWithOperationFinish = (UnmountMountableWithOperationFinish)methodInfo.CreateDelegate(typeof(UnmountMountableWithOperationFinish), file);
-                        doUnmountMountableWithOperationFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedUnmountMountableWithOperationFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doUnmountMountableWithOperationFinish = (UnmountMountableWithOperationFinish)methodInfo.CreateDelegate(typeof(UnmountMountableWithOperationFinish), file); doUnmountMountableWithOperationFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedUnmountMountableWithOperationFinish;
             }
@@ -4757,17 +3341,17 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedEjectMountableWithOperationFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="EjectMountableWithOperationFinish"/> methods.
@@ -4779,27 +3363,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedEjectMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedEjectMountableWithOperationFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doEjectMountableWithOperationFinish = (EjectMountableWithOperationFinish)methodInfo.CreateDelegate(typeof(EjectMountableWithOperationFinish), file);
-                        doEjectMountableWithOperationFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedEjectMountableWithOperationFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doEjectMountableWithOperationFinish = (EjectMountableWithOperationFinish)methodInfo.CreateDelegate(typeof(EjectMountableWithOperationFinish), file); doEjectMountableWithOperationFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedEjectMountableWithOperationFinish;
             }
@@ -4813,14 +3377,14 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedPollMountable(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
 System.IntPtr callback,
@@ -4838,21 +3402,7 @@ System.IntPtr userData);
             /// </summary>
             public static unsafe UnmanagedPollMountable Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedPollMountable(System.IntPtr file_, System.IntPtr cancellable_, System.IntPtr callback_, System.IntPtr userData_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_);
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doPollMountable = (PollMountable)methodInfo.CreateDelegate(typeof(PollMountable), file);
-                        doPollMountable(callback, cancellable);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedPollMountable(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doPollMountable = (PollMountable)methodInfo.CreateDelegate(typeof(PollMountable), file); doPollMountable(callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedPollMountable;
             }
@@ -4866,17 +3416,17 @@ System.IntPtr userData);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedPollMountableFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="PollMountableFinish"/> methods.
@@ -4888,27 +3438,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedPollMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedPollMountableFinish(System.IntPtr file_, System.IntPtr result_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doPollMountableFinish = (PollMountableFinish)methodInfo.CreateDelegate(typeof(PollMountableFinish), file);
-                        doPollMountableFinish(result);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedPollMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doPollMountableFinish = (PollMountableFinish)methodInfo.CreateDelegate(typeof(PollMountableFinish), file); doPollMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedPollMountableFinish;
             }
@@ -4922,26 +3452,26 @@ ref System.IntPtr error);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedMeasureDiskUsageFinish(
 /* <type name="File" type="GFile*" managed-name="File" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr file,
+GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr result,
-/* <type name="guint64" type="guint64*" managed-name="System.UInt64" is-pointer="1" /> */
+GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
+/* <type name="guint64" type="guint64*" managed-name="System.UInt64" /> */
 /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-out System.UInt64 diskUsage,
-/* <type name="guint64" type="guint64*" managed-name="System.UInt64" is-pointer="1" /> */
+System.UInt64* diskUsage,
+/* <type name="guint64" type="guint64*" managed-name="System.UInt64" /> */
 /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-out System.UInt64 numDirs,
-/* <type name="guint64" type="guint64*" managed-name="System.UInt64" is-pointer="1" /> */
+System.UInt64* numDirs,
+/* <type name="guint64" type="guint64*" managed-name="System.UInt64" /> */
 /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-out System.UInt64 numFiles,
+System.UInt64* numFiles,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="MeasureDiskUsageFinish"/> methods.
@@ -4953,33 +3483,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedMeasureDiskUsageFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedMeasureDiskUsageFinish(System.IntPtr file_, System.IntPtr result_, out System.UInt64 diskUsage_, out System.UInt64 numDirs_, out System.UInt64 numFiles_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance(file_, GISharp.Runtime.Transfer.None)!;
-                        var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance(result_, GISharp.Runtime.Transfer.None)!;
-                        var doMeasureDiskUsageFinish = (MeasureDiskUsageFinish)methodInfo.CreateDelegate(typeof(MeasureDiskUsageFinish), file);
-                        doMeasureDiskUsageFinish(result,out var diskUsage,out var numDirs,out var numFiles);
-                        diskUsage_ = (System.UInt64)diskUsage;
-                        numDirs_ = (System.UInt64)numDirs;
-                        numFiles_ = (System.UInt64)numFiles;
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    diskUsage_ = default(System.UInt64);
-                    numDirs_ = default(System.UInt64);
-                    numFiles_ = default(System.UInt64);
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedMeasureDiskUsageFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.UInt64* diskUsage_, System.UInt64* numDirs_, System.UInt64* numFiles_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doMeasureDiskUsageFinish = (MeasureDiskUsageFinish)methodInfo.CreateDelegate(typeof(MeasureDiskUsageFinish), file); doMeasureDiskUsageFinish(result,out var diskUsage,out var numDirs,out var numFiles); *diskUsage_ = (System.UInt64)diskUsage; *numDirs_ = (System.UInt64)numDirs; *numFiles_ = (System.UInt64)numFiles; return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedMeasureDiskUsageFinish;
             }

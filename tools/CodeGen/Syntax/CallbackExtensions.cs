@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
@@ -76,8 +76,9 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<StatementSyntax> GetVirtualMethodStatements(this Callback callback)
         {
             var tryStatement = TryStatement();
+            var fixedStatements = new System.Collections.Generic.List<FixedStatementSyntax>();
 
-            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "out")) {
+            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "out" || x.IsCallerAllocates)) {
                 var marshalStatements = arg.GetMarshalUnmanagedToManagedStatements();
                 tryStatement = tryStatement.AddBlockStatements(marshalStatements);
             }
@@ -95,14 +96,20 @@ namespace GISharp.CodeGen.Syntax
             var invokeStatement = callback.GetInvocationStatement(invokeMethod, !returnsValue);
             tryStatement = tryStatement.AddBlockStatements(invokeStatement);
 
-            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "in")) {
-                var statements = arg.GetMarshalManagedToUnmanagedStatements(false);
+            foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "in" && !x.IsCallerAllocates)) {
+                var statements = arg.GetMarshalManagedToUnmanagedStatements(out var fixedStatement, false);
                 tryStatement = tryStatement.AddBlockStatements(statements);
+                if (fixedStatement is not null) {
+                    fixedStatements.Add(fixedStatement);
+                }
             }
 
             if (returnsValue) {
-                var statements = callback.ReturnValue.GetMarshalManagedToUnmanagedStatements();
+                var statements = callback.ReturnValue.GetMarshalManagedToUnmanagedStatements(out var fixedStatement);
                 tryStatement = tryStatement.AddBlockStatements(statements);
+                if (fixedStatement is not null) {
+                    fixedStatements.Add(fixedStatement);
+                }
 
                 var returnStatement = ReturnStatement(ParseExpression("ret_"));
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
@@ -112,16 +119,21 @@ namespace GISharp.CodeGen.Syntax
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
 
+            // wrap the try block statements in fixed statements, if any
+            foreach (var s in fixedStatements) {
+                tryStatement = tryStatement.WithBlock(Block(s.WithStatement(tryStatement.Block)));
+            }
+
             // if the method has an error parameter, we can propagate any
             // GErrorException thrown by the managed callback
 
             if (callback.ThrowsGErrorException) {
                 var gErrorException = typeof(GErrorException).FullName;
-                var propagateError = ParseStatement(string.Format("{0}.{1}(ref {2}_, ex.{3});\n",
+                var propagateError = ExpressionStatement(ParseExpression(string.Format("{0}.{1}({2}_, ex.{3})",
                     typeof(GMarshal),
                     nameof(GMarshal.PropagateError),
                     callback.Parameters.ErrorParameter.ManagedName,
-                    nameof(GErrorException.Error)));
+                    nameof(GErrorException.Error))));
 
                 var gErrorExceptionStatements = List<StatementSyntax>().Add(propagateError);
 
@@ -135,9 +147,9 @@ namespace GISharp.CodeGen.Syntax
             // managed exceptions
 
             var exception = typeof(Exception).FullName;
-            var logUnhandledException = ParseStatement(string.Format("{0}.{1}(ex);\n",
+            var logUnhandledException = ExpressionStatement(ParseExpression(string.Format("{0}.{1}(ex)",
                 typeof(Log),
-                nameof(Log.LogUnhandledException)));
+                nameof(Log.LogUnhandledException))));
 
             var exceptionStatements = List<StatementSyntax>().Add(logUnhandledException);
 
@@ -146,16 +158,6 @@ namespace GISharp.CodeGen.Syntax
                 .WithBlock(Block(exceptionStatements)));
 
             yield return tryStatement;
-
-            foreach (var p in callback.Parameters.Where(x => x.Direction == "out")) {
-                var unmanagedType = p.Type.UnmanagedType;
-                if (unmanagedType.IsPointer) {
-                    unmanagedType = unmanagedType.GetElementType();
-                }
-                var parameterType = unmanagedType.ToSyntax();
-                var expression = ParseExpression($"{p.ManagedName}_ = default({parameterType})");
-                yield return ExpressionStatement(expression);
-            }
 
             if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
                 var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
@@ -177,24 +179,14 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<StatementSyntax> GetCallbackStatements(this Callback callback)
         {
             var catchType = ParseTypeName(typeof(Exception).FullName);
-            var catchStatement = string.Format("{0}.{1}(ex);\n",
+            var catchStatement = ExpressionStatement(ParseExpression(string.Format("{0}.{1}(ex)",
                 typeof(Log),
-                nameof(Log.LogUnhandledException));
+                nameof(Log.LogUnhandledException))));
             yield return TryStatement()
-                .WithBlock(Block(callback.GetCallbackTryStatements()))
+                .WithBlock(callback.GetCallbackTryBlock())
                 .AddCatches(CatchClause()
                     .WithDeclaration(CatchDeclaration(catchType, ParseToken("ex")))
-                    .WithBlock(Block(ParseStatement(catchStatement))));
-
-            foreach (var p in callback.Parameters.Where(x => x.Direction == "out")) {
-                var unmanagedType = p.Type.UnmanagedType;
-                if (unmanagedType.IsPointer) {
-                    unmanagedType = unmanagedType.GetElementType();
-                }
-                var parameterType = unmanagedType.ToSyntax();
-                var expression = ParseExpression($"{p.ManagedName}_ = default({parameterType})");
-                yield return ExpressionStatement(expression);
-            }
+                    .WithBlock(Block(catchStatement)));
 
             if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
                 var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
@@ -203,11 +195,14 @@ namespace GISharp.CodeGen.Syntax
             }
         }
 
-        static IEnumerable<StatementSyntax> GetCallbackTryStatements(this Callback callback)
+        static BlockSyntax GetCallbackTryBlock(this Callback callback)
         {
+            var block = Block();
+            var fixedStatements = new System.Collections.Generic.List<FixedStatementSyntax>();
+
             foreach (var arg in callback.ManagedParameters) {
                 foreach (var s in arg.GetMarshalUnmanagedToManagedStatements()) {
-                    yield return s;
+                    block = block.AddStatements(s);
                 }
             }
 
@@ -215,30 +210,38 @@ namespace GISharp.CodeGen.Syntax
             var dataParamName = dataParam.ManagedName;
 
             var ghHandleType = typeof(GCHandle).FullName;
-            yield return ParseStatement($"var gcHandle = ({ghHandleType}){dataParamName}_;\n");
-            yield return ParseStatement($"var {dataParamName} = (UserData)gcHandle.Target!;\n");
+            block = block.AddStatements(
+                ExpressionStatement(ParseExpression($"var gcHandle = ({ghHandleType}){dataParamName}_")),
+                ExpressionStatement(ParseExpression($"var {dataParamName} = (UserData)gcHandle.Target!")));
 
             var skipReturnValue = callback.ThrowsGErrorException && callback.ReturnValue.Type.UnmanagedType == typeof(Runtime.Boolean);
 
-            yield return callback.GetInvocationStatement($"{dataParamName}.ManagedDelegate", skipReturnValue);
-
-            yield return ParseStatement(string.Format(@"if ({0}.Scope == {1}.{2}) {{
-                    Destroy({0}_);
-                }}
-                ", dataParamName,
-                typeof(CallbackScope),
-                nameof(CallbackScope.Async)));
+            block = block.AddStatements(
+                callback.GetInvocationStatement($"{dataParamName}.ManagedDelegate", skipReturnValue),
+                ParseStatement(string.Format(@"if ({0}.Scope == {1}.{2}) {{
+                        Destroy({0}_);
+                    }}
+                    ", dataParamName,
+                    typeof(CallbackScope),
+                    nameof(CallbackScope.Async))));
 
             if (skipReturnValue) {
                 // callbacks that throw and return bool should always return true
-                yield return ParseStatement("return GISharp.Runtime.Boolean.True;\n");
+                block = block.AddStatements(ReturnStatement(ParseExpression("GISharp.Runtime.Boolean.True")));
             }
             else if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
-                foreach (var s in callback.ReturnValue.GetMarshalManagedToUnmanagedStatements()) {
-                    yield return s;
+                block = block.AddStatements(callback.ReturnValue.GetMarshalManagedToUnmanagedStatements(out var fixedStatement));
+                if (fixedStatement != null) {
+                    fixedStatements.Add(fixedStatement);
                 }
-                yield return ReturnStatement(ParseExpression("ret_")); ;
+                block = block.AddStatements(ReturnStatement(ParseExpression("ret_")));
             }
+
+            foreach (var s in fixedStatements) {
+                block = Block(s.WithStatement(block));
+            }
+
+            return block;
         }
 
         static StatementSyntax GetInvocationStatement(this Callback callback, string methodName = null, bool skipReturnValue = false)
@@ -388,7 +391,7 @@ namespace GISharp.CodeGen.Syntax
                     .WithInitializer(EqualsValueClause(IdentifierName(callbackMethod.Identifier)));
             var callbackDelegateField = FieldDeclaration(VariableDeclaration(callback.GetQualifiedName(true))
                 .AddVariables(callbackDelegateVariable))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword), Token(UnsafeKeyword));
             list = list.Add(callbackDelegateField);
 
             var callbackMarshalToPointerExpression = ParseExpression(string.Format(
@@ -463,7 +466,7 @@ namespace GISharp.CodeGen.Syntax
 
             var userDataParam = callback.Parameters.Single(x => x.ClosureIndex >= 0);
             if (userDataParam.ManagedName != "userData") {
-                yield return ParseStatement($"var {userDataParam.ManagedName}_ = userData_;\n");
+                yield return ExpressionStatement(ParseExpression($"var {userDataParam.ManagedName}_ = userData_"));
             }
 
             var paramList = callback.ManagedParameters.GetParameterList();
@@ -476,8 +479,7 @@ namespace GISharp.CodeGen.Syntax
             yield return LocalFunctionStatement(returnType, "managedCallback")
                 .AddModifiers(Token(UnsafeKeyword))
                 .WithParameterList(paramList)
-                .WithBody(Block(callback.GetInvokeStatements("unmanagedCallback", checkArgs: false)
-                    .Select(x => x.WithTrailingTrivia(EndOfLine("\n")))));
+                .WithBody(callback.GetInvokeBlock("unmanagedCallback", checkArgs: false));
 
             yield return ReturnStatement(ParseExpression("managedCallback"));
         }
@@ -487,13 +489,13 @@ namespace GISharp.CodeGen.Syntax
             yield return IfStatement(ParseExpression("callback == null"),
                 Block(ReturnStatement(ParseExpression("default"))));
 
-            yield return ParseStatement("var userData = new UserData(callback, scope);\n");
+            yield return ExpressionStatement(ParseExpression("var userData = new UserData(callback, scope)"));
 
-            var gcHandleStatement = string.Format("var userData_ = ({0}){1}.{2}(userData);\n",
+            var gcHandleStatement = string.Format("var userData_ = ({0}){1}.{2}(userData)",
                 typeof(IntPtr),
                 typeof(GCHandle),
                 nameof(GCHandle.Alloc));
-            yield return ParseStatement(gcHandleStatement);
+            yield return ExpressionStatement(ParseExpression(gcHandleStatement));
 
             const string returnExpression = "(callback_, destroy_, userData_)";
             yield return ReturnStatement(ParseExpression(returnExpression));

@@ -7,14 +7,14 @@ namespace GISharp.Lib.GLib
 {
     partial struct OptionEntry
     {
-        internal OptionEntry(
-            IntPtr longName,
+        internal unsafe OptionEntry(
+            byte* longName,
             char shortName,
             OptionFlags flags,
             OptionArg arg,
             IntPtr argData,
-            IntPtr description,
-            IntPtr argDescription
+            byte* description,
+            byte* argDescription
         )
         {
             LongName = longName;

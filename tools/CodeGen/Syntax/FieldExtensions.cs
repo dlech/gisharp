@@ -147,28 +147,28 @@ namespace GISharp.CodeGen.Syntax
             var structMembers = List<MemberDeclarationSyntax>()
                 .AddRange(fields.Select(x => x.GetDeclaration(forUnmanagedStruct)));
 
-            var firstMember = structMembers.First();
-            var warningDisable = PragmaWarningDirectiveTrivia(Token(DisableKeyword), true)
-                .AddErrorCodes(ParseExpression("CS0169"), ParseExpression("CS0649"));
-            structMembers = structMembers.Replace(firstMember, firstMember
-                .WithLeadingTrivia(firstMember.GetLeadingTrivia()
-                    .Prepend(EndOfLine("\n"))
-                    .Prepend(Trivia(warningDisable))));
+            if (structMembers.Any()) {
+                var firstMember = structMembers.First();
+                var warningDisable = PragmaWarningDirectiveTrivia(Token(DisableKeyword), true)
+                    .AddErrorCodes(ParseExpression("CS0169"), ParseExpression("CS0649"));
+                structMembers = structMembers.Replace(firstMember, firstMember
+                    .WithLeadingTrivia(firstMember.GetLeadingTrivia()
+                        .Prepend(EndOfLine("\n"))
+                        .Prepend(Trivia(warningDisable))));
 
-            var warningRestore = warningDisable.WithDisableOrRestoreKeyword(Token(RestoreKeyword));
-            var lastMember = structMembers.Last();
-            structMembers = structMembers.Replace(lastMember, lastMember
-                .WithTrailingTrivia(lastMember.GetTrailingTrivia()
-                    .Append(Trivia(warningRestore))
-                    .Append(EndOfLine("\n"))));
-
-            var declaringType = (GIRegisteredType)fields.First().ParentNode;
+                var warningRestore = warningDisable.WithDisableOrRestoreKeyword(Token(RestoreKeyword));
+                var lastMember = structMembers.Last();
+                structMembers = structMembers.Replace(lastMember, lastMember
+                    .WithTrailingTrivia(lastMember.GetTrailingTrivia()
+                        .Append(Trivia(warningRestore))
+                        .Append(EndOfLine("\n"))));
+            }
 
             return StructDeclaration("UnmanagedStruct")
                 .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword))
                 .WithMembers(structMembers)
                 .WithLeadingTrivia(ParseLeadingTrivia($@"/// <summary>
-                /// The unmanaged data structure for <see cref=""{declaringType.ManagedName}""/>.
+                /// The unmanaged data structure.
                 /// </summary>
                 "));
         }

@@ -29,7 +29,7 @@ namespace GISharp.CodeGen.Syntax
                     }
 
                     var declaration = method.GetInstanceMethodDeclaration()
-                        .WithBody(Block(method.GetInvokeStatements(method.CIdentifier)));
+                        .WithBody(method.GetInvokeBlock(method.CIdentifier));
 
                     if (method.IsEqual && !method.IsExtensionMethod) {
                         // IEquatable parameter is always nullable so we need
@@ -69,9 +69,10 @@ namespace GISharp.CodeGen.Syntax
                     // if there is an unmanaged ref method, use it to override the
                     // managed Take() method
                     var takeReturnType = ParseTypeName(typeof(IntPtr).FullName);
-                    var takeExpression = ParseExpression($"{method.CIdentifier}(UnsafeHandle)");
+                    var paramType = method.Parameters.InstanceParameter.Type.UnmanagedType.ToSyntax();
+                    var takeExpression = ParseExpression($"({takeReturnType}){method.CIdentifier}(({paramType})UnsafeHandle)");
                     var takeOverride = MethodDeclaration(takeReturnType, "Take")
-                        .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
+                        .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword), Token(UnsafeKeyword))
                         .WithExpressionBody(ArrowExpressionClause(takeExpression))
                         .WithSemicolonToken(Token(SemicolonToken))
                         .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
@@ -160,7 +161,7 @@ namespace GISharp.CodeGen.Syntax
         static SyntaxTokenList GetAccessModifiers(this Method method)
         {
             if ((method.IsHash || method.IsToString) && !method.IsExtensionMethod) {
-                return TokenList(Token(PublicKeyword), Token(OverrideKeyword));
+                return TokenList(Token(PublicKeyword), Token(OverrideKeyword), Token(UnsafeKeyword));
             }
 
             return method.GetCommonAccessModifiers().Add(Token(UnsafeKeyword));

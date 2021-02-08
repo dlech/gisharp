@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     public class CancellableClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
-        /// The unmanaged data structure for <see cref="CancellableClass"/>.
+        /// The unmanaged data structure.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
@@ -49,11 +49,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedCancelled(
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable);
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
 
         /// <summary>
         /// Class for marshalling <see cref="Cancelled"/> methods.
@@ -65,19 +65,7 @@ System.IntPtr cancellable);
             /// </summary>
             public static unsafe UnmanagedCancelled Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCancelled(System.IntPtr cancellable_)
-                {
-                    try
-                    {
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doCancelled = (Cancelled)methodInfo.CreateDelegate(typeof(Cancelled), cancellable);
-                        doCancelled();
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedCancelled(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_) { try { var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCancelled = (Cancelled)methodInfo.CreateDelegate(typeof(Cancelled), cancellable); doCancelled(); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedCancelled;
             }

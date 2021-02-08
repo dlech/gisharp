@@ -73,6 +73,20 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Creates a new <see cref="UnownedUtf8"/>.
+        /// </summary>
+        /// <param name="handle">
+        /// Pointer to the unmanaged UTF-8 string.
+        /// </param>
+        /// <exception name="ArgumentNullException">
+        /// <paramref name="handle"/> is <c>null</c>.
+        /// </exception>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe UnownedUtf8(byte* handle) : this((IntPtr)handle, -1)
+        {
+        }
+
+        /// <summary>
         /// Creates a <see cref="NullableUnownedUtf8"/> from this instance.
         /// </summary>
         public NullableUnownedUtf8 AsNullableUnownedUtf8()
@@ -374,6 +388,17 @@ namespace GISharp.Lib.GLib
                 value = new UnownedUtf8(handle, length);
                 HasValue = true;
             }
+        }
+
+        /// <summary>
+        /// Creates a new <see cref="NullableUnownedUtf8"/>.
+        /// </summary>
+        /// <param name="handle">
+        /// Pointer to the unowned unmanaged UTF-8 string or <c>null</c>.
+        /// </param>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public unsafe NullableUnownedUtf8(byte* handle) : this((IntPtr)handle, -1)
+        {
         }
 
         /// <summary>

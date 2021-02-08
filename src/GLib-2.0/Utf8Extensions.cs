@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using System;
 using GISharp.Runtime;
@@ -26,10 +26,10 @@ namespace GISharp.Lib.GLib
         /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
         public unsafe static Utf8 CaseFold(this UnownedUtf8 str)
         {
-            var str_ = str.UnsafeHandle;
-            var len_ = (System.IntPtr)str.Length;
+            var str_ = (byte*)str.UnsafeHandle;
+            var len_ = (IntPtr)str.Length;
             var ret_ = g_utf8_casefold(str_, len_);
-            var ret = Opaque.GetInstance<Utf8>(ret_, Transfer.Full)!;
+            var ret = Opaque.GetInstance<Utf8>((IntPtr)ret_, Transfer.Full)!;
             return ret;
         }
 

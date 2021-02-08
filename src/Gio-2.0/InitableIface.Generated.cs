@@ -8,7 +8,7 @@ namespace GISharp.Lib.Gio
     public sealed class InitableIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
-        /// The unmanaged data structure for <see cref="InitableIface"/>.
+        /// The unmanaged data structure.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
@@ -35,17 +35,17 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedInit(
 /* <type name="Initable" type="GInitable*" managed-name="Initable" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr initable,
+GISharp.Lib.Gio.Initable.UnmanagedStruct* initable,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr cancellable,
+GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
-ref System.IntPtr error);
+GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
         /// <summary>
         /// Class for marshalling <see cref="Init"/> methods.
@@ -57,27 +57,7 @@ ref System.IntPtr error);
             /// </summary>
             public static unsafe UnmanagedInit Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedInit(System.IntPtr initable_, System.IntPtr cancellable_, ref System.IntPtr error_)
-                {
-                    try
-                    {
-                        var initable = (GISharp.Lib.Gio.IInitable)GISharp.Lib.GObject.Object.GetInstance(initable_, GISharp.Runtime.Transfer.None)!;
-                        var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None);
-                        var doInit = (Init)methodInfo.CreateDelegate(typeof(Init), initable);
-                        doInit(cancellable);
-                        return GISharp.Runtime.Boolean.True;
-                    }
-                    catch (GISharp.Runtime.GErrorException ex)
-                    {
-                        GISharp.Runtime.GMarshal.PropagateError(ref error_, ex.Error);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedInit(GISharp.Lib.Gio.Initable.UnmanagedStruct* initable_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var initable = (GISharp.Lib.Gio.IInitable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)initable_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doInit = (Init)methodInfo.CreateDelegate(typeof(Init), initable); doInit(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedInit;
             }

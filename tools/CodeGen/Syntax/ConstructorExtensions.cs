@@ -30,7 +30,7 @@ namespace GISharp.CodeGen.Syntax
                 if (!constructor.IsPInvokeOnly) {
                     yield return constructor.GetStaticMethodDeclaration()
                         .WithModifiers(TokenList(Token(StaticKeyword), Token(UnsafeKeyword))) // strip access modifiers
-                        .WithBody(Block(constructor.GetInvokeStatements(constructor.CIdentifier)));
+                        .WithBody(constructor.GetInvokeBlock(constructor.CIdentifier));
                     if (!constructor.HasCustomConstructor) {
                         yield return constructor.GetConstructorDeclaration();
                     }
@@ -46,8 +46,9 @@ namespace GISharp.CodeGen.Syntax
         public static ConstructorDeclarationSyntax GetConstructorDeclaration(this Constructor constructor)
         {
             var staticMethod = ParseExpression(constructor.ManagedName);
-            var handleArg = Argument(InvocationExpression(staticMethod)
-                .WithArgumentList(constructor.ManagedParameters.GetArgumentList()));
+            var handleArg = Argument(CastExpression(typeof(IntPtr).ToSyntax(),
+                InvocationExpression(staticMethod)
+                    .WithArgumentList(constructor.ManagedParameters.GetArgumentList())));
 
             var ownership = constructor.ReturnValue.GetOwnershipTransfer();
             var ownershipArg = Argument(ownership);
@@ -57,7 +58,7 @@ namespace GISharp.CodeGen.Syntax
 
             var declaringType = (GIRegisteredType)constructor.ParentNode;
             var syntax = ConstructorDeclaration(declaringType.ManagedName)
-                .AddModifiers(Token(PublicKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword))
                 .WithInitializer(initializer)
                 .WithAttributeLists(constructor.GetCommonAttributeLists())
                 .WithParameterList(constructor.ManagedParameters.GetParameterList())

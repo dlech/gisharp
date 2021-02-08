@@ -7,6 +7,13 @@ namespace GISharp.Lib.Gio
     public sealed partial class CancellableSource : GISharp.Lib.GLib.Source
     {
         /// <summary>
+        /// The unmanaged data structure.
+        /// </summary>
+        public unsafe new struct UnmanagedStruct
+        {
+        }
+
+        /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
@@ -37,24 +44,24 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Source" type="GSource*" managed-name="GISharp.Lib.GLib.Source" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_cancellable_source_new(
+        /* transfer-ownership:full direction:in */
+        private static extern unsafe GISharp.Lib.GLib.Source.UnmanagedStruct* g_cancellable_source_new(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable);
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static unsafe System.IntPtr New(GISharp.Lib.Gio.Cancellable? cancellable = null)
+        static unsafe GISharp.Lib.GLib.Source.UnmanagedStruct* New(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckNewArgs(cancellable);
-            var cancellable_ = cancellable?.UnsafeHandle ?? System.IntPtr.Zero;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_cancellable_source_new(cancellable_);
             return ret_;
         }
 
         /// <include file="CancellableSource.xmldoc" path="declaration/member[@name='CancellableSource.CancellableSource(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public CancellableSource(GISharp.Lib.Gio.Cancellable? cancellable = null) : this(New(cancellable), GISharp.Runtime.Transfer.Full)
+        public unsafe CancellableSource(GISharp.Lib.Gio.Cancellable? cancellable = null) : this((System.IntPtr)New(cancellable), GISharp.Runtime.Transfer.Full)
         {
         }
     }

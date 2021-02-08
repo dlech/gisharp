@@ -24,18 +24,18 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.36")]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
-    /* transfer-ownership:none direction:out */
+    /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedTaskThreadFunc(
     /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    System.IntPtr task,
+    GISharp.Lib.Gio.Task.UnmanagedStruct* task,
     /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    System.IntPtr sourceObject,
+    GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject,
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr taskData,
     /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-    System.IntPtr cancellable);
+    GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
 }

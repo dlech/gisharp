@@ -24,7 +24,7 @@ namespace GISharp.Lib.Gtk
         /// </remarks>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void gtk_disable_setlocale();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.DisableSetlocale()']/*" />
@@ -60,7 +60,7 @@ namespace GISharp.Lib.Gtk
         /// </remarks>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void gtk_init();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.Init()']/*" />
@@ -88,7 +88,7 @@ namespace GISharp.Lib.Gtk
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean gtk_init_check();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.TryInit()']/*" />
@@ -111,7 +111,7 @@ namespace GISharp.Lib.Gtk
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean gtk_is_initialized();
 
         private static unsafe System.Boolean GetIsInitialized()

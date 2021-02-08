@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     public sealed class IconIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
-        /// The unmanaged data structure for <see cref="IconIface"/>.
+        /// The unmanaged data structure.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
@@ -50,11 +50,11 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate System.UInt32 UnmanagedHash(
 /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr icon);
+GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
 
         /// <summary>
         /// Class for marshalling <see cref="Hash"/> methods.
@@ -66,23 +66,7 @@ System.IntPtr icon);
             /// </summary>
             public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.UInt32 unmanagedHash(System.IntPtr icon_)
-                {
-                    try
-                    {
-                        var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon_, GISharp.Runtime.Transfer.None)!;
-                        var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), icon);
-                        var ret = doHash();
-                        var ret_ = (System.UInt32)ret;
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.UInt32);
-                }
+                System.UInt32 unmanagedHash(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), icon); var ret = doHash(); var ret_ = (System.UInt32)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.UInt32); }
 
                 return unmanagedHash;
             }
@@ -96,14 +80,14 @@ System.IntPtr icon);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate GISharp.Runtime.Boolean UnmanagedEqual(
 /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr icon1,
+GISharp.Lib.Gio.Icon.UnmanagedStruct* icon1,
 /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr icon2);
+GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2);
 
         /// <summary>
         /// Class for marshalling <see cref="Equal"/> methods.
@@ -115,24 +99,7 @@ System.IntPtr icon2);
             /// </summary>
             public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedEqual(System.IntPtr icon1_, System.IntPtr icon2_)
-                {
-                    try
-                    {
-                        var icon1 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance(icon1_, GISharp.Runtime.Transfer.None);
-                        var icon2 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance(icon2_, GISharp.Runtime.Transfer.None);
-                        var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), icon1);
-                        var ret = doEqual(icon2);
-                        var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(GISharp.Runtime.Boolean);
-                }
+                GISharp.Runtime.Boolean unmanagedEqual(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon1_, GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2_) { try { var icon1 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon1_, GISharp.Runtime.Transfer.None); var icon2 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon2_, GISharp.Runtime.Transfer.None); var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), icon1); var ret = doEqual(icon2); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedEqual;
             }
@@ -146,11 +113,11 @@ System.IntPtr icon2);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedSerialize(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.GLib.Variant.UnmanagedStruct* UnmanagedSerialize(
 /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr icon);
+GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
 
         /// <summary>
         /// Class for marshalling <see cref="Serialize"/> methods.
@@ -162,23 +129,7 @@ System.IntPtr icon);
             /// </summary>
             public static unsafe UnmanagedSerialize Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedSerialize(System.IntPtr icon_)
-                {
-                    try
-                    {
-                        var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance(icon_, GISharp.Runtime.Transfer.None)!;
-                        var doSerialize = (Serialize)methodInfo.CreateDelegate(typeof(Serialize), icon);
-                        var ret = doSerialize();
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedSerialize(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doSerialize = (Serialize)methodInfo.CreateDelegate(typeof(Serialize), icon); var ret = doSerialize(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
 
                 return unmanagedSerialize;
             }

@@ -1,8 +1,6 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2019,2021 David Lechner <david@lechnology.com>
 
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.CodeGen.Gir;
@@ -62,7 +60,7 @@ namespace GISharp.CodeGen.Syntax
             if (function is Constructor) {
                 // special case for constructors since the static method is only
                 // part of the constructor
-                returnType = typeof(IntPtr).ToSyntax();
+                returnType = function.ReturnValue.Type.UnmanagedType.ToSyntax();
                 modifiers = TokenList();
             }
 

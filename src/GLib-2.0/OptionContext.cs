@@ -36,7 +36,8 @@ namespace GISharp.Lib.GLib
         /// the first line of `--help` output, after the usage summary
         /// `programname [OPTION...]`
         /// </param>
-        public OptionContext(NullableUnownedUtf8 parameterString) : base(New(parameterString), Transfer.Full)
+        public unsafe OptionContext(NullableUnownedUtf8 parameterString)
+            : base((IntPtr)New(parameterString), Transfer.Full)
         {
         }
 
@@ -48,10 +49,10 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc />
-        protected override void Dispose(bool disposing)
+        protected override unsafe void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
-                g_option_context_free(handle);
+                g_option_context_free((UnmanagedStruct*)handle);
             }
             base.Dispose(disposing);
         }

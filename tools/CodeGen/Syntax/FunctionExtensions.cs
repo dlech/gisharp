@@ -29,7 +29,7 @@ namespace GISharp.CodeGen.Syntax
                 yield return function.GetExternMethodDeclaration();
                 if (!function.IsPInvokeOnly) {
                     yield return function.GetStaticMethodDeclaration()
-                        .WithBody(Block(function.GetInvokeStatements(function.CIdentifier)));
+                        .WithBody(function.GetInvokeBlock(function.CIdentifier));
                 }
 
                 if (function.IsCompare) {

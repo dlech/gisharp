@@ -266,7 +266,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.WriteAllAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WriteAllAsync(System.ReadOnlyMemory&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write <paramref name="buffer"/> into
 the stream.
@@ -292,7 +292,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='OutputStream.WriteAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WriteAsync(System.ReadOnlyMemory&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write of <paramref name="buffer"/> into
 the stream.
@@ -371,13 +371,13 @@ On error
 
 <member name='OutputStream.WriteBytesAsync(GISharp.Lib.GLib.Bytes,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-This function is similar to <see cref="OutputStream.WriteAsync(System.ReadOnlySpan{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>, but
+This function is similar to <see cref="OutputStream.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>, but
 takes a #GBytes as input.  Due to the refcounted nature of #GBytes,
 this allows the stream to avoid taking a copy of the data.
 </summary>
 <remarks>
 However, note that this function may still perform partial writes,
-just like <see cref="OutputStream.WriteAsync(System.ReadOnlySpan{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>. If that occurs, to continue
+just like <see cref="OutputStream.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>. If that occurs, to continue
 writing, you will need to create a new #GBytes containing just the
 remaining bytes, using g_bytes_new_from_bytes(). Passing the same
 #GBytes instance multiple times potentially can result in duplicated
@@ -480,7 +480,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.WritevAllAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WritevAllAsync(System.ReadOnlyMemory&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write of the bytes contained in the <paramref name="vectors"/> into
 the stream.
@@ -507,7 +507,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='OutputStream.WritevAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WritevAsync(System.ReadOnlyMemory&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write of the bytes contained in <paramref name="vectors"/> into
 the stream.

@@ -1,11 +1,12 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2019,2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
 using GISharp.CodeGen.Gir;
+using GISharp.CodeGen.Syntax;
 using GISharp.Lib.GLib;
 
 namespace GISharp.CodeGen.Reflection
@@ -40,11 +41,9 @@ namespace GISharp.CodeGen.Reflection
                 // if arg is a return value, ParentNode is the callable, otherwise
                 // ParentNode.ParentNode is the callable (for regular parameters)
                 var declaringInfo = arg.ParentNode is GICallable ? arg.ParentNode : arg.ParentNode.ParentNode;
-                switch (declaringInfo) {
-                case VirtualMethod vfunc:
-                    return new GirVirtualMethodInfo(vfunc);
-                default:
-                    throw new NotSupportedException($"Unsupported type: {declaringInfo}");
+                return declaringInfo switch {
+                    VirtualMethod vfunc => new GirVirtualMethodInfo(vfunc),
+                    _ => throw new NotSupportedException($"Unsupported type: {declaringInfo}"),
                 };
             }
         }
@@ -52,14 +51,14 @@ namespace GISharp.CodeGen.Reflection
         public override object[] GetCustomAttributes(System.Type type, bool inherit)
         {
             if (type != typeof(Attribute)) {
-                throw new NotSupportedException();
+                throw new ArgumentException("type must be Attribute", nameof(type));
             }
             return GetCustomAttributes().ToArray();
         }
 
         IEnumerable<Attribute> GetCustomAttributes()
         {
-            if (arg.Direction == "out") {
+            if (arg.Direction == "out" && !arg.IsCallerAllocatesBuffer()) {
                 yield return new System.Runtime.InteropServices.OutAttribute();
             }
             if (arg.IsNullable) {

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Linq;
@@ -398,7 +398,7 @@ namespace GISharp.Runtime
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe void g_propagate_error(IntPtr* dest, IntPtr src);
+        static extern unsafe void g_propagate_error(Error.UnmanagedStruct** dest, Error.UnmanagedStruct* src);
 
         /// <summary>
         /// If dest is NULL, free src; otherwise, moves src into *dest. The error
@@ -409,27 +409,12 @@ namespace GISharp.Runtime
         /// <remarks>
         /// Note that src is no longer valid after this call.
         /// </remarks>
-        public static unsafe void PropagateError(ref IntPtr dest, Error src)
+        public static unsafe void PropagateError(Error.UnmanagedStruct** dest, Error src)
         {
-            var dest_ = dest;
-            var src_ = src.Take();
-            g_propagate_error(&dest_, src_);
-        }
-
-        /// <summary>
-        /// If dest is NULL, free src; otherwise, moves src into *dest. The error
-        /// variable dest points to must be NULL.
-        /// </summary>
-        /// <param name="dest">Destination.</param>
-        /// <param name="src">Source.</param>
-        /// <remarks>
-        /// Note that src is no longer valid after this call.
-        /// </remarks>
-        public static unsafe void PropagateError(IntPtr* dest, Error src)
-        {
-            var src_ = src.Take();
+            var src_ = (Error.UnmanagedStruct*)src.Take();
             g_propagate_error(dest, src_);
         }
+
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_clear_error(IntPtr err);
 

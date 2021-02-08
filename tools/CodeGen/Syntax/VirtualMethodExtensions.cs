@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
@@ -31,7 +31,7 @@ namespace GISharp.CodeGen.Syntax
                 .WithAttributeLists(method.GetAttributeLists())
                 .AddModifiers(Token(ProtectedKeyword), Token(VirtualKeyword), Token(UnsafeKeyword))
                 .WithParameterList(method.ManagedParameters.GetParameterList())
-                .WithBody(Block(method.GetInvokeStatements(invoker, checkArgs: false)))
+                .WithBody(method.GetInvokeBlock(invoker, checkArgs: false))
                 .WithLeadingTrivia(TriviaList()
                     .AddRange(method.Doc.GetDocCommentTrivia())
                     .AddRange(method.ManagedParameters.RegularParameters

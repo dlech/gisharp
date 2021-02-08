@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.InteropServices;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -74,17 +73,19 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Record record)
         {
+            var fieldStructModifiers = new List<SyntaxToken>();
+            if (record.BaseType != typeof(Lib.GObject.Boxed) && record.BaseType != typeof(Opaque)) {
+                fieldStructModifiers.Add(Token(NewKeyword));
+            }
+
             var members = List<MemberDeclarationSyntax>()
+                .Add(record.Fields.GetStructDeclaration().AddModifiers(fieldStructModifiers.ToArray()))
                 .AddRange(record.Constants.GetMemberDeclarations())
                 .AddRange(record.ManagedProperties.GetMemberDeclarations())
                 .Add(record.GetDefaultConstructor())
                 .AddRange(record.Constructors.GetMemberDeclarations())
                 .AddRange(record.Functions.GetMemberDeclarations())
                 .AddRange(record.Methods.GetMemberDeclarations());
-
-            if (record.Fields.Any()) {
-                members = members.Insert(0, record.Fields.GetStructDeclaration());
-            }
 
             if (record.GTypeName is not null) {
                 members = members.Insert(0, record.GetGTypeFieldDeclaration());
@@ -205,8 +206,7 @@ namespace GISharp.CodeGen.Syntax
         static ConstructorDeclarationSyntax GetGTypeStructDefaultConstructor(this Record record)
         {
             var paramerList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
-                typeof(IntPtr),
-                typeof(GISharp.Runtime.Transfer)));
+                typeof(IntPtr), typeof(Transfer)));
             var argList = ParseArgumentList("(handle, ownership)");
             var initializer = ConstructorInitializer(BaseConstructorInitializer)
                 .WithArgumentList(argList);

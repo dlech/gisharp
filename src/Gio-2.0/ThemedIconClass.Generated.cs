@@ -7,6 +7,13 @@ namespace GISharp.Lib.Gio
     public sealed partial class ThemedIconClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
+        /// The unmanaged data structure.
+        /// </summary>
+        public unsafe new struct UnmanagedStruct
+        {
+        }
+
+        /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]

@@ -1,18 +1,10 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2019,2021 David Lechner <david@lechnology.com>
 
-using System;
-using System.Collections.Generic;
-using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
-using System.Text;
-using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Syntax
 {
@@ -23,9 +15,9 @@ namespace GISharp.CodeGen.Syntax
             return ParameterList(SeparatedList(parameters.Select(x => x.GetParameter(suffix))));
         }
 
-        public static ArgumentListSyntax GetArgumentList(this Parameters parameters, string suffix = "", bool declareOutVars = true)
+        public static ArgumentListSyntax GetArgumentList(this Parameters parameters, string suffix = "")
         {
-            return ArgumentList(SeparatedList(parameters.Select(x => x.GetArgument(suffix, declareOutVars))));
+            return ArgumentList(SeparatedList(parameters.Select(x => x.GetArgument(suffix))));
         }
     }
 }

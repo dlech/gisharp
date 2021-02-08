@@ -8,7 +8,7 @@ namespace GISharp.Lib.Gio
     public class ApplicationCommandLineClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
-        /// The unmanaged data structure for <see cref="ApplicationCommandLineClass"/>.
+        /// The unmanaged data structure.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
@@ -48,14 +48,14 @@ namespace GISharp.Lib.Gio
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedPrintLiteral(
 /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr cmdline,
+GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline,
 /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr message);
+System.Byte* message);
 
         /// <summary>
         /// Class for marshalling <see cref="PrintLiteral"/> methods.
@@ -67,20 +67,7 @@ System.IntPtr message);
             /// </summary>
             public static unsafe UnmanagedPrintLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedPrintLiteral(System.IntPtr cmdline_, System.IntPtr message_)
-                {
-                    try
-                    {
-                        var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None)!;
-                        var message = new GISharp.Lib.GLib.UnownedUtf8(message_, -1);
-                        var doPrintLiteral = (PrintLiteral)methodInfo.CreateDelegate(typeof(PrintLiteral), cmdline);
-                        doPrintLiteral(message);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedPrintLiteral(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_, System.Byte* message_) { try { var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var message = new GISharp.Lib.GLib.UnownedUtf8(message_); var doPrintLiteral = (PrintLiteral)methodInfo.CreateDelegate(typeof(PrintLiteral), cmdline); doPrintLiteral(message); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedPrintLiteral;
             }
@@ -94,14 +81,14 @@ System.IntPtr message);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         public unsafe delegate void UnmanagedPrinterrLiteral(
 /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr cmdline,
+GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline,
 /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr message);
+System.Byte* message);
 
         /// <summary>
         /// Class for marshalling <see cref="PrinterrLiteral"/> methods.
@@ -113,20 +100,7 @@ System.IntPtr message);
             /// </summary>
             public static unsafe UnmanagedPrinterrLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedPrinterrLiteral(System.IntPtr cmdline_, System.IntPtr message_)
-                {
-                    try
-                    {
-                        var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None)!;
-                        var message = new GISharp.Lib.GLib.UnownedUtf8(message_, -1);
-                        var doPrinterrLiteral = (PrinterrLiteral)methodInfo.CreateDelegate(typeof(PrinterrLiteral), cmdline);
-                        doPrinterrLiteral(message);
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-                }
+                void unmanagedPrinterrLiteral(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_, System.Byte* message_) { try { var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var message = new GISharp.Lib.GLib.UnownedUtf8(message_); var doPrinterrLiteral = (PrinterrLiteral)methodInfo.CreateDelegate(typeof(PrinterrLiteral), cmdline); doPrinterrLiteral(message); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedPrinterrLiteral;
             }
@@ -140,11 +114,11 @@ System.IntPtr message);
         /// </summary>
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="InputStream" type="GInputStream*" managed-name="InputStream" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        public unsafe delegate System.IntPtr UnmanagedGetStdin(
+        /* transfer-ownership:full direction:in */
+        public unsafe delegate GISharp.Lib.Gio.InputStream.UnmanagedStruct* UnmanagedGetStdin(
 /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.IntPtr cmdline);
+GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
 
         /// <summary>
         /// Class for marshalling <see cref="GetStdin"/> methods.
@@ -156,23 +130,7 @@ System.IntPtr cmdline);
             /// </summary>
             public static unsafe UnmanagedGetStdin Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedGetStdin(System.IntPtr cmdline_)
-                {
-                    try
-                    {
-                        var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>(cmdline_, GISharp.Runtime.Transfer.None)!;
-                        var doGetStdin = (GetStdin)methodInfo.CreateDelegate(typeof(GetStdin), cmdline);
-                        var ret = doGetStdin();
-                        var ret_ = ret.Take();
-                        return ret_;
-                    }
-                    catch (System.Exception ex)
-                    {
-                        GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                    }
-
-                    return default(System.IntPtr);
-                }
+                GISharp.Lib.Gio.InputStream.UnmanagedStruct* unmanagedGetStdin(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_) { try { var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var doGetStdin = (GetStdin)methodInfo.CreateDelegate(typeof(GetStdin), cmdline); var ret = doGetStdin(); var ret_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.InputStream.UnmanagedStruct*); }
 
                 return unmanagedGetStdin;
             }

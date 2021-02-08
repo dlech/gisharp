@@ -11,7 +11,7 @@ namespace GISharp.Lib.Gio
         private static readonly GISharp.Lib.GObject.GType _GType = g_cancellable_get_type();
 
         /// <summary>
-        /// The unmanaged data structure for <see cref="Cancellable"/>.
+        /// The unmanaged data structure.
         /// </summary>
         public unsafe new struct UnmanagedStruct
         {
@@ -59,10 +59,10 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_cancellable_new();
+        /* transfer-ownership:full direction:in */
+        private static extern unsafe GISharp.Lib.Gio.Cancellable.UnmanagedStruct* g_cancellable_new();
 
-        static unsafe System.IntPtr New()
+        static unsafe GISharp.Lib.Gio.Cancellable.UnmanagedStruct* New()
         {
             CheckNewArgs();
             var ret_ = g_cancellable_new();
@@ -70,7 +70,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Cancellable()']/*" />
-        public Cancellable() : this(New(), GISharp.Runtime.Transfer.Full)
+        public unsafe Cancellable() : this((System.IntPtr)New(), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -90,12 +90,8 @@ namespace GISharp.Lib.Gio
 
             public static unsafe CancelledSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, void>)callback_;
-                void managedCallback(GISharp.Lib.Gio.Cancellable cancellable)
-                {
-                    var cancellable_ = cancellable.UnsafeHandle;
-                    unmanagedCallback(cancellable_, userData_);
-                }
+                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, void>)callback_;
+                void managedCallback(GISharp.Lib.Gio.Cancellable cancellable) { var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)cancellable.UnsafeHandle; unmanagedCallback(cancellable_, userData_); }
 
                 return managedCallback;
             }
@@ -108,18 +104,18 @@ namespace GISharp.Lib.Gio
                 }
 
                 var userData = new UserData((CancelledSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, void>)&ManagedCallback;
+                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, void>)&ManagedCallback;
                 var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
                 var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
                 return (callback_, destroy_, userData_);
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(System.IntPtr cancellable_, System.IntPtr userData_)
+            static unsafe void ManagedCallback(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr userData_)
             {
                 try
                 {
-                    var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(cancellable_, GISharp.Runtime.Transfer.None)!;
+                    var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None)!;
                     var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                     var userData = (UserData)gcHandle.Target!;
                     userData.Callback(cancellable);
@@ -146,21 +142,21 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
-        /* transfer-ownership:none nullable:1 direction:out */
-        private static extern unsafe System.IntPtr g_cancellable_get_current();
+        /* transfer-ownership:none nullable:1 direction:in */
+        private static extern unsafe GISharp.Lib.Gio.Cancellable.UnmanagedStruct* g_cancellable_get_current();
 
         private static unsafe GISharp.Lib.Gio.Cancellable? GetCurrent()
         {
             CheckGetCurrentArgs();
             var ret_ = g_cancellable_get_current();
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>(ret_, GISharp.Runtime.Transfer.None);
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
         }
 
         static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
+        /* transfer-ownership:full direction:in */
         private static extern unsafe GISharp.Lib.GObject.GType g_cancellable_get_type();
 
         /// <summary>
@@ -187,18 +183,18 @@ namespace GISharp.Lib.Gio
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_cancellable_cancel(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable);
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
         static partial void CheckCancelArgs();
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Cancel()']/*" />
         public unsafe void Cancel()
         {
             CheckCancelArgs();
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_cancel(cancellable_);
         }
 
@@ -242,11 +238,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.CULong g_cancellable_connect(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable,
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
         /* <type name="CancellableSourceFunc" type="GCallback" managed-name="UnmanagedCancellableSourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:1 destroy:2 direction:in */
         System.IntPtr callback,
@@ -263,7 +259,7 @@ namespace GISharp.Lib.Gio
         public unsafe GISharp.Runtime.CULong Connect(GISharp.Lib.Gio.CancellableSourceFunc callback)
         {
             CheckConnectArgs(callback);
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var (callback_, dataDestroyFunc_, data_) = GISharp.Lib.Gio.CancellableSourceFuncMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Notified);
             var ret_ = g_cancellable_connect(cancellable_,callback_,data_,dataDestroyFunc_);
             var ret = (GISharp.Runtime.CULong)ret_;
@@ -296,11 +292,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_cancellable_disconnect(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable,
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
         /* <type name="gulong" type="gulong" managed-name="GISharp.Runtime.CULong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CULong handlerId);
@@ -311,7 +307,7 @@ namespace GISharp.Lib.Gio
         public unsafe void Disconnect(GISharp.Runtime.CULong handlerId)
         {
             CheckDisconnectArgs(handlerId);
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var handlerId_ = (GISharp.Runtime.CULong)handlerId;
             g_cancellable_disconnect(cancellable_, handlerId_);
         }
@@ -341,17 +337,17 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe System.Int32 g_cancellable_get_fd(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable);
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
         static partial void CheckGetFdArgs();
 
         private unsafe System.Int32 GetFd()
         {
             CheckGetFdArgs();
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_cancellable_get_fd(cancellable_);
             var ret = (System.Int32)ret_;
             return ret;
@@ -369,17 +365,17 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_cancellable_is_cancelled(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable);
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
         static partial void CheckGetIsCancelledArgs();
 
         private unsafe System.Boolean GetIsCancelled()
         {
             CheckGetIsCancelledArgs();
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_cancellable_is_cancelled(cancellable_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -419,14 +415,14 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_cancellable_make_pollfd(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable,
-        /* <type name="GLib.PollFD" type="GPollFD*" managed-name="GISharp.Lib.GLib.PollFD" is-pointer="1" /> */
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
+        /* <type name="GLib.PollFD" type="GPollFD*" managed-name="GISharp.Lib.GLib.PollFD" /> */
         /* transfer-ownership:none direction:out */
-        out GISharp.Lib.GLib.PollFD pollfd);
+        GISharp.Lib.GLib.PollFD* pollfd);
         static partial void CheckTryMakePollfdArgs();
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.TryMakePollfd(GISharp.Lib.GLib.PollFD)']/*" />
@@ -434,8 +430,9 @@ namespace GISharp.Lib.Gio
         public unsafe System.Boolean TryMakePollfd(out GISharp.Lib.GLib.PollFD pollfd)
         {
             CheckTryMakePollfdArgs();
-            var cancellable_ = UnsafeHandle;
-            var ret_ = g_cancellable_make_pollfd(cancellable_,out var pollfd_);
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
+            GISharp.Lib.GLib.PollFD pollfd_;
+            var ret_ = g_cancellable_make_pollfd(cancellable_,&pollfd_);
             pollfd = (GISharp.Lib.GLib.PollFD)pollfd_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -450,18 +447,18 @@ namespace GISharp.Lib.Gio
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_cancellable_pop_current(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable);
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
         static partial void CheckPopCurrentArgs();
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.PopCurrent()']/*" />
         public unsafe void PopCurrent()
         {
             CheckPopCurrentArgs();
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_pop_current(cancellable_);
         }
 
@@ -481,18 +478,18 @@ namespace GISharp.Lib.Gio
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_cancellable_push_current(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable);
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
         static partial void CheckPushCurrentArgs();
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.PushCurrent()']/*" />
         public unsafe void PushCurrent()
         {
             CheckPushCurrentArgs();
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_push_current(cancellable_);
         }
 
@@ -514,11 +511,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.22")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_cancellable_release_fd(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable);
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
         static partial void CheckReleaseFdArgs();
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.ReleaseFd()']/*" />
@@ -526,7 +523,7 @@ namespace GISharp.Lib.Gio
         public unsafe void ReleaseFd()
         {
             CheckReleaseFdArgs();
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_release_fd(cancellable_);
         }
 
@@ -549,18 +546,18 @@ namespace GISharp.Lib.Gio
         /// </param>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_cancellable_reset(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable);
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
         static partial void CheckResetArgs();
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Reset()']/*" />
         public unsafe void Reset()
         {
             CheckResetArgs();
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             g_cancellable_reset(cancellable_);
         }
 
@@ -579,26 +576,26 @@ namespace GISharp.Lib.Gio
         /// </returns>
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
-        /* transfer-ownership:none skip:1 direction:out */
+        /* transfer-ownership:none skip:1 direction:in */
         private static extern unsafe GISharp.Runtime.Boolean g_cancellable_set_error_if_cancelled(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr cancellable,
+        GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
-        ref System.IntPtr error);
+        GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         static partial void CheckThrowIfCancelledArgs();
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.ThrowIfCancelled()']/*" />
         public unsafe void ThrowIfCancelled()
         {
             CheckThrowIfCancelledArgs();
-            var cancellable_ = UnsafeHandle;
-            var error_ = System.IntPtr.Zero;
-            g_cancellable_set_error_if_cancelled(cancellable_, ref error_);
-            if (error_ != System.IntPtr.Zero)
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
+            var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
+            g_cancellable_set_error_if_cancelled(cancellable_, &error_);
+            if (error_ != null)
             {
-                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>(error_, GISharp.Runtime.Transfer.Full);
+                var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);
             }
         }
@@ -607,7 +604,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(CancellableClass.UnmanagedCancelled))]
         protected virtual unsafe void DoCancelled()
         {
-            var cancellable_ = UnsafeHandle;
+            var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<CancellableClass.UnmanagedCancelled>(_GType)!(cancellable_);
         }
     }

@@ -1,10 +1,9 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
 using GISharp.Lib.Gio;
-using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using NUnit.Framework;
 
@@ -17,9 +16,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestWrite()
         {
-            using var buffer = new ByteArray();
             using var stream = TestOutputStream.New();
-            buffer.SetSize(10);
+            var buffer = new byte[10];
             var count = stream.Write(buffer);
             Assert.That(count, Is.EqualTo(10));
         }
@@ -27,9 +25,8 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestWriteAll()
         {
-            using var buffer = new ByteArray();
             using var stream = TestOutputStream.New();
-            buffer.SetSize(10);
+            var buffer = new byte[10];
             stream.WriteAll(buffer, out var read);
             Assert.That(read, Is.EqualTo(10));
         }
@@ -38,9 +35,8 @@ namespace GISharp.Test.Gio
         public void TestWriteAllAsync()
         {
             RunAsyncTest(async () => {
-                using var buffer = new ByteArray();
                 using var stream = TestOutputStream.New();
-                buffer.SetSize(10);
+                var buffer = new byte[10];
                 var count = await stream.WriteAllAsync(buffer);
                 Assert.That(count, Is.EqualTo(10));
             });
@@ -73,9 +69,8 @@ namespace GISharp.Test.Gio
         public void TestWritesync()
         {
             RunAsyncTest(async () => {
-                using var buffer = new ByteArray();
                 using var stream = TestOutputStream.New();
-                buffer.SetSize(10);
+                var buffer = new byte[10];
                 var count = await stream.WriteAsync(buffer);
                 Assert.That(count, Is.EqualTo(10));
             });

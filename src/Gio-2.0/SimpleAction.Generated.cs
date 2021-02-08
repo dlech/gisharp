@@ -9,6 +9,13 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_simple_action_get_type();
 
+        /// <summary>
+        /// The unmanaged data structure.
+        /// </summary>
+        public unsafe new struct UnmanagedStruct
+        {
+        }
+
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.Enabled']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GPropertyAttribute("enabled")]
@@ -64,28 +71,28 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_simple_action_new(
+        /* transfer-ownership:full direction:in */
+        private static extern unsafe GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* g_simple_action_new(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr name,
+        System.Byte* name,
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr parameterType);
+        GISharp.Lib.GLib.VariantType.UnmanagedStruct* parameterType);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static unsafe System.IntPtr New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
+        static unsafe GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
         {
             CheckNewArgs(name, parameterType);
-            var name_ = name.UnsafeHandle;
-            var parameterType_ = parameterType?.UnsafeHandle ?? System.IntPtr.Zero;
+            var name_ = (System.Byte*)name.UnsafeHandle;
+            var parameterType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(parameterType?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_simple_action_new(name_,parameterType_);
             return ret_;
         }
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType) : this(New(name, parameterType), GISharp.Runtime.Transfer.Full)
+        public unsafe SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType) : this((System.IntPtr)New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -116,32 +123,32 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
-        /* transfer-ownership:full direction:out */
-        private static extern unsafe System.IntPtr g_simple_action_new_stateful(
+        /* transfer-ownership:full direction:in */
+        private static extern unsafe GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* g_simple_action_new_stateful(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr name,
+        System.Byte* name,
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr parameterType,
+        GISharp.Lib.GLib.VariantType.UnmanagedStruct* parameterType,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr state);
+        GISharp.Lib.GLib.Variant.UnmanagedStruct* state);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        static unsafe System.IntPtr NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
+        static unsafe GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
         {
             CheckNewStatefulArgs(name, parameterType, state);
-            var name_ = name.UnsafeHandle;
-            var parameterType_ = parameterType?.UnsafeHandle ?? System.IntPtr.Zero;
-            var state_ = state.UnsafeHandle;
+            var name_ = (System.Byte*)name.UnsafeHandle;
+            var parameterType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(parameterType?.UnsafeHandle ?? System.IntPtr.Zero);
+            var state_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)state.UnsafeHandle;
             var ret_ = g_simple_action_new_stateful(name_,parameterType_,state_);
             return ret_;
         }
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SimpleAction(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this(NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
+        public unsafe SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state) : this((System.IntPtr)NewStateful(name, parameterType, state), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -163,13 +170,8 @@ namespace GISharp.Lib.Gio
 
             public static unsafe ActivateSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)callback_;
-                void managedCallback(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? parameter)
-                {
-                    var simpleAction_ = simpleAction.UnsafeHandle;
-                    var parameter_ = parameter?.UnsafeHandle ?? System.IntPtr.Zero;
-                    unmanagedCallback(simpleAction_, parameter_, userData_);
-                }
+                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*, GISharp.Lib.GLib.Variant.UnmanagedStruct*, System.IntPtr, void>)callback_;
+                void managedCallback(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? parameter) { var simpleAction_ = (GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*)simpleAction.UnsafeHandle; var parameter_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(parameter?.UnsafeHandle ?? System.IntPtr.Zero); unmanagedCallback(simpleAction_, parameter_, userData_); }
 
                 return managedCallback;
             }
@@ -182,19 +184,19 @@ namespace GISharp.Lib.Gio
                 }
 
                 var userData = new UserData((ActivateSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)&ManagedCallback;
+                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*, GISharp.Lib.GLib.Variant.UnmanagedStruct*, System.IntPtr, void>)&ManagedCallback;
                 var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
                 var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
                 return (callback_, destroy_, userData_);
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(System.IntPtr simpleAction_, System.IntPtr parameter_, System.IntPtr userData_)
+            static unsafe void ManagedCallback(GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* simpleAction_, GISharp.Lib.GLib.Variant.UnmanagedStruct* parameter_, System.IntPtr userData_)
             {
                 try
                 {
-                    var simpleAction = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.SimpleAction>(simpleAction_, GISharp.Runtime.Transfer.None)!;
-                    var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(parameter_, GISharp.Runtime.Transfer.None);
+                    var simpleAction = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.SimpleAction>((System.IntPtr)simpleAction_, GISharp.Runtime.Transfer.None)!;
+                    var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)parameter_, GISharp.Runtime.Transfer.None);
                     var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                     var userData = (UserData)gcHandle.Target!;
                     userData.Callback(simpleAction, parameter);
@@ -225,13 +227,8 @@ namespace GISharp.Lib.Gio
 
             public static unsafe ChangeStateSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)callback_;
-                void managedCallback(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? value)
-                {
-                    var simpleAction_ = simpleAction.UnsafeHandle;
-                    var value_ = value?.UnsafeHandle ?? System.IntPtr.Zero;
-                    unmanagedCallback(simpleAction_, value_, userData_);
-                }
+                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*, GISharp.Lib.GLib.Variant.UnmanagedStruct*, System.IntPtr, void>)callback_;
+                void managedCallback(GISharp.Lib.Gio.SimpleAction simpleAction, GISharp.Lib.GLib.Variant? value) { var simpleAction_ = (GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*)simpleAction.UnsafeHandle; var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(value?.UnsafeHandle ?? System.IntPtr.Zero); unmanagedCallback(simpleAction_, value_, userData_); }
 
                 return managedCallback;
             }
@@ -244,19 +241,19 @@ namespace GISharp.Lib.Gio
                 }
 
                 var userData = new UserData((ChangeStateSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, void>)&ManagedCallback;
+                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*, GISharp.Lib.GLib.Variant.UnmanagedStruct*, System.IntPtr, void>)&ManagedCallback;
                 var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
                 var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
                 return (callback_, destroy_, userData_);
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(System.IntPtr simpleAction_, System.IntPtr value_, System.IntPtr userData_)
+            static unsafe void ManagedCallback(GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* simpleAction_, GISharp.Lib.GLib.Variant.UnmanagedStruct* value_, System.IntPtr userData_)
             {
                 try
                 {
-                    var simpleAction = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.SimpleAction>(simpleAction_, GISharp.Runtime.Transfer.None)!;
-                    var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>(value_, GISharp.Runtime.Transfer.None);
+                    var simpleAction = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.SimpleAction>((System.IntPtr)simpleAction_, GISharp.Runtime.Transfer.None)!;
+                    var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)value_, GISharp.Runtime.Transfer.None);
                     var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                     var userData = (UserData)gcHandle.Target!;
                     userData.Callback(simpleAction, value);
@@ -275,7 +272,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
-        /* transfer-ownership:full direction:out */
+        /* transfer-ownership:full direction:in */
         private static extern unsafe GISharp.Lib.GObject.GType g_simple_action_get_type();
 
         /// <summary>
@@ -297,11 +294,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_simple_action_set_enabled(
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr simple,
+        GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* simple,
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean enabled);
@@ -312,7 +309,7 @@ namespace GISharp.Lib.Gio
         public unsafe void SetEnabled(System.Boolean enabled)
         {
             CheckSetEnabledArgs(enabled);
-            var simple_ = UnsafeHandle;
+            var simple_ = (GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*)UnsafeHandle;
             var enabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(enabled);
             g_simple_action_set_enabled(simple_, enabled_);
         }
@@ -339,14 +336,14 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.30")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_simple_action_set_state(
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr simple,
+        GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* simple,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr value);
+        GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
         static partial void CheckSetStateArgs(GISharp.Lib.GLib.Variant value);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetState(GISharp.Lib.GLib.Variant)']/*" />
@@ -354,8 +351,8 @@ namespace GISharp.Lib.Gio
         public unsafe void SetState(GISharp.Lib.GLib.Variant value)
         {
             CheckSetStateArgs(value);
-            var simple_ = UnsafeHandle;
-            var value_ = value.UnsafeHandle;
+            var simple_ = (GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*)UnsafeHandle;
+            var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             g_simple_action_set_state(simple_, value_);
         }
 
@@ -375,14 +372,14 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.44")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe void g_simple_action_set_state_hint(
         /* <type name="SimpleAction" type="GSimpleAction*" managed-name="SimpleAction" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr simple,
+        GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* simple,
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.IntPtr stateHint);
+        GISharp.Lib.GLib.Variant.UnmanagedStruct* stateHint);
         static partial void CheckSetStateHintArgs(GISharp.Lib.GLib.Variant? stateHint);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetStateHint(GISharp.Lib.GLib.Variant?)']/*" />
@@ -390,8 +387,8 @@ namespace GISharp.Lib.Gio
         public unsafe void SetStateHint(GISharp.Lib.GLib.Variant? stateHint)
         {
             CheckSetStateHintArgs(stateHint);
-            var simple_ = UnsafeHandle;
-            var stateHint_ = stateHint?.UnsafeHandle ?? System.IntPtr.Zero;
+            var simple_ = (GISharp.Lib.Gio.SimpleAction.UnmanagedStruct*)UnsafeHandle;
+            var stateHint_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(stateHint?.UnsafeHandle ?? System.IntPtr.Zero);
             g_simple_action_set_state_hint(simple_, stateHint_);
         }
 

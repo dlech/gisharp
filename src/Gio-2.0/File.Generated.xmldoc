@@ -2936,7 +2936,7 @@ Loads the contents of <paramref name="file"/> and returns it as #GBytes.
 <remarks>
 If <paramref name="file"/> is a resource:// based URI, the resulting bytes will reference the
 embedded resource instead of a copy. Otherwise, this is equivalent to calling
-<see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out System.ReadOnlySpan{System.Byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> and g_bytes_new_take().
+<see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{System.Byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> and g_bytes_new_take().
 
 For resources, <paramref name="etagOut"/> will be set to <c>null</c>.
 
@@ -3019,12 +3019,12 @@ On error
 Starts an asynchronous load of the <paramref name="file"/>'s contents.
 </summary>
 <remarks>
-For more details, see <see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out System.ReadOnlySpan{System.Byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> which is
+For more details, see <see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{System.Byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
 
 When the load operation has completed, <paramref name="callback"/> will be called
 with <c>user</c> data. To finish the operation, call
-<see cref="File.LoadContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,out System.ReadOnlySpan{System.Byte},out GISharp.Lib.GLib.Utf8)"/> with the <see cref="IAsyncResult"/> returned by
+<see cref="File.LoadContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,out GISharp.Runtime.CArray{System.Byte},out GISharp.Lib.GLib.Utf8)"/> with the <see cref="IAsyncResult"/> returned by
 the <paramref name="callback"/>.
 
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
@@ -3909,7 +3909,7 @@ On error
 </exception>
 </member>
 
-<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Starts an asynchronous replacement of <paramref name="file"/> with the given
 <paramref name="contents"/> of the length of <paramref name="contents"/> bytes. <paramref name="etag"/> will replace the document's
@@ -3954,9 +3954,9 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 
 <member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Same as <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> but takes a #GBytes input instead.
+Same as <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> but takes a #GBytes input instead.
 This function will keep a ref on <paramref name="contents"/> until the operation is done.
-Unlike <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlySpan{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> this allows forgetting about the
+Unlike <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> this allows forgetting about the
 content without waiting for the callback.
 </summary>
 <remarks>

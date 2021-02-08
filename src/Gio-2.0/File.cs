@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Runtime.InteropServices;
@@ -45,11 +45,11 @@ namespace GISharp.Lib.Gio
         public unsafe static Tasks.Task CopyAsync(this IFile source, IFile destination, FileCopyFlags flags, int ioPriority = Priority.Default,
             Cancellable? cancellable = null, FileProgressCallback? progressCallback = null)
         {
-            var source_ = source.UnsafeHandle;
-            var destination_ = destination.UnsafeHandle;
+            var source_ = (UnmanagedStruct*)source.UnsafeHandle;
+            var destination_ = (UnmanagedStruct*)destination.UnsafeHandle;
             var flags_ = flags;
             var ioPriority_ = ioPriority;
-            var cancellable_ = cancellable?.UnsafeHandle ?? IntPtr.Zero;
+            var cancellable_ = (Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? IntPtr.Zero);
             var (progressCallback_, progressCallbackDestroy_, progressCallbackData_) = FileProgressCallbackMarshal.ToUnmanagedFunctionPointer(progressCallback, CallbackScope.Notified);
 
             // no parameter in g_file_copy_async() for destroy function, so we
@@ -67,18 +67,19 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        static unsafe void CopyFinish(IntPtr file_, IntPtr res_, IntPtr userData_)
+        static unsafe void CopyFinish(GObject.Object.UnmanagedStruct* sourceObject_, AsyncResult.UnmanagedStruct* res_, IntPtr userData_)
         {
             try {
+                var file_ = (UnmanagedStruct*)sourceObject_;
                 var userData = (GCHandle)userData_;
                 var completionSource = (TaskCompletionSource<Runtime.Void>)userData.Target!;
                 userData.Free();
                 var progressCallbackDestroy = (System.Action)completionSource.Task.AsyncState!;
                 progressCallbackDestroy?.Invoke();
-                var error_ = IntPtr.Zero;
-                g_file_copy_finish(file_, res_, ref error_);
-                if (error_ != IntPtr.Zero) {
-                    var error = Opaque.GetInstance<Error>(error_, Transfer.Full);
+                var error_ = default(Error.UnmanagedStruct*);
+                g_file_copy_finish(file_, res_, &error_);
+                if (error_ != null) {
+                    var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                     completionSource.SetException(new GErrorException(error));
                     return;
                 }
@@ -89,7 +90,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly UnmanagedAsyncReadyCallback copyAsyncCallbackDelegate = CopyFinish;
-        static readonly IntPtr copyAsyncCallback_ = Marshal.GetFunctionPointerForDelegate(copyAsyncCallbackDelegate);
+        static readonly unsafe UnmanagedAsyncReadyCallback copyAsyncCallbackDelegate = CopyFinish;
+        static readonly unsafe IntPtr copyAsyncCallback_ = Marshal.GetFunctionPointerForDelegate(copyAsyncCallbackDelegate);
     }
 }

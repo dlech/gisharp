@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 
@@ -264,10 +264,11 @@ namespace GISharp.CodeGen.Reflection
             case "GType":
                 type = typeof(GType);
                 break;
-            case "gpointer":
-            case "gconstpointer":
             case "filename":
             case "utf8":
+                return typeof(byte*);
+            case "gpointer":
+            case "gconstpointer":
             // we get null for C arrays
             case null:
                 return typeof(IntPtr);
@@ -307,7 +308,16 @@ namespace GISharp.CodeGen.Reflection
                 if (type.IsDelegate()) {
                     return type;
                 }
-                return typeof(IntPtr);
+
+                if (type == typeof(Strv) || type == typeof(FilenameArray)) {
+                    return typeof(byte**);
+                }
+
+                type = type.GetNestedType("UnmanagedStruct");
+                if (type == null) {
+                    throw new TypeNotFoundException($"{typeName} is missing UnmanagedStruct");
+                }
+                return type.MakePointerType();
             }
 
             if (node.GirName.EndsWith("Private")) {
@@ -327,22 +337,28 @@ namespace GISharp.CodeGen.Reflection
             }
             else if (typeNode is Record record) {
                 if (record.GTypeName is not null || record.IsDisguised) {
-                    return typeof(IntPtr);
+                    girType = new GirUnmanagedStructType(record);
                 }
-                girType = new GirRecordType(record);
-                if (node.IsPointer) {
-                    girType = girType.MakePointerType();
+                else {
+                    girType = new GirRecordType(record);
                 }
             }
             else if (typeNode is Callback callback) {
                 return new GirDelegateType(callback, true);
             }
-            else if (typeNode is Class || typeNode is Interface) {
-                return typeof(IntPtr);
+            else if (typeNode is Class @class) {
+                girType = new GirUnmanagedStructType(@class);
+            }
+            else if (typeNode is Interface @interface) {
+                girType = new GirUnmanagedStructType(@interface);
             }
 
             if (girType is null) {
                 throw new NotSupportedException($"Unknown GIR node type: {typeNode.GetType().Name}");
+            }
+
+            if (node.IsPointer) {
+                girType = girType.MakePointerType();
             }
 
             return girType;
@@ -404,19 +420,19 @@ namespace GISharp.CodeGen.Reflection
 
         public override bool IsDefined(System.Type attributeType, bool inherit)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.IsDefined");
         }
 
         public override bool IsSZArray => false;
 
         public override object[] GetCustomAttributes(bool inherit)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetCustomAttributes");
         }
 
         public override object[] GetCustomAttributes(System.Type attributeType, bool inherit)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetCustomAttributes");
         }
 
         public override string Name {
@@ -450,22 +466,22 @@ namespace GISharp.CodeGen.Reflection
 
         public override System.Type GetInterface(string name, bool ignoreCase)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetInterface");
         }
 
         public override System.Type[] GetInterfaces()
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetInterfaces");
         }
 
         public override System.Type GetElementType()
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetElementType");
         }
 
         public override EventInfo GetEvent(string name, System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetEvent");
         }
 
         public override EventInfo[] GetEvents(System.Reflection.BindingFlags bindingAttr)
@@ -475,24 +491,24 @@ namespace GISharp.CodeGen.Reflection
 
         public override FieldInfo GetField(string name, System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetField");
         }
 
         public override FieldInfo[] GetFields(System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetFields");
         }
 
         public override MemberInfo[] GetMembers(System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetMembers");
         }
 
         protected override MethodInfo GetMethodImpl(string name, System.Reflection.BindingFlags bindingAttr,
             Binder binder, CallingConventions callConvention, System.Type[] types,
             ParameterModifier[] modifiers)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetMethodImpl");
         }
 
         public override MethodInfo[] GetMethods(System.Reflection.BindingFlags bindingAttr)
@@ -504,30 +520,30 @@ namespace GISharp.CodeGen.Reflection
 
         public override System.Type GetNestedType(string name, System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetNestedType");
         }
 
         public override System.Type[] GetNestedTypes(System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetNestedTypes");
         }
 
         public override PropertyInfo[] GetProperties(System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetProperties");
         }
 
         protected override PropertyInfo GetPropertyImpl(string name, System.Reflection.BindingFlags bindingAttr,
             Binder binder, System.Type returnType, System.Type[] types, ParameterModifier[] modifiers)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetPropertyImpl");
         }
 
         protected override ConstructorInfo GetConstructorImpl(System.Reflection.BindingFlags bindingAttr,
             Binder binder, CallingConventions callConvention, System.Type[] types,
             ParameterModifier[] modifiers)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetConstructorImpl");
         }
 
         protected override TypeAttributes GetAttributeFlagsImpl()
@@ -550,14 +566,14 @@ namespace GISharp.CodeGen.Reflection
 
         public override ConstructorInfo[] GetConstructors(System.Reflection.BindingFlags bindingAttr)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.GetConstructors");
         }
 
         public override object InvokeMember(string name, System.Reflection.BindingFlags invokeAttr,
             Binder binder, object target, object[] args, ParameterModifier[] modifiers,
             System.Globalization.CultureInfo culture, string[] namedParameters)
         {
-            throw new NotSupportedException();
+            throw new NotImplementedException("GirType.InvokeMember");
         }
 
         public override Assembly Assembly {
@@ -566,11 +582,8 @@ namespace GISharp.CodeGen.Reflection
             }
         }
 
-        public override string AssemblyQualifiedName {
-            get {
-                throw new NotSupportedException();
-            }
-        }
+        public override string AssemblyQualifiedName =>
+            throw new NotImplementedException("GirType.AssemblyQualifiedName");
 
         public override System.Type BaseType => typeof(object);
 
@@ -582,11 +595,8 @@ namespace GISharp.CodeGen.Reflection
 
         public override string ToString() => FullName;
 
-        public override Guid GUID {
-            get {
-                throw new NotSupportedException();
-            }
-        }
+        public override Guid GUID =>
+            throw new NotImplementedException("GirType.GUID");
 
         public override bool IsConstructedGenericType => false;
 

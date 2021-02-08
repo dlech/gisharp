@@ -1,15 +1,12 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
-
-
 using System;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GLib;
-using GISharp.Runtime;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
+using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Syntax
 {
@@ -25,30 +22,41 @@ namespace GISharp.CodeGen.Syntax
                 return ParseTypeName("void");
             }
 
-            var managedType = returnValue.Type.ManagedType;
+            var managedType = returnValue.GetSpecializedManagedType();
             var syntax = managedType.ToSyntax();
 
-            if (managedType == typeof(Utf8) && returnValue.TransferOwnership == "none") {
-                var utf8Type = returnValue.IsNullable ? typeof(NullableUnownedUtf8) : typeof(UnownedUtf8);
-                syntax = ParseTypeName($"{utf8Type}");
+            if (returnValue.IsRefReturn()) {
+                syntax = RefType(syntax).WithReadOnlyKeyword(Token(ReadOnlyKeyword));
             }
-            else if (managedType.IsGenericType && managedType.GetGenericTypeDefinition() == typeof(CArray<>) && returnValue.TransferOwnership == "none") {
-                syntax = typeof(ReadOnlySpan<>).MakeGenericType(managedType.GetGenericArguments()).ToSyntax();
-            }
-            else if (managedType.IsGenericType && managedType.GetGenericTypeDefinition() == typeof(CPtrArray<>) && returnValue.TransferOwnership == "none") {
-                syntax = typeof(UnownedCPtrArray<>).MakeGenericType(managedType.GetGenericArguments()).ToSyntax();
-            }
-            else if (returnValue.IsNullable && !managedType.IsValueType && !managedType.IsPointer) {
+
+            if (returnValue.IsNullable && !managedType.IsValueType) {
                 syntax = NullableType(syntax);
             }
 
-            // when the unmanaged function returns a value type as a pointer,
-            // we need to make it nullable
-            if (returnValue.Type.IsPointer && !(returnValue.Type is Gir.Array) && managedType.IsValueType && managedType != typeof(IntPtr)) {
-                syntax = ParseTypeName(syntax.ToString() + "?");
+            return syntax;
+        }
+
+        public static bool IsRefReturn(this ReturnValue returnValue)
+        {
+            var managedType = returnValue.Type.ManagedType;
+
+            if (!managedType.IsValueType) {
+                return false;
             }
 
-            return syntax;
+            if (managedType == typeof(IntPtr)) {
+                return false;
+            }
+
+            if (!returnValue.Type.IsPointer) {
+                return false;
+            }
+
+            if (returnValue.TransferOwnership != "none") {
+                throw new NotSupportedException("Don't know how to free pointer to unmanaged struct.");
+            }
+
+            return true;
         }
     }
 }

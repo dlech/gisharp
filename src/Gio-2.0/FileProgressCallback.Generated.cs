@@ -10,7 +10,7 @@ namespace GISharp.Lib.Gio
     /// </summary>
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
-    /* transfer-ownership:none direction:out */
+    /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedFileProgressCallback(
     /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
     /* transfer-ownership:none direction:in */
@@ -49,12 +49,7 @@ namespace GISharp.Lib.Gio
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileProgressCallback>(callback_);
 
-            unsafe void managedCallback(System.Int64 currentNumBytes, System.Int64 totalNumBytes)
-            {
-                var currentNumBytes_ = (System.Int64)currentNumBytes;
-                var totalNumBytes_ = (System.Int64)totalNumBytes;
-                unmanagedCallback(currentNumBytes_, totalNumBytes_, userData_);
-            }
+            unsafe void managedCallback(System.Int64 currentNumBytes, System.Int64 totalNumBytes) { var currentNumBytes_ = (System.Int64)currentNumBytes; var totalNumBytes_ = (System.Int64)totalNumBytes; unmanagedCallback(currentNumBytes_, totalNumBytes_, userData_); }
 
             return managedCallback;
         }
@@ -109,7 +104,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly GISharp.Lib.Gio.UnmanagedFileProgressCallback UnmanagedCallbackDelegate = UnmanagedCallback;
+        static readonly unsafe GISharp.Lib.Gio.UnmanagedFileProgressCallback UnmanagedCallbackDelegate = UnmanagedCallback;
         static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
 
         static void Destroy(System.IntPtr userData_)

@@ -170,7 +170,7 @@ the instance on which the signal was invoked
 <member name='CommandLineSignalHandler'>
 <summary>
 The ::command-line signal is emitted on the primary instance when
-a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/> and
+a commandline is not handled locally. See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> and
 the <see cref="ApplicationCommandLine"/> documentation for more information.
 </summary>
 <param name="application">
@@ -216,10 +216,10 @@ In the event that <see cref="ApplicationFlags.HandlesCommandLine"/> is not set,
 "normal processing" will treat the remaining uncollected command
 line arguments as filenames or URIs.  If there are no arguments,
 the application is activated by <see cref="Application.Activate()"/>.  One or
-more arguments results in a call to <see cref="Application.Open(GISharp.Runtime.CPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/>.
+more arguments results in a call to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/>.
 
 If you want to handle the local commandline arguments for yourself
-by converting them to calls to <see cref="Application.Open(GISharp.Runtime.CPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> or
+by converting them to calls to <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> or
 <see cref="ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)"/> then you must be sure to register
 the application first.  You should probably not call
 <see cref="Application.Activate()"/> for yourself, however: just return -1 and
@@ -277,7 +277,7 @@ the instance on which the signal was invoked
 <member name='OpenSignalHandler'>
 <summary>
 The ::open signal is emitted on the primary instance when there are
-files to open. See <see cref="Application.Open(GISharp.Runtime.CPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> for more information.
+files to open. See <see cref="Application.Open(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.Gio.IFile},GISharp.Lib.GLib.UnownedUtf8)"/> for more information.
 </summary>
 <param name="application">
 the instance on which the signal was invoked
@@ -605,7 +605,7 @@ a hint (or ""), but never <c>null</c>
 Immediately quits the application.
 </summary>
 <remarks>
-Upon return to the mainloop, <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/> will return,
+Upon return to the mainloop, <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> will return,
 calling only the 'shutdown' function before doing so.
 
 The hold count is ignored.
@@ -614,7 +614,7 @@ is therefore still expecting it to exist.
 (Note that you may have called <see cref="Application.Hold()"/> indirectly, for example
 through gtk_application_add_window().)
 
-The result of calling <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/> again after it returns is
+The result of calling <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> again after it returns is
 unspecified.
 </remarks>
 </member>
@@ -911,9 +911,9 @@ arguments).
 <remarks>
 The last argument to local_command_line() is a pointer to the <c>status</c>
 variable which can used to set the exit status that is returned from
-<see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/>.
+<see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/>.
 
-See <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/> for more details on <see cref="Application"/> startup.
+See <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> for more details on <see cref="Application"/> startup.
 </remarks>
 <param name="arguments">
 array of command line arguments
@@ -1001,11 +1001,11 @@ application is not expected to manually register itself and check
 if it is the primary instance. Instead, the main() function of a
 <see cref="Application"/> should do very little more than instantiating the
 application instance, possibly connecting signal handlers, then
-calling <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/>. All checks for uniqueness are done
+calling <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/>. All checks for uniqueness are done
 internally. If the application is the primary instance then the
 startup signal is emitted and the mainloop runs. If the application
 is not the primary instance then a signal is sent to the primary
-instance and <see cref="Application.Run(GISharp.Runtime.CPtrArray{GISharp.Lib.GLib.Filename})"/> promptly returns. See the code
+instance and <see cref="Application.Run(GISharp.Runtime.UnownedCPtrArray{GISharp.Lib.GLib.Filename})"/> promptly returns. See the code
 examples below.
 
 If used, the expected form of an application identifier is the same as

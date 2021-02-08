@@ -32,7 +32,7 @@ namespace GISharp.Lib.GLib
         static partial void CheckGetQuarkArgs();
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
-        /* transfer-ownership:none direction:out */
+        /* transfer-ownership:none direction:in */
         private static extern unsafe GISharp.Lib.GLib.Quark g_key_file_error_quark();
 
         private static unsafe GISharp.Lib.GLib.Quark GetQuark()

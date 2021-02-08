@@ -8,7 +8,7 @@ namespace GISharp.Lib.Gio
     {
 #pragma warning disable CS0169, CS0649
         /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.name']/*" />
-        private readonly System.IntPtr name;
+        private readonly System.Byte* name;
 
         /// <include file="FileAttributeInfo.xmldoc" path="declaration/member[@name='FileAttributeInfo.Type']/*" />
         public readonly GISharp.Lib.Gio.FileAttributeType Type;

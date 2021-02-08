@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2019,2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
 
 namespace GISharp.Lib.Gio
 {
@@ -11,6 +10,6 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// Gets the name of the attribute.
         /// </summary>
-        public UnownedUtf8 Name => new UnownedUtf8(name, -1);
+        public unsafe UnownedUtf8 Name => new(name);
     }
 }
