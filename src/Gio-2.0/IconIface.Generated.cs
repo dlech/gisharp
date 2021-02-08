@@ -4,12 +4,12 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="IconIface.xmldoc" path="declaration/member[@name='IconIface']/*" />
-    public sealed class IconIface : GISharp.Lib.GObject.TypeInterface
+    public sealed unsafe class IconIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="IconIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
@@ -59,12 +59,12 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
         /// <summary>
         /// Class for marshalling <see cref="Hash"/> methods.
         /// </summary>
-        public static class HashMarshal
+        public static unsafe class HashMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.UInt32 unmanagedHash(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), icon); var ret = doHash(); var ret_ = (System.UInt32)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.UInt32); }
 
@@ -92,12 +92,12 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2);
         /// <summary>
         /// Class for marshalling <see cref="Equal"/> methods.
         /// </summary>
-        public static class EqualMarshal
+        public static unsafe class EqualMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedEqual(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon1_, GISharp.Lib.Gio.Icon.UnmanagedStruct* icon2_) { try { var icon1 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon1_, GISharp.Runtime.Transfer.None); var icon2 = (GISharp.Lib.Gio.IIcon?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon2_, GISharp.Runtime.Transfer.None); var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), icon1); var ret = doEqual(icon2); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -122,12 +122,12 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
         /// <summary>
         /// Class for marshalling <see cref="Serialize"/> methods.
         /// </summary>
-        public static class SerializeMarshal
+        public static unsafe class SerializeMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedSerialize Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedSerialize Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedSerialize(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doSerialize = (Serialize)methodInfo.CreateDelegate(typeof(Serialize), icon); var ret = doSerialize(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
 

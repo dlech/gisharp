@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 
 using System;
@@ -9,12 +9,12 @@ using System.Runtime.InteropServices;
 
 namespace GISharp.Lib.Gio
 {
-    partial class FileAttributeInfoList : IReadOnlyList<FileAttributeInfo>
+    unsafe partial class FileAttributeInfoList : IReadOnlyList<FileAttributeInfo>
     {
         /// <summary>
         /// Gets the <see cref="FileAttributeInfo"/> at the specified index.
         /// </summary>
-        public unsafe FileAttributeInfo this[int index] {
+        public FileAttributeInfo this[int index] {
             get {
                 if (index < 0 || index >= Count) {
                     throw new IndexOutOfRangeException();
@@ -28,7 +28,7 @@ namespace GISharp.Lib.Gio
         /// <summary>
         /// the number of values in the list.
         /// </summary>
-        public unsafe int Count => ((UnmanagedStruct*)UnsafeHandle)->NInfos;
+        public int Count => ((UnmanagedStruct*)UnsafeHandle)->NInfos;
 
         private IEnumerator<FileAttributeInfo> GetEnumerator()
         {

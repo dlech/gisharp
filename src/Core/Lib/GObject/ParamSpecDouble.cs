@@ -12,13 +12,13 @@ namespace GISharp.Lib.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for double properties.
     /// </summary>
     [GType("GParamDouble", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecDouble : ParamSpec
+    public sealed unsafe class ParamSpecDouble : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecDouble"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -52,23 +52,23 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public unsafe double Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
+        public double Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public unsafe double Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
+        public double Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new double DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
+        public new double DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
 
         /// <summary>
         /// values closer than epsilon will be considered identical by
         /// g_param_values_cmp(); the default value is 1e-90.
         /// </summary>
-        public unsafe double Epsilon => ((UnmanagedStruct*)UnsafeHandle)->Epsilon;
+        public double Epsilon => ((UnmanagedStruct*)UnsafeHandle)->Epsilon;
 
         /// <summary>
         /// For internal runtime use only.

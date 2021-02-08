@@ -6,14 +6,14 @@ namespace GISharp.Lib.GLib
     /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict']/*" />
     [GISharp.Runtime.SinceAttribute("2.40")]
     [GISharp.Runtime.GTypeAttribute("GVariantDict", IsProxyForUnmanagedType = true)]
-    public sealed partial class VariantDict : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class VariantDict : GISharp.Lib.GObject.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_variant_dict_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
         }
 
@@ -51,13 +51,13 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GLib.VariantDict.UnmanagedStruct* g_variant_dict_new(
+        private static extern GISharp.Lib.GLib.VariantDict.UnmanagedStruct* g_variant_dict_new(
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* fromAsv);
 
         [GISharp.Runtime.SinceAttribute("2.40")]
-        static unsafe GISharp.Lib.GLib.VariantDict.UnmanagedStruct* New(GISharp.Lib.GLib.Variant? fromAsv)
+        static GISharp.Lib.GLib.VariantDict.UnmanagedStruct* New(GISharp.Lib.GLib.Variant? fromAsv)
         {
             CheckNewArgs(fromAsv);
             var fromAsv_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(fromAsv?.UnsafeHandle ?? System.IntPtr.Zero);
@@ -67,7 +67,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.VariantDict(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe VariantDict(GISharp.Lib.GLib.Variant? fromAsv) : this((System.IntPtr)New(fromAsv), GISharp.Runtime.Transfer.Full)
+        public VariantDict(GISharp.Lib.GLib.Variant? fromAsv) : this((System.IntPtr)New(fromAsv), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -75,7 +75,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_variant_dict_get_type();
+        private static extern GISharp.Lib.GObject.GType g_variant_dict_get_type();
 
         /// <summary>
         /// Checks if @key exists in @dict.
@@ -93,7 +93,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_variant_dict_contains(
+        private static extern GISharp.Runtime.Boolean g_variant_dict_contains(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict,
@@ -104,7 +104,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Contains(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe System.Boolean Contains(GISharp.Lib.GLib.UnownedUtf8 key)
+        public System.Boolean Contains(GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckContainsArgs(key);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -134,7 +134,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Variant.UnmanagedStruct* g_variant_dict_end(
+        private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_variant_dict_end(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict);
@@ -142,7 +142,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.End()']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe GISharp.Lib.GLib.Variant End()
+        public GISharp.Lib.GLib.Variant End()
         {
             CheckEndArgs();
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -170,7 +170,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_variant_dict_insert_value(
+        private static extern void g_variant_dict_insert_value(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict,
@@ -184,7 +184,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Insert(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe void Insert(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.Variant value)
+        public void Insert(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.Variant value)
         {
             CheckInsertArgs(key, value);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -223,7 +223,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Variant.UnmanagedStruct* g_variant_dict_lookup_value(
+        private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_variant_dict_lookup_value(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict,
@@ -237,7 +237,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Lookup(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.VariantType?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe GISharp.Lib.GLib.Variant Lookup(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null)
+        public GISharp.Lib.GLib.Variant Lookup(GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.VariantType? expectedType = null)
         {
             CheckLookupArgs(key, expectedType);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -265,7 +265,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GLib.VariantDict.UnmanagedStruct* g_variant_dict_ref(
+        private static extern GISharp.Lib.GLib.VariantDict.UnmanagedStruct* g_variant_dict_ref(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict);
@@ -274,7 +274,7 @@ namespace GISharp.Lib.GLib
         /// Takes ownership of the unmanaged pointer without freeing it.
         /// The managed object can no longer be used (will throw disposed exception).
         /// </summary>
-        public override unsafe System.IntPtr Take() => (System.IntPtr)g_variant_dict_ref((GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle);
+        public override System.IntPtr Take() => (System.IntPtr)g_variant_dict_ref((GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle);
 
         /// <summary>
         /// Removes a key and its associated value from a #GVariantDict.
@@ -292,7 +292,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_variant_dict_remove(
+        private static extern GISharp.Runtime.Boolean g_variant_dict_remove(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict,
@@ -303,7 +303,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Remove(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe System.Boolean Remove(GISharp.Lib.GLib.UnownedUtf8 key)
+        public System.Boolean Remove(GISharp.Lib.GLib.UnownedUtf8 key)
         {
             CheckRemoveArgs(key);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
@@ -330,7 +330,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_variant_dict_unref(
+        private static extern void g_variant_dict_unref(
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict);

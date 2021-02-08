@@ -1,10 +1,10 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 
 namespace GISharp.Lib.Gio
 {
-    partial class CancellableSource
+    unsafe partial class CancellableSource
     {
         /// <inheritdoc />
         public void SetCallback(CancellableSourceFunc func)

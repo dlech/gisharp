@@ -72,7 +72,7 @@ namespace GISharp.CodeGen.Syntax
                     var paramType = method.Parameters.InstanceParameter.Type.UnmanagedType.ToSyntax();
                     var takeExpression = ParseExpression($"({takeReturnType}){method.CIdentifier}(({paramType})UnsafeHandle)");
                     var takeOverride = MethodDeclaration(takeReturnType, "Take")
-                        .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword), Token(UnsafeKeyword))
+                        .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
                         .WithExpressionBody(ArrowExpressionClause(takeExpression))
                         .WithSemicolonToken(Token(SemicolonToken))
                         .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
@@ -161,10 +161,10 @@ namespace GISharp.CodeGen.Syntax
         static SyntaxTokenList GetAccessModifiers(this Method method)
         {
             if ((method.IsHash || method.IsToString) && !method.IsExtensionMethod) {
-                return TokenList(Token(PublicKeyword), Token(OverrideKeyword), Token(UnsafeKeyword));
+                return TokenList(Token(PublicKeyword), Token(OverrideKeyword));
             }
 
-            return method.GetCommonAccessModifiers().Add(Token(UnsafeKeyword));
+            return method.GetCommonAccessModifiers();
         }
 
         /// <summary>

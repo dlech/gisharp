@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IAsyncResult']/*" />
     [GISharp.Runtime.GTypeAttribute("GAsyncResult", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncResultIface))]
-    public partial interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IAsyncResult : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_async_result_get_type();
 
@@ -14,7 +14,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_async_result_get_type();
+        private static extern GISharp.Lib.GObject.GType g_async_result_get_type();
 
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='IAsyncResult.DoGetSourceObject()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(AsyncResultIface.UnmanagedGetSourceObject))]
@@ -33,12 +33,12 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="IAsyncResult"/>
     /// </summary>
-    public static partial class AsyncResult
+    public static unsafe partial class AsyncResult
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
         }
 
@@ -55,14 +55,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern unsafe GISharp.Lib.GObject.Object.UnmanagedStruct* g_async_result_get_source_object(
+        private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_async_result_get_source_object(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res);
         static partial void CheckGetSourceObjectArgs(this GISharp.Lib.Gio.IAsyncResult res);
 
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.GetSourceObject(GISharp.Lib.Gio.IAsyncResult)']/*" />
-        public unsafe static GISharp.Lib.GObject.Object? GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
+        public static GISharp.Lib.GObject.Object? GetSourceObject(this GISharp.Lib.Gio.IAsyncResult res)
         {
             CheckGetSourceObjectArgs(res);
             var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;
@@ -83,14 +83,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern unsafe System.IntPtr g_async_result_get_user_data(
+        private static extern System.IntPtr g_async_result_get_user_data(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res);
         static partial void CheckGetUserDataArgs(this GISharp.Lib.Gio.IAsyncResult res);
 
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.GetUserData(GISharp.Lib.Gio.IAsyncResult)']/*" />
-        public unsafe static System.IntPtr GetUserData(this GISharp.Lib.Gio.IAsyncResult res)
+        public static System.IntPtr GetUserData(this GISharp.Lib.Gio.IAsyncResult res)
         {
             CheckGetUserDataArgs(res);
             var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;
@@ -117,7 +117,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_async_result_is_tagged(
+        private static extern GISharp.Runtime.Boolean g_async_result_is_tagged(
         /* <type name="AsyncResult" type="GAsyncResult*" managed-name="AsyncResult" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res,
@@ -128,7 +128,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="AsyncResult.xmldoc" path="declaration/member[@name='AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)']/*" />
         [GISharp.Runtime.SinceAttribute("2.34")]
-        public unsafe static System.Boolean IsTagged(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag)
+        public static System.Boolean IsTagged(this GISharp.Lib.Gio.IAsyncResult res, System.IntPtr sourceTag)
         {
             CheckIsTaggedArgs(res, sourceTag);
             var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;

@@ -10,7 +10,7 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// Functions for working with <see cref="GType.Flags"/>.
     /// </summary>
-    public static class Flags
+    public static unsafe class Flags
     {
         /// <summary>
         /// This function is meant to be called from the complete_type_info()
@@ -31,7 +31,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern unsafe void g_flags_complete_type_info(
+        static extern void g_flags_complete_type_info(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType gFlagsType,
@@ -57,7 +57,7 @@ namespace GISharp.Lib.GObject
         /// An array of #GFlagsValue structs for the possible
         ///  enumeration values.
         /// </param>
-        public static unsafe void CompleteTypeInfo(GType gFlagsType, out TypeInfo info, ReadOnlySpan<FlagsValue> constValues)
+        public static void CompleteTypeInfo(GType gFlagsType, out TypeInfo info, ReadOnlySpan<FlagsValue> constValues)
         {
             if (!constValues[^0].Equals(default(FlagsValue))) {
                 throw new ArgumentException("Must be zero-terminated", nameof(constValues));
@@ -207,7 +207,7 @@ namespace GISharp.Lib.GObject
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe GType g_flags_register_static(
+        static extern GType g_flags_register_static(
             IntPtr typeName,
             FlagsValue* values);
 
@@ -218,7 +218,7 @@ namespace GISharp.Lib.GObject
         /// instances (if not abstract). The value of flags determines the
         /// nature (e.g. abstract or not) of the type.
         /// </summary>
-        public static unsafe GType RegisterStatic(string typeName, ReadOnlyMemory<FlagsValue> values)
+        public static GType RegisterStatic(string typeName, ReadOnlyMemory<FlagsValue> values)
         {
             GType.AssertGTypeName(typeName);
             using var typeNameUtf8 = typeName.ToUtf8();

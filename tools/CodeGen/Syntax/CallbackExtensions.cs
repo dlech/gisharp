@@ -272,7 +272,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var identifier = callback.ManagedName + "Marshal";
             var syntax = ClassDeclaration(identifier)
-               .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+               .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
                .WithLeadingTrivia(callback.GetDelegateMarshalDocumentationCommentTrivia());
             return syntax;
         }
@@ -293,7 +293,7 @@ namespace GISharp.CodeGen.Syntax
             var methodInfoParam = Parameter(ParseToken("methodInfo"))
                 .WithType(ParseTypeName(typeof(System.Reflection.MethodInfo).FullName));
             return MethodDeclaration(type, "Create")
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .AddParameterListParameters(methodInfoParam)
                 .WithBody(Block(callback.GetUnmanagedDelegateCreateStatements()))
                 .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
@@ -372,7 +372,7 @@ namespace GISharp.CodeGen.Syntax
             var toPointerMethodParams = $"({managedDelegateFieldType}? callback, {scopeFieldType} scope)";
             var toPointerReturnType = ParseTypeName(string.Format("({0} callback_, {0} notify_, {0} userData_)", typeof(IntPtr)));
             var create2Method = MethodDeclaration(toPointerReturnType, "ToUnmanagedFunctionPointer")
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(toPointerMethodParams))
                 .WithBody(Block(callback.GetMarshalToPointerMethodStatements()))
                 .WithLeadingTrivia(callback.GetMarshalToPointerMethodDocumentationCommentTrivia());
@@ -382,7 +382,7 @@ namespace GISharp.CodeGen.Syntax
 
             var callbackReturnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
             var callbackMethod = MethodDeclaration(callbackReturnType, "UnmanagedCallback")
-                .AddModifiers(Token(StaticKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(StaticKeyword))
                 .WithParameterList(callback.Parameters.GetParameterList())
                 .WithBody(Block(callback.GetCallbackStatements()));
             list = list.Add(callbackMethod);
@@ -391,7 +391,7 @@ namespace GISharp.CodeGen.Syntax
                     .WithInitializer(EqualsValueClause(IdentifierName(callbackMethod.Identifier)));
             var callbackDelegateField = FieldDeclaration(VariableDeclaration(callback.GetQualifiedName(true))
                 .AddVariables(callbackDelegateVariable))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword), Token(UnsafeKeyword));
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
             list = list.Add(callbackDelegateField);
 
             var callbackMarshalToPointerExpression = ParseExpression(string.Format(
@@ -477,7 +477,6 @@ namespace GISharp.CodeGen.Syntax
 
             var returnType = callback.ReturnValue.GetManagedTypeName();
             yield return LocalFunctionStatement(returnType, "managedCallback")
-                .AddModifiers(Token(UnsafeKeyword))
                 .WithParameterList(paramList)
                 .WithBody(callback.GetInvokeBlock("unmanagedCallback", checkArgs: false));
 

@@ -61,7 +61,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Factory functions for marshaling <see cref="LogWriterFunc"/>.
     /// </summary>
-    public static class LogWriterFuncFactory
+    public static unsafe class LogWriterFuncFactory
     {
         class UserData
         {
@@ -82,7 +82,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Marshals an unmanaged function pointer to a managed delegate.
         /// </summary>
-        public unsafe static LogWriterFunc Create(UnmanagedLogWriterFunc func, IntPtr userData)
+        public static LogWriterFunc Create(UnmanagedLogWriterFunc func, IntPtr userData)
         {
             return new LogWriterFunc((logLevel, fields) => {
                 fixed (LogField* fields_ = fields) {
@@ -95,7 +95,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Marshals a managed delegate to an unmanaged function pointer.
         /// </summary>
-        public static unsafe (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) Create(LogWriterFunc func, CallbackScope scope)
+        public static (UnmanagedLogWriterFunc, UnmanagedDestroyNotify, IntPtr) Create(LogWriterFunc func, CallbackScope scope)
         {
             var data = new UserData(func, UnmanagedFunc, UnmanagedNotify, scope);
             var gcHandle = GCHandle.Alloc(data);
@@ -103,7 +103,7 @@ namespace GISharp.Lib.GLib
             return (data.UnmanagedFunc, data.UnmanagedNotify, (IntPtr)gcHandle);
         }
 
-        static unsafe LogWriterOutput UnmanagedFunc(LogLevelFlags logLevel_, LogField* fields_, UIntPtr nFields_, IntPtr userData_)
+        static LogWriterOutput UnmanagedFunc(LogLevelFlags logLevel_, LogField* fields_, UIntPtr nFields_, IntPtr userData_)
         {
             try {
                 var gcHandle = (GCHandle)userData_;

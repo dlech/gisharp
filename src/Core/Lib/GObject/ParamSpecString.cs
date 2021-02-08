@@ -13,13 +13,13 @@ namespace GISharp.Lib.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for string properties.
     /// </summary>
     [GType("GParamString", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecString : ParamSpec
+    public sealed unsafe class ParamSpecString : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecString"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -58,7 +58,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new UnownedUtf8 DefaultValue {
+        public new UnownedUtf8 DefaultValue {
             get {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
                 var ret = new UnownedUtf8(ret_, -1);
@@ -69,7 +69,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// a string containing the allowed values for the first byte
         /// </summary>
-        public unsafe NullableUnownedUtf8 CsetFirst {
+        public NullableUnownedUtf8 CsetFirst {
             get {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->CsetFirst;
                 var ret = new NullableUnownedUtf8(ret_, -1);
@@ -80,7 +80,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// a string containing the allowed values for the subsequent bytes
         /// </summary>
-        public unsafe NullableUnownedUtf8 CsetNth {
+        public NullableUnownedUtf8 CsetNth {
             get {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->CsetNth;
                 var ret = new NullableUnownedUtf8(ret_, -1);
@@ -92,9 +92,9 @@ namespace GISharp.Lib.GObject
         /// the replacement byte for bytes which don't match <see cref="CsetFirst"/>
         /// or <see cref="CsetNth"/> .
         /// </summary>
-        public unsafe sbyte Substitutor => ((UnmanagedStruct*)UnsafeHandle)->Substitutor;
+        public sbyte Substitutor => ((UnmanagedStruct*)UnsafeHandle)->Substitutor;
 
-        unsafe uint Bitfield => ((UnmanagedStruct*)UnsafeHandle)->Bitfield;
+        uint Bitfield => ((UnmanagedStruct*)UnsafeHandle)->Bitfield;
 
         /// <summary>
         /// For internal runtime use only.

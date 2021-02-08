@@ -1,9 +1,6 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using GISharp.CodeGen.Gir;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -21,7 +18,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var identifier = staticClass.ManagedName;
             return ClassDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
                 .WithLeadingTrivia(staticClass.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }

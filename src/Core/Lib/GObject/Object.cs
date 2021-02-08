@@ -18,7 +18,7 @@ namespace GISharp.Lib.GObject
     /// </summary>
     [GType("GObject", IsProxyForUnmanagedType = true)]
     [GTypeStruct(typeof(ObjectClass))]
-    public class Object : TypeInstance, INotifyPropertyChanged
+    public unsafe class Object : TypeInstance, INotifyPropertyChanged
     {
         static readonly Quark toggleRefGCHandleQuark = Quark.FromString("gisharp-gobject-toggle-ref-gc-handle-quark");
 
@@ -28,7 +28,7 @@ namespace GISharp.Lib.GObject
         /// The unmanaged data structure for <see cref="Object"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             internal TypeInstance.UnmanagedStruct GTypeInstance;
@@ -39,7 +39,7 @@ namespace GISharp.Lib.GObject
 #pragma warning restore CS0649
         }
 
-        unsafe uint RefCount => ((UnmanagedStruct*)UnsafeHandle)->RefCount;
+        uint RefCount => ((UnmanagedStruct*)UnsafeHandle)->RefCount;
 
         readonly ObjectClass objectClass;
         readonly ObjectClass? parentObjectClass;
@@ -153,7 +153,7 @@ namespace GISharp.Lib.GObject
         {
             record UserData(NotifySignalHandler Callback, CallbackScope Scope);
 
-            public static unsafe (IntPtr unmanagedFunctionPointer, IntPtr destroyNotifyFunctionPointer, IntPtr userData)
+            public static (IntPtr unmanagedFunctionPointer, IntPtr destroyNotifyFunctionPointer, IntPtr userData)
                 ToUnmanagedFunctionPointer(Delegate callback, CallbackScope scope)
             {
                 var unmanagedFunctionPointer_ =
@@ -303,7 +303,7 @@ namespace GISharp.Lib.GObject
             IntPtr parameters);
 
         [DeprecatedSince("2.54")]
-        static unsafe IntPtr New(GType objectType, int nParameters, Parameter* parameters)
+        static IntPtr New(GType objectType, int nParameters, Parameter* parameters)
         {
             if (!objectType.IsA(GType.Object)) {
                 throw new ArgumentException("Must be a GObject", nameof(objectType));
@@ -315,7 +315,7 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        private static unsafe IntPtr New<T>(params object[] parameters) where T : Object
+        private static IntPtr New<T>(params object[] parameters) where T : Object
         {
             var gtype = GType.Of<T>();
             var nParameters = parameters.Length / 2;

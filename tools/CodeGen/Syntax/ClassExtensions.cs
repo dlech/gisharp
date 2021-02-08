@@ -43,6 +43,8 @@ namespace GISharp.CodeGen.Syntax
                 list = list.Add(Token(SealedKeyword));
             }
 
+            list = list.Add(Token(UnsafeKeyword));
+
             // partial *must* be last
             list = list.Add(Token(PartialKeyword));
 

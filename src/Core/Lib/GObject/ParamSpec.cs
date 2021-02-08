@@ -24,7 +24,7 @@ namespace GISharp.Lib.GObject
     /// the parameter.
     /// </remarks>
     [GType("GParam", IsProxyForUnmanagedType = true)]
-    public class ParamSpec : TypeInstance
+    public unsafe class ParamSpec : TypeInstance
     {
         static readonly Quark managedProxyGCHandleQuark = Quark.FromString("gisharp-gobject-paramspec-managed-proxy-instance-quark");
 
@@ -32,7 +32,7 @@ namespace GISharp.Lib.GObject
         /// The unmanaged data structure for <see cref="ParamSpec"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -73,19 +73,19 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// <see cref="ParamFlags"/> flags for this parameter
         /// </summary>
-        unsafe ParamFlags Flags => ((UnmanagedStruct*)UnsafeHandle)->Flags;
+        ParamFlags Flags => ((UnmanagedStruct*)UnsafeHandle)->Flags;
 
         /// <summary>
         /// The <see cref="Value"/> type for this parameter
         /// </summary>
-        public unsafe GType ValueType => ((UnmanagedStruct*)UnsafeHandle)->ValueType;
+        public GType ValueType => ((UnmanagedStruct*)UnsafeHandle)->ValueType;
 
         /// <summary>
         /// <see cref="GType"/> type that uses (introduces) this parameter
         /// </summary>
-        unsafe GType OwnerType => ((UnmanagedStruct*)UnsafeHandle)->OwnerType;
+        GType OwnerType => ((UnmanagedStruct*)UnsafeHandle)->OwnerType;
 
-        unsafe uint RefCount => ((UnmanagedStruct*)UnsafeHandle)->RefCount;
+        uint RefCount => ((UnmanagedStruct*)UnsafeHandle)->RefCount;
 
         /// <summary>
         /// For internal runtime use only.

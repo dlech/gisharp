@@ -14,13 +14,13 @@ namespace GISharp.Lib.GObject
     [DeprecatedSince("2.32")]
     [Obsolete("Use Array instead of ValueArray")]
     [GType("GParamValueArray", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecValueArray : ParamSpec
+    public sealed unsafe class ParamSpecValueArray : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecValueArray"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -46,7 +46,7 @@ namespace GISharp.Lib.GObject
         /// a <see cref="ParamSpec"/> describing the elements contained in arrays
         /// of this property, may be <c>null</c>
         /// </summary>
-        public unsafe ParamSpec? ElementSpec {
+        public ParamSpec? ElementSpec {
             get {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->ElementSpec;
                 var ret = GetInstance(ret_, Transfer.None)!;
@@ -57,7 +57,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// if greater than 0, arrays of this property will always have this many elements
         /// </summary>
-        public unsafe uint FixedNElements => ((UnmanagedStruct*)UnsafeHandle)->FixedNElements;
+        public uint FixedNElements => ((UnmanagedStruct*)UnsafeHandle)->FixedNElements;
 
         /// <summary>
         /// For internal runtime use only.

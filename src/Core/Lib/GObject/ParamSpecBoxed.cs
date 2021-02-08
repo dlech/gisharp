@@ -12,13 +12,13 @@ namespace GISharp.Lib.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for boxed properties.
     /// </summary>
     [GType("GParamBoxed", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecBoxed : ParamSpec
+    public sealed unsafe class ParamSpecBoxed : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecBoxed"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>

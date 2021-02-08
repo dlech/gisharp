@@ -24,7 +24,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Extension methods for <see cref="KeyFileError"/>.
     /// </summary>
-    public static partial class KeyFileErrorDomain
+    public static unsafe partial class KeyFileErrorDomain
     {
         /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
@@ -33,9 +33,9 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Quark g_key_file_error_quark();
+        private static extern GISharp.Lib.GLib.Quark g_key_file_error_quark();
 
-        private static unsafe GISharp.Lib.GLib.Quark GetQuark()
+        private static GISharp.Lib.GLib.Quark GetQuark()
         {
             CheckGetQuarkArgs();
             var ret_ = g_key_file_error_quark();

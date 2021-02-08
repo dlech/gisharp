@@ -32,7 +32,7 @@ namespace GISharp.Lib.Gtk
     /// <summary>
     /// Extension methods for <see cref="ShortcutType"/>.
     /// </summary>
-    public static partial class ShortcutTypeExtensions
+    public static unsafe partial class ShortcutTypeExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = gtk_shortcut_type_get_type();
 
@@ -40,6 +40,6 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType gtk_shortcut_type_get_type();
+        private static extern GISharp.Lib.GObject.GType gtk_shortcut_type_get_type();
     }
 }

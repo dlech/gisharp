@@ -24,7 +24,7 @@ namespace GISharp.Lib.GObject
     /// </summary>
     [GType("GType", IsProxyForUnmanagedType = true)]
     [DebuggerDisplay("{Name}")]
-    public struct GType
+    public unsafe struct GType
     {
         static readonly Quark managedTypeQuark = Quark.FromString("gisharp-gtype-managed-type-quark");
         static readonly Dictionary<Type, GType> typeMap = new();
@@ -719,7 +719,7 @@ namespace GISharp.Lib.GObject
             <type name="GType" type="GType" managed-name="GType" />
             </array> */
         /* transfer-ownership:full */
-        static extern unsafe IntPtr g_type_children(
+        static extern IntPtr g_type_children(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType type,
@@ -733,7 +733,7 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// array of child types
         /// </returns>
-        public unsafe ReadOnlyMemory<GType> Children {
+        public ReadOnlyMemory<GType> Children {
             get {
                 uint nChildren_;
                 var ret_ = g_type_children(this, &nChildren_);
@@ -835,7 +835,7 @@ namespace GISharp.Lib.GObject
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe GType g_type_register_static(
+        static extern GType g_type_register_static(
             GType parentType,
             IntPtr typeName,
             TypeInfo* info,
@@ -850,7 +850,7 @@ namespace GISharp.Lib.GObject
         /// <param name="typeName">The name of the new type.</param>
         /// <param name="info"><see cref="TypeInfo"/> structure for this type.</param>
         /// <param name="flags">Bitwise combination of <see cref="TypeFlags"/> values.</param>
-        static unsafe GType RegisterStatic(GType parentType, string typeName, in TypeInfo info, TypeFlags flags)
+        static GType RegisterStatic(GType parentType, string typeName, in TypeInfo info, TypeFlags flags)
         {
             using var typeNameUtf8 = typeName.ToUtf8();
             var typeName_ = typeNameUtf8.UnsafeHandle;
@@ -2155,7 +2155,7 @@ namespace GISharp.Lib.GObject
         /// <returns>
         /// Array of interface types
         /// </returns>
-        public static unsafe ReadOnlyMemory<GType> Interfaces(GType type)
+        public static ReadOnlyMemory<GType> Interfaces(GType type)
         {
             uint nInterfaces_;
             var ret_ = g_type_interfaces(type, &nInterfaces_);

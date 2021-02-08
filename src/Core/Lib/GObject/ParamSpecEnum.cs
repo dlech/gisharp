@@ -13,13 +13,13 @@ namespace GISharp.Lib.GObject
     /// properties.
     /// </summary>
     [GType("GParamEnum", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecEnum : ParamSpec
+    public sealed unsafe class ParamSpecEnum : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecEnum"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -42,13 +42,13 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the <see cref="EnumClass"/> for the enum
         /// </summary>
-        public unsafe EnumClass EnumClass =>
+        public EnumClass EnumClass =>
             Opaque.GetInstance<EnumClass>((IntPtr)((UnmanagedStruct*)UnsafeHandle)->EnumClass, Transfer.None);
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new System.Enum DefaultValue {
+        public new System.Enum DefaultValue {
             get {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
                 var gType = ((UnmanagedStruct*)UnsafeHandle)->EnumClass->GTypeClass.GType;

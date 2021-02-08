@@ -40,9 +40,10 @@ namespace GISharp.Lib.GObject
         /* transfer-ownership:none nullable:1 allow-none:1 */
         IntPtr marshalData);
 
-    static class ClosureMarshalFactory
+    static unsafe class ClosureMarshalFactory
     {
-        class UserData {
+        class UserData
+        {
             public readonly ClosureMarshal ClosureMarshal;
             public readonly UnmanagedClosureMarshal UnmanagedClosureMarshal;
             public readonly UnmanagedClosureNotify UnmanagedClosureNotify;
@@ -57,7 +58,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        public unsafe static (UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr) Create(ClosureMarshal closureMarshal, CallbackScope scope)
+        public static (UnmanagedClosureMarshal, UnmanagedClosureNotify, IntPtr) Create(ClosureMarshal closureMarshal, CallbackScope scope)
         {
             var userData = new UserData(closureMarshal, UnmanagedClosureMarshal, UnmanagedClosureNotify, scope);
             var userData_ = GCHandle.Alloc(userData);
@@ -65,7 +66,7 @@ namespace GISharp.Lib.GObject
             return (userData.UnmanagedClosureMarshal, userData.UnmanagedClosureNotify, (IntPtr)userData_);
         }
 
-        static unsafe void UnmanagedClosureMarshal(IntPtr closure_, Value* returnValue_, uint nParamValues_, Value* paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
+        static void UnmanagedClosureMarshal(IntPtr closure_, Value* returnValue_, uint nParamValues_, Value* paramValues_, IntPtr invocationHint_, IntPtr marshalData_)
         {
             try {
                 var closure = Opaque.GetInstance<Closure>(closure_, Transfer.None);

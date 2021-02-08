@@ -18,7 +18,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Extension methods for <see cref="OptionError"/>.
     /// </summary>
-    public static partial class OptionErrorDomain
+    public static unsafe partial class OptionErrorDomain
     {
         /// <include file="OptionError.xmldoc" path="declaration/member[@name='OptionErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
@@ -27,9 +27,9 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Quark g_option_error_quark();
+        private static extern GISharp.Lib.GLib.Quark g_option_error_quark();
 
-        private static unsafe GISharp.Lib.GLib.Quark GetQuark()
+        private static GISharp.Lib.GLib.Quark GetQuark()
         {
             CheckGetQuarkArgs();
             var ret_ = g_option_error_quark();

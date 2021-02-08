@@ -10,7 +10,7 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// A structure holding in-depth information for a specific signal.
     /// </summary>
-    public struct SignalQuery
+    public unsafe struct SignalQuery
     {
         uint signalId;
         IntPtr signalName;
@@ -54,6 +54,6 @@ namespace GISharp.Lib.GObject
         /// ReturnType callback (IntPtr data1, [ParamTypes paramNames,] IntPtr data2);
         /// </code>
         /// </remarks>
-        public unsafe ReadOnlySpan<GType> ParamTypes => new ReadOnlySpan<GType>((void*)paramTypes, (int)nParams);
+        public ReadOnlySpan<GType> ParamTypes => new ReadOnlySpan<GType>((void*)paramTypes, (int)nParams);
     }
 }

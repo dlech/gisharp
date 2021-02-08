@@ -4,12 +4,12 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="FileIface.xmldoc" path="declaration/member[@name='FileIface']/*" />
-    public sealed class FileIface : GISharp.Lib.GObject.TypeInterface
+    public sealed unsafe class FileIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="FileIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
@@ -503,12 +503,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="Dup"/> methods.
         /// </summary>
-        public static class DupMarshal
+        public static unsafe class DupMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedDup Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedDup Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedDup(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doDup = (Dup)methodInfo.CreateDelegate(typeof(Dup), file); var ret = doDup(); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
@@ -533,12 +533,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="Hash"/> methods.
         /// </summary>
-        public static class HashMarshal
+        public static unsafe class HashMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.UInt32 unmanagedHash(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), file); var ret = doHash(); var ret_ = (System.UInt32)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.UInt32); }
 
@@ -566,12 +566,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file2);
         /// <summary>
         /// Class for marshalling <see cref="Equal"/> methods.
         /// </summary>
-        public static class EqualMarshal
+        public static unsafe class EqualMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedEqual Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedEqual(GISharp.Lib.Gio.File.UnmanagedStruct* file1_, GISharp.Lib.Gio.File.UnmanagedStruct* file2_) { try { var file1 = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file1_, GISharp.Runtime.Transfer.None)!; var file2 = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file2_, GISharp.Runtime.Transfer.None)!; var doEqual = (Equal)methodInfo.CreateDelegate(typeof(Equal), file1); var ret = doEqual(file2); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -596,12 +596,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="IsNative"/> methods.
         /// </summary>
-        public static class IsNativeMarshal
+        public static unsafe class IsNativeMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedIsNative Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedIsNative Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedIsNative(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doIsNative = (IsNative)methodInfo.CreateDelegate(typeof(IsNative), file); var ret = doIsNative(); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -629,12 +629,12 @@ System.Byte* uriScheme);
         /// <summary>
         /// Class for marshalling <see cref="HasUriScheme"/> methods.
         /// </summary>
-        public static class HasUriSchemeMarshal
+        public static unsafe class HasUriSchemeMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedHasUriScheme Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedHasUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedHasUriScheme(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* uriScheme_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var uriScheme = new GISharp.Lib.GLib.UnownedUtf8(uriScheme_); var doHasUriScheme = (HasUriScheme)methodInfo.CreateDelegate(typeof(HasUriScheme), file); var ret = doHasUriScheme(uriScheme); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -659,12 +659,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="GetUriScheme"/> methods.
         /// </summary>
-        public static class GetUriSchemeMarshal
+        public static unsafe class GetUriSchemeMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetUriScheme Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetUriScheme Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Byte* unmanagedGetUriScheme(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetUriScheme = (GetUriScheme)methodInfo.CreateDelegate(typeof(GetUriScheme), file); var ret = doGetUriScheme(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
@@ -689,12 +689,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="GetBasename"/> methods.
         /// </summary>
-        public static class GetBasenameMarshal
+        public static unsafe class GetBasenameMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetBasename Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetBasename Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Byte* unmanagedGetBasename(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetBasename = (GetBasename)methodInfo.CreateDelegate(typeof(GetBasename), file); var ret = doGetBasename(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
@@ -719,12 +719,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="GetPath"/> methods.
         /// </summary>
-        public static class GetPathMarshal
+        public static unsafe class GetPathMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetPath Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetPath Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Byte* unmanagedGetPath(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetPath = (GetPath)methodInfo.CreateDelegate(typeof(GetPath), file); var ret = doGetPath(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
@@ -749,12 +749,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="GetUri"/> methods.
         /// </summary>
-        public static class GetUriMarshal
+        public static unsafe class GetUriMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetUri Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetUri Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Byte* unmanagedGetUri(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetUri = (GetUri)methodInfo.CreateDelegate(typeof(GetUri), file); var ret = doGetUri(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
@@ -779,12 +779,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="GetParseName"/> methods.
         /// </summary>
-        public static class GetParseNameMarshal
+        public static unsafe class GetParseNameMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetParseName Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetParseName Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Byte* unmanagedGetParseName(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetParseName = (GetParseName)methodInfo.CreateDelegate(typeof(GetParseName), file); var ret = doGetParseName(); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
@@ -809,12 +809,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="GetParent"/> methods.
         /// </summary>
-        public static class GetParentMarshal
+        public static unsafe class GetParentMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetParent Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetParent Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedGetParent(GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doGetParent = (GetParent)methodInfo.CreateDelegate(typeof(GetParent), file); var ret = doGetParent(); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
@@ -842,12 +842,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file);
         /// <summary>
         /// Class for marshalling <see cref="PrefixMatches"/> methods.
         /// </summary>
-        public static class PrefixMatchesMarshal
+        public static unsafe class PrefixMatchesMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedPrefixMatches Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedPrefixMatches Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedPrefixMatches(GISharp.Lib.Gio.File.UnmanagedStruct* prefix_, GISharp.Lib.Gio.File.UnmanagedStruct* file_) { try { var prefix = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)prefix_, GISharp.Runtime.Transfer.None)!; var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var doPrefixMatches = (PrefixMatches)methodInfo.CreateDelegate(typeof(PrefixMatches), prefix); var ret = doPrefixMatches(file); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -875,12 +875,12 @@ GISharp.Lib.Gio.File.UnmanagedStruct* descendant);
         /// <summary>
         /// Class for marshalling <see cref="GetRelativePath"/> methods.
         /// </summary>
-        public static class GetRelativePathMarshal
+        public static unsafe class GetRelativePathMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetRelativePath Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Byte* unmanagedGetRelativePath(GISharp.Lib.Gio.File.UnmanagedStruct* parent_, GISharp.Lib.Gio.File.UnmanagedStruct* descendant_) { try { var parent = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)parent_, GISharp.Runtime.Transfer.None)!; var descendant = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)descendant_, GISharp.Runtime.Transfer.None)!; var doGetRelativePath = (GetRelativePath)methodInfo.CreateDelegate(typeof(GetRelativePath), parent); var ret = doGetRelativePath(descendant); var ret_ = (System.Byte*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
@@ -908,12 +908,12 @@ System.Byte* relativePath);
         /// <summary>
         /// Class for marshalling <see cref="ResolveRelativePath"/> methods.
         /// </summary>
-        public static class ResolveRelativePathMarshal
+        public static unsafe class ResolveRelativePathMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedResolveRelativePath Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedResolveRelativePath Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedResolveRelativePath(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* relativePath_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var relativePath = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)relativePath_, GISharp.Runtime.Transfer.None)!; var doResolveRelativePath = (ResolveRelativePath)methodInfo.CreateDelegate(typeof(ResolveRelativePath), file); var ret = doResolveRelativePath(relativePath); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
@@ -944,12 +944,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="GetChildForDisplayName"/> methods.
         /// </summary>
-        public static class GetChildForDisplayNameMarshal
+        public static unsafe class GetChildForDisplayNameMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetChildForDisplayName Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetChildForDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedGetChildForDisplayName(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* displayName_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_); var doGetChildForDisplayName = (GetChildForDisplayName)methodInfo.CreateDelegate(typeof(GetChildForDisplayName), file); var ret = doGetChildForDisplayName(displayName); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
@@ -992,12 +992,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="EnumerateChildrenAsync"/> methods.
         /// </summary>
-        public static class EnumerateChildrenAsyncMarshal
+        public static unsafe class EnumerateChildrenAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedEnumerateChildrenAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedEnumerateChildrenAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedEnumerateChildrenAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doEnumerateChildrenAsync = (EnumerateChildrenAsync)methodInfo.CreateDelegate(typeof(EnumerateChildrenAsync), file); doEnumerateChildrenAsync(attributes, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -1034,12 +1034,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="QueryInfo"/> methods.
         /// </summary>
-        public static class QueryInfoMarshal
+        public static unsafe class QueryInfoMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedQueryInfo Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedQueryInfo Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileInfo.UnmanagedStruct* unmanagedQueryInfo(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryInfo = (QueryInfo)methodInfo.CreateDelegate(typeof(QueryInfo), file); var ret = doQueryInfo(attributes, flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInfo.UnmanagedStruct*); }
 
@@ -1082,12 +1082,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="QueryInfoAsync"/> methods.
         /// </summary>
-        public static class QueryInfoAsyncMarshal
+        public static unsafe class QueryInfoAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedQueryInfoAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedQueryInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedQueryInfoAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryInfoAsync = (QueryInfoAsync)methodInfo.CreateDelegate(typeof(QueryInfoAsync), file); doQueryInfoAsync(attributes, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -1118,12 +1118,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="QueryInfoFinish"/> methods.
         /// </summary>
-        public static class QueryInfoFinishMarshal
+        public static unsafe class QueryInfoFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedQueryInfoFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedQueryInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileInfo.UnmanagedStruct* unmanagedQueryInfoFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doQueryInfoFinish = (QueryInfoFinish)methodInfo.CreateDelegate(typeof(QueryInfoFinish), file); var ret = doQueryInfoFinish(res); var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInfo.UnmanagedStruct*); }
 
@@ -1157,12 +1157,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="QueryFilesystemInfo"/> methods.
         /// </summary>
-        public static class QueryFilesystemInfoMarshal
+        public static unsafe class QueryFilesystemInfoMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedQueryFilesystemInfo Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedQueryFilesystemInfo Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileInfo.UnmanagedStruct* unmanagedQueryFilesystemInfo(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryFilesystemInfo = (QueryFilesystemInfo)methodInfo.CreateDelegate(typeof(QueryFilesystemInfo), file); var ret = doQueryFilesystemInfo(attributes, cancellable); var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInfo.UnmanagedStruct*); }
 
@@ -1202,12 +1202,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="QueryFilesystemInfoAsync"/> methods.
         /// </summary>
-        public static class QueryFilesystemInfoAsyncMarshal
+        public static unsafe class QueryFilesystemInfoAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedQueryFilesystemInfoAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedQueryFilesystemInfoAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedQueryFilesystemInfoAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attributes_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attributes = new GISharp.Lib.GLib.UnownedUtf8(attributes_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryFilesystemInfoAsync = (QueryFilesystemInfoAsync)methodInfo.CreateDelegate(typeof(QueryFilesystemInfoAsync), file); doQueryFilesystemInfoAsync(attributes, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -1238,12 +1238,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="QueryFilesystemInfoFinish"/> methods.
         /// </summary>
-        public static class QueryFilesystemInfoFinishMarshal
+        public static unsafe class QueryFilesystemInfoFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedQueryFilesystemInfoFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedQueryFilesystemInfoFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileInfo.UnmanagedStruct* unmanagedQueryFilesystemInfoFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doQueryFilesystemInfoFinish = (QueryFilesystemInfoFinish)methodInfo.CreateDelegate(typeof(QueryFilesystemInfoFinish), file); var ret = doQueryFilesystemInfoFinish(res); var ret_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInfo.UnmanagedStruct*); }
 
@@ -1280,12 +1280,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="FindEnclosingMountAsync"/> methods.
         /// </summary>
-        public static class FindEnclosingMountAsyncMarshal
+        public static unsafe class FindEnclosingMountAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedFindEnclosingMountAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedFindEnclosingMountAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedFindEnclosingMountAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doFindEnclosingMountAsync = (FindEnclosingMountAsync)methodInfo.CreateDelegate(typeof(FindEnclosingMountAsync), file); doFindEnclosingMountAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -1319,12 +1319,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="SetDisplayName"/> methods.
         /// </summary>
-        public static class SetDisplayNameMarshal
+        public static unsafe class SetDisplayNameMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedSetDisplayName Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedSetDisplayName Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedSetDisplayName(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* displayName_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetDisplayName = (SetDisplayName)methodInfo.CreateDelegate(typeof(SetDisplayName), file); var ret = doSetDisplayName(displayName, cancellable); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
@@ -1364,12 +1364,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="SetDisplayNameAsync"/> methods.
         /// </summary>
-        public static class SetDisplayNameAsyncMarshal
+        public static unsafe class SetDisplayNameAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedSetDisplayNameAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedSetDisplayNameAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedSetDisplayNameAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* displayName_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var displayName = new GISharp.Lib.GLib.UnownedUtf8(displayName_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetDisplayNameAsync = (SetDisplayNameAsync)methodInfo.CreateDelegate(typeof(SetDisplayNameAsync), file); doSetDisplayNameAsync(displayName, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -1400,12 +1400,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="SetDisplayNameFinish"/> methods.
         /// </summary>
-        public static class SetDisplayNameFinishMarshal
+        public static unsafe class SetDisplayNameFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedSetDisplayNameFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedSetDisplayNameFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedSetDisplayNameFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doSetDisplayNameFinish = (SetDisplayNameFinish)methodInfo.CreateDelegate(typeof(SetDisplayNameFinish), file); var ret = doSetDisplayNameFinish(res); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
@@ -1436,12 +1436,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="QuerySettableAttributes"/> methods.
         /// </summary>
-        public static class QuerySettableAttributesMarshal
+        public static unsafe class QuerySettableAttributesMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedQuerySettableAttributes Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedQuerySettableAttributes Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct* unmanagedQuerySettableAttributes(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQuerySettableAttributes = (QuerySettableAttributes)methodInfo.CreateDelegate(typeof(QuerySettableAttributes), file); var ret = doQuerySettableAttributes(cancellable); var ret_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*); }
 
@@ -1472,12 +1472,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="QueryWritableNamespaces"/> methods.
         /// </summary>
-        public static class QueryWritableNamespacesMarshal
+        public static unsafe class QueryWritableNamespacesMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedQueryWritableNamespaces Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedQueryWritableNamespaces Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct* unmanagedQueryWritableNamespaces(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doQueryWritableNamespaces = (QueryWritableNamespaces)methodInfo.CreateDelegate(typeof(QueryWritableNamespaces), file); var ret = doQueryWritableNamespaces(cancellable); var ret_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*); }
 
@@ -1520,12 +1520,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="SetAttribute"/> methods.
         /// </summary>
-        public static class SetAttributeMarshal
+        public static unsafe class SetAttributeMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedSetAttribute Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedSetAttribute Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedSetAttribute(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* attribute_, GISharp.Lib.Gio.FileAttributeType type_, System.IntPtr valueP_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var attribute = new GISharp.Lib.GLib.UnownedUtf8(attribute_); var type = (GISharp.Lib.Gio.FileAttributeType)type_; var valueP = (System.IntPtr)valueP_; var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetAttribute = (SetAttribute)methodInfo.CreateDelegate(typeof(SetAttribute), file); doSetAttribute(attribute, type, valueP, flags, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -1562,12 +1562,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="SetAttributesFromInfo"/> methods.
         /// </summary>
-        public static class SetAttributesFromInfoMarshal
+        public static unsafe class SetAttributesFromInfoMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedSetAttributesFromInfo Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedSetAttributesFromInfo Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedSetAttributesFromInfo(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var info = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>((System.IntPtr)info_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetAttributesFromInfo = (SetAttributesFromInfo)methodInfo.CreateDelegate(typeof(SetAttributesFromInfo), file); doSetAttributesFromInfo(info, flags, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -1610,12 +1610,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="SetAttributesAsync"/> methods.
         /// </summary>
-        public static class SetAttributesAsyncMarshal
+        public static unsafe class SetAttributesAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedSetAttributesAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedSetAttributesAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedSetAttributesAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info_, GISharp.Lib.Gio.FileQueryInfoFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var info = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.FileInfo>((System.IntPtr)info_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileQueryInfoFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSetAttributesAsync = (SetAttributesAsync)methodInfo.CreateDelegate(typeof(SetAttributesAsync), file); doSetAttributesAsync(info, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -1649,12 +1649,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="SetAttributesFinish"/> methods.
         /// </summary>
-        public static class SetAttributesFinishMarshal
+        public static unsafe class SetAttributesFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedSetAttributesFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedSetAttributesFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedSetAttributesFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.Gio.FileInfo.UnmanagedStruct** info_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doSetAttributesFinish = (SetAttributesFinish)methodInfo.CreateDelegate(typeof(SetAttributesFinish), file); doSetAttributesFinish(result,out var info); *info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)info.Take(); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -1685,12 +1685,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="ReadFn"/> methods.
         /// </summary>
-        public static class ReadFnMarshal
+        public static unsafe class ReadFnMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedReadFn Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedReadFn Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileInputStream.UnmanagedStruct* unmanagedReadFn(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReadFn = (ReadFn)methodInfo.CreateDelegate(typeof(ReadFn), file); var ret = doReadFn(cancellable); var ret_ = (GISharp.Lib.Gio.FileInputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInputStream.UnmanagedStruct*); }
 
@@ -1727,12 +1727,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="ReadAsync"/> methods.
         /// </summary>
-        public static class ReadAsyncMarshal
+        public static unsafe class ReadAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedReadAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedReadAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedReadAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReadAsync = (ReadAsync)methodInfo.CreateDelegate(typeof(ReadAsync), file); doReadAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -1763,12 +1763,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="ReadFinish"/> methods.
         /// </summary>
-        public static class ReadFinishMarshal
+        public static unsafe class ReadFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedReadFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedReadFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileInputStream.UnmanagedStruct* unmanagedReadFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doReadFinish = (ReadFinish)methodInfo.CreateDelegate(typeof(ReadFinish), file); var ret = doReadFinish(res); var ret_ = (GISharp.Lib.Gio.FileInputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileInputStream.UnmanagedStruct*); }
 
@@ -1802,12 +1802,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="AppendTo"/> methods.
         /// </summary>
-        public static class AppendToMarshal
+        public static unsafe class AppendToMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedAppendTo Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedAppendTo Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedAppendTo(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doAppendTo = (AppendTo)methodInfo.CreateDelegate(typeof(AppendTo), file); var ret = doAppendTo(flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
@@ -1847,12 +1847,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="AppendToAsync"/> methods.
         /// </summary>
-        public static class AppendToAsyncMarshal
+        public static unsafe class AppendToAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedAppendToAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedAppendToAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedAppendToAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doAppendToAsync = (AppendToAsync)methodInfo.CreateDelegate(typeof(AppendToAsync), file); doAppendToAsync(flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -1883,12 +1883,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="AppendToFinish"/> methods.
         /// </summary>
-        public static class AppendToFinishMarshal
+        public static unsafe class AppendToFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedAppendToFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedAppendToFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedAppendToFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doAppendToFinish = (AppendToFinish)methodInfo.CreateDelegate(typeof(AppendToFinish), file); var ret = doAppendToFinish(res); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
@@ -1922,12 +1922,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="Create"/> methods.
         /// </summary>
-        public static class CreateMarshal
+        public static unsafe class CreateMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCreate Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCreate Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedCreate(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCreate = (Create)methodInfo.CreateDelegate(typeof(Create), file); var ret = doCreate(flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
@@ -1967,12 +1967,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="CreateAsync"/> methods.
         /// </summary>
-        public static class CreateAsyncMarshal
+        public static unsafe class CreateAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCreateAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCreateAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCreateAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCreateAsync = (CreateAsync)methodInfo.CreateDelegate(typeof(CreateAsync), file); doCreateAsync(flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -2003,12 +2003,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="CreateFinish"/> methods.
         /// </summary>
-        public static class CreateFinishMarshal
+        public static unsafe class CreateFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCreateFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCreateFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedCreateFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doCreateFinish = (CreateFinish)methodInfo.CreateDelegate(typeof(CreateFinish), file); var ret = doCreateFinish(res); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
@@ -2048,12 +2048,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="Replace"/> methods.
         /// </summary>
-        public static class ReplaceMarshal
+        public static unsafe class ReplaceMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedReplace Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedReplace Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedReplace(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_); var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_); var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReplace = (Replace)methodInfo.CreateDelegate(typeof(Replace), file); var ret = doReplace(etag, makeBackup, flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
@@ -2099,12 +2099,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="ReplaceAsync"/> methods.
         /// </summary>
-        public static class ReplaceAsyncMarshal
+        public static unsafe class ReplaceAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedReplaceAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedReplaceAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedReplaceAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_); var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_); var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReplaceAsync = (ReplaceAsync)methodInfo.CreateDelegate(typeof(ReplaceAsync), file); doReplaceAsync(etag, makeBackup, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -2135,12 +2135,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="ReplaceFinish"/> methods.
         /// </summary>
-        public static class ReplaceFinishMarshal
+        public static unsafe class ReplaceFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedReplaceFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedReplaceFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* unmanagedReplaceFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doReplaceFinish = (ReplaceFinish)methodInfo.CreateDelegate(typeof(ReplaceFinish), file); var ret = doReplaceFinish(res); var ret_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*); }
 
@@ -2171,12 +2171,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="DeleteFile"/> methods.
         /// </summary>
-        public static class DeleteFileMarshal
+        public static unsafe class DeleteFileMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedDeleteFile Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedDeleteFile Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedDeleteFile(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doDeleteFile = (DeleteFile)methodInfo.CreateDelegate(typeof(DeleteFile), file); doDeleteFile(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2213,12 +2213,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="DeleteFileAsync"/> methods.
         /// </summary>
-        public static class DeleteFileAsyncMarshal
+        public static unsafe class DeleteFileAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedDeleteFileAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedDeleteFileAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedDeleteFileAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doDeleteFileAsync = (DeleteFileAsync)methodInfo.CreateDelegate(typeof(DeleteFileAsync), file); doDeleteFileAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -2249,12 +2249,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="DeleteFileFinish"/> methods.
         /// </summary>
-        public static class DeleteFileFinishMarshal
+        public static unsafe class DeleteFileFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedDeleteFileFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedDeleteFileFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedDeleteFileFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doDeleteFileFinish = (DeleteFileFinish)methodInfo.CreateDelegate(typeof(DeleteFileFinish), file); doDeleteFileFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2285,12 +2285,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="Trash"/> methods.
         /// </summary>
-        public static class TrashMarshal
+        public static unsafe class TrashMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedTrash Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedTrash Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedTrash(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doTrash = (Trash)methodInfo.CreateDelegate(typeof(Trash), file); doTrash(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2327,12 +2327,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="TrashAsync"/> methods.
         /// </summary>
-        public static class TrashAsyncMarshal
+        public static unsafe class TrashAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedTrashAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedTrashAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedTrashAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doTrashAsync = (TrashAsync)methodInfo.CreateDelegate(typeof(TrashAsync), file); doTrashAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -2363,12 +2363,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="TrashFinish"/> methods.
         /// </summary>
-        public static class TrashFinishMarshal
+        public static unsafe class TrashFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedTrashFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedTrashFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedTrashFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doTrashFinish = (TrashFinish)methodInfo.CreateDelegate(typeof(TrashFinish), file); doTrashFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2399,12 +2399,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="MakeDirectory"/> methods.
         /// </summary>
-        public static class MakeDirectoryMarshal
+        public static unsafe class MakeDirectoryMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedMakeDirectory Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedMakeDirectory Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMakeDirectory(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doMakeDirectory = (MakeDirectory)methodInfo.CreateDelegate(typeof(MakeDirectory), file); doMakeDirectory(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2441,12 +2441,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="MakeDirectoryAsync"/> methods.
         /// </summary>
-        public static class MakeDirectoryAsyncMarshal
+        public static unsafe class MakeDirectoryAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedMakeDirectoryAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedMakeDirectoryAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedMakeDirectoryAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doMakeDirectoryAsync = (MakeDirectoryAsync)methodInfo.CreateDelegate(typeof(MakeDirectoryAsync), file); doMakeDirectoryAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -2477,12 +2477,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="MakeDirectoryFinish"/> methods.
         /// </summary>
-        public static class MakeDirectoryFinishMarshal
+        public static unsafe class MakeDirectoryFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedMakeDirectoryFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedMakeDirectoryFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMakeDirectoryFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doMakeDirectoryFinish = (MakeDirectoryFinish)methodInfo.CreateDelegate(typeof(MakeDirectoryFinish), file); doMakeDirectoryFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2516,12 +2516,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="MakeSymbolicLink"/> methods.
         /// </summary>
-        public static class MakeSymbolicLinkMarshal
+        public static unsafe class MakeSymbolicLinkMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedMakeSymbolicLink Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedMakeSymbolicLink Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMakeSymbolicLink(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* symlinkValue_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var symlinkValue = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Filename>((System.IntPtr)symlinkValue_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doMakeSymbolicLink = (MakeSymbolicLink)methodInfo.CreateDelegate(typeof(MakeSymbolicLink), file); doMakeSymbolicLink(symlinkValue, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2564,12 +2564,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="Copy"/> methods.
         /// </summary>
-        public static class CopyMarshal
+        public static unsafe class CopyMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCopy Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCopy Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCopy(GISharp.Lib.Gio.File.UnmanagedStruct* source_, GISharp.Lib.Gio.File.UnmanagedStruct* destination_, GISharp.Lib.Gio.FileCopyFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)destination_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_; var progressCallback = progressCallback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCopy = (Copy)methodInfo.CreateDelegate(typeof(Copy), source); doCopy(destination, flags, progressCallback, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2618,12 +2618,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="CopyAsync"/> methods.
         /// </summary>
-        public static class CopyAsyncMarshal
+        public static unsafe class CopyAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCopyAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCopyAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCopyAsync(GISharp.Lib.Gio.File.UnmanagedStruct* source_, GISharp.Lib.Gio.File.UnmanagedStruct* destination_, GISharp.Lib.Gio.FileCopyFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, System.IntPtr callback_, System.IntPtr userData_) { try { var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)destination_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var progressCallback = progressCallback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_); var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCopyAsync = (CopyAsync)methodInfo.CreateDelegate(typeof(CopyAsync), source); doCopyAsync(destination, flags, ioPriority, progressCallback, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -2654,12 +2654,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="CopyFinish"/> methods.
         /// </summary>
-        public static class CopyFinishMarshal
+        public static unsafe class CopyFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCopyFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCopyFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCopyFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doCopyFinish = (CopyFinish)methodInfo.CreateDelegate(typeof(CopyFinish), file); doCopyFinish(res); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2702,12 +2702,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="Move"/> methods.
         /// </summary>
-        public static class MoveMarshal
+        public static unsafe class MoveMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedMove Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedMove Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMove(GISharp.Lib.Gio.File.UnmanagedStruct* source_, GISharp.Lib.Gio.File.UnmanagedStruct* destination_, GISharp.Lib.Gio.FileCopyFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr progressCallback_, System.IntPtr progressCallbackData_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var source = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var destination = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)destination_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCopyFlags)flags_; var progressCallback = progressCallback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.FileProgressCallback) : GISharp.Lib.Gio.FileProgressCallbackMarshal.FromPointer(progressCallback_, progressCallbackData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doMove = (Move)methodInfo.CreateDelegate(typeof(Move), source); doMove(destination, flags, progressCallback, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2738,12 +2738,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="MountMountableFinish"/> methods.
         /// </summary>
-        public static class MountMountableFinishMarshal
+        public static unsafe class MountMountableFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedMountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedMountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.File.UnmanagedStruct* unmanagedMountMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doMountMountableFinish = (MountMountableFinish)methodInfo.CreateDelegate(typeof(MountMountableFinish), file); var ret = doMountMountableFinish(result); var ret_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.File.UnmanagedStruct*); }
 
@@ -2774,12 +2774,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="UnmountMountableFinish"/> methods.
         /// </summary>
-        public static class UnmountMountableFinishMarshal
+        public static unsafe class UnmountMountableFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedUnmountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedUnmountMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedUnmountMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doUnmountMountableFinish = (UnmountMountableFinish)methodInfo.CreateDelegate(typeof(UnmountMountableFinish), file); doUnmountMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2810,12 +2810,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="EjectMountableFinish"/> methods.
         /// </summary>
-        public static class EjectMountableFinishMarshal
+        public static unsafe class EjectMountableFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedEjectMountableFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedEjectMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedEjectMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doEjectMountableFinish = (EjectMountableFinish)methodInfo.CreateDelegate(typeof(EjectMountableFinish), file); doEjectMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2846,12 +2846,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="MountEnclosingVolumeFinish"/> methods.
         /// </summary>
-        public static class MountEnclosingVolumeFinishMarshal
+        public static unsafe class MountEnclosingVolumeFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedMountEnclosingVolumeFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedMountEnclosingVolumeFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMountEnclosingVolumeFinish(GISharp.Lib.Gio.File.UnmanagedStruct* location_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var location = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)location_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doMountEnclosingVolumeFinish = (MountEnclosingVolumeFinish)methodInfo.CreateDelegate(typeof(MountEnclosingVolumeFinish), location); doMountEnclosingVolumeFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -2882,12 +2882,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="OpenReadwrite"/> methods.
         /// </summary>
-        public static class OpenReadwriteMarshal
+        public static unsafe class OpenReadwriteMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedOpenReadwrite Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedOpenReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedOpenReadwrite(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doOpenReadwrite = (OpenReadwrite)methodInfo.CreateDelegate(typeof(OpenReadwrite), file); var ret = doOpenReadwrite(cancellable); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
@@ -2924,12 +2924,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="OpenReadwriteAsync"/> methods.
         /// </summary>
-        public static class OpenReadwriteAsyncMarshal
+        public static unsafe class OpenReadwriteAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedOpenReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedOpenReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedOpenReadwriteAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doOpenReadwriteAsync = (OpenReadwriteAsync)methodInfo.CreateDelegate(typeof(OpenReadwriteAsync), file); doOpenReadwriteAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -2960,12 +2960,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="OpenReadwriteFinish"/> methods.
         /// </summary>
-        public static class OpenReadwriteFinishMarshal
+        public static unsafe class OpenReadwriteFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedOpenReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedOpenReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedOpenReadwriteFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doOpenReadwriteFinish = (OpenReadwriteFinish)methodInfo.CreateDelegate(typeof(OpenReadwriteFinish), file); var ret = doOpenReadwriteFinish(res); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
@@ -2999,12 +2999,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="CreateReadwrite"/> methods.
         /// </summary>
-        public static class CreateReadwriteMarshal
+        public static unsafe class CreateReadwriteMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCreateReadwrite Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCreateReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedCreateReadwrite(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCreateReadwrite = (CreateReadwrite)methodInfo.CreateDelegate(typeof(CreateReadwrite), file); var ret = doCreateReadwrite(flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
@@ -3044,12 +3044,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="CreateReadwriteAsync"/> methods.
         /// </summary>
-        public static class CreateReadwriteAsyncMarshal
+        public static unsafe class CreateReadwriteAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCreateReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCreateReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCreateReadwriteAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCreateReadwriteAsync = (CreateReadwriteAsync)methodInfo.CreateDelegate(typeof(CreateReadwriteAsync), file); doCreateReadwriteAsync(flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -3080,12 +3080,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="CreateReadwriteFinish"/> methods.
         /// </summary>
-        public static class CreateReadwriteFinishMarshal
+        public static unsafe class CreateReadwriteFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCreateReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCreateReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedCreateReadwriteFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doCreateReadwriteFinish = (CreateReadwriteFinish)methodInfo.CreateDelegate(typeof(CreateReadwriteFinish), file); var ret = doCreateReadwriteFinish(res); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
@@ -3125,12 +3125,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="ReplaceReadwrite"/> methods.
         /// </summary>
-        public static class ReplaceReadwriteMarshal
+        public static unsafe class ReplaceReadwriteMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedReplaceReadwrite Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedReplaceReadwrite Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedReplaceReadwrite(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_); var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_); var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReplaceReadwrite = (ReplaceReadwrite)methodInfo.CreateDelegate(typeof(ReplaceReadwrite), file); var ret = doReplaceReadwrite(etag, makeBackup, flags, cancellable); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
@@ -3176,12 +3176,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="ReplaceReadwriteAsync"/> methods.
         /// </summary>
-        public static class ReplaceReadwriteAsyncMarshal
+        public static unsafe class ReplaceReadwriteAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedReplaceReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedReplaceReadwriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedReplaceReadwriteAsync(GISharp.Lib.Gio.File.UnmanagedStruct* file_, System.Byte* etag_, GISharp.Runtime.Boolean makeBackup_, GISharp.Lib.Gio.FileCreateFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var etag = new GISharp.Lib.GLib.NullableUnownedUtf8(etag_); var makeBackup = GISharp.Runtime.BooleanExtensions.IsTrue(makeBackup_); var flags = (GISharp.Lib.Gio.FileCreateFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doReplaceReadwriteAsync = (ReplaceReadwriteAsync)methodInfo.CreateDelegate(typeof(ReplaceReadwriteAsync), file); doReplaceReadwriteAsync(etag, makeBackup, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -3212,12 +3212,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="ReplaceReadwriteFinish"/> methods.
         /// </summary>
-        public static class ReplaceReadwriteFinishMarshal
+        public static unsafe class ReplaceReadwriteFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedReplaceReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedReplaceReadwriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* unmanagedReplaceReadwriteFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var res = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)res_, GISharp.Runtime.Transfer.None)!; var doReplaceReadwriteFinish = (ReplaceReadwriteFinish)methodInfo.CreateDelegate(typeof(ReplaceReadwriteFinish), file); var ret = doReplaceReadwriteFinish(res); var ret_ = (GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.FileIOStream.UnmanagedStruct*); }
 
@@ -3248,12 +3248,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="StartMountableFinish"/> methods.
         /// </summary>
-        public static class StartMountableFinishMarshal
+        public static unsafe class StartMountableFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedStartMountableFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedStartMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedStartMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doStartMountableFinish = (StartMountableFinish)methodInfo.CreateDelegate(typeof(StartMountableFinish), file); doStartMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -3284,12 +3284,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="StopMountableFinish"/> methods.
         /// </summary>
-        public static class StopMountableFinishMarshal
+        public static unsafe class StopMountableFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedStopMountableFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedStopMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedStopMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doStopMountableFinish = (StopMountableFinish)methodInfo.CreateDelegate(typeof(StopMountableFinish), file); doStopMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -3320,12 +3320,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="UnmountMountableWithOperationFinish"/> methods.
         /// </summary>
-        public static class UnmountMountableWithOperationFinishMarshal
+        public static unsafe class UnmountMountableWithOperationFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedUnmountMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedUnmountMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedUnmountMountableWithOperationFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doUnmountMountableWithOperationFinish = (UnmountMountableWithOperationFinish)methodInfo.CreateDelegate(typeof(UnmountMountableWithOperationFinish), file); doUnmountMountableWithOperationFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -3356,12 +3356,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="EjectMountableWithOperationFinish"/> methods.
         /// </summary>
-        public static class EjectMountableWithOperationFinishMarshal
+        public static unsafe class EjectMountableWithOperationFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedEjectMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedEjectMountableWithOperationFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedEjectMountableWithOperationFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doEjectMountableWithOperationFinish = (EjectMountableWithOperationFinish)methodInfo.CreateDelegate(typeof(EjectMountableWithOperationFinish), file); doEjectMountableWithOperationFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -3395,12 +3395,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="PollMountable"/> methods.
         /// </summary>
-        public static class PollMountableMarshal
+        public static unsafe class PollMountableMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedPollMountable Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedPollMountable Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedPollMountable(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doPollMountable = (PollMountable)methodInfo.CreateDelegate(typeof(PollMountable), file); doPollMountable(callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -3431,12 +3431,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="PollMountableFinish"/> methods.
         /// </summary>
-        public static class PollMountableFinishMarshal
+        public static unsafe class PollMountableFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedPollMountableFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedPollMountableFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedPollMountableFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doPollMountableFinish = (PollMountableFinish)methodInfo.CreateDelegate(typeof(PollMountableFinish), file); doPollMountableFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -3476,12 +3476,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="MeasureDiskUsageFinish"/> methods.
         /// </summary>
-        public static class MeasureDiskUsageFinishMarshal
+        public static unsafe class MeasureDiskUsageFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedMeasureDiskUsageFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedMeasureDiskUsageFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedMeasureDiskUsageFinish(GISharp.Lib.Gio.File.UnmanagedStruct* file_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.UInt64* diskUsage_, System.UInt64* numDirs_, System.UInt64* numFiles_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var file = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)file_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doMeasureDiskUsageFinish = (MeasureDiskUsageFinish)methodInfo.CreateDelegate(typeof(MeasureDiskUsageFinish), file); doMeasureDiskUsageFinish(result,out var diskUsage,out var numDirs,out var numFiles); *diskUsage_ = (System.UInt64)diskUsage; *numDirs_ = (System.UInt64)numDirs; *numFiles_ = (System.UInt64)numFiles; return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 

@@ -5,12 +5,12 @@ namespace GISharp.Lib.Gio
 {
     /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='ActionInterface']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
-    public sealed class ActionInterface : GISharp.Lib.GObject.TypeInterface
+    public sealed unsafe class ActionInterface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="ActionInterface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
@@ -79,12 +79,12 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// <summary>
         /// Class for marshalling <see cref="GetName"/> methods.
         /// </summary>
-        public static class GetNameMarshal
+        public static unsafe class GetNameMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetName Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetName Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Byte* unmanagedGetName(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetName = (GetName)methodInfo.CreateDelegate(typeof(GetName), action); var ret = doGetName(); var ret_ = (System.Byte*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
 
@@ -109,12 +109,12 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// <summary>
         /// Class for marshalling <see cref="GetParameterType"/> methods.
         /// </summary>
-        public static class GetParameterTypeMarshal
+        public static unsafe class GetParameterTypeMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetParameterType Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetParameterType Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.GLib.VariantType.UnmanagedStruct* unmanagedGetParameterType(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetParameterType = (GetParameterType)methodInfo.CreateDelegate(typeof(GetParameterType), action); var ret = doGetParameterType(); var ret_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(ret?.UnsafeHandle ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.VariantType.UnmanagedStruct*); }
 
@@ -139,12 +139,12 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// <summary>
         /// Class for marshalling <see cref="GetStateType"/> methods.
         /// </summary>
-        public static class GetStateTypeMarshal
+        public static unsafe class GetStateTypeMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetStateType Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetStateType Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.GLib.VariantType.UnmanagedStruct* unmanagedGetStateType(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetStateType = (GetStateType)methodInfo.CreateDelegate(typeof(GetStateType), action); var ret = doGetStateType(); var ret_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(ret?.UnsafeHandle ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.VariantType.UnmanagedStruct*); }
 
@@ -169,12 +169,12 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// <summary>
         /// Class for marshalling <see cref="GetStateHint"/> methods.
         /// </summary>
-        public static class GetStateHintMarshal
+        public static unsafe class GetStateHintMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetStateHint Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetStateHint Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedGetStateHint(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetStateHint = (GetStateHint)methodInfo.CreateDelegate(typeof(GetStateHint), action); var ret = doGetStateHint(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)(ret?.Take() ?? System.IntPtr.Zero); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
 
@@ -199,12 +199,12 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// <summary>
         /// Class for marshalling <see cref="GetEnabled"/> methods.
         /// </summary>
-        public static class GetEnabledMarshal
+        public static unsafe class GetEnabledMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetEnabled Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetEnabled Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedGetEnabled(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetEnabled = (GetEnabled)methodInfo.CreateDelegate(typeof(GetEnabled), action); var ret = doGetEnabled(); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -229,12 +229,12 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
         /// <summary>
         /// Class for marshalling <see cref="GetState"/> methods.
         /// </summary>
-        public static class GetStateMarshal
+        public static unsafe class GetStateMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetState Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetState Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.GLib.Variant.UnmanagedStruct* unmanagedGetState(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetState = (GetState)methodInfo.CreateDelegate(typeof(GetState), action); var ret = doGetState(); var ret_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.GLib.Variant.UnmanagedStruct*); }
 
@@ -262,12 +262,12 @@ GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
         /// <summary>
         /// Class for marshalling <see cref="ChangeState"/> methods.
         /// </summary>
-        public static class ChangeStateMarshal
+        public static unsafe class ChangeStateMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedChangeState Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedChangeState Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedChangeState(GISharp.Lib.Gio.Action.UnmanagedStruct* action_, GISharp.Lib.GLib.Variant.UnmanagedStruct* value_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)value_, GISharp.Runtime.Transfer.None)!; var doChangeState = (ChangeState)methodInfo.CreateDelegate(typeof(ChangeState), action); doChangeState(value); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -295,12 +295,12 @@ GISharp.Lib.GLib.Variant.UnmanagedStruct* parameter);
         /// <summary>
         /// Class for marshalling <see cref="Activate"/> methods.
         /// </summary>
-        public static class ActivateMarshal
+        public static unsafe class ActivateMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedActivate Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedActivate Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedActivate(GISharp.Lib.Gio.Action.UnmanagedStruct* action_, GISharp.Lib.GLib.Variant.UnmanagedStruct* parameter_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)parameter_, GISharp.Runtime.Transfer.None); var doActivate = (Activate)methodInfo.CreateDelegate(typeof(Activate), action); doActivate(parameter); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 

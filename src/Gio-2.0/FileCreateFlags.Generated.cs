@@ -20,7 +20,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FileCreateFlags"/>.
     /// </summary>
-    public static partial class FileCreateFlagsExtensions
+    public static unsafe partial class FileCreateFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_create_flags_get_type();
 
@@ -28,6 +28,6 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_file_create_flags_get_type();
+        private static extern GISharp.Lib.GObject.GType g_file_create_flags_get_type();
     }
 }

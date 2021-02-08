@@ -8,7 +8,7 @@ using clong = GISharp.Runtime.CLong;
 
 namespace GISharp.Lib.GLib
 {
-    partial class Utf8Extensions
+    unsafe partial class Utf8Extensions
     {
         static partial void CheckSubstringArgs(this UnownedUtf8 str, clong startPos, clong endPos)
         {
@@ -24,7 +24,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <include file="Utf8Extensions.xmldoc" path="declaration/member[@name='Utf8Extensions.CaseFold(GISharp.Lib.GLib.UnownedUtf8,System.Int32)']/*" />
-        public unsafe static Utf8 CaseFold(this UnownedUtf8 str)
+        public static Utf8 CaseFold(this UnownedUtf8 str)
         {
             var str_ = (byte*)str.UnsafeHandle;
             var len_ = (IntPtr)str.Length;

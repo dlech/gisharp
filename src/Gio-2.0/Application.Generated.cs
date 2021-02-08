@@ -7,14 +7,14 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.28")]
     [GISharp.Runtime.GTypeAttribute("GApplication", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ApplicationClass))]
-    public partial class Application : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IActionGroup, GISharp.Lib.Gio.IActionMap
+    public unsafe partial class Application : GISharp.Lib.GObject.Object, GISharp.Lib.Gio.IActionGroup, GISharp.Lib.Gio.IActionMap
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_application_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="Application.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentInstance']/*" />
@@ -126,7 +126,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.Gio.Application.UnmanagedStruct* g_application_new(
+        private static extern GISharp.Lib.Gio.Application.UnmanagedStruct* g_application_new(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.Byte* applicationId,
@@ -134,7 +134,7 @@ namespace GISharp.Lib.Gio
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationFlags flags);
 
-        static unsafe GISharp.Lib.Gio.Application.UnmanagedStruct* New(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
+        static GISharp.Lib.Gio.Application.UnmanagedStruct* New(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
         {
             CheckNewArgs(applicationId, flags);
             var applicationId_ = (System.Byte*)applicationId.UnsafeHandle;
@@ -144,7 +144,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Application(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.Gio.ApplicationFlags)']/*" />
-        public unsafe Application(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags) : this((System.IntPtr)New(applicationId, flags), GISharp.Runtime.Transfer.Full)
+        public Application(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags) : this((System.IntPtr)New(applicationId, flags), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -164,11 +164,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
         public event ActivateSignalHandler ActivateSignal { add => activateSignalSignalManager.Add(this, value); remove => activateSignalSignalManager.Remove(value); }
 
-        private static class ActivateSignalHandlerMarshal
+        private static unsafe class ActivateSignalHandlerMarshal
         {
             record UserData(ActivateSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe ActivateSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static ActivateSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.Application application) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; unmanagedCallback(application_, userData_); }
@@ -176,7 +176,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -191,7 +191,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
+            static void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
             {
                 try
                 {
@@ -219,11 +219,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("command-line", When = GISharp.Runtime.EmissionStage.Last)]
         public event CommandLineSignalHandler CommandLineSignal { add => commandLineSignalSignalManager.Add(this, value); remove => commandLineSignalSignalManager.Remove(value); }
 
-        private static class CommandLineSignalHandlerMarshal
+        private static unsafe class CommandLineSignalHandlerMarshal
         {
             record UserData(CommandLineSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe CommandLineSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static CommandLineSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*, System.IntPtr, System.Int32>)callback_;
                 System.Int32 managedCallback(GISharp.Lib.Gio.Application application, GISharp.Lib.Gio.ApplicationCommandLine commandLine) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; var commandLine_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)commandLine.UnsafeHandle; var ret_ = unmanagedCallback(application_,commandLine_,userData_); var ret = (System.Int32)ret_; return ret; }
@@ -231,7 +231,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -246,7 +246,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe System.Int32 ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine_, System.IntPtr userData_)
+            static System.Int32 ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine_, System.IntPtr userData_)
             {
                 try
                 {
@@ -280,11 +280,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("handle-local-options", When = GISharp.Runtime.EmissionStage.Last)]
         public event HandleLocalOptionsSignalHandler HandleLocalOptionsSignal { add => handleLocalOptionsSignalSignalManager.Add(this, value); remove => handleLocalOptionsSignalSignalManager.Remove(value); }
 
-        private static class HandleLocalOptionsSignalHandlerMarshal
+        private static unsafe class HandleLocalOptionsSignalHandlerMarshal
         {
             record UserData(HandleLocalOptionsSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe HandleLocalOptionsSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static HandleLocalOptionsSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, GISharp.Lib.GLib.VariantDict.UnmanagedStruct*, System.IntPtr, System.Int32>)callback_;
                 System.Int32 managedCallback(GISharp.Lib.Gio.Application application, GISharp.Lib.GLib.VariantDict options) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; var options_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)options.UnsafeHandle; var ret_ = unmanagedCallback(application_,options_,userData_); var ret = (System.Int32)ret_; return ret; }
@@ -292,7 +292,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -307,7 +307,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe System.Int32 ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options_, System.IntPtr userData_)
+            static System.Int32 ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options_, System.IntPtr userData_)
             {
                 try
                 {
@@ -341,11 +341,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("name-lost", When = GISharp.Runtime.EmissionStage.Last)]
         public event NameLostSignalHandler NameLostSignal { add => nameLostSignalSignalManager.Add(this, value); remove => nameLostSignalSignalManager.Remove(value); }
 
-        private static class NameLostSignalHandlerMarshal
+        private static unsafe class NameLostSignalHandlerMarshal
         {
             record UserData(NameLostSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe NameLostSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static NameLostSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, GISharp.Runtime.Boolean>)callback_;
                 System.Boolean managedCallback(GISharp.Lib.Gio.Application application) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; var ret_ = unmanagedCallback(application_,userData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
@@ -353,7 +353,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -368,7 +368,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe GISharp.Runtime.Boolean ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
+            static GISharp.Runtime.Boolean ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
             {
                 try
                 {
@@ -400,11 +400,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("open", When = GISharp.Runtime.EmissionStage.Last)]
         public event OpenSignalHandler OpenSignal { add => openSignalSignalManager.Add(this, value); remove => openSignalSignalManager.Remove(value); }
 
-        private static class OpenSignalHandlerMarshal
+        private static unsafe class OpenSignalHandlerMarshal
         {
             record UserData(OpenSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe OpenSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static OpenSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, GISharp.Lib.Gio.File.UnmanagedStruct*, System.Int32, System.Byte*, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.Application application, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint) { fixed (System.IntPtr* filesData_ = files) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; var files_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)filesData_; var nFiles_ = (System.Int32)files.Length; var hint_ = (System.Byte*)hint.UnsafeHandle; unmanagedCallback(application_, files_, nFiles_, hint_, userData_); } }
@@ -412,7 +412,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -427,7 +427,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct* files_, System.Int32 nFiles_, System.Byte* hint_, System.IntPtr userData_)
+            static void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct* files_, System.Int32 nFiles_, System.Byte* hint_, System.IntPtr userData_)
             {
                 try
                 {
@@ -457,11 +457,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("shutdown", When = GISharp.Runtime.EmissionStage.Last)]
         public event ShutdownSignalHandler ShutdownSignal { add => shutdownSignalSignalManager.Add(this, value); remove => shutdownSignalSignalManager.Remove(value); }
 
-        private static class ShutdownSignalHandlerMarshal
+        private static unsafe class ShutdownSignalHandlerMarshal
         {
             record UserData(ShutdownSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe ShutdownSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static ShutdownSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.Application application) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; unmanagedCallback(application_, userData_); }
@@ -469,7 +469,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -484,7 +484,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
+            static void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
             {
                 try
                 {
@@ -512,11 +512,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("startup", When = GISharp.Runtime.EmissionStage.First)]
         public event StartupSignalHandler StartupSignal { add => startupSignalSignalManager.Add(this, value); remove => startupSignalSignalManager.Remove(value); }
 
-        private static class StartupSignalHandlerMarshal
+        private static unsafe class StartupSignalHandlerMarshal
         {
             record UserData(StartupSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe StartupSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static StartupSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.Application application) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; unmanagedCallback(application_, userData_); }
@@ -524,7 +524,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -539,7 +539,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
+            static void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
             {
                 try
                 {
@@ -598,10 +598,10 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.Gio.Application.UnmanagedStruct* g_application_get_default();
+        private static extern GISharp.Lib.Gio.Application.UnmanagedStruct* g_application_get_default();
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        private static unsafe GISharp.Lib.Gio.Application GetDefault()
+        private static GISharp.Lib.Gio.Application GetDefault()
         {
             CheckGetDefaultArgs();
             var ret_ = g_application_get_default();
@@ -668,13 +668,13 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_application_id_is_valid(
+        private static extern GISharp.Runtime.Boolean g_application_id_is_valid(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Byte* applicationId);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static unsafe System.Boolean IdIsValid(GISharp.Lib.GLib.UnownedUtf8 applicationId)
+        public static System.Boolean IdIsValid(GISharp.Lib.GLib.UnownedUtf8 applicationId)
         {
             CheckIdIsValidArgs(applicationId);
             var applicationId_ = (System.Byte*)applicationId.UnsafeHandle;
@@ -687,7 +687,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_application_get_type();
+        private static extern GISharp.Lib.GObject.GType g_application_get_type();
 
         /// <summary>
         /// Activates the application.
@@ -705,7 +705,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_activate(
+        private static extern void g_application_activate(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
@@ -713,7 +713,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Activate()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe void Activate()
+        public void Activate()
         {
             CheckActivateArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -762,7 +762,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_add_main_option(
+        private static extern void g_application_add_main_option(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -788,7 +788,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.AddMainOption(GISharp.Lib.GLib.UnownedUtf8,System.SByte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.42")]
-        public unsafe void AddMainOption(GISharp.Lib.GLib.UnownedUtf8 longName, System.SByte shortName, GISharp.Lib.GLib.OptionFlags flags, GISharp.Lib.GLib.OptionArg arg, GISharp.Lib.GLib.UnownedUtf8 description, GISharp.Lib.GLib.NullableUnownedUtf8 argDescription)
+        public void AddMainOption(GISharp.Lib.GLib.UnownedUtf8 longName, System.SByte shortName, GISharp.Lib.GLib.OptionFlags flags, GISharp.Lib.GLib.OptionArg arg, GISharp.Lib.GLib.UnownedUtf8 description, GISharp.Lib.GLib.NullableUnownedUtf8 argDescription)
         {
             CheckAddMainOptionArgs(longName, shortName, flags, arg, description, argDescription);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -869,7 +869,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_add_main_option_entries(
+        private static extern void g_application_add_main_option_entries(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -882,7 +882,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.AddMainOptionEntries(System.ReadOnlySpan&lt;GISharp.Lib.GLib.OptionEntry&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe void AddMainOptionEntries(System.ReadOnlySpan<GISharp.Lib.GLib.OptionEntry> entries)
+        public void AddMainOptionEntries(System.ReadOnlySpan<GISharp.Lib.GLib.OptionEntry> entries)
         {
             fixed (GISharp.Lib.GLib.OptionEntry* entriesData_ = entries)
             {
@@ -931,7 +931,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_add_option_group(
+        private static extern void g_application_add_option_group(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -942,7 +942,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.AddOptionGroup(GISharp.Lib.GLib.OptionGroup)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe void AddOptionGroup(GISharp.Lib.GLib.OptionGroup group)
+        public void AddOptionGroup(GISharp.Lib.GLib.OptionGroup group)
         {
             CheckAddOptionGroupArgs(group);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -972,7 +972,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_bind_busy_property(
+        private static extern void g_application_bind_busy_property(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -986,7 +986,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.BindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public unsafe void BindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.UnownedUtf8 property)
+        public void BindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.UnownedUtf8 property)
         {
             CheckBindBusyPropertyArgs(@object, property);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1008,14 +1008,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern unsafe System.Byte* g_application_get_application_id(
+        private static extern System.Byte* g_application_get_application_id(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckGetApplicationIdArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetApplicationId()
+        private GISharp.Lib.GLib.NullableUnownedUtf8 GetApplicationId()
         {
             CheckGetApplicationIdArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1051,14 +1051,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.Byte* g_application_get_dbus_object_path(
+        private static extern System.Byte* g_application_get_dbus_object_path(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckGetDbusObjectPathArgs();
 
         [GISharp.Runtime.SinceAttribute("2.34")]
-        private unsafe GISharp.Lib.GLib.UnownedUtf8 GetDbusObjectPath()
+        private GISharp.Lib.GLib.UnownedUtf8 GetDbusObjectPath()
         {
             CheckGetDbusObjectPathArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1083,14 +1083,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="ApplicationFlags" type="GApplicationFlags" managed-name="ApplicationFlags" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.Gio.ApplicationFlags g_application_get_flags(
+        private static extern GISharp.Lib.Gio.ApplicationFlags g_application_get_flags(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckGetFlagsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe GISharp.Lib.Gio.ApplicationFlags GetFlags()
+        private GISharp.Lib.Gio.ApplicationFlags GetFlags()
         {
             CheckGetFlagsArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1116,14 +1116,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.UInt32 g_application_get_inactivity_timeout(
+        private static extern System.UInt32 g_application_get_inactivity_timeout(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckGetInactivityTimeoutArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe System.UInt32 GetInactivityTimeout()
+        private System.UInt32 GetInactivityTimeout()
         {
             CheckGetInactivityTimeoutArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1146,14 +1146,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_application_get_is_busy(
+        private static extern GISharp.Runtime.Boolean g_application_get_is_busy(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckGetIsBusyArgs();
 
         [GISharp.Runtime.SinceAttribute("2.44")]
-        private unsafe System.Boolean GetIsBusy()
+        private System.Boolean GetIsBusy()
         {
             CheckGetIsBusyArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1179,14 +1179,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_application_get_is_registered(
+        private static extern GISharp.Runtime.Boolean g_application_get_is_registered(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckGetIsRegisteredArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe System.Boolean GetIsRegistered()
+        private System.Boolean GetIsRegistered()
         {
             CheckGetIsRegisteredArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1218,14 +1218,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_application_get_is_remote(
+        private static extern GISharp.Runtime.Boolean g_application_get_is_remote(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckGetIsRemoteArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe System.Boolean GetIsRemote()
+        private System.Boolean GetIsRemote()
         {
             CheckGetIsRemoteArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1250,14 +1250,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern unsafe System.Byte* g_application_get_resource_base_path(
+        private static extern System.Byte* g_application_get_resource_base_path(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckGetResourceBasePathArgs();
 
         [GISharp.Runtime.SinceAttribute("2.42")]
-        private unsafe GISharp.Lib.GLib.NullableUnownedUtf8 GetResourceBasePath()
+        private GISharp.Lib.GLib.NullableUnownedUtf8 GetResourceBasePath()
         {
             CheckGetResourceBasePathArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1282,14 +1282,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_hold(
+        private static extern void g_application_hold(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckHoldArgs();
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Hold()']/*" />
-        public unsafe void Hold()
+        public void Hold()
         {
             CheckHoldArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1316,7 +1316,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_mark_busy(
+        private static extern void g_application_mark_busy(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
@@ -1324,7 +1324,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.MarkBusy()']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public unsafe void MarkBusy()
+        public void MarkBusy()
         {
             CheckMarkBusyArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1364,7 +1364,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_open(
+        private static extern void g_application_open(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1383,7 +1383,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Open(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe void Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
+        public void Open(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
         {
             fixed (System.IntPtr* filesData_ = files)
             {
@@ -1419,7 +1419,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_quit(
+        private static extern void g_application_quit(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
@@ -1427,7 +1427,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Quit()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe void Quit()
+        public void Quit()
         {
             CheckQuitArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1483,7 +1483,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_application_register(
+        private static extern GISharp.Runtime.Boolean g_application_register(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1497,7 +1497,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Register(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe void Register(GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public void Register(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckRegisterArgs(cancellable);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1526,14 +1526,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_release(
+        private static extern void g_application_release(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         static partial void CheckReleaseArgs();
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Release()']/*" />
-        public unsafe void Release()
+        public void Release()
         {
             CheckReleaseArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1635,7 +1635,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.Int32 g_application_run(
+        private static extern System.Int32 g_application_run(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1651,7 +1651,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.Run(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Filename&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe System.Int32 Run(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> argv)
+        public System.Int32 Run(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Filename> argv)
         {
             fixed (System.IntPtr* argvData_ = argv)
             {
@@ -1681,7 +1681,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_set_action_group(
+        private static extern void g_application_set_action_group(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1694,7 +1694,7 @@ namespace GISharp.Lib.Gio
         [System.ObsoleteAttribute("Use the #GActionMap interface instead.  Never ever\nmix use of this API with use of #GActionMap on the same @application\nor things will go very badly wrong.  This function is known to\nintroduce buggy behaviour (ie: signals not emitted on changes to the\naction group), so you should really use #GActionMap instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.32")]
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe void SetActionGroup(GISharp.Lib.Gio.IActionGroup? actionGroup)
+        public void SetActionGroup(GISharp.Lib.Gio.IActionGroup? actionGroup)
         {
             CheckSetActionGroupArgs(actionGroup);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1722,7 +1722,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_set_application_id(
+        private static extern void g_application_set_application_id(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1732,7 +1732,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckSetApplicationIdArgs(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe void SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId)
+        private void SetApplicationId(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId)
         {
             CheckSetApplicationIdArgs(applicationId);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1756,7 +1756,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_set_default(
+        private static extern void g_application_set_default(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
@@ -1764,7 +1764,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.SetDefault()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe void SetDefault()
+        public void SetDefault()
         {
             CheckSetDefaultArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1790,7 +1790,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_set_flags(
+        private static extern void g_application_set_flags(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1800,7 +1800,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckSetFlagsArgs(GISharp.Lib.Gio.ApplicationFlags flags);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe void SetFlags(GISharp.Lib.Gio.ApplicationFlags flags)
+        private void SetFlags(GISharp.Lib.Gio.ApplicationFlags flags)
         {
             CheckSetFlagsArgs(flags);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1829,7 +1829,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_set_inactivity_timeout(
+        private static extern void g_application_set_inactivity_timeout(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1839,7 +1839,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckSetInactivityTimeoutArgs(System.UInt32 inactivityTimeout);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private unsafe void SetInactivityTimeout(System.UInt32 inactivityTimeout)
+        private void SetInactivityTimeout(System.UInt32 inactivityTimeout)
         {
             CheckSetInactivityTimeoutArgs(inactivityTimeout);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1864,7 +1864,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_set_option_context_description(
+        private static extern void g_application_set_option_context_description(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1875,7 +1875,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.SetOptionContextDescription(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe void SetOptionContextDescription(GISharp.Lib.GLib.NullableUnownedUtf8 description)
+        public void SetOptionContextDescription(GISharp.Lib.GLib.NullableUnownedUtf8 description)
         {
             CheckSetOptionContextDescriptionArgs(description);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1903,7 +1903,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_set_option_context_parameter_string(
+        private static extern void g_application_set_option_context_parameter_string(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1914,7 +1914,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.SetOptionContextParameterString(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe void SetOptionContextParameterString(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString)
+        public void SetOptionContextParameterString(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString)
         {
             CheckSetOptionContextParameterStringArgs(parameterString);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -1939,7 +1939,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_set_option_context_summary(
+        private static extern void g_application_set_option_context_summary(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -1950,7 +1950,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.SetOptionContextSummary(GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.56")]
-        public unsafe void SetOptionContextSummary(GISharp.Lib.GLib.NullableUnownedUtf8 summary)
+        public void SetOptionContextSummary(GISharp.Lib.GLib.NullableUnownedUtf8 summary)
         {
             CheckSetOptionContextSummaryArgs(summary);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -2004,7 +2004,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_set_resource_base_path(
+        private static extern void g_application_set_resource_base_path(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -2014,7 +2014,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckSetResourceBasePathArgs(GISharp.Lib.GLib.NullableUnownedUtf8 resourcePath);
 
         [GISharp.Runtime.SinceAttribute("2.42")]
-        private unsafe void SetResourceBasePath(GISharp.Lib.GLib.NullableUnownedUtf8 resourcePath)
+        private void SetResourceBasePath(GISharp.Lib.GLib.NullableUnownedUtf8 resourcePath)
         {
             CheckSetResourceBasePathArgs(resourcePath);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -2040,7 +2040,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_unbind_busy_property(
+        private static extern void g_application_unbind_busy_property(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -2054,7 +2054,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.UnbindBusyProperty(GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public unsafe void UnbindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.UnownedUtf8 property)
+        public void UnbindBusyProperty(GISharp.Lib.GObject.Object @object, GISharp.Lib.GLib.UnownedUtf8 property)
         {
             CheckUnbindBusyPropertyArgs(@object, property);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -2080,7 +2080,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_unmark_busy(
+        private static extern void g_application_unmark_busy(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application);
@@ -2088,7 +2088,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.UnmarkBusy()']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public unsafe void UnmarkBusy()
+        public void UnmarkBusy()
         {
             CheckUnmarkBusyArgs();
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -2121,7 +2121,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_application_withdraw_notification(
+        private static extern void g_application_withdraw_notification(
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -2132,7 +2132,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.WithdrawNotification(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
-        public unsafe void WithdrawNotification(GISharp.Lib.GLib.UnownedUtf8 id)
+        public void WithdrawNotification(GISharp.Lib.GLib.UnownedUtf8 id)
         {
             CheckWithdrawNotificationArgs(id);
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
@@ -2143,7 +2143,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoActivate()']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedActivate))]
-        protected virtual unsafe void DoActivate()
+        protected virtual void DoActivate()
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedActivate>(_GType)!(application_);
@@ -2151,7 +2151,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoAddPlatformData(GISharp.Lib.GLib.VariantBuilder)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedAddPlatformData))]
-        protected virtual unsafe void DoAddPlatformData(GISharp.Lib.GLib.VariantBuilder builder)
+        protected virtual void DoAddPlatformData(GISharp.Lib.GLib.VariantBuilder builder)
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)builder.UnsafeHandle;
@@ -2160,7 +2160,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoAfterEmit(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedAfterEmit))]
-        protected virtual unsafe void DoAfterEmit(GISharp.Lib.GLib.Variant platformData)
+        protected virtual void DoAfterEmit(GISharp.Lib.GLib.Variant platformData)
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var platformData_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)platformData.UnsafeHandle;
@@ -2169,7 +2169,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoBeforeEmit(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedBeforeEmit))]
-        protected virtual unsafe void DoBeforeEmit(GISharp.Lib.GLib.Variant platformData)
+        protected virtual void DoBeforeEmit(GISharp.Lib.GLib.Variant platformData)
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var platformData_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)platformData.UnsafeHandle;
@@ -2178,7 +2178,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoCommandLine(GISharp.Lib.Gio.ApplicationCommandLine)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedCommandLine))]
-        protected virtual unsafe System.Int32 DoCommandLine(GISharp.Lib.Gio.ApplicationCommandLine commandLine)
+        protected virtual System.Int32 DoCommandLine(GISharp.Lib.Gio.ApplicationCommandLine commandLine)
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var commandLine_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)commandLine.UnsafeHandle;
@@ -2189,7 +2189,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoHandleLocalOptions(GISharp.Lib.GLib.VariantDict)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedHandleLocalOptions))]
-        protected virtual unsafe System.Int32 DoHandleLocalOptions(GISharp.Lib.GLib.VariantDict options)
+        protected virtual System.Int32 DoHandleLocalOptions(GISharp.Lib.GLib.VariantDict options)
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var options_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)options.UnsafeHandle;
@@ -2200,7 +2200,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv,System.Int32)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedTryLocalCommandLine))]
-        protected virtual unsafe System.Boolean DoTryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out System.Int32 exitStatus)
+        protected virtual System.Boolean DoTryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out System.Int32 exitStatus)
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var arguments_ = (System.Byte**)arguments.Take();
@@ -2214,7 +2214,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoNameLost()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedNameLost))]
-        protected virtual unsafe System.Boolean DoNameLost()
+        protected virtual System.Boolean DoNameLost()
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedNameLost>(_GType)!(application_);
@@ -2225,7 +2225,7 @@ namespace GISharp.Lib.Gio
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoOpen(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.Gio.IFile&gt;,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedOpen))]
-        protected virtual unsafe void DoOpen(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
+        protected virtual void DoOpen(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint)
         {
             fixed (System.IntPtr* filesData_ = files)
             {
@@ -2239,7 +2239,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoQuitMainloop()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedQuitMainloop))]
-        protected virtual unsafe void DoQuitMainloop()
+        protected virtual void DoQuitMainloop()
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedQuitMainloop>(_GType)!(application_);
@@ -2247,7 +2247,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoRunMainloop()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedRunMainloop))]
-        protected virtual unsafe void DoRunMainloop()
+        protected virtual void DoRunMainloop()
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedRunMainloop>(_GType)!(application_);
@@ -2255,7 +2255,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoShutdown()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedShutdown))]
-        protected virtual unsafe void DoShutdown()
+        protected virtual void DoShutdown()
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedShutdown>(_GType)!(application_);
@@ -2263,7 +2263,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.DoStartup()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ApplicationClass.UnmanagedStartup))]
-        protected virtual unsafe void DoStartup()
+        protected virtual void DoStartup()
         {
             var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationClass.UnmanagedStartup>(_GType)!(application_);

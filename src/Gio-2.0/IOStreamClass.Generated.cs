@@ -4,12 +4,12 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='IOStreamClass']/*" />
-    public class IOStreamClass : GISharp.Lib.GObject.ObjectClass
+    public unsafe class IOStreamClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="IOStreamClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
@@ -93,12 +93,12 @@ GISharp.Lib.Gio.IOStream.UnmanagedStruct* stream);
         /// <summary>
         /// Class for marshalling <see cref="GetInputStream"/> methods.
         /// </summary>
-        public static class GetInputStreamMarshal
+        public static unsafe class GetInputStreamMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetInputStream Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetInputStream Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.InputStream.UnmanagedStruct* unmanagedGetInputStream(GISharp.Lib.Gio.IOStream.UnmanagedStruct* stream_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var doGetInputStream = (GetInputStream)methodInfo.CreateDelegate(typeof(GetInputStream), stream); var ret = doGetInputStream(); var ret_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.InputStream.UnmanagedStruct*); }
 
@@ -123,12 +123,12 @@ GISharp.Lib.Gio.IOStream.UnmanagedStruct* stream);
         /// <summary>
         /// Class for marshalling <see cref="GetOutputStream"/> methods.
         /// </summary>
-        public static class GetOutputStreamMarshal
+        public static unsafe class GetOutputStreamMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetOutputStream Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetOutputStream Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.OutputStream.UnmanagedStruct* unmanagedGetOutputStream(GISharp.Lib.Gio.IOStream.UnmanagedStruct* stream_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var doGetOutputStream = (GetOutputStream)methodInfo.CreateDelegate(typeof(GetOutputStream), stream); var ret = doGetOutputStream(); var ret_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.OutputStream.UnmanagedStruct*); }
 
@@ -159,12 +159,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="CloseFn"/> methods.
         /// </summary>
-        public static class CloseFnMarshal
+        public static unsafe class CloseFnMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCloseFn Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCloseFn Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCloseFn(GISharp.Lib.Gio.IOStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCloseFn = (CloseFn)methodInfo.CreateDelegate(typeof(CloseFn), stream); doCloseFn(cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -201,12 +201,12 @@ System.IntPtr userData);
         /// <summary>
         /// Class for marshalling <see cref="CloseAsync"/> methods.
         /// </summary>
-        public static class CloseAsyncMarshal
+        public static unsafe class CloseAsyncMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedCloseAsync(GISharp.Lib.Gio.IOStream.UnmanagedStruct* stream_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCloseAsync = (CloseAsync)methodInfo.CreateDelegate(typeof(CloseAsync), stream); doCloseAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -237,12 +237,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="CloseFinish"/> methods.
         /// </summary>
-        public static class CloseFinishMarshal
+        public static unsafe class CloseFinishMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCloseFinish Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCloseFinish Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCloseFinish(GISharp.Lib.Gio.IOStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.IOStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doCloseFinish = (CloseFinish)methodInfo.CreateDelegate(typeof(CloseFinish), stream); doCloseFinish(result); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 

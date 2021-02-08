@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.32")]
     [GISharp.Runtime.GTypeAttribute("GActionMap", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionMapInterface))]
-    public partial interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IActionMap : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_action_map_get_type();
 
@@ -15,7 +15,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_action_map_get_type();
+        private static extern GISharp.Lib.GObject.GType g_action_map_get_type();
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='IActionMap.DoAddAction(GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
@@ -36,12 +36,12 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="IActionMap"/>
     /// </summary>
-    public static partial class ActionMap
+    public static unsafe partial class ActionMap
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
         }
 
@@ -64,7 +64,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_action_map_add_action(
+        private static extern void g_action_map_add_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
@@ -75,7 +75,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.AddAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.Gio.IAction)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static void AddAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.Gio.IAction action)
+        public static void AddAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.Gio.IAction action)
         {
             CheckAddActionArgs(actionMap, action);
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;
@@ -102,7 +102,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern unsafe GISharp.Lib.Gio.Action.UnmanagedStruct* g_action_map_lookup_action(
+        private static extern GISharp.Lib.Gio.Action.UnmanagedStruct* g_action_map_lookup_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
@@ -113,7 +113,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static GISharp.Lib.Gio.IAction? LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static GISharp.Lib.Gio.IAction? LookupAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckLookupActionArgs(actionMap, actionName);
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;
@@ -139,7 +139,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_action_map_remove_action(
+        private static extern void g_action_map_remove_action(
         /* <type name="ActionMap" type="GActionMap*" managed-name="ActionMap" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
@@ -150,7 +150,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static void RemoveAction(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckRemoveActionArgs(actionMap, actionName);
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;

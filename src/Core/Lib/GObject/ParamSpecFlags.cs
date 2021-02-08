@@ -13,13 +13,13 @@ namespace GISharp.Lib.GObject
     /// properties.
     /// </summary>
     [GType("GParamFlags", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecFlags : ParamSpec
+    public sealed unsafe class ParamSpecFlags : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecFlags"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -42,13 +42,13 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the <see cref="FlagsClass"/> for the flags
         /// </summary>
-        public unsafe FlagsClass FlagsClass =>
+        public FlagsClass FlagsClass =>
             Opaque.GetInstance<FlagsClass>((IntPtr)((UnmanagedStruct*)UnsafeHandle)->FlagsClass, Transfer.None);
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new System.Enum DefaultValue {
+        public new System.Enum DefaultValue {
             get {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
                 var gType = ((UnmanagedStruct*)UnsafeHandle)->FlagsClass->GTypeClass.GType;

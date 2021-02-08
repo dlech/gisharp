@@ -33,7 +33,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Class for marshalling <see cref="AsyncReadyCallback"/> methods.
     /// </summary>
-    public static class AsyncReadyCallbackMarshal
+    public static unsafe class AsyncReadyCallbackMarshal
     {
         class UserData
         {
@@ -53,8 +53,7 @@ namespace GISharp.Lib.Gio
         public static GISharp.Lib.Gio.AsyncReadyCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(callback_);
-
-            unsafe void managedCallback(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.IAsyncResult res) { var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero); var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle; unmanagedCallback(sourceObject_, res_, userData_); }
+            void managedCallback(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.IAsyncResult res) { var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero); var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle; unmanagedCallback(sourceObject_, res_, userData_); }
 
             return managedCallback;
         }
@@ -77,7 +76,7 @@ namespace GISharp.Lib.Gio
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Runtime.CallbackScope scope)
+        public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Runtime.CallbackScope scope)
         {
             if (callback == null)
             {
@@ -89,7 +88,7 @@ namespace GISharp.Lib.Gio
             return (callback_, destroy_, userData_);
         }
 
-        static unsafe void UnmanagedCallback(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        static void UnmanagedCallback(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -109,7 +108,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback UnmanagedCallbackDelegate = UnmanagedCallback;
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback UnmanagedCallbackDelegate = UnmanagedCallback;
         static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
 
         static void Destroy(System.IntPtr userData_)

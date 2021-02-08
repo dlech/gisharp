@@ -13,13 +13,13 @@ namespace GISharp.Lib.GObject
     /// properties.
     /// </summary>
     [GType("GParamParam", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecParam : ParamSpec
+    public sealed unsafe class ParamSpecParam : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecParam"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>

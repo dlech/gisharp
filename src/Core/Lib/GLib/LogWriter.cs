@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
@@ -12,7 +12,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Functions for manipulating the log writer.
     /// </summary>
-    public static class LogWriter
+    public static unsafe class LogWriter
     {
         /// <summary>
         /// Set a writer function which will be called to format and write out each log
@@ -69,7 +69,7 @@ namespace GISharp.Lib.GLib
         /// log writer function
         /// </param>
         [Since("2.50")]
-        public static unsafe void SetFunc(LogWriterFunc func)
+        public static void SetFunc(LogWriterFunc func)
         {
             if (isFuncSet) {
                 throw new InvalidOperationException("Log writer function can only be set once.");
@@ -131,7 +131,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
-        static extern unsafe LogWriterOutput g_log_writer_default(
+        static extern LogWriterOutput g_log_writer_default(
             /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
             /* transfer-ownership:none */
             LogLevelFlags logLevel,
@@ -177,7 +177,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since("2.50")]
-        public static unsafe LogWriterOutput Default(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
+        public static LogWriterOutput Default(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
             fixed (LogField* fields_ = fields) {
                 var ret = g_log_writer_default(logLevel, fields_, (nuint)fields.Length, IntPtr.Zero);
@@ -389,7 +389,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
-        static extern unsafe LogWriterOutput g_log_writer_journald(
+        static extern LogWriterOutput g_log_writer_journald(
             /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
             /* transfer-ownership:none */
             LogLevelFlags logLevel,
@@ -429,7 +429,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since("2.50")]
-        public static unsafe LogWriterOutput Journald(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
+        public static LogWriterOutput Journald(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
             fixed (LogField* fields_ = fields) {
                 var ret = g_log_writer_journald(logLevel, fields_, (nuint)fields.Length, IntPtr.Zero);
@@ -473,7 +473,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="LogWriterOutput" type="GLogWriterOutput" managed-name="LogWriterOutput" /> */
         /* transfer-ownership:none */
-        static extern unsafe LogWriterOutput g_log_writer_standard_streams(
+        static extern LogWriterOutput g_log_writer_standard_streams(
             /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
             /* transfer-ownership:none */
             LogLevelFlags logLevel,
@@ -516,7 +516,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="LogWriterOutput.Handled"/> on success, <see cref="LogWriterOutput.Unhandled"/> otherwise
         /// </returns>
         [Since("2.50")]
-        public static unsafe LogWriterOutput StandardStreams(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
+        public static LogWriterOutput StandardStreams(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
         {
             fixed (LogField* fields_ = fields) {
                 var ret = g_log_writer_standard_streams(logLevel, fields_, (nuint)fields.Length, IntPtr.Zero);

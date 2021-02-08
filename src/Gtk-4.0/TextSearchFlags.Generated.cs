@@ -19,7 +19,7 @@ namespace GISharp.Lib.Gtk
     /// <summary>
     /// Extension methods for <see cref="TextSearchFlags"/>.
     /// </summary>
-    public static partial class TextSearchFlagsExtensions
+    public static unsafe partial class TextSearchFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = gtk_text_search_flags_get_type();
 
@@ -27,6 +27,6 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType gtk_text_search_flags_get_type();
+        private static extern GISharp.Lib.GObject.GType gtk_text_search_flags_get_type();
     }
 }

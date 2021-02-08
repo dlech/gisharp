@@ -4,7 +4,7 @@
 namespace GISharp.Lib.Gtk
 {
     /// <include file="Version.xmldoc" path="declaration/member[@name='Version']/*" />
-    public static partial class Version
+    public static unsafe partial class Version
     {
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.CompileTimeBinaryAge']/*" />
         public const System.Int32 CompileTimeBinaryAge = 100;
@@ -81,7 +81,7 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern unsafe System.Byte* gtk_check_version(
+        private static extern System.Byte* gtk_check_version(
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         System.UInt32 requiredMajor,
@@ -93,7 +93,7 @@ namespace GISharp.Lib.Gtk
         System.UInt32 requiredMicro);
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.Check(System.UInt32,System.UInt32,System.UInt32)']/*" />
-        public static unsafe GISharp.Lib.GLib.NullableUnownedUtf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
+        public static GISharp.Lib.GLib.NullableUnownedUtf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
         {
             CheckCheckArgs(requiredMajor, requiredMinor, requiredMicro);
             var requiredMajor_ = (System.UInt32)requiredMajor;
@@ -118,9 +118,9 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.UInt32 gtk_get_binary_age();
+        private static extern System.UInt32 gtk_get_binary_age();
 
-        private static unsafe System.UInt32 GetRunTimeBinaryAge()
+        private static System.UInt32 GetRunTimeBinaryAge()
         {
             CheckGetRunTimeBinaryAgeArgs();
             var ret_ = gtk_get_binary_age();
@@ -142,9 +142,9 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.UInt32 gtk_get_interface_age();
+        private static extern System.UInt32 gtk_get_interface_age();
 
-        private static unsafe System.UInt32 GetRunTimeInterfaceAge()
+        private static System.UInt32 GetRunTimeInterfaceAge()
         {
             CheckGetRunTimeInterfaceAgeArgs();
             var ret_ = gtk_get_interface_age();
@@ -170,9 +170,9 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.UInt32 gtk_get_major_version();
+        private static extern System.UInt32 gtk_get_major_version();
 
-        private static unsafe System.UInt32 GetMajorVersion()
+        private static System.UInt32 GetMajorVersion()
         {
             CheckGetMajorVersionArgs();
             var ret_ = gtk_get_major_version();
@@ -198,9 +198,9 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.UInt32 gtk_get_micro_version();
+        private static extern System.UInt32 gtk_get_micro_version();
 
-        private static unsafe System.UInt32 GetMicroVersion()
+        private static System.UInt32 GetMicroVersion()
         {
             CheckGetMicroVersionArgs();
             var ret_ = gtk_get_micro_version();
@@ -226,9 +226,9 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.UInt32 gtk_get_minor_version();
+        private static extern System.UInt32 gtk_get_minor_version();
 
-        private static unsafe System.UInt32 GetMinorVersion()
+        private static System.UInt32 GetMinorVersion()
         {
             CheckGetMinorVersionArgs();
             var ret_ = gtk_get_minor_version();

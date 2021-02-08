@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
@@ -27,11 +27,11 @@ namespace GISharp.Lib.GObject
     [GCallback(typeof(SignalEmissionHookMarshal))]
     public delegate bool SignalEmissionHook(in SignalInvocationHint ihint, Span<Value> paramValues);
 
-    internal static class SignalEmissionHookMarshal
+    internal static unsafe class SignalEmissionHookMarshal
     {
         private record UserData(SignalEmissionHook Callback, CallbackScope Scope);
 
-        public static unsafe (IntPtr, IntPtr, IntPtr) ToUnmanagedFunctionPointer(Delegate callback, CallbackScope scope)
+        public static (IntPtr, IntPtr, IntPtr) ToUnmanagedFunctionPointer(Delegate callback, CallbackScope scope)
         {
             var userData = new UserData((SignalEmissionHook)callback, scope);
             var callback_ = (IntPtr)(delegate* unmanaged[Cdecl]<SignalInvocationHint*, uint, Value*, IntPtr, Boolean>)&ManagedCallback;
@@ -41,7 +41,7 @@ namespace GISharp.Lib.GObject
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private static unsafe Boolean ManagedCallback(
+        private static Boolean ManagedCallback(
             SignalInvocationHint* ihint_, uint nParamValues_, Value* paramValues_, IntPtr userData_)
         {
             try {

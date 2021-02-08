@@ -29,7 +29,7 @@ namespace GISharp.CodeGen.Syntax
                 yield return constructor.GetExternMethodDeclaration();
                 if (!constructor.IsPInvokeOnly) {
                     yield return constructor.GetStaticMethodDeclaration()
-                        .WithModifiers(TokenList(Token(StaticKeyword), Token(UnsafeKeyword))) // strip access modifiers
+                        .WithModifiers(TokenList(Token(StaticKeyword))) // strip access modifiers
                         .WithBody(constructor.GetInvokeBlock(constructor.CIdentifier));
                     if (!constructor.HasCustomConstructor) {
                         yield return constructor.GetConstructorDeclaration();
@@ -58,7 +58,7 @@ namespace GISharp.CodeGen.Syntax
 
             var declaringType = (GIRegisteredType)constructor.ParentNode;
             var syntax = ConstructorDeclaration(declaringType.ManagedName)
-                .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(PublicKeyword))
                 .WithInitializer(initializer)
                 .WithAttributeLists(constructor.GetCommonAttributeLists())
                 .WithParameterList(constructor.ManagedParameters.GetParameterList())

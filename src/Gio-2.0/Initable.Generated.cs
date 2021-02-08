@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.22")]
     [GISharp.Runtime.GTypeAttribute("GInitable", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(InitableIface))]
-    public partial interface IInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_initable_get_type();
 
@@ -43,7 +43,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.Object.UnmanagedStruct* g_initable_newv(
+        private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_initable_newv(
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.GType objectType,
@@ -65,7 +65,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_initable_get_type();
+        private static extern GISharp.Lib.GObject.GType g_initable_get_type();
 
         /// <include file="Initable.xmldoc" path="declaration/member[@name='IInitable.DoInit(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
@@ -76,12 +76,12 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="IInitable"/>
     /// </summary>
-    public static partial class Initable
+    public static unsafe partial class Initable
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
         }
 
@@ -143,7 +143,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_initable_init(
+        private static extern GISharp.Runtime.Boolean g_initable_init(
         /* <type name="Initable" type="GInitable*" managed-name="Initable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Initable.UnmanagedStruct* initable,
@@ -157,7 +157,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Initable.xmldoc" path="declaration/member[@name='Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public unsafe static void Init(this GISharp.Lib.Gio.IInitable initable, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public static void Init(this GISharp.Lib.Gio.IInitable initable, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckInitArgs(initable, cancellable);
             var initable_ = (GISharp.Lib.Gio.Initable.UnmanagedStruct*)initable.UnsafeHandle;

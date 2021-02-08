@@ -13,13 +13,13 @@ namespace GISharp.Lib.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for character properties.
     /// </summary>
     [GType("GParamChar", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecChar : ParamSpec
+    public sealed unsafe class ParamSpecChar : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecChar"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -47,17 +47,17 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public unsafe sbyte Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
+        public sbyte Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public unsafe sbyte Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
+        public sbyte Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new sbyte DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
+        public new sbyte DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.

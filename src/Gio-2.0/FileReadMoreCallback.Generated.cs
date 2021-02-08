@@ -29,7 +29,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Class for marshalling <see cref="FileReadMoreCallback"/> methods.
     /// </summary>
-    public static class FileReadMoreCallbackMarshal
+    public static unsafe class FileReadMoreCallbackMarshal
     {
         class UserData
         {
@@ -50,8 +50,7 @@ namespace GISharp.Lib.Gio
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileReadMoreCallback>(callback_);
             var callbackData_ = userData_;
-
-            unsafe System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize) { var fileContents_ = (System.Byte*)fileContents.UnsafeHandle; var fileSize_ = (System.Int64)fileSize; var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
+            System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize) { var fileContents_ = (System.Byte*)fileContents.UnsafeHandle; var fileSize_ = (System.Int64)fileSize; var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
 
             return managedCallback;
         }
@@ -74,7 +73,7 @@ namespace GISharp.Lib.Gio
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.Gio.FileReadMoreCallback? callback, GISharp.Runtime.CallbackScope scope)
+        public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.Gio.FileReadMoreCallback? callback, GISharp.Runtime.CallbackScope scope)
         {
             if (callback == null)
             {
@@ -86,7 +85,7 @@ namespace GISharp.Lib.Gio
             return (callback_, destroy_, userData_);
         }
 
-        static unsafe GISharp.Runtime.Boolean UnmanagedCallback(System.Byte* fileContents_, System.Int64 fileSize_, System.IntPtr callbackData_)
+        static GISharp.Runtime.Boolean UnmanagedCallback(System.Byte* fileContents_, System.Int64 fileSize_, System.IntPtr callbackData_)
         {
             try
             {
@@ -110,7 +109,7 @@ namespace GISharp.Lib.Gio
             return default(GISharp.Runtime.Boolean);
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedFileReadMoreCallback UnmanagedCallbackDelegate = UnmanagedCallback;
+        static readonly GISharp.Lib.Gio.UnmanagedFileReadMoreCallback UnmanagedCallbackDelegate = UnmanagedCallback;
         static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
 
         static void Destroy(System.IntPtr userData_)

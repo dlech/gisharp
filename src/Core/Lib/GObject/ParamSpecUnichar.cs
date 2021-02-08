@@ -12,13 +12,13 @@ namespace GISharp.Lib.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for character properties.
     /// </summary>
     [GType("GParamUnichar", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecUnichar : ParamSpec
+    public sealed unsafe class ParamSpecUnichar : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecUnichar"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -36,7 +36,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new uint DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
+        public new uint DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.

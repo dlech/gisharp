@@ -7,7 +7,7 @@ namespace GISharp.Lib.Gio
     [GISharp.Runtime.SinceAttribute("2.22")]
     [GISharp.Runtime.GTypeAttribute("GAsyncInitable", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(AsyncInitableIface))]
-    public partial interface IAsyncInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IAsyncInitable : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_async_initable_get_type();
 
@@ -52,7 +52,7 @@ namespace GISharp.Lib.Gio
 *   <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" />
 * </type> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_async_initable_newv_async(
+        private static extern void g_async_initable_newv_async(
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.GType objectType,
@@ -79,7 +79,7 @@ namespace GISharp.Lib.Gio
         [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_async_initable_init_async() instead. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public static unsafe System.Threading.Tasks.Task<GISharp.Lib.GObject.Object> NewAsync(GISharp.Lib.GObject.GType objectType, System.UInt32 nParameters, GISharp.Lib.GObject.Parameter parameters, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public static System.Threading.Tasks.Task<GISharp.Lib.GObject.Object> NewAsync(GISharp.Lib.GObject.GType objectType, System.UInt32 nParameters, GISharp.Lib.GObject.Parameter parameters, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckNewAsyncArgs(objectType, nParameters, parameters, ioPriority, cancellable);
             var objectType_ = (GISharp.Lib.GObject.GType)objectType;
@@ -98,7 +98,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_async_initable_get_type();
+        private static extern GISharp.Lib.GObject.GType g_async_initable_get_type();
 
         /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.DoInitAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
@@ -114,12 +114,12 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="IAsyncInitable"/>
     /// </summary>
-    public static partial class AsyncInitable
+    public static unsafe partial class AsyncInitable
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
         }
 
@@ -181,7 +181,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_async_initable_init_async(
+        private static extern void g_async_initable_init_async(
         /* <type name="AsyncInitable" type="GAsyncInitable*" managed-name="AsyncInitable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable,
@@ -201,7 +201,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public unsafe static System.Threading.Tasks.Task InitAsync(this GISharp.Lib.Gio.IAsyncInitable initable, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public static System.Threading.Tasks.Task InitAsync(this GISharp.Lib.Gio.IAsyncInitable initable, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckInitAsyncArgs(initable, ioPriority, cancellable);
             var initable_ = (GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct*)initable.UnsafeHandle;
@@ -235,7 +235,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_async_initable_init_finish(
+        private static extern GISharp.Runtime.Boolean g_async_initable_init_finish(
         /* <type name="AsyncInitable" type="GAsyncInitable*" managed-name="AsyncInitable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable,
@@ -246,7 +246,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void InitFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        static void InitFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -270,8 +270,8 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback initAsyncCallbackDelegate = InitFinish;
-        static readonly unsafe System.IntPtr initAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(initAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback initAsyncCallbackDelegate = InitFinish;
+        static readonly System.IntPtr initAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(initAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes the async construction for the various g_async_initable_new
@@ -294,7 +294,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GObject.Object" type="GObject*" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.Object.UnmanagedStruct* g_async_initable_new_finish(
+        private static extern GISharp.Lib.GObject.Object.UnmanagedStruct* g_async_initable_new_finish(
         /* <type name="AsyncInitable" type="GAsyncInitable*" managed-name="AsyncInitable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.AsyncInitable.UnmanagedStruct* initable,
@@ -305,7 +305,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void NewFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        static void NewFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -330,7 +330,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback newAsyncCallbackDelegate = NewFinish;
-        static readonly unsafe System.IntPtr newAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(newAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback newAsyncCallbackDelegate = NewFinish;
+        static readonly System.IntPtr newAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(newAsyncCallbackDelegate);
     }
 }

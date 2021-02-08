@@ -18,7 +18,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="FilesystemPreviewType"/>.
     /// </summary>
-    public static partial class FilesystemPreviewTypeExtensions
+    public static unsafe partial class FilesystemPreviewTypeExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_filesystem_preview_type_get_type();
 
@@ -26,6 +26,6 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_filesystem_preview_type_get_type();
+        private static extern GISharp.Lib.GObject.GType g_filesystem_preview_type_get_type();
     }
 }

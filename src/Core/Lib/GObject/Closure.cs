@@ -56,13 +56,13 @@ namespace GISharp.Lib.GObject
     ///   automatically removed when the objects they point to go away.
     /// </remarks>
     [GType("GClosure", IsProxyForUnmanagedType = true)]
-    public sealed class Closure : Boxed
+    public sealed unsafe class Closure : Boxed
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="Closure"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
 #pragma warning disable CS0649
 #pragma warning disable CS0169
@@ -74,11 +74,11 @@ namespace GISharp.Lib.GObject
 #pragma warning restore CS0649
         }
 
-        unsafe uint BitFields => ((UnmanagedStruct*)UnsafeHandle)->BitFields;
+        uint BitFields => ((UnmanagedStruct*)UnsafeHandle)->BitFields;
 
         uint RefCount => BitFields & 0x7FFF;
 
-        unsafe IntPtr Data => ((UnmanagedStruct*)UnsafeHandle)->Data;
+        IntPtr Data => ((UnmanagedStruct*)UnsafeHandle)->Data;
 
         /// <summary>
         /// For internal runtime use only.
@@ -288,7 +288,7 @@ namespace GISharp.Lib.GObject
             g_closure_add_invalidate_notifier(handle, userData_, notify_);
         }
 
-        static unsafe void ManagedClosureFuncCallback(Closure closure, ref object? returnValue, object?[] paramValues, SignalInvocationHint? invocationHintPtr)
+        static void ManagedClosureFuncCallback(Closure closure, ref object? returnValue, object?[] paramValues, SignalInvocationHint? invocationHintPtr)
         {
             var gcHandle = (GCHandle)Marshal.ReadIntPtr(closure.handle, (int)callbackGCHandleOffset);
             var callback = (Func<object?[], object>)gcHandle.Target!;
@@ -488,7 +488,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern unsafe void g_closure_invoke(
+        static extern void g_closure_invoke(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
@@ -515,7 +515,7 @@ namespace GISharp.Lib.GObject
         /// invoke the callback of this closure
         /// </param>
         /// <returns>The return value of the closure invocation</returns>
-        public unsafe T Invoke<T>(params object?[] paramValues)
+        public T Invoke<T>(params object?[] paramValues)
         {
             var this_ = UnsafeHandle;
             if (paramValues is null) {

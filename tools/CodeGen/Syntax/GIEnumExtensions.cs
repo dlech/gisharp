@@ -1,8 +1,7 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using GISharp.CodeGen.Gir;
 using GISharp.Runtime;
@@ -67,7 +66,7 @@ namespace GISharp.CodeGen.Syntax
                 (@enum.ErrorDomain is null ? "Extensions" : "Domain");
 
             return ClassDeclaration(name)
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
                 .WithLeadingTrivia(ParseLeadingTrivia(string.Format(@"/// <summary>
                 /// Extension methods for <see cref=""{0}""/>.
                 /// </summary>

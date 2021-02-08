@@ -1,11 +1,8 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
 using System.ComponentModel;
-using System.Reflection;
-using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
 
@@ -14,13 +11,13 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// An opaque structure used as the base of all type instances.
     /// </summary>
-    public abstract class TypeInstance : Opaque
+    public abstract unsafe class TypeInstance : Opaque
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="TypeInstance"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
             /// <summary>
             /// Pointer to GObjectClass
@@ -39,7 +36,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Gets the <see cref="GType"/> for this instance.
         /// </summary>
-        public unsafe GType GetGType()
+        public GType GetGType()
         {
             var typeInstance = (UnmanagedStruct*)UnsafeHandle;
             return typeInstance->GClass->GType;
@@ -48,6 +45,6 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Gets the <see cref="TypeClass"/> for this instance.
         /// </summary>
-        public unsafe TypeClass GetTypeClass() => TypeClass.Get(GetGType());
+        public TypeClass GetTypeClass() => TypeClass.Get(GetGType());
     }
 }

@@ -21,13 +21,13 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// The class structure for the GObject type.
     /// </summary>
-    public class ObjectClass : TypeClass
+    public unsafe class ObjectClass : TypeClass
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ObjectClass"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
 #pragma warning disable CS0169
@@ -126,7 +126,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the class closure for the notify signal
         /// </summary>
-        public unsafe void DoDispatchPropertiesChanged(Object @object, UnownedCPtrArray<ParamSpec> pspecs)
+        public void DoDispatchPropertiesChanged(Object @object, UnownedCPtrArray<ParamSpec> pspecs)
         {
             var objectClass = (UnmanagedStruct*)UnsafeHandle;
             var object_ = @object.UnsafeHandle;
@@ -139,7 +139,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the class closure for the notify signal
         /// </summary>
-        public unsafe void DoNotify(Object @object, ParamSpec pspec)
+        public void DoNotify(Object @object, ParamSpec pspec)
         {
             var objectClass = (UnmanagedStruct*)UnsafeHandle;
             var object_ = @object.UnsafeHandle;
@@ -156,7 +156,7 @@ namespace GISharp.Lib.GObject
         /// implementors should chain up to the constructed call of their parent
         /// class to allow it to complete its initialisation.
         /// </summary>
-        public unsafe void DoConstructed(Object @object)
+        public void DoConstructed(Object @object)
         {
             var objectClass = (UnmanagedStruct*)UnsafeHandle;
             var object_ = @object.UnsafeHandle;
@@ -205,7 +205,7 @@ namespace GISharp.Lib.GObject
         /// interop with the GObject type system.
         /// </remarks>
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        static unsafe void InitManagedClass(IntPtr gClass_, IntPtr classData_)
+        static void InitManagedClass(IntPtr gClass_, IntPtr classData_)
         {
             try {
                 var objectClass = (UnmanagedStruct*)gClass_;
@@ -464,7 +464,7 @@ namespace GISharp.Lib.GObject
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        static unsafe IntPtr ManagedClassConstructor(GType type_, uint nConstructProperties_, IntPtr constructProperties_)
+        static IntPtr ManagedClassConstructor(GType type_, uint nConstructProperties_, IntPtr constructProperties_)
         {
             try {
                 // find the first unmanaged type ancestor (indicated by not having
@@ -495,7 +495,7 @@ namespace GISharp.Lib.GObject
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        static unsafe void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, Value* value, IntPtr pspecPtr)
+        static void ManagedClassSetProperty(IntPtr objPtr, uint propertyId, Value* value, IntPtr pspecPtr)
         {
             try {
                 var obj = Object.GetInstance(objPtr, Transfer.None);
@@ -510,7 +510,7 @@ namespace GISharp.Lib.GObject
         }
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        static unsafe void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, Value* value, IntPtr pspecPtr)
+        static void ManagedClassGetProperty(IntPtr objPtr, uint propertyId, Value* value, IntPtr pspecPtr)
         {
             try {
                 var obj = Object.GetInstance(objPtr, Transfer.None);
@@ -726,7 +726,7 @@ namespace GISharp.Lib.GObject
         ///   defining the new properties
         /// </param>
         [Since("2.26")]
-        public unsafe void InstallProperties(UnownedCPtrArray<ParamSpec> pspecs)
+        public void InstallProperties(UnownedCPtrArray<ParamSpec> pspecs)
         {
             var this_ = UnsafeHandle;
             ref readonly var pspecs_ = ref MemoryMarshal.GetReference(pspecs.Data);
@@ -759,7 +759,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern unsafe void g_object_class_install_property(
+        static extern void g_object_class_install_property(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
             UnmanagedStruct* oclass,
@@ -789,7 +789,7 @@ namespace GISharp.Lib.GObject
         /// <param name="pspec">
         /// the #GParamSpec for the new property
         /// </param>
-        public unsafe void InstallProperty(uint propertyId, ParamSpec pspec)
+        public void InstallProperty(uint propertyId, ParamSpec pspec)
         {
             if (pspec is null) {
                 throw new ArgumentNullException(nameof(pspec));
@@ -878,7 +878,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern unsafe void g_object_class_override_property(
+        static extern void g_object_class_override_property(
             /* <type name="ObjectClass" type="GObjectClass*" managed-name="ObjectClass" /> */
             /* transfer-ownership:none */
             UnmanagedStruct* oclass,
@@ -917,7 +917,7 @@ namespace GISharp.Lib.GObject
         /// in an interface of this class.
         /// </param>
         [Since("2.4")]
-        public unsafe void OverrideProperty(uint propertyId, UnownedUtf8 name)
+        public void OverrideProperty(uint propertyId, UnownedUtf8 name)
         {
             var oclass_ = (UnmanagedStruct*)UnsafeHandle;
             var name_ = name.UnsafeHandle;

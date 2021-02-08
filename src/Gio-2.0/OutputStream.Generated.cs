@@ -6,14 +6,14 @@ namespace GISharp.Lib.Gio
     /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream']/*" />
     [GISharp.Runtime.GTypeAttribute("GOutputStream", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(OutputStreamClass))]
-    public abstract partial class OutputStream : GISharp.Lib.GObject.Object
+    public abstract unsafe partial class OutputStream : GISharp.Lib.GObject.Object
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_output_stream_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="OutputStream.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentInstance']/*" />
@@ -43,7 +43,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_output_stream_get_type();
+        private static extern GISharp.Lib.GObject.GType g_output_stream_get_type();
 
         /// <summary>
         /// Clears the pending flag on @stream.
@@ -54,14 +54,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_output_stream_clear_pending(
+        private static extern void g_output_stream_clear_pending(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream);
         static partial void CheckClearPendingArgs();
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.ClearPending()']/*" />
-        public unsafe void ClearPending()
+        public void ClearPending()
         {
             CheckClearPendingArgs();
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -115,7 +115,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_close(
+        private static extern GISharp.Runtime.Boolean g_output_stream_close(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -128,7 +128,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckCloseArgs(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Close(GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe void Close(GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public void Close(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckCloseArgs(cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -173,7 +173,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_output_stream_close_async(
+        private static extern void g_output_stream_close_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -192,7 +192,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckCloseAsyncArgs(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Threading.Tasks.Task CloseAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task CloseAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckCloseAsyncArgs(ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -223,7 +223,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_close_finish(
+        private static extern GISharp.Runtime.Boolean g_output_stream_close_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -234,7 +234,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void CloseFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        static void CloseFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -258,8 +258,8 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback closeAsyncCallbackDelegate = CloseFinish;
-        static readonly unsafe System.IntPtr closeAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(closeAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback closeAsyncCallbackDelegate = CloseFinish;
+        static readonly System.IntPtr closeAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(closeAsyncCallbackDelegate);
 
         /// <summary>
         /// Forces a write of all user-space buffered data for the given
@@ -288,7 +288,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_flush(
+        private static extern GISharp.Runtime.Boolean g_output_stream_flush(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -301,7 +301,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckFlushArgs(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Flush(GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe void Flush(GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public void Flush(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckFlushArgs(cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -343,7 +343,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Threading.Tasks.Task" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_output_stream_flush_async(
+        private static extern void g_output_stream_flush_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -362,7 +362,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckFlushAsyncArgs(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.FlushAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Threading.Tasks.Task FlushAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task FlushAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckFlushAsyncArgs(ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -393,7 +393,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_flush_finish(
+        private static extern GISharp.Runtime.Boolean g_output_stream_flush_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -404,7 +404,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void FlushFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        static void FlushFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -428,8 +428,8 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback flushAsyncCallbackDelegate = FlushFinish;
-        static readonly unsafe System.IntPtr flushAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(flushAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback flushAsyncCallbackDelegate = FlushFinish;
+        static readonly System.IntPtr flushAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(flushAsyncCallbackDelegate);
 
         /// <summary>
         /// Checks if an output stream has pending actions.
@@ -443,14 +443,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_has_pending(
+        private static extern GISharp.Runtime.Boolean g_output_stream_has_pending(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream);
         static partial void CheckHasPendingArgs();
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.HasPending()']/*" />
-        public unsafe System.Boolean HasPending()
+        public System.Boolean HasPending()
         {
             CheckHasPendingArgs();
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -471,13 +471,13 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_is_closed(
+        private static extern GISharp.Runtime.Boolean g_output_stream_is_closed(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream);
         static partial void CheckGetIsClosedArgs();
 
-        private unsafe System.Boolean GetIsClosed()
+        private System.Boolean GetIsClosed()
         {
             CheckGetIsClosedArgs();
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -502,14 +502,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_is_closing(
+        private static extern GISharp.Runtime.Boolean g_output_stream_is_closing(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream);
         static partial void CheckGetIsClosingArgs();
 
         [GISharp.Runtime.SinceAttribute("2.24")]
-        private unsafe System.Boolean GetIsClosing()
+        private System.Boolean GetIsClosing()
         {
             CheckGetIsClosingArgs();
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -535,7 +535,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_set_pending(
+        private static extern GISharp.Runtime.Boolean g_output_stream_set_pending(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -545,7 +545,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckSetPendingArgs();
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.SetPending()']/*" />
-        public unsafe void SetPending()
+        public void SetPending()
         {
             CheckSetPendingArgs();
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -586,7 +586,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.IntPtr g_output_stream_splice(
+        private static extern System.IntPtr g_output_stream_splice(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -605,7 +605,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckSpliceArgs(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Splice(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Int32 Splice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Int32 Splice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckSpliceArgs(source, flags, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -660,7 +660,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gssize" type="gssize" managed-name="System.Int32" />
 * </type> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_output_stream_splice_async(
+        private static extern void g_output_stream_splice_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -685,7 +685,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckSpliceAsyncArgs(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.SpliceAsync(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Threading.Tasks.Task<System.Int32> SpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task<System.Int32> SpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckSpliceAsyncArgs(source, flags, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -721,7 +721,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.IntPtr g_output_stream_splice_finish(
+        private static extern System.IntPtr g_output_stream_splice_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -732,7 +732,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void SpliceFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        static void SpliceFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -757,8 +757,8 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback spliceAsyncCallbackDelegate = SpliceFinish;
-        static readonly unsafe System.IntPtr spliceAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(spliceAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback spliceAsyncCallbackDelegate = SpliceFinish;
+        static readonly System.IntPtr spliceAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(spliceAsyncCallbackDelegate);
 
         /// <summary>
         /// Tries to write @count bytes from @buffer into the stream. Will block
@@ -804,7 +804,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.IntPtr g_output_stream_write(
+        private static extern System.IntPtr g_output_stream_write(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -825,7 +825,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckWriteArgs(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Write(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Int32 Write(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Int32 Write(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             fixed (System.Byte* bufferData_ = buffer)
             {
@@ -894,7 +894,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_write_all(
+        private static extern GISharp.Runtime.Boolean g_output_stream_write_all(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -918,7 +918,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckWriteAllArgs(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe void WriteAll(System.ReadOnlySpan<System.Byte> buffer, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public void WriteAll(System.ReadOnlySpan<System.Byte> buffer, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             fixed (System.Byte* bufferData_ = buffer)
             {
@@ -985,7 +985,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gsize" type="gsize*" managed-name="System.Int32" />
 * </type> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_output_stream_write_all_async(
+        private static extern void g_output_stream_write_all_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1013,7 +1013,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteAllAsync(System.ReadOnlyMemory&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]
-        public unsafe System.Threading.Tasks.Task<System.Int32> WriteAllAsync(System.ReadOnlyMemory<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task<System.Int32> WriteAllAsync(System.ReadOnlyMemory<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckWriteAllAsyncArgs(buffer, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -1060,7 +1060,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_write_all_finish(
+        private static extern GISharp.Runtime.Boolean g_output_stream_write_all_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1074,7 +1074,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void WriteAllFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        static void WriteAllFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -1100,8 +1100,8 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeAllAsyncCallbackDelegate = WriteAllFinish;
-        static readonly unsafe System.IntPtr writeAllAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeAllAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeAllAsyncCallbackDelegate = WriteAllFinish;
+        static readonly System.IntPtr writeAllAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeAllAsyncCallbackDelegate);
 
         /// <summary>
         /// Request an asynchronous write of @count bytes from @buffer into
@@ -1167,7 +1167,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gssize" type="gssize" managed-name="System.Int32" />
 * </type> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_output_stream_write_async(
+        private static extern void g_output_stream_write_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1194,7 +1194,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckWriteAsyncArgs(System.ReadOnlyMemory<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteAsync(System.ReadOnlyMemory&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Threading.Tasks.Task<System.Int32> WriteAsync(System.ReadOnlyMemory<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task<System.Int32> WriteAsync(System.ReadOnlyMemory<System.Byte> buffer, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckWriteAsyncArgs(buffer, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -1241,7 +1241,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.IntPtr g_output_stream_write_bytes(
+        private static extern System.IntPtr g_output_stream_write_bytes(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1257,7 +1257,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckWriteBytesArgs(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteBytes(GISharp.Lib.GLib.Bytes,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Int32 WriteBytes(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Int32 WriteBytes(GISharp.Lib.GLib.Bytes bytes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckWriteBytesArgs(bytes, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -1314,7 +1314,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gssize" type="gssize" managed-name="System.Int32" />
 * </type> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_output_stream_write_bytes_async(
+        private static extern void g_output_stream_write_bytes_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1336,7 +1336,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckWriteBytesAsyncArgs(GISharp.Lib.GLib.Bytes bytes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WriteBytesAsync(GISharp.Lib.GLib.Bytes,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public unsafe System.Threading.Tasks.Task<System.Int32> WriteBytesAsync(GISharp.Lib.GLib.Bytes bytes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task<System.Int32> WriteBytesAsync(GISharp.Lib.GLib.Bytes bytes, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckWriteBytesAsyncArgs(bytes, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -1368,7 +1368,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.IntPtr g_output_stream_write_bytes_finish(
+        private static extern System.IntPtr g_output_stream_write_bytes_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1379,7 +1379,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void WriteBytesFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        static void WriteBytesFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -1404,8 +1404,8 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeBytesAsyncCallbackDelegate = WriteBytesFinish;
-        static readonly unsafe System.IntPtr writeBytesAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeBytesAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeBytesAsyncCallbackDelegate = WriteBytesFinish;
+        static readonly System.IntPtr writeBytesAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeBytesAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes a stream write operation.
@@ -1425,7 +1425,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.IntPtr g_output_stream_write_finish(
+        private static extern System.IntPtr g_output_stream_write_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1436,7 +1436,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void WriteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        static void WriteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -1461,8 +1461,8 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeAsyncCallbackDelegate = WriteFinish;
-        static readonly unsafe System.IntPtr writeAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writeAsyncCallbackDelegate = WriteFinish;
+        static readonly System.IntPtr writeAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writeAsyncCallbackDelegate);
 
         /// <summary>
         /// Tries to write the bytes contained in the @n_vectors @vectors into the
@@ -1516,7 +1516,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev(
+        private static extern GISharp.Runtime.Boolean g_output_stream_writev(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1541,7 +1541,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.Writev(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
-        public unsafe void Writev(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public void Writev(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             fixed (GISharp.Lib.Gio.OutputVector* vectorsData_ = vectors)
             {
@@ -1614,7 +1614,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_all(
+        private static extern GISharp.Runtime.Boolean g_output_stream_writev_all(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1639,7 +1639,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WritevAll(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
-        public unsafe void WritevAll(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public void WritevAll(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             fixed (GISharp.Lib.Gio.OutputVector* vectorsData_ = vectors)
             {
@@ -1707,7 +1707,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gsize" type="gsize*" managed-name="System.Int32" />
 * </type> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_output_stream_writev_all_async(
+        private static extern void g_output_stream_writev_all_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1735,7 +1735,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WritevAllAsync(System.ReadOnlyMemory&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
-        public unsafe System.Threading.Tasks.Task<System.Int32> WritevAllAsync(System.ReadOnlyMemory<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task<System.Int32> WritevAllAsync(System.ReadOnlyMemory<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckWritevAllAsyncArgs(vectors, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -1782,7 +1782,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_all_finish(
+        private static extern GISharp.Runtime.Boolean g_output_stream_writev_all_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1796,7 +1796,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void WritevAllFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        static void WritevAllFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -1822,8 +1822,8 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writevAllAsyncCallbackDelegate = WritevAllFinish;
-        static readonly unsafe System.IntPtr writevAllAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writevAllAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writevAllAsyncCallbackDelegate = WritevAllFinish;
+        static readonly System.IntPtr writevAllAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writevAllAsyncCallbackDelegate);
 
         /// <summary>
         /// Request an asynchronous write of the bytes contained in @n_vectors @vectors into
@@ -1885,7 +1885,7 @@ namespace GISharp.Lib.Gio
 *   <type name="gsize" type="gsize*" managed-name="System.Int32" />
 * </type> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_output_stream_writev_async(
+        private static extern void g_output_stream_writev_async(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1913,7 +1913,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.WritevAsync(System.ReadOnlyMemory&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
-        public unsafe System.Threading.Tasks.Task<System.Int32> WritevAsync(System.ReadOnlyMemory<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task<System.Int32> WritevAsync(System.ReadOnlyMemory<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckWritevAsyncArgs(vectors, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
@@ -1950,7 +1950,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none skip:1 direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_output_stream_writev_finish(
+        private static extern GISharp.Runtime.Boolean g_output_stream_writev_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1964,7 +1964,7 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static unsafe void WritevFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        static void WritevFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -1990,12 +1990,12 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writevAsyncCallbackDelegate = WritevFinish;
-        static readonly unsafe System.IntPtr writevAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writevAsyncCallbackDelegate);
+        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback writevAsyncCallbackDelegate = WritevFinish;
+        static readonly System.IntPtr writevAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(writevAsyncCallbackDelegate);
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedCloseAsync))]
-        protected virtual unsafe void DoCloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoCloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var ioPriority_ = (System.Int32)ioPriority;
@@ -2006,7 +2006,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoCloseFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedCloseFinish))]
-        protected virtual unsafe void DoCloseFinish(GISharp.Lib.Gio.IAsyncResult result)
+        protected virtual void DoCloseFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
@@ -2021,7 +2021,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoCloseFn(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedCloseFn))]
-        protected virtual unsafe void DoCloseFn(GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoCloseFn(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
@@ -2036,7 +2036,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoFlush(GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedFlush))]
-        protected virtual unsafe void DoFlush(GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoFlush(GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
@@ -2051,7 +2051,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoFlushAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedFlushAsync))]
-        protected virtual unsafe void DoFlushAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoFlushAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var ioPriority_ = (System.Int32)ioPriority;
@@ -2062,7 +2062,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoFlushFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedFlushFinish))]
-        protected virtual unsafe void DoFlushFinish(GISharp.Lib.Gio.IAsyncResult result)
+        protected virtual void DoFlushFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
@@ -2077,7 +2077,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoSplice(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedSplice))]
-        protected virtual unsafe System.Int32 DoSplice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual System.Int32 DoSplice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var source_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)source.UnsafeHandle;
@@ -2097,7 +2097,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoSpliceAsync(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedSpliceAsync))]
-        protected virtual unsafe void DoSpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoSpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var source_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)source.UnsafeHandle;
@@ -2110,7 +2110,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoSpliceFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedSpliceFinish))]
-        protected virtual unsafe System.Int32 DoSpliceFinish(GISharp.Lib.Gio.IAsyncResult result)
+        protected virtual System.Int32 DoSpliceFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
@@ -2128,7 +2128,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoWriteAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWriteAsync))]
-        protected virtual unsafe void DoWriteAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoWriteAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             fixed (System.Byte* bufferData_ = buffer)
             {
@@ -2144,7 +2144,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoWriteFinish(GISharp.Lib.Gio.IAsyncResult)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWriteFinish))]
-        protected virtual unsafe System.Int32 DoWriteFinish(GISharp.Lib.Gio.IAsyncResult result)
+        protected virtual System.Int32 DoWriteFinish(GISharp.Lib.Gio.IAsyncResult result)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
@@ -2162,7 +2162,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoWriteFn(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWriteFn))]
-        protected virtual unsafe System.Int32 DoWriteFn(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual System.Int32 DoWriteFn(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             fixed (System.Byte* bufferData_ = buffer)
             {
@@ -2186,7 +2186,7 @@ namespace GISharp.Lib.Gio
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoWritevAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWritevAsync))]
-        protected virtual unsafe void DoWritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoWritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             fixed (GISharp.Lib.Gio.OutputVector* vectorsData_ = vectors)
             {
@@ -2203,7 +2203,7 @@ namespace GISharp.Lib.Gio
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoWritevFinish(GISharp.Lib.Gio.IAsyncResult,System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWritevFinish))]
-        protected virtual unsafe void DoWritevFinish(GISharp.Lib.Gio.IAsyncResult result, out System.Int32 bytesWritten)
+        protected virtual void DoWritevFinish(GISharp.Lib.Gio.IAsyncResult result, out System.Int32 bytesWritten)
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
@@ -2222,7 +2222,7 @@ namespace GISharp.Lib.Gio
         /// <include file="OutputStream.xmldoc" path="declaration/member[@name='OutputStream.DoWritevFn(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.60")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(OutputStreamClass.UnmanagedWritevFn))]
-        protected virtual unsafe void DoWritevFn(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoWritevFn(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             fixed (GISharp.Lib.Gio.OutputVector* vectorsData_ = vectors)
             {

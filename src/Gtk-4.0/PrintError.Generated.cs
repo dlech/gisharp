@@ -21,7 +21,7 @@ namespace GISharp.Lib.Gtk
     /// <summary>
     /// Extension methods for <see cref="PrintError"/>.
     /// </summary>
-    public static partial class PrintErrorDomain
+    public static unsafe partial class PrintErrorDomain
     {
         private static readonly GISharp.Lib.GObject.GType _GType = gtk_print_error_get_type();
 
@@ -39,9 +39,9 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Quark gtk_print_error_quark();
+        private static extern GISharp.Lib.GLib.Quark gtk_print_error_quark();
 
-        private static unsafe GISharp.Lib.GLib.Quark GetQuark()
+        private static GISharp.Lib.GLib.Quark GetQuark()
         {
             CheckGetQuarkArgs();
             var ret_ = gtk_print_error_quark();
@@ -53,6 +53,6 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType gtk_print_error_get_type();
+        private static extern GISharp.Lib.GObject.GType gtk_print_error_get_type();
     }
 }

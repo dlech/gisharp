@@ -4,7 +4,7 @@
 namespace GISharp.Lib.Gtk
 {
     /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize']/*" />
-    public static partial class Initialize
+    public static unsafe partial class Initialize
     {
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.IsInitialized']/*" />
         public static System.Boolean IsInitialized { get => GetIsInitialized(); }
@@ -25,10 +25,10 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void gtk_disable_setlocale();
+        private static extern void gtk_disable_setlocale();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.DisableSetlocale()']/*" />
-        public static unsafe void DisableSetlocale()
+        public static void DisableSetlocale()
         {
             CheckDisableSetlocaleArgs();
             gtk_disable_setlocale();
@@ -61,10 +61,10 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void gtk_init();
+        private static extern void gtk_init();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.Init()']/*" />
-        public static unsafe void Init()
+        public static void Init()
         {
             CheckInitArgs();
             gtk_init();
@@ -89,10 +89,10 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean gtk_init_check();
+        private static extern GISharp.Runtime.Boolean gtk_init_check();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.TryInit()']/*" />
-        public static unsafe System.Boolean TryInit()
+        public static System.Boolean TryInit()
         {
             CheckTryInitArgs();
             var ret_ = gtk_init_check();
@@ -112,9 +112,9 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean gtk_is_initialized();
+        private static extern GISharp.Runtime.Boolean gtk_is_initialized();
 
-        private static unsafe System.Boolean GetIsInitialized()
+        private static System.Boolean GetIsInitialized()
         {
             CheckGetIsInitializedArgs();
             var ret_ = gtk_is_initialized();

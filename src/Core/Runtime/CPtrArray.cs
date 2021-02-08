@@ -14,7 +14,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for unmanaged arrays of pointers.
     /// </summary>
-    public abstract class CPtrArray : Opaque
+    public abstract unsafe class CPtrArray : Opaque
     {
         /// <summary>
         /// Gets the number of elements in the array.
@@ -76,7 +76,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for C array of pointers to opaque data types.
     /// </summary>
-    public class CPtrArray<T> : CPtrArray, IReadOnlyList<T> where T : IOpaque?
+    public unsafe class CPtrArray<T> : CPtrArray, IReadOnlyList<T> where T : IOpaque?
     {
         /// <summary>
         /// For internal runtime use only.
@@ -107,7 +107,7 @@ namespace GISharp.Runtime
             }
         }
 
-        private unsafe ReadOnlySpan<IntPtr> Data => new ReadOnlySpan<IntPtr>((void*)UnsafeHandle, Length);
+        private ReadOnlySpan<IntPtr> Data => new ReadOnlySpan<IntPtr>((void*)UnsafeHandle, Length);
 
         /// <summary>
         /// Gets the number of elements in the array.
@@ -140,7 +140,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for unowned C arrays of pointers to opaque data types.
     /// </summary>
-    public ref struct UnownedCPtrArray<T> where T : IOpaque?
+    public unsafe ref struct UnownedCPtrArray<T> where T : IOpaque?
     {
         /// <summary>
         /// Gets an empty array.
@@ -156,7 +156,7 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe UnownedCPtrArray(IntPtr handle, int length, Transfer ownership)
+        public UnownedCPtrArray(IntPtr handle, int length, Transfer ownership)
         {
             if (ownership != Transfer.None) {
                 throw new NotSupportedException();

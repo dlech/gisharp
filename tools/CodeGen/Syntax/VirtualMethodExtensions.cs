@@ -29,7 +29,7 @@ namespace GISharp.CodeGen.Syntax
 
             var syntax = MethodDeclaration(returnType, method.ManagedName)
                 .WithAttributeLists(method.GetAttributeLists())
-                .AddModifiers(Token(ProtectedKeyword), Token(VirtualKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(ProtectedKeyword), Token(VirtualKeyword))
                 .WithParameterList(method.ManagedParameters.GetParameterList())
                 .WithBody(method.GetInvokeBlock(invoker, checkArgs: false))
                 .WithLeadingTrivia(TriviaList()

@@ -19,13 +19,13 @@ namespace GISharp.Lib.GObject
     /// </summary>
     [Since ("2.4")]
     [GType ("GParamOverride", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecOverride : ParamSpec
+    public sealed unsafe class ParamSpecOverride : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecOverride"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
             #pragma warning disable CS0649
             /// <summary>

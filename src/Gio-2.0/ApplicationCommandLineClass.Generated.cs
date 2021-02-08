@@ -5,12 +5,12 @@ namespace GISharp.Lib.Gio
 {
     /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='ApplicationCommandLineClass']/*" />
     [GISharp.Runtime.SinceAttribute("2.28")]
-    public class ApplicationCommandLineClass : GISharp.Lib.GObject.ObjectClass
+    public unsafe class ApplicationCommandLineClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="ApplicationCommandLineClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParentClass']/*" />
@@ -60,12 +60,12 @@ System.Byte* message);
         /// <summary>
         /// Class for marshalling <see cref="PrintLiteral"/> methods.
         /// </summary>
-        public static class PrintLiteralMarshal
+        public static unsafe class PrintLiteralMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedPrintLiteral Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedPrintLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedPrintLiteral(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_, System.Byte* message_) { try { var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var message = new GISharp.Lib.GLib.UnownedUtf8(message_); var doPrintLiteral = (PrintLiteral)methodInfo.CreateDelegate(typeof(PrintLiteral), cmdline); doPrintLiteral(message); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -93,12 +93,12 @@ System.Byte* message);
         /// <summary>
         /// Class for marshalling <see cref="PrinterrLiteral"/> methods.
         /// </summary>
-        public static class PrinterrLiteralMarshal
+        public static unsafe class PrinterrLiteralMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedPrinterrLiteral Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedPrinterrLiteral Create(System.Reflection.MethodInfo methodInfo)
             {
                 void unmanagedPrinterrLiteral(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_, System.Byte* message_) { try { var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var message = new GISharp.Lib.GLib.UnownedUtf8(message_); var doPrinterrLiteral = (PrinterrLiteral)methodInfo.CreateDelegate(typeof(PrinterrLiteral), cmdline); doPrinterrLiteral(message); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
@@ -123,12 +123,12 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
         /// <summary>
         /// Class for marshalling <see cref="GetStdin"/> methods.
         /// </summary>
-        public static class GetStdinMarshal
+        public static unsafe class GetStdinMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedGetStdin Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedGetStdin Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Lib.Gio.InputStream.UnmanagedStruct* unmanagedGetStdin(GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline_) { try { var cmdline = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)cmdline_, GISharp.Runtime.Transfer.None)!; var doGetStdin = (GetStdin)methodInfo.CreateDelegate(typeof(GetStdin), cmdline); var ret = doGetStdin(); var ret_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)ret.Take(); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.InputStream.UnmanagedStruct*); }
 

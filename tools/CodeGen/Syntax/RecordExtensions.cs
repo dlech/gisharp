@@ -50,7 +50,7 @@ namespace GISharp.CodeGen.Syntax
             var identifier = record.ManagedName;
 
             var syntax = ClassDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(SealedKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(SealedKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
                 .WithBaseList(record.GetBaseList())
                 .WithAttributeLists(record.GetGTypeAttributeLists())
                 .WithLeadingTrivia(record.Doc.GetDocCommentTrivia())
@@ -147,6 +147,8 @@ namespace GISharp.CodeGen.Syntax
                 // interfaces cannot be inherited
                 list = list.Add(Token(SealedKeyword));
             }
+
+            list = list.Add(Token(UnsafeKeyword));
 
             return list;
         }

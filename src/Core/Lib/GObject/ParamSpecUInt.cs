@@ -12,13 +12,13 @@ namespace GISharp.Lib.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for integer properties.
     /// </summary>
     [GType("GParamUInt", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecUInt : ParamSpec
+    public sealed unsafe class ParamSpecUInt : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecUInt"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -46,17 +46,17 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// minimum value for the property specified
         /// </summary>
-        public unsafe uint Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
+        public uint Minimum => ((UnmanagedStruct*)UnsafeHandle)->Minimum;
 
         /// <summary>
         /// maximum value for the property specified
         /// </summary>
-        public unsafe uint Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
+        public uint Maximum => ((UnmanagedStruct*)UnsafeHandle)->Maximum;
 
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new uint DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
+        public new uint DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
 
         /// <summary>
         /// For internal runtime use only.

@@ -13,7 +13,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Helper functions for marshaling GLib data structures.
     /// </summary>
-    public static class GMarshal
+    public static unsafe class GMarshal
     {
         [DllImport("glib-2.0")]
         extern static IntPtr g_malloc(UIntPtr nBytes);
@@ -70,7 +70,7 @@ namespace GISharp.Runtime
         /// that expects the user data to be a <see cref="GCHandle"/> and
         /// frees it.
         /// </summary>
-        public static unsafe IntPtr DestroyGCHandleFunctionPointer =>
+        public static IntPtr DestroyGCHandleFunctionPointer =>
             (IntPtr)(delegate* unmanaged[Cdecl]<IntPtr, void>)&destroyGCHandle;
 
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
@@ -398,7 +398,7 @@ namespace GISharp.Runtime
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe void g_propagate_error(Error.UnmanagedStruct** dest, Error.UnmanagedStruct* src);
+        static extern void g_propagate_error(Error.UnmanagedStruct** dest, Error.UnmanagedStruct* src);
 
         /// <summary>
         /// If dest is NULL, free src; otherwise, moves src into *dest. The error
@@ -409,7 +409,7 @@ namespace GISharp.Runtime
         /// <remarks>
         /// Note that src is no longer valid after this call.
         /// </remarks>
-        public static unsafe void PropagateError(Error.UnmanagedStruct** dest, Error src)
+        public static void PropagateError(Error.UnmanagedStruct** dest, Error src)
         {
             var src_ = (Error.UnmanagedStruct*)src.Take();
             g_propagate_error(dest, src_);

@@ -5,14 +5,14 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder']/*" />
     [GISharp.Runtime.GTypeAttribute("GVariantBuilder", IsProxyForUnmanagedType = true)]
-    public sealed partial class VariantBuilder : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class VariantBuilder : GISharp.Lib.GObject.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_variant_builder_get_type();
 
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
         }
 
@@ -48,13 +48,13 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* g_variant_builder_new(
+        private static extern GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* g_variant_builder_new(
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
-        static unsafe GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* New(GISharp.Lib.GLib.VariantType type)
+        static GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* New(GISharp.Lib.GLib.VariantType type)
         {
             CheckNewArgs(type);
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)type.UnsafeHandle;
@@ -64,7 +64,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.VariantBuilder(GISharp.Lib.GLib.VariantType)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public unsafe VariantBuilder(GISharp.Lib.GLib.VariantType type) : this((System.IntPtr)New(type), GISharp.Runtime.Transfer.Full)
+        public VariantBuilder(GISharp.Lib.GLib.VariantType type) : this((System.IntPtr)New(type), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -72,7 +72,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_variant_builder_get_type();
+        private static extern GISharp.Lib.GObject.GType g_variant_builder_get_type();
 
         /// <summary>
         /// Adds @value to @builder.
@@ -97,7 +97,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_variant_builder_add_value(
+        private static extern void g_variant_builder_add_value(
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder,
@@ -108,7 +108,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.Add(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public unsafe void Add(GISharp.Lib.GLib.Variant value)
+        public void Add(GISharp.Lib.GLib.Variant value)
         {
             CheckAddArgs(value);
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle;
@@ -132,7 +132,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_variant_builder_close(
+        private static extern void g_variant_builder_close(
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder);
@@ -140,7 +140,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.Close()']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public unsafe void Close()
+        public void Close()
         {
             CheckCloseArgs();
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle;
@@ -177,7 +177,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Variant.UnmanagedStruct* g_variant_builder_end(
+        private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_variant_builder_end(
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder);
@@ -185,7 +185,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.End()']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public unsafe GISharp.Lib.GLib.Variant End()
+        public GISharp.Lib.GLib.Variant End()
         {
             CheckEndArgs();
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle;
@@ -243,7 +243,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_variant_builder_open(
+        private static extern void g_variant_builder_open(
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder,
@@ -254,7 +254,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder.Open(GISharp.Lib.GLib.VariantType)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
-        public unsafe void Open(GISharp.Lib.GLib.VariantType type)
+        public void Open(GISharp.Lib.GLib.VariantType type)
         {
             CheckOpenArgs(type);
             var builder_ = (GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle;
@@ -279,7 +279,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* g_variant_builder_ref(
+        private static extern GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* g_variant_builder_ref(
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder);
@@ -288,7 +288,7 @@ namespace GISharp.Lib.GLib
         /// Takes ownership of the unmanaged pointer without freeing it.
         /// The managed object can no longer be used (will throw disposed exception).
         /// </summary>
-        public override unsafe System.IntPtr Take() => (System.IntPtr)g_variant_builder_ref((GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle);
+        public override System.IntPtr Take() => (System.IntPtr)g_variant_builder_ref((GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct*)UnsafeHandle);
 
         /// <summary>
         /// Decreases the reference count on @builder.
@@ -307,7 +307,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_variant_builder_unref(
+        private static extern void g_variant_builder_unref(
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder);

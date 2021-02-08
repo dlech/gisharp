@@ -18,7 +18,7 @@ namespace GISharp.Lib.GObject
     /// GObject signals operations.
     /// </summary>
     /// <seealso cref="Object"/>
-    public static class Signal
+    public static unsafe class Signal
     {
         static Regex signalNameRegex = new("^[a-zA-Z](?:[a-zA-Z0-9_]*|[a-zA-Z0-9-]*)$",
             RegexOptions.CultureInvariant);
@@ -73,7 +73,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="gulong" type="gulong" managed-name="Gulong" /> */
         /* transfer-ownership:none */
-        static extern unsafe culong g_signal_add_emission_hook(
+        static extern culong g_signal_add_emission_hook(
             /* <type name="guint" type="guint" managed-name="Guint" /> */
             /* transfer-ownership:none */
             uint signalId,
@@ -443,7 +443,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern unsafe void g_signal_emitv(
+        static extern void g_signal_emitv(
             /* <array zero-terminated="0" type="GValue*">
                 <type name="Value" type="GValue" managed-name="Value" />
                 </array> */
@@ -504,7 +504,7 @@ namespace GISharp.Lib.GObject
             Emit(typeof(void), instance, signalId, detail, parameters);
         }
 
-        static unsafe object? Emit(Type type, Object instance, uint signalId, Quark detail, object[] parameters)
+        static object? Emit(Type type, Object instance, uint signalId, Quark detail, object[] parameters)
         {
             var query = Signal.Query(signalId);
             if (!instance.GetGType().IsA(query.IType)) {
@@ -1023,7 +1023,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern unsafe void g_signal_override_class_handler(
+        static extern void g_signal_override_class_handler(
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
             IntPtr signalName,

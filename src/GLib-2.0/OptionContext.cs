@@ -1,13 +1,12 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
-
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
-    partial class OptionContext
+    unsafe partial class OptionContext
     {
         /// <summary>
         /// Creates a new option context.
@@ -36,7 +35,7 @@ namespace GISharp.Lib.GLib
         /// the first line of `--help` output, after the usage summary
         /// `programname [OPTION...]`
         /// </param>
-        public unsafe OptionContext(NullableUnownedUtf8 parameterString)
+        public OptionContext(NullableUnownedUtf8 parameterString)
             : base((IntPtr)New(parameterString), Transfer.Full)
         {
         }
@@ -49,7 +48,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <inheritdoc />
-        protected override unsafe void Dispose(bool disposing)
+        protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
                 g_option_context_free((UnmanagedStruct*)handle);

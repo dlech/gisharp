@@ -7,7 +7,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.Gio
 {
-    partial class ThemedIcon
+    unsafe partial class ThemedIcon
     {
         /// <summary>
         /// Creates a new themed icon for <paramref name="iconName"/>.
@@ -25,7 +25,7 @@ namespace GISharp.Lib.Gio
         /// </returns>
         /// <remarks>
         /// </remarks>
-        public unsafe ThemedIcon(UnownedUtf8 iconName, bool useDefaultFallbacks = false)
+        public ThemedIcon(UnownedUtf8 iconName, bool useDefaultFallbacks = false)
             : this(useDefaultFallbacks ? (IntPtr)NewWithDefaultFallbacks(iconName) : (IntPtr)New(iconName), Transfer.Full)
         {
         }
@@ -46,12 +46,12 @@ namespace GISharp.Lib.Gio
         /// </returns>
         /// <remarks>
         /// </remarks>
-        public unsafe ThemedIcon(string iconName, bool useDefaultFallbacks = false)
+        public ThemedIcon(string iconName, bool useDefaultFallbacks = false)
             : this(useDefaultFallbacks ? (IntPtr)NewWithDefaultFallbacks(iconName) : (IntPtr)New(iconName), Transfer.Full)
         {
         }
 
-        static unsafe UnmanagedStruct* NewFromNames(string[] iconNames)
+        static UnmanagedStruct* NewFromNames(string[] iconNames)
         {
             if (iconNames is null) {
                 throw new ArgumentNullException(nameof(iconNames));
@@ -72,7 +72,7 @@ namespace GISharp.Lib.Gio
         /// <param name="iconNames">
         /// an array of strings containing icon names.
         /// </param>
-        public unsafe ThemedIcon(params string[] iconNames)
+        public ThemedIcon(params string[] iconNames)
             : this((IntPtr)NewFromNames(iconNames), Transfer.Full)
         {
         }

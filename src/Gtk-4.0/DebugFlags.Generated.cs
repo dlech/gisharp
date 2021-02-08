@@ -49,7 +49,7 @@ namespace GISharp.Lib.Gtk
     /// <summary>
     /// Extension methods for <see cref="DebugFlags"/>.
     /// </summary>
-    public static partial class DebugFlagsExtensions
+    public static unsafe partial class DebugFlagsExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = gtk_debug_flags_get_type();
 
@@ -71,9 +71,9 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="DebugFlags" type="GtkDebugFlags" managed-name="DebugFlags" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.Gtk.DebugFlags gtk_get_debug_flags();
+        private static extern GISharp.Lib.Gtk.DebugFlags gtk_get_debug_flags();
 
-        private static unsafe GISharp.Lib.Gtk.DebugFlags GetCurrent()
+        private static GISharp.Lib.Gtk.DebugFlags GetCurrent()
         {
             CheckGetCurrentArgs();
             var ret_ = gtk_get_debug_flags();
@@ -92,12 +92,12 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void gtk_set_debug_flags(
+        private static extern void gtk_set_debug_flags(
         /* <type name="DebugFlags" type="GtkDebugFlags" managed-name="DebugFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gtk.DebugFlags flags);
 
-        private static unsafe void SetCurrent(GISharp.Lib.Gtk.DebugFlags flags)
+        private static void SetCurrent(GISharp.Lib.Gtk.DebugFlags flags)
         {
             CheckSetCurrentArgs(flags);
             var flags_ = (GISharp.Lib.Gtk.DebugFlags)flags;
@@ -108,6 +108,6 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType gtk_debug_flags_get_type();
+        private static extern GISharp.Lib.GObject.GType gtk_debug_flags_get_type();
     }
 }

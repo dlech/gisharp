@@ -50,7 +50,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_time_val_from_iso8601(
+        private static extern GISharp.Runtime.Boolean g_time_val_from_iso8601(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Byte* isoDate,
@@ -62,7 +62,7 @@ namespace GISharp.Lib.GLib
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_iso8601() instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public static unsafe System.Boolean TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
+        public static System.Boolean TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8 isoDate, out GISharp.Lib.GLib.TimeVal time)
         {
             fixed (GISharp.Lib.GLib.TimeVal* time_ = &time)
             {
@@ -89,7 +89,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_time_val_add(
+        private static extern void g_time_val_add(
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* time,
@@ -101,7 +101,7 @@ namespace GISharp.Lib.GLib
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.Add(GISharp.Runtime.CLong)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use `guint64` for\n   representing microseconds since the epoch, or use #GDateTime.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
-        public unsafe void Add(GISharp.Runtime.CLong microseconds)
+        public void Add(GISharp.Runtime.CLong microseconds)
         {
             fixed (GISharp.Lib.GLib.TimeVal* this_ = &this)
             {
@@ -162,7 +162,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern unsafe System.Byte* g_time_val_to_iso8601(
+        private static extern System.Byte* g_time_val_to_iso8601(
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* time);
@@ -172,7 +172,7 @@ namespace GISharp.Lib.GLib
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_format_iso8601(dt) instead.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.62")]
         [GISharp.Runtime.SinceAttribute("2.12")]
-        public unsafe GISharp.Lib.GLib.Utf8? ToIso8601()
+        public GISharp.Lib.GLib.Utf8? ToIso8601()
         {
             fixed (GISharp.Lib.GLib.TimeVal* this_ = &this)
             {

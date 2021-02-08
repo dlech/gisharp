@@ -27,7 +27,7 @@ namespace GISharp.CodeGen.Syntax
             }
 
             var syntax = InterfaceDeclaration(@interface.ManagedName)
-                .AddModifiers(Token(PublicKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
                 .WithBaseList(BaseList(baseTypes))
                 .WithAttributeLists(@interface.GetGTypeAttributeLists())
                 .WithLeadingTrivia(@interface.Doc.GetDocCommentTrivia())
@@ -61,9 +61,9 @@ namespace GISharp.CodeGen.Syntax
         public static ClassDeclarationSyntax GetExtClassDeclaration(this Interface @interface)
         {
             // trim "I" prefix
-            var identifier = @interface.ManagedName.Substring(1);
+            var identifier = @interface.ManagedName[1..];
             return ClassDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
                 .WithLeadingTrivia(ParseLeadingTrivia(string.Format(@"/// <summary>
                 /// Extension methods for <see cref=""{0}""/>
                 /// </summary>

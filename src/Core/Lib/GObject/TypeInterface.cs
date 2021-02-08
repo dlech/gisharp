@@ -13,13 +13,13 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// An opaque structure used as the base of all interface types.
     /// </summary>
-    public abstract class TypeInterface : TypeClass
+    public abstract unsafe class TypeInterface : TypeClass
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="TypeInterface"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -36,7 +36,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// Gets the instance type
         /// </summary>
-        public unsafe GType InstanceType => ((UnmanagedStruct*)UnsafeHandle)->GInstanceType;
+        public GType InstanceType => ((UnmanagedStruct*)UnsafeHandle)->GInstanceType;
 
         /// <summary>
         /// For internal runtime use only.
@@ -236,7 +236,7 @@ namespace GISharp.Lib.GObject
             <type name="GType" type="GType" managed-name="GType" />
             </array> */
         /* transfer-ownership:full */
-        static extern unsafe IntPtr g_type_interface_prerequisites(
+        static extern IntPtr g_type_interface_prerequisites(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType interfaceType,
@@ -255,7 +255,7 @@ namespace GISharp.Lib.GObject
         /// the prerequisites of <paramref name="interfaceType"/>
         /// </returns>
         [Since("2.2")]
-        public static unsafe ReadOnlyMemory<GType> GetPrerequisites(GType interfaceType)
+        public static ReadOnlyMemory<GType> GetPrerequisites(GType interfaceType)
         {
             uint nPrerequisites_;
             var ret_ = g_type_interface_prerequisites(interfaceType, &nPrerequisites_);

@@ -4,12 +4,12 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="ThemedIconClass.xmldoc" path="declaration/member[@name='ThemedIconClass']/*" />
-    public sealed partial class ThemedIconClass : GISharp.Lib.GObject.ObjectClass
+    public sealed unsafe partial class ThemedIconClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
         }
 

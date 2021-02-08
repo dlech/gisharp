@@ -4,12 +4,12 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='SeekableIface']/*" />
-    public sealed class SeekableIface : GISharp.Lib.GObject.TypeInterface
+    public sealed unsafe class SeekableIface : GISharp.Lib.GObject.TypeInterface
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="SeekableIface.xmldoc" path="declaration/member[@name='UnmanagedStruct.GIface']/*" />
@@ -63,12 +63,12 @@ GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable);
         /// <summary>
         /// Class for marshalling <see cref="Tell"/> methods.
         /// </summary>
-        public static class TellMarshal
+        public static unsafe class TellMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedTell Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedTell Create(System.Reflection.MethodInfo methodInfo)
             {
                 System.Int64 unmanagedTell(GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable_) { try { var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)seekable_, GISharp.Runtime.Transfer.None)!; var doTell = (Tell)methodInfo.CreateDelegate(typeof(Tell), seekable); var ret = doTell(); var ret_ = (System.Int64)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Int64); }
 
@@ -93,12 +93,12 @@ GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable);
         /// <summary>
         /// Class for marshalling <see cref="CanSeek"/> methods.
         /// </summary>
-        public static class CanSeekMarshal
+        public static unsafe class CanSeekMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCanSeek Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCanSeek Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCanSeek(GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable_) { try { var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)seekable_, GISharp.Runtime.Transfer.None)!; var doCanSeek = (CanSeek)methodInfo.CreateDelegate(typeof(CanSeek), seekable); var ret = doCanSeek(); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -135,12 +135,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="Seek"/> methods.
         /// </summary>
-        public static class SeekMarshal
+        public static unsafe class SeekMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedSeek Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedSeek Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedSeek(GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable_, System.Int64 offset_, GISharp.Lib.GLib.SeekType type_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)seekable_, GISharp.Runtime.Transfer.None)!; var offset = (System.Int64)offset_; var type = (GISharp.Lib.GLib.SeekType)type_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSeek = (Seek)methodInfo.CreateDelegate(typeof(Seek), seekable); doSeek(offset, type, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -165,12 +165,12 @@ GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable);
         /// <summary>
         /// Class for marshalling <see cref="CanTruncate"/> methods.
         /// </summary>
-        public static class CanTruncateMarshal
+        public static unsafe class CanTruncateMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedCanTruncate Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedCanTruncate Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedCanTruncate(GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable_) { try { var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)seekable_, GISharp.Runtime.Transfer.None)!; var doCanTruncate = (CanTruncate)methodInfo.CreateDelegate(typeof(CanTruncate), seekable); var ret = doCanTruncate(); var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
@@ -204,12 +204,12 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// Class for marshalling <see cref="TruncateFn"/> methods.
         /// </summary>
-        public static class TruncateFnMarshal
+        public static unsafe class TruncateFnMarshal
         {
             /// <summary>
             /// Creates an unmanaged delegate from a managed delegate.
             /// </summary>
-            public static unsafe UnmanagedTruncateFn Create(System.Reflection.MethodInfo methodInfo)
+            public static UnmanagedTruncateFn Create(System.Reflection.MethodInfo methodInfo)
             {
                 GISharp.Runtime.Boolean unmanagedTruncateFn(GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable_, System.Int64 offset_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var seekable = (GISharp.Lib.Gio.ISeekable)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)seekable_, GISharp.Runtime.Transfer.None)!; var offset = (System.Int64)offset_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doTruncateFn = (TruncateFn)methodInfo.CreateDelegate(typeof(TruncateFn), seekable); doTruncateFn(offset, cancellable); return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 

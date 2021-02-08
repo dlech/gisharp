@@ -11,7 +11,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Managed wrapper for an unmanaged C array.
     /// </summary>
-    public abstract class CArray : Opaque
+    public abstract unsafe class CArray : Opaque
     {
         /// <summary>
         /// Gets the number of elements in this array.
@@ -71,7 +71,7 @@ namespace GISharp.Runtime
     /// Managed wrapper around an unmanged C array.
     /// </summary>
     /// <seealso cref="CPtrArray{T}"/>
-    public class CArray<T> : CArray, IReadOnlyList<T> where T : unmanaged
+    public unsafe class CArray<T> : CArray, IReadOnlyList<T> where T : unmanaged
     {
         /// <summary>
         /// For internal runtime use only.
@@ -90,7 +90,7 @@ namespace GISharp.Runtime
         /// <exception cref="IndexOutOfRangeException">
         /// The index is outside of the bounds of the array.
         /// </exception>
-        public unsafe T this[int index] {
+        public T this[int index] {
             get {
                 var this_ = (T*)UnsafeHandle;
                 if (index < 0 || index >= Length) {
@@ -120,7 +120,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Converts a <see cref="CArray{T}"/> to a span.
         /// </summary>
-        public static unsafe implicit operator ReadOnlySpan<T>(CArray<T> array)
+        public static implicit operator ReadOnlySpan<T>(CArray<T> array)
         {
             return new ReadOnlySpan<T>((void*)array.UnsafeHandle, array.Length);
         }

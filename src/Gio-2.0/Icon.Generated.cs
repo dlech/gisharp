@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon']/*" />
     [GISharp.Runtime.GTypeAttribute("GIcon", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(IconIface))]
-    public partial interface IIcon : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IIcon : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_icon_get_type();
 
@@ -25,14 +25,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.Gio.Icon.UnmanagedStruct* g_icon_deserialize(
+        private static extern GISharp.Lib.Gio.Icon.UnmanagedStruct* g_icon_deserialize(
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.Deserialize(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public static unsafe GISharp.Lib.Gio.IIcon Deserialize(GISharp.Lib.GLib.Variant value)
+        public static GISharp.Lib.Gio.IIcon Deserialize(GISharp.Lib.GLib.Variant value)
         {
             CheckDeserializeArgs(value);
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
@@ -66,7 +66,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.Gio.Icon.UnmanagedStruct* g_icon_new_for_string(
+        private static extern GISharp.Lib.Gio.Icon.UnmanagedStruct* g_icon_new_for_string(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Byte* str,
@@ -76,7 +76,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.NewForString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
-        public static unsafe GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.UnownedUtf8 str)
+        public static GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.UnownedUtf8 str)
         {
             CheckNewForStringArgs(str);
             var str_ = (System.Byte*)str.UnsafeHandle;
@@ -96,7 +96,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_icon_get_type();
+        private static extern GISharp.Lib.GObject.GType g_icon_get_type();
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoEqual(GISharp.Lib.Gio.IIcon?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedEqual))]
@@ -115,12 +115,12 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="IIcon"/>
     /// </summary>
-    public static partial class Icon
+    public static unsafe partial class Icon
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
         }
 
@@ -137,14 +137,14 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe System.UInt32 g_icon_hash(
+        private static extern System.UInt32 g_icon_hash(
         /* <type name="Icon" type="gconstpointer" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
         static partial void CheckGetHashCodeArgs(this GISharp.Lib.Gio.IIcon icon);
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.GetHashCode(GISharp.Lib.Gio.IIcon)']/*" />
-        public unsafe static System.Int32 GetHashCode(this GISharp.Lib.Gio.IIcon icon)
+        public static System.Int32 GetHashCode(this GISharp.Lib.Gio.IIcon icon)
         {
             CheckGetHashCodeArgs(icon);
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
@@ -168,7 +168,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_icon_equal(
+        private static extern GISharp.Runtime.Boolean g_icon_equal(
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon1,
@@ -178,7 +178,7 @@ namespace GISharp.Lib.Gio
         static partial void CheckEqualsArgs(this GISharp.Lib.Gio.IIcon? icon1, GISharp.Lib.Gio.IIcon? icon2);
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.Equals(GISharp.Lib.Gio.IIcon?,GISharp.Lib.Gio.IIcon?)']/*" />
-        public unsafe static System.Boolean Equals(this GISharp.Lib.Gio.IIcon? icon1, GISharp.Lib.Gio.IIcon? icon2)
+        public static System.Boolean Equals(this GISharp.Lib.Gio.IIcon? icon1, GISharp.Lib.Gio.IIcon? icon2)
         {
             CheckEqualsArgs(icon1, icon2);
             var icon1_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)(icon1?.UnsafeHandle ?? System.IntPtr.Zero);
@@ -205,7 +205,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Variant.UnmanagedStruct* g_icon_serialize(
+        private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_icon_serialize(
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
@@ -213,7 +213,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.Serialize(GISharp.Lib.Gio.IIcon)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
-        public unsafe static GISharp.Lib.GLib.Variant Serialize(this GISharp.Lib.Gio.IIcon icon)
+        public static GISharp.Lib.GLib.Variant Serialize(this GISharp.Lib.Gio.IIcon icon)
         {
             CheckSerializeArgs(icon);
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;
@@ -252,7 +252,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern unsafe System.Byte* g_icon_to_string(
+        private static extern System.Byte* g_icon_to_string(
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
@@ -260,7 +260,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='Icon.ToString(GISharp.Lib.Gio.IIcon)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
-        public unsafe static GISharp.Lib.GLib.Utf8? ToString(this GISharp.Lib.Gio.IIcon icon)
+        public static GISharp.Lib.GLib.Utf8? ToString(this GISharp.Lib.Gio.IIcon icon)
         {
             CheckToStringArgs(icon);
             var icon_ = (GISharp.Lib.Gio.Icon.UnmanagedStruct*)icon.UnsafeHandle;

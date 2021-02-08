@@ -4,7 +4,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute']/*" />
-    public static partial class FileAttribute
+    public static unsafe partial class FileAttribute
     {
         /// <include file="FileAttribute.xmldoc" path="declaration/member[@name='FileAttribute.AccessCanDelete']/*" />
         public const System.String AccessCanDelete = "access::can-delete";

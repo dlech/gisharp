@@ -12,13 +12,13 @@ namespace GISharp.Lib.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for object properties.
     /// </summary>
     [GType("GParamObject", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecObject : ParamSpec
+    public sealed unsafe class ParamSpecObject : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecObject"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>

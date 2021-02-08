@@ -126,7 +126,7 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="IOErrorEnum"/>.
     /// </summary>
-    public static partial class IOErrorEnumDomain
+    public static unsafe partial class IOErrorEnumDomain
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_io_error_enum_get_type();
 
@@ -154,13 +154,13 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="IOErrorEnum" type="GIOErrorEnum" managed-name="IOErrorEnum" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.Gio.IOErrorEnum g_io_error_from_errno(
+        private static extern GISharp.Lib.Gio.IOErrorEnum g_io_error_from_errno(
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 errno);
 
         /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.FromErrno(System.Int32)']/*" />
-        public static unsafe GISharp.Lib.Gio.IOErrorEnum FromErrno(System.Int32 errno)
+        public static GISharp.Lib.Gio.IOErrorEnum FromErrno(System.Int32 errno)
         {
             CheckFromErrnoArgs(errno);
             var errno_ = (System.Int32)errno;
@@ -180,9 +180,9 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Quark g_io_error_quark();
+        private static extern GISharp.Lib.GLib.Quark g_io_error_quark();
 
-        private static unsafe GISharp.Lib.GLib.Quark GetQuark()
+        private static GISharp.Lib.GLib.Quark GetQuark()
         {
             CheckGetQuarkArgs();
             var ret_ = g_io_error_quark();
@@ -194,6 +194,6 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_io_error_enum_get_type();
+        private static extern GISharp.Lib.GObject.GType g_io_error_enum_get_type();
     }
 }

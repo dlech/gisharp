@@ -24,7 +24,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// Class for marshalling <see cref="TranslateFunc"/> methods.
     /// </summary>
-    public static class TranslateFuncMarshal
+    public static unsafe class TranslateFuncMarshal
     {
         class UserData
         {
@@ -45,8 +45,7 @@ namespace GISharp.Lib.GLib
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedTranslateFunc>(callback_);
             var data_ = userData_;
-
-            unsafe GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str) { var str_ = (System.Byte*)str.UnsafeHandle; var ret_ = unmanagedCallback(str_,data_); var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_); return ret; }
+            GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str) { var str_ = (System.Byte*)str.UnsafeHandle; var ret_ = unmanagedCallback(str_,data_); var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_); return ret; }
 
             return managedCallback;
         }
@@ -69,7 +68,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
         /// function should be ignored.
         /// </remarks>
-        public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.TranslateFunc? callback, GISharp.Runtime.CallbackScope scope)
+        public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.TranslateFunc? callback, GISharp.Runtime.CallbackScope scope)
         {
             if (callback == null)
             {
@@ -81,7 +80,7 @@ namespace GISharp.Lib.GLib
             return (callback_, destroy_, userData_);
         }
 
-        static unsafe System.Byte* UnmanagedCallback(System.Byte* str_, System.IntPtr data_)
+        static System.Byte* UnmanagedCallback(System.Byte* str_, System.IntPtr data_)
         {
             try
             {
@@ -104,7 +103,7 @@ namespace GISharp.Lib.GLib
             return default(System.Byte*);
         }
 
-        static readonly unsafe GISharp.Lib.GLib.UnmanagedTranslateFunc UnmanagedCallbackDelegate = UnmanagedCallback;
+        static readonly GISharp.Lib.GLib.UnmanagedTranslateFunc UnmanagedCallbackDelegate = UnmanagedCallback;
         static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
 
         static void Destroy(System.IntPtr userData_)

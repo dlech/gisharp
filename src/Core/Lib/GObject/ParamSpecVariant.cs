@@ -13,13 +13,13 @@ namespace GISharp.Lib.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for character properties.
     /// </summary>
     [GType("GParamVariant", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecVariant : ParamSpec
+    public sealed unsafe class ParamSpecVariant : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecVariant"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -42,7 +42,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// A <see cref="VariantType" /> or <c>null</c>
         /// </summary>
-        public unsafe VariantType? VariantType {
+        public VariantType? VariantType {
             get {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->VariantType;
                 var ret = Opaque.GetInstance<VariantType>(ret_, Transfer.None);
@@ -53,7 +53,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// A <see cref="Variant" /> or <c>null</c>
         /// </summary>
-        public unsafe new Variant? DefaultValue {
+        public new Variant? DefaultValue {
             get {
                 var ret_ = ((UnmanagedStruct*)UnsafeHandle)->DefaultValue;
                 var ret = Opaque.GetInstance<Variant>(ret_, Transfer.None);

@@ -11,7 +11,7 @@ using Tasks = System.Threading.Tasks;
 
 namespace GISharp.Lib.Gio
 {
-    partial class File
+    unsafe partial class File
     {
         /// <summary>
         /// Copies the file <paramref name="source"/> to the location specified by <paramref name="destination"/>
@@ -42,7 +42,7 @@ namespace GISharp.Lib.Gio
         /// function to callback with progress information, or <c>null</c> if
         /// progress information is not needed.
         /// </param>
-        public unsafe static Tasks.Task CopyAsync(this IFile source, IFile destination, FileCopyFlags flags, int ioPriority = Priority.Default,
+        public static Tasks.Task CopyAsync(this IFile source, IFile destination, FileCopyFlags flags, int ioPriority = Priority.Default,
             Cancellable? cancellable = null, FileProgressCallback? progressCallback = null)
         {
             var source_ = (UnmanagedStruct*)source.UnsafeHandle;
@@ -67,7 +67,7 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        static unsafe void CopyFinish(GObject.Object.UnmanagedStruct* sourceObject_, AsyncResult.UnmanagedStruct* res_, IntPtr userData_)
+        static void CopyFinish(GObject.Object.UnmanagedStruct* sourceObject_, AsyncResult.UnmanagedStruct* res_, IntPtr userData_)
         {
             try {
                 var file_ = (UnmanagedStruct*)sourceObject_;
@@ -90,7 +90,7 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static readonly unsafe UnmanagedAsyncReadyCallback copyAsyncCallbackDelegate = CopyFinish;
-        static readonly unsafe IntPtr copyAsyncCallback_ = Marshal.GetFunctionPointerForDelegate(copyAsyncCallbackDelegate);
+        static readonly UnmanagedAsyncReadyCallback copyAsyncCallbackDelegate = CopyFinish;
+        static readonly IntPtr copyAsyncCallback_ = Marshal.GetFunctionPointerForDelegate(copyAsyncCallbackDelegate);
     }
 }

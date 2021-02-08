@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="Version.xmldoc" path="declaration/member[@name='Version']/*" />
-    public static partial class Version
+    public static unsafe partial class Version
     {
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.major']/*" />
         private const System.Int32 major = 2;
@@ -53,7 +53,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern unsafe System.Byte* glib_check_version(
+        private static extern System.Byte* glib_check_version(
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         System.UInt32 requiredMajor,
@@ -66,7 +66,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.Check(System.UInt32,System.UInt32,System.UInt32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
-        public static unsafe GISharp.Lib.GLib.NullableUnownedUtf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
+        public static GISharp.Lib.GLib.NullableUnownedUtf8 Check(System.UInt32 requiredMajor, System.UInt32 requiredMinor, System.UInt32 requiredMicro)
         {
             CheckCheckArgs(requiredMajor, requiredMinor, requiredMicro);
             var requiredMajor_ = (System.UInt32)requiredMajor;

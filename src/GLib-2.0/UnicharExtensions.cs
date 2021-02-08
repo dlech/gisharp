@@ -6,7 +6,7 @@ using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
-    partial class UnicharExtensions
+    unsafe partial class UnicharExtensions
     {
         /// <summary>
         /// Converts a single character to UTF-8.
@@ -14,7 +14,7 @@ namespace GISharp.Lib.GLib
         /// <param name="ch">
         /// a Unicode character.
         /// </param>
-        public static unsafe Utf8 ToUtf8(this Unichar ch)
+        public static Utf8 ToUtf8(this Unichar ch)
         {
             var outbuf_ = (byte*)GMarshal.Alloc0(6);
             // TODO: pass length to Utf8 constructor
@@ -25,7 +25,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.FullyDecompose(GISharp.Lib.GLib.Unichar,System.Boolean)']/*" />
         [Since("2.30")]
-        public static unsafe Memory<Unichar> FullyDecompose(this Unichar ch, bool compat = false)
+        public static Memory<Unichar> FullyDecompose(this Unichar ch, bool compat = false)
         {
             Memory<Unichar> result = new Unichar[maxDecompositionLength];
             var compat_ = compat.ToBoolean();

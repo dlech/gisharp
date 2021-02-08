@@ -165,7 +165,7 @@ namespace GISharp.CodeGen.Syntax
             }
 
             return StructDeclaration("UnmanagedStruct")
-                .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(PublicKeyword))
                 .WithMembers(structMembers)
                 .WithLeadingTrivia(ParseLeadingTrivia($@"/// <summary>
                 /// The unmanaged data structure.

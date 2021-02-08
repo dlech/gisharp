@@ -6,7 +6,7 @@ namespace GISharp.Lib.Gio
     /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup']/*" />
     [GISharp.Runtime.GTypeAttribute("GActionGroup", IsProxyForUnmanagedType = true)]
     [GISharp.Runtime.GTypeStructAttribute(typeof(ActionGroupInterface))]
-    public partial interface IActionGroup : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
+    public unsafe partial interface IActionGroup : GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_action_group_get_type();
 
@@ -19,11 +19,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("action-added", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
         event ActionAddedSignalHandler ActionAddedSignal;
 
-        private static class ActionAddedSignalHandlerMarshal
+        private static unsafe class ActionAddedSignalHandlerMarshal
         {
             record UserData(ActionAddedSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe ActionAddedSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static ActionAddedSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, System.Byte*, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName) { var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle; var actionName_ = (System.Byte*)actionName.UnsafeHandle; unmanagedCallback(actionGroup_, actionName_, userData_); }
@@ -31,7 +31,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -46,7 +46,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, System.Byte* actionName_, System.IntPtr userData_)
+            static void ManagedCallback(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, System.Byte* actionName_, System.IntPtr userData_)
             {
                 try
                 {
@@ -76,11 +76,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("action-enabled-changed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
         event ActionEnabledChangedSignalHandler ActionEnabledChangedSignal;
 
-        private static class ActionEnabledChangedSignalHandlerMarshal
+        private static unsafe class ActionEnabledChangedSignalHandlerMarshal
         {
             record UserData(ActionEnabledChangedSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe ActionEnabledChangedSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static ActionEnabledChangedSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, System.Byte*, GISharp.Runtime.Boolean, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled) { var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle; var actionName_ = (System.Byte*)actionName.UnsafeHandle; var enabled_ = GISharp.Runtime.BooleanExtensions.ToBoolean(enabled); unmanagedCallback(actionGroup_, actionName_, enabled_, userData_); }
@@ -88,7 +88,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -103,7 +103,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, System.Byte* actionName_, GISharp.Runtime.Boolean enabled_, System.IntPtr userData_)
+            static void ManagedCallback(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, System.Byte* actionName_, GISharp.Runtime.Boolean enabled_, System.IntPtr userData_)
             {
                 try
                 {
@@ -134,11 +134,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("action-removed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
         event ActionRemovedSignalHandler ActionRemovedSignal;
 
-        private static class ActionRemovedSignalHandlerMarshal
+        private static unsafe class ActionRemovedSignalHandlerMarshal
         {
             record UserData(ActionRemovedSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe ActionRemovedSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static ActionRemovedSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, System.Byte*, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName) { var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle; var actionName_ = (System.Byte*)actionName.UnsafeHandle; unmanagedCallback(actionGroup_, actionName_, userData_); }
@@ -146,7 +146,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -161,7 +161,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, System.Byte* actionName_, System.IntPtr userData_)
+            static void ManagedCallback(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, System.Byte* actionName_, System.IntPtr userData_)
             {
                 try
                 {
@@ -191,11 +191,11 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("action-state-changed", When = GISharp.Runtime.EmissionStage.Last, IsDetailed = true)]
         event ActionStateChangedSignalHandler ActionStateChangedSignal;
 
-        private static class ActionStateChangedSignalHandlerMarshal
+        private static unsafe class ActionStateChangedSignalHandlerMarshal
         {
             record UserData(ActionStateChangedSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
 
-            public static unsafe ActionStateChangedSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            public static ActionStateChangedSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
             {
                 var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*, System.Byte*, GISharp.Lib.GLib.Variant.UnmanagedStruct*, System.IntPtr, void>)callback_;
                 void managedCallback(GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant value) { var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle; var actionName_ = (System.Byte*)actionName.UnsafeHandle; var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle; unmanagedCallback(actionGroup_, actionName_, value_, userData_); }
@@ -203,7 +203,7 @@ namespace GISharp.Lib.Gio
                 return managedCallback;
             }
 
-            public static unsafe (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
             {
                 if (callback == null)
                 {
@@ -218,7 +218,7 @@ namespace GISharp.Lib.Gio
             }
 
             [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static unsafe void ManagedCallback(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, System.Byte* actionName_, GISharp.Lib.GLib.Variant.UnmanagedStruct* value_, System.IntPtr userData_)
+            static void ManagedCallback(GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup_, System.Byte* actionName_, GISharp.Lib.GLib.Variant.UnmanagedStruct* value_, System.IntPtr userData_)
             {
                 try
                 {
@@ -244,7 +244,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType g_action_group_get_type();
+        private static extern GISharp.Lib.GObject.GType g_action_group_get_type();
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='IActionGroup.DoActionAdded(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -315,12 +315,12 @@ namespace GISharp.Lib.Gio
     /// <summary>
     /// Extension methods for <see cref="IActionGroup"/>
     /// </summary>
-    public static partial class ActionGroup
+    public static unsafe partial class ActionGroup
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe struct UnmanagedStruct
+        public struct UnmanagedStruct
         {
         }
 
@@ -340,7 +340,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_action_group_action_added(
+        private static extern void g_action_group_action_added(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -351,7 +351,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ActionAdded(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static void ActionAdded(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static void ActionAdded(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckActionAddedArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -378,7 +378,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_action_group_action_enabled_changed(
+        private static extern void g_action_group_action_enabled_changed(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -392,7 +392,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ActionEnabledChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static void ActionEnabledChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled)
+        public static void ActionEnabledChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, System.Boolean enabled)
         {
             CheckActionEnabledChangedArgs(actionGroup, actionName, enabled);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -417,7 +417,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_action_group_action_removed(
+        private static extern void g_action_group_action_removed(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -428,7 +428,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ActionRemoved(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static void ActionRemoved(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static void ActionRemoved(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckActionRemovedArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -455,7 +455,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_action_group_action_state_changed(
+        private static extern void g_action_group_action_state_changed(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -469,7 +469,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ActionStateChanged(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static void ActionStateChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant state)
+        public static void ActionStateChanged(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant state)
         {
             CheckActionStateChangedArgs(actionGroup, actionName, state);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -500,7 +500,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_action_group_activate_action(
+        private static extern void g_action_group_activate_action(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -514,7 +514,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ActivateAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static void ActivateAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? parameter)
+        public static void ActivateAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant? parameter)
         {
             CheckActivateActionArgs(actionGroup, actionName, parameter);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -550,7 +550,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void g_action_group_change_action_state(
+        private static extern void g_action_group_change_action_state(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -564,7 +564,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ChangeActionState(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static void ChangeActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant value)
+        public static void ChangeActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, GISharp.Lib.GLib.Variant value)
         {
             CheckChangeActionStateArgs(actionGroup, actionName, value);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -593,7 +593,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_action_group_get_action_enabled(
+        private static extern GISharp.Runtime.Boolean g_action_group_get_action_enabled(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -604,7 +604,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.GetActionEnabled(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static System.Boolean GetActionEnabled(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static System.Boolean GetActionEnabled(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionEnabledArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -643,7 +643,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern unsafe GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_action_group_get_action_parameter_type(
+        private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_action_group_get_action_parameter_type(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -654,7 +654,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.GetActionParameterType(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static GISharp.Lib.GLib.VariantType? GetActionParameterType(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static GISharp.Lib.GLib.VariantType? GetActionParameterType(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionParameterTypeArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -688,7 +688,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Variant.UnmanagedStruct* g_action_group_get_action_state(
+        private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_action_group_get_action_state(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -699,7 +699,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.GetActionState(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static GISharp.Lib.GLib.Variant? GetActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static GISharp.Lib.GLib.Variant? GetActionState(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionStateArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -743,7 +743,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern unsafe GISharp.Lib.GLib.Variant.UnmanagedStruct* g_action_group_get_action_state_hint(
+        private static extern GISharp.Lib.GLib.Variant.UnmanagedStruct* g_action_group_get_action_state_hint(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -754,7 +754,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.GetActionStateHint(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static GISharp.Lib.GLib.Variant? GetActionStateHint(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static GISharp.Lib.GLib.Variant? GetActionStateHint(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionStateHintArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -796,7 +796,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern unsafe GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_action_group_get_action_state_type(
+        private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_action_group_get_action_state_type(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -807,7 +807,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.GetActionStateType(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static GISharp.Lib.GLib.VariantType? GetActionStateType(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static GISharp.Lib.GLib.VariantType? GetActionStateType(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckGetActionStateTypeArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -833,7 +833,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_action_group_has_action(
+        private static extern GISharp.Runtime.Boolean g_action_group_has_action(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -844,7 +844,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.HasAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static System.Boolean HasAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
+        public static System.Boolean HasAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName)
         {
             CheckHasActionArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -874,7 +874,7 @@ namespace GISharp.Lib.Gio
 *   <type name="utf8" managed-name="GISharp.Lib.GLib.Utf8" />
 * </array> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe System.Byte** g_action_group_list_actions(
+        private static extern System.Byte** g_action_group_list_actions(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup);
@@ -882,7 +882,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.ListActions(GISharp.Lib.Gio.IActionGroup)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public unsafe static GISharp.Lib.GLib.Strv ListActions(this GISharp.Lib.Gio.IActionGroup actionGroup)
+        public static GISharp.Lib.GLib.Strv ListActions(this GISharp.Lib.Gio.IActionGroup actionGroup)
         {
             CheckListActionsArgs(actionGroup);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;
@@ -949,7 +949,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe GISharp.Runtime.Boolean g_action_group_query_action(
+        private static extern GISharp.Runtime.Boolean g_action_group_query_action(
         /* <type name="ActionGroup" type="GActionGroup*" managed-name="ActionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ActionGroup.UnmanagedStruct* actionGroup,
@@ -975,7 +975,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ActionGroup.xmldoc" path="declaration/member[@name='ActionGroup.TryQueryAction(GISharp.Lib.Gio.IActionGroup,GISharp.Lib.GLib.UnownedUtf8,System.Boolean,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.VariantType,GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public unsafe static System.Boolean TryQueryAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, out System.Boolean enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state)
+        public static System.Boolean TryQueryAction(this GISharp.Lib.Gio.IActionGroup actionGroup, GISharp.Lib.GLib.UnownedUtf8 actionName, out System.Boolean enabled, out GISharp.Lib.GLib.VariantType parameterType, out GISharp.Lib.GLib.VariantType stateType, out GISharp.Lib.GLib.Variant stateHint, out GISharp.Lib.GLib.Variant state)
         {
             CheckTryQueryActionArgs(actionGroup, actionName);
             var actionGroup_ = (GISharp.Lib.Gio.ActionGroup.UnmanagedStruct*)actionGroup.UnsafeHandle;

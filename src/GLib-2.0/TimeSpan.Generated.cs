@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="TimeSpan.xmldoc" path="declaration/member[@name='TimeSpan']/*" />
-    public partial struct TimeSpan
+    public unsafe partial struct TimeSpan
     {
         /// <include file="TimeSpan.xmldoc" path="declaration/member[@name='TimeSpan.Day']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]

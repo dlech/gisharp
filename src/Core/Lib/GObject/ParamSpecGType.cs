@@ -14,13 +14,13 @@ namespace GISharp.Lib.GObject
     /// </summary>
     [Since("2.10")]
     [GType("GParamGType", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecGType : ParamSpec
+    public sealed unsafe class ParamSpecGType : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecGType"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -38,7 +38,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// a <see cref="GType"/> whose subtypes can occur as values
         /// </summary>
-        public unsafe GType IsAType => ((UnmanagedStruct*)UnsafeHandle)->IsAType;
+        public GType IsAType => ((UnmanagedStruct*)UnsafeHandle)->IsAType;
 
         /// <summary>
         /// For internal runtime use only.

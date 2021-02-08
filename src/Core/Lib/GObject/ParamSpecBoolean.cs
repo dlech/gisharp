@@ -12,13 +12,13 @@ namespace GISharp.Lib.GObject
     /// A <see cref="ParamSpec"/> derived structure that contains the meta data for boolean properties.
     /// </summary>
     [GType("GParamBoolean", IsProxyForUnmanagedType = true)]
-    public sealed class ParamSpecBoolean : ParamSpec
+    public sealed unsafe class ParamSpecBoolean : ParamSpec
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="ParamSpecBoolean"/>.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
 #pragma warning disable CS0649
             /// <summary>
@@ -36,7 +36,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// default value for the property specified
         /// </summary>
-        public unsafe new bool DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue.IsTrue();
+        public new bool DefaultValue => ((UnmanagedStruct*)UnsafeHandle)->DefaultValue.IsTrue();
 
         /// <summary>
         /// For internal runtime use only.

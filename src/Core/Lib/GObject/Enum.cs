@@ -11,7 +11,7 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// Functions for working with <see cref="GType.Flags"/>.
     /// </summary>
-    public static class Enum
+    public static unsafe class Enum
     {
         /// <summary>
         /// This function is meant to be called from the `complete_type_info`
@@ -50,7 +50,7 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern unsafe void g_enum_complete_type_info(
+        static extern void g_enum_complete_type_info(
             /* <type name="GType" type="GType" managed-name="GType" /> */
             /* transfer-ownership:none */
             GType gEnumType,
@@ -95,7 +95,7 @@ namespace GISharp.Lib.GObject
         ///  enumeration values. The array is terminated by a struct with all
         ///  members being 0.
         /// </param>
-        static unsafe void CompleteTypeInfo(GType gEnumType, out TypeInfo info, ReadOnlySpan<EnumValue> constValues)
+        static void CompleteTypeInfo(GType gEnumType, out TypeInfo info, ReadOnlySpan<EnumValue> constValues)
         {
             fixed (EnumValue* constValues_ = constValues) {
                 g_enum_complete_type_info(gEnumType, out info, constValues_);
@@ -246,12 +246,12 @@ namespace GISharp.Lib.GObject
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern unsafe GType g_enum_register_static(IntPtr typeName, EnumValue* values);
+        static extern GType g_enum_register_static(IntPtr typeName, EnumValue* values);
 
         /// <summary>
         /// Registers a new static enumeration type with the name name.
         /// </summary>
-        public static unsafe GType RegisterStatic(string typeName, ReadOnlyMemory<EnumValue> values)
+        public static GType RegisterStatic(string typeName, ReadOnlyMemory<EnumValue> values)
         {
             GType.AssertGTypeName(typeName);
             using var typeNameUtf8 = typeName.ToUtf8();

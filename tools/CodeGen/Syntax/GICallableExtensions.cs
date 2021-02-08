@@ -288,7 +288,7 @@ namespace GISharp.CodeGen.Syntax
                 "GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*",
                 resultParameter.ManagedName);
             return MethodDeclaration(ParseTypeName("void"), callable.ManagedName)
-                .AddModifiers(Token(StaticKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(parameterList));
         }
 
@@ -393,7 +393,7 @@ namespace GISharp.CodeGen.Syntax
             yield return FieldDeclaration(VariableDeclaration(varType)
                     .AddVariables(VariableDeclarator(identifier + "Delegate")
                         .WithInitializer(EqualsValueClause(initializerExpression))))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword), Token(UnsafeKeyword));
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
 
             var marshalExpression = ParseExpression(string.Format(
                 "{0}.{1}<{2}>({3})",
@@ -405,7 +405,7 @@ namespace GISharp.CodeGen.Syntax
             yield return FieldDeclaration(VariableDeclaration(ParseTypeName(typeof(IntPtr).FullName))
                 .AddVariables(VariableDeclarator(identifier + "_")
                     .WithInitializer(EqualsValueClause(marshalExpression))))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword), Token(UnsafeKeyword));
+                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
         }
 
         /// <summary>
@@ -602,7 +602,7 @@ namespace GISharp.CodeGen.Syntax
             var fromPointerMethodParams = $"({typeof(IntPtr)} callback_, {typeof(IntPtr)} userData_)";
             var fromPointerReturnType = callbackType;
             var fromPointerMethod = MethodDeclaration(fromPointerReturnType, "FromPointer")
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(fromPointerMethodParams))
                 .WithBody(Block(callable.GetMarshalFromPointerMethodStatements()));
             list = list.Add(fromPointerMethod);
@@ -612,7 +612,7 @@ namespace GISharp.CodeGen.Syntax
             var toPointerMethodParams = $"(System.Delegate callback, {scopeType} scope)";
             var toPointerReturnType = ParseTypeName(string.Format("({0} callback_, {0} notify_, {0} userData_)", typeof(IntPtr)));
             var toPointerMethod = MethodDeclaration(toPointerReturnType, "ToUnmanagedFunctionPointer")
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(toPointerMethodParams))
                 .WithBody(Block(callable.GetMarshalToPointerMethodStatements()));
             list = list.Add(toPointerMethod);
@@ -625,7 +625,7 @@ namespace GISharp.CodeGen.Syntax
                 )));
             var callbackReturnType = callable.ReturnValue.Type.UnmanagedType.ToSyntax();
             var callbackMethod = MethodDeclaration(callbackReturnType, "ManagedCallback")
-                .AddModifiers(Token(StaticKeyword), Token(UnsafeKeyword))
+                .AddModifiers(Token(StaticKeyword))
                 .AddAttributeLists(AttributeList().AddAttributes(unmanagedCallersOnlyAttribute))
                 .WithParameterList(callable.Parameters.GetParameterList())
                 .WithBody(Block(callable.GetCallbackStatements()));
@@ -645,7 +645,7 @@ namespace GISharp.CodeGen.Syntax
             }
             identifier += "Marshal";
             var syntax = ClassDeclaration(identifier)
-               .AddModifiers(Token(PrivateKeyword), Token(StaticKeyword));
+               .AddModifiers(Token(PrivateKeyword), Token(StaticKeyword), Token(UnsafeKeyword));
             return syntax;
         }
     }

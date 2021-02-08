@@ -4,12 +4,12 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="TaskClass.xmldoc" path="declaration/member[@name='TaskClass']/*" />
-    public sealed partial class TaskClass : GISharp.Lib.GObject.ObjectClass
+    public sealed unsafe partial class TaskClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
         /// The unmanaged data structure.
         /// </summary>
-        public unsafe new struct UnmanagedStruct
+        public new struct UnmanagedStruct
         {
         }
 

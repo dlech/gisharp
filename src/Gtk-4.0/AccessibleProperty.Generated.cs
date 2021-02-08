@@ -50,7 +50,7 @@ namespace GISharp.Lib.Gtk
     /// <summary>
     /// Extension methods for <see cref="AccessibleProperty"/>.
     /// </summary>
-    public static partial class AccessiblePropertyExtensions
+    public static unsafe partial class AccessiblePropertyExtensions
     {
         private static readonly GISharp.Lib.GObject.GType _GType = gtk_accessible_property_get_type();
 
@@ -58,11 +58,11 @@ namespace GISharp.Lib.Gtk
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
-        private static extern unsafe GISharp.Lib.GObject.GType gtk_accessible_property_get_type();
+        private static extern GISharp.Lib.GObject.GType gtk_accessible_property_get_type();
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
-        private static extern unsafe void gtk_accessible_property_init_value(
+        private static extern void gtk_accessible_property_init_value(
 /* <type name="AccessibleProperty" type="GtkAccessibleProperty" managed-name="AccessibleProperty" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gtk.AccessibleProperty property,
@@ -72,7 +72,7 @@ GISharp.Lib.GObject.Value value);
         static partial void CheckInitValueArgs(this GISharp.Lib.Gtk.AccessibleProperty property, GISharp.Lib.GObject.Value value);
 
         /// <include file="AccessibleProperty.xmldoc" path="declaration/member[@name='AccessiblePropertyExtensions.InitValue(GISharp.Lib.Gtk.AccessibleProperty,GISharp.Lib.GObject.Value)']/*" />
-        public unsafe static void InitValue(this GISharp.Lib.Gtk.AccessibleProperty property, GISharp.Lib.GObject.Value value)
+        public static void InitValue(this GISharp.Lib.Gtk.AccessibleProperty property, GISharp.Lib.GObject.Value value)
         {
             CheckInitValueArgs(property, value);
             var property_ = (GISharp.Lib.Gtk.AccessibleProperty)property;
