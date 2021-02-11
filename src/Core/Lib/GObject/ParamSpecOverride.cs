@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.ComponentModel;
 using GISharp.Runtime;
 
@@ -17,8 +17,8 @@ namespace GISharp.Lib.GObject
     /// <see cref="ObjectClass.OverrideProperty"/>, and will not be directly useful
     /// unless you are implementing a new base type similar to GObject.
     /// </summary>
-    [Since ("2.4")]
-    [GType ("GParamOverride", IsProxyForUnmanagedType = true)]
+    [Since("2.4")]
+    [GType("GParamOverride", IsProxyForUnmanagedType = true)]
     public sealed unsafe class ParamSpecOverride : ParamSpec
     {
         /// <summary>
@@ -27,7 +27,7 @@ namespace GISharp.Lib.GObject
         [EditorBrowsable(EditorBrowsableState.Never)]
         public new struct UnmanagedStruct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
             /// <summary>
             /// private #GParamSpec portion
             /// </summary>
@@ -37,14 +37,14 @@ namespace GISharp.Lib.GObject
             /// The property that is being overridden
             /// </summary>
             public IntPtr Overridden;
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ParamSpecOverride (IntPtr handle, Transfer ownership) : base (handle, ownership)
+        public ParamSpecOverride(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
 

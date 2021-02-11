@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿using System.Threading.Tasks;
+using System.Threading.Tasks;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 

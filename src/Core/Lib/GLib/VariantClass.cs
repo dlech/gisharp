@@ -1,14 +1,14 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2019 David Lechner <david@lechnology.com>
 
-﻿using GISharp.Runtime;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
     /// <summary>
     /// The range of possible top-level types of #GVariant instances.
     /// </summary>
-    [Since ("2.24")]
+    [Since("2.24")]
     public enum VariantClass
     {
         /// <summary>

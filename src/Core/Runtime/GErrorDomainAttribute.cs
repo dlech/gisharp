@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Reflection;
 using GISharp.Lib.GLib;
 
@@ -10,7 +10,7 @@ namespace GISharp.Runtime
     /// <summary>
     /// Indicates that an Enum contains error codes for a GError domain.
     /// </summary>
-    [AttributeUsage (AttributeTargets.Enum)]
+    [AttributeUsage(AttributeTargets.Enum)]
     public sealed class GErrorDomainAttribute : Attribute
     {
         /// <summary>
@@ -26,7 +26,7 @@ namespace GISharp.Runtime
         /// <remarks>
         /// The name must match the error domain quark for this error domain.
         /// </remarks>
-        public GErrorDomainAttribute (string errorDomain)
+        public GErrorDomainAttribute(string errorDomain)
         {
             ErrorDomain = errorDomain;
         }
@@ -46,14 +46,14 @@ namespace GISharp.Runtime
         /// Thrown if type of <paramref name="value"/> is not decorated with
         /// <see cref="GErrorDomainAttribute"/>.
         /// </exception>
-        public static Quark GetGErrorDomain (this Enum value)
+        public static Quark GetGErrorDomain(this Enum value)
         {
             var type = value.GetType();
-            var attr = type.GetCustomAttribute<GErrorDomainAttribute> ();
+            var attr = type.GetCustomAttribute<GErrorDomainAttribute>();
             if (attr is null) {
-                throw new ArgumentException ("Enum type must have ErrorDomainAttribute", nameof (value));
+                throw new ArgumentException("Enum type must have ErrorDomainAttribute", nameof(value));
             }
-            var quark = Quark.FromString (attr.ErrorDomain);
+            var quark = Quark.FromString(attr.ErrorDomain);
             return quark;
         }
     }

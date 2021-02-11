@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2019 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
+
 namespace GISharp.Lib.GModule
 {
     /// <summary>

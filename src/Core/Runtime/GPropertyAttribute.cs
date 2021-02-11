@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 
 namespace GISharp.Runtime
 {
@@ -15,7 +15,7 @@ namespace GISharp.Runtime
     /// When wrapping unmanged types, the <see cref="Name"/> value must be
     /// set to the actual value assigned in unmanaged code.
     /// </remarks>
-    [AttributeUsage (AttributeTargets.Property, Inherited = true)]
+    [AttributeUsage(AttributeTargets.Property, Inherited = true)]
     public sealed class GPropertyAttribute : Attribute
     {
         /// <summary>

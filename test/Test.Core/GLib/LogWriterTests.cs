@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System.Collections.Generic;
+using System.Collections.Generic;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
@@ -13,7 +13,7 @@ namespace GISharp.Test.Core.GLib
     public class LogWriterTests : Tests
     {
         [Test]
-        public void TestFormatFields ()
+        public void TestFormatFields()
         {
             // support for structured logs was added in v2.50
             AssertIgnoreWhenVersionIsLessThan(GLibVersion, "2.50");
@@ -27,12 +27,12 @@ namespace GISharp.Test.Core.GLib
             };
 
             const string expected = @"^\*\* \(GISharp\.Test:\d+\): DEBUG: \d\d:\d\d:\d\d\.\d\d\d: Test message\.$";
-            var actual = LogWriter.FormatFields (LogLevelFlags.Debug, message);
-            Assert.That (actual, Does.Match (expected));
+            var actual = LogWriter.FormatFields(LogLevelFlags.Debug, message);
+            Assert.That(actual, Does.Match(expected));
 
             const string expectedColor = @"^\*\* \(GISharp\.Test:\d+\): \e\[1;32mDEBUG\e\[0m: \e\[34m\d\d:\d\d:\d\d\.\d\d\d\e\[0m: Test message\.$";
-            var actualColor = LogWriter.FormatFields (LogLevelFlags.Debug, message, true);
-            Assert.That (actualColor, Does.Match (expectedColor));
+            var actualColor = LogWriter.FormatFields(LogLevelFlags.Debug, message, true);
+            Assert.That(actualColor, Does.Match(expectedColor));
         }
     }
 }

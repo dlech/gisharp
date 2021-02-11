@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2017-2020 David Lechner <david@lechnology.com>
 
-﻿using GISharp.Lib.GLib;
+using GISharp.Lib.GLib;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using NUnit.Framework;

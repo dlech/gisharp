@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Linq;
 using System.Reflection;
 

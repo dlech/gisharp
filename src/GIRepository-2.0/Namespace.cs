@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Dynamic;
-using System.Linq;
 using System.Linq.Expressions;
 using GISharp.Lib.GIRepository.Dynamic;
 using GISharp.Lib.GLib;
@@ -22,12 +21,12 @@ namespace GISharp.Lib.GIRepository
 
         internal Namespace(Utf8 @namespace)
         {
-            if (!Repository.LoadedNamespaces.Contains (@namespace)) {
-                throw new ArgumentOutOfRangeException (nameof (@namespace));
+            if (!Repository.LoadedNamespaces.Contains(@namespace)) {
+                throw new ArgumentOutOfRangeException(nameof(@namespace));
             }
 
             this.@namespace = @namespace;
-            _Infos = new(() => Repository.GetInfos (@namespace));
+            _Infos = new(() => Repository.GetInfos(@namespace));
         }
 
         /// <summary>
@@ -37,12 +36,12 @@ namespace GISharp.Lib.GIRepository
         /// <param name="name">Name.</param>
         public BaseInfo? FindByName(UnownedUtf8 name)
         {
-            return Repository.FindByName (@namespace, name);
+            return Repository.FindByName(@namespace, name);
         }
 
-        public DynamicMetaObject GetMetaObject (Expression parameter)
+        public DynamicMetaObject GetMetaObject(Expression parameter)
         {
-            return new NamespaceDynamicMetaObject (parameter, this);
+            return new NamespaceDynamicMetaObject(parameter, this);
         }
 
         /// <summary>
@@ -61,7 +60,7 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public NullableUnownedUtf8 CPrefix {
             get {
-                return Repository.GetCPrefix (@namespace);
+                return Repository.GetCPrefix(@namespace);
             }
         }
 
@@ -76,7 +75,7 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public Strv Dependencies {
             get {
-                return Repository.GetDependencies (@namespace);
+                return Repository.GetDependencies(@namespace);
             }
         }
 
@@ -89,10 +88,10 @@ namespace GISharp.Lib.GIRepository
         /// The Namespace must have already been loaded using a function such as
         /// <see cref="Repository.Require"/> before calling this function.
         /// </remarks>
-        [Since ("1.44")]
+        [Since("1.44")]
         public Strv ImmediateDependencies {
             get {
-                return Repository.GetImmediateDependencies (@namespace);
+                return Repository.GetImmediateDependencies(@namespace);
             }
         }
 
@@ -114,7 +113,7 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public string[] SharedLibraries {
             get {
-                var library = Repository.GetSharedLibrary (@namespace);
+                var library = Repository.GetSharedLibrary(@namespace);
                 if (!library.HasValue) {
                     return new string[0];
                 }
@@ -132,7 +131,7 @@ namespace GISharp.Lib.GIRepository
         /// </remarks>
         public NullableUnownedUtf8 TypelibPath {
             get {
-                return Repository.GetTypelibPath (@namespace);
+                return Repository.GetTypelibPath(@namespace);
             }
         }
 
@@ -142,7 +141,7 @@ namespace GISharp.Lib.GIRepository
         /// <value>Loaded version.</value>
         public UnownedUtf8 Version {
             get {
-                return Repository.GetVersion (@namespace);
+                return Repository.GetVersion(@namespace);
             }
         }
 
@@ -152,7 +151,7 @@ namespace GISharp.Lib.GIRepository
         /// <value>The array of versions.</value>
         public string[] Versions {
             get {
-                return Repository.GetVersions (@namespace);
+                return Repository.GetVersions(@namespace);
             }
         }
     }

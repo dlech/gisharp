@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2019 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Runtime.InteropServices;
 
 namespace GISharp.Lib.GObject
@@ -37,8 +37,8 @@ namespace GISharp.Lib.GObject
     /// The members of @iface_data are guaranteed to have been filled with
     /// zeros before this function is called.
     /// </remarks>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void UnmanagedInterfaceInitFunc (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void UnmanagedInterfaceInitFunc(
     /* <type name="TypeInterface" type="gpointer" managed-name="TypeInterface" /> */
     /* transfer-ownership:none */
         IntPtr gIface,
@@ -51,8 +51,8 @@ namespace GISharp.Lib.GObject
     /// This function should destroy any internal data and release any resources
     /// allocated by the corresponding GInterfaceInitFunc() function.
     /// </summary>
-    [UnmanagedFunctionPointer (CallingConvention.Cdecl)]
-    public delegate void UnmanagedInterfaceFinalizeFunc (
+    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
+    public delegate void UnmanagedInterfaceFinalizeFunc(
     /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
     /* transfer-ownership:none */
         IntPtr gIface,

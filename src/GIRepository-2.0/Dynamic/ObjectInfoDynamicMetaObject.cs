@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
 using System.Collections.Generic;
 using System.Dynamic;
 using System.Linq;
@@ -15,40 +14,40 @@ namespace GISharp.Lib.GIRepository.Dynamic
 
         ObjectInfo Info { get { return (ObjectInfo)Value!; } }
 
-        public ObjectInfoDynamicMetaObject (Expression expression, ObjectInfo info)
-            : base (expression, BindingRestrictions.Empty, info)
+        public ObjectInfoDynamicMetaObject(Expression expression, ObjectInfo info)
+            : base(expression, BindingRestrictions.Empty, info)
         {
-            typeRestriction = BindingRestrictions.GetTypeRestriction (Expression, typeof (ObjectInfo));
+            typeRestriction = BindingRestrictions.GetTypeRestriction(Expression, typeof(ObjectInfo));
         }
 
-        public override DynamicMetaObject BindCreateInstance (CreateInstanceBinder binder, DynamicMetaObject[] args)
+        public override DynamicMetaObject BindCreateInstance(CreateInstanceBinder binder, DynamicMetaObject[] args)
         {
-            return base.BindCreateInstance (binder, args);
+            return base.BindCreateInstance(binder, args);
         }
 
-        public override DynamicMetaObject BindInvokeMember (InvokeMemberBinder binder, DynamicMetaObject[] args)
+        public override DynamicMetaObject BindInvokeMember(InvokeMemberBinder binder, DynamicMetaObject[] args)
         {
-            var methodInfo = default (FunctionInfo);
+            var methodInfo = default(FunctionInfo);
             ObjectInfo? i = Info;
             while (i is not null) {
-                methodInfo = i.FindMethod (binder.Name);
+                methodInfo = i.FindMethod(binder.Name);
                 if (methodInfo is not null) {
                     break;
                 }
                 i = i.Parent;
             }
             if (methodInfo is not null) {
-                var expression = methodInfo.GetInvokeExpression (binder.CallInfo, binder.ReturnType, null, args);
-                return new DynamicMetaObject (expression, typeRestriction);
+                var expression = methodInfo.GetInvokeExpression(binder.CallInfo, binder.ReturnType, null, args);
+                return new DynamicMetaObject(expression, typeRestriction);
             }
-            return base.BindInvokeMember (binder, args);
+            return base.BindInvokeMember(binder, args);
         }
 
-        public override IEnumerable<string> GetDynamicMemberNames ()
+        public override IEnumerable<string> GetDynamicMemberNames()
         {
             return Info.Constants.Keys
-                       .Concat (Info.Fields.Keys)
-                       .Concat (Info.Methods.Keys);
+                       .Concat(Info.Fields.Keys)
+                       .Concat(Info.Methods.Keys);
         }
     }
 }

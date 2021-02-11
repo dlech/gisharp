@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿using NUnit.Framework;
+using NUnit.Framework;
 using System.Reflection;
 
 using Version = GISharp.Lib.GLib.Version;
@@ -10,32 +10,32 @@ namespace GISharp.Test.GLib
 {
     public class VersionTests : Tests
     {
-        [Test, Ignore ("This depends on the system we are running on")]
-        public void TestCompileTime ()
+        [Test, Ignore("This depends on the system we are running on")]
+        public void TestCompileTime()
         {
             // This is a bit of a backwards test since it is actually verifying
             // that the assembly version is correct.
             var assembly = Assembly.GetAssembly(typeof(Version))!;
             var assemblyVersion = assembly.GetName().Version!;
-            Assert.That (Version.CompileTime.Major, Is.EqualTo (assemblyVersion.Major));
-            Assert.That (Version.CompileTime.Minor, Is.EqualTo (assemblyVersion.Minor));
+            Assert.That(Version.CompileTime.Major, Is.EqualTo(assemblyVersion.Major));
+            Assert.That(Version.CompileTime.Minor, Is.EqualTo(assemblyVersion.Minor));
         }
 
-        [Test, Ignore ("This depends on the system we a running on")]
-        public void TestRuntimeTime ()
+        [Test, Ignore("This depends on the system we a running on")]
+        public void TestRuntimeTime()
         {
             // This is a bit of a backwards test since it is actually verifying
             // that the assembly version is correct.
             var assembly = Assembly.GetAssembly(typeof(Version))!;
             var assemblyVersion = assembly.GetName().Version!;
-            Assert.That (Version.RunTime.Major, Is.EqualTo (assemblyVersion.Major));
-            Assert.That (Version.RunTime.Minor, Is.EqualTo (assemblyVersion.Minor));
+            Assert.That(Version.RunTime.Major, Is.EqualTo(assemblyVersion.Major));
+            Assert.That(Version.RunTime.Minor, Is.EqualTo(assemblyVersion.Minor));
         }
 
         [Test]
         public void TestCheck()
         {
-            var actual = Version.Check (
+            var actual = Version.Check(
                 (uint)Version.CompileTime.Major,
                 (uint)Version.CompileTime.Minor,
                 (uint)Version.CompileTime.Revision);

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using GISharp.Lib.GLib;

@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2019 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
@@ -16,7 +16,7 @@ namespace GISharp.Lib.GLib
     /// have a trailing nul byte. Otherwise, <see cref="Length"/> must be set to a non-negative
     /// value.
     /// </remarks>
-    [Since ("2.50")]
+    [Since("2.50")]
     public struct LogField
     {
         /// <summary>

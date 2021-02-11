@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 
 namespace GISharp.Runtime
 {
@@ -14,7 +14,7 @@ namespace GISharp.Runtime
     /// unmanaged type. Otherwise, the type will be registered with the GObject
     /// type system so that it can be used in unmanged code.
     /// </remarks>
-    [AttributeUsage (AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Struct | AttributeTargets.Enum | AttributeTargets.Interface)]
     public sealed class GTypeAttribute : Attribute
     {
         /// <summary>

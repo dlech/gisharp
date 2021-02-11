@@ -1,7 +1,6 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
-﻿
 using System.Collections.Generic;
 
 namespace GISharp.Lib.GIRepository
@@ -10,14 +9,14 @@ namespace GISharp.Lib.GIRepository
     {
         Dictionary<string, Namespace> namespaceMap;
 
-        internal NamespaceCollection ()
+        internal NamespaceCollection()
         {
             namespaceMap = new();
         }
 
-        Namespace EnsureNamespace (string @namespace)
+        Namespace EnsureNamespace(string @namespace)
         {
-            if (!namespaceMap.ContainsKey (@namespace)) {
+            if (!namespaceMap.ContainsKey(@namespace)) {
                 namespaceMap[@namespace] = new(@namespace);
             }
             return namespaceMap[@namespace];
@@ -25,16 +24,16 @@ namespace GISharp.Lib.GIRepository
 
         public Namespace this[string @namespace] {
             get {
-                return EnsureNamespace (@namespace);
+                return EnsureNamespace(@namespace);
             }
         }
 
         #region IEnumerable implementation
 
-        public IEnumerator<Namespace> GetEnumerator ()
+        public IEnumerator<Namespace> GetEnumerator()
         {
             foreach (var @namespace in Repository.LoadedNamespaces) {
-                yield return EnsureNamespace (@namespace);
+                yield return EnsureNamespace(@namespace);
             }
         }
 
@@ -42,9 +41,9 @@ namespace GISharp.Lib.GIRepository
 
         #region IEnumerable implementation
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator ()
+        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
         {
-            return GetEnumerator ();
+            return GetEnumerator();
         }
 
         #endregion

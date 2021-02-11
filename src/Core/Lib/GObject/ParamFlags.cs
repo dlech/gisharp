@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
-﻿using System;
+using System;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
@@ -50,7 +50,7 @@ namespace GISharp.Lib.GObject
         /// parameter is guaranteed to remain valid and
         /// unmodified for the lifetime of the parameter.
         /// </summary>
-        [Since ("2.8")]
+        [Since("2.8")]
         StaticName = 0x20,
 
         /// <summary>
@@ -58,7 +58,7 @@ namespace GISharp.Lib.GObject
         /// parameter is guaranteed to remain valid and
         /// unmodified for the lifetime of the parameter.
         /// </summary>
-        [Since ("2.8")]
+        [Since("2.8")]
         StaticNick = 0x40,
 
         /// <summary>
@@ -66,7 +66,7 @@ namespace GISharp.Lib.GObject
         /// parameter is guaranteed to remain valid and
         /// unmodified for the lifetime of the parameter.
         /// </summary>
-        [Since ("2.8")]
+        [Since("2.8")]
         StaticBlurb = 0x80,
 
         /// <summary>
@@ -75,7 +75,7 @@ namespace GISharp.Lib.GObject
         /// emitted: the implementation must call <see cref="Object.Notify(GLib.UnownedUtf8)"/>
         /// themselves in case the property actually changes.
         /// </summary>
-        [Since ("2.42")]
+        [Since("2.42")]
         ExplicitNotify = 0x40000000,
 
         /// <summary>
@@ -83,14 +83,14 @@ namespace GISharp.Lib.GObject
         /// in a future version. A warning will be generated if it is used
         /// while running with <c>G_ENABLE_DIAGNOSTIC=1</c>.
         /// </summary>
-        [Since ("2.26")]
+        [Since("2.26")]
         Deprecated = 0x80000000,
 
         /// <summary>
         /// <see cref="ParamFlags"/> value alias for <c>StaticName | StaticNick
         /// | StaticBlurb</c>.
         /// </summary>
-        [Since ("2.13")]
+        [Since("2.13")]
         StaticStrings = StaticName | StaticNick | StaticBlurb,
     }
 }

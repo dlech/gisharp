@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2016-2019 David Lechner <david@lechnology.com>
 
-﻿using GISharp.Runtime;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
@@ -14,7 +14,7 @@ namespace GISharp.Lib.GLib
     /// If a <see cref="LogWriterFunc"/> ignores a log entry, it should return
     /// <see cref="Handled"/>.
     /// </remarks>
-    [Since ("2.50")]
+    [Since("2.50")]
     public enum LogWriterOutput
     {
         /// <summary>
