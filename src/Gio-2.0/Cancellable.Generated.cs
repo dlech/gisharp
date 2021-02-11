@@ -243,13 +243,13 @@ namespace GISharp.Lib.Gio
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-        /* <type name="CancellableSourceFunc" type="GCallback" managed-name="UnmanagedCancellableSourceFunc" /> */
+        /* <type name="CancellableSourceFunc" type="GCallback" managed-name="CancellableSourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:1 destroy:2 direction:in */
         System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.UnmanagedDestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr dataDestroyFunc);
         static partial void CheckConnectArgs(GISharp.Lib.Gio.CancellableSourceFunc callback);

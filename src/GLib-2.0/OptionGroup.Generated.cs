@@ -71,7 +71,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr destroy);
         static partial void CheckGetGTypeArgs();
@@ -190,13 +190,13 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group,
-        /* <type name="TranslateFunc" type="GTranslateFunc" managed-name="UnmanagedTranslateFunc" /> */
+        /* <type name="TranslateFunc" type="GTranslateFunc" managed-name="TranslateFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 direction:in */
         System.IntPtr func,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
-        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="UnmanagedDestroyNotify" /> */
+        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr destroyNotify);
         static partial void CheckSetTranslateFuncArgs(GISharp.Lib.GLib.TranslateFunc? func);

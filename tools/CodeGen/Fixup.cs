@@ -905,20 +905,6 @@ namespace GISharp.CodeGen
                 }
             }
 
-            // fix the callback type names for (unmanaged) parameters
-
-            foreach (var element in document.Descendants(gi + "parameter")
-                .Where(p => p.Parent.Name == gi + "parameters" && p.Attribute("scope") is not null)) {
-                var typeElement = element.Element(gi + "type");
-                var managedName = typeElement.Attribute(gs + "managed-name").Value;
-                if (managedName == typeof(Delegate).ToString()) {
-                    continue;
-                }
-                var index = managedName.LastIndexOf('.') + 1;
-                managedName = managedName.Substring(0, index) + "Unmanaged" + managedName.Substring(index);
-                typeElement.SetAttributeValue(gs + "managed-name", managedName);
-            }
-
             // add a <type> node for fields with <callback>
 
             foreach (var element in document.Descendants(gi + "callback")

@@ -982,7 +982,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -1072,7 +1072,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -1192,7 +1192,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -1270,7 +1270,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -1354,7 +1354,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -1600,7 +1600,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:6 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -1717,7 +1717,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -1837,7 +1837,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -1957,7 +1957,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -2089,7 +2089,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:7 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -2203,7 +2203,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -2317,7 +2317,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -2431,7 +2431,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -2551,7 +2551,7 @@ GISharp.Lib.Gio.FileCopyFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
+/* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="FileProgressCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:call closure:5 direction:in */
 System.IntPtr progressCallback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -2602,13 +2602,13 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
+/* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="FileProgressCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:6 direction:in */
 System.IntPtr progressCallback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 closure:5 direction:in */
 System.IntPtr progressCallbackData,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:8 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -2689,7 +2689,7 @@ GISharp.Lib.Gio.FileCopyFlags flags,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="UnmanagedFileProgressCallback" /> */
+/* <type name="FileProgressCallback" type="GFileProgressCallback" managed-name="FileProgressCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:call closure:5 direction:in */
 System.IntPtr progressCallback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -2914,7 +2914,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:4 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -3034,7 +3034,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -3166,7 +3166,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:7 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -3385,7 +3385,7 @@ GISharp.Lib.Gio.File.UnmanagedStruct* file,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */

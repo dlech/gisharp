@@ -313,7 +313,7 @@ System.Int32 ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+/* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:5 direction:in */
 System.IntPtr callback,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */

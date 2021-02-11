@@ -118,7 +118,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
-        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
         System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -221,7 +221,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject,
-        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="UnmanagedAsyncReadyCallback" /> */
+        /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:2 direction:in */
         System.IntPtr callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
@@ -971,7 +971,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
         System.IntPtr result,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.UnmanagedDestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr resultDestroy);
 
@@ -1045,7 +1045,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task,
-        /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="UnmanagedTaskThreadFunc" /> */
+        /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="TaskThreadFunc" /> */
         /* transfer-ownership:none scope:async direction:in */
         System.IntPtr taskFunc);
 
@@ -1082,7 +1082,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task,
-        /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="UnmanagedTaskThreadFunc" /> */
+        /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="TaskThreadFunc" /> */
         /* transfer-ownership:none scope:async direction:in */
         System.IntPtr taskFunc);
 
@@ -1337,7 +1337,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr taskData,
-        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.UnmanagedDestroyNotify" /> */
+        /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr taskDataDestroy);
 
