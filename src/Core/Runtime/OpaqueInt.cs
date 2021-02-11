@@ -3,6 +3,8 @@
 
 using System;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
 
 namespace GISharp.Runtime
@@ -20,6 +22,7 @@ namespace GISharp.Runtime
         static IntPtr DummyCopyFunc(IntPtr handle) => handle;
 
         [PtrArrayFreeFunc]
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static void DummyFreeFunc(IntPtr handle) { }
 
         /// <summary>

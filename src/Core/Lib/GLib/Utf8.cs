@@ -771,10 +771,6 @@ namespace GISharp.Lib.GLib
         [PtrArrayCopyFunc]
         static IntPtr Copy(IntPtr str) => (IntPtr)g_strdup((byte*)str);
 
-        [PtrArrayFreeFunc]
-        static void Free(IntPtr src) => GMarshal.Free(src);
-
-
         /// <summary>
         /// Creates a new <see cref="Utf8"/> from <paramref name="value"/>.
         /// </summary>
@@ -861,6 +857,7 @@ namespace GISharp.Lib.GLib
             return this_;
         }
 
+        [PtrArrayFreeFunc]
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_free(void* ptr);
 

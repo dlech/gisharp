@@ -143,9 +143,9 @@ namespace GISharp.Lib.GLib
         [Since("2.30")]
         static extern UnmanagedStruct* g_ptr_array_new_full(
             uint reservedSize,
-            UnmanagedDestroyNotify elementFreeFunc);
+            delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc);
 
-        static UnmanagedStruct* NewFull(int reservedSize, UnmanagedDestroyNotify elementFreeFunc)
+        static UnmanagedStruct* NewFull(int reservedSize, delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc)
         {
             if (reservedSize < 0) {
                 throw new ArgumentOutOfRangeException(nameof(reservedSize));
@@ -154,7 +154,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
         // IMPORTANT: elementFreeFunc cannot be allowed to be GCed
-        private protected PtrArray(int reservedSize, UnmanagedDestroyNotify elementFreeFunc)
+        private protected PtrArray(int reservedSize, delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc)
             : this((IntPtr)NewFull(reservedSize, elementFreeFunc), Transfer.Full)
         {
         }
@@ -197,7 +197,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         [Since("2.22")]
         static extern UnmanagedStruct* g_ptr_array_new_with_free_func(
-            UnmanagedDestroyNotify elementFreeFunc);
+            delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc);
 
         /// <summary>
         /// Adds a pointer to the end of the pointer array. The array will grow
@@ -585,7 +585,7 @@ namespace GISharp.Lib.GLib
         [Since("2.22")]
         static extern void g_ptr_array_set_free_func(
             UnmanagedStruct* array,
-            UnmanagedDestroyNotify elementFreeFunc);
+            delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc);
 
         /// <summary>
         /// Sets a function for freeing each element when this array is destroyed
@@ -596,7 +596,7 @@ namespace GISharp.Lib.GLib
         ///     destroy this array or <c>null</c>
         /// </param>
         [Since("2.22")]
-        private protected void SetFreeFunc(UnmanagedDestroyNotify elementFreeFunc)
+        private protected void SetFreeFunc(delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             g_ptr_array_set_free_func(array_, elementFreeFunc);
@@ -785,7 +785,7 @@ namespace GISharp.Lib.GLib
         where T : Opaque
     {
         static readonly Func<IntPtr, IntPtr> elementCopyFunc;
-        static readonly UnmanagedDestroyNotify elementFreeFunc;
+        static readonly delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc;
 
         static PtrArray()
         {
@@ -795,7 +795,7 @@ namespace GISharp.Lib.GLib
             elementCopyFunc = (Func<IntPtr, IntPtr>)copyMethodInfo.CreateDelegate(typeof(Func<IntPtr, IntPtr>));
 
             var freeMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayFreeFuncAttribute), false));
-            elementFreeFunc = (UnmanagedDestroyNotify)freeMethodInfo.CreateDelegate(typeof(UnmanagedDestroyNotify));
+            elementFreeFunc = (delegate* unmanaged[Cdecl]<IntPtr, void>)freeMethodInfo.MethodHandle.GetFunctionPointer();
         }
 
         private ReadOnlySpan<IntPtr> Data => new ReadOnlySpan<IntPtr>(Data_, (int)Len);

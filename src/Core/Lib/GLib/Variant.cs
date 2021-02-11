@@ -275,11 +275,9 @@ namespace GISharp.Lib.GLib
         /// <inheritdoc/>
         public override IntPtr Take() => (IntPtr)g_variant_ref((UnmanagedStruct*)UnsafeHandle);
 
+        [PtrArrayFreeFunc]
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_variant_unref(UnmanagedStruct* value);
-
-        [PtrArrayFreeFunc]
-        static void Free(IntPtr value) => g_variant_unref((UnmanagedStruct*)value);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern UnmanagedStruct* g_variant_ref_sink(UnmanagedStruct* value);
