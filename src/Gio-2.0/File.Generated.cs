@@ -2738,7 +2738,7 @@ namespace GISharp.Lib.Gio
         System.Byte** contents,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         System.Byte** etagOut,
@@ -2754,7 +2754,7 @@ namespace GISharp.Lib.Gio
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             System.Byte* contents_;
-            System.UIntPtr length_;
+            nuint length_;
             System.Byte* etagOut_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_file_load_contents(file_, cancellable_, &contents_, &length_, &etagOut_, &error_);
@@ -2880,7 +2880,7 @@ namespace GISharp.Lib.Gio
         System.Byte** contents,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         System.Byte** etagOut,
@@ -2897,7 +2897,7 @@ namespace GISharp.Lib.Gio
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Runtime.CArray<System.Byte>,GISharp.Lib.GLib.Utf8>>)userData.Target!;
                 userData.Free();
                 System.Byte* contents_;
-                System.UIntPtr length_;
+                nuint length_;
                 System.Byte* etagOut_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_file_load_contents_finish(file_, res_, &contents_, &length_, &etagOut_, &error_);
@@ -2968,7 +2968,7 @@ namespace GISharp.Lib.Gio
         System.Byte** contents,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         System.Byte** etagOut,
@@ -2984,7 +2984,7 @@ namespace GISharp.Lib.Gio
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var res_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)res.UnsafeHandle;
             System.Byte* contents_;
-            System.UIntPtr length_;
+            nuint length_;
             System.Byte* etagOut_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_file_load_partial_contents_finish(file_, res_, &contents_, &length_, &etagOut_, &error_);
@@ -5051,7 +5051,7 @@ namespace GISharp.Lib.Gio
         System.Byte* contents,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr length,
+        nuint length,
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.Byte* etag,
@@ -5080,7 +5080,7 @@ namespace GISharp.Lib.Gio
                 CheckReplaceContentsArgs(file, contents, etag, makeBackup, flags, cancellable);
                 var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
                 var contents_ = (System.Byte*)contentsData_;
-                var length_ = (System.UIntPtr)contents.Length;
+                var length_ = (nuint)contents.Length;
                 var etag_ = (System.Byte*)etag.UnsafeHandle;
                 var makeBackup_ = GISharp.Runtime.BooleanExtensions.ToBoolean(makeBackup);
                 var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
@@ -5163,7 +5163,7 @@ namespace GISharp.Lib.Gio
         System.Byte* contents,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr length,
+        nuint length,
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.Byte* etag,
@@ -5190,7 +5190,7 @@ namespace GISharp.Lib.Gio
             CheckReplaceContentsAsyncArgs(file, contents, etag, makeBackup, flags, cancellable);
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var contents_ = (System.Byte*)contents.Pin().Pointer;
-            var length_ = (System.UIntPtr)contents.Length;
+            var length_ = (nuint)contents.Length;
             var etag_ = (System.Byte*)etag.UnsafeHandle;
             var makeBackup_ = GISharp.Runtime.BooleanExtensions.ToBoolean(makeBackup);
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;

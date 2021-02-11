@@ -213,7 +213,7 @@ namespace GISharp.CodeGen.Syntax
                 if (array.LengthIndex >= 0) {
                     var lengthArg = arg.Callable.Parameters.RegularParameters.ElementAt(array.LengthIndex);
                     var lengthIdentifier = lengthArg.ManagedName;
-                    var lengthType = lengthArg.Type.UnmanagedType.ToString();
+                    var lengthType = lengthArg.Type.UnmanagedType.ToSyntax();
                     var lengthGetter = (arg.IsNullable && !isSpanLike) ? $"{arg.ManagedName}?.Length ?? 0" : $"{arg.ManagedName}.Length";
                     expressions.Add(ParseExpression($"{lengthIdentifier}_ = ({lengthType}){lengthGetter}"));
                 }

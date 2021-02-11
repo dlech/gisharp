@@ -39,7 +39,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len);
+        nint len);
 
         /// <summary>
         /// Compares two strings for ordering using the linguistically
@@ -101,7 +101,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len);
+        nint len);
 
         /// <summary>
         /// Converts a string into a collation key that can be compared
@@ -137,7 +137,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len);
+        nint len);
 
         /// <summary>
         /// Finds the start of the next UTF-8 character in the string after @p.
@@ -260,7 +260,7 @@ namespace GISharp.Lib.GLib
         System.Byte* p,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr maxLen);
+        nint maxLen);
 
         /// <summary>
         /// If the provided string is valid UTF-8, return a copy of it. If not,
@@ -294,7 +294,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len);
+        nint len);
 
         /// <summary>
         /// Converts a string into canonical form, standardizing
@@ -347,7 +347,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len,
+        nint len,
         /* <type name="NormalizeMode" type="GNormalizeMode" managed-name="NormalizeMode" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.NormalizeMode mode);
@@ -467,7 +467,7 @@ namespace GISharp.Lib.GLib
         System.Byte* p,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len,
+        nint len,
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
@@ -497,7 +497,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len);
+        nint len);
 
         /// <summary>
         /// Computes the length of the string in characters, not including
@@ -526,7 +526,7 @@ namespace GISharp.Lib.GLib
         System.Byte* p,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr max);
+        nint max);
 
         /// <summary>
         /// Like the standard C strncpy() function, but copies a given number
@@ -562,7 +562,7 @@ namespace GISharp.Lib.GLib
         System.Byte* src,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr n);
+        nuint n);
 
         /// <summary>
         /// Find the rightmost occurrence of the given Unicode character
@@ -592,7 +592,7 @@ namespace GISharp.Lib.GLib
         System.Byte* p,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len,
+        nint len,
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
@@ -633,7 +633,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len);
+        nint len);
 
         /// <summary>
         /// Converts all Unicode characters in the string that have a case
@@ -661,7 +661,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr len);
+        nint len);
 
         /// <summary>
         /// Copies a substring out of a UTF-8 encoded string.
@@ -889,7 +889,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr maxLen,
+        nint maxLen,
         /* <type name="utf8" type="const gchar**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none optional:1 allow-none:1 */
         System.Byte** end);
@@ -925,7 +925,7 @@ namespace GISharp.Lib.GLib
         System.Byte* str,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr maxLen,
+        nuint maxLen,
         /* <type name="utf8" type="const gchar**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none optional:1 allow-none:1 */
         System.Byte** end);

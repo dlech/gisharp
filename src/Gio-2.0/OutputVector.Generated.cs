@@ -11,7 +11,7 @@ namespace GISharp.Lib.Gio
         public readonly System.IntPtr Buffer;
 
         /// <include file="OutputVector.xmldoc" path="declaration/member[@name='OutputVector.Size']/*" />
-        public readonly System.UIntPtr Size;
+        public readonly nuint Size;
 #pragma warning restore CS0169, CS0649
     }
 }

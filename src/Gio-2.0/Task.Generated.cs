@@ -648,7 +648,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.IntPtr g_task_propagate_int(
+        private static extern nint g_task_propagate_int(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task,
@@ -916,7 +916,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr result);
+        nint result);
         static partial void CheckReturnIntArgs(System.Int32 result);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnInt(System.Int32)']/*" />
@@ -925,7 +925,7 @@ namespace GISharp.Lib.Gio
         {
             CheckReturnIntArgs(result);
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
-            var result_ = (System.IntPtr)result;
+            var result_ = (nint)result;
             g_task_return_int(task_, result_);
         }
 

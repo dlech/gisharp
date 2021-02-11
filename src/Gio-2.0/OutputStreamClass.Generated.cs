@@ -120,7 +120,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate System.IntPtr UnmanagedWriteFn(
+        public unsafe delegate nint UnmanagedWriteFn(
 /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -131,7 +131,7 @@ GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
 System.Byte* buffer,
 /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.UIntPtr count,
+nuint count,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -149,7 +149,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedWriteFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedWriteFn(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, System.Byte* buffer_, System.UIntPtr count_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var buffer = new System.ReadOnlySpan<System.Byte>(buffer_, (int)count_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWriteFn = (WriteFn)methodInfo.CreateDelegate(typeof(WriteFn), stream); var ret = doWriteFn(buffer, cancellable); var ret_ = (System.IntPtr)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.IntPtr); }
+                nint unmanagedWriteFn(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, System.Byte* buffer_, nuint count_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var buffer = new System.ReadOnlySpan<System.Byte>(buffer_, (int)count_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWriteFn = (WriteFn)methodInfo.CreateDelegate(typeof(WriteFn), stream); var ret = doWriteFn(buffer, cancellable); var ret_ = (nint)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(nint); }
 
                 return unmanagedWriteFn;
             }
@@ -164,7 +164,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate System.IntPtr UnmanagedSplice(
+        public unsafe delegate nint UnmanagedSplice(
 /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -191,7 +191,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedSplice Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedSplice(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.InputStream.UnmanagedStruct* source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var source = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.OutputStreamSpliceFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSplice = (Splice)methodInfo.CreateDelegate(typeof(Splice), stream); var ret = doSplice(source, flags, cancellable); var ret_ = (System.IntPtr)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.IntPtr); }
+                nint unmanagedSplice(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.InputStream.UnmanagedStruct* source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var source = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.OutputStreamSpliceFlags)flags_; var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSplice = (Splice)methodInfo.CreateDelegate(typeof(Splice), stream); var ret = doSplice(source, flags, cancellable); var ret_ = (nint)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(nint); }
 
                 return unmanagedSplice;
             }
@@ -289,7 +289,7 @@ GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
 System.Byte* buffer,
 /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.UIntPtr count,
+nuint count,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
@@ -313,7 +313,7 @@ System.IntPtr userData);
             /// </summary>
             public static UnmanagedWriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedWriteAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, System.Byte* buffer_, System.UIntPtr count_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var buffer = new System.ReadOnlySpan<System.Byte>(buffer_, (int)count_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWriteAsync = (WriteAsync)methodInfo.CreateDelegate(typeof(WriteAsync), stream); doWriteAsync(buffer, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedWriteAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, System.Byte* buffer_, nuint count_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var buffer = new System.ReadOnlySpan<System.Byte>(buffer_, (int)count_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWriteAsync = (WriteAsync)methodInfo.CreateDelegate(typeof(WriteAsync), stream); doWriteAsync(buffer, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedWriteAsync;
             }
@@ -328,7 +328,7 @@ System.IntPtr userData);
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate System.IntPtr UnmanagedWriteFinish(
+        public unsafe delegate nint UnmanagedWriteFinish(
 /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -349,7 +349,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedWriteFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedWriteFinish(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doWriteFinish = (WriteFinish)methodInfo.CreateDelegate(typeof(WriteFinish), stream); var ret = doWriteFinish(result); var ret_ = (System.IntPtr)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.IntPtr); }
+                nint unmanagedWriteFinish(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doWriteFinish = (WriteFinish)methodInfo.CreateDelegate(typeof(WriteFinish), stream); var ret = doWriteFinish(result); var ret_ = (nint)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(nint); }
 
                 return unmanagedWriteFinish;
             }
@@ -412,7 +412,7 @@ System.IntPtr userData);
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate System.IntPtr UnmanagedSpliceFinish(
+        public unsafe delegate nint UnmanagedSpliceFinish(
 /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -433,7 +433,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedSpliceFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.IntPtr unmanagedSpliceFinish(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doSpliceFinish = (SpliceFinish)methodInfo.CreateDelegate(typeof(SpliceFinish), stream); var ret = doSpliceFinish(result); var ret_ = (System.IntPtr)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.IntPtr); }
+                nint unmanagedSpliceFinish(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doSpliceFinish = (SpliceFinish)methodInfo.CreateDelegate(typeof(SpliceFinish), stream); var ret = doSpliceFinish(result); var ret_ = (nint)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(nint); }
 
                 return unmanagedSpliceFinish;
             }
@@ -615,10 +615,10 @@ GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
 GISharp.Lib.Gio.OutputVector* vectors,
 /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.UIntPtr nVectors,
+nuint nVectors,
 /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
 /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-System.UIntPtr* bytesWritten,
+nuint* bytesWritten,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -636,7 +636,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedWritevFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedWritevFn(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.OutputVector* vectors_, System.UIntPtr nVectors_, System.UIntPtr* bytesWritten_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var vectors = new System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector>(vectors_, (int)nVectors_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWritevFn = (WritevFn)methodInfo.CreateDelegate(typeof(WritevFn), stream); doWritevFn(vectors,out var bytesWritten, cancellable); *bytesWritten_ = (System.UIntPtr)bytesWritten; return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedWritevFn(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.OutputVector* vectors_, nuint nVectors_, nuint* bytesWritten_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var vectors = new System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector>(vectors_, (int)nVectors_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWritevFn = (WritevFn)methodInfo.CreateDelegate(typeof(WritevFn), stream); doWritevFn(vectors,out var bytesWritten, cancellable); *bytesWritten_ = (nuint)bytesWritten; return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedWritevFn;
             }
@@ -662,7 +662,7 @@ GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
 GISharp.Lib.Gio.OutputVector* vectors,
 /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.UIntPtr nVectors,
+nuint nVectors,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 ioPriority,
@@ -686,7 +686,7 @@ System.IntPtr userData);
             /// </summary>
             public static UnmanagedWritevAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedWritevAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.OutputVector* vectors_, System.UIntPtr nVectors_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var vectors = new System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector>(vectors_, (int)nVectors_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWritevAsync = (WritevAsync)methodInfo.CreateDelegate(typeof(WritevAsync), stream); doWritevAsync(vectors, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedWritevAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.OutputVector* vectors_, nuint nVectors_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var vectors = new System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector>(vectors_, (int)nVectors_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWritevAsync = (WritevAsync)methodInfo.CreateDelegate(typeof(WritevAsync), stream); doWritevAsync(vectors, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedWritevAsync;
             }
@@ -710,7 +710,7 @@ GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
 GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
 /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
 /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-System.UIntPtr* bytesWritten,
+nuint* bytesWritten,
 /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
 /* direction:inout transfer-ownership:full */
 GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -725,7 +725,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedWritevFinish Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedWritevFinish(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.UIntPtr* bytesWritten_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doWritevFinish = (WritevFinish)methodInfo.CreateDelegate(typeof(WritevFinish), stream); doWritevFinish(result,out var bytesWritten); *bytesWritten_ = (System.UIntPtr)bytesWritten; return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedWritevFinish(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, nuint* bytesWritten_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var result = (GISharp.Lib.Gio.IAsyncResult)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)result_, GISharp.Runtime.Transfer.None)!; var doWritevFinish = (WritevFinish)methodInfo.CreateDelegate(typeof(WritevFinish), stream); doWritevFinish(result,out var bytesWritten); *bytesWritten_ = (nuint)bytesWritten; return GISharp.Runtime.Boolean.True; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedWritevFinish;
             }

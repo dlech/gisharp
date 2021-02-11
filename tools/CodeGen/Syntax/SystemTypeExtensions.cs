@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using GISharp.CodeGen.Reflection;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -29,6 +30,9 @@ namespace GISharp.CodeGen.Syntax
                 // Generics need fixing up
                 fixedUpTypeName = typeName.Remove(typeName.IndexOf('`'));
             }
+
+            fixedUpTypeName = fixedUpTypeName.Replace(typeof(NInt).FullName, "nint");
+            fixedUpTypeName = fixedUpTypeName.Replace(typeof(NUInt).FullName, "nuint");
 
             if (type.IsGenericType) {
                 return GenericName(fixedUpTypeName)

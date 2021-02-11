@@ -13,6 +13,16 @@ using System.Threading.Tasks;
 
 namespace GISharp.CodeGen.Reflection
 {
+    /// <summary>
+    /// Fake version of C#9 nint for use with reflection.
+    /// </summary>
+    public struct NInt { public nint Value; }
+
+    /// <summary>
+    /// Fake version of C#9 nuint for use with reflection.
+    /// </summary>
+    public struct NUInt { public nuint Value; }
+
     abstract class GirType : System.Type
     {
         readonly GIRegisteredType type;
@@ -255,11 +265,11 @@ namespace GISharp.CodeGen.Reflection
                 break;
             case "gintptr":
             case "gssize":
-                type = typeof(nint);
+                type = typeof(NInt);
                 break;
             case "guintptr":
             case "gsize":
-                type = typeof(nuint);
+                type = typeof(NUInt);
                 break;
             case "GType":
                 type = typeof(GType);

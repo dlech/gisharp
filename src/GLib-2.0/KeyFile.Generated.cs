@@ -283,7 +283,7 @@ namespace GISharp.Lib.GLib
         System.Byte* key,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -297,7 +297,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             var groupName_ = (System.Byte*)groupName.UnsafeHandle;
             var key_ = (System.Byte*)key.UnsafeHandle;
-            System.UIntPtr length_;
+            nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_boolean_list(keyFile_,groupName_,key_,&length_,&error_);
             if (error_ != null)
@@ -489,7 +489,7 @@ namespace GISharp.Lib.GLib
         System.Byte* key,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -503,7 +503,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             var groupName_ = (System.Byte*)groupName.UnsafeHandle;
             var key_ = (System.Byte*)key.UnsafeHandle;
-            System.UIntPtr length_;
+            nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_double_list(keyFile_,groupName_,key_,&length_,&error_);
             if (error_ != null)
@@ -543,7 +543,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.KeyFile.UnmanagedStruct* keyFile,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* length);
+        nuint* length);
         static partial void CheckGetGroupsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.6")]
@@ -551,7 +551,7 @@ namespace GISharp.Lib.GLib
         {
             CheckGetGroupsArgs();
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
-            System.UIntPtr length_;
+            nuint length_;
             var ret_ = g_key_file_get_groups(keyFile_,&length_);
             var ret = new GISharp.Lib.GLib.Strv((System.IntPtr)ret_, (int)length_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -733,7 +733,7 @@ namespace GISharp.Lib.GLib
         System.Byte* key,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -747,7 +747,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             var groupName_ = (System.Byte*)groupName.UnsafeHandle;
             var key_ = (System.Byte*)key.UnsafeHandle;
-            System.UIntPtr length_;
+            nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_integer_list(keyFile_,groupName_,key_,&length_,&error_);
             if (error_ != null)
@@ -798,7 +798,7 @@ namespace GISharp.Lib.GLib
         System.Byte* groupName,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -811,7 +811,7 @@ namespace GISharp.Lib.GLib
             CheckGetKeysArgs(groupName);
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             var groupName_ = (System.Byte*)groupName.UnsafeHandle;
-            System.UIntPtr length_;
+            nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_keys(keyFile_,groupName_,&length_,&error_);
             if (error_ != null)
@@ -1023,7 +1023,7 @@ namespace GISharp.Lib.GLib
         System.Byte* locale,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -1038,7 +1038,7 @@ namespace GISharp.Lib.GLib
             var groupName_ = (System.Byte*)groupName.UnsafeHandle;
             var key_ = (System.Byte*)key.UnsafeHandle;
             var locale_ = (System.Byte*)locale.UnsafeHandle;
-            System.UIntPtr length_;
+            nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_locale_string_list(keyFile_,groupName_,key_,locale_,&length_,&error_);
             if (error_ != null)
@@ -1193,7 +1193,7 @@ namespace GISharp.Lib.GLib
         System.Byte* key,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -1207,7 +1207,7 @@ namespace GISharp.Lib.GLib
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             var groupName_ = (System.Byte*)groupName.UnsafeHandle;
             var key_ = (System.Byte*)key.UnsafeHandle;
-            System.UIntPtr length_;
+            nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_get_string_list(keyFile_,groupName_,key_,&length_,&error_);
             if (error_ != null)
@@ -1473,7 +1473,7 @@ namespace GISharp.Lib.GLib
         System.Byte* data,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr length,
+        nuint length,
         /* <type name="KeyFileFlags" type="GKeyFileFlags" managed-name="KeyFileFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.KeyFileFlags flags,
@@ -1489,7 +1489,7 @@ namespace GISharp.Lib.GLib
             CheckLoadFromDataArgs(data, length, flags);
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
             var data_ = (System.Byte*)data.UnsafeHandle;
-            var length_ = (System.UIntPtr)length;
+            var length_ = (nuint)length;
             var flags_ = (GISharp.Lib.GLib.KeyFileFlags)flags;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_key_file_load_from_data(keyFile_, data_, length_, flags_, &error_);
@@ -2013,7 +2013,7 @@ namespace GISharp.Lib.GLib
         GISharp.Runtime.Boolean* list,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr length);
+        nuint length);
         static partial void CheckSetBooleanListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<GISharp.Runtime.Boolean> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetBooleanList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;GISharp.Runtime.Boolean&gt;)']/*" />
@@ -2027,7 +2027,7 @@ namespace GISharp.Lib.GLib
                 var groupName_ = (System.Byte*)groupName.UnsafeHandle;
                 var key_ = (System.Byte*)key.UnsafeHandle;
                 var list_ = (GISharp.Runtime.Boolean*)listData_;
-                var length_ = (System.UIntPtr)list.Length;
+                var length_ = (nuint)list.Length;
                 g_key_file_set_boolean_list(keyFile_, groupName_, key_, list_, length_);
             }
         }
@@ -2188,7 +2188,7 @@ namespace GISharp.Lib.GLib
         System.Double* list,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr length);
+        nuint length);
         static partial void CheckSetDoubleListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Double> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetDoubleList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Double&gt;)']/*" />
@@ -2202,7 +2202,7 @@ namespace GISharp.Lib.GLib
                 var groupName_ = (System.Byte*)groupName.UnsafeHandle;
                 var key_ = (System.Byte*)key.UnsafeHandle;
                 var list_ = (System.Double*)listData_;
-                var length_ = (System.UIntPtr)list.Length;
+                var length_ = (nuint)list.Length;
                 g_key_file_set_double_list(keyFile_, groupName_, key_, list_, length_);
             }
         }
@@ -2341,7 +2341,7 @@ namespace GISharp.Lib.GLib
         System.Int32* list,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr length);
+        nuint length);
         static partial void CheckSetIntegerListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, System.ReadOnlySpan<System.Int32> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetIntegerList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,System.ReadOnlySpan&lt;System.Int32&gt;)']/*" />
@@ -2355,7 +2355,7 @@ namespace GISharp.Lib.GLib
                 var groupName_ = (System.Byte*)groupName.UnsafeHandle;
                 var key_ = (System.Byte*)key.UnsafeHandle;
                 var list_ = (System.Int32*)listData_;
-                var length_ = (System.UIntPtr)list.Length;
+                var length_ = (nuint)list.Length;
                 g_key_file_set_integer_list(keyFile_, groupName_, key_, list_, length_);
             }
         }
@@ -2495,7 +2495,7 @@ namespace GISharp.Lib.GLib
         System.Byte** list,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr length);
+        nuint length);
         static partial void CheckSetLocaleStringListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Lib.GLib.UnownedUtf8 locale, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetLocaleStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
@@ -2510,7 +2510,7 @@ namespace GISharp.Lib.GLib
                 var key_ = (System.Byte*)key.UnsafeHandle;
                 var locale_ = (System.Byte*)locale.UnsafeHandle;
                 var list_ = (System.Byte**)listData_;
-                var length_ = (System.UIntPtr)list.Length;
+                var length_ = (nuint)list.Length;
                 g_key_file_set_locale_string_list(keyFile_, groupName_, key_, locale_, list_, length_);
             }
         }
@@ -2606,7 +2606,7 @@ namespace GISharp.Lib.GLib
         System.Byte** list,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr length);
+        nuint length);
         static partial void CheckSetStringListArgs(GISharp.Lib.GLib.UnownedUtf8 groupName, GISharp.Lib.GLib.UnownedUtf8 key, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> list);
 
         /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile.SetStringList(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8,GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;)']/*" />
@@ -2620,7 +2620,7 @@ namespace GISharp.Lib.GLib
                 var groupName_ = (System.Byte*)groupName.UnsafeHandle;
                 var key_ = (System.Byte*)key.UnsafeHandle;
                 var list_ = (System.Byte**)listData_;
-                var length_ = (System.UIntPtr)list.Length;
+                var length_ = (nuint)list.Length;
                 g_key_file_set_string_list(keyFile_, groupName_, key_, list_, length_);
             }
         }
@@ -2755,7 +2755,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.KeyFile.UnmanagedStruct* keyFile,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* length,
+        nuint* length,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -2767,7 +2767,7 @@ namespace GISharp.Lib.GLib
         {
             CheckToDataArgs();
             var keyFile_ = (GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle;
-            System.UIntPtr length_;
+            nuint length_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_key_file_to_data(keyFile_,&length_,&error_);
             if (error_ != null)

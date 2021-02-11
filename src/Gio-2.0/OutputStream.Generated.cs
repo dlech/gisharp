@@ -586,7 +586,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.IntPtr g_output_stream_splice(
+        private static extern nint g_output_stream_splice(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -721,7 +721,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.IntPtr g_output_stream_splice_finish(
+        private static extern nint g_output_stream_splice_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -804,7 +804,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.IntPtr g_output_stream_write(
+        private static extern nint g_output_stream_write(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -815,7 +815,7 @@ namespace GISharp.Lib.Gio
         System.Byte* buffer,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr count,
+        nuint count,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -832,7 +832,7 @@ namespace GISharp.Lib.Gio
                 CheckWriteArgs(buffer, cancellable);
                 var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
                 var buffer_ = (System.Byte*)bufferData_;
-                var count_ = (System.UIntPtr)buffer.Length;
+                var count_ = (nuint)buffer.Length;
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 var ret_ = g_output_stream_write(stream_,buffer_,count_,cancellable_,&error_);
@@ -905,10 +905,10 @@ namespace GISharp.Lib.Gio
         System.Byte* buffer,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr count,
+        nuint count,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* bytesWritten,
+        nuint* bytesWritten,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -925,9 +925,9 @@ namespace GISharp.Lib.Gio
                 CheckWriteAllArgs(buffer, cancellable);
                 var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
                 var buffer_ = (System.Byte*)bufferData_;
-                var count_ = (System.UIntPtr)buffer.Length;
+                var count_ = (nuint)buffer.Length;
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-                System.UIntPtr bytesWritten_;
+                nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_output_stream_write_all(stream_, buffer_, count_, &bytesWritten_, cancellable_, &error_);
                 if (error_ != null)
@@ -996,7 +996,7 @@ namespace GISharp.Lib.Gio
         System.Byte* buffer,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr count,
+        nuint count,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 ioPriority,
@@ -1018,7 +1018,7 @@ namespace GISharp.Lib.Gio
             CheckWriteAllAsyncArgs(buffer, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var buffer_ = (System.Byte*)buffer.Pin().Pointer;
-            var count_ = (System.UIntPtr)buffer.Length;
+            var count_ = (nuint)buffer.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
@@ -1069,7 +1069,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* bytesWritten,
+        nuint* bytesWritten,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -1082,7 +1082,7 @@ namespace GISharp.Lib.Gio
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target!;
                 userData.Free();
-                System.UIntPtr bytesWritten_;
+                nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_output_stream_write_all_finish(stream_, result_, &bytesWritten_, &error_);
                 if (error_ != null)
@@ -1178,7 +1178,7 @@ namespace GISharp.Lib.Gio
         System.Byte* buffer,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr count,
+        nuint count,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 ioPriority,
@@ -1199,7 +1199,7 @@ namespace GISharp.Lib.Gio
             CheckWriteAsyncArgs(buffer, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var buffer_ = (System.Byte*)buffer.Pin().Pointer;
-            var count_ = (System.UIntPtr)buffer.Length;
+            var count_ = (nuint)buffer.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
@@ -1241,7 +1241,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.IntPtr g_output_stream_write_bytes(
+        private static extern nint g_output_stream_write_bytes(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1368,7 +1368,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.IntPtr g_output_stream_write_bytes_finish(
+        private static extern nint g_output_stream_write_bytes_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1425,7 +1425,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.IntPtr g_output_stream_write_finish(
+        private static extern nint g_output_stream_write_finish(
         /* <type name="OutputStream" type="GOutputStream*" managed-name="OutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
@@ -1527,10 +1527,10 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.OutputVector* vectors,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr nVectors,
+        nuint nVectors,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* bytesWritten,
+        nuint* bytesWritten,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -1548,9 +1548,9 @@ namespace GISharp.Lib.Gio
                 CheckWritevArgs(vectors, cancellable);
                 var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
                 var vectors_ = (GISharp.Lib.Gio.OutputVector*)vectorsData_;
-                var nVectors_ = (System.UIntPtr)vectors.Length;
+                var nVectors_ = (nuint)vectors.Length;
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-                System.UIntPtr bytesWritten_;
+                nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_output_stream_writev(stream_, vectors_, nVectors_, &bytesWritten_, cancellable_, &error_);
                 if (error_ != null)
@@ -1625,10 +1625,10 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.OutputVector* vectors,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr nVectors,
+        nuint nVectors,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* bytesWritten,
+        nuint* bytesWritten,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -1646,9 +1646,9 @@ namespace GISharp.Lib.Gio
                 CheckWritevAllArgs(vectors, cancellable);
                 var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
                 var vectors_ = (GISharp.Lib.Gio.OutputVector*)vectorsData_;
-                var nVectors_ = (System.UIntPtr)vectors.Length;
+                var nVectors_ = (nuint)vectors.Length;
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-                System.UIntPtr bytesWritten_;
+                nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_output_stream_writev_all(stream_, vectors_, nVectors_, &bytesWritten_, cancellable_, &error_);
                 if (error_ != null)
@@ -1718,7 +1718,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.OutputVector* vectors,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr nVectors,
+        nuint nVectors,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 ioPriority,
@@ -1740,7 +1740,7 @@ namespace GISharp.Lib.Gio
             CheckWritevAllAsyncArgs(vectors, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var vectors_ = (GISharp.Lib.Gio.OutputVector*)vectors.Pin().Pointer;
-            var nVectors_ = (System.UIntPtr)vectors.Length;
+            var nVectors_ = (nuint)vectors.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
@@ -1791,7 +1791,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* bytesWritten,
+        nuint* bytesWritten,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -1804,7 +1804,7 @@ namespace GISharp.Lib.Gio
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target!;
                 userData.Free();
-                System.UIntPtr bytesWritten_;
+                nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_output_stream_writev_all_finish(stream_, result_, &bytesWritten_, &error_);
                 if (error_ != null)
@@ -1896,7 +1896,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.OutputVector* vectors,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr nVectors,
+        nuint nVectors,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 ioPriority,
@@ -1918,7 +1918,7 @@ namespace GISharp.Lib.Gio
             CheckWritevAsyncArgs(vectors, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var vectors_ = (GISharp.Lib.Gio.OutputVector*)vectors.Pin().Pointer;
-            var nVectors_ = (System.UIntPtr)vectors.Length;
+            var nVectors_ = (nuint)vectors.Length;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.Int32>();
@@ -1959,7 +1959,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result,
         /* <type name="gsize" type="gsize*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UIntPtr* bytesWritten,
+        nuint* bytesWritten,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -1972,7 +1972,7 @@ namespace GISharp.Lib.Gio
                 var userData = (System.Runtime.InteropServices.GCHandle)userData_;
                 var completionSource = (System.Threading.Tasks.TaskCompletionSource<System.Int32>)userData.Target!;
                 userData.Free();
-                System.UIntPtr bytesWritten_;
+                nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_output_stream_writev_finish(stream_, result_, &bytesWritten_, &error_);
                 if (error_ != null)
@@ -2134,7 +2134,7 @@ namespace GISharp.Lib.Gio
             {
                 var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
                 var buffer_ = (System.Byte*)bufferData_;
-                var count_ = (System.UIntPtr)buffer.Length;
+                var count_ = (nuint)buffer.Length;
                 var ioPriority_ = (System.Int32)ioPriority;
                 var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
@@ -2168,7 +2168,7 @@ namespace GISharp.Lib.Gio
             {
                 var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
                 var buffer_ = (System.Byte*)bufferData_;
-                var count_ = (System.UIntPtr)buffer.Length;
+                var count_ = (nuint)buffer.Length;
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWriteFn>(_GType)!(stream_,buffer_,count_,cancellable_,&error_);
@@ -2192,7 +2192,7 @@ namespace GISharp.Lib.Gio
             {
                 var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
                 var vectors_ = (GISharp.Lib.Gio.OutputVector*)vectorsData_;
-                var nVectors_ = (System.UIntPtr)vectors.Length;
+                var nVectors_ = (nuint)vectors.Length;
                 var ioPriority_ = (System.Int32)ioPriority;
                 var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
@@ -2207,7 +2207,7 @@ namespace GISharp.Lib.Gio
         {
             var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
             var result_ = (GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*)result.UnsafeHandle;
-            System.UIntPtr bytesWritten_;
+            nuint bytesWritten_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFinish>(_GType)!(stream_, result_, &bytesWritten_, &error_);
             if (error_ != null)
@@ -2228,9 +2228,9 @@ namespace GISharp.Lib.Gio
             {
                 var stream_ = (GISharp.Lib.Gio.OutputStream.UnmanagedStruct*)UnsafeHandle;
                 var vectors_ = (GISharp.Lib.Gio.OutputVector*)vectorsData_;
-                var nVectors_ = (System.UIntPtr)vectors.Length;
+                var nVectors_ = (nuint)vectors.Length;
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-                System.UIntPtr bytesWritten_;
+                nuint bytesWritten_;
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<OutputStreamClass.UnmanagedWritevFn>(_GType)!(stream_, vectors_, nVectors_, &bytesWritten_, cancellable_, &error_);
                 if (error_ != null)

@@ -274,7 +274,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UIntPtr g_unichar_fully_decompose(
+        private static extern nuint g_unichar_fully_decompose(
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar ch,
@@ -288,7 +288,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Unichar* result,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.UIntPtr resultLen);
+        nuint resultLen);
 
         /// <summary>
         /// In Unicode, some characters are "mirrored". This means that their
