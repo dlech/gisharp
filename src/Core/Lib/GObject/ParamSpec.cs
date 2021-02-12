@@ -1,13 +1,10 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
-using GISharp.Lib.GModule;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
@@ -133,13 +130,17 @@ namespace GISharp.Lib.GObject
         {
             // Have to do some marshalling to get ParamSpec GTypes used by child
             // classes. These types don't have the usual *_get_type() functions.
-            using (var lib = Module.Open(Module.BuildPath(null, "gobject-2.0", true), ModuleFlags.BindLazy)) {
-                var ptr = Marshal.ReadIntPtr(lib.GetSymbol("g_param_spec_types"));
+            var lib = NativeLibrary.Load(Platform.LibraryName("gobject-2.0"));
+            try {
+                var ptr = Marshal.ReadIntPtr(NativeLibrary.GetExport(lib, "g_param_spec_types"));
                 const int paramSpecTypeCount = 23;
                 paramSpecTypes = new GType[paramSpecTypeCount];
                 for (int i = 0; i < paramSpecTypeCount; i++) {
                     paramSpecTypes[i] = Marshal.PtrToStructure<GType>(ptr + i * Marshal.SizeOf<GType>());
                 }
+            }
+            finally {
+                NativeLibrary.Free(lib);
             }
         }
 

@@ -1,9 +1,9 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Runtime.InteropServices;
-using GISharp.Lib.GModule;
+using GISharp.Runtime;
 
 namespace GISharp.Lib.GLib
 {
@@ -19,12 +19,16 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static Lazy<System.Version> _RunTime = new(() => {
-            using (var lib = Module.Open(Module.BuildPath(null, "glib-2.0", true), ModuleFlags.BindLazy)) {
-                var major = Marshal.ReadInt32(lib.GetSymbol("glib_major_version"));
-                var minor = Marshal.ReadInt32(lib.GetSymbol("glib_minor_version"));
-                var micro = Marshal.ReadInt32(lib.GetSymbol("glib_micro_version"));
+        static readonly Lazy<System.Version> _RunTime = new(() => {
+            var lib = NativeLibrary.Load(Platform.LibraryName("glib-2.0"));
+            try {
+                var major = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_major_version"));
+                var minor = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_minor_version"));
+                var micro = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_micro_version"));
                 return new System.Version(major, minor, micro, 0);
+            }
+            finally {
+                NativeLibrary.Free(lib);
             }
         });
 
@@ -32,15 +36,15 @@ namespace GISharp.Lib.GLib
         /// The version of the GLib library linked against at run time.
         /// </summary>
         /// <value>The run time.</value>
-        public static System.Version RunTime {
-            get {
-                return _RunTime.Value;
-            }
-        }
+        public static System.Version RunTime => _RunTime.Value;
 
-        static Lazy<int> _BinaryAge = new(() => {
-            using (var lib = Module.Open(Module.BuildPath(null, "glib-2.0", true), ModuleFlags.BindLazy)) {
-                return Marshal.ReadInt32(lib.GetSymbol("glib_binary_age"));
+        static readonly Lazy<int> _BinaryAge = new(() => {
+            var lib = NativeLibrary.Load(Platform.LibraryName("glib-2.0"));
+            try {
+                return Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_binary_age"));
+            }
+            finally {
+                NativeLibrary.Free(lib);
             }
         });
 
@@ -58,9 +62,13 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static Lazy<int> _InterfaceAge = new(() => {
-            using (var lib = Module.Open(Module.BuildPath(null, "glib-2.0", true), ModuleFlags.BindLazy)) {
-                return Marshal.ReadInt32(lib.GetSymbol("glib_interface_age"));
+        static readonly Lazy<int> _InterfaceAge = new(() => {
+            var lib = NativeLibrary.Load(Platform.LibraryName("glib-2.0"));
+            try {
+                return Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_interface_age"));
+            }
+            finally {
+                NativeLibrary.Free(lib);
             }
         });
 
@@ -72,10 +80,6 @@ namespace GISharp.Lib.GLib
         /// An integer variable exported from the library linked against at
         /// application run time.
         /// </remarks>
-        public static int InterfaceAge {
-            get {
-                return _InterfaceAge.Value;
-            }
-        }
+        public static int InterfaceAge => _InterfaceAge.Value;
     }
 }

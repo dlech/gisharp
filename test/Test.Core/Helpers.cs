@@ -1,10 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
 
-
-using System;
 using System.Runtime.InteropServices;
-using GISharp.Lib.GModule;
+using GISharp.Runtime;
 
 namespace GISharp.Test.Core
 {
@@ -12,12 +10,17 @@ namespace GISharp.Test.Core
     {
         public static string GLibVersion { get; }
 
-        static Helpers() {
-            using (var lib = Module.Open(Module.BuildPath(null, "glib-2.0", true), ModuleFlags.BindLazy)) {
-                var major = Marshal.ReadInt32(lib.GetSymbol("glib_major_version"));
-                var minor = Marshal.ReadInt32(lib.GetSymbol("glib_minor_version"));
-                var micro = Marshal.ReadInt32(lib.GetSymbol("glib_micro_version"));
+        static Helpers()
+        {
+            var lib = NativeLibrary.Load(Platform.LibraryName("glib-2.0"));
+            try {
+                var major = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_major_version"));
+                var minor = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_minor_version"));
+                var micro = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_micro_version"));
                 GLibVersion = $"{major}.{minor}.{micro}";
+            }
+            finally {
+                NativeLibrary.Free(lib);
             }
         }
     }
