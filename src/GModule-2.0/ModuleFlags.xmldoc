@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='ModuleFlags.Lazy'>
+<summary>
+specifies that symbols are only resolved when
+    needed. The default action is to bind all symbols when the module
+    is loaded.
+</summary>
+</member>
+
+<member name='ModuleFlags.Local'>
+<summary>
+specifies that symbols in the module should
+    not be added to the global name space. The default action on most
+    platforms is to place symbols in the module in the global name space,
+    which may cause conflicts with existing symbols.
+</summary>
+</member>
+
+<member name='ModuleFlags.Mask'>
+<summary>
+mask for all flags.
+</summary>
+</member>
+
+<member name='ModuleFlags'>
+<summary>
+Flags passed to <see cref="Module.Open(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)"/>.
+Note that these flags are not supported on all platforms.
+</summary>
+</member>
+
+</declaration>

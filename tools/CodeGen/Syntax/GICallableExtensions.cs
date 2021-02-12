@@ -38,7 +38,7 @@ namespace GISharp.CodeGen.Syntax
         internal static MethodDeclarationSyntax GetCheckReturnMethodDeclaration(this GICallable callable)
         {
             var declaration = MethodDeclaration(IdentifierName("void"), $"Check{callable.ManagedName}Return")
-                .AddModifiers(Token(StaticKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PartialKeyword))
                 .WithSemicolonToken(Token(SemicolonToken));
 
             if (callable is Constructor) {
