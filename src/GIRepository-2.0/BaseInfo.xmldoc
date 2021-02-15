@@ -1,0 +1,105 @@
+<declaration>
+
+<member name='UnmanagedStruct.Dummy1'>
+</member>
+
+<member name='UnmanagedStruct.Dummy2'>
+</member>
+
+<member name='UnmanagedStruct.Dummy3'>
+</member>
+
+<member name='UnmanagedStruct.Dummy4'>
+</member>
+
+<member name='UnmanagedStruct.Dummy5'>
+</member>
+
+<member name='UnmanagedStruct.Dummy6'>
+</member>
+
+<member name='UnmanagedStruct.Dummy7'>
+</member>
+
+<member name='UnmanagedStruct.Padding'>
+</member>
+
+<member name='BaseInfo.Container'>
+<summary>
+Obtain the container of the this instance. The container is the parent
+GIBaseInfo. For instance, the parent of a <see cref="FunctionInfo"/> is an
+<see cref="ObjectInfo"/> or <see cref="InterfaceInfo"/>.
+</summary>
+</member>
+
+<member name='BaseInfo.Name'>
+<summary>
+Obtain the name of the this instance. What the name represents depends on
+the <see cref="InfoType"/> of the this instance. For instance for <see cref="FunctionInfo"/> it is
+the name of the function.
+</summary>
+</member>
+
+<member name='BaseInfo.Namespace'>
+<summary>
+Obtain the namespace of this instance.
+</summary>
+</member>
+
+<member name='BaseInfo.InfoType'>
+<summary>
+Obtain the info type of the GIBaseInfo.
+</summary>
+</member>
+
+<member name='BaseInfo.Typelib'>
+<summary>
+Obtain the typelib this this instance belongs to
+</summary>
+</member>
+
+<member name='BaseInfo.IsDeprecated'>
+<summary>
+Obtain whether the this instance is represents a metadata which is
+deprecated or not.
+</summary>
+</member>
+
+<member name='BaseInfo.Equals(GISharp.Lib.GIRepository.BaseInfo?)'>
+<summary>
+Compare two <see cref="BaseInfo"/>.
+</summary>
+<remarks>
+Using pointer comparison is not practical since many functions return
+different instances of <see cref="BaseInfo"/> that refers to the same part of the
+TypeLib; use this function instead to do <see cref="BaseInfo"/> comparisons.
+</remarks>
+<param name="info2">
+a <see cref="BaseInfo"/>
+</param>
+<returns>
+<c>true</c> if and only if this instance equals <paramref name="info2"/>.
+</returns>
+</member>
+
+<member name='BaseInfo.GetAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Retrieve an arbitrary attribute associated with this node.
+</summary>
+<param name="name">
+a freeform string naming an attribute
+</param>
+<returns>
+The value of the attribute, or <c>null</c> if no such attribute exists
+</returns>
+</member>
+
+<member name='BaseInfo'>
+<summary>
+GIBaseInfo is the common base struct of all other *Info structs
+accessible through the <see cref="Repository"/> API.
+<see cref="Repository.FindByName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Lib.GObject.GType)"/> or <see cref="Repository.GetInfo(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/>.
+</summary>
+</member>
+
+</declaration>

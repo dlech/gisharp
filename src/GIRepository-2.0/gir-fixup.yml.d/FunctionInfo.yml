@@ -1,0 +1,24 @@
+
+### FunctionInfo ###
+
+# fix base type
+- !set-attribute
+  name: name
+  value: CallableInfo
+  xpath: gi:repository/gi:namespace/gi:alias[@name='FunctionInfo']/gi:type
+
+# methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'function_info_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='FunctionInfo']
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:alias[@name='FunctionInfo']/gi:function
+- !change-attribute
+  name: name
+  regex: ^function_info_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='FunctionInfo']/gi:method
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:alias[@name='FunctionInfo']/gi:method/gi:parameters/gi:parameter[1]

@@ -1,0 +1,77 @@
+<declaration>
+
+<member name='UnionInfo.Alignment'>
+<summary>
+Obtain the required alignment of the union.
+</summary>
+</member>
+
+<member name='UnionInfo.DiscriminatorOffset'>
+<summary>
+Returns offset of the discriminator field in the structure.
+</summary>
+</member>
+
+<member name='UnionInfo.DiscriminatorType'>
+<summary>
+Obtain the type information of the union discriminator.
+</summary>
+</member>
+
+<member name='UnionInfo.NFields'>
+<summary>
+Obtain the number of fields this union has.
+</summary>
+</member>
+
+<member name='UnionInfo.NMethods'>
+<summary>
+Obtain the number of methods this union has.
+</summary>
+</member>
+
+<member name='UnionInfo.Size'>
+<summary>
+Obtain the total size of the union.
+</summary>
+</member>
+
+<member name='UnionInfo.IsDiscriminated'>
+<summary>
+Return true if this union contains discriminator field.
+</summary>
+</member>
+
+<member name='UnionInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Obtain the type information for method named <paramref name="name"/>.
+</summary>
+<param name="name">
+a method name
+</param>
+<returns>
+the <see cref="FunctionInfo"/>.
+</returns>
+</member>
+
+<member name='UnionInfo.GetDiscriminator(System.Int32)'>
+<summary>
+Obtain discriminator value assigned for n-th union field, i.e. n-th
+union field is the active one if discriminator contains this
+constant.
+</summary>
+<param name="n">
+a union field index
+</param>
+<returns>
+the <see cref="ConstantInfo"/>.
+</returns>
+</member>
+
+<member name='UnionInfo'>
+<summary>
+Represents a union.
+</summary>
+</member>
+
+</declaration>

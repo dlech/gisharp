@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,6 @@ using GISharp.CodeGen.Gir;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Syntax
 {
@@ -31,8 +30,14 @@ namespace GISharp.CodeGen.Syntax
 
             switch (type) {
             case Alias alias:
-                yield return alias.GetStructDeclaration()
-                    .WithMembers(alias.GetStructMembers());
+                if (alias.Type.ManagedType.IsValueType) {
+                    yield return alias.GetStructDeclaration()
+                        .WithMembers(alias.GetStructMembers());
+                }
+                else {
+                    yield return alias.GetClassDeclaration()
+                    .WithMembers(alias.GetClassMembers());
+                }
                 break;
             case Bitfield bitfield:
                 yield return bitfield.GetEnumDeclaration()

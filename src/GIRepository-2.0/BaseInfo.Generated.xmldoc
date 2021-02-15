@@ -1,0 +1,140 @@
+<declaration>
+
+<member name='UnmanagedStruct.Dummy1'>
+</member>
+
+<member name='UnmanagedStruct.Dummy2'>
+</member>
+
+<member name='UnmanagedStruct.Dummy3'>
+</member>
+
+<member name='UnmanagedStruct.Dummy4'>
+</member>
+
+<member name='UnmanagedStruct.Dummy5'>
+</member>
+
+<member name='UnmanagedStruct.Dummy6'>
+</member>
+
+<member name='UnmanagedStruct.Dummy7'>
+</member>
+
+<member name='UnmanagedStruct.Padding'>
+</member>
+
+<member name='BaseInfo.Container'>
+<summary>
+Obtain the container of the this instance. The container is the parent
+GIBaseInfo. For instance, the parent of a <see cref="FunctionInfo"/> is an
+<see cref="ObjectInfo"/> or <see cref="InterfaceInfo"/>.
+</summary>
+</member>
+
+<member name='BaseInfo.Name'>
+<summary>
+Obtain the name of the this instance. What the name represents depends on
+the <see cref="InfoType"/> of the this instance. For instance for <see cref="FunctionInfo"/> it is
+the name of the function.
+</summary>
+</member>
+
+<member name='BaseInfo.Namespace'>
+<summary>
+Obtain the namespace of this instance.
+</summary>
+</member>
+
+<member name='BaseInfo.InfoType'>
+<summary>
+Obtain the info type of the GIBaseInfo.
+</summary>
+</member>
+
+<member name='BaseInfo.Typelib'>
+<summary>
+Obtain the typelib this this instance belongs to
+</summary>
+</member>
+
+<member name='BaseInfo.IsDeprecated'>
+<summary>
+Obtain whether the this instance is represents a metadata which is
+deprecated or not.
+</summary>
+</member>
+
+<member name='BaseInfo.Equals(GISharp.Lib.GIRepository.BaseInfo?)'>
+<summary>
+Compare two <see cref="BaseInfo"/>.
+</summary>
+<remarks>
+Using pointer comparison is not practical since many functions return
+different instances of <see cref="BaseInfo"/> that refers to the same part of the
+TypeLib; use this function instead to do <see cref="BaseInfo"/> comparisons.
+</remarks>
+<param name="info2">
+a <see cref="BaseInfo"/>
+</param>
+<returns>
+<c>true</c> if and only if this instance equals <paramref name="info2"/>.
+</returns>
+</member>
+
+<member name='BaseInfo.GetAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Retrieve an arbitrary attribute associated with this node.
+</summary>
+<param name="name">
+a freeform string naming an attribute
+</param>
+<returns>
+The value of the attribute, or <c>null</c> if no such attribute exists
+</returns>
+</member>
+
+<member name='BaseInfo'>
+<summary>
+GIBaseInfo is the common base struct of all other *Info structs
+accessible through the <see cref="Repository"/> API.
+All other structs can be casted to a <see cref="BaseInfo"/>, for instance:
+&lt;example&gt;
+&lt;title&gt;Casting a <see cref="FunctionInfo"/> to <see cref="BaseInfo"/>&lt;/title&gt;
+&lt;programlisting&gt;
+   GIFunctionInfo *function_info = ...;
+   GIBaseInfo *info = (GIBaseInfo*)function_info;
+&lt;/programlisting&gt;
+&lt;/example&gt;
+Most <see cref="Repository"/> APIs returning a <see cref="BaseInfo"/> is actually creating a new struct, in other
+words, <see cref="BaseInfo.Unref()"/> has to be called when done accessing the data.
+GIBaseInfos are normally accessed by calling either
+<see cref="Repository.FindByName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Lib.GObject.GType)"/> or <see cref="Repository.GetInfo(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/>.
+</summary>
+<remarks>
+&lt;example&gt;
+&lt;title&gt;Getting the Button of the Gtk typelib&lt;/title&gt;
+&lt;programlisting&gt;
+   GIBaseInfo *button_info = g_irepository_find_by_name(NULL, "Gtk", "Button");
+   ... use button_info ...
+   g_base_info_unref(button_info);
+&lt;/programlisting&gt;
+&lt;/example&gt;
+
+&lt;refsect1 id="gi-gibaseinfo.struct-hierarchy" role="struct_hierarchy"&gt;
+&lt;title role="struct_hierarchy.title"&gt;Struct hierarchy&lt;/title&gt;
+&lt;synopsis&gt;
+  GIBaseInfo
+   +----&lt;link linkend="gi-GIArgInfo"&gt;GIArgInfo&lt;/link&gt;
+   +----&lt;link linkend="gi-GICallableInfo"&gt;GICallableInfo&lt;/link&gt;
+   +----&lt;link linkend="gi-GIConstantInfo"&gt;GIConstantInfo&lt;/link&gt;
+   +----&lt;link linkend="gi-GIFieldInfo"&gt;GIFieldInfo&lt;/link&gt;
+   +----&lt;link linkend="gi-GIPropertyInfo"&gt;GIPropertyInfo&lt;/link&gt;
+   +----&lt;link linkend="gi-GIRegisteredTypeInfo"&gt;GIRegisteredTypeInfo&lt;/link&gt;
+   +----&lt;link linkend="gi-GITypeInfo"&gt;GITypeInfo&lt;/link&gt;
+&lt;/synopsis&gt;
+&lt;/refsect1&gt;
+</remarks>
+</member>
+
+</declaration>

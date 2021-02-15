@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
     /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone']/*" />
     [GISharp.Runtime.SinceAttribute("2.26")]
     [GISharp.Runtime.GTypeAttribute("GTimeZone", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class TimeZone : GISharp.Lib.GObject.Boxed
+    public unsafe partial class TimeZone : GISharp.Lib.GObject.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_time_zone_get_type();
 
@@ -289,7 +289,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint64" type="gint64*" managed-name="System.Int64" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Int64* time);
-        static partial void CheckAdjustTimeArgs(GISharp.Lib.GLib.TimeType type, System.Int64 time);
+        partial void CheckAdjustTimeArgs(GISharp.Lib.GLib.TimeType type, System.Int64 time);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.AdjustTime(GISharp.Lib.GLib.TimeType,System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -351,7 +351,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
         System.Int64 time);
-        static partial void CheckFindIntervalArgs(GISharp.Lib.GLib.TimeType type, System.Int64 time);
+        partial void CheckFindIntervalArgs(GISharp.Lib.GLib.TimeType type, System.Int64 time);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -395,7 +395,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 interval);
-        static partial void CheckGetAbbreviationArgs(System.Int32 interval);
+        partial void CheckGetAbbreviationArgs(System.Int32 interval);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.GetAbbreviation(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -434,7 +434,7 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeZone" type="GTimeZone*" managed-name="TimeZone" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeZone.UnmanagedStruct* tz);
-        static partial void CheckGetIdentifierArgs();
+        partial void CheckGetIdentifierArgs();
 
         [GISharp.Runtime.SinceAttribute("2.58")]
         private GISharp.Lib.GLib.UnownedUtf8 GetIdentifier()
@@ -476,7 +476,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 interval);
-        static partial void CheckGetOffsetArgs(System.Int32 interval);
+        partial void CheckGetOffsetArgs(System.Int32 interval);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.GetOffset(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -514,7 +514,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 interval);
-        static partial void CheckIsDstArgs(System.Int32 interval);
+        partial void CheckIsDstArgs(System.Int32 interval);
 
         /// <include file="TimeZone.xmldoc" path="declaration/member[@name='TimeZone.IsDst(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]

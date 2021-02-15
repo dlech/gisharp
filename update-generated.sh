@@ -11,7 +11,7 @@ if [ $# -gt 0 ]; then
     projects="$@"
 else
     # order matters - dependencies first
-    projects="GLib-2.0 GObject-2.0 Gio-2.0 GModule-2.0 Gtk-4.0"
+    projects="GLib-2.0 GObject-2.0 Gio-2.0 GModule-2.0 GIRepository-2.0 Gtk-4.0"
 fi
 
 for p in $projects; do

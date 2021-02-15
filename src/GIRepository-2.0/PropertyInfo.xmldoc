@@ -1,0 +1,29 @@
+<declaration>
+
+<member name='PropertyInfo.Flags'>
+<summary>
+Obtain the flags for this property info. See #GParamFlags for
+more information about possible flag values.
+</summary>
+</member>
+
+<member name='PropertyInfo.OwnershipTransfer'>
+<summary>
+Obtain the ownership transfer for this property. See <see cref="Transfer"/> for more
+information about transfer values.
+</summary>
+</member>
+
+<member name='PropertyInfo.Type'>
+<summary>
+Obtain the type information for the property this instance.
+</summary>
+</member>
+
+<member name='PropertyInfo'>
+<summary>
+Represents a property of a <see cref="ObjectInfo"/> or a <see cref="InterfaceInfo"/>.
+</summary>
+</member>
+
+</declaration>

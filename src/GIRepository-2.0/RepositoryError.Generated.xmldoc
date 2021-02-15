@@ -1,0 +1,40 @@
+<declaration>
+
+<member name='RepositoryError.TypelibNotFound'>
+<summary>
+the typelib could not be found.
+</summary>
+</member>
+
+<member name='RepositoryError.NamespaceMismatch'>
+<summary>
+the namespace does not match the
+  requested namespace.
+</summary>
+</member>
+
+<member name='RepositoryError.NamespaceVersionConflict'>
+<summary>
+the version of the
+  typelib does not match the requested version.
+</summary>
+</member>
+
+<member name='RepositoryError.LibraryNotFound'>
+<summary>
+the library used by the typelib
+  could not be found.
+</summary>
+</member>
+
+<member name='RepositoryError'>
+<summary>
+An error code used with #G_IREPOSITORY_ERROR in a #GError returned
+from a <see cref="Repository"/> routine.
+</summary>
+</member>
+
+<member name='RepositoryErrorDomain.Quark'>
+</member>
+
+</declaration>

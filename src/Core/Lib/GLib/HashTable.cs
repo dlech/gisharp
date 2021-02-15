@@ -1017,14 +1017,14 @@ namespace GISharp.Lib.GLib
         /// until changes to the hash release those keys.
         /// </summary>
         /// <returns>
-        /// a <see cref="List{T}"/> containing all the keys inside the hash table.
+        /// a <see cref="WeakList{T}"/> containing all the keys inside the hash table.
         /// </returns>
         [Since("2.14")]
-        public List<TKey> Keys {
+        public WeakList<TKey> Keys {
             get {
                 var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_hash_table_get_keys(hashTable_);
-                var ret = GetInstance<List<TKey>>((IntPtr)ret_, Transfer.Container) ?? new List<TKey>();
+                var ret = new WeakList<TKey>((IntPtr)ret_, Transfer.Container);
                 return ret;
             }
         }
@@ -1034,17 +1034,14 @@ namespace GISharp.Lib.GLib
         /// is valid until this HashTable is modified.
         /// </summary>
         /// <returns>
-        /// a <see cref="List{T}"/> containing all the values inside the hash
-        ///     table. The content of the list is owned by the hash table and
-        ///     should not be modified or freed. Use g_list_free() when done
-        ///     using the list.
+        /// a <see cref="WeakList{T}"/> containing all the values inside the hash table.
         /// </returns>
         [Since("2.14")]
-        public List<TValue> Values {
+        public WeakList<TValue> Values {
             get {
                 var hashTable_ = (UnmanagedStruct*)UnsafeHandle;
                 var ret_ = g_hash_table_get_values(hashTable_);
-                var ret = GetInstance<List<TValue>>((IntPtr)ret_, Transfer.Container) ?? new List<TValue>();
+                var ret = new WeakList<TValue>((IntPtr)ret_, Transfer.Container);
                 return ret;
             }
         }

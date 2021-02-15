@@ -1,0 +1,34 @@
+<declaration>
+
+<member name='RegisteredTypeInfo.GType'>
+<summary>
+Obtain the #GType for this registered type or G_TYPE_NONE which a special meaning.
+It means that either there is no type information associated with this this instance or
+that the shared library which provides the type_init function for this
+this instance cannot be called.
+</summary>
+</member>
+
+<member name='RegisteredTypeInfo.TypeInit'>
+<summary>
+Obtain the type init function for this instance. The type init function is the
+function which will register the GType within the GObject type system.
+Usually this is not called by langauge bindings or applications, use
+<see cref="RegisteredTypeInfo.GetGType()"/> directly instead.
+</summary>
+</member>
+
+<member name='RegisteredTypeInfo.TypeName'>
+<summary>
+Obtain the type name of the struct within the GObject type system.
+This type can be passed to g_type_name() to get a #GType.
+</summary>
+</member>
+
+<member name='RegisteredTypeInfo'>
+<summary>
+Represent a registered type.
+</summary>
+</member>
+
+</declaration>

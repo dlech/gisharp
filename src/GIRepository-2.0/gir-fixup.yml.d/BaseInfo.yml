@@ -1,0 +1,20 @@
+
+### BaseInfo ###
+
+# make introspectable
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='BaseInfo']/gi:method[contains(@name,'ref')]
+
+# make private
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:record[@name='BaseInfo']/gi:method[@name='iterate_attributes']
+
+# fix conflict with same method in derived types
+- !set-attribute
+  name: name
+  value: get_info_type
+  xpath: gi:repository/gi:namespace/gi:record[@name='BaseInfo']/gi:method[@name='get_type']

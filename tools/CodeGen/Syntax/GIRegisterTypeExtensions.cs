@@ -1,9 +1,8 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.ComponentModel;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -64,6 +63,43 @@ namespace GISharp.CodeGen.Syntax
             }
 
             return list;
+        }
+
+        public static ConstructorDeclarationSyntax GetDefaultConstructor(this GIRegisteredType type)
+        {
+            var parameterList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
+                typeof(IntPtr), typeof(Transfer)));
+            var argList = ParseArgumentList("(handle, ownership)");
+
+            if (type is Record && type.GTypeName is not null) {
+                // GType records inherit from GBoxed, so they need an extra arg
+                var gtypeArg = Argument(ParseExpression("_GType"));
+                argList = argList.WithArguments(argList.Arguments.Insert(0, gtypeArg));
+            }
+
+            var arg = ParseExpression($"{typeof(EditorBrowsableState)}.{nameof(EditorBrowsableState.Never)}");
+            var attr = Attribute(ParseName(typeof(EditorBrowsableAttribute).ToString()))
+                .AddArgumentListArguments(AttributeArgument(arg));
+            var attributeList = AttributeList().AddAttributes(attr);
+
+            // abstract classes can't have public constructors
+            var accessModifier = (type is Class @class && @class.IsAbstract) ?
+                Token(ProtectedKeyword) : Token(PublicKeyword);
+
+            var initializer = ConstructorInitializer(BaseConstructorInitializer)
+                .WithArgumentList(argList);
+
+            var constructor = ConstructorDeclaration(type.ManagedName)
+                .AddAttributeLists(attributeList)
+                .AddModifiers(accessModifier)
+                .WithParameterList(parameterList)
+                .WithInitializer(initializer)
+                .WithBody(Block())
+                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
+                /// For internal runtime use only.
+                /// </summary>
+                "));
+            return constructor;
         }
     }
 }

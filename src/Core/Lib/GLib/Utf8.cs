@@ -65,9 +65,10 @@ namespace GISharp.Lib.GLib
         [EditorBrowsable(EditorBrowsableState.Never)]
         public UnownedUtf8(IntPtr handle, int length)
         {
-            if (handle == IntPtr.Zero) {
-                throw new ArgumentNullException(nameof(handle));
-            }
+            // REVISIT: this breaks out args of try functions
+            // if (handle == IntPtr.Zero) {
+            //     throw new ArgumentNullException(nameof(handle));
+            // }
             this.handle = (byte*)handle;
             this.length = length;
         }

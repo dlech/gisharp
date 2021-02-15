@@ -170,10 +170,10 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Application.UnmanagedStruct* application,
 /* <array length="2" zero-terminated="0" type="GFile**" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="File" type="GFile*" managed-name="File" />
+*   <type name="File" type="GFile*" managed-name="File" is-pointer="1" />
 * </array> */
 /* transfer-ownership:none direction:in */
-GISharp.Lib.Gio.File.UnmanagedStruct* files,
+GISharp.Lib.Gio.File.UnmanagedStruct** files,
 /* <type name="gint" type="gint" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 System.Int32 nFiles,
@@ -191,7 +191,7 @@ System.Byte* hint);
             /// </summary>
             public static UnmanagedOpen Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedOpen(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct* files_, System.Int32 nFiles_, System.Byte* hint_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>((System.IntPtr)files_, (int)nFiles_, GISharp.Runtime.Transfer.None); var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_); var doOpen = (Open)methodInfo.CreateDelegate(typeof(Open), application); doOpen(files, hint); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedOpen(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct** files_, System.Int32 nFiles_, System.Byte* hint_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_); var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_); var doOpen = (Open)methodInfo.CreateDelegate(typeof(Open), application); doOpen(files, hint); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedOpen;
             }
@@ -244,7 +244,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine);
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Application.UnmanagedStruct* application,
 /* <array type="gchar***" zero-terminated="1" name="GLib.Strv" managed-name="GISharp.Lib.GLib.Strv" is-pointer="1">
-*   <type name="utf8" type="gchar**" managed-name="GISharp.Lib.GLib.Utf8" />
+*   <type name="utf8" type="gchar**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
 * </array> */
 /* direction:inout caller-allocates:0 transfer-ownership:full */
 System.Byte*** arguments,

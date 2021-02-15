@@ -85,6 +85,8 @@ namespace GISharp.CodeGen.Syntax
 
                 if (method.IsEqual && !method.IsExtensionMethod) {
                     yield return method.GetOverrideEqualsMethodDeclaration();
+                    yield return method.GetEqualityOperatorDeclaration();
+                    yield return method.GetInequalityOperatorDeclaration();
                 }
             }
 
@@ -156,6 +158,38 @@ namespace GISharp.CodeGen.Syntax
                 .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc/>\n"));
 
             return syntax;
+        }
+
+        private static OperatorDeclarationSyntax GetEqualityOperatorDeclaration(this Method method)
+        {
+            var parameterType = method.ManagedParameters.RegularParameters.Single().Type.ManagedType.ToSyntax();
+            return OperatorDeclaration(typeof(bool).ToSyntax(), Token(EqualsEqualsToken))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .AddParameterListParameters(
+                    Parameter(Identifier("a")).WithType(parameterType),
+                    Parameter(Identifier("b")).WithType(parameterType)
+                )
+                .AddBodyStatements(
+                    ReturnStatement(ParseExpression("a.Equals(b)"))
+                )
+                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <inheritdoc/>
+                "));
+        }
+
+        private static OperatorDeclarationSyntax GetInequalityOperatorDeclaration(this Method method)
+        {
+            var parameterType = method.ManagedParameters.RegularParameters.Single().Type.ManagedType.ToSyntax();
+            return OperatorDeclaration(typeof(bool).ToSyntax(), Token(ExclamationEqualsToken))
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .AddParameterListParameters(
+                    Parameter(Identifier("a")).WithType(parameterType),
+                    Parameter(Identifier("b")).WithType(parameterType)
+                )
+                .AddBodyStatements(
+                    ReturnStatement(ParseExpression("!a.Equals(b)"))
+                )
+                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <inheritdoc/>
+                "));
         }
 
         static SyntaxTokenList GetAccessModifiers(this Method method)

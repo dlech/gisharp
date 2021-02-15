@@ -12,7 +12,7 @@ namespace GISharp.Lib.GLib
     /// String using OS-specific encoding. Used for filenames, environment
     /// variables and process arguments.
     /// </summary>
-    public sealed unsafe class Filename : Opaque
+    public sealed unsafe class Filename : Opaque, IEquatable<Filename>, IEquatable<Utf8>, IEquatable<string>
     {
         /// <summary>
         /// For internal runtime use only.
@@ -21,17 +21,22 @@ namespace GISharp.Lib.GLib
         public Filename(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
             if (ownership != Transfer.Full) {
-                this.handle = IntPtr.Zero;
-                GC.SuppressFinalize(this);
-                throw new NotSupportedException();
+                this.handle = (IntPtr)g_strdup((byte*)handle);
             }
         }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern byte* g_strdup(byte* ptr);
+
+        [PtrArrayFreeFunc]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_free(void* ptr);
 
         /// <inheritdoc/>
         protected override void Dispose(bool disposing)
         {
             if (handle != IntPtr.Zero) {
-                GMarshal.Free(handle);
+                g_free((void*)handle);
             }
             base.Dispose(disposing);
         }
@@ -544,14 +549,45 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern int g_strcmp0(byte* str1, byte* str2);
+
+        /// <inheritdoc/>
+        public bool Equals(Filename? other)
+        {
+            var str1_ = (byte*)UnsafeHandle;
+            var str2_ = (byte*)(other?.UnsafeHandle ?? IntPtr.Zero);
+            return g_strcmp0(str1_, str2_) == 0;
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(Utf8? other)
+        {
+            using var utf8 = ToUtf8();
+            return utf8.Equals(other);
+        }
+
+        /// <inheritdoc/>
+        public bool Equals(string? other)
+        {
+            var str = ToString();
+            return str.Equals(other);
+        }
+
+        /// <inheritdoc/>
+        public override string ToString()
+        {
+            using var utf8 = ToUtf8();
+            return utf8.ToString();
+        }
+
         /// <summary>
         /// Converts an unmanged string with OS filename encoding to a managaged
         /// UTF-16 string.
         /// </summary>
         public static implicit operator string(Filename filename)
         {
-            using var utf8 = filename.ToUtf8();
-            return utf8.ToString();
+            return filename.ToString();
         }
 
         /// <summary>

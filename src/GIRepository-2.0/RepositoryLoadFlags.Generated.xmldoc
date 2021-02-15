@@ -1,0 +1,15 @@
+<declaration>
+
+<member name='RepositoryLoadFlags.Lazy'>
+<summary>
+Lazily load the typelib.
+</summary>
+</member>
+
+<member name='RepositoryLoadFlags'>
+<summary>
+Flags that control how a typelib is loaded.
+</summary>
+</member>
+
+</declaration>

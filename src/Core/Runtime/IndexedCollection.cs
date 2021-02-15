@@ -1,7 +1,8 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2019 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2019,2021 David Lechner <david@lechnology.com>
 
 using System;
+using System.Collections;
 using System.Collections.Generic;
 
 namespace GISharp.Runtime
@@ -11,8 +12,8 @@ namespace GISharp.Runtime
     /// </summary>
     public class IndexedCollection<T> : IReadOnlyList<T>
     {
-        Func<int> getCount;
-        Func<int, T> getInfoAtIndex;
+        readonly Func<int> getCount;
+        readonly Func<int, T> getInfoAtIndex;
 
         /// <summary>
         /// Creates a new instance>
@@ -40,9 +41,7 @@ namespace GISharp.Runtime
         /// Gets the number if items in this collection.
         /// </summary>
         /// <value>The count.</value>
-        public int Count {
-            get { return getCount(); }
-        }
+        public int Count => getCount();
 
         #region IEnumerable implementation
 
@@ -59,10 +58,7 @@ namespace GISharp.Runtime
 
         #region IEnumerable implementation
 
-        System.Collections.IEnumerator System.Collections.IEnumerable.GetEnumerator()
-        {
-            return GetEnumerator();
-        }
+        IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
 
         #endregion
     }

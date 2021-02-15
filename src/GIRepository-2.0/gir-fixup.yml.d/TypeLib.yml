@@ -1,0 +1,12 @@
+
+### TypeLib ###
+
+# wrong parameter direction
+- !set-attribute
+  name: direction
+  value: out
+  xpath: gi:repository/gi:namespace/gi:record[@name='Typelib']/gi:method[@name='symbol']/gi:parameters/gi:parameter[@name='symbol']
+- !set-attribute
+  name: caller-allocates
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Typelib']/gi:method[@name='symbol']/gi:parameters/gi:parameter[@name='symbol']

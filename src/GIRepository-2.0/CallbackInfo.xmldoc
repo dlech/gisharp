@@ -1,0 +1,9 @@
+<declaration>
+
+<member name='CallbackInfo'>
+<summary>
+Represents a callback, eg arguments and return value.
+</summary>
+</member>
+
+</declaration>

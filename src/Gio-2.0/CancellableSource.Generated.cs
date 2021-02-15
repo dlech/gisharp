@@ -4,7 +4,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="CancellableSource.xmldoc" path="declaration/member[@name='CancellableSource']/*" />
-    public sealed unsafe partial class CancellableSource : GISharp.Lib.GLib.Source
+    public unsafe partial class CancellableSource : GISharp.Lib.GLib.Source
     {
         /// <summary>
         /// The unmanaged data structure.

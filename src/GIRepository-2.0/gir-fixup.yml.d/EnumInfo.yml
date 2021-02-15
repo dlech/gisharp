@@ -1,0 +1,30 @@
+
+### EnumInfo ###
+
+# fix base type
+- !set-attribute
+  name: name
+  value: RegisteredTypeInfo
+  xpath: gi:repository/gi:namespace/gi:alias[@name='EnumInfo']/gi:type
+
+# methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'enum_info_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='EnumInfo']
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:alias[@name='EnumInfo']/gi:function
+- !change-attribute
+  name: name
+  regex: ^enum_info_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='EnumInfo']/gi:method
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:alias[@name='EnumInfo']/gi:method/gi:parameters/gi:parameter[1]
+
+# make private
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:alias[@name='EnumInfo']/gi:method[starts-with(@name,'get_n_') or @name='get_method' or @name='get_value']

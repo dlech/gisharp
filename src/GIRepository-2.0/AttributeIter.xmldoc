@@ -1,0 +1,22 @@
+<declaration>
+
+<member name='AttributeIter.Data'>
+</member>
+
+<member name='AttributeIter.Data2'>
+</member>
+
+<member name='AttributeIter.Data3'>
+</member>
+
+<member name='AttributeIter.Data4'>
+</member>
+
+<member name='AttributeIter'>
+<summary>
+An opaque structure used to iterate over attributes
+in a <see cref="BaseInfo"/> struct.
+</summary>
+</member>
+
+</declaration>

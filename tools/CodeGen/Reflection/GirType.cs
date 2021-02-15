@@ -157,6 +157,9 @@ namespace GISharp.CodeGen.Reflection
                     if (typeNode is Record record) {
                         return new GirRecordType(record);
                     }
+                    if (typeNode is Union union) {
+                        return new GirUnionType(union);
+                    }
                     if (typeNode is GIEnum @enum) {
                         return new GirEnumType(@enum);
                     }
@@ -340,7 +343,12 @@ namespace GISharp.CodeGen.Reflection
             }
             var girType = default(System.Type);
             if (typeNode is Alias alias) {
-                girType = new GirAliasType(alias);
+                if (!alias.Type.ManagedType.IsValueType) {
+                    girType = new GirUnmanagedStructType(alias);
+                }
+                else {
+                    girType = new GirAliasType(alias);
+                }
             }
             else if (typeNode is GIEnum @enum) {
                 girType = new GirEnumType(@enum);
@@ -352,6 +360,9 @@ namespace GISharp.CodeGen.Reflection
                 else {
                     girType = new GirRecordType(record);
                 }
+            }
+            else if (typeNode is Union union) {
+                girType = new GirUnionType(union);
             }
             else if (typeNode is Callback callback) {
                 return new GirDelegateType(callback, true);

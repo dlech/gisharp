@@ -1,0 +1,34 @@
+
+### UnionInfo ###
+
+# fix base type
+- !set-attribute
+  name: name
+  value: RegisteredTypeInfo
+  xpath: gi:repository/gi:namespace/gi:alias[@name='UnionInfo']/gi:type
+
+# methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'union_info_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='UnionInfo']
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:alias[@name='UnionInfo']/gi:function
+- !change-attribute
+  name: name
+  regex: ^union_info_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='UnionInfo']/gi:method
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:alias[@name='UnionInfo']/gi:method/gi:parameters/gi:parameter[1]
+
+# make private
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:alias[@name='UnionInfo']/gi:method[@name='get_field' or @name='get_n_fields']
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:alias[@name='UnionInfo']/gi:method[@name='get_method' or @name='get_n_methods']

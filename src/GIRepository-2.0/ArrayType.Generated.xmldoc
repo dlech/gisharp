@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='ArrayType.C'>
+<summary>
+a C array, char[] for instance
+</summary>
+</member>
+
+<member name='ArrayType.Array'>
+<summary>
+a <c>gArray</c> array
+</summary>
+</member>
+
+<member name='ArrayType.PtrArray'>
+<summary>
+a #GPtrArray array
+</summary>
+</member>
+
+<member name='ArrayType.ByteArray'>
+<summary>
+a #GByteArray array
+</summary>
+</member>
+
+<member name='ArrayType'>
+<summary>
+The type of array in a <see cref="TypeInfo"/>.
+</summary>
+</member>
+
+</declaration>

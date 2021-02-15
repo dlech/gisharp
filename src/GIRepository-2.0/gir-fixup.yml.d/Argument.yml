@@ -1,0 +1,13 @@
+
+### Argument ###
+
+# fix some name casing
+- !change-attribute
+  name: name
+  regex: ^v_u(.*)
+  replace: v_u_$1
+  xpath: gi:repository/gi:namespace/gi:union[@name='Argument']/gi:field[starts-with(@name,'v_u')]
+- !set-attribute
+  name: name
+  value: v_s_size
+  xpath: gi:repository/gi:namespace/gi:union[@name='Argument']/gi:field[starts-with(@name,'v_ssize')]

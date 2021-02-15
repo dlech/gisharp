@@ -1,0 +1,36 @@
+<declaration>
+
+<member name='InvokeError.Failed'>
+<summary>
+invokation failed, unknown error.
+</summary>
+</member>
+
+<member name='InvokeError.SymbolNotFound'>
+<summary>
+symbol couldn't be found in any of the
+libraries associated with the typelib of the function.
+</summary>
+</member>
+
+<member name='InvokeError.ArgumentMismatch'>
+<summary>
+the arguments provided didn't match
+the expected arguments for the functions type signature.
+</summary>
+</member>
+
+<member name='InvokeError'>
+<summary>
+An error occuring while invoking a function via
+g_function_info_invoke().
+</summary>
+</member>
+
+<member name='InvokeErrorDomain.Quark'>
+<summary>
+TODO
+</summary>
+</member>
+
+</declaration>

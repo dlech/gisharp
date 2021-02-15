@@ -118,7 +118,7 @@ namespace GISharp.Lib.Gio
         /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Byte* arg);
-        static partial void CheckCreateFileForArgArgs(GISharp.Lib.GLib.Filename arg);
+        partial void CheckCreateFileForArgArgs(GISharp.Lib.GLib.Filename arg);
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -159,7 +159,7 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <array length="0" zero-terminated="0" type="gchar**" null-terminated="1" managed-name="GISharp.Runtime.CArray" is-pointer="1">
-*   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" />
+*   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern System.Byte** g_application_command_line_get_arguments(
@@ -169,7 +169,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gint" type="int*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
         System.Int32* argc);
-        static partial void CheckGetArgumentsArgs();
+        partial void CheckGetArgumentsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         private GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename> GetArguments()
@@ -207,7 +207,7 @@ namespace GISharp.Lib.Gio
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
-        static partial void CheckGetCwdArgs();
+        partial void CheckGetCwdArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         private GISharp.Lib.GLib.Filename? GetCwd()
@@ -247,14 +247,14 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.SinceAttribute("2.28")]
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <array type="const gchar* const*" zero-terminated="1" managed-name="GISharp.Runtime.FilenameArray" is-pointer="1">
-*   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" />
+*   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
         private static extern System.Byte** g_application_command_line_get_environ(
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
-        static partial void CheckGetEnvironmentArgs();
+        partial void CheckGetEnvironmentArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         private GISharp.Runtime.FilenameArray GetEnvironment()
@@ -284,7 +284,7 @@ namespace GISharp.Lib.Gio
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
-        static partial void CheckGetExitStatusArgs();
+        partial void CheckGetExitStatusArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         private System.Int32 GetExitStatus()
@@ -313,7 +313,7 @@ namespace GISharp.Lib.Gio
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
-        static partial void CheckGetIsRemoteArgs();
+        partial void CheckGetIsRemoteArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         private System.Boolean GetIsRemote()
@@ -351,7 +351,7 @@ namespace GISharp.Lib.Gio
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
-        static partial void CheckGetOptionsArgs();
+        partial void CheckGetOptionsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.40")]
         private GISharp.Lib.GLib.VariantDict GetOptions()
@@ -388,7 +388,7 @@ namespace GISharp.Lib.Gio
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
-        static partial void CheckGetPlatformDataArgs();
+        partial void CheckGetPlatformDataArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         private GISharp.Lib.GLib.Variant? GetPlatformData()
@@ -427,7 +427,7 @@ namespace GISharp.Lib.Gio
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
-        static partial void CheckGetStdinArgs();
+        partial void CheckGetStdinArgs();
 
         [GISharp.Runtime.SinceAttribute("2.34")]
         private GISharp.Lib.Gio.InputStream GetStdin()
@@ -473,7 +473,7 @@ namespace GISharp.Lib.Gio
         /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Byte* name);
-        static partial void CheckGetEnvironmentVariableArgs(GISharp.Lib.GLib.Filename name);
+        partial void CheckGetEnvironmentVariableArgs(GISharp.Lib.GLib.Filename name);
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -528,7 +528,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 exitStatus);
-        static partial void CheckSetExitStatusArgs(System.Int32 exitStatus);
+        partial void CheckSetExitStatusArgs(System.Int32 exitStatus);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         private void SetExitStatus(System.Int32 exitStatus)

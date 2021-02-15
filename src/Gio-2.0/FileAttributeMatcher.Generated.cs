@@ -5,7 +5,7 @@ namespace GISharp.Lib.Gio
 {
     /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileAttributeMatcher", IsProxyForUnmanagedType = true)]
-    public sealed unsafe partial class FileAttributeMatcher : GISharp.Lib.GObject.Boxed
+    public unsafe partial class FileAttributeMatcher : GISharp.Lib.GObject.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_matcher_get_type();
 
@@ -110,7 +110,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Byte* ns);
-        static partial void CheckEnumerateNamespaceArgs(GISharp.Lib.GLib.UnownedUtf8 ns);
+        partial void CheckEnumerateNamespaceArgs(GISharp.Lib.GLib.UnownedUtf8 ns);
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public System.Boolean EnumerateNamespace(GISharp.Lib.GLib.UnownedUtf8 ns)
@@ -140,7 +140,7 @@ namespace GISharp.Lib.Gio
         /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* matcher);
-        static partial void CheckEnumerateNextArgs();
+        partial void CheckEnumerateNextArgs();
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.EnumerateNext()']/*" />
         public GISharp.Lib.GLib.NullableUnownedUtf8 EnumerateNext()
@@ -176,7 +176,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Byte* attribute);
-        static partial void CheckMatchesArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
+        partial void CheckMatchesArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Matches(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public System.Boolean Matches(GISharp.Lib.GLib.UnownedUtf8 attribute)
@@ -212,7 +212,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Byte* attribute);
-        static partial void CheckMatchesOnlyArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
+        partial void CheckMatchesOnlyArgs(GISharp.Lib.GLib.UnownedUtf8 attribute);
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.MatchesOnly(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public System.Boolean MatchesOnly(GISharp.Lib.GLib.UnownedUtf8 attribute)
@@ -279,7 +279,7 @@ namespace GISharp.Lib.Gio
         /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* subtract);
-        static partial void CheckSubtractArgs(GISharp.Lib.Gio.FileAttributeMatcher subtract);
+        partial void CheckSubtractArgs(GISharp.Lib.Gio.FileAttributeMatcher subtract);
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.Subtract(GISharp.Lib.Gio.FileAttributeMatcher)']/*" />
         public GISharp.Lib.Gio.FileAttributeMatcher Subtract(GISharp.Lib.Gio.FileAttributeMatcher subtract)
@@ -313,7 +313,7 @@ namespace GISharp.Lib.Gio
         /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* matcher);
-        static partial void CheckToStringArgs();
+        partial void CheckToStringArgs();
 
         /// <include file="FileAttributeMatcher.xmldoc" path="declaration/member[@name='FileAttributeMatcher.ToString()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]

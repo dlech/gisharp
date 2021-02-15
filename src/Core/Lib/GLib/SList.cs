@@ -5,9 +5,12 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
+
+using static System.Reflection.BindingFlags;
 
 namespace GISharp.Lib.GLib
 {
@@ -15,8 +18,13 @@ namespace GISharp.Lib.GLib
     /// The <see cref="SList"/> struct is used for each element in the singly-linked
     /// list.
     /// </summary>
+    [GType("GSList", IsProxyForUnmanagedType = true)]
     public abstract unsafe class SList : Opaque
     {
+        private readonly delegate* unmanaged[Cdecl]<IntPtr, IntPtr> copyData;
+        private readonly delegate* unmanaged[Cdecl]<IntPtr, void> freeData;
+        private readonly bool weak;
+
         /// <summary>
         /// The unmanaged data structure for <see cref="SList"/>.
         /// </summary>
@@ -41,17 +49,30 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        private protected SList(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        private protected SList(IntPtr handle,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr> copyData,
+            delegate* unmanaged[Cdecl]<IntPtr, void> freeData,
+            Transfer ownership) : base(handle, ownership)
         {
-            if (ownership != Transfer.Container) {
-                throw new NotSupportedException();
+            this.copyData = copyData;
+            this.freeData = freeData;
+
+            if (ownership == Transfer.None) {
+                GC.SuppressFinalize(this);
+                throw new NotSupportedException("must start with owned SList");
+            }
+            if (ownership == Transfer.Container) {
+                weak = true;
             }
         }
 
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        private protected SList() : this(IntPtr.Zero, Transfer.Container)
+        private protected SList(
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr> copyData,
+            delegate* unmanaged[Cdecl]<IntPtr, void> freeData
+        ) : this(IntPtr.Zero, copyData, freeData, Transfer.Container)
         {
         }
 
@@ -62,7 +83,12 @@ namespace GISharp.Lib.GLib
         protected override void Dispose(bool disposing)
         {
             var list_ = (UnmanagedStruct*)handle;
-            g_slist_free(list_);
+            if (weak) {
+                g_slist_free(list_);
+            }
+            else {
+                g_slist_free_full(list_, freeData);
+            }
             base.Dispose(disposing);
         }
 
@@ -382,7 +408,7 @@ namespace GISharp.Lib.GLib
         [Since("2.28")]
         static extern void g_slist_free_full(
             UnmanagedStruct* list,
-            UnmanagedDestroyNotify freeFunc);
+            delegate* unmanaged[Cdecl]<IntPtr, void> freeFunc);
 
         /// <summary>
         /// Gets the position of the element containing
@@ -946,23 +972,53 @@ namespace GISharp.Lib.GLib
     }
 
     /// <summary>
-    /// A singally linked list.
+    /// A singally linked list. The list does not own the data, so caution must
+    /// be used since the data or the list itself could be freed at any time.
     /// </summary>
-    [GType("GSList", IsProxyForUnmanagedType = true)]
-    public sealed class SList<T> : SList, IEnumerable<T> where T : IOpaque?
+    public sealed unsafe class UnownedSList<T> : IEnumerable<T> where T : IOpaque?
+    {
+        private readonly SList.UnmanagedStruct* handle;
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public UnownedSList(SList.UnmanagedStruct* handle)
+        {
+            this.handle = handle;
+        }
+
+        IEnumerator IEnumerable.GetEnumerator() => new SListEnumerator<T>((IntPtr)handle);
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => new SListEnumerator<T>((IntPtr)handle);
+    }
+
+    /// <summary>
+    /// A singally linked list. The list does not own the data, so caution must
+    /// be used since the data could be freed at any time.
+    /// </summary>
+    public sealed unsafe class WeakSList<T> : SList, IEnumerable<T> where T : IOpaque?
     {
         /// <summary>
         /// Creates a new empty list.
         /// </summary>
-        public SList() : this(IntPtr.Zero, Transfer.Container)
+        public WeakSList() : this(IntPtr.Zero, Transfer.Container)
         {
+        }
+
+        private static Transfer AssertWeak(Transfer ownership)
+        {
+            if (ownership != Transfer.Container) {
+                throw new ArgumentException("requires Transfer.Container", nameof(ownership));
+            }
+            return ownership;
         }
 
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public SList(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public WeakSList(IntPtr handle, Transfer ownership) : base(handle, default, default, AssertWeak(ownership))
         {
         }
 
@@ -977,7 +1033,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// <paramref name="list2"/> will be empty after calling this method.
         /// </remarks>
-        public void Concat(SList<T> list2)
+        public void Concat(WeakSList<T> list2)
         {
             base.Concat(list2);
         }
@@ -1014,10 +1070,10 @@ namespace GISharp.Lib.GLib
         /// <returns>
         /// a copy of this list
         /// </returns>
-        public new SList<T> Copy()
+        public new WeakSList<T> Copy()
         {
             var ret = base.Copy();
-            return (SList<T>)ret;
+            return (WeakSList<T>)ret;
         }
 
         /// <summary>
@@ -1197,6 +1253,287 @@ namespace GISharp.Lib.GLib
             };
             Sort(compareFunc_);
         }
+
+        IEnumerator IEnumerable.GetEnumerator() => new SListEnumerator<T>(UnsafeHandle);
+
+        IEnumerator<T> IEnumerable<T>.GetEnumerator() => new SListEnumerator<T>(UnsafeHandle);
+    }
+
+    /// <summary>
+    /// A singally linked list.
+    /// </summary>
+    public sealed unsafe class SList<T> : SList, IEnumerable<T> where T : IOpaque?
+    {
+        private static readonly delegate* unmanaged[Cdecl]<IntPtr, IntPtr> copyData;
+        private static readonly delegate* unmanaged[Cdecl]<IntPtr, void> freeData;
+
+        static SList()
+        {
+            var methods = typeof(T).GetMethods(Static | NonPublic);
+
+            // var copyMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayCopyFuncAttribute), false));
+            // copyData = (Func<IntPtr, IntPtr>)copyMethodInfo.CreateDelegate(typeof(Func<IntPtr, IntPtr>));
+            copyData = default!;
+
+            var freeMethodInfo = methods.Single(m => m.IsDefined(typeof(PtrArrayFreeFuncAttribute), false));
+            freeData = (delegate* unmanaged[Cdecl]<IntPtr, void>)freeMethodInfo.MethodHandle.GetFunctionPointer();
+        }
+
+        /// <summary>
+        /// Creates a new empty list.
+        /// </summary>
+        public SList() : this(IntPtr.Zero, Transfer.Container)
+        {
+        }
+
+        private static Transfer AssertStrong(Transfer ownership)
+        {
+            if (ownership != Transfer.Full) {
+                throw new ArgumentException("requires Transfer.Full", nameof(ownership));
+            }
+            return ownership;
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public SList(IntPtr handle, Transfer ownership) : base(handle, copyData, freeData, AssertStrong(ownership))
+        {
+        }
+
+        /// <summary>
+        /// Adds the second <see cref="SList{T}"/> onto the end of the first <see cref="SList{T}"/>.
+        /// Note that the elements of the second <see cref="SList{T}"/> are not copied.
+        /// They are used directly.
+        /// </summary>
+        /// <param name="list2">
+        /// the <see cref="SList{T}"/> to add to the end of the first <see cref="SList{T}"/>
+        /// </param>
+        /// <remarks>
+        /// <paramref name="list2"/> will be empty after calling this method.
+        /// </remarks>
+        public void Concat(SList<T> list2)
+        {
+            base.Concat(list2);
+        }
+
+        /// <summary>
+        /// Adds a new element on to the end of the list.
+        /// </summary>
+        /// <remarks>
+        /// The return value is the new start of the list, which may
+        /// have changed, so make sure you store the new value.
+        ///
+        /// Note that <see cref="Append"/> has to traverse the entire list
+        /// to find the end, which is inefficient when adding multiple
+        /// elements. A common idiom to avoid the inefficiency is to prepend
+        /// the elements and reverse the list when all elements have been added.
+        /// </remarks>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        public void Append(T data)
+        {
+            Append(data?.UnsafeHandle ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Copies a <see cref="SList{T}"/>.
+        /// </summary>
+        /// <remarks>
+        /// Note that this is a "shallow" copy. If the list elements
+        /// consist of pointers to data, the pointers are copied but
+        /// the actual data isn't. See <see cref="M:CopyDeep"/> if you need
+        /// to copy the data as well.
+        /// </remarks>
+        /// <returns>
+        /// a copy of this list
+        /// </returns>
+        public new WeakSList<T> Copy()
+        {
+            var ret = base.Copy();
+            return (WeakSList<T>)ret;
+        }
+
+        /// <summary>
+        /// Calls a function for each element of a <see cref="SList"/>.
+        /// </summary>
+        /// <remarks>
+        /// Not recommended for use in managed code. Use built-in foreach statement instead.
+        /// </remarks>
+        /// <param name="func">
+        /// the function to call with each element's data
+        /// </param>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Foreach(Func<T> func)
+        {
+            Foreach<T>(func);
+        }
+
+        /// <summary>
+        /// Gets the position of the element containing
+        /// the given data (starting from 0).
+        /// </summary>
+        /// <param name="data">
+        /// the data to find
+        /// </param>
+        /// <returns>
+        /// the index of the element containing the data,
+        ///     or -1 if the data is not found
+        /// </returns>
+        public int IndexOf(T data)
+        {
+            var ret = IndexOf(data?.UnsafeHandle ?? IntPtr.Zero);
+            return ret;
+        }
+
+        /// <summary>
+        /// Inserts a new element into the list at the given position.
+        /// </summary>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <param name="position">
+        /// the position to insert the element.
+        /// If this is negative, or is larger than the number
+        /// of elements in the list, the new element is added on
+        /// to the end of the list.
+        /// </param>
+        public void Insert(T data, int position)
+        {
+            Insert(data?.UnsafeHandle ?? IntPtr.Zero, position);
+        }
+
+        /// <summary>
+        /// Inserts a node before <paramref name="sibling"/> containing <paramref name="data"/>.
+        /// </summary>
+        /// <param name="sibling">
+        /// node to insert <paramref name="data"/> before
+        /// </param>
+        /// <param name="data">
+        /// data to put in the newly-inserted node
+        /// </param>
+        public void InsertBefore(SListEnumerator<T>? sibling, T data)
+        {
+            InsertBefore(sibling?.UnsafeHandle ?? IntPtr.Zero, data?.UnsafeHandle ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Inserts a new element into the list, using the given
+        /// comparison function to determine its position.
+        /// </summary>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        /// <param name="func">
+        /// the function to compare elements in the list.
+        /// It should return a number &gt; 0 if the first parameter
+        /// comes after the second parameter in the sort order.
+        /// </param>
+        public void InsertSorted(T data, Comparison<T> func)
+        {
+            UnmanagedCompareFunc func_ = (a_, b_) => {
+                try {
+                    var a = GetInstance<T>(a_, Transfer.None);
+                    var b = GetInstance<T>(b_, Transfer.None);
+                    var ret = func(a, b);
+                    return ret;
+                }
+                catch (Exception ex) {
+                    ex.LogUnhandledException();
+                    return default;
+                }
+            };
+            InsertSorted(data?.UnsafeHandle ?? IntPtr.Zero, func_);
+        }
+
+        /// <summary>
+        /// Gets the data of the element at the given position.
+        /// </summary>
+        /// <param name="n">
+        /// the position of the element
+        /// </param>
+        /// <returns>
+        /// the element's data, or <c>null</c> if the position
+        /// is off the end of the <see cref="SList{T}"/>
+        /// </returns>
+        public T this[int n] {
+            get {
+                if (n < 0 || n >= Length) {
+                    throw new ArgumentOutOfRangeException(nameof(n));
+                }
+                var ret_ = NthData(n);
+                var ret = GetInstance<T>(ret_, Transfer.None);
+                return ret;
+            }
+        }
+
+        /// <summary>
+        /// Adds a new element on to the start of the list.
+        /// </summary>
+        /// <param name="data">
+        /// the data for the new element
+        /// </param>
+        public void Prepend(T data)
+        {
+            Prepend(data?.UnsafeHandle ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Removes an element from a <see cref="SList{T}"/>.
+        /// If two elements contain the same data, only the first is removed.
+        /// If none of the elements contain the data, the <see cref="SList{T}"/> is unchanged.
+        /// </summary>
+        /// <param name="data">
+        /// the data of the element to remove
+        /// </param>
+        public void Remove(T data)
+        {
+            Remove(data?.UnsafeHandle ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Removes all list nodes with data equal to <paramref name="data"/>.
+        /// Returns the new head of the list. Contrast with
+        /// <see cref="Remove"/> which removes only the first node
+        /// matching the given data.
+        /// </summary>
+        /// <param name="data">
+        /// data to remove
+        /// </param>
+        public void RemoveAll(T data)
+        {
+            RemoveAll(data?.UnsafeHandle ?? IntPtr.Zero);
+        }
+
+        /// <summary>
+        /// Sorts a <see cref="SList{T}"/> using the given comparison function.
+        /// </summary>
+        /// <param name="compareFunc">
+        /// the comparison function used to sort the <see cref="SList{T}"/>.
+        /// This function is passed the data from 2 elements of the <see cref="SList{T}"/>
+        /// and should return 0 if they are equal, a negative value if the
+        /// first element comes before the second, or a positive value if
+        /// the first element comes after the second.
+        /// </param>
+        public void Sort(Comparison<T> compareFunc)
+        {
+            UnmanagedCompareFunc compareFunc_ = (a_, b_) => {
+                try {
+                    var a = GetInstance<T>(a_, Transfer.None);
+                    var b = GetInstance<T>(b_, Transfer.None);
+                    var ret = compareFunc.Invoke(a, b);
+                    return ret;
+                }
+                catch (Exception ex) {
+                    ex.LogUnhandledException();
+                    return default;
+                }
+            };
+            Sort(compareFunc_);
+        }
+
         IEnumerator IEnumerable.GetEnumerator() => new SListEnumerator<T>(UnsafeHandle);
 
         IEnumerator<T> IEnumerable<T>.GetEnumerator() => new SListEnumerator<T>(UnsafeHandle);

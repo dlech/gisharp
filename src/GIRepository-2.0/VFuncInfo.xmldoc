@@ -1,0 +1,57 @@
+<declaration>
+
+<member name='VFuncInfo.Flags'>
+<summary>
+Obtain the flags for this virtual function info. See <see cref="VFuncInfoFlags"/> for
+more information about possible flag values.
+</summary>
+</member>
+
+<member name='VFuncInfo.Invoker'>
+<summary>
+If this virtual function has an associated invoker method, this
+method will return it.  An invoker method is a C entry point.
+</summary>
+<remarks>
+Not all virtuals will have invokers.
+</remarks>
+</member>
+
+<member name='VFuncInfo.Offset'>
+<summary>
+Obtain the offset of the function pointer in the class struct. The value
+0xFFFF indicates that the struct offset is unknown.
+</summary>
+</member>
+
+<member name='VFuncInfo.Signal'>
+<summary>
+Obtain the signal for the virtual function if one is set.
+The signal comes from the object or interface to which
+this virtual function belongs.
+</summary>
+</member>
+
+<member name='VFuncInfo.GetAddress(GISharp.Lib.GObject.GType)'>
+<summary>
+This method will look up where inside the type struct of <paramref name="implementorGtype"/>
+is the implementation for this instance.
+</summary>
+<param name="implementorGtype">
+#GType implementing this virtual function
+</param>
+<returns>
+address to a function or <c>null</c> if an error happened
+</returns>
+<exception name="GISharp.Runtime.GErrorException">
+On error
+</exception>
+</member>
+
+<member name='VFuncInfo'>
+<summary>
+Represents a virtual function.
+</summary>
+</member>
+
+</declaration>

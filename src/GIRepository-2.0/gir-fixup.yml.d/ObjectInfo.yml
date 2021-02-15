@@ -1,0 +1,36 @@
+
+### ObjectInfo ###
+
+# fix base type
+- !set-attribute
+  name: name
+  value: RegisteredTypeInfo
+  xpath: gi:repository/gi:namespace/gi:alias[@name='ObjectInfo']/gi:type
+
+# methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'object_info_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='ObjectInfo']
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:alias[@name='ObjectInfo']/gi:function
+- !change-attribute
+  name: name
+  regex: ^object_info_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='ObjectInfo']/gi:method
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:alias[@name='ObjectInfo']/gi:method/gi:parameters/gi:parameter[1]
+
+# make private
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:alias[@name='ObjectInfo']/gi:method[starts-with(@name,'get_n_') or @name='get_constant' or @name='get_field' or @name='get_interface' or @name='get_property' or @name='get_method' or @name='get_signal' or @name='get_v_func']
+
+# same methods as base type
+- !set-attribute
+  name: gs:access-modifiers
+  value: public new
+  xpath: gi:repository/gi:namespace/gi:alias[@name='ObjectInfo']/gi:method[@name='get_type_name' or @name='get_type_init']

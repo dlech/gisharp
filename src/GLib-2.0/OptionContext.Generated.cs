@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext']/*" />
-    public sealed unsafe partial class OptionContext : GISharp.Runtime.Opaque
+    public unsafe partial class OptionContext : GISharp.Runtime.Opaque
     {
         /// <summary>
         /// The unmanaged data structure.
@@ -118,7 +118,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group);
-        static partial void CheckAddGroupArgs(GISharp.Lib.GLib.OptionGroup group);
+        partial void CheckAddGroupArgs(GISharp.Lib.GLib.OptionGroup group);
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.AddGroup(GISharp.Lib.GLib.OptionGroup)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]
@@ -167,7 +167,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context);
-        static partial void CheckGetDescriptionArgs();
+        partial void CheckGetDescriptionArgs();
 
         [GISharp.Runtime.SinceAttribute("2.12")]
         private GISharp.Lib.GLib.NullableUnownedUtf8 GetDescription()
@@ -214,7 +214,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group);
-        static partial void CheckGetHelpArgs(System.Boolean mainHelp, GISharp.Lib.GLib.OptionGroup? group);
+        partial void CheckGetHelpArgs(System.Boolean mainHelp, GISharp.Lib.GLib.OptionGroup? group);
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.GetHelp(System.Boolean,GISharp.Lib.GLib.OptionGroup?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
@@ -247,7 +247,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context);
-        static partial void CheckGetHelpEnabledArgs();
+        partial void CheckGetHelpEnabledArgs();
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         private System.Boolean GetHelpEnabled()
@@ -277,7 +277,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context);
-        static partial void CheckGetIgnoreUnknownOptionsArgs();
+        partial void CheckGetIgnoreUnknownOptionsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         private System.Boolean GetIgnoreUnknownOptions()
@@ -308,7 +308,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context);
-        static partial void CheckGetMainGroupArgs();
+        partial void CheckGetMainGroupArgs();
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         private GISharp.Lib.GLib.OptionGroup GetMainGroup()
@@ -340,7 +340,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context);
-        static partial void CheckGetStrictPosixArgs();
+        partial void CheckGetStrictPosixArgs();
 
         [GISharp.Runtime.SinceAttribute("2.44")]
         private System.Boolean GetStrictPosix()
@@ -369,7 +369,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionContext" type="GOptionContext*" managed-name="OptionContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context);
-        static partial void CheckGetSummaryArgs();
+        partial void CheckGetSummaryArgs();
 
         [GISharp.Runtime.SinceAttribute("2.12")]
         private GISharp.Lib.GLib.NullableUnownedUtf8 GetSummary()
@@ -407,7 +407,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.Byte* description);
-        static partial void CheckSetDescriptionArgs(GISharp.Lib.GLib.NullableUnownedUtf8 description);
+        partial void CheckSetDescriptionArgs(GISharp.Lib.GLib.NullableUnownedUtf8 description);
 
         [GISharp.Runtime.SinceAttribute("2.12")]
         private void SetDescription(GISharp.Lib.GLib.NullableUnownedUtf8 description)
@@ -441,7 +441,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean helpEnabled);
-        static partial void CheckSetHelpEnabledArgs(System.Boolean helpEnabled);
+        partial void CheckSetHelpEnabledArgs(System.Boolean helpEnabled);
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         private void SetHelpEnabled(System.Boolean helpEnabled)
@@ -480,7 +480,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean ignoreUnknown);
-        static partial void CheckSetIgnoreUnknownOptionsArgs(System.Boolean ignoreUnknown);
+        partial void CheckSetIgnoreUnknownOptionsArgs(System.Boolean ignoreUnknown);
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         private void SetIgnoreUnknownOptions(System.Boolean ignoreUnknown)
@@ -514,7 +514,7 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group);
-        static partial void CheckSetMainGroupArgs(GISharp.Lib.GLib.OptionGroup group);
+        partial void CheckSetMainGroupArgs(GISharp.Lib.GLib.OptionGroup group);
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         private void SetMainGroup(GISharp.Lib.GLib.OptionGroup group)
@@ -569,7 +569,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean strictPosix);
-        static partial void CheckSetStrictPosixArgs(System.Boolean strictPosix);
+        partial void CheckSetStrictPosixArgs(System.Boolean strictPosix);
 
         [GISharp.Runtime.SinceAttribute("2.44")]
         private void SetStrictPosix(System.Boolean strictPosix)
@@ -607,7 +607,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.Byte* summary);
-        static partial void CheckSetSummaryArgs(GISharp.Lib.GLib.NullableUnownedUtf8 summary);
+        partial void CheckSetSummaryArgs(GISharp.Lib.GLib.NullableUnownedUtf8 summary);
 
         [GISharp.Runtime.SinceAttribute("2.12")]
         private void SetSummary(GISharp.Lib.GLib.NullableUnownedUtf8 summary)
@@ -661,7 +661,7 @@ namespace GISharp.Lib.GLib
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr destroyNotify);
-        static partial void CheckSetTranslateFuncArgs(GISharp.Lib.GLib.TranslateFunc? func);
+        partial void CheckSetTranslateFuncArgs(GISharp.Lib.GLib.TranslateFunc? func);
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
@@ -694,7 +694,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.Byte* domain);
-        static partial void CheckSetTranslationDomainArgs(GISharp.Lib.GLib.UnownedUtf8 domain);
+        partial void CheckSetTranslationDomainArgs(GISharp.Lib.GLib.UnownedUtf8 domain);
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]

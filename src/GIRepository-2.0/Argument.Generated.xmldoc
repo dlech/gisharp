@@ -1,0 +1,135 @@
+<declaration>
+
+<member name='Argument.VBoolean'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VInt8'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VUInt8'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VInt16'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VUInt16'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VInt32'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VUInt32'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VInt64'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VUInt64'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VFloat'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VDouble'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VShort'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VUShort'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VInt'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VUInt'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VLong'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VULong'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VSSize'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VSize'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VString'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument.VPointer'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='Argument'>
+<summary>
+Stores an argument of varying type
+</summary>
+</member>
+
+</declaration>

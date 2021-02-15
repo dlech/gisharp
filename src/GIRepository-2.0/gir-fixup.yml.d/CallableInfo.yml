@@ -1,0 +1,58 @@
+
+### CallableInfo ###
+
+# methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'callable_info_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:function
+- !change-attribute
+  name: name
+  regex: ^callable_info_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method/gi:parameters/gi:parameter[1]
+
+# better names
+- !set-attribute
+  name: name
+  value: get_can_throw_g_error
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method[@name='can_throw_gerror']
+- !set-attribute
+  name: name
+  value: get_may_return_null
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method[@name='may_return_null']
+- !set-attribute
+  name: name
+  value: is_skip_return
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method[@name='skip_return']
+
+# tricky methods
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method[@name='get_n_args']
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method[@name='get_arg']
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method[@name='iterate_return_attributes']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method[@name='invoke']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method[@name='load_arg']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']/gi:method[@name='load_return_type']

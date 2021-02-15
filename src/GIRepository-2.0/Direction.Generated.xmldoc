@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='Direction.In'>
+<summary>
+in argument.
+</summary>
+</member>
+
+<member name='Direction.Out'>
+<summary>
+out argument.
+</summary>
+</member>
+
+<member name='Direction.InOut'>
+<summary>
+in and out argument.
+</summary>
+</member>
+
+<member name='Direction'>
+<summary>
+The direction of a <see cref="ArgInfo"/>.
+</summary>
+</member>
+
+</declaration>

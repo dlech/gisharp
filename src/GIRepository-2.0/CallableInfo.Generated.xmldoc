@@ -1,0 +1,81 @@
+<declaration>
+
+<member name='CallableInfo.CanThrowGError'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='CallableInfo.CallerOwns'>
+<summary>
+See whether the caller owns the return value of this callable.
+<see cref="Transfer"/> contains a list of possible transfer values.
+</summary>
+</member>
+
+<member name='CallableInfo.InstanceOwnershipTransfer'>
+<summary>
+Obtains the ownership transfer for the instance argument.
+<see cref="Transfer"/> contains a list of possible transfer values.
+</summary>
+</member>
+
+<member name='CallableInfo.NArgs'>
+<summary>
+Obtain the number of arguments (both IN and OUT) for this callable.
+</summary>
+</member>
+
+<member name='CallableInfo.ReturnType'>
+<summary>
+Obtain the return type of a callable item as a <see cref="TypeInfo"/>.
+</summary>
+</member>
+
+<member name='CallableInfo.IsMethod'>
+<summary>
+Determines if the callable info is a method. For <see cref="VFuncInfo"/>&lt;!-- --&gt;s,
+<see cref="CallbackInfo"/>&lt;!-- --&gt;s, and <see cref="SignalInfo"/>&lt;!-- --&gt;s,
+this is always true. Otherwise, this looks at the <see cref="FunctionInfoFlags.IsMethod"/>
+flag on the <see cref="FunctionInfo"/>.
+</summary>
+<remarks>
+Concretely, this function returns whether <see cref="CallableInfo.GetNArgs()"/>
+matches the number of arguments in the raw C method. For methods, there
+is one more C argument than is exposed by introspection: the "self"
+or "this" object.
+</remarks>
+</member>
+
+<member name='CallableInfo.MayReturnNull'>
+<summary>
+See if a callable could return <c>null</c>.
+</summary>
+</member>
+
+<member name='CallableInfo.IsSkipReturn'>
+<summary>
+See if a callable's return value is only useful in C.
+</summary>
+</member>
+
+<member name='CallableInfo.GetReturnAttribute(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Retrieve an arbitrary attribute associated with the return value.
+</summary>
+<param name="name">
+a freeform string naming an attribute
+</param>
+<returns>
+The value of the attribute, or <c>null</c> if no such attribute exists
+</returns>
+</member>
+
+<member name='CallableInfo'>
+<summary>
+Represents a callable, either <see cref="FunctionInfo"/>, <see cref="CallbackInfo"/> or
+<see cref="VFuncInfo"/>.
+</summary>
+</member>
+
+</declaration>

@@ -1,0 +1,56 @@
+
+### Repository ###
+
+# make private
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gi:class[@name='Repository']/gi:method[starts-with(@name,'get_n_') or @name='get_info']
+
+# default parameter
+- !set-attribute
+  name: gs:default
+  value: default
+  xpath: gi:repository/gi:namespace/gi:class[@name='Repository']/gi:method[contains(@name,'require')]/gi:parameters/gi:parameter[@name='flags']
+
+# ignore return value
+- !set-attribute
+  name: skip
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Repository']/gi:method[contains(@name,'require')]/gi:return-value
+
+# fix nullability
+- !set-attribute
+  name: nullable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Repository']/gi:method[@name='get_typelib_path']
+
+# fix name casing
+- !set-attribute
+  name: name
+  value: get_object_g_type_interfaces
+  xpath: gi:repository/gi:namespace/gi:class[@name='Repository']/gi:method[@name='get_object_gtype_interfaces']
+
+# avoid depedency on non-core GLib (not especially useful method anyway)
+- !set-attribute
+  name: introspectable
+  value: 0
+  xpath: gi:repository/gi:namespace/gi:class[@name='Repository']/gi:function[@name='get_option_group']
+
+# missing doc
+- !add-element
+  xml: |
+    <gi:doc xml:space="preserve">
+    Argument specified is a comma-separated pair of filenames; i.e. of the form "input.txt,output.xml". The input file should be a UTF-8 Unix-line-ending text file, with each line containing either "get-type:" followed by the name of a #GType _get_type function, or "error-quark:" followed by the name of an error quark function. No extra whitespace is allowed.
+
+    The output file should already exist, but be empty. This function will overwrite its contents.
+    </gi:doc>
+  xpath: gi:repository/gi:namespace/gi:class[@name='Repository']/gi:function[@name='dump']
+- !add-element
+  xml: |
+    <gi:doc xml:space="preserve">
+    Comma-separated pair of input and output filenames
+    </gi:doc>
+  xpath: gi:repository/gi:namespace/gi:class[@name='Repository']/gi:function[@name='dump']/gi:parameters/gi:parameter[@name='arg']
+
+

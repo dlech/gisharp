@@ -1,0 +1,17 @@
+
+### RepositoryError ###
+
+# missing error annotation
+- !set-attribute
+  name: glib:error-domain
+  value: g-irepository-error-quark
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='RepositoryError']
+
+# move the error quark
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:class[@name='Repository']/gi:function[@name='error_quark']
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='RepositoryError']
+- !set-attribute
+  name: name
+  value: quark
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='RepositoryError']/gi:function[@name='error_quark']

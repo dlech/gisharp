@@ -1,0 +1,154 @@
+<declaration>
+
+<member name='TypeTag.Void'>
+<summary>
+void
+</summary>
+</member>
+
+<member name='TypeTag.Boolean'>
+<summary>
+boolean
+</summary>
+</member>
+
+<member name='TypeTag.Int8'>
+<summary>
+8-bit signed integer
+</summary>
+</member>
+
+<member name='TypeTag.UInt8'>
+<summary>
+8-bit unsigned integer
+</summary>
+</member>
+
+<member name='TypeTag.Int16'>
+<summary>
+16-bit signed integer
+</summary>
+</member>
+
+<member name='TypeTag.UInt16'>
+<summary>
+16-bit unsigned integer
+</summary>
+</member>
+
+<member name='TypeTag.Int32'>
+<summary>
+32-bit signed integer
+</summary>
+</member>
+
+<member name='TypeTag.UInt32'>
+<summary>
+32-bit unsigned integer
+</summary>
+</member>
+
+<member name='TypeTag.Int64'>
+<summary>
+64-bit signed integer
+</summary>
+</member>
+
+<member name='TypeTag.UInt64'>
+<summary>
+64-bit unsigned integer
+</summary>
+</member>
+
+<member name='TypeTag.Float'>
+<summary>
+float
+</summary>
+</member>
+
+<member name='TypeTag.Double'>
+<summary>
+double floating point
+</summary>
+</member>
+
+<member name='TypeTag.GType'>
+<summary>
+a #GType
+</summary>
+</member>
+
+<member name='TypeTag.Utf8'>
+<summary>
+a UTF-8 encoded string
+</summary>
+</member>
+
+<member name='TypeTag.Filename'>
+<summary>
+a filename, encoded in the same encoding
+  as the native filesystem is using.
+</summary>
+</member>
+
+<member name='TypeTag.Array'>
+<summary>
+an array
+</summary>
+</member>
+
+<member name='TypeTag.Interface'>
+<summary>
+an extended interface object
+</summary>
+</member>
+
+<member name='TypeTag.GList'>
+<summary>
+a #GList
+</summary>
+</member>
+
+<member name='TypeTag.GSList'>
+<summary>
+a #GSList
+</summary>
+</member>
+
+<member name='TypeTag.GHash'>
+<summary>
+a #GHashTable
+</summary>
+</member>
+
+<member name='TypeTag.Error'>
+<summary>
+a #GError
+</summary>
+</member>
+
+<member name='TypeTag.Unichar'>
+<summary>
+Unicode character
+</summary>
+</member>
+
+<member name='TypeTag'>
+<summary>
+The type tag of a <see cref="TypeInfo"/>.
+</summary>
+</member>
+
+<member name='TypeTagExtensions.ToString(GISharp.Lib.GIRepository.TypeTag)'>
+<summary>
+Obtain a string representation of <paramref name="type"/>
+</summary>
+<param name="type">
+the type_tag
+</param>
+<returns>
+the string
+</returns>
+</member>
+
+</declaration>

@@ -1,0 +1,94 @@
+<declaration>
+
+<member name='InterfaceInfo.IfaceStruct'>
+<summary>
+Returns the layout C structure associated with this #GInterface.
+</summary>
+</member>
+
+<member name='InterfaceInfo.NConstants'>
+<summary>
+Obtain the number of constants that this interface type has.
+</summary>
+</member>
+
+<member name='InterfaceInfo.NMethods'>
+<summary>
+Obtain the number of methods that this interface type has.
+</summary>
+</member>
+
+<member name='InterfaceInfo.NPrerequisites'>
+<summary>
+Obtain the number of prerequisites for this interface type.
+A prerequisites is another interface that needs to be implemented for
+interface, similar to an base class for GObjects.
+</summary>
+</member>
+
+<member name='InterfaceInfo.NProperties'>
+<summary>
+Obtain the number of properties that this interface type has.
+</summary>
+</member>
+
+<member name='InterfaceInfo.NSignals'>
+<summary>
+Obtain the number of signals that this interface type has.
+</summary>
+</member>
+
+<member name='InterfaceInfo.NVFuncs'>
+<summary>
+Obtain the number of virtual functions that this interface type has.
+</summary>
+</member>
+
+<member name='InterfaceInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Obtain a method of the interface type given a <paramref name="name"/>. <c>null</c> will be
+returned if there's no method available with that name.
+</summary>
+<param name="name">
+name of method to obtain
+</param>
+<returns>
+the <see cref="FunctionInfo"/> or <c>null</c> if none found.
+Free the struct by calling <see cref="BaseInfo.Unref()"/> when done.
+</returns>
+</member>
+
+<member name='InterfaceInfo.FindSignal(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+TODO
+</summary>
+<param name="name">
+Name of signal
+</param>
+<returns>
+Info for the signal with name <paramref name="name"/> in this instance, or
+<c>null</c> on failure.
+</returns>
+</member>
+
+<member name='InterfaceInfo.FindVFunc(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Locate a virtual function slot with name <paramref name="name"/>. See the documentation
+for <see cref="ObjectInfo.FindVFunc(GISharp.Lib.GLib.UnownedUtf8)"/> for more information on virtuals.
+</summary>
+<param name="name">
+The name of a virtual function to find.
+</param>
+<returns>
+the <see cref="VFuncInfo"/>, or <c>null</c>. Free it with
+<see cref="BaseInfo.Unref()"/> when done.
+</returns>
+</member>
+
+<member name='InterfaceInfo'>
+<summary>
+Represents an interface.
+</summary>
+</member>
+
+</declaration>

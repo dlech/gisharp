@@ -13,7 +13,7 @@ General
 * Command parameters are given by a YAML mapping (``key    value`` pairs).
 * Due to the nature of XPaths we have to use a namespace prefix always, even
   for the default namespace. Use the prefix ``gi:`` for elements in the default
-  namespace, e.g. ``gi:repository/gi:namespace/gi:object[@name='MyObject']``.
+  namespace, e.g. ``gi:repository/gi:namespace/gi:class[@name='SomeObject']``.
 * Use the ``gs:`` namespace prefix for custom elements and attributes understood
   by the code generator (see below).
 * Order matters. Commands are processed in the order they appear in the file.

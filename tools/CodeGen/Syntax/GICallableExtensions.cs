@@ -25,10 +25,17 @@ namespace GISharp.CodeGen.Syntax
         internal static MethodDeclarationSyntax GetCheckArgsMethodDeclaration(this GICallable callable)
         {
             var declaration = MethodDeclaration(IdentifierName("void"), $"Check{callable.ManagedName}Args")
-                .AddModifiers(Token(StaticKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PartialKeyword))
                 .AddParameterListParameters(callable.ManagedParameters.Where(x => x.Direction != "out")
                     .Select(x => x.GetParameter()).ToArray()
                 ).WithSemicolonToken(Token(SemicolonToken));
+
+            // constructors and methods need access to "this", so are not static
+            if (callable is not Method method || method.IsExtensionMethod) {
+                declaration = declaration.WithModifiers(TokenList(
+                    declaration.Modifiers.Prepend(Token(StaticKeyword))));
+            }
+
             return declaration;
         }
 
@@ -40,6 +47,12 @@ namespace GISharp.CodeGen.Syntax
             var declaration = MethodDeclaration(IdentifierName("void"), $"Check{callable.ManagedName}Return")
                 .AddModifiers(Token(PartialKeyword))
                 .WithSemicolonToken(Token(SemicolonToken));
+
+            // constructors and methods need access to "this", so are not static
+            if (callable is not Method method || method.IsExtensionMethod) {
+                declaration = declaration.WithModifiers(TokenList(
+                    declaration.Modifiers.Prepend(Token(StaticKeyword))));
+            }
 
             if (callable is Constructor) {
                 declaration = declaration.AddParameterListParameters(
@@ -86,7 +99,8 @@ namespace GISharp.CodeGen.Syntax
                 var expression = ParseExpression($"Check{callable.ManagedName}Args");
                 var invocation = InvocationExpression(expression);
                 foreach (var arg in callable.ManagedParameters.Where(x => x.Direction != "out")) {
-                    var item = Argument(ParseExpression(arg.ManagedName));
+                    var @ref = arg.Direction == "inout" ? "ref " : "";
+                    var item = Argument(ParseExpression($"{@ref}{arg.ManagedName}"));
                     invocation = invocation.AddArgumentListArguments(item);
                 }
                 block = block.AddStatements(ExpressionStatement(invocation));

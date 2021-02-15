@@ -1,0 +1,18 @@
+
+### TypeInfo ###
+
+# methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'type_info_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='TypeInfo']
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeInfo']/gi:function
+- !change-attribute
+  name: name
+  regex: ^type_info_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeInfo']/gi:method
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:alias[@name='TypeInfo']/gi:method/gi:parameters/gi:parameter[1]

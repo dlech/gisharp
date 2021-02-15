@@ -1,0 +1,31 @@
+<declaration>
+
+<member name='SignalInfo.ClassClosure'>
+<summary>
+Obtain the class closure for this signal if one is set. The class
+closure is a virtual function on the type that the signal belongs to.
+If the signal lacks a closure <c>null</c> will be returned.
+</summary>
+</member>
+
+<member name='SignalInfo.Flags'>
+<summary>
+Obtain the flags for this signal info. See #GSignalFlags for
+more information about possible flag values.
+</summary>
+</member>
+
+<member name='SignalInfo.TrueStopsEmit'>
+<summary>
+Obtain if the returning true in the signal handler will
+stop the emission of the signal.
+</summary>
+</member>
+
+<member name='SignalInfo'>
+<summary>
+Represents a signal.
+</summary>
+</member>
+
+</declaration>

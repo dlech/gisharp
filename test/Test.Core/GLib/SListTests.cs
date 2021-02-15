@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 
@@ -15,14 +15,14 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestConstructor()
         {
-            using var list = new SList<OpaqueInt>();
+            using var list = new WeakSList<OpaqueInt>();
             Assert.That(list, Is.Not.Null);
         }
 
         [Test]
         public void TestAppend()
         {
-            using var list = new SList<OpaqueInt?>();
+            using var list = new WeakSList<OpaqueInt?>();
             Assume.That(list.Length, Is.EqualTo(0));
             list.Append(null);
             Assert.That(list.Length, Is.EqualTo(1));
@@ -31,7 +31,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestPrepend()
         {
-            using var list = new SList<OpaqueInt?>();
+            using var list = new WeakSList<OpaqueInt?>();
             Assume.That(list.Length, Is.EqualTo(0));
             list.Prepend(null);
             Assert.That(list.Length, Is.EqualTo(1));
@@ -40,7 +40,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestInsert()
         {
-            using var list = new SList<OpaqueInt?>();
+            using var list = new WeakSList<OpaqueInt?>();
             Assume.That(list.Length, Is.EqualTo(0));
             list.Insert(null, 0);
             Assert.That(list.Length, Is.EqualTo(1));
@@ -49,7 +49,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestInsertBefore()
         {
-            using var list = new SList<OpaqueInt?>();
+            using var list = new WeakSList<OpaqueInt?>();
             Assume.That(list.Length, Is.EqualTo(0));
             list.InsertBefore(null, null);
             Assert.That(list.Length, Is.EqualTo(1));
@@ -58,9 +58,9 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestInsertSorted()
         {
-            Comparison<OpaqueInt> compareFunc = (a, b) =>
+            static int compareFunc(OpaqueInt a, OpaqueInt b) =>
                 a.Value.CompareTo(b.Value);
-            using var list = new SList<OpaqueInt>();
+            using var list = new WeakSList<OpaqueInt>();
             Assume.That(list.Length, Is.EqualTo(0));
             list.InsertSorted(new OpaqueInt(1), compareFunc);
             Assert.That(list.Length, Is.EqualTo(1));
@@ -77,7 +77,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestRemove()
         {
-            using var list = new SList<OpaqueInt?>();
+            using var list = new WeakSList<OpaqueInt?>();
             list.Append(null);
             Assume.That(list.Length, Is.EqualTo(1));
             list.Remove(null);
@@ -87,7 +87,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestRemoveAll()
         {
-            using var list = new SList<OpaqueInt?>();
+            using var list = new WeakSList<OpaqueInt?>();
             list.Append(null);
             Assume.That(list.Length, Is.EqualTo(1));
             list.RemoveAll(null);
@@ -97,7 +97,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestCopy()
         {
-            using var list = new SList<OpaqueInt?>();
+            using var list = new WeakSList<OpaqueInt?>();
             list.Append(null);
             Assume.That(list.Length, Is.EqualTo(1));
             var newList = list.Copy();
@@ -108,7 +108,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestForeach()
         {
-            using var list = new SList<OpaqueInt?>();
+            using var list = new WeakSList<OpaqueInt?>();
             list.Append(new OpaqueInt(0));
             list.Append(new OpaqueInt(1));
             list.Append(new OpaqueInt(2));
@@ -123,7 +123,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestReverse()
         {
-            using var list = new SList<OpaqueInt>();
+            using var list = new WeakSList<OpaqueInt>();
             list.Prepend(new OpaqueInt(1));
             list.Prepend(new OpaqueInt(2));
             Assume.That(list.Length, Is.EqualTo(2));
@@ -139,11 +139,12 @@ namespace GISharp.Test.Core.GLib
         public void TestSort()
         {
             var compareFuncWasCalled = false;
-            Comparison<OpaqueInt> compareFunc = (a, b) => {
+            int compareFunc(OpaqueInt a, OpaqueInt b)
+            {
                 compareFuncWasCalled = true;
                 return a.UnsafeHandle.ToInt32().CompareTo(b.UnsafeHandle.ToInt32());
-            };
-            using var list = new SList<OpaqueInt>();
+            }
+            using var list = new WeakSList<OpaqueInt>();
             list.Prepend(new OpaqueInt(1));
             list.Prepend(new OpaqueInt(2));
             Assume.That(list.Length, Is.EqualTo(2));
@@ -159,8 +160,8 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestConcat()
         {
-            using var list1 = new SList<OpaqueInt?>();
-            using var list2 = new SList<OpaqueInt?>();
+            using var list1 = new WeakSList<OpaqueInt?>();
+            using var list2 = new WeakSList<OpaqueInt?>();
             list1.Append(null);
             Assume.That(list1.Length, Is.EqualTo(1));
             list2.Append(null);
@@ -175,7 +176,7 @@ namespace GISharp.Test.Core.GLib
         public void TestEnumerator()
         {
             // check that callback is called
-            using var list = new SList<OpaqueInt>();
+            using var list = new WeakSList<OpaqueInt>();
             list.Append(new OpaqueInt(1));
             list.Append(new OpaqueInt(2));
             list.Append(new OpaqueInt(3));
@@ -188,7 +189,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestIndex()
         {
-            using var list = new SList<OpaqueInt>();
+            using var list = new WeakSList<OpaqueInt>();
             list.Append(new OpaqueInt(1));
             list.Append(new OpaqueInt(2));
             list.Append(new OpaqueInt(3));

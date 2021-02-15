@@ -1,0 +1,142 @@
+<declaration>
+
+<member name='InfoType.Invalid'>
+<summary>
+invalid type
+</summary>
+</member>
+
+<member name='InfoType.Function'>
+<summary>
+function, see <see cref="FunctionInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Callback'>
+<summary>
+callback, see <see cref="FunctionInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Struct'>
+<summary>
+struct, see <see cref="StructInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Boxed'>
+<summary>
+boxed, see <see cref="StructInfo"/> or <see cref="UnionInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Enum'>
+<summary>
+enum, see <see cref="EnumInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Flags'>
+<summary>
+flags, see <see cref="EnumInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Object'>
+<summary>
+object, see <see cref="ObjectInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Interface'>
+<summary>
+interface, see <see cref="InterfaceInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Constant'>
+<summary>
+contant, see <see cref="ConstantInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Invalid0'>
+<summary>
+deleted, used to be GI_INFO_TYPE_ERROR_DOMAIN.
+</summary>
+</member>
+
+<member name='InfoType.Union'>
+<summary>
+union, see <see cref="UnionInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Value'>
+<summary>
+enum value, see <see cref="ValueInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Signal'>
+<summary>
+signal, see <see cref="SignalInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.VFunc'>
+<summary>
+virtual function, see <see cref="VFuncInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Property'>
+<summary>
+GObject property, see <see cref="PropertyInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Field'>
+<summary>
+struct or union field, see <see cref="FieldInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Arg'>
+<summary>
+argument of a function or callback, see <see cref="ArgInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Type'>
+<summary>
+type information, see <see cref="TypeInfo"/>
+</summary>
+</member>
+
+<member name='InfoType.Unresolved'>
+<summary>
+unresolved type, a type which is not present in
+  the typelib, or any of its dependencies.
+</summary>
+</member>
+
+<member name='InfoType'>
+<summary>
+The type of a GIBaseInfo struct.
+</summary>
+</member>
+
+<member name='InfoTypeExtensions.ToString(GISharp.Lib.GIRepository.InfoType)'>
+<summary>
+Obtain a string representation of <paramref name="type"/>
+</summary>
+<param name="type">
+the info type
+</param>
+<returns>
+the string
+</returns>
+</member>
+
+</declaration>

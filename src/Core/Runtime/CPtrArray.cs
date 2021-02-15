@@ -156,6 +156,19 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        public UnownedCPtrArray(void* handle, int length)
+        {
+            if (length < 0) {
+                // TODO: lazy-get length for null terminated arrays
+                throw new NotSupportedException();
+            }
+            Data = new(handle, length);
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         public UnownedCPtrArray(IntPtr handle, int length, Transfer ownership)
         {
             if (ownership != Transfer.None) {

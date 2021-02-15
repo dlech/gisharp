@@ -2,13 +2,15 @@
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
 using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
 using System.Runtime.InteropServices;
 
 using GISharp.Lib.GObject;
 using GISharp.Lib.GLib;
 
 using Object = GISharp.Lib.GObject.Object;
-using System.ComponentModel;
 
 namespace GISharp.Runtime
 {
@@ -121,6 +123,14 @@ namespace GISharp.Runtime
                 return ParamSpec.GetInstance(handle, ownership);
             }
 
+            if (fundamentalTypes.Keys
+                .Where(x => x.IsAssignableFrom(type))
+                .Select(x => fundamentalTypes[x])
+                .SingleOrDefault() is Func<IntPtr, Transfer, IOpaque?> getInstance
+            ) {
+                return getInstance(handle, ownership);
+            }
+
             if (typeof(Source).IsAssignableFrom(type)) {
                 type = typeof(UnmanagedSource);
             }
@@ -139,6 +149,16 @@ namespace GISharp.Runtime
             }
 
             return (IOpaque)Activator.CreateInstance(type, handle, ownership)!;
+        }
+
+        private static readonly Dictionary<Type, Func<IntPtr, Transfer, IOpaque?>> fundamentalTypes = new();
+
+        /// <summary>
+        /// Registers a new fundamental type for getting correct subclass type.
+        /// </summary>
+        protected static void RegisterFundamentalType<T>(Func<IntPtr, Transfer, IOpaque?> getInstance) where T : IOpaque
+        {
+            fundamentalTypes.Add(typeof(T), getInstance);
         }
 
         /// <inheritdoc />

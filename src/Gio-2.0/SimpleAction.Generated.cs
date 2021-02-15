@@ -302,7 +302,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean enabled);
-        static partial void CheckSetEnabledArgs(System.Boolean enabled);
+        partial void CheckSetEnabledArgs(System.Boolean enabled);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetEnabled(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -344,7 +344,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
-        static partial void CheckSetStateArgs(GISharp.Lib.GLib.Variant value);
+        partial void CheckSetStateArgs(GISharp.Lib.GLib.Variant value);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetState(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
@@ -380,7 +380,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* stateHint);
-        static partial void CheckSetStateHintArgs(GISharp.Lib.GLib.Variant? stateHint);
+        partial void CheckSetStateHintArgs(GISharp.Lib.GLib.Variant? stateHint);
 
         /// <include file="SimpleAction.xmldoc" path="declaration/member[@name='SimpleAction.SetStateHint(GISharp.Lib.GLib.Variant?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.44")]

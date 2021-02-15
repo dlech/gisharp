@@ -1,0 +1,15 @@
+<declaration>
+
+<member name='ValueInfo.Value'>
+<summary>
+Obtain the enumeration value of the <see cref="ValueInfo"/>.
+</summary>
+</member>
+
+<member name='ValueInfo'>
+<summary>
+Represents a enum value of a <see cref="EnumInfo"/>.
+</summary>
+</member>
+
+</declaration>

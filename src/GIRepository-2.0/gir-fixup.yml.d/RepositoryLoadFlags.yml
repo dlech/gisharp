@@ -1,0 +1,8 @@
+
+### RepositoryLoadFlags ###
+
+# fix wrong name
+- !set-attribute
+  name: name
+  value: lazy
+  xpath: gi:repository/gi:namespace/gi:bitfield[@name='RepositoryLoadFlags']/gi:member[@name='irepository_load_flag_lazy']

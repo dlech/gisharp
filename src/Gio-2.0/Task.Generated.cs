@@ -269,7 +269,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetCancellableArgs();
+        partial void CheckGetCancellableArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private GISharp.Lib.Gio.Cancellable GetCancellable()
@@ -296,7 +296,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetCheckCancellableArgs();
+        partial void CheckGetCheckCancellableArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.Boolean GetCheckCancellable()
@@ -327,7 +327,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetCompletedArgs();
+        partial void CheckGetCompletedArgs();
 
         [GISharp.Runtime.SinceAttribute("2.44")]
         private System.Boolean GetCompleted()
@@ -363,7 +363,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetContextArgs();
+        partial void CheckGetContextArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private GISharp.Lib.GLib.MainContext GetContext()
@@ -392,7 +392,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetNameArgs();
+        partial void CheckGetNameArgs();
 
         [GISharp.Runtime.SinceAttribute("2.60")]
         private GISharp.Lib.GLib.NullableUnownedUtf8 GetName()
@@ -421,7 +421,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetPriorityArgs();
+        partial void CheckGetPriorityArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.Int32 GetPriority()
@@ -448,7 +448,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetReturnOnCancelArgs();
+        partial void CheckGetReturnOnCancelArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.Boolean GetReturnOnCancel()
@@ -478,7 +478,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetSourceObjectArgs();
+        partial void CheckGetSourceObjectArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private GISharp.Lib.GObject.Object? GetSourceObject()
@@ -507,7 +507,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetSourceTagArgs();
+        partial void CheckGetSourceTagArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.IntPtr GetSourceTag()
@@ -536,7 +536,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckGetTaskDataArgs();
+        partial void CheckGetTaskDataArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private System.IntPtr GetTaskData()
@@ -565,7 +565,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckHadErrorArgs();
+        partial void CheckHadErrorArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.HadError()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -608,7 +608,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckPropagateBooleanArgs();
+        partial void CheckPropagateBooleanArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateBoolean()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -655,7 +655,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckPropagateIntArgs();
+        partial void CheckPropagateIntArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateInt()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -706,7 +706,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckPropagatePointerArgs();
+        partial void CheckPropagatePointerArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagatePointer()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -765,7 +765,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckPropagateValueArgs();
+        partial void CheckPropagateValueArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateValue(GISharp.Lib.GObject.Value)']/*" />
         [GISharp.Runtime.SinceAttribute("2.64")]
@@ -807,7 +807,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean result);
-        static partial void CheckReturnBooleanArgs(System.Boolean result);
+        partial void CheckReturnBooleanArgs(System.Boolean result);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnBoolean(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -850,7 +850,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError*" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.Error.UnmanagedStruct* error);
-        static partial void CheckReturnErrorArgs(GISharp.Lib.GLib.Error error);
+        partial void CheckReturnErrorArgs(GISharp.Lib.GLib.Error error);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnError(GISharp.Lib.GLib.Error)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -882,7 +882,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
-        static partial void CheckReturnErrorIfCancelledArgs();
+        partial void CheckReturnErrorIfCancelledArgs();
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnErrorIfCancelled()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -917,7 +917,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint result);
-        static partial void CheckReturnIntArgs(System.Int32 result);
+        partial void CheckReturnIntArgs(System.Int32 result);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnInt(System.Int32)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -1004,7 +1004,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Value result);
-        static partial void CheckReturnValueArgs(GISharp.Lib.GObject.Value result);
+        partial void CheckReturnValueArgs(GISharp.Lib.GObject.Value result);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnValue(GISharp.Lib.GObject.Value)']/*" />
         [GISharp.Runtime.SinceAttribute("2.64")]
@@ -1121,7 +1121,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean checkCancellable);
-        static partial void CheckSetCheckCancellableArgs(System.Boolean checkCancellable);
+        partial void CheckSetCheckCancellableArgs(System.Boolean checkCancellable);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private void SetCheckCancellable(System.Boolean checkCancellable)
@@ -1161,7 +1161,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.Byte* name);
-        static partial void CheckSetNameArgs(GISharp.Lib.GLib.NullableUnownedUtf8 name);
+        partial void CheckSetNameArgs(GISharp.Lib.GLib.NullableUnownedUtf8 name);
 
         [GISharp.Runtime.SinceAttribute("2.60")]
         private void SetName(GISharp.Lib.GLib.NullableUnownedUtf8 name)
@@ -1199,7 +1199,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 priority);
-        static partial void CheckSetPriorityArgs(System.Int32 priority);
+        partial void CheckSetPriorityArgs(System.Int32 priority);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private void SetPriority(System.Int32 priority)
@@ -1264,7 +1264,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean returnOnCancel);
-        static partial void CheckSetReturnOnCancelArgs(System.Boolean returnOnCancel);
+        partial void CheckSetReturnOnCancelArgs(System.Boolean returnOnCancel);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.SetReturnOnCancel(System.Boolean)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -1303,7 +1303,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr sourceTag);
-        static partial void CheckSetSourceTagArgs(System.IntPtr sourceTag);
+        partial void CheckSetSourceTagArgs(System.IntPtr sourceTag);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         private void SetSourceTag(System.IntPtr sourceTag)

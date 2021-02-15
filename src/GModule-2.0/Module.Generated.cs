@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GModule
 {
     /// <include file="Module.xmldoc" path="declaration/member[@name='Module']/*" />
-    public sealed unsafe partial class Module : GISharp.Runtime.Opaque
+    public unsafe partial class Module : GISharp.Runtime.Opaque
     {
         /// <summary>
         /// The unmanaged data structure.
@@ -190,7 +190,7 @@ namespace GISharp.Lib.GModule
         /* <type name="Module" type="GModule*" managed-name="Module" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.Module.UnmanagedStruct* module);
-        static partial void CheckCloseArgs();
+        partial void CheckCloseArgs();
         partial void CheckCloseReturn(System.Boolean ret);
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.Close()']/*" />
@@ -218,7 +218,7 @@ namespace GISharp.Lib.GModule
         /* <type name="Module" type="GModule*" managed-name="Module" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.Module.UnmanagedStruct* module);
-        static partial void CheckMakeResidentArgs();
+        partial void CheckMakeResidentArgs();
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.MakeResident()']/*" />
         public void MakeResident()
@@ -247,7 +247,7 @@ namespace GISharp.Lib.GModule
         /* <type name="Module" type="GModule*" managed-name="Module" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.Module.UnmanagedStruct* module);
-        static partial void CheckGetNameArgs();
+        partial void CheckGetNameArgs();
 
         private GISharp.Lib.GLib.UnownedUtf8 GetName()
         {
@@ -287,7 +287,7 @@ namespace GISharp.Lib.GModule
         /* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 */
         System.IntPtr* symbol);
-        static partial void CheckTrySymbolArgs(GISharp.Lib.GLib.UnownedUtf8 symbolName);
+        partial void CheckTrySymbolArgs(GISharp.Lib.GLib.UnownedUtf8 symbolName);
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.TrySymbol(GISharp.Lib.GLib.UnownedUtf8,System.IntPtr)']/*" />
         public System.Boolean TrySymbol(GISharp.Lib.GLib.UnownedUtf8 symbolName, out System.IntPtr symbol)

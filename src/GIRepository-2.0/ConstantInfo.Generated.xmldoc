@@ -1,0 +1,15 @@
+<declaration>
+
+<member name='ConstantInfo.Type'>
+<summary>
+Obtain the type of the constant as a <see cref="TypeInfo"/>.
+</summary>
+</member>
+
+<member name='ConstantInfo'>
+<summary>
+Represents a constant.
+</summary>
+</member>
+
+</declaration>

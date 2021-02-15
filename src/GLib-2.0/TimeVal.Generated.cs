@@ -96,7 +96,7 @@ namespace GISharp.Lib.GLib
         /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong microseconds);
-        static partial void CheckAddArgs(GISharp.Runtime.CLong microseconds);
+        partial void CheckAddArgs(GISharp.Runtime.CLong microseconds);
 
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.Add(GISharp.Runtime.CLong)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use `guint64` for\n   representing microseconds since the epoch, or use #GDateTime.")]
@@ -166,7 +166,7 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* time);
-        static partial void CheckToIso8601Args();
+        partial void CheckToIso8601Args();
 
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.ToIso8601()']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_format_iso8601(dt) instead.")]

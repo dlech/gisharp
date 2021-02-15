@@ -1,0 +1,36 @@
+<declaration>
+
+<member name='FieldInfo.Flags'>
+<summary>
+Obtain the flags for this <see cref="FieldInfo"/>. See <see cref="FieldInfoFlags"/> for possible
+flag values.
+</summary>
+</member>
+
+<member name='FieldInfo.Offset'>
+<summary>
+Obtain the offset in bytes of the field member, this is relative
+to the beginning of the struct or union.
+</summary>
+</member>
+
+<member name='FieldInfo.Size'>
+<summary>
+Obtain the size in bits of the field member, this is how
+much space you need to allocate to store the field.
+</summary>
+</member>
+
+<member name='FieldInfo.Type'>
+<summary>
+Obtain the type of a field as a <see cref="TypeInfo"/>.
+</summary>
+</member>
+
+<member name='FieldInfo'>
+<summary>
+Represents a field of a <see cref="StructInfo"/> or a <see cref="UnionInfo"/>.
+</summary>
+</member>
+
+</declaration>

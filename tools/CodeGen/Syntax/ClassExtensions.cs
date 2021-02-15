@@ -1,11 +1,8 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
-using System;
-using System.ComponentModel;
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -86,34 +83,5 @@ namespace GISharp.CodeGen.Syntax
 
             return members;
         }
-
-        static ConstructorDeclarationSyntax GetDefaultConstructor(this Class @class)
-        {
-            var parameterList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
-                typeof(IntPtr), typeof(Transfer)));
-            var argList = ParseArgumentList("(handle, ownership)");
-
-            var arg = ParseExpression($"{typeof(EditorBrowsableState)}.{nameof(EditorBrowsableState.Never)}");
-            var attr = Attribute(ParseName(typeof(EditorBrowsableAttribute).ToString()))
-                .AddArgumentListArguments(AttributeArgument(arg));
-            var attributeList = AttributeList().AddAttributes(attr);
-
-            var accessModifier = @class.IsAbstract ? Token(ProtectedKeyword) : Token(PublicKeyword);
-
-            var initializer = ConstructorInitializer(BaseConstructorInitializer)
-                .WithArgumentList(argList);
-            var constructor = ConstructorDeclaration(@class.ManagedName)
-                .AddAttributeLists(attributeList)
-                .AddModifiers(accessModifier)
-                .WithParameterList(parameterList)
-                .WithInitializer(initializer)
-                .WithBody(Block())
-                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
-                /// For internal runtime use only.
-                /// </summary>
-                "));
-            return constructor;
-        }
-
     }
 }

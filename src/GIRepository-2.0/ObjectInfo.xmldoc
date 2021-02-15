@@ -1,0 +1,217 @@
+<declaration>
+
+<member name='ObjectInfo.Abstract'>
+<summary>
+Obtain if the object type is an abstract type, eg if it cannot be
+instantiated
+</summary>
+</member>
+
+<member name='ObjectInfo.ClassStruct'>
+<summary>
+Every #GObject has two structures; an instance structure and a class
+structure.  This function returns the metadata for the class structure.
+</summary>
+</member>
+
+<member name='ObjectInfo.Fundamental'>
+<summary>
+Obtain if the object type is of a fundamental type which is not
+G_TYPE_OBJECT. This is mostly for supporting GstMiniObject.
+</summary>
+</member>
+
+<member name='ObjectInfo.GetValueFunction'>
+<summary>
+Obtain the symbol name of the function that should be called to convert
+an object instance pointer of this object type to a GValue.
+I's mainly used fundamental types. The type signature for the symbol
+is %GIObjectInfoGetValueFunction, to fetch the function pointer
+see <see cref="ObjectInfo.GetGetValueFunction()"/>.
+</summary>
+</member>
+
+<member name='ObjectInfo.NConstants'>
+<summary>
+Obtain the number of constants that this object type has.
+</summary>
+</member>
+
+<member name='ObjectInfo.NFields'>
+<summary>
+Obtain the number of fields that this object type has.
+</summary>
+</member>
+
+<member name='ObjectInfo.NInterfaces'>
+<summary>
+Obtain the number of interfaces that this object type has.
+</summary>
+</member>
+
+<member name='ObjectInfo.NMethods'>
+<summary>
+Obtain the number of methods that this object type has.
+</summary>
+</member>
+
+<member name='ObjectInfo.NProperties'>
+<summary>
+Obtain the number of properties that this object type has.
+</summary>
+</member>
+
+<member name='ObjectInfo.NSignals'>
+<summary>
+Obtain the number of signals that this object type has.
+</summary>
+</member>
+
+<member name='ObjectInfo.NVFuncs'>
+<summary>
+Obtain the number of virtual functions that this object type has.
+</summary>
+</member>
+
+<member name='ObjectInfo.Parent'>
+<summary>
+Obtain the parent of the object type.
+</summary>
+</member>
+
+<member name='ObjectInfo.RefFunction'>
+<summary>
+Obtain the symbol name of the function that should be called to ref this
+object type. It's mainly used fundamental types. The type signature for
+the symbol is %GIObjectInfoRefFunction, to fetch the function pointer
+see <see cref="ObjectInfo.GetRefFunction()"/>.
+</summary>
+</member>
+
+<member name='ObjectInfo.SetValueFunction'>
+<summary>
+Obtain the symbol name of the function that should be called to convert
+set a GValue giving an object instance pointer of this object type.
+I's mainly used fundamental types. The type signature for the symbol
+is %GIObjectInfoSetValueFunction, to fetch the function pointer
+see <see cref="ObjectInfo.GetSetValueFunction()"/>.
+</summary>
+</member>
+
+<member name='ObjectInfo.TypeInit'>
+<summary>
+Obtain the function which when called will return the GType
+function for which this object type is registered.
+</summary>
+</member>
+
+<member name='ObjectInfo.TypeName'>
+<summary>
+Obtain the name of the objects class/type.
+</summary>
+</member>
+
+<member name='ObjectInfo.UnrefFunction'>
+<summary>
+Obtain the symbol name of the function that should be called to unref this
+object type. It's mainly used fundamental types. The type signature for
+the symbol is %GIObjectInfoUnrefFunction, to fetch the function pointer
+see <see cref="ObjectInfo.GetUnrefFunction()"/>.
+</summary>
+</member>
+
+<member name='ObjectInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Obtain a method of the object type given a <paramref name="name"/>. <c>null</c> will be
+returned if there's no method available with that name.
+</summary>
+<param name="name">
+name of method to obtain
+</param>
+<returns>
+the <see cref="FunctionInfo"/>.
+</returns>
+</member>
+
+<member name='ObjectInfo.FindMethodUsingInterfaces(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)'>
+<summary>
+Obtain a method of the object given a <paramref name="name"/>, searching both the
+object this instance and any interfaces it implements.  <c>null</c> will be
+returned if there's no method available with that name.
+</summary>
+<remarks>
+Note that this function does *not* search parent classes; you will have
+to chain up if that's desired.
+</remarks>
+<param name="name">
+name of method to obtain
+</param>
+<param name="implementor">
+The implementor of the interface
+</param>
+<returns>
+the <see cref="FunctionInfo"/>.
+</returns>
+</member>
+
+<member name='ObjectInfo.FindSignal(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+TODO
+</summary>
+<param name="name">
+Name of signal
+</param>
+<returns>
+Info for the signal with name <paramref name="name"/> in this instance, or <c>null</c> on failure.
+</returns>
+</member>
+
+<member name='ObjectInfo.FindVFunc(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Locate a virtual function slot with name <paramref name="name"/>. Note that the namespace
+for virtuals is distinct from that of methods; there may or may not be
+a concrete method associated for a virtual. If there is one, it may
+be retrieved using <see cref="VFuncInfo.GetInvoker()"/>, otherwise <c>null</c> will be
+returned.
+See the documentation for <see cref="VFuncInfo.GetInvoker()"/> for more
+information on invoking virtuals.
+</summary>
+<param name="name">
+The name of a virtual function to find.
+</param>
+<returns>
+the <see cref="VFuncInfo"/>, or <c>null</c>.
+</returns>
+</member>
+
+<member name='ObjectInfo.FindVFuncUsingInterfaces(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GIRepository.ObjectInfo)'>
+<summary>
+Locate a virtual function slot with name <paramref name="name"/>, searching both the object
+this instance and any interfaces it implements.  Note that the namespace for
+virtuals is distinct from that of methods; there may or may not be a
+concrete method associated for a virtual. If there is one, it may be
+retrieved using <see cref="VFuncInfo.GetInvoker()"/>, otherwise <c>null</c> will be
+returned.
+</summary>
+<remarks>
+Note that this function does *not* search parent classes; you will have
+to chain up if that's desired.
+</remarks>
+<param name="name">
+name of vfunc to obtain
+</param>
+<param name="implementor">
+The implementor of the interface
+</param>
+<returns>
+the <see cref="VFuncInfo"/>.
+</returns>
+</member>
+
+<member name='ObjectInfo'>
+<summary>
+Represents an object.
+</summary>
+</member>
+
+</declaration>

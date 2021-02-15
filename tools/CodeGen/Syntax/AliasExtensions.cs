@@ -23,13 +23,44 @@ namespace GISharp.CodeGen.Syntax
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }
 
+        public static ClassDeclarationSyntax GetClassDeclaration(this Alias alias)
+        {
+            var identifier = alias.ManagedName;
+            return ClassDeclaration(identifier)
+                .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
+                .AddBaseListTypes(SimpleBaseType(alias.Type.ManagedType.ToSyntax()))
+                .WithLeadingTrivia(alias.Doc.GetDocCommentTrivia())
+                .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
+        }
+
         /// <summary>
         /// Gets the C# struct member declarations for a GIR alias
         /// </summary>
         public static SyntaxList<MemberDeclarationSyntax> GetStructMembers(this Alias alias)
         {
             return List<MemberDeclarationSyntax>()
-                .AddRange(alias.Constants.GetMemberDeclarations());
+                .AddRange(alias.Constants.GetMemberDeclarations())
+                .AddRange(alias.Fields.GetStructDeclaration(forUnmanagedStruct: false).Members)
+                .AddRange(alias.ManagedProperties.GetMemberDeclarations())
+                .AddRange(alias.Functions.GetMemberDeclarations())
+                .AddRange(alias.Methods.GetMemberDeclarations());
+        }
+
+        /// <summary>
+        /// Gets the C# class member declarations for a GIR alias
+        /// </summary>
+        public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Alias alias)
+        {
+            var members = List<MemberDeclarationSyntax>()
+                .Add(alias.Fields.GetStructDeclaration().AddModifiers(Token(NewKeyword)))
+                .AddRange(alias.Constants.GetMemberDeclarations())
+                .AddRange(alias.ManagedProperties.GetMemberDeclarations())
+                .Add(alias.GetDefaultConstructor())
+                .AddRange(alias.Constructors.GetMemberDeclarations())
+                .AddRange(alias.Functions.GetMemberDeclarations())
+                .AddRange(alias.Methods.GetMemberDeclarations());
+
+            return members;
         }
     }
 }

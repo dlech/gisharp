@@ -3,7 +3,6 @@
 
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Linq;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GObject;
@@ -50,7 +49,7 @@ namespace GISharp.CodeGen.Syntax
             var identifier = record.ManagedName;
 
             var syntax = ClassDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(SealedKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
+                .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
                 .WithBaseList(record.GetBaseList())
                 .WithAttributeLists(record.GetGTypeAttributeLists())
                 .WithLeadingTrivia(record.Doc.GetDocCommentTrivia())
@@ -92,38 +91,6 @@ namespace GISharp.CodeGen.Syntax
             }
 
             return members;
-        }
-
-        static ConstructorDeclarationSyntax GetDefaultConstructor(this Record record)
-        {
-            var parameterList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
-                typeof(IntPtr), typeof(Transfer)));
-            var argList = ParseArgumentList("(handle, ownership)");
-
-            if (record.GTypeName is not null) {
-                // GType records inherit from GBoxed, so they need an extra arg
-                var gtypeArg = Argument(ParseExpression("_GType"));
-                argList = argList.WithArguments(argList.Arguments.Insert(0, gtypeArg));
-            }
-
-            var arg = ParseExpression($"{typeof(EditorBrowsableState)}.{nameof(EditorBrowsableState.Never)}");
-            var attr = Attribute(ParseName(typeof(EditorBrowsableAttribute).ToString()))
-                .AddArgumentListArguments(AttributeArgument(arg));
-            var attributeList = AttributeList().AddAttributes(attr);
-
-            var initializer = ConstructorInitializer(BaseConstructorInitializer)
-                .WithArgumentList(argList);
-            var constructor = ConstructorDeclaration(record.ManagedName)
-                .AddAttributeLists(attributeList)
-                .AddModifiers(Token(PublicKeyword))
-                .WithParameterList(parameterList)
-                .WithInitializer(initializer)
-                .WithBody(Block())
-                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
-                /// For internal runtime use only.
-                /// </summary>
-                "));
-            return constructor;
         }
 
         public static ClassDeclarationSyntax GetGTypeStructClassDeclaration(this Record record)

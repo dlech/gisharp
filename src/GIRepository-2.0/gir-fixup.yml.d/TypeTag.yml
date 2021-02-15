@@ -1,0 +1,41 @@
+
+### TypeTag ###
+
+# methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'type_tag_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='TypeTag']
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TypeTag']/gi:function
+- !change-attribute
+  name: name
+  regex: ^type_tag_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TypeTag']/gi:method
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TypeTag']/gi:method/gi:parameters/gi:parameter[1]
+
+# fix some name casing
+- !change-attribute
+  name: name
+  regex: ^u(int.*)
+  replace: u_$1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TypeTag']/gi:member[starts-with(@name,'uint')]
+- !set-attribute
+  name: name
+  value: g_type
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TypeTag']/gi:member[@name='gtype']
+- !set-attribute
+  name: name
+  value: g_list
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TypeTag']/gi:member[@name='glist']
+- !set-attribute
+  name: name
+  value: g_s_list
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TypeTag']/gi:member[@name='gslist']
+- !set-attribute
+  name: name
+  value: g_hash
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='TypeTag']/gi:member[@name='ghash']

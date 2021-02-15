@@ -754,11 +754,9 @@ namespace GISharp.CodeGen
 
             var typeElements = document.Descendants(gi + "type");
             foreach (var element in typeElements) {
-
                 if (element.Parent.Name == gi + "array") {
                     // all arrays are pointers
                     element.Parent.SetAttributeValue(gs + "is-pointer", "1");
-                    continue;
                 }
 
                 if (element.Attribute(gs + "is-pointer") is not null) {
@@ -928,7 +926,7 @@ namespace GISharp.CodeGen
                 var propertyName = methodName;
                 if (element.Attribute("name").Value.StartsWith("get_", StringComparison.Ordinal)) {
                     // drop the Get prefix, but not the Is
-                    propertyName = propertyName.Substring(3);
+                    propertyName = propertyName[3..];
                 }
                 else {
                     // In this case, the name starts with "Is", so add "Get"
@@ -938,9 +936,15 @@ namespace GISharp.CodeGen
                     element.SetAttributeValue(gs + "managed-name", methodName);
                 }
 
+                // avoid conflict with object.GetType()
+                if (element.Attribute(gs + "managed-name").AsString() == "GetType") {
+                    element.Attribute(gs + "managed-name").SetValue("GetType_");
+                }
+
                 // create a new <gs:managed-property> element
-                var propertyElement = new XElement(element);
-                propertyElement.Name = gs + "managed-property";
+                var propertyElement = new XElement(element) {
+                    Name = gs + "managed-property"
+                };
                 propertyElement.SetAttributeValue(gs + "managed-name", propertyName);
                 propertyElement.SetAttributeValue(c + "identifier", null);
                 element.AddBeforeSelf(propertyElement);

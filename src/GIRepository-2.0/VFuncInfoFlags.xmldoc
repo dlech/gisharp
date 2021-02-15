@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='VFuncInfoFlags.MustChainUp'>
+<summary>
+chains up to the parent type
+</summary>
+</member>
+
+<member name='VFuncInfoFlags.MustOverride'>
+<summary>
+overrides
+</summary>
+</member>
+
+<member name='VFuncInfoFlags.MustNotOverride'>
+<summary>
+does not override
+</summary>
+</member>
+
+<member name='VFuncInfoFlags.Throws'>
+<summary>
+Includes a #GError
+</summary>
+</member>
+
+<member name='VFuncInfoFlags'>
+<summary>
+Flags of a <see cref="VFuncInfo"/> struct.
+</summary>
+</member>
+
+</declaration>

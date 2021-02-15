@@ -1,0 +1,9 @@
+<declaration>
+
+<member name='UnresolvedInfo'>
+<summary>
+Represents a unresolved type in a typelib.
+</summary>
+</member>
+
+</declaration>

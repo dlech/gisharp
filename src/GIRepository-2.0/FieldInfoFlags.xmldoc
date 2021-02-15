@@ -1,0 +1,21 @@
+<declaration>
+
+<member name='FieldInfoFlags.Readable'>
+<summary>
+field is readable.
+</summary>
+</member>
+
+<member name='FieldInfoFlags.Writable'>
+<summary>
+field is writable.
+</summary>
+</member>
+
+<member name='FieldInfoFlags'>
+<summary>
+Flags for a <see cref="FieldInfo"/>.
+</summary>
+</member>
+
+</declaration>

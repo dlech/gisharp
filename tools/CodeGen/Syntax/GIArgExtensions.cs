@@ -46,7 +46,25 @@ namespace GISharp.CodeGen.Syntax
             }
 
             if (type.IsGenericType) {
-                if (type.GetGenericTypeDefinition() == typeof(CArray<>)) {
+                var genericType = type.GetGenericTypeDefinition();
+
+                if (genericType == typeof(Lib.GLib.List<>)) {
+                    if (arg.TransferOwnership == "container") {
+                        return typeof(WeakList<>).MakeGenericType(type.GetGenericArguments());
+                    }
+                    if (arg.TransferOwnership == "none") {
+                        return typeof(UnownedList<>).MakeGenericType(type.GetGenericArguments());
+                    }
+                }
+                else if (genericType == typeof(SList<>)) {
+                    if (arg.TransferOwnership == "container") {
+                        return typeof(WeakSList<>).MakeGenericType(type.GetGenericArguments());
+                    }
+                    if (arg.TransferOwnership == "none") {
+                        return typeof(UnownedSList<>).MakeGenericType(type.GetGenericArguments());
+                    }
+                }
+                else if (genericType == typeof(CArray<>)) {
                     if (isAsync) {
                         if (arg.Direction == "out" && arg.IsCallerAllocates) {
                             return typeof(Memory<>).MakeGenericType(type.GetGenericArguments());
@@ -60,8 +78,7 @@ namespace GISharp.CodeGen.Syntax
                         return typeof(ReadOnlySpan<>).MakeGenericType(type.GetGenericArguments());
                     }
                 }
-
-                if (type.GetGenericTypeDefinition() == typeof(CPtrArray<>)) {
+                else if (genericType == typeof(CPtrArray<>)) {
                     if (arg.Direction == "out" && arg.IsCallerAllocates) {
                         throw new NotImplementedException("Not sure how to handle caller allocated pointer array");
                     }
@@ -282,10 +299,7 @@ namespace GISharp.CodeGen.Syntax
             var @var = declareVariable ? "var " : "";
             var ownership = arg.GetOwnershipTransfer();
 
-            if (type == typeof(UnownedUtf8) || type == typeof(NullableUnownedUtf8)) {
-                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = new {type}({arg.ManagedName}_)"));
-            }
-            else if (type == typeof(Strv) || type == typeof(FilenameArray)) {
+            if (type == typeof(Strv) || type == typeof(FilenameArray)) {
                 var lengthArg = "-1";
 
                 if (arg.Type is Gir.Array v && v.LengthIndex >= 0) {
@@ -306,11 +320,14 @@ namespace GISharp.CodeGen.Syntax
                 var getter = $"new {type.ToSyntax()}((System.IntPtr){arg.ManagedName}_, {lengthArg}, {ownership})";
 
                 var genericType = type.GetGenericTypeDefinition();
-                if (genericType == typeof(Span<>) || genericType == typeof(ReadOnlySpan<>)) {
+                if (type.Name.Contains("Unowned", StringComparison.Ordinal) || genericType == typeof(Span<>) || genericType == typeof(ReadOnlySpan<>)) {
                     getter = $"new {type.ToSyntax()}({arg.ManagedName}_, {lengthArg})";
                 }
 
                 expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {getter}"));
+            }
+            else if (type.Name.Contains("Unowned", StringComparison.Ordinal)) {
+                expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = new {type.ToSyntax()}({arg.ManagedName}_)"));
             }
             else if (type.IsValueType) {
                 // value types are used directly

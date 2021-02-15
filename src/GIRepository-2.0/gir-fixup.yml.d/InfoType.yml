@@ -1,0 +1,18 @@
+
+### InfoType ###
+
+# move methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'info_type_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='InfoType']
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='InfoType']/gi:function
+- !change-attribute
+  name: name
+  regex: ^info_type_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='InfoType']/gi:method
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='InfoType']/gi:method/gi:parameters/gi:parameter[1]

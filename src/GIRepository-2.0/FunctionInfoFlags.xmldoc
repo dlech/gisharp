@@ -1,0 +1,45 @@
+<declaration>
+
+<member name='FunctionInfoFlags.IsMethod'>
+<summary>
+is a method.
+</summary>
+</member>
+
+<member name='FunctionInfoFlags.IsConstructor'>
+<summary>
+is a constructor.
+</summary>
+</member>
+
+<member name='FunctionInfoFlags.IsGetter'>
+<summary>
+is a getter of a <see cref="PropertyInfo"/>.
+</summary>
+</member>
+
+<member name='FunctionInfoFlags.IsSetter'>
+<summary>
+is a setter of a <see cref="PropertyInfo"/>.
+</summary>
+</member>
+
+<member name='FunctionInfoFlags.WrapsVFunc'>
+<summary>
+represents a virtual function.
+</summary>
+</member>
+
+<member name='FunctionInfoFlags.Throws'>
+<summary>
+the function may throw an error.
+</summary>
+</member>
+
+<member name='FunctionInfoFlags'>
+<summary>
+Flags for a <see cref="FunctionInfo"/> struct.
+</summary>
+</member>
+
+</declaration>

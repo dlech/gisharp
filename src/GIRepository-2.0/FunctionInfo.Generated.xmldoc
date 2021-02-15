@@ -1,0 +1,40 @@
+<declaration>
+
+<member name='FunctionInfo.Flags'>
+<summary>
+Obtain the <see cref="FunctionInfoFlags"/> for the this instance.
+</summary>
+</member>
+
+<member name='FunctionInfo.Property'>
+<summary>
+Obtain the property associated with this <see cref="FunctionInfo"/>.
+Only <see cref="FunctionInfo"/> with the flag <see cref="FunctionInfoFlags.IsGetter"/> or
+<see cref="FunctionInfoFlags.IsSetter"/> have a property set. For other cases,
+<c>null</c> will be returned.
+</summary>
+</member>
+
+<member name='FunctionInfo.Symbol'>
+<summary>
+Obtain the symbol of the function. The symbol is the name of the
+exported function, suitable to be used as an argument to
+g_module_symbol().
+</summary>
+</member>
+
+<member name='FunctionInfo.VFunc'>
+<summary>
+Obtain the virtual function associated with this <see cref="FunctionInfo"/>.
+Only <see cref="FunctionInfo"/> with the flag <see cref="FunctionInfoFlags.WrapsVFunc"/> has
+a virtual function set. For other cases, <c>null</c> will be returned.
+</summary>
+</member>
+
+<member name='FunctionInfo'>
+<summary>
+Represents a function, eg arguments and return value.
+</summary>
+</member>
+
+</declaration>

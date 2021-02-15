@@ -1,0 +1,40 @@
+<declaration>
+
+<member name='EnumInfo.ErrorDomain'>
+<summary>
+Obtain the string form of the quark for the error domain associated with
+this enum, if any.
+</summary>
+</member>
+
+<member name='EnumInfo.NMethods'>
+<summary>
+Obtain the number of methods that this enum type has.
+</summary>
+</member>
+
+<member name='EnumInfo.NValues'>
+<summary>
+Obtain the number of values this enumeration contains.
+</summary>
+</member>
+
+<member name='EnumInfo.StorageType'>
+<summary>
+Obtain the tag of the type used for the enum in the C ABI. This will
+will be a signed or unsigned integral type.
+</summary>
+<remarks>
+Note that in the current implementation the width of the type is
+computed correctly, but the signed or unsigned nature of the type
+may not match the sign of the type used by the C compiler.
+</remarks>
+</member>
+
+<member name='EnumInfo'>
+<summary>
+Represents an enum or a flag.
+</summary>
+</member>
+
+</declaration>

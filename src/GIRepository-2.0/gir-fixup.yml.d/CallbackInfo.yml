@@ -1,0 +1,8 @@
+
+### CallbackInfo ###
+
+# fix base type
+- !set-attribute
+  name: name
+  value: CallableInfo
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallbackInfo']/gi:type

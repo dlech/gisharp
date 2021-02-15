@@ -1,0 +1,71 @@
+<declaration>
+
+<member name='StructInfo.Alignment'>
+<summary>
+Obtain the required alignment of the structure.
+</summary>
+</member>
+
+<member name='StructInfo.NFields'>
+<summary>
+Obtain the number of fields this structure has.
+</summary>
+</member>
+
+<member name='StructInfo.NMethods'>
+<summary>
+Obtain the number of methods this structure has.
+</summary>
+</member>
+
+<member name='StructInfo.Size'>
+<summary>
+Obtain the total size of the structure.
+</summary>
+</member>
+
+<member name='StructInfo.IsForeign'>
+<summary>
+TODO
+</summary>
+</member>
+
+<member name='StructInfo.IsGtypeStruct'>
+<summary>
+Return true if this structure represents the "class structure" for some
+#GObject or #GInterface.  This function is mainly useful to hide this kind of structure
+from generated public APIs.
+</summary>
+</member>
+
+<member name='StructInfo.FindField(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Obtain the type information for field named <paramref name="name"/>.
+</summary>
+<param name="name">
+a field name
+</param>
+<returns>
+the <see cref="FieldInfo"/> or <c>null</c> if not found.
+</returns>
+</member>
+
+<member name='StructInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Obtain the type information for method named <paramref name="name"/>.
+</summary>
+<param name="name">
+a method name
+</param>
+<returns>
+the <see cref="FunctionInfo"/>.
+</returns>
+</member>
+
+<member name='StructInfo'>
+<summary>
+Represents a struct.
+</summary>
+</member>
+
+</declaration>

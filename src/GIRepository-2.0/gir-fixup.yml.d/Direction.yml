@@ -1,0 +1,8 @@
+
+### Direction ###
+
+# fix some name casing
+- !set-attribute
+  name: name
+  value: in_out
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='Direction']/gi:member[@name='inout']

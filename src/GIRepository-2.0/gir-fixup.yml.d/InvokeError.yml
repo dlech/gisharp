@@ -1,0 +1,23 @@
+
+### InvokeError ###
+
+# type name is broken in .gir
+- !set-attribute
+  name: name
+  value: InvokeError
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='nvokeError']
+
+# missing error annotation
+- !set-attribute
+  name: glib:error-domain
+  value: g-invoke-error-quark
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='InvokeError']
+
+# move the error quark
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[@name='invoke_error_quark']
+  new-parent-xpath: gi:repository/gi:namespace/gi:enumeration[@name='InvokeError']
+- !set-attribute
+  name: name
+  value: quark
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='InvokeError']/gi:function[@name='invoke_error_quark']

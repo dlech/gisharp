@@ -1,0 +1,18 @@
+
+### FieldInfo ###
+
+# methods
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'field_info_')]
+  new-parent-xpath: gi:repository/gi:namespace/gi:alias[@name='FieldInfo']
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:alias[@name='FieldInfo']/gi:function
+- !change-attribute
+  name: name
+  regex: ^field_info_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gi:alias[@name='FieldInfo']/gi:method
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:alias[@name='FieldInfo']/gi:method/gi:parameters/gi:parameter[1]
