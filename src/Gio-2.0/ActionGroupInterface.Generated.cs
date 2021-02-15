@@ -533,6 +533,7 @@ GISharp.Lib.GLib.Variant.UnmanagedStruct* state);
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public ActionGroupInterface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

@@ -405,6 +405,7 @@ GISharp.Lib.Gio.FileIOStream.UnmanagedStruct* stream);
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public FileIOStreamClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

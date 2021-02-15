@@ -132,6 +132,7 @@ System.IntPtr sourceTag);
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public AsyncResultIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

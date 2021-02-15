@@ -220,6 +220,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public SeekableIface(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

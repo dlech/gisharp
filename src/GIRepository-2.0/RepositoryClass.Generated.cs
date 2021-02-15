@@ -24,6 +24,7 @@ namespace GISharp.Lib.GIRepository
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public RepositoryClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

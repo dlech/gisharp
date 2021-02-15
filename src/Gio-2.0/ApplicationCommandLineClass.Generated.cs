@@ -139,6 +139,7 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
         public ApplicationCommandLineClass(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle, ownership)
         {
         }

@@ -160,7 +160,7 @@ namespace GISharp.CodeGen.Syntax
 
             // add the default constructor
 
-            list = list.Add(record.GetGTypeStructDefaultConstructor());
+            list = list.Add(record.GetDefaultConstructor());
 
             return list;
         }
@@ -175,24 +175,6 @@ namespace GISharp.CodeGen.Syntax
                 .SelectMany(x => x.GetVirtualMethodRegisterStatements()).ToArray());
 
             return constructor;
-        }
-
-        static ConstructorDeclarationSyntax GetGTypeStructDefaultConstructor(this Record record)
-        {
-            var paramerList = ParseParameterList(string.Format("({0} handle, {1} ownership)",
-                typeof(IntPtr), typeof(Transfer)));
-            var argList = ParseArgumentList("(handle, ownership)");
-            var initializer = ConstructorInitializer(BaseConstructorInitializer)
-                .WithArgumentList(argList);
-            return ConstructorDeclaration(record.ManagedName)
-                .AddModifiers(Token(PublicKeyword))
-                .WithParameterList(paramerList)
-                .WithInitializer(initializer)
-                .WithBody(Block())
-                .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
-                /// For internal runtime use only.
-                /// </summary>
-                "));
         }
     }
 }
