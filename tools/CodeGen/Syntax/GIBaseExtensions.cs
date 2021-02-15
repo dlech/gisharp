@@ -80,6 +80,17 @@ namespace GISharp.CodeGen.Syntax
             return list;
         }
 
+        internal static SyntaxTokenList GetInheritanceModifiers(this GIBase member, SyntaxToken? @default)
+        {
+            if (member.InheritanceModifiers is null) {
+                if (@default.HasValue) {
+                    return TokenList(@default.Value);
+                }
+                return TokenList();
+            }
+            return TokenList(ParseTokens(member.InheritanceModifiers));
+        }
+
         internal static void LogException(this GIBase member, Exception ex)
         {
             Log.Warning($"Problem with {member.Element.GetXPath()}: {ex.Message}");

@@ -5,7 +5,7 @@ namespace GISharp.Lib.GIRepository
 {
     /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo']/*" />
     [GISharp.Runtime.GTypeAttribute("GIBaseInfo", IsProxyForUnmanagedType = true)]
-    public unsafe partial class BaseInfo : GISharp.Lib.GObject.Boxed, System.IEquatable<BaseInfo>
+    public abstract unsafe partial class BaseInfo : GISharp.Lib.GObject.Boxed, System.IEquatable<BaseInfo>
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_base_info_gtype_get_type();
 

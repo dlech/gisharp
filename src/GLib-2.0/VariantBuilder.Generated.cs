@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="VariantBuilder.xmldoc" path="declaration/member[@name='VariantBuilder']/*" />
     [GISharp.Runtime.GTypeAttribute("GVariantBuilder", IsProxyForUnmanagedType = true)]
-    public unsafe partial class VariantBuilder : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class VariantBuilder : GISharp.Lib.GObject.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_variant_builder_get_type();
 

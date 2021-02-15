@@ -1,6 +1,12 @@
 
 ### BaseInfo ###
 
+# make abstract
+- !set-attribute
+  name: gs:inheritance-modifiers
+  value: abstract
+  xpath: gi:repository/gi:namespace/gi:record[@name='BaseInfo']
+
 # make introspectable
 - !set-attribute
   name: introspectable

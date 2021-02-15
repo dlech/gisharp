@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GIRepository
 {
     /// <include file="ConstantInfo.xmldoc" path="declaration/member[@name='ConstantInfo']/*" />
-    public unsafe partial class ConstantInfo : GISharp.Lib.GIRepository.BaseInfo
+    public sealed unsafe partial class ConstantInfo : GISharp.Lib.GIRepository.BaseInfo
     {
         /// <summary>
         /// The unmanaged data structure.

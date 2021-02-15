@@ -49,7 +49,12 @@ namespace GISharp.CodeGen.Syntax
             var identifier = record.ManagedName;
 
             var syntax = ClassDeclaration(identifier)
-                .AddModifiers(Token(PublicKeyword), Token(UnsafeKeyword), Token(PartialKeyword))
+                .WithModifiers(TokenList(
+                    record.GetInheritanceModifiers(Token(SealedKeyword))
+                    .Prepend(Token(PublicKeyword))
+                    .Append(Token(UnsafeKeyword))
+                    .Append(Token(PartialKeyword))
+                ))
                 .WithBaseList(record.GetBaseList())
                 .WithAttributeLists(record.GetGTypeAttributeLists())
                 .WithLeadingTrivia(record.Doc.GetDocCommentTrivia())

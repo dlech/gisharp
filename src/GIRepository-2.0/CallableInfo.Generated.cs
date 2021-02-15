@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GIRepository
 {
     /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo']/*" />
-    public unsafe partial class CallableInfo : GISharp.Lib.GIRepository.BaseInfo
+    public abstract unsafe partial class CallableInfo : GISharp.Lib.GIRepository.BaseInfo
     {
         /// <summary>
         /// The unmanaged data structure.

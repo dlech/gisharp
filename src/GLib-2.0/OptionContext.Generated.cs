@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GLib
 {
     /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext']/*" />
-    public unsafe partial class OptionContext : GISharp.Runtime.Opaque
+    public sealed unsafe partial class OptionContext : GISharp.Runtime.Opaque
     {
         /// <summary>
         /// The unmanaged data structure.

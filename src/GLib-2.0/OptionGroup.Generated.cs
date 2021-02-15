@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup']/*" />
     [GISharp.Runtime.GTypeAttribute("GOptionGroup", IsProxyForUnmanagedType = true)]
-    public unsafe partial class OptionGroup : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class OptionGroup : GISharp.Lib.GObject.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_option_group_get_type();
 

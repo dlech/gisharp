@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GIRepository
 {
     /// <include file="Typelib.xmldoc" path="declaration/member[@name='Typelib']/*" />
-    public unsafe partial class Typelib : GISharp.Runtime.Opaque
+    public sealed unsafe partial class Typelib : GISharp.Runtime.Opaque
     {
         /// <summary>
         /// The unmanaged data structure.

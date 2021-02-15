@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GIRepository
 {
     /// <include file="UnresolvedInfo.xmldoc" path="declaration/member[@name='UnresolvedInfo']/*" />
-    public unsafe partial class UnresolvedInfo : GISharp.Runtime.Opaque
+    public sealed unsafe partial class UnresolvedInfo : GISharp.Runtime.Opaque
     {
         /// <summary>
         /// The unmanaged data structure.

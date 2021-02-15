@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GModule
 {
     /// <include file="Module.xmldoc" path="declaration/member[@name='Module']/*" />
-    public unsafe partial class Module : GISharp.Runtime.Opaque
+    public sealed unsafe partial class Module : GISharp.Runtime.Opaque
     {
         /// <summary>
         /// The unmanaged data structure.

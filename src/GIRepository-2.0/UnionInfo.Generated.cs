@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GIRepository
 {
     /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo']/*" />
-    public unsafe partial class UnionInfo : GISharp.Lib.GIRepository.RegisteredTypeInfo
+    public sealed unsafe partial class UnionInfo : GISharp.Lib.GIRepository.RegisteredTypeInfo
     {
         /// <summary>
         /// The unmanaged data structure.

@@ -1,6 +1,12 @@
 
 ### CallableInfo ###
 
+# make abstract
+- !set-attribute
+  name: gs:inheritance-modifiers
+  value: abstract
+  xpath: gi:repository/gi:namespace/gi:alias[@name='CallableInfo']
+
 # methods
 - !move-element
   xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'callable_info_')]

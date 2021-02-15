@@ -5,7 +5,7 @@ namespace GISharp.Lib.GLib
 {
     /// <include file="KeyFile.xmldoc" path="declaration/member[@name='KeyFile']/*" />
     [GISharp.Runtime.GTypeAttribute("GKeyFile", IsProxyForUnmanagedType = true)]
-    public unsafe partial class KeyFile : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class KeyFile : GISharp.Lib.GObject.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_key_file_get_type();
 

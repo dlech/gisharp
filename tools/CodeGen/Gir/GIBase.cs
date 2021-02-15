@@ -1,14 +1,13 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 
 namespace GISharp.CodeGen.Gir
 {
-    public abstract class GIBase: GirNode
+    public abstract class GIBase : GirNode
     {
         /// <summary>
         /// Gets the name of this member
@@ -41,6 +40,11 @@ namespace GISharp.CodeGen.Gir
         public string AccessModifiers { get; }
 
         /// <summary>
+        /// Gets the inheritance modifiers, if any
+        /// </summary>
+        public string InheritanceModifiers { get; }
+
+        /// <summary>
         /// Gets the deprecated documentation node, if any
         /// </summary>
         public DocDeprecated DocDeprecated => _DocDeprecated.Value;
@@ -53,7 +57,7 @@ namespace GISharp.CodeGen.Gir
         readonly Lazy<Namespace> _Namespace;
 
         private protected GIBase(XElement element, GirNode parent)
-            : base (element, parent ?? throw new ArgumentNullException(nameof(parent)))
+            : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
             GirName = element.Attribute("name").AsString();
             ManagedName = element.Attribute(gs + "managed-name").AsString();
@@ -61,6 +65,7 @@ namespace GISharp.CodeGen.Gir
             IsDeprecated = element.Attribute("deprecated").AsBool();
             DeprecatedVersion = element.Attribute("deprecated-version").AsString();
             AccessModifiers = element.Attribute(gs + "access-modifiers").AsString();
+            InheritanceModifiers = element.Attribute(gs + "inheritance-modifiers").AsString();
             _DocDeprecated = new(LazyGetDocDeprecated, false);
             _Namespace = new(LazyGetNamespace, false);
         }

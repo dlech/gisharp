@@ -5,7 +5,7 @@ namespace GISharp.Lib.Gio
 {
     /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList']/*" />
     [GISharp.Runtime.GTypeAttribute("GFileAttributeInfoList", IsProxyForUnmanagedType = true)]
-    public unsafe partial class FileAttributeInfoList : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class FileAttributeInfoList : GISharp.Lib.GObject.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_attribute_info_list_get_type();
 

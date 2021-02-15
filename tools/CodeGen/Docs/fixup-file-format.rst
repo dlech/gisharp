@@ -37,10 +37,15 @@ Attributes
 ``gs:access-modifiers``
     Description
         Instructs the code generator to use the specified access modifiers. The
-        default is ``public`` when this attribute is not present. It can also be
-        used to control inheritance.
+        default is ``public`` when this attribute is not present. 
     Values
-        ``private``, ``protected``, ``internal``, ``override``, ``new``
+        ``private``, ``protected``, ``internal``
+
+``gs:inheritance-modifiers``
+    Description
+        Overrides default inheritance for classes or methods.
+    Values
+        ``abstract``, ``sealed``, ``virtual``, ``override``, ``new``
 
 ``gs:async``
     Description

@@ -4,7 +4,7 @@
 namespace GISharp.Lib.GIRepository
 {
     /// <include file="ArgInfo.xmldoc" path="declaration/member[@name='ArgInfo']/*" />
-    public unsafe partial class ArgInfo : GISharp.Lib.GIRepository.BaseInfo
+    public sealed unsafe partial class ArgInfo : GISharp.Lib.GIRepository.BaseInfo
     {
         /// <summary>
         /// The unmanaged data structure.

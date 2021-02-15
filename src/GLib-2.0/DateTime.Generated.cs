@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
     /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime']/*" />
     [GISharp.Runtime.SinceAttribute("2.26")]
     [GISharp.Runtime.GTypeAttribute("GDateTime", IsProxyForUnmanagedType = true)]
-    public unsafe partial class DateTime : GISharp.Lib.GObject.Boxed, System.IEquatable<DateTime>
+    public sealed unsafe partial class DateTime : GISharp.Lib.GObject.Boxed, System.IEquatable<DateTime>
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_date_time_get_type();
 

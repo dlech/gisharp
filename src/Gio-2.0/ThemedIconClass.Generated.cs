@@ -4,7 +4,7 @@
 namespace GISharp.Lib.Gio
 {
     /// <include file="ThemedIconClass.xmldoc" path="declaration/member[@name='ThemedIconClass']/*" />
-    public unsafe partial class ThemedIconClass : GISharp.Lib.GObject.ObjectClass
+    public sealed unsafe partial class ThemedIconClass : GISharp.Lib.GObject.ObjectClass
     {
         /// <summary>
         /// The unmanaged data structure.

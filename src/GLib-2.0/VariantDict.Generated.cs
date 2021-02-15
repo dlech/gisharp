@@ -6,7 +6,7 @@ namespace GISharp.Lib.GLib
     /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict']/*" />
     [GISharp.Runtime.SinceAttribute("2.40")]
     [GISharp.Runtime.GTypeAttribute("GVariantDict", IsProxyForUnmanagedType = true)]
-    public unsafe partial class VariantDict : GISharp.Lib.GObject.Boxed
+    public sealed unsafe partial class VariantDict : GISharp.Lib.GObject.Boxed
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_variant_dict_get_type();
 
