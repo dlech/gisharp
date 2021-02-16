@@ -7,19 +7,19 @@ namespace GISharp.Lib.Gtk
     public static unsafe partial class Version
     {
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.CompileTimeBinaryAge']/*" />
-        public const System.Int32 CompileTimeBinaryAge = 100;
+        public const System.Int32 CompileTimeBinaryAge = 3;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.CompileTimeInterfaceAge']/*" />
-        public const System.Int32 CompileTimeInterfaceAge = 0;
+        public const System.Int32 CompileTimeInterfaceAge = 3;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.majorVersion']/*" />
         private const System.Int32 majorVersion = 4;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.microVersion']/*" />
-        private const System.Int32 microVersion = 0;
+        private const System.Int32 microVersion = 3;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.minorVersion']/*" />
-        private const System.Int32 minorVersion = 1;
+        private const System.Int32 minorVersion = 0;
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.RunTimeBinaryAge']/*" />
         public static System.UInt32 RunTimeBinaryAge { get => GetRunTimeBinaryAge(); }
