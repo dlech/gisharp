@@ -81,12 +81,35 @@ namespace GISharp.CodeGen
 
             var serializer = builder.Build();
 
+            static string resolveElementNamespace(XElement element)
+            {
+                var @namespace = element.Name.Namespace;
+
+                if (@namespace == gi) {
+                    return "gi";
+                }
+                if (@namespace == glib) {
+                    return "glib";
+                }
+                throw new Exception($"Unexpected namespace: {@namespace}");
+            }
+
+            static string resolveNameAttribute(XElement element)
+            {
+                var isGI = element.Name.Namespace == gi;
+                var xpath = isGI ? "name" : element.Name.Namespace.GetName("name");
+
+                var value = element.Attribute(xpath).Value;
+
+                return isGI ? $"@name='{value}'" : $"@{resolveElementNamespace(element)}:name='{value}'";
+            }
+
             var commands = gir.Element(gi + "repository").Element(gi + "namespace").Elements()
                 .Where(e => !e.IsSkipped()) // these will be handled by ApplyBuiltinFixup()
                 .Select(e => new SetAttribute {
                     Name = "introspectable",
                     Value = "0",
-                    Xpath = $"gi:repository/gi:namespace/gi:{e.Name.LocalName}[@name='{e.Attribute("name").Value}']"
+                    Xpath = $"gi:repository/gi:namespace/{resolveElementNamespace(e)}:{e.Name.LocalName}[{resolveNameAttribute(e)}]"
                 }).ToList<Command>();
 
             serializer.Serialize(writer, commands);
