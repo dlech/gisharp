@@ -1,0 +1,19 @@
+
+### NormalizeMode ###
+
+# fix casing
+- !change-attribute
+  name: name
+  regex: ^(n[a-z]{2})([a-z])
+  replace: $1_$2
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='NormalizeMode']/gi:member[starts-with(@name,'n')]
+- !change-attribute
+  name: name
+  regex: ^(n[a-z])([a-z])
+  replace: $1_$2
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='NormalizeMode']/gi:member[starts-with(@name,'n')]
+- !change-attribute
+  name: name
+  regex: ^(n)([a-z])
+  replace: $1_$2
+  xpath: gi:repository/gi:namespace/gi:enumeration[@name='NormalizeMode']/gi:member[starts-with(@name,'n')]
