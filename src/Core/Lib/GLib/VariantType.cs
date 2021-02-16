@@ -175,13 +175,25 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public VariantType(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
+        public VariantType(IntPtr handle, Transfer ownership) : base(handle)
         {
+            if (ownership == Transfer.None) {
+                this.handle = (IntPtr)g_variant_type_copy((UnmanagedStruct*)handle);
+            }
             LazyItems = new Lazy<ItemsEnumerable>(() => new ItemsEnumerable(this));
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_variant_type_free(UnmanagedStruct* type);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != IntPtr.Zero) {
+                g_variant_type_free((UnmanagedStruct*)handle);
+            }
+            base.Dispose(disposing);
+        }
 
         // these static properties take the place of the G_VARIANT_TYPE_* macros
 

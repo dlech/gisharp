@@ -30,7 +30,7 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public VariantIter(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public VariantIter(IntPtr handle, Transfer ownership) : base(handle)
         {
             if (ownership == Transfer.None) {
                 this.handle = (IntPtr)g_variant_iter_copy((UnmanagedStruct*)handle);

@@ -37,12 +37,18 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern byte** g_strdupv(byte** strv);
+
         /// <summary>
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Strv(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
+        public Strv(IntPtr handle, Transfer ownership) : base(handle)
         {
+            if (ownership == Transfer.None) {
+                this.handle = (IntPtr)g_strdupv((byte**)handle);
+            }
             _Value = new Lazy<string[]>(() => this.Select(x => (string)x).ToArray());
         }
 
@@ -53,6 +59,18 @@ namespace GISharp.Lib.GLib
         public Strv(IntPtr handle, int length, Transfer ownership) : this(handle, ownership)
         {
             // TODO: cache the length
+        }
+
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        static extern void g_strfreev(byte** strv);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != IntPtr.Zero) {
+                g_strfreev((byte**)handle);
+            }
+            base.Dispose(disposing);
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]

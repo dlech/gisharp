@@ -37,7 +37,7 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public OpaqueInt(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public OpaqueInt(IntPtr handle, Transfer ownership) : base(handle)
         {
         }
 

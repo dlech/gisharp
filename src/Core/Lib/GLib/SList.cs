@@ -52,7 +52,7 @@ namespace GISharp.Lib.GLib
         private protected SList(IntPtr handle,
             delegate* unmanaged[Cdecl]<IntPtr, IntPtr> copyData,
             delegate* unmanaged[Cdecl]<IntPtr, void> freeData,
-            Transfer ownership) : base(handle, ownership)
+            Transfer ownership) : base(handle)
         {
             this.copyData = copyData;
             this.freeData = freeData;
@@ -945,7 +945,7 @@ namespace GISharp.Lib.GLib
         readonly IntPtr start;
         IntPtr next;
 
-        internal SListEnumerator(IntPtr start) : base(IntPtr.Zero, Transfer.None)
+        internal SListEnumerator(IntPtr start) : base(IntPtr.Zero)
         {
             this.start = start;
             Reset();

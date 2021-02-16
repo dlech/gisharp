@@ -44,7 +44,7 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public FilenameArray(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
+        public FilenameArray(IntPtr handle, int length, Transfer ownership) : base(handle)
         {
             if (ownership != Transfer.Full) {
                 this.handle = IntPtr.Zero;

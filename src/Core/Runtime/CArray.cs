@@ -22,7 +22,7 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected CArray(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
+        protected CArray(IntPtr handle, int length, Transfer ownership) : base(handle)
         {
             if (ownership == Transfer.None) {
                 this.handle = IntPtr.Zero;

@@ -46,14 +46,5 @@ namespace GISharp.Lib.GLib
         public OptionContext() : this(default)
         {
         }
-
-        /// <inheritdoc />
-        protected override void Dispose(bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_option_context_free((UnmanagedStruct*)handle);
-            }
-            base.Dispose(disposing);
-        }
     }
 }

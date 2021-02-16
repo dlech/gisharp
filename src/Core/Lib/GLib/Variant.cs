@@ -247,7 +247,7 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Variant(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public Variant(IntPtr handle, Transfer ownership) : base(handle)
         {
             if (ownership == Transfer.None) {
                 g_variant_ref_sink((UnmanagedStruct*)handle);

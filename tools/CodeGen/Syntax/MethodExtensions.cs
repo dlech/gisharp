@@ -83,6 +83,22 @@ namespace GISharp.CodeGen.Syntax
                     yield return takeOverride;
                 }
 
+                if (method.IsUnref || method.IsFree) {
+                    var disposeMethod = MethodDeclaration(ParseTypeName("void"), "Dispose")
+                        .AddParameterListParameters(Parameter(Identifier("disposing"))
+                            .WithType(ParseTypeName("bool")))
+                        .AddModifiers(Token(ProtectedKeyword), Token(OverrideKeyword))
+                        .WithBody(Block(
+                            IfStatement(ParseExpression("handle != System.IntPtr.Zero"), Block(
+                                ExpressionStatement(ParseExpression($"{method.CIdentifier}((UnmanagedStruct*)handle)"))
+                            )),
+                            ExpressionStatement(ParseExpression("base.Dispose(disposing)"))
+                        ))
+                        .WithLeadingTrivia(ParseLeadingTrivia(@"/// <inheritdoc/>
+                        "));
+                    yield return disposeMethod;
+                }
+
                 if (method.IsEqual && !method.IsExtensionMethod) {
                     yield return method.GetOverrideEqualsMethodDeclaration();
                     yield return method.GetEqualityOperatorDeclaration();

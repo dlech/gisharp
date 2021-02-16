@@ -31,6 +31,18 @@ namespace GISharp.Lib.GIRepository
 /* <type name="Typelib" type="GITypelib*" managed-name="Typelib" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_typelib_free((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
+        }
+
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */

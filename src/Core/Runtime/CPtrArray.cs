@@ -25,7 +25,7 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle, ownership)
+        protected CPtrArray(IntPtr handle, int length, Transfer ownership) : base(handle)
         {
             if (ownership == Transfer.Full) {
                 this.handle = IntPtr.Zero;

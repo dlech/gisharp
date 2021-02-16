@@ -841,7 +841,7 @@ namespace GISharp.Lib.GLib
         /// made.
         /// </remarks>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Utf8(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public Utf8(IntPtr handle, Transfer ownership) : base(handle)
         {
             if (ownership == Transfer.None) {
                 this.handle = (IntPtr)g_strdup((byte*)handle);

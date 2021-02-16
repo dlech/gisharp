@@ -20,8 +20,12 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public OptionGroup(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
+        public OptionGroup(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle)
         {
+            if (ownership == GISharp.Runtime.Transfer.None)
+            {
+                this.handle = (System.IntPtr)g_option_group_ref((UnmanagedStruct*)handle);
+            }
         }
 
         static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 description, GISharp.Lib.GLib.UnownedUtf8 helpDescription, System.IntPtr userData, GISharp.Lib.GLib.DestroyNotify? destroy);
@@ -260,5 +264,16 @@ namespace GISharp.Lib.GLib
         /* <type name="OptionGroup" type="GOptionGroup*" managed-name="OptionGroup" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_option_group_unref((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

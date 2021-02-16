@@ -29,8 +29,11 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ParamSpecPool(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public ParamSpecPool(IntPtr handle, Transfer ownership) : base(handle)
         {
+            if (ownership != Transfer.Full) {
+                throw new NotSupportedException();
+            }
         }
 
         [DllImport("gobject-2.0")]

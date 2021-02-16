@@ -20,8 +20,12 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public VariantBuilder(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
+        public VariantBuilder(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle)
         {
+            if (ownership == GISharp.Runtime.Transfer.None)
+            {
+                this.handle = (System.IntPtr)g_variant_builder_ref((UnmanagedStruct*)handle);
+            }
         }
 
         static partial void CheckNewArgs(GISharp.Lib.GLib.VariantType type);
@@ -311,5 +315,16 @@ namespace GISharp.Lib.GLib
         /* <type name="VariantBuilder" type="GVariantBuilder*" managed-name="VariantBuilder" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* builder);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_variant_builder_unref((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

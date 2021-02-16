@@ -1,6 +1,12 @@
 
 ### KeyFile ###
 
+# include ref/unref
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='KeyFile']/gi:method[contains(@name,'ref')]
+
 # Move KEY_FILE_* constants to KeyFile record
 - !move-element
   xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'KEY_FILE_')]

@@ -63,8 +63,12 @@ namespace GISharp.Lib.GIRepository
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public BaseInfo(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
+        public BaseInfo(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle)
         {
+            if (ownership == GISharp.Runtime.Transfer.None)
+            {
+                this.handle = (System.IntPtr)g_base_info_ref((UnmanagedStruct*)handle);
+            }
         }
 
         static partial void CheckGetGTypeArgs();
@@ -457,5 +461,16 @@ namespace GISharp.Lib.GIRepository
         /* <type name="BaseInfo" type="GIBaseInfo*" managed-name="BaseInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* info);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_base_info_unref((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

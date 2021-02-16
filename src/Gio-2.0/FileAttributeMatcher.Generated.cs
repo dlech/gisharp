@@ -20,8 +20,12 @@ namespace GISharp.Lib.Gio
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public FileAttributeMatcher(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
+        public FileAttributeMatcher(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle)
         {
+            if (ownership == GISharp.Runtime.Transfer.None)
+            {
+                this.handle = (System.IntPtr)g_file_attribute_matcher_ref((UnmanagedStruct*)handle);
+            }
         }
 
         static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 attributes);
@@ -340,5 +344,16 @@ namespace GISharp.Lib.Gio
         /* <type name="FileAttributeMatcher" type="GFileAttributeMatcher*" managed-name="FileAttributeMatcher" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* matcher);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_file_attribute_matcher_unref((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

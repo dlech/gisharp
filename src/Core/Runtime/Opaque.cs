@@ -46,6 +46,15 @@ namespace GISharp.Runtime
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
+        protected Opaque(IntPtr handle)
+        {
+            this.handle = handle;
+        }
+
+        /// <summary>
+        /// For internal runtime use only.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
         protected Opaque(IntPtr handle, Transfer ownership)
         {
             this.handle = handle;

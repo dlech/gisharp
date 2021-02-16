@@ -48,7 +48,7 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Object(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public Object(IntPtr handle, Transfer ownership) : base(handle)
         {
             if (g_object_get_qdata(handle, toggleRefGCHandleQuark) != IntPtr.Zero) {
                 var message = "This object already has a managed instance attached to it, use GetInstance() instead";

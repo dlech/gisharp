@@ -21,8 +21,12 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public VariantDict(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
+        public VariantDict(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle)
         {
+            if (ownership == GISharp.Runtime.Transfer.None)
+            {
+                this.handle = (System.IntPtr)g_variant_dict_ref((UnmanagedStruct*)handle);
+            }
         }
 
         static partial void CheckNewArgs(GISharp.Lib.GLib.Variant? fromAsv);
@@ -334,5 +338,16 @@ namespace GISharp.Lib.GLib
         /* <type name="VariantDict" type="GVariantDict*" managed-name="VariantDict" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_variant_dict_unref((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Filename(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public Filename(IntPtr handle, Transfer ownership) : base(handle)
         {
             if (ownership != Transfer.Full) {
                 this.handle = (IntPtr)g_strdup((byte*)handle);

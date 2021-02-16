@@ -128,8 +128,12 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public KeyFile(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
+        public KeyFile(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle)
         {
+            if (ownership == GISharp.Runtime.Transfer.None)
+            {
+                this.handle = (System.IntPtr)g_key_file_ref((UnmanagedStruct*)handle);
+            }
         }
 
         static partial void CheckNewArgs();
@@ -1713,6 +1717,30 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Increases the reference count of @key_file.
+        /// </summary>
+        /// <param name="keyFile">
+        /// a #GKeyFile
+        /// </param>
+        /// <returns>
+        /// the same @key_file.
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.KeyFile.UnmanagedStruct* g_key_file_ref(
+        /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        GISharp.Lib.GLib.KeyFile.UnmanagedStruct* keyFile);
+
+        /// <summary>
+        /// Takes ownership of the unmanaged pointer without freeing it.
+        /// The managed object can no longer be used (will throw disposed exception).
+        /// </summary>
+        public override System.IntPtr Take() => (System.IntPtr)g_key_file_ref((GISharp.Lib.GLib.KeyFile.UnmanagedStruct*)UnsafeHandle);
+
+        /// <summary>
         /// Removes a comment above @key from @group_name.
         /// If @key is %NULL then @comment will be removed above @group_name.
         /// If both @key and @group_name are %NULL, then @comment will
@@ -2796,5 +2824,16 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.KeyFile.UnmanagedStruct* keyFile);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_key_file_unref((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
+        }
     }
 }

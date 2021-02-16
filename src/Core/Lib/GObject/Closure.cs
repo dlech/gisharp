@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
-using System.Linq;
 using System.Runtime.InteropServices;
 using GISharp.Lib.GLib;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
@@ -84,22 +82,34 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public Closure(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
+        public Closure(IntPtr handle, Transfer ownership) : base(handle)
         {
-            g_closure_sink(this.handle);
+            if (ownership == Transfer.None) {
+                this.handle = (IntPtr)g_closure_ref((UnmanagedStruct*)handle);
+            }
+            g_closure_sink((UnmanagedStruct*)this.handle);
+        }
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != IntPtr.Zero) {
+                g_closure_unref((UnmanagedStruct*)handle);
+            }
+            base.Dispose(disposing);
         }
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_closure_ref(IntPtr closure);
+        static extern UnmanagedStruct* g_closure_ref(UnmanagedStruct* closure);
 
         /// <inheritdoc/>
-        public override IntPtr Take() => g_closure_ref(UnsafeHandle);
+        public override IntPtr Take() => (IntPtr)g_closure_ref((UnmanagedStruct*)UnsafeHandle);
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_closure_sink(IntPtr closure);
+        static extern UnmanagedStruct* g_closure_sink(UnmanagedStruct* closure);
 
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_closure_unref(IntPtr closure);
+        static extern void g_closure_unref(UnmanagedStruct* closure);
 
         /// <summary>
         /// Indicates whether the closure is currently being invoked with <see cref="Invoke"/>.

@@ -19,8 +19,11 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public TypeValueTable(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public TypeValueTable(IntPtr handle, Transfer ownership) : base(handle)
         {
+            if (ownership != Transfer.Full) {
+                throw new NotSupportedException();
+            }
         }
 
         /// <summary>
@@ -29,7 +32,7 @@ namespace GISharp.Lib.GObject
         [EditorBrowsable(EditorBrowsableState.Never)]
         public unsafe struct UnmanagedStruct
         {
-            #pragma warning disable CS0649
+#pragma warning disable CS0649
 
             /// <summary>
             /// Default initialize @values contents by poking values directly
@@ -43,7 +46,7 @@ namespace GISharp.Lib.GObject
             ///
             ///     value->data[0].v_pointer = g_strdup ("");
             /// </remarks>
-            public delegate* unmanaged[Cdecl] <Value*, void> ValueInit;
+            public delegate* unmanaged[Cdecl]<Value*, void> ValueInit;
 
             /// <summary>
             /// Free any old contents that might be left in the data array of
@@ -57,7 +60,7 @@ namespace GISharp.Lib.GObject
             ///     if (!(value->data[1].v_uint &amp; G_VALUE_NOCOPY_CONTENTS))
             ///         g_free (value->data[0].v_pointer);
             /// </remarks>
-            public delegate* unmanaged[Cdecl] <Value*, void> ValueFree;
+            public delegate* unmanaged[Cdecl]<Value*, void> ValueFree;
 
             /// <summary>
             /// @dest_value is a #GValue with zero-filled data section and
@@ -70,7 +73,7 @@ namespace GISharp.Lib.GObject
             ///
             ///     dest_value->data[0].v_pointer = g_strdup (src_value->data[0].v_pointer);
             /// </remarks>
-            public delegate* unmanaged[Cdecl] <Value*, Value*, void> ValueCopy;
+            public delegate* unmanaged[Cdecl]<Value*, Value*, void> ValueCopy;
 
             /* varargs functionality (optional) */
 
@@ -84,7 +87,7 @@ namespace GISharp.Lib.GObject
             ///
             ///     return value->data[0].v_pointer;
             /// </remarks>
-            public delegate* unmanaged[Cdecl] <Value*, IntPtr> ValuePeekPointer;
+            public delegate* unmanaged[Cdecl]<Value*, IntPtr> ValuePeekPointer;
 
             /// <summary>
             /// A string format describing how to collect the contents of
@@ -171,7 +174,7 @@ namespace GISharp.Lib.GObject
             /// simply because any non-NULL return is considered a fatal
             /// condition so further program behavior is undefined.
             /// </remarks>
-            public delegate* unmanaged[Cdecl] <Value*, uint, IntPtr, uint, IntPtr> CollectValue;
+            public delegate* unmanaged[Cdecl]<Value*, uint, IntPtr, uint, IntPtr> CollectValue;
 
             /// <summary>
             /// Format description of the arguments to collect for @lcopy_value,
@@ -215,9 +218,9 @@ namespace GISharp.Lib.GObject
             ///         *object_p = g_object_ref (value->data[0].v_pointer);
             ///     return NULL;
             /// </remarks>
-            public delegate* unmanaged[Cdecl] <Value*, uint, IntPtr, uint, IntPtr> LcopyValue;
+            public delegate* unmanaged[Cdecl]<Value*, uint, IntPtr, uint, IntPtr> LcopyValue;
 
-            #pragma warning restore CS0649
+#pragma warning restore CS0649
         }
 
         /// <summary>

@@ -29,7 +29,7 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected TypeInstance(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        protected TypeInstance(IntPtr handle) : base(handle)
         {
         }
 

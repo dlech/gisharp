@@ -40,8 +40,7 @@ namespace GISharp.Lib.GLib
             return ret_;
         }
 
-        OptionGroup(IntPtr handle, UserData userData)
-            : base(_GType, handle, Transfer.Full)
+        private OptionGroup(IntPtr handle, UserData userData) : base(handle)
         {
             this.userData = userData;
         }

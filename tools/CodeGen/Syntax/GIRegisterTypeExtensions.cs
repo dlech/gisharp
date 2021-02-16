@@ -3,6 +3,7 @@
 
 using System;
 using System.ComponentModel;
+using System.Linq;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
@@ -71,12 +72,6 @@ namespace GISharp.CodeGen.Syntax
                 typeof(IntPtr), typeof(Transfer)));
             var argList = ParseArgumentList("(handle, ownership)");
 
-            if (type is Record && type.GTypeName is not null) {
-                // GType records inherit from GBoxed, so they need an extra arg
-                var gtypeArg = Argument(ParseExpression("_GType"));
-                argList = argList.WithArguments(argList.Arguments.Insert(0, gtypeArg));
-            }
-
             var arg = ParseExpression($"{typeof(EditorBrowsableState)}.{nameof(EditorBrowsableState.Never)}");
             var attr = Attribute(ParseName(typeof(EditorBrowsableAttribute).ToString()))
                 .AddArgumentListArguments(AttributeArgument(arg));
@@ -88,13 +83,26 @@ namespace GISharp.CodeGen.Syntax
 
             var initializer = ConstructorInitializer(BaseConstructorInitializer)
                 .WithArgumentList(argList);
+            var body = Block();
+
+            if (type.Methods.SingleOrDefault(x => x.IsRef || x.IsCopy) is Method method) {
+                initializer = initializer.WithArgumentList(ParseArgumentList("(handle)"));
+                body = body.AddStatements(IfStatement(ParseExpression(
+                    $"ownership == {typeof(Transfer)}.{nameof(Transfer.None)}"
+                ), Block(ExpressionStatement(ParseExpression(
+                    $"this.handle = (System.IntPtr){method.CIdentifier}((UnmanagedStruct*)handle)"
+                )))));
+            }
+            else if (type is Record && type.GTypeName is not null) {
+                throw new ArgumentException("Boxed GType should have ref or copy function.");
+            }
 
             var constructor = ConstructorDeclaration(type.ManagedName)
                 .AddAttributeLists(attributeList)
                 .AddModifiers(accessModifier)
                 .WithParameterList(parameterList)
                 .WithInitializer(initializer)
-                .WithBody(Block())
+                .WithBody(body)
                 .WithLeadingTrivia(ParseLeadingTrivia(@"/// <summary>
                 /// For internal runtime use only.
                 /// </summary>

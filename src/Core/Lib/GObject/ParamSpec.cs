@@ -88,7 +88,7 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public ParamSpec(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        public ParamSpec(IntPtr handle, Transfer ownership) : base(handle)
         {
             if (ownership == Transfer.None) {
                 this.handle = g_param_spec_ref(handle);

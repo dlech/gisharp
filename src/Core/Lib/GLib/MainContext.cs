@@ -29,8 +29,20 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        public MainContext(IntPtr handle, Transfer ownership) : base(_GType, handle, ownership)
+        public MainContext(IntPtr handle, Transfer ownership) : base(handle)
         {
+            if (ownership == Transfer.None) {
+                this.handle = (IntPtr)g_main_context_ref((UnmanagedStruct*)handle);
+            }
+        }
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != IntPtr.Zero) {
+                g_main_context_unref((UnmanagedStruct*)handle);
+            }
+            base.Dispose(disposing);
         }
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]

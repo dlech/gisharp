@@ -93,8 +93,12 @@ namespace GISharp.Lib.GLib
         /// For internal runtime use only.
         /// </summary>
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
-        public DateTime(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(_GType, handle, ownership)
+        public DateTime(System.IntPtr handle, GISharp.Runtime.Transfer ownership) : base(handle)
         {
+            if (ownership == GISharp.Runtime.Transfer.None)
+            {
+                this.handle = (System.IntPtr)g_date_time_ref((UnmanagedStruct*)handle);
+            }
         }
 
         static partial void CheckNewArgs(GISharp.Lib.GLib.TimeZone tz, System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds);
@@ -2183,6 +2187,17 @@ namespace GISharp.Lib.GLib
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
+
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_date_time_unref((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
+        }
 
         /// <summary>
         /// Checks to see if @dt1 and @dt2 are equal.

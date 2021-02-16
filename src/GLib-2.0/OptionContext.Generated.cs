@@ -150,6 +150,17 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context);
 
+        /// <inheritdoc/>
+        protected override void Dispose(bool disposing)
+        {
+            if (handle != System.IntPtr.Zero)
+            {
+                g_option_context_free((UnmanagedStruct*)handle);
+            }
+
+            base.Dispose(disposing);
+        }
+
         /// <summary>
         /// Returns the description. See g_option_context_set_description().
         /// </summary>

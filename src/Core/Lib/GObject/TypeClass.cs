@@ -59,7 +59,7 @@ namespace GISharp.Lib.GObject
         /// For internal runtime use only.
         /// </summary>
         [EditorBrowsable(EditorBrowsableState.Never)]
-        protected TypeClass(IntPtr handle, Transfer ownership) : base(handle, ownership)
+        protected TypeClass(IntPtr handle, Transfer ownership) : base(handle)
         {
             if (ownership == Transfer.None) {
                 var gtype = Marshal.PtrToStructure<GType>(handle);
