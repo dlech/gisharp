@@ -1,0 +1,34 @@
+# Version
+
+# static class for version info
+- !add-element
+  xml: <gs:static-class name='Version' />
+  xpath: gi:repository/gi:namespace
+
+# constants = compile-time info
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:constant[contains(@name,'_VERSION')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant[contains(@name,'_VERSION')]
+- !change-attribute
+  name: name
+  regex: (\w+)
+  replace: COMPILE_TIME_$1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:constant
+
+# functions = run-time info
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[contains(@name,'_version')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']
+- !set-attribute
+  name: gs:access-modifiers
+  value: private
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:function[contains(@name,'_version')]
+- !change-attribute
+  name: name
+  regex: get_(\w+)
+  replace: get_run_time_$1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Version']/gi:function
