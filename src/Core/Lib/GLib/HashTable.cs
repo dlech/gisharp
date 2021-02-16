@@ -124,8 +124,8 @@ namespace GISharp.Lib.GLib
         private protected static extern UnmanagedStruct* g_hash_table_new_full(
             UnmanagedHashFunc hashFunc,
             UnmanagedEqualFunc keyEqualFunc,
-            UnmanagedDestroyNotify keyDestroyFunc,
-            UnmanagedDestroyNotify valueDestroyFunc);
+            delegate* unmanaged[Cdecl]<IntPtr, void> keyDestroyFunc,
+            delegate* unmanaged[Cdecl]<IntPtr, void> valueDestroyFunc);
 
         /// <summary>
         /// This is a convenience function for using a #GHashTable as a set.  It
