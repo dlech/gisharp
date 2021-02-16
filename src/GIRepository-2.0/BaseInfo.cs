@@ -36,11 +36,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <inheritdoc/>
-        public override int GetHashCode()
-        {
-            // TODO: find a reasonable hash
-            return 0;
-        }
+        public override int GetHashCode() => UnsafeHandle.GetHashCode();
 
         /// <summary>
         /// Gets a managed proxy for a an unmanged BaseInfo.
