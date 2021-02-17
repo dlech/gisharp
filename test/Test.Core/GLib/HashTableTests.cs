@@ -1,11 +1,10 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 
 using NUnit.Framework;
 using GISharp.Lib.GLib;
-using System.Collections.Generic;
 using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
@@ -205,7 +204,7 @@ namespace GISharp.Test.Core.GLib
         [Test]
         public void TestFind()
         {
-            static bool findFunc(KeyValuePair<OpaqueInt, OpaqueInt> p)
+            static bool findFunc(OpaqueInt key, OpaqueInt value)
             {
                 return true;
             }
@@ -278,23 +277,25 @@ namespace GISharp.Test.Core.GLib
         public void TestForeachRemove()
         {
             var count = 0;
-            Predicate<KeyValuePair<OpaqueInt, OpaqueInt>> foreachFunc = (p) => {
+            bool foreachFunc(OpaqueInt key, OpaqueInt value)
+            {
                 count++;
                 return true;
-            };
-
-            using (var hashTable = new HashTable<OpaqueInt, OpaqueInt>()) {
-                hashTable.Add(new OpaqueInt(0));
-                Assume.That(hashTable.Size, Is.EqualTo(1));
-
-                // function is called back
-                var ret = hashTable.ForeachRemove(foreachFunc);
-                Assert.That(ret, Is.EqualTo(count));
-
-                hashTable.Dispose();
-                Assert.That(() => hashTable.ForeachRemove(foreachFunc),
-                             Throws.TypeOf<ObjectDisposedException>());
             }
+
+            using var hashTable = new HashTable<OpaqueInt, OpaqueInt>();
+            hashTable.Add(new OpaqueInt(0));
+            Assume.That(hashTable.Size, Is.EqualTo(1));
+
+            // function is called back
+            var ret = hashTable.ForeachRemove(foreachFunc);
+            Assert.That(ret, Is.EqualTo(count));
+
+            hashTable.Dispose();
+            Assert.That(
+                () => hashTable.ForeachRemove(foreachFunc),
+                Throws.TypeOf<ObjectDisposedException>()
+            );
         }
 #if false
         [Test]
@@ -374,8 +375,9 @@ namespace GISharp.Test.Core.GLib
             Assert.That(ret.Length, Is.EqualTo(1));
 
             hashTable.Dispose();
-            Assert.That(() => hashTable.Values,
-                         Throws.TypeOf<ObjectDisposedException>());
+            Assert.That(
+                () => hashTable.Values,
+                Throws.TypeOf<ObjectDisposedException>());
         }
 
         [Test]

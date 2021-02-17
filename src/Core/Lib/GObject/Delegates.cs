@@ -1,12 +1,8 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
-using GISharp.Lib.GLib;
-using GISharp.Runtime;
-using Boolean = GISharp.Runtime.Boolean;
 
 namespace GISharp.Lib.GObject
 {
@@ -24,45 +20,7 @@ namespace GISharp.Lib.GObject
     /// <remarks>
     /// You may not attach these to signals created with the <see cref="SignalFlags.NoHooks"/> flag.
     /// </remarks>
-    [GCallback(typeof(SignalEmissionHookMarshal))]
     public delegate bool SignalEmissionHook(in SignalInvocationHint ihint, Span<Value> paramValues);
-
-    internal static unsafe class SignalEmissionHookMarshal
-    {
-        private record UserData(SignalEmissionHook Callback, CallbackScope Scope);
-
-        public static (IntPtr, IntPtr, IntPtr) ToUnmanagedFunctionPointer(Delegate callback, CallbackScope scope)
-        {
-            var userData = new UserData((SignalEmissionHook)callback, scope);
-            var callback_ = (IntPtr)(delegate* unmanaged[Cdecl]<SignalInvocationHint*, uint, Value*, IntPtr, Boolean>)&ManagedCallback;
-            var notify_ = GMarshal.DestroyGCHandleFunctionPointer;
-            var userData_ = (IntPtr)GCHandle.Alloc(userData);
-            return (callback_, notify_, userData_);
-        }
-
-        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        private static Boolean ManagedCallback(
-            SignalInvocationHint* ihint_, uint nParamValues_, Value* paramValues_, IntPtr userData_)
-        {
-            try {
-                ref var ihint = ref Unsafe.AsRef<SignalInvocationHint>(ihint_);
-                var nParamValues = (int)nParamValues_;
-                var paramValues = new Span<Value>(paramValues_, nParamValues);
-                var gcHandle = GCHandle.FromIntPtr(userData_);
-                var userData = (UserData)gcHandle.Target!;
-                var ret = userData.Callback(ihint, paramValues);
-                var ret_ = ret.ToBoolean();
-                if (userData.Scope == CallbackScope.Async) {
-                    gcHandle.Free();
-                }
-                return ret_;
-            }
-            catch (Exception ex) {
-                ex.LogUnhandledException();
-                return default;
-            }
-        }
-    }
 
     /// <summary>
     /// The type used for the various notification callbacks which can be registered
@@ -148,22 +106,6 @@ namespace GISharp.Lib.GObject
         /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 */
         IntPtr marshalData);
-
-    /// <summary>
-    /// A function to be called to transform <paramref name="fromValue"/> to <paramref name="toValue"/>.
-    /// </summary>
-    /// <remarks>
-    /// If this is the <c>transformTo</c> function of a binding, then <paramref name="fromValue"/>
-    /// is the <c>sourceProperty</c> on the source object, and <paramref name="toValue"/>
-    /// is the <c>targetProperty</c> on the target object. If this is the <c>transformFrom</c>
-    /// function of a <see cref="BindingFlags.Bidirectional"/> binding, then those roles are reversed.
-    /// </remarks>
-    [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-    public delegate bool UnmanagedBindingTransformFunc(
-        IntPtr binding,
-        ref Value fromValue,
-        ref Value toValue,
-        IntPtr userData);
 
     /// <summary>
     /// A function to be called to transform <paramref name="fromValue"/> to <paramref name="toValue"/>.

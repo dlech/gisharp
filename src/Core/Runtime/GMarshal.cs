@@ -3,6 +3,7 @@
 
 using System;
 using System.Linq;
+using System.Reflection;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
@@ -66,18 +67,15 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
-        /// Gets an unmanaged function pointer for <see cref="DestroyNotify"/>
+        /// Gets unmanaged function for <see cref="DestroyNotify"/>
         /// that expects the user data to be a <see cref="GCHandle"/> and
         /// frees it.
         /// </summary>
-        public static IntPtr DestroyGCHandleFunctionPointer =>
-            (IntPtr)(delegate* unmanaged[Cdecl]<IntPtr, void>)&destroyGCHandle;
-
         [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-        static void destroyGCHandle(IntPtr userData_)
+        public static void DestroyGCHandle(IntPtr userData)
         {
             try {
-                var gcHandle = GCHandle.FromIntPtr(userData_);
+                var gcHandle = GCHandle.FromIntPtr(userData);
                 gcHandle.Free();
             }
             catch (Exception ex) {
@@ -448,6 +446,34 @@ namespace GISharp.Runtime
             }
             var ret = Marshal.GetDelegateForFunctionPointer<T>(ret_);
             return ret;
+        }
+
+        /// <summary>
+        /// Get the unmanaged function pointer for the managed callback associated
+        /// with <paramref name="handler"/>.
+        /// </summary>
+        /// <param name="handler">
+        /// A delegate whose type is a signal handler.
+        /// </param>
+        /// <returns>
+        /// Pointer to the unmanaged function.
+        /// </returns>
+        /// <exception cref="ArgumentException">
+        /// Thrown if delegate does not have a matching managed callback method.
+        /// </exception>
+        public static IntPtr GetSignalHandlerUnmanagedFunctionPointer(this Delegate? handler)
+        {
+            if (handler is null) {
+                return IntPtr.Zero;
+            }
+
+            var type = handler.GetType();
+            var declaringType = type.DeclaringType ?? throw new ArgumentException($"expecting {type} to be nested");
+
+            var managedCallback = declaringType.GetMethod($"Managed{type.Name}", BindingFlags.Static | BindingFlags.NonPublic) ??
+                throw new ArgumentException($"missing Managed{type.Name} in {type.DeclaringType}");
+
+            return managedCallback.MethodHandle.GetFunctionPointer();
         }
     }
 }

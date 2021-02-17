@@ -77,57 +77,25 @@ namespace GISharp.Lib.Gio
         readonly GISharp.Runtime.GSignalManager<CancelledSignalHandler> cancelledSignalSignalManager = new GISharp.Runtime.GSignalManager<CancelledSignalHandler>("cancelled", _GType);
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='CancelledSignalHandler']/*" />
-        [GISharp.Runtime.GCallbackAttribute(typeof(CancelledSignalHandlerMarshal))]
         public delegate void CancelledSignalHandler(GISharp.Lib.Gio.Cancellable cancellable);
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.CancelledSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("cancelled", When = GISharp.Runtime.EmissionStage.Last)]
         public event CancelledSignalHandler CancelledSignal { add => cancelledSignalSignalManager.Add(this, value); remove => cancelledSignalSignalManager.Remove(value); }
 
-        private static unsafe class CancelledSignalHandlerMarshal
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void ManagedCancelledSignalHandler(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr userData_)
         {
-            record UserData(CancelledSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
-
-            public static CancelledSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            try
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, void>)callback_;
-                void managedCallback(GISharp.Lib.Gio.Cancellable cancellable) { var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)cancellable.UnsafeHandle; unmanagedCallback(cancellable_, userData_); }
-
-                return managedCallback;
+                var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None)!;
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                ((CancelledSignalHandler)userData.Callback)(cancellable);
             }
-
-            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            catch (System.Exception ex)
             {
-                if (callback == null)
-                {
-                    return default;
-                }
-
-                var userData = new UserData((CancelledSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, void>)&ManagedCallback;
-                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
-                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-                return (callback_, destroy_, userData_);
-            }
-
-            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static void ManagedCallback(GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr userData_)
-            {
-                try
-                {
-                    var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None)!;
-                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                    var userData = (UserData)gcHandle.Target!;
-                    userData.Callback(cancellable);
-                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                    {
-                        gcHandle.Free();
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                }
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 

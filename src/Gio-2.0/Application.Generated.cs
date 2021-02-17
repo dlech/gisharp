@@ -157,122 +157,57 @@ namespace GISharp.Lib.Gio
         readonly GISharp.Runtime.GSignalManager<ActivateSignalHandler> activateSignalSignalManager = new GISharp.Runtime.GSignalManager<ActivateSignalHandler>("activate", _GType);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='ActivateSignalHandler']/*" />
-        [GISharp.Runtime.GCallbackAttribute(typeof(ActivateSignalHandlerMarshal))]
         public delegate void ActivateSignalHandler(GISharp.Lib.Gio.Application application);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.ActivateSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("activate", When = GISharp.Runtime.EmissionStage.Last)]
         public event ActivateSignalHandler ActivateSignal { add => activateSignalSignalManager.Add(this, value); remove => activateSignalSignalManager.Remove(value); }
 
-        private static unsafe class ActivateSignalHandlerMarshal
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void ManagedActivateSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
         {
-            record UserData(ActivateSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
-
-            public static ActivateSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            try
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, void>)callback_;
-                void managedCallback(GISharp.Lib.Gio.Application application) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; unmanagedCallback(application_, userData_); }
-
-                return managedCallback;
+                var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                ((ActivateSignalHandler)userData.Callback)(application);
             }
-
-            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            catch (System.Exception ex)
             {
-                if (callback == null)
-                {
-                    return default;
-                }
-
-                var userData = new UserData((ActivateSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, void>)&ManagedCallback;
-                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
-                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-                return (callback_, destroy_, userData_);
-            }
-
-            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
-            {
-                try
-                {
-                    var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
-                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                    var userData = (UserData)gcHandle.Target!;
-                    userData.Callback(application);
-                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                    {
-                        gcHandle.Free();
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                }
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='CommandLineSignalHandler']/*" />
-        [GISharp.Runtime.GCallbackAttribute(typeof(CommandLineSignalHandlerMarshal))]
         public delegate System.Int32 CommandLineSignalHandler(GISharp.Lib.Gio.Application application, GISharp.Lib.Gio.ApplicationCommandLine commandLine);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.CommandLineSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("command-line", When = GISharp.Runtime.EmissionStage.Last)]
         public event CommandLineSignalHandler CommandLineSignal { add => commandLineSignalSignalManager.Add(this, value); remove => commandLineSignalSignalManager.Remove(value); }
 
-        private static unsafe class CommandLineSignalHandlerMarshal
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static System.Int32 ManagedCommandLineSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine_, System.IntPtr userData_)
         {
-            record UserData(CommandLineSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
-
-            public static CommandLineSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            try
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*, System.IntPtr, System.Int32>)callback_;
-                System.Int32 managedCallback(GISharp.Lib.Gio.Application application, GISharp.Lib.Gio.ApplicationCommandLine commandLine) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; var commandLine_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)commandLine.UnsafeHandle; var ret_ = unmanagedCallback(application_,commandLine_,userData_); var ret = (System.Int32)ret_; return ret; }
-
-                return managedCallback;
+                var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
+                var commandLine = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)commandLine_, GISharp.Runtime.Transfer.None)!;
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var ret = ((CommandLineSignalHandler)userData.Callback)(application, commandLine);
+                var ret_ = (System.Int32)ret;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
 
-            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
-            {
-                if (callback == null)
-                {
-                    return default;
-                }
-
-                var userData = new UserData((CommandLineSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*, System.IntPtr, System.Int32>)&ManagedCallback;
-                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
-                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-                return (callback_, destroy_, userData_);
-            }
-
-            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static System.Int32 ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine_, System.IntPtr userData_)
-            {
-                try
-                {
-                    var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
-                    var commandLine = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)commandLine_, GISharp.Runtime.Transfer.None)!;
-                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                    var userData = (UserData)gcHandle.Target!;
-                    var ret = userData.Callback(application, commandLine);
-                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                    {
-                        gcHandle.Free();
-                    }
-                    var ret_ = (System.Int32)ret;
-                    return ret_;
-                }
-                catch (System.Exception ex)
-                {
-                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                }
-
-                return default(System.Int32);
-            }
+            return default(System.Int32);
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='HandleLocalOptionsSignalHandler']/*" />
-        [GISharp.Runtime.GCallbackAttribute(typeof(HandleLocalOptionsSignalHandlerMarshal))]
         public delegate System.Int32 HandleLocalOptionsSignalHandler(GISharp.Lib.Gio.Application application, GISharp.Lib.GLib.VariantDict options);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.HandleLocalOptionsSignal']/*" />
@@ -280,60 +215,28 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("handle-local-options", When = GISharp.Runtime.EmissionStage.Last)]
         public event HandleLocalOptionsSignalHandler HandleLocalOptionsSignal { add => handleLocalOptionsSignalSignalManager.Add(this, value); remove => handleLocalOptionsSignalSignalManager.Remove(value); }
 
-        private static unsafe class HandleLocalOptionsSignalHandlerMarshal
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static System.Int32 ManagedHandleLocalOptionsSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options_, System.IntPtr userData_)
         {
-            record UserData(HandleLocalOptionsSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
-
-            public static HandleLocalOptionsSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            try
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, GISharp.Lib.GLib.VariantDict.UnmanagedStruct*, System.IntPtr, System.Int32>)callback_;
-                System.Int32 managedCallback(GISharp.Lib.Gio.Application application, GISharp.Lib.GLib.VariantDict options) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; var options_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)options.UnsafeHandle; var ret_ = unmanagedCallback(application_,options_,userData_); var ret = (System.Int32)ret_; return ret; }
-
-                return managedCallback;
+                var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
+                var options = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>((System.IntPtr)options_, GISharp.Runtime.Transfer.None)!;
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var ret = ((HandleLocalOptionsSignalHandler)userData.Callback)(application, options);
+                var ret_ = (System.Int32)ret;
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
 
-            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
-            {
-                if (callback == null)
-                {
-                    return default;
-                }
-
-                var userData = new UserData((HandleLocalOptionsSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, GISharp.Lib.GLib.VariantDict.UnmanagedStruct*, System.IntPtr, System.Int32>)&ManagedCallback;
-                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
-                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-                return (callback_, destroy_, userData_);
-            }
-
-            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static System.Int32 ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options_, System.IntPtr userData_)
-            {
-                try
-                {
-                    var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
-                    var options = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>((System.IntPtr)options_, GISharp.Runtime.Transfer.None)!;
-                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                    var userData = (UserData)gcHandle.Target!;
-                    var ret = userData.Callback(application, options);
-                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                    {
-                        gcHandle.Free();
-                    }
-                    var ret_ = (System.Int32)ret;
-                    return ret_;
-                }
-                catch (System.Exception ex)
-                {
-                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                }
-
-                return default(System.Int32);
-            }
+            return default(System.Int32);
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='NameLostSignalHandler']/*" />
-        [GISharp.Runtime.GCallbackAttribute(typeof(NameLostSignalHandlerMarshal))]
         public delegate System.Boolean NameLostSignalHandler(GISharp.Lib.Gio.Application application);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.NameLostSignal']/*" />
@@ -341,221 +244,94 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GSignalAttribute("name-lost", When = GISharp.Runtime.EmissionStage.Last)]
         public event NameLostSignalHandler NameLostSignal { add => nameLostSignalSignalManager.Add(this, value); remove => nameLostSignalSignalManager.Remove(value); }
 
-        private static unsafe class NameLostSignalHandlerMarshal
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static GISharp.Runtime.Boolean ManagedNameLostSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
         {
-            record UserData(NameLostSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
-
-            public static NameLostSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            try
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, GISharp.Runtime.Boolean>)callback_;
-                System.Boolean managedCallback(GISharp.Lib.Gio.Application application) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; var ret_ = unmanagedCallback(application_,userData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
-
-                return managedCallback;
+                var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var ret = ((NameLostSignalHandler)userData.Callback)(application);
+                var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
+                return ret_;
+            }
+            catch (System.Exception ex)
+            {
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
 
-            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
-            {
-                if (callback == null)
-                {
-                    return default;
-                }
-
-                var userData = new UserData((NameLostSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, GISharp.Runtime.Boolean>)&ManagedCallback;
-                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
-                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-                return (callback_, destroy_, userData_);
-            }
-
-            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static GISharp.Runtime.Boolean ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
-            {
-                try
-                {
-                    var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
-                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                    var userData = (UserData)gcHandle.Target!;
-                    var ret = userData.Callback(application);
-                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                    {
-                        gcHandle.Free();
-                    }
-                    var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
-                    return ret_;
-                }
-                catch (System.Exception ex)
-                {
-                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                }
-
-                return default(GISharp.Runtime.Boolean);
-            }
+            return default(GISharp.Runtime.Boolean);
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='OpenSignalHandler']/*" />
-        [GISharp.Runtime.GCallbackAttribute(typeof(OpenSignalHandlerMarshal))]
         public delegate void OpenSignalHandler(GISharp.Lib.Gio.Application application, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.OpenSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("open", When = GISharp.Runtime.EmissionStage.Last)]
         public event OpenSignalHandler OpenSignal { add => openSignalSignalManager.Add(this, value); remove => openSignalSignalManager.Remove(value); }
 
-        private static unsafe class OpenSignalHandlerMarshal
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void ManagedOpenSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct** files_, System.Int32 nFiles_, System.Byte* hint_, System.IntPtr userData_)
         {
-            record UserData(OpenSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
-
-            public static OpenSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            try
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, GISharp.Lib.Gio.File.UnmanagedStruct**, System.Int32, System.Byte*, System.IntPtr, void>)callback_;
-                void managedCallback(GISharp.Lib.Gio.Application application, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile> files, GISharp.Lib.GLib.UnownedUtf8 hint) { fixed (System.IntPtr* filesData_ = files) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; var files_ = (GISharp.Lib.Gio.File.UnmanagedStruct**)filesData_; var nFiles_ = (System.Int32)files.Length; var hint_ = (System.Byte*)hint.UnsafeHandle; unmanagedCallback(application_, files_, nFiles_, hint_, userData_); } }
-
-                return managedCallback;
+                var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
+                var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_);
+                var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_);
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                ((OpenSignalHandler)userData.Callback)(application, files, hint);
             }
-
-            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            catch (System.Exception ex)
             {
-                if (callback == null)
-                {
-                    return default;
-                }
-
-                var userData = new UserData((OpenSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, GISharp.Lib.Gio.File.UnmanagedStruct**, System.Int32, System.Byte*, System.IntPtr, void>)&ManagedCallback;
-                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
-                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-                return (callback_, destroy_, userData_);
-            }
-
-            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct** files_, System.Int32 nFiles_, System.Byte* hint_, System.IntPtr userData_)
-            {
-                try
-                {
-                    var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
-                    var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_);
-                    var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_);
-                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                    var userData = (UserData)gcHandle.Target!;
-                    userData.Callback(application, files, hint);
-                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                    {
-                        gcHandle.Free();
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                }
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='ShutdownSignalHandler']/*" />
-        [GISharp.Runtime.GCallbackAttribute(typeof(ShutdownSignalHandlerMarshal))]
         public delegate void ShutdownSignalHandler(GISharp.Lib.Gio.Application application);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.ShutdownSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("shutdown", When = GISharp.Runtime.EmissionStage.Last)]
         public event ShutdownSignalHandler ShutdownSignal { add => shutdownSignalSignalManager.Add(this, value); remove => shutdownSignalSignalManager.Remove(value); }
 
-        private static unsafe class ShutdownSignalHandlerMarshal
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void ManagedShutdownSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
         {
-            record UserData(ShutdownSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
-
-            public static ShutdownSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            try
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, void>)callback_;
-                void managedCallback(GISharp.Lib.Gio.Application application) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; unmanagedCallback(application_, userData_); }
-
-                return managedCallback;
+                var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                ((ShutdownSignalHandler)userData.Callback)(application);
             }
-
-            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            catch (System.Exception ex)
             {
-                if (callback == null)
-                {
-                    return default;
-                }
-
-                var userData = new UserData((ShutdownSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, void>)&ManagedCallback;
-                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
-                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-                return (callback_, destroy_, userData_);
-            }
-
-            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
-            {
-                try
-                {
-                    var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
-                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                    var userData = (UserData)gcHandle.Target!;
-                    userData.Callback(application);
-                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                    {
-                        gcHandle.Free();
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                }
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='StartupSignalHandler']/*" />
-        [GISharp.Runtime.GCallbackAttribute(typeof(StartupSignalHandlerMarshal))]
         public delegate void StartupSignalHandler(GISharp.Lib.Gio.Application application);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.StartupSignal']/*" />
         [GISharp.Runtime.GSignalAttribute("startup", When = GISharp.Runtime.EmissionStage.First)]
         public event StartupSignalHandler StartupSignal { add => startupSignalSignalManager.Add(this, value); remove => startupSignalSignalManager.Remove(value); }
 
-        private static unsafe class StartupSignalHandlerMarshal
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void ManagedStartupSignalHandler(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
         {
-            record UserData(StartupSignalHandler Callback, GISharp.Runtime.CallbackScope Scope);
-
-            public static StartupSignalHandler FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+            try
             {
-                var unmanagedCallback = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, void>)callback_;
-                void managedCallback(GISharp.Lib.Gio.Application application) { var application_ = (GISharp.Lib.Gio.Application.UnmanagedStruct*)application.UnsafeHandle; unmanagedCallback(application_, userData_); }
-
-                return managedCallback;
+                var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
+                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                ((StartupSignalHandler)userData.Callback)(application);
             }
-
-            public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(System.Delegate callback, GISharp.Runtime.CallbackScope scope)
+            catch (System.Exception ex)
             {
-                if (callback == null)
-                {
-                    return default;
-                }
-
-                var userData = new UserData((StartupSignalHandler)callback, scope);
-                var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Application.UnmanagedStruct*, System.IntPtr, void>)&ManagedCallback;
-                var destroy_ = GISharp.Runtime.GMarshal.DestroyGCHandleFunctionPointer;
-                var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-                return (callback_, destroy_, userData_);
-            }
-
-            [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
-            static void ManagedCallback(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.IntPtr userData_)
-            {
-                try
-                {
-                    var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
-                    var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                    var userData = (UserData)gcHandle.Target!;
-                    userData.Callback(application);
-                    if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                    {
-                        gcHandle.Free();
-                    }
-                }
-                catch (System.Exception ex)
-                {
-                    GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-                }
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
 

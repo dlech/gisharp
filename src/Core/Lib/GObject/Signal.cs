@@ -1,8 +1,8 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text.RegularExpressions;
 
@@ -82,13 +82,13 @@ namespace GISharp.Lib.GObject
             Quark detail,
             /* <type name="SignalEmissionHook" type="GSignalEmissionHook" managed-name="SignalEmissionHook" /> */
             /* transfer-ownership:none scope:notified closure:3 destroy:4 */
-            IntPtr hookFunc,
+            delegate* unmanaged[Cdecl]<SignalInvocationHint*, uint, Value*, IntPtr, Boolean> hookFunc,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr hookData,
             /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GLib.DestroyNotify" /> */
             /* transfer-ownership:none scope:async */
-            IntPtr dataDestroy);
+            delegate* unmanaged[Cdecl]<IntPtr, void> dataDestroy);
 
         /// <summary>
         /// Adds an emission hook for a signal, which will get called for any emission
@@ -109,10 +109,33 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static culong AddEmissionHook(uint signalId, Quark detail, SignalEmissionHook hookFunc)
         {
-            var marshalCallback = hookFunc.GetToUnmanagedFunctionPointer();
-            var (hookFunc_, dataDestroy_, hookData_) = marshalCallback(hookFunc, CallbackScope.Notified);
+            var hookFunc_ = (delegate* unmanaged[Cdecl]<SignalInvocationHint*, uint, Value*, IntPtr, Boolean>)&AddEmissionHookFunc;
+            var hookDataHandle = GCHandle.Alloc(new AddEmissionHookData(hookFunc));
+            var hookData_ = (IntPtr)hookDataHandle;
+            var dataDestroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
             var ret = g_signal_add_emission_hook(signalId, detail, hookFunc_, hookData_, dataDestroy_);
             return ret;
+        }
+
+        private record AddEmissionHookData(SignalEmissionHook HookFunc);
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private static Boolean AddEmissionHookFunc(
+            SignalInvocationHint* ihint_, uint nParamValues_, Value* paramValues_, IntPtr userData_)
+        {
+            try {
+                ref var ihint = ref Unsafe.AsRef<SignalInvocationHint>(ihint_);
+                var nParamValues = (int)nParamValues_;
+                var paramValues = new Span<Value>(paramValues_, nParamValues);
+                var hookData = (AddEmissionHookData)GCHandle.FromIntPtr(userData_).Target!;
+                var ret = hookData.HookFunc(ihint, paramValues);
+                var ret_ = ret.ToBoolean();
+                return ret_;
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+                return default;
+            }
         }
 
         /// <summary>
@@ -361,19 +384,19 @@ namespace GISharp.Lib.GObject
         internal static extern culong g_signal_connect_data(
             /* <type name="Object" type="gpointer" managed-name="Object" /> */
             /* transfer-ownership:none */
-            IntPtr instance,
+            Object.UnmanagedStruct* instance,
             /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
             /* transfer-ownership:none */
-            IntPtr detailedSignal,
+            byte* detailedSignal,
             /* <type name="Callback" type="GCallback" managed-name="Callback" /> */
             /* transfer-ownership:none closure:3 */
-            IntPtr cHandler,
+            delegate* unmanaged[Cdecl]<void> cHandler,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none */
             IntPtr data,
             /* <type name="ClosureNotify" type="GClosureNotify" managed-name="ClosureNotify" /> */
             /* transfer-ownership:none */
-            IntPtr destroyData,
+            delegate* unmanaged[Cdecl]<IntPtr, void> destroyData,
             /* <type name="ConnectFlags" type="GConnectFlags" managed-name="ConnectFlags" /> */
             /* transfer-ownership:none */
             ConnectFlags connectFlags);
@@ -403,14 +426,16 @@ namespace GISharp.Lib.GObject
         public static SignalHandler Connect<T>(this Object instance, UnownedUtf8 detailedSignal,
             T handler, ConnectFlags connectFlags = default) where T : Delegate
         {
-            var instance_ = instance.UnsafeHandle;
-            var detailedSignal_ = detailedSignal.UnsafeHandle;
-            var unmanagedCallbackFactory = handler.GetToUnmanagedFunctionPointer();
-            var (handler_, notify_, data_) = unmanagedCallbackFactory(handler, CallbackScope.Notified);
+            var instance_ = (Object.UnmanagedStruct*)instance.UnsafeHandle;
+            var detailedSignal_ = (byte*)detailedSignal.UnsafeHandle;
+            var handler_ = (delegate* unmanaged[Cdecl]<void>)handler.GetSignalHandlerUnmanagedFunctionPointer();
+            var dataHandle = GCHandle.Alloc(new SignalData(handler));
+            var data_ = (IntPtr)dataHandle;
+            var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
             var ret = g_signal_connect_data(instance_, detailedSignal_, handler_, data_, notify_, connectFlags);
 
             if (ret == 0) {
-                // TODO: More specific exception
+                dataHandle.Free();
                 throw new Exception("Failed to connect signal.");
             }
 

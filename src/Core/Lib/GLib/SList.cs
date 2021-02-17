@@ -6,6 +6,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 using GISharp.Runtime;
@@ -274,7 +275,7 @@ namespace GISharp.Lib.GLib
         [Since("2.34")]
         static extern UnmanagedStruct* g_slist_copy_deep(
             UnmanagedStruct* list,
-            UnmanagedCopyFunc func,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr> func,
             IntPtr userData);
 
         /// <summary>
@@ -364,7 +365,7 @@ namespace GISharp.Lib.GLib
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern void g_slist_foreach(
             UnmanagedStruct* list,
-            IntPtr func,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, void> func,
             IntPtr userData);
 
         /// <summary>
@@ -376,11 +377,26 @@ namespace GISharp.Lib.GLib
         private protected void Foreach<T>(Func<T> func) where T : IOpaque?
         {
             var list_ = (UnmanagedStruct*)UnsafeHandle;
-            var marshalCallback = func.GetToUnmanagedFunctionPointer();
-            var (func_, notify_, userData_) = marshalCallback(func, CallbackScope.Call);
+            var func_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, void>)&ForeachFunc;
+            var userDataHandle = GCHandle.Alloc(new ForeachUserData(typeof(T), func));
+            var userData_ = (IntPtr)userDataHandle;
             g_slist_foreach(list_, func_, userData_);
-            var notify = (delegate* unmanaged[Cdecl]<IntPtr, void>)notify_;
-            notify(userData_);
+            userDataHandle.Free();
+        }
+
+        private record ForeachUserData(Type TypeArg, Delegate Func);
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private static void ForeachFunc(IntPtr data_, IntPtr userData_)
+        {
+            try {
+                var userData = (ForeachUserData)GCHandle.FromIntPtr(userData_).Target!;
+                var data = GetInstance(userData.TypeArg, data_, Transfer.None);
+                userData.Func.DynamicInvoke(data);
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+            }
         }
 
         /// <summary>

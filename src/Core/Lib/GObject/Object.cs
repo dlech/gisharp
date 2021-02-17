@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -146,45 +146,24 @@ namespace GISharp.Lib.GObject
         /// <param name="pspec">
         /// the <see cref="ParamSpec"/> of the property which changed.
         /// </param>
-        [GCallback(typeof(NotifySignalHandlerMarshal))]
         public delegate void NotifySignalHandler(Object gobject, ParamSpec pspec);
 
-        static class NotifySignalHandlerMarshal
+        readonly GSignalManager<NotifySignalHandler> notifySignalManager = new("notify", _GType);
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static void ManagedNotifySignalHandler(IntPtr gobject_, IntPtr pspec_, IntPtr userData_)
         {
-            record UserData(NotifySignalHandler Callback, CallbackScope Scope);
-
-            public static (IntPtr unmanagedFunctionPointer, IntPtr destroyNotifyFunctionPointer, IntPtr userData)
-                ToUnmanagedFunctionPointer(Delegate callback, CallbackScope scope)
-            {
-                var unmanagedFunctionPointer_ =
-                    (IntPtr)(delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void>)&ManagedNotifySignalHandler;
-                var destroyNotifyFunctionPointer_ = GMarshal.DestroyGCHandleFunctionPointer;
-                var userData_ = (IntPtr)GCHandle.Alloc(new UserData((NotifySignalHandler)callback, scope));
-
-                return (unmanagedFunctionPointer_, destroyNotifyFunctionPointer_, userData_);
+            try {
+                var gobject = GetInstance<Object>(gobject_, Transfer.None)!;
+                var pspec = ParamSpec.GetInstance(pspec_, Transfer.None)!;
+                var gcHandle = GCHandle.FromIntPtr(userData_);
+                var userData = (SignalData)gcHandle.Target!;
+                ((NotifySignalHandler)userData.Callback)(gobject, pspec);
             }
-
-            [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
-            static void ManagedNotifySignalHandler(IntPtr gobject_, IntPtr pspec_, IntPtr userData_)
-            {
-                try {
-                    var gobject = GetInstance<Object>(gobject_, Transfer.None)!;
-                    var pspec = ParamSpec.GetInstance(pspec_, Transfer.None)!;
-                    var gcHandle = GCHandle.FromIntPtr(userData_);
-                    var userData = (UserData)gcHandle.Target!;
-                    userData.Callback(gobject, pspec);
-                    if (userData.Scope == CallbackScope.Async) {
-                        gcHandle.Free();
-                    }
-                }
-                catch (Exception ex) {
-                    ex.LogUnhandledException();
-                }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
             }
         }
-
-        readonly GSignalManager<NotifySignalHandler> notifySignalManager =
-                new GSignalManager<NotifySignalHandler>("notify", _GType);
 
         /// <summary>
         /// The notify signal is emitted on an object when one of its
@@ -208,17 +187,12 @@ namespace GISharp.Lib.GObject
             remove => notifySignalManager.Remove(value);
         }
 
-        [UnmanagedFunctionPointer(CallingConvention.Cdecl)]
-        delegate void UnmanagedNotify(IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr);
-
-        static readonly UnmanagedNotify nativeNotifyDelegate = UnmanagedOnNotify;
-        static readonly IntPtr nativeNotifyPtr = Marshal.GetFunctionPointerForDelegate(nativeNotifyDelegate);
-
-        static void UnmanagedOnNotify(IntPtr gobjectPtr, IntPtr pspecPtr, IntPtr userDataPtr)
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        static void ManagedOnNotify(UnmanagedStruct* gobject_, ParamSpec.UnmanagedStruct* pspec_, IntPtr userData_)
         {
             try {
-                var obj = GetInstance(gobjectPtr, Transfer.None)!;
-                var pspec = ParamSpec.GetInstance(pspecPtr, Transfer.None)!;
+                var obj = GetInstance((IntPtr)gobject_, Transfer.None)!;
+                var pspec = ParamSpec.GetInstance((IntPtr)pspec_, Transfer.None)!;
                 var propInfo = (PropertyInfo)pspec[ObjectClass.managedClassPropertyInfoQuark]!;
                 obj.propertyChangedHandler?.Invoke(obj, new PropertyChangedEventArgs(propInfo.Name));
             }
@@ -231,13 +205,14 @@ namespace GISharp.Lib.GObject
         readonly object propertyChangedHandlerLock = new();
         SignalHandler? notifySignalHandler;
 
+        private readonly Utf8 notifySignalName = "notify";
+
         SignalHandler ConnectNotifySignal()
         {
-            var detailedSignalPtr = GMarshal.StringToUtf8Ptr("notify");
-            var id = Signal.g_signal_connect_data(handle, detailedSignalPtr,
-                nativeNotifyPtr, IntPtr.Zero, IntPtr.Zero, default);
-            GMarshal.Free(detailedSignalPtr);
-
+            var instance_ = (UnmanagedStruct*)UnsafeHandle;
+            var detailedSignal_ = (byte*)notifySignalName.UnsafeHandle;
+            var cHandler_ = (delegate* unmanaged[Cdecl]<void>)(delegate* unmanaged[Cdecl]<UnmanagedStruct*, ParamSpec.UnmanagedStruct*, IntPtr, void>)&ManagedOnNotify;
+            var id = Signal.g_signal_connect_data(instance_, detailedSignal_, cHandler_, default, default, default);
             return new SignalHandler(this, id);
         }
 
@@ -555,10 +530,10 @@ namespace GISharp.Lib.GObject
             /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
             /* transfer-ownership:none */
             BindingFlags flags,
-            UnmanagedBindingTransformFunc? transformTo,
-            UnmanagedBindingTransformFunc? transformFrom,
+            delegate* unmanaged[Cdecl]<UnmanagedStruct*, Value*, Value*, IntPtr, Runtime.Boolean> transformTo,
+            delegate* unmanaged[Cdecl]<UnmanagedStruct*, Value*, Value*, IntPtr, Runtime.Boolean> transformFrom,
             IntPtr userData,
-            UnmanagedDestroyNotify? notify);
+            delegate* unmanaged[Cdecl]<IntPtr, void> notify);
 
         /// <summary>
         /// Creates a binding between <paramref name="sourceProperty"/> on
@@ -608,90 +583,73 @@ namespace GISharp.Lib.GObject
         [Since("2.26")]
         public Binding BindProperty(UnownedUtf8 sourceProperty, Object target, UnownedUtf8 targetProperty, BindingFlags flags, BindingTransformFunc? transformTo, BindingTransformFunc? transformFrom)
         {
+            var userData = new BindDataUserData();
             var this_ = UnsafeHandle;
             var sourceProperty_ = sourceProperty.UnsafeHandle;
             var target_ = target.UnsafeHandle;
             var targetProperty_ = targetProperty.UnsafeHandle;
-
-            var (transformTo_, transformFrom_, notify_, userData_) = UnmanagedBindingTransformFuncFactory.CreateNotifyDelegate(transformTo, transformFrom);
-            var ret_ = g_object_bind_property_full(this_, sourceProperty_, target_, targetProperty_, flags,
-                                                   transformTo_, transformFrom_, userData_, notify_);
+            userData.TransformTo = transformTo;
+            var transformTo_ = (delegate* unmanaged[Cdecl]<UnmanagedStruct*, Value*, Value*, IntPtr, Runtime.Boolean>)(transformTo is null ? null : &BindPropertyTransformTo);
+            userData.TransformFrom = transformFrom;
+            var transformFrom_ = (delegate* unmanaged[Cdecl]<UnmanagedStruct*, Value*, Value*, IntPtr, Runtime.Boolean>)(transformFrom is null ? null : &BindPropertyTransformFrom);
+            var userData_ = (IntPtr)GCHandle.Alloc(userData);
+            var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&BindPropertyNotify;
+            var ret_ = g_object_bind_property_full(this_, sourceProperty_, target_, targetProperty_, flags, transformTo_, transformFrom_, userData_, notify_);
             var ret = GetInstance<Binding>(ret_, Transfer.None)!;
             return ret;
         }
 
-        static class UnmanagedBindingTransformFuncFactory
+        private class BindDataUserData
         {
-            class BindingTransformFuncData
-            {
-                public BindingTransformFunc? TransformTo;
-                public UnmanagedBindingTransformFunc? UnmanagedTransformTo;
-                public BindingTransformFunc? TransformFrom;
-                public UnmanagedBindingTransformFunc? UnmanagedTransformFrom;
-                public UnmanagedDestroyNotify? UnmanagedNotify;
+            public BindingTransformFunc? TransformTo;
+            public BindingTransformFunc? TransformFrom;
+        }
+
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private static Runtime.Boolean BindPropertyTransformTo(UnmanagedStruct* binding_, Value* toValue_, Value* fromValue_, IntPtr userData_)
+        {
+            try {
+                var binding = GetInstance<Binding>((IntPtr)binding_, Transfer.None)!;
+                ref var toValue = ref Unsafe.AsRef<Value>(toValue_);
+                ref var fromValue = ref Unsafe.AsRef<Value>(fromValue_);
+                var gcHandle = (GCHandle)userData_;
+                var userData = (BindDataUserData)gcHandle.Target!;
+                var ret = userData.TransformTo!(binding, ref toValue, ref fromValue);
+                return ret.ToBoolean();
             }
-
-            public static (UnmanagedBindingTransformFunc?, UnmanagedBindingTransformFunc?, UnmanagedDestroyNotify, IntPtr)
-                CreateNotifyDelegate(BindingTransformFunc? transformTo, BindingTransformFunc? transformFrom)
-            {
-                var userData = new BindingTransformFuncData();
-
-                if (transformTo is not null) {
-                    userData.TransformTo = transformTo;
-                    userData.UnmanagedTransformTo = TransformToFunc;
-                }
-
-                if (transformFrom is not null) {
-                    userData.TransformFrom = transformFrom;
-                    userData.UnmanagedTransformFrom = TransformFromFunc;
-                }
-
-                userData.UnmanagedNotify = UnmanagedNotify;
-
-                var userData_ = GCHandle.Alloc(userData);
-
-                return (userData.UnmanagedTransformTo, userData.UnmanagedTransformFrom, userData.UnmanagedNotify!, (IntPtr)userData_);
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+                return default;
             }
+        }
 
-            static bool TransformToFunc(IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
-            {
-                try {
-                    var binding = GetInstance<Binding>(bindingPtr, Transfer.None)!;
-                    var gcHandle = (GCHandle)userDataPtr;
-                    var userData = (BindingTransformFuncData)gcHandle.Target!;
-                    var ret = userData.TransformTo!(binding, ref toValue, ref fromValue);
-                    return ret;
-                }
-                catch (Exception ex) {
-                    ex.LogUnhandledException();
-                    return default;
-                }
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private static Runtime.Boolean BindPropertyTransformFrom(UnmanagedStruct* binding_, Value* toValue_, Value* fromValue_, IntPtr userData_)
+        {
+            try {
+                var binding = GetInstance<Binding>((IntPtr)binding_, Transfer.None)!;
+                ref var toValue = ref Unsafe.AsRef<Value>(toValue_);
+                ref var fromValue = ref Unsafe.AsRef<Value>(fromValue_);
+                var gcHandle = (GCHandle)userData_;
+                var userData = (BindDataUserData)gcHandle.Target!;
+                var ret = userData.TransformFrom!(binding, ref toValue, ref fromValue);
+                return ret.ToBoolean();
             }
-
-            static bool TransformFromFunc(IntPtr bindingPtr, ref Value toValue, ref Value fromValue, IntPtr userDataPtr)
-            {
-                try {
-                    var binding = GetInstance<Binding>(bindingPtr, Transfer.None)!;
-                    var gcHandle = (GCHandle)userDataPtr;
-                    var userData = (BindingTransformFuncData)gcHandle.Target!;
-                    var ret = userData.TransformFrom!(binding, ref toValue, ref fromValue);
-                    return ret;
-                }
-                catch (Exception ex) {
-                    ex.LogUnhandledException();
-                    return default;
-                }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
+                return default;
             }
+        }
 
-            static void UnmanagedNotify(IntPtr userData_)
-            {
-                try {
-                    var gcHandle = (GCHandle)userData_;
-                    gcHandle.Free();
-                }
-                catch (Exception ex) {
-                    ex.LogUnhandledException();
-                }
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
+        private static void BindPropertyNotify(IntPtr userData_)
+        {
+            try {
+                var gcHandle = (GCHandle)userData_;
+                gcHandle.Free();
+            }
+            catch (Exception ex) {
+                ex.LogUnhandledException();
             }
         }
 

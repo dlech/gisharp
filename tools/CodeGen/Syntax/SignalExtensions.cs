@@ -1,9 +1,11 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -123,12 +125,7 @@ namespace GISharp.CodeGen.Syntax
         {
             var returnType = signal.ReturnValue.GetManagedTypeName();
             var identifier = $"{signal.ManagedName}Handler";
-            var gCallbackAttribute = Attribute(ParseName(typeof(GCallbackAttribute).FullName))
-                .AddArgumentListArguments(AttributeArgument(ParseExpression($"typeof({identifier}Marshal)")));
             return DelegateDeclaration(returnType, identifier)
-                .AddAttributeLists(AttributeList()
-                    .AddAttributes(gCallbackAttribute)
-                )
                 .AddModifiers(Token(PublicKeyword))
                 .WithParameterList(signal.ManagedParameters.GetParameterList())
                 .WithLeadingTrivia(signal.Doc.GetDocCommentTrivia()
@@ -180,8 +177,7 @@ namespace GISharp.CodeGen.Syntax
                         list = list.Insert(0, signal.GetGSignalManagerFieldDeclaration());
                         list = list.Add(signal.GetEventDeclaration());
                     }
-                    list = list.Add(signal.GetDelegateMarshalDeclaration()
-                        .WithMembers(signal.GetCallbackDelegateMarshalClassMembers()));
+                    list = list.Add(signal.GetManagedSignalCallbackDeclaration());
                 }
                 catch (Exception ex) {
                     signal.LogException(ex);
@@ -189,6 +185,24 @@ namespace GISharp.CodeGen.Syntax
             }
 
             return list;
+        }
+
+        private static MethodDeclarationSyntax GetManagedSignalCallbackDeclaration(this Signal signal)
+        {
+            var returnType = signal.ReturnValue.Type.UnmanagedType.ToSyntax();
+            var method = MethodDeclaration(returnType, $"Managed{signal.ManagedName}Handler")
+                .AddAttributeLists(AttributeList().AddAttributes(
+                    Attribute(ParseName(typeof(UnmanagedCallersOnlyAttribute).FullName))
+                        .AddArgumentListArguments(
+                            AttributeArgument(ParseExpression(
+                                $"CallConvs = new[] {{ typeof({typeof(CallConvCdecl)}) }}"
+                            ))
+                        )
+                ))
+                .AddModifiers(Token(PrivateKeyword), Token(StaticKeyword))
+                .WithParameterList(signal.Parameters.GetParameterList())
+                .WithBody(Block(signal.GetCallbackStatements()));
+            return method;
         }
     }
 }

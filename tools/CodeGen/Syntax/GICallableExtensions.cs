@@ -446,22 +446,10 @@ namespace GISharp.CodeGen.Syntax
             return statement;
         }
 
-        static NameSyntax GetCallbackDelegateType(this GICallable callable, bool unmanged = false)
-        {
-            if (callable is Signal) {
-                return ParseName($"{callable.ManagedName}Handler");
-            }
-
-            var @namespace = ParseName($"GISharp.Lib.{callable.Namespace.Name}");
-            var prefix = unmanged ? "Unmanaged" : "";
-            var name = IdentifierName(prefix + callable.ManagedName);
-            return QualifiedName(@namespace, name);
-        }
-
         /// <summary>
         /// Gets the statements for implementing an unmanaged callback function
         /// </summary>
-        static IEnumerable<StatementSyntax> GetCallbackStatements(this GICallable callable)
+        public static IEnumerable<StatementSyntax> GetCallbackStatements(this GICallable callable)
         {
             var catchType = ParseTypeName(typeof(Exception).FullName);
             var catchStatement = ExpressionStatement(ParseExpression(string.Format("{0}.{1}(ex)",
@@ -495,20 +483,33 @@ namespace GISharp.CodeGen.Syntax
             var dataParamName = dataParam.ManagedName;
 
             var ghHandleType = typeof(GCHandle).FullName;
+            var userDataType = callable is Signal ? typeof(SignalData).FullName : "UserData";
             block = block.AddStatements(
                 ExpressionStatement(ParseExpression($"var gcHandle = ({ghHandleType}){dataParamName}_")),
-                ExpressionStatement(ParseExpression($"var {dataParamName} = (UserData)gcHandle.Target!")));
+                ExpressionStatement(ParseExpression($"var {dataParamName} = ({userDataType})gcHandle.Target!")));
 
             var skipReturnValue = callable.ThrowsGErrorException && callable.ReturnValue.Type.UnmanagedType == typeof(Runtime.Boolean);
 
+            var callbackName = $"{dataParamName}.Callback";
+            if (callable is Signal) {
+                callbackName = $"(({callable.ManagedName}Handler){callbackName})";
+            }
             block = block.AddStatements(
-                callable.GetInvokeManagedCallbackStatement($"{dataParamName}.Callback", skipReturnValue),
-                ParseStatement(string.Format(@"if ({0}.Scope == {1}.{2}) {{
-                        gcHandle.Free();
-                    }}
-                    ", dataParamName,
-                    typeof(CallbackScope),
-                    nameof(CallbackScope.Async))));
+                callable.GetInvokeManagedCallbackStatement(callbackName, skipReturnValue)
+            );
+
+            if (callable is not Signal) {
+                block = block.AddStatements(
+                    IfStatement(
+                        ParseExpression(
+                            $"{dataParamName}.Scope == {typeof(CallbackScope)}.{nameof(CallbackScope.Async)}"
+                        ),
+                        Block(
+                            ExpressionStatement(ParseExpression("gcHandle.Free()"))
+                        )
+                    )
+                );
+            }
 
             if (skipReturnValue) {
                 // callbacks that throw and return bool should always return true
@@ -527,140 +528,6 @@ namespace GISharp.CodeGen.Syntax
             }
 
             return block;
-        }
-
-        static IEnumerable<StatementSyntax> GetMarshalFromPointerMethodStatements(this GICallable callable)
-        {
-            var marshalToPointerExpression = ParseExpression(
-                $"({callable.GetUnmanagedDelegateType()})callback_"
-            );
-            yield return LocalDeclarationStatement(VariableDeclaration(IdentifierName("var"))
-                .AddVariables(VariableDeclarator("unmanagedCallback")
-                    .WithInitializer(EqualsValueClause(marshalToPointerExpression))));
-
-            // some callbacks have their own name for the user data parameter
-            var userDataParam = callable.Parameters.SingleOrDefault(x => x.ClosureIndex >= 0);
-            if (userDataParam != null && userDataParam.ManagedName != "userData") {
-                yield return ExpressionStatement(ParseExpression($"var {userDataParam.ManagedName}_ = userData_"));
-            }
-
-            var paramList = callable.ManagedParameters.GetParameterList();
-
-            // remove default values
-            paramList = paramList.WithParameters(SeparatedList(paramList.Parameters
-                .Select(x => x.WithDefault(default))));
-
-            var returnType = callable.ReturnValue.GetManagedTypeName();
-            yield return LocalFunctionStatement(returnType, "managedCallback")
-                .WithParameterList(paramList)
-                .WithBody(callable.GetInvokeBlock("unmanagedCallback", checkArgs: false));
-
-            yield return ReturnStatement(ParseExpression("managedCallback"));
-        }
-
-        static TypeSyntax GetUnmanagedDelegateType(this GICallable callable)
-        {
-            // scrape the types from GetParameterList() so that we are assured
-            // to get the same types and modifiers
-            var typeArgs = callable.Parameters.GetParameterList().Parameters
-                .Select(x => $"{x.Modifiers.ToFullString()} {x.Type.ToFullString()}".TrimStart())
-                .Append(callable.ReturnValue.Type.UnmanagedType.ToSyntax().ToFullString());
-            return ParseTypeName($"delegate* unmanaged[Cdecl]<{string.Join(", ", typeArgs)}>");
-        }
-
-        static IEnumerable<StatementSyntax> GetMarshalToPointerMethodStatements(this GICallable callable)
-        {
-            yield return IfStatement(ParseExpression("callback == null"),
-                Block(ReturnStatement(ParseExpression("default"))));
-
-            yield return ExpressionStatement(ParseExpression(
-                $"var userData = new UserData(({callable.GetCallbackDelegateType()})callback, scope)"
-            ));
-
-            yield return ExpressionStatement(ParseExpression(
-                $"var callback_ = (System.IntPtr)({callable.GetUnmanagedDelegateType().ToFullString()})&ManagedCallback"
-            ));
-
-            yield return ExpressionStatement(ParseExpression(
-                $"var destroy_ = {typeof(GMarshal)}.{nameof(GMarshal.DestroyGCHandleFunctionPointer)}"
-            ));
-
-            yield return ExpressionStatement(ParseExpression(
-                "var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData)"
-            ));
-
-            yield return ReturnStatement(ParseExpression("(callback_, destroy_, userData_)"));
-        }
-
-        /// <summary>
-        /// Gets the C# delegate factory class members for a GIR callback
-        /// </summary>
-        public static SyntaxList<MemberDeclarationSyntax> GetCallbackDelegateMarshalClassMembers(this GICallable callable)
-        {
-            var list = List<MemberDeclarationSyntax>();
-
-            // emit nested private UserData record type
-
-            var callbackType = callable.GetCallbackDelegateType();
-            var scopeType = typeof(CallbackScope).ToSyntax();
-            var userDataRecordDeclaration = RecordDeclaration(Token(RecordKeyword), "UserData")
-                .AddParameterListParameters(
-                    Parameter(Identifier("Callback")).WithType(callbackType),
-                    Parameter(Identifier("Scope")).WithType(scopeType)
-                )
-                .WithSemicolonToken(Token(SemicolonToken));
-            list = list.Add(userDataRecordDeclaration);
-
-            // emit FromPointer() method for unmanged>managed
-
-            var fromPointerMethodParams = $"({typeof(IntPtr)} callback_, {typeof(IntPtr)} userData_)";
-            var fromPointerReturnType = callbackType;
-            var fromPointerMethod = MethodDeclaration(fromPointerReturnType, "FromPointer")
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
-                .WithParameterList(ParseParameterList(fromPointerMethodParams))
-                .WithBody(Block(callable.GetMarshalFromPointerMethodStatements()));
-            list = list.Add(fromPointerMethod);
-
-            // emit ToUnmanagedFunctionPointer() method for managed>unmanaged
-
-            var toPointerMethodParams = $"(System.Delegate callback, {scopeType} scope)";
-            var toPointerReturnType = ParseTypeName(string.Format("({0} callback_, {0} notify_, {0} userData_)", typeof(IntPtr)));
-            var toPointerMethod = MethodDeclaration(toPointerReturnType, "ToUnmanagedFunctionPointer")
-                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
-                .WithParameterList(ParseParameterList(toPointerMethodParams))
-                .WithBody(Block(callable.GetMarshalToPointerMethodStatements()));
-            list = list.Add(toPointerMethod);
-
-            // emit unmanaged callback method
-
-            var unmanagedCallersOnlyAttribute = Attribute(ParseName($"{typeof(UnmanagedCallersOnlyAttribute)}"))
-                .AddArgumentListArguments(AttributeArgument(ParseExpression(
-                    "CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) }"
-                )));
-            var callbackReturnType = callable.ReturnValue.Type.UnmanagedType.ToSyntax();
-            var callbackMethod = MethodDeclaration(callbackReturnType, "ManagedCallback")
-                .AddModifiers(Token(StaticKeyword))
-                .AddAttributeLists(AttributeList().AddAttributes(unmanagedCallersOnlyAttribute))
-                .WithParameterList(callable.Parameters.GetParameterList())
-                .WithBody(Block(callable.GetCallbackStatements()));
-            list = list.Add(callbackMethod);
-
-            return list;
-        }
-
-        /// <summary>
-        /// Gets the C# class declaration for the factory class of a GIR callback.
-        /// </summary>
-        public static ClassDeclarationSyntax GetDelegateMarshalDeclaration(this GICallable callable)
-        {
-            var identifier = callable.ManagedName;
-            if (callable is Signal) {
-                identifier += "Handler";
-            }
-            identifier += "Marshal";
-            var syntax = ClassDeclaration(identifier)
-               .AddModifiers(Token(PrivateKeyword), Token(StaticKeyword), Token(UnsafeKeyword));
-            return syntax;
         }
     }
 }
