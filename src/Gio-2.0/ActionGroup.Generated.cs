@@ -26,7 +26,7 @@ namespace GISharp.Lib.Gio
                 var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!;
                 var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((ActionAddedSignalHandler)userData.Callback)(actionGroup, actionName);
             }
             catch (System.Exception ex)
@@ -52,7 +52,7 @@ namespace GISharp.Lib.Gio
                 var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_);
                 var enabled = GISharp.Runtime.BooleanExtensions.IsTrue(enabled_);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((ActionEnabledChangedSignalHandler)userData.Callback)(actionGroup, actionName, enabled);
             }
             catch (System.Exception ex)
@@ -77,7 +77,7 @@ namespace GISharp.Lib.Gio
                 var actionGroup = (GISharp.Lib.Gio.IActionGroup)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionGroup_, GISharp.Runtime.Transfer.None)!;
                 var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((ActionRemovedSignalHandler)userData.Callback)(actionGroup, actionName);
             }
             catch (System.Exception ex)
@@ -103,7 +103,7 @@ namespace GISharp.Lib.Gio
                 var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_);
                 var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)value_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((ActionStateChangedSignalHandler)userData.Callback)(actionGroup, actionName, value);
             }
             catch (System.Exception ex)

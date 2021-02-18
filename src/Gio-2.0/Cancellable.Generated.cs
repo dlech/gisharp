@@ -90,7 +90,7 @@ namespace GISharp.Lib.Gio
             {
                 var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((CancelledSignalHandler)userData.Callback)(cancellable);
             }
             catch (System.Exception ex)

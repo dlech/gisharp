@@ -11,12 +11,12 @@ namespace GISharp.Runtime
 #pragma warning disable CS1573
 #pragma warning disable CS1591
     /// <summary>
-    /// Common user data structure used by managed signal callbacks.
+    /// Common user data structure used by managed c-closure/signal callbacks.
     /// </summary>
     /// <param name="Callback">
     /// The user-defined signal callback.
     /// </param>
-    public record SignalData(Delegate Callback);
+    public record CClosureData(Delegate Callback);
 #pragma warning restore CS1591
 #pragma warning restore CS1573
 #pragma warning restore CS1572

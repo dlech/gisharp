@@ -483,7 +483,7 @@ namespace GISharp.CodeGen.Syntax
             var dataParamName = dataParam.ManagedName;
 
             var ghHandleType = typeof(GCHandle).FullName;
-            var userDataType = callable is Signal ? typeof(SignalData).FullName : "UserData";
+            var userDataType = callable is Signal ? typeof(CClosureData).FullName : "UserData";
             block = block.AddStatements(
                 ExpressionStatement(ParseExpression($"var gcHandle = ({ghHandleType}){dataParamName}_")),
                 ExpressionStatement(ParseExpression($"var {dataParamName} = ({userDataType})gcHandle.Target!")));

@@ -428,8 +428,8 @@ namespace GISharp.Lib.GObject
         {
             var instance_ = (Object.UnmanagedStruct*)instance.UnsafeHandle;
             var detailedSignal_ = (byte*)detailedSignal.UnsafeHandle;
-            var handler_ = (delegate* unmanaged[Cdecl]<void>)handler.GetSignalHandlerUnmanagedFunctionPointer();
-            var dataHandle = GCHandle.Alloc(new SignalData(handler));
+            var handler_ = (delegate* unmanaged[Cdecl]<void>)handler.GetCClosureUnmanagedFunctionPointer();
+            var dataHandle = GCHandle.Alloc(new CClosureData(handler));
             var data_ = (IntPtr)dataHandle;
             var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
             var ret = g_signal_connect_data(instance_, detailedSignal_, handler_, data_, notify_, connectFlags);

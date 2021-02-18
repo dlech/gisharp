@@ -170,7 +170,7 @@ namespace GISharp.Lib.Gio
             {
                 var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((ActivateSignalHandler)userData.Callback)(application);
             }
             catch (System.Exception ex)
@@ -194,7 +194,7 @@ namespace GISharp.Lib.Gio
                 var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
                 var commandLine = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)commandLine_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 var ret = ((CommandLineSignalHandler)userData.Callback)(application, commandLine);
                 var ret_ = (System.Int32)ret;
                 return ret_;
@@ -223,7 +223,7 @@ namespace GISharp.Lib.Gio
                 var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
                 var options = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>((System.IntPtr)options_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 var ret = ((HandleLocalOptionsSignalHandler)userData.Callback)(application, options);
                 var ret_ = (System.Int32)ret;
                 return ret_;
@@ -251,7 +251,7 @@ namespace GISharp.Lib.Gio
             {
                 var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 var ret = ((NameLostSignalHandler)userData.Callback)(application);
                 var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                 return ret_;
@@ -280,7 +280,7 @@ namespace GISharp.Lib.Gio
                 var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_);
                 var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((OpenSignalHandler)userData.Callback)(application, files, hint);
             }
             catch (System.Exception ex)
@@ -303,7 +303,7 @@ namespace GISharp.Lib.Gio
             {
                 var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((ShutdownSignalHandler)userData.Callback)(application);
             }
             catch (System.Exception ex)
@@ -326,7 +326,7 @@ namespace GISharp.Lib.Gio
             {
                 var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((StartupSignalHandler)userData.Callback)(application);
             }
             catch (System.Exception ex)

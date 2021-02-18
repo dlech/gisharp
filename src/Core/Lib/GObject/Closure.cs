@@ -54,7 +54,7 @@ namespace GISharp.Lib.GObject
     ///   automatically removed when the objects they point to go away.
     /// </remarks>
     [GType("GClosure", IsProxyForUnmanagedType = true)]
-    public sealed unsafe class Closure : Boxed
+    public unsafe class Closure : Boxed
     {
         /// <summary>
         /// The unmanaged data structure for <see cref="Closure"/>.
@@ -631,13 +631,13 @@ namespace GISharp.Lib.GObject
         [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="None" /> */
         /* transfer-ownership:none */
-        static extern void g_closure_set_marshal(
+        private protected static extern void g_closure_set_marshal(
             /* <type name="Closure" type="GClosure*" managed-name="Closure" /> */
             /* transfer-ownership:none */
             IntPtr closure,
             /* <type name="ClosureMarshal" type="GClosureMarshal" managed-name="ClosureMarshal" /> */
             /* transfer-ownership:none */
-            UnmanagedClosureMarshal marshal);
+            delegate* unmanaged[Cdecl]<UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void> marshal);
 
         /// <summary>
         /// Sets the meta marshaller of @closure.  A meta marshaller wraps

@@ -171,7 +171,7 @@ namespace GISharp.Lib.Gio
                 var simpleAction = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.SimpleAction>((System.IntPtr)simpleAction_, GISharp.Runtime.Transfer.None)!;
                 var parameter = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)parameter_, GISharp.Runtime.Transfer.None);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((ActivateSignalHandler)userData.Callback)(simpleAction, parameter);
             }
             catch (System.Exception ex)
@@ -196,7 +196,7 @@ namespace GISharp.Lib.Gio
                 var simpleAction = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.SimpleAction>((System.IntPtr)simpleAction_, GISharp.Runtime.Transfer.None)!;
                 var value = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)value_, GISharp.Runtime.Transfer.None);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (GISharp.Runtime.SignalData)gcHandle.Target!;
+                var userData = (GISharp.Runtime.CClosureData)gcHandle.Target!;
                 ((ChangeStateSignalHandler)userData.Callback)(simpleAction, value);
             }
             catch (System.Exception ex)

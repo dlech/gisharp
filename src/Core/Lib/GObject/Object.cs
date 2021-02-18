@@ -157,7 +157,7 @@ namespace GISharp.Lib.GObject
                 var gobject = GetInstance<Object>(gobject_, Transfer.None)!;
                 var pspec = ParamSpec.GetInstance(pspec_, Transfer.None)!;
                 var gcHandle = GCHandle.FromIntPtr(userData_);
-                var userData = (SignalData)gcHandle.Target!;
+                var userData = (CClosureData)gcHandle.Target!;
                 ((NotifySignalHandler)userData.Callback)(gobject, pspec);
             }
             catch (Exception ex) {

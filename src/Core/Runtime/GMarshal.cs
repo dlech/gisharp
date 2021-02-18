@@ -453,7 +453,7 @@ namespace GISharp.Runtime
         /// with <paramref name="handler"/>.
         /// </summary>
         /// <param name="handler">
-        /// A delegate whose type is a signal handler.
+        /// A delegate whose type is a c-closure callback/signal handler.
         /// </param>
         /// <returns>
         /// Pointer to the unmanaged function.
@@ -461,7 +461,7 @@ namespace GISharp.Runtime
         /// <exception cref="ArgumentException">
         /// Thrown if delegate does not have a matching managed callback method.
         /// </exception>
-        public static IntPtr GetSignalHandlerUnmanagedFunctionPointer(this Delegate? handler)
+        public static IntPtr GetCClosureUnmanagedFunctionPointer(this Delegate? handler)
         {
             if (handler is null) {
                 return IntPtr.Zero;
