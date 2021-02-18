@@ -78,7 +78,7 @@ namespace GISharp.Lib.Gio
                 progressCallbackDestroy?.Invoke();
                 var error_ = default(Error.UnmanagedStruct*);
                 g_file_copy_finish(file_, res_, &error_);
-                if (error_ != null) {
+                if (error_ is not null) {
                     var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                     completionSource.SetException(new GErrorException(error));
                     return;

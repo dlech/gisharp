@@ -145,7 +145,7 @@ namespace GISharp.Lib.Gio
             GISharp.Lib.GLib.Variant.UnmanagedStruct* targetValue_;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_action_parse_detailed_name(detailedName_, &actionName_, &targetValue_, &error_);
-            if (error_ != null)
+            if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);

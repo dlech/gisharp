@@ -70,7 +70,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.TranslateFunc? callback, GISharp.Runtime.CallbackScope scope)
         {
-            if (callback == null)
+            if (callback is null)
             {
                 return default;
             }

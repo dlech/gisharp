@@ -139,7 +139,7 @@ namespace GISharp.Lib.Gio
                 userData.Free();
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 var ret_ = g_async_initable_new_finish(initable_,res_,&error_);
-                if (error_ != null)
+                if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));
@@ -317,7 +317,7 @@ namespace GISharp.Lib.Gio
                 userData.Free();
                 var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
                 g_async_initable_init_finish(initable_, res_, &error_);
-                if (error_ != null)
+                if (error_ is not null)
                 {
                     var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
                     completionSource.SetException(new GISharp.Runtime.GErrorException(error));

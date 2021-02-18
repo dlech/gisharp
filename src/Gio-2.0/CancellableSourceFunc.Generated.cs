@@ -71,7 +71,7 @@ namespace GISharp.Lib.Gio
         /// </remarks>
         public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.Gio.CancellableSourceFunc? callback, GISharp.Runtime.CallbackScope scope)
         {
-            if (callback == null)
+            if (callback is null)
             {
                 return default;
             }

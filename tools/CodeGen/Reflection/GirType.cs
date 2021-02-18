@@ -327,7 +327,7 @@ namespace GISharp.CodeGen.Reflection
                 }
 
                 type = type.GetNestedType("UnmanagedStruct");
-                if (type == null) {
+                if (type is null) {
                     throw new TypeNotFoundException($"{typeName} is missing UnmanagedStruct");
                 }
                 return type.MakePointerType();

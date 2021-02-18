@@ -50,7 +50,7 @@ namespace GISharp.Lib.GLib
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionErrorFunc>(callback_);
             var data_ = userData_;
-            void managedCallback(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group) { var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)context.UnsafeHandle; var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)group.UnsafeHandle; var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*); unmanagedCallback(context_, group_, data_, &error_); if (error_ != null) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
+            void managedCallback(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group) { var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)context.UnsafeHandle; var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)group.UnsafeHandle; var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*); unmanagedCallback(context_, group_, data_, &error_); if (error_ is not null) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
             return managedCallback;
         }
@@ -75,7 +75,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.OptionErrorFunc? callback, GISharp.Runtime.CallbackScope scope)
         {
-            if (callback == null)
+            if (callback is null)
             {
                 return default;
             }

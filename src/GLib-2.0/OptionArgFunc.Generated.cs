@@ -51,7 +51,7 @@ namespace GISharp.Lib.GLib
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionArgFunc>(callback_);
             var data_ = userData_;
-            void managedCallback(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value) { var optionName_ = (System.Byte*)optionName.UnsafeHandle; var value_ = (System.Byte*)value.UnsafeHandle; var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*); unmanagedCallback(optionName_, value_, data_, &error_); if (error_ != null) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
+            void managedCallback(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value) { var optionName_ = (System.Byte*)optionName.UnsafeHandle; var value_ = (System.Byte*)value.UnsafeHandle; var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*); unmanagedCallback(optionName_, value_, data_, &error_); if (error_ is not null) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
             return managedCallback;
         }
@@ -76,7 +76,7 @@ namespace GISharp.Lib.GLib
         /// </remarks>
         public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.OptionArgFunc? callback, GISharp.Runtime.CallbackScope scope)
         {
-            if (callback == null)
+            if (callback is null)
             {
                 return default;
             }

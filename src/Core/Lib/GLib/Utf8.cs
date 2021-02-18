@@ -32,7 +32,7 @@ namespace GISharp.Lib.GLib
         /// <exception name="NullReferenceException">
         /// If this points to <c>null</c>, e.g. <c>default(UnownedUtf8).UnsafeHandle</c>.
         /// </exception>
-        public IntPtr UnsafeHandle => handle == null ? throw new NullReferenceException() : (IntPtr)handle;
+        public IntPtr UnsafeHandle => handle is null ? throw new NullReferenceException() : (IntPtr)handle;
 
         [DllImport("c")]
         static extern nuint strlen(byte* s);
@@ -705,7 +705,7 @@ namespace GISharp.Lib.GLib
                         if (utf8.handle == IntPtr.Zero) {
                             throw new ObjectDisposedException(null);
                         }
-                        if (current == null) {
+                        if (current is null) {
                             throw new InvalidOperationException();
                         }
                         return g_utf8_get_char(current);
@@ -721,7 +721,7 @@ namespace GISharp.Lib.GLib
                 public bool MoveNext()
                 {
                     // first call
-                    if (current == null) {
+                    if (current is null) {
                         current = (byte*)utf8.UnsafeHandle;
                         return true;
                     }
@@ -802,7 +802,7 @@ namespace GISharp.Lib.GLib
             var error_ = default(Error.UnmanagedStruct*);
             fixed (char* value_ = value) {
                 var ret = g_utf16_to_utf8(value_, value.Length, null, null, &error_);
-                if (error_ != null) {
+                if (error_ is not null) {
                     var error = GetInstance<Error>((IntPtr)error_, Transfer.Full);
                     throw new GErrorException(error);
                 }
@@ -897,7 +897,7 @@ namespace GISharp.Lib.GLib
         {
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_utf8_to_utf16((byte*)UnsafeHandle, -1, null, null, &error_);
-            if (error_ != null) {
+            if (error_ is not null) {
                 var error = GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }

@@ -72,7 +72,7 @@ namespace GISharp.Lib.GIRepository
             var implementorGtype_ = (GISharp.Lib.GObject.GType)implementorGtype;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_vfunc_info_get_address(info_,implementorGtype_,&error_);
-            if (error_ != null)
+            if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
                 throw new GISharp.Runtime.GErrorException(error);

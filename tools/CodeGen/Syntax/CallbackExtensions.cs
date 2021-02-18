@@ -231,7 +231,7 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
                 block = block.AddStatements(callback.ReturnValue.GetMarshalManagedToUnmanagedStatements(out var fixedStatement));
-                if (fixedStatement != null) {
+                if (fixedStatement is not null) {
                     fixedStatements.Add(fixedStatement);
                 }
                 block = block.AddStatements(ReturnStatement(ParseExpression("ret_")));
@@ -485,7 +485,7 @@ namespace GISharp.CodeGen.Syntax
 
         static IEnumerable<StatementSyntax> GetMarshalToPointerMethodStatements(this Callback callback)
         {
-            yield return IfStatement(ParseExpression("callback == null"),
+            yield return IfStatement(ParseExpression("callback is null"),
                 Block(ReturnStatement(ParseExpression("default"))));
 
             yield return ExpressionStatement(ParseExpression("var userData = new UserData(callback, scope)"));

@@ -2441,7 +2441,7 @@ namespace GISharp.Lib.GLib
             var text_ = (byte*)text.UnsafeHandle;
             var error_ = default(Error.UnmanagedStruct*);
             var ret = g_variant_parse(type_, text_, null, null, &error_);
-            if (error_ != null) {
+            if (error_ is not null) {
                 var error = new Error((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
@@ -3037,7 +3037,7 @@ namespace GISharp.Lib.GLib
             var value_ = (UnmanagedStruct*)UnsafeHandle;
             nuint length_;
             var ret_ = g_variant_get_bytestring_array(value_, &length_);
-            if (ret_ == null) {
+            if (ret_ is null) {
                 return new byte[0][];
             }
             var array = new System.Collections.Generic.List<byte[]>();
@@ -3689,7 +3689,7 @@ namespace GISharp.Lib.GLib
                 var value_ = (UnmanagedStruct*)UnsafeHandle;
                 nuint length_;
                 var ret_ = g_variant_get_objv(value_, &length_);
-                if (ret_ == null) {
+                if (ret_ is null) {
                     return System.Array.Empty<DBusObjectPath>();
                 }
                 var strv = GMarshal.GStrvPtrToStringArray((IntPtr)ret_, freePtr: true, freeElements: false)!;

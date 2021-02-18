@@ -151,7 +151,7 @@ namespace GISharp.CodeGen.Syntax
 
             foreach (var arg in callable.ManagedParameters.Where(x => x.Direction != "out" || x.IsCallerAllocates)) {
                 block = block.AddStatements(arg.GetMarshalManagedToUnmanagedStatements(out var fixedStatement));
-                if (fixedStatement != null) {
+                if (fixedStatement is not null) {
                     fixedStatements.Add(fixedStatement);
                 }
             }
@@ -220,7 +220,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (callable.ThrowsGErrorException) {
                 var errorArg = callable.Parameters.ErrorParameter.ManagedName;
-                var condition = ParseExpression($"{errorArg}_ != null");
+                var condition = ParseExpression($"{errorArg}_ is not null");
                 var getter = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}<{typeof(Error)}>";
                 var ownership = $"{typeof(Transfer)}.{nameof(Transfer.Full)}";
                 var marshalExpression = ParseExpression($"var {errorArg} = {getter}((System.IntPtr){errorArg}_, {ownership})");
@@ -362,7 +362,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (callable.ThrowsGErrorException) {
                 var errorParameter = callable.Parameters.ErrorParameter.ManagedName;
-                var ifErrorStatement = string.Format(@"if ({0}_ != null) {{
+                var ifErrorStatement = string.Format(@"if ({0}_ is not null) {{
                         var {0} = {1}.{2}<{3}>((System.IntPtr){0}_, {4}.{5});
                         completionSource.SetException(new {6}({0}));
                         return;
@@ -500,7 +500,7 @@ namespace GISharp.CodeGen.Syntax
             }
             else if (callable.ReturnValue.Type.UnmanagedType != typeof(void)) {
                 block = block.AddStatements(callable.ReturnValue.GetMarshalManagedToUnmanagedStatements(out var fixedStatement));
-                if (fixedStatement != null) {
+                if (fixedStatement is not null) {
                     fixedStatements.Add(fixedStatement);
                 }
                 block = block.AddStatements(ReturnStatement(ParseExpression("ret_")));

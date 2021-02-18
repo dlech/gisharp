@@ -219,7 +219,7 @@ namespace GISharp.Lib.GLib
             return current;
         }
 
-        bool IEnumerator.MoveNext() => TryNextValue() != null;
+        bool IEnumerator.MoveNext() => TryNextValue() is not null;
 
         private Variant Current => current ?? throw new InvalidOperationException();
 

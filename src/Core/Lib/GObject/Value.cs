@@ -2070,7 +2070,7 @@ namespace GISharp.Lib.GObject
         public void Set(TypeInstance? instance)
         {
             AssertInitialized();
-            if (instance != null && g_value_type_compatible(instance.GetGType(), type).IsFalse()) {
+            if (instance is not null && g_value_type_compatible(instance.GetGType(), type).IsFalse()) {
                 throw new ArgumentException("instance type is not compatible", nameof(instance));
             }
             g_value_set_instance(ref this, instance?.UnsafeHandle ?? IntPtr.Zero);

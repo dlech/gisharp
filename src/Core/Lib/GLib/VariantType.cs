@@ -1053,7 +1053,7 @@ namespace GISharp.Lib.GLib
                     if (type.handle == IntPtr.Zero) {
                         throw new ObjectDisposedException(null);
                     }
-                    if (current == null) {
+                    if (current is null) {
                         throw new InvalidOperationException();
                     }
                     return new VariantType((IntPtr)current, Transfer.None);
@@ -1068,7 +1068,7 @@ namespace GISharp.Lib.GLib
 
             public bool MoveNext()
             {
-                if (current == null) {
+                if (current is null) {
                     var type_ = (UnmanagedStruct*)type.UnsafeHandle;
                     current = g_variant_type_first(type_);
                 }
@@ -1079,7 +1079,7 @@ namespace GISharp.Lib.GLib
                     current = g_variant_type_next(current);
                 }
 
-                return current != null;
+                return current is not null;
             }
 
             public void Reset()
