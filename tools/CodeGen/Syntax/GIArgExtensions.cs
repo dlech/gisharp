@@ -189,6 +189,8 @@ namespace GISharp.CodeGen.Syntax
         {
             fixedStatement = null;
 
+            var @var = declareVariable ? "var " : (arg.Direction != "in" && !arg.IsCallerAllocates ? "*" : "");
+
             var expressions = new System.Collections.Generic.List<ExpressionSyntax>();
             var type = arg.Type.ManagedType;
             var unmanagedName = arg.ManagedName + "_";
@@ -225,25 +227,25 @@ namespace GISharp.CodeGen.Syntax
                     getter = $"{unmanagedCast}{arg.ManagedName}.Pin().Pointer";
                 }
 
-                expressions.Add(ParseExpression($"{unmanagedName} = {getter}"));
+                expressions.Add(ParseExpression($"{@var}{unmanagedName} = {getter}"));
 
                 if (array.LengthIndex >= 0) {
                     var lengthArg = arg.Callable.Parameters.RegularParameters.ElementAt(array.LengthIndex);
                     var lengthIdentifier = lengthArg.ManagedName;
                     var lengthType = lengthArg.Type.UnmanagedType.ToSyntax();
                     var lengthGetter = (arg.IsNullable && !isSpanLike) ? $"{arg.ManagedName}?.Length ?? 0" : $"{arg.ManagedName}.Length";
-                    expressions.Add(ParseExpression($"{lengthIdentifier}_ = ({lengthType}){lengthGetter}"));
+                    expressions.Add(ParseExpression($"{@var}{lengthIdentifier}_ = ({lengthType}){lengthGetter}"));
                 }
             }
             else if (type.IsOpaque() || type.IsGInterface()) {
                 if (type == typeof(Utf8) && arg.TransferOwnership == "none") {
-                    expressions.Add(ParseExpression($"{unmanagedName} = {unmanagedCast}{arg.ManagedName}.UnsafeHandle"));
+                    expressions.Add(ParseExpression($"{@var}{unmanagedName} = {unmanagedCast}{arg.ManagedName}.UnsafeHandle"));
                 }
                 else {
                     var getter = arg.TransferOwnership == "none" ? "UnsafeHandle" : "Take()";
                     expressions.Add(arg.IsNullable ?
-                        ParseExpression($"{unmanagedName} = {unmanagedCast}({arg.ManagedName}?.{getter} ?? System.IntPtr.Zero)") :
-                        ParseExpression($"{unmanagedName} = {unmanagedCast}{arg.ManagedName}.{getter}"));
+                        ParseExpression($"{@var}{unmanagedName} = {unmanagedCast}({arg.ManagedName}?.{getter} ?? System.IntPtr.Zero)") :
+                        ParseExpression($"{@var}{unmanagedName} = {unmanagedCast}{arg.ManagedName}.{getter}"));
                 }
             }
             else if (type.IsValueType) {
@@ -257,13 +259,13 @@ namespace GISharp.CodeGen.Syntax
                         Block());
                 }
                 else if (unmanagedType.IsPointer) {
-                    expressions.Add(ParseExpression($"{unmanagedName} = &{arg.ManagedName}"));
+                    expressions.Add(ParseExpression($"{@var}{unmanagedName} = &{arg.ManagedName}"));
                 }
                 else if (type == typeof(bool)) {
-                    expressions.Add(ParseExpression($"{unmanagedName} = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.ToBoolean)}({arg.ManagedName})"));
+                    expressions.Add(ParseExpression($"{@var}{unmanagedName} = {typeof(BooleanExtensions)}.{nameof(BooleanExtensions.ToBoolean)}({arg.ManagedName})"));
                 }
                 else {
-                    expressions.Add(ParseExpression($"{unmanagedName} = {unmanagedCast}{arg.ManagedName}"));
+                    expressions.Add(ParseExpression($"{@var}{unmanagedName} = {unmanagedCast}{arg.ManagedName}"));
                 }
             }
             else if (type.IsDelegate()) {
@@ -275,18 +277,10 @@ namespace GISharp.CodeGen.Syntax
                 var marshal = $"{type}Marshal";
                 var getter = $"{marshal}.ToUnmanagedFunctionPointer({arg.ManagedName}, {scope})";
                 var identifiers = $"{unmanagedName}, {destroy}_, {userData}_";
-                expressions.Add(ParseExpression($"({identifiers}) = {getter}"));
+                expressions.Add(ParseExpression($"{@var}({identifiers}) = {getter}"));
             }
             else {
                 expressions.Add(ParseExpression($"throw new System.NotImplementedException(\"{nameof(GetMarshalManagedToUnmanagedStatements)}\")"));
-                declareVariable = false;
-            }
-
-            if (declareVariable) {
-                expressions = expressions.Select(x => ParseExpression($"var {x}")).ToList();
-            }
-            else if (arg.Direction != "in" && !arg.IsCallerAllocates) {
-                expressions = expressions.Select(x => ParseExpression($"*{x}")).ToList();
             }
 
             return expressions.Select(x => ExpressionStatement(x)).ToArray();
