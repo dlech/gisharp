@@ -4,6 +4,7 @@
 using System;
 using System.ComponentModel;
 using System.Reflection;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Threading.Tasks;
 
@@ -354,13 +355,18 @@ namespace GISharp.Test.Core
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_network_monitor_can_reach_async(IntPtr monitor, IntPtr connectable, IntPtr cancellable, UnmanagedAsyncReadyCallback callback, IntPtr userData);
+        static extern void g_network_monitor_can_reach_async(
+            IntPtr monitor,
+            IntPtr connectable,
+            IntPtr cancellable,
+            delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> callback,
+            IntPtr userData);
 
         public static Task<bool> CanReachAsync(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default)
         {
             var completion = new TaskCompletionSource<bool>();
             var this_ = monitor.AsObject().UnsafeHandle;
-            var callback_ = CanReachAsyncFinishDelegate;
+            var callback_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void>)&CanReachAsyncFinish;
             var userData_ = (IntPtr)GCHandle.Alloc(completion);
             g_network_monitor_can_reach_async(this_, connectable, cancellable, callback_, userData_);
 
@@ -370,6 +376,7 @@ namespace GISharp.Test.Core
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern Boolean g_network_monitor_can_reach_finish(IntPtr monitor, IntPtr result, Error.UnmanagedStruct** error);
 
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static void CanReachAsyncFinish(IntPtr sourceObject_, IntPtr result_, IntPtr userData_)
         {
             try {
@@ -392,8 +399,6 @@ namespace GISharp.Test.Core
                 ex.LogUnhandledException();
             }
         }
-
-        static readonly UnmanagedAsyncReadyCallback CanReachAsyncFinishDelegate = CanReachAsyncFinish;
     }
 
     [GType("GAsyncResult", IsProxyForUnmanagedType = true)]

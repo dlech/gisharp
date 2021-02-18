@@ -653,12 +653,16 @@ namespace GISharp.CodeGen
                         .SingleOrDefault(x => x.Attribute("name").AsString() == finishMethodName);
 
                     if (finishMethodElement is null) {
+                        Log.Warning($"missing finish function for {element.GetXPath()}");
                         continue;
                     }
 
+                    finishMethodElement.Name = element.Name;
                     finishMethodElement.SetAttributeValue(gs + "pinvoke-only", "1");
                     finishMethodElement.SetAttributeValue(gs + "finish-for", asyncMethodName);
                 }
+
+                element.SetAttributeValue(gs + "async-finish", finishMethodElement.Attribute(gs + "managed-name").Value);
             }
 
             // flag ref methods

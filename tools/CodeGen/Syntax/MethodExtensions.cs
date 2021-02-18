@@ -60,9 +60,6 @@ namespace GISharp.CodeGen.Syntax
                 if (method.FinishFor is not null) {
                     yield return method.GetFinishMethodDeclaration()
                         .WithBody(Block(method.GetFinishMethodStatements()));
-                    foreach (var f in method.GetFinishDelegateField()) {
-                        yield return f;
-                    }
                 }
 
                 if (method.IsRef) {
@@ -239,12 +236,6 @@ namespace GISharp.CodeGen.Syntax
         static SyntaxList<StatementSyntax> GetFinishMethodStatements(this Method method)
         {
             return List(method.GetFinishMethodStatements(method.FinishForFunction, method.CIdentifier));
-        }
-
-        static IEnumerable<FieldDeclarationSyntax> GetFinishDelegateField(this Method method)
-        {
-            var identifier = method.FinishForFunction.ManagedName.ToCamelCase() + "Callback";
-            return method.GetFinishDelegateFields(identifier);
         }
 
         /// <summary>

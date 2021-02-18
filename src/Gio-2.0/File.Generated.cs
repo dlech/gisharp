@@ -758,7 +758,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileOutputStream>();
-            var callback_ = appendToAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&AppendToFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_append_to_async(file_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -796,7 +796,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void AppendToFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void AppendToFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -820,9 +821,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback appendToAsyncCallbackDelegate = AppendToFinish;
-        static readonly System.IntPtr appendToAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(appendToAsyncCallbackDelegate);
 
         /// <summary>
         /// Copies the file @source to the location specified by @destination.
@@ -1256,7 +1254,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileOutputStream>();
-            var callback_ = createAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&CreateFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_create_async(file_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -1293,7 +1291,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void CreateFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void CreateFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -1317,9 +1316,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback createAsyncCallbackDelegate = CreateFinish;
-        static readonly System.IntPtr createAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(createAsyncCallbackDelegate);
 
         /// <summary>
         /// Creates a new file and returns a stream for reading and
@@ -1473,7 +1469,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileIOStream>();
-            var callback_ = createReadwriteAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&CreateReadwriteFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_create_readwrite_async(file_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -1511,7 +1507,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void CreateReadwriteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void CreateReadwriteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -1535,9 +1532,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback createReadwriteAsyncCallbackDelegate = CreateReadwriteFinish;
-        static readonly System.IntPtr createReadwriteAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(createReadwriteAsyncCallbackDelegate);
 
         /// <summary>
         /// Deletes a file. If the @file is a directory, it will only be
@@ -1659,7 +1653,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
-            var callback_ = deleteAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&DeleteFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_delete_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -1695,7 +1689,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void DeleteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void DeleteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -1718,9 +1713,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback deleteAsyncCallbackDelegate = DeleteFinish;
-        static readonly System.IntPtr deleteAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(deleteAsyncCallbackDelegate);
 
         /// <summary>
         /// Duplicates a #GFile handle. This operation does not duplicate
@@ -2604,7 +2596,7 @@ namespace GISharp.Lib.Gio
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.Utf8>>();
-            var callback_ = loadBytesAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&LoadBytesFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_load_bytes_async(file_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -2656,7 +2648,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void LoadBytesFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void LoadBytesFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -2682,9 +2675,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback loadBytesAsyncCallbackDelegate = LoadBytesFinish;
-        static readonly System.IntPtr loadBytesAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(loadBytesAsyncCallbackDelegate);
 
         /// <summary>
         /// Loads the content of the file into memory. The data is always
@@ -2826,7 +2816,7 @@ namespace GISharp.Lib.Gio
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<System.ValueTuple<GISharp.Runtime.CArray<System.Byte>,GISharp.Lib.GLib.Utf8>>();
-            var callback_ = loadContentsAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&LoadContentsFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_load_contents_async(file_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -2888,7 +2878,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void LoadContentsFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void LoadContentsFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -2916,9 +2907,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback loadContentsAsyncCallbackDelegate = LoadContentsFinish;
-        static readonly System.IntPtr loadContentsAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(loadContentsAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes an asynchronous partial load operation that was started
@@ -3109,7 +3097,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
-            var callback_ = makeDirectoryAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&MakeDirectoryFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_make_directory_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -3146,7 +3134,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void MakeDirectoryFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void MakeDirectoryFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -3169,9 +3158,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback makeDirectoryAsyncCallbackDelegate = MakeDirectoryFinish;
-        static readonly System.IntPtr makeDirectoryAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(makeDirectoryAsyncCallbackDelegate);
 
         /// <summary>
         /// Creates a directory and any parent directories that may not
@@ -3708,7 +3694,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileIOStream>();
-            var callback_ = openReadwriteAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&OpenReadwriteFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_open_readwrite_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -3746,7 +3732,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void OpenReadwriteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void OpenReadwriteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -3770,9 +3757,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback openReadwriteAsyncCallbackDelegate = OpenReadwriteFinish;
-        static readonly System.IntPtr openReadwriteAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(openReadwriteAsyncCallbackDelegate);
 
         /// <summary>
         /// Exactly like g_file_get_path(), but caches the result via
@@ -4180,7 +4164,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
-            var callback_ = queryFilesystemInfoAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&QueryFilesystemInfoFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_query_filesystem_info_async(file_, attributes_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -4218,7 +4202,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void QueryFilesystemInfoFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void QueryFilesystemInfoFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -4242,9 +4227,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback queryFilesystemInfoAsyncCallbackDelegate = QueryFilesystemInfoFinish;
-        static readonly System.IntPtr queryFilesystemInfoAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(queryFilesystemInfoAsyncCallbackDelegate);
 
         /// <summary>
         /// Gets the requested information about specified @file.
@@ -4414,7 +4396,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
-            var callback_ = queryInfoAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&QueryInfoFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_query_info_async(file_, attributes_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -4452,7 +4434,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void QueryInfoFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void QueryInfoFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -4476,9 +4459,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback queryInfoAsyncCallbackDelegate = QueryInfoFinish;
-        static readonly System.IntPtr queryInfoAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(queryInfoAsyncCallbackDelegate);
 
         /// <summary>
         /// Obtain the list of settable attributes for the file.
@@ -4718,7 +4698,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInputStream>();
-            var callback_ = readAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&ReadFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_read_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -4755,7 +4735,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void ReadFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void ReadFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -4779,9 +4760,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback readAsyncCallbackDelegate = ReadFinish;
-        static readonly System.IntPtr readAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(readAsyncCallbackDelegate);
 
         /// <summary>
         /// Returns an output stream for overwriting the file, possibly
@@ -4978,7 +4956,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileOutputStream>();
-            var callback_ = replaceAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&ReplaceFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_replace_async(file_, etag_, makeBackup_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -5196,7 +5174,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Utf8>();
-            var callback_ = replaceContentsAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&ReplaceContentsFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_replace_contents_async(file_, contents_, length_, etag_, makeBackup_, flags_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -5282,7 +5260,7 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileCreateFlags)flags;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GLib.Utf8>();
-            var callback_ = replaceContentsAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&ReplaceContentsFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_replace_contents_bytes_async(file_, contents_, etag_, makeBackup_, flags_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -5327,7 +5305,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void ReplaceContentsFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void ReplaceContentsFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -5352,9 +5331,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback replaceContentsAsyncCallbackDelegate = ReplaceContentsFinish;
-        static readonly System.IntPtr replaceContentsAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(replaceContentsAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes an asynchronous file replace operation started with
@@ -5387,7 +5363,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void ReplaceFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void ReplaceFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -5411,9 +5388,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback replaceAsyncCallbackDelegate = ReplaceFinish;
-        static readonly System.IntPtr replaceAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(replaceAsyncCallbackDelegate);
 
         /// <summary>
         /// Returns an output stream for overwriting the file in readwrite mode,
@@ -5584,7 +5558,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileIOStream>();
-            var callback_ = replaceReadwriteAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&ReplaceReadwriteFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_replace_readwrite_async(file_, etag_, makeBackup_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -5622,7 +5596,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void ReplaceReadwriteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void ReplaceReadwriteFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -5646,9 +5621,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback replaceReadwriteAsyncCallbackDelegate = ReplaceReadwriteFinish;
-        static readonly System.IntPtr replaceReadwriteAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(replaceReadwriteAsyncCallbackDelegate);
 
         /// <summary>
         /// Resolves a relative path for @file to an absolute path.
@@ -6288,7 +6260,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
-            var callback_ = setAttributesAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&SetAttributesFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_set_attributes_async(file_, info_, flags_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -6329,7 +6301,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void SetAttributesFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void SetAttributesFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -6354,9 +6327,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback setAttributesAsyncCallbackDelegate = SetAttributesFinish;
-        static readonly System.IntPtr setAttributesAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(setAttributesAsyncCallbackDelegate);
 
         /// <summary>
         /// Tries to set all attributes in the #GFileInfo on the target
@@ -6569,7 +6539,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.IFile>();
-            var callback_ = setDisplayNameAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&SetDisplayNameFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_set_display_name_async(file_, displayName_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -6606,7 +6576,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void SetDisplayNameFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void SetDisplayNameFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* res_, System.IntPtr userData_)
         {
             try
             {
@@ -6630,9 +6601,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback setDisplayNameAsyncCallbackDelegate = SetDisplayNameFinish;
-        static readonly System.IntPtr setDisplayNameAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(setDisplayNameAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes a start operation. See g_file_start_mountable() for details.
@@ -6878,7 +6846,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
-            var callback_ = trashAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&TrashFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_trash_async(file_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -6915,7 +6883,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void TrashFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void TrashFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -6938,9 +6907,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback trashAsyncCallbackDelegate = TrashFinish;
-        static readonly System.IntPtr trashAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(trashAsyncCallbackDelegate);
 
         /// <summary>
         /// Finishes an unmount operation, see g_file_unmount_mountable() for details.

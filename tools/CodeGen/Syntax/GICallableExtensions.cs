@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
@@ -169,8 +170,7 @@ namespace GISharp.CodeGen.Syntax
                 block = block.AddStatements(ExpressionStatement(ParseExpression(completionVarExpression)));
 
                 var callbackArg = callable.Parameters.Single(x => x.Type.CType == "GAsyncReadyCallback");
-                var callbackDelegateName = callable.ManagedName.ToCamelCase() + "Callback_";
-                var callbackExpression = $"var {callbackArg.ManagedName}_ = {callbackDelegateName}";
+                var callbackExpression = $"var {callbackArg.ManagedName}_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&{callable.AsyncFinish}";
                 block = block.AddStatements(ExpressionStatement(ParseExpression(callbackExpression)));
 
                 var userDataArg = callable.Parameters.RegularParameters.ElementAt(callbackArg.ClosureIndex);
@@ -302,7 +302,15 @@ namespace GISharp.CodeGen.Syntax
                 "GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*",
                 resultParameter.ManagedName);
             return MethodDeclaration(ParseTypeName("void"), callable.ManagedName)
-                .AddModifiers(Token(StaticKeyword))
+                .AddAttributeLists(AttributeList().AddAttributes(
+                    Attribute(ParseName(typeof(UnmanagedCallersOnlyAttribute).FullName))
+                        .AddArgumentListArguments(
+                            AttributeArgument(ParseExpression(
+                                $"CallConvs = new[] {{ typeof({typeof(CallConvCdecl)}) }}"
+                            ))
+                        )
+                ))
+                .AddModifiers(Token(PrivateKeyword), Token(StaticKeyword))
                 .WithParameterList(ParseParameterList(parameterList));
         }
 
@@ -395,31 +403,6 @@ namespace GISharp.CodeGen.Syntax
                 .WithBlock(Block(ExpressionStatement(ParseExpression(catchExpression)))));
 
             yield return tryStatement;
-        }
-
-        /// <summary>
-        /// Gets a field declaration for a delegate of an async finish method implementation
-        /// </summary>
-        internal static IEnumerable<FieldDeclarationSyntax> GetFinishDelegateFields(this GICallable callable, string identifier)
-        {
-            var varType = ParseTypeName("GISharp.Lib.Gio.UnmanagedAsyncReadyCallback");
-            var initializerExpression = ParseExpression(callable.ManagedName);
-            yield return FieldDeclaration(VariableDeclaration(varType)
-                    .AddVariables(VariableDeclarator(identifier + "Delegate")
-                        .WithInitializer(EqualsValueClause(initializerExpression))))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
-
-            var marshalExpression = ParseExpression(string.Format(
-                "{0}.{1}<{2}>({3})",
-                typeof(Marshal),
-                nameof(Marshal.GetFunctionPointerForDelegate),
-                varType,
-                identifier + "Delegate"
-            ));
-            yield return FieldDeclaration(VariableDeclaration(ParseTypeName(typeof(IntPtr).FullName))
-                .AddVariables(VariableDeclarator(identifier + "_")
-                    .WithInitializer(EqualsValueClause(marshalExpression))))
-                .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
         }
 
         /// <summary>

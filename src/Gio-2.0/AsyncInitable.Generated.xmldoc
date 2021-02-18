@@ -7,7 +7,7 @@ similar to g_object_newv() but also initializes the object asynchronously.
 </summary>
 <remarks>
 When the initialization is finished, <paramref name="callback"/> will be called. You can
-then call <see cref="AsyncInitable.NewFinish(GISharp.Lib.Gio.IAsyncInitable,GISharp.Lib.Gio.IAsyncResult)"/> to get the new object and check
+then call <see cref="AsyncInitable.NewFinish(GISharp.Lib.Gio.IAsyncResult)"/> to get the new object and check
 for any errors.
 </remarks>
 <param name="objectType">

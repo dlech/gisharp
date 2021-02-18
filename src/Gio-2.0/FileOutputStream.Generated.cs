@@ -204,7 +204,7 @@ namespace GISharp.Lib.Gio
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
-            var callback_ = queryInfoAsyncCallback_;
+            var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&QueryInfoFinish;
             var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(completionSource);
             g_file_output_stream_query_info_async(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
@@ -240,7 +240,8 @@ namespace GISharp.Lib.Gio
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 
-        static void QueryInfoFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        private static void QueryInfoFinish(GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject_, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct* result_, System.IntPtr userData_)
         {
             try
             {
@@ -264,9 +265,6 @@ namespace GISharp.Lib.Gio
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedAsyncReadyCallback queryInfoAsyncCallbackDelegate = QueryInfoFinish;
-        static readonly System.IntPtr queryInfoAsyncCallback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate<GISharp.Lib.Gio.UnmanagedAsyncReadyCallback>(queryInfoAsyncCallbackDelegate);
 
         /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoCanSeek()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedCanSeek))]
