@@ -245,6 +245,10 @@ namespace GISharp.CodeGen
             girXml.ApplyBuiltinFixup();
             girXml.Validate();
 
+            Log.Message("Writing fixed up GIR XML...");
+
+            girXml.Save(Path.Join(projectDirPath, "gir.xml"));
+
             Log.Message("Resolving references...");
 
             // load all references assemblies into type resolver
