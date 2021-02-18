@@ -87,17 +87,17 @@ namespace GISharp.Test.Core
         }
     }
 
-    public static class Initable
+    public static unsafe class Initable
     {
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_initable_newv(GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, out IntPtr errorPtr);
+        static extern IntPtr g_initable_newv(GType objectType, uint nParameters, IntPtr parameters, IntPtr cancellable, Error.UnmanagedStruct** error);
 
         public static Object New(GType objectType, params object[] parameters)
         {
-            IntPtr errorPtr;
-            var ret_ = g_initable_newv(objectType, 0, IntPtr.Zero, IntPtr.Zero, out errorPtr);
-            if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error>(errorPtr, Transfer.Full);
+            var error_ = default(Error.UnmanagedStruct*);
+            var ret_ = g_initable_newv(objectType, 0, IntPtr.Zero, IntPtr.Zero, &error_);
+            if (error_ is not null) {
+                var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
             var ret = Object.GetInstance(ret_, Transfer.Full)!;
@@ -106,14 +106,15 @@ namespace GISharp.Test.Core
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_initable_init(IntPtr initable, IntPtr cancellable, out IntPtr errorPtr);
+        static extern Boolean g_initable_init(IntPtr initable, IntPtr cancellable, Error.UnmanagedStruct** error);
 
         public static bool Init(this IInitable initable)
         {
             var instance = (Object)initable;
-            var ret_ = g_initable_init(instance.UnsafeHandle, IntPtr.Zero, out var errorPtr);
-            if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error>(errorPtr, Transfer.Full);
+            var error_ = default(Error.UnmanagedStruct*);
+            var ret_ = g_initable_init(instance.UnsafeHandle, IntPtr.Zero, &error_);
+            if (error_ is not null) {
+                var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
             var ret = ret_.IsTrue();
@@ -339,14 +340,15 @@ namespace GISharp.Test.Core
         }
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Boolean g_network_monitor_can_reach(IntPtr monitor, IntPtr connectable, IntPtr cancellable, out IntPtr errorPtr);
+        static extern Boolean g_network_monitor_can_reach(IntPtr monitor, IntPtr connectable, IntPtr cancellable, Error.UnmanagedStruct** error);
 
         public static bool CanReach(this INetworkMonitor monitor, IntPtr connectable, IntPtr cancellable = default)
         {
             var instance = (Object)monitor;
-            var ret_ = g_network_monitor_can_reach(instance.UnsafeHandle, connectable, cancellable, out var errorPtr);
-            if (errorPtr != IntPtr.Zero) {
-                var error = Opaque.GetInstance<Error>(errorPtr, Transfer.Full);
+            var error_ = default(Error.UnmanagedStruct*);
+            var ret_ = g_network_monitor_can_reach(instance.UnsafeHandle, connectable, cancellable, &error_);
+            if (error_ is not null) {
+                var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
 
@@ -386,7 +388,7 @@ namespace GISharp.Test.Core
 
                 var error_ = default(Error.UnmanagedStruct*);
                 var ret_ = g_network_monitor_can_reach_finish(sourceObject_, result_, &error_);
-                if (error_ != null) {
+                if (error_ is not null) {
                     var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                     completion.SetException(new GErrorException(error));
                 }
@@ -595,7 +597,7 @@ namespace GISharp.Test.Core
         {
             var error_ = default(Error.UnmanagedStruct*);
             var ret_ = g_task_propagate_boolean(UnsafeHandle, &error_);
-            if (error_ != null) {
+            if (error_ is not null) {
                 var error = Opaque.GetInstance<Error>((IntPtr)error_, Transfer.Full);
                 throw new GErrorException(error);
             }
