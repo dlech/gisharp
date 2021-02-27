@@ -15,5 +15,5 @@ else
 fi
 
 for p in $projects; do
-    dotnet run --project tools/CodeGen/CodeGen.csproj -- -p src/$p -c generate
+    dotnet run --project tools/CodeGen/CodeGen.csproj -- -p src/Lib/$p -c generate
 done

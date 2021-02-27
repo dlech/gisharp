@@ -25,8 +25,8 @@
     <PackageReference Include="FluentAssertions" Version="4.19.4" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\src\GIRepository-2.0\GIRepository-2.0.csproj" />
     <ProjectReference Include="..\..\src\Core\Core.csproj" />
+    <ProjectReference Include="..\..\src\Lib\GIRepository-2.0\GIRepository-2.0.csproj" />
     <ProjectReference Include="..\TestHelpers\TestHelpers.csproj" />
   </ItemGroup>
 </Project>

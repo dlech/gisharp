@@ -3,13 +3,13 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26114.2
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIRepository-2.0", "src\GIRepository-2.0\GIRepository-2.0.csproj", "{26BF5EFC-10BF-46BC-A071-11F2B69C2844}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GIRepository-2.0", "src\Lib\GIRepository-2.0\GIRepository-2.0.csproj", "{26BF5EFC-10BF-46BC-A071-11F2B69C2844}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.GIRepository-2.0", "test\Test.GIRepository-2.0\Test.GIRepository-2.0.csproj", "{746D44D3-A201-4FB6-8697-7609E2C3C70E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CodeGen", "tools\CodeGen\CodeGen.csproj", "{3C254A2D-5A87-4ACD-A07E-99FE8F82E301}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLib-2.0", "src\GLib-2.0\GLib-2.0.csproj", "{177DD4B3-658C-48DC-AC1E-30E2F170A34F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GLib-2.0", "src\Lib\GLib-2.0\GLib-2.0.csproj", "{177DD4B3-658C-48DC-AC1E-30E2F170A34F}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.GLib-2.0", "test\Test.GLib-2.0\Test.GLib-2.0.csproj", "{EA59587D-98C3-4F27-91D7-48E427B44BD7}"
 EndProject
@@ -23,9 +23,9 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Core", "test\Test.Core\Test.Core.csproj", "{85913FB2-05F7-4995-BD23-4B5FA58E6729}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0", "src\GObject-2.0\GObject-2.0.csproj", "{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GObject-2.0", "src\Lib\GObject-2.0\GObject-2.0.csproj", "{87AB00C3-B555-41AC-BE6A-F9E1C66ACE0F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0", "src\Gio-2.0\Gio-2.0.csproj", "{8E23D0EC-C98A-4275-8171-07688F5EDDE1}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gio-2.0", "src\Lib\Gio-2.0\Gio-2.0.csproj", "{8E23D0EC-C98A-4275-8171-07688F5EDDE1}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Gio-2.0", "test\Test.Gio-2.0\Test.Gio-2.0.csproj", "{8441EC25-8A72-407C-85E9-957648FE36E7}"
 EndProject
@@ -35,13 +35,13 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestHelpers", "test\TestHel
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{5D40B8A4-2545-477A-B759-8EA0D098A472}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtk-4.0", "src\Gtk-4.0\Gtk-4.0.csproj", "{AAE6C436-0D2F-4BA8-9E27-ADE24492F5B4}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Gtk-4.0", "src\Lib\Gtk-4.0\Gtk-4.0.csproj", "{AAE6C436-0D2F-4BA8-9E27-ADE24492F5B4}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{7608228C-191B-4C3B-9CAB-D360AC8622AC}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.Gtk-4.0", "test\Test.Gtk-4.0\Test.Gtk-4.0.csproj", "{C475AE31-21BA-437C-B91D-5C4C2CC2E5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GModule-2.0", "src\GModule-2.0\GModule-2.0.csproj", "{4135C196-56E0-43F8-8EB7-8AB4B030A30B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GModule-2.0", "src\Lib\GModule-2.0\GModule-2.0.csproj", "{4135C196-56E0-43F8-8EB7-8AB4B030A30B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Test.GModule-2.0", "test\Test.GModule-2.0\Test.GModule-2.0.csproj", "{2C18087A-1817-4AE4-B893-194AEB7B986C}"
 EndProject
