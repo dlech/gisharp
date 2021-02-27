@@ -34,7 +34,7 @@ namespace GISharp.CodeGen.Syntax
                     .Append(Token(UnsafeKeyword))
                     .Append(Token(PartialKeyword))
                 ))
-                .AddBaseListTypes(SimpleBaseType(alias.Type.ManagedType.ToSyntax()))
+                .AddBaseListTypes(SimpleBaseType(ParseTypeName(alias.Type.GetManagedType())))
                 .WithLeadingTrivia(alias.Doc.GetDocCommentTrivia())
                 .WithAdditionalAnnotations(new SyntaxAnnotation("extern doc"));
         }

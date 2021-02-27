@@ -1,0 +1,33 @@
+<declaration>
+
+<member name='ValueDataUnion.VInt'>
+</member>
+
+<member name='ValueDataUnion.VUint'>
+</member>
+
+<member name='ValueDataUnion.VLong'>
+</member>
+
+<member name='ValueDataUnion.VUlong'>
+</member>
+
+<member name='ValueDataUnion.VInt64'>
+</member>
+
+<member name='ValueDataUnion.VUint64'>
+</member>
+
+<member name='ValueDataUnion.VFloat'>
+</member>
+
+<member name='ValueDataUnion.VDouble'>
+</member>
+
+<member name='ValueDataUnion.VPointer'>
+</member>
+
+<member name='ValueDataUnion'>
+</member>
+
+</declaration>

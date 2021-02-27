@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
+using GISharp.CodeGen.Gir;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -89,7 +90,7 @@ namespace GISharp.CodeGen.Syntax
         /// }
         /// </code>
         /// </summary>
-        static EventDeclarationSyntax GetEventDeclaration(this Signal signal)
+        public static EventDeclarationSyntax GetEventDeclaration(this Signal signal)
         {
             var typeName = ParseTypeName($"{signal.ManagedName}Handler");
             var signalManager = $"{signal.ManagedName.ToCamelCase()}SignalManager";
@@ -142,7 +143,7 @@ namespace GISharp.CodeGen.Syntax
         ///      new GSignalManager&lt;SomethingChangedSignalHandler&gt;("something-changed", _GType);
         /// </code>
         /// </summary>
-        static FieldDeclarationSyntax GetGSignalManagerFieldDeclaration(this Signal signal)
+        public static FieldDeclarationSyntax GetGSignalManagerFieldDeclaration(this Signal signal)
         {
             var managerType = typeof(GSignalManager<>).FullName;
             managerType = managerType.Substring(0, managerType.IndexOf('`'));
@@ -189,7 +190,7 @@ namespace GISharp.CodeGen.Syntax
 
         private static MethodDeclarationSyntax GetManagedSignalCallbackDeclaration(this Signal signal)
         {
-            var returnType = signal.ReturnValue.Type.UnmanagedType.ToSyntax();
+            var returnType = ParseTypeName(signal.ReturnValue.Type.GetUnmanagedType());
             var method = MethodDeclaration(returnType, $"Managed{signal.ManagedName}Handler")
                 .AddAttributeLists(AttributeList().AddAttributes(
                     Attribute(ParseName(typeof(UnmanagedCallersOnlyAttribute).FullName))
@@ -203,6 +204,60 @@ namespace GISharp.CodeGen.Syntax
                 .WithParameterList(signal.Parameters.GetParameterList())
                 .WithBody(Block(signal.GetCallbackStatements()));
             return method;
+        }
+
+        // Gets an event declaration like:
+        // public event SomethingChangedSignalHandler SomethingChangedSignal {
+        //      add => somethingChangedSignalManager.Add(this, value);
+        //      remove => somethingChangedSignalManager.Remove(value);
+        // }
+        internal static EventDeclarationSyntax GetImplementsEventDeclaration(this Signal signal)
+        {
+            var delcaringType = signal.Ancestors.OfType<Interface>().Single();
+            var typeName = ParseTypeName($"{delcaringType.GetManagedType()}.{signal.ManagedName}Handler");
+            var signalManager = $"{signal.ManagedName.ToCamelCase()}SignalManager";
+
+            var addExpression = ParseExpression($"{signalManager}.Add(this, value)");
+            var addAccessor = AccessorDeclaration(AddAccessorDeclaration)
+                .WithExpressionBody(ArrowExpressionClause(addExpression))
+                .WithSemicolonToken(Token(SemicolonToken));
+
+            var removeExpression = ParseExpression($"{signalManager}.Remove(value)");
+            var removeAccessor = AccessorDeclaration(RemoveAccessorDeclaration)
+                .WithExpressionBody(ArrowExpressionClause(removeExpression))
+                .WithSemicolonToken(Token(SemicolonToken));
+
+            return EventDeclaration(typeName, signal.ManagedName)
+                .AddModifiers(Token(PublicKeyword)
+                    // Can't add leading trivia to EventDeclaration, so have to
+                    // attach it to public keyword.
+                    // TODO: inheritdoc only makes sense when implementing an
+                    // interface. If info is GirEventInfo, we should be able to
+                    // get docs from the GIR XML
+                    .WithLeadingTrivia(ParseLeadingTrivia("/// <inheritdoc />\n")))
+                .AddAccessorListAccessors(addAccessor, removeAccessor);
+        }
+
+        // generates a field like:
+        // readonly GSignalManager<SomethingChangedSignalHandler> somethingChangedSignalManager =
+        //      new GSignalManager<SomethingChangedSignalHandler>("something-changed", _GType);
+        internal static FieldDeclarationSyntax GetImplementsGSignalManagerFieldDeclaration(this Signal signal)
+        {
+            var delcaringType = signal.Ancestors.OfType<Interface>().Single();
+            var typeName = ParseTypeName(delcaringType.GetManagedType());
+            var managerType = typeof(GSignalManager<>).FullName;
+            managerType = managerType.Substring(0, managerType.IndexOf('`'));
+            managerType += $"<{typeName}.{signal.ManagedName}Handler>";
+            var init = string.Format("new {0}(\"{1}\", _GType)",
+                managerType,
+                signal.GirName);
+            var signalManager = $"{signal.ManagedName.ToCamelCase()}SignalManager";
+            var initExpression = ParseExpression(init);
+            var idVariable = VariableDeclaration(ParseTypeName(managerType))
+                .AddVariables(VariableDeclarator(signalManager)
+                    .WithInitializer(EqualsValueClause(initExpression)));
+            return FieldDeclaration(idVariable)
+                .AddModifiers(Token(ReadOnlyKeyword));
         }
     }
 }

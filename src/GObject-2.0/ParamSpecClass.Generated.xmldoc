@@ -1,0 +1,50 @@
+<declaration>
+
+<member name='UnmanagedStruct.GTypeClass'>
+<summary>
+the parent class
+</summary>
+</member>
+
+<member name='UnmanagedStruct.ValueType'>
+<summary>
+the <see cref="Value"/> type for this parameter
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Finalize'>
+</member>
+
+<member name='UnmanagedStruct.ValueSetDefault'>
+</member>
+
+<member name='UnmanagedStruct.ValueValidate'>
+</member>
+
+<member name='UnmanagedStruct.ValuesCmp'>
+</member>
+
+<member name='UnmanagedStruct.Dummy'>
+</member>
+
+<member name='Finalize'>
+</member>
+
+<member name='ValueSetDefault'>
+</member>
+
+<member name='ValueValidate'>
+</member>
+
+<member name='ValuesCmp'>
+</member>
+
+<member name='ParamSpecClass'>
+<summary>
+The class structure for the GParamSpec type.
+Normally, GParamSpec classes are filled by
+g_param_type_register_static().
+</summary>
+</member>
+
+</declaration>

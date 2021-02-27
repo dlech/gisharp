@@ -23,7 +23,8 @@ namespace GISharp.CodeGen.Syntax
 
             if (!baseTypes.Any(x => x.ToString().Contains("GInterface"))) {
                 // if there was not an instantiatable prerequisite, use GObject
-                baseTypes = baseTypes.Add(SimpleBaseType(typeof(GInterface<Object>).ToSyntax()));
+                var type = $"GISharp.Runtime.GInterface<{typeof(Object)}>";
+                baseTypes = baseTypes.Add(SimpleBaseType(ParseTypeName(type)));
             }
 
             var syntax = InterfaceDeclaration(@interface.ManagedName)

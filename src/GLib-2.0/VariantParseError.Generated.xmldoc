@@ -1,0 +1,123 @@
+<declaration>
+
+<member name='VariantParseError.Failed'>
+<summary>
+generic error (unused)
+</summary>
+</member>
+
+<member name='VariantParseError.BasicTypeExpected'>
+<summary>
+a non-basic <see cref="VariantType"/> was given where a basic type was expected
+</summary>
+</member>
+
+<member name='VariantParseError.CannotInferType'>
+<summary>
+cannot infer the <see cref="VariantType"/>
+</summary>
+</member>
+
+<member name='VariantParseError.DefiniteTypeExpected'>
+<summary>
+an indefinite <see cref="VariantType"/> was given where a definite type was expected
+</summary>
+</member>
+
+<member name='VariantParseError.InputNotAtEnd'>
+<summary>
+extra data after parsing finished
+</summary>
+</member>
+
+<member name='VariantParseError.InvalidCharacter'>
+<summary>
+invalid character in number or unicode escape
+</summary>
+</member>
+
+<member name='VariantParseError.InvalidFormatString'>
+<summary>
+not a valid <see cref="Variant"/> format string
+</summary>
+</member>
+
+<member name='VariantParseError.InvalidObjectPath'>
+<summary>
+not a valid object path
+</summary>
+</member>
+
+<member name='VariantParseError.InvalidSignature'>
+<summary>
+not a valid type signature
+</summary>
+</member>
+
+<member name='VariantParseError.InvalidTypeString'>
+<summary>
+not a valid <see cref="Variant"/> type string
+</summary>
+</member>
+
+<member name='VariantParseError.NoCommonType'>
+<summary>
+could not find a common type for array entries
+</summary>
+</member>
+
+<member name='VariantParseError.NumberOutOfRange'>
+<summary>
+the numerical value is out of range of the given type
+</summary>
+</member>
+
+<member name='VariantParseError.NumberTooBig'>
+<summary>
+the numerical value is out of range for any type
+</summary>
+</member>
+
+<member name='VariantParseError.TypeError'>
+<summary>
+cannot parse as variant of the specified type
+</summary>
+</member>
+
+<member name='VariantParseError.UnexpectedToken'>
+<summary>
+an unexpected token was encountered
+</summary>
+</member>
+
+<member name='VariantParseError.UnknownKeyword'>
+<summary>
+an unknown keyword was encountered
+</summary>
+</member>
+
+<member name='VariantParseError.UnterminatedStringConstant'>
+<summary>
+unterminated string constant
+</summary>
+</member>
+
+<member name='VariantParseError.ValueExpected'>
+<summary>
+no value given
+</summary>
+</member>
+
+<member name='VariantParseError.Recursion'>
+<summary>
+variant was too deeply nested; <see cref="Variant"/> is only guaranteed to handle nesting up to 64 levels ()
+</summary>
+</member>
+
+<member name='VariantParseError'>
+<summary>
+Error codes returned by parsing text-format GVariants.
+</summary>
+</member>
+
+</declaration>

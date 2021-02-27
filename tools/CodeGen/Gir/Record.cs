@@ -1,12 +1,10 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Xml.Linq;
 using GISharp.Lib.GLib;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 namespace GISharp.CodeGen.Gir
@@ -39,8 +37,8 @@ namespace GISharp.CodeGen.Gir
         /// Gets the base type for an opaque record. Not valid for records that
         /// are structs.
         /// </summary>
-        public System.Type BaseType => _BaseType.Value;
-        readonly Lazy<System.Type> _BaseType;
+        public string BaseType => _BaseType.Value;
+        readonly Lazy<string> _BaseType;
 
         public Record(XElement element, GirNode parent) : base(element, parent)
         {
@@ -57,29 +55,30 @@ namespace GISharp.CodeGen.Gir
         GIRegisteredType LazyGetIsGTypeStructForType() =>
             (GIRegisteredType)Namespace.AllTypes.SingleOrDefault(x => x.GirName == IsGTypeStructFor);
 
-        System.Type LazyGetBaseType()
+        string LazyGetBaseType()
         {
             if (IsGTypeStructFor is not null) {
                 if (Fields.Any()) {
                     // in GType structs, the first field is always the base type
-                    return Fields.First().Type.ManagedType;
+                    return Fields.First().Type.GetManagedType();
                 }
                 // if there weren't any fields, maybe it is a class
                 if (IsGTypeStructForType is Class @class) {
-                    return @class.ParentType.GetGTypeStruct();
+                    var parent = @class.ParentType;
+                    return $"GISharp.Lib.{parent.Namespace.Name}.{parent.GTypeStruct}";
                 }
                 throw new NotSupportedException("Don't know how to get the parent for this GType struct");
             }
             if (IsSource) {
-                return typeof(Source);
+                return typeof(Source).FullName;
             }
             if (GTypeName is not null) {
-                return typeof(Lib.GObject.Boxed);
+                return typeof(Lib.GObject.Boxed).FullName;
             }
             if (IsDisguised) {
-                return typeof(Opaque);
+                return typeof(Opaque).FullName;
             }
-            return typeof(ValueType);
+            return typeof(ValueType).FullName;
         }
     }
 }

@@ -1003,7 +1003,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        GISharp.Lib.GObject.Value result);
+        GISharp.Lib.GObject.Value* result);
         partial void CheckReturnValueArgs(GISharp.Lib.GObject.Value result);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnValue(GISharp.Lib.GObject.Value)']/*" />
@@ -1012,7 +1012,7 @@ namespace GISharp.Lib.Gio
         {
             CheckReturnValueArgs(result);
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
-            var result_ = (GISharp.Lib.GObject.Value)result;
+            var result_ = &result;
             g_task_return_value(task_, result_);
         }
 

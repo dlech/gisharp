@@ -1,0 +1,94 @@
+<declaration>
+
+<member name='ParamFlags.Readable'>
+<summary>
+the parameter is readable
+</summary>
+</member>
+
+<member name='ParamFlags.Writable'>
+<summary>
+the parameter is writable
+</summary>
+</member>
+
+<member name='ParamFlags.Readwrite'>
+<summary>
+alias for <see cref="ParamFlags.Readable"/> | <see cref="ParamFlags.Writable"/>
+</summary>
+</member>
+
+<member name='ParamFlags.Construct'>
+<summary>
+the parameter will be set upon object construction
+</summary>
+</member>
+
+<member name='ParamFlags.ConstructOnly'>
+<summary>
+the parameter can only be set upon object construction
+</summary>
+</member>
+
+<member name='ParamFlags.LaxValidation'>
+<summary>
+upon parameter conversion (see g_param_value_convert())
+ strict validation is not required
+</summary>
+</member>
+
+<member name='ParamFlags.StaticName'>
+<summary>
+the string used as name when constructing the
+ parameter is guaranteed to remain valid and
+ unmodified for the lifetime of the parameter.
+</summary>
+</member>
+
+<member name='ParamFlags.Private'>
+<summary>
+internal
+</summary>
+</member>
+
+<member name='ParamFlags.StaticNick'>
+<summary>
+the string used as nick when constructing the
+ parameter is guaranteed to remain valid and
+ unmmodified for the lifetime of the parameter.
+</summary>
+</member>
+
+<member name='ParamFlags.StaticBlurb'>
+<summary>
+the string used as blurb when constructing the
+ parameter is guaranteed to remain valid and
+ unmodified for the lifetime of the parameter.
+</summary>
+</member>
+
+<member name='ParamFlags.ExplicitNotify'>
+<summary>
+calls to <see cref="Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)"/> for this
+  property will not automatically result in a "notify" signal being
+  emitted: the implementation must call <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/> themselves
+  in case the property actually changes.
+</summary>
+</member>
+
+<member name='ParamFlags.Deprecated'>
+<summary>
+the parameter is deprecated and will be removed
+ in a future version. A warning will be generated if it is used
+ while running with G_ENABLE_DIAGNOSTIC=1.
+</summary>
+</member>
+
+<member name='ParamFlags'>
+<summary>
+Through the <see cref="ParamFlags"/> flag values, certain aspects of parameters
+can be configured. See also #G_PARAM_STATIC_STRINGS.
+</summary>
+</member>
+
+</declaration>

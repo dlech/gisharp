@@ -1,12 +1,8 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
-using GISharp.CodeGen.Reflection;
-using GISharp.Runtime;
 
 namespace GISharp.CodeGen.Gir
 {
@@ -22,8 +18,8 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public new Interface ParentNode => (Interface)base.ParentNode;
 
-        public System.Type ManagedType => _Type.Value;
-        readonly Lazy<System.Type> _Type;
+        public Class Type => _Type.Value;
+        readonly Lazy<Class> _Type;
 
         public Prerequisite(XElement element, GirNode parent) : base(element, parent)
         {
@@ -34,6 +30,6 @@ namespace GISharp.CodeGen.Gir
             _Type = new(LazyGetType);
         }
 
-        System.Type LazyGetType() => GirInterfaceType.ResolveType(this);
+        Class LazyGetType() => TypeResolver.ResolveType<Class>(ParentNode.Namespace, GirName);
     }
 }

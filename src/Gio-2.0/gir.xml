@@ -7400,6 +7400,8 @@ cancellable signal should not do something that can block.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved2" introspectable="1" gs:managed-name="GReserved2">
@@ -7408,6 +7410,8 @@ cancellable signal should not do something that can block.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved3" introspectable="1" gs:managed-name="GReserved3">
@@ -7416,6 +7420,8 @@ cancellable signal should not do something that can block.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved4" introspectable="1" gs:managed-name="GReserved4">
@@ -7424,6 +7430,8 @@ cancellable signal should not do something that can block.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved5" introspectable="1" gs:managed-name="GReserved5">
@@ -7432,6 +7440,8 @@ cancellable signal should not do something that can block.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
     </record>
@@ -17499,6 +17509,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved2" introspectable="1" gs:managed-name="GReserved2">
@@ -17507,6 +17519,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved3" introspectable="1" gs:managed-name="GReserved3">
@@ -17515,6 +17529,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved4" introspectable="1" gs:managed-name="GReserved4">
@@ -17523,6 +17539,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved5" introspectable="1" gs:managed-name="GReserved5">
@@ -17531,6 +17549,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
     </record>
@@ -18697,6 +18717,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_query_settable_attributes_finish" introspectable="1" gs:managed-name="QuerySettableAttributesFinish">
@@ -18705,6 +18727,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="query_writable_namespaces" gs:managed-name="QueryWritableNamespaces">
@@ -18751,6 +18775,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_query_writable_namespaces_finish" introspectable="1" gs:managed-name="QueryWritableNamespacesFinish">
@@ -18759,6 +18785,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="set_attribute" gs:managed-name="SetAttribute">
@@ -19997,6 +20025,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_make_symbolic_link_finish" introspectable="1" gs:managed-name="MakeSymbolicLinkFinish">
@@ -20005,6 +20035,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="copy" gs:managed-name="Copy">
@@ -20261,6 +20293,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_move_finish" introspectable="1" gs:managed-name="MoveFinish">
@@ -20269,6 +20303,8 @@ by g_file_io_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="mount_mountable" introspectable="1" gs:managed-name="MountMountable">
@@ -24253,6 +24289,8 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be set</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved2" introspectable="1" gs:managed-name="GReserved2">
@@ -24261,6 +24299,8 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be set</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved3" introspectable="1" gs:managed-name="GReserved3">
@@ -24269,6 +24309,8 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be set</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved4" introspectable="1" gs:managed-name="GReserved4">
@@ -24277,6 +24319,8 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be set</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved5" introspectable="1" gs:managed-name="GReserved5">
@@ -24285,6 +24329,8 @@ was cancelled, the error %G_IO_ERROR_CANCELLED will be set</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
     </record>
@@ -25176,6 +25222,8 @@ by g_file_output_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved2" introspectable="1" gs:managed-name="GReserved2">
@@ -25184,6 +25232,8 @@ by g_file_output_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved3" introspectable="1" gs:managed-name="GReserved3">
@@ -25192,6 +25242,8 @@ by g_file_output_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved4" introspectable="1" gs:managed-name="GReserved4">
@@ -25200,6 +25252,8 @@ by g_file_output_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved5" introspectable="1" gs:managed-name="GReserved5">
@@ -25208,6 +25262,8 @@ by g_file_output_stream_query_info_async().</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
     </record>
@@ -26331,6 +26387,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved2" introspectable="1" gs:managed-name="GReserved2">
@@ -26339,6 +26397,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved3" introspectable="1" gs:managed-name="GReserved3">
@@ -26347,6 +26407,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved4" introspectable="1" gs:managed-name="GReserved4">
@@ -26355,6 +26417,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved5" introspectable="1" gs:managed-name="GReserved5">
@@ -26363,6 +26427,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved6" introspectable="1" gs:managed-name="GReserved6">
@@ -26371,6 +26437,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved7" introspectable="1" gs:managed-name="GReserved7">
@@ -26379,6 +26447,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved8" introspectable="1" gs:managed-name="GReserved8">
@@ -26387,6 +26457,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved9" introspectable="1" gs:managed-name="GReserved9">
@@ -26395,6 +26467,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved10" introspectable="1" gs:managed-name="GReserved10">
@@ -26403,6 +26477,8 @@ Do not free.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
     </record>
@@ -28810,6 +28886,8 @@ of the request.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved2" introspectable="1" gs:managed-name="GReserved2">
@@ -28818,6 +28896,8 @@ of the request.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved3" introspectable="1" gs:managed-name="GReserved3">
@@ -28826,6 +28906,8 @@ of the request.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved4" introspectable="1" gs:managed-name="GReserved4">
@@ -28834,6 +28916,8 @@ of the request.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved5" introspectable="1" gs:managed-name="GReserved5">
@@ -28842,6 +28926,8 @@ of the request.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
     </record>
@@ -31722,6 +31808,8 @@ until @callback is called.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved5" introspectable="1" gs:managed-name="GReserved5">
@@ -31730,6 +31818,8 @@ until @callback is called.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved6" introspectable="1" gs:managed-name="GReserved6">
@@ -31738,6 +31828,8 @@ until @callback is called.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved7" introspectable="1" gs:managed-name="GReserved7">
@@ -31746,6 +31838,8 @@ until @callback is called.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
       <field name="_g_reserved8" introspectable="1" gs:managed-name="GReserved8">
@@ -31754,6 +31848,8 @@ until @callback is called.</doc>
           <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
             <type name="none" c:type="void" gs:managed-name="System.Void" />
           </return-value>
+          <parameters />
+          <gs:managed-parameters />
         </type>
       </field>
     </record>

@@ -61,7 +61,7 @@ namespace GISharp.Lib.Gio
         System.UInt32 nParameters,
         /* <type name="GObject.Parameter" type="GParameter*" managed-name="GISharp.Lib.GObject.Parameter" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GObject.Parameter parameters,
+        GISharp.Lib.GObject.Parameter* parameters,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         System.Int32 ioPriority,
@@ -84,7 +84,7 @@ namespace GISharp.Lib.Gio
             CheckNewAsyncArgs(objectType, nParameters, parameters, ioPriority, cancellable);
             var objectType_ = (GISharp.Lib.GObject.GType)objectType;
             var nParameters_ = (System.UInt32)nParameters;
-            var parameters_ = (GISharp.Lib.GObject.Parameter)parameters;
+            var parameters_ = &parameters;
             var ioPriority_ = (System.Int32)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.GObject.Object>();

@@ -309,6 +309,7 @@ namespace GISharp.CodeGen
             foreach (var element in document.Descendants(gi + "function")
                 .Concat(document.Descendants(gi + "constructor"))
                 .Concat(document.Descendants(gi + "method"))
+                .Concat(document.Descendants(gi + "callback"))
                 .Concat(document.Descendants(glib + "signal"))
                 .Where(x => x.Element(gi + "parameters") is null)) {
                 element.Add(new XElement(gi + "parameters"));
@@ -1049,6 +1050,16 @@ namespace GISharp.CodeGen
             }
             foreach (var e in doc.Descendants(gi + "namespace").Elements(gi + "function").Where(x => !x.IsSkipped())) {
                 Log.Warning($"Unused function at {e.GetXPath()}");
+            }
+        }
+
+        /// <summary>
+        /// Gets the GIRs included by this one (aka dependencies).
+        /// </summary>
+        public static IEnumerable<string> GetIncludes(this XDocument doc)
+        {
+            foreach (var element in doc.Descendants(gi + "include")) {
+                yield return $"{element.Attribute("name").Value}-{element.Attribute("version").Value}";
             }
         }
 

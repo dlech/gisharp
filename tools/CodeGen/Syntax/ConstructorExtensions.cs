@@ -46,7 +46,7 @@ namespace GISharp.CodeGen.Syntax
         public static ConstructorDeclarationSyntax GetConstructorDeclaration(this Constructor constructor)
         {
             var staticMethod = ParseExpression(constructor.ManagedName);
-            var handleArg = Argument(CastExpression(typeof(IntPtr).ToSyntax(),
+            var handleArg = Argument(CastExpression(ParseTypeName("System.IntPtr"),
                 InvocationExpression(staticMethod)
                     .WithArgumentList(constructor.ManagedParameters.GetArgumentList())));
 

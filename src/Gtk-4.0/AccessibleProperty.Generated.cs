@@ -68,7 +68,7 @@ namespace GISharp.Lib.Gtk
 GISharp.Lib.Gtk.AccessibleProperty property,
 /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-GISharp.Lib.GObject.Value value);
+GISharp.Lib.GObject.Value* value);
         static partial void CheckInitValueArgs(this GISharp.Lib.Gtk.AccessibleProperty property, GISharp.Lib.GObject.Value value);
 
         /// <include file="AccessibleProperty.xmldoc" path="declaration/member[@name='AccessiblePropertyExtensions.InitValue(GISharp.Lib.Gtk.AccessibleProperty,GISharp.Lib.GObject.Value)']/*" />
@@ -76,7 +76,7 @@ GISharp.Lib.GObject.Value value);
         {
             CheckInitValueArgs(property, value);
             var property_ = (GISharp.Lib.Gtk.AccessibleProperty)property;
-            var value_ = (GISharp.Lib.GObject.Value)value;
+            var value_ = &value;
             gtk_accessible_property_init_value(property_, value_);
         }
     }

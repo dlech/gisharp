@@ -1,0 +1,588 @@
+<declaration>
+
+<member name='UnmanagedStruct.GTypeInstance'>
+</member>
+
+<member name='UnmanagedStruct.RefCount'>
+</member>
+
+<member name='UnmanagedStruct.Qdata'>
+</member>
+
+<member name='Object.IsFloating'>
+<summary>
+Checks whether this instance has a [floating][floating-ref] reference.
+</summary>
+</member>
+
+<member name='Object.Object(GISharp.Lib.GObject.GType,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Parameter&gt;)'>
+<summary>
+Creates a new instance of a <see cref="Object"/> subtype and sets its properties.
+</summary>
+<remarks>
+Construction parameters (see #G_PARAM_CONSTRUCT, #G_PARAM_CONSTRUCT_ONLY)
+which are not explicitly specified are set to their default values.
+</remarks>
+<param name="objectType">
+the type id of the <see cref="Object"/> subtype to instantiate
+</param>
+<param name="parameters">
+an array of <see cref="Parameter"/>
+</param>
+</member>
+
+<member name='NotifySignalHandler'>
+<summary>
+The notify signal is emitted on an object when one of its properties has
+its value set through <see cref="Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)"/>, g_object_set(), et al.
+</summary>
+<remarks>
+Note that getting this signal doesn’t itself guarantee that the value of
+the property has actually changed. When it is emitted is determined by the
+derived GObject class. If the implementor did not create the property with
+<see cref="ParamFlags.ExplicitNotify"/>, then any call to <see cref="Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)"/> results
+in ::notify being emitted, even if the new value is the same as the old.
+If they did pass <see cref="ParamFlags.ExplicitNotify"/>, then this signal is emitted only
+when they explicitly call <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/> or <see cref="Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)"/>,
+and common practice is to do that only when the value has actually changed.
+
+This signal is typically used to obtain change notification for a
+single property, by specifying the property name as a detail in the
+g_signal_connect() call, like this:
+|[&lt;!-- language="C" --&gt;
+g_signal_connect (text_view-&gt;buffer, "notify::paste-target-list",
+                  G_CALLBACK (gtk_text_view_target_list_notify),
+                  text_view)
+]|
+It is important to note that you must use
+[canonical parameter names][canonical-parameter-names] as
+detail strings for the notify signal.
+</remarks>
+<param name="object">
+the instance on which the signal was invoked
+</param>
+<param name="pspec">
+the <see cref="ParamSpec"/> of the property which changed.
+</param>
+</member>
+
+<member name='Object.NotifySignal'>
+<seealso cref="NotifySignalHandler"/>
+</member>
+
+<member name='Object.CompatControl(System.Int32,System.IntPtr)'>
+</member>
+
+<member name='Object.InterfaceFindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Find the <see cref="ParamSpec"/> with the given name for an
+interface. Generally, the interface vtable passed in as <paramref name="gIface"/>
+will be the default vtable from g_type_default_interface_ref(), or,
+if you know the interface has already been loaded,
+g_type_default_interface_peek().
+</summary>
+<param name="gIface">
+any interface vtable for the
+ interface, or the default vtable for the interface
+</param>
+<param name="propertyName">
+name of a property to look up.
+</param>
+<returns>
+the <see cref="ParamSpec"/> for the property of the
+         interface with the name <paramref name="propertyName"/>, or <c>null</c> if no
+         such property exists.
+</returns>
+</member>
+
+<member name='Object.InterfaceInstallProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GObject.ParamSpec)'>
+<summary>
+Add a property to an interface; this is only useful for interfaces
+that are added to GObject-derived types. Adding a property to an
+interface forces all objects classes with that interface to have a
+compatible property. The compatible property could be a newly
+created <see cref="ParamSpec"/>, but normally
+<see cref="ObjectClass.OverrideProperty(System.UInt32,GISharp.Lib.GLib.UnownedUtf8)"/> will be used so that the object
+class only needs to provide an implementation and inherits the
+property description, default value, bounds, and so forth from the
+interface property.
+</summary>
+<remarks>
+This function is meant to be called from the interface's default
+vtable initialization function (the <c>classInit</c> member of
+<see cref="TypeInfo"/>.) It must not be called after after <c>classInit</c> has
+been called for any object types implementing this interface.
+
+If <paramref name="pspec"/> is a floating reference, it will be consumed.
+</remarks>
+<param name="gIface">
+any interface vtable for the
+   interface, or the default
+ vtable for the interface.
+</param>
+<param name="pspec">
+the <see cref="ParamSpec"/> for the new property
+</param>
+</member>
+
+<member name='Object.InterfaceListProperties(GISharp.Lib.GObject.TypeInterface)'>
+<summary>
+Lists the properties of an interface.Generally, the interface
+vtable passed in as <paramref name="gIface"/> will be the default vtable from
+g_type_default_interface_ref(), or, if you know the interface has
+already been loaded, g_type_default_interface_peek().
+</summary>
+<param name="gIface">
+any interface vtable for the
+ interface, or the default vtable for the interface
+</param>
+<returns>
+a
+         pointer to an array of pointers to <see cref="ParamSpec"/>
+         structures. The paramspecs are owned by GLib, but the
+         array should be freed with g_free() when you are done with
+         it.
+</returns>
+</member>
+
+<member name='Object.BindProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags)'>
+<summary>
+Creates a binding between <paramref name="sourceProperty"/> on this instance and <paramref name="targetProperty"/>
+on <paramref name="target"/>. Whenever the <paramref name="sourceProperty"/> is changed the <paramref name="targetProperty"/> is
+updated using the same value. For instance:
+</summary>
+<remarks>
+|[
+  g_object_bind_property (action, "active", widget, "sensitive", 0);
+]|
+
+Will result in the "sensitive" property of the widget <see cref="Object"/> instance to be
+updated with the same value of the "active" property of the action <see cref="Object"/>
+instance.
+
+If <paramref name="flags"/> contains <see cref="BindingFlags.Bidirectional"/> then the binding will be mutual:
+if <paramref name="targetProperty"/> on <paramref name="target"/> changes then the <paramref name="sourceProperty"/> on this instance
+will be updated as well.
+
+The binding will automatically be removed when either the this instance or the
+<paramref name="target"/> instances are finalized. To remove the binding without affecting the
+this instance and the <paramref name="target"/> you can just call <see cref="Object.Unref()"/> on the returned
+<see cref="Binding"/> instance.
+
+A <see cref="Object"/> can have multiple bindings.
+</remarks>
+<param name="sourceProperty">
+the property on this instance to bind
+</param>
+<param name="target">
+the target <see cref="Object"/>
+</param>
+<param name="targetProperty">
+the property on <paramref name="target"/> to bind
+</param>
+<param name="flags">
+flags to pass to <see cref="Binding"/>
+</param>
+<returns>
+the <see cref="Binding"/> instance representing the
+    binding between the two <see cref="Object"/> instances. The binding is released
+    whenever the <see cref="Binding"/> reference count reaches zero.
+</returns>
+</member>
+
+<member name='Object.BindPropertyFull(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Object,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.BindingFlags,GISharp.Lib.GObject.Closure,GISharp.Lib.GObject.Closure)'>
+<summary>
+Creates a binding between <paramref name="sourceProperty"/> on this instance and <paramref name="targetProperty"/>
+on <paramref name="target"/>, allowing you to set the transformation functions to be used by
+the binding.
+</summary>
+<remarks>
+This function is the language bindings friendly version of
+g_object_bind_property_full(), using #GClosures instead of
+function pointers.
+</remarks>
+<param name="sourceProperty">
+the property on this instance to bind
+</param>
+<param name="target">
+the target <see cref="Object"/>
+</param>
+<param name="targetProperty">
+the property on <paramref name="target"/> to bind
+</param>
+<param name="flags">
+flags to pass to <see cref="Binding"/>
+</param>
+<param name="transformTo">
+a <see cref="Closure"/> wrapping the transformation function
+    from the this instance to the <paramref name="target"/>, or <c>null</c> to use the default
+</param>
+<param name="transformFrom">
+a <see cref="Closure"/> wrapping the transformation function
+    from the <paramref name="target"/> to the this instance, or <c>null</c> to use the default
+</param>
+<returns>
+the <see cref="Binding"/> instance representing the
+    binding between the two <see cref="Object"/> instances. The binding is released
+    whenever the <see cref="Binding"/> reference count reaches zero.
+</returns>
+</member>
+
+<member name='Object.ForceFloating()'>
+<summary>
+This function is intended for <see cref="Object"/> implementations to re-enforce
+a [floating][floating-ref] object reference. Doing this is seldom
+required: all #GInitiallyUnowneds are created with a floating reference
+which usually just needs to be sunken by calling <see cref="Object.RefSink()"/>.
+</summary>
+</member>
+
+<member name='Object.FreezeNotify()'>
+<summary>
+Increases the freeze count on this instance. If the freeze count is
+non-zero, the emission of "notify" signals on this instance is
+stopped. The signals are queued until the freeze count is decreased
+to zero. Duplicate notifications are squashed so that at most one
+<see cref="Object"/>::notify signal is emitted for each property modified while the
+object is frozen.
+</summary>
+<remarks>
+This is necessary for accessors that modify multiple properties to prevent
+premature notification while the object is still being modified.
+</remarks>
+</member>
+
+<member name='Object.GetData(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Gets a named field from the objects table of associations (see <see cref="Object.SetData(GISharp.Lib.GLib.UnownedUtf8,System.IntPtr)"/>).
+</summary>
+<param name="key">
+name of the key for that association
+</param>
+<returns>
+the data if found,
+         or <c>null</c> if no such data exists.
+</returns>
+</member>
+
+<member name='Object.GetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)'>
+<summary>
+Gets a property of an object.
+</summary>
+<remarks>
+The <paramref name="value"/> can be:
+
+ - an empty <see cref="Value"/> initialized by %G_VALUE_INIT, which will be
+   automatically initialized with the expected type of the property
+   (since GLib 2.60)
+ - a <see cref="Value"/> initialized with the expected type of the property
+ - a <see cref="Value"/> initialized with a type to which the expected type
+   of the property can be transformed
+
+In general, a copy is made of the property contents and the caller is
+responsible for freeing the memory by calling <see cref="Value.Unset()"/>.
+
+Note that <see cref="Object.GetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)"/> is really intended for language
+bindings, g_object_get() is much more convenient for C programming.
+</remarks>
+<param name="propertyName">
+the name of the property to get
+</param>
+<param name="value">
+return location for the property value
+</param>
+</member>
+
+<member name='Object.GetQdata(GISharp.Lib.GLib.Quark)'>
+<summary>
+This function gets back user data pointers stored via
+g_object_set_qdata().
+</summary>
+<param name="quark">
+A #GQuark, naming the user data pointer
+</param>
+<returns>
+The user data pointer set, or <c>null</c>
+</returns>
+</member>
+
+<member name='Object.Getv(GISharp.Runtime.UnownedCPtrArray&lt;GISharp.Lib.GLib.Utf8&gt;,System.ReadOnlySpan&lt;GISharp.Lib.GObject.Value&gt;)'>
+<summary>
+Gets the length of <paramref name="names"/> properties for an this instance.
+Obtained properties will be set to <paramref name="values"/>. All properties must be valid.
+Warnings will be emitted and undefined behaviour may result if invalid
+properties are passed in.
+</summary>
+<param name="names">
+the names of each property to get
+</param>
+<param name="values">
+the values of each property to get
+</param>
+</member>
+
+<member name='Object.Notify(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Emits a "notify" signal for the property <paramref name="propertyName"/> on this instance.
+</summary>
+<remarks>
+When possible, eg. when signaling a property change from within the class
+that registered the property, you should use <see cref="Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)"/>
+instead.
+
+Note that emission of the notify signal may be blocked with
+<see cref="Object.FreezeNotify()"/>. In this case, the signal emissions are queued
+and will be emitted (in reverse order) when <see cref="Object.ThawNotify()"/> is
+called.
+</remarks>
+<param name="propertyName">
+the name of a property installed on the class of this instance.
+</param>
+</member>
+
+<member name='Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)'>
+<summary>
+Emits a "notify" signal for the property specified by <paramref name="pspec"/> on this instance.
+</summary>
+<remarks>
+This function omits the property name lookup, hence it is faster than
+<see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/>.
+
+One way to avoid using <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/> from within the
+class that registered the properties, and using <see cref="Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)"/>
+instead, is to store the GParamSpec used with
+<see cref="ObjectClass.InstallProperty(System.UInt32,GISharp.Lib.GObject.ParamSpec)"/> inside a static array, e.g.:
+
+|[&lt;!-- language="C" --&gt;
+  enum
+  {
+    PROP_0,
+    PROP_FOO,
+    PROP_LAST
+  };
+
+  static GParamSpec *properties[PROP_LAST];
+
+  static void
+  my_object_class_init (MyObjectClass *klass)
+  {
+    properties[PROP_FOO] = g_param_spec_int ("foo", "Foo", "The foo",
+                                             0, 100,
+                                             50,
+                                             G_PARAM_READWRITE);
+    g_object_class_install_property (gobject_class,
+                                     PROP_FOO,
+                                     properties[PROP_FOO]);
+  }
+]|
+
+and then notify a change on the "foo" property with:
+
+|[&lt;!-- language="C" --&gt;
+  g_object_notify_by_pspec (self, properties[PROP_FOO]);
+]|
+</remarks>
+<param name="pspec">
+the <see cref="ParamSpec"/> of a property installed on the class of this instance.
+</param>
+</member>
+
+<member name='Object.RefSink()'>
+<summary>
+Increase the reference count of this instance, and possibly remove the
+[floating][floating-ref] reference, if this instance has a floating reference.
+</summary>
+<remarks>
+In other words, if the object is floating, then this call "assumes
+ownership" of the floating reference, converting it to a normal
+reference by clearing the floating flag while leaving the reference
+count unchanged.  If the object is not floating, then this call
+adds a new normal reference increasing the reference count by one.
+
+Since GLib 2.56, the type of this instance will be propagated to the return type
+under the same conditions as for <see cref="Object.Ref()"/>.
+</remarks>
+<returns>
+this instance
+</returns>
+</member>
+
+<member name='Object.RunDispose()'>
+<summary>
+Releases all references to other objects. This can be used to break
+reference cycles.
+</summary>
+<remarks>
+This function should only be called from object system implementations.
+</remarks>
+</member>
+
+<member name='Object.SetData(GISharp.Lib.GLib.UnownedUtf8,System.IntPtr)'>
+<summary>
+Each object carries around a table of associations from
+strings to pointers.  This function lets you set an association.
+</summary>
+<remarks>
+If the object already had an association with that name,
+the old association will be destroyed.
+
+Internally, the <paramref name="key"/> is converted to a #GQuark using g_quark_from_string().
+This means a copy of <paramref name="key"/> is kept permanently (even after this instance has been
+finalized) — so it is recommended to only use a small, bounded set of values
+for <paramref name="key"/> in your program, to avoid the #GQuark storage growing unbounded.
+</remarks>
+<param name="key">
+name of the key
+</param>
+<param name="data">
+data to associate with that key
+</param>
+</member>
+
+<member name='Object.SetProperty(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GObject.Value)'>
+<summary>
+Sets a property on an object.
+</summary>
+<param name="propertyName">
+the name of the property to set
+</param>
+<param name="value">
+the value
+</param>
+</member>
+
+<member name='Object.StealData(GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Remove a specified datum from the object's data associations,
+without invoking the association's destroy handler.
+</summary>
+<param name="key">
+name of the key
+</param>
+<returns>
+the data if found, or <c>null</c>
+         if no such data exists.
+</returns>
+</member>
+
+<member name='Object.StealQdata(GISharp.Lib.GLib.Quark)'>
+<summary>
+This function gets back user data pointers stored via
+g_object_set_qdata() and removes the <c>data</c> from object
+without invoking its destroy() function (if any was
+set).
+Usually, calling this function is only required to update
+user data pointers with a destroy notifier, for example:
+|[&lt;!-- language="C" --&gt;
+void
+object_add_to_user_list (GObject     *object,
+                         const gchar *new_string)
+{
+  // the quark, naming the object data
+  GQuark quark_string_list = g_quark_from_static_string ("my-string-list");
+  // retrieve the old string list
+  GList *list = g_object_steal_qdata (object, quark_string_list);
+</summary>
+<remarks>
+  // prepend new string
+  list = g_list_prepend (list, g_strdup (new_string));
+  // this changed 'list', so we need to set it again
+  g_object_set_qdata_full (object, quark_string_list, list, free_string_list);
+}
+static void
+free_string_list (gpointer data)
+{
+  GList *node, *list = data;
+
+  for (node = list; node; node = node-&gt;next)
+    g_free (node-&gt;data);
+  g_list_free (list);
+}
+]|
+Using <see cref="Object.GetQdata(GISharp.Lib.GLib.Quark)"/> in the above example, instead of
+<see cref="Object.StealQdata(GISharp.Lib.GLib.Quark)"/> would have left the destroy function set,
+and thus the partial string list would have been freed upon
+g_object_set_qdata_full().
+</remarks>
+<param name="quark">
+A #GQuark, naming the user data pointer
+</param>
+<returns>
+The user data pointer set, or <c>null</c>
+</returns>
+</member>
+
+<member name='Object.ThawNotify()'>
+<summary>
+Reverts the effect of a previous call to
+<see cref="Object.FreezeNotify()"/>. The freeze count is decreased on this instance
+and when it reaches zero, queued "notify" signals are emitted.
+</summary>
+<remarks>
+Duplicate notifications for each property are squashed so that at most one
+<see cref="Object"/>::notify signal is emitted for each property, in the reverse order
+in which they have been queued.
+
+It is an error to call this function when the freeze count is zero.
+</remarks>
+</member>
+
+<member name='Object.WatchClosure(GISharp.Lib.GObject.Closure)'>
+<summary>
+This function essentially limits the life time of the <paramref name="closure"/> to
+the life time of the object. That is, when the object is finalized,
+the <paramref name="closure"/> is invalidated by calling <see cref="Closure.Invalidate()"/> on
+it, in order to prevent invocations of the closure with a finalized
+(nonexisting) object. Also, <see cref="Object.Ref()"/> and <see cref="Object.Unref()"/> are
+added as marshal guards to the <paramref name="closure"/>, to ensure that an extra
+reference count is held on this instance during invocation of the
+<paramref name="closure"/>.  Usually, this function will be called on closures that
+use this this instance as closure data.
+</summary>
+<param name="closure">
+<see cref="Closure"/> to watch
+</param>
+</member>
+
+<member name='Object.DoConstructed()'>
+</member>
+
+<member name='Object.DoDispatchPropertiesChanged(System.UInt32,GISharp.Lib.GObject.ParamSpec)'>
+</member>
+
+<member name='Object.DoDispose()'>
+</member>
+
+<member name='Object.DoFinalize()'>
+</member>
+
+<member name='Object.DoGetProperty(System.UInt32,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)'>
+</member>
+
+<member name='Object.DoNotify(GISharp.Lib.GObject.ParamSpec)'>
+<summary>
+Emits a "notify" signal for the property <c>propertyName</c> on this instance.
+</summary>
+<remarks>
+When possible, eg. when signaling a property change from within the class
+that registered the property, you should use <see cref="Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)"/>
+instead.
+
+Note that emission of the notify signal may be blocked with
+<see cref="Object.FreezeNotify()"/>. In this case, the signal emissions are queued
+and will be emitted (in reverse order) when <see cref="Object.ThawNotify()"/> is
+called.
+</remarks>
+</member>
+
+<member name='Object.DoSetProperty(System.UInt32,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)'>
+</member>
+
+<member name='Object'>
+<summary>
+All the fields in the GObject structure are private
+to the <see cref="Object"/> implementation and should never be accessed directly.
+</summary>
+</member>
+
+</declaration>

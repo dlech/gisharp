@@ -22,10 +22,10 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var e in implements.ManagedType.GetEvents()) {
+            foreach (var signal in implements.Interface.Signals) {
                 list = list
-                    .Add(e.GetGSignalManagerFieldDeclaration())
-                    .Add(e.GetEventDeclaration());
+                    .Add(signal.GetImplementsGSignalManagerFieldDeclaration())
+                    .Add(signal.GetImplementsEventDeclaration());
             }
 
             return list;
@@ -59,11 +59,16 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = List<MemberDeclarationSyntax>();
 
-            foreach (var m in implements.ManagedType.GetMethods()) {
-                var returnType = m.ReturnParameter.ToSyntax().Type;
-                var name = $"{implements.ManagedType.ToSyntax()}.{m.Name}";
+            foreach (var m in implements.Interface.VirtualMethods) {
+                var returnType = m.ReturnValue.GetManagedTypeName();
+                var name = $"{implements.Interface.GetManagedType()}.{m.ManagedName}";
+                var paramList = ParameterList().AddParameters(m.ManagedParameters.RegularParameters
+                    .Select(x => x.GetParameter()).ToArray());
+                // remove default value initializers
+                paramList = paramList.WithParameters(SeparatedList(paramList.Parameters
+                    .Select(x => x.WithDefault(default))));
                 var method = MethodDeclaration(returnType, name)
-                    .WithParameterList(m.GetParameters().ToSyntax())
+                    .WithParameterList(paramList)
                     .WithBody(Block(ThrowStatement(ParseExpression("new System.NotImplementedException()"))));
                 list = list.Add(method);
             }

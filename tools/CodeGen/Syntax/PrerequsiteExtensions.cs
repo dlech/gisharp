@@ -1,14 +1,9 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2019,2021 David Lechner <david@lechnology.com>
 
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using GISharp.CodeGen.Gir;
-using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Syntax
 {
@@ -19,7 +14,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static BaseTypeSyntax GetBaseType(this Prerequisite prerequisite)
         {
-            return SimpleBaseType(prerequisite.ManagedType.ToSyntax());
+            return SimpleBaseType(ParseTypeName(prerequisite.Type.GetManagedType()));
         }
     }
 }

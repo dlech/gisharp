@@ -1,0 +1,6 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<repository version="1.2" xmlns="http://www.gtk.org/introspection/core/1.0" xmlns:c="http://www.gtk.org/introspection/c/1.0" xmlns:glib="http://www.gtk.org/introspection/glib/1.0" xmlns:gs="http://gisharp.org/introspection/gisharp/1.0">
+  <package name="cairo-gobject" gs:managed-name="CairoGobject" />
+  <c:include name="cairo-gobject.h" gs:managed-name="CairoGobject.h" />
+  <namespace name="cairo" version="1.0" shared-library="libcairo-gobject.2.dylib" c:identifier-prefixes="cairo" c:symbol-prefixes="cairo" gs:managed-name="Cairo" />
+</repository>

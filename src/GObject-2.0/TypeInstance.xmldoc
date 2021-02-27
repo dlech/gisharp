@@ -1,0 +1,15 @@
+<declaration>
+
+<member name='TypeInstance.GClass'>
+</member>
+
+<member name='TypeInstance.GetPrivate(GISharp.Lib.GObject.GType)'>
+</member>
+
+<member name='TypeInstance'>
+<summary>
+An opaque structure used as the base of all type instances.
+</summary>
+</member>
+
+</declaration>

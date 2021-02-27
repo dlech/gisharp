@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 
 using System;
@@ -169,6 +169,9 @@ namespace GISharp.CodeGen.Gir
             }
             else if (element.Name == glib + "boxed") {
                 return new Boxed(element, GetNode(element.Parent));
+            }
+            else if (element.Name == gi + "source-position") {
+                return new SourcePosition(element, GetNode(element.Parent));
             }
 
             var message = $"Unknown element <{element.Name}>";

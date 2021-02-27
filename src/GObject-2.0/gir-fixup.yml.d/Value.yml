@@ -1,0 +1,8 @@
+
+### Value ###
+
+# fix ownership
+- !set-attribute
+  name: transfer-ownership
+  value: none
+  xpath: gi:repository/gi:namespace/gi:record[@name='Value']/gi:method[@name='reset']/gi:return-value

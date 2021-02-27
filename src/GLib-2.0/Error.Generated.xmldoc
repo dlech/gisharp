@@ -1,0 +1,71 @@
+<declaration>
+
+<member name='UnmanagedStruct.Domain'>
+<summary>
+error domain, e.g. #G_FILE_ERROR
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Code'>
+<summary>
+error code, e.g. %G_FILE_ERROR_NOENT
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Message'>
+<summary>
+human-readable informative error message
+</summary>
+</member>
+
+<member name='Error.Error(GISharp.Lib.GLib.Quark,System.Int32,GISharp.Lib.GLib.UnownedUtf8)'>
+<summary>
+Creates a new <see cref="Error"/>; unlike g_error_new(), <paramref name="message"/> is
+not a printf()-style format string. Use this function if
+<paramref name="message"/> contains text you don't have control over,
+that could include printf() escape sequences.
+</summary>
+<param name="domain">
+error domain
+</param>
+<param name="code">
+error code
+</param>
+<param name="message">
+error message
+</param>
+</member>
+
+<member name='Error.Matches(GISharp.Lib.GLib.Quark,System.Int32)'>
+<summary>
+Returns <c>true</c> if this instance matches <paramref name="domain"/> and <paramref name="code"/>, <c>false</c>
+otherwise. In particular, when this instance is <c>null</c>, <c>false</c> will
+be returned.
+</summary>
+<remarks>
+If <paramref name="domain"/> contains a `FAILED` (or otherwise generic) error code,
+you should generally not check for it explicitly, but should
+instead treat any not-explicitly-recognized error code as being
+equivalent to the `FAILED` code. This way, if the domain is
+extended in the future to provide a more specific error code for
+a certain case, your code will still work.
+</remarks>
+<param name="domain">
+an error domain
+</param>
+<param name="code">
+an error code
+</param>
+<returns>
+whether this instance has <paramref name="domain"/> and <paramref name="code"/>
+</returns>
+</member>
+
+<member name='Error'>
+<summary>
+The `GError` structure contains information about
+an error that has occurred.
+</summary>
+</member>
+
+</declaration>

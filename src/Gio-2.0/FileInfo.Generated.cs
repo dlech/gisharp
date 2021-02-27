@@ -2068,7 +2068,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.FileInfo.UnmanagedStruct* info,
         /* <type name="GLib.TimeVal" type="GTimeVal*" managed-name="GISharp.Lib.GLib.TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        GISharp.Lib.GLib.TimeVal mtime);
+        GISharp.Lib.GLib.TimeVal* mtime);
         partial void CheckSetModificationTimeArgs(GISharp.Lib.GLib.TimeVal mtime);
 
         /// <include file="FileInfo.xmldoc" path="declaration/member[@name='FileInfo.SetModificationTime(GISharp.Lib.GLib.TimeVal)']/*" />
@@ -2078,7 +2078,7 @@ namespace GISharp.Lib.Gio
         {
             CheckSetModificationTimeArgs(mtime);
             var info_ = (GISharp.Lib.Gio.FileInfo.UnmanagedStruct*)UnsafeHandle;
-            var mtime_ = (GISharp.Lib.GLib.TimeVal)mtime;
+            var mtime_ = &mtime;
             g_file_info_set_modification_time(info_, mtime_);
         }
 

@@ -1,0 +1,47 @@
+<declaration>
+
+<member name='IOCondition.In'>
+<summary>
+There is data to read.
+</summary>
+</member>
+
+<member name='IOCondition.Out'>
+<summary>
+Data can be written (without blocking).
+</summary>
+</member>
+
+<member name='IOCondition.Pri'>
+<summary>
+There is urgent data to read.
+</summary>
+</member>
+
+<member name='IOCondition.Err'>
+<summary>
+Error condition.
+</summary>
+</member>
+
+<member name='IOCondition.Hup'>
+<summary>
+Hung up (the connection has been broken, usually for
+           pipes and sockets).
+</summary>
+</member>
+
+<member name='IOCondition.Nval'>
+<summary>
+Invalid request. The file descriptor is not open.
+</summary>
+</member>
+
+<member name='IOCondition'>
+<summary>
+A bitwise combination representing a condition to watch for on an
+event source.
+</summary>
+</member>
+
+</declaration>

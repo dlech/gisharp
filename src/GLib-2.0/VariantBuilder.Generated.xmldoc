@@ -29,11 +29,11 @@ putting different types of items into an array, putting the wrong
 types or number of items in a tuple, putting more than one value into
 a variant, etc.
 
-If <paramref name="value"/> is a floating reference (see g_variant_ref_sink()),
+If <paramref name="value"/> is a floating reference (see <see cref="Variant.RefSink()"/>),
 the this instance instance takes ownership of <paramref name="value"/>.
 </remarks>
 <param name="value">
-a #GVariant
+a <see cref="Variant"/>
 </param>
 </member>
 
@@ -71,7 +71,7 @@ have been added; in this case it is impossible to infer the type of
 the empty array.
 </remarks>
 <returns>
-a new, floating, #GVariant
+a new, floating, <see cref="Variant"/>
 </returns>
 </member>
 
@@ -116,13 +116,13 @@ output = g_variant_builder_end (&amp;builder);
 ]|
 </remarks>
 <param name="type">
-the #GVariantType of the container
+the <see cref="VariantType"/> of the container
 </param>
 </member>
 
 <member name='VariantBuilder'>
 <summary>
-A utility type for constructing container-type #GVariant instances.
+A utility type for constructing container-type <see cref="Variant"/> instances.
 </summary>
 <remarks>
 This is an opaque structure and may only be accessed using the

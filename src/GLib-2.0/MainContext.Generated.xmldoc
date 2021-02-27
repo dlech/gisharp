@@ -1,0 +1,413 @@
+<declaration>
+
+<member name='MainContext.IsOwner'>
+<summary>
+Determines whether this thread holds the (recursive)
+ownership of this <see cref="MainContext"/>. This is useful to
+know before waiting on another thread that may be
+blocking to get ownership of this instance.
+</summary>
+</member>
+
+<member name='MainContext.ThreadDefault'>
+<summary>
+Gets the thread-default <see cref="MainContext"/> for this thread. Asynchronous
+operations that want to be able to be run in contexts other than
+the default one should call this method or
+<see cref="MainContext.RefThreadDefault()"/> to get a <see cref="MainContext"/> to add
+their #GSources to. (Note that even in single-threaded
+programs applications may sometimes want to temporarily push a
+non-default context, so it is not safe to assume that this will
+always return <c>null</c> if you are running in the default thread.)
+</summary>
+<remarks>
+If you need to hold a reference on the context, use
+<see cref="MainContext.RefThreadDefault()"/> instead.
+</remarks>
+</member>
+
+<member name='MainContext.MainContext()'>
+<summary>
+Creates a new <see cref="MainContext"/> structure.
+</summary>
+</member>
+
+<member name='MainContext.Default()'>
+<summary>
+Returns the global default main context. This is the main context
+used for main loop functions when a main loop is not explicitly
+specified, and corresponds to the "main" main loop. See also
+<see cref="MainContext.GetThreadDefault()"/>.
+</summary>
+<returns>
+the global default main context.
+</returns>
+</member>
+
+<member name='MainContext.RefThreadDefault()'>
+<summary>
+Gets the thread-default <see cref="MainContext"/> for this thread, as with
+<see cref="MainContext.GetThreadDefault()"/>, but also adds a reference to
+it with <see cref="MainContext.Ref()"/>. In addition, unlike
+<see cref="MainContext.GetThreadDefault()"/>, if the thread-default context
+is the global default context, this will return that <see cref="MainContext"/>
+(with a ref added to it) rather than returning <c>null</c>.
+</summary>
+<returns>
+the thread-default <see cref="MainContext"/>. Unref
+    with <see cref="MainContext.Unref()"/> when you are done with it.
+</returns>
+</member>
+
+<member name='MainContext.Acquire()'>
+<summary>
+Tries to become the owner of the specified context.
+If some other thread is the owner of the context,
+returns <c>false</c> immediately. Ownership is properly
+recursive: the owner can require ownership again
+and will release ownership when <see cref="MainContext.Release()"/>
+is called as many times as <see cref="MainContext.Acquire()"/>.
+</summary>
+<remarks>
+You must be the owner of a context before you
+can call <see cref="MainContext.TryPrepare(out System.Int32)"/>, <see cref="MainContext.Query(System.Int32,out System.Int32,System.Span{GISharp.Lib.GLib.PollFD})"/>,
+<see cref="MainContext.Check(System.Int32,System.ReadOnlySpan{GISharp.Lib.GLib.PollFD})"/>, <see cref="MainContext.Dispatch()"/>.
+</remarks>
+<returns>
+<c>true</c> if the operation succeeded, and
+  this thread is now the owner of this instance.
+</returns>
+</member>
+
+<member name='MainContext.AddPoll(GISharp.Lib.GLib.PollFD,System.Int32)'>
+<summary>
+Adds a file descriptor to the set of file descriptors polled for
+this context. This will very seldom be used directly. Instead
+a typical event source will use <see cref="Source.AddUnixFd(System.Int32,GISharp.Lib.GLib.IOCondition)"/> instead.
+</summary>
+<param name="fd">
+a <see cref="PollFD"/> structure holding information about a file
+     descriptor to watch.
+</param>
+<param name="priority">
+the priority for this file descriptor which should be
+     the same as the priority used for <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/> to ensure that the
+     file descriptor is polled whenever the results may be needed.
+</param>
+</member>
+
+<member name='MainContext.Check(System.Int32,System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;)'>
+<summary>
+Passes the results of polling back to the main loop.
+</summary>
+<remarks>
+You must have successfully acquired the context with
+<see cref="MainContext.Acquire()"/> before you may call this function.
+</remarks>
+<param name="maxPriority">
+the maximum numerical priority of sources to check
+</param>
+<param name="fds">
+array of <see cref="PollFD"/>'s that was passed to
+      the last call to <see cref="MainContext.Query(System.Int32,out System.Int32,System.Span{GISharp.Lib.GLib.PollFD})"/>
+</param>
+<returns>
+<c>true</c> if some sources are ready to be dispatched.
+</returns>
+</member>
+
+<member name='MainContext.Dispatch()'>
+<summary>
+Dispatches all pending sources.
+</summary>
+<remarks>
+You must have successfully acquired the context with
+<see cref="MainContext.Acquire()"/> before you may call this function.
+</remarks>
+</member>
+
+<member name='MainContext.FindSourceByFuncsUserData(GISharp.Lib.GLib.SourceFuncs,System.IntPtr)'>
+<summary>
+Finds a source with the given source functions and user data.  If
+multiple sources exist with the same source function and user data,
+the first one found will be returned.
+</summary>
+<param name="funcs">
+the <c>sourceFuncs</c> passed to <see cref="Source.Source(GISharp.Lib.GLib.SourceFuncs,System.UInt32)"/>.
+</param>
+<param name="userData">
+the user data from the callback.
+</param>
+<returns>
+the source, if one was found, otherwise <c>null</c>
+</returns>
+</member>
+
+<member name='MainContext.FindSourceById(System.UInt32)'>
+<summary>
+Finds a <see cref="Source"/> given a pair of context and ID.
+</summary>
+<remarks>
+It is a programmer error to attempt to look up a non-existent source.
+
+More specifically: source IDs can be reissued after a source has been
+destroyed and therefore it is never valid to use this function with a
+source ID which may have already been removed.  An example is when
+scheduling an idle to run in another thread with g_idle_add(): the
+idle may already have run and been removed by the time this function
+is called on its (now invalid) source ID.  This source ID may have
+been reissued, leading to the operation being performed against the
+wrong source.
+</remarks>
+<param name="sourceId">
+the source ID, as returned by <see cref="Source.GetId()"/>.
+</param>
+<returns>
+the <see cref="Source"/>
+</returns>
+</member>
+
+<member name='MainContext.FindSourceByUserData(System.IntPtr)'>
+<summary>
+Finds a source with the given user data for the callback.  If
+multiple sources exist with the same user data, the first
+one found will be returned.
+</summary>
+<param name="userData">
+the user_data for the callback.
+</param>
+<returns>
+the source, if one was found, otherwise <c>null</c>
+</returns>
+</member>
+
+<member name='MainContext.InvokeFull(System.Int32,GISharp.Lib.GLib.SourceFunc)'>
+<summary>
+Invokes a function in such a way that this instance is owned during the
+invocation of <paramref name="function"/>.
+</summary>
+<remarks>
+This function is the same as g_main_context_invoke() except that it
+lets you specify the priority in case <paramref name="function"/> ends up being
+scheduled as an idle and also lets you give a <see cref="DestroyNotify"/> for <paramref name="data"/>.
+
+<paramref name="notify"/> should not assume that it is called from any particular
+thread or with any particular context acquired.
+</remarks>
+<param name="priority">
+the priority at which to run <paramref name="function"/>
+</param>
+<param name="function">
+function to call
+</param>
+</member>
+
+<member name='MainContext.Iteration(System.Boolean)'>
+<summary>
+Runs a single iteration for the given main loop. This involves
+checking to see if any event sources are ready to be processed,
+then if no events sources are ready and <paramref name="mayBlock"/> is <c>true</c>, waiting
+for a source to become ready, then dispatching the highest priority
+events sources that are ready. Otherwise, if <paramref name="mayBlock"/> is <c>false</c>
+sources are not waited to become ready, only those highest priority
+events sources will be dispatched (if any), that are ready at this
+given moment without further waiting.
+</summary>
+<remarks>
+Note that even when <paramref name="mayBlock"/> is <c>true</c>, it is still possible for
+<see cref="MainContext.Iteration(System.Boolean)"/> to return <c>false</c>, since the wait may
+be interrupted for other reasons than an event source becoming ready.
+</remarks>
+<param name="mayBlock">
+whether the call may block.
+</param>
+<returns>
+<c>true</c> if events were dispatched.
+</returns>
+</member>
+
+<member name='MainContext.Pending()'>
+<summary>
+Checks if any sources have pending events for the given context.
+</summary>
+<returns>
+<c>true</c> if events are pending.
+</returns>
+</member>
+
+<member name='MainContext.PopThreadDefault()'>
+<summary>
+Pops this instance off the thread-default context stack (verifying that
+it was on the top of the stack).
+</summary>
+</member>
+
+<member name='MainContext.TryPrepare(System.Int32)'>
+<summary>
+Prepares to poll sources within a main loop. The resulting information
+for polling is determined by calling g_main_context_query ().
+</summary>
+<remarks>
+You must have successfully acquired the context with
+<see cref="MainContext.Acquire()"/> before you may call this function.
+</remarks>
+<param name="priority">
+location to store priority of highest priority
+           source already ready.
+</param>
+<returns>
+<c>true</c> if some source is ready to be dispatched
+              prior to polling.
+</returns>
+</member>
+
+<member name='MainContext.PushThreadDefault()'>
+<summary>
+Acquires this instance and sets it as the thread-default context for the
+current thread. This will cause certain asynchronous operations
+(such as most [gio][gio]-based I/O) which are
+started in this thread to run under this instance and deliver their
+results to its main loop, rather than running under the global
+default context in the main thread. Note that calling this function
+changes the context returned by <see cref="MainContext.GetThreadDefault()"/>,
+not the one returned by <see cref="MainContext.Default()"/>, so it does not affect
+the context used by functions like g_idle_add().
+</summary>
+<remarks>
+Normally you would call this function shortly after creating a new
+thread, passing it a <see cref="MainContext"/> which will be run by a
+<see cref="MainLoop"/> in that thread, to set a new default context for all
+async operations in that thread. In this case you may not need to
+ever call <see cref="MainContext.PopThreadDefault()"/>, assuming you want the
+new <see cref="MainContext"/> to be the default for the whole lifecycle of the
+thread.
+
+If you don't have control over how the new thread was created (e.g.
+in the new thread isn't newly created, or if the thread life
+cycle is managed by a #GThreadPool), it is always suggested to wrap
+the logic that needs to use the new <see cref="MainContext"/> inside a
+<see cref="MainContext.PushThreadDefault()"/> / <see cref="MainContext.PopThreadDefault()"/>
+pair, otherwise threads that are re-used will end up never explicitly
+releasing the <see cref="MainContext"/> reference they hold.
+
+In some cases you may want to schedule a single operation in a
+non-default context, or temporarily use a non-default context in
+the main thread. In that case, you can wrap the call to the
+asynchronous operation inside a
+<see cref="MainContext.PushThreadDefault()"/> /
+<see cref="MainContext.PopThreadDefault()"/> pair, but it is up to you to
+ensure that no other asynchronous operations accidentally get
+started while the non-default context is active.
+
+Beware that libraries that predate this function may not correctly
+handle being used from a thread with a thread-default context. Eg,
+see g_file_supports_thread_contexts().
+</remarks>
+</member>
+
+<member name='MainContext.Query(System.Int32,System.Int32,System.Span&lt;GISharp.Lib.GLib.PollFD&gt;)'>
+<summary>
+Determines information necessary to poll this main loop.
+</summary>
+<remarks>
+You must have successfully acquired the context with
+<see cref="MainContext.Acquire()"/> before you may call this function.
+</remarks>
+<param name="maxPriority">
+maximum priority source to check
+</param>
+<param name="timeout">
+location to store timeout to be used in polling
+</param>
+<param name="fds">
+location to
+      store <see cref="PollFD"/> records that need to be polled.
+</param>
+<returns>
+the number of records actually stored in <paramref name="fds"/>,
+  or, if more than the length of <paramref name="fds"/> records need to be stored, the number
+  of records that need to be stored.
+</returns>
+</member>
+
+<member name='MainContext.Release()'>
+<summary>
+Releases ownership of a context previously acquired by this thread
+with <see cref="MainContext.Acquire()"/>. If the context was acquired multiple
+times, the ownership will be released only when <see cref="MainContext.Release()"/>
+is called as many times as it was acquired.
+</summary>
+</member>
+
+<member name='MainContext.RemovePoll(GISharp.Lib.GLib.PollFD)'>
+<summary>
+Removes file descriptor from the set of file descriptors to be
+polled for a particular context.
+</summary>
+<param name="fd">
+a <see cref="PollFD"/> descriptor previously added with <see cref="MainContext.AddPoll(GISharp.Lib.GLib.PollFD,System.Int32)"/>
+</param>
+</member>
+
+<member name='MainContext.Wait(GISharp.Lib.GLib.Cond,GISharp.Lib.GLib.Mutex)'>
+<summary>
+Tries to become the owner of the specified context,
+as with <see cref="MainContext.Acquire()"/>. But if another thread
+is the owner, atomically drop <paramref name="mutex"/> and wait on <paramref name="cond"/> until
+that owner releases ownership or until <paramref name="cond"/> is signaled, then
+try again (once) to become the owner.
+</summary>
+<param name="cond">
+a condition variable
+</param>
+<param name="mutex">
+a mutex, currently held
+</param>
+<returns>
+<c>true</c> if the operation succeeded, and
+  this thread is now the owner of this instance.
+</returns>
+</member>
+
+<member name='MainContext.Wakeup()'>
+<summary>
+If this instance is currently blocking in <see cref="MainContext.Iteration(System.Boolean)"/>
+waiting for a source to become ready, cause it to stop blocking
+and return.  Otherwise, cause the next invocation of
+<see cref="MainContext.Iteration(System.Boolean)"/> to return without blocking.
+</summary>
+<remarks>
+This API is useful for low-level control over <see cref="MainContext"/>; for
+example, integrating it with main loop implementations such as
+<see cref="MainLoop"/>.
+
+Another related use for this function is when implementing a main
+loop with a termination condition, computed from multiple threads:
+
+|[&lt;!-- language="C" --&gt;
+  #define NUM_TASKS 10
+  static volatile gint tasks_remaining = NUM_TASKS;
+  ...
+ 
+  while (g_atomic_int_get (&amp;tasks_remaining) != 0)
+    g_main_context_iteration (NULL, TRUE);
+]|
+ 
+Then in a thread:
+|[&lt;!-- language="C" --&gt;
+  perform_work();
+
+  if (g_atomic_int_dec_and_test (&amp;tasks_remaining))
+    g_main_context_wakeup (NULL);
+]|
+</remarks>
+</member>
+
+<member name='MainContext'>
+<summary>
+The `GMainContext` struct is an opaque data
+type representing a set of sources to be handled in a main loop.
+</summary>
+</member>
+
+</declaration>

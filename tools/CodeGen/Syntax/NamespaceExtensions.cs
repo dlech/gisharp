@@ -30,7 +30,7 @@ namespace GISharp.CodeGen.Syntax
 
             switch (type) {
             case Alias alias:
-                if (alias.Type.ManagedType.IsValueType) {
+                if (alias.Type.IsValueType()) {
                     yield return alias.GetStructDeclaration()
                         .WithMembers(alias.GetStructMembers());
                 }
@@ -76,18 +76,17 @@ namespace GISharp.CodeGen.Syntax
                     .WithMembers(@interface.GetExtClassMembers());
                 break;
             case Record record:
-                // TODO: add special handling for IsSource
-                if (record.GTypeName is not null || record.IsDisguised || record.IsSource) {
-                    yield return record.GetClassDeclaration()
-                        .WithMembers(record.GetClassMembers());
-                }
-                else if (record.IsGTypeStructFor is not null) {
+                if (record.IsGTypeStructFor is not null) {
                     yield return record.GetGTypeStructClassDeclaration()
                         .WithMembers(record.GetGTypeStructClassMembers());
                 }
-                else {
+                else if (record.IsValueType()) {
                     yield return record.GetStructDeclaration()
                         .WithMembers(record.GetStructMembers());
+                }
+                else {
+                    yield return record.GetClassDeclaration()
+                        .WithMembers(record.GetClassMembers());
                 }
                 break;
             case StaticClass staticClass:

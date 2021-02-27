@@ -1,11 +1,9 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2019 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2019,2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GLib;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -20,15 +18,15 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static FieldDeclarationSyntax GetDeclaration(this Constant constant)
         {
-            var type = constant.Type.ManagedType;
-            if (type == typeof(Utf8)) {
-                type = typeof(string);
+            var type = constant.Type.ManagedName;
+            if (type == "GISharp.Lib.GLib.Utf8") {
+                type = "System.String";
             }
 
-            var value = GetValueAsLiteralExpression(type.FullName, constant.Value);
+            var value = GetValueAsLiteralExpression(type, constant.Value);
             var variable = VariableDeclarator(constant.ManagedName)
                 .WithInitializer(EqualsValueClause(value));
-            var variableDeclaration = VariableDeclaration(type.ToSyntax())
+            var variableDeclaration = VariableDeclaration(ParseTypeName(type))
                 .AddVariables(variable);
 
             var syntax = FieldDeclaration(variableDeclaration)

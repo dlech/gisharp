@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Collections.Generic;
@@ -21,10 +21,10 @@ namespace GISharp.CodeGen.Gir
         public string Parent { get; }
 
         /// <summary>
-        /// Gets the .NET type associated with the parent type
+        /// Getsthe parent type
         /// </summary>
-        public System.Type ParentType => _ParentType.Value;
-        readonly Lazy<System.Type> _ParentType;
+        public Class ParentType => _ParentType.Value;
+        readonly Lazy<Class> _ParentType;
 
         /// <summary>
         /// Gets a list of interfaces implemented by this class, if any.
@@ -38,13 +38,18 @@ namespace GISharp.CodeGen.Gir
                 throw new ArgumentException("Requrires <class> element", nameof(element));
             }
             IsAbstract = Element.Attribute("abstract").AsBool();
-            Parent = Element.Attribute("parent").Value;
+            Parent = Element.Attribute("parent")?.Value;
             _ParentType = new(LazyGetParentType);
             _Implements = new(() => LazyGetImplements().ToList());
         }
 
-        System.Type LazyGetParentType() =>
-            Reflection.GirType.ResolveParentType(this);
+        Class LazyGetParentType()
+        {
+            if (Parent is null) {
+                return null;
+            }
+            return TypeResolver.ResolveType<Class>(Namespace, Parent);
+        }
 
         IEnumerable<Implements> LazyGetImplements() =>
             Element.Elements(gi + "implements").Select(x => (Implements)GetNode(x));

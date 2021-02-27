@@ -1,11 +1,8 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Xml.Linq;
-using GISharp.CodeGen.Reflection;
 
 namespace GISharp.CodeGen.Gir
 {
@@ -17,19 +14,19 @@ namespace GISharp.CodeGen.Gir
         public new Class ParentNode => (Class)base.ParentNode;
 
         /// <summary>
-        /// Gets the .NET type associated with the implemented interface
+        /// Gets the implemented interface
         /// </summary>
-        public System.Type ManagedType => _Type.Value;
-        readonly Lazy<System.Type> _Type;
+        public Interface Interface => _Interface.Value;
+        readonly Lazy<Interface> _Interface;
 
         public Implements(XElement element, GirNode parent) : base(element, parent)
         {
             if (element.Name != gi + "implements") {
                 throw new ArgumentException("Requrires <implements> element", nameof(element));
             }
-            _Type = new(LazyGetType);
+            _Interface = new(LazyGetInterface);
         }
 
-        System.Type LazyGetType() => GirInterfaceType.ResolveType(this);
+        Interface LazyGetInterface() => TypeResolver.ResolveType<Interface>(Namespace, GirName);
     }
 }

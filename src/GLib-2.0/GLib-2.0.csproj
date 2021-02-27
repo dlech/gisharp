@@ -12,4 +12,28 @@
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
+  <ItemGroup>
+    <!-- Ignore generated files for types that are maintained in Core. -->
+    <Compile Remove="Bytes.Generated.cs" />
+    <Compile Remove="Cond.Generated.cs" />
+    <Compile Remove="Data.Generated.cs" />
+    <Compile Remove="DestroyNotify.Generated.cs" />
+    <Compile Remove="Error.Generated.cs" />
+    <Compile Remove="IOCondition.Generated.cs" />
+    <Compile Remove="MainContext.Generated.cs" />
+    <Compile Remove="MainLoop.Generated.cs" />
+    <Compile Remove="Mutex.Generated.cs" />
+    <Compile Remove="PollFD.Generated.cs" />
+    <Compile Remove="Quark.Generated.cs" />
+    <Compile Remove="Source.Generated.cs" />
+    <Compile Remove="SourceCallbackFuncs.Generated.cs" />
+    <Compile Remove="SourceDummyMarshal.Generated.cs" />
+    <Compile Remove="SourceFunc.Generated.cs" />
+    <Compile Remove="SourceFuncs.Generated.cs" />
+    <Compile Remove="Strv.Generated.cs" />
+    <Compile Remove="Variant.Generated.cs" />
+    <Compile Remove="VariantClass.Generated.cs" />
+    <Compile Remove="VariantParseError.Generated.cs" />
+    <Compile Remove="VariantType.Generated.cs" />
+  </ItemGroup>
 </Project>

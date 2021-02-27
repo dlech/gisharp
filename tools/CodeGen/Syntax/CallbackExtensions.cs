@@ -43,7 +43,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static DelegateDeclarationSyntax GetUnmanagedDeclaration(this Callback callback)
         {
-            var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
+            var returnType = ParseTypeName(callback.ReturnValue.Type.GetUnmanagedType());
             var identifier = "Unmanaged" + callback.ManagedName;
 
             var girTrivia = TriviaList(callback.ReturnValue.GetGirXmlTrivia(),
@@ -91,7 +91,7 @@ namespace GISharp.CodeGen.Syntax
             var getDelegateStatement = ExpressionStatement(ParseExpression(getDelegate));
             tryStatement = tryStatement.AddBlockStatements(getDelegateStatement);
 
-            var returnsValue = !callback.ReturnValue.IsSkip && callback.ReturnValue.Type.UnmanagedType != typeof(void);
+            var returnsValue = !callback.ReturnValue.IsSkip && callback.ReturnValue.Type.GirName != "none";
 
             var invokeStatement = callback.GetInvocationStatement(invokeMethod, !returnsValue);
             tryStatement = tryStatement.AddBlockStatements(invokeStatement);
@@ -114,7 +114,7 @@ namespace GISharp.CodeGen.Syntax
                 var returnStatement = ReturnStatement(ParseExpression("ret_"));
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
-            else if (callback.ReturnValue.Type.UnmanagedType == typeof(Runtime.Boolean)) {
+            else if (callback.ReturnValue.Type.GirName == "gboolean") {
                 var returnStatement = ReturnStatement(ParseExpression("GISharp.Runtime.Boolean.True"));
                 tryStatement = tryStatement.AddBlockStatements(returnStatement);
             }
@@ -159,8 +159,8 @@ namespace GISharp.CodeGen.Syntax
 
             yield return tryStatement;
 
-            if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
-                var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
+            if (callback.ReturnValue.Type.GirName != "none") {
+                var returnType = ParseTypeName(callback.ReturnValue.Type.GetUnmanagedType());
                 yield return ReturnStatement(DefaultExpression(returnType));
             }
         }
@@ -178,7 +178,7 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         static IEnumerable<StatementSyntax> GetCallbackStatements(this Callback callback)
         {
-            var catchType = ParseTypeName(typeof(Exception).FullName);
+            var catchType = ParseTypeName("System.Exception");
             var catchStatement = ExpressionStatement(ParseExpression(string.Format("{0}.{1}(ex)",
                 typeof(Log),
                 nameof(Log.LogUnhandledException))));
@@ -188,8 +188,8 @@ namespace GISharp.CodeGen.Syntax
                     .WithDeclaration(CatchDeclaration(catchType, ParseToken("ex")))
                     .WithBlock(Block(catchStatement)));
 
-            if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
-                var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
+            if (callback.ReturnValue.Type.GirName != "none") {
+                var returnType = ParseTypeName(callback.ReturnValue.Type.GetUnmanagedType());
                 var expression = ParseExpression($"default({returnType})");
                 yield return ReturnStatement(expression);
             }
@@ -214,7 +214,7 @@ namespace GISharp.CodeGen.Syntax
                 ExpressionStatement(ParseExpression($"var gcHandle = ({ghHandleType}){dataParamName}_")),
                 ExpressionStatement(ParseExpression($"var {dataParamName} = (UserData)gcHandle.Target!")));
 
-            var skipReturnValue = callback.ThrowsGErrorException && callback.ReturnValue.Type.UnmanagedType == typeof(Runtime.Boolean);
+            var skipReturnValue = callback.ThrowsGErrorException && callback.ReturnValue.Type.GirName == "gboolean";
 
             block = block.AddStatements(
                 callback.GetInvocationStatement($"{dataParamName}.ManagedDelegate", skipReturnValue),
@@ -229,7 +229,7 @@ namespace GISharp.CodeGen.Syntax
                 // callbacks that throw and return bool should always return true
                 block = block.AddStatements(ReturnStatement(ParseExpression("GISharp.Runtime.Boolean.True")));
             }
-            else if (callback.ReturnValue.Type.UnmanagedType != typeof(void)) {
+            else if (callback.ReturnValue.Type.GirName != "none") {
                 block = block.AddStatements(callback.ReturnValue.GetMarshalManagedToUnmanagedStatements(out var fixedStatement));
                 if (fixedStatement is not null) {
                     fixedStatements.Add(fixedStatement);
@@ -256,7 +256,7 @@ namespace GISharp.CodeGen.Syntax
             invokeExpression = invokeExpression.WithArgumentList(argList);
 
             StatementSyntax statement = ExpressionStatement(invokeExpression);
-            if (!skipReturnValue && callback.ReturnValue.Type.ManagedType != typeof(void)) {
+            if (!skipReturnValue && callback.ReturnValue.Type.GirName != "none") {
                 statement = LocalDeclarationStatement(
                     VariableDeclaration(ParseTypeName("var"))
                     .AddVariables(VariableDeclarator(ParseToken("ret"))
@@ -289,9 +289,9 @@ namespace GISharp.CodeGen.Syntax
 
         static MethodDeclarationSyntax GetVirtualMethodDelegateMarshalToPointerMethod(this Callback callback)
         {
-            var type = ParseTypeName("Unmanaged" + callback.ManagedName);
+            var type = ParseTypeName($"Unmanaged{callback.ManagedName}");
             var methodInfoParam = Parameter(ParseToken("methodInfo"))
-                .WithType(ParseTypeName(typeof(System.Reflection.MethodInfo).FullName));
+                .WithType(ParseTypeName("System.Reflection.MethodInfo"));
             return MethodDeclaration(type, "Create")
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .AddParameterListParameters(methodInfoParam)
@@ -304,7 +304,7 @@ namespace GISharp.CodeGen.Syntax
 
         static IEnumerable<StatementSyntax> GetUnmanagedDelegateCreateStatements(this Callback callback)
         {
-            var returnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
+            var returnType = ParseTypeName(callback.ReturnValue.Type.GetUnmanagedType());
             var identifier = "unmanaged" + callback.ManagedName.ToPascalCase();
             yield return LocalFunctionStatement(returnType, identifier)
                 .WithParameterList(callback.Parameters.GetParameterList())
@@ -331,7 +331,7 @@ namespace GISharp.CodeGen.Syntax
 
             var scopeFieldToken = ParseToken("Scope");
             var scopeParamToken = ParseToken(scopeFieldToken.Text.ToCamelCase());
-            var scopeFieldType = typeof(CallbackScope).ToSyntax();
+            var scopeFieldType = ParseTypeName(typeof(CallbackScope).FullName);
             var scopeField = FieldDeclaration(VariableDeclaration(scopeFieldType)
                     .AddVariables(VariableDeclarator(scopeFieldToken)))
                 .AddModifiers(Token(PublicKeyword), Token(ReadOnlyKeyword));
@@ -380,7 +380,7 @@ namespace GISharp.CodeGen.Syntax
 
             // emit unmanaged callback method
 
-            var callbackReturnType = callback.ReturnValue.Type.UnmanagedType.ToSyntax();
+            var callbackReturnType = ParseTypeName(callback.ReturnValue.Type.GetUnmanagedType());
             var callbackMethod = MethodDeclaration(callbackReturnType, "UnmanagedCallback")
                 .AddModifiers(Token(StaticKeyword))
                 .WithParameterList(callback.Parameters.GetParameterList())
@@ -400,7 +400,7 @@ namespace GISharp.CodeGen.Syntax
                 nameof(Marshal.GetFunctionPointerForDelegate),
                 callbackDelegateVariable.Identifier
             ));
-            var callbackPointer = FieldDeclaration(VariableDeclaration(ParseTypeName(typeof(IntPtr).FullName))
+            var callbackPointer = FieldDeclaration(VariableDeclaration(ParseTypeName("System.IntPtr"))
                 .AddVariables(VariableDeclarator("callback_")
                     .WithInitializer(EqualsValueClause(callbackMarshalToPointerExpression))))
                     .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
@@ -408,7 +408,6 @@ namespace GISharp.CodeGen.Syntax
 
             // emit destroy notify method
 
-            var destroyReturnType = ParseTypeName("void");
             var destroyParamList = ParseParameterList($"({typeof(IntPtr)} userData_)");
 
             var destroyTryStatement = ParseStatement(string.Format(@"try {{
@@ -423,7 +422,7 @@ namespace GISharp.CodeGen.Syntax
                 typeof(Log),
                 nameof(Log.LogUnhandledException)));
 
-            var destroyMethod = MethodDeclaration(destroyReturnType, "Destroy")
+            var destroyMethod = MethodDeclaration(PredefinedType(Token(VoidKeyword)), "Destroy")
                 .AddModifiers(Token(StaticKeyword))
                 .WithParameterList(destroyParamList)
                 .WithBody(Block(destroyTryStatement));
@@ -443,7 +442,7 @@ namespace GISharp.CodeGen.Syntax
                 nameof(Marshal.GetFunctionPointerForDelegate),
                 destroyDelegateVariable.Identifier
             ));
-            var destroyPointer = FieldDeclaration(VariableDeclaration(ParseTypeName(typeof(IntPtr).FullName))
+            var destroyPointer = FieldDeclaration(VariableDeclaration(ParseTypeName("System.IntPtr"))
                 .AddVariables(VariableDeclarator("destroy_")
                     .WithInitializer(EqualsValueClause(destroyMarshalToPointerExpression))))
                     .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));

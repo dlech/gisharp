@@ -1,0 +1,76 @@
+<declaration>
+
+<member name='SignalFlags.RunFirst'>
+<summary>
+Invoke the object method handler in the first emission stage.
+</summary>
+</member>
+
+<member name='SignalFlags.RunLast'>
+<summary>
+Invoke the object method handler in the third emission stage.
+</summary>
+</member>
+
+<member name='SignalFlags.RunCleanup'>
+<summary>
+Invoke the object method handler in the last emission stage.
+</summary>
+</member>
+
+<member name='SignalFlags.NoRecurse'>
+<summary>
+Signals being emitted for an object while currently being in
+ emission for this very object will not be emitted recursively,
+ but instead cause the first emission to be restarted.
+</summary>
+</member>
+
+<member name='SignalFlags.Detailed'>
+<summary>
+This signal supports "::detail" appendices to the signal name
+ upon handler connections and emissions.
+</summary>
+</member>
+
+<member name='SignalFlags.Action'>
+<summary>
+Action signals are signals that may freely be emitted on alive
+ objects from user code via g_signal_emit() and friends, without
+ the need of being embedded into extra code that performs pre or
+ post emission adjustments on the object. They can also be thought
+ of as object methods which can be called generically by
+ third-party code.
+</summary>
+</member>
+
+<member name='SignalFlags.NoHooks'>
+<summary>
+No emissions hooks are supported for this signal.
+</summary>
+</member>
+
+<member name='SignalFlags.MustCollect'>
+<summary>
+Varargs signal emission will always collect the
+  arguments, even if there are no signal handlers connected.
+</summary>
+</member>
+
+<member name='SignalFlags.Deprecated'>
+<summary>
+The signal is deprecated and will be removed
+  in a future version. A warning will be generated if it is connected while
+  running with G_ENABLE_DIAGNOSTIC=1.
+</summary>
+</member>
+
+<member name='SignalFlags'>
+<summary>
+The signal flags are used to specify a signal's behaviour, the overall
+signal description outlines how especially the RUN flags control the
+stages of a signal emission.
+</summary>
+</member>
+
+</declaration>

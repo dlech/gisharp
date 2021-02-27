@@ -1,0 +1,171 @@
+<declaration>
+
+<member name='Binding.Flags_'>
+<summary>
+Flags to be used to control the <see cref="Binding"/>
+</summary>
+</member>
+
+<member name='Binding.Source_'>
+<summary>
+The <see cref="Object"/> that should be used as the source of the binding
+</summary>
+</member>
+
+<member name='Binding.SourceProperty_'>
+<summary>
+The name of the property of <see cref="Binding"/>:source that should be used
+as the source of the binding.
+</summary>
+<remarks>
+This should be in [canonical form][canonical-parameter-names] to get the
+best performance.
+</remarks>
+</member>
+
+<member name='Binding.Target_'>
+<summary>
+The <see cref="Object"/> that should be used as the target of the binding
+</summary>
+</member>
+
+<member name='Binding.TargetProperty_'>
+<summary>
+The name of the property of <see cref="Binding"/>:target that should be used
+as the target of the binding.
+</summary>
+<remarks>
+This should be in [canonical form][canonical-parameter-names] to get the
+best performance.
+</remarks>
+</member>
+
+<member name='Binding.Flags'>
+<summary>
+Retrieves the flags passed when constructing the <see cref="Binding"/>.
+</summary>
+</member>
+
+<member name='Binding.Source'>
+<summary>
+Retrieves the <see cref="Object"/> instance used as the source of the binding.
+</summary>
+</member>
+
+<member name='Binding.SourceProperty'>
+<summary>
+Retrieves the name of the property of <see cref="Binding"/>:source used as the source
+of the binding.
+</summary>
+</member>
+
+<member name='Binding.Target'>
+<summary>
+Retrieves the <see cref="Object"/> instance used as the target of the binding.
+</summary>
+</member>
+
+<member name='Binding.TargetProperty'>
+<summary>
+Retrieves the name of the property of <see cref="Binding"/>:target used as the target
+of the binding.
+</summary>
+</member>
+
+<member name='Binding.Unbind()'>
+<summary>
+Explicitly releases the binding between the source and the target
+property expressed by this instance.
+</summary>
+<remarks>
+This function will release the reference that is being held on
+the this instance instance; if you want to hold on to the <see cref="Binding"/> instance
+after calling <see cref="Binding.Unbind()"/>, you will need to hold a reference
+to it.
+</remarks>
+</member>
+
+<member name='Binding'>
+<summary>
+<see cref="Binding"/> is the representation of a binding between a property on a
+<see cref="Object"/> instance (or source) and another property on another <see cref="Object"/>
+instance (or target). Whenever the source property changes, the same
+value is applied to the target property; for instance, the following
+binding:
+</summary>
+<remarks>
+|[&lt;!-- language="C" --&gt;
+  g_object_bind_property (object1, "property-a",
+                          object2, "property-b",
+                          G_BINDING_DEFAULT);
+]|
+
+will cause the property named "property-b" of <c>object2</c> to be updated
+every time g_object_set() or the specific accessor changes the value of
+the property "property-a" of <c>object1</c>.
+
+It is possible to create a bidirectional binding between two properties
+of two <see cref="Object"/> instances, so that if either property changes, the
+other is updated as well, for instance:
+
+|[&lt;!-- language="C" --&gt;
+  g_object_bind_property (object1, "property-a",
+                          object2, "property-b",
+                          G_BINDING_BIDIRECTIONAL);
+]|
+
+will keep the two properties in sync.
+
+It is also possible to set a custom transformation function (in both
+directions, in case of a bidirectional binding) to apply a custom
+transformation from the source value to the target value before
+applying it; for instance, the following binding:
+
+|[&lt;!-- language="C" --&gt;
+  g_object_bind_property_full (adjustment1, "value",
+                               adjustment2, "value",
+                               G_BINDING_BIDIRECTIONAL,
+                               celsius_to_fahrenheit,
+                               fahrenheit_to_celsius,
+                               NULL, NULL);
+]|
+
+will keep the "value" property of the two adjustments in sync; the
+<c>celsiusToFahrenheit</c> function will be called whenever the "value"
+property of <c>adjustment1</c> changes and will transform the current value
+of the property before applying it to the "value" property of <c>adjustment2</c>.
+
+Vice versa, the <c>fahrenheitToCelsius</c> function will be called whenever
+the "value" property of <c>adjustment2</c> changes, and will transform the
+current value of the property before applying it to the "value" property
+of <c>adjustment1</c>.
+
+Note that <see cref="Binding"/> does not resolve cycles by itself; a cycle like
+
+|[
+  object1:propertyA -&gt; object2:propertyB
+  object2:propertyB -&gt; object3:propertyC
+  object3:propertyC -&gt; object1:propertyA
+]|
+
+might lead to an infinite loop. The loop, in this particular case,
+can be avoided if the objects emit the <see cref="Object"/>::notify signal only
+if the value has effectively been changed. A binding is implemented
+using the <see cref="Object"/>::notify signal, so it is susceptible to all the
+various ways of blocking a signal emission, like g_signal_stop_emission()
+or g_signal_handler_block().
+
+A binding will be severed, and the resources it allocates freed, whenever
+either one of the <see cref="Object"/> instances it refers to are finalized, or when
+the <see cref="Binding"/> instance loses its last reference.
+
+Bindings for languages with garbage collection can use
+<see cref="Binding.Unbind()"/> to explicitly release a binding between the source
+and target properties, instead of relying on the last reference on the
+binding, source, and target instances to drop.
+
+<see cref="Binding"/> is available since GObject 2.26
+</remarks>
+</member>
+
+</declaration>

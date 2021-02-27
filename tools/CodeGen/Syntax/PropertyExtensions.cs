@@ -22,10 +22,10 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static PropertyDeclarationSyntax GetDeclaration(this Property property)
         {
-            var type = property.Type.ManagedType.ToSyntax();
+            var type = ParseTypeName(property.Type.GetManagedType());
 
             // TODO: is there a way to tell if properties are not nullable?
-            if (!property.Type.ManagedType.IsValueType) {
+            if (!property.Type.IsValueType()) {
                 type = NullableType(type);
             }
 
@@ -85,10 +85,10 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static PropertyDeclarationSyntax GetInterfaceDeclaration(this Property property)
         {
-            var type = property.Type.ManagedType.ToSyntax();
+            var type = ParseTypeName(property.Type.GetManagedType());
 
             // TODO: is there a way to tell if properties are not nullable?
-            if (!property.Type.ManagedType.IsValueType) {
+            if (!property.Type.IsValueType()) {
                 type = NullableType(type);
             }
 

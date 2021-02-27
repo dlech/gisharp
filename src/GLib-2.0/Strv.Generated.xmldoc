@@ -1,0 +1,10 @@
+<declaration>
+
+<member name='Strv'>
+<summary>
+A typedef alias for gchar**. This is mostly useful when used together with
+g_auto().
+</summary>
+</member>
+
+</declaration>

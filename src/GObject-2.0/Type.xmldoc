@@ -1,0 +1,10 @@
+<declaration>
+
+<member name='Type'>
+<summary>
+A numerical value which represents the unique identifier of a registered
+type.
+</summary>
+</member>
+
+</declaration>

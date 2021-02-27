@@ -66,7 +66,7 @@ namespace GISharp.CodeGen.Syntax
         static BaseListSyntax GetBaseList(this Record record)
         {
             var list = SeparatedList<BaseTypeSyntax>()
-                .Add(SimpleBaseType(record.BaseType.ToSyntax()))
+                .Add(SimpleBaseType(ParseTypeName(record.BaseType)))
                 .AddRange(record.Functions.GetBaseListTypes())
                 .AddRange(record.Methods.GetBaseListTypes());
             return BaseList(list);
@@ -78,7 +78,7 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Record record)
         {
             var fieldStructModifiers = new List<SyntaxToken>();
-            if (record.BaseType != typeof(Lib.GObject.Boxed) && record.BaseType != typeof(Opaque)) {
+            if (record.BaseType != typeof(Lib.GObject.Boxed).FullName && record.BaseType != typeof(Opaque).FullName) {
                 fieldStructModifiers.Add(Token(NewKeyword));
             }
 
@@ -115,7 +115,7 @@ namespace GISharp.CodeGen.Syntax
             var list = TokenList(Token(PublicKeyword));
 
             if (record.IsGTypeStructFor is not null &&
-                record.BaseType == typeof(TypeInterface)) {
+                record.BaseType == typeof(TypeInterface).FullName) {
                 // interfaces cannot be inherited
                 list = list.Add(Token(SealedKeyword));
             }
@@ -127,7 +127,7 @@ namespace GISharp.CodeGen.Syntax
 
         static BaseListSyntax GetGTypeStructBaseList(this Record record)
         {
-            var parentType = record.BaseType.ToSyntax();
+            var parentType = ParseTypeName(record.BaseType);
             return BaseList().AddTypes(SimpleBaseType(parentType));
         }
 

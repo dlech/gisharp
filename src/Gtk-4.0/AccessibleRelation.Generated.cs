@@ -66,7 +66,7 @@ namespace GISharp.Lib.Gtk
 GISharp.Lib.Gtk.AccessibleRelation relation,
 /* <type name="GObject.Value" type="GValue*" managed-name="GISharp.Lib.GObject.Value" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-GISharp.Lib.GObject.Value value);
+GISharp.Lib.GObject.Value* value);
         static partial void CheckInitValueArgs(this GISharp.Lib.Gtk.AccessibleRelation relation, GISharp.Lib.GObject.Value value);
 
         /// <include file="AccessibleRelation.xmldoc" path="declaration/member[@name='AccessibleRelationExtensions.InitValue(GISharp.Lib.Gtk.AccessibleRelation,GISharp.Lib.GObject.Value)']/*" />
@@ -74,7 +74,7 @@ GISharp.Lib.GObject.Value value);
         {
             CheckInitValueArgs(relation, value);
             var relation_ = (GISharp.Lib.Gtk.AccessibleRelation)relation;
-            var value_ = (GISharp.Lib.GObject.Value)value;
+            var value_ = &value;
             gtk_accessible_relation_init_value(relation_, value_);
         }
     }

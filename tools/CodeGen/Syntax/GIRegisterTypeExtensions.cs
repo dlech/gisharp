@@ -25,7 +25,7 @@ namespace GISharp.CodeGen.Syntax
                 throw new InvalidOperationException("Type is not a GType");
             }
             // emits: static readonly GType _GType = xxx_get_type();
-            var typeName = typeof(GType).ToSyntax();
+            var typeName = ParseTypeName(typeof(GType).FullName);
             var identifier = ParseToken("_GType");
             var expression = ParseExpression($"{type.GTypeGetter}()");
 

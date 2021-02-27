@@ -1,0 +1,56 @@
+<declaration>
+
+<member name='MainLoop.Context'>
+<summary>
+Returns the <see cref="MainContext"/> of this instance.
+</summary>
+</member>
+
+<member name='MainLoop.IsRunning'>
+<summary>
+Checks to see if the main loop is currently being run via <see cref="MainLoop.Run()"/>.
+</summary>
+</member>
+
+<member name='MainLoop.MainLoop(GISharp.Lib.GLib.MainContext?,System.Boolean)'>
+<summary>
+Creates a new <see cref="MainLoop"/> structure.
+</summary>
+<param name="context">
+a <see cref="MainContext"/>  (if <c>null</c>, the default context will be used).
+</param>
+<param name="isRunning">
+set to <c>true</c> to indicate that the loop is running. This
+is not very important since calling <see cref="MainLoop.Run()"/> will set this to
+<c>true</c> anyway.
+</param>
+</member>
+
+<member name='MainLoop.Quit()'>
+<summary>
+Stops a <see cref="MainLoop"/> from running. Any calls to <see cref="MainLoop.Run()"/>
+for the loop will return.
+</summary>
+<remarks>
+Note that sources that have already been dispatched when
+<see cref="MainLoop.Quit()"/> is called will still be executed.
+</remarks>
+</member>
+
+<member name='MainLoop.Run()'>
+<summary>
+Runs a main loop until <see cref="MainLoop.Quit()"/> is called on the loop.
+If this is called for the thread of the loop's <see cref="MainContext"/>,
+it will process events from the loop, otherwise it will
+simply wait.
+</summary>
+</member>
+
+<member name='MainLoop'>
+<summary>
+The `GMainLoop` struct is an opaque data type
+representing the main event loop of a GLib or GTK+ application.
+</summary>
+</member>
+
+</declaration>

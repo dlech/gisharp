@@ -1,0 +1,155 @@
+<declaration>
+
+<member name='TypeClass.GType'>
+</member>
+
+<member name='TypeClass.AdjustPrivateOffset(System.IntPtr,System.Int32)'>
+</member>
+
+<member name='TypeClass.Peek(GISharp.Lib.GObject.GType)'>
+<summary>
+This function is essentially the same as <see cref="TypeClass.Ref(GISharp.Lib.GObject.GType)"/>,
+except that the classes reference count isn't incremented.
+As a consequence, this function may return <c>null</c> if the class
+of the type passed in does not currently exist (hasn't been
+referenced before).
+</summary>
+<param name="type">
+type ID of a classed type
+</param>
+<returns>
+the <see cref="TypeClass"/>
+    structure for the given type ID or <c>null</c> if the class does not
+    currently exist
+</returns>
+</member>
+
+<member name='TypeClass.PeekStatic(GISharp.Lib.GObject.GType)'>
+<summary>
+A more efficient version of <see cref="TypeClass.Peek(GISharp.Lib.GObject.GType)"/> which works only for
+static types.
+</summary>
+<param name="type">
+type ID of a classed type
+</param>
+<returns>
+the <see cref="TypeClass"/>
+    structure for the given type ID or <c>null</c> if the class does not
+    currently exist or is dynamically loaded
+</returns>
+</member>
+
+<member name='TypeClass.Ref(GISharp.Lib.GObject.GType)'>
+<summary>
+Increments the reference count of the class structure belonging to
+<paramref name="type"/>. This function will demand-create the class if it doesn't
+exist already.
+</summary>
+<param name="type">
+type ID of a classed type
+</param>
+<returns>
+the <see cref="TypeClass"/>
+    structure for the given type ID
+</returns>
+</member>
+
+<member name='TypeClass.AddPrivate(System.Int32)'>
+<summary>
+Registers a private structure for an instantiatable type.
+</summary>
+<remarks>
+When an object is allocated, the private structures for
+the type and all of its parent types are allocated
+sequentially in the same memory block as the public
+structures, and are zero-filled.
+
+Note that the accumulated size of the private structures of
+a type and all its parent types cannot exceed 64 KiB.
+
+This function should be called in the type's class_init() function.
+The private structure can be retrieved using the
+G_TYPE_INSTANCE_GET_PRIVATE() macro.
+
+The following example shows attaching a private structure
+MyObjectPrivate to an object MyObject defined in the standard
+GObject fashion in the type's class_init() function.
+
+Note the use of a structure member "priv" to avoid the overhead
+of repeatedly calling MY_OBJECT_GET_PRIVATE().
+
+|[&lt;!-- language="C" --&gt;
+typedef struct _MyObject        MyObject;
+typedef struct _MyObjectPrivate MyObjectPrivate;
+
+struct _MyObject {
+ GObject parent;
+
+ MyObjectPrivate *priv;
+};
+
+struct _MyObjectPrivate {
+  int some_field;
+};
+
+static void
+my_object_class_init (MyObjectClass *klass)
+{
+  g_type_class_add_private (klass, sizeof (MyObjectPrivate));
+}
+
+static void
+my_object_init (MyObject *my_object)
+{
+  my_object-&gt;priv = G_TYPE_INSTANCE_GET_PRIVATE (my_object,
+                                                 MY_TYPE_OBJECT,
+                                                 MyObjectPrivate);
+  // my_object-&gt;priv-&gt;some_field will be automatically initialised to 0
+}
+
+static int
+my_object_get_some_field (MyObject *my_object)
+{
+  MyObjectPrivate *priv;
+
+  g_return_val_if_fail (MY_IS_OBJECT (my_object), 0);
+
+  priv = my_object-&gt;priv;
+
+  return priv-&gt;some_field;
+}
+]|
+</remarks>
+<param name="privateSize">
+size of private structure
+</param>
+</member>
+
+<member name='TypeClass.GetPrivate(GISharp.Lib.GObject.GType)'>
+</member>
+
+<member name='TypeClass.PeekParent()'>
+<summary>
+This is a convenience function often needed in class initializers.
+It returns the class structure of the immediate parent type of the
+class passed in.  Since derived classes hold a reference count on
+their parent classes as long as they are instantiated, the returned
+class will always exist.
+</summary>
+<remarks>
+This function is essentially equivalent to:
+g_type_class_peek (g_type_parent (G_TYPE_FROM_CLASS (g_class)))
+</remarks>
+<returns>
+the parent class
+    of this instance
+</returns>
+</member>
+
+<member name='TypeClass'>
+<summary>
+An opaque structure used as the base of all classes.
+</summary>
+</member>
+
+</declaration>

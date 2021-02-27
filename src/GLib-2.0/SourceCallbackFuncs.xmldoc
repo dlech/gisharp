@@ -1,0 +1,19 @@
+<declaration>
+
+<member name='SourceCallbackFuncs.Ref'>
+</member>
+
+<member name='SourceCallbackFuncs.Unref'>
+</member>
+
+<member name='SourceCallbackFuncs.Get'>
+</member>
+
+<member name='SourceCallbackFuncs'>
+<summary>
+The `GSourceCallbackFuncs` struct contains
+functions for managing callback objects.
+</summary>
+</member>
+
+</declaration>

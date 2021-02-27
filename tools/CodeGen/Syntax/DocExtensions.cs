@@ -202,9 +202,8 @@ namespace GISharp.CodeGen.Syntax
                             if (arg.Direction == "inout") {
                                 result = "ref " + result;
                             }
-                            if (type.IsGenericType) {
-                                result = result.Replace("`1[", "{").Replace("]", "}");
-                            }
+                            // fix generics
+                            result = result.Replace("<", "{").Replace(">", "}");
                             return result;
                         }
                         // include parameter types so we don't get conflicts with overloads

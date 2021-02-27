@@ -77,11 +77,11 @@ namespace GISharp.CodeGen.Syntax
                 throw new ArgumentException("function must be flagged as gs:special-func=compare",
                     nameof(function));
             }
-            var argType = function.ManagedParameters.Last().Type.ManagedType;
-            var otherParamType = argType.ToSyntax();
+            var argType = function.ManagedParameters.Last().Type;
+            var otherParamType = ParseTypeName(argType.GetManagedType());
             var nullCheck = "";
 
-            if (!argType.IsValueType) {
+            if (!argType.IsValueType()) {
                 otherParamType = NullableType(otherParamType);
                 nullCheck = $"?? throw new System.ArgumentNullException(nameof(other))";
             }

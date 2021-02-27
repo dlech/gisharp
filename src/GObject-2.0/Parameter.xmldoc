@@ -1,0 +1,22 @@
+<declaration>
+
+<member name='Parameter.Name'>
+<summary>
+the parameter name
+</summary>
+</member>
+
+<member name='Parameter.Value'>
+<summary>
+the parameter value
+</summary>
+</member>
+
+<member name='Parameter'>
+<summary>
+The GParameter struct is an auxiliary structure used
+to hand parameter name/value pairs to <see cref="Object.Object(GISharp.Lib.GObject.GType,System.ReadOnlySpan{GISharp.Lib.GObject.Parameter})"/>.
+</summary>
+</member>
+
+</declaration>

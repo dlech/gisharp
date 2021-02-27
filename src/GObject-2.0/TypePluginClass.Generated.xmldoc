@@ -1,0 +1,41 @@
+<declaration>
+
+<member name='TypePluginClass.BaseIface'>
+</member>
+
+<member name='TypePluginClass.UsePlugin'>
+<summary>
+Increases the use count of the plugin.
+</summary>
+</member>
+
+<member name='TypePluginClass.UnusePlugin'>
+<summary>
+Decreases the use count of the plugin.
+</summary>
+</member>
+
+<member name='TypePluginClass.CompleteTypeInfo'>
+<summary>
+Fills in the <see cref="TypeInfo"/> and
+ <see cref="TypeValueTable"/> structs for the type. The structs are initialized
+ with `memset(s, 0, sizeof (s))` before calling this function.
+</summary>
+</member>
+
+<member name='TypePluginClass.CompleteInterfaceInfo'>
+<summary>
+Fills in missing parts of the <see cref="InterfaceInfo"/>
+ for the interface. The structs is initialized with
+ `memset(s, 0, sizeof (s))` before calling this function.
+</summary>
+</member>
+
+<member name='TypePluginClass'>
+<summary>
+The <see cref="ITypePlugin"/> interface is used by the type system in order to handle
+the lifecycle of dynamically loaded types.
+</summary>
+</member>
+
+</declaration>

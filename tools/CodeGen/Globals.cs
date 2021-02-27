@@ -74,44 +74,5 @@ namespace GISharp.CodeGen
                 return typeof(T).IsAssignableFrom(type);
             }
         }
-
-        /// <summary>
-        /// Tests if a type is a delegate type
-        /// </summary>
-        public static bool IsDelegate(this Type type)
-        {
-            return type.IsSubclassOf<Delegate>();
-        }
-
-        /// <summary>
-        /// Tests if a type is an opaque type
-        /// </summary>
-        public static bool IsOpaque(this Type type)
-        {
-            return type.IsSubclassOf<Opaque>();
-        }
-
-        /// <summary>
-        /// Tests if a type is a GInterface type
-        /// </summary>
-        public static bool IsGInterface(this Type type)
-        {
-            // if it is not an interface, then it is definitely not a GInterface
-            if (!type.IsInterface) {
-                return false;
-            }
-
-            // FIXME: this doesn't work because GirType does not implement CustomAttributes
-            // GInterface will always have [GType] attribute
-            // return type.CustomAttributes.OfType<GTypeAttribute>().Any();
-
-            // for now, making the assumption that GInterface types are not generic
-            // this is probably a safe assumption
-            if (type.IsGenericType) {
-                return false;
-            }
-
-            return true;
-        }
     }
 }

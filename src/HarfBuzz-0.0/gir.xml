@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- This file was automatically generated from C sources - DO NOT EDIT!
+To affect the contents of this file, edit the original C definitions,
+and/or use gtk-doc annotations.  -->
+<repository version="1.2" xmlns="http://www.gtk.org/introspection/core/1.0" xmlns:c="http://www.gtk.org/introspection/c/1.0" xmlns:glib="http://www.gtk.org/introspection/glib/1.0" xmlns:gs="http://gisharp.org/introspection/gisharp/1.0">
+  <include name="GObject" version="2.0" gs:managed-name="GObject" />
+  <package name="harfbuzz-gobject" gs:managed-name="HarfbuzzGobject" />
+  <c:include name="hb-gobject.h" gs:managed-name="HbGobject.h" />
+  <namespace name="HarfBuzz" version="0.0" shared-library="libharfbuzz-gobject.0.dylib" c:identifier-prefixes="hb_" c:symbol-prefixes="hb,hb_gobject" gs:managed-name="HarfBuzz" />
+</repository>

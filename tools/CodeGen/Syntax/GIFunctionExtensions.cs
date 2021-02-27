@@ -27,7 +27,7 @@ namespace GISharp.CodeGen.Syntax
                     .WithLeadingTrivia(TriviaList(x.GetGirXmlTrivia(), EndOfLine("\n"),
                         x.GetAnnotationTrivia(), EndOfLine("\n"))))));
 
-            var returnType = function.ReturnValue.Type.UnmanagedType.ToSyntax();
+            var returnType = ParseTypeName(function.ReturnValue.Type.GetUnmanagedType());
             var syntax = MethodDeclaration(returnType, function.CIdentifier)
                 // adding girTrivia here makes it appear before the method declaration
                 // but after the attribute lists
@@ -60,7 +60,7 @@ namespace GISharp.CodeGen.Syntax
             if (function is Constructor) {
                 // special case for constructors since the static method is only
                 // part of the constructor
-                returnType = function.ReturnValue.Type.UnmanagedType.ToSyntax();
+                returnType = ParseTypeName(function.ReturnValue.Type.GetUnmanagedType());
                 modifiers = TokenList();
             }
 

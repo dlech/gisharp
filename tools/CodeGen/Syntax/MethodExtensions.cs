@@ -35,12 +35,12 @@ namespace GISharp.CodeGen.Syntax
                         // IEquatable parameter is always nullable so we need
                         // to correct the type and add a null check
                         var otherParam = method.ManagedParameters.RegularParameters.Single();
-                        if (!otherParam.IsNullable && !otherParam.Type.ManagedType.IsValueType) {
+                        if (!otherParam.IsNullable && !otherParam.Type.IsValueType()) {
                             var oldParam = declaration.ParameterList.Parameters.Single();
                             var newParam = oldParam.WithType(NullableType(oldParam.Type));
                             declaration = declaration.ReplaceNode(oldParam, newParam);
                         }
-                        if (!otherParam.Type.ManagedType.IsValueType) {
+                        if (!otherParam.Type.IsValueType()) {
                             declaration = declaration.WithBody(Block(
                                 declaration.Body.Statements.Prepend(
                                     IfStatement(
@@ -65,8 +65,8 @@ namespace GISharp.CodeGen.Syntax
                 if (method.IsRef) {
                     // if there is an unmanaged ref method, use it to override the
                     // managed Take() method
-                    var takeReturnType = ParseTypeName(typeof(IntPtr).FullName);
-                    var paramType = method.Parameters.InstanceParameter.Type.UnmanagedType.ToSyntax();
+                    var takeReturnType = ParseTypeName("System.IntPtr");
+                    var paramType = method.Parameters.InstanceParameter.Type.GetUnmanagedType();
                     var takeExpression = ParseExpression($"({takeReturnType}){method.CIdentifier}(({paramType})UnsafeHandle)");
                     var takeOverride = MethodDeclaration(takeReturnType, "Take")
                         .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
@@ -81,9 +81,9 @@ namespace GISharp.CodeGen.Syntax
                 }
 
                 if (method.IsUnref || method.IsFree) {
-                    var disposeMethod = MethodDeclaration(ParseTypeName("void"), "Dispose")
+                    var disposeMethod = MethodDeclaration(PredefinedType(Token(VoidKeyword)), "Dispose")
                         .AddParameterListParameters(Parameter(Identifier("disposing"))
-                            .WithType(ParseTypeName("bool")))
+                            .WithType(PredefinedType(Token(BoolKeyword))))
                         .AddModifiers(Token(ProtectedKeyword), Token(OverrideKeyword))
                         .WithBody(Block(
                             IfStatement(ParseExpression("handle != System.IntPtr.Zero"), Block(
@@ -124,7 +124,7 @@ namespace GISharp.CodeGen.Syntax
             }
 
             if (method.IsToString && !method.IsExtensionMethod) {
-                syntax = syntax.WithReturnType(ParseTypeName(typeof(string).ToString()));
+                syntax = syntax.WithReturnType(ParseTypeName("System.String"));
             }
 
             var triviaParameters = method.ManagedParameters.RegularParameters.Cast<GIArg>();
@@ -155,8 +155,8 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         static MethodDeclarationSyntax GetOverrideEqualsMethodDeclaration(this Method method)
         {
-            var type = method.Parameters.InstanceParameter.Type.ManagedType.FullName;
-            var identifier = method.Parameters.InstanceParameter.Type.ManagedType.Name.ToCamelCase();
+            var type = method.Parameters.InstanceParameter.Type.GetManagedType();
+            var identifier = method.Parameters.InstanceParameter.Type.GetManagedType().Split('.').Last().ToCamelCase();
             var syntax = MethodDeclaration(ParseTypeName(typeof(bool).FullName), "Equals")
                 .AddModifiers(Token(PublicKeyword), Token(OverrideKeyword))
                 .AddParameterListParameters(Parameter(Identifier("other"))
@@ -175,8 +175,8 @@ namespace GISharp.CodeGen.Syntax
 
         private static OperatorDeclarationSyntax GetEqualityOperatorDeclaration(this Method method)
         {
-            var parameterType = method.ManagedParameters.RegularParameters.Single().Type.ManagedType.ToSyntax();
-            return OperatorDeclaration(typeof(bool).ToSyntax(), Token(EqualsEqualsToken))
+            var parameterType = ParseTypeName(method.ManagedParameters.RegularParameters.Single().Type.GetManagedType());
+            return OperatorDeclaration(ParseTypeName("System.Boolean"), Token(EqualsEqualsToken))
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .AddParameterListParameters(
                     Parameter(Identifier("a")).WithType(parameterType),
@@ -191,8 +191,8 @@ namespace GISharp.CodeGen.Syntax
 
         private static OperatorDeclarationSyntax GetInequalityOperatorDeclaration(this Method method)
         {
-            var parameterType = method.ManagedParameters.RegularParameters.Single().Type.ManagedType.ToSyntax();
-            return OperatorDeclaration(typeof(bool).ToSyntax(), Token(ExclamationEqualsToken))
+            var parameterType = ParseTypeName(method.ManagedParameters.RegularParameters.Single().Type.GetManagedType());
+            return OperatorDeclaration(ParseTypeName("System.Boolean"), Token(ExclamationEqualsToken))
                 .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
                 .AddParameterListParameters(
                     Parameter(Identifier("a")).WithType(parameterType),

@@ -667,7 +667,7 @@ Loads a key file from the data in <paramref name="bytes"/> into an empty <see cr
 If the object cannot be created then %error is set to a <see cref="KeyFileError"/>.
 </summary>
 <param name="bytes">
-a #GBytes
+a <see cref="Bytes"/>
 </param>
 <param name="flags">
 flags from <see cref="KeyFileFlags"/>

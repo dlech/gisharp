@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.IO;
@@ -12,7 +12,6 @@ using System.Text.RegularExpressions;
 using System.Xml.Linq;
 
 using Buildalyzer;
-using Buildalyzer.Environment;
 using GISharp.CodeGen.Gir;
 using GISharp.CodeGen.Syntax;
 using GISharp.Lib.GLib;
@@ -251,39 +250,26 @@ namespace GISharp.CodeGen
 
             Log.Message("Resolving references...");
 
-            // load all references assemblies into type resolver
+            // load the .gir files from the dependencies
 
-            TypeResolver.LoadAssembly(typeof(Runtime.Opaque).Assembly);
-            TypeResolver.LoadAssembly(typeof(ReadOnlySpan<>).Assembly);
-
-            // create a temporary build directory so we don't interfere with IDEs by building in-place
-            var buildPath = Path.Combine(Path.GetTempPath(), "gisharp-codegen");
-
-            EnvironmentOptions CreateOptions(ProjectAnalyzer project)
+            void resolveReferences(XDocument doc)
             {
-                var options = new EnvironmentOptions {
-                    DesignTime = false
-                };
-                var guid = project.ProjectGuid.ToString();
-                options.EnvironmentVariables["IntermediateOutputPath"] = Path.Combine(buildPath, guid, "obj");
-                options.EnvironmentVariables["OutputPath"] = Path.Combine(buildPath, guid, "bin");
-                return options;
+                foreach (var include in doc.GetIncludes()) {
+                    var includePath = Path.Combine(projectDirPath, "..", include, "gir.xml");
+                    var includeRepository = XDocument.Load(includePath);
+                    TypeResolver.AddRepository(new Repository(includeRepository));
+                    resolveReferences(includeRepository);
+                }
             }
 
-            foreach (var projRef in projectAnalyzer.Build(CreateOptions(projectAnalyzer))
-                                                   .SelectMany(x => x.ProjectReferences).Distinct()) {
-                var proj = manager.GetProject(projRef);
-                var targetPath = proj.Build(CreateOptions(proj)).Single().GetProperty("TargetPath");
-                TypeResolver.LoadAssembly(Assembly.LoadFile(targetPath));
-            }
-
-            AppDomain.CurrentDomain.TypeResolve += TypeResolver.Resolve;
+            resolveReferences(girXml);
 
             // write the generate code file
 
             Log.Message("Generating code...");
 
             var gir = new Repository(girXml);
+            TypeResolver.AddRepository(gir);
             var codeCompileUnits = gir.GetCompilationUnits().ToArray();
             var workspace = new AdhocWorkspace();
 
@@ -376,7 +362,6 @@ namespace GISharp.CodeGen
             foreach (var f in filesToDelete) {
                 File.Delete(f);
             }
-            Directory.Delete(buildPath, true);
 
             Log.Message("Done.");
         }

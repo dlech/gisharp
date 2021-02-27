@@ -20,35 +20,35 @@ namespace GISharp.CodeGen.Syntax
         /// </summary>
         public static FieldDeclarationSyntax GetDeclaration(this Field field, bool forUnmanagedStruct)
         {
-            var type = field.Type.UnmanagedType.ToSyntax();
+            var type = field.Type.GetUnmanagedType();
             var variable = VariableDeclarator(field.ManagedName);
 
             if (field.Callback is not null) {
-                type = typeof(IntPtr).ToSyntax();
+                type = "System.IntPtr";
             }
             else if (field.Type is Gir.Array array && array.FixedSize >= 0) {
-                var elementType = array.TypeParameters.Single().UnmanagedType;
+                var elementType = array.TypeParameters.Single().GetUnmanagedType();
 
                 // FIXME: this won't work on 32-bit systems.
                 // Need to return multiple field declarations if type can't
                 // be used be used with fixed keyword
-                if (elementType == typeof(IntPtr)) {
-                    elementType = typeof(long);
+                if (elementType == "System.IntPtr" || elementType == "GISharp.Lib.GObject._Value__data__union") {
+                    elementType = "System.Int64";
                 }
 
                 var allowedTypes = new[] {
-                    typeof(bool),
-                    typeof(byte),
-                    typeof(char),
-                    typeof(short),
-                    typeof(int),
-                    typeof(long),
-                    typeof(sbyte),
-                    typeof(ushort),
-                    typeof(uint),
-                    typeof(ulong),
-                    typeof(float),
-                    typeof(double),
+                    typeof(bool).FullName,
+                    typeof(byte).FullName,
+                    typeof(char).FullName,
+                    typeof(short).FullName,
+                    typeof(int).FullName,
+                    typeof(long).FullName,
+                    typeof(sbyte).FullName,
+                    typeof(ushort).FullName,
+                    typeof(uint).FullName,
+                    typeof(ulong).FullName,
+                    typeof(float).FullName,
+                    typeof(double).FullName,
                 };
                 if (!allowedTypes.Contains(elementType)) {
                     throw new NotImplementedException("fixed size buffer with unsupported type");
@@ -57,16 +57,12 @@ namespace GISharp.CodeGen.Syntax
                 variable = variable.AddArgumentListArguments(
                     Argument(LiteralExpression(NumericLiteralExpression, Literal(array.FixedSize)))
                 );
-                type = elementType.ToSyntax();
+                type = elementType;
             }
-            else if (!field.Type.IsPointer && !field.Type.ManagedType.IsValueType) {
-                type = ParseTypeName($"{field.Type.ManagedType}.UnmanagedStruct");
+            else if (!field.Type.IsPointer && !field.Type.IsValueType()) {
+                type = type.Replace("*", "");
             }
-            else if (field.Type.IsPointer && field.Type.ManagedType.IsValueType
-                    && field.Type.ManagedType != typeof(IntPtr)) {
-                type = ParseTypeName($"{field.Type.ManagedType}*");
-            }
-            var variableDeclaration = VariableDeclaration(type)
+            var variableDeclaration = VariableDeclaration(ParseTypeName(type))
                 .AddVariables(variable);
 
             var syntax = FieldDeclaration(variableDeclaration)
