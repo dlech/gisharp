@@ -4,15 +4,5 @@
     <ProjectReference Include="..\GLib-2.0\GLib-2.0.csproj" />
     <ProjectReference Include="..\GObject-2.0\GObject-2.0.csproj" />
   </ItemGroup>
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>IDE1006</NoWarn>
-    <RootNamespace>GISharp.Lib.Gdk</RootNamespace>
-    <AssemblyName>GISharp.Lib.$(MSBuildProjectName)</AssemblyName>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)../Lib.props"/>
 </Project>

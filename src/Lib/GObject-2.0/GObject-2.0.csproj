@@ -2,17 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.csproj" />
   </ItemGroup>
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>IDE1006</NoWarn>
-    <RootNamespace>GISharp.Lib.GObject</RootNamespace>
-    <AssemblyName>GISharp.Lib.$(MSBuildProjectName)</AssemblyName>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)../Lib.props"/>
   <ItemGroup>
     <!-- Items currently maintained in Core. -->
     <Compile Remove="_Value__data__union.Generated.cs" />

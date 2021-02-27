@@ -2,17 +2,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Core\Core.csproj" />
   </ItemGroup>
-  <PropertyGroup>
-    <TargetFramework>net5.0</TargetFramework>
-    <LangVersion>9.0</LangVersion>
-    <Nullable>enable</Nullable>
-    <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-    <NoWarn>IDE1006</NoWarn>
-    <RootNamespace>GISharp.Lib.GLib</RootNamespace>
-    <AssemblyName>GISharp.Lib.$(MSBuildProjectName)</AssemblyName>
-    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-  </PropertyGroup>
+  <Import Project="$(MSBuildThisFileDirectory)../Lib.props"/>
   <ItemGroup>
     <!-- Ignore generated files for types that are maintained in Core. -->
     <Compile Remove="Bytes.Generated.cs" />
