@@ -9,6 +9,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>IDE1006</NoWarn>
     <RootNamespace>GISharp.Lib.GObject</RootNamespace>
+    <AssemblyName>GISharp.Lib.$(MSBuildProjectName)</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

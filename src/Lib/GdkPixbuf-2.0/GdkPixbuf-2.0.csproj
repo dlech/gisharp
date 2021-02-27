@@ -11,6 +11,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>IDE1006</NoWarn>
     <RootNamespace>GISharp.Lib.GdkPixbuf</RootNamespace>
+    <AssemblyName>GISharp.Lib.$(MSBuildProjectName)</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>
