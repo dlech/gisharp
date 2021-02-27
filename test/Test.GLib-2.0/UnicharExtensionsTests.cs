@@ -5,7 +5,7 @@ using System;
 using GISharp.Lib.GLib;
 using NUnit.Framework;
 
-namespace GISharp.Test.Core
+namespace GISharp.Test.GLib
 {
     public class UnicharExtensionsTests : Tests
     {
