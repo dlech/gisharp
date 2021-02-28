@@ -19050,6 +19050,137 @@ version @required_major.required_minor.@required_micro
         </gs:managed-parameters>
       </function>
     </gs:static-class>
+    <gs:static-class name="Utility" gs:managed-name="Utility">
+      <gs:managed-property name="get_application_name" version="2.2" gs:dll-name="glib-2.0" gs:managed-name="ApplicationName">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17137">Gets a human-readable name for the application, as set by
+g_set_application_name(). This name should be localized if
+possible, and is intended for display to the user.  Contrast with
+g_get_prgname(), which gets a non-localized name. If
+g_set_application_name() has not been called, returns the result of
+g_get_prgname() (which may be %NULL if g_set_prgname() has also not
+been called).</doc>
+        <source-position filename="gutils.h" line="65" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17148">human-readable application
+  name. May return %NULL</doc>
+          <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <function name="get_application_name" c:identifier="g_get_application_name" version="2.2" gs:dll-name="glib-2.0" gs:managed-name="GetApplicationName" gs:property-getter-for="ApplicationName" gs:access-modifiers="private">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17137">Gets a human-readable name for the application, as set by
+g_set_application_name(). This name should be localized if
+possible, and is intended for display to the user.  Contrast with
+g_get_prgname(), which gets a non-localized name. If
+g_set_application_name() has not been called, returns the result of
+g_get_prgname() (which may be %NULL if g_set_prgname() has also not
+been called).</doc>
+        <source-position filename="gutils.h" line="65" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17148">human-readable application
+  name. May return %NULL</doc>
+          <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+      <function name="set_application_name" c:identifier="g_set_application_name" version="2.2" gs:dll-name="glib-2.0" gs:managed-name="SetApplicationName" gs:property-setter-for="ApplicationName" gs:access-modifiers="private">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="28823">Sets a human-readable name for the application. This name should be
+localized if possible, and is intended for display to the user.
+Contrast with g_set_prgname(), which sets a non-localized name.
+g_set_prgname() will be called automatically by gtk_init(),
+but g_set_application_name() will not.
+
+Note that for thread safety reasons, this function can only
+be called once.
+
+The application name will be used in contexts such as error messages,
+or when displaying an application's name in the task list.</doc>
+        <source-position filename="gutils.h" line="67" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="application_name" transfer-ownership="none" gs:managed-name="applicationName" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="28825">localized name of the application</doc>
+            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="application_name" transfer-ownership="none" gs:managed-name="applicationName" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="28825">localized name of the application</doc>
+            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <gs:managed-property name="get_program_name" gs:dll-name="glib-2.0" gs:managed-name="ProgramName">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17480">Gets the name of the program. This name should not be localized,
+in contrast to g_get_application_name().
+
+If you are using #GApplication the program name is set in
+g_application_run(). In case of GDK or GTK+ it is set in
+gdk_init(), which is called by gtk_init() and the
+#GtkApplication::startup handler. The program name is found by
+taking the last component of @argv[0].</doc>
+        <source-position filename="gutils.h" line="61" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17492">the name of the program,
+  or %NULL if it has not been set yet. The returned string belongs
+  to GLib and must not be modified or freed.</doc>
+          <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </gs:managed-property>
+      <function name="get_program_name" c:identifier="g_get_prgname" gs:dll-name="glib-2.0" gs:managed-name="GetProgramName" gs:property-getter-for="ProgramName" gs:access-modifiers="private">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17480">Gets the name of the program. This name should not be localized,
+in contrast to g_get_application_name().
+
+If you are using #GApplication the program name is set in
+g_application_run(). In case of GDK or GTK+ it is set in
+gdk_init(), which is called by gtk_init() and the
+#GtkApplication::startup handler. The program name is found by
+taking the last component of @argv[0].</doc>
+        <source-position filename="gutils.h" line="61" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17492">the name of the program,
+  or %NULL if it has not been set yet. The returned string belongs
+  to GLib and must not be modified or freed.</doc>
+          <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+      <function name="set_program_name" c:identifier="g_set_prgname" gs:dll-name="glib-2.0" gs:managed-name="SetProgramName" gs:property-setter-for="ProgramName" gs:access-modifiers="private">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="28873">Sets the name of the program. This name should not be localized,
+in contrast to g_set_application_name().
+
+If you are using #GApplication the program name is set in
+g_application_run(). In case of GDK or GTK+ it is set in
+gdk_init(), which is called by gtk_init() and the
+#GtkApplication::startup handler. The program name is found by
+taking the last component of @argv[0].
+
+Note that for thread-safety reasons this function can only be called once.</doc>
+        <source-position filename="gutils.h" line="63" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="prgname" transfer-ownership="none" gs:managed-name="prgname" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="28875">the name of the program.</doc>
+            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="prgname" transfer-ownership="none" gs:managed-name="prgname" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="28875">the name of the program.</doc>
+            <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+    </gs:static-class>
     <gs:static-class name="Utf8Extensions" gs:managed-name="Utf8Extensions">
       <method name="casefold" c:identifier="g_utf8_casefold" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Casefold" gs:extension-method="1">
         <doc xml:space="preserve" filename="glib-2.0.c" line="36792">Converts a string into a form that is independent of case. The

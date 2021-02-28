@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using GISharp.Lib.GLib;
 
@@ -14,7 +14,7 @@ namespace GISharp.Test.GLib
         {
             // Utility.ApplicationName is set in TestHelpers assembly during
             // one time setup
-            Assert.That<string>(Utility.ApplicationName, Is.EqualTo("GISharp.Test"));
+            Assert.That<string?>(Utility.ApplicationName, Is.EqualTo("GISharp.Test"));
         }
 
         [Test]
@@ -22,7 +22,7 @@ namespace GISharp.Test.GLib
         {
             // Utility.ProgramName is set in TestHelpers assembly during
             // one time setup
-            Assert.That<string>(Utility.ProgramName, Is.EqualTo("GISharp.Test"));
+            Assert.That<string?>(Utility.ProgramName, Is.EqualTo("GISharp.Test"));
         }
     }
 }

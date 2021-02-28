@@ -5,6 +5,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -58,11 +59,20 @@ namespace GISharp.CodeGen
             Environment.Exit(0);
         }
 
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        private static extern void g_set_prgname(IntPtr prgname);
+
+        private static void SetProgramName(string name)
+        {
+            using var prgname = (Utf8)name;
+            var prgname_ = prgname.UnsafeHandle;
+            g_set_prgname(prgname_);
+        }
+
         public static void Main(string[] args)
         {
-            using (var name = (Utf8)AppDomain.CurrentDomain.FriendlyName) {
-                Utility.ProgramName = name;
-            }
+            // TODO: replace logging with non-GLib to avoid circular dependency
+            SetProgramName(AppDomain.CurrentDomain.FriendlyName);
 
             string commandArg = null;
             string projectArg = null;

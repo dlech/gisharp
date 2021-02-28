@@ -1,0 +1,24 @@
+
+### Utility ###
+
+# https://developer.gnome.org/glib/stable/glib-Miscellaneous-Utility-Functions.html
+
+# create static class
+- !add-element
+  xml: <gs:static-class name='Utility' />
+  xpath: gi:repository/gi:namespace
+
+# move functions
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[contains(@name,'_application_name')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Utility']
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[contains(@name,'_prgname')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='Utility']
+
+# better name
+- !change-attribute
+  name: name
+  regex: "prgname"
+  replace: program_name
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='Utility']/gi:function[contains(@name,'_prgname')]

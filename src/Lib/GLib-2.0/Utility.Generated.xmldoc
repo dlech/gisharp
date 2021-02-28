@@ -1,0 +1,32 @@
+<declaration>
+
+<member name='Utility.ApplicationName'>
+<summary>
+Gets a human-readable name for the application, as set by
+<see cref="Utility.SetApplicationName(GISharp.Lib.GLib.UnownedUtf8)"/>. This name should be localized if
+possible, and is intended for display to the user.  Contrast with
+<see cref="Utility.GetProgramName()"/>, which gets a non-localized name. If
+<see cref="Utility.SetApplicationName(GISharp.Lib.GLib.UnownedUtf8)"/> has not been called, returns the result of
+<see cref="Utility.GetProgramName()"/> (which may be <c>null</c> if <see cref="Utility.SetProgramName(GISharp.Lib.GLib.UnownedUtf8)"/> has also not
+been called).
+</summary>
+</member>
+
+<member name='Utility.ProgramName'>
+<summary>
+Gets the name of the program. This name should not be localized,
+in contrast to <see cref="Utility.GetApplicationName()"/>.
+</summary>
+<remarks>
+If you are using #GApplication the program name is set in
+g_application_run(). In case of GDK or GTK+ it is set in
+gdk_init(), which is called by gtk_init() and the
+#GtkApplication::startup handler. The program name is found by
+taking the last component of <c>argv</c>[0].
+</remarks>
+</member>
+
+<member name='Utility'>
+</member>
+
+</declaration>
