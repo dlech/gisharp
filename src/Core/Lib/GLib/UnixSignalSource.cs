@@ -71,7 +71,7 @@ namespace GISharp.Lib.GLib
         ///
         /// For example, an effective use of this function is to handle <c>SIGTERM</c>
         /// cleanly; flushing any outstanding files, and then calling
-        /// <see cref="MainLoop.Quit"/>.  It is not safe to do any of this a regular
+        /// <see cref="M:MainLoop.Quit"/>.  It is not safe to do any of this a regular
         /// UNIX signal handler; your handler may be invoked while malloc() or
         /// another library function is running, causing reentrancy if you
         /// attempt to use it from the handler.  None of the GLib/GObject API
@@ -114,7 +114,7 @@ namespace GISharp.Lib.GLib
         ///
         /// For example, an effective use of this function is to handle <c>SIGTERM</c>
         /// cleanly; flushing any outstanding files, and then calling
-        /// <see cref="MainLoop.Quit"/>.  It is not safe to do any of this a regular
+        /// <see cref="M:MainLoop.Quit"/>.  It is not safe to do any of this a regular
         /// UNIX signal handler; your handler may be invoked while malloc() or
         /// another library function is running, causing reentrancy if you
         /// attempt to use it from the handler.  None of the GLib/GObject API

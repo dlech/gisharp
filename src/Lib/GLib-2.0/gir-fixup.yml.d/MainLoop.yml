@@ -1,0 +1,18 @@
+
+### MainLooop ###
+
+# needs special handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:method[@name='run']
+
+# default parameter values
+- !set-attribute
+  name: gs:default
+  value: "null"
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor[@name='new']/gi:parameters/gi:parameter[@name='context']
+- !set-attribute
+  name: gs:default
+  value: "false"
+  xpath: gi:repository/gi:namespace/gi:record[@name='MainLoop']/gi:constructor[@name='new']/gi:parameters/gi:parameter[@name='is_running']

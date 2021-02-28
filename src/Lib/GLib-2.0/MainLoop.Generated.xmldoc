@@ -37,15 +37,6 @@ Note that sources that have already been dispatched when
 </remarks>
 </member>
 
-<member name='MainLoop.Run()'>
-<summary>
-Runs a main loop until <see cref="MainLoop.Quit()"/> is called on the loop.
-If this is called for the thread of the loop's <see cref="MainContext"/>,
-it will process events from the loop, otherwise it will
-simply wait.
-</summary>
-</member>
-
 <member name='MainLoop'>
 <summary>
 The `GMainLoop` struct is an opaque data type

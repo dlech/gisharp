@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.Diagnostics.CodeAnalysis;
@@ -24,20 +24,20 @@ namespace GISharp
         /// <param name="actual">
         /// The minimum required version
         /// </param>
-        /// <exception cref="NUnit.Framework.IgnoreException">
+        /// <exception cref="IgnoreException">
         /// Thrown when the version requirement is not met
         /// </exception>
         public static void AssertIgnoreWhenVersionIsLessThan(string actual, string required)
         {
-            var requiredVersion = new Version(required);
-            var actualVersion = new Version(actual);
+            var requiredVersion = new System.Version(required);
+            var actualVersion = new System.Version(actual);
             if (actualVersion < requiredVersion) {
                 throw new IgnoreException($"Skipping test since glib-2.0 v{actual} < v{required}");
             }
         }
 
         /// <summary>
-        /// Use this instead of <see cref="NUnit.Framework.Throws.TypeOf{GISharp.Runtime.GErrorException}"/>
+        /// Use this instead of <see cref="Throws.TypeOf{GISharp.Runtime.GErrorException}"/>
         /// to save a bunch of typing.
         /// </summary>
         /// <param name="code">

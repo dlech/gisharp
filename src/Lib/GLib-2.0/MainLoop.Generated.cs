@@ -34,7 +34,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.MainContext? context, System.Boolean isRunning);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.MainContext? context = null, System.Boolean isRunning = false);
 
         /// <summary>
         /// Creates a new #GMainLoop structure.
@@ -61,7 +61,7 @@ namespace GISharp.Lib.GLib
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean isRunning);
 
-        static GISharp.Lib.GLib.MainLoop.UnmanagedStruct* New(GISharp.Lib.GLib.MainContext? context, System.Boolean isRunning)
+        static GISharp.Lib.GLib.MainLoop.UnmanagedStruct* New(GISharp.Lib.GLib.MainContext? context = null, System.Boolean isRunning = false)
         {
             CheckNewArgs(context, isRunning);
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)(context?.UnsafeHandle ?? System.IntPtr.Zero);
@@ -71,7 +71,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <include file="MainLoop.xmldoc" path="declaration/member[@name='MainLoop.MainLoop(GISharp.Lib.GLib.MainContext?,System.Boolean)']/*" />
-        public MainLoop(GISharp.Lib.GLib.MainContext? context, System.Boolean isRunning) : this((System.IntPtr)New(context, isRunning), GISharp.Runtime.Transfer.Full)
+        public MainLoop(GISharp.Lib.GLib.MainContext? context = null, System.Boolean isRunning = false) : this((System.IntPtr)New(context, isRunning), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -202,15 +202,6 @@ namespace GISharp.Lib.GLib
         /* <type name="MainLoop" type="GMainLoop*" managed-name="MainLoop" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainLoop.UnmanagedStruct* loop);
-        partial void CheckRunArgs();
-
-        /// <include file="MainLoop.xmldoc" path="declaration/member[@name='MainLoop.Run()']/*" />
-        public void Run()
-        {
-            CheckRunArgs();
-            var loop_ = (GISharp.Lib.GLib.MainLoop.UnmanagedStruct*)UnsafeHandle;
-            g_main_loop_run(loop_);
-        }
 
         /// <summary>
         /// Decreases the reference count on a #GMainLoop object by one. If

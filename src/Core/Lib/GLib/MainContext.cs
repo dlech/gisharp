@@ -262,7 +262,7 @@ namespace GISharp.Lib.GLib
         /// <see cref="Dispatch"/> on any <see cref="MainContext"/> in the current thread.
         /// That is, when called from the toplevel, it gives 0. When
         /// called from within a callback from <see cref="Iteration"/>
-        /// (or <see cref="MainLoop.Run"/>, etc.) it returns 1. When called from within
+        /// (or <see cref="M:MainLoop.Run"/>, etc.) it returns 1. When called from within
         /// a callback to a recursive call to <see cref="Iteration"/>,
         /// it returns 2. And so forth.
         /// </summary>
@@ -1183,7 +1183,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// Normally you would call this function shortly after creating a new
         /// thread, passing it a <see cref="MainContext"/> which will be run by a
-        /// <see cref="MainLoop"/> in that thread, to set a new default context for all
+        /// <see cref="T:MainLoop"/> in that thread, to set a new default context for all
         /// async operations in that thread. In this case you may not need to
         /// ever call <see cref="PopThreadDefault"/>, assuming you want the
         /// new <see cref="MainContext"/> to be the default for the whole lifecycle of the
@@ -1440,7 +1440,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// This API is useful for low-level control over <see cref="MainContext"/>; for
         /// example, integrating it with main loop implementations such as
-        /// <see cref="MainLoop"/>.
+        /// <see cref="T:MainLoop"/>.
         ///
         /// Another related use for this function is when implementing a main
         /// loop with a termination condition, computed from multiple threads:

@@ -5729,11 +5729,11 @@ representing the main event loop of a GLib or GTK+ application.</doc>
           <type name="MainLoop" c:type="GMainLoop*" gs:managed-name="MainLoop" gs:is-pointer="1" />
         </return-value>
         <parameters>
-          <parameter name="context" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="context" direction="in">
+          <parameter name="context" transfer-ownership="none" nullable="1" allow-none="1" gs:default="null" gs:managed-name="context" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="22485">a #GMainContext  (if %NULL, the default context will be used).</doc>
             <type name="MainContext" c:type="GMainContext*" gs:managed-name="MainContext" gs:is-pointer="1" />
           </parameter>
-          <parameter name="is_running" transfer-ownership="none" gs:managed-name="isRunning" direction="in">
+          <parameter name="is_running" transfer-ownership="none" gs:default="false" gs:managed-name="isRunning" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="22486">set to %TRUE to indicate that the loop is running. This
 is not very important since calling g_main_loop_run() will set this to
 %TRUE anyway.</doc>
@@ -5741,11 +5741,11 @@ is not very important since calling g_main_loop_run() will set this to
           </parameter>
         </parameters>
         <gs:managed-parameters>
-          <parameter name="context" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="context" direction="in">
+          <parameter name="context" transfer-ownership="none" nullable="1" allow-none="1" gs:default="null" gs:managed-name="context" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="22485">a #GMainContext  (if %NULL, the default context will be used).</doc>
             <type name="MainContext" c:type="GMainContext*" gs:managed-name="MainContext" gs:is-pointer="1" />
           </parameter>
-          <parameter name="is_running" transfer-ownership="none" gs:managed-name="isRunning" direction="in">
+          <parameter name="is_running" transfer-ownership="none" gs:default="false" gs:managed-name="isRunning" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="22486">set to %TRUE to indicate that the loop is running. This
 is not very important since calling g_main_loop_run() will set this to
 %TRUE anyway.</doc>
@@ -5846,7 +5846,7 @@ g_main_loop_quit() is called will still be executed.</doc>
         </parameters>
         <gs:managed-parameters />
       </method>
-      <method name="run" c:identifier="g_main_loop_run" gs:dll-name="glib-2.0" gs:managed-name="Run">
+      <method name="run" c:identifier="g_main_loop_run" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Run">
         <doc xml:space="preserve" filename="glib-2.0.c" line="22518">Runs a main loop until g_main_loop_quit() is called on the loop.
 If this is called for the thread of the loop's #GMainContext,
 it will process events from the loop, otherwise it will

@@ -12,7 +12,6 @@
     <Compile Remove="Error.Generated.cs" />
     <Compile Remove="IOCondition.Generated.cs" />
     <Compile Remove="MainContext.Generated.cs" />
-    <Compile Remove="MainLoop.Generated.cs" />
     <Compile Remove="Mutex.Generated.cs" />
     <Compile Remove="PollFD.Generated.cs" />
     <Compile Remove="Quark.Generated.cs" />
