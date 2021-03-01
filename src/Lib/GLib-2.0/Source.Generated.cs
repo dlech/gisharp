@@ -25,19 +25,19 @@ namespace GISharp.Lib.GLib
             private readonly GISharp.Lib.GLib.SourceFuncs* SourceFuncs;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.RefCount']/*" />
-            private readonly System.UInt32 RefCount;
+            private readonly uint RefCount;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Context']/*" />
             private readonly GISharp.Lib.GLib.MainContext.UnmanagedStruct* Context;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Priority']/*" />
-            private readonly System.Int32 Priority;
+            private readonly int Priority;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Flags']/*" />
-            private readonly System.UInt32 Flags;
+            private readonly uint Flags;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.SourceId']/*" />
-            private readonly System.UInt32 SourceId;
+            private readonly uint SourceId;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.PollFds']/*" />
             private readonly GISharp.Lib.GLib.SList.UnmanagedStruct* PollFds;
@@ -49,7 +49,7 @@ namespace GISharp.Lib.GLib
             private readonly GISharp.Lib.GLib.Source.UnmanagedStruct* Next;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Name']/*" />
-            private readonly System.Byte* Name;
+            private readonly byte* Name;
 
             /// <include file="Source.xmldoc" path="declaration/member[@name='UnmanagedStruct.Priv']/*" />
             private readonly System.IntPtr Priv;
@@ -63,21 +63,21 @@ namespace GISharp.Lib.GLib
         public GISharp.Lib.GLib.MainContext? Context { get => GetContext(); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Id']/*" />
-        public System.UInt32 Id { get => GetId(); }
+        public uint Id { get => GetId(); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Name']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
         public GISharp.Lib.GLib.UnownedUtf8 Name { get => GetName(); set => SetName(value); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Priority']/*" />
-        public System.Int32 Priority { get => GetPriority(); set => SetPriority(value); }
+        public int Priority { get => GetPriority(); set => SetPriority(value); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.ReadyTime']/*" />
-        public System.Int64 ReadyTime { get => GetReadyTime(); set => SetReadyTime(value); }
+        public long ReadyTime { get => GetReadyTime(); set => SetReadyTime(value); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Time']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public System.Int64 Time { get => GetTime(); }
+        public long Time { get => GetTime(); }
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.IsDestroyed']/*" />
         [GISharp.Runtime.SinceAttribute("2.12")]
@@ -95,7 +95,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.SourceFuncs sourceFuncs, System.UInt32 structSize);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize);
 
         /// <summary>
         /// Creates a new #GSource structure. The size is specified to
@@ -127,23 +127,23 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.SourceFuncs* sourceFuncs,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 structSize);
+        uint structSize);
 
-        static GISharp.Lib.GLib.Source.UnmanagedStruct* New(GISharp.Lib.GLib.SourceFuncs sourceFuncs, System.UInt32 structSize)
+        static GISharp.Lib.GLib.Source.UnmanagedStruct* New(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize)
         {
             CheckNewArgs(sourceFuncs, structSize);
             var sourceFuncs_ = &sourceFuncs;
-            var structSize_ = (System.UInt32)structSize;
+            var structSize_ = (uint)structSize;
             var ret_ = g_source_new(sourceFuncs_,structSize_);
             return ret_;
         }
 
-        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Source(GISharp.Lib.GLib.SourceFuncs,System.UInt32)']/*" />
-        public Source(GISharp.Lib.GLib.SourceFuncs sourceFuncs, System.UInt32 structSize) : this((System.IntPtr)New(sourceFuncs, structSize), GISharp.Runtime.Transfer.Full)
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)']/*" />
+        public Source(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize) : this((System.IntPtr)New(sourceFuncs, structSize), GISharp.Runtime.Transfer.Full)
         {
         }
 
-        static partial void CheckRemoveArgs(System.UInt32 tag);
+        static partial void CheckRemoveArgs(uint tag);
 
         /// <summary>
         /// Removes the source with the given ID from the default main context. You must
@@ -179,13 +179,13 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Runtime.Boolean g_source_remove(
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 tag);
+        uint tag);
 
-        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Remove(System.UInt32)']/*" />
-        public static System.Boolean Remove(System.UInt32 tag)
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Remove(uint)']/*" />
+        public static System.Boolean Remove(uint tag)
         {
             CheckRemoveArgs(tag);
-            var tag_ = (System.UInt32)tag;
+            var tag_ = (uint)tag;
             var ret_ = g_source_remove(tag_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -260,7 +260,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        static partial void CheckSetNameByIdArgs(System.UInt32 tag, GISharp.Lib.GLib.UnownedUtf8 name);
+        static partial void CheckSetNameByIdArgs(uint tag, GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <summary>
         /// Sets the name of a source using its ID.
@@ -294,18 +294,18 @@ namespace GISharp.Lib.GLib
         private static extern void g_source_set_name_by_id(
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 tag,
+        uint tag,
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
 
-        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.SetNameById(System.UInt32,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.SetNameById(uint,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static void SetNameById(System.UInt32 tag, GISharp.Lib.GLib.UnownedUtf8 name)
+        public static void SetNameById(uint tag, GISharp.Lib.GLib.UnownedUtf8 name)
         {
             CheckSetNameByIdArgs(tag, name);
-            var tag_ = (System.UInt32)tag;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var tag_ = (uint)tag;
+            var name_ = (byte*)name.UnsafeHandle;
             g_source_set_name_by_id(tag_, name_);
         }
 
@@ -445,19 +445,19 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 fd,
+        int fd,
         /* <type name="IOCondition" type="GIOCondition" managed-name="IOCondition" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.IOCondition events);
-        partial void CheckAddUnixFdArgs(System.Int32 fd, GISharp.Lib.GLib.IOCondition events);
+        partial void CheckAddUnixFdArgs(int fd, GISharp.Lib.GLib.IOCondition events);
 
-        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.AddUnixFd(System.Int32,GISharp.Lib.GLib.IOCondition)']/*" />
+        /// <include file="Source.xmldoc" path="declaration/member[@name='Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public System.IntPtr AddUnixFd(System.Int32 fd, GISharp.Lib.GLib.IOCondition events)
+        public System.IntPtr AddUnixFd(int fd, GISharp.Lib.GLib.IOCondition events)
         {
             CheckAddUnixFdArgs(fd, events);
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var fd_ = (System.Int32)fd;
+            var fd_ = (int)fd;
             var events_ = (GISharp.Lib.GLib.IOCondition)events;
             var ret_ = g_source_add_unix_fd(source_,fd_,events_);
             var ret = (System.IntPtr)ret_;
@@ -485,7 +485,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 g_source_attach(
+        private static extern uint g_source_attach(
         /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
@@ -495,13 +495,13 @@ namespace GISharp.Lib.GLib
         partial void CheckAttachArgs(GISharp.Lib.GLib.MainContext? context);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Attach(GISharp.Lib.GLib.MainContext?)']/*" />
-        public System.UInt32 Attach(GISharp.Lib.GLib.MainContext? context)
+        public uint Attach(GISharp.Lib.GLib.MainContext? context)
         {
             CheckAttachArgs(context);
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)(context?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_source_attach(source_,context_);
-            var ret = (System.UInt32)ret_;
+            var ret = (uint)ret_;
             return ret;
         }
 
@@ -659,18 +659,18 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 g_source_get_id(
+        private static extern uint g_source_get_id(
         /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetIdArgs();
 
-        private System.UInt32 GetId()
+        private uint GetId()
         {
             CheckGetIdArgs();
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_source_get_id(source_);
-            var ret = (System.UInt32)ret_;
+            var ret = (uint)ret_;
             return ret;
         }
 
@@ -688,7 +688,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_source_get_name(
+        private static extern byte* g_source_get_name(
         /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
@@ -716,18 +716,18 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_source_get_priority(
+        private static extern int g_source_get_priority(
         /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetPriorityArgs();
 
-        private System.Int32 GetPriority()
+        private int GetPriority()
         {
             CheckGetPriorityArgs();
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_source_get_priority(source_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -748,18 +748,18 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int64 g_source_get_ready_time(
+        private static extern long g_source_get_ready_time(
         /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetReadyTimeArgs();
 
-        private System.Int64 GetReadyTime()
+        private long GetReadyTime()
         {
             CheckGetReadyTimeArgs();
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_source_get_ready_time(source_);
-            var ret = (System.Int64)ret_;
+            var ret = (long)ret_;
             return ret;
         }
 
@@ -783,19 +783,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int64 g_source_get_time(
+        private static extern long g_source_get_time(
         /* <type name="Source" type="GSource*" managed-name="Source" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Source.UnmanagedStruct* source);
         partial void CheckGetTimeArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private System.Int64 GetTime()
+        private long GetTime()
         {
             CheckGetTimeArgs();
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_source_get_time(source_);
-            var ret = (System.Int64)ret_;
+            var ret = (long)ret_;
             return ret;
         }
 
@@ -1335,7 +1335,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
         partial void CheckSetNameArgs(GISharp.Lib.GLib.UnownedUtf8 name);
 
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -1343,7 +1343,7 @@ namespace GISharp.Lib.GLib
         {
             CheckSetNameArgs(name);
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             g_source_set_name(source_, name_);
         }
 
@@ -1373,14 +1373,14 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 priority);
-        partial void CheckSetPriorityArgs(System.Int32 priority);
+        int priority);
+        partial void CheckSetPriorityArgs(int priority);
 
-        private void SetPriority(System.Int32 priority)
+        private void SetPriority(int priority)
         {
             CheckSetPriorityArgs(priority);
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var priority_ = (System.Int32)priority;
+            var priority_ = (int)priority;
             g_source_set_priority(source_, priority_);
         }
 
@@ -1426,15 +1426,15 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        System.Int64 readyTime);
-        partial void CheckSetReadyTimeArgs(System.Int64 readyTime);
+        long readyTime);
+        partial void CheckSetReadyTimeArgs(long readyTime);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
-        private void SetReadyTime(System.Int64 readyTime)
+        private void SetReadyTime(long readyTime)
         {
             CheckSetReadyTimeArgs(readyTime);
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var readyTime_ = (System.Int64)readyTime;
+            var readyTime_ = (long)readyTime;
             g_source_set_ready_time(source_, readyTime_);
         }
 

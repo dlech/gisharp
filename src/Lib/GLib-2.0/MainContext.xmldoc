@@ -70,8 +70,8 @@ is called as many times as <see cref="MainContext.Acquire()"/>.
 </summary>
 <remarks>
 You must be the owner of a context before you
-can call <see cref="MainContext.TryPrepare(out System.Int32)"/>, <see cref="MainContext.Query(System.Int32,out System.Int32,System.Span{GISharp.Lib.GLib.PollFD})"/>,
-<see cref="MainContext.Check(System.Int32,System.ReadOnlySpan{GISharp.Lib.GLib.PollFD})"/>, <see cref="MainContext.Dispatch()"/>.
+can call <see cref="MainContext.TryPrepare(out int)"/>, <see cref="MainContext.Query(int,out int,System.Span{GISharp.Lib.GLib.PollFD})"/>,
+<see cref="MainContext.Check(int,System.ReadOnlySpan{GISharp.Lib.GLib.PollFD})"/>, <see cref="MainContext.Dispatch()"/>.
 </remarks>
 <returns>
 <c>true</c> if the operation succeeded, and
@@ -79,11 +79,11 @@ can call <see cref="MainContext.TryPrepare(out System.Int32)"/>, <see cref="Main
 </returns>
 </member>
 
-<member name='MainContext.AddPoll(GISharp.Lib.GLib.PollFD,System.Int32)'>
+<member name='MainContext.AddPoll(GISharp.Lib.GLib.PollFD,int)'>
 <summary>
 Adds a file descriptor to the set of file descriptors polled for
 this context. This will very seldom be used directly. Instead
-a typical event source will use g_source_add_unix_fd() instead.
+a typical event source will use <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/> instead.
 </summary>
 <param name="fd">
 a <see cref="PollFD"/> structure holding information about a file
@@ -96,7 +96,7 @@ the priority for this file descriptor which should be
 </param>
 </member>
 
-<member name='MainContext.Check(System.Int32,System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;)'>
+<member name='MainContext.Check(int,System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;)'>
 <summary>
 Passes the results of polling back to the main loop.
 </summary>
@@ -109,7 +109,7 @@ the maximum numerical priority of sources to check
 </param>
 <param name="fds">
 array of <see cref="PollFD"/>'s that was passed to
-      the last call to <see cref="MainContext.Query(System.Int32,out System.Int32,System.Span{GISharp.Lib.GLib.PollFD})"/>
+      the last call to <see cref="MainContext.Query(int,out int,System.Span{GISharp.Lib.GLib.PollFD})"/>
 </param>
 <returns>
 <c>true</c> if some sources are ready to be dispatched.
@@ -124,6 +124,82 @@ Dispatches all pending sources.
 You must have successfully acquired the context with
 <see cref="MainContext.Acquire()"/> before you may call this function.
 </remarks>
+</member>
+
+<member name='MainContext.FindSourceByFuncsUserData(GISharp.Lib.GLib.SourceFuncs,System.IntPtr)'>
+<summary>
+Finds a source with the given source functions and user data.  If
+multiple sources exist with the same source function and user data,
+the first one found will be returned.
+</summary>
+<param name="funcs">
+the <c>sourceFuncs</c> passed to <see cref="Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)"/>.
+</param>
+<param name="userData">
+the user data from the callback.
+</param>
+<returns>
+the source, if one was found, otherwise <c>null</c>
+</returns>
+</member>
+
+<member name='MainContext.FindSourceById(uint)'>
+<summary>
+Finds a <see cref="Source"/> given a pair of context and ID.
+</summary>
+<remarks>
+It is a programmer error to attempt to look up a non-existent source.
+
+More specifically: source IDs can be reissued after a source has been
+destroyed and therefore it is never valid to use this function with a
+source ID which may have already been removed.  An example is when
+scheduling an idle to run in another thread with g_idle_add(): the
+idle may already have run and been removed by the time this function
+is called on its (now invalid) source ID.  This source ID may have
+been reissued, leading to the operation being performed against the
+wrong source.
+</remarks>
+<param name="sourceId">
+the source ID, as returned by <see cref="Source.GetId()"/>.
+</param>
+<returns>
+the <see cref="Source"/>
+</returns>
+</member>
+
+<member name='MainContext.FindSourceByUserData(System.IntPtr)'>
+<summary>
+Finds a source with the given user data for the callback.  If
+multiple sources exist with the same user data, the first
+one found will be returned.
+</summary>
+<param name="userData">
+the user_data for the callback.
+</param>
+<returns>
+the source, if one was found, otherwise <c>null</c>
+</returns>
+</member>
+
+<member name='MainContext.InvokeFull(int,GISharp.Lib.GLib.SourceFunc)'>
+<summary>
+Invokes a function in such a way that this instance is owned during the
+invocation of <paramref name="function"/>.
+</summary>
+<remarks>
+This function is the same as g_main_context_invoke() except that it
+lets you specify the priority in case <paramref name="function"/> ends up being
+scheduled as an idle and also lets you give a <see cref="DestroyNotify"/> for <paramref name="data"/>.
+
+<paramref name="notify"/> should not assume that it is called from any particular
+thread or with any particular context acquired.
+</remarks>
+<param name="priority">
+the priority at which to run <paramref name="function"/>
+</param>
+<param name="function">
+function to call
+</param>
 </member>
 
 <member name='MainContext.Iteration(System.Boolean)'>
@@ -166,7 +242,7 @@ it was on the top of the stack).
 </summary>
 </member>
 
-<member name='MainContext.TryPrepare(System.Int32)'>
+<member name='MainContext.TryPrepare(int)'>
 <summary>
 Prepares to poll sources within a main loop. The resulting information
 for polling is determined by calling g_main_context_query ().
@@ -229,7 +305,7 @@ see g_file_supports_thread_contexts().
 </remarks>
 </member>
 
-<member name='MainContext.Query(System.Int32,System.Int32,System.Span&lt;GISharp.Lib.GLib.PollFD&gt;)'>
+<member name='MainContext.Query(int,int,System.Span&lt;GISharp.Lib.GLib.PollFD&gt;)'>
 <summary>
 Determines information necessary to poll this main loop.
 </summary>
@@ -269,7 +345,7 @@ Removes file descriptor from the set of file descriptors to be
 polled for a particular context.
 </summary>
 <param name="fd">
-a <see cref="PollFD"/> descriptor previously added with <see cref="MainContext.AddPoll(GISharp.Lib.GLib.PollFD,System.Int32)"/>
+a <see cref="PollFD"/> descriptor previously added with <see cref="MainContext.AddPoll(GISharp.Lib.GLib.PollFD,int)"/>
 </param>
 </member>
 

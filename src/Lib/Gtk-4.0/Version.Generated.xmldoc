@@ -97,7 +97,7 @@ GTK headers you have included when compiling your code.
 </remarks>
 </member>
 
-<member name='Version.Check(System.UInt32,System.UInt32,System.UInt32)'>
+<member name='Version.Check(uint,uint,uint)'>
 <summary>
 Checks that the GTK library in use is compatible with the
 given version. Generally you would pass in the constants
@@ -120,7 +120,7 @@ can call this function to check that it wasn’t loaded
 into an incompatible version of GTK. However, such a
 check isn’t completely reliable, since the module may be
 linked against an old version of GTK and calling the
-old version of <see cref="Version.Check(System.UInt32,System.UInt32,System.UInt32)"/>, but still get loaded
+old version of <see cref="Version.Check(uint,uint,uint)"/>, but still get loaded
 into an application using a newer version of GTK.
 </remarks>
 <param name="requiredMajor">

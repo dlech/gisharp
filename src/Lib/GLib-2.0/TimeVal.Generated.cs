@@ -53,7 +53,7 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Runtime.Boolean g_time_val_from_iso8601(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* isoDate,
+        byte* isoDate,
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
         GISharp.Lib.GLib.TimeVal* time);
@@ -67,7 +67,7 @@ namespace GISharp.Lib.GLib
             fixed (GISharp.Lib.GLib.TimeVal* time_ = &time)
             {
                 CheckTryFromIso8601Args(isoDate);
-                var isoDate_ = (System.Byte*)isoDate.UnsafeHandle;
+                var isoDate_ = (byte*)isoDate.UnsafeHandle;
                 var ret_ = g_time_val_from_iso8601(isoDate_,time_);
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
@@ -162,7 +162,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern System.Byte* g_time_val_to_iso8601(
+        private static extern byte* g_time_val_to_iso8601(
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.TimeVal* time);

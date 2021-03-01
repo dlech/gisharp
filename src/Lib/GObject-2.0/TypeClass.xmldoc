@@ -3,7 +3,7 @@
 <member name='TypeClass.GType'>
 </member>
 
-<member name='TypeClass.AdjustPrivateOffset(System.IntPtr,System.Int32)'>
+<member name='TypeClass.AdjustPrivateOffset(System.IntPtr,int)'>
 </member>
 
 <member name='TypeClass.Peek(GISharp.Lib.GObject.GType)'>
@@ -54,7 +54,7 @@ the <see cref="TypeClass"/>
 </returns>
 </member>
 
-<member name='TypeClass.AddPrivate(System.Int32)'>
+<member name='TypeClass.AddPrivate(int)'>
 <summary>
 Registers a private structure for an instantiatable type.
 </summary>

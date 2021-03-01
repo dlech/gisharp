@@ -225,16 +225,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.PollFD* fd,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 priority);
-        partial void CheckAddPollArgs(GISharp.Lib.GLib.PollFD fd, System.Int32 priority);
+        int priority);
+        partial void CheckAddPollArgs(GISharp.Lib.GLib.PollFD fd, int priority);
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.AddPoll(GISharp.Lib.GLib.PollFD,System.Int32)']/*" />
-        public void AddPoll(GISharp.Lib.GLib.PollFD fd, System.Int32 priority)
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.AddPoll(GISharp.Lib.GLib.PollFD,int)']/*" />
+        public void AddPoll(GISharp.Lib.GLib.PollFD fd, int priority)
         {
             CheckAddPollArgs(fd, priority);
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
             var fd_ = &fd;
-            var priority_ = (System.Int32)priority;
+            var priority_ = (int)priority;
             g_main_context_add_poll(context_, fd_, priority_);
         }
 
@@ -270,7 +270,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 maxPriority,
+        int maxPriority,
         /* <array length="2" zero-terminated="0" type="GPollFD*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="PollFD" type="GPollFD" managed-name="PollFD" />
 * </array> */
@@ -278,19 +278,19 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.PollFD* fds,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 nFds);
-        partial void CheckCheckArgs(System.Int32 maxPriority, System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds);
+        int nFds);
+        partial void CheckCheckArgs(int maxPriority, System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds);
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Check(System.Int32,System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;)']/*" />
-        public System.Boolean Check(System.Int32 maxPriority, System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds)
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Check(int,System.ReadOnlySpan&lt;GISharp.Lib.GLib.PollFD&gt;)']/*" />
+        public System.Boolean Check(int maxPriority, System.ReadOnlySpan<GISharp.Lib.GLib.PollFD> fds)
         {
             fixed (GISharp.Lib.GLib.PollFD* fdsData_ = fds)
             {
                 CheckCheckArgs(maxPriority, fds);
                 var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-                var maxPriority_ = (System.Int32)maxPriority;
+                var maxPriority_ = (int)maxPriority;
                 var fds_ = (GISharp.Lib.GLib.PollFD*)fdsData_;
-                var nFds_ = (System.Int32)fds.Length;
+                var nFds_ = (int)fds.Length;
                 var ret_ = g_main_context_check(context_,maxPriority_,fds_,nFds_);
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;
@@ -401,15 +401,15 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 sourceId);
-        partial void CheckFindSourceByIdArgs(System.UInt32 sourceId);
+        uint sourceId);
+        partial void CheckFindSourceByIdArgs(uint sourceId);
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.FindSourceById(System.UInt32)']/*" />
-        public GISharp.Lib.GLib.Source FindSourceById(System.UInt32 sourceId)
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.FindSourceById(uint)']/*" />
+        public GISharp.Lib.GLib.Source FindSourceById(uint sourceId)
         {
             CheckFindSourceByIdArgs(sourceId);
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-            var sourceId_ = (System.UInt32)sourceId;
+            var sourceId_ = (uint)sourceId;
             var ret_ = g_main_context_find_source_by_id(context_,sourceId_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Source>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -489,7 +489,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 priority,
+        int priority,
         /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:2 destroy:3 direction:in */
         System.IntPtr function,
@@ -499,15 +499,15 @@ namespace GISharp.Lib.GLib
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         System.IntPtr notify);
-        partial void CheckInvokeFullArgs(System.Int32 priority, GISharp.Lib.GLib.SourceFunc function);
+        partial void CheckInvokeFullArgs(int priority, GISharp.Lib.GLib.SourceFunc function);
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.InvokeFull(System.Int32,GISharp.Lib.GLib.SourceFunc)']/*" />
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.InvokeFull(int,GISharp.Lib.GLib.SourceFunc)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public void InvokeFull(System.Int32 priority, GISharp.Lib.GLib.SourceFunc function)
+        public void InvokeFull(int priority, GISharp.Lib.GLib.SourceFunc function)
         {
             CheckInvokeFullArgs(priority, function);
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-            var priority_ = (System.Int32)priority;
+            var priority_ = (int)priority;
             var (function_, notify_, data_) = GISharp.Lib.GLib.SourceFuncMarshal.ToUnmanagedFunctionPointer(function, GISharp.Runtime.CallbackScope.Notified);
             g_main_context_invoke_full(context_, priority_, function_, data_, notify_);
         }
@@ -673,17 +673,17 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="gint" type="gint*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.Int32* priority);
+        int* priority);
         partial void CheckTryPrepareArgs();
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.TryPrepare(System.Int32)']/*" />
-        public System.Boolean TryPrepare(out System.Int32 priority)
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.TryPrepare(int)']/*" />
+        public System.Boolean TryPrepare(out int priority)
         {
             CheckTryPrepareArgs();
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-            System.Int32 priority_;
+            int priority_;
             var ret_ = g_main_context_prepare(context_,&priority_);
-            priority = (System.Int32)priority_;
+            priority = (int)priority_;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
@@ -782,16 +782,16 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_main_context_query(
+        private static extern int g_main_context_query(
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.MainContext.UnmanagedStruct* context,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 maxPriority,
+        int maxPriority,
         /* <type name="gint" type="gint*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
-        System.Int32* timeout,
+        int* timeout,
         /* <array length="3" zero-terminated="0" type="GPollFD*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="PollFD" type="GPollFD" managed-name="PollFD" />
 * </array> */
@@ -799,23 +799,23 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.PollFD* fds,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 nFds);
-        partial void CheckQueryArgs(System.Int32 maxPriority);
+        int nFds);
+        partial void CheckQueryArgs(int maxPriority);
 
-        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Query(System.Int32,System.Int32,System.Span&lt;GISharp.Lib.GLib.PollFD&gt;)']/*" />
-        public System.Int32 Query(System.Int32 maxPriority, out System.Int32 timeout, System.Span<GISharp.Lib.GLib.PollFD> fds)
+        /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Query(int,int,System.Span&lt;GISharp.Lib.GLib.PollFD&gt;)']/*" />
+        public int Query(int maxPriority, out int timeout, System.Span<GISharp.Lib.GLib.PollFD> fds)
         {
             fixed (GISharp.Lib.GLib.PollFD* fdsData_ = fds)
             {
                 CheckQueryArgs(maxPriority);
                 var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
-                var maxPriority_ = (System.Int32)maxPriority;
+                var maxPriority_ = (int)maxPriority;
                 var fds_ = (GISharp.Lib.GLib.PollFD*)fdsData_;
-                var nFds_ = (System.Int32)fds.Length;
-                System.Int32 timeout_;
+                var nFds_ = (int)fds.Length;
+                int timeout_;
                 var ret_ = g_main_context_query(context_,maxPriority_,&timeout_,fds_,nFds_);
-                timeout = (System.Int32)timeout_;
-                var ret = (System.Int32)ret_;
+                timeout = (int)timeout_;
+                var ret = (int)ret_;
                 return ret;
             }
         }

@@ -14,10 +14,10 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <include file="ArgInfo.xmldoc" path="declaration/member[@name='ArgInfo.Closure']/*" />
-        public System.Int32 Closure { get => GetClosure(); }
+        public int Closure { get => GetClosure(); }
 
         /// <include file="ArgInfo.xmldoc" path="declaration/member[@name='ArgInfo.Destroy']/*" />
-        public System.Int32 Destroy { get => GetDestroy(); }
+        public int Destroy { get => GetDestroy(); }
 
         /// <include file="ArgInfo.xmldoc" path="declaration/member[@name='ArgInfo.Direction']/*" />
         public GISharp.Lib.GIRepository.Direction Direction { get => GetDirection(); }
@@ -68,18 +68,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_arg_info_get_closure(
+        private static extern int g_arg_info_get_closure(
         /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetClosureArgs();
 
-        private System.Int32 GetClosure()
+        private int GetClosure()
         {
             CheckGetClosureArgs();
             var info_ = (GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_arg_info_get_closure(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -96,18 +96,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_arg_info_get_destroy(
+        private static extern int g_arg_info_get_destroy(
         /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* info);
         partial void CheckGetDestroyArgs();
 
-        private System.Int32 GetDestroy()
+        private int GetDestroy()
         {
             CheckGetDestroyArgs();
             var info_ = (GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_arg_info_get_destroy(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 

@@ -14,16 +14,16 @@ namespace GISharp.Lib.Gio
     public unsafe delegate void UnmanagedFileProgressCallback(
     /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
     /* transfer-ownership:none direction:in */
-    System.Int64 currentNumBytes,
+    long currentNumBytes,
     /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
     /* transfer-ownership:none direction:in */
-    System.Int64 totalNumBytes,
+    long totalNumBytes,
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr userData);
 
     /// <include file="FileProgressCallback.xmldoc" path="declaration/member[@name='FileProgressCallback']/*" />
-    public delegate void FileProgressCallback(System.Int64 currentNumBytes, System.Int64 totalNumBytes);
+    public delegate void FileProgressCallback(long currentNumBytes, long totalNumBytes);
 
     /// <summary>
     /// Class for marshalling <see cref="FileProgressCallback"/> methods.
@@ -48,7 +48,7 @@ namespace GISharp.Lib.Gio
         public static GISharp.Lib.Gio.FileProgressCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileProgressCallback>(callback_);
-            void managedCallback(System.Int64 currentNumBytes, System.Int64 totalNumBytes) { var currentNumBytes_ = (System.Int64)currentNumBytes; var totalNumBytes_ = (System.Int64)totalNumBytes; unmanagedCallback(currentNumBytes_, totalNumBytes_, userData_); }
+            void managedCallback(long currentNumBytes, long totalNumBytes) { var currentNumBytes_ = (long)currentNumBytes; var totalNumBytes_ = (long)totalNumBytes; unmanagedCallback(currentNumBytes_, totalNumBytes_, userData_); }
 
             return managedCallback;
         }
@@ -83,12 +83,12 @@ namespace GISharp.Lib.Gio
             return (callback_, destroy_, userData_);
         }
 
-        static void UnmanagedCallback(System.Int64 currentNumBytes_, System.Int64 totalNumBytes_, System.IntPtr userData_)
+        static void UnmanagedCallback(long currentNumBytes_, long totalNumBytes_, System.IntPtr userData_)
         {
             try
             {
-                var currentNumBytes = (System.Int64)currentNumBytes_;
-                var totalNumBytes = (System.Int64)totalNumBytes_;
+                var currentNumBytes = (long)currentNumBytes_;
+                var totalNumBytes = (long)totalNumBytes_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var userData = (UserData)gcHandle.Target!;
                 userData.ManagedDelegate(currentNumBytes, totalNumBytes);

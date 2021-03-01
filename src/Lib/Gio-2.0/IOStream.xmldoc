@@ -86,7 +86,7 @@ On error
 </exception>
 </member>
 
-<member name='IOStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IOStream.CloseAsync(int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous close of the stream, releasing resources
 related to it.
@@ -126,7 +126,7 @@ On error
 </exception>
 </member>
 
-<member name='IOStream.SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IOStream.SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously splice the output stream of this instance to the input stream of
 <paramref name="stream2"/>, and splice the output stream of <paramref name="stream2"/> to the input stream of
@@ -146,7 +146,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='IOStream.DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IOStream.DoCloseAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous close of the stream, releasing resources
 related to it. When the operation is finished <paramref name="callback"/> will be

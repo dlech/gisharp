@@ -14,7 +14,7 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <include file="ValueInfo.xmldoc" path="declaration/member[@name='ValueInfo.Value']/*" />
-        public System.Int64 Value { get => GetValue(); }
+        public long Value { get => GetValue(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -38,18 +38,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int64 g_value_info_get_value(
+        private static extern long g_value_info_get_value(
         /* <type name="ValueInfo" type="GIValueInfo*" managed-name="ValueInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.ValueInfo.UnmanagedStruct* info);
         partial void CheckGetValueArgs();
 
-        private System.Int64 GetValue()
+        private long GetValue()
         {
             CheckGetValueArgs();
             var info_ = (GISharp.Lib.GIRepository.ValueInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_value_info_get_value(info_);
-            var ret = (System.Int64)ret_;
+            var ret = (long)ret_;
             return ret;
         }
     }

@@ -69,7 +69,7 @@ namespace GISharp.Lib.Gio
         private static extern GISharp.Lib.Gio.Icon.UnmanagedStruct* g_icon_new_for_string(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
@@ -79,7 +79,7 @@ namespace GISharp.Lib.Gio
         public static GISharp.Lib.Gio.IIcon NewForString(GISharp.Lib.GLib.UnownedUtf8 str)
         {
             CheckNewForStringArgs(str);
-            var str_ = (System.Byte*)str.UnsafeHandle;
+            var str_ = (byte*)str.UnsafeHandle;
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_icon_new_for_string(str_,&error_);
             if (error_ is not null)
@@ -104,7 +104,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoHash()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IconIface.UnmanagedHash))]
-        System.UInt32 DoHash();
+        uint DoHash();
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.DoSerialize()']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
@@ -137,7 +137,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 g_icon_hash(
+        private static extern uint g_icon_hash(
         /* <type name="Icon" type="gconstpointer" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
@@ -252,7 +252,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern System.Byte* g_icon_to_string(
+        private static extern byte* g_icon_to_string(
         /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);

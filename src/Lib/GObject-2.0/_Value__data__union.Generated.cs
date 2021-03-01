@@ -10,11 +10,11 @@ namespace GISharp.Lib.GObject
 #pragma warning disable CS0169, CS0649
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VInt']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Int32 VInt;
+        public readonly int VInt;
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VUint']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.UInt32 VUint;
+        public readonly uint VUint;
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VLong']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
@@ -26,19 +26,19 @@ namespace GISharp.Lib.GObject
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VInt64']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Int64 VInt64;
+        public readonly long VInt64;
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VUint64']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.UInt64 VUint64;
+        public readonly ulong VUint64;
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VFloat']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Single VFloat;
+        public readonly float VFloat;
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VDouble']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Double VDouble;
+        public readonly double VDouble;
 
         /// <include file="_Value__data__union.xmldoc" path="declaration/member[@name='ValueDataUnion.VPointer']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]

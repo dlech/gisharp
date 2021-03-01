@@ -19,10 +19,10 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="EnumInfo.xmldoc" path="declaration/member[@name='EnumInfo.NMethods']/*" />
         [GISharp.Runtime.SinceAttribute("1.30")]
-        private System.Int32 NMethods { get => GetNMethods(); }
+        private int NMethods { get => GetNMethods(); }
 
         /// <include file="EnumInfo.xmldoc" path="declaration/member[@name='EnumInfo.NValues']/*" />
-        private System.Int32 NValues { get => GetNValues(); }
+        private int NValues { get => GetNValues(); }
 
         /// <include file="EnumInfo.xmldoc" path="declaration/member[@name='EnumInfo.StorageType']/*" />
         public GISharp.Lib.GIRepository.TypeTag StorageType { get => GetStorageType(); }
@@ -50,7 +50,7 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_enum_info_get_error_domain(
+        private static extern byte* g_enum_info_get_error_domain(
         /* <type name="EnumInfo" type="GIEnumInfo*" managed-name="EnumInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct* info);
@@ -89,15 +89,15 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n);
-        partial void CheckGetMethodArgs(System.Int32 n);
+        int n);
+        partial void CheckGetMethodArgs(int n);
 
         [GISharp.Runtime.SinceAttribute("1.30")]
-        private GISharp.Lib.GIRepository.FunctionInfo GetMethod(System.Int32 n)
+        private GISharp.Lib.GIRepository.FunctionInfo GetMethod(int n)
         {
             CheckGetMethodArgs(n);
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
-            var n_ = (System.Int32)n;
+            var n_ = (int)n;
             var ret_ = g_enum_info_get_method(info_,n_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -116,19 +116,19 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_enum_info_get_n_methods(
+        private static extern int g_enum_info_get_n_methods(
         /* <type name="EnumInfo" type="GIEnumInfo*" managed-name="EnumInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct* info);
         partial void CheckGetNMethodsArgs();
 
         [GISharp.Runtime.SinceAttribute("1.30")]
-        private System.Int32 GetNMethods()
+        private int GetNMethods()
         {
             CheckGetNMethodsArgs();
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_enum_info_get_n_methods(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -144,18 +144,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_enum_info_get_n_values(
+        private static extern int g_enum_info_get_n_values(
         /* <type name="EnumInfo" type="GIEnumInfo*" managed-name="EnumInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct* info);
         partial void CheckGetNValuesArgs();
 
-        private System.Int32 GetNValues()
+        private int GetNValues()
         {
             CheckGetNValuesArgs();
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_enum_info_get_n_values(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -214,14 +214,14 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n);
-        partial void CheckGetValueArgs(System.Int32 n);
+        int n);
+        partial void CheckGetValueArgs(int n);
 
-        private GISharp.Lib.GIRepository.ValueInfo GetValue(System.Int32 n)
+        private GISharp.Lib.GIRepository.ValueInfo GetValue(int n)
         {
             CheckGetValueArgs(n);
             var info_ = (GISharp.Lib.GIRepository.EnumInfo.UnmanagedStruct*)UnsafeHandle;
-            var n_ = (System.Int32)n;
+            var n_ = (int)n;
             var ret_ = g_enum_info_get_value(info_,n_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.ValueInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;

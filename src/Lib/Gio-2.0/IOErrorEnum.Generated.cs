@@ -133,7 +133,7 @@ namespace GISharp.Lib.Gio
         /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
-        static partial void CheckFromErrnoArgs(System.Int32 errno);
+        static partial void CheckFromErrnoArgs(int errno);
 
         /// <summary>
         /// Converts errno.h error codes into GIO error codes. The fallback
@@ -157,13 +157,13 @@ namespace GISharp.Lib.Gio
         private static extern GISharp.Lib.Gio.IOErrorEnum g_io_error_from_errno(
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 errno);
+        int errno);
 
-        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.FromErrno(System.Int32)']/*" />
-        public static GISharp.Lib.Gio.IOErrorEnum FromErrno(System.Int32 errno)
+        /// <include file="IOErrorEnum.xmldoc" path="declaration/member[@name='IOErrorEnumDomain.FromErrno(int)']/*" />
+        public static GISharp.Lib.Gio.IOErrorEnum FromErrno(int errno)
         {
             CheckFromErrnoArgs(errno);
-            var errno_ = (System.Int32)errno;
+            var errno_ = (int)errno;
             var ret_ = g_io_error_from_errno(errno_);
             var ret = (GISharp.Lib.Gio.IOErrorEnum)ret_;
             return ret;

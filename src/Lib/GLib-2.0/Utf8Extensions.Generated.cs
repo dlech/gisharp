@@ -33,10 +33,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_utf8_casefold(
+        private static extern byte* g_utf8_casefold(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len);
@@ -62,13 +62,13 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_utf8_collate(
+        private static extern int g_utf8_collate(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str1,
+        byte* str1,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str2);
+        byte* str2);
 
         /// <summary>
         /// Converts a string into a collation key that can be compared
@@ -95,10 +95,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_utf8_collate_key(
+        private static extern byte* g_utf8_collate_key(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len);
@@ -131,10 +131,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_utf8_collate_key_for_filename(
+        private static extern byte* g_utf8_collate_key_for_filename(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len);
@@ -166,13 +166,13 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern System.Byte* g_utf8_find_next_char(
+        private static extern byte* g_utf8_find_next_char(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* p,
+        byte* p,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.Byte* end);
+        byte* end);
 
         /// <summary>
         /// Given a position @p with a UTF-8 encoded string @str, find the start
@@ -196,13 +196,13 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern System.Byte* g_utf8_find_prev_char(
+        private static extern byte* g_utf8_find_prev_char(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* p);
+        byte* p);
 
         /// <summary>
         /// Converts a sequence of bytes encoded as UTF-8 to a Unicode character.
@@ -225,7 +225,7 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.Unichar g_utf8_get_char(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* p);
+        byte* p);
 
         /// <summary>
         /// Convert a sequence of bytes encoded as UTF-8 to a Unicode character.
@@ -257,7 +257,7 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.Unichar g_utf8_get_char_validated(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* p,
+        byte* p,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint maxLen);
@@ -288,10 +288,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_utf8_make_valid(
+        private static extern byte* g_utf8_make_valid(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len);
@@ -341,10 +341,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern System.Byte* g_utf8_normalize(
+        private static extern byte* g_utf8_normalize(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len,
@@ -380,10 +380,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_utf8_offset_to_pointer(
+        private static extern byte* g_utf8_offset_to_pointer(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong offset);
@@ -411,10 +411,10 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Runtime.CLong g_utf8_pointer_to_offset(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* pos);
+        byte* pos);
 
         /// <summary>
         /// Finds the previous UTF-8 character in the string before @p.
@@ -434,10 +434,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_utf8_prev_char(
+        private static extern byte* g_utf8_prev_char(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* p);
+        byte* p);
 
         /// <summary>
         /// Finds the leftmost occurrence of the given Unicode character
@@ -461,10 +461,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern System.Byte* g_utf8_strchr(
+        private static extern byte* g_utf8_strchr(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* p,
+        byte* p,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len,
@@ -491,10 +491,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_utf8_strdown(
+        private static extern byte* g_utf8_strdown(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len);
@@ -523,7 +523,7 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Runtime.CLong g_utf8_strlen(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* p,
+        byte* p,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint max);
@@ -553,13 +553,13 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_utf8_strncpy(
+        private static extern byte* g_utf8_strncpy(
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* dest,
+        byte* dest,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* src,
+        byte* src,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint n);
@@ -586,10 +586,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern System.Byte* g_utf8_strrchr(
+        private static extern byte* g_utf8_strrchr(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* p,
+        byte* p,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len,
@@ -627,10 +627,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_utf8_strreverse(
+        private static extern byte* g_utf8_strreverse(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len);
@@ -655,10 +655,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_utf8_strup(
+        private static extern byte* g_utf8_strup(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint len);
@@ -684,10 +684,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_utf8_substring(
+        private static extern byte* g_utf8_substring(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong startPos,
@@ -701,7 +701,7 @@ namespace GISharp.Lib.GLib
         public static GISharp.Lib.GLib.Utf8 Substring(this GISharp.Lib.GLib.UnownedUtf8 str, GISharp.Runtime.CLong startPos, GISharp.Runtime.CLong endPos)
         {
             CheckSubstringArgs(str, startPos, endPos);
-            var str_ = (System.Byte*)str.UnsafeHandle;
+            var str_ = (byte*)str.UnsafeHandle;
             var startPos_ = (GISharp.Runtime.CLong)startPos;
             var endPos_ = (GISharp.Runtime.CLong)endPos;
             var ret_ = g_utf8_substring(str_,startPos_,endPos_);
@@ -748,7 +748,7 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.Unichar* g_utf8_to_ucs4(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong len,
@@ -790,7 +790,7 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.Unichar* g_utf8_to_ucs4_fast(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong len,
@@ -831,10 +831,10 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint16" type="gunichar2*" managed-name="System.UInt16" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.UInt16* g_utf8_to_utf16(
+        private static extern ushort* g_utf8_to_utf16(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="glong" type="glong" managed-name="GISharp.Runtime.CLong" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.CLong len,
@@ -886,13 +886,13 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint maxLen,
         /* <type name="utf8" type="const gchar**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none optional:1 allow-none:1 */
-        System.Byte** end);
+        byte** end);
 
         /// <summary>
         /// Validates UTF-8 encoded text.
@@ -922,12 +922,12 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:none direction:in */
-        System.Byte* str,
+        byte* str,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint maxLen,
         /* <type name="utf8" type="const gchar**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none optional:1 allow-none:1 */
-        System.Byte** end);
+        byte** end);
     }
 }

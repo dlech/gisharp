@@ -15,16 +15,16 @@ namespace GISharp.Lib.Gio
     public unsafe delegate GISharp.Runtime.Boolean UnmanagedFileReadMoreCallback(
     /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    System.Byte* fileContents,
+    byte* fileContents,
     /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
     /* transfer-ownership:none direction:in */
-    System.Int64 fileSize,
+    long fileSize,
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr callbackData);
 
     /// <include file="FileReadMoreCallback.xmldoc" path="declaration/member[@name='FileReadMoreCallback']/*" />
-    public delegate System.Boolean FileReadMoreCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize);
+    public delegate System.Boolean FileReadMoreCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, long fileSize);
 
     /// <summary>
     /// Class for marshalling <see cref="FileReadMoreCallback"/> methods.
@@ -50,7 +50,7 @@ namespace GISharp.Lib.Gio
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileReadMoreCallback>(callback_);
             var callbackData_ = userData_;
-            System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, System.Int64 fileSize) { var fileContents_ = (System.Byte*)fileContents.UnsafeHandle; var fileSize_ = (System.Int64)fileSize; var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
+            System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, long fileSize) { var fileContents_ = (byte*)fileContents.UnsafeHandle; var fileSize_ = (long)fileSize; var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
 
             return managedCallback;
         }
@@ -85,12 +85,12 @@ namespace GISharp.Lib.Gio
             return (callback_, destroy_, userData_);
         }
 
-        static GISharp.Runtime.Boolean UnmanagedCallback(System.Byte* fileContents_, System.Int64 fileSize_, System.IntPtr callbackData_)
+        static GISharp.Runtime.Boolean UnmanagedCallback(byte* fileContents_, long fileSize_, System.IntPtr callbackData_)
         {
             try
             {
                 var fileContents = new GISharp.Lib.GLib.UnownedUtf8(fileContents_);
-                var fileSize = (System.Int64)fileSize_;
+                var fileSize = (long)fileSize_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)callbackData_;
                 var callbackData = (UserData)gcHandle.Target!;
                 var ret = callbackData.ManagedDelegate(fileContents, fileSize);

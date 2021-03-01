@@ -25,7 +25,7 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GIRepository.Transfer InstanceOwnershipTransfer { get => GetInstanceOwnershipTransfer(); }
 
         /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.NArgs']/*" />
-        private System.Int32 NArgs { get => GetNArgs(); }
+        private int NArgs { get => GetNArgs(); }
 
         /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.ReturnType']/*" />
         public GISharp.Lib.GIRepository.TypeInfo ReturnType { get => GetReturnType(); }
@@ -99,14 +99,14 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n);
-        partial void CheckGetArgArgs(System.Int32 n);
+        int n);
+        partial void CheckGetArgArgs(int n);
 
-        private GISharp.Lib.GIRepository.ArgInfo GetArg(System.Int32 n)
+        private GISharp.Lib.GIRepository.ArgInfo GetArg(int n)
         {
             CheckGetArgArgs(n);
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
-            var n_ = (System.Int32)n;
+            var n_ = (int)n;
             var ret_ = g_callable_info_get_arg(info_,n_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.ArgInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -182,18 +182,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_callable_info_get_n_args(
+        private static extern int g_callable_info_get_n_args(
         /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info);
         partial void CheckGetNArgsArgs();
 
-        private System.Int32 GetNArgs()
+        private int GetNArgs()
         {
             CheckGetNArgsArgs();
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_callable_info_get_n_args(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -212,13 +212,13 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_callable_info_get_return_attribute(
+        private static extern byte* g_callable_info_get_return_attribute(
         /* <type name="CallableInfo" type="GICallableInfo*" managed-name="CallableInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
         partial void CheckGetReturnAttributeArgs(GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <include file="CallableInfo.xmldoc" path="declaration/member[@name='CallableInfo.GetReturnAttribute(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -226,7 +226,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckGetReturnAttributeArgs(name);
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_callable_info_get_return_attribute(info_,name_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
@@ -310,7 +310,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.Argument* inArgs,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 nInArgs,
+        int nInArgs,
         /* <array length="5" zero-terminated="0" type="const GIArgument*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="Argument" type="GIArgument" managed-name="Argument" />
 * </array> */
@@ -318,7 +318,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.Argument* outArgs,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 nOutArgs,
+        int nOutArgs,
         /* <type name="Argument" type="GIArgument*" managed-name="Argument" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.Argument* returnValue,
@@ -409,10 +409,10 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.AttributeIter* iterator,
         /* <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none */
-        System.Byte** name,
+        byte** name,
         /* <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none */
-        System.Byte** value);
+        byte** value);
         partial void CheckTryIterateReturnAttributesArgs(ref GISharp.Lib.GIRepository.AttributeIter iterator);
 
         private System.Boolean TryIterateReturnAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
@@ -420,8 +420,8 @@ namespace GISharp.Lib.GIRepository
             CheckTryIterateReturnAttributesArgs(ref iterator);
             var info_ = (GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct*)UnsafeHandle;
             var iterator_ = (GISharp.Lib.GIRepository.AttributeIter)iterator;
-            System.Byte* name_;
-            System.Byte* value_;
+            byte* name_;
+            byte* value_;
             var ret_ = g_callable_info_iterate_return_attributes(info_,&iterator_,&name_,&value_);
             iterator = (GISharp.Lib.GIRepository.AttributeIter)iterator_;
             name = new GISharp.Lib.GLib.UnownedUtf8(name_);
@@ -456,7 +456,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.CallableInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n,
+        int n,
         /* <type name="ArgInfo" type="GIArgInfo*" managed-name="ArgInfo" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
         GISharp.Lib.GIRepository.ArgInfo.UnmanagedStruct* arg);

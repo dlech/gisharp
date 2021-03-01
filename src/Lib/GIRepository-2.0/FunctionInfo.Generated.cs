@@ -105,7 +105,7 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_function_info_get_symbol(
+        private static extern byte* g_function_info_get_symbol(
         /* <type name="FunctionInfo" type="GIFunctionInfo*" managed-name="FunctionInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.FunctionInfo.UnmanagedStruct* info);

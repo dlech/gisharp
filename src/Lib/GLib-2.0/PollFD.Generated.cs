@@ -8,13 +8,13 @@ namespace GISharp.Lib.GLib
     {
 #pragma warning disable CS0169, CS0649
         /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.Fd']/*" />
-        public readonly System.Int32 Fd;
+        public readonly int Fd;
 
         /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.Events']/*" />
-        public readonly System.UInt16 Events;
+        public readonly ushort Events;
 
         /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.Revents']/*" />
-        public readonly System.UInt16 Revents;
+        public readonly ushort Revents;
 #pragma warning restore CS0169, CS0649
         static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]

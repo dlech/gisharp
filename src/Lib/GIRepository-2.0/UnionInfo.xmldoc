@@ -54,7 +54,7 @@ the <see cref="FunctionInfo"/>.
 </returns>
 </member>
 
-<member name='UnionInfo.GetDiscriminator(System.Int32)'>
+<member name='UnionInfo.GetDiscriminator(int)'>
 <summary>
 Obtain discriminator value assigned for n-th union field, i.e. n-th
 union field is the active one if discriminator contains this

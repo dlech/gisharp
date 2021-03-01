@@ -322,7 +322,7 @@ Checks if this instance is in normal form.
 <remarks>
 The main reason to do this is to detect if a given chunk of
 serialised data is in normal form: load the data into a <see cref="Variant"/>
-using <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{System.Byte},System.Boolean,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> and then use this function to
+using <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},System.Boolean,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> and then use this function to
 check.
 
 If this instance is found to be in normal form then it will be marked as
@@ -371,7 +371,7 @@ a #gboolean value
 </param>
 </member>
 
-<member name='Variant.Variant(System.Byte)'>
+<member name='Variant.Variant(byte)'>
 <summary>
 Creates a new byte <see cref="Variant"/> instance.
 </summary>
@@ -380,7 +380,7 @@ a #guint8 value
 </param>
 </member>
 
-<member name='Variant.Variant(System.ReadOnlySpan&lt;System.Byte&gt;)'>
+<member name='Variant.Variant(System.ReadOnlySpan&lt;byte&gt;)'>
 <summary>
 Creates an array-of-bytes <see cref="Variant"/> with the contents of <paramref name="string"/>.
 This function is just like <see cref="Variant.Variant(GISharp.Lib.GLib.UnownedUtf8)"/> except that the
@@ -426,7 +426,7 @@ a <see cref="Variant"/>, the value
 </param>
 </member>
 
-<member name='Variant.Variant(System.Double)'>
+<member name='Variant.Variant(double)'>
 <summary>
 Creates a new double <see cref="Variant"/> instance.
 </summary>
@@ -435,7 +435,7 @@ a #gdouble floating point value
 </param>
 </member>
 
-<member name='Variant.Variant(GISharp.Lib.GLib.VariantType,System.IntPtr,System.Int32,System.Int32)'>
+<member name='Variant.Variant(GISharp.Lib.GLib.VariantType,System.IntPtr,int,int)'>
 <summary>
 Constructs a new array <see cref="Variant"/> instance, where the elements are
 of <paramref name="elementType"/> type.
@@ -490,7 +490,7 @@ if the contents of <paramref name="bytes"/> are trusted
 </param>
 </member>
 
-<member name='Variant.Variant(System.Int32)'>
+<member name='Variant.Variant(int)'>
 <summary>
 Creates a new handle <see cref="Variant"/> instance.
 </summary>
@@ -504,7 +504,7 @@ a #gint32 value
 </param>
 </member>
 
-<member name='Variant.Variant(System.Int16)'>
+<member name='Variant.Variant(short)'>
 <summary>
 Creates a new int16 <see cref="Variant"/> instance.
 </summary>
@@ -513,7 +513,7 @@ a #gint16 value
 </param>
 </member>
 
-<member name='Variant.Variant(System.Int32)'>
+<member name='Variant.Variant(int)'>
 <summary>
 Creates a new int32 <see cref="Variant"/> instance.
 </summary>
@@ -522,7 +522,7 @@ a #gint32 value
 </param>
 </member>
 
-<member name='Variant.Variant(System.Int64)'>
+<member name='Variant.Variant(long)'>
 <summary>
 Creates a new int64 <see cref="Variant"/> instance.
 </summary>
@@ -635,7 +635,7 @@ the items to make the tuple out of
 </param>
 </member>
 
-<member name='Variant.Variant(System.UInt16)'>
+<member name='Variant.Variant(ushort)'>
 <summary>
 Creates a new uint16 <see cref="Variant"/> instance.
 </summary>
@@ -644,7 +644,7 @@ a #guint16 value
 </param>
 </member>
 
-<member name='Variant.Variant(System.UInt32)'>
+<member name='Variant.Variant(uint)'>
 <summary>
 Creates a new uint32 <see cref="Variant"/> instance.
 </summary>
@@ -653,7 +653,7 @@ a #guint32 value
 </param>
 </member>
 
-<member name='Variant.Variant(System.UInt64)'>
+<member name='Variant.Variant(ulong)'>
 <summary>
 Creates a new uint64 <see cref="Variant"/> instance.
 </summary>
@@ -972,9 +972,9 @@ an array of strings
 </returns>
 </member>
 
-<member name='Variant.DupString(System.Int32)'>
+<member name='Variant.DupString(int)'>
 <summary>
-Similar to <see cref="Variant.GetString(out System.Int32)"/> except that instead of returning
+Similar to <see cref="Variant.GetString(out int)"/> except that instead of returning
 a constant string, the string is duplicated.
 </summary>
 <remarks>
@@ -1025,7 +1025,7 @@ a <see cref="Variant"/> instance
 </returns>
 </member>
 
-<member name='Variant.GetChildValue(System.Int32)'>
+<member name='Variant.GetChildValue(int)'>
 <summary>
 Reads a child item out of a container <see cref="Variant"/> instance.  This
 includes variants, maybes, arrays, tuples and dictionary
@@ -1060,7 +1060,7 @@ the child at the specified index
 </returns>
 </member>
 
-<member name='Variant.GetString(System.Int32)'>
+<member name='Variant.GetString(int)'>
 <summary>
 Returns the string value of a <see cref="Variant"/> instance with a string
 type.  This includes the types %G_VARIANT_TYPE_STRING,
@@ -1360,7 +1360,7 @@ or network stream).
 A <see cref="Variant"/>'s size is limited mainly by any lower level operating
 system constraints, such as the number of bits in #gsize.  For
 example, it is reasonable to have a 2GB file mapped into memory
-with #GMappedFile, and call <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{System.Byte},System.Boolean,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> on it.
+with #GMappedFile, and call <see cref="Variant.Variant(GISharp.Lib.GLib.VariantType,System.ReadOnlySpan{byte},System.Boolean,GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/> on it.
 
 For convenience to C programmers, <see cref="Variant"/> features powerful
 varargs-based value construction and destruction.  This feature is
@@ -1528,7 +1528,7 @@ strings to variants (with two entries, as given above), we are
 using 91 bytes of memory for type information, 29 bytes of memory
 for the serialised data, 16 bytes for buffer management and 24
 bytes for the <see cref="Variant"/> instance, or a total of 160 bytes, plus
-malloc overhead.  If we were to use <see cref="Variant.GetChildValue(System.Int32)"/> to
+malloc overhead.  If we were to use <see cref="Variant.GetChildValue(int)"/> to
 access the two dictionary entries, we would use an additional 48
 bytes.  If we were to have other dictionaries of the same type, we
 would use more memory for the serialised data and buffer

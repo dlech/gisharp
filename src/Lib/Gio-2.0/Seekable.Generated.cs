@@ -24,17 +24,17 @@ namespace GISharp.Lib.Gio
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedCanTruncate))]
         System.Boolean DoCanTruncate();
 
-        /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable.DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable.DoSeek(long,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedSeek))]
-        void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        void DoSeek(long offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable.DoTell()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedTell))]
-        System.Int64 DoTell();
+        long DoTell();
 
-        /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable.DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='ISeekable.DoTruncateFn(long,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(SeekableIface.UnmanagedTruncateFn))]
-        void DoTruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        void DoTruncateFn(long offset, GISharp.Lib.Gio.Cancellable? cancellable = null);
     }
 
     /// <summary>
@@ -152,7 +152,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable,
         /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        System.Int64 offset,
+        long offset,
         /* <type name="GLib.SeekType" type="GSeekType" managed-name="GISharp.Lib.GLib.SeekType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.SeekType type,
@@ -162,14 +162,14 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckSeekArgs(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        static partial void CheckSeekArgs(this GISharp.Lib.Gio.ISeekable seekable, long offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="Seekable.xmldoc" path="declaration/member[@name='Seekable.Seek(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public static void Seek(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='Seekable.Seek(GISharp.Lib.Gio.ISeekable,long,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
+        public static void Seek(this GISharp.Lib.Gio.ISeekable seekable, long offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckSeekArgs(seekable, offset, type, cancellable);
             var seekable_ = (GISharp.Lib.Gio.Seekable.UnmanagedStruct*)seekable.UnsafeHandle;
-            var offset_ = (System.Int64)offset;
+            var offset_ = (long)offset;
             var type_ = (GISharp.Lib.GLib.SeekType)type;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
@@ -193,19 +193,19 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int64 g_seekable_tell(
+        private static extern long g_seekable_tell(
         /* <type name="Seekable" type="GSeekable*" managed-name="Seekable" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable);
         static partial void CheckTellArgs(this GISharp.Lib.Gio.ISeekable seekable);
 
         /// <include file="Seekable.xmldoc" path="declaration/member[@name='Seekable.Tell(GISharp.Lib.Gio.ISeekable)']/*" />
-        public static System.Int64 Tell(this GISharp.Lib.Gio.ISeekable seekable)
+        public static long Tell(this GISharp.Lib.Gio.ISeekable seekable)
         {
             CheckTellArgs(seekable);
             var seekable_ = (GISharp.Lib.Gio.Seekable.UnmanagedStruct*)seekable.UnsafeHandle;
             var ret_ = g_seekable_tell(seekable_);
-            var ret = (System.Int64)ret_;
+            var ret = (long)ret_;
             return ret;
         }
 
@@ -247,21 +247,21 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Seekable.UnmanagedStruct* seekable,
         /* <type name="gint64" type="goffset" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        System.Int64 offset,
+        long offset,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckTruncateArgs(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        static partial void CheckTruncateArgs(this GISharp.Lib.Gio.ISeekable seekable, long offset, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="Seekable.xmldoc" path="declaration/member[@name='Seekable.Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public static void Truncate(this GISharp.Lib.Gio.ISeekable seekable, System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        /// <include file="Seekable.xmldoc" path="declaration/member[@name='Seekable.Truncate(GISharp.Lib.Gio.ISeekable,long,GISharp.Lib.Gio.Cancellable?)']/*" />
+        public static void Truncate(this GISharp.Lib.Gio.ISeekable seekable, long offset, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckTruncateArgs(seekable, offset, cancellable);
             var seekable_ = (GISharp.Lib.Gio.Seekable.UnmanagedStruct*)seekable.UnsafeHandle;
-            var offset_ = (System.Int64)offset;
+            var offset_ = (long)offset;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_seekable_truncate(seekable_, offset_, cancellable_, &error_);

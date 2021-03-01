@@ -14,10 +14,10 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ArrayFixedSize']/*" />
-        public System.Int32 ArrayFixedSize { get => GetArrayFixedSize(); }
+        public int ArrayFixedSize { get => GetArrayFixedSize(); }
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ArrayLength']/*" />
-        public System.Int32 ArrayLength { get => GetArrayLength(); }
+        public int ArrayLength { get => GetArrayLength(); }
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ArrayType']/*" />
         public GISharp.Lib.GIRepository.ArrayType ArrayType { get => GetArrayType(); }
@@ -109,18 +109,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_type_info_get_array_fixed_size(
+        private static extern int g_type_info_get_array_fixed_size(
         /* <type name="TypeInfo" type="GITypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* info);
         partial void CheckGetArrayFixedSizeArgs();
 
-        private System.Int32 GetArrayFixedSize()
+        private int GetArrayFixedSize()
         {
             CheckGetArrayFixedSizeArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_get_array_fixed_size(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -137,18 +137,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_type_info_get_array_length(
+        private static extern int g_type_info_get_array_length(
         /* <type name="TypeInfo" type="GITypeInfo*" managed-name="TypeInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* info);
         partial void CheckGetArrayLengthArgs();
 
-        private System.Int32 GetArrayLength()
+        private int GetArrayLength()
         {
             CheckGetArrayLengthArgs();
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_type_info_get_array_length(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -233,15 +233,15 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n);
-        partial void CheckGetParamTypeArgs(System.Int32 n);
+        int n);
+        partial void CheckGetParamTypeArgs(int n);
 
-        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.GetParamType(System.Int32)']/*" />
-        public GISharp.Lib.GIRepository.TypeInfo GetParamType(System.Int32 n)
+        /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.GetParamType(int)']/*" />
+        public GISharp.Lib.GIRepository.TypeInfo GetParamType(int n)
         {
             CheckGetParamTypeArgs(n);
             var info_ = (GISharp.Lib.GIRepository.TypeInfo.UnmanagedStruct*)UnsafeHandle;
-            var n_ = (System.Int32)n;
+            var n_ = (int)n;
             var ret_ = g_type_info_get_param_type(info_,n_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.TypeInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;

@@ -963,7 +963,7 @@ See [Unicode Standard Annex #24: Script names](http://www.unicode.org/reports/tr
 </remarks>
 </member>
 
-<member name='UnicodeScriptExtensions.FromIso15924(System.UInt32)'>
+<member name='UnicodeScriptExtensions.FromIso15924(uint)'>
 <summary>
 Looks up the Unicode script for <paramref name="iso15924"/>.  ISO 15924 assigns four-letter
 codes to scripts.  For example, the code for Arabic is 'Arab'.

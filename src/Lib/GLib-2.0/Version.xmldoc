@@ -33,7 +33,7 @@ linked against at application run time.
 </remarks>
 </member>
 
-<member name='Version.Check(System.UInt32,System.UInt32,System.UInt32)'>
+<member name='Version.Check(uint,uint,uint)'>
 <summary>
 Checks that the GLib library in use is compatible with the
 given version. Generally you would pass in the constants

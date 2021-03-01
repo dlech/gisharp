@@ -19,11 +19,11 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Data']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public System.ReadOnlySpan<System.Byte> Data { get => GetData(); }
+        public System.ReadOnlySpan<byte> Data { get => GetData(); }
 
         /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Size']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public System.Int32 Size { get => GetSize(); }
+        public int Size { get => GetSize(); }
 
         /// <summary>
         /// For internal runtime use only.
@@ -37,7 +37,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(System.ReadOnlySpan<System.Byte> data);
+        static partial void CheckNewArgs(System.ReadOnlySpan<byte> data);
 
         /// <summary>
         /// Creates a new #GBytes from @data.
@@ -64,31 +64,31 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.Byte* data,
+        byte* data,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint size);
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        static GISharp.Lib.GLib.Bytes.UnmanagedStruct* New(System.ReadOnlySpan<System.Byte> data)
+        static GISharp.Lib.GLib.Bytes.UnmanagedStruct* New(System.ReadOnlySpan<byte> data)
         {
-            fixed (System.Byte* dataData_ = data)
+            fixed (byte* dataData_ = data)
             {
                 CheckNewArgs(data);
-                var data_ = (System.Byte*)dataData_;
+                var data_ = (byte*)dataData_;
                 var size_ = (nuint)data.Length;
                 var ret_ = g_bytes_new(data_,size_);
                 return ret_;
             }
         }
 
-        /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Bytes(System.ReadOnlySpan&lt;System.Byte&gt;)']/*" />
+        /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Bytes(System.ReadOnlySpan&lt;byte&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public Bytes(System.ReadOnlySpan<System.Byte> data) : this((System.IntPtr)New(data), GISharp.Runtime.Transfer.Full)
+        public Bytes(System.ReadOnlySpan<byte> data) : this((System.IntPtr)New(data), GISharp.Runtime.Transfer.Full)
         {
         }
 
-        static partial void CheckNewTakeArgs(GISharp.Runtime.CArray<System.Byte>? data);
+        static partial void CheckNewTakeArgs(GISharp.Runtime.CArray<byte>? data);
 
         /// <summary>
         /// Creates a new #GBytes from @data.
@@ -124,29 +124,29 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:full nullable:1 allow-none:1 direction:in */
-        System.Byte* data,
+        byte* data,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint size);
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        static GISharp.Lib.GLib.Bytes.UnmanagedStruct* NewTake(GISharp.Runtime.CArray<System.Byte>? data)
+        static GISharp.Lib.GLib.Bytes.UnmanagedStruct* NewTake(GISharp.Runtime.CArray<byte>? data)
         {
             CheckNewTakeArgs(data);
             var (dataData_, dataLength_) = data?.TakeData() ?? (System.IntPtr.Zero, 0);
-            var data_ = (System.Byte*)dataData_;
+            var data_ = (byte*)dataData_;
             var size_ = (nuint)dataLength_;
             var ret_ = g_bytes_new_take(data_,size_);
             return ret_;
         }
 
-        /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Bytes(GISharp.Runtime.CArray&lt;System.Byte&gt;?)']/*" />
+        /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Bytes(GISharp.Runtime.CArray&lt;byte&gt;?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public Bytes(GISharp.Runtime.CArray<System.Byte>? data) : this((System.IntPtr)NewTake(data), GISharp.Runtime.Transfer.Full)
+        public Bytes(GISharp.Runtime.CArray<byte>? data) : this((System.IntPtr)NewTake(data), GISharp.Runtime.Transfer.Full)
         {
         }
 
-        static partial void CheckNewWithFreeFuncArgs(System.ReadOnlySpan<System.Byte> data, GISharp.Lib.GLib.DestroyNotify freeFunc, System.IntPtr userData);
+        static partial void CheckNewWithFreeFuncArgs(System.ReadOnlySpan<byte> data, GISharp.Lib.GLib.DestroyNotify freeFunc, System.IntPtr userData);
 
         /// <summary>
         /// Creates a #GBytes from @data.
@@ -185,7 +185,7 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.Byte* data,
+        byte* data,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint size,
@@ -224,7 +224,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_bytes_compare(
+        private static extern int g_bytes_compare(
         /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes1,
@@ -234,13 +234,13 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Compare(GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.Bytes)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public static System.Int32 Compare(GISharp.Lib.GLib.Bytes bytes1, GISharp.Lib.GLib.Bytes bytes2)
+        public static int Compare(GISharp.Lib.GLib.Bytes bytes1, GISharp.Lib.GLib.Bytes bytes2)
         {
             CheckCompareArgs(bytes1, bytes2);
             var bytes1_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)bytes1.UnsafeHandle;
             var bytes2_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)bytes2.UnsafeHandle;
             var ret_ = g_bytes_compare(bytes1_,bytes2_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -377,7 +377,7 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern System.Byte* g_bytes_get_data(
+        private static extern byte* g_bytes_get_data(
         /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes,
@@ -387,13 +387,13 @@ namespace GISharp.Lib.GLib
         partial void CheckGetDataArgs();
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        private System.ReadOnlySpan<System.Byte> GetData()
+        private System.ReadOnlySpan<byte> GetData()
         {
             CheckGetDataArgs();
             var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)UnsafeHandle;
             nuint size_;
             var ret_ = g_bytes_get_data(bytes_,&size_);
-            var ret = new System.ReadOnlySpan<System.Byte>(ret_, (int)size_);
+            var ret = new System.ReadOnlySpan<byte>(ret_, (int)size_);
             return ret;
         }
 
@@ -420,12 +420,12 @@ namespace GISharp.Lib.GLib
         partial void CheckGetSizeArgs();
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        private System.Int32 GetSize()
+        private int GetSize()
         {
             CheckGetSizeArgs();
             var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_bytes_get_size(bytes_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -446,7 +446,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 g_bytes_hash(
+        private static extern uint g_bytes_hash(
         /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes);
@@ -503,11 +503,11 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint length);
-        partial void CheckNewFromBytesArgs(System.Int32 offset, System.Int32 length);
+        partial void CheckNewFromBytesArgs(int offset, int length);
 
-        /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.NewFromBytes(System.Int32,System.Int32)']/*" />
+        /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.NewFromBytes(int,int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public GISharp.Lib.GLib.Bytes NewFromBytes(System.Int32 offset, System.Int32 length)
+        public GISharp.Lib.GLib.Bytes NewFromBytes(int offset, int length)
         {
             CheckNewFromBytesArgs(offset, length);
             var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)UnsafeHandle;
@@ -634,7 +634,7 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_bytes_unref_to_data(
+        private static extern byte* g_bytes_unref_to_data(
         /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes,
@@ -645,13 +645,13 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.UnrefToData()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public GISharp.Runtime.CArray<System.Byte> UnrefToData()
+        public GISharp.Runtime.CArray<byte> UnrefToData()
         {
             CheckUnrefToDataArgs();
             var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)Take();
             nuint size_;
             var ret_ = g_bytes_unref_to_data(bytes_,&size_);
-            var ret = new GISharp.Runtime.CArray<System.Byte>((System.IntPtr)ret_, (int)size_, GISharp.Runtime.Transfer.Full);
+            var ret = new GISharp.Runtime.CArray<byte>((System.IntPtr)ret_, (int)size_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
     }

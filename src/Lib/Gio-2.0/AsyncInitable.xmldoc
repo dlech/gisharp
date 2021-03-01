@@ -1,6 +1,6 @@
 <declaration>
 
-<member name='IAsyncInitable.NewAsync(GISharp.Lib.GObject.GType,System.UInt32,GISharp.Lib.GObject.Parameter,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IAsyncInitable.NewAsync(GISharp.Lib.GObject.GType,uint,GISharp.Lib.GObject.Parameter,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Helper function for constructing <see cref="IAsyncInitable"/> object. This is
 similar to g_object_newv() but also initializes the object asynchronously.
@@ -22,7 +22,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='IAsyncInitable.DoInitAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IAsyncInitable.DoInitAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Starts asynchronous initialization of the object implementing the
 interface. This must be done before any real use of the object after
@@ -76,7 +76,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 <member name='IAsyncInitable.DoInitFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes asynchronous initialization and returns the result.
-See <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+See <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>.
@@ -99,7 +99,7 @@ Users of objects implementing this are not intended to use the interface
 method directly; instead it will be used automatically in various ways.
 For C applications you generally just call g_async_initable_new_async()
 directly, or indirectly via a foo_thing_new_async() wrapper. This will call
-<see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/> under the cover, calling back with <c>null</c> and
+<see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,int,GISharp.Lib.Gio.Cancellable)"/> under the cover, calling back with <c>null</c> and
 a set %GError on failure.
 
 A typical implementation might look something like this:
@@ -191,7 +191,7 @@ foo_async_initable_iface_init (gpointer g_iface,
 </remarks>
 </member>
 
-<member name='AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Starts asynchronous initialization of the object implementing the
 interface. This must be done before any real use of the object after

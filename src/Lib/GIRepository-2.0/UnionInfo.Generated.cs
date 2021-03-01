@@ -14,22 +14,22 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.Alignment']/*" />
-        public System.Int32 Alignment { get => GetAlignment(); }
+        public int Alignment { get => GetAlignment(); }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.DiscriminatorOffset']/*" />
-        public System.Int32 DiscriminatorOffset { get => GetDiscriminatorOffset(); }
+        public int DiscriminatorOffset { get => GetDiscriminatorOffset(); }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.DiscriminatorType']/*" />
         public GISharp.Lib.GIRepository.TypeInfo DiscriminatorType { get => GetDiscriminatorType(); }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.NFields']/*" />
-        private System.Int32 NFields { get => GetNFields(); }
+        private int NFields { get => GetNFields(); }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.NMethods']/*" />
-        private System.Int32 NMethods { get => GetNMethods(); }
+        private int NMethods { get => GetNMethods(); }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.Size']/*" />
-        public System.Int32 Size { get => GetSize(); }
+        public int Size { get => GetSize(); }
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.IsDiscriminated']/*" />
         public System.Boolean IsDiscriminated { get => GetIsDiscriminated(); }
@@ -64,7 +64,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
         partial void CheckFindMethodArgs(GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -72,7 +72,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckFindMethodArgs(name);
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_union_info_find_method(info_,name_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -96,12 +96,12 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetAlignmentArgs();
 
-        private System.Int32 GetAlignment()
+        private int GetAlignment()
         {
             CheckGetAlignmentArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_alignment(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -129,15 +129,15 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n);
-        partial void CheckGetDiscriminatorArgs(System.Int32 n);
+        int n);
+        partial void CheckGetDiscriminatorArgs(int n);
 
-        /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.GetDiscriminator(System.Int32)']/*" />
-        public GISharp.Lib.GIRepository.ConstantInfo GetDiscriminator(System.Int32 n)
+        /// <include file="UnionInfo.xmldoc" path="declaration/member[@name='UnionInfo.GetDiscriminator(int)']/*" />
+        public GISharp.Lib.GIRepository.ConstantInfo GetDiscriminator(int n)
         {
             CheckGetDiscriminatorArgs(n);
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
-            var n_ = (System.Int32)n;
+            var n_ = (int)n;
             var ret_ = g_union_info_get_discriminator(info_,n_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.ConstantInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -155,18 +155,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_union_info_get_discriminator_offset(
+        private static extern int g_union_info_get_discriminator_offset(
         /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetDiscriminatorOffsetArgs();
 
-        private System.Int32 GetDiscriminatorOffset()
+        private int GetDiscriminatorOffset()
         {
             CheckGetDiscriminatorOffsetArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_discriminator_offset(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -220,14 +220,14 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n);
-        partial void CheckGetFieldArgs(System.Int32 n);
+        int n);
+        partial void CheckGetFieldArgs(int n);
 
-        private GISharp.Lib.GIRepository.FieldInfo GetField(System.Int32 n)
+        private GISharp.Lib.GIRepository.FieldInfo GetField(int n)
         {
             CheckGetFieldArgs(n);
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
-            var n_ = (System.Int32)n;
+            var n_ = (int)n;
             var ret_ = g_union_info_get_field(info_,n_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.FieldInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -255,14 +255,14 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n);
-        partial void CheckGetMethodArgs(System.Int32 n);
+        int n);
+        partial void CheckGetMethodArgs(int n);
 
-        private GISharp.Lib.GIRepository.FunctionInfo GetMethod(System.Int32 n)
+        private GISharp.Lib.GIRepository.FunctionInfo GetMethod(int n)
         {
             CheckGetMethodArgs(n);
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
-            var n_ = (System.Int32)n;
+            var n_ = (int)n;
             var ret_ = g_union_info_get_method(info_,n_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -280,18 +280,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_union_info_get_n_fields(
+        private static extern int g_union_info_get_n_fields(
         /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetNFieldsArgs();
 
-        private System.Int32 GetNFields()
+        private int GetNFields()
         {
             CheckGetNFieldsArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_n_fields(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -307,18 +307,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_union_info_get_n_methods(
+        private static extern int g_union_info_get_n_methods(
         /* <type name="UnionInfo" type="GIUnionInfo*" managed-name="UnionInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetNMethodsArgs();
 
-        private System.Int32 GetNMethods()
+        private int GetNMethods()
         {
             CheckGetNMethodsArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_n_methods(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -340,12 +340,12 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct* info);
         partial void CheckGetSizeArgs();
 
-        private System.Int32 GetSize()
+        private int GetSize()
         {
             CheckGetSizeArgs();
             var info_ = (GISharp.Lib.GIRepository.UnionInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_union_info_get_size(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 

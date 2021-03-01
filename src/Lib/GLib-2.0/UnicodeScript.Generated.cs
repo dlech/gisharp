@@ -419,7 +419,7 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public static unsafe partial class UnicodeScriptExtensions
     {
-        static partial void CheckFromIso15924Args(System.UInt32 iso15924);
+        static partial void CheckFromIso15924Args(uint iso15924);
 
         /// <summary>
         /// Looks up the Unicode script for @iso15924.  ISO 15924 assigns four-letter
@@ -448,14 +448,14 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.UnicodeScript g_unicode_script_from_iso15924(
         /* <type name="guint32" type="guint32" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 iso15924);
+        uint iso15924);
 
-        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScriptExtensions.FromIso15924(System.UInt32)']/*" />
+        /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScriptExtensions.FromIso15924(uint)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static GISharp.Lib.GLib.UnicodeScript FromIso15924(System.UInt32 iso15924)
+        public static GISharp.Lib.GLib.UnicodeScript FromIso15924(uint iso15924)
         {
             CheckFromIso15924Args(iso15924);
-            var iso15924_ = (System.UInt32)iso15924;
+            var iso15924_ = (uint)iso15924;
             var ret_ = g_unicode_script_from_iso15924(iso15924_);
             var ret = (GISharp.Lib.GLib.UnicodeScript)ret_;
             return ret;
@@ -485,7 +485,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint32" type="guint32" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 g_unicode_script_to_iso15924(
+        private static extern uint g_unicode_script_to_iso15924(
         /* <type name="UnicodeScript" type="GUnicodeScript" managed-name="UnicodeScript" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.UnicodeScript script);
@@ -493,12 +493,12 @@ namespace GISharp.Lib.GLib
 
         /// <include file="UnicodeScript.xmldoc" path="declaration/member[@name='UnicodeScriptExtensions.ToIso15924(GISharp.Lib.GLib.UnicodeScript)']/*" />
         [GISharp.Runtime.SinceAttribute("2.30")]
-        public static System.UInt32 ToIso15924(this GISharp.Lib.GLib.UnicodeScript script)
+        public static uint ToIso15924(this GISharp.Lib.GLib.UnicodeScript script)
         {
             CheckToIso15924Args(script);
             var script_ = (GISharp.Lib.GLib.UnicodeScript)script;
             var ret_ = g_unicode_script_to_iso15924(script_);
-            var ret = (System.UInt32)ret_;
+            var ret = (uint)ret_;
             return ret;
         }
     }

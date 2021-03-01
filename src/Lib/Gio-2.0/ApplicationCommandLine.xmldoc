@@ -73,7 +73,7 @@ in the value of a single environment variable.
 <member name='ApplicationCommandLine.ExitStatus'>
 <summary>
 Gets the exit status of this instance.  See
-<see cref="ApplicationCommandLine.SetExitStatus(System.Int32)"/> for more information.
+<see cref="ApplicationCommandLine.SetExitStatus(int)"/> for more information.
 </summary>
 </member>
 

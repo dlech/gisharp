@@ -9,7 +9,7 @@ This method is intended for language bindings. If writing in C,
 g_initable_new() should typically be used instead.
 
 The object must be initialized before any real use after initial
-construction, either with this function or <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+construction, either with this function or <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,int,GISharp.Lib.Gio.Cancellable)"/>.
 
 Implementations may also support cancellation. If <paramref name="cancellable"/> is not <c>null</c>,
 then initialization can be cancelled by triggering the cancellable object
@@ -59,7 +59,7 @@ On error
 <see cref="IInitable"/> is implemented by objects that can fail during
 initialization. If an object implements this interface then
 it must be initialized as the first thing after construction,
-either via <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> or <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>
+either via <see cref="Initable.Init(GISharp.Lib.Gio.IInitable,GISharp.Lib.Gio.Cancellable)"/> or <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,int,GISharp.Lib.Gio.Cancellable)"/>
 (the latter is only available if it also implements <see cref="IAsyncInitable"/>).
 </summary>
 <remarks>
@@ -93,7 +93,7 @@ This method is intended for language bindings. If writing in C,
 g_initable_new() should typically be used instead.
 
 The object must be initialized before any real use after initial
-construction, either with this function or <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+construction, either with this function or <see cref="AsyncInitable.InitAsync(GISharp.Lib.Gio.IAsyncInitable,int,GISharp.Lib.Gio.Cancellable)"/>.
 
 Implementations may also support cancellation. If <paramref name="cancellable"/> is not <c>null</c>,
 then initialization can be cancelled by triggering the cancellable object

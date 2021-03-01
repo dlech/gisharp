@@ -19,7 +19,7 @@ namespace GISharp.Lib.Gio
             public readonly GISharp.Lib.Gio.FileAttributeInfo* Infos;
 
             /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='UnmanagedStruct.NInfos']/*" />
-            public readonly System.Int32 NInfos;
+            public readonly int NInfos;
 #pragma warning restore CS0169, CS0649
         }
 
@@ -91,7 +91,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct* list,
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name,
+        byte* name,
         /* <type name="FileAttributeType" type="GFileAttributeType" managed-name="FileAttributeType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileAttributeType type,
@@ -105,7 +105,7 @@ namespace GISharp.Lib.Gio
         {
             CheckAddArgs(name, type, flags);
             var list_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var type_ = (GISharp.Lib.Gio.FileAttributeType)type;
             var flags_ = (GISharp.Lib.Gio.FileAttributeInfoFlags)flags;
             g_file_attribute_info_list_add(list_, name_, type_, flags_);
@@ -161,7 +161,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct* list,
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
         partial void CheckLookupArgs(GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <include file="FileAttributeInfoList.xmldoc" path="declaration/member[@name='FileAttributeInfoList.Lookup(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -169,7 +169,7 @@ namespace GISharp.Lib.Gio
         {
             CheckLookupArgs(name);
             var list_ = (GISharp.Lib.Gio.FileAttributeInfoList.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_file_attribute_info_list_lookup(list_,name_);
             ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.Gio.FileAttributeInfo>(ret_);
             return ref ret;

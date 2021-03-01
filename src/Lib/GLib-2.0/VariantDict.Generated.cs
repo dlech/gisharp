@@ -103,7 +103,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* key);
+        byte* key);
         partial void CheckContainsArgs(GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Contains(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -112,7 +112,7 @@ namespace GISharp.Lib.GLib
         {
             CheckContainsArgs(key);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
-            var key_ = (System.Byte*)key.UnsafeHandle;
+            var key_ = (byte*)key.UnsafeHandle;
             var ret_ = g_variant_dict_contains(dict_,key_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -180,7 +180,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* key,
+        byte* key,
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
@@ -192,7 +192,7 @@ namespace GISharp.Lib.GLib
         {
             CheckInsertArgs(key, value);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
-            var key_ = (System.Byte*)key.UnsafeHandle;
+            var key_ = (byte*)key.UnsafeHandle;
             var value_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)value.UnsafeHandle;
             g_variant_dict_insert_value(dict_, key_, value_);
         }
@@ -233,7 +233,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* key,
+        byte* key,
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* expectedType);
@@ -245,7 +245,7 @@ namespace GISharp.Lib.GLib
         {
             CheckLookupArgs(key, expectedType);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
-            var key_ = (System.Byte*)key.UnsafeHandle;
+            var key_ = (byte*)key.UnsafeHandle;
             var expectedType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(expectedType?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_variant_dict_lookup_value(dict_,key_,expectedType_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
@@ -302,7 +302,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.VariantDict.UnmanagedStruct* dict,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* key);
+        byte* key);
         partial void CheckRemoveArgs(GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="VariantDict.xmldoc" path="declaration/member[@name='VariantDict.Remove(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -311,7 +311,7 @@ namespace GISharp.Lib.GLib
         {
             CheckRemoveArgs(key);
             var dict_ = (GISharp.Lib.GLib.VariantDict.UnmanagedStruct*)UnsafeHandle;
-            var key_ = (System.Byte*)key.UnsafeHandle;
+            var key_ = (byte*)key.UnsafeHandle;
             var ret_ = g_variant_dict_remove(dict_,key_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;

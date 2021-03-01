@@ -12,7 +12,7 @@ namespace GISharp.Lib.GLib
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gint" type="gint" managed-name="System.Int32" /> */
     /* transfer-ownership:none direction:in */
-    public unsafe delegate System.Int32 UnmanagedCompareDataFunc(
+    public unsafe delegate int UnmanagedCompareDataFunc(
     /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr a,
@@ -24,7 +24,7 @@ namespace GISharp.Lib.GLib
     System.IntPtr userData);
 
     /// <include file="CompareDataFunc.xmldoc" path="declaration/member[@name='CompareDataFunc']/*" />
-    public delegate System.Int32 CompareDataFunc(System.IntPtr a, System.IntPtr b);
+    public delegate int CompareDataFunc(System.IntPtr a, System.IntPtr b);
 
     /// <summary>
     /// Class for marshalling <see cref="CompareDataFunc"/> methods.
@@ -49,7 +49,7 @@ namespace GISharp.Lib.GLib
         public static GISharp.Lib.GLib.CompareDataFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedCompareDataFunc>(callback_);
-            System.Int32 managedCallback(System.IntPtr a, System.IntPtr b) { var a_ = (System.IntPtr)a; var b_ = (System.IntPtr)b; var ret_ = unmanagedCallback(a_,b_,userData_); var ret = (System.Int32)ret_; return ret; }
+            int managedCallback(System.IntPtr a, System.IntPtr b) { var a_ = (System.IntPtr)a; var b_ = (System.IntPtr)b; var ret_ = unmanagedCallback(a_,b_,userData_); var ret = (int)ret_; return ret; }
 
             return managedCallback;
         }
@@ -84,7 +84,7 @@ namespace GISharp.Lib.GLib
             return (callback_, destroy_, userData_);
         }
 
-        static System.Int32 UnmanagedCallback(System.IntPtr a_, System.IntPtr b_, System.IntPtr userData_)
+        static int UnmanagedCallback(System.IntPtr a_, System.IntPtr b_, System.IntPtr userData_)
         {
             try
             {
@@ -97,7 +97,7 @@ namespace GISharp.Lib.GLib
                 {
                     Destroy(userData_);
                 }
-                var ret_ = (System.Int32)ret;
+                var ret_ = (int)ret;
                 return ret_;
             }
             catch (System.Exception ex)
@@ -105,7 +105,7 @@ namespace GISharp.Lib.GLib
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
 
-            return default(System.Int32);
+            return default(int);
         }
 
         static readonly GISharp.Lib.GLib.UnmanagedCompareDataFunc UnmanagedCallbackDelegate = UnmanagedCallback;

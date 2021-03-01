@@ -98,7 +98,7 @@ The value of the attribute, or <c>null</c> if no such attribute exists
 <summary>
 GIBaseInfo is the common base struct of all other *Info structs
 accessible through the <see cref="Repository"/> API.
-<see cref="Repository.FindByName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Lib.GObject.GType)"/> or <see cref="Repository.GetInfo(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/>.
+<see cref="Repository.FindByName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Lib.GObject.GType)"/> or <see cref="Repository.GetInfo(GISharp.Lib.GLib.UnownedUtf8,int)"/>.
 </summary>
 </member>
 

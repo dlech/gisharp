@@ -43,20 +43,20 @@ namespace GISharp.Lib.Gio
     GISharp.Runtime.Boolean reporting,
     /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
     /* transfer-ownership:none direction:in */
-    System.UInt64 currentSize,
+    ulong currentSize,
     /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
     /* transfer-ownership:none direction:in */
-    System.UInt64 numDirs,
+    ulong numDirs,
     /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
     /* transfer-ownership:none direction:in */
-    System.UInt64 numFiles,
+    ulong numFiles,
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:4 direction:in */
     System.IntPtr userData);
 
     /// <include file="FileMeasureProgressCallback.xmldoc" path="declaration/member[@name='FileMeasureProgressCallback']/*" />
     [GISharp.Runtime.SinceAttribute("2.38")]
-    public delegate void FileMeasureProgressCallback(System.Boolean reporting, System.UInt64 currentSize, System.UInt64 numDirs, System.UInt64 numFiles);
+    public delegate void FileMeasureProgressCallback(System.Boolean reporting, ulong currentSize, ulong numDirs, ulong numFiles);
 
     /// <summary>
     /// Class for marshalling <see cref="FileMeasureProgressCallback"/> methods.
@@ -81,7 +81,7 @@ namespace GISharp.Lib.Gio
         public static GISharp.Lib.Gio.FileMeasureProgressCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback>(callback_);
-            void managedCallback(System.Boolean reporting, System.UInt64 currentSize, System.UInt64 numDirs, System.UInt64 numFiles) { var reporting_ = GISharp.Runtime.BooleanExtensions.ToBoolean(reporting); var currentSize_ = (System.UInt64)currentSize; var numDirs_ = (System.UInt64)numDirs; var numFiles_ = (System.UInt64)numFiles; unmanagedCallback(reporting_, currentSize_, numDirs_, numFiles_, userData_); }
+            void managedCallback(System.Boolean reporting, ulong currentSize, ulong numDirs, ulong numFiles) { var reporting_ = GISharp.Runtime.BooleanExtensions.ToBoolean(reporting); var currentSize_ = (ulong)currentSize; var numDirs_ = (ulong)numDirs; var numFiles_ = (ulong)numFiles; unmanagedCallback(reporting_, currentSize_, numDirs_, numFiles_, userData_); }
 
             return managedCallback;
         }
@@ -116,14 +116,14 @@ namespace GISharp.Lib.Gio
             return (callback_, destroy_, userData_);
         }
 
-        static void UnmanagedCallback(GISharp.Runtime.Boolean reporting_, System.UInt64 currentSize_, System.UInt64 numDirs_, System.UInt64 numFiles_, System.IntPtr userData_)
+        static void UnmanagedCallback(GISharp.Runtime.Boolean reporting_, ulong currentSize_, ulong numDirs_, ulong numFiles_, System.IntPtr userData_)
         {
             try
             {
                 var reporting = GISharp.Runtime.BooleanExtensions.IsTrue(reporting_);
-                var currentSize = (System.UInt64)currentSize_;
-                var numDirs = (System.UInt64)numDirs_;
-                var numFiles = (System.UInt64)numFiles_;
+                var currentSize = (ulong)currentSize_;
+                var numDirs = (ulong)numDirs_;
+                var numFiles = (ulong)numFiles_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
                 var userData = (UserData)gcHandle.Target!;
                 userData.ManagedDelegate(reporting, currentSize, numDirs, numFiles);

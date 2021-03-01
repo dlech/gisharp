@@ -10,7 +10,7 @@ namespace GISharp.Lib.GObject
         /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.GType']/*" />
         public readonly GISharp.Lib.GObject.GType GType;
 #pragma warning restore CS0169, CS0649
-        static partial void CheckAdjustPrivateOffsetArgs(System.IntPtr gClass, System.Int32 privateSizeOrOffset);
+        static partial void CheckAdjustPrivateOffsetArgs(System.IntPtr gClass, int privateSizeOrOffset);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
@@ -20,10 +20,10 @@ namespace GISharp.Lib.GObject
 System.IntPtr gClass,
 /* <type name="gint" type="gint*" managed-name="System.Int32" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.Int32* privateSizeOrOffset);
+int* privateSizeOrOffset);
 
-        /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.AdjustPrivateOffset(System.IntPtr,System.Int32)']/*" />
-        public static void AdjustPrivateOffset(System.IntPtr gClass, System.Int32 privateSizeOrOffset)
+        /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.AdjustPrivateOffset(System.IntPtr,int)']/*" />
+        public static void AdjustPrivateOffset(System.IntPtr gClass, int privateSizeOrOffset)
         {
             CheckAdjustPrivateOffsetArgs(gClass, privateSizeOrOffset);
             var gClass_ = (System.IntPtr)gClass;
@@ -217,13 +217,13 @@ System.Int32* privateSizeOrOffset);
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint privateSize);
-        partial void CheckAddPrivateArgs(System.Int32 privateSize);
+        partial void CheckAddPrivateArgs(int privateSize);
 
-        /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.AddPrivate(System.Int32)']/*" />
+        /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.AddPrivate(int)']/*" />
         [System.ObsoleteAttribute("Use the G_ADD_PRIVATE() macro with the `G_DEFINE_*`\n  family of macros to add instance private data to a type")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.58")]
         [GISharp.Runtime.SinceAttribute("2.4")]
-        public void AddPrivate(System.Int32 privateSize)
+        public void AddPrivate(int privateSize)
         {
             fixed (GISharp.Lib.GObject.TypeClass* this_ = &this)
             {

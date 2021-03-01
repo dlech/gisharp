@@ -88,7 +88,7 @@ A <see cref="Argument"/> to fill in
 </param>
 </member>
 
-<member name='TypeInfo.GetParamType(System.Int32)'>
+<member name='TypeInfo.GetParamType(int)'>
 <summary>
 Obtain the parameter type <paramref name="n"/>.
 </summary>

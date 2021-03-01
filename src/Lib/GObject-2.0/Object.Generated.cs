@@ -20,7 +20,7 @@ namespace GISharp.Lib.GObject
             public readonly GISharp.Lib.GObject.TypeInstance GTypeInstance;
 
             /// <include file="Object.xmldoc" path="declaration/member[@name='UnmanagedStruct.RefCount']/*" />
-            private readonly System.UInt32 RefCount;
+            private readonly uint RefCount;
 
             /// <include file="Object.xmldoc" path="declaration/member[@name='UnmanagedStruct.Qdata']/*" />
             private readonly GISharp.Lib.GLib.Data.UnmanagedStruct* Qdata;
@@ -76,7 +76,7 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.GType objectType,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 nParameters,
+        uint nParameters,
         /* <array length="1" zero-terminated="0" type="GParameter*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="Parameter" type="GParameter" managed-name="Parameter" />
 * </array> */
@@ -92,7 +92,7 @@ namespace GISharp.Lib.GObject
                 CheckNewvArgs(objectType, parameters);
                 var objectType_ = (GISharp.Lib.GObject.GType)objectType;
                 var parameters_ = (GISharp.Lib.GObject.Parameter*)parametersData_;
-                var nParameters_ = (System.UInt32)parameters.Length;
+                var nParameters_ = (uint)parameters.Length;
                 var ret_ = g_object_newv(objectType_,nParameters_,parameters_);
                 return ret_;
             }
@@ -131,7 +131,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        static partial void CheckCompatControlArgs(System.Int32 what, System.IntPtr data);
+        static partial void CheckCompatControlArgs(int what, System.IntPtr data);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
@@ -143,14 +143,14 @@ nuint what,
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr data);
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.CompatControl(System.Int32,System.IntPtr)']/*" />
-        public static System.Int32 CompatControl(System.Int32 what, System.IntPtr data)
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.CompatControl(int,System.IntPtr)']/*" />
+        public static int CompatControl(int what, System.IntPtr data)
         {
             CheckCompatControlArgs(what, data);
             var what_ = (nuint)what;
             var data_ = (System.IntPtr)data;
             var ret_ = g_object_compat_control(what_,data_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -185,7 +185,7 @@ System.IntPtr data);
         GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* gIface,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* propertyName);
+        byte* propertyName);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.InterfaceFindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
@@ -193,7 +193,7 @@ System.IntPtr data);
         {
             CheckInterfaceFindPropertyArgs(gIface, propertyName);
             var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;
-            var propertyName_ = (System.Byte*)propertyName.UnsafeHandle;
+            var propertyName_ = (byte*)propertyName.UnsafeHandle;
             var ret_ = g_object_interface_find_property(gIface_,propertyName_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -284,7 +284,7 @@ System.IntPtr data);
         GISharp.Lib.GObject.TypeInterface.UnmanagedStruct* gIface,
         /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
-        System.UInt32* nPropertiesP);
+        uint* nPropertiesP);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.InterfaceListProperties(GISharp.Lib.GObject.TypeInterface)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
@@ -292,7 +292,7 @@ System.IntPtr data);
         {
             CheckInterfaceListPropertiesArgs(gIface);
             var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;
-            System.UInt32 nPropertiesP_;
+            uint nPropertiesP_;
             var ret_ = g_object_interface_list_properties(gIface_,&nPropertiesP_);
             var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, (int)nPropertiesP_, GISharp.Runtime.Transfer.Container);
             return ret;
@@ -359,13 +359,13 @@ System.IntPtr data);
         GISharp.Lib.GObject.Object.UnmanagedStruct* source,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* sourceProperty,
+        byte* sourceProperty,
         /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* target,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* targetProperty,
+        byte* targetProperty,
         /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.BindingFlags flags);
@@ -377,9 +377,9 @@ System.IntPtr data);
         {
             CheckBindPropertyArgs(sourceProperty, target, targetProperty, flags);
             var source_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var sourceProperty_ = (System.Byte*)sourceProperty.UnsafeHandle;
+            var sourceProperty_ = (byte*)sourceProperty.UnsafeHandle;
             var target_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)target.UnsafeHandle;
-            var targetProperty_ = (System.Byte*)targetProperty.UnsafeHandle;
+            var targetProperty_ = (byte*)targetProperty.UnsafeHandle;
             var flags_ = (GISharp.Lib.GObject.BindingFlags)flags;
             var ret_ = g_object_bind_property(source_,sourceProperty_,target_,targetProperty_,flags_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Binding>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
@@ -434,13 +434,13 @@ System.IntPtr data);
         GISharp.Lib.GObject.Object.UnmanagedStruct* source,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* sourceProperty,
+        byte* sourceProperty,
         /* <type name="Object" type="gpointer" managed-name="Object" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* target,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* targetProperty,
+        byte* targetProperty,
         /* <type name="BindingFlags" type="GBindingFlags" managed-name="BindingFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.BindingFlags flags,
@@ -458,9 +458,9 @@ System.IntPtr data);
         {
             CheckBindPropertyFullArgs(sourceProperty, target, targetProperty, flags, transformTo, transformFrom);
             var source_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var sourceProperty_ = (System.Byte*)sourceProperty.UnsafeHandle;
+            var sourceProperty_ = (byte*)sourceProperty.UnsafeHandle;
             var target_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)target.UnsafeHandle;
-            var targetProperty_ = (System.Byte*)targetProperty.UnsafeHandle;
+            var targetProperty_ = (byte*)targetProperty.UnsafeHandle;
             var flags_ = (GISharp.Lib.GObject.BindingFlags)flags;
             var transformTo_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)transformTo.UnsafeHandle;
             var transformFrom_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)transformFrom.UnsafeHandle;
@@ -551,7 +551,7 @@ System.IntPtr data);
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* key);
+        byte* key);
         partial void CheckGetDataArgs(GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.GetData(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -559,7 +559,7 @@ System.IntPtr data);
         {
             CheckGetDataArgs(key);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var key_ = (System.Byte*)key.UnsafeHandle;
+            var key_ = (byte*)key.UnsafeHandle;
             var ret_ = g_object_get_data(@object_,key_);
             var ret = (System.IntPtr)ret_;
             return ret;
@@ -602,7 +602,7 @@ System.IntPtr data);
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* propertyName,
+        byte* propertyName,
         /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
@@ -613,7 +613,7 @@ System.IntPtr data);
         {
             CheckGetPropertyArgs(propertyName, value);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var propertyName_ = (System.Byte*)propertyName.UnsafeHandle;
+            var propertyName_ = (byte*)propertyName.UnsafeHandle;
             var value_ = &value;
             g_object_get_property(@object_, propertyName_, value_);
         }
@@ -682,12 +682,12 @@ System.IntPtr data);
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 nProperties,
+        uint nProperties,
         /* <array length="0" zero-terminated="0" type="const gchar**" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
-        System.Byte** names,
+        byte** names,
         /* <array length="0" zero-terminated="0" type="GValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="Value" type="GValue" managed-name="Value" />
 * </array> */
@@ -705,10 +705,10 @@ System.IntPtr data);
                 {
                     CheckGetvArgs(names, values);
                     var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-                    var names_ = (System.Byte**)namesData_;
-                    var nProperties_ = (System.UInt32)names.Length;
+                    var names_ = (byte**)namesData_;
+                    var nProperties_ = (uint)names.Length;
                     var values_ = (GISharp.Lib.GObject.Value*)valuesData_;
-                    var nProperties_ = (System.UInt32)values.Length;
+                    var nProperties_ = (uint)values.Length;
                     g_object_getv(@object_, nProperties_, names_, values_);
                 }
             }
@@ -771,7 +771,7 @@ System.IntPtr data);
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* propertyName);
+        byte* propertyName);
         partial void CheckNotifyArgs(GISharp.Lib.GLib.UnownedUtf8 propertyName);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.Notify(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -779,7 +779,7 @@ System.IntPtr data);
         {
             CheckNotifyArgs(propertyName);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var propertyName_ = (System.Byte*)propertyName.UnsafeHandle;
+            var propertyName_ = (byte*)propertyName.UnsafeHandle;
             g_object_notify(@object_, propertyName_);
         }
 
@@ -981,7 +981,7 @@ System.IntPtr data);
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* key,
+        byte* key,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
@@ -992,7 +992,7 @@ System.IntPtr data);
         {
             CheckSetDataArgs(key, data);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var key_ = (System.Byte*)key.UnsafeHandle;
+            var key_ = (byte*)key.UnsafeHandle;
             var data_ = (System.IntPtr)data;
             g_object_set_data(@object_, key_, data_);
         }
@@ -1018,7 +1018,7 @@ System.IntPtr data);
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* propertyName,
+        byte* propertyName,
         /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Value* value);
@@ -1029,7 +1029,7 @@ System.IntPtr data);
         {
             CheckSetPropertyArgs(propertyName, value);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var propertyName_ = (System.Byte*)propertyName.UnsafeHandle;
+            var propertyName_ = (byte*)propertyName.UnsafeHandle;
             var value_ = &value;
             g_object_set_property(@object_, propertyName_, value_);
         }
@@ -1057,7 +1057,7 @@ System.IntPtr data);
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* key);
+        byte* key);
         partial void CheckStealDataArgs(GISharp.Lib.GLib.UnownedUtf8 key);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.StealData(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -1065,7 +1065,7 @@ System.IntPtr data);
         {
             CheckStealDataArgs(key);
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var key_ = (System.Byte*)key.UnsafeHandle;
+            var key_ = (byte*)key.UnsafeHandle;
             var ret_ = g_object_steal_data(@object_,key_);
             var ret = (System.IntPtr)ret_;
             return ret;
@@ -1251,12 +1251,12 @@ System.IntPtr data);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedConstructed>(_GType)!(@object_);
         }
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoDispatchPropertiesChanged(System.UInt32,GISharp.Lib.GObject.ParamSpec)']/*" />
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoDispatchPropertiesChanged(uint,GISharp.Lib.GObject.ParamSpec)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ObjectClass.UnmanagedDispatchPropertiesChanged))]
-        protected virtual void DoDispatchPropertiesChanged(System.UInt32 nPspecs, GISharp.Lib.GObject.ParamSpec pspecs)
+        protected virtual void DoDispatchPropertiesChanged(uint nPspecs, GISharp.Lib.GObject.ParamSpec pspecs)
         {
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var nPspecs_ = (System.UInt32)nPspecs;
+            var nPspecs_ = (uint)nPspecs;
             var pspecs_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspecs.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedDispatchPropertiesChanged>(_GType)!(@object_, nPspecs_, pspecs_);
         }
@@ -1277,12 +1277,12 @@ System.IntPtr data);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedFinalize>(_GType)!(@object_);
         }
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoGetProperty(System.UInt32,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)']/*" />
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoGetProperty(uint,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ObjectClass.UnmanagedGetProperty))]
-        protected virtual void DoGetProperty(System.UInt32 propertyId, GISharp.Lib.GObject.Value value, GISharp.Lib.GObject.ParamSpec pspec)
+        protected virtual void DoGetProperty(uint propertyId, GISharp.Lib.GObject.Value value, GISharp.Lib.GObject.ParamSpec pspec)
         {
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var propertyId_ = (System.UInt32)propertyId;
+            var propertyId_ = (uint)propertyId;
             var value_ = &value;
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedGetProperty>(_GType)!(@object_, propertyId_, value_, pspec_);
@@ -1297,12 +1297,12 @@ System.IntPtr data);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedNotify>(_GType)!(@object_, pspec_);
         }
 
-        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoSetProperty(System.UInt32,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)']/*" />
+        /// <include file="Object.xmldoc" path="declaration/member[@name='Object.DoSetProperty(uint,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ObjectClass.UnmanagedSetProperty))]
-        protected virtual void DoSetProperty(System.UInt32 propertyId, GISharp.Lib.GObject.Value value, GISharp.Lib.GObject.ParamSpec pspec)
+        protected virtual void DoSetProperty(uint propertyId, GISharp.Lib.GObject.Value value, GISharp.Lib.GObject.ParamSpec pspec)
         {
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)UnsafeHandle;
-            var propertyId_ = (System.UInt32)propertyId;
+            var propertyId_ = (uint)propertyId;
             var value_ = &value;
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ObjectClass.UnmanagedSetProperty>(_GType)!(@object_, propertyId_, value_, pspec_);

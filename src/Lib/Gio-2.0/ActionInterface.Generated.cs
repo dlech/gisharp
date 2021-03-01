@@ -71,7 +71,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate System.Byte* UnmanagedGetName(
+        public unsafe delegate byte* UnmanagedGetName(
 /* <type name="Action" type="GAction*" managed-name="Action" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Action.UnmanagedStruct* action);
@@ -86,7 +86,7 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
             /// </summary>
             public static UnmanagedGetName Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Byte* unmanagedGetName(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetName = (GetName)methodInfo.CreateDelegate(typeof(GetName), action); var ret = doGetName(); var ret_ = (System.Byte*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Byte*); }
+                byte* unmanagedGetName(GISharp.Lib.Gio.Action.UnmanagedStruct* action_) { try { var action = (GISharp.Lib.Gio.IAction)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)action_, GISharp.Runtime.Transfer.None)!; var doGetName = (GetName)methodInfo.CreateDelegate(typeof(GetName), action); var ret = doGetName(); var ret_ = (byte*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(byte*); }
 
                 return unmanagedGetName;
             }

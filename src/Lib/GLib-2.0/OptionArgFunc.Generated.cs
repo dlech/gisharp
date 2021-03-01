@@ -13,10 +13,10 @@ namespace GISharp.Lib.GLib
     public unsafe delegate GISharp.Runtime.Boolean UnmanagedOptionArgFunc(
     /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    System.Byte* optionName,
+    byte* optionName,
     /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    System.Byte* value,
+    byte* value,
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:2 direction:in */
     System.IntPtr data,
@@ -51,7 +51,7 @@ namespace GISharp.Lib.GLib
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionArgFunc>(callback_);
             var data_ = userData_;
-            void managedCallback(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value) { var optionName_ = (System.Byte*)optionName.UnsafeHandle; var value_ = (System.Byte*)value.UnsafeHandle; var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*); unmanagedCallback(optionName_, value_, data_, &error_); if (error_ is not null) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
+            void managedCallback(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value) { var optionName_ = (byte*)optionName.UnsafeHandle; var value_ = (byte*)value.UnsafeHandle; var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*); unmanagedCallback(optionName_, value_, data_, &error_); if (error_ is not null) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
             return managedCallback;
         }
@@ -86,7 +86,7 @@ namespace GISharp.Lib.GLib
             return (callback_, destroy_, userData_);
         }
 
-        static GISharp.Runtime.Boolean UnmanagedCallback(System.Byte* optionName_, System.Byte* value_, System.IntPtr data_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_)
+        static GISharp.Runtime.Boolean UnmanagedCallback(byte* optionName_, byte* value_, System.IntPtr data_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_)
         {
             try
             {

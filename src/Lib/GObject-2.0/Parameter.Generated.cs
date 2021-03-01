@@ -8,7 +8,7 @@ namespace GISharp.Lib.GObject
     {
 #pragma warning disable CS0169, CS0649
         /// <include file="Parameter.xmldoc" path="declaration/member[@name='Parameter.Name']/*" />
-        public readonly System.Byte* Name;
+        public readonly byte* Name;
 
         /// <include file="Parameter.xmldoc" path="declaration/member[@name='Parameter.Value']/*" />
         public readonly GISharp.Lib.GObject.Value Value;

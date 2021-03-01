@@ -28,7 +28,7 @@ namespace GISharp.Lib.Gio
         public static GISharp.Lib.Gio.Cancellable? Current { get => GetCurrent(); }
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Fd']/*" />
-        public System.Int32 Fd { get => GetFd(); }
+        public int Fd { get => GetFd(); }
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.IsCancelled']/*" />
         public System.Boolean IsCancelled { get => GetIsCancelled(); }
@@ -306,18 +306,18 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_cancellable_get_fd(
+        private static extern int g_cancellable_get_fd(
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
         partial void CheckGetFdArgs();
 
-        private System.Int32 GetFd()
+        private int GetFd()
         {
             CheckGetFdArgs();
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_cancellable_get_fd(cancellable_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 

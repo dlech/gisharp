@@ -20,7 +20,7 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GIRepository.FunctionInfo Invoker { get => GetInvoker(); }
 
         /// <include file="VFuncInfo.xmldoc" path="declaration/member[@name='VFuncInfo.Offset']/*" />
-        public System.Int32 Offset { get => GetOffset(); }
+        public int Offset { get => GetOffset(); }
 
         /// <include file="VFuncInfo.xmldoc" path="declaration/member[@name='VFuncInfo.Signal']/*" />
         public GISharp.Lib.GIRepository.SignalInfo Signal { get => GetSignal(); }
@@ -155,18 +155,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_vfunc_info_get_offset(
+        private static extern int g_vfunc_info_get_offset(
         /* <type name="VFuncInfo" type="GIVFuncInfo*" managed-name="VFuncInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct* info);
         partial void CheckGetOffsetArgs();
 
-        private System.Int32 GetOffset()
+        private int GetOffset()
         {
             CheckGetOffsetArgs();
             var info_ = (GISharp.Lib.GIRepository.VFuncInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_vfunc_info_get_offset(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 

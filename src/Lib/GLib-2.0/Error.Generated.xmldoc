@@ -18,7 +18,7 @@ human-readable informative error message
 </summary>
 </member>
 
-<member name='Error.Error(GISharp.Lib.GLib.Quark,System.Int32,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Error.Error(GISharp.Lib.GLib.Quark,int,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Creates a new <see cref="Error"/>; unlike g_error_new(), <paramref name="message"/> is
 not a printf()-style format string. Use this function if
@@ -36,7 +36,7 @@ error message
 </param>
 </member>
 
-<member name='Error.Matches(GISharp.Lib.GLib.Quark,System.Int32)'>
+<member name='Error.Matches(GISharp.Lib.GLib.Quark,int)'>
 <summary>
 Returns <c>true</c> if this instance matches <paramref name="domain"/> and <paramref name="code"/>, <c>false</c>
 otherwise. In particular, when this instance is <c>null</c>, <c>false</c> will

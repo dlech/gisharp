@@ -57,7 +57,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.ExitStatus']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public System.Int32 ExitStatus { get => GetExitStatus(); set => SetExitStatus(value); }
+        public int ExitStatus { get => GetExitStatus(); set => SetExitStatus(value); }
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.IsRemote']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -117,7 +117,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline,
         /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* arg);
+        byte* arg);
         partial void CheckCreateFileForArgArgs(GISharp.Lib.GLib.Filename arg);
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.CreateFileForArg(GISharp.Lib.GLib.Filename)']/*" />
@@ -126,7 +126,7 @@ namespace GISharp.Lib.Gio
         {
             CheckCreateFileForArgArgs(arg);
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
-            var arg_ = (System.Byte*)arg.UnsafeHandle;
+            var arg_ = (byte*)arg.UnsafeHandle;
             var ret_ = g_application_command_line_create_file_for_arg(cmdline_,arg_);
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -162,13 +162,13 @@ namespace GISharp.Lib.Gio
 *   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" />
 * </array> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte** g_application_command_line_get_arguments(
+        private static extern byte** g_application_command_line_get_arguments(
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline,
         /* <type name="gint" type="int*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.Int32* argc);
+        int* argc);
         partial void CheckGetArgumentsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
@@ -176,7 +176,7 @@ namespace GISharp.Lib.Gio
         {
             CheckGetArgumentsArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
-            System.Int32 argc_;
+            int argc_;
             var ret_ = g_application_command_line_get_arguments(cmdline_,&argc_);
             var ret = new GISharp.Runtime.CPtrArray<GISharp.Lib.GLib.Filename>((System.IntPtr)ret_, (int)argc_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -203,7 +203,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern System.Byte* g_application_command_line_get_cwd(
+        private static extern byte* g_application_command_line_get_cwd(
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
@@ -250,7 +250,7 @@ namespace GISharp.Lib.Gio
 *   <type name="filename" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" />
 * </array> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte** g_application_command_line_get_environ(
+        private static extern byte** g_application_command_line_get_environ(
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
@@ -280,19 +280,19 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_application_command_line_get_exit_status(
+        private static extern int g_application_command_line_get_exit_status(
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline);
         partial void CheckGetExitStatusArgs();
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private System.Int32 GetExitStatus()
+        private int GetExitStatus()
         {
             CheckGetExitStatusArgs();
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_application_command_line_get_exit_status(cmdline_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -466,13 +466,13 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_application_command_line_getenv(
+        private static extern byte* g_application_command_line_getenv(
         /* <type name="ApplicationCommandLine" type="GApplicationCommandLine*" managed-name="ApplicationCommandLine" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline,
         /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
         partial void CheckGetEnvironmentVariableArgs(GISharp.Lib.GLib.Filename name);
 
         /// <include file="ApplicationCommandLine.xmldoc" path="declaration/member[@name='ApplicationCommandLine.GetEnvironmentVariable(GISharp.Lib.GLib.Filename)']/*" />
@@ -481,7 +481,7 @@ namespace GISharp.Lib.Gio
         {
             CheckGetEnvironmentVariableArgs(name);
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_application_command_line_getenv(cmdline_,name_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
@@ -527,15 +527,15 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* cmdline,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 exitStatus);
-        partial void CheckSetExitStatusArgs(System.Int32 exitStatus);
+        int exitStatus);
+        partial void CheckSetExitStatusArgs(int exitStatus);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
-        private void SetExitStatus(System.Int32 exitStatus)
+        private void SetExitStatus(int exitStatus)
         {
             CheckSetExitStatusArgs(exitStatus);
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
-            var exitStatus_ = (System.Int32)exitStatus;
+            var exitStatus_ = (int)exitStatus;
             g_application_command_line_set_exit_status(cmdline_, exitStatus_);
         }
 
@@ -555,7 +555,7 @@ namespace GISharp.Lib.Gio
         protected virtual void DoPrintLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
-            var message_ = (System.Byte*)message.UnsafeHandle;
+            var message_ = (byte*)message.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrintLiteral>(_GType)!(cmdline_, message_);
         }
 
@@ -564,7 +564,7 @@ namespace GISharp.Lib.Gio
         protected virtual void DoPrinterrLiteral(GISharp.Lib.GLib.UnownedUtf8 message)
         {
             var cmdline_ = (GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct*)UnsafeHandle;
-            var message_ = (System.Byte*)message.UnsafeHandle;
+            var message_ = (byte*)message.UnsafeHandle;
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ApplicationCommandLineClass.UnmanagedPrinterrLiteral>(_GType)!(cmdline_, message_);
         }
     }

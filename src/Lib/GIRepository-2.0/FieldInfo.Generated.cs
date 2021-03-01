@@ -17,10 +17,10 @@ namespace GISharp.Lib.GIRepository
         public GISharp.Lib.GIRepository.FieldInfoFlags Flags { get => GetFlags(); }
 
         /// <include file="FieldInfo.xmldoc" path="declaration/member[@name='FieldInfo.Offset']/*" />
-        public System.Int32 Offset { get => GetOffset(); }
+        public int Offset { get => GetOffset(); }
 
         /// <include file="FieldInfo.xmldoc" path="declaration/member[@name='FieldInfo.Size']/*" />
-        public System.Int32 Size { get => GetSize(); }
+        public int Size { get => GetSize(); }
 
         /// <include file="FieldInfo.xmldoc" path="declaration/member[@name='FieldInfo.Type']/*" />
         public GISharp.Lib.GIRepository.TypeInfo Type { get => GetType_(); }
@@ -74,18 +74,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_field_info_get_offset(
+        private static extern int g_field_info_get_offset(
         /* <type name="FieldInfo" type="GIFieldInfo*" managed-name="FieldInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct* info);
         partial void CheckGetOffsetArgs();
 
-        private System.Int32 GetOffset()
+        private int GetOffset()
         {
             CheckGetOffsetArgs();
             var info_ = (GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_field_info_get_offset(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -102,18 +102,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_field_info_get_size(
+        private static extern int g_field_info_get_size(
         /* <type name="FieldInfo" type="GIFieldInfo*" managed-name="FieldInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct* info);
         partial void CheckGetSizeArgs();
 
-        private System.Int32 GetSize()
+        private int GetSize()
         {
             CheckGetSizeArgs();
             var info_ = (GISharp.Lib.GIRepository.FieldInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_field_info_get_size(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 

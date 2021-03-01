@@ -106,7 +106,7 @@ a timezone identifier
 </param>
 </member>
 
-<member name='TimeZone.TimeZone(System.Int32)'>
+<member name='TimeZone.TimeZone(int)'>
 <summary>
 Creates a <see cref="TimeZone"/> corresponding to the given constant offset from UTC,
 in seconds.
@@ -120,18 +120,18 @@ offset to UTC, in seconds
 </param>
 </member>
 
-<member name='TimeZone.AdjustTime(GISharp.Lib.GLib.TimeType,System.Int64)'>
+<member name='TimeZone.AdjustTime(GISharp.Lib.GLib.TimeType,long)'>
 <summary>
 Finds an interval within this instance that corresponds to the given <paramref name="time"/>,
 possibly adjusting <paramref name="time"/> if required to fit into an interval.
 The meaning of <paramref name="time"/> depends on <paramref name="type"/>.
 </summary>
 <remarks>
-This function is similar to <see cref="TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)"/>, with the
+This function is similar to <see cref="TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,long)"/>, with the
 difference that it always succeeds (by making the adjustments
 described below).
 
-In any of the cases where <see cref="TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)"/> succeeds then
+In any of the cases where <see cref="TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,long)"/> succeeds then
 this function returns the same value, without modifying <paramref name="time"/>.
 
 This function may, however, modify <paramref name="time"/> in order to deal with
@@ -151,7 +151,7 @@ the interval containing <paramref name="time"/>, never -1
 </returns>
 </member>
 
-<member name='TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,System.Int64)'>
+<member name='TimeZone.FindInterval(GISharp.Lib.GLib.TimeType,long)'>
 <summary>
 Finds an interval within this instance that corresponds to the given <paramref name="time"/>.
 The meaning of <paramref name="time"/> depends on <paramref name="type"/>.
@@ -184,7 +184,7 @@ the interval containing <paramref name="time"/>, or -1 in case of failure
 </returns>
 </member>
 
-<member name='TimeZone.GetAbbreviation(System.Int32)'>
+<member name='TimeZone.GetAbbreviation(int)'>
 <summary>
 Determines the time zone abbreviation to be used during a particular
 <paramref name="interval"/> of time in the time zone this instance.
@@ -202,7 +202,7 @@ the time zone abbreviation, which belongs to this instance
 </returns>
 </member>
 
-<member name='TimeZone.GetOffset(System.Int32)'>
+<member name='TimeZone.GetOffset(int)'>
 <summary>
 Determines the offset to UTC in effect during a particular <paramref name="interval"/>
 of time in the time zone this instance.
@@ -221,7 +221,7 @@ the number of seconds that should be added to UTC to get the
 </returns>
 </member>
 
-<member name='TimeZone.IsDst(System.Int32)'>
+<member name='TimeZone.IsDst(int)'>
 <summary>
 Determines if daylight savings time is in effect during a particular
 <paramref name="interval"/> of time in the time zone this instance.

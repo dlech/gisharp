@@ -47,9 +47,9 @@ Indicates whether the closure has been invalidated by
 <member name='UnmanagedStruct.Notifiers'>
 </member>
 
-<member name='Closure.Closure(System.UInt32,GISharp.Lib.GObject.Object)'>
+<member name='Closure.Closure(uint,GISharp.Lib.GObject.Object)'>
 <summary>
-A variant of <see cref="Closure.Closure(System.UInt32,System.IntPtr)"/> which stores <paramref name="object"/> in the
+A variant of <see cref="Closure.Closure(uint,System.IntPtr)"/> which stores <paramref name="object"/> in the
 <c>data</c> field of the closure and calls <see cref="Object.WatchClosure(GISharp.Lib.GObject.Closure)"/> on
 <paramref name="object"/> and the created closure. This function is mainly useful
 when implementing new types of closures.
@@ -64,7 +64,7 @@ a <see cref="Object"/> pointer to store in the <c>data</c> field of the newly
 </param>
 </member>
 
-<member name='Closure.Closure(System.UInt32,System.IntPtr)'>
+<member name='Closure.Closure(uint,System.IntPtr)'>
 <summary>
 Allocates a struct of the given size and initializes the initial
 part as a <see cref="Closure"/>. This function is mainly useful when

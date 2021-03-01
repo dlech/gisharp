@@ -76,7 +76,7 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_registered_type_info_get_type_init(
+        private static extern byte* g_registered_type_info_get_type_init(
         /* <type name="RegisteredTypeInfo" type="GIRegisteredTypeInfo*" managed-name="RegisteredTypeInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct* info);
@@ -104,7 +104,7 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_registered_type_info_get_type_name(
+        private static extern byte* g_registered_type_info_get_type_name(
         /* <type name="RegisteredTypeInfo" type="GIRegisteredTypeInfo*" managed-name="RegisteredTypeInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.RegisteredTypeInfo.UnmanagedStruct* info);

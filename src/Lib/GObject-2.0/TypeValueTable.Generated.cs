@@ -20,13 +20,13 @@ namespace GISharp.Lib.GObject
         public readonly System.IntPtr ValuePeekPointer;
 
         /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.CollectFormat']/*" />
-        public readonly System.Byte* CollectFormat;
+        public readonly byte* CollectFormat;
 
         /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.CollectValue']/*" />
         public readonly System.IntPtr CollectValue;
 
         /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.LcopyFormat']/*" />
-        public readonly System.Byte* LcopyFormat;
+        public readonly byte* LcopyFormat;
 
         /// <include file="TypeValueTable.xmldoc" path="declaration/member[@name='TypeValueTable.LcopyValue']/*" />
         public readonly System.IntPtr LcopyValue;

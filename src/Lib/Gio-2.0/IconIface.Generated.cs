@@ -43,7 +43,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="IconIface.xmldoc" path="declaration/member[@name='Hash']/*" />
-        public delegate System.UInt32 Hash();
+        public delegate uint Hash();
 
         /// <summary>
         /// Unmanaged callback
@@ -51,7 +51,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate System.UInt32 UnmanagedHash(
+        public unsafe delegate uint UnmanagedHash(
 /* <type name="Icon" type="GIcon*" managed-name="Icon" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
@@ -66,7 +66,7 @@ GISharp.Lib.Gio.Icon.UnmanagedStruct* icon);
             /// </summary>
             public static UnmanagedHash Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.UInt32 unmanagedHash(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), icon); var ret = doHash(); var ret_ = (System.UInt32)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.UInt32); }
+                uint unmanagedHash(GISharp.Lib.Gio.Icon.UnmanagedStruct* icon_) { try { var icon = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)icon_, GISharp.Runtime.Transfer.None)!; var doHash = (Hash)methodInfo.CreateDelegate(typeof(Hash), icon); var ret = doHash(); var ret_ = (uint)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(uint); }
 
                 return unmanagedHash;
             }

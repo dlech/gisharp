@@ -17,7 +17,7 @@ namespace GISharp.Lib.GLib
         }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.StringLength']/*" />
-        public System.Int32 StringLength { get => GetStringLength(); }
+        public int StringLength { get => GetStringLength(); }
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.IsArray']/*" />
         public System.Boolean IsArray { get => GetIsArray(); }
@@ -79,13 +79,13 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_new(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* typeString);
+        byte* typeString);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.VariantType.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 typeString)
         {
             CheckNewArgs(typeString);
-            var typeString_ = (System.Byte*)typeString.UnsafeHandle;
+            var typeString_ = (byte*)typeString.UnsafeHandle;
             var ret_ = g_variant_type_new(typeString_);
             return ret_;
         }
@@ -250,7 +250,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.VariantType.UnmanagedStruct** items,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 length);
+        int length);
 
         static GISharp.Lib.GLib.VariantType.UnmanagedStruct* NewTuple(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.VariantType> items)
         {
@@ -258,7 +258,7 @@ namespace GISharp.Lib.GLib
             {
                 CheckNewTupleArgs(items);
                 var items_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct**)itemsData_;
-                var length_ = (System.Int32)items.Length;
+                var length_ = (int)items.Length;
                 var ret_ = g_variant_type_new_tuple(items_,length_);
                 return ret_;
             }
@@ -276,13 +276,13 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.VariantType.UnmanagedStruct* g_variant_type_checked_(
 /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.Byte* arg0);
+byte* arg0);
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.Checked(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static GISharp.Lib.GLib.VariantType Checked(GISharp.Lib.GLib.UnownedUtf8 arg0)
         {
             CheckCheckedArgs(arg0);
-            var arg0_ = (System.Byte*)arg0.UnsafeHandle;
+            var arg0_ = (byte*)arg0.UnsafeHandle;
             var ret_ = g_variant_type_checked_(arg0_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantType>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
@@ -295,15 +295,15 @@ System.Byte* arg0);
         private static extern nuint g_variant_type_string_get_depth_(
 /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.Byte* typeString);
+byte* typeString);
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.StringGetDepth(GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public static System.Int32 StringGetDepth(GISharp.Lib.GLib.UnownedUtf8 typeString)
+        public static int StringGetDepth(GISharp.Lib.GLib.UnownedUtf8 typeString)
         {
             CheckStringGetDepthArgs(typeString);
-            var typeString_ = (System.Byte*)typeString.UnsafeHandle;
+            var typeString_ = (byte*)typeString.UnsafeHandle;
             var ret_ = g_variant_type_string_get_depth_(typeString_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -328,13 +328,13 @@ System.Byte* typeString);
         private static extern GISharp.Runtime.Boolean g_variant_type_string_is_valid(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* typeString);
+        byte* typeString);
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.StringIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static System.Boolean StringIsValid(GISharp.Lib.GLib.UnownedUtf8 typeString)
         {
             CheckStringIsValidArgs(typeString);
-            var typeString_ = (System.Byte*)typeString.UnsafeHandle;
+            var typeString_ = (byte*)typeString.UnsafeHandle;
             var ret_ = g_variant_type_string_is_valid(typeString_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -377,22 +377,22 @@ System.Byte* typeString);
         private static extern GISharp.Runtime.Boolean g_variant_type_string_scan(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* @string,
+        byte* @string,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.Byte* limit,
+        byte* limit,
         /* <type name="utf8" type="const gchar**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.Byte** endptr);
+        byte** endptr);
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.TryStringScan(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.Utf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
         public static System.Boolean TryStringScan(GISharp.Lib.GLib.UnownedUtf8 @string, GISharp.Lib.GLib.NullableUnownedUtf8 limit, out GISharp.Lib.GLib.Utf8 endptr)
         {
             CheckTryStringScanArgs(@string, limit);
-            var @string_ = (System.Byte*)@string.UnsafeHandle;
-            var limit_ = (System.Byte*)limit.UnsafeHandle;
-            System.Byte* endptr_;
+            var @string_ = (byte*)@string.UnsafeHandle;
+            var limit_ = (byte*)limit.UnsafeHandle;
+            byte* endptr_;
             var ret_ = g_variant_type_string_scan(@string_,limit_,&endptr_);
             endptr = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)endptr_, GISharp.Runtime.Transfer.Full)!;
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
@@ -441,7 +441,7 @@ System.Byte* typeString);
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_variant_type_dup_string(
+        private static extern byte* g_variant_type_dup_string(
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
@@ -663,12 +663,12 @@ System.Byte* typeString);
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
         partial void CheckGetStringLengthArgs();
 
-        private System.Int32 GetStringLength()
+        private int GetStringLength()
         {
             CheckGetStringLengthArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_get_string_length(type_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -691,7 +691,7 @@ System.Byte* typeString);
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 g_variant_type_hash(
+        private static extern uint g_variant_type_hash(
         /* <type name="VariantType" type="gconstpointer" managed-name="VariantType" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
@@ -1098,12 +1098,12 @@ System.Byte* typeString);
         partial void CheckNItemsArgs();
 
         /// <include file="VariantType.xmldoc" path="declaration/member[@name='VariantType.NItems()']/*" />
-        public System.Int32 NItems()
+        public int NItems()
         {
             CheckNItemsArgs();
             var type_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_variant_type_n_items(type_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 

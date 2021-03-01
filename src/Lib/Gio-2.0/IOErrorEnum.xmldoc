@@ -327,7 +327,7 @@ Gets the GIO Error Quark.
 </summary>
 </member>
 
-<member name='IOErrorEnumDomain.FromErrno(System.Int32)'>
+<member name='IOErrorEnumDomain.FromErrno(int)'>
 <summary>
 Converts errno.h error codes into GIO error codes. The fallback
 value <see cref="IOErrorEnum.Failed"/> is returned for error codes not currently

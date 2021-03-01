@@ -167,7 +167,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoAppendToAsync(GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoAppendToAsync(GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously opens this instance for appending.
 </summary>
@@ -194,7 +194,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoAppendToFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file append operation started with
-<see cref="File.AppendToAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.AppendToAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 <see cref="IAsyncResult"/>
@@ -275,7 +275,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoCopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,System.Int32,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoCopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,int,GISharp.Lib.Gio.FileProgressCallback?,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Copies the file this instance to the location specified by <paramref name="destination"/>
 asynchronously. For details of the behaviour, see <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>.
@@ -283,7 +283,7 @@ asynchronously. For details of the behaviour, see <see cref="File.Copy(GISharp.L
 <remarks>
 If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
 just like in <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>. The callback will run in the default main context
-of the thread calling <see cref="File.CopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,System.Int32,GISharp.Lib.Gio.Cancellable,GISharp.Lib.Gio.FileProgressCallback)"/> — the same context as <paramref name="callback"/> is
+of the thread calling <see cref="IFile.DoCopyAsync"/> — the same context as <paramref name="callback"/> is
 run in.
 </remarks>
 <param name="destination">
@@ -310,7 +310,7 @@ optional <see cref="Cancellable"/> object,
 
 <member name='IFile.DoCopyFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
-Finishes copying the file started with <see cref="IFile.DoCopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,System.Int32,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/>.
+Finishes copying the file started with <see cref="IFile.DoCopyAsync"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -363,7 +363,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoCreateAsync(GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoCreateAsync(GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously creates a new file and returns an output stream
 for writing to it. The file must not already exist.
@@ -391,7 +391,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoCreateFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file create operation started with
-<see cref="File.CreateAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.CreateAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -449,7 +449,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoCreateReadwriteAsync(GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoCreateReadwriteAsync(GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously creates a new file and returns a stream
 for reading and writing to it. The file must not already exist.
@@ -477,7 +477,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoCreateReadwriteFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file create operation started with
-<see cref="File.CreateReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.CreateReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -528,7 +528,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoDeleteFileAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoDeleteFileAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously delete a file. If the this instance is a directory, it will
 only be deleted if it is empty.  This has the same semantics as
@@ -549,7 +549,7 @@ optional <see cref="Cancellable"/> object,
 
 <member name='IFile.DoDeleteFileFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
-Finishes deleting a file started with <see cref="IFile.DoDeleteFileAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback,GISharp.Lib.Gio.Cancellable)"/>.
+Finishes deleting a file started with <see cref="File.DeleteAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -616,7 +616,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoEnumerateChildrenAsync(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoEnumerateChildrenAsync(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously gets the requested information about the files
 in a directory. The result is a #GFileEnumerator object that will
@@ -854,7 +854,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoMakeDirectoryAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoMakeDirectoryAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously creates a directory.
 </summary>
@@ -874,7 +874,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoMakeDirectoryFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous directory creation, started with
-<see cref="File.MakeDirectoryAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.MakeDirectoryAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -913,7 +913,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoMeasureDiskUsageFinish(GISharp.Lib.Gio.IAsyncResult,System.UInt64,System.UInt64,System.UInt64)'>
+<member name='IFile.DoMeasureDiskUsageFinish(GISharp.Lib.Gio.IAsyncResult,ulong,ulong,ulong)'>
 <summary>
 Collects the results from an earlier call to
 g_file_measure_disk_usage_async().  See g_file_measure_disk_usage() for
@@ -1068,7 +1068,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoOpenReadwriteAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoOpenReadwriteAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously opens this instance for reading and writing.
 </summary>
@@ -1092,7 +1092,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoOpenReadwriteFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file read operation started with
-<see cref="File.OpenReadwriteAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.OpenReadwriteAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -1216,7 +1216,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoQueryFilesystemInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoQueryFilesystemInfoAsync(GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously gets the requested information about the filesystem
 that the specified this instance is on. The result is a <see cref="FileInfo"/> object
@@ -1246,7 +1246,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoQueryFilesystemInfoFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous filesystem info query.
-See <see cref="File.QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+See <see cref="File.QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -1314,7 +1314,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously gets the requested information about specified this instance.
 The result is a <see cref="FileInfo"/> object that contains key-value attributes
@@ -1346,7 +1346,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoQueryInfoFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file info query.
-See <see cref="File.QueryInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+See <see cref="File.QueryInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -1410,7 +1410,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoReadAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoReadAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously opens this instance for reading.
 </summary>
@@ -1434,7 +1434,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoReadFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file read operation started with
-<see cref="File.ReadAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.ReadAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -1543,7 +1543,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoReplaceAsync(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file, replacing the contents,
 possibly creating a backup copy of the file first.
@@ -1578,7 +1578,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoReplaceFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file replace operation started with
-<see cref="File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -1629,7 +1629,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoReplaceReadwriteAsync(GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file in read-write mode,
 replacing the contents, possibly creating a backup copy
@@ -1665,7 +1665,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoReplaceReadwriteFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file replace operation started with
-<see cref="File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -1733,7 +1733,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoSetAttributesAsync(GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoSetAttributesAsync(GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously sets the attributes of this instance with <paramref name="info"/>.
 </summary>
@@ -1761,7 +1761,7 @@ optional <see cref="Cancellable"/> object,
 
 <member name='IFile.DoSetAttributesFinish(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.Gio.FileInfo)'>
 <summary>
-Finishes setting an attribute started in <see cref="File.SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+Finishes setting an attribute started in <see cref="File.SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -1847,7 +1847,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoSetDisplayNameAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoSetDisplayNameAsync(GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously sets the display name for a given <see cref="IFile"/>.
 </summary>
@@ -1874,7 +1874,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoSetDisplayNameFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes setting a display name started with
-<see cref="File.SetDisplayNameAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.SetDisplayNameAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -1954,7 +1954,7 @@ On error
 </exception>
 </member>
 
-<member name='IFile.DoTrashAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='IFile.DoTrashAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously sends this instance to the Trash location, if possible.
 </summary>
@@ -1974,7 +1974,7 @@ optional <see cref="Cancellable"/> object,
 <member name='IFile.DoTrashFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
 Finishes an asynchronous file trashing operation, started with
-<see cref="File.TrashAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="File.TrashAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="result">
 a <see cref="IAsyncResult"/>
@@ -2156,7 +2156,7 @@ On error
 </exception>
 </member>
 
-<member name='File.AppendToAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.AppendToAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously opens <paramref name="file"/> for appending.
 </summary>
@@ -2318,7 +2318,7 @@ On error
 </exception>
 </member>
 
-<member name='File.CreateAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.CreateAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously creates a new file and returns an output stream
 for writing to it. The file must not already exist.
@@ -2389,7 +2389,7 @@ On error
 </exception>
 </member>
 
-<member name='File.CreateReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.CreateReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously creates a new file and returns a stream
 for reading and writing to it. The file must not already exist.
@@ -2450,7 +2450,7 @@ On error
 </exception>
 </member>
 
-<member name='File.DeleteAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.DeleteAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously delete a file. If the <paramref name="file"/> is a directory, it will
 only be deleted if it is empty.  This has the same semantics as
@@ -2867,7 +2867,7 @@ Loads the contents of <paramref name="file"/> and returns it as <see cref="GLib.
 <remarks>
 If <paramref name="file"/> is a resource:// based URI, the resulting bytes will reference the
 embedded resource instead of a copy. Otherwise, this is equivalent to calling
-<see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{System.Byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> and g_bytes_new_take().
+<see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> and g_bytes_new_take().
 
 For resources, <paramref name="etagOut"/> will be set to <c>null</c>.
 
@@ -2912,7 +2912,7 @@ a <see cref="Cancellable"/> or <c>null</c>
 </param>
 </member>
 
-<member name='File.LoadContents(GISharp.Lib.Gio.IFile,GISharp.Runtime.CArray&lt;System.Byte&gt;,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.LoadContents(GISharp.Lib.Gio.IFile,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Loads the content of the file into memory. The data is always
 zero-terminated, but this is not included in the resultant length.
@@ -2945,7 +2945,7 @@ On error
 Starts an asynchronous load of the <paramref name="file"/>'s contents.
 </summary>
 <remarks>
-For more details, see <see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{System.Byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> which is
+For more details, see <see cref="File.LoadContents(GISharp.Lib.Gio.IFile,out GISharp.Runtime.CArray{byte},out GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable)"/> which is
 the synchronous version of this call.
 
 If <paramref name="cancellable"/> is not <c>null</c>, then the operation can be cancelled by
@@ -2960,7 +2960,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='File.LoadPartialContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,GISharp.Runtime.CArray&lt;System.Byte&gt;,GISharp.Lib.GLib.Utf8)'>
+<member name='File.LoadPartialContentsFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,GISharp.Runtime.CArray&lt;byte&gt;,GISharp.Lib.GLib.Utf8)'>
 <summary>
 Finishes an asynchronous partial load operation that was started
 with g_file_load_partial_contents_async(). The data is always
@@ -3014,7 +3014,7 @@ On error
 </exception>
 </member>
 
-<member name='File.MakeDirectoryAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.MakeDirectoryAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously creates a directory.
 </summary>
@@ -3085,7 +3085,7 @@ On error
 </exception>
 </member>
 
-<member name='File.MeasureDiskUsageFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,System.UInt64,System.UInt64,System.UInt64)'>
+<member name='File.MeasureDiskUsageFinish(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IAsyncResult,ulong,ulong,ulong)'>
 <summary>
 Collects the results from an earlier call to
 g_file_measure_disk_usage_async().  See g_file_measure_disk_usage() for
@@ -3243,7 +3243,7 @@ On error
 </exception>
 </member>
 
-<member name='File.OpenReadwriteAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.OpenReadwriteAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously opens <paramref name="file"/> for reading and writing.
 </summary>
@@ -3435,7 +3435,7 @@ On error
 </exception>
 </member>
 
-<member name='File.QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.QueryFilesystemInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously gets the requested information about the filesystem
 that the specified <paramref name="file"/> is on. The result is a <see cref="FileInfo"/> object
@@ -3517,7 +3517,7 @@ On error
 </exception>
 </member>
 
-<member name='File.QueryInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.QueryInfoAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.Gio.FileQueryInfoFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously gets the requested information about specified <paramref name="file"/>.
 The result is a <see cref="FileInfo"/> object that contains key-value attributes
@@ -3630,7 +3630,7 @@ On error
 </exception>
 </member>
 
-<member name='File.ReadAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReadAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously opens <paramref name="file"/> for reading.
 </summary>
@@ -3721,7 +3721,7 @@ On error
 </exception>
 </member>
 
-<member name='File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file, replacing the contents,
 possibly creating a backup copy of the file first.
@@ -3752,7 +3752,7 @@ optional <see cref="Cancellable"/> object,
 </param>
 </member>
 
-<member name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceContents(GISharp.Lib.Gio.IFile,System.ReadOnlySpan&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.GLib.Utf8,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Replaces the contents of <paramref name="file"/> with <paramref name="contents"/>.
 </summary>
@@ -3801,7 +3801,7 @@ On error
 </exception>
 </member>
 
-<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory&lt;System.Byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory&lt;byte&gt;,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Starts an asynchronous replacement of <paramref name="file"/> with the given
 <paramref name="contents"/>. <paramref name="etag"/> will replace the document's
@@ -3842,9 +3842,9 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 
 <member name='File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-Same as <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> but takes a #GBytes input instead.
+Same as <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> but takes a #GBytes input instead.
 This function will keep a ref on <paramref name="contents"/> until the operation is done.
-Unlike <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{System.Byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> this allows forgetting about the
+Unlike <see cref="File.ReplaceContentsAsync(GISharp.Lib.Gio.IFile,System.ReadOnlyMemory{byte},GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,GISharp.Lib.Gio.Cancellable)"/> this allows forgetting about the
 content without waiting for the callback.
 </summary>
 <param name="file">
@@ -3907,7 +3907,7 @@ On error
 </exception>
 </member>
 
-<member name='File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.ReplaceReadwriteAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.NullableUnownedUtf8,System.Boolean,GISharp.Lib.Gio.FileCreateFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously overwrites the file in read-write mode,
 replacing the contents, possibly creating a backup copy
@@ -4028,7 +4028,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetAttributeInt32(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.SetAttributeInt32(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int32"/> to <paramref name="value"/>.
 If <paramref name="attribute"/> is of a different type, this operation will fail.
@@ -4059,7 +4059,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetAttributeInt64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.SetAttributeInt64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,long,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Int64"/> to <paramref name="value"/>.
 If <paramref name="attribute"/> is of a different type, this operation will fail.
@@ -4121,7 +4121,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetAttributeUint32(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.UInt32,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.SetAttributeUint32(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,uint,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint32"/> to <paramref name="value"/>.
 If <paramref name="attribute"/> is of a different type, this operation will fail.
@@ -4152,7 +4152,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetAttributeUint64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.UInt64,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.SetAttributeUint64(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,ulong,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets <paramref name="attribute"/> of type <see cref="FileAttributeType.Uint64"/> to <paramref name="value"/>.
 If <paramref name="attribute"/> is of a different type, this operation will fail.
@@ -4183,7 +4183,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously sets the attributes of <paramref name="file"/> with <paramref name="info"/>.
 </summary>
@@ -4282,7 +4282,7 @@ On error
 </exception>
 </member>
 
-<member name='File.SetDisplayNameAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.SetDisplayNameAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously sets the display name for a given <see cref="IFile"/>.
 </summary>
@@ -4384,7 +4384,7 @@ On error
 </exception>
 </member>
 
-<member name='File.TrashAsync(GISharp.Lib.Gio.IFile,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='File.TrashAsync(GISharp.Lib.Gio.IFile,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Asynchronously sends <paramref name="file"/> to the Trash location, if possible.
 </summary>

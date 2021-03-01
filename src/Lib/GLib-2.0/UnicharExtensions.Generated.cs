@@ -56,7 +56,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_unichar_combining_class(
+        private static extern int g_unichar_combining_class(
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar uc);
@@ -64,12 +64,12 @@ namespace GISharp.Lib.GLib
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.CombiningClass(GISharp.Lib.GLib.Unichar)']/*" />
         [GISharp.Runtime.SinceAttribute("2.14")]
-        public static System.Int32 CombiningClass(this GISharp.Lib.GLib.Unichar uc)
+        public static int CombiningClass(this GISharp.Lib.GLib.Unichar uc)
         {
             CheckCombiningClassArgs(uc);
             var uc_ = (GISharp.Lib.GLib.Unichar)uc;
             var ret_ = g_unichar_combining_class(uc_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -217,19 +217,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_unichar_digit_value(
+        private static extern int g_unichar_digit_value(
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
         static partial void CheckDigitValueArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.DigitValue(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Int32 DigitValue(this GISharp.Lib.GLib.Unichar c)
+        public static int DigitValue(this GISharp.Lib.GLib.Unichar c)
         {
             CheckDigitValueArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_digit_value(c_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -934,13 +934,13 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_unichar_to_utf8(
+        private static extern int g_unichar_to_utf8(
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c,
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none optional:1 allow-none:1 */
-        System.Byte* outbuf);
+        byte* outbuf);
 
         /// <summary>
         /// Converts a character to lower case.
@@ -1104,19 +1104,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_unichar_xdigit_value(
+        private static extern int g_unichar_xdigit_value(
         /* <type name="gunichar" type="gunichar" managed-name="GISharp.Lib.GLib.Unichar" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Unichar c);
         static partial void CheckHexDigitValueArgs(this GISharp.Lib.GLib.Unichar c);
 
         /// <include file="UnicharExtensions.xmldoc" path="declaration/member[@name='UnicharExtensions.HexDigitValue(GISharp.Lib.GLib.Unichar)']/*" />
-        public static System.Int32 HexDigitValue(this GISharp.Lib.GLib.Unichar c)
+        public static int HexDigitValue(this GISharp.Lib.GLib.Unichar c)
         {
             CheckHexDigitValueArgs(c);
             var c_ = (GISharp.Lib.GLib.Unichar)c;
             var ret_ = g_unichar_xdigit_value(c_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
     }

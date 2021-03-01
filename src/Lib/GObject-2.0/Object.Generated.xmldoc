@@ -70,7 +70,7 @@ the <see cref="ParamSpec"/> of the property which changed.
 <seealso cref="NotifySignalHandler"/>
 </member>
 
-<member name='Object.CompatControl(System.Int32,System.IntPtr)'>
+<member name='Object.CompatControl(int,System.IntPtr)'>
 </member>
 
 <member name='Object.InterfaceFindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GLib.UnownedUtf8)'>
@@ -102,7 +102,7 @@ that are added to GObject-derived types. Adding a property to an
 interface forces all objects classes with that interface to have a
 compatible property. The compatible property could be a newly
 created <see cref="ParamSpec"/>, but normally
-<see cref="ObjectClass.OverrideProperty(System.UInt32,GISharp.Lib.GLib.UnownedUtf8)"/> will be used so that the object
+<see cref="ObjectClass.OverrideProperty(uint,GISharp.Lib.GLib.UnownedUtf8)"/> will be used so that the object
 class only needs to provide an implementation and inherits the
 property description, default value, bounds, and so forth from the
 interface property.
@@ -351,7 +351,7 @@ This function omits the property name lookup, hence it is faster than
 One way to avoid using <see cref="Object.Notify(GISharp.Lib.GLib.UnownedUtf8)"/> from within the
 class that registered the properties, and using <see cref="Object.NotifyByPspec(GISharp.Lib.GObject.ParamSpec)"/>
 instead, is to store the GParamSpec used with
-<see cref="ObjectClass.InstallProperty(System.UInt32,GISharp.Lib.GObject.ParamSpec)"/> inside a static array, e.g.:
+<see cref="ObjectClass.InstallProperty(uint,GISharp.Lib.GObject.ParamSpec)"/> inside a static array, e.g.:
 
 |[&lt;!-- language="C" --&gt;
   enum
@@ -547,7 +547,7 @@ use this this instance as closure data.
 <member name='Object.DoConstructed()'>
 </member>
 
-<member name='Object.DoDispatchPropertiesChanged(System.UInt32,GISharp.Lib.GObject.ParamSpec)'>
+<member name='Object.DoDispatchPropertiesChanged(uint,GISharp.Lib.GObject.ParamSpec)'>
 </member>
 
 <member name='Object.DoDispose()'>
@@ -556,7 +556,7 @@ use this this instance as closure data.
 <member name='Object.DoFinalize()'>
 </member>
 
-<member name='Object.DoGetProperty(System.UInt32,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)'>
+<member name='Object.DoGetProperty(uint,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)'>
 </member>
 
 <member name='Object.DoNotify(GISharp.Lib.GObject.ParamSpec)'>
@@ -575,7 +575,7 @@ called.
 </remarks>
 </member>
 
-<member name='Object.DoSetProperty(System.UInt32,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)'>
+<member name='Object.DoSetProperty(uint,GISharp.Lib.GObject.Value,GISharp.Lib.GObject.ParamSpec)'>
 </member>
 
 <member name='Object'>

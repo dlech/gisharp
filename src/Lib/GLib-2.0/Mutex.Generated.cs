@@ -14,7 +14,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Mutex.xmldoc" path="declaration/member[@name='Mutex.I']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public fixed System.UInt32 I[2];
+        public fixed uint I[2];
 #pragma warning restore CS0169, CS0649
         /// <summary>
         /// Frees the resources allocated to a mutex with g_mutex_init().

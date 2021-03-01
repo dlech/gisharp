@@ -32,7 +32,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern System.Byte* g_get_application_name();
+        private static extern byte* g_get_application_name();
 
         [GISharp.Runtime.SinceAttribute("2.2")]
         private static GISharp.Lib.GLib.NullableUnownedUtf8 GetApplicationName()
@@ -69,13 +69,13 @@ namespace GISharp.Lib.GLib
         private static extern void g_set_application_name(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* applicationName);
+        byte* applicationName);
 
         [GISharp.Runtime.SinceAttribute("2.2")]
         private static void SetApplicationName(GISharp.Lib.GLib.UnownedUtf8 applicationName)
         {
             CheckSetApplicationNameArgs(applicationName);
-            var applicationName_ = (System.Byte*)applicationName.UnsafeHandle;
+            var applicationName_ = (byte*)applicationName.UnsafeHandle;
             g_set_application_name(applicationName_);
         }
 
@@ -100,7 +100,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern System.Byte* g_get_prgname();
+        private static extern byte* g_get_prgname();
 
         private static GISharp.Lib.GLib.NullableUnownedUtf8 GetProgramName()
         {
@@ -134,12 +134,12 @@ namespace GISharp.Lib.GLib
         private static extern void g_set_prgname(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* prgname);
+        byte* prgname);
 
         private static void SetProgramName(GISharp.Lib.GLib.UnownedUtf8 prgname)
         {
             CheckSetProgramNameArgs(prgname);
-            var prgname_ = (System.Byte*)prgname.UnsafeHandle;
+            var prgname_ = (byte*)prgname.UnsafeHandle;
             g_set_prgname(prgname_);
         }
     }

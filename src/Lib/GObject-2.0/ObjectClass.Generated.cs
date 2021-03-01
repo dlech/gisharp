@@ -46,7 +46,7 @@ namespace GISharp.Lib.GObject
             private readonly nuint Flags;
 
             /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Pdummy']/*" />
-            private fixed System.Int64 Pdummy[6];
+            private fixed long Pdummy[6];
 #pragma warning restore CS0169, CS0649
         }
 
@@ -69,7 +69,7 @@ namespace GISharp.Lib.GObject
         }
 
         /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='SetProperty']/*" />
-        public delegate void SetProperty(System.UInt32 propertyId, GISharp.Lib.GObject.Value value, GISharp.Lib.GObject.ParamSpec pspec);
+        public delegate void SetProperty(uint propertyId, GISharp.Lib.GObject.Value value, GISharp.Lib.GObject.ParamSpec pspec);
 
         /// <summary>
         /// Unmanaged callback
@@ -83,7 +83,7 @@ namespace GISharp.Lib.GObject
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
 /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
 /* transfer-ownership:none direction:in */
-System.UInt32 propertyId,
+uint propertyId,
 /* <type name="Value" type="const GValue*" managed-name="Value" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value* value,
@@ -101,14 +101,14 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
             /// </summary>
             public static UnmanagedSetProperty Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedSetProperty(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, System.UInt32 propertyId_, GISharp.Lib.GObject.Value* value_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var propertyId = (System.UInt32)propertyId_; var value = (GISharp.Lib.GObject.Value)value_; var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doSetProperty = (SetProperty)methodInfo.CreateDelegate(typeof(SetProperty), @object); doSetProperty(propertyId, value, pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedSetProperty(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, uint propertyId_, GISharp.Lib.GObject.Value* value_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var propertyId = (uint)propertyId_; var value = (GISharp.Lib.GObject.Value)value_; var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doSetProperty = (SetProperty)methodInfo.CreateDelegate(typeof(SetProperty), @object); doSetProperty(propertyId, value, pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedSetProperty;
             }
         }
 
         /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='GetProperty']/*" />
-        public delegate void GetProperty(System.UInt32 propertyId, GISharp.Lib.GObject.Value value, GISharp.Lib.GObject.ParamSpec pspec);
+        public delegate void GetProperty(uint propertyId, GISharp.Lib.GObject.Value value, GISharp.Lib.GObject.ParamSpec pspec);
 
         /// <summary>
         /// Unmanaged callback
@@ -122,7 +122,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
 /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
 /* transfer-ownership:none direction:in */
-System.UInt32 propertyId,
+uint propertyId,
 /* <type name="Value" type="GValue*" managed-name="Value" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.Value* value,
@@ -140,7 +140,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
             /// </summary>
             public static UnmanagedGetProperty Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedGetProperty(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, System.UInt32 propertyId_, GISharp.Lib.GObject.Value* value_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var propertyId = (System.UInt32)propertyId_; var value = (GISharp.Lib.GObject.Value)value_; var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doGetProperty = (GetProperty)methodInfo.CreateDelegate(typeof(GetProperty), @object); doGetProperty(propertyId, value, pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedGetProperty(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, uint propertyId_, GISharp.Lib.GObject.Value* value_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var propertyId = (uint)propertyId_; var value = (GISharp.Lib.GObject.Value)value_; var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var doGetProperty = (GetProperty)methodInfo.CreateDelegate(typeof(GetProperty), @object); doGetProperty(propertyId, value, pspec); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedGetProperty;
             }
@@ -207,7 +207,7 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
         }
 
         /// <include file="ObjectClass.xmldoc" path="declaration/member[@name='DispatchPropertiesChanged']/*" />
-        public delegate void DispatchPropertiesChanged(System.UInt32 nPspecs, GISharp.Lib.GObject.ParamSpec pspecs);
+        public delegate void DispatchPropertiesChanged(uint nPspecs, GISharp.Lib.GObject.ParamSpec pspecs);
 
         /// <summary>
         /// Unmanaged callback
@@ -221,7 +221,7 @@ GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 GISharp.Lib.GObject.Object.UnmanagedStruct* @object,
 /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
 /* transfer-ownership:none direction:in */
-System.UInt32 nPspecs,
+uint nPspecs,
 /* <type name="ParamSpec" type="GParamSpec**" managed-name="ParamSpec" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspecs);
@@ -236,7 +236,7 @@ GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspecs);
             /// </summary>
             public static UnmanagedDispatchPropertiesChanged Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedDispatchPropertiesChanged(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, System.UInt32 nPspecs_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspecs_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var nPspecs = (System.UInt32)nPspecs_; var pspecs = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspecs_, GISharp.Runtime.Transfer.None)!; var doDispatchPropertiesChanged = (DispatchPropertiesChanged)methodInfo.CreateDelegate(typeof(DispatchPropertiesChanged), @object); doDispatchPropertiesChanged(nPspecs, pspecs); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedDispatchPropertiesChanged(GISharp.Lib.GObject.Object.UnmanagedStruct* @object_, uint nPspecs_, GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspecs_) { try { var @object = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.Object>((System.IntPtr)@object_, GISharp.Runtime.Transfer.None)!; var nPspecs = (uint)nPspecs_; var pspecs = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspecs_, GISharp.Runtime.Transfer.None)!; var doDispatchPropertiesChanged = (DispatchPropertiesChanged)methodInfo.CreateDelegate(typeof(DispatchPropertiesChanged), @object); doDispatchPropertiesChanged(nPspecs, pspecs); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedDispatchPropertiesChanged;
             }

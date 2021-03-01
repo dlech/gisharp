@@ -62,7 +62,7 @@ namespace GISharp.Lib.Gio
             public readonly System.IntPtr NameLost;
 
             /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding']/*" />
-            private fixed System.Int64 Padding[7];
+            private fixed long Padding[7];
 #pragma warning restore CS0169, CS0649
         }
 
@@ -176,10 +176,10 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application,
 GISharp.Lib.Gio.File.UnmanagedStruct** files,
 /* <type name="gint" type="gint" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.Int32 nFiles,
+int nFiles,
 /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.Byte* hint);
+byte* hint);
 
         /// <summary>
         /// Class for marshalling <see cref="Open"/> methods.
@@ -191,14 +191,14 @@ System.Byte* hint);
             /// </summary>
             public static UnmanagedOpen Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedOpen(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct** files_, System.Int32 nFiles_, System.Byte* hint_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_); var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_); var doOpen = (Open)methodInfo.CreateDelegate(typeof(Open), application); doOpen(files, hint); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedOpen(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.File.UnmanagedStruct** files_, int nFiles_, byte* hint_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var files = new GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.Gio.IFile>(files_, (int)nFiles_); var hint = new GISharp.Lib.GLib.UnownedUtf8(hint_); var doOpen = (Open)methodInfo.CreateDelegate(typeof(Open), application); doOpen(files, hint); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedOpen;
             }
         }
 
         /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='CommandLine']/*" />
-        public delegate System.Int32 CommandLine(GISharp.Lib.Gio.ApplicationCommandLine commandLine);
+        public delegate int CommandLine(GISharp.Lib.Gio.ApplicationCommandLine commandLine);
 
         /// <summary>
         /// Unmanaged callback
@@ -206,7 +206,7 @@ System.Byte* hint);
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate System.Int32 UnmanagedCommandLine(
+        public unsafe delegate int UnmanagedCommandLine(
 /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -224,14 +224,14 @@ GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine);
             /// </summary>
             public static UnmanagedCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Int32 unmanagedCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var commandLine = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)commandLine_, GISharp.Runtime.Transfer.None)!; var doCommandLine = (CommandLine)methodInfo.CreateDelegate(typeof(CommandLine), application); var ret = doCommandLine(commandLine); var ret_ = (System.Int32)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Int32); }
+                int unmanagedCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.Gio.ApplicationCommandLine.UnmanagedStruct* commandLine_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var commandLine = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.ApplicationCommandLine>((System.IntPtr)commandLine_, GISharp.Runtime.Transfer.None)!; var doCommandLine = (CommandLine)methodInfo.CreateDelegate(typeof(CommandLine), application); var ret = doCommandLine(commandLine); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(int); }
 
                 return unmanagedCommandLine;
             }
         }
 
         /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='TryLocalCommandLine']/*" />
-        public delegate System.Boolean TryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out System.Int32 exitStatus);
+        public delegate System.Boolean TryLocalCommandLine(ref GISharp.Lib.GLib.Strv arguments, out int exitStatus);
 
         /// <summary>
         /// Unmanaged callback
@@ -247,10 +247,10 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application,
 *   <type name="utf8" type="gchar**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" />
 * </array> */
 /* direction:inout caller-allocates:0 transfer-ownership:full */
-System.Byte*** arguments,
+byte*** arguments,
 /* <type name="gint" type="int*" managed-name="System.Int32" /> */
 /* direction:out caller-allocates:0 transfer-ownership:full */
-System.Int32* exitStatus);
+int* exitStatus);
 
         /// <summary>
         /// Class for marshalling <see cref="TryLocalCommandLine"/> methods.
@@ -262,7 +262,7 @@ System.Int32* exitStatus);
             /// </summary>
             public static UnmanagedTryLocalCommandLine Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Runtime.Boolean unmanagedTryLocalCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, System.Byte*** arguments_, System.Int32* exitStatus_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var arguments = new GISharp.Lib.GLib.Strv((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full); var doTryLocalCommandLine = (TryLocalCommandLine)methodInfo.CreateDelegate(typeof(TryLocalCommandLine), application); var ret = doTryLocalCommandLine(ref arguments,out var exitStatus); *arguments_ = (System.Byte**)arguments.Take(); *exitStatus_ = (System.Int32)exitStatus; var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
+                GISharp.Runtime.Boolean unmanagedTryLocalCommandLine(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, byte*** arguments_, int* exitStatus_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var arguments = new GISharp.Lib.GLib.Strv((System.IntPtr)arguments_, -1, GISharp.Runtime.Transfer.Full); var doTryLocalCommandLine = (TryLocalCommandLine)methodInfo.CreateDelegate(typeof(TryLocalCommandLine), application); var ret = doTryLocalCommandLine(ref arguments,out var exitStatus); *arguments_ = (byte**)arguments.Take(); *exitStatus_ = (int)exitStatus; var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret); return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Runtime.Boolean); }
 
                 return unmanagedTryLocalCommandLine;
             }
@@ -458,7 +458,7 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         }
 
         /// <include file="ApplicationClass.xmldoc" path="declaration/member[@name='HandleLocalOptions']/*" />
-        public delegate System.Int32 HandleLocalOptions(GISharp.Lib.GLib.VariantDict options);
+        public delegate int HandleLocalOptions(GISharp.Lib.GLib.VariantDict options);
 
         /// <summary>
         /// Unmanaged callback
@@ -466,7 +466,7 @@ GISharp.Lib.Gio.Application.UnmanagedStruct* application);
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate System.Int32 UnmanagedHandleLocalOptions(
+        public unsafe delegate int UnmanagedHandleLocalOptions(
 /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.Gio.Application.UnmanagedStruct* application,
@@ -484,7 +484,7 @@ GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options);
             /// </summary>
             public static UnmanagedHandleLocalOptions Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Int32 unmanagedHandleLocalOptions(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var options = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>((System.IntPtr)options_, GISharp.Runtime.Transfer.None)!; var doHandleLocalOptions = (HandleLocalOptions)methodInfo.CreateDelegate(typeof(HandleLocalOptions), application); var ret = doHandleLocalOptions(options); var ret_ = (System.Int32)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Int32); }
+                int unmanagedHandleLocalOptions(GISharp.Lib.Gio.Application.UnmanagedStruct* application_, GISharp.Lib.GLib.VariantDict.UnmanagedStruct* options_) { try { var application = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)application_, GISharp.Runtime.Transfer.None)!; var options = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.VariantDict>((System.IntPtr)options_, GISharp.Runtime.Transfer.None)!; var doHandleLocalOptions = (HandleLocalOptions)methodInfo.CreateDelegate(typeof(HandleLocalOptions), application); var ret = doHandleLocalOptions(options); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(int); }
 
                 return unmanagedHandleLocalOptions;
             }

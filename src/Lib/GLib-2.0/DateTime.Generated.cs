@@ -27,39 +27,39 @@ namespace GISharp.Lib.GLib
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.DayOfMonth']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 DayOfMonth { get => GetDayOfMonth(); }
+        public int DayOfMonth { get => GetDayOfMonth(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.DayOfWeek']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 DayOfWeek { get => GetDayOfWeek(); }
+        public int DayOfWeek { get => GetDayOfWeek(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.DayOfYear']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 DayOfYear { get => GetDayOfYear(); }
+        public int DayOfYear { get => GetDayOfYear(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Hour']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 Hour { get => GetHour(); }
+        public int Hour { get => GetHour(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Microsecond']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 Microsecond { get => GetMicrosecond(); }
+        public int Microsecond { get => GetMicrosecond(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Minute']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 Minute { get => GetMinute(); }
+        public int Minute { get => GetMinute(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Month']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 Month { get => GetMonth(); }
+        public int Month { get => GetMonth(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Second']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 Second { get => GetSecond(); }
+        public int Second { get => GetSecond(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Seconds']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Double Seconds { get => GetSeconds(); }
+        public double Seconds { get => GetSeconds(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Timezone']/*" />
         [GISharp.Runtime.SinceAttribute("2.58")]
@@ -75,15 +75,15 @@ namespace GISharp.Lib.GLib
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.WeekNumberingYear']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 WeekNumberingYear { get => GetWeekNumberingYear(); }
+        public int WeekNumberingYear { get => GetWeekNumberingYear(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.WeekOfYear']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 WeekOfYear { get => GetWeekOfYear(); }
+        public int WeekOfYear { get => GetWeekOfYear(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Year']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int32 Year { get => GetYear(); }
+        public int Year { get => GetYear(); }
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.IsDaylightSavings']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -101,7 +101,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.TimeZone tz, System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.TimeZone tz, int year, int month, int day, int hour, int minute, double seconds);
 
         /// <summary>
         /// Creates a new #GDateTime corresponding to the given date and time in
@@ -168,41 +168,41 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.TimeZone.UnmanagedStruct* tz,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 year,
+        int year,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 month,
+        int month,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 day,
+        int day,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 hour,
+        int hour,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 minute,
+        int minute,
         /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
         /* transfer-ownership:none direction:in */
-        System.Double seconds);
+        double seconds);
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        static GISharp.Lib.GLib.DateTime.UnmanagedStruct* New(GISharp.Lib.GLib.TimeZone tz, System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds)
+        static GISharp.Lib.GLib.DateTime.UnmanagedStruct* New(GISharp.Lib.GLib.TimeZone tz, int year, int month, int day, int hour, int minute, double seconds)
         {
             CheckNewArgs(tz, year, month, day, hour, minute, seconds);
             var tz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)tz.UnsafeHandle;
-            var year_ = (System.Int32)year;
-            var month_ = (System.Int32)month;
-            var day_ = (System.Int32)day;
-            var hour_ = (System.Int32)hour;
-            var minute_ = (System.Int32)minute;
-            var seconds_ = (System.Double)seconds;
+            var year_ = (int)year;
+            var month_ = (int)month;
+            var day_ = (int)day;
+            var hour_ = (int)hour;
+            var minute_ = (int)minute;
+            var seconds_ = (double)seconds;
             var ret_ = g_date_time_new(tz_,year_,month_,day_,hour_,minute_,seconds_);
             return ret_;
         }
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.DateTime(GISharp.Lib.GLib.TimeZone,int,int,int,int,int,double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public DateTime(GISharp.Lib.GLib.TimeZone tz, System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds) : this((System.IntPtr)New(tz, year, month, day, hour, minute, seconds), GISharp.Runtime.Transfer.Full)
+        public DateTime(GISharp.Lib.GLib.TimeZone tz, int year, int month, int day, int hour, int minute, double seconds) : this((System.IntPtr)New(tz, year, month, day, hour, minute, seconds), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -271,7 +271,7 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.DateTime.UnmanagedStruct* g_date_time_new_from_iso8601(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* text,
+        byte* text,
         /* <type name="TimeZone" type="GTimeZone*" managed-name="TimeZone" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.TimeZone.UnmanagedStruct* defaultTz);
@@ -281,7 +281,7 @@ namespace GISharp.Lib.GLib
         public static GISharp.Lib.GLib.DateTime? FromIso8601(GISharp.Lib.GLib.UnownedUtf8 text, GISharp.Lib.GLib.TimeZone? defaultTz)
         {
             CheckFromIso8601Args(text, defaultTz);
-            var text_ = (System.Byte*)text.UnsafeHandle;
+            var text_ = (byte*)text.UnsafeHandle;
             var defaultTz_ = (GISharp.Lib.GLib.TimeZone.UnmanagedStruct*)(defaultTz?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_date_time_new_from_iso8601(text_,defaultTz_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
@@ -380,7 +380,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        static partial void CheckFromUnixLocalArgs(System.Int64 t);
+        static partial void CheckFromUnixLocalArgs(long t);
 
         /// <summary>
         /// Creates a #GDateTime corresponding to the given Unix time @t in the
@@ -409,20 +409,20 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.DateTime.UnmanagedStruct* g_date_time_new_from_unix_local(
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        System.Int64 t);
+        long t);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromUnixLocal(System.Int64)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromUnixLocal(long)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static GISharp.Lib.GLib.DateTime? FromUnixLocal(System.Int64 t)
+        public static GISharp.Lib.GLib.DateTime? FromUnixLocal(long t)
         {
             CheckFromUnixLocalArgs(t);
-            var t_ = (System.Int64)t;
+            var t_ = (long)t;
             var ret_ = g_date_time_new_from_unix_local(t_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
-        static partial void CheckFromUnixUtcArgs(System.Int64 t);
+        static partial void CheckFromUnixUtcArgs(long t);
 
         /// <summary>
         /// Creates a #GDateTime corresponding to the given Unix time @t in UTC.
@@ -450,20 +450,20 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.DateTime.UnmanagedStruct* g_date_time_new_from_unix_utc(
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        System.Int64 t);
+        long t);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromUnixUtc(System.Int64)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.FromUnixUtc(long)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static GISharp.Lib.GLib.DateTime? FromUnixUtc(System.Int64 t)
+        public static GISharp.Lib.GLib.DateTime? FromUnixUtc(long t)
         {
             CheckFromUnixUtcArgs(t);
-            var t_ = (System.Int64)t;
+            var t_ = (long)t;
             var ret_ = g_date_time_new_from_unix_utc(t_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
         }
 
-        static partial void CheckGetLocalArgs(System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds);
+        static partial void CheckGetLocalArgs(int year, int month, int day, int hour, int minute, double seconds);
 
         /// <summary>
         /// Creates a new #GDateTime corresponding to the given date and time in
@@ -501,34 +501,34 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.DateTime.UnmanagedStruct* g_date_time_new_local(
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 year,
+        int year,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 month,
+        int month,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 day,
+        int day,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 hour,
+        int hour,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 minute,
+        int minute,
         /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
         /* transfer-ownership:none direction:in */
-        System.Double seconds);
+        double seconds);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetLocal(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetLocal(int,int,int,int,int,double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static GISharp.Lib.GLib.DateTime? GetLocal(System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds)
+        public static GISharp.Lib.GLib.DateTime? GetLocal(int year, int month, int day, int hour, int minute, double seconds)
         {
             CheckGetLocalArgs(year, month, day, hour, minute, seconds);
-            var year_ = (System.Int32)year;
-            var month_ = (System.Int32)month;
-            var day_ = (System.Int32)day;
-            var hour_ = (System.Int32)hour;
-            var minute_ = (System.Int32)minute;
-            var seconds_ = (System.Double)seconds;
+            var year_ = (int)year;
+            var month_ = (int)month;
+            var day_ = (int)day;
+            var hour_ = (int)hour;
+            var minute_ = (int)minute;
+            var seconds_ = (double)seconds;
             var ret_ = g_date_time_new_local(year_,month_,day_,hour_,minute_,seconds_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -629,7 +629,7 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        static partial void CheckGetUtcArgs(System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds);
+        static partial void CheckGetUtcArgs(int year, int month, int day, int hour, int minute, double seconds);
 
         /// <summary>
         /// Creates a new #GDateTime corresponding to the given date and time in
@@ -667,34 +667,34 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.DateTime.UnmanagedStruct* g_date_time_new_utc(
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 year,
+        int year,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 month,
+        int month,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 day,
+        int day,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 hour,
+        int hour,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 minute,
+        int minute,
         /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
         /* transfer-ownership:none direction:in */
-        System.Double seconds);
+        double seconds);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetUtc(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetUtc(int,int,int,int,int,double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static GISharp.Lib.GLib.DateTime? GetUtc(System.Int32 year, System.Int32 month, System.Int32 day, System.Int32 hour, System.Int32 minute, System.Double seconds)
+        public static GISharp.Lib.GLib.DateTime? GetUtc(int year, int month, int day, int hour, int minute, double seconds)
         {
             CheckGetUtcArgs(year, month, day, hour, minute, seconds);
-            var year_ = (System.Int32)year;
-            var month_ = (System.Int32)month;
-            var day_ = (System.Int32)day;
-            var hour_ = (System.Int32)hour;
-            var minute_ = (System.Int32)minute;
-            var seconds_ = (System.Double)seconds;
+            var year_ = (int)year;
+            var month_ = (int)month;
+            var day_ = (int)day;
+            var hour_ = (int)hour;
+            var minute_ = (int)minute;
+            var seconds_ = (double)seconds;
             var ret_ = g_date_time_new_utc(year_,month_,day_,hour_,minute_,seconds_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -720,7 +720,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_compare(
+        private static extern int g_date_time_compare(
         /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         System.IntPtr dt1,
@@ -730,13 +730,13 @@ namespace GISharp.Lib.GLib
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Compare(System.IntPtr,System.IntPtr)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public static System.Int32 Compare(System.IntPtr dt1, System.IntPtr dt2)
+        public static int Compare(System.IntPtr dt1, System.IntPtr dt2)
         {
             CheckCompareArgs(dt1, dt2);
             var dt1_ = (System.IntPtr)dt1;
             var dt2_ = (System.IntPtr)dt2;
             var ret_ = g_date_time_compare(dt1_,dt2_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -808,16 +808,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 days);
-        partial void CheckAddDaysArgs(System.Int32 days);
+        int days);
+        partial void CheckAddDaysArgs(int days);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddDays(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddDays(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.DateTime? AddDays(System.Int32 days)
+        public GISharp.Lib.GLib.DateTime? AddDays(int days)
         {
             CheckAddDaysArgs(days);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var days_ = (System.Int32)days;
+            var days_ = (int)days;
             var ret_ = g_date_time_add_days(datetime_,days_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -862,36 +862,36 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 years,
+        int years,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 months,
+        int months,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 days,
+        int days,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 hours,
+        int hours,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 minutes,
+        int minutes,
         /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
         /* transfer-ownership:none direction:in */
-        System.Double seconds);
-        partial void CheckAddFullArgs(System.Int32 years, System.Int32 months, System.Int32 days, System.Int32 hours, System.Int32 minutes, System.Double seconds);
+        double seconds);
+        partial void CheckAddFullArgs(int years, int months, int days, int hours, int minutes, double seconds);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddFull(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddFull(int,int,int,int,int,double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.DateTime? AddFull(System.Int32 years, System.Int32 months, System.Int32 days, System.Int32 hours, System.Int32 minutes, System.Double seconds)
+        public GISharp.Lib.GLib.DateTime? AddFull(int years, int months, int days, int hours, int minutes, double seconds)
         {
             CheckAddFullArgs(years, months, days, hours, minutes, seconds);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var years_ = (System.Int32)years;
-            var months_ = (System.Int32)months;
-            var days_ = (System.Int32)days;
-            var hours_ = (System.Int32)hours;
-            var minutes_ = (System.Int32)minutes;
-            var seconds_ = (System.Double)seconds;
+            var years_ = (int)years;
+            var months_ = (int)months;
+            var days_ = (int)days;
+            var hours_ = (int)hours;
+            var minutes_ = (int)minutes;
+            var seconds_ = (double)seconds;
             var ret_ = g_date_time_add_full(datetime_,years_,months_,days_,hours_,minutes_,seconds_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -921,16 +921,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 hours);
-        partial void CheckAddHoursArgs(System.Int32 hours);
+        int hours);
+        partial void CheckAddHoursArgs(int hours);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddHours(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddHours(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.DateTime? AddHours(System.Int32 hours)
+        public GISharp.Lib.GLib.DateTime? AddHours(int hours)
         {
             CheckAddHoursArgs(hours);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var hours_ = (System.Int32)hours;
+            var hours_ = (int)hours;
             var ret_ = g_date_time_add_hours(datetime_,hours_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -960,16 +960,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 minutes);
-        partial void CheckAddMinutesArgs(System.Int32 minutes);
+        int minutes);
+        partial void CheckAddMinutesArgs(int minutes);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddMinutes(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddMinutes(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.DateTime? AddMinutes(System.Int32 minutes)
+        public GISharp.Lib.GLib.DateTime? AddMinutes(int minutes)
         {
             CheckAddMinutesArgs(minutes);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var minutes_ = (System.Int32)minutes;
+            var minutes_ = (int)minutes;
             var ret_ = g_date_time_add_minutes(datetime_,minutes_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -1005,16 +1005,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 months);
-        partial void CheckAddMonthsArgs(System.Int32 months);
+        int months);
+        partial void CheckAddMonthsArgs(int months);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddMonths(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddMonths(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.DateTime? AddMonths(System.Int32 months)
+        public GISharp.Lib.GLib.DateTime? AddMonths(int months)
         {
             CheckAddMonthsArgs(months);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var months_ = (System.Int32)months;
+            var months_ = (int)months;
             var ret_ = g_date_time_add_months(datetime_,months_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -1044,16 +1044,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
         /* transfer-ownership:none direction:in */
-        System.Double seconds);
-        partial void CheckAddSecondsArgs(System.Double seconds);
+        double seconds);
+        partial void CheckAddSecondsArgs(double seconds);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddSeconds(System.Double)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddSeconds(double)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.DateTime? AddSeconds(System.Double seconds)
+        public GISharp.Lib.GLib.DateTime? AddSeconds(double seconds)
         {
             CheckAddSecondsArgs(seconds);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var seconds_ = (System.Double)seconds;
+            var seconds_ = (double)seconds;
             var ret_ = g_date_time_add_seconds(datetime_,seconds_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -1083,16 +1083,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 weeks);
-        partial void CheckAddWeeksArgs(System.Int32 weeks);
+        int weeks);
+        partial void CheckAddWeeksArgs(int weeks);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddWeeks(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddWeeks(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.DateTime? AddWeeks(System.Int32 weeks)
+        public GISharp.Lib.GLib.DateTime? AddWeeks(int weeks)
         {
             CheckAddWeeksArgs(weeks);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var weeks_ = (System.Int32)weeks;
+            var weeks_ = (int)weeks;
             var ret_ = g_date_time_add_weeks(datetime_,weeks_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -1126,16 +1126,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 years);
-        partial void CheckAddYearsArgs(System.Int32 years);
+        int years);
+        partial void CheckAddYearsArgs(int years);
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddYears(System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.AddYears(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public GISharp.Lib.GLib.DateTime? AddYears(System.Int32 years)
+        public GISharp.Lib.GLib.DateTime? AddYears(int years)
         {
             CheckAddYearsArgs(years);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var years_ = (System.Int32)years;
+            var years_ = (int)years;
             var ret_ = g_date_time_add_years(datetime_,years_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.DateTime>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -1300,13 +1300,13 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern System.Byte* g_date_time_format(
+        private static extern byte* g_date_time_format(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* format);
+        byte* format);
         partial void CheckFormatArgs(GISharp.Lib.GLib.UnownedUtf8 format);
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.Format(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -1315,7 +1315,7 @@ namespace GISharp.Lib.GLib
         {
             CheckFormatArgs(format);
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            var format_ = (System.Byte*)format.UnsafeHandle;
+            var format_ = (byte*)format.UnsafeHandle;
             var ret_ = g_date_time_format(datetime_,format_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
             return ret;
@@ -1341,7 +1341,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full nullable:1 direction:in */
-        private static extern System.Byte* g_date_time_format_iso8601(
+        private static extern byte* g_date_time_format_iso8601(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
@@ -1372,19 +1372,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_day_of_month(
+        private static extern int g_date_time_get_day_of_month(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetDayOfMonthArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetDayOfMonth()
+        private int GetDayOfMonth()
         {
             CheckGetDayOfMonthArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_day_of_month(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1402,19 +1402,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_day_of_week(
+        private static extern int g_date_time_get_day_of_week(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetDayOfWeekArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetDayOfWeek()
+        private int GetDayOfWeek()
         {
             CheckGetDayOfWeekArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_day_of_week(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1432,19 +1432,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_day_of_year(
+        private static extern int g_date_time_get_day_of_year(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetDayOfYearArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetDayOfYear()
+        private int GetDayOfYear()
         {
             CheckGetDayOfYearArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_day_of_year(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1461,19 +1461,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_hour(
+        private static extern int g_date_time_get_hour(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetHourArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetHour()
+        private int GetHour()
         {
             CheckGetHourArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_hour(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1490,19 +1490,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_microsecond(
+        private static extern int g_date_time_get_microsecond(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetMicrosecondArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetMicrosecond()
+        private int GetMicrosecond()
         {
             CheckGetMicrosecondArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_microsecond(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1519,19 +1519,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_minute(
+        private static extern int g_date_time_get_minute(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetMinuteArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetMinute()
+        private int GetMinute()
         {
             CheckGetMinuteArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_minute(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1549,19 +1549,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_month(
+        private static extern int g_date_time_get_month(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetMonthArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetMonth()
+        private int GetMonth()
         {
             CheckGetMonthArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_month(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1578,19 +1578,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_second(
+        private static extern int g_date_time_get_second(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetSecondArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetSecond()
+        private int GetSecond()
         {
             CheckGetSecondArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_second(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1608,19 +1608,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Double g_date_time_get_seconds(
+        private static extern double g_date_time_get_seconds(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetSecondsArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Double GetSeconds()
+        private double GetSeconds()
         {
             CheckGetSecondsArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_seconds(datetime_);
-            var ret = (System.Double)ret_;
+            var ret = (double)ret_;
             return ret;
         }
 
@@ -1674,7 +1674,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_date_time_get_timezone_abbreviation(
+        private static extern byte* g_date_time_get_timezone_abbreviation(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
@@ -1772,19 +1772,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_week_numbering_year(
+        private static extern int g_date_time_get_week_numbering_year(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetWeekNumberingYearArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetWeekNumberingYear()
+        private int GetWeekNumberingYear()
         {
             CheckGetWeekNumberingYearArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_week_numbering_year(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1816,19 +1816,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_week_of_year(
+        private static extern int g_date_time_get_week_of_year(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetWeekOfYearArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetWeekOfYear()
+        private int GetWeekOfYear()
         {
             CheckGetWeekOfYearArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_week_of_year(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1845,19 +1845,19 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_date_time_get_year(
+        private static extern int g_date_time_get_year(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
         partial void CheckGetYearArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
-        private System.Int32 GetYear()
+        private int GetYear()
         {
             CheckGetYearArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_get_year(datetime_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -1886,28 +1886,28 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime,
         /* <type name="gint" type="gint*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.Int32* year,
+        int* year,
         /* <type name="gint" type="gint*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.Int32* month,
+        int* month,
         /* <type name="gint" type="gint*" managed-name="System.Int32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.Int32* day);
+        int* day);
         partial void CheckGetYmdArgs();
 
-        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetYmd(System.Int32,System.Int32,System.Int32)']/*" />
+        /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.GetYmd(int,int,int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public void GetYmd(out System.Int32 year, out System.Int32 month, out System.Int32 day)
+        public void GetYmd(out int year, out int month, out int day)
         {
             CheckGetYmdArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
-            System.Int32 year_;
-            System.Int32 month_;
-            System.Int32 day_;
+            int year_;
+            int month_;
+            int day_;
             g_date_time_get_ymd(datetime_, &year_, &month_, &day_);
-            year = (System.Int32)year_;
-            month = (System.Int32)month_;
-            day = (System.Int32)day_;
+            year = (int)year_;
+            month = (int)month_;
+            day = (int)day_;
         }
 
         /// <summary>
@@ -2116,7 +2116,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int64 g_date_time_to_unix(
+        private static extern long g_date_time_to_unix(
         /* <type name="DateTime" type="GDateTime*" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);
@@ -2124,12 +2124,12 @@ namespace GISharp.Lib.GLib
 
         /// <include file="DateTime.xmldoc" path="declaration/member[@name='DateTime.ToUnix()']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
-        public System.Int64 ToUnix()
+        public long ToUnix()
         {
             CheckToUnixArgs();
             var datetime_ = (GISharp.Lib.GLib.DateTime.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_date_time_to_unix(datetime_);
-            var ret = (System.Int64)ret_;
+            var ret = (long)ret_;
             return ret;
         }
 
@@ -2281,7 +2281,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 g_date_time_hash(
+        private static extern uint g_date_time_hash(
         /* <type name="DateTime" type="gconstpointer" managed-name="DateTime" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.DateTime.UnmanagedStruct* datetime);

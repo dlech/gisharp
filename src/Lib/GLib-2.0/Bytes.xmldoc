@@ -22,7 +22,7 @@ This function will always return the same value for a given <see cref="Bytes"/>.
 </remarks>
 </member>
 
-<member name='Bytes.Bytes(System.ReadOnlySpan&lt;System.Byte&gt;)'>
+<member name='Bytes.Bytes(System.ReadOnlySpan&lt;byte&gt;)'>
 <summary>
 Creates a new <see cref="Bytes"/> from <paramref name="data"/>.
 </summary>
@@ -35,7 +35,7 @@ Creates a new <see cref="Bytes"/> from <paramref name="data"/>.
 </param>
 </member>
 
-<member name='Bytes.Bytes(GISharp.Runtime.CArray&lt;System.Byte&gt;?)'>
+<member name='Bytes.Bytes(GISharp.Runtime.CArray&lt;byte&gt;?)'>
 <summary>
 Creates a new <see cref="Bytes"/> from <paramref name="data"/>.
 </summary>
@@ -113,7 +113,7 @@ a hash value corresponding to the key.
 </returns>
 </member>
 
-<member name='Bytes.NewFromBytes(System.Int32,System.Int32)'>
+<member name='Bytes.NewFromBytes(int,int)'>
 <summary>
 Creates a <see cref="Bytes"/> which is a subsection of another <see cref="Bytes"/>. The <paramref name="offset"/> +
 <paramref name="length"/> may not be longer than the size of this instance.
@@ -147,7 +147,7 @@ the same byte data.
 <remarks>
 As an optimization, the byte data is transferred to the array without copying
 if this was the last reference to bytes and bytes was created with
-<see cref="Bytes.Bytes(System.ReadOnlySpan{System.Byte})"/>, <see cref="Bytes.Bytes(GISharp.Runtime.CArray{System.Byte})"/> or <see cref="ByteArray.FreeToBytes()"/>. In all
+<see cref="Bytes.Bytes(System.ReadOnlySpan{byte})"/>, <see cref="Bytes.Bytes(GISharp.Runtime.CArray{byte})"/> or <see cref="ByteArray.FreeToBytes()"/>. In all
 other cases the data is copied.
 </remarks>
 <returns>
@@ -162,8 +162,8 @@ contents.
 </summary>
 <remarks>
 As an optimization, the byte data is returned without copying if this was
-the last reference to bytes and bytes was created with <see cref="Bytes.Bytes(System.ReadOnlySpan{System.Byte})"/>,
-<see cref="Bytes.Bytes(GISharp.Runtime.CArray{System.Byte})"/> or <see cref="ByteArray.FreeToBytes()"/>. In all other cases the
+the last reference to bytes and bytes was created with <see cref="Bytes.Bytes(System.ReadOnlySpan{byte})"/>,
+<see cref="Bytes.Bytes(GISharp.Runtime.CArray{byte})"/> or <see cref="ByteArray.FreeToBytes()"/>. In all other cases the
 data is copied.
 </remarks>
 <returns>

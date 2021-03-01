@@ -75,7 +75,7 @@ namespace GISharp.Lib.Gio
         private static extern GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* g_simple_action_new(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name,
+        byte* name,
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* parameterType);
@@ -84,7 +84,7 @@ namespace GISharp.Lib.Gio
         static GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
         {
             CheckNewArgs(name, parameterType);
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var parameterType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(parameterType?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_simple_action_new(name_,parameterType_);
             return ret_;
@@ -127,7 +127,7 @@ namespace GISharp.Lib.Gio
         private static extern GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* g_simple_action_new_stateful(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name,
+        byte* name,
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* parameterType,
@@ -139,7 +139,7 @@ namespace GISharp.Lib.Gio
         static GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
         {
             CheckNewStatefulArgs(name, parameterType, state);
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var parameterType_ = (GISharp.Lib.GLib.VariantType.UnmanagedStruct*)(parameterType?.UnsafeHandle ?? System.IntPtr.Zero);
             var state_ = (GISharp.Lib.GLib.Variant.UnmanagedStruct*)state.UnsafeHandle;
             var ret_ = g_simple_action_new_stateful(name_,parameterType_,state_);

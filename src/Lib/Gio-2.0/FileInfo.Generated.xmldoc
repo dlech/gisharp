@@ -431,7 +431,7 @@ a byte string.
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8,System.Int32)'>
+<member name='FileInfo.SetAttributeInt32(GISharp.Lib.GLib.UnownedUtf8,int)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -444,7 +444,7 @@ a signed 32-bit integer
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8,System.Int64)'>
+<member name='FileInfo.SetAttributeInt64(GISharp.Lib.GLib.UnownedUtf8,long)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -530,7 +530,7 @@ a <c>null</c>
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8,System.UInt32)'>
+<member name='FileInfo.SetAttributeUint32(GISharp.Lib.GLib.UnownedUtf8,uint)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -543,7 +543,7 @@ an unsigned 32-bit integer.
 </param>
 </member>
 
-<member name='FileInfo.SetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8,System.UInt64)'>
+<member name='FileInfo.SetAttributeUint64(GISharp.Lib.GLib.UnownedUtf8,ulong)'>
 <summary>
 Sets the <paramref name="attribute"/> to contain the given <paramref name="attrValue"/>,
 if possible.
@@ -591,10 +591,10 @@ stream, use <see cref="FileInputStream.QueryInfo(GISharp.Lib.GLib.UnownedUtf8,GI
 
 To change the actual attributes of a file, you should then set the
 attribute in the <see cref="FileInfo"/> and call <see cref="File.SetAttributesFromInfo(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,GISharp.Lib.Gio.Cancellable)"/>
-or <see cref="File.SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,System.Int32,GISharp.Lib.Gio.Cancellable)"/> on a GFile.
+or <see cref="File.SetAttributesAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileInfo,GISharp.Lib.Gio.FileQueryInfoFlags,int,GISharp.Lib.Gio.Cancellable)"/> on a GFile.
 
 However, not all attributes can be changed in the file. For instance,
-the actual size of a file cannot be changed via <see cref="FileInfo.SetSize(System.Int64)"/>.
+the actual size of a file cannot be changed via <see cref="FileInfo.SetSize(long)"/>.
 You may call <see cref="File.QuerySettableAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> and
 <see cref="File.QueryWritableNamespaces(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.Cancellable)"/> to discover the settable attributes
 of a particular file at runtime.

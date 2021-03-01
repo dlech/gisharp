@@ -77,7 +77,7 @@ a <see cref="Mutex"/> that is currently locked
 </param>
 </member>
 
-<member name='Cond.WaitUntil(GISharp.Lib.GLib.Mutex,System.Int64)'>
+<member name='Cond.WaitUntil(GISharp.Lib.GLib.Mutex,long)'>
 <summary>
 Waits until either this instance is signalled or <paramref name="endTime"/> has passed.
 </summary>
@@ -198,7 +198,7 @@ waiting on it) before the first thread goes to sleep. <see cref="Cond"/> is
 specifically useful for its ability to release the mutex and go
 to sleep atomically.
 
-It is also important to use the <see cref="Cond.Wait(GISharp.Lib.GLib.Mutex)"/> and <see cref="Cond.WaitUntil(GISharp.Lib.GLib.Mutex,System.Int64)"/>
+It is also important to use the <see cref="Cond.Wait(GISharp.Lib.GLib.Mutex)"/> and <see cref="Cond.WaitUntil(GISharp.Lib.GLib.Mutex,long)"/>
 functions only inside a loop which checks for the condition to be
 true.  See <see cref="Cond.Wait(GISharp.Lib.GLib.Mutex)"/> for an explanation of why the condition may
 not be true even after it returns.

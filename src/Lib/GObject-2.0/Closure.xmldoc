@@ -44,7 +44,73 @@ Indicates whether the closure has been invalidated by
 <member name='Closure.Data'>
 </member>
 
-<member name='Closure.Notifiers'>
+<member name='UnmanagedStruct.Notifiers'>
+</member>
+
+<member name='Closure.Closure(uint,GISharp.Lib.GObject.Object)'>
+<summary>
+A variant of <see cref="Closure.Closure(uint,System.IntPtr)"/> which stores <paramref name="object"/> in the
+<c>data</c> field of the closure and calls <see cref="Object.WatchClosure(GISharp.Lib.GObject.Closure)"/> on
+<paramref name="object"/> and the created closure. This function is mainly useful
+when implementing new types of closures.
+</summary>
+<param name="sizeofClosure">
+the size of the structure to allocate, must be at least
+ `sizeof (GClosure)`
+</param>
+<param name="object">
+a <see cref="Object"/> pointer to store in the <c>data</c> field of the newly
+ allocated <see cref="Closure"/>
+</param>
+</member>
+
+<member name='Closure.Closure(uint,System.IntPtr)'>
+<summary>
+Allocates a struct of the given size and initializes the initial
+part as a <see cref="Closure"/>. This function is mainly useful when
+implementing new types of closures.
+</summary>
+<remarks>
+|[&lt;!-- language="C" --&gt;
+typedef struct _MyClosure MyClosure;
+struct _MyClosure
+{
+  GClosure closure;
+  // extra data goes here
+};
+
+static void
+my_closure_finalize (gpointer  notify_data,
+                     GClosure *closure)
+{
+  MyClosure *my_closure = (MyClosure *)closure;
+
+  // free extra data here
+}
+
+MyClosure *my_closure_new (gpointer data)
+{
+  GClosure *closure;
+  MyClosure *my_closure;
+
+  closure = g_closure_new_simple (sizeof (MyClosure), data);
+  my_closure = (MyClosure *) closure;
+
+  // initialize extra data here
+
+  g_closure_add_finalize_notifier (closure, notify_data,
+                                   my_closure_finalize);
+  return my_closure;
+}
+]|
+</remarks>
+<param name="sizeofClosure">
+the size of the structure to allocate, must be at least
+                 `sizeof (GClosure)`
+</param>
+<param name="data">
+data to store in the <paramref name="data"/> field of the newly allocated <see cref="Closure"/>
+</param>
 </member>
 
 <member name='Closure.Invalidate()'>

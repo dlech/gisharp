@@ -14,59 +14,59 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VInt8']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.SByte VInt8;
+        public readonly sbyte VInt8;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VUInt8']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Byte VUInt8;
+        public readonly byte VUInt8;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VInt16']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Int16 VInt16;
+        public readonly short VInt16;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VUInt16']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.UInt16 VUInt16;
+        public readonly ushort VUInt16;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VInt32']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Int32 VInt32;
+        public readonly int VInt32;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VUInt32']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.UInt32 VUInt32;
+        public readonly uint VUInt32;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VInt64']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Int64 VInt64;
+        public readonly long VInt64;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VUInt64']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.UInt64 VUInt64;
+        public readonly ulong VUInt64;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VFloat']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Single VFloat;
+        public readonly float VFloat;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VDouble']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Double VDouble;
+        public readonly double VDouble;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VShort']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Int16 VShort;
+        public readonly short VShort;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VUShort']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.UInt16 VUShort;
+        public readonly ushort VUShort;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VInt']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Int32 VInt;
+        public readonly int VInt;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VUInt']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.UInt32 VUInt;
+        public readonly uint VUInt;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VLong']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
@@ -86,7 +86,7 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VString']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]
-        public readonly System.Byte* VString;
+        public readonly byte* VString;
 
         /// <include file="Argument.xmldoc" path="declaration/member[@name='Argument.VPointer']/*" />
         [System.Runtime.InteropServices.FieldOffsetAttribute(0)]

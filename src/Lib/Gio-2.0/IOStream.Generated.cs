@@ -254,7 +254,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.IOStream.UnmanagedStruct* stream,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 ioPriority,
+        int ioPriority,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -264,15 +264,15 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        partial void CheckCloseAsyncArgs(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        partial void CheckCloseAsyncArgs(int ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.CloseAsync(int,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
-        public System.Threading.Tasks.Task CloseAsync(System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task CloseAsync(int ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckCloseAsyncArgs(ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.IOStream.UnmanagedStruct*)UnsafeHandle;
-            var ioPriority_ = (System.Int32)ioPriority;
+            var ioPriority_ = (int)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
             var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&CloseFinish;
@@ -546,7 +546,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.IOStreamSpliceFlags flags,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 ioPriority,
+        int ioPriority,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -556,17 +556,17 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        partial void CheckSpliceAsyncArgs(GISharp.Lib.Gio.IOStream stream2, GISharp.Lib.Gio.IOStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        partial void CheckSpliceAsyncArgs(GISharp.Lib.Gio.IOStream stream2, GISharp.Lib.Gio.IOStreamSpliceFlags flags, int ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.SpliceAsync(GISharp.Lib.Gio.IOStream,GISharp.Lib.Gio.IOStreamSpliceFlags,int,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.28")]
-        public System.Threading.Tasks.Task SpliceAsync(GISharp.Lib.Gio.IOStream stream2, GISharp.Lib.Gio.IOStreamSpliceFlags flags, System.Int32 ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        public System.Threading.Tasks.Task SpliceAsync(GISharp.Lib.Gio.IOStream stream2, GISharp.Lib.Gio.IOStreamSpliceFlags flags, int ioPriority = GISharp.Lib.GLib.Priority.Default, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckSpliceAsyncArgs(stream2, flags, ioPriority, cancellable);
             var stream1_ = (GISharp.Lib.Gio.IOStream.UnmanagedStruct*)UnsafeHandle;
             var stream2_ = (GISharp.Lib.Gio.IOStream.UnmanagedStruct*)stream2.UnsafeHandle;
             var flags_ = (GISharp.Lib.Gio.IOStreamSpliceFlags)flags;
-            var ioPriority_ = (System.Int32)ioPriority;
+            var ioPriority_ = (int)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
             var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&SpliceFinish;
@@ -575,13 +575,13 @@ namespace GISharp.Lib.Gio
             return completionSource.Task;
         }
 
-        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="IOStream.xmldoc" path="declaration/member[@name='IOStream.DoCloseAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.22")]
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(IOStreamClass.UnmanagedCloseAsync))]
-        protected virtual void DoCloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoCloseAsync(int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.IOStream.UnmanagedStruct*)UnsafeHandle;
-            var ioPriority_ = (System.Int32)ioPriority;
+            var ioPriority_ = (int)ioPriority;
             var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<IOStreamClass.UnmanagedCloseAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);

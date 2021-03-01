@@ -63,20 +63,20 @@ namespace GISharp.Lib.GModule
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_module_build_path(
+        private static extern byte* g_module_build_path(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.Byte* directory,
+        byte* directory,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* moduleName);
+        byte* moduleName);
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.BuildPath(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static GISharp.Lib.GLib.Utf8 BuildPath(GISharp.Lib.GLib.NullableUnownedUtf8 directory, GISharp.Lib.GLib.UnownedUtf8 moduleName)
         {
             CheckBuildPathArgs(directory, moduleName);
-            var directory_ = (System.Byte*)directory.UnsafeHandle;
-            var moduleName_ = (System.Byte*)moduleName.UnsafeHandle;
+            var directory_ = (byte*)directory.UnsafeHandle;
+            var moduleName_ = (byte*)moduleName.UnsafeHandle;
             var ret_ = g_module_build_path(directory_,moduleName_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Utf8>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -93,7 +93,7 @@ namespace GISharp.Lib.GModule
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_module_error();
+        private static extern byte* g_module_error();
 
         private static GISharp.Lib.GLib.UnownedUtf8 GetError()
         {
@@ -137,7 +137,7 @@ namespace GISharp.Lib.GModule
         private static extern GISharp.Lib.GModule.Module.UnmanagedStruct* g_module_open(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.Byte* fileName,
+        byte* fileName,
         /* <type name="ModuleFlags" type="GModuleFlags" managed-name="ModuleFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.ModuleFlags flags);
@@ -146,7 +146,7 @@ namespace GISharp.Lib.GModule
         public static GISharp.Lib.GModule.Module? Open(GISharp.Lib.GLib.NullableUnownedUtf8 fileName, GISharp.Lib.GModule.ModuleFlags flags = default)
         {
             CheckOpenArgs(fileName, flags);
-            var fileName_ = (System.Byte*)fileName.UnsafeHandle;
+            var fileName_ = (byte*)fileName.UnsafeHandle;
             var flags_ = (GISharp.Lib.GModule.ModuleFlags)flags;
             var ret_ = g_module_open(fileName_,flags_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GModule.Module>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full);
@@ -243,7 +243,7 @@ namespace GISharp.Lib.GModule
         [System.Runtime.InteropServices.DllImportAttribute("gmodule-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_module_name(
+        private static extern byte* g_module_name(
         /* <type name="Module" type="GModule*" managed-name="Module" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.Module.UnmanagedStruct* module);
@@ -283,7 +283,7 @@ namespace GISharp.Lib.GModule
         GISharp.Lib.GModule.Module.UnmanagedStruct* module,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* symbolName,
+        byte* symbolName,
         /* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full nullable:1 */
         System.IntPtr* symbol);
@@ -294,7 +294,7 @@ namespace GISharp.Lib.GModule
         {
             CheckTrySymbolArgs(symbolName);
             var module_ = (GISharp.Lib.GModule.Module.UnmanagedStruct*)UnsafeHandle;
-            var symbolName_ = (System.Byte*)symbolName.UnsafeHandle;
+            var symbolName_ = (byte*)symbolName.UnsafeHandle;
             System.IntPtr symbol_;
             var ret_ = g_module_symbol(module_,symbolName_,&symbol_);
             symbol = (System.IntPtr)symbol_;

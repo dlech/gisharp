@@ -303,7 +303,7 @@ means).
 </returns>
 </member>
 
-<member name='Task.ReturnInt(System.Int32)'>
+<member name='Task.ReturnInt(int)'>
 <summary>
 Sets this instance's result to <paramref name="result"/> and completes the task (see
 g_task_return_pointer() for more discussion of exactly what this
@@ -871,7 +871,7 @@ in several ways:
   <see cref="AsyncResult.IsTagged(GISharp.Lib.Gio.IAsyncResult,System.IntPtr)"/> to check if a result is tagged as
   having come from the `_async()` wrapper
   function (for "short-circuit" results, such as when passing
-  0 to <see cref="InputStream.ReadAsync(System.Memory{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>).
+  0 to <see cref="InputStream.ReadAsync(System.Memory{byte},int,GISharp.Lib.Gio.Cancellable)"/>).
 </remarks>
 </member>
 

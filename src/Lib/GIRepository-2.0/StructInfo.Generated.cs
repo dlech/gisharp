@@ -14,16 +14,16 @@ namespace GISharp.Lib.GIRepository
         }
 
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.Alignment']/*" />
-        public System.Int32 Alignment { get => GetAlignment(); }
+        public int Alignment { get => GetAlignment(); }
 
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.NFields']/*" />
-        private System.Int32 NFields { get => GetNFields(); }
+        private int NFields { get => GetNFields(); }
 
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.NMethods']/*" />
-        private System.Int32 NMethods { get => GetNMethods(); }
+        private int NMethods { get => GetNMethods(); }
 
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.Size']/*" />
-        public System.Int32 Size { get => GetSize(); }
+        public int Size { get => GetSize(); }
 
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.IsForeign']/*" />
         public System.Boolean IsForeign { get => GetIsForeign(); }
@@ -62,7 +62,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
         partial void CheckFindFieldArgs(GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.FindField(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -71,7 +71,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckFindFieldArgs(name);
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_struct_info_find_field(info_,name_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.FieldInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -99,7 +99,7 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
         partial void CheckFindMethodArgs(GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <include file="StructInfo.xmldoc" path="declaration/member[@name='StructInfo.FindMethod(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -107,7 +107,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckFindMethodArgs(name);
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_struct_info_find_method(info_,name_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -131,12 +131,12 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info);
         partial void CheckGetAlignmentArgs();
 
-        private System.Int32 GetAlignment()
+        private int GetAlignment()
         {
             CheckGetAlignmentArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_get_alignment(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -162,14 +162,14 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n);
-        partial void CheckGetFieldArgs(System.Int32 n);
+        int n);
+        partial void CheckGetFieldArgs(int n);
 
-        private GISharp.Lib.GIRepository.FieldInfo GetField(System.Int32 n)
+        private GISharp.Lib.GIRepository.FieldInfo GetField(int n)
         {
             CheckGetFieldArgs(n);
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
-            var n_ = (System.Int32)n;
+            var n_ = (int)n;
             var ret_ = g_struct_info_get_field(info_,n_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.FieldInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -197,14 +197,14 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 n);
-        partial void CheckGetMethodArgs(System.Int32 n);
+        int n);
+        partial void CheckGetMethodArgs(int n);
 
-        private GISharp.Lib.GIRepository.FunctionInfo GetMethod(System.Int32 n)
+        private GISharp.Lib.GIRepository.FunctionInfo GetMethod(int n)
         {
             CheckGetMethodArgs(n);
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
-            var n_ = (System.Int32)n;
+            var n_ = (int)n;
             var ret_ = g_struct_info_get_method(info_,n_);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.FunctionInfo>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
@@ -222,18 +222,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_struct_info_get_n_fields(
+        private static extern int g_struct_info_get_n_fields(
         /* <type name="StructInfo" type="GIStructInfo*" managed-name="StructInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info);
         partial void CheckGetNFieldsArgs();
 
-        private System.Int32 GetNFields()
+        private int GetNFields()
         {
             CheckGetNFieldsArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_get_n_fields(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -249,18 +249,18 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_struct_info_get_n_methods(
+        private static extern int g_struct_info_get_n_methods(
         /* <type name="StructInfo" type="GIStructInfo*" managed-name="StructInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info);
         partial void CheckGetNMethodsArgs();
 
-        private System.Int32 GetNMethods()
+        private int GetNMethods()
         {
             CheckGetNMethodsArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_get_n_methods(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -282,12 +282,12 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct* info);
         partial void CheckGetSizeArgs();
 
-        private System.Int32 GetSize()
+        private int GetSize()
         {
             CheckGetSizeArgs();
             var info_ = (GISharp.Lib.GIRepository.StructInfo.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_struct_info_get_size(info_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 

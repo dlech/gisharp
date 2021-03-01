@@ -8,7 +8,7 @@ namespace GISharp.Lib.GObject
     {
 #pragma warning disable CS0169, CS0649
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ClassSize']/*" />
-        public readonly System.UInt16 ClassSize;
+        public readonly ushort ClassSize;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.BaseInit']/*" />
         public readonly System.IntPtr BaseInit;
@@ -26,10 +26,10 @@ namespace GISharp.Lib.GObject
         public readonly System.IntPtr ClassData;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.InstanceSize']/*" />
-        public readonly System.UInt16 InstanceSize;
+        public readonly ushort InstanceSize;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.NPreallocs']/*" />
-        public readonly System.UInt16 NPreallocs;
+        public readonly ushort NPreallocs;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.InstanceInit']/*" />
         public readonly System.IntPtr InstanceInit;

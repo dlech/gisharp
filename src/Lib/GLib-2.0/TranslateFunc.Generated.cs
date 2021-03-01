@@ -10,10 +10,10 @@ namespace GISharp.Lib.GLib
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    public unsafe delegate System.Byte* UnmanagedTranslateFunc(
+    public unsafe delegate byte* UnmanagedTranslateFunc(
     /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
-    System.Byte* str,
+    byte* str,
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 closure:1 direction:in */
     System.IntPtr data);
@@ -45,7 +45,7 @@ namespace GISharp.Lib.GLib
         {
             var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedTranslateFunc>(callback_);
             var data_ = userData_;
-            GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str) { var str_ = (System.Byte*)str.UnsafeHandle; var ret_ = unmanagedCallback(str_,data_); var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_); return ret; }
+            GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str) { var str_ = (byte*)str.UnsafeHandle; var ret_ = unmanagedCallback(str_,data_); var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_); return ret; }
 
             return managedCallback;
         }
@@ -80,7 +80,7 @@ namespace GISharp.Lib.GLib
             return (callback_, destroy_, userData_);
         }
 
-        static System.Byte* UnmanagedCallback(System.Byte* str_, System.IntPtr data_)
+        static byte* UnmanagedCallback(byte* str_, System.IntPtr data_)
         {
             try
             {
@@ -92,7 +92,7 @@ namespace GISharp.Lib.GLib
                 {
                     Destroy(data_);
                 }
-                var ret_ = (System.Byte*)ret.UnsafeHandle;
+                var ret_ = (byte*)ret.UnsafeHandle;
                 return ret_;
             }
             catch (System.Exception ex)
@@ -100,7 +100,7 @@ namespace GISharp.Lib.GLib
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
 
-            return default(System.Byte*);
+            return default(byte*);
         }
 
         static readonly GISharp.Lib.GLib.UnmanagedTranslateFunc UnmanagedCallbackDelegate = UnmanagedCallback;

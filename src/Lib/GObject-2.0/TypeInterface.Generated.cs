@@ -171,7 +171,7 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.GType interfaceType,
         /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full optional:1 allow-none:1 */
-        System.UInt32* nPrerequisites);
+        uint* nPrerequisites);
 
         /// <include file="TypeInterface.xmldoc" path="declaration/member[@name='TypeInterface.Prerequisites(GISharp.Lib.GObject.GType)']/*" />
         [GISharp.Runtime.SinceAttribute("2.2")]
@@ -179,7 +179,7 @@ namespace GISharp.Lib.GObject
         {
             CheckPrerequisitesArgs(interfaceType);
             var interfaceType_ = (GISharp.Lib.GObject.GType)interfaceType;
-            System.UInt32 nPrerequisites_;
+            uint nPrerequisites_;
             var ret_ = g_type_interface_prerequisites(interfaceType_,&nPrerequisites_);
             var ret = new GISharp.Runtime.CArray<GISharp.Lib.GObject.GType>((System.IntPtr)ret_, (int)nPrerequisites_, GISharp.Runtime.Transfer.Full);
             return ret;

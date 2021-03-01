@@ -49,7 +49,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GObject.GType objectType,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 nParameters,
+        uint nParameters,
         /* <array length="1" zero-terminated="0" type="GParameter*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="GObject.Parameter" type="GParameter" managed-name="GISharp.Lib.GObject.Parameter" />
 * </array> */

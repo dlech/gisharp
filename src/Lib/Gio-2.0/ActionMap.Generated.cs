@@ -108,7 +108,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* actionName);
+        byte* actionName);
         static partial void CheckLookupActionArgs(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.LookupAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -117,7 +117,7 @@ namespace GISharp.Lib.Gio
         {
             CheckLookupActionArgs(actionMap, actionName);
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;
-            var actionName_ = (System.Byte*)actionName.UnsafeHandle;
+            var actionName_ = (byte*)actionName.UnsafeHandle;
             var ret_ = g_action_map_lookup_action(actionMap_,actionName_);
             var ret = (GISharp.Lib.Gio.IAction?)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.None);
             return ret;
@@ -145,7 +145,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* actionName);
+        byte* actionName);
         static partial void CheckRemoveActionArgs(this GISharp.Lib.Gio.IActionMap actionMap, GISharp.Lib.GLib.UnownedUtf8 actionName);
 
         /// <include file="ActionMap.xmldoc" path="declaration/member[@name='ActionMap.RemoveAction(GISharp.Lib.Gio.IActionMap,GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -154,7 +154,7 @@ namespace GISharp.Lib.Gio
         {
             CheckRemoveActionArgs(actionMap, actionName);
             var actionMap_ = (GISharp.Lib.Gio.ActionMap.UnmanagedStruct*)actionMap.UnsafeHandle;
-            var actionName_ = (System.Byte*)actionName.UnsafeHandle;
+            var actionName_ = (byte*)actionName.UnsafeHandle;
             g_action_map_remove_action(actionMap_, actionName_);
         }
     }

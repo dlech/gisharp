@@ -20,7 +20,7 @@ namespace GISharp.Lib.GObject
             public readonly GISharp.Lib.GObject.TypeInstance GTypeInstance;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.Name']/*" />
-            public readonly System.Byte* Name;
+            public readonly byte* Name;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.Flags']/*" />
             public readonly GISharp.Lib.GObject.ParamFlags Flags;
@@ -32,19 +32,19 @@ namespace GISharp.Lib.GObject
             public readonly GISharp.Lib.GObject.GType OwnerType;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.Nick']/*" />
-            private readonly System.Byte* Nick;
+            private readonly byte* Nick;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.Blurb']/*" />
-            private readonly System.Byte* Blurb;
+            private readonly byte* Blurb;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.Qdata']/*" />
             private readonly GISharp.Lib.GLib.Data.UnmanagedStruct* Qdata;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.RefCount']/*" />
-            private readonly System.UInt32 RefCount;
+            private readonly uint RefCount;
 
             /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='UnmanagedStruct.ParamId']/*" />
-            private readonly System.UInt32 ParamId;
+            private readonly uint ParamId;
 #pragma warning restore CS0169, CS0649
         }
 
@@ -101,14 +101,14 @@ namespace GISharp.Lib.GObject
         private static extern GISharp.Runtime.Boolean g_param_spec_is_valid_name(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.IsValidName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.66")]
         public static System.Boolean IsValidName(GISharp.Lib.GLib.UnownedUtf8 name)
         {
             CheckIsValidNameArgs(name);
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_param_spec_is_valid_name(name_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
@@ -126,7 +126,7 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_param_spec_get_blurb(
+        private static extern byte* g_param_spec_get_blurb(
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
@@ -189,7 +189,7 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_param_spec_get_name(
+        private static extern byte* g_param_spec_get_name(
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
@@ -245,7 +245,7 @@ namespace GISharp.Lib.GObject
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_param_spec_get_nick(
+        private static extern byte* g_param_spec_get_nick(
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
@@ -470,13 +470,13 @@ namespace GISharp.Lib.GObject
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.DoValuesCmp(GISharp.Lib.GObject.Value,GISharp.Lib.GObject.Value)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(ParamSpecClass.UnmanagedValuesCmp))]
-        protected virtual System.Int32 DoValuesCmp(GISharp.Lib.GObject.Value value1, GISharp.Lib.GObject.Value value2)
+        protected virtual int DoValuesCmp(GISharp.Lib.GObject.Value value1, GISharp.Lib.GObject.Value value2)
         {
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)UnsafeHandle;
             var value1_ = &value1;
             var value2_ = &value2;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<ParamSpecClass.UnmanagedValuesCmp>(_GType)!(pspec_,value1_,value2_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
     }

@@ -182,7 +182,7 @@ a <see cref="ApplicationCommandLine"/> representing the
 </param>
 <returns>
 An integer that is set as the exit status for the calling
-  process. See <see cref="ApplicationCommandLine.SetExitStatus(System.Int32)"/>.
+  process. See <see cref="ApplicationCommandLine.SetExitStatus(int)"/>.
 </returns>
 </member>
 
@@ -391,7 +391,7 @@ The application must be registered before calling this function.
 </remarks>
 </member>
 
-<member name='Application.AddMainOption(GISharp.Lib.GLib.UnownedUtf8,System.SByte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
+<member name='Application.AddMainOption(GISharp.Lib.GLib.UnownedUtf8,sbyte,GISharp.Lib.GLib.OptionFlags,GISharp.Lib.GLib.OptionArg,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)'>
 <summary>
 Add an option to be handled by this instance.
 </summary>
@@ -726,7 +726,7 @@ If the <see cref="ApplicationFlags.IsService"/> flag is set, then the service wi
 run for as much as 10 seconds with a use count of zero while waiting
 for the message that caused the activation to arrive.  After that,
 if the use count falls to zero the application will exit immediately,
-except in the case that <see cref="Application.SetInactivityTimeout(System.UInt32)"/> is in
+except in the case that <see cref="Application.SetInactivityTimeout(uint)"/> is in
 use.
 
 This function sets the prgname (g_set_prgname()), if not already set,
@@ -901,7 +901,7 @@ The application must be registered before calling this function.
 <member name='Application.DoHandleLocalOptions(GISharp.Lib.GLib.VariantDict)'>
 </member>
 
-<member name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv,System.Int32)'>
+<member name='Application.DoTryLocalCommandLine(GISharp.Lib.GLib.Strv,int)'>
 <summary>
 This virtual function is always invoked in the local instance. It
 gets passed a pointer to a <c>null</c>-terminated copy of <c>argv</c> and is

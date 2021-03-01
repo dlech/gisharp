@@ -12,7 +12,7 @@ namespace GISharp.Lib.GLib
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gint" type="gint" managed-name="System.Int32" /> */
     /* transfer-ownership:none direction:in */
-    public unsafe delegate System.Int32 UnmanagedCompareFunc(
+    public unsafe delegate int UnmanagedCompareFunc(
     /* <type name="gpointer" type="gconstpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr a,

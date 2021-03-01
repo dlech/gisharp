@@ -68,7 +68,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.CloseAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.CloseAsync(int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous close of the stream, releasing resources
 related to it. When the operation is finished <paramref name="callback"/> will be
@@ -111,7 +111,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.FlushAsync(System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.FlushAsync(int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Forces an asynchronous write of all user-space buffered data for
 the given this instance.
@@ -175,7 +175,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.SpliceAsync(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.SpliceAsync(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Splices a stream asynchronously.
 When the operation is finished <paramref name="callback"/> will be called.
@@ -200,7 +200,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='OutputStream.Write(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.Write(System.ReadOnlySpan&lt;byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to write the length of <paramref name="buffer"/> bytes from <paramref name="buffer"/> into the stream. Will block
 during the operation.
@@ -238,13 +238,13 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.WriteAll(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WriteAll(System.ReadOnlySpan&lt;byte&gt;,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to write the length of <paramref name="buffer"/> bytes from <paramref name="buffer"/> into the stream. Will block
 during the operation.
 </summary>
 <remarks>
-This function is similar to <see cref="OutputStream.Write(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>, except it tries to
+This function is similar to <see cref="OutputStream.Write(System.ReadOnlySpan{byte},GISharp.Lib.Gio.Cancellable)"/>, except it tries to
 write as many bytes as requested, only stopping on an error.
 
 On a successful write of the length of <paramref name="buffer"/> bytes, <c>true</c> is returned, and <paramref name="bytesWritten"/>
@@ -259,7 +259,7 @@ use #GError, if this function returns <c>false</c> (and sets <see cref="GISharp.
 successfully written before the error was encountered.  This
 functionality is only available from C.  If you need it from another
 language then you must write your own loop around
-<see cref="OutputStream.Write(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="OutputStream.Write(System.ReadOnlySpan{byte},GISharp.Lib.Gio.Cancellable)"/>.
 </remarks>
 <param name="buffer">
 the buffer containing the data to write.
@@ -276,17 +276,17 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.WriteAllAsync(System.ReadOnlyMemory&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WriteAllAsync(System.ReadOnlyMemory&lt;byte&gt;,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write of the length of <paramref name="buffer"/> bytes from <paramref name="buffer"/> into
 the stream. When the operation is finished <paramref name="callback"/> will be called.
-You can then call <see cref="OutputStream.WriteAllFinish(GISharp.Lib.Gio.IAsyncResult,out System.Int32)"/> to get the result of the
+You can then call <see cref="OutputStream.WriteAllFinish(GISharp.Lib.Gio.IAsyncResult,out int)"/> to get the result of the
 operation.
 </summary>
 <remarks>
-This is the asynchronous version of <see cref="OutputStream.WriteAll(System.ReadOnlySpan{System.Byte},out System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+This is the asynchronous version of <see cref="OutputStream.WriteAll(System.ReadOnlySpan{byte},out int,GISharp.Lib.Gio.Cancellable)"/>.
 
-Call <see cref="OutputStream.WriteAllFinish(GISharp.Lib.Gio.IAsyncResult,out System.Int32)"/> to collect the result.
+Call <see cref="OutputStream.WriteAllFinish(GISharp.Lib.Gio.IAsyncResult,out int)"/> to collect the result.
 
 Any outstanding I/O request with higher priority (lower numerical
 value) will be executed before an outstanding request with lower
@@ -306,7 +306,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='OutputStream.WriteAsync(System.ReadOnlyMemory&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WriteAsync(System.ReadOnlyMemory&lt;byte&gt;,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write of the length of <paramref name="buffer"/> bytes from <paramref name="buffer"/> into
 the stream. When the operation is finished <paramref name="callback"/> will be called.
@@ -338,10 +338,10 @@ to implement asynchronicity, so they are optional for inheriting
 classes. However, if you override one you must override all.
 
 For the synchronous, blocking version of this function, see
-<see cref="OutputStream.Write(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="OutputStream.Write(System.ReadOnlySpan{byte},GISharp.Lib.Gio.Cancellable)"/>.
 
 Note that no copy of <paramref name="buffer"/> will be made, so it must stay valid
-until <paramref name="callback"/> is called. See <see cref="OutputStream.WriteBytesAsync(GISharp.Lib.GLib.Bytes,System.Int32,GISharp.Lib.Gio.Cancellable)"/>
+until <paramref name="callback"/> is called. See <see cref="OutputStream.WriteBytesAsync(GISharp.Lib.GLib.Bytes,int,GISharp.Lib.Gio.Cancellable)"/>
 for a #GBytes version that will automatically hold a reference to
 the contents (without copying) for the duration of the call.
 </remarks>
@@ -358,14 +358,14 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 
 <member name='OutputStream.WriteBytes(GISharp.Lib.GLib.Bytes,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-A wrapper function for <see cref="OutputStream.Write(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/> which takes a
+A wrapper function for <see cref="OutputStream.Write(System.ReadOnlySpan{byte},GISharp.Lib.Gio.Cancellable)"/> which takes a
 #GBytes as input.  This can be more convenient for use by language
 bindings or in other cases where the refcounted nature of #GBytes
 is helpful over a bare pointer interface.
 </summary>
 <remarks>
 However, note that this function may still perform partial writes,
-just like <see cref="OutputStream.Write(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>.  If that occurs, to continue
+just like <see cref="OutputStream.Write(System.ReadOnlySpan{byte},GISharp.Lib.Gio.Cancellable)"/>.  If that occurs, to continue
 writing, you will need to create a new #GBytes containing just the
 remaining bytes, using g_bytes_new_from_bytes(). Passing the same
 #GBytes instance multiple times potentially can result in duplicated
@@ -385,15 +385,15 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.WriteBytesAsync(GISharp.Lib.GLib.Bytes,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WriteBytesAsync(GISharp.Lib.GLib.Bytes,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
-This function is similar to <see cref="OutputStream.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>, but
+This function is similar to <see cref="OutputStream.WriteAsync(System.ReadOnlyMemory{byte},int,GISharp.Lib.Gio.Cancellable)"/>, but
 takes a #GBytes as input.  Due to the refcounted nature of #GBytes,
 this allows the stream to avoid taking a copy of the data.
 </summary>
 <remarks>
 However, note that this function may still perform partial writes,
-just like <see cref="OutputStream.WriteAsync(System.ReadOnlyMemory{System.Byte},System.Int32,GISharp.Lib.Gio.Cancellable)"/>. If that occurs, to continue
+just like <see cref="OutputStream.WriteAsync(System.ReadOnlyMemory{byte},int,GISharp.Lib.Gio.Cancellable)"/>. If that occurs, to continue
 writing, you will need to create a new #GBytes containing just the
 remaining bytes, using g_bytes_new_from_bytes(). Passing the same
 #GBytes instance multiple times potentially can result in duplicated
@@ -413,7 +413,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='OutputStream.Writev(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.Writev(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to write the bytes contained in the the length of <paramref name="vectors"/> <paramref name="vectors"/> into the
 stream. Will block during the operation.
@@ -435,7 +435,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. I
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
 
-Some implementations of <see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out System.Int32,GISharp.Lib.Gio.Cancellable)"/> may have limitations on the
+Some implementations of <see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out int,GISharp.Lib.Gio.Cancellable)"/> may have limitations on the
 aggregate buffer size, and will return <see cref="IOErrorEnum.InvalidArgument"/> if these
 are exceeded. For example, when writing to a local file on UNIX platforms,
 the aggregate buffer size must not exceed %G_MAXSSIZE bytes.
@@ -455,13 +455,13 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.WritevAll(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WritevAll(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to write the bytes contained in the the length of <paramref name="vectors"/> <paramref name="vectors"/> into the
 stream. Will block during the operation.
 </summary>
 <remarks>
-This function is similar to <see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out System.Int32,GISharp.Lib.Gio.Cancellable)"/>, except it tries to
+This function is similar to <see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out int,GISharp.Lib.Gio.Cancellable)"/>, except it tries to
 write as many bytes as requested, only stopping on an error.
 
 On a successful write of all the length of <paramref name="vectors"/> vectors, <c>true</c> is returned, and
@@ -476,7 +476,7 @@ use #GError, if this function returns <c>false</c> (and sets <see cref="GISharp.
 successfully written before the error was encountered.  This
 functionality is only available from C. If you need it from another
 language then you must write your own loop around
-<see cref="OutputStream.Write(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="OutputStream.Write(System.ReadOnlySpan{byte},GISharp.Lib.Gio.Cancellable)"/>.
 
 The content of the individual elements of <paramref name="vectors"/> might be changed by this
 function.
@@ -496,17 +496,17 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.WritevAllAsync(System.ReadOnlyMemory&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WritevAllAsync(System.ReadOnlyMemory&lt;GISharp.Lib.Gio.OutputVector&gt;,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write of the bytes contained in the the length of <paramref name="vectors"/> <paramref name="vectors"/> into
 the stream. When the operation is finished <paramref name="callback"/> will be called.
-You can then call <see cref="OutputStream.WritevAllFinish(GISharp.Lib.Gio.IAsyncResult,out System.Int32)"/> to get the result of the
+You can then call <see cref="OutputStream.WritevAllFinish(GISharp.Lib.Gio.IAsyncResult,out int)"/> to get the result of the
 operation.
 </summary>
 <remarks>
-This is the asynchronous version of <see cref="OutputStream.WritevAll(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+This is the asynchronous version of <see cref="OutputStream.WritevAll(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out int,GISharp.Lib.Gio.Cancellable)"/>.
 
-Call <see cref="OutputStream.WritevAllFinish(GISharp.Lib.Gio.IAsyncResult,out System.Int32)"/> to collect the result.
+Call <see cref="OutputStream.WritevAllFinish(GISharp.Lib.Gio.IAsyncResult,out int)"/> to collect the result.
 
 Any outstanding I/O request with higher priority (lower numerical
 value) will be executed before an outstanding request with lower
@@ -527,11 +527,11 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore
 </param>
 </member>
 
-<member name='OutputStream.WritevAsync(System.ReadOnlyMemory&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.WritevAsync(System.ReadOnlyMemory&lt;GISharp.Lib.Gio.OutputVector&gt;,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write of the bytes contained in the length of <paramref name="vectors"/> <paramref name="vectors"/> into
 the stream. When the operation is finished <paramref name="callback"/> will be called.
-You can then call <see cref="OutputStream.WritevFinish(GISharp.Lib.Gio.IAsyncResult,out System.Int32)"/> to get the result of the
+You can then call <see cref="OutputStream.WritevFinish(GISharp.Lib.Gio.IAsyncResult,out int)"/> to get the result of the
 operation.
 </summary>
 <remarks>
@@ -556,7 +556,7 @@ to implement asynchronicity, so they are optional for inheriting
 classes. However, if you override one you must override all.
 
 For the synchronous, blocking version of this function, see
-<see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out int,GISharp.Lib.Gio.Cancellable)"/>.
 
 Note that no copy of <paramref name="vectors"/> will be made, so it must stay valid
 until <paramref name="callback"/> is called.
@@ -572,7 +572,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='OutputStream.DoCloseAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.DoCloseAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Requests an asynchronous close of the stream, releasing resources
 related to it. When the operation is finished <paramref name="callback"/> will be
@@ -642,7 +642,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.DoFlushAsync(System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.DoFlushAsync(int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Forces an asynchronous write of all user-space buffered data for
 the given this instance.
@@ -704,7 +704,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.DoSpliceAsync(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.DoSpliceAsync(GISharp.Lib.Gio.InputStream,GISharp.Lib.Gio.OutputStreamSpliceFlags,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Splices a stream asynchronously.
 When the operation is finished <paramref name="callback"/> will be called.
@@ -750,7 +750,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.DoWriteAsync(System.ReadOnlySpan&lt;System.Byte&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.DoWriteAsync(System.ReadOnlySpan&lt;byte&gt;,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write of the length of <paramref name="buffer"/> bytes from <paramref name="buffer"/> into
 the stream. When the operation is finished <paramref name="callback"/> will be called.
@@ -782,10 +782,10 @@ to implement asynchronicity, so they are optional for inheriting
 classes. However, if you override one you must override all.
 
 For the synchronous, blocking version of this function, see
-<see cref="OutputStream.Write(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="OutputStream.Write(System.ReadOnlySpan{byte},GISharp.Lib.Gio.Cancellable)"/>.
 
 Note that no copy of <paramref name="buffer"/> will be made, so it must stay valid
-until <paramref name="callback"/> is called. See <see cref="OutputStream.WriteBytesAsync(GISharp.Lib.GLib.Bytes,System.Int32,GISharp.Lib.Gio.Cancellable)"/>
+until <paramref name="callback"/> is called. See <see cref="OutputStream.WriteBytesAsync(GISharp.Lib.GLib.Bytes,int,GISharp.Lib.Gio.Cancellable)"/>
 for a #GBytes version that will automatically hold a reference to
 the contents (without copying) for the duration of the call.
 </remarks>
@@ -818,7 +818,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.DoWriteFn(System.ReadOnlySpan&lt;System.Byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.DoWriteFn(System.ReadOnlySpan&lt;byte&gt;,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to write the length of <paramref name="buffer"/> bytes from <paramref name="buffer"/> into the stream. Will block
 during the operation.
@@ -856,11 +856,11 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.DoWritevAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.DoWritevAsync(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Request an asynchronous write of the bytes contained in the length of <paramref name="vectors"/> <paramref name="vectors"/> into
 the stream. When the operation is finished <paramref name="callback"/> will be called.
-You can then call <see cref="OutputStream.WritevFinish(GISharp.Lib.Gio.IAsyncResult,out System.Int32)"/> to get the result of the
+You can then call <see cref="OutputStream.WritevFinish(GISharp.Lib.Gio.IAsyncResult,out int)"/> to get the result of the
 operation.
 </summary>
 <remarks>
@@ -885,7 +885,7 @@ to implement asynchronicity, so they are optional for inheriting
 classes. However, if you override one you must override all.
 
 For the synchronous, blocking version of this function, see
-<see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out System.Int32,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out int,GISharp.Lib.Gio.Cancellable)"/>.
 
 Note that no copy of <paramref name="vectors"/> will be made, so it must stay valid
 until <paramref name="callback"/> is called.
@@ -904,7 +904,7 @@ optional <see cref="Cancellable"/> object, <c>null</c> to ignore.
 </param>
 </member>
 
-<member name='OutputStream.DoWritevFinish(GISharp.Lib.Gio.IAsyncResult,System.Int32)'>
+<member name='OutputStream.DoWritevFinish(GISharp.Lib.Gio.IAsyncResult,int)'>
 <summary>
 Finishes a stream writev operation.
 </summary>
@@ -922,7 +922,7 @@ On error
 </exception>
 </member>
 
-<member name='OutputStream.DoWritevFn(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,System.Int32,GISharp.Lib.Gio.Cancellable?)'>
+<member name='OutputStream.DoWritevFn(System.ReadOnlySpan&lt;GISharp.Lib.Gio.OutputVector&gt;,int,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Tries to write the bytes contained in the the length of <paramref name="vectors"/> <paramref name="vectors"/> into the
 stream. Will block during the operation.
@@ -944,7 +944,7 @@ was cancelled, the error <see cref="IOErrorEnum.Cancelled"/> will be returned. I
 operation was partially finished when the operation was cancelled the
 partial result will be returned, without an error.
 
-Some implementations of <see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out System.Int32,GISharp.Lib.Gio.Cancellable)"/> may have limitations on the
+Some implementations of <see cref="OutputStream.Writev(System.ReadOnlySpan{GISharp.Lib.Gio.OutputVector},out int,GISharp.Lib.Gio.Cancellable)"/> may have limitations on the
 aggregate buffer size, and will return <see cref="IOErrorEnum.InvalidArgument"/> if these
 are exceeded. For example, when writing to a local file on UNIX platforms,
 the aggregate buffer size must not exceed %G_MAXSSIZE bytes.
@@ -969,7 +969,7 @@ On error
 
 <member name='OutputStream'>
 <summary>
-<see cref="OutputStream"/> has functions to write to a stream (<see cref="OutputStream.Write(System.ReadOnlySpan{System.Byte},GISharp.Lib.Gio.Cancellable)"/>),
+<see cref="OutputStream"/> has functions to write to a stream (<see cref="OutputStream.Write(System.ReadOnlySpan{byte},GISharp.Lib.Gio.Cancellable)"/>),
 to close a stream (<see cref="OutputStream.Close(GISharp.Lib.Gio.Cancellable)"/>) and to flush pending writes
 (<see cref="OutputStream.Flush(GISharp.Lib.Gio.Cancellable)"/>).
 </summary>

@@ -31,7 +31,7 @@ namespace GISharp.Lib.GObject
             public readonly System.IntPtr ValuesCmp;
 
             /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy']/*" />
-            private fixed System.Int64 Dummy[4];
+            private fixed long Dummy[4];
 #pragma warning restore CS0169, CS0649
         }
 
@@ -144,7 +144,7 @@ GISharp.Lib.GObject.Value* value);
         }
 
         /// <include file="ParamSpecClass.xmldoc" path="declaration/member[@name='ValuesCmp']/*" />
-        public delegate System.Int32 ValuesCmp(GISharp.Lib.GObject.Value value1, GISharp.Lib.GObject.Value value2);
+        public delegate int ValuesCmp(GISharp.Lib.GObject.Value value1, GISharp.Lib.GObject.Value value2);
 
         /// <summary>
         /// Unmanaged callback
@@ -152,7 +152,7 @@ GISharp.Lib.GObject.Value* value);
         [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        public unsafe delegate System.Int32 UnmanagedValuesCmp(
+        public unsafe delegate int UnmanagedValuesCmp(
 /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec,
@@ -173,7 +173,7 @@ GISharp.Lib.GObject.Value* value2);
             /// </summary>
             public static UnmanagedValuesCmp Create(System.Reflection.MethodInfo methodInfo)
             {
-                System.Int32 unmanagedValuesCmp(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value1_, GISharp.Lib.GObject.Value* value2_) { try { var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value1 = (GISharp.Lib.GObject.Value)value1_; var value2 = (GISharp.Lib.GObject.Value)value2_; var doValuesCmp = (ValuesCmp)methodInfo.CreateDelegate(typeof(ValuesCmp), pspec); var ret = doValuesCmp(value1, value2); var ret_ = (System.Int32)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(System.Int32); }
+                int unmanagedValuesCmp(GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec_, GISharp.Lib.GObject.Value* value1_, GISharp.Lib.GObject.Value* value2_) { try { var pspec = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)pspec_, GISharp.Runtime.Transfer.None)!; var value1 = (GISharp.Lib.GObject.Value)value1_; var value2 = (GISharp.Lib.GObject.Value)value2_; var doValuesCmp = (ValuesCmp)methodInfo.CreateDelegate(typeof(ValuesCmp), pspec); var ret = doValuesCmp(value1, value2); var ret_ = (int)ret; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(int); }
 
                 return unmanagedValuesCmp;
             }

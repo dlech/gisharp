@@ -46,7 +46,7 @@ GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_typelib_get_namespace(
+        private static extern byte* g_typelib_get_namespace(
 /* <type name="Typelib" type="GITypelib*" managed-name="Typelib" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
@@ -70,7 +70,7 @@ GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib);
 GISharp.Lib.GIRepository.Typelib.UnmanagedStruct* typelib,
 /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.Byte* symbolName,
+byte* symbolName,
 /* <type name="gpointer" type="gpointer*" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:out caller-allocates:1 */
 System.IntPtr* symbol);
@@ -83,7 +83,7 @@ System.IntPtr* symbol);
             {
                 CheckTrySymbolArgs(symbolName);
                 var typelib_ = (GISharp.Lib.GIRepository.Typelib.UnmanagedStruct*)UnsafeHandle;
-                var symbolName_ = (System.Byte*)symbolName.UnsafeHandle;
+                var symbolName_ = (byte*)symbolName.UnsafeHandle;
                 var ret_ = g_typelib_symbol(typelib_,symbolName_,symbol_);
                 var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
                 return ret;

@@ -19,10 +19,10 @@ namespace GISharp.Lib.GLib
             public readonly GISharp.Lib.GLib.Quark Domain;
 
             /// <include file="Error.xmldoc" path="declaration/member[@name='UnmanagedStruct.Code']/*" />
-            public readonly System.Int32 Code;
+            public readonly int Code;
 
             /// <include file="Error.xmldoc" path="declaration/member[@name='UnmanagedStruct.Message']/*" />
-            public readonly System.Byte* Message;
+            public readonly byte* Message;
 #pragma warning restore CS0169, CS0649
         }
 
@@ -38,7 +38,7 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewLiteralArgs(GISharp.Lib.GLib.Quark domain, System.Int32 code, GISharp.Lib.GLib.UnownedUtf8 message);
+        static partial void CheckNewLiteralArgs(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message);
 
         /// <summary>
         /// Creates a new #GError; unlike g_error_new(), @message is
@@ -67,23 +67,23 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Quark domain,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 code,
+        int code,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* message);
+        byte* message);
 
-        static GISharp.Lib.GLib.Error.UnmanagedStruct* NewLiteral(GISharp.Lib.GLib.Quark domain, System.Int32 code, GISharp.Lib.GLib.UnownedUtf8 message)
+        static GISharp.Lib.GLib.Error.UnmanagedStruct* NewLiteral(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message)
         {
             CheckNewLiteralArgs(domain, code, message);
             var domain_ = (GISharp.Lib.GLib.Quark)domain;
-            var code_ = (System.Int32)code;
-            var message_ = (System.Byte*)message.UnsafeHandle;
+            var code_ = (int)code;
+            var message_ = (byte*)message.UnsafeHandle;
             var ret_ = g_error_new_literal(domain_,code_,message_);
             return ret_;
         }
 
-        /// <include file="Error.xmldoc" path="declaration/member[@name='Error.Error(GISharp.Lib.GLib.Quark,System.Int32,GISharp.Lib.GLib.UnownedUtf8)']/*" />
-        public Error(GISharp.Lib.GLib.Quark domain, System.Int32 code, GISharp.Lib.GLib.UnownedUtf8 message) : this((System.IntPtr)NewLiteral(domain, code, message), GISharp.Runtime.Transfer.Full)
+        /// <include file="Error.xmldoc" path="declaration/member[@name='Error.Error(GISharp.Lib.GLib.Quark,int,GISharp.Lib.GLib.UnownedUtf8)']/*" />
+        public Error(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message) : this((System.IntPtr)NewLiteral(domain, code, message), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -172,16 +172,16 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Quark domain,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 code);
-        partial void CheckMatchesArgs(GISharp.Lib.GLib.Quark domain, System.Int32 code);
+        int code);
+        partial void CheckMatchesArgs(GISharp.Lib.GLib.Quark domain, int code);
 
-        /// <include file="Error.xmldoc" path="declaration/member[@name='Error.Matches(GISharp.Lib.GLib.Quark,System.Int32)']/*" />
-        public System.Boolean Matches(GISharp.Lib.GLib.Quark domain, System.Int32 code)
+        /// <include file="Error.xmldoc" path="declaration/member[@name='Error.Matches(GISharp.Lib.GLib.Quark,int)']/*" />
+        public System.Boolean Matches(GISharp.Lib.GLib.Quark domain, int code)
         {
             CheckMatchesArgs(domain, code);
             var error_ = (GISharp.Lib.GLib.Error.UnmanagedStruct*)UnsafeHandle;
             var domain_ = (GISharp.Lib.GLib.Quark)domain;
-            var code_ = (System.Int32)code;
+            var code_ = (int)code;
             var ret_ = g_error_matches(error_,domain_,code_);
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;

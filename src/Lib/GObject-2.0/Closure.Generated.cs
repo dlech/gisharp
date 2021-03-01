@@ -16,34 +16,34 @@ namespace GISharp.Lib.GObject
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.RefCount']/*" />
-            private readonly System.UInt32 RefCount;
+            private readonly uint RefCount;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.MetaMarshalNouse']/*" />
-            private readonly System.UInt32 MetaMarshalNouse;
+            private readonly uint MetaMarshalNouse;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.NGuards']/*" />
-            private readonly System.UInt32 NGuards;
+            private readonly uint NGuards;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.NFnotifiers']/*" />
-            private readonly System.UInt32 NFnotifiers;
+            private readonly uint NFnotifiers;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.NInotifiers']/*" />
-            private readonly System.UInt32 NInotifiers;
+            private readonly uint NInotifiers;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.InInotify']/*" />
-            private readonly System.UInt32 InInotify;
+            private readonly uint InInotify;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.Floating']/*" />
-            private readonly System.UInt32 Floating;
+            private readonly uint Floating;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.DerivativeFlag']/*" />
-            private readonly System.UInt32 DerivativeFlag;
+            private readonly uint DerivativeFlag;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.InMarshal']/*" />
-            public readonly System.UInt32 InMarshal;
+            public readonly uint InMarshal;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.IsInvalid']/*" />
-            public readonly System.UInt32 IsInvalid;
+            public readonly uint IsInvalid;
 
             /// <include file="Closure.xmldoc" path="declaration/member[@name='UnmanagedStruct.Marshal']/*" />
             public readonly System.IntPtr Marshal;
@@ -68,7 +68,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        static partial void CheckNewObjectArgs(System.UInt32 sizeofClosure, GISharp.Lib.GObject.Object @object);
+        static partial void CheckNewObjectArgs(uint sizeofClosure, GISharp.Lib.GObject.Object @object);
 
         /// <summary>
         /// A variant of g_closure_new_simple() which stores @object in the
@@ -93,26 +93,26 @@ namespace GISharp.Lib.GObject
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_closure_new_object(
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 sizeofClosure,
+        uint sizeofClosure,
         /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
 
-        static GISharp.Lib.GObject.Closure.UnmanagedStruct* NewObject(System.UInt32 sizeofClosure, GISharp.Lib.GObject.Object @object)
+        static GISharp.Lib.GObject.Closure.UnmanagedStruct* NewObject(uint sizeofClosure, GISharp.Lib.GObject.Object @object)
         {
             CheckNewObjectArgs(sizeofClosure, @object);
-            var sizeofClosure_ = (System.UInt32)sizeofClosure;
+            var sizeofClosure_ = (uint)sizeofClosure;
             var @object_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)@object.UnsafeHandle;
             var ret_ = g_closure_new_object(sizeofClosure_,@object_);
             return ret_;
         }
 
-        /// <include file="Closure.xmldoc" path="declaration/member[@name='Closure.Closure(System.UInt32,GISharp.Lib.GObject.Object)']/*" />
-        public Closure(System.UInt32 sizeofClosure, GISharp.Lib.GObject.Object @object) : this((System.IntPtr)NewObject(sizeofClosure, @object), GISharp.Runtime.Transfer.Full)
+        /// <include file="Closure.xmldoc" path="declaration/member[@name='Closure.Closure(uint,GISharp.Lib.GObject.Object)']/*" />
+        public Closure(uint sizeofClosure, GISharp.Lib.GObject.Object @object) : this((System.IntPtr)NewObject(sizeofClosure, @object), GISharp.Runtime.Transfer.Full)
         {
         }
 
-        static partial void CheckNewSimpleArgs(System.UInt32 sizeofClosure, System.IntPtr data);
+        static partial void CheckNewSimpleArgs(uint sizeofClosure, System.IntPtr data);
 
         /// <summary>
         /// Allocates a struct of the given size and initializes the initial
@@ -169,22 +169,22 @@ namespace GISharp.Lib.GObject
         private static extern GISharp.Lib.GObject.Closure.UnmanagedStruct* g_closure_new_simple(
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 sizeofClosure,
+        uint sizeofClosure,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
 
-        static GISharp.Lib.GObject.Closure.UnmanagedStruct* NewSimple(System.UInt32 sizeofClosure, System.IntPtr data)
+        static GISharp.Lib.GObject.Closure.UnmanagedStruct* NewSimple(uint sizeofClosure, System.IntPtr data)
         {
             CheckNewSimpleArgs(sizeofClosure, data);
-            var sizeofClosure_ = (System.UInt32)sizeofClosure;
+            var sizeofClosure_ = (uint)sizeofClosure;
             var data_ = (System.IntPtr)data;
             var ret_ = g_closure_new_simple(sizeofClosure_,data_);
             return ret_;
         }
 
-        /// <include file="Closure.xmldoc" path="declaration/member[@name='Closure.Closure(System.UInt32,System.IntPtr)']/*" />
-        public Closure(System.UInt32 sizeofClosure, System.IntPtr data) : this((System.IntPtr)NewSimple(sizeofClosure, data), GISharp.Runtime.Transfer.None)
+        /// <include file="Closure.xmldoc" path="declaration/member[@name='Closure.Closure(uint,System.IntPtr)']/*" />
+        public Closure(uint sizeofClosure, System.IntPtr data) : this((System.IntPtr)NewSimple(sizeofClosure, data), GISharp.Runtime.Transfer.None)
         {
         }
 
@@ -264,7 +264,7 @@ namespace GISharp.Lib.GObject
         GISharp.Lib.GObject.Value* returnValue,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 nParamValues,
+        uint nParamValues,
         /* <array length="1" zero-terminated="0" type="const GValue*" managed-name="GISharp.Runtime.CArray" is-pointer="1">
 *   <type name="Value" type="GValue" managed-name="Value" />
 * </array> */
@@ -285,7 +285,7 @@ namespace GISharp.Lib.GObject
                     CheckInvokeArgs(paramValues, invocationHint);
                     var closure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)UnsafeHandle;
                     var paramValues_ = (GISharp.Lib.GObject.Value*)paramValuesData_;
-                    var nParamValues_ = (System.UInt32)paramValues.Length;
+                    var nParamValues_ = (uint)paramValues.Length;
                     var invocationHint_ = (System.IntPtr)invocationHint;
                     g_closure_invoke(closure_, returnValue_, nParamValues_, paramValues_, invocationHint_);
                 }

@@ -44,7 +44,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.Priority']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public System.Int32 Priority { get => GetPriority(); set => SetPriority(value); }
+        public int Priority { get => GetPriority(); set => SetPriority(value); }
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnOnCancel']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -388,7 +388,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
-        private static extern System.Byte* g_task_get_name(
+        private static extern byte* g_task_get_name(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
@@ -417,19 +417,19 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Int32 g_task_get_priority(
+        private static extern int g_task_get_priority(
         /* <type name="Task" type="GTask*" managed-name="Task" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.Task.UnmanagedStruct* task);
         partial void CheckGetPriorityArgs();
 
         [GISharp.Runtime.SinceAttribute("2.36")]
-        private System.Int32 GetPriority()
+        private int GetPriority()
         {
             CheckGetPriorityArgs();
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
             var ret_ = g_task_get_priority(task_);
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -659,7 +659,7 @@ namespace GISharp.Lib.Gio
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.PropagateInt()']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public System.Int32 PropagateInt()
+        public int PropagateInt()
         {
             CheckPropagateIntArgs();
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -671,7 +671,7 @@ namespace GISharp.Lib.Gio
                 throw new GISharp.Runtime.GErrorException(error);
             }
 
-            var ret = (System.Int32)ret_;
+            var ret = (int)ret_;
             return ret;
         }
 
@@ -917,11 +917,11 @@ namespace GISharp.Lib.Gio
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint result);
-        partial void CheckReturnIntArgs(System.Int32 result);
+        partial void CheckReturnIntArgs(int result);
 
-        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnInt(System.Int32)']/*" />
+        /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReturnInt(int)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
-        public void ReturnInt(System.Int32 result)
+        public void ReturnInt(int result)
         {
             CheckReturnIntArgs(result);
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
@@ -1160,7 +1160,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        System.Byte* name);
+        byte* name);
         partial void CheckSetNameArgs(GISharp.Lib.GLib.NullableUnownedUtf8 name);
 
         [GISharp.Runtime.SinceAttribute("2.60")]
@@ -1168,7 +1168,7 @@ namespace GISharp.Lib.Gio
         {
             CheckSetNameArgs(name);
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             g_task_set_name(task_, name_);
         }
 
@@ -1198,15 +1198,15 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="gint" type="gint" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 priority);
-        partial void CheckSetPriorityArgs(System.Int32 priority);
+        int priority);
+        partial void CheckSetPriorityArgs(int priority);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
-        private void SetPriority(System.Int32 priority)
+        private void SetPriority(int priority)
         {
             CheckSetPriorityArgs(priority);
             var task_ = (GISharp.Lib.Gio.Task.UnmanagedStruct*)UnsafeHandle;
-            var priority_ = (System.Int32)priority;
+            var priority_ = (int)priority;
             g_task_set_priority(task_, priority_);
         }
 

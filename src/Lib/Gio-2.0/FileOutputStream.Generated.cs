@@ -55,7 +55,7 @@ namespace GISharp.Lib.Gio
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
-        private static extern System.Byte* g_file_output_stream_get_etag(
+        private static extern byte* g_file_output_stream_get_etag(
         /* <type name="FileOutputStream" type="GFileOutputStream*" managed-name="FileOutputStream" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* stream);
@@ -114,7 +114,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* stream,
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* attributes,
+        byte* attributes,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -128,7 +128,7 @@ namespace GISharp.Lib.Gio
         {
             CheckQueryInfoArgs(attributes, cancellable);
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
-            var attributes_ = (System.Byte*)attributes.UnsafeHandle;
+            var attributes_ = (byte*)attributes.UnsafeHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = g_file_output_stream_query_info(stream_,attributes_,cancellable_,&error_);
@@ -180,10 +180,10 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct* stream,
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* attributes,
+        byte* attributes,
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
-        System.Int32 ioPriority,
+        int ioPriority,
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -193,15 +193,15 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        partial void CheckQueryInfoAsyncArgs(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        partial void CheckQueryInfoAsyncArgs(GISharp.Lib.GLib.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.Cancellable?)']/*" />
-        public System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.Cancellable?)']/*" />
+        public System.Threading.Tasks.Task<GISharp.Lib.Gio.FileInfo> QueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             CheckQueryInfoAsyncArgs(attributes, ioPriority, cancellable);
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
-            var attributes_ = (System.Byte*)attributes.UnsafeHandle;
-            var ioPriority_ = (System.Int32)ioPriority;
+            var attributes_ = (byte*)attributes.UnsafeHandle;
+            var ioPriority_ = (int)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Lib.Gio.FileInfo>();
             var callback_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&QueryInfoFinish;
@@ -301,7 +301,7 @@ namespace GISharp.Lib.Gio
         protected virtual GISharp.Lib.Gio.FileInfo DoQueryInfo(GISharp.Lib.GLib.UnownedUtf8 attributes, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
-            var attributes_ = (System.Byte*)attributes.UnsafeHandle;
+            var attributes_ = (byte*)attributes.UnsafeHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedQueryInfo>(_GType)!(stream_,attributes_,cancellable_,&error_);
@@ -315,13 +315,13 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,System.Int32,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8,int,GISharp.Lib.Gio.AsyncReadyCallback?,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedQueryInfoAsync))]
-        protected virtual void DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoQueryInfoAsync(GISharp.Lib.GLib.UnownedUtf8 attributes, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
-            var attributes_ = (System.Byte*)attributes.UnsafeHandle;
-            var ioPriority_ = (System.Int32)ioPriority;
+            var attributes_ = (byte*)attributes.UnsafeHandle;
+            var ioPriority_ = (int)ioPriority;
             var (callback_, _, userData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedQueryInfoAsync>(_GType)!(stream_, attributes_, ioPriority_, cancellable_, callback_, userData_);
@@ -345,12 +345,12 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoSeek(long,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedSeek))]
-        protected virtual void DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoSeek(long offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
-            var offset_ = (System.Int64)offset;
+            var offset_ = (long)offset;
             var type_ = (GISharp.Lib.GLib.SeekType)type;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
@@ -364,20 +364,20 @@ namespace GISharp.Lib.Gio
 
         /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoTell()']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedTell))]
-        protected virtual System.Int64 DoTell()
+        protected virtual long DoTell()
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
             var ret_ = GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedTell>(_GType)!(stream_);
-            var ret = (System.Int64)ret_;
+            var ret = (long)ret_;
             return ret;
         }
 
-        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)']/*" />
+        /// <include file="FileOutputStream.xmldoc" path="declaration/member[@name='FileOutputStream.DoTruncateFn(long,GISharp.Lib.Gio.Cancellable?)']/*" />
         [GISharp.Runtime.GVirtualMethodAttribute(typeof(FileOutputStreamClass.UnmanagedTruncateFn))]
-        protected virtual void DoTruncateFn(System.Int64 size, GISharp.Lib.Gio.Cancellable? cancellable = null)
+        protected virtual void DoTruncateFn(long size, GISharp.Lib.Gio.Cancellable? cancellable = null)
         {
             var stream_ = (GISharp.Lib.Gio.FileOutputStream.UnmanagedStruct*)UnsafeHandle;
-            var size_ = (System.Int64)size;
+            var size_ = (long)size;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<FileOutputStreamClass.UnmanagedTruncateFn>(_GType)!(stream_, size_, cancellable_, &error_);
@@ -398,17 +398,17 @@ namespace GISharp.Lib.Gio
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.ISeekable.DoSeek(System.Int64 offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable)
+        void GISharp.Lib.Gio.ISeekable.DoSeek(long offset, GISharp.Lib.GLib.SeekType type, GISharp.Lib.Gio.Cancellable? cancellable)
         {
             throw new System.NotImplementedException();
         }
 
-        System.Int64 GISharp.Lib.Gio.ISeekable.DoTell()
+        long GISharp.Lib.Gio.ISeekable.DoTell()
         {
             throw new System.NotImplementedException();
         }
 
-        void GISharp.Lib.Gio.ISeekable.DoTruncateFn(System.Int64 offset, GISharp.Lib.Gio.Cancellable? cancellable)
+        void GISharp.Lib.Gio.ISeekable.DoTruncateFn(long offset, GISharp.Lib.Gio.Cancellable? cancellable)
         {
             throw new System.NotImplementedException();
         }

@@ -16,10 +16,10 @@ namespace GISharp.Lib.GIRepository
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy1']/*" />
-            private readonly System.Int32 Dummy1;
+            private readonly int Dummy1;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy2']/*" />
-            private readonly System.Int32 Dummy2;
+            private readonly int Dummy2;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy3']/*" />
             private readonly System.IntPtr Dummy3;
@@ -31,13 +31,13 @@ namespace GISharp.Lib.GIRepository
             private readonly System.IntPtr Dummy5;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy6']/*" />
-            private readonly System.UInt32 Dummy6;
+            private readonly uint Dummy6;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Dummy7']/*" />
-            private readonly System.UInt32 Dummy7;
+            private readonly uint Dummy7;
 
             /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='UnmanagedStruct.Padding']/*" />
-            private fixed System.Int64 Padding[4];
+            private fixed long Padding[4];
 #pragma warning restore CS0169, CS0649
         }
 
@@ -160,13 +160,13 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_base_info_get_attribute(
+        private static extern byte* g_base_info_get_attribute(
         /* <type name="BaseInfo" type="GIBaseInfo*" managed-name="BaseInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* info,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name);
+        byte* name);
         partial void CheckGetAttributeArgs(GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <include file="BaseInfo.xmldoc" path="declaration/member[@name='BaseInfo.GetAttribute(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -174,7 +174,7 @@ namespace GISharp.Lib.GIRepository
         {
             CheckGetAttributeArgs(name);
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
-            var name_ = (System.Byte*)name.UnsafeHandle;
+            var name_ = (byte*)name.UnsafeHandle;
             var ret_ = g_base_info_get_attribute(info_,name_);
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
@@ -223,7 +223,7 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_base_info_get_name(
+        private static extern byte* g_base_info_get_name(
         /* <type name="BaseInfo" type="GIBaseInfo*" managed-name="BaseInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* info);
@@ -250,7 +250,7 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_base_info_get_namespace(
+        private static extern byte* g_base_info_get_namespace(
         /* <type name="BaseInfo" type="GIBaseInfo*" managed-name="BaseInfo" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct* info);
@@ -403,10 +403,10 @@ namespace GISharp.Lib.GIRepository
         GISharp.Lib.GIRepository.AttributeIter* iterator,
         /* <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none */
-        System.Byte** name,
+        byte** name,
         /* <type name="utf8" type="char**" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* direction:out caller-allocates:0 transfer-ownership:none */
-        System.Byte** value);
+        byte** value);
         partial void CheckTryIterateAttributesArgs(ref GISharp.Lib.GIRepository.AttributeIter iterator);
 
         private System.Boolean TryIterateAttributes(ref GISharp.Lib.GIRepository.AttributeIter iterator, out GISharp.Lib.GLib.UnownedUtf8 name, out GISharp.Lib.GLib.UnownedUtf8 value)
@@ -414,8 +414,8 @@ namespace GISharp.Lib.GIRepository
             CheckTryIterateAttributesArgs(ref iterator);
             var info_ = (GISharp.Lib.GIRepository.BaseInfo.UnmanagedStruct*)UnsafeHandle;
             var iterator_ = (GISharp.Lib.GIRepository.AttributeIter)iterator;
-            System.Byte* name_;
-            System.Byte* value_;
+            byte* name_;
+            byte* value_;
             var ret_ = g_base_info_iterate_attributes(info_,&iterator_,&name_,&value_);
             iterator = (GISharp.Lib.GIRepository.AttributeIter)iterator_;
             name = new GISharp.Lib.GLib.UnownedUtf8(name_);

@@ -183,7 +183,7 @@ the time zone of this instance.
 </summary>
 </member>
 
-<member name='DateTime.DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<member name='DateTime.DateTime(GISharp.Lib.GLib.TimeZone,int,int,int,int,int,double)'>
 <summary>
 Creates a new <see cref="DateTime"/> corresponding to the given date and time in
 the time zone <paramref name="tz"/>.
@@ -331,7 +331,7 @@ a new <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.FromUnixLocal(System.Int64)'>
+<member name='DateTime.FromUnixLocal(long)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to the given Unix time <paramref name="t"/> in the
 local time zone.
@@ -351,7 +351,7 @@ a new <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.FromUnixUtc(System.Int64)'>
+<member name='DateTime.FromUnixUtc(long)'>
 <summary>
 Creates a <see cref="DateTime"/> corresponding to the given Unix time <paramref name="t"/> in UTC.
 </summary>
@@ -370,13 +370,13 @@ a new <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.GetLocal(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<member name='DateTime.GetLocal(int,int,int,int,int,double)'>
 <summary>
 Creates a new <see cref="DateTime"/> corresponding to the given date and time in
 the local time zone.
 </summary>
 <remarks>
-This call is equivalent to calling <see cref="DateTime.DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)"/> with the time
+This call is equivalent to calling <see cref="DateTime.DateTime(GISharp.Lib.GLib.TimeZone,int,int,int,int,int,double)"/> with the time
 zone returned by <see cref="TimeZone.GetLocal()"/>.
 </remarks>
 <param name="year">
@@ -420,13 +420,13 @@ a new <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.GetUtc(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<member name='DateTime.GetUtc(int,int,int,int,int,double)'>
 <summary>
 Creates a new <see cref="DateTime"/> corresponding to the given date and time in
 UTC.
 </summary>
 <remarks>
-This call is equivalent to calling <see cref="DateTime.DateTime(GISharp.Lib.GLib.TimeZone,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)"/> with the time
+This call is equivalent to calling <see cref="DateTime.DateTime(GISharp.Lib.GLib.TimeZone,int,int,int,int,int,double)"/> with the time
 zone returned by <see cref="TimeZone.GetUtc()"/>.
 </remarks>
 <param name="year">
@@ -454,8 +454,8 @@ a <see cref="DateTime"/> or <c>null</c>
 
 <member name='DateTime.Compare(System.IntPtr,System.IntPtr)'>
 <summary>
-A comparison function for #GDateTimes that is suitable
-as a <see cref="CompareFunc"/>. Both #GDateTimes must be non-<c>null</c>.
+A comparison function for <see cref="DateTime"/>s that is suitable
+as a <see cref="D:CompareFunc"/>. Both <see cref="DateTime"/>s must be non-<c>null</c>.
 </summary>
 <param name="dt1">
 first <see cref="DateTime"/> to compare
@@ -481,7 +481,7 @@ the newly created <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.AddDays(System.Int32)'>
+<member name='DateTime.AddDays(int)'>
 <summary>
 Creates a copy of this instance and adds the specified number of days to the
 copy. Add negative values to subtract days.
@@ -494,7 +494,7 @@ the newly created <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.AddFull(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Double)'>
+<member name='DateTime.AddFull(int,int,int,int,int,double)'>
 <summary>
 Creates a new <see cref="DateTime"/> adding the specified values to the current date and
 time in this instance. Add negative values to subtract.
@@ -522,7 +522,7 @@ the newly created <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.AddHours(System.Int32)'>
+<member name='DateTime.AddHours(int)'>
 <summary>
 Creates a copy of this instance and adds the specified number of hours.
 Add negative values to subtract hours.
@@ -535,7 +535,7 @@ the newly created <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.AddMinutes(System.Int32)'>
+<member name='DateTime.AddMinutes(int)'>
 <summary>
 Creates a copy of this instance adding the specified number of minutes.
 Add negative values to subtract minutes.
@@ -548,7 +548,7 @@ the newly created <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.AddMonths(System.Int32)'>
+<member name='DateTime.AddMonths(int)'>
 <summary>
 Creates a copy of this instance and adds the specified number of months to the
 copy. Add negative values to subtract months.
@@ -567,7 +567,7 @@ the newly created <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.AddSeconds(System.Double)'>
+<member name='DateTime.AddSeconds(double)'>
 <summary>
 Creates a copy of this instance and adds the specified number of seconds.
 Add negative values to subtract seconds.
@@ -580,7 +580,7 @@ the newly created <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.AddWeeks(System.Int32)'>
+<member name='DateTime.AddWeeks(int)'>
 <summary>
 Creates a copy of this instance and adds the specified number of weeks to the
 copy. Add negative values to subtract weeks.
@@ -593,13 +593,13 @@ the newly created <see cref="DateTime"/> or <c>null</c>
 </returns>
 </member>
 
-<member name='DateTime.AddYears(System.Int32)'>
+<member name='DateTime.AddYears(int)'>
 <summary>
 Creates a copy of this instance and adds the specified number of years to the
 copy. Add negative values to subtract years.
 </summary>
 <remarks>
-As with <see cref="DateTime.AddMonths(System.Int32)"/>, if the resulting date would be 29th
+As with <see cref="DateTime.AddMonths(int)"/>, if the resulting date would be 29th
 February on a non-leap year, the day will be clamped to 28th February.
 </remarks>
 <param name="years">
@@ -755,7 +755,7 @@ a newly allocated string formatted in
 </returns>
 </member>
 
-<member name='DateTime.GetYmd(System.Int32,System.Int32,System.Int32)'>
+<member name='DateTime.GetYmd(int,int,int)'>
 <summary>
 Retrieves the Gregorian day, month, and year of a given <see cref="DateTime"/>.
 </summary>

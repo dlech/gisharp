@@ -112,7 +112,7 @@ namespace GISharp.Lib.Gio
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteFn']/*" />
-        public delegate System.Int32 WriteFn(System.ReadOnlySpan<System.Byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate int WriteFn(System.ReadOnlySpan<byte> buffer, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -128,7 +128,7 @@ GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.Byte* buffer,
+byte* buffer,
 /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 nuint count,
@@ -149,14 +149,14 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
             /// </summary>
             public static UnmanagedWriteFn Create(System.Reflection.MethodInfo methodInfo)
             {
-                nint unmanagedWriteFn(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, System.Byte* buffer_, nuint count_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var buffer = new System.ReadOnlySpan<System.Byte>(buffer_, (int)count_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWriteFn = (WriteFn)methodInfo.CreateDelegate(typeof(WriteFn), stream); var ret = doWriteFn(buffer, cancellable); var ret_ = (nint)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(nint); }
+                nint unmanagedWriteFn(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, byte* buffer_, nuint count_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var buffer = new System.ReadOnlySpan<byte>(buffer_, (int)count_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWriteFn = (WriteFn)methodInfo.CreateDelegate(typeof(WriteFn), stream); var ret = doWriteFn(buffer, cancellable); var ret_ = (nint)ret; return ret_; } catch (GISharp.Runtime.GErrorException ex) { GISharp.Runtime.GMarshal.PropagateError(error_, ex.Error); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(nint); }
 
                 return unmanagedWriteFn;
             }
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='Splice']/*" />
-        public delegate System.Int32 Splice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate int Splice(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -270,7 +270,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteAsync']/*" />
-        public delegate void WriteAsync(System.ReadOnlySpan<System.Byte> buffer, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void WriteAsync(System.ReadOnlySpan<byte> buffer, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -286,13 +286,13 @@ GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
 *   <type name="guint8" managed-name="System.Byte" />
 * </array> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.Byte* buffer,
+byte* buffer,
 /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
 nuint count,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.Int32 ioPriority,
+int ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -313,14 +313,14 @@ System.IntPtr userData);
             /// </summary>
             public static UnmanagedWriteAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedWriteAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, System.Byte* buffer_, nuint count_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var buffer = new System.ReadOnlySpan<System.Byte>(buffer_, (int)count_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWriteAsync = (WriteAsync)methodInfo.CreateDelegate(typeof(WriteAsync), stream); doWriteAsync(buffer, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedWriteAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, byte* buffer_, nuint count_, int ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var buffer = new System.ReadOnlySpan<byte>(buffer_, (int)count_); var ioPriority = (int)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWriteAsync = (WriteAsync)methodInfo.CreateDelegate(typeof(WriteAsync), stream); doWriteAsync(buffer, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedWriteAsync;
             }
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WriteFinish']/*" />
-        public delegate System.Int32 WriteFinish(GISharp.Lib.Gio.IAsyncResult result);
+        public delegate int WriteFinish(GISharp.Lib.Gio.IAsyncResult result);
 
         /// <summary>
         /// Unmanaged callback
@@ -356,7 +356,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='SpliceAsync']/*" />
-        public delegate void SpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void SpliceAsync(GISharp.Lib.Gio.InputStream source, GISharp.Lib.Gio.OutputStreamSpliceFlags flags, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -376,7 +376,7 @@ GISharp.Lib.Gio.InputStream.UnmanagedStruct* source,
 GISharp.Lib.Gio.OutputStreamSpliceFlags flags,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.Int32 ioPriority,
+int ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -397,14 +397,14 @@ System.IntPtr userData);
             /// </summary>
             public static UnmanagedSpliceAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedSpliceAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.InputStream.UnmanagedStruct* source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var source = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.OutputStreamSpliceFlags)flags_; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSpliceAsync = (SpliceAsync)methodInfo.CreateDelegate(typeof(SpliceAsync), stream); doSpliceAsync(source, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedSpliceAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.InputStream.UnmanagedStruct* source_, GISharp.Lib.Gio.OutputStreamSpliceFlags flags_, int ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var source = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.InputStream>((System.IntPtr)source_, GISharp.Runtime.Transfer.None)!; var flags = (GISharp.Lib.Gio.OutputStreamSpliceFlags)flags_; var ioPriority = (int)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doSpliceAsync = (SpliceAsync)methodInfo.CreateDelegate(typeof(SpliceAsync), stream); doSpliceAsync(source, flags, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedSpliceAsync;
             }
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='SpliceFinish']/*" />
-        public delegate System.Int32 SpliceFinish(GISharp.Lib.Gio.IAsyncResult result);
+        public delegate int SpliceFinish(GISharp.Lib.Gio.IAsyncResult result);
 
         /// <summary>
         /// Unmanaged callback
@@ -440,7 +440,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='FlushAsync']/*" />
-        public delegate void FlushAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void FlushAsync(int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -454,7 +454,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.Int32 ioPriority,
+int ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -475,7 +475,7 @@ System.IntPtr userData);
             /// </summary>
             public static UnmanagedFlushAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedFlushAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doFlushAsync = (FlushAsync)methodInfo.CreateDelegate(typeof(FlushAsync), stream); doFlushAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedFlushAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, int ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var ioPriority = (int)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doFlushAsync = (FlushAsync)methodInfo.CreateDelegate(typeof(FlushAsync), stream); doFlushAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedFlushAsync;
             }
@@ -518,7 +518,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='CloseAsync']/*" />
-        public delegate void CloseAsync(System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void CloseAsync(int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -532,7 +532,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
 GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.Int32 ioPriority,
+int ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -553,7 +553,7 @@ System.IntPtr userData);
             /// </summary>
             public static UnmanagedCloseAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedCloseAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCloseAsync = (CloseAsync)methodInfo.CreateDelegate(typeof(CloseAsync), stream); doCloseAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedCloseAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, int ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var ioPriority = (int)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doCloseAsync = (CloseAsync)methodInfo.CreateDelegate(typeof(CloseAsync), stream); doCloseAsync(ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedCloseAsync;
             }
@@ -596,7 +596,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevFn']/*" />
-        public delegate void WritevFn(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out System.Int32 bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void WritevFn(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, out int bytesWritten, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -643,7 +643,7 @@ GISharp.Lib.GLib.Error.UnmanagedStruct** error);
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevAsync']/*" />
-        public delegate void WritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, System.Int32 ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
+        public delegate void WritevAsync(System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector> vectors, int ioPriority, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <summary>
         /// Unmanaged callback
@@ -665,7 +665,7 @@ GISharp.Lib.Gio.OutputVector* vectors,
 nuint nVectors,
 /* <type name="gint" type="int" managed-name="System.Int32" /> */
 /* transfer-ownership:none direction:in */
-System.Int32 ioPriority,
+int ioPriority,
 /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
@@ -686,14 +686,14 @@ System.IntPtr userData);
             /// </summary>
             public static UnmanagedWritevAsync Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedWritevAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.OutputVector* vectors_, nuint nVectors_, System.Int32 ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var vectors = new System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector>(vectors_, (int)nVectors_); var ioPriority = (System.Int32)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWritevAsync = (WritevAsync)methodInfo.CreateDelegate(typeof(WritevAsync), stream); doWritevAsync(vectors, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedWritevAsync(GISharp.Lib.Gio.OutputStream.UnmanagedStruct* stream_, GISharp.Lib.Gio.OutputVector* vectors_, nuint nVectors_, int ioPriority_, GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable_, System.IntPtr callback_, System.IntPtr userData_) { try { var stream = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.OutputStream>((System.IntPtr)stream_, GISharp.Runtime.Transfer.None)!; var vectors = new System.ReadOnlySpan<GISharp.Lib.Gio.OutputVector>(vectors_, (int)nVectors_); var ioPriority = (int)ioPriority_; var callback = callback_ == System.IntPtr.Zero ? default(GISharp.Lib.Gio.AsyncReadyCallback) : GISharp.Lib.Gio.AsyncReadyCallbackMarshal.FromPointer(callback_, userData_); var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None); var doWritevAsync = (WritevAsync)methodInfo.CreateDelegate(typeof(WritevAsync), stream); doWritevAsync(vectors, ioPriority, callback, cancellable); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedWritevAsync;
             }
         }
 
         /// <include file="OutputStreamClass.xmldoc" path="declaration/member[@name='WritevFinish']/*" />
-        public delegate void WritevFinish(GISharp.Lib.Gio.IAsyncResult result, out System.Int32 bytesWritten);
+        public delegate void WritevFinish(GISharp.Lib.Gio.IAsyncResult result, out int bytesWritten);
 
         /// <summary>
         /// Unmanaged callback

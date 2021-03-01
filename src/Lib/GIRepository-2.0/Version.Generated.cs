@@ -20,15 +20,15 @@ namespace GISharp.Lib.GIRepository
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.RunTimeMajorVersion']/*" />
         [GISharp.Runtime.SinceAttribute("1.60")]
-        private static System.UInt32 RunTimeMajorVersion { get => GetRunTimeMajorVersion(); }
+        private static uint RunTimeMajorVersion { get => GetRunTimeMajorVersion(); }
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.RunTimeMicroVersion']/*" />
         [GISharp.Runtime.SinceAttribute("1.60")]
-        private static System.UInt32 RunTimeMicroVersion { get => GetRunTimeMicroVersion(); }
+        private static uint RunTimeMicroVersion { get => GetRunTimeMicroVersion(); }
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.RunTimeMinorVersion']/*" />
         [GISharp.Runtime.SinceAttribute("1.60")]
-        private static System.UInt32 RunTimeMinorVersion { get => GetRunTimeMinorVersion(); }
+        private static uint RunTimeMinorVersion { get => GetRunTimeMinorVersion(); }
 
         static partial void CheckGetRunTimeMajorVersionArgs();
 
@@ -43,14 +43,14 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 gi_get_major_version();
+        private static extern uint gi_get_major_version();
 
         [GISharp.Runtime.SinceAttribute("1.60")]
-        private static System.UInt32 GetRunTimeMajorVersion()
+        private static uint GetRunTimeMajorVersion()
         {
             CheckGetRunTimeMajorVersionArgs();
             var ret_ = gi_get_major_version();
-            var ret = (System.UInt32)ret_;
+            var ret = (uint)ret_;
             return ret;
         }
 
@@ -67,14 +67,14 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 gi_get_micro_version();
+        private static extern uint gi_get_micro_version();
 
         [GISharp.Runtime.SinceAttribute("1.60")]
-        private static System.UInt32 GetRunTimeMicroVersion()
+        private static uint GetRunTimeMicroVersion()
         {
             CheckGetRunTimeMicroVersionArgs();
             var ret_ = gi_get_micro_version();
-            var ret = (System.UInt32)ret_;
+            var ret = (uint)ret_;
             return ret;
         }
 
@@ -91,14 +91,14 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.UInt32 gi_get_minor_version();
+        private static extern uint gi_get_minor_version();
 
         [GISharp.Runtime.SinceAttribute("1.60")]
-        private static System.UInt32 GetRunTimeMinorVersion()
+        private static uint GetRunTimeMinorVersion()
         {
             CheckGetRunTimeMinorVersionArgs();
             var ret_ = gi_get_minor_version();
-            var ret = (System.UInt32)ret_;
+            var ret = (uint)ret_;
             return ret;
         }
     }

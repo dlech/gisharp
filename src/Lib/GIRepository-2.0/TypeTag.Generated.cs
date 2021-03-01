@@ -69,7 +69,7 @@ namespace GISharp.Lib.GIRepository
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_type_tag_to_string(
+        private static extern byte* g_type_tag_to_string(
         /* <type name="TypeTag" type="GITypeTag" managed-name="TypeTag" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GIRepository.TypeTag type);

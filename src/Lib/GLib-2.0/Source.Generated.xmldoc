@@ -65,7 +65,7 @@ whose <see cref="MainContext"/> has been destroyed is an error.
 Returns the numeric ID for a particular source. The ID of a source
 is a positive integer which is unique within a particular main loop
 context. The reverse
-mapping from ID to source is done by <see cref="MainContext.FindSourceById(System.UInt32)"/>.
+mapping from ID to source is done by <see cref="MainContext.FindSourceById(uint)"/>.
 </summary>
 <remarks>
 You can only call this function while the source is associated to a
@@ -91,7 +91,7 @@ Gets the priority of a source.
 <member name='Source.ReadyTime'>
 <summary>
 Gets the "ready time" of this instance, as set by
-<see cref="Source.SetReadyTime(System.Int64)"/>.
+<see cref="Source.SetReadyTime(long)"/>.
 </summary>
 <remarks>
 Any time before the current monotonic time (including 0) is an
@@ -184,7 +184,7 @@ used for opportunistic checks from any thread.
 </remarks>
 </member>
 
-<member name='Source.Source(GISharp.Lib.GLib.SourceFuncs,System.UInt32)'>
+<member name='Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)'>
 <summary>
 Creates a new <see cref="Source"/> structure. The size is specified to
 allow creating structures derived from <see cref="Source"/> that contain
@@ -205,7 +205,7 @@ size of the <see cref="Source"/> structure to create.
 </param>
 </member>
 
-<member name='Source.Remove(System.UInt32)'>
+<member name='Source.Remove(uint)'>
 <summary>
 Removes the source with the given ID from the default main context. You must
 use <see cref="Source.Destroy()"/> for sources added to a non-default main context.
@@ -243,7 +243,7 @@ source functions and user data. If multiple sources exist with the
 same source functions and user data, only one will be destroyed.
 </summary>
 <param name="funcs">
-The <c>sourceFuncs</c> passed to <see cref="Source.Source(GISharp.Lib.GLib.SourceFuncs,System.UInt32)"/>
+The <c>sourceFuncs</c> passed to <see cref="Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)"/>
 </param>
 <param name="userData">
 the user data for the callback
@@ -267,7 +267,7 @@ the user_data for the callback.
 </returns>
 </member>
 
-<member name='Source.SetNameById(System.UInt32,GISharp.Lib.GLib.UnownedUtf8)'>
+<member name='Source.SetNameById(uint,GISharp.Lib.GLib.UnownedUtf8)'>
 <summary>
 Sets the name of a source using its ID.
 </summary>
@@ -324,7 +324,7 @@ a second <see cref="Source"/> that this instance should "poll"
 <member name='Source.AddPoll(GISharp.Lib.GLib.PollFD)'>
 <summary>
 Adds a file descriptor to the set of file descriptors polled for
-this source. This is usually combined with <see cref="Source.Source(GISharp.Lib.GLib.SourceFuncs,System.UInt32)"/> to add an
+this source. This is usually combined with <see cref="Source.Source(GISharp.Lib.GLib.SourceFuncs,uint)"/> to add an
 event source. The event source's check function will typically test
 the <c>revents</c> field in the <see cref="PollFD"/> struct and return <c>true</c> if events need
 to be processed.
@@ -335,7 +335,7 @@ Do not call this API on a <see cref="Source"/> that you did not create.
 
 Using this API forces the linear scanning of event sources on each
 main loop iteration.  Newly-written event sources should try to use
-<see cref="Source.AddUnixFd(System.Int32,GISharp.Lib.GLib.IOCondition)"/> instead of this API.
+<see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/> instead of this API.
 </remarks>
 <param name="fd">
 a <see cref="PollFD"/> structure holding information about a file
@@ -343,7 +343,7 @@ a <see cref="PollFD"/> structure holding information about a file
 </param>
 </member>
 
-<member name='Source.AddUnixFd(System.Int32,GISharp.Lib.GLib.IOCondition)'>
+<member name='Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)'>
 <summary>
 Monitors <paramref name="fd"/> for the IO events in <paramref name="events"/>.
 </summary>
@@ -420,7 +420,7 @@ g_get_current_time().
 Updates the event mask to watch for the fd identified by <paramref name="tag"/>.
 </summary>
 <remarks>
-<paramref name="tag"/> is the tag returned from <see cref="Source.AddUnixFd(System.Int32,GISharp.Lib.GLib.IOCondition)"/>.
+<paramref name="tag"/> is the tag returned from <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>.
 
 If you want to remove a fd, don't set its event mask to zero.
 Instead, call <see cref="Source.RemoveUnixFd(System.IntPtr)"/>.
@@ -431,7 +431,7 @@ Do not call this API on a <see cref="Source"/> that you did not create.
 As the name suggests, this function is not available on Windows.
 </remarks>
 <param name="tag">
-the tag from <see cref="Source.AddUnixFd(System.Int32,GISharp.Lib.GLib.IOCondition)"/>
+the tag from <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>
 </param>
 <param name="newEvents">
 the new event mask to watch
@@ -453,7 +453,7 @@ Do not call this API on a <see cref="Source"/> that you did not create.
 As the name suggests, this function is not available on Windows.
 </remarks>
 <param name="tag">
-the tag from <see cref="Source.AddUnixFd(System.Int32,GISharp.Lib.GLib.IOCondition)"/>
+the tag from <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>
 </param>
 <returns>
 the conditions reported on the fd
@@ -490,7 +490,7 @@ a <see cref="PollFD"/> structure previously passed to <see cref="Source.AddPoll(
 
 <member name='Source.RemoveUnixFd(System.IntPtr)'>
 <summary>
-Reverses the effect of a previous call to <see cref="Source.AddUnixFd(System.Int32,GISharp.Lib.GLib.IOCondition)"/>.
+Reverses the effect of a previous call to <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>.
 </summary>
 <remarks>
 You only need to call this if you want to remove an fd from being
@@ -503,7 +503,7 @@ Do not call this API on a <see cref="Source"/> that you did not create.
 As the name suggests, this function is not available on Windows.
 </remarks>
 <param name="tag">
-the tag from <see cref="Source.AddUnixFd(System.Int32,GISharp.Lib.GLib.IOCondition)"/>
+the tag from <see cref="Source.AddUnixFd(int,GISharp.Lib.GLib.IOCondition)"/>
 </param>
 </member>
 

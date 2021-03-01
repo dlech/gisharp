@@ -52,7 +52,7 @@ namespace GISharp.Lib.Gio
 GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
 /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.Byte* actionName);
+byte* actionName);
 
         /// <summary>
         /// Class for marshalling <see cref="LookupAction"/> methods.
@@ -64,7 +64,7 @@ System.Byte* actionName);
             /// </summary>
             public static UnmanagedLookupAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                GISharp.Lib.Gio.Action.UnmanagedStruct* unmanagedLookupAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, System.Byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doLookupAction = (LookupAction)methodInfo.CreateDelegate(typeof(LookupAction), actionMap); var ret = doLookupAction(actionName); var ret_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.Action.UnmanagedStruct*); }
+                GISharp.Lib.Gio.Action.UnmanagedStruct* unmanagedLookupAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doLookupAction = (LookupAction)methodInfo.CreateDelegate(typeof(LookupAction), actionMap); var ret = doLookupAction(actionName); var ret_ = (GISharp.Lib.Gio.Action.UnmanagedStruct*)ret.UnsafeHandle; return ret_; } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } return default(GISharp.Lib.Gio.Action.UnmanagedStruct*); }
 
                 return unmanagedLookupAction;
             }
@@ -118,7 +118,7 @@ GISharp.Lib.Gio.Action.UnmanagedStruct* action);
 GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap,
 /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
-System.Byte* actionName);
+byte* actionName);
 
         /// <summary>
         /// Class for marshalling <see cref="RemoveAction"/> methods.
@@ -130,7 +130,7 @@ System.Byte* actionName);
             /// </summary>
             public static UnmanagedRemoveAction Create(System.Reflection.MethodInfo methodInfo)
             {
-                void unmanagedRemoveAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, System.Byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doRemoveAction = (RemoveAction)methodInfo.CreateDelegate(typeof(RemoveAction), actionMap); doRemoveAction(actionName); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
+                void unmanagedRemoveAction(GISharp.Lib.Gio.ActionMap.UnmanagedStruct* actionMap_, byte* actionName_) { try { var actionMap = (GISharp.Lib.Gio.IActionMap)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)actionMap_, GISharp.Runtime.Transfer.None)!; var actionName = new GISharp.Lib.GLib.UnownedUtf8(actionName_); var doRemoveAction = (RemoveAction)methodInfo.CreateDelegate(typeof(RemoveAction), actionMap); doRemoveAction(actionName); } catch (System.Exception ex) { GISharp.Lib.GLib.Log.LogUnhandledException(ex); } }
 
                 return unmanagedRemoveAction;
             }

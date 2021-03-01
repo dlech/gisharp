@@ -33,22 +33,22 @@ namespace GISharp.CodeGen.Syntax
                 // Need to return multiple field declarations if type can't
                 // be used be used with fixed keyword
                 if (elementType == "System.IntPtr" || elementType == "GISharp.Lib.GObject._Value__data__union") {
-                    elementType = "System.Int64";
+                    elementType = "long";
                 }
 
                 var allowedTypes = new[] {
-                    typeof(bool).FullName,
-                    typeof(byte).FullName,
-                    typeof(char).FullName,
-                    typeof(short).FullName,
-                    typeof(int).FullName,
-                    typeof(long).FullName,
-                    typeof(sbyte).FullName,
-                    typeof(ushort).FullName,
-                    typeof(uint).FullName,
-                    typeof(ulong).FullName,
-                    typeof(float).FullName,
-                    typeof(double).FullName,
+                    "bool",
+                    "byte",
+                    "char",
+                    "short",
+                    "int",
+                    "long",
+                    "sbyte",
+                    "ushort",
+                    "uint",
+                    "ulong",
+                    "float",
+                    "double",
                 };
                 if (!allowedTypes.Contains(elementType)) {
                     throw new NotImplementedException("fixed size buffer with unsupported type");

@@ -12,14 +12,14 @@ Tests if the stream supports the <see cref="SeekableIface"/>.
 <member name='ISeekable.DoCanTruncate()'>
 <summary>
 Tests if the length of the stream can be adjusted with
-<see cref="Seekable.Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="Seekable.Truncate(GISharp.Lib.Gio.ISeekable,long,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <returns>
 <c>true</c> if the stream can be truncated, <c>false</c> otherwise.
 </returns>
 </member>
 
-<member name='ISeekable.DoSeek(System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)'>
+<member name='ISeekable.DoSeek(long,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Seeks in the stream by the given <paramref name="offset"/>, modified by <paramref name="type"/>.
 </summary>
@@ -65,7 +65,7 @@ the offset from the beginning of the buffer.
 </returns>
 </member>
 
-<member name='ISeekable.DoTruncateFn(System.Int64,GISharp.Lib.Gio.Cancellable?)'>
+<member name='ISeekable.DoTruncateFn(long,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets the length of the stream to <paramref name="offset"/>. If the stream was previously
 larger than <paramref name="offset"/>, the extra data is discarded. If the stream was
@@ -129,7 +129,7 @@ a <see cref="ISeekable"/>.
 <member name='Seekable.CanTruncate(GISharp.Lib.Gio.ISeekable)'>
 <summary>
 Tests if the length of the stream can be adjusted with
-<see cref="Seekable.Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable)"/>.
+<see cref="Seekable.Truncate(GISharp.Lib.Gio.ISeekable,long,GISharp.Lib.Gio.Cancellable)"/>.
 </summary>
 <param name="seekable">
 a <see cref="ISeekable"/>.
@@ -139,7 +139,7 @@ a <see cref="ISeekable"/>.
 </returns>
 </member>
 
-<member name='Seekable.Seek(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)'>
+<member name='Seekable.Seek(GISharp.Lib.Gio.ISeekable,long,GISharp.Lib.GLib.SeekType,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Seeks in the stream by the given <paramref name="offset"/>, modified by <paramref name="type"/>.
 </summary>
@@ -186,7 +186,7 @@ the offset from the beginning of the buffer.
 </returns>
 </member>
 
-<member name='Seekable.Truncate(GISharp.Lib.Gio.ISeekable,System.Int64,GISharp.Lib.Gio.Cancellable?)'>
+<member name='Seekable.Truncate(GISharp.Lib.Gio.ISeekable,long,GISharp.Lib.Gio.Cancellable?)'>
 <summary>
 Sets the length of the stream to <paramref name="offset"/>. If the stream was previously
 larger than <paramref name="offset"/>, the extra data is discarded. If the stream was

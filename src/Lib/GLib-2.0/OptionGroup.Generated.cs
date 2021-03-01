@@ -65,13 +65,13 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* g_option_group_new(
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* name,
+        byte* name,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* description,
+        byte* description,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* helpDescription,
+        byte* helpDescription,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData,
@@ -235,7 +235,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group,
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        System.Byte* domain);
+        byte* domain);
         partial void CheckSetTranslationDomainArgs(GISharp.Lib.GLib.UnownedUtf8 domain);
 
         /// <include file="OptionGroup.xmldoc" path="declaration/member[@name='OptionGroup.SetTranslationDomain(GISharp.Lib.GLib.UnownedUtf8)']/*" />
@@ -244,7 +244,7 @@ namespace GISharp.Lib.GLib
         {
             CheckSetTranslationDomainArgs(domain);
             var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)UnsafeHandle;
-            var domain_ = (System.Byte*)domain.UnsafeHandle;
+            var domain_ = (byte*)domain.UnsafeHandle;
             g_option_group_set_translation_domain(group_, domain_);
         }
 

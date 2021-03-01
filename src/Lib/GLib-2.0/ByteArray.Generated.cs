@@ -16,10 +16,10 @@ namespace GISharp.Lib.GLib
         {
 #pragma warning disable CS0169, CS0649
             /// <include file="ByteArray.xmldoc" path="declaration/member[@name='UnmanagedStruct.Data']/*" />
-            public readonly System.Byte* Data;
+            public readonly byte* Data;
 
             /// <include file="ByteArray.xmldoc" path="declaration/member[@name='UnmanagedStruct.Len']/*" />
-            public readonly System.UInt32 Len;
+            public readonly uint Len;
 #pragma warning restore CS0169, CS0649
         }
 
@@ -62,7 +62,7 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckNewTakeArgs(GISharp.Runtime.CArray<System.Byte> data);
+        static partial void CheckNewTakeArgs(GISharp.Runtime.CArray<byte> data);
 
         /// <summary>
         /// Create byte array containing the data. The data will be owned by the array
@@ -88,29 +88,29 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" type="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:full direction:in */
-        System.Byte* data,
+        byte* data,
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint len);
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        static GISharp.Lib.GLib.ByteArray.UnmanagedStruct* NewTake(GISharp.Runtime.CArray<System.Byte> data)
+        static GISharp.Lib.GLib.ByteArray.UnmanagedStruct* NewTake(GISharp.Runtime.CArray<byte> data)
         {
             CheckNewTakeArgs(data);
             var (dataData_, dataLength_) = data.TakeData();
-            var data_ = (System.Byte*)dataData_;
+            var data_ = (byte*)dataData_;
             var len_ = (nuint)dataLength_;
             var ret_ = g_byte_array_new_take(data_,len_);
             return ret_;
         }
 
-        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.ByteArray(GISharp.Runtime.CArray&lt;System.Byte&gt;)']/*" />
+        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.ByteArray(GISharp.Runtime.CArray&lt;byte&gt;)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public ByteArray(GISharp.Runtime.CArray<System.Byte> data) : this((System.IntPtr)NewTake(data), GISharp.Runtime.Transfer.Full)
+        public ByteArray(GISharp.Runtime.CArray<byte> data) : this((System.IntPtr)NewTake(data), GISharp.Runtime.Transfer.Full)
         {
         }
 
-        static partial void CheckSizedNewArgs(System.UInt32 reservedSize);
+        static partial void CheckSizedNewArgs(uint reservedSize);
 
         /// <summary>
         /// Creates a new #GByteArray with @reserved_size bytes preallocated.
@@ -132,18 +132,18 @@ namespace GISharp.Lib.GLib
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_byte_array_sized_new(
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 reservedSize);
+        uint reservedSize);
 
-        static GISharp.Lib.GLib.ByteArray.UnmanagedStruct* SizedNew(System.UInt32 reservedSize)
+        static GISharp.Lib.GLib.ByteArray.UnmanagedStruct* SizedNew(uint reservedSize)
         {
             CheckSizedNewArgs(reservedSize);
-            var reservedSize_ = (System.UInt32)reservedSize;
+            var reservedSize_ = (uint)reservedSize;
             var ret_ = g_byte_array_sized_new(reservedSize_);
             return ret_;
         }
 
-        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.ByteArray(System.UInt32)']/*" />
-        public ByteArray(System.UInt32 reservedSize) : this((System.IntPtr)SizedNew(reservedSize), GISharp.Runtime.Transfer.Full)
+        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.ByteArray(uint)']/*" />
+        public ByteArray(uint reservedSize) : this((System.IntPtr)SizedNew(reservedSize), GISharp.Runtime.Transfer.Full)
         {
         }
 
@@ -184,21 +184,21 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" type="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:none direction:in */
-        System.Byte* data,
+        byte* data,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 len);
-        partial void CheckAppendArgs(System.ReadOnlySpan<System.Byte> data);
+        uint len);
+        partial void CheckAppendArgs(System.ReadOnlySpan<byte> data);
 
-        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.Append(System.ReadOnlySpan&lt;System.Byte&gt;)']/*" />
-        public void Append(System.ReadOnlySpan<System.Byte> data)
+        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.Append(System.ReadOnlySpan&lt;byte&gt;)']/*" />
+        public void Append(System.ReadOnlySpan<byte> data)
         {
-            fixed (System.Byte* dataData_ = data)
+            fixed (byte* dataData_ = data)
             {
                 CheckAppendArgs(data);
                 var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)UnsafeHandle;
-                var data_ = (System.Byte*)dataData_;
-                var len_ = (System.UInt32)data.Length;
+                var data_ = (byte*)dataData_;
+                var len_ = (uint)data.Length;
                 g_byte_array_append(array_, data_, len_);
             }
         }
@@ -222,7 +222,7 @@ namespace GISharp.Lib.GLib
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="guint8" type="guint8*" managed-name="System.Byte" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
-        private static extern System.Byte* g_byte_array_free(
+        private static extern byte* g_byte_array_free(
         /* <array name="GLib.ByteArray" type="GByteArray*" zero-terminated="1" managed-name="GISharp.Lib.GLib.ByteArray" is-pointer="1">
 *   <type name="guint8" type="guint8" managed-name="System.Byte" />
 * </array> */
@@ -234,13 +234,13 @@ namespace GISharp.Lib.GLib
         partial void CheckFreeArgs(System.Boolean freeSegment);
 
         /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.Free(System.Boolean)']/*" />
-        public ref readonly System.Byte Free(System.Boolean freeSegment)
+        public ref readonly byte Free(System.Boolean freeSegment)
         {
             CheckFreeArgs(freeSegment);
             var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)UnsafeHandle;
             var freeSegment_ = GISharp.Runtime.BooleanExtensions.ToBoolean(freeSegment);
             var ret_ = g_byte_array_free(array_,freeSegment_);
-            ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<System.Byte>(ret_);
+            ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<byte>(ret_);
             return ref ret;
         }
 
@@ -316,21 +316,21 @@ namespace GISharp.Lib.GLib
 *   <type name="guint8" type="guint8" managed-name="System.Byte" />
 * </array> */
         /* transfer-ownership:none direction:in */
-        System.Byte* data,
+        byte* data,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 len);
-        partial void CheckPrependArgs(System.ReadOnlySpan<System.Byte> data);
+        uint len);
+        partial void CheckPrependArgs(System.ReadOnlySpan<byte> data);
 
-        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.Prepend(System.ReadOnlySpan&lt;System.Byte&gt;)']/*" />
-        public void Prepend(System.ReadOnlySpan<System.Byte> data)
+        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.Prepend(System.ReadOnlySpan&lt;byte&gt;)']/*" />
+        public void Prepend(System.ReadOnlySpan<byte> data)
         {
-            fixed (System.Byte* dataData_ = data)
+            fixed (byte* dataData_ = data)
             {
                 CheckPrependArgs(data);
                 var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)UnsafeHandle;
-                var data_ = (System.Byte*)dataData_;
-                var len_ = (System.UInt32)data.Length;
+                var data_ = (byte*)dataData_;
+                var len_ = (uint)data.Length;
                 g_byte_array_prepend(array_, data_, len_);
             }
         }
@@ -390,15 +390,15 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.ByteArray.UnmanagedStruct* array,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 index);
-        partial void CheckRemoveIndexArgs(System.UInt32 index);
+        uint index);
+        partial void CheckRemoveIndexArgs(uint index);
 
-        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.RemoveIndex(System.UInt32)']/*" />
-        public void RemoveIndex(System.UInt32 index)
+        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.RemoveIndex(uint)']/*" />
+        public void RemoveIndex(uint index)
         {
             CheckRemoveIndexArgs(index);
             var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)UnsafeHandle;
-            var index_ = (System.UInt32)index;
+            var index_ = (uint)index;
             g_byte_array_remove_index(array_, index_);
         }
 
@@ -430,15 +430,15 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.ByteArray.UnmanagedStruct* array,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 index);
-        partial void CheckRemoveIndexFastArgs(System.UInt32 index);
+        uint index);
+        partial void CheckRemoveIndexFastArgs(uint index);
 
-        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.RemoveIndexFast(System.UInt32)']/*" />
-        public void RemoveIndexFast(System.UInt32 index)
+        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.RemoveIndexFast(uint)']/*" />
+        public void RemoveIndexFast(uint index)
         {
             CheckRemoveIndexFastArgs(index);
             var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)UnsafeHandle;
-            var index_ = (System.UInt32)index;
+            var index_ = (uint)index;
             g_byte_array_remove_index_fast(array_, index_);
         }
 
@@ -472,20 +472,20 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.ByteArray.UnmanagedStruct* array,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 index,
+        uint index,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 length);
-        partial void CheckRemoveRangeArgs(System.UInt32 index, System.UInt32 length);
+        uint length);
+        partial void CheckRemoveRangeArgs(uint index, uint length);
 
-        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.RemoveRange(System.UInt32,System.UInt32)']/*" />
+        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.RemoveRange(uint,uint)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
-        public void RemoveRange(System.UInt32 index, System.UInt32 length)
+        public void RemoveRange(uint index, uint length)
         {
             CheckRemoveRangeArgs(index, length);
             var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)UnsafeHandle;
-            var index_ = (System.UInt32)index;
-            var length_ = (System.UInt32)length;
+            var index_ = (uint)index;
+            var length_ = (uint)length;
             g_byte_array_remove_range(array_, index_, length_);
         }
 
@@ -514,15 +514,15 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.ByteArray.UnmanagedStruct* array,
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
-        System.UInt32 length);
-        partial void CheckSetSizeArgs(System.UInt32 length);
+        uint length);
+        partial void CheckSetSizeArgs(uint length);
 
-        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.SetSize(System.UInt32)']/*" />
-        public void SetSize(System.UInt32 length)
+        /// <include file="ByteArray.xmldoc" path="declaration/member[@name='ByteArray.SetSize(uint)']/*" />
+        public void SetSize(uint length)
         {
             CheckSetSizeArgs(length);
             var array_ = (GISharp.Lib.GLib.ByteArray.UnmanagedStruct*)UnsafeHandle;
-            var length_ = (System.UInt32)length;
+            var length_ = (uint)length;
             g_byte_array_set_size(array_, length_);
         }
 

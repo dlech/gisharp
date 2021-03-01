@@ -109,7 +109,7 @@ All other structs can be casted to a <see cref="BaseInfo"/>, for instance:
 Most <see cref="Repository"/> APIs returning a <see cref="BaseInfo"/> is actually creating a new struct, in other
 words, <see cref="BaseInfo.Unref()"/> has to be called when done accessing the data.
 GIBaseInfos are normally accessed by calling either
-<see cref="Repository.FindByName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Lib.GObject.GType)"/> or <see cref="Repository.GetInfo(GISharp.Lib.GLib.UnownedUtf8,System.Int32)"/>.
+<see cref="Repository.FindByName(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)"/>, <see cref="Repository.FindByGtype(GISharp.Lib.GObject.GType)"/> or <see cref="Repository.GetInfo(GISharp.Lib.GLib.UnownedUtf8,int)"/>.
 </summary>
 <remarks>
 &lt;example&gt;
