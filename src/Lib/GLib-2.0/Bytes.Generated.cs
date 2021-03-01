@@ -19,7 +19,7 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Data']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public System.ReadOnlySpan<System.Byte>? Data { get => GetData(); }
+        public System.ReadOnlySpan<System.Byte> Data { get => GetData(); }
 
         /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Size']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
@@ -133,8 +133,9 @@ namespace GISharp.Lib.GLib
         static GISharp.Lib.GLib.Bytes.UnmanagedStruct* NewTake(GISharp.Runtime.CArray<System.Byte>? data)
         {
             CheckNewTakeArgs(data);
-            var data_ = (System.Byte*)(data?.TakeData() ?? System.IntPtr.Zero);
-            var size_ = (nuint)data?.Length ?? 0;
+            var (dataData_, dataLength_) = data?.TakeData() ?? (System.IntPtr.Zero, 0);
+            var data_ = (System.Byte*)dataData_;
+            var size_ = (nuint)dataLength_;
             var ret_ = g_bytes_new_take(data_,size_);
             return ret_;
         }
@@ -145,6 +146,55 @@ namespace GISharp.Lib.GLib
         {
         }
 
+        static partial void CheckNewWithFreeFuncArgs(System.ReadOnlySpan<System.Byte> data, GISharp.Lib.GLib.DestroyNotify freeFunc, System.IntPtr userData);
+
+        /// <summary>
+        /// Creates a #GBytes from @data.
+        /// </summary>
+        /// <remarks>
+        /// When the last reference is dropped, @free_func will be called with the
+        /// @user_data argument.
+        /// 
+        /// @data must not be modified after this call is made until @free_func has
+        /// been called to indicate that the bytes is no longer in use.
+        /// 
+        /// @data may be %NULL if @size is 0.
+        /// </remarks>
+        /// <param name="data">
+        /// 
+        ///        the data to be used for the bytes
+        /// </param>
+        /// <param name="size">
+        /// the size of @data
+        /// </param>
+        /// <param name="freeFunc">
+        /// the function to call to release the data
+        /// </param>
+        /// <param name="userData">
+        /// data to pass to @free_func
+        /// </param>
+        /// <returns>
+        /// a new #GBytes
+        /// </returns>
+        [GISharp.Runtime.SinceAttribute("2.32")]
+        [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
+        /* <type name="Bytes" type="GBytes*" managed-name="Bytes" is-pointer="1" /> */
+        /* transfer-ownership:full direction:in */
+        private static extern GISharp.Lib.GLib.Bytes.UnmanagedStruct* g_bytes_new_with_free_func(
+        /* <array length="1" zero-terminated="0" type="gconstpointer" managed-name="GISharp.Runtime.CArray" is-pointer="1">
+*   <type name="guint8" managed-name="System.Byte" />
+* </array> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.Byte* data,
+        /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
+        /* transfer-ownership:none direction:in */
+        nuint size,
+        /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
+        /* transfer-ownership:none scope:async direction:in */
+        System.IntPtr freeFunc,
+        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr userData);
         static partial void CheckCompareArgs(GISharp.Lib.GLib.Bytes bytes1, GISharp.Lib.GLib.Bytes bytes2);
 
         /// <summary>
@@ -337,7 +387,7 @@ namespace GISharp.Lib.GLib
         partial void CheckGetDataArgs();
 
         [GISharp.Runtime.SinceAttribute("2.32")]
-        private System.ReadOnlySpan<System.Byte>? GetData()
+        private System.ReadOnlySpan<System.Byte> GetData()
         {
             CheckGetDataArgs();
             var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)UnsafeHandle;
@@ -549,12 +599,12 @@ namespace GISharp.Lib.GLib
 
         /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.UnrefToArray()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
-        public GISharp.Lib.GLib.ByteArray<System.Byte> UnrefToArray()
+        public GISharp.Lib.GLib.ByteArray UnrefToArray()
         {
             CheckUnrefToArrayArgs();
-            var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)UnsafeHandle;
+            var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)Take();
             var ret_ = g_bytes_unref_to_array(bytes_);
-            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.ByteArray<System.Byte>>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
+            var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.ByteArray>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
 
@@ -598,7 +648,7 @@ namespace GISharp.Lib.GLib
         public GISharp.Runtime.CArray<System.Byte> UnrefToData()
         {
             CheckUnrefToDataArgs();
-            var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)UnsafeHandle;
+            var bytes_ = (GISharp.Lib.GLib.Bytes.UnmanagedStruct*)Take();
             nuint size_;
             var ret_ = g_bytes_unref_to_data(bytes_,&size_);
             var ret = new GISharp.Runtime.CArray<System.Byte>((System.IntPtr)ret_, (int)size_, GISharp.Runtime.Transfer.Full);

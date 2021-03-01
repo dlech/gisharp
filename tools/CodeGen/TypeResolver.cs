@@ -83,8 +83,7 @@ namespace GISharp.CodeGen
                     $"{array.TypeParameters.Single().GetUnmanagedType()}*",
                 _ => type switch {
                     var x when x.ParentNode is GIArg arg && arg.Scope is not null => "System.IntPtr",
-                    var x when x.Interface is Callback =>
-                        $"GISharp.Lib.{type.Namespace.Name}.Unmanaged{type.GirName}",
+                    var x when x.Interface is Callback => typeof(IntPtr).FullName,
                     var x when x.IsValueType() =>
                         $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}{pointer}",
                     _ => $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}.UnmanagedStruct{pointer}",

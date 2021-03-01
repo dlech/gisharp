@@ -14,7 +14,8 @@ namespace GISharp.Lib.GLib
 {
     unsafe partial class OptionGroup
     {
-        static readonly UnmanagedOptionParseFunc postParseFunc_ = OnParsed;
+        static readonly UnmanagedOptionParseFunc postParseFunc = OnParsed;
+        static readonly IntPtr postParseFunc_ = Marshal.GetFunctionPointerForDelegate(postParseFunc);
 
         // FIXME: we will have problems with userData being null if an
         // OptionGroup is marshaled from unmanaged code
@@ -36,7 +37,7 @@ namespace GISharp.Lib.GLib
             userData = new UserData();
             var userData_ = (IntPtr)GCHandle.Alloc(userData);
             var ret_ = g_option_group_new(name_, description_, helpDescription_, userData_, destroy_);
-            g_option_group_set_parse_hooks(ret_, null, postParseFunc_);
+            g_option_group_set_parse_hooks(ret_, IntPtr.Zero, postParseFunc_);
             return ret_;
         }
 

@@ -90,7 +90,7 @@ namespace GISharp.CodeGen.Syntax
                 return type;
             }
 
-            if (arg.Type.TypeParameters.Any()) {
+            if (arg.Type.TypeParameters.Any() && arg.Type.GirName != "GLib.ByteArray") {
                 var lastDot = type.LastIndexOf('.') + 1;
                 if (arg.TransferOwnership == "container") {
                     type = $"{type[..lastDot]}Weak{type[lastDot..]}";
@@ -231,12 +231,13 @@ namespace GISharp.CodeGen.Syntax
                     );
                 }
 
-                var getter = takeData ? "TakeData()" : $"{unmanagedCast}{arg.ManagedName}Data_";
                 if (takeData) {
-                    getter = arg.IsNullable ?
-                        $"{unmanagedCast}({arg.ManagedName}?.{getter} ?? System.IntPtr.Zero)" :
-                        $"{unmanagedCast}{arg.ManagedName}.{getter}";
+                    expressions.Add(ParseExpression(
+                        $"var ({arg.ManagedName}Data_, {arg.ManagedName}Length_) = {arg.ManagedName}{(arg.IsNullable ? "?.TakeData() ?? (System.IntPtr.Zero, 0)" : ".TakeData()")}"
+                    ));
                 }
+
+                var getter = $"{unmanagedCast}{arg.ManagedName}Data_";
                 if (isAsync) {
                     // TODO: add MemoryHandle to AsyncState and free later.
                     getter = $"{unmanagedCast}{arg.ManagedName}.Pin().Pointer";
@@ -249,6 +250,9 @@ namespace GISharp.CodeGen.Syntax
                     var lengthIdentifier = lengthArg.ManagedName;
                     var lengthType = lengthArg.Type.GetUnmanagedType();
                     var lengthGetter = (arg.IsNullable && !isSpanLike) ? $"{arg.ManagedName}?.Length ?? 0" : $"{arg.ManagedName}.Length";
+                    if (takeData) {
+                        lengthGetter = $"{arg.ManagedName}Length_";
+                    }
                     expressions.Add(ParseExpression($"{@var}{lengthIdentifier}_ = ({lengthType}){lengthGetter}"));
                 }
             }

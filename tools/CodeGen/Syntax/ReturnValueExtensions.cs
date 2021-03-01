@@ -44,7 +44,9 @@ namespace GISharp.CodeGen.Syntax
             }
 
             if (returnValue.IsNullable && !returnValue.Type.IsValueType() &&
-                     !managedType.Contains("Nullable", StringComparison.Ordinal)) {
+                    !managedType.Contains("Unowned", StringComparison.Ordinal) &&
+                    !managedType.StartsWith("System.Span", StringComparison.Ordinal) &&
+                    !managedType.StartsWith("System.ReadOnlySpan", StringComparison.Ordinal)) {
                 syntax = NullableType(syntax);
             }
 

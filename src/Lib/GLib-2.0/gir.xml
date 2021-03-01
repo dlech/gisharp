@@ -48,6 +48,451 @@ g_auto().</doc>
         <type name="gint64" c:type="gint64" gs:managed-name="System.Int64" />
       </constant>
     </alias>
+    <record name="ByteArray" c:type="GByteArray" glib:type-name="GByteArray" glib:get-type="g_byte_array_get_type" c:symbol-prefix="byte_array" gs:managed-name="ByteArray">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="88">Contains the public fields of a GByteArray.</doc>
+      <source-position filename="garray.h" line="51" />
+      <field name="data" writable="1" gs:managed-name="Data">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="90">a pointer to the element data. The data may be moved as
+    elements are added to the #GByteArray</doc>
+        <type name="guint8" c:type="guint8*" gs:managed-name="System.Byte" gs:is-pointer="1" />
+      </field>
+      <field name="len" writable="1" gs:managed-name="Len">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="92">the number of elements in the #GByteArray</doc>
+        <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+      </field>
+      <method name="append" c:identifier="g_byte_array_append" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Append">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12771">Adds the given bytes to the end of the #GByteArray.
+The array will grow in size automatically if necessary.</doc>
+        <source-position filename="garray.h" line="251" />
+        <return-value skip="1" transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12780">the #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12773">a #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+          <parameter name="data" transfer-ownership="none" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12774">the byte data to be added</doc>
+            <array length="1" zero-terminated="0" c:type="const guint8*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </parameter>
+          <parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12775">the number of bytes to add</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="data" transfer-ownership="none" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12774">the byte data to be added</doc>
+            <array length="1" zero-terminated="0" c:type="const guint8*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="free" c:identifier="g_byte_array_free" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Free">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12784">Frees the memory allocated by the #GByteArray. If @free_segment is
+%TRUE it frees the actual byte data. If the reference count of
+@array is greater than one, the #GByteArray wrapper is preserved but
+the size of @array will be set to zero.</doc>
+        <source-position filename="garray.h" line="242" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12794">the element data if @free_segment is %FALSE, otherwise
+         %NULL.  The element data should be freed using g_free().</doc>
+          <type name="guint8" c:type="guint8*" gs:managed-name="System.Byte" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12786">a #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+          <parameter name="free_segment" transfer-ownership="none" gs:managed-name="freeSegment" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12787">if %TRUE the actual byte data is freed as well</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="free_segment" transfer-ownership="none" gs:managed-name="freeSegment" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12787">if %TRUE the actual byte data is freed as well</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="free_to_bytes" c:identifier="g_byte_array_free_to_bytes" version="2.32" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="FreeToBytes">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12799">Transfers the data from the #GByteArray into a new immutable #GBytes.
+
+The #GByteArray is freed unless the reference count of @array is greater
+than one, the #GByteArray wrapper is preserved but the size of @array
+will be set to zero.
+
+This is identical to using g_bytes_new_take() and g_byte_array_free()
+together.</doc>
+        <source-position filename="garray.h" line="245" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12813">a new immutable #GBytes representing same
+    byte data that was in the array</doc>
+          <type name="Bytes" c:type="GBytes*" gs:managed-name="Bytes" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="full" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12801">a #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <constructor name="new" c:identifier="g_byte_array_new" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12818">Creates a new #GByteArray with a reference count of 1.</doc>
+        <source-position filename="garray.h" line="232" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12823">the new #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </constructor>
+      <constructor name="new_take" c:identifier="g_byte_array_new_take" version="2.32" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="NewTake">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12827">Create byte array containing the data. The data will be owned by the array
+and will be freed with g_free(), i.e. it could be allocated using g_strdup().</doc>
+        <source-position filename="garray.h" line="234" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12836">a new #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="data" transfer-ownership="full" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12829">byte data for the array</doc>
+            <array length="1" zero-terminated="0" c:type="guint8*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </parameter>
+          <parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12830">length of @data</doc>
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="data" transfer-ownership="full" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12829">byte data for the array</doc>
+            <array length="1" zero-terminated="0" c:type="guint8*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </parameter>
+        </gs:managed-parameters>
+      </constructor>
+      <method name="prepend" c:identifier="g_byte_array_prepend" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Prepend">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12840">Adds the given data to the start of the #GByteArray.
+The array will grow in size automatically if necessary.</doc>
+        <source-position filename="garray.h" line="255" />
+        <return-value skip="1" transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12849">the #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12842">a #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+          <parameter name="data" transfer-ownership="none" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12843">the byte data to be added</doc>
+            <array length="1" zero-terminated="0" c:type="const guint8*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </parameter>
+          <parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12844">the number of bytes to add</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="data" transfer-ownership="none" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12843">the byte data to be added</doc>
+            <array length="1" zero-terminated="0" c:type="const guint8*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="ref" c:identifier="g_byte_array_ref" version="2.22" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Ref" gs:special-func="ref" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12853">Atomically increments the reference count of @array by one.
+This function is thread-safe and may be called from any thread.</doc>
+        <source-position filename="garray.h" line="247" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12860">The passed in #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12855">A #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <method name="remove_index" c:identifier="g_byte_array_remove_index" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveIndex">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12865">Removes the byte at the given index from a #GByteArray.
+The following bytes are moved down one place.</doc>
+        <source-position filename="garray.h" line="262" />
+        <return-value skip="1" transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12873">the #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12867">a #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12868">the index of the byte to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12868">the index of the byte to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="remove_index_fast" c:identifier="g_byte_array_remove_index_fast" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveIndexFast">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12877">Removes the byte at the given index from a #GByteArray. The last
+element in the array is used to fill in the space, so this function
+does not preserve the order of the #GByteArray. But it is faster
+than g_byte_array_remove_index().</doc>
+        <source-position filename="garray.h" line="265" />
+        <return-value skip="1" transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12887">the #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12879">a #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12880">the index of the byte to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12880">the index of the byte to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="remove_range" c:identifier="g_byte_array_remove_range" version="2.4" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveRange">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12891">Removes the given number of bytes starting at the given index from a
+#GByteArray.  The following elements are moved to close the gap.</doc>
+        <source-position filename="garray.h" line="268" />
+        <return-value skip="1" transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12900">the #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12893">a @GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12894">the index of the first byte to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12895">the number of bytes to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12894">the index of the first byte to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12895">the number of bytes to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="set_size" c:identifier="g_byte_array_set_size" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="SetSize">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12905">Sets the size of the #GByteArray, expanding it if necessary.</doc>
+        <source-position filename="garray.h" line="259" />
+        <return-value skip="1" transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12912">the #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12907">a #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12908">the new size of the #GByteArray</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12908">the new size of the #GByteArray</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <constructor name="sized_new" c:identifier="g_byte_array_sized_new" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="SizedNew">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12916">Creates a new #GByteArray with @reserved_size bytes preallocated.
+This avoids frequent reallocation, if you are going to add many
+bytes to the array. Note however that the size of the array is still
+0.</doc>
+        <source-position filename="garray.h" line="240" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="12925">the new #GByteArray</doc>
+          <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+            <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="reserved_size" transfer-ownership="none" gs:managed-name="reservedSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12918">number of bytes preallocated</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="reserved_size" transfer-ownership="none" gs:managed-name="reservedSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12918">number of bytes preallocated</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </constructor>
+      <method name="sort" c:identifier="g_byte_array_sort" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Sort">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12929">Sorts a byte array, using @compare_func which should be a
+qsort()-style comparison function (returns less than zero for first
+arg is less than second arg, zero for equal, greater than zero if
+first arg is greater than second arg).
+
+If two array elements compare equal, their order in the sorted array
+is undefined. If you want equal elements to keep their order (i.e.
+you want a stable sort) you can write a comparison function that,
+if two elements would otherwise compare equal, compares them by
+their addresses.</doc>
+        <source-position filename="garray.h" line="272" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12931">a #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12932">comparison function</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12932">comparison function</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="sort_with_data" c:identifier="g_byte_array_sort_with_data" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SortWithData">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12947">Like g_byte_array_sort(), but the comparison function takes an extra
+user data argument.</doc>
+        <source-position filename="garray.h" line="275" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12949">a #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+          <parameter name="compare_func" transfer-ownership="none" closure="1" scope="call" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12950">comparison function</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12951">data to pass to @compare_func</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="compare_func" transfer-ownership="none" closure="1" scope="call" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12950">comparison function</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </method>
+      <method name="unref" c:identifier="g_byte_array_unref" version="2.22" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Unref" gs:special-func="unref" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="12974">Atomically decrements the reference count of @array by one. If the
+reference count drops to 0, all memory allocated by the array is
+released. This function is thread-safe and may be called from any
+thread.</doc>
+        <source-position filename="garray.h" line="249" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="12976">A #GByteArray</doc>
+            <array name="GLib.ByteArray" c:type="GByteArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.ByteArray" gs:is-pointer="1">
+              <type name="guint8" c:type="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_byte_array_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </record>
     <record name="Bytes" c:type="GBytes" version="2.32" glib:type-name="GBytes" glib:get-type="g_bytes_get_type" c:symbol-prefix="bytes" gs:managed-name="Bytes">
       <doc xml:space="preserve" filename="glib-2.0.c" line="98">A simple refcounted data type representing an immutable sequence of zero or
 more bytes from an unspecified origin.
@@ -144,6 +589,60 @@ g_bytes_new_with_free_func().
             <array length="1" zero-terminated="0" c:type="gpointer" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
               <type name="guint8" gs:managed-name="System.Byte" />
             </array>
+          </parameter>
+        </gs:managed-parameters>
+      </constructor>
+      <constructor name="new_with_free_func" c:identifier="g_bytes_new_with_free_func" version="2.32" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="NewWithFreeFunc">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="13149">Creates a #GBytes from @data.
+
+When the last reference is dropped, @free_func will be called with the
+@user_data argument.
+
+@data must not be modified after this call is made until @free_func has
+been called to indicate that the bytes is no longer in use.
+
+@data may be %NULL if @size is 0.</doc>
+        <source-position filename="gbytes.h" line="47" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="13167">a new #GBytes</doc>
+          <type name="Bytes" c:type="GBytes*" gs:managed-name="Bytes" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="13151">
+       the data to be used for the bytes</doc>
+            <array length="1" zero-terminated="0" c:type="gconstpointer" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </parameter>
+          <parameter name="size" transfer-ownership="none" gs:managed-name="size" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="13153">the size of @data</doc>
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="free_func" transfer-ownership="none" scope="async" gs:managed-name="freeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="13154">the function to call to release the data</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="13155">data to pass to @free_func</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="13151">
+       the data to be used for the bytes</doc>
+            <array length="1" zero-terminated="0" c:type="gconstpointer" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="guint8" gs:managed-name="System.Byte" />
+            </array>
+          </parameter>
+          <parameter name="free_func" transfer-ownership="none" scope="async" gs:managed-name="freeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="13154">the function to call to release the data</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="13155">data to pass to @free_func</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
           </parameter>
         </gs:managed-parameters>
       </constructor>
@@ -452,6 +951,74 @@ data is copied.</doc>
         <gs:managed-parameters />
       </function>
     </record>
+    <callback name="CompareDataFunc" c:type="GCompareDataFunc" gs:dll-name="glib-2.0" gs:managed-name="CompareDataFunc">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="130">Specifies the type of a comparison function used to compare two
+values.  The function should return a negative integer if the first
+value comes before the second, 0 if they are equal, or a positive
+integer if the first value comes after the second.</doc>
+      <source-position filename="gtypes.h" line="108" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="141">negative value if @a &lt; @b; zero if @a = @b; positive
+         value if @a &gt; @b</doc>
+        <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+      </return-value>
+      <parameters>
+        <parameter name="a" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="a" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="132">a value</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="b" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="b" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="133">a value to compare with</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="2" gs:managed-name="userData" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="134">user data</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="a" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="a" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="132">a value</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="b" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="b" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="133">a value to compare with</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
+    <callback name="CompareFunc" c:type="GCompareFunc" gs:dll-name="glib-2.0" gs:managed-name="CompareFunc" gs:pinvoke-only="1">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="146">Specifies the type of a comparison function used to compare two
+values.  The function should return a negative integer if the first
+value comes before the second, 0 if they are equal, or a positive
+integer if the first value comes after the second.</doc>
+      <source-position filename="gtypes.h" line="106" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="156">negative value if @a &lt; @b; zero if @a = @b; positive
+         value if @a &gt; @b</doc>
+        <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+      </return-value>
+      <parameters>
+        <parameter name="a" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="a" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="148">a value</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="b" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="b" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="149">a value to compare with</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="a" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="a" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="148">a value</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="b" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="b" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="149">a value to compare with</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
     <record name="Cond" c:type="GCond" gs:managed-name="Cond">
       <doc xml:space="preserve" filename="glib-2.0.c" line="161">The #GCond struct is an opaque data structure that represents a
 condition. Threads can block on a #GCond if they find a certain

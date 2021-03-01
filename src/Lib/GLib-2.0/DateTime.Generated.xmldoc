@@ -476,7 +476,7 @@ a <see cref="DateTime"/>, or <c>null</c>
 <member name='DateTime.Compare(System.IntPtr,System.IntPtr)'>
 <summary>
 A comparison function for #GDateTimes that is suitable
-as a #GCompareFunc. Both #GDateTimes must be non-<c>null</c>.
+as a <see cref="CompareFunc"/>. Both #GDateTimes must be non-<c>null</c>.
 </summary>
 <param name="dt1">
 first <see cref="DateTime"/> to compare

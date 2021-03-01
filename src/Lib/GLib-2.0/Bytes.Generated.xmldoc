@@ -47,7 +47,7 @@ a call to g_malloc(), g_malloc0() or g_realloc() or by one of the many
 functions that wrap these calls (such as g_new(), g_strdup(), etc).
 
 For creating <see cref="Bytes"/> with memory from other allocators, see
-g_bytes_new_with_free_func().
+<see cref="Bytes.Bytes(System.ReadOnlySpan{System.Byte},GISharp.Lib.GLib.DestroyNotify,System.IntPtr)"/>.
 
 <paramref name="data"/> may be <c>null</c> if the length of <paramref name="data"/> is 0.
 </remarks>
@@ -141,17 +141,17 @@ a new <see cref="Bytes"/>
 
 <member name='Bytes.UnrefToArray()'>
 <summary>
-Unreferences the bytes, and returns a new mutable #GByteArray containing
+Unreferences the bytes, and returns a new mutable <see cref="ByteArray"/> containing
 the same byte data.
 </summary>
 <remarks>
 As an optimization, the byte data is transferred to the array without copying
 if this was the last reference to bytes and bytes was created with
-<see cref="Bytes.Bytes(System.ReadOnlySpan{System.Byte})"/>, <see cref="Bytes.Bytes(GISharp.Runtime.CArray{System.Byte})"/> or g_byte_array_free_to_bytes(). In all
+<see cref="Bytes.Bytes(System.ReadOnlySpan{System.Byte})"/>, <see cref="Bytes.Bytes(GISharp.Runtime.CArray{System.Byte})"/> or <see cref="ByteArray.FreeToBytes()"/>. In all
 other cases the data is copied.
 </remarks>
 <returns>
-a new mutable #GByteArray containing the same byte data
+a new mutable <see cref="ByteArray"/> containing the same byte data
 </returns>
 </member>
 
@@ -163,7 +163,7 @@ contents.
 <remarks>
 As an optimization, the byte data is returned without copying if this was
 the last reference to bytes and bytes was created with <see cref="Bytes.Bytes(System.ReadOnlySpan{System.Byte})"/>,
-<see cref="Bytes.Bytes(GISharp.Runtime.CArray{System.Byte})"/> or g_byte_array_free_to_bytes(). In all other cases the
+<see cref="Bytes.Bytes(GISharp.Runtime.CArray{System.Byte})"/> or <see cref="ByteArray.FreeToBytes()"/>. In all other cases the
 data is copied.
 </remarks>
 <returns>
@@ -196,9 +196,9 @@ memory from other allocators.
 function to g_tree_new().
 
 The data pointed to by this bytes must not be modified. For a mutable
-array of bytes see #GByteArray. Use <see cref="Bytes.UnrefToArray()"/> to create a
+array of bytes see <see cref="ByteArray"/>. Use <see cref="Bytes.UnrefToArray()"/> to create a
 mutable array for a <see cref="Bytes"/> sequence. To create an immutable <see cref="Bytes"/> from
-a mutable #GByteArray, use the g_byte_array_free_to_bytes() function.
+a mutable <see cref="ByteArray"/>, use the <see cref="ByteArray.FreeToBytes()"/> function.
 </remarks>
 </member>
 

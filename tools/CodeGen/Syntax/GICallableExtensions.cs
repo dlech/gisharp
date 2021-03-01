@@ -140,7 +140,8 @@ namespace GISharp.CodeGen.Syntax
                     }
                     else {
                         // opaque type passed by reference
-                        var expression = ParseExpression($"var {identifier}_ = ({unmanagedType})UnsafeHandle");
+                        var getter = instanceParameter.TransferOwnership == "none" ? "UnsafeHandle" : "Take()";
+                        var expression = ParseExpression($"var {identifier}_ = ({unmanagedType}){getter}");
                         block = block.AddStatements(ExpressionStatement(expression));
                     }
                 }

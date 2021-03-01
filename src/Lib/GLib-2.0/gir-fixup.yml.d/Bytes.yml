@@ -1,0 +1,12 @@
+
+### Bytes ###
+
+# special constructor
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_with_free_func']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Bytes']/gi:constructor[@name='new_with_free_func']

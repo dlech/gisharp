@@ -11,16 +11,16 @@ namespace GISharp.Lib.GObject
         public readonly GISharp.Lib.GObject.TypeInterface.UnmanagedStruct BaseIface;
 
         /// <include file="TypePluginClass.xmldoc" path="declaration/member[@name='TypePluginClass.UsePlugin']/*" />
-        public readonly GISharp.Lib.GObject.UnmanagedTypePluginUse UsePlugin;
+        public readonly System.IntPtr UsePlugin;
 
         /// <include file="TypePluginClass.xmldoc" path="declaration/member[@name='TypePluginClass.UnusePlugin']/*" />
-        public readonly GISharp.Lib.GObject.UnmanagedTypePluginUnuse UnusePlugin;
+        public readonly System.IntPtr UnusePlugin;
 
         /// <include file="TypePluginClass.xmldoc" path="declaration/member[@name='TypePluginClass.CompleteTypeInfo']/*" />
-        public readonly GISharp.Lib.GObject.UnmanagedTypePluginCompleteTypeInfo CompleteTypeInfo;
+        public readonly System.IntPtr CompleteTypeInfo;
 
         /// <include file="TypePluginClass.xmldoc" path="declaration/member[@name='TypePluginClass.CompleteInterfaceInfo']/*" />
-        public readonly GISharp.Lib.GObject.UnmanagedTypePluginCompleteInterfaceInfo CompleteInterfaceInfo;
+        public readonly System.IntPtr CompleteInterfaceInfo;
 #pragma warning restore CS0169, CS0649
     }
 }

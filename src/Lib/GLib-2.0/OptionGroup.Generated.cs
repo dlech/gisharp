@@ -160,10 +160,10 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group,
         /* <type name="OptionParseFunc" type="GOptionParseFunc" managed-name="OptionParseFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        GISharp.Lib.GLib.UnmanagedOptionParseFunc? preParseFunc,
+        System.IntPtr preParseFunc,
         /* <type name="OptionParseFunc" type="GOptionParseFunc" managed-name="OptionParseFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-        GISharp.Lib.GLib.UnmanagedOptionParseFunc? postParseFunc);
+        System.IntPtr postParseFunc);
 
         /// <summary>
         /// Sets the function which is used to translate user-visible strings,
