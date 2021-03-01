@@ -94,11 +94,6 @@ namespace GISharp.CodeGen
             return name;
         }
 
-        public static string GetUnmanagedType(this GIRegisteredType type)
-        {
-            return $"GISharp.Lib.{type.Namespace}.{type.GirName}.UnmanagedStruct";
-        }
-
         private record ManagedType(string Value);
 
         public static string GetManagedType(this GIType type)
