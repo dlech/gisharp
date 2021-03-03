@@ -31,7 +31,7 @@ namespace GISharp.Lib.GLib
             var memoryHandle = data.Pin();
             var data_ = (byte*)memoryHandle.Pointer;
             var size_ = (nuint)data.Length;
-            var freeFunc_ = (IntPtr)(delegate* unmanaged[Cdecl]<IntPtr, void>)&FreeMemoryHandle;
+            var freeFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&FreeMemoryHandle;
             var userData_ = (IntPtr)GCHandle.Alloc(memoryHandle);
             var ret_ = g_bytes_new_with_free_func(data_, size_, freeFunc_, userData_);
             return ret_;

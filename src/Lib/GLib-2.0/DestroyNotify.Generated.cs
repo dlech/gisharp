@@ -8,6 +8,7 @@ namespace GISharp.Lib.GLib
     /// is destroyed. It is passed the pointer to the data element and
     /// should free any memory and resources allocated for it.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */

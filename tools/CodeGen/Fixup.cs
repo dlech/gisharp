@@ -854,6 +854,7 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "default", "null");
             }
 
+            // TODO: delete this fixup
             // callbacks without user data cannot be handled by the code generator
 
             foreach (var element in document.Descendants(gi + "callback")
@@ -876,6 +877,7 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "pinvoke-only", 1);
             }
 
+            // TODO: delete this fixup
             // callback parameters without user data cannot be handled by the code generator
 
             foreach (var element in document.Descendants(gi + "parameter")
@@ -891,6 +893,16 @@ namespace GISharp.CodeGen
                 }
 
                 element.Parent.Parent.SetAttributeValue(gs + "pinvoke-only", "1");
+            }
+
+            // remove closure attribute from user data parameters in methods and functions
+
+            foreach (var element in document.Descendants(gi + "parameter")
+                .Where(x => (x.Parent.Parent.Name == gi + "method" || x.Parent.Parent.Name == gi + "function") &&
+                    x.Attribute("closure") is not null &&
+                    x.Element(gi + "type")?.Attribute("name")?.AsString() == "gpointer")
+            ) {
+                element.Attribute("closure").Remove();
             }
 
             // add managed-parameters element

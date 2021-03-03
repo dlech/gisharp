@@ -7,6 +7,7 @@ namespace GISharp.Lib.GLib
     /// The type of functions which are used to translate user-visible
     /// strings, for &lt;option&gt;--help&lt;/option&gt; output.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
@@ -26,24 +27,12 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public static unsafe class TranslateFuncMarshal
     {
-        class UserData
-        {
-            public readonly GISharp.Lib.GLib.TranslateFunc ManagedDelegate;
-            public readonly GISharp.Runtime.CallbackScope Scope;
-
-            public UserData(GISharp.Lib.GLib.TranslateFunc managedDelegate, GISharp.Runtime.CallbackScope scope)
-            {
-                ManagedDelegate = managedDelegate;
-                Scope = scope;
-            }
-        }
-
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="TranslateFunc"/>.
         /// </summary>
-        public static GISharp.Lib.GLib.TranslateFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+        public static GISharp.Lib.GLib.TranslateFunc FromPointer(delegate* unmanaged[Cdecl]<byte*, System.IntPtr, byte*> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedTranslateFunc>(callback_);
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedTranslateFunc>((System.IntPtr)callback_);
             var data_ = userData_;
             GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str) { var str_ = (byte*)str.UnsafeHandle; var ret_ = unmanagedCallback(str_,data_); var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_); return ret; }
 
@@ -51,47 +40,17 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Wraps a <see cref="TranslateFunc"/> in an anonymous method that can
-        /// be passed to unmanaged code.
+        /// For runtime use only.
         /// </summary>
-        /// <param name="callback">The managed callback method to wrap.</param>
-        /// <param name="scope">The lifetime scope of the callback.</param>
-        /// <returns>
-        /// A tuple containing a pointer to the unmanaged callback, a pointer to the
-        /// unmanaged notify function and a pointer to the user data.
-        /// </returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged
-        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
-        /// then it is the caller's responsibility to invoke the notify function
-        /// when the callback is no longer needed. If the scope is
-        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
-        /// function should be ignored.
-        /// </remarks>
-        public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.TranslateFunc? callback, GISharp.Runtime.CallbackScope scope)
-        {
-            if (callback is null)
-            {
-                return default;
-            }
-
-            var userData = new UserData(callback, scope);
-            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-            return (callback_, destroy_, userData_);
-        }
-
-        static byte* UnmanagedCallback(byte* str_, System.IntPtr data_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        public static byte* Callback(byte* str_, System.IntPtr data_)
         {
             try
             {
                 var str = new GISharp.Lib.GLib.UnownedUtf8(str_);
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
-                var data = (UserData)gcHandle.Target!;
-                var ret = data.ManagedDelegate(str);
-                if (data.Scope == GISharp.Runtime.CallbackScope.Async)
-                {
-                    Destroy(data_);
-                }
+                var data = (TranslateFunc)gcHandle.Target!;
+                var ret = data.Invoke(str);
                 var ret_ = (byte*)ret.UnsafeHandle;
                 return ret_;
             }
@@ -102,24 +61,5 @@ namespace GISharp.Lib.GLib
 
             return default(byte*);
         }
-
-        static readonly GISharp.Lib.GLib.UnmanagedTranslateFunc UnmanagedCallbackDelegate = UnmanagedCallback;
-        static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
-
-        static void Destroy(System.IntPtr userData_)
-        {
-            try
-            {
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                gcHandle.Free();
-            }
-            catch (System.Exception ex)
-            {
-                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-            }
-        }
-
-        static readonly GISharp.Lib.GLib.UnmanagedDestroyNotify UnmanagedDestroyDelegate = Destroy;
-        static readonly System.IntPtr destroy_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedDestroyDelegate);
     }
 }

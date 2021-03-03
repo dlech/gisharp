@@ -59,7 +59,8 @@ namespace GISharp.CodeGen.Syntax
                 );
                 type = elementType;
             }
-            else if (!field.Type.IsPointer && !field.Type.IsValueType()) {
+            else if (!field.Type.IsPointer && !field.Type.IsValueType() && field.Type.Interface is not Callback) {
+                // TODO: we should not need this fix
                 type = type.Replace("*", "");
             }
             var variableDeclaration = VariableDeclaration(ParseTypeName(type))

@@ -20,10 +20,10 @@ namespace GISharp.Lib.GLib
         public readonly System.IntPtr Finalize;
 
         /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.ClosureCallback']/*" />
-        public readonly System.IntPtr ClosureCallback;
+        public readonly delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> ClosureCallback;
 
         /// <include file="SourceFuncs.xmldoc" path="declaration/member[@name='SourceFuncs.ClosureMarshal']/*" />
-        public readonly System.IntPtr ClosureMarshal;
+        public readonly delegate* unmanaged[Cdecl]<void> ClosureMarshal;
 #pragma warning restore CS0169, CS0649
     }
 }

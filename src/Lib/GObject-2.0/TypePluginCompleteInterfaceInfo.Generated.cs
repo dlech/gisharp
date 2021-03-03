@@ -6,6 +6,7 @@ namespace GISharp.Lib.GObject
     /// <summary>
     /// The type of the @complete_interface_info function of #GTypePluginClass.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */

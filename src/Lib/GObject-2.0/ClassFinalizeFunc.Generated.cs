@@ -12,6 +12,7 @@ namespace GISharp.Lib.GObject
     /// will never be finalized (they are artificially kept alive when their
     /// reference count drops to zero).
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */

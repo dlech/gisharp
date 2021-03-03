@@ -2,21 +2,19 @@
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
 using StringList = System.Collections.Generic.List<GISharp.Lib.GLib.Utf8>;
 using ArgList = System.Collections.Generic.List<System.IntPtr>;
 using CallbackList = System.Collections.Generic.List<System.Action>;
-using DestroyList = System.Collections.Generic.List<(System.IntPtr, System.IntPtr)>;
+using ArgFuncList = System.Collections.Generic.List<GISharp.Lib.GLib.UnmanagedOptionArgFunc>;
 
 namespace GISharp.Lib.GLib
 {
     unsafe partial class OptionGroup
     {
-        static readonly UnmanagedOptionParseFunc postParseFunc = OnParsed;
-        static readonly IntPtr postParseFunc_ = Marshal.GetFunctionPointerForDelegate(postParseFunc);
-
         // FIXME: we will have problems with userData being null if an
         // OptionGroup is marshaled from unmanaged code
         readonly UserData userData = default!;
@@ -26,7 +24,7 @@ namespace GISharp.Lib.GLib
             public StringList Strings { get; } = new();
             public ArgList Args { get; } = new();
             public CallbackList Callbacks { get; } = new();
-            public DestroyList DestroyCallbacks { get; } = new();
+            public ArgFuncList ArgFuncs { get; } = new();
         }
 
         static UnmanagedStruct* New(UnownedUtf8 name, UnownedUtf8 description, UnownedUtf8 helpDescription, out UserData userData)
@@ -36,8 +34,10 @@ namespace GISharp.Lib.GLib
             var helpDescription_ = (byte*)helpDescription.UnsafeHandle;
             userData = new UserData();
             var userData_ = (IntPtr)GCHandle.Alloc(userData);
+            var destroy_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&DestroyUserData;
             var ret_ = g_option_group_new(name_, description_, helpDescription_, userData_, destroy_);
-            g_option_group_set_parse_hooks(ret_, IntPtr.Zero, postParseFunc_);
+            var postParseFunc_ = (delegate* unmanaged[Cdecl]<OptionContext.UnmanagedStruct*, UnmanagedStruct*, IntPtr, Error.UnmanagedStruct**, Runtime.Boolean>)&OnParsed;
+            g_option_group_set_parse_hooks(ret_, null, postParseFunc_);
             return ret_;
         }
 
@@ -110,11 +110,11 @@ namespace GISharp.Lib.GLib
             }
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
             var description_ = AllocString(description ?? throw new ArgumentNullException(nameof(description)));
-            var arg_ = AllocArg(sizeof(bool));
+            var arg_ = AllocArg(sizeof(Runtime.Boolean));
 
             userData.Callbacks.Add(() => {
-                var arg = Marshal.PtrToStructure<bool>(arg_);
-                callback(arg);
+                var arg = Marshal.PtrToStructure<Runtime.Boolean>(arg_);
+                callback(arg.IsTrue());
             });
 
             AddEntry(new OptionEntry(
@@ -323,8 +323,26 @@ namespace GISharp.Lib.GLib
             var longName_ = AllocString(longName ?? throw new ArgumentNullException(nameof(longName)));
             var description_ = AllocString(description ?? throw new ArgumentNullException(nameof(description)));
             var argDescription_ = AllocString(argDescription);
-            var (callback_, destroy_, data_) = OptionArgFuncMarshal.ToUnmanagedFunctionPointer(callback, CallbackScope.Notified);
-            userData.DestroyCallbacks.Add((destroy_, data_));
+
+            var wrappedCallback = new UnmanagedOptionArgFunc((optionName_, value_, data_, error_) => {
+                try {
+                    var optionName = new UnownedUtf8(optionName_);
+                    var value = new UnownedUtf8(value_);
+                    callback(optionName, value);
+                    return Runtime.Boolean.True;
+                }
+                catch (GErrorException ex) {
+                    GMarshal.PropagateError(error_, ex.Error);
+                }
+                catch (Exception ex) {
+                    ex.LogUnhandledException();
+                }
+
+                return default;
+            });
+
+            var callback_ = Marshal.GetFunctionPointerForDelegate(wrappedCallback);
+            userData.ArgFuncs.Add(wrappedCallback);
 
             AddEntry(new OptionEntry(
                 longName_,
@@ -337,8 +355,7 @@ namespace GISharp.Lib.GLib
             ));
         }
 
-        static readonly UnmanagedDestroyNotify DestroyUserDataDelegate = DestroyUserData;
-        static readonly IntPtr destroy_ = Marshal.GetFunctionPointerForDelegate(DestroyUserDataDelegate);
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static void DestroyUserData(IntPtr data_)
         {
             try {
@@ -352,16 +369,13 @@ namespace GISharp.Lib.GLib
                 foreach (var a in userData.Args) {
                     GMarshal.Free(a);
                 }
-                foreach (var d in userData.DestroyCallbacks) {
-                    var destroy = Marshal.GetDelegateForFunctionPointer<UnmanagedDestroyNotify>(d.Item1);
-                    destroy(d.Item2);
-                }
             }
             catch (Exception ex) {
                 ex.LogUnhandledException();
             }
         }
 
+        [UnmanagedCallersOnly(CallConvs = new[] { typeof(CallConvCdecl) })]
         static Runtime.Boolean OnParsed(OptionContext.UnmanagedStruct* context_, UnmanagedStruct* group_, IntPtr data_, Error.UnmanagedStruct** error_)
         {
             try {

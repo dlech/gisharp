@@ -283,8 +283,7 @@ asynchronously. For details of the behaviour, see <see cref="File.Copy(GISharp.L
 <remarks>
 If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
 just like in <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>. The callback will run in the default main context
-of the thread calling <see cref="IFile.DoCopyAsync"/> — the same context as <paramref name="callback"/> is
-run in.
+of the thread calling <see cref="File.CopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,int,GISharp.Lib.Gio.Cancellable,GISharp.Lib.Gio.FileProgressCallback)"/>.
 </remarks>
 <param name="destination">
 destination <see cref="IFile"/>
@@ -310,7 +309,7 @@ optional <see cref="Cancellable"/> object,
 
 <member name='IFile.DoCopyFinish(GISharp.Lib.Gio.IAsyncResult)'>
 <summary>
-Finishes copying the file started with <see cref="IFile.DoCopyAsync"/>.
+Finishes copying the file started with <see cref="File.CopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,int,GISharp.Lib.Gio.Cancellable,GISharp.Lib.Gio.FileProgressCallback)"/>.
 </summary>
 <param name="res">
 a <see cref="IAsyncResult"/>
@@ -2243,6 +2242,38 @@ optional <see cref="Cancellable"/> object,
 <exception name="GISharp.Runtime.GErrorException">
 On error
 </exception>
+</member>
+
+<member name='File.CopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,int,GISharp.Lib.Gio.Cancellable?,GISharp.Lib.Gio.FileProgressCallback?)'>
+<summary>
+Copies the file <paramref name="source"/> to the location specified by <paramref name="destination"/>
+asynchronously. For details of the behaviour, see <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>.
+</summary>
+<remarks>
+If <paramref name="progressCallback"/> is not <c>null</c>, then that function that will be called
+just like in <see cref="File.Copy(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.FileProgressCallback,GISharp.Lib.Gio.Cancellable)"/>. The callback will run in the default main context
+of the thread calling <see cref="File.CopyAsync(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,int,GISharp.Lib.Gio.Cancellable,GISharp.Lib.Gio.FileProgressCallback)"/>.
+</remarks>
+<param name="source">
+input <see cref="IFile"/>
+</param>
+<param name="destination">
+destination <see cref="IFile"/>
+</param>
+<param name="flags">
+set of <see cref="FileCopyFlags"/>
+</param>
+<param name="ioPriority">
+the [I/O priority][io-priority] of the request
+</param>
+<param name="cancellable">
+optional <see cref="Cancellable"/> object,
+    <c>null</c> to ignore
+</param>
+<param name="progressCallback">
+function to callback with progress
+    information, or <c>null</c> if progress information is not needed
+</param>
 </member>
 
 <member name='File.CopyAttributes(GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.IFile,GISharp.Lib.Gio.FileCopyFlags,GISharp.Lib.Gio.Cancellable?)'>

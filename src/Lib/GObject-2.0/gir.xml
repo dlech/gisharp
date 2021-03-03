@@ -3432,6 +3432,9 @@ stages of a signal emission.</doc>
   running with G_ENABLE_DIAGNOSTIC=1.</doc>
       </member>
     </bitfield>
+    <union name="TypeCValue" c:type="GTypeCValue" gs:managed-name="TypeCValue">
+      <source-position filename="gtype.h" line="389" />
+    </union>
     <record name="TypeClass" c:type="GTypeClass" gs:managed-name="TypeClass">
       <doc xml:space="preserve" filename="gtype.h" line="403">An opaque structure used as the base of all classes.</doc>
       <source-position filename="gtype.h" line="412" />

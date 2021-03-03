@@ -1169,13 +1169,13 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.Source.UnmanagedStruct* source,
         /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:1 destroy:2 direction:in */
-        System.IntPtr func,
+        delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> func,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        System.IntPtr notify);
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> notify);
         partial void CheckSetCallbackArgs(GISharp.Lib.GLib.SourceFunc func);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.SetCallback(GISharp.Lib.GLib.SourceFunc)']/*" />
@@ -1183,7 +1183,10 @@ namespace GISharp.Lib.GLib
         {
             CheckSetCallbackArgs(func);
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
-            var (func_, notify_, data_) = GISharp.Lib.GLib.SourceFuncMarshal.ToUnmanagedFunctionPointer(func, GISharp.Runtime.CallbackScope.Notified);
+            var func_ = (delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean>)&GISharp.Lib.GLib.SourceFuncMarshal.Callback;
+            var funcHandle = System.Runtime.InteropServices.GCHandle.Alloc(func);
+            var data_ = (System.IntPtr)funcHandle;
+            var notify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             g_source_set_callback(source_, func_, data_, notify_);
         }
 

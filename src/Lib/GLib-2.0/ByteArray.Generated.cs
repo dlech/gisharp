@@ -556,7 +556,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.ByteArray.UnmanagedStruct* array,
         /* <type name="CompareFunc" type="GCompareFunc" managed-name="CompareFunc" /> */
         /* transfer-ownership:none direction:in */
-        System.IntPtr compareFunc);
+        delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, int> compareFunc);
 
         /// <summary>
         /// Like g_byte_array_sort(), but the comparison function takes an extra
@@ -582,7 +582,7 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.ByteArray.UnmanagedStruct* array,
         /* <type name="CompareDataFunc" type="GCompareDataFunc" managed-name="CompareDataFunc" /> */
         /* transfer-ownership:none closure:1 scope:call direction:in */
-        System.IntPtr compareFunc,
+        delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, int> compareFunc,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);

@@ -11423,7 +11423,7 @@ file), see g_file_dup().</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="copy_async" c:identifier="g_file_copy_async" gs:pinvoke-only="1" gs:dll-name="gio-2.0" gs:managed-name="CopyAsync" gs:extension-method="1">
+      <method name="copy_async" c:identifier="g_file_copy_async" gs:dll-name="gio-2.0" gs:managed-name="CopyAsync" gs:async="1" gs:async-finish="CopyFinish" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="21275">Copies the file @source to the location specified by @destination
 asynchronously. For details of the behaviour, see g_file_copy().
 
@@ -11436,7 +11436,7 @@ When the operation is finished, @callback will be called. You can then call
 g_file_copy_finish() to get the result of the operation.</doc>
         <source-position filename="gfile.h" line="908" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
-          <type name="none" c:type="void" gs:managed-name="System.Void" />
+          <type name="none" c:type="void" gs:managed-name="System.Threading.Tasks.Task" />
         </return-value>
         <parameters>
           <instance-parameter name="source" transfer-ownership="none" gs:managed-name="source" direction="in">
@@ -11460,12 +11460,12 @@ g_file_copy_finish() to get the result of the operation.</doc>
     %NULL to ignore</doc>
             <type name="Cancellable" c:type="GCancellable*" gs:managed-name="Cancellable" gs:is-pointer="1" />
           </parameter>
-          <parameter name="progress_callback" transfer-ownership="none" nullable="1" allow-none="1" scope="notified" closure="5" gs:managed-name="progressCallback" direction="in">
+          <parameter name="progress_callback" transfer-ownership="none" nullable="1" allow-none="1" scope="async" closure="5" gs:default="null" gs:managed-name="progressCallback" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="21283">function to callback with progress
     information, or %NULL if progress information is not needed</doc>
             <type name="FileProgressCallback" c:type="GFileProgressCallback" gs:managed-name="FileProgressCallback" />
           </parameter>
-          <parameter name="progress_callback_data" transfer-ownership="none" nullable="1" allow-none="1" closure="4" gs:managed-name="progressCallbackData" direction="in">
+          <parameter name="progress_callback_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="progressCallbackData" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="21285">user data to pass to @progress_callback</doc>
             <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
           </parameter>
@@ -11473,7 +11473,7 @@ g_file_copy_finish() to get the result of the operation.</doc>
             <doc xml:space="preserve" filename="gio-2.0.c" line="21286">a #GAsyncReadyCallback to call when the request is satisfied</doc>
             <type name="AsyncReadyCallback" c:type="GAsyncReadyCallback" gs:managed-name="AsyncReadyCallback" />
           </parameter>
-          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="6" gs:managed-name="userData" direction="in">
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
             <doc xml:space="preserve" filename="gio-2.0.c" line="21287">the data to pass to callback function</doc>
             <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
           </parameter>
@@ -11499,6 +11499,11 @@ g_file_copy_finish() to get the result of the operation.</doc>
             <doc xml:space="preserve" filename="gio-2.0.c" line="21281">optional #GCancellable object,
     %NULL to ignore</doc>
             <type name="Cancellable" c:type="GCancellable*" gs:managed-name="Cancellable" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="progress_callback" transfer-ownership="none" nullable="1" allow-none="1" scope="async" closure="5" gs:default="null" gs:managed-name="progressCallback" direction="in">
+            <doc xml:space="preserve" filename="gio-2.0.c" line="21283">function to callback with progress
+    information, or %NULL if progress information is not needed</doc>
+            <type name="FileProgressCallback" c:type="GFileProgressCallback" gs:managed-name="FileProgressCallback" />
           </parameter>
         </gs:managed-parameters>
       </method>
@@ -11560,7 +11565,7 @@ is useful when implementing move by copy + delete source.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="copy_finish" c:identifier="g_file_copy_finish" throws="1" gs:pinvoke-only="1" gs:dll-name="gio-2.0" gs:managed-name="CopyFinish" gs:extension-method="1">
+      <method name="copy_finish" c:identifier="g_file_copy_finish" throws="1" gs:dll-name="gio-2.0" gs:managed-name="CopyFinish" gs:pinvoke-only="1" gs:finish-for="copy_async" gs:extension-method="1">
         <doc xml:space="preserve" filename="gio-2.0.c" line="21325">Finishes copying the file started with g_file_copy_async().</doc>
         <source-position filename="gfile.h" line="918" />
         <return-value transfer-ownership="none" gs:managed-name="ret" skip="1" direction="in">

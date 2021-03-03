@@ -207,7 +207,7 @@ namespace GISharp.Lib.GLib
                     return default;
                 }
             });
-            var compareFunc_ = Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
+            var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
             g_byte_array_sort(array_, compareFunc_);
             GC.KeepAlive(unmanagedCompareFunc);
         }

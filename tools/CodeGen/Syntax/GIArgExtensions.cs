@@ -4,6 +4,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
@@ -287,16 +288,38 @@ namespace GISharp.CodeGen.Syntax
                     expressions.Add(ParseExpression($"{@var}{unmanagedName} = {unmanagedCast}{arg.ManagedName}"));
                 }
             }
-            else if (arg.Type.Interface is Callback) {
-                var destroyArg = arg.Callable.Parameters.RegularParameters.ElementAtOrDefault(arg.DestroyIndex);
-                var destroy = destroyArg?.ManagedName ?? (arg.Scope == "call" ? "destroy" : "");
-                var userDataArg = arg.Callable.Parameters.RegularParameters.ElementAt(arg.ClosureIndex);
-                var userData = userDataArg.ManagedName;
-                var scope = $"{typeof(CallbackScope)}.{arg.Scope.ToPascalCase()}";
-                var marshal = $"{type}Marshal";
-                var getter = $"{marshal}.ToUnmanagedFunctionPointer({arg.ManagedName}, {scope})";
-                var identifiers = $"{unmanagedName}, {destroy}_, {userData}_";
-                expressions.Add(ParseExpression($"{@var}({identifiers}) = {getter}"));
+            else if (arg.Type.Interface is Callback callback) {
+                if (arg.Callable.Parameters.RegularParameters.ElementAtOrDefault(arg.ClosureIndex) is Parameter userData) {
+                    if (arg.Scope is null) {
+                        throw new Exception("closure without callback scope");
+                    }
+
+                    // if the callback is a closure (has user data) then we use the
+                    // unmanaged callers only callback and pass the managed callback
+                    // GC handle as the user data.
+
+                    expressions.Add(ParseExpression(
+                        $"{@var}{unmanagedName} = {unmanagedCast}&{type}Marshal.Callback"
+                    ));
+                    expressions.Add(ParseExpression(
+                        $"var {arg.ManagedName}Handle = {typeof(GCHandle)}.Alloc({arg.ManagedName})"
+                    ));
+                    expressions.Add(ParseExpression(
+                        $"{@var}{userData.ManagedName}_ = (System.IntPtr){arg.ManagedName}Handle"
+                    ));
+                }
+                else {
+                    throw new NotImplementedException("need to handle callback without user data");
+                }
+
+                if (arg.Callable.Parameters.RegularParameters.ElementAtOrDefault(arg.DestroyIndex) is Parameter destroy) {
+                    expressions.Add(ParseExpression(
+                        $"{@var}{destroy.ManagedName}_ = ({destroy.Type.GetUnmanagedType()})&GISharp.Runtime.GMarshal.DestroyGCHandle"
+                    ));
+                }
+                else if (arg.Scope == "notified") {
+                    throw new Exception("notified scope without destroy index");
+                }
             }
             else {
                 expressions.Add(ParseExpression($"throw new System.NotImplementedException(\"{nameof(GetMarshalManagedToUnmanagedStatements)}\")"));
@@ -365,7 +388,7 @@ namespace GISharp.CodeGen.Syntax
                 var marshal = $"{type}Marshal";
                 var getter = $"{marshal}.FromPointer({arg.ManagedName}_, {userData}_)";
                 if (arg.IsNullable) {
-                    getter = $"{arg.ManagedName}_ == System.IntPtr.Zero ? default({type}) : {getter}";
+                    getter = $"{arg.ManagedName}_ is null ? default({type}) : {getter}";
                 }
                 expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = {getter}"));
             }

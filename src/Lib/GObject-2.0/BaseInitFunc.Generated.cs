@@ -13,6 +13,7 @@ namespace GISharp.Lib.GObject
     /// have to be altered. See GClassInitFunc() for a discussion of the class
     /// initialization process.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */

@@ -9,7 +9,8 @@ namespace GISharp.Lib.Gio
         /// <inheritdoc />
         public void SetCallback(CancellableSourceFunc func)
         {
-            SetCallback(func, CancellableSourceFuncMarshal.ToUnmanagedFunctionPointer);
+            throw new System.NotImplementedException("need to update code gen for GSource");
+            // SetCallback(func, CancellableSourceFuncMarshal.ToUnmanagedFunctionPointer);
         }
     }
 }

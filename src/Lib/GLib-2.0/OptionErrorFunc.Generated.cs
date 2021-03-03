@@ -6,6 +6,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// The type of function to be used as callback when a parse error occurs.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */
@@ -31,24 +32,12 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public static unsafe class OptionErrorFuncMarshal
     {
-        class UserData
-        {
-            public readonly GISharp.Lib.GLib.OptionErrorFunc ManagedDelegate;
-            public readonly GISharp.Runtime.CallbackScope Scope;
-
-            public UserData(GISharp.Lib.GLib.OptionErrorFunc managedDelegate, GISharp.Runtime.CallbackScope scope)
-            {
-                ManagedDelegate = managedDelegate;
-                Scope = scope;
-            }
-        }
-
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="OptionErrorFunc"/>.
         /// </summary>
-        public static GISharp.Lib.GLib.OptionErrorFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+        public static GISharp.Lib.GLib.OptionErrorFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GLib.OptionContext.UnmanagedStruct*, GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*, System.IntPtr, GISharp.Lib.GLib.Error.UnmanagedStruct**, void> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionErrorFunc>(callback_);
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionErrorFunc>((System.IntPtr)callback_);
             var data_ = userData_;
             void managedCallback(GISharp.Lib.GLib.OptionContext context, GISharp.Lib.GLib.OptionGroup group) { var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)context.UnsafeHandle; var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)group.UnsafeHandle; var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*); unmanagedCallback(context_, group_, data_, &error_); if (error_ is not null) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
@@ -56,72 +45,23 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Wraps a <see cref="OptionErrorFunc"/> in an anonymous method that can
-        /// be passed to unmanaged code.
+        /// For runtime use only.
         /// </summary>
-        /// <param name="callback">The managed callback method to wrap.</param>
-        /// <param name="scope">The lifetime scope of the callback.</param>
-        /// <returns>
-        /// A tuple containing a pointer to the unmanaged callback, a pointer to the
-        /// unmanaged notify function and a pointer to the user data.
-        /// </returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged
-        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
-        /// then it is the caller's responsibility to invoke the notify function
-        /// when the callback is no longer needed. If the scope is
-        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
-        /// function should be ignored.
-        /// </remarks>
-        public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.OptionErrorFunc? callback, GISharp.Runtime.CallbackScope scope)
-        {
-            if (callback is null)
-            {
-                return default;
-            }
-
-            var userData = new UserData(callback, scope);
-            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-            return (callback_, destroy_, userData_);
-        }
-
-        static void UnmanagedCallback(GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context_, GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group_, System.IntPtr data_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        public static void Callback(GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context_, GISharp.Lib.GLib.OptionGroup.UnmanagedStruct* group_, System.IntPtr data_, GISharp.Lib.GLib.Error.UnmanagedStruct** error_)
         {
             try
             {
                 var context = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionContext>((System.IntPtr)context_, GISharp.Runtime.Transfer.None)!;
                 var group = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>((System.IntPtr)group_, GISharp.Runtime.Transfer.None)!;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
-                var data = (UserData)gcHandle.Target!;
-                data.ManagedDelegate(context, group);
-                if (data.Scope == GISharp.Runtime.CallbackScope.Async)
-                {
-                    Destroy(data_);
-                }
+                var data = (OptionErrorFunc)gcHandle.Target!;
+                data.Invoke(context, group);
             }
             catch (System.Exception ex)
             {
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.GLib.UnmanagedOptionErrorFunc UnmanagedCallbackDelegate = UnmanagedCallback;
-        static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
-
-        static void Destroy(System.IntPtr userData_)
-        {
-            try
-            {
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                gcHandle.Free();
-            }
-            catch (System.Exception ex)
-            {
-                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-            }
-        }
-
-        static readonly GISharp.Lib.GLib.UnmanagedDestroyNotify UnmanagedDestroyDelegate = Destroy;
-        static readonly System.IntPtr destroy_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedDestroyDelegate);
     }
 }

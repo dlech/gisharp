@@ -34,6 +34,7 @@ namespace GISharp.Lib.Gio
     /// result.  Always check the async result to get the final value.
     /// </remarks>
     [GISharp.Runtime.SinceAttribute("2.38")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */
@@ -63,60 +64,22 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static unsafe class FileMeasureProgressCallbackMarshal
     {
-        class UserData
-        {
-            public readonly GISharp.Lib.Gio.FileMeasureProgressCallback ManagedDelegate;
-            public readonly GISharp.Runtime.CallbackScope Scope;
-
-            public UserData(GISharp.Lib.Gio.FileMeasureProgressCallback managedDelegate, GISharp.Runtime.CallbackScope scope)
-            {
-                ManagedDelegate = managedDelegate;
-                Scope = scope;
-            }
-        }
-
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="FileMeasureProgressCallback"/>.
         /// </summary>
-        public static GISharp.Lib.Gio.FileMeasureProgressCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+        public static GISharp.Lib.Gio.FileMeasureProgressCallback FromPointer(delegate* unmanaged[Cdecl]<GISharp.Runtime.Boolean, ulong, ulong, ulong, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback>(callback_);
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback>((System.IntPtr)callback_);
             void managedCallback(System.Boolean reporting, ulong currentSize, ulong numDirs, ulong numFiles) { var reporting_ = GISharp.Runtime.BooleanExtensions.ToBoolean(reporting); var currentSize_ = (ulong)currentSize; var numDirs_ = (ulong)numDirs; var numFiles_ = (ulong)numFiles; unmanagedCallback(reporting_, currentSize_, numDirs_, numFiles_, userData_); }
 
             return managedCallback;
         }
 
         /// <summary>
-        /// Wraps a <see cref="FileMeasureProgressCallback"/> in an anonymous method that can
-        /// be passed to unmanaged code.
+        /// For runtime use only.
         /// </summary>
-        /// <param name="callback">The managed callback method to wrap.</param>
-        /// <param name="scope">The lifetime scope of the callback.</param>
-        /// <returns>
-        /// A tuple containing a pointer to the unmanaged callback, a pointer to the
-        /// unmanaged notify function and a pointer to the user data.
-        /// </returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged
-        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
-        /// then it is the caller's responsibility to invoke the notify function
-        /// when the callback is no longer needed. If the scope is
-        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
-        /// function should be ignored.
-        /// </remarks>
-        public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.Gio.FileMeasureProgressCallback? callback, GISharp.Runtime.CallbackScope scope)
-        {
-            if (callback is null)
-            {
-                return default;
-            }
-
-            var userData = new UserData(callback, scope);
-            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-            return (callback_, destroy_, userData_);
-        }
-
-        static void UnmanagedCallback(GISharp.Runtime.Boolean reporting_, ulong currentSize_, ulong numDirs_, ulong numFiles_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        public static void Callback(GISharp.Runtime.Boolean reporting_, ulong currentSize_, ulong numDirs_, ulong numFiles_, System.IntPtr userData_)
         {
             try
             {
@@ -125,36 +88,13 @@ namespace GISharp.Lib.Gio
                 var numDirs = (ulong)numDirs_;
                 var numFiles = (ulong)numFiles_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (UserData)gcHandle.Target!;
-                userData.ManagedDelegate(reporting, currentSize, numDirs, numFiles);
-                if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                {
-                    Destroy(userData_);
-                }
+                var userData = (FileMeasureProgressCallback)gcHandle.Target!;
+                userData.Invoke(reporting, currentSize, numDirs, numFiles);
             }
             catch (System.Exception ex)
             {
                 GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedFileMeasureProgressCallback UnmanagedCallbackDelegate = UnmanagedCallback;
-        static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
-
-        static void Destroy(System.IntPtr userData_)
-        {
-            try
-            {
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                gcHandle.Free();
-            }
-            catch (System.Exception ex)
-            {
-                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-            }
-        }
-
-        static readonly GISharp.Lib.GLib.UnmanagedDestroyNotify UnmanagedDestroyDelegate = Destroy;
-        static readonly System.IntPtr destroy_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedDestroyDelegate);
     }
 }

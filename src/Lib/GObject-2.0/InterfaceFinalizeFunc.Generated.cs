@@ -8,6 +8,7 @@ namespace GISharp.Lib.GObject
     /// This function should destroy any internal data and release any resources
     /// allocated by the corresponding GInterfaceInitFunc() function.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */

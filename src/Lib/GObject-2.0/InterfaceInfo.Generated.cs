@@ -8,10 +8,10 @@ namespace GISharp.Lib.GObject
     {
 #pragma warning disable CS0169, CS0649
         /// <include file="InterfaceInfo.xmldoc" path="declaration/member[@name='InterfaceInfo.InterfaceInit']/*" />
-        public readonly System.IntPtr InterfaceInit;
+        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*, System.IntPtr, void> InterfaceInit;
 
         /// <include file="InterfaceInfo.xmldoc" path="declaration/member[@name='InterfaceInfo.InterfaceFinalize']/*" />
-        public readonly System.IntPtr InterfaceFinalize;
+        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*, System.IntPtr, void> InterfaceFinalize;
 
         /// <include file="InterfaceInfo.xmldoc" path="declaration/member[@name='InterfaceInfo.InterfaceData']/*" />
         public readonly System.IntPtr InterfaceData;

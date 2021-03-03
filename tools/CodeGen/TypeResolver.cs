@@ -37,6 +37,13 @@ namespace GISharp.CodeGen
 
         private record UnmanagedType(string Value);
 
+        public static string GetUnmanagedType(this Callback callback)
+        {
+            var typeParameters = callback.Parameters.Append(callback.ReturnValue)
+                .Select(x => $"{x.Type.GetUnmanagedType()}{(x.Direction != "in" ? "*" : "")}");
+            return $"delegate* unmanaged[Cdecl]<{string.Join(", ", typeParameters)}>";
+        }
+
         public static string GetUnmanagedType(this GIType type)
         {
             // return cached type if present
@@ -71,7 +78,7 @@ namespace GISharp.CodeGen
                 var x when x == "filename" || x == "utf8" => "byte*",
                 // TODO: remove name="GLib.Strv" from Fixup.cs
                 "GLib.Strv" => "byte**",
-                "GLib.DestroyNotify" => "System.IntPtr",
+                "GLib.DestroyNotify" => "delegate* unmanaged[Cdecl]<System.IntPtr, void>",
                 "va_list" =>
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported"),
@@ -82,8 +89,7 @@ namespace GISharp.CodeGen
                 var x when x is null && type is Gir.Array array =>
                     $"{array.TypeParameters.Single().GetUnmanagedType()}*",
                 _ => type switch {
-                    var x when x.ParentNode is GIArg arg && arg.Scope is not null => "System.IntPtr",
-                    var x when x.Interface is Callback => "System.IntPtr",
+                    var x when x.Interface is Callback callback => callback.GetUnmanagedType(),
                     var x when x.IsValueType() =>
                         $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}{pointer}",
                     _ => $"GISharp.Lib.{type.Namespace.Name}.{type.GirName}.UnmanagedStruct{pointer}",

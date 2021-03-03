@@ -9,6 +9,7 @@ namespace GISharp.Lib.GLib
     /// value comes before the second, 0 if they are equal, or a positive
     /// integer if the first value comes after the second.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gint" type="gint" managed-name="System.Int32" /> */
     /* transfer-ownership:none direction:in */
@@ -31,72 +32,30 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public static unsafe class CompareDataFuncMarshal
     {
-        class UserData
-        {
-            public readonly GISharp.Lib.GLib.CompareDataFunc ManagedDelegate;
-            public readonly GISharp.Runtime.CallbackScope Scope;
-
-            public UserData(GISharp.Lib.GLib.CompareDataFunc managedDelegate, GISharp.Runtime.CallbackScope scope)
-            {
-                ManagedDelegate = managedDelegate;
-                Scope = scope;
-            }
-        }
-
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="CompareDataFunc"/>.
         /// </summary>
-        public static GISharp.Lib.GLib.CompareDataFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+        public static GISharp.Lib.GLib.CompareDataFunc FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, System.IntPtr, int> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedCompareDataFunc>(callback_);
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedCompareDataFunc>((System.IntPtr)callback_);
             int managedCallback(System.IntPtr a, System.IntPtr b) { var a_ = (System.IntPtr)a; var b_ = (System.IntPtr)b; var ret_ = unmanagedCallback(a_,b_,userData_); var ret = (int)ret_; return ret; }
 
             return managedCallback;
         }
 
         /// <summary>
-        /// Wraps a <see cref="CompareDataFunc"/> in an anonymous method that can
-        /// be passed to unmanaged code.
+        /// For runtime use only.
         /// </summary>
-        /// <param name="callback">The managed callback method to wrap.</param>
-        /// <param name="scope">The lifetime scope of the callback.</param>
-        /// <returns>
-        /// A tuple containing a pointer to the unmanaged callback, a pointer to the
-        /// unmanaged notify function and a pointer to the user data.
-        /// </returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged
-        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
-        /// then it is the caller's responsibility to invoke the notify function
-        /// when the callback is no longer needed. If the scope is
-        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
-        /// function should be ignored.
-        /// </remarks>
-        public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.CompareDataFunc? callback, GISharp.Runtime.CallbackScope scope)
-        {
-            if (callback is null)
-            {
-                return default;
-            }
-
-            var userData = new UserData(callback, scope);
-            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-            return (callback_, destroy_, userData_);
-        }
-
-        static int UnmanagedCallback(System.IntPtr a_, System.IntPtr b_, System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        public static int Callback(System.IntPtr a_, System.IntPtr b_, System.IntPtr userData_)
         {
             try
             {
                 var a = (System.IntPtr)a_;
                 var b = (System.IntPtr)b_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (UserData)gcHandle.Target!;
-                var ret = userData.ManagedDelegate(a, b);
-                if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                {
-                    Destroy(userData_);
-                }
+                var userData = (CompareDataFunc)gcHandle.Target!;
+                var ret = userData.Invoke(a, b);
                 var ret_ = (int)ret;
                 return ret_;
             }
@@ -107,24 +66,5 @@ namespace GISharp.Lib.GLib
 
             return default(int);
         }
-
-        static readonly GISharp.Lib.GLib.UnmanagedCompareDataFunc UnmanagedCallbackDelegate = UnmanagedCallback;
-        static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
-
-        static void Destroy(System.IntPtr userData_)
-        {
-            try
-            {
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                gcHandle.Free();
-            }
-            catch (System.Exception ex)
-            {
-                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-            }
-        }
-
-        static readonly GISharp.Lib.GLib.UnmanagedDestroyNotify UnmanagedDestroyDelegate = Destroy;
-        static readonly System.IntPtr destroy_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedDestroyDelegate);
     }
 }

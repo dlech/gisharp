@@ -170,7 +170,7 @@ namespace GISharp.CodeGen.Syntax
                 block = block.AddStatements(ExpressionStatement(ParseExpression(completionVarExpression)));
 
                 var callbackArg = callable.Parameters.Single(x => x.Type.CType == "GAsyncReadyCallback");
-                var callbackExpression = $"var {callbackArg.ManagedName}_ = (System.IntPtr)(delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&{callable.AsyncFinish}";
+                var callbackExpression = $"var {callbackArg.ManagedName}_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&{callable.AsyncFinish}";
                 block = block.AddStatements(ExpressionStatement(ParseExpression(callbackExpression)));
 
                 var userDataArg = callable.Parameters.RegularParameters.ElementAt(callbackArg.ClosureIndex);
@@ -199,21 +199,12 @@ namespace GISharp.CodeGen.Syntax
             block = block.AddStatements(ExpressionStatement(invocationExpression));
 
             // If callback scope for any parameter was "call", then we need to
-            // free the unmanaged delegate
+            // free the managed delegate
 
             foreach (var arg in callable.Parameters.Where(x => x.Scope == "call")) {
-                var marshalExpression = ParseExpression(string.Format(
-                    "var destroy = {0}.{1}<{2}>(destroy_)",
-                    typeof(Marshal),
-                    nameof(Marshal.GetDelegateForFunctionPointer),
-                    typeof(UnmanagedDestroyNotify)
-                ));
-                block = block.AddStatements(ExpressionStatement(marshalExpression));
-
-                var userDataArg = callable.Parameters.RegularParameters.ElementAt(arg.ClosureIndex);
-                var nullCheck = arg.IsNullable ? "?.Invoke" : "!.Invoke";
-                var invokeExpression = ParseExpression($"destroy{nullCheck}({userDataArg.ManagedName}_)");
-                block = block.AddStatements(ExpressionStatement(invokeExpression));
+                block = block.AddStatements(ExpressionStatement(ParseExpression(
+                    $"{arg.ManagedName}Handle.Free()"
+                )));
             }
 
             // Check for GError and throw GErrorException

@@ -12,6 +12,7 @@ namespace GISharp.Lib.GLib
     /// different type to this type. Use G_SOURCE_FUNC() to avoid warnings about
     /// incompatible function types.
     /// </remarks>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
     /* transfer-ownership:none direction:in */
@@ -28,70 +29,28 @@ namespace GISharp.Lib.GLib
     /// </summary>
     public static unsafe class SourceFuncMarshal
     {
-        class UserData
-        {
-            public readonly GISharp.Lib.GLib.SourceFunc ManagedDelegate;
-            public readonly GISharp.Runtime.CallbackScope Scope;
-
-            public UserData(GISharp.Lib.GLib.SourceFunc managedDelegate, GISharp.Runtime.CallbackScope scope)
-            {
-                ManagedDelegate = managedDelegate;
-                Scope = scope;
-            }
-        }
-
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="SourceFunc"/>.
         /// </summary>
-        public static GISharp.Lib.GLib.SourceFunc FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+        public static GISharp.Lib.GLib.SourceFunc FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedSourceFunc>(callback_);
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedSourceFunc>((System.IntPtr)callback_);
             System.Boolean managedCallback() { var ret_ = unmanagedCallback(userData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
 
             return managedCallback;
         }
 
         /// <summary>
-        /// Wraps a <see cref="SourceFunc"/> in an anonymous method that can
-        /// be passed to unmanaged code.
+        /// For runtime use only.
         /// </summary>
-        /// <param name="callback">The managed callback method to wrap.</param>
-        /// <param name="scope">The lifetime scope of the callback.</param>
-        /// <returns>
-        /// A tuple containing a pointer to the unmanaged callback, a pointer to the
-        /// unmanaged notify function and a pointer to the user data.
-        /// </returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged
-        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
-        /// then it is the caller's responsibility to invoke the notify function
-        /// when the callback is no longer needed. If the scope is
-        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
-        /// function should be ignored.
-        /// </remarks>
-        public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.GLib.SourceFunc? callback, GISharp.Runtime.CallbackScope scope)
-        {
-            if (callback is null)
-            {
-                return default;
-            }
-
-            var userData = new UserData(callback, scope);
-            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-            return (callback_, destroy_, userData_);
-        }
-
-        static GISharp.Runtime.Boolean UnmanagedCallback(System.IntPtr userData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        public static GISharp.Runtime.Boolean Callback(System.IntPtr userData_)
         {
             try
             {
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (UserData)gcHandle.Target!;
-                var ret = userData.ManagedDelegate();
-                if (userData.Scope == GISharp.Runtime.CallbackScope.Async)
-                {
-                    Destroy(userData_);
-                }
+                var userData = (SourceFunc)gcHandle.Target!;
+                var ret = userData.Invoke();
                 var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                 return ret_;
             }
@@ -102,24 +61,5 @@ namespace GISharp.Lib.GLib
 
             return default(GISharp.Runtime.Boolean);
         }
-
-        static readonly GISharp.Lib.GLib.UnmanagedSourceFunc UnmanagedCallbackDelegate = UnmanagedCallback;
-        static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
-
-        static void Destroy(System.IntPtr userData_)
-        {
-            try
-            {
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                gcHandle.Free();
-            }
-            catch (System.Exception ex)
-            {
-                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-            }
-        }
-
-        static readonly GISharp.Lib.GLib.UnmanagedDestroyNotify UnmanagedDestroyDelegate = Destroy;
-        static readonly System.IntPtr destroy_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedDestroyDelegate);
     }
 }

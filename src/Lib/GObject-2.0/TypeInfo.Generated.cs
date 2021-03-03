@@ -11,16 +11,16 @@ namespace GISharp.Lib.GObject
         public readonly ushort ClassSize;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.BaseInit']/*" />
-        public readonly System.IntPtr BaseInit;
+        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass*, void> BaseInit;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.BaseFinalize']/*" />
-        public readonly System.IntPtr BaseFinalize;
+        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass*, void> BaseFinalize;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ClassInit']/*" />
-        public readonly System.IntPtr ClassInit;
+        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass*, System.IntPtr, void> ClassInit;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ClassFinalize']/*" />
-        public readonly System.IntPtr ClassFinalize;
+        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass*, System.IntPtr, void> ClassFinalize;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ClassData']/*" />
         public readonly System.IntPtr ClassData;
@@ -32,7 +32,7 @@ namespace GISharp.Lib.GObject
         public readonly ushort NPreallocs;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.InstanceInit']/*" />
-        public readonly System.IntPtr InstanceInit;
+        public readonly delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInstance*, GISharp.Lib.GObject.TypeClass*, void> InstanceInit;
 
         /// <include file="TypeInfo.xmldoc" path="declaration/member[@name='TypeInfo.ValueTable']/*" />
         public readonly GISharp.Lib.GObject.TypeValueTable* ValueTable;

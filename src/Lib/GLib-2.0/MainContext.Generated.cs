@@ -492,13 +492,13 @@ namespace GISharp.Lib.GLib
         int priority,
         /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:2 destroy:3 direction:in */
-        System.IntPtr function,
+        delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> function,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        System.IntPtr notify);
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> notify);
         partial void CheckInvokeFullArgs(int priority, GISharp.Lib.GLib.SourceFunc function);
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.InvokeFull(int,GISharp.Lib.GLib.SourceFunc)']/*" />
@@ -508,7 +508,10 @@ namespace GISharp.Lib.GLib
             CheckInvokeFullArgs(priority, function);
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
             var priority_ = (int)priority;
-            var (function_, notify_, data_) = GISharp.Lib.GLib.SourceFuncMarshal.ToUnmanagedFunctionPointer(function, GISharp.Runtime.CallbackScope.Notified);
+            var function_ = (delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean>)&GISharp.Lib.GLib.SourceFuncMarshal.Callback;
+            var functionHandle = System.Runtime.InteropServices.GCHandle.Alloc(function);
+            var data_ = (System.IntPtr)functionHandle;
+            var notify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             g_main_context_invoke_full(context_, priority_, function_, data_, notify_);
         }
 

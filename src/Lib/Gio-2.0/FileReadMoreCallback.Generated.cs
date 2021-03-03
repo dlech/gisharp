@@ -9,6 +9,7 @@ namespace GISharp.Lib.Gio
     /// A #GFileReadMoreCallback function facilitates this by returning %TRUE if more data
     /// should be read, or %FALSE otherwise.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
     /* transfer-ownership:none direction:in */
@@ -31,24 +32,12 @@ namespace GISharp.Lib.Gio
     /// </summary>
     public static unsafe class FileReadMoreCallbackMarshal
     {
-        class UserData
-        {
-            public readonly GISharp.Lib.Gio.FileReadMoreCallback ManagedDelegate;
-            public readonly GISharp.Runtime.CallbackScope Scope;
-
-            public UserData(GISharp.Lib.Gio.FileReadMoreCallback managedDelegate, GISharp.Runtime.CallbackScope scope)
-            {
-                ManagedDelegate = managedDelegate;
-                Scope = scope;
-            }
-        }
-
         /// <summary>
         /// Marshals an unmanaged pointer to a <see cref="FileReadMoreCallback"/>.
         /// </summary>
-        public static GISharp.Lib.Gio.FileReadMoreCallback FromPointer(System.IntPtr callback_, System.IntPtr userData_)
+        public static GISharp.Lib.Gio.FileReadMoreCallback FromPointer(delegate* unmanaged[Cdecl]<byte*, long, System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileReadMoreCallback>(callback_);
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileReadMoreCallback>((System.IntPtr)callback_);
             var callbackData_ = userData_;
             System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, long fileSize) { var fileContents_ = (byte*)fileContents.UnsafeHandle; var fileSize_ = (long)fileSize; var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
 
@@ -56,48 +45,18 @@ namespace GISharp.Lib.Gio
         }
 
         /// <summary>
-        /// Wraps a <see cref="FileReadMoreCallback"/> in an anonymous method that can
-        /// be passed to unmanaged code.
+        /// For runtime use only.
         /// </summary>
-        /// <param name="callback">The managed callback method to wrap.</param>
-        /// <param name="scope">The lifetime scope of the callback.</param>
-        /// <returns>
-        /// A tuple containing a pointer to the unmanaged callback, a pointer to the
-        /// unmanaged notify function and a pointer to the user data.
-        /// </returns>
-        /// <remarks>
-        /// This function is used to marshal managed callbacks to unmanged
-        /// code. If the scope is <see cref="GISharp.Runtime.CallbackScope.Call"/>
-        /// then it is the caller's responsibility to invoke the notify function
-        /// when the callback is no longer needed. If the scope is
-        /// <see cref="GISharp.Runtime.CallbackScope.Async"/>, then the notify
-        /// function should be ignored.
-        /// </remarks>
-        public static (System.IntPtr callback_, System.IntPtr notify_, System.IntPtr userData_) ToUnmanagedFunctionPointer(GISharp.Lib.Gio.FileReadMoreCallback? callback, GISharp.Runtime.CallbackScope scope)
-        {
-            if (callback is null)
-            {
-                return default;
-            }
-
-            var userData = new UserData(callback, scope);
-            var userData_ = (System.IntPtr)System.Runtime.InteropServices.GCHandle.Alloc(userData);
-            return (callback_, destroy_, userData_);
-        }
-
-        static GISharp.Runtime.Boolean UnmanagedCallback(byte* fileContents_, long fileSize_, System.IntPtr callbackData_)
+        [System.Runtime.InteropServices.UnmanagedCallersOnlyAttribute(CallConvs = new[] { typeof(System.Runtime.CompilerServices.CallConvCdecl) })]
+        public static GISharp.Runtime.Boolean Callback(byte* fileContents_, long fileSize_, System.IntPtr callbackData_)
         {
             try
             {
                 var fileContents = new GISharp.Lib.GLib.UnownedUtf8(fileContents_);
                 var fileSize = (long)fileSize_;
                 var gcHandle = (System.Runtime.InteropServices.GCHandle)callbackData_;
-                var callbackData = (UserData)gcHandle.Target!;
-                var ret = callbackData.ManagedDelegate(fileContents, fileSize);
-                if (callbackData.Scope == GISharp.Runtime.CallbackScope.Async)
-                {
-                    Destroy(callbackData_);
-                }
+                var callbackData = (FileReadMoreCallback)gcHandle.Target!;
+                var ret = callbackData.Invoke(fileContents, fileSize);
                 var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                 return ret_;
             }
@@ -108,24 +67,5 @@ namespace GISharp.Lib.Gio
 
             return default(GISharp.Runtime.Boolean);
         }
-
-        static readonly GISharp.Lib.Gio.UnmanagedFileReadMoreCallback UnmanagedCallbackDelegate = UnmanagedCallback;
-        static readonly System.IntPtr callback_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedCallbackDelegate);
-
-        static void Destroy(System.IntPtr userData_)
-        {
-            try
-            {
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                gcHandle.Free();
-            }
-            catch (System.Exception ex)
-            {
-                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
-            }
-        }
-
-        static readonly GISharp.Lib.GLib.UnmanagedDestroyNotify UnmanagedDestroyDelegate = Destroy;
-        static readonly System.IntPtr destroy_ = System.Runtime.InteropServices.Marshal.GetFunctionPointerForDelegate(UnmanagedDestroyDelegate);
     }
 }

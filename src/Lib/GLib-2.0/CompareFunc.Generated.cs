@@ -9,6 +9,7 @@ namespace GISharp.Lib.GLib
     /// value comes before the second, 0 if they are equal, or a positive
     /// integer if the first value comes after the second.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="gint" type="gint" managed-name="System.Int32" /> */
     /* transfer-ownership:none direction:in */

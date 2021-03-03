@@ -11,7 +11,7 @@ namespace GISharp.Lib.GObject
         public readonly System.IntPtr Data;
 
         /// <include file="ClosureNotifyData.xmldoc" path="declaration/member[@name='ClosureNotifyData.Notify']/*" />
-        public readonly System.IntPtr Notify;
+        public readonly delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> Notify;
 #pragma warning restore CS0169, CS0649
     }
 }

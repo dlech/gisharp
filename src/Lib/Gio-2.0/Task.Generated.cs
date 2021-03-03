@@ -120,7 +120,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:3 direction:in */
-        System.IntPtr callback,
+        delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr callbackData);
@@ -130,7 +130,9 @@ namespace GISharp.Lib.Gio
         {
             CheckNewArgs(sourceObject, callback, cancellable);
             var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero);
-            var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
+            var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
+            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+            var callbackData_ = (System.IntPtr)callbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_task_new(sourceObject_,cancellable_,callback_,callbackData_);
             return ret_;
@@ -223,7 +225,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject,
         /* <type name="AsyncReadyCallback" type="GAsyncReadyCallback" managed-name="AsyncReadyCallback" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async closure:2 direction:in */
-        System.IntPtr callback,
+        delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void> callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr callbackData,
@@ -240,7 +242,9 @@ namespace GISharp.Lib.Gio
         {
             CheckReportErrorArgs(sourceObject, callback, sourceTag, error);
             var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero);
-            var (callback_, _, callbackData_) = GISharp.Lib.Gio.AsyncReadyCallbackMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Async);
+            var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
+            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+            var callbackData_ = (System.IntPtr)callbackHandle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             var error_ = (GISharp.Lib.GLib.Error.UnmanagedStruct*)error.Take();
             g_task_report_error(sourceObject_, callback_, callbackData_, sourceTag_, error_);
@@ -973,7 +977,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr result,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        System.IntPtr resultDestroy);
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> resultDestroy);
 
         /// <summary>
         /// Sets @task's result to @result (by copying it) and completes the task.
@@ -1047,7 +1051,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="TaskThreadFunc" /> */
         /* transfer-ownership:none scope:async direction:in */
-        System.IntPtr taskFunc);
+        delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Task.UnmanagedStruct*, GISharp.Lib.GObject.Object.UnmanagedStruct*, System.IntPtr, GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, void> taskFunc);
 
         /// <summary>
         /// Runs @task_func in another thread, and waits for it to return or be
@@ -1084,7 +1088,7 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Task.UnmanagedStruct* task,
         /* <type name="TaskThreadFunc" type="GTaskThreadFunc" managed-name="TaskThreadFunc" /> */
         /* transfer-ownership:none scope:async direction:in */
-        System.IntPtr taskFunc);
+        delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Task.UnmanagedStruct*, GISharp.Lib.GObject.Object.UnmanagedStruct*, System.IntPtr, GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, void> taskFunc);
 
         /// <summary>
         /// Sets or clears @task's check-cancellable flag. If this is %TRUE
@@ -1339,7 +1343,7 @@ namespace GISharp.Lib.Gio
         System.IntPtr taskData,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        System.IntPtr taskDataDestroy);
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> taskDataDestroy);
 
         GISharp.Lib.GObject.Object? GISharp.Lib.Gio.IAsyncResult.DoGetSourceObject()
         {

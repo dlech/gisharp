@@ -665,13 +665,13 @@ namespace GISharp.Lib.GLib
         GISharp.Lib.GLib.OptionContext.UnmanagedStruct* context,
         /* <type name="TranslateFunc" type="GTranslateFunc" managed-name="TranslateFunc" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:notified closure:1 destroy:2 direction:in */
-        System.IntPtr func,
+        delegate* unmanaged[Cdecl]<byte*, System.IntPtr, byte*> func,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        System.IntPtr destroyNotify);
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> destroyNotify);
         partial void CheckSetTranslateFuncArgs(GISharp.Lib.GLib.TranslateFunc? func);
 
         /// <include file="OptionContext.xmldoc" path="declaration/member[@name='OptionContext.SetTranslateFunc(GISharp.Lib.GLib.TranslateFunc?)']/*" />
@@ -680,7 +680,10 @@ namespace GISharp.Lib.GLib
         {
             CheckSetTranslateFuncArgs(func);
             var context_ = (GISharp.Lib.GLib.OptionContext.UnmanagedStruct*)UnsafeHandle;
-            var (func_, destroyNotify_, data_) = GISharp.Lib.GLib.TranslateFuncMarshal.ToUnmanagedFunctionPointer(func, GISharp.Runtime.CallbackScope.Notified);
+            var func_ = (delegate* unmanaged[Cdecl]<byte*, System.IntPtr, byte*>)&GISharp.Lib.GLib.TranslateFuncMarshal.Callback;
+            var funcHandle = System.Runtime.InteropServices.GCHandle.Alloc(func);
+            var data_ = (System.IntPtr)funcHandle;
+            var destroyNotify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             g_option_context_set_translate_func(context_, func_, data_, destroyNotify_);
         }
 

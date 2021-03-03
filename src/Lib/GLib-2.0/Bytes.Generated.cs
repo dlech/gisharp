@@ -191,7 +191,7 @@ namespace GISharp.Lib.GLib
         nuint size,
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none scope:async direction:in */
-        System.IntPtr freeFunc,
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> freeFunc,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);

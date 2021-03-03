@@ -213,13 +213,13 @@ namespace GISharp.Lib.Gio
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable,
         /* <type name="CancellableSourceFunc" type="GCallback" managed-name="CancellableSourceFunc" /> */
         /* transfer-ownership:none scope:notified closure:1 destroy:2 direction:in */
-        System.IntPtr callback,
+        delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, GISharp.Runtime.Boolean> callback,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data,
         /* <type name="GLib.DestroyNotify" type="GDestroyNotify" managed-name="GISharp.Lib.GLib.DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
-        System.IntPtr dataDestroyFunc);
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> dataDestroyFunc);
         partial void CheckConnectArgs(GISharp.Lib.Gio.CancellableSourceFunc callback);
 
         /// <include file="Cancellable.xmldoc" path="declaration/member[@name='Cancellable.Connect(GISharp.Lib.Gio.CancellableSourceFunc)']/*" />
@@ -228,7 +228,10 @@ namespace GISharp.Lib.Gio
         {
             CheckConnectArgs(callback);
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
-            var (callback_, dataDestroyFunc_, data_) = GISharp.Lib.Gio.CancellableSourceFuncMarshal.ToUnmanagedFunctionPointer(callback, GISharp.Runtime.CallbackScope.Notified);
+            var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, GISharp.Runtime.Boolean>)&GISharp.Lib.Gio.CancellableSourceFuncMarshal.Callback;
+            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+            var data_ = (System.IntPtr)callbackHandle;
+            var dataDestroyFunc_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var ret_ = g_cancellable_connect(cancellable_,callback_,data_,dataDestroyFunc_);
             var ret = (GISharp.Runtime.CULong)ret_;
             return ret;

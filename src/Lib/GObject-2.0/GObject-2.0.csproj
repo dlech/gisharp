@@ -28,6 +28,7 @@
     <Compile Remove="SignalFlags.Generated.cs" />
     <Compile Remove="Type.Generated.cs" />
     <Compile Remove="TypeClass.Generated.cs" />
+    <Compile Remove="TypeCValue.Generated.cs" />
     <Compile Remove="TypeInfo.Generated.cs" />
     <Compile Remove="TypeInstance.Generated.cs" />
     <Compile Remove="TypeInterface.Generated.cs" />

@@ -3,7 +3,9 @@
 
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.CodeGen.Gir;
 using GISharp.Lib.GLib;
@@ -55,16 +57,25 @@ namespace GISharp.CodeGen.Syntax
                     .WithLeadingTrivia(TriviaList(x.GetGirXmlTrivia(), EndOfLine("\n"),
                         x.GetAnnotationTrivia(), EndOfLine("\n"))))));
 
-            var attrName = ParseName(typeof(UnmanagedFunctionPointerAttribute).FullName);
-            var attrArg = ParseExpression($"{typeof(CallingConvention)}.{nameof(CallingConvention.Cdecl)}");
-            var attr = Attribute(attrName)
-                .AddArgumentListArguments(AttributeArgument(attrArg));
+            var editorBrowsableAttributeList = AttributeList().AddAttributes(
+                Attribute(ParseName(typeof(EditorBrowsableAttribute).ToString()))
+                    .AddArgumentListArguments(AttributeArgument(
+                        ParseExpression($"{typeof(EditorBrowsableState)}.{nameof(EditorBrowsableState.Never)}")
+                    ))
+            );
+
+            var unmanagedFunctionPointerAttributeList = AttributeList().AddAttributes(
+                Attribute(ParseName(typeof(UnmanagedFunctionPointerAttribute).FullName))
+                    .AddArgumentListArguments(AttributeArgument(
+                        ParseExpression($"{typeof(CallingConvention)}.{nameof(CallingConvention.Cdecl)}")
+                    ))
+            );
 
             return DelegateDeclaration(returnType, identifier)
                 .AddModifiers(Token(PublicKeyword).WithLeadingTrivia(girTrivia),
                     Token(UnsafeKeyword))
                 .WithAttributeLists(callback.GetCommonAttributeLists())
-                .AddAttributeLists(AttributeList().AddAttributes(attr))
+                .AddAttributeLists(editorBrowsableAttributeList, unmanagedFunctionPointerAttributeList)
                 .WithParameterList(parameterList)
                 .WithLeadingTrivia(callback.Doc?.GetDocCommentTrivia(false) ??
                     ParseLeadingTrivia(@"/// <summary>
@@ -179,11 +190,34 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<StatementSyntax> GetCallbackStatements(this Callback callback)
         {
             var catchType = ParseTypeName("System.Exception");
+            yield return TryStatement()
+                .WithBlock(callback.GetCallbackTryBlock())
+                .AddCatches(CatchClause()
+                    .WithDeclaration(CatchDeclaration(catchType, ParseToken("ex")))
+                    .WithBlock(Block(
+                        ExpressionStatement(ParseExpression(
+                            $"{typeof(Log)}.{nameof(Log.LogUnhandledException)}(ex)"
+                        ))
+                    )));
+
+            if (callback.ReturnValue.Type.GirName != "none") {
+                var returnType = ParseTypeName(callback.ReturnValue.Type.GetUnmanagedType());
+                var expression = ParseExpression($"default({returnType})");
+                yield return ReturnStatement(expression);
+            }
+        }
+
+        /// <summary>
+        /// Gets the statements for implementing an unmanaged callback function
+        /// </summary>
+        static IEnumerable<StatementSyntax> GetOldCallbackStatements(this Callback callback)
+        {
+            var catchType = ParseTypeName("System.Exception");
             var catchStatement = ExpressionStatement(ParseExpression(string.Format("{0}.{1}(ex)",
                 typeof(Log),
                 nameof(Log.LogUnhandledException))));
             yield return TryStatement()
-                .WithBlock(callback.GetCallbackTryBlock())
+                .WithBlock(callback.GetOldCallbackTryBlock())
                 .AddCatches(CatchClause()
                     .WithDeclaration(CatchDeclaration(catchType, ParseToken("ex")))
                     .WithBlock(Block(catchStatement)));
@@ -196,6 +230,50 @@ namespace GISharp.CodeGen.Syntax
         }
 
         static BlockSyntax GetCallbackTryBlock(this Callback callback)
+        {
+            var block = Block();
+            var fixedStatements = new System.Collections.Generic.List<FixedStatementSyntax>();
+
+            foreach (var arg in callback.ManagedParameters) {
+                foreach (var s in arg.GetMarshalUnmanagedToManagedStatements()) {
+                    block = block.AddStatements(s);
+                }
+            }
+
+            var dataParam = callback.Parameters.RegularParameters.SingleOrDefault(x => x.ClosureIndex >= 0);
+            var dataParamName = dataParam.ManagedName;
+
+            var ghHandleType = typeof(GCHandle).FullName;
+            block = block.AddStatements(
+                ExpressionStatement(ParseExpression($"var gcHandle = ({ghHandleType}){dataParamName}_")),
+                ExpressionStatement(ParseExpression($"var {dataParamName} = ({callback.ManagedName})gcHandle.Target!")));
+
+            var skipReturnValue = callback.ThrowsGErrorException && callback.ReturnValue.Type.GirName == "gboolean";
+
+            block = block.AddStatements(
+                callback.GetInvocationStatement($"{dataParamName}.Invoke", skipReturnValue)
+            );
+
+            if (skipReturnValue) {
+                // callbacks that throw and return bool should always return true
+                block = block.AddStatements(ReturnStatement(ParseExpression("GISharp.Runtime.Boolean.True")));
+            }
+            else if (callback.ReturnValue.Type.GirName != "none") {
+                block = block.AddStatements(callback.ReturnValue.GetMarshalManagedToUnmanagedStatements(out var fixedStatement));
+                if (fixedStatement is not null) {
+                    fixedStatements.Add(fixedStatement);
+                }
+                block = block.AddStatements(ReturnStatement(ParseExpression("ret_")));
+            }
+
+            foreach (var s in fixedStatements) {
+                block = Block(s.WithStatement(block));
+            }
+
+            return block;
+        }
+
+        static BlockSyntax GetOldCallbackTryBlock(this Callback callback)
         {
             var block = Block();
             var fixedStatements = new System.Collections.Generic.List<FixedStatementSyntax>();
@@ -320,6 +398,50 @@ namespace GISharp.CodeGen.Syntax
         {
             var list = List<MemberDeclarationSyntax>();
 
+            // emit FromPointer() method for unmanged>managed
+
+            var fromPointerMethod = MethodDeclaration(callback.GetQualifiedName(), "FromPointer")
+                .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                .WithParameterList(ParseParameterList(
+                    $"({callback.GetUnmanagedType()} callback_, System.IntPtr userData_)"
+                ))
+                .WithBody(Block(callback.GetMarshalFromPointerMethodStatements()))
+                .WithLeadingTrivia(callback.GetMarshalFromPointerMethodDocumentationCommentTrivia());
+            list = list.Add(fromPointerMethod);
+
+            // if there is user data, then we can make an unmanged-callers-only callback
+
+            if (callback.Parameters.Any(x => x.ClosureIndex >= 0)) {
+                var returnType = ParseTypeName(callback.ReturnValue.Type.GetUnmanagedType());
+                var callbackMethod = MethodDeclaration(returnType, "Callback")
+                    .AddModifiers(Token(PublicKeyword), Token(StaticKeyword))
+                    .AddAttributeLists(AttributeList().AddAttributes(
+                        Attribute(ParseName(typeof(UnmanagedCallersOnlyAttribute).FullName))
+                            .AddArgumentListArguments(
+                                AttributeArgument(ParseExpression(
+                                    $"CallConvs = new[] {{ typeof({typeof(CallConvCdecl)}) }}"
+                                ))
+                            )
+                    ))
+                    .WithParameterList(callback.Parameters.GetParameterList())
+                    .WithBody(Block(callback.GetCallbackStatements()))
+                    .WithLeadingTrivia(ParseLeadingTrivia($@"/// <summary>
+                    /// For runtime use only.
+                    /// </summary>
+                    "));
+                list = list.Add(callbackMethod);
+            }
+
+            return list;
+        }
+
+        /// <summary>
+        /// Gets the C# delegate factory class members for a GIR callback
+        /// </summary>
+        public static SyntaxList<MemberDeclarationSyntax> GetOldCallbackDelegateMarshalClassMembers(this Callback callback)
+        {
+            var list = List<MemberDeclarationSyntax>();
+
             // emit nested private Data class
 
             var managedDelegateFieldToken = ParseToken("ManagedDelegate");
@@ -384,7 +506,7 @@ namespace GISharp.CodeGen.Syntax
             var callbackMethod = MethodDeclaration(callbackReturnType, "UnmanagedCallback")
                 .AddModifiers(Token(StaticKeyword))
                 .WithParameterList(callback.Parameters.GetParameterList())
-                .WithBody(Block(callback.GetCallbackStatements()));
+                .WithBody(Block(callback.GetOldCallbackStatements()));
             list = list.Add(callbackMethod);
 
             var callbackDelegateVariable = VariableDeclarator("UnmanagedCallbackDelegate")
@@ -454,7 +576,7 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<StatementSyntax> GetMarshalFromPointerMethodStatements(this Callback callback)
         {
             var marshalToPointerExpression = ParseExpression(string.Format(
-                "{0}.{1}<{2}>(callback_)",
+                "{0}.{1}<{2}>((System.IntPtr)callback_)",
                 typeof(Marshal),
                 nameof(Marshal.GetDelegateForFunctionPointer),
                 callback.GetQualifiedName(true)

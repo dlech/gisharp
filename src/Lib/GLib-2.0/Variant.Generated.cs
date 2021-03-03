@@ -652,7 +652,7 @@ namespace GISharp.Lib.GLib
         GISharp.Runtime.Boolean trusted,
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none scope:async direction:in */
-        System.IntPtr notify,
+        delegate* unmanaged[Cdecl]<System.IntPtr, void> notify,
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);

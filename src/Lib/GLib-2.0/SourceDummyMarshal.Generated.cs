@@ -7,6 +7,7 @@ namespace GISharp.Lib.GLib
     /// This is just a placeholder for #GClosureMarshal,
     /// which cannot be used here for dependency reasons.
     /// </summary>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */

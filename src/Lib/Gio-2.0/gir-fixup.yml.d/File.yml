@@ -13,15 +13,17 @@
   value: replace_contents_async
   xpath: gi:repository/gi:namespace/gi:interface[@name='File']/gi:method[@name='replace_contents_bytes_async']
 
-# requires manual implemtation because there is no destroy parameter for the progress_callback parameter
+# fix wrong scope
 - !set-attribute
-  name: gs:pinvoke-only
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:interface[@name='File']/gi:method[@name='copy_async']
+  name: scope
+  value: async
+  xpath: gi:repository/gi:namespace/gi:interface[@name='File']/gi:method[@name='copy_async']/gi:parameters/gi:parameter[@name='progress_callback']
+
+# set default value for progress callback
 - !set-attribute
-  name: gs:pinvoke-only
-  value: 1
-  xpath: gi:repository/gi:namespace/gi:interface[@name='File']/gi:method[@name='copy_finish']
+  name: gs:default
+  value: "null"
+  xpath: gi:repository/gi:namespace/gi:interface[@name='File']/gi:method[@name='copy_async']/gi:parameters/gi:parameter[@name='progress_callback']
 
 # AppInfo is not implememted yet
 - !set-attribute

@@ -17,6 +17,7 @@ namespace GISharp.Lib.GObject
     /// The extended members of @instance are guaranteed to have been filled with
     /// zeros before this function is called.
     /// </remarks>
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Never)]
     [System.Runtime.InteropServices.UnmanagedFunctionPointerAttribute(System.Runtime.InteropServices.CallingConvention.Cdecl)]
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */
