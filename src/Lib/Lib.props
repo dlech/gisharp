@@ -7,7 +7,7 @@
     <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
     <NoWarn>IDE1006</NoWarn>
     <RootNamespace>GISharp.Lib.$([System.Text.RegularExpressions.Regex]::Replace($(MSBuildProjectName),'-\d+-\d+$',''))</RootNamespace>
-    <AssemblyName>GISharp.Lib.$(MSBuildProjectName)</AssemblyName>
+    <AssemblyName>GISharp.Lib.$(MSBuildProjectName.Replace('-', '.'))</AssemblyName>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
   </PropertyGroup>

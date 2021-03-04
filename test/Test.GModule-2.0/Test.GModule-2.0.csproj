@@ -11,7 +11,7 @@
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
     <CoverletOutput>../../.coverage/gmodule-2.0.info</CoverletOutput>
-    <Include>[GModule-2.0]*</Include> 
+    <Include>[GISharp.Lib.GModule.2.0]*</Include> 
   </PropertyGroup>
 
   <ItemGroup>

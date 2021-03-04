@@ -12,7 +12,7 @@
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
     <CoverletOutput>../../.coverage/core.info</CoverletOutput>
-    <Include>[Core]*</Include> 
+    <Include>[GISharp.Runtime]*</Include>
   </PropertyGroup>
 
   <ItemGroup>

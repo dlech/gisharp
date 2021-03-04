@@ -11,7 +11,7 @@
   <PropertyGroup>
     <CoverletOutputFormat>lcov</CoverletOutputFormat>
     <CoverletOutput>../../.coverage/gtk-4.0.info</CoverletOutput>
-    <Include>[Gtk-4.0]*</Include> 
+    <Include>[GISharp.Lib.Gtk.4.0]*</Include> 
   </PropertyGroup>
 
   <ItemGroup>
