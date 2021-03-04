@@ -877,24 +877,6 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "pinvoke-only", 1);
             }
 
-            // TODO: delete this fixup
-            // callback parameters without user data cannot be handled by the code generator
-
-            foreach (var element in document.Descendants(gi + "parameter")
-                .Where(x => x.Attribute("scope") is not null && x.Attribute("closure") is null)) {
-                // destroy notify parameters generally do not have a closure attribute.
-                // however, if they are the target of a destroy attribute, then we can
-                // allow them because the code generator knows how to handle this case
-                if (element.Element(gi + "type")?.Attribute(c + "type").AsString() == "GDestroyNotify") {
-                    var index = element.Parent.Elements(gi + "parameter").ToList().IndexOf(element);
-                    if (element.Parent.Elements(gi + "parameter").Any(x => x.Attribute("destroy").AsInt(-1) == index)) {
-                        continue;
-                    }
-                }
-
-                element.Parent.Parent.SetAttributeValue(gs + "pinvoke-only", "1");
-            }
-
             // remove closure attribute from user data parameters in methods and functions
 
             foreach (var element in document.Descendants(gi + "parameter")

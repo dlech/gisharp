@@ -33912,7 +33912,7 @@ means).</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="return_pointer" c:identifier="g_task_return_pointer" version="2.36" gs:dll-name="gio-2.0" gs:managed-name="ReturnPointer" gs:pinvoke-only="1">
+      <method name="return_pointer" c:identifier="g_task_return_pointer" version="2.36" gs:pinvoke-only="1" gs:dll-name="gio-2.0" gs:managed-name="ReturnPointer">
         <doc xml:space="preserve" filename="gio-2.0.c" line="38430">Sets @task's result to @result and completes the task. If @result
 is not %NULL, then @result_destroy will be used to free @result if
 the caller does not take ownership of it with
@@ -33994,7 +33994,7 @@ like will normally be much easier to use.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="run_in_thread" c:identifier="g_task_run_in_thread" version="2.36" gs:dll-name="gio-2.0" gs:managed-name="RunInThread" gs:pinvoke-only="1">
+      <method name="run_in_thread" c:identifier="g_task_run_in_thread" version="2.36" gs:pinvoke-only="1" gs:dll-name="gio-2.0" gs:managed-name="RunInThread">
         <doc xml:space="preserve" filename="gio-2.0.c" line="38479">Runs @task_func in another thread. When @task_func returns, @task's
 #GAsyncReadyCallback will be invoked in @task's #GMainContext.
 
@@ -34028,7 +34028,7 @@ number of them at a time.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="run_in_thread_sync" c:identifier="g_task_run_in_thread_sync" version="2.36" gs:dll-name="gio-2.0" gs:managed-name="RunInThreadSync" gs:pinvoke-only="1">
+      <method name="run_in_thread_sync" c:identifier="g_task_run_in_thread_sync" version="2.36" gs:pinvoke-only="1" gs:dll-name="gio-2.0" gs:managed-name="RunInThreadSync">
         <doc xml:space="preserve" filename="gio-2.0.c" line="38501">Runs @task_func in another thread, and waits for it to return or be
 cancelled. You can use g_task_propagate_pointer(), etc, afterward
 to get the result of @task_func.
@@ -34247,7 +34247,7 @@ particular place.</doc>
           </parameter>
         </gs:managed-parameters>
       </method>
-      <method name="set_task_data" c:identifier="g_task_set_task_data" version="2.36" gs:dll-name="gio-2.0" gs:managed-name="SetTaskData" gs:pinvoke-only="1">
+      <method name="set_task_data" c:identifier="g_task_set_task_data" version="2.36" gs:pinvoke-only="1" gs:dll-name="gio-2.0" gs:managed-name="SetTaskData">
         <doc xml:space="preserve" filename="gio-2.0.c" line="38646">Sets @task's task data (freeing the existing task data, if any).</doc>
         <source-position filename="gtask.h" line="65" />
         <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">

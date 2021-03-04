@@ -11,6 +11,10 @@
 - !set-attribute
   name: gs:pinvoke-only
   value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:constructor[@name='new']
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
   xpath: gi:repository/gi:namespace/gi:record[@name='OptionGroup']/gi:method[@name='add_entries']
 
 # GIR is is missing zero-terminated attribute

@@ -1,0 +1,8 @@
+
+### Variant ###
+
+# needs special handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='Variant']/gi:constructor[@name='new_from_data']

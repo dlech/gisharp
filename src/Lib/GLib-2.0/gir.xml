@@ -7505,7 +7505,7 @@ need to parse commandline options are expected to provide a function for
 getting a `GOptionGroup` holding their options, which
 the application can then add to its #GOptionContext.</doc>
       <source-position filename="goption.h" line="51" />
-      <constructor name="new" c:identifier="g_option_group_new" version="2.6" gs:dll-name="glib-2.0" gs:managed-name="New" gs:pinvoke-only="1">
+      <constructor name="new" c:identifier="g_option_group_new" version="2.6" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="New">
         <doc xml:space="preserve" filename="glib-2.0.c" line="24712">Creates a new #GOptionGroup.</doc>
         <source-position filename="goption.h" line="356" />
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
@@ -11292,7 +11292,7 @@ GLib 2.60) or (in older versions) fail and exit the process.</doc>
           </parameter>
         </gs:managed-parameters>
       </constructor>
-      <constructor name="new_from_data" c:identifier="g_variant_new_from_data" version="2.24" gs:dll-name="glib-2.0" gs:managed-name="NewFromData" gs:pinvoke-only="1">
+      <constructor name="new_from_data" c:identifier="g_variant_new_from_data" version="2.24" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="NewFromData">
         <doc xml:space="preserve" filename="glib-2.0.c" line="39296">Creates a new #GVariant instance from serialised data.
 
 @type is the type of #GVariant instance that will be constructed.

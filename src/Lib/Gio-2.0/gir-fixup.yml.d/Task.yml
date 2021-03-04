@@ -1,0 +1,8 @@
+
+### Task ###
+
+# methods with user data need spedial handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:class[@name='Task']/gi:method[@name='return_pointer' or starts-with(@name,'run_in_thread') or @name='set_task_data']
