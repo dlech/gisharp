@@ -5,7 +5,6 @@ using System;
 using System.ComponentModel;
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -25,7 +24,7 @@ namespace GISharp.CodeGen.Syntax
                 throw new InvalidOperationException("Type is not a GType");
             }
             // emits: static readonly GType _GType = xxx_get_type();
-            var typeName = ParseTypeName(typeof(GType).FullName);
+            var typeName = ParseTypeName("GISharp.Lib.GObject.GType");
             var identifier = ParseToken("_GType");
             var expression = ParseExpression($"{type.GTypeGetter}()");
 

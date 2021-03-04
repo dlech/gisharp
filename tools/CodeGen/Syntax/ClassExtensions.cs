@@ -3,8 +3,6 @@
 
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GObject;
-using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -52,7 +50,7 @@ namespace GISharp.CodeGen.Syntax
 
         static BaseListSyntax GetBaseList(this Class @class)
         {
-            var parentType = @class.ParentType?.GetManagedType() ?? typeof(TypeInstance).FullName;
+            var parentType = @class.ParentType?.GetManagedType() ?? "GISharp.Lib.GObject.TypeInstance";
             var list = SeparatedList<BaseTypeSyntax>()
                 .Add(SimpleBaseType(ParseTypeName(parentType)))
                 .AddRange(@class.Implements

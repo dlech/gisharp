@@ -13,15 +13,13 @@ using System.Xml.Linq;
 using System.Xml.XPath;
 
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.Extensions.Logging;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 
 using YamlDotNet.Serialization;
 using YamlDotNet.Serialization.NamingConventions;
 
-using GISharp.Lib.GLib;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
-
 
 namespace GISharp.CodeGen
 {
@@ -48,6 +46,8 @@ namespace GISharp.CodeGen
                 return _Manager;
             }
         }
+
+        private readonly static ILogger logger = Globals.LoggerFactory.CreateLogger("Fixup");
 
         /// <summary>
         /// Creates a new gir-fixup.yml file that skips everything in the GIR
@@ -162,7 +162,7 @@ namespace GISharp.CodeGen
                     var newElement = ParseElement(addElement.Xml);
                     var addParent = document.XPathSelectElement(addElement.Xpath, Manager);
                     if (addParent is null) {
-                        Log.Warning($"Could not find element at '{addElement.Xpath}'");
+                        logger.LogWarning($"Could not find element at '{addElement.Xpath}'");
                         break;
                     }
                     addParent.Add(newElement);
@@ -177,7 +177,7 @@ namespace GISharp.CodeGen
                     }
                     var setAttrElements = document.XPathSelectElements(setAttr.Xpath, Manager).ToList();
                     if (setAttrElements.Count == 0) {
-                        Log.Warning($"Could not find any elements matching '{setAttr.Xpath}'");
+                        logger.LogWarning($"Could not find any elements matching '{setAttr.Xpath}'");
                         break;
                     }
                     foreach (var element in setAttrElements) {
@@ -195,7 +195,7 @@ namespace GISharp.CodeGen
                     }
                     var changeAttrElements = document.XPathSelectElements(changeAttr.Xpath, Manager).ToList();
                     if (changeAttrElements.Count == 0) {
-                        Log.Warning($"Could not find any elements matching '{changeAttr.Xpath}'");
+                        logger.LogWarning($"Could not find any elements matching '{changeAttr.Xpath}'");
                         break;
                     }
                     foreach (var element in changeAttrElements) {
@@ -216,7 +216,7 @@ namespace GISharp.CodeGen
                     }
                     var elementsToChange = document.XPathSelectElements(changeElement.Xpath, Manager);
                     if (elementsToChange is null) {
-                        Log.Warning($"Could not find elements matching '{changeElement.Xpath}'");
+                        logger.LogWarning($"Could not find elements matching '{changeElement.Xpath}'");
                         break;
                     }
                     foreach (var element in elementsToChange) {
@@ -226,11 +226,11 @@ namespace GISharp.CodeGen
                 case MoveElement moveElement:
                     var moveElements = document.XPathSelectElements(moveElement.Xpath, Manager).ToList();
                     if (moveElements.Count == 0) {
-                        Log.Warning($"Could not find any elements matching '{moveElement.Xpath}'");
+                        logger.LogWarning($"Could not find any elements matching '{moveElement.Xpath}'");
                     }
                     var moveParent = document.XPathSelectElement(moveElement.NewParentXpath, Manager);
                     if (moveParent is null) {
-                        Log.Warning($"Could not find element at '{moveElement.NewParentXpath}'");
+                        logger.LogWarning($"Could not find element at '{moveElement.NewParentXpath}'");
                         break;
                     }
                     foreach (var element in moveElements) {
@@ -544,7 +544,7 @@ namespace GISharp.CodeGen
                         var elementType = element.Element(gi + "type").Attribute("name").AsString();
                         if (elementType == "utf8") {
                             element.SetAttributeValue("name", "GLib.Strv");
-                            element.SetAttributeValue(gs + "managed-name", typeof(Strv));
+                            element.SetAttributeValue(gs + "managed-name", "GISharp.Lib.GLib.Strv");
                             continue;
                         }
                         if (elementType == "filename") {
@@ -654,7 +654,7 @@ namespace GISharp.CodeGen
                         .SingleOrDefault(x => x.Attribute("name").AsString() == finishMethodName);
 
                     if (finishMethodElement is null) {
-                        Log.Warning($"missing finish function for {element.GetXPath()}");
+                        logger.LogWarning($"missing finish function for {element.GetXPath()}");
                         continue;
                     }
 
@@ -1032,18 +1032,18 @@ namespace GISharp.CodeGen
         {
             foreach (var e in doc.Descendants().Where(d => ElementsThatDefineAType.Contains(d.Name))) {
                 if (e.Attribute("name") is null) {
-                    Log.Warning($"Missing name attribute at {e.GetXPath()}");
+                    logger.LogWarning($"Missing name attribute at {e.GetXPath()}");
                 }
                 if (e.Attribute(gs + "managed-name") is null) {
-                    Log.Warning($"Missing gs:managed-name attribute at {e.GetXPath()}");
+                    logger.LogWarning($"Missing gs:managed-name attribute at {e.GetXPath()}");
                 }
             }
 
             foreach (var e in doc.Descendants(gi + "namespace").Elements(gi + "constant").Where(x => !x.IsSkipped())) {
-                Log.Warning($"Unused constant at {e.GetXPath()}");
+                logger.LogWarning($"Unused constant at {e.GetXPath()}");
             }
             foreach (var e in doc.Descendants(gi + "namespace").Elements(gi + "function").Where(x => !x.IsSkipped())) {
-                Log.Warning($"Unused function at {e.GetXPath()}");
+                logger.LogWarning($"Unused function at {e.GetXPath()}");
             }
         }
 
@@ -1299,13 +1299,13 @@ namespace GISharp.CodeGen
             case "guintptr":
                 return "nuint";
             case "gunichar":
-                return typeof(Unichar).ToString();
+                return "GISharp.Lib.GLib.Unichar";
             case "GType":
-                return typeof(GType).ToString();
+                return "GISharp.Lib.GObject.GType";
             case "filename":
-                return typeof(Filename).ToString();
+                return "GISharp.Lib.GLib.Filename";
             case "utf8":
-                return typeof(Utf8).ToString();
+                return "GISharp.Lib.GLib.Utf8";
             case "GObject.Callback":
                 return typeof(Delegate).ToString();
             case "va_list":

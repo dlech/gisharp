@@ -1,20 +1,15 @@
 // SPDX-License-Identifier: MIT
 // Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
-using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
-using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
 
 namespace GISharp.CodeGen.Syntax
 {

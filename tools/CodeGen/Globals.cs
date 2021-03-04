@@ -2,8 +2,7 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Linq;
-using GISharp.Runtime;
+using Microsoft.Extensions.Logging;
 
 namespace GISharp.CodeGen
 {
@@ -74,5 +73,12 @@ namespace GISharp.CodeGen
                 return typeof(T).IsAssignableFrom(type);
             }
         }
+
+        public static ILoggerFactory LoggerFactory => Microsoft.Extensions.Logging.LoggerFactory.Create(builder => {
+            builder.AddSimpleConsole(options => {
+                options.SingleLine = true;
+                options.TimestampFormat = "hh:mm:ss ";
+            });
+        });
     }
 }

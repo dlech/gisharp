@@ -5,8 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GLib;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 
 namespace GISharp.CodeGen
@@ -72,9 +70,9 @@ namespace GISharp.CodeGen
                 var x when x == "gpointer" || x == "gconstpointer" => "System.IntPtr",
                 var x when x == "gssize" || x == "gintptr" || x == "goffset" => $"nint{pointer}",
                 var x when x == "gsize" || x == "guintptr" => $"nuint{pointer}",
-                "gunichar" => $"{typeof(Unichar)}{pointer}",
+                "gunichar" => $"GISharp.Lib.GLib.Unichar{pointer}",
                 "gunichar2" => $"char{pointer}",
-                "GType" => $"{typeof(GType)}{pointer}",
+                "GType" => $"GISharp.Lib.GObject.GType{pointer}",
                 var x when x == "filename" || x == "utf8" => "byte*",
                 // TODO: remove name="GLib.Strv" from Fixup.cs
                 "GLib.Strv" => "byte**",
@@ -130,11 +128,11 @@ namespace GISharp.CodeGen
                 "guintptr" => "nuint",
                 // size/offset are cast to int to match .NET convention
                 var x when x == "gsize" || x == "gssize" || x == "goffset" => "int",
-                "gunichar" => typeof(Unichar).ToString(),
+                "gunichar" => "GISharp.Lib.GLib.Unichar",
                 "gunichar2" => "char",
-                "GType" => typeof(GType).FullName,
-                "utf8" => typeof(Utf8).FullName,
-                "filename" => typeof(Filename).FullName,
+                "GType" => "GISharp.Lib.GObject.GType",
+                "utf8" => "GISharp.Lib.GLib.Utf8",
+                "filename" => "GISharp.Lib.GLib.Filename",
                 "va_list" =>
                     // va_list should be filtered out, but just in case...
                     throw new NotSupportedException("va_list is not supported"),

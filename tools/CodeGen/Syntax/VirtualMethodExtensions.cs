@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -22,8 +21,7 @@ namespace GISharp.CodeGen.Syntax
             var gtypeStruct = delcaringType.GTypeStructNode;
             var field = gtypeStruct.Fields.Single(x => x.GirName == method.GirName);
             var type = ParseTypeName($"{gtypeStruct.ManagedName}.Unmanaged{field.Callback.ManagedName}");
-            var getter = nameof(TypeClass.GetUnmanagedVirtualMethod);
-            var invoker = $"{typeof(TypeClass)}.{getter}<{type}>(_GType)!";
+            var invoker = $"GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<{type}>(_GType)!";
 
             var returnType = method.ReturnValue.GetManagedTypeName();
 

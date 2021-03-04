@@ -3,12 +3,10 @@
 
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
-using Object = GISharp.Lib.GObject.Object;
 
 namespace GISharp.CodeGen.Syntax
 {
@@ -23,7 +21,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (!baseTypes.Any(x => x.ToString().Contains("GInterface"))) {
                 // if there was not an instantiatable prerequisite, use GObject
-                var type = $"GISharp.Runtime.GInterface<{typeof(Object)}>";
+                var type = $"GISharp.Runtime.GInterface<GISharp.Lib.GObject.Object>";
                 baseTypes = baseTypes.Add(SimpleBaseType(ParseTypeName(type)));
             }
 

@@ -5,7 +5,6 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Reflection;
-using System.Runtime.InteropServices;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -15,7 +14,6 @@ using System.Xml.Linq;
 using Buildalyzer;
 using GISharp.CodeGen.Gir;
 using GISharp.CodeGen.Syntax;
-using GISharp.Lib.GLib;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -59,21 +57,8 @@ namespace GISharp.CodeGen
             Environment.Exit(0);
         }
 
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        private static extern void g_set_prgname(IntPtr prgname);
-
-        private static void SetProgramName(string name)
-        {
-            using var prgname = (Utf8)name;
-            var prgname_ = prgname.UnsafeHandle;
-            g_set_prgname(prgname_);
-        }
-
         public static void Main(string[] args)
         {
-            // TODO: replace logging with non-GLib to avoid circular dependency
-            SetProgramName(AppDomain.CurrentDomain.FriendlyName);
-
             string commandArg = null;
             string projectArg = null;
             string girDirectoryArg = null;
@@ -145,10 +130,12 @@ namespace GISharp.CodeGen
                 return;
             }
 
+            var logger = Globals.LoggerFactory.CreateLogger("Main");
+
             // load the project given by the --project option
 
             var analyzerOptions = new AnalyzerManagerOptions() {
-                LoggerFactory = new LoggerFactory(new[] { new Log.LoggerProvider() }),
+                LoggerFactory = Globals.LoggerFactory,
             };
             var manager = new AnalyzerManager(analyzerOptions);
             ProjectAnalyzer projectAnalyzer;
@@ -163,7 +150,7 @@ namespace GISharp.CodeGen
 
             }
             catch (Exception ex) {
-                Log.Error($"Failed to load project: {ex.Message}");
+                logger.LogError($"Failed to load project: {ex.Message}");
                 return;
             }
 
@@ -175,14 +162,14 @@ namespace GISharp.CodeGen
 
             // load the GIR XML file
 
-            Log.Message($"Loading GIR XML file '{girFilePath}'...");
+            logger.LogInformation($"Loading GIR XML file '{girFilePath}'...");
             XDocument girXml;
 
             try {
                 girXml = XDocument.Load(girFilePath);
             }
             catch (Exception ex) {
-                Log.Error($"Failed to load GIR XML: {ex.Message}");
+                logger.LogError($"Failed to load GIR XML: {ex.Message}");
                 return;
             }
 
@@ -200,33 +187,33 @@ namespace GISharp.CodeGen
 
             // for most commands, we need an existing fixup file
             if (command != Command.NewFixup && !fixupFileExists && !fixupDirExists) {
-                Log.Error("gir-fixup.yml does not exist. Create it using --command=new-fixup.");
+                logger.LogError("gir-fixup.yml does not exist. Create it using --command=new-fixup.");
                 return;
             }
             // for the new-fixup command, we want to make sure we aren't overwriting an existing file
             else if (command == Command.NewFixup == !forceArg && fixupFileExists) {
-                Log.Error("gir-fixup.yml already exists in project. Use --force to overwrite.");
+                logger.LogError("gir-fixup.yml already exists in project. Use --force to overwrite.");
                 return;
             }
 
             // Handle the new-fixup command
 
             if (command == Command.NewFixup) {
-                Log.Message($"Generating '{fixupFilePath}'");
+                logger.LogInformation($"Generating '{fixupFilePath}'");
                 try {
                     using var writer = new StreamWriter(fixupFilePath);
                     girXml.Generate(writer);
                 }
                 catch (Exception ex) {
                     var msg = $"Failed to create fixup file: {ex.Message}";
-                    Log.Error(msg);
+                    logger.LogError(msg);
                 }
                 return;
             }
 
             // Parse the fixup file
 
-            Log.Message($"Loading fixup file(s)...");
+            logger.LogInformation($"Loading fixup file(s)...");
             var commands = new Generic.List<Fixup.Command>();
             var fixupFiles = new Generic.List<string>();
             if (fixupFileExists) {
@@ -242,23 +229,23 @@ namespace GISharp.CodeGen
                 }
                 catch (Exception ex) {
                     var msg = $"Fixup file error: {ex.Message} in '{file}'";
-                    Log.Error(msg);
+                    logger.LogError(msg);
                 }
             }
 
             // Apply the fixups to the GIR XML
 
-            Log.Message("Applying fixup data...");
+            logger.LogInformation("Applying fixup data...");
 
             girXml.ApplyFixup(commands);
             girXml.ApplyBuiltinFixup();
             girXml.Validate();
 
-            Log.Message("Writing fixed up GIR XML...");
+            logger.LogInformation("Writing fixed up GIR XML...");
 
             girXml.Save(Path.Join(projectDirPath, "gir.xml"));
 
-            Log.Message("Resolving references...");
+            logger.LogInformation("Resolving references...");
 
             // load the .gir files from the dependencies
 
@@ -276,7 +263,7 @@ namespace GISharp.CodeGen
 
             // write the generate code file
 
-            Log.Message("Generating code...");
+            logger.LogInformation("Generating code...");
 
             var gir = new Repository(girXml);
             TypeResolver.AddRepository(gir);
@@ -292,7 +279,7 @@ namespace GISharp.CodeGen
             var filesToDelete = Directory.GetFiles(projectDirPath, "*.Generated.*").ToList();
             filesToDelete.Add(tempFile);
 
-            Log.Message($"Writing '*.Generated.*'...");
+            logger.LogInformation($"Writing '*.Generated.*'...");
             foreach (var (name, unit) in codeCompileUnits) {
                 var docFileName = name + ".xmldoc";
                 var collectedDocs = new StringBuilder();
@@ -373,7 +360,7 @@ namespace GISharp.CodeGen
                 File.Delete(f);
             }
 
-            Log.Message("Done.");
+            logger.LogInformation("Done.");
         }
     }
 

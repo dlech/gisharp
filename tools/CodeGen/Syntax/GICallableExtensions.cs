@@ -9,7 +9,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -181,7 +180,7 @@ namespace GISharp.CodeGen.Syntax
             if (callable.ThrowsGErrorException) {
                 // error parameters are always ref, so we need to initialize it with a value
                 var errorArg = callable.Parameters.ErrorParameter.ManagedName;
-                var expression = ParseExpression($"var {errorArg}_ = default({typeof(Error)}.UnmanagedStruct*)");
+                var expression = ParseExpression($"var {errorArg}_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*)");
                 block = block.AddStatements(ExpressionStatement(expression));
             }
 
@@ -218,7 +217,7 @@ namespace GISharp.CodeGen.Syntax
             if (callable.ThrowsGErrorException) {
                 var errorArg = callable.Parameters.ErrorParameter.ManagedName;
                 var condition = ParseExpression($"{errorArg}_ is not null");
-                var getter = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}<{typeof(Error)}>";
+                var getter = $"{typeof(Opaque)}.{nameof(Opaque.GetInstance)}<GISharp.Lib.GLib.Error>";
                 var ownership = $"{typeof(Transfer)}.{nameof(Transfer.Full)}";
                 var marshalExpression = ParseExpression($"var {errorArg} = {getter}((System.IntPtr){errorArg}_, {ownership})");
                 var marshalStatement = ExpressionStatement(marshalExpression);
@@ -347,7 +346,7 @@ namespace GISharp.CodeGen.Syntax
 
             if (callable.ThrowsGErrorException) {
                 var errorParameter = callable.Parameters.ErrorParameter.ManagedName;
-                var errorExpression = ParseExpression($"var {errorParameter}_ = default({typeof(Error)}.UnmanagedStruct*)");
+                var errorExpression = ParseExpression($"var {errorParameter}_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*)");
                 tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(errorExpression));
             }
 
@@ -370,7 +369,7 @@ namespace GISharp.CodeGen.Syntax
                     errorParameter,
                     typeof(Opaque),
                     nameof(Opaque.GetInstance),
-                    typeof(Error),
+                    "GISharp.Lib.GLib.Error",
                     typeof(Transfer),
                     nameof(Transfer.Full),
                     typeof(GErrorException));
@@ -395,11 +394,13 @@ namespace GISharp.CodeGen.Syntax
             var returnExpression = ParseExpression($"completionSource.SetResult({returnValue})");
             tryStatement = tryStatement.AddBlockStatements(ExpressionStatement(returnExpression));
 
-            var catchExpression = $"{typeof(Log)}.{nameof(Log.LogUnhandledException)}(ex)";
             tryStatement = tryStatement.AddCatches(CatchClause()
                 .WithDeclaration(CatchDeclaration(ParseTypeName("System.Exception"),
                     ParseToken("ex")))
-                .WithBlock(Block(ExpressionStatement(ParseExpression(catchExpression)))));
+                .WithBlock(Block(ExpressionStatement(ParseExpression(
+                    "GISharp.Lib.GLib.Log.LogUnhandledException(ex)"
+                ))))
+            );
 
             yield return tryStatement;
         }
@@ -434,9 +435,9 @@ namespace GISharp.CodeGen.Syntax
         public static IEnumerable<StatementSyntax> GetCallbackStatements(this GICallable callable)
         {
             var catchType = ParseTypeName("System.Exception");
-            var catchStatement = ExpressionStatement(ParseExpression(string.Format("{0}.{1}(ex)",
-                typeof(Log),
-                nameof(Log.LogUnhandledException))));
+            var catchStatement = ExpressionStatement(ParseExpression(
+                "GISharp.Lib.GLib.Log.LogUnhandledException(ex)"
+            ));
             yield return TryStatement()
                 .WithBlock(callable.GetCallbackTryBlock())
                 .AddCatches(CatchClause()

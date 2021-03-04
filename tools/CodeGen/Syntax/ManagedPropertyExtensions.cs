@@ -6,8 +6,6 @@ using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GLib;
-using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
@@ -47,7 +45,8 @@ namespace GISharp.CodeGen.Syntax
                 if (!setter.Parameters.Last().IsNullable && getter.ReturnValue.IsNullable) {
                     if (getter.ReturnValue.IsUnownedUtf8()) {
                         nullForgiving = ".Value";
-                    } else {
+                    }
+                    else {
                         syntax = syntax.AddAttributeLists(AttributeList()
                             .AddAttributes(Attribute(ParseName($"{typeof(DisallowNullAttribute)}"))));
                         nullForgiving = "!"; // work around https://github.com/dotnet/roslyn/issues/38943

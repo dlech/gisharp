@@ -5,7 +5,6 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -78,7 +77,7 @@ namespace GISharp.CodeGen.Syntax
         public static SyntaxList<MemberDeclarationSyntax> GetClassMembers(this Record record)
         {
             var fieldStructModifiers = new List<SyntaxToken>();
-            if (record.BaseType != typeof(Lib.GObject.Boxed).FullName && record.BaseType != typeof(Opaque).FullName) {
+            if (record.BaseType != "GISharp.Lib.GObject.Boxed" && record.BaseType != typeof(Opaque).FullName) {
                 fieldStructModifiers.Add(Token(NewKeyword));
             }
 
@@ -115,7 +114,8 @@ namespace GISharp.CodeGen.Syntax
             var list = TokenList(Token(PublicKeyword));
 
             if (record.IsGTypeStructFor is not null &&
-                record.BaseType == typeof(TypeInterface).FullName) {
+                record.BaseType == "GISharp.Lib.GObject.TypeInterface"
+            ) {
                 // interfaces cannot be inherited
                 list = list.Add(Token(SealedKeyword));
             }

@@ -2,16 +2,15 @@
 // Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
 
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GLib;
-using GISharp.Lib.GObject;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
+using Microsoft.Extensions.Logging;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
+using static GISharp.CodeGen.Globals;
 
 namespace GISharp.CodeGen.Syntax
 {
@@ -91,10 +90,12 @@ namespace GISharp.CodeGen.Syntax
             return TokenList(ParseTokens(member.InheritanceModifiers));
         }
 
+        private static readonly ILogger logger = Globals.LoggerFactory.CreateLogger("Generator");
+
         internal static void LogException(this GIBase member, Exception ex)
         {
-            Log.Warning($"Problem with {member.Element.GetXPath()}: {ex.Message}");
-            Log.Debug(ex.StackTrace);
+            logger.LogWarning($"Problem with {member.Element.GetXPath()}: {ex.Message}");
+            logger.LogDebug(ex.StackTrace);
         }
     }
 }

@@ -8,7 +8,6 @@ using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
@@ -158,9 +157,9 @@ namespace GISharp.CodeGen.Syntax
             // managed exceptions
 
             var exception = typeof(Exception).FullName;
-            var logUnhandledException = ExpressionStatement(ParseExpression(string.Format("{0}.{1}(ex)",
-                typeof(Log),
-                nameof(Log.LogUnhandledException))));
+            var logUnhandledException = ExpressionStatement(ParseExpression(
+                "GISharp.Lib.GLib.Log.LogUnhandledException(ex)"
+            ));
 
             var exceptionStatements = List<StatementSyntax>().Add(logUnhandledException);
 
@@ -196,7 +195,7 @@ namespace GISharp.CodeGen.Syntax
                     .WithDeclaration(CatchDeclaration(catchType, ParseToken("ex")))
                     .WithBlock(Block(
                         ExpressionStatement(ParseExpression(
-                            $"{typeof(Log)}.{nameof(Log.LogUnhandledException)}(ex)"
+                            "GISharp.Lib.GLib.Log.LogUnhandledException(ex)"
                         ))
                     )));
 
@@ -213,9 +212,9 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<StatementSyntax> GetOldCallbackStatements(this Callback callback)
         {
             var catchType = ParseTypeName("System.Exception");
-            var catchStatement = ExpressionStatement(ParseExpression(string.Format("{0}.{1}(ex)",
-                typeof(Log),
-                nameof(Log.LogUnhandledException))));
+            var catchStatement = ExpressionStatement(ParseExpression(
+                "GISharp.Lib.GLib.Log.LogUnhandledException(ex)"
+            ));
             yield return TryStatement()
                 .WithBlock(callback.GetOldCallbackTryBlock())
                 .AddCatches(CatchClause()
@@ -543,12 +542,11 @@ namespace GISharp.CodeGen.Syntax
                 gcHandle.Free();
             }}
             catch ({1} ex) {{
-                {2}.{3}(ex);
+                GISharp.Lib.GLib.Log.LogUnhandledException(ex);
             }}
             ", typeof(GCHandle),
-                typeof(Exception),
-                typeof(Log),
-                nameof(Log.LogUnhandledException)));
+                typeof(Exception))
+            );
 
             var destroyMethod = MethodDeclaration(PredefinedType(Token(VoidKeyword)), "Destroy")
                 .AddModifiers(Token(StaticKeyword))
@@ -559,7 +557,7 @@ namespace GISharp.CodeGen.Syntax
 
             var destroyDelegateVariable = VariableDeclarator("UnmanagedDestroyDelegate")
                     .WithInitializer(EqualsValueClause(IdentifierName(destroyMethod.Identifier)));
-            var destroyDelegateField = FieldDeclaration(VariableDeclaration(ParseTypeName(typeof(UnmanagedDestroyNotify).FullName))
+            var destroyDelegateField = FieldDeclaration(VariableDeclaration(ParseTypeName("GISharp.Lib.GLib.UnmanagedDestroyNotify"))
                 .AddVariables(destroyDelegateVariable))
                 .AddModifiers(Token(StaticKeyword), Token(ReadOnlyKeyword));
             list = list.Add(destroyDelegateField);

@@ -8,13 +8,11 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Xml.Linq;
 using GISharp.CodeGen.Gir;
-using GISharp.Lib.GLib;
 using GISharp.Runtime;
 using Microsoft.CodeAnalysis;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
-using Object = GISharp.Lib.GObject.Object;
 using Signal = GISharp.CodeGen.Gir.Signal;
 
 namespace GISharp.CodeGen.Syntax
@@ -51,14 +49,14 @@ namespace GISharp.CodeGen.Syntax
                 }
                 if (arg.TransferOwnership == "none") {
                     if (arg.IsNullable) {
-                        return typeof(NullableUnownedUtf8).FullName;
+                        return "GISharp.Lib.GLib.NullableUnownedUtf8";
                     }
-                    return typeof(UnownedUtf8).FullName;
+                    return "GISharp.Lib.GLib.UnownedUtf8";
                 }
                 return type;
             }
 
-            if (type == typeof(Strv).FullName || type == typeof(FilenameArray).FullName) {
+            if (type == "GISharp.Lib.GLib.Strv" || type == "GISharp.Runtime.FilenameArray") {
                 return type;
             }
 
@@ -215,7 +213,7 @@ namespace GISharp.CodeGen.Syntax
             // explicit cast expression to unmanaged type
             var unmanagedCast = $"({unmanagedType})";
 
-            if (arg.Type is Gir.Array array && array.GirName is null && type != typeof(Strv).FullName && type != typeof(FilenameArray).FullName) {
+            if (arg.Type is Gir.Array array && array.GirName is null && type != "GISharp.Lib.GLib.Strv" && type != "GISharp.Runtime.FilenameArray") {
                 var isSpanLike = arg.TransferOwnership == "none";
                 var takeData = arg.TransferOwnership == "full";
                 var isAsync = arg.Ancestors.Any(x => x is GICallable callable && callable.IsAsync);
@@ -338,7 +336,7 @@ namespace GISharp.CodeGen.Syntax
             var @var = declareVariable ? "var " : "";
             var ownership = arg.GetOwnershipTransfer();
 
-            if (type == typeof(Strv).FullName || type == typeof(FilenameArray).FullName) {
+            if (type == "GISharp.Lib.GLib.Strv" || type == "GISharp.Runtime.FilenameArray") {
                 var lengthArg = "-1";
 
                 if (arg.Type is Gir.Array v && v.LengthIndex >= 0) {
@@ -380,7 +378,7 @@ namespace GISharp.CodeGen.Syntax
                 }
             }
             else if (arg.Type.Interface is Interface) {
-                var getInstance = $"{typeof(Object)}.{nameof(Object.GetInstance)}";
+                var getInstance = "GISharp.Lib.GObject.Object.GetInstance";
                 var nullable = arg.IsNullable ? "?" : "";
                 var notNullable = arg.IsNullable ? "" : "!";
                 expressions.Add(ParseExpression($"{@var}{arg.ManagedName} = ({type}{nullable}){getInstance}((System.IntPtr){arg.ManagedName}_, {ownership}){notNullable}"));
