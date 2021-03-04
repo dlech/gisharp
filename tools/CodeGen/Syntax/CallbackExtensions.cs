@@ -245,13 +245,19 @@ namespace GISharp.CodeGen.Syntax
 
             var ghHandleType = typeof(GCHandle).FullName;
             block = block.AddStatements(
-                ExpressionStatement(ParseExpression($"var gcHandle = ({ghHandleType}){dataParamName}_")),
-                ExpressionStatement(ParseExpression($"var {dataParamName} = ({callback.ManagedName})gcHandle.Target!")));
+                ExpressionStatement(ParseExpression($"var {dataParamName}Handle = ({ghHandleType}){dataParamName}_")),
+                ExpressionStatement(ParseExpression($"var ({dataParamName}, {dataParamName}Scope) = (({callback.ManagedName}, GISharp.Runtime.CallbackScope)){dataParamName}Handle.Target!")));
 
             var skipReturnValue = callback.ThrowsGErrorException && callback.ReturnValue.Type.GirName == "gboolean";
 
             block = block.AddStatements(
                 callback.GetInvocationStatement($"{dataParamName}.Invoke", skipReturnValue)
+            );
+
+            block = block.AddStatements(
+                IfStatement(ParseExpression($"{dataParamName}Scope == GISharp.Runtime.CallbackScope.Async"),
+                    Block(ExpressionStatement(ParseExpression($"{dataParamName}Handle.Free()")))
+                )
             );
 
             if (skipReturnValue) {

@@ -1269,8 +1269,8 @@ namespace GISharp.Lib.Gio
         {
             var stream_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)UnsafeHandle;
             var ioPriority_ = (int)ioPriority;
-            var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
-            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+            var callback_ = callback is null ? default : (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
+            var callbackHandle = callback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((callback, GISharp.Runtime.CallbackScope.Async));
             var userData_ = (System.IntPtr)callbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<InputStreamClass.UnmanagedCloseAsync>(_GType)!(stream_, ioPriority_, cancellable_, callback_, userData_);
@@ -1316,8 +1316,8 @@ namespace GISharp.Lib.Gio
                 var buffer_ = (byte*)bufferData_;
                 var count_ = (nuint)buffer.Length;
                 var ioPriority_ = (int)ioPriority;
-                var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
-                var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+                var callback_ = callback is null ? default : (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
+                var callbackHandle = callback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((callback, GISharp.Runtime.CallbackScope.Async));
                 var userData_ = (System.IntPtr)callbackHandle;
                 var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
                 GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<InputStreamClass.UnmanagedReadAsync>(_GType)!(stream_, buffer_, count_, ioPriority_, cancellable_, callback_, userData_);
@@ -1388,8 +1388,8 @@ namespace GISharp.Lib.Gio
             var stream_ = (GISharp.Lib.Gio.InputStream.UnmanagedStruct*)UnsafeHandle;
             var count_ = (nuint)count;
             var ioPriority_ = (int)ioPriority;
-            var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
-            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+            var callback_ = callback is null ? default : (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
+            var callbackHandle = callback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((callback, GISharp.Runtime.CallbackScope.Async));
             var userData_ = (System.IntPtr)callbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             GISharp.Lib.GObject.TypeClass.GetUnmanagedVirtualMethod<InputStreamClass.UnmanagedSkipAsync>(_GType)!(stream_, count_, ioPriority_, cancellable_, callback_, userData_);

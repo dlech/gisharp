@@ -202,9 +202,15 @@ namespace GISharp.CodeGen.Syntax
             // free the managed delegate
 
             foreach (var arg in callable.Parameters.Where(x => x.Scope == "call")) {
-                block = block.AddStatements(ExpressionStatement(ParseExpression(
+                StatementSyntax freeStatement = ExpressionStatement(ParseExpression(
                     $"{arg.ManagedName}Handle.Free()"
-                )));
+                ));
+                if (arg.IsNullable) {
+                    freeStatement = IfStatement(ParseExpression($"{arg.ManagedName} is not null"),
+                        Block(freeStatement)
+                    );
+                }
+                block = block.AddStatements(freeStatement);
             }
 
             // Check for GError and throw GErrorException

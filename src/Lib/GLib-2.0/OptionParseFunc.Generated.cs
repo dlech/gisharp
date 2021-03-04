@@ -54,9 +54,14 @@ namespace GISharp.Lib.GLib
             {
                 var context = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionContext>((System.IntPtr)context_, GISharp.Runtime.Transfer.None)!;
                 var group = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.OptionGroup>((System.IntPtr)group_, GISharp.Runtime.Transfer.None)!;
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
-                var data = (OptionParseFunc)gcHandle.Target!;
+                var dataHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var (data, dataScope) = ((OptionParseFunc, GISharp.Runtime.CallbackScope))dataHandle.Target!;
                 data.Invoke(context, group);
+                if (dataScope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    dataHandle.Free();
+                }
+
                 return GISharp.Runtime.Boolean.True;
             }
             catch (System.Exception ex)

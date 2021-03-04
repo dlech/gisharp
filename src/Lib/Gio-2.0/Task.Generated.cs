@@ -130,8 +130,8 @@ namespace GISharp.Lib.Gio
         {
             CheckNewArgs(sourceObject, callback, cancellable);
             var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero);
-            var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
-            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+            var callback_ = callback is null ? default : (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
+            var callbackHandle = callback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((callback, GISharp.Runtime.CallbackScope.Async));
             var callbackData_ = (System.IntPtr)callbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var ret_ = g_task_new(sourceObject_,cancellable_,callback_,callbackData_);
@@ -242,8 +242,8 @@ namespace GISharp.Lib.Gio
         {
             CheckReportErrorArgs(sourceObject, callback, sourceTag, error);
             var sourceObject_ = (GISharp.Lib.GObject.Object.UnmanagedStruct*)(sourceObject?.UnsafeHandle ?? System.IntPtr.Zero);
-            var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
-            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+            var callback_ = callback is null ? default : (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
+            var callbackHandle = callback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((callback, GISharp.Runtime.CallbackScope.Async));
             var callbackData_ = (System.IntPtr)callbackHandle;
             var sourceTag_ = (System.IntPtr)sourceTag;
             var error_ = (GISharp.Lib.GLib.Error.UnmanagedStruct*)error.Take();

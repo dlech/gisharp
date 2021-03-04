@@ -53,9 +53,14 @@ namespace GISharp.Lib.GLib
             {
                 var a = (System.IntPtr)a_;
                 var b = (System.IntPtr)b_;
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (CompareDataFunc)gcHandle.Target!;
+                var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var (userData, userDataScope) = ((CompareDataFunc, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
                 var ret = userData.Invoke(a, b);
+                if (userDataScope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    userDataHandle.Free();
+                }
+
                 var ret_ = (int)ret;
                 return ret_;
             }

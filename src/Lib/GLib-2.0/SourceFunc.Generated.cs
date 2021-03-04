@@ -48,9 +48,14 @@ namespace GISharp.Lib.GLib
         {
             try
             {
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (SourceFunc)gcHandle.Target!;
+                var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var (userData, userDataScope) = ((SourceFunc, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
                 var ret = userData.Invoke();
+                if (userDataScope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    userDataHandle.Free();
+                }
+
                 var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                 return ret_;
             }

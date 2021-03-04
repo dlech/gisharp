@@ -211,10 +211,10 @@ namespace GISharp.Lib.GLib
         {
             CheckSetTranslateFuncArgs(func);
             var group_ = (GISharp.Lib.GLib.OptionGroup.UnmanagedStruct*)UnsafeHandle;
-            var func_ = (delegate* unmanaged[Cdecl]<byte*, System.IntPtr, byte*>)&GISharp.Lib.GLib.TranslateFuncMarshal.Callback;
-            var funcHandle = System.Runtime.InteropServices.GCHandle.Alloc(func);
+            var func_ = func is null ? default : (delegate* unmanaged[Cdecl]<byte*, System.IntPtr, byte*>)&GISharp.Lib.GLib.TranslateFuncMarshal.Callback;
+            var funcHandle = func is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((func, GISharp.Runtime.CallbackScope.Notified));
             var data_ = (System.IntPtr)funcHandle;
-            var destroyNotify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
+            var destroyNotify_ = func is null ? default : (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             g_option_group_set_translate_func(group_, func_, data_, destroyNotify_);
         }
 

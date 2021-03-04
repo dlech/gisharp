@@ -509,7 +509,7 @@ namespace GISharp.Lib.GLib
             var context_ = (GISharp.Lib.GLib.MainContext.UnmanagedStruct*)UnsafeHandle;
             var priority_ = (int)priority;
             var function_ = (delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean>)&GISharp.Lib.GLib.SourceFuncMarshal.Callback;
-            var functionHandle = System.Runtime.InteropServices.GCHandle.Alloc(function);
+            var functionHandle = System.Runtime.InteropServices.GCHandle.Alloc((function, GISharp.Runtime.CallbackScope.Notified));
             var data_ = (System.IntPtr)functionHandle;
             var notify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             g_main_context_invoke_full(context_, priority_, function_, data_, notify_);

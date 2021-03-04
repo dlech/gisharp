@@ -87,9 +87,13 @@ namespace GISharp.Lib.Gio
                 var currentSize = (ulong)currentSize_;
                 var numDirs = (ulong)numDirs_;
                 var numFiles = (ulong)numFiles_;
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (FileMeasureProgressCallback)gcHandle.Target!;
+                var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var (userData, userDataScope) = ((FileMeasureProgressCallback, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
                 userData.Invoke(reporting, currentSize, numDirs, numFiles);
+                if (userDataScope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    userDataHandle.Free();
+                }
             }
             catch (System.Exception ex)
             {

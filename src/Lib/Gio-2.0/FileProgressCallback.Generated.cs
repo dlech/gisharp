@@ -52,9 +52,13 @@ namespace GISharp.Lib.Gio
             {
                 var currentNumBytes = (long)currentNumBytes_;
                 var totalNumBytes = (long)totalNumBytes_;
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (FileProgressCallback)gcHandle.Target!;
+                var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var (userData, userDataScope) = ((FileProgressCallback, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
                 userData.Invoke(currentNumBytes, totalNumBytes);
+                if (userDataScope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    userDataHandle.Free();
+                }
             }
             catch (System.Exception ex)
             {

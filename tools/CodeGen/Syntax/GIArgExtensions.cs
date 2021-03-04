@@ -298,11 +298,13 @@ namespace GISharp.CodeGen.Syntax
                     // unmanaged callers only callback and pass the managed callback
                     // GC handle as the user data.
 
+                    var nullCheck = arg.IsNullable ? $"{arg.ManagedName} is null ? default : " : "";
+
                     expressions.Add(ParseExpression(
-                        $"{@var}{unmanagedName} = {unmanagedCast}&{type}Marshal.Callback"
+                        $"{@var}{unmanagedName} = {nullCheck}{unmanagedCast}&{type}Marshal.Callback"
                     ));
                     expressions.Add(ParseExpression(
-                        $"var {arg.ManagedName}Handle = {typeof(GCHandle)}.Alloc({arg.ManagedName})"
+                        $"var {arg.ManagedName}Handle = {nullCheck}{typeof(GCHandle)}.Alloc(({arg.ManagedName}, GISharp.Runtime.CallbackScope.{arg.Scope.ToPascalCase()}))"
                     ));
                     expressions.Add(ParseExpression(
                         $"{@var}{userData.ManagedName}_ = (System.IntPtr){arg.ManagedName}Handle"
@@ -313,8 +315,9 @@ namespace GISharp.CodeGen.Syntax
                 }
 
                 if (arg.Callable.Parameters.RegularParameters.ElementAtOrDefault(arg.DestroyIndex) is Parameter destroy) {
+                    var nullCheck = arg.IsNullable ? $"{arg.ManagedName} is null ? default : " : "";
                     expressions.Add(ParseExpression(
-                        $"{@var}{destroy.ManagedName}_ = ({destroy.Type.GetUnmanagedType()})&GISharp.Runtime.GMarshal.DestroyGCHandle"
+                        $"{@var}{destroy.ManagedName}_ = {nullCheck}({destroy.Type.GetUnmanagedType()})&GISharp.Runtime.GMarshal.DestroyGCHandle"
                     ));
                 }
                 else if (arg.Scope == "notified") {

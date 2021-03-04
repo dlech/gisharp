@@ -48,9 +48,14 @@ namespace GISharp.Lib.GLib
             try
             {
                 var str = new GISharp.Lib.GLib.UnownedUtf8(str_);
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
-                var data = (TranslateFunc)gcHandle.Target!;
+                var dataHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var (data, dataScope) = ((TranslateFunc, GISharp.Runtime.CallbackScope))dataHandle.Target!;
                 var ret = data.Invoke(str);
+                if (dataScope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    dataHandle.Free();
+                }
+
                 var ret_ = (byte*)ret.UnsafeHandle;
                 return ret_;
             }

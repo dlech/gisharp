@@ -55,9 +55,14 @@ namespace GISharp.Lib.GLib
             {
                 var optionName = new GISharp.Lib.GLib.UnownedUtf8(optionName_);
                 var value = new GISharp.Lib.GLib.UnownedUtf8(value_);
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)data_;
-                var data = (OptionArgFunc)gcHandle.Target!;
+                var dataHandle = (System.Runtime.InteropServices.GCHandle)data_;
+                var (data, dataScope) = ((OptionArgFunc, GISharp.Runtime.CallbackScope))dataHandle.Target!;
                 data.Invoke(optionName, value);
+                if (dataScope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    dataHandle.Free();
+                }
+
                 return GISharp.Runtime.Boolean.True;
             }
             catch (System.Exception ex)

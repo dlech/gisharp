@@ -925,13 +925,17 @@ namespace GISharp.Lib.Gio
             var source_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)source.UnsafeHandle;
             var destination_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)destination.UnsafeHandle;
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
-            var progressCallback_ = (delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void>)&GISharp.Lib.Gio.FileProgressCallbackMarshal.Callback;
-            var progressCallbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(progressCallback);
+            var progressCallback_ = progressCallback is null ? default : (delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void>)&GISharp.Lib.Gio.FileProgressCallbackMarshal.Callback;
+            var progressCallbackHandle = progressCallback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((progressCallback, GISharp.Runtime.CallbackScope.Call));
             var progressCallbackData_ = (System.IntPtr)progressCallbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_file_copy(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_, &error_);
-            progressCallbackHandle.Free();
+            if (progressCallback is not null)
+            {
+                progressCallbackHandle.Free();
+            }
+
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -1023,8 +1027,8 @@ namespace GISharp.Lib.Gio
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
             var ioPriority_ = (int)ioPriority;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
-            var progressCallback_ = (delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void>)&GISharp.Lib.Gio.FileProgressCallbackMarshal.Callback;
-            var progressCallbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(progressCallback);
+            var progressCallback_ = progressCallback is null ? default : (delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void>)&GISharp.Lib.Gio.FileProgressCallbackMarshal.Callback;
+            var progressCallbackHandle = progressCallback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((progressCallback, GISharp.Runtime.CallbackScope.Async));
             var progressCallbackData_ = (System.IntPtr)progressCallbackHandle;
             var completionSource = new System.Threading.Tasks.TaskCompletionSource<GISharp.Runtime.Void>();
             var callback_ = (delegate* unmanaged[Cdecl] <GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&CopyFinish;
@@ -3599,13 +3603,17 @@ namespace GISharp.Lib.Gio
             var source_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)source.UnsafeHandle;
             var destination_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)destination.UnsafeHandle;
             var flags_ = (GISharp.Lib.Gio.FileCopyFlags)flags;
-            var progressCallback_ = (delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void>)&GISharp.Lib.Gio.FileProgressCallbackMarshal.Callback;
-            var progressCallbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(progressCallback);
+            var progressCallback_ = progressCallback is null ? default : (delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void>)&GISharp.Lib.Gio.FileProgressCallbackMarshal.Callback;
+            var progressCallbackHandle = progressCallback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((progressCallback, GISharp.Runtime.CallbackScope.Call));
             var progressCallbackData_ = (System.IntPtr)progressCallbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*);
             g_file_move(source_, destination_, flags_, cancellable_, progressCallback_, progressCallbackData_, &error_);
-            progressCallbackHandle.Free();
+            if (progressCallback is not null)
+            {
+                progressCallbackHandle.Free();
+            }
+
             if (error_ is not null)
             {
                 var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full);
@@ -3893,8 +3901,8 @@ namespace GISharp.Lib.Gio
         {
             CheckPollMountableArgs(file, callback, cancellable);
             var file_ = (GISharp.Lib.Gio.File.UnmanagedStruct*)file.UnsafeHandle;
-            var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
-            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+            var callback_ = callback is null ? default : (delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.Object.UnmanagedStruct*, GISharp.Lib.Gio.AsyncResult.UnmanagedStruct*, System.IntPtr, void>)&GISharp.Lib.Gio.AsyncReadyCallbackMarshal.Callback;
+            var callbackHandle = callback is null ? default : System.Runtime.InteropServices.GCHandle.Alloc((callback, GISharp.Runtime.CallbackScope.Async));
             var userData_ = (System.IntPtr)callbackHandle;
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero);
             g_file_poll_mountable(file_, cancellable_, callback_, userData_);

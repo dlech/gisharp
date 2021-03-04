@@ -1184,7 +1184,7 @@ namespace GISharp.Lib.GLib
             CheckSetCallbackArgs(func);
             var source_ = (GISharp.Lib.GLib.Source.UnmanagedStruct*)UnsafeHandle;
             var func_ = (delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean>)&GISharp.Lib.GLib.SourceFuncMarshal.Callback;
-            var funcHandle = System.Runtime.InteropServices.GCHandle.Alloc(func);
+            var funcHandle = System.Runtime.InteropServices.GCHandle.Alloc((func, GISharp.Runtime.CallbackScope.Notified));
             var data_ = (System.IntPtr)funcHandle;
             var notify_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             g_source_set_callback(source_, func_, data_, notify_);

@@ -54,9 +54,14 @@ namespace GISharp.Lib.Gio
             {
                 var fileContents = new GISharp.Lib.GLib.UnownedUtf8(fileContents_);
                 var fileSize = (long)fileSize_;
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)callbackData_;
-                var callbackData = (FileReadMoreCallback)gcHandle.Target!;
+                var callbackDataHandle = (System.Runtime.InteropServices.GCHandle)callbackData_;
+                var (callbackData, callbackDataScope) = ((FileReadMoreCallback, GISharp.Runtime.CallbackScope))callbackDataHandle.Target!;
                 var ret = callbackData.Invoke(fileContents, fileSize);
+                if (callbackDataScope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    callbackDataHandle.Free();
+                }
+
                 var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                 return ret_;
             }

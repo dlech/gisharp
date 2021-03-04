@@ -229,7 +229,7 @@ namespace GISharp.Lib.Gio
             CheckConnectArgs(callback);
             var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)UnsafeHandle;
             var callback_ = (delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, GISharp.Runtime.Boolean>)&GISharp.Lib.Gio.CancellableSourceFuncMarshal.Callback;
-            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc(callback);
+            var callbackHandle = System.Runtime.InteropServices.GCHandle.Alloc((callback, GISharp.Runtime.CallbackScope.Notified));
             var data_ = (System.IntPtr)callbackHandle;
             var dataDestroyFunc_ = (delegate* unmanaged[Cdecl]<System.IntPtr, void>)&GISharp.Runtime.GMarshal.DestroyGCHandle;
             var ret_ = g_cancellable_connect(cancellable_,callback_,data_,dataDestroyFunc_);

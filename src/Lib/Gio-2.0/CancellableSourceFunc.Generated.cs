@@ -49,9 +49,14 @@ namespace GISharp.Lib.Gio
             try
             {
                 var cancellable = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Cancellable>((System.IntPtr)cancellable_, GISharp.Runtime.Transfer.None);
-                var gcHandle = (System.Runtime.InteropServices.GCHandle)userData_;
-                var userData = (CancellableSourceFunc)gcHandle.Target!;
+                var userDataHandle = (System.Runtime.InteropServices.GCHandle)userData_;
+                var (userData, userDataScope) = ((CancellableSourceFunc, GISharp.Runtime.CallbackScope))userDataHandle.Target!;
                 var ret = userData.Invoke(cancellable);
+                if (userDataScope == GISharp.Runtime.CallbackScope.Async)
+                {
+                    userDataHandle.Free();
+                }
+
                 var ret_ = GISharp.Runtime.BooleanExtensions.ToBoolean(ret);
                 return ret_;
             }
