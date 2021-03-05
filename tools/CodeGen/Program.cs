@@ -2,9 +2,10 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
+using System.CommandLine;
+using System.CommandLine.Invocation;
 using System.IO;
 using System.Linq;
-using System.Reflection;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -19,7 +20,6 @@ using Microsoft.CodeAnalysis.CSharp;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.CodeAnalysis.Formatting;
 using Microsoft.Extensions.Logging;
-using Mono.Options;
 
 using static Microsoft.CodeAnalysis.CSharp.SyntaxFactory;
 using static Microsoft.CodeAnalysis.CSharp.SyntaxKind;
@@ -28,108 +28,68 @@ using Generic = System.Collections.Generic;
 
 namespace GISharp.CodeGen
 {
-    class MainClass
+    class Program
     {
-        internal const string parentNamespace = "GISharp.Lib";
+        private const string createFixupCommandName = "create-fixup";
+        private const string generateCommandName = "generate";
 
-        enum Command
+        public static int Main(string[] args)
         {
-            // create a new gir-fixup.yml file
-            NewFixup,
-            // generate source code files
-            Generate,
-        }
-
-        static void PrintHelpAndExit(OptionSet options, int exitCode = 0)
-        {
-            var writer = exitCode == 0 ? Console.Out : Console.Error;
-            writer.WriteLine("Usage: mono GICodeGen.exe { -c <command> -p <project> [ -g <gir-path> ] [ -f ] | -h | -v }");
-            writer.WriteLine();
-            options.WriteOptionDescriptions(writer);
-            Environment.Exit(exitCode);
-        }
-
-        static void PrintVersionAndExit()
-        {
-            var assembly = Assembly.GetExecutingAssembly();
-            var assemblyName = assembly.GetName();
-            Console.WriteLine("{0} v{1}", assemblyName.Name, assemblyName.Version);
-            Environment.Exit(0);
-        }
-
-        public static void Main(string[] args)
-        {
-            string commandArg = null;
-            string projectArg = null;
-            string girDirectoryArg = null;
-            bool forceArg = false;
-
-            OptionSet options = null;
-            options = new OptionSet {
-                {
-                    "h|help",
-                    "Print this message.",
-                    v => PrintHelpAndExit (options)
-                }, {
-                    "v|version",
-                    "Print the program version infomation.",
-                    v => PrintVersionAndExit ()
-                }, {
-                    "c|command=",
-                    "The command to run.",
-                    v => commandArg = v
-                }, {
-                    "p|project=",
-                    "The .NET project to use.",
-                    v => projectArg = v
-                }, {
-                    "g|gir-dir=",
-                    "The directory where the .gir file is located. By default /usr/share/gir-1.0/ will be used.",
-                    v => girDirectoryArg = v
-                }, {
-                    "f|force",
-                    "Overwrite existing files.",
-                    v => forceArg = true
-                },
+            var projectOption = new Option<string>(
+                new[] { "-p", "--project" },
+                "The name of the project, e.g. GLib-2.0") {
+                IsRequired = true
             };
-            var extraArgs = options.Parse(args);
-            if (extraArgs.Any()) {
-                var argList = string.Join(", ", extraArgs.ToArray());
-                Console.Error.WriteLine($"Unknown arguments: {argList}");
-                Console.Error.WriteLine();
-                PrintHelpAndExit(options, 1);
-                return;
-            }
 
-            if (commandArg is null) {
-                Console.Error.WriteLine("Command option is required");
-                Console.Error.WriteLine();
-                PrintHelpAndExit(options, 1);
-                return;
-            }
+            var girDirOption = new Option<DirectoryInfo>(
+                new[] { "-g", "--gir-dir" },
+                "The directory where the .gir file is located");
 
-            if (projectArg is null) {
-                Console.Error.WriteLine("Project option is required");
-                Console.Error.WriteLine();
-                PrintHelpAndExit(options, 1);
-                return;
-            }
+            var forceOption = new Option<bool>(
+                new[] { "-f", "--force" },
+                "Replace the existing fixup file");
 
-            Command command;
-            switch (commandArg.ToLower()) {
-            case "new-fixup":
-                command = Command.NewFixup;
-                break;
-            case "generate":
-                command = Command.Generate;
-                break;
-            default:
-                Console.Error.WriteLine($"Unknown command: {commandArg}");
-                Console.Error.WriteLine();
-                PrintHelpAndExit(options, 1);
-                return;
-            }
+            var createFixupCommand = new Command(
+                createFixupCommandName,
+                "Create a new gir-fixup.yml file for a project"
+            ) {
+                projectOption,
+                girDirOption,
+                forceOption,
+            };
+            createFixupCommand.Handler = CommandHandler.Create<string, DirectoryInfo, bool>(CreateFixup);
 
+            var generateCommand = new Command(
+                generateCommandName,
+                "Generate .cs and .xmldoc files for a project"
+            ) {
+                projectOption,
+                girDirOption,
+            };
+            generateCommand.Handler = CommandHandler.Create<string, DirectoryInfo>(Generate);
+
+            var rootCommand = new RootCommand(
+                "GISharp code generator"
+            ) {
+                createFixupCommand,
+                generateCommand,
+            };
+
+            return rootCommand.Invoke(args);
+        }
+
+        private static void CreateFixup(string project, DirectoryInfo girDir, bool force)
+        {
+            Run(createFixupCommandName, project, girDir, force);
+        }
+
+        private static void Generate(string project, DirectoryInfo girDir)
+        {
+            Run(generateCommandName, project, girDir, default);
+        }
+
+        private static void Run(string command, string project, DirectoryInfo girDir, bool force)
+        {
             var logger = Globals.LoggerFactory.CreateLogger("Main");
 
             // load the project given by the --project option
@@ -142,11 +102,11 @@ namespace GISharp.CodeGen
 
             try {
                 // If the --project argument is a directory, find the .csproj inside
-                if (Directory.Exists(projectArg)) {
-                    projectArg = Directory.EnumerateFiles(projectArg, "*.csproj").FirstOrDefault() ?? projectArg;
+                if (Directory.Exists(project)) {
+                    project = Directory.EnumerateFiles(project, "*.csproj").FirstOrDefault() ?? project;
                 }
 
-                projectAnalyzer = manager.GetProject(projectArg);
+                projectAnalyzer = manager.GetProject(project);
 
             }
             catch (Exception ex) {
@@ -155,7 +115,7 @@ namespace GISharp.CodeGen
             }
 
             var repositoryName = Path.GetFileNameWithoutExtension(projectAnalyzer.ProjectFile.Path);
-            var girFilePath = Path.Combine(girDirectoryArg ?? "gir-1.0", repositoryName + ".gir");
+            var girFilePath = Path.Combine(girDir?.FullName ?? "gir-1.0", repositoryName + ".gir");
             if (!Path.IsPathRooted(girFilePath)) {
                 girFilePath = Freedesktop.Xdg.BaseDirectory.FindDataFile(girFilePath) ?? girFilePath;
             }
@@ -186,19 +146,19 @@ namespace GISharp.CodeGen
             var fixupDirExists = Directory.Exists(fixupDirPath);
 
             // for most commands, we need an existing fixup file
-            if (command != Command.NewFixup && !fixupFileExists && !fixupDirExists) {
-                logger.LogError("gir-fixup.yml does not exist. Create it using --command=new-fixup.");
+            if (command != createFixupCommandName && !fixupFileExists && !fixupDirExists) {
+                logger.LogError("gir-fixup.yml does not exist. Create it using create-fixup command.");
                 return;
             }
-            // for the new-fixup command, we want to make sure we aren't overwriting an existing file
-            else if (command == Command.NewFixup == !forceArg && fixupFileExists) {
+            // for the create-fixup command, we want to make sure we aren't overwriting an existing file
+            else if (command == createFixupCommandName == !force && fixupFileExists) {
                 logger.LogError("gir-fixup.yml already exists in project. Use --force to overwrite.");
                 return;
             }
 
-            // Handle the new-fixup command
+            // Handle the create-fixup command
 
-            if (command == Command.NewFixup) {
+            if (command == createFixupCommandName) {
                 logger.LogInformation($"Generating '{fixupFilePath}'");
                 try {
                     using var writer = new StreamWriter(fixupFilePath);
