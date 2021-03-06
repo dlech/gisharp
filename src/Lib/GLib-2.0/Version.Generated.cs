@@ -15,8 +15,6 @@ namespace GISharp.Lib.GLib
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.micro']/*" />
         private const System.Int32 micro = 2;
 
-        static partial void CheckCheckArgs(uint requiredMajor, uint requiredMinor, uint requiredMicro);
-
         /// <summary>
         /// Checks that the GLib library in use is compatible with the
         /// given version. Generally you would pass in the constants
@@ -63,6 +61,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint requiredMicro);
+        static partial void CheckCheckArgs(uint requiredMajor, uint requiredMinor, uint requiredMicro);
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.Check(uint,uint,uint)']/*" />
         [GISharp.Runtime.SinceAttribute("2.6")]

@@ -49,8 +49,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType);
-
         /// <summary>
         /// Creates a new action.
         /// </summary>
@@ -79,6 +77,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.VariantType" type="const GVariantType*" managed-name="GISharp.Lib.GLib.VariantType" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* parameterType);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         static GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType)
@@ -95,8 +94,6 @@ namespace GISharp.Lib.Gio
         public SimpleAction(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType) : this((System.IntPtr)New(name, parameterType), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckNewStatefulArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state);
 
         /// <summary>
         /// Creates a new stateful action.
@@ -134,6 +131,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* state);
+        static partial void CheckNewStatefulArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         static GISharp.Lib.Gio.SimpleAction.UnmanagedStruct* NewStateful(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.VariantType? parameterType, GISharp.Lib.GLib.Variant state)
@@ -205,7 +203,6 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

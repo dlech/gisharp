@@ -41,8 +41,6 @@ namespace GISharp.Lib.GIRepository
         {
         }
 
-        static partial void CheckDumpArgs(GISharp.Lib.GLib.UnownedUtf8 arg);
-
         /// <summary>
         /// </summary>
         /// <remarks>
@@ -67,6 +65,7 @@ namespace GISharp.Lib.GIRepository
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
+        static partial void CheckDumpArgs(GISharp.Lib.GLib.UnownedUtf8 arg);
 
         /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.Dump(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static void Dump(GISharp.Lib.GLib.UnownedUtf8 arg)
@@ -81,8 +80,6 @@ namespace GISharp.Lib.GIRepository
                 throw new GISharp.Runtime.GErrorException(error);
             }
         }
-
-        static partial void CheckGetDefaultArgs();
 
         /// <summary>
         /// Returns the singleton process-global default #GIRepository. It is
@@ -104,6 +101,7 @@ namespace GISharp.Lib.GIRepository
         /* <type name="Repository" type="GIRepository*" managed-name="Repository" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GIRepository.Repository.UnmanagedStruct* g_irepository_get_default();
+        static partial void CheckGetDefaultArgs();
 
         private static GISharp.Lib.GIRepository.Repository GetDefault()
         {
@@ -112,8 +110,6 @@ namespace GISharp.Lib.GIRepository
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GIRepository.Repository>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
-
-        static partial void CheckGetSearchPathArgs();
 
         /// <summary>
         /// Returns the current search path #GIRepository will use when loading
@@ -129,6 +125,7 @@ namespace GISharp.Lib.GIRepository
 * </type> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.SList.UnmanagedStruct* g_irepository_get_search_path();
+        static partial void CheckGetSearchPathArgs();
 
         private static GISharp.Lib.GLib.UnownedSList<GISharp.Lib.GLib.Filename> GetSearchPath()
         {
@@ -138,7 +135,6 @@ namespace GISharp.Lib.GIRepository
             return ret;
         }
 
-        static partial void CheckPrependLibraryPathArgs(GISharp.Lib.GLib.UnownedUtf8 directory);
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
@@ -146,6 +142,7 @@ namespace GISharp.Lib.GIRepository
 /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
 /* transfer-ownership:none direction:in */
 byte* directory);
+        static partial void CheckPrependLibraryPathArgs(GISharp.Lib.GLib.UnownedUtf8 directory);
 
         /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.PrependLibraryPath(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static void PrependLibraryPath(GISharp.Lib.GLib.UnownedUtf8 directory)
@@ -154,8 +151,6 @@ byte* directory);
             var directory_ = (byte*)directory.UnsafeHandle;
             g_irepository_prepend_library_path(directory_);
         }
-
-        static partial void CheckPrependSearchPathArgs(GISharp.Lib.GLib.Filename directory);
 
         /// <summary>
         /// Prepends @directory to the typelib search path.
@@ -174,6 +169,7 @@ byte* directory);
         /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* directory);
+        static partial void CheckPrependSearchPathArgs(GISharp.Lib.GLib.Filename directory);
 
         /// <include file="Repository.xmldoc" path="declaration/member[@name='Repository.PrependSearchPath(GISharp.Lib.GLib.Filename)']/*" />
         public static void PrependSearchPath(GISharp.Lib.GLib.Filename directory)
@@ -183,7 +179,6 @@ byte* directory);
             g_irepository_prepend_search_path(directory_);
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

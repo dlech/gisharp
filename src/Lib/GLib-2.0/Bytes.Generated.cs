@@ -37,8 +37,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(System.ReadOnlySpan<byte> data);
-
         /// <summary>
         /// Creates a new #GBytes from @data.
         /// </summary>
@@ -68,6 +66,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint size);
+        static partial void CheckNewArgs(System.ReadOnlySpan<byte> data);
 
         [GISharp.Runtime.SinceAttribute("2.32")]
         static GISharp.Lib.GLib.Bytes.UnmanagedStruct* New(System.ReadOnlySpan<byte> data)
@@ -87,8 +86,6 @@ namespace GISharp.Lib.GLib
         public Bytes(System.ReadOnlySpan<byte> data) : this((System.IntPtr)New(data), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckNewTakeArgs(GISharp.Runtime.CArray<byte>? data);
 
         /// <summary>
         /// Creates a new #GBytes from @data.
@@ -128,6 +125,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint size);
+        static partial void CheckNewTakeArgs(GISharp.Runtime.CArray<byte>? data);
 
         [GISharp.Runtime.SinceAttribute("2.32")]
         static GISharp.Lib.GLib.Bytes.UnmanagedStruct* NewTake(GISharp.Runtime.CArray<byte>? data)
@@ -145,8 +143,6 @@ namespace GISharp.Lib.GLib
         public Bytes(GISharp.Runtime.CArray<byte>? data) : this((System.IntPtr)NewTake(data), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckNewWithFreeFuncArgs(System.ReadOnlySpan<byte> data, GISharp.Lib.GLib.DestroyNotify freeFunc, System.IntPtr userData);
 
         /// <summary>
         /// Creates a #GBytes from @data.
@@ -195,7 +191,6 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        static partial void CheckCompareArgs(GISharp.Lib.GLib.Bytes bytes1, GISharp.Lib.GLib.Bytes bytes2);
 
         /// <summary>
         /// Compares the two #GBytes values.
@@ -231,6 +226,7 @@ namespace GISharp.Lib.GLib
         /* <type name="Bytes" type="gconstpointer" managed-name="Bytes" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Bytes.UnmanagedStruct* bytes2);
+        static partial void CheckCompareArgs(GISharp.Lib.GLib.Bytes bytes1, GISharp.Lib.GLib.Bytes bytes2);
 
         /// <include file="Bytes.xmldoc" path="declaration/member[@name='Bytes.Compare(GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.Bytes)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
@@ -275,7 +271,6 @@ namespace GISharp.Lib.GLib
             return Compare(bytes1, bytes2) >= 0;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

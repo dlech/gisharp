@@ -77,8 +77,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static partial void CheckNewArgs();
-
         /// <summary>
         /// Creates a new file info structure.
         /// </summary>
@@ -89,6 +87,7 @@ namespace GISharp.Lib.Gio
         /* <type name="FileInfo" type="GFileInfo*" managed-name="FileInfo" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.Gio.FileInfo.UnmanagedStruct* g_file_info_new();
+        static partial void CheckNewArgs();
 
         static GISharp.Lib.Gio.FileInfo.UnmanagedStruct* New()
         {
@@ -102,7 +101,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

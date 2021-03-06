@@ -43,8 +43,6 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        static partial void CheckNewvArgs(GISharp.Lib.GObject.GType objectType, System.ReadOnlySpan<GISharp.Lib.GObject.Parameter> parameters);
-
         /// <summary>
         /// Creates a new instance of a #GObject subtype and sets its properties.
         /// </summary>
@@ -82,6 +80,7 @@ namespace GISharp.Lib.GObject
 * </array> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Parameter* parameters);
+        static partial void CheckNewvArgs(GISharp.Lib.GObject.GType objectType, System.ReadOnlySpan<GISharp.Lib.GObject.Parameter> parameters);
 
         [System.ObsoleteAttribute("Use g_object_new_with_properties() instead.\ndeprecated. See #GParameter for more information.")]
         [GISharp.Runtime.DeprecatedSinceAttribute("2.54")]
@@ -131,7 +130,6 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        static partial void CheckCompatControlArgs(int what, System.IntPtr data);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
@@ -142,6 +140,7 @@ nuint what,
 /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
 /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
 System.IntPtr data);
+        static partial void CheckCompatControlArgs(int what, System.IntPtr data);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.CompatControl(int,System.IntPtr)']/*" />
         public static int CompatControl(int what, System.IntPtr data)
@@ -153,8 +152,6 @@ System.IntPtr data);
             var ret = (int)ret_;
             return ret;
         }
-
-        static partial void CheckInterfaceFindPropertyArgs(GISharp.Lib.GObject.TypeInterface gIface, GISharp.Lib.GLib.UnownedUtf8 propertyName);
 
         /// <summary>
         /// Find the #GParamSpec with the given name for an
@@ -186,6 +183,7 @@ System.IntPtr data);
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* propertyName);
+        static partial void CheckInterfaceFindPropertyArgs(GISharp.Lib.GObject.TypeInterface gIface, GISharp.Lib.GLib.UnownedUtf8 propertyName);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.InterfaceFindProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
@@ -198,8 +196,6 @@ System.IntPtr data);
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GObject.ParamSpec>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
-
-        static partial void CheckInterfaceInstallPropertyArgs(GISharp.Lib.GObject.TypeInterface gIface, GISharp.Lib.GObject.ParamSpec pspec);
 
         /// <summary>
         /// Add a property to an interface; this is only useful for interfaces
@@ -239,6 +235,7 @@ System.IntPtr data);
         /* <type name="ParamSpec" type="GParamSpec*" managed-name="ParamSpec" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.ParamSpec.UnmanagedStruct* pspec);
+        static partial void CheckInterfaceInstallPropertyArgs(GISharp.Lib.GObject.TypeInterface gIface, GISharp.Lib.GObject.ParamSpec pspec);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.InterfaceInstallProperty(GISharp.Lib.GObject.TypeInterface,GISharp.Lib.GObject.ParamSpec)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
@@ -249,8 +246,6 @@ System.IntPtr data);
             var pspec_ = (GISharp.Lib.GObject.ParamSpec.UnmanagedStruct*)pspec.UnsafeHandle;
             g_object_interface_install_property(gIface_, pspec_);
         }
-
-        static partial void CheckInterfaceListPropertiesArgs(GISharp.Lib.GObject.TypeInterface gIface);
 
         /// <summary>
         /// Lists the properties of an interface.Generally, the interface
@@ -285,6 +280,7 @@ System.IntPtr data);
         /* <type name="guint" type="guint*" managed-name="System.UInt32" /> */
         /* direction:out caller-allocates:0 transfer-ownership:full */
         uint* nPropertiesP);
+        static partial void CheckInterfaceListPropertiesArgs(GISharp.Lib.GObject.TypeInterface gIface);
 
         /// <include file="Object.xmldoc" path="declaration/member[@name='Object.InterfaceListProperties(GISharp.Lib.GObject.TypeInterface)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
@@ -298,7 +294,6 @@ System.IntPtr data);
             return ret;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

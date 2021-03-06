@@ -21,8 +21,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.Gio.Cancellable? cancellable = null);
-
         /// <summary>
         /// Creates a source that triggers if @cancellable is cancelled and
         /// calls its callback of type #GCancellableSourceFunc. This is
@@ -49,6 +47,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.Gio.Cancellable.UnmanagedStruct* cancellable);
+        static partial void CheckNewArgs(GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         [GISharp.Runtime.SinceAttribute("2.28")]
         static GISharp.Lib.GLib.Source.UnmanagedStruct* New(GISharp.Lib.Gio.Cancellable? cancellable = null)

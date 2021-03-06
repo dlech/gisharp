@@ -9,8 +9,6 @@ namespace GISharp.Lib.Gtk
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.IsInitialized']/*" />
         public static System.Boolean IsInitialized { get => GetIsInitialized(); }
 
-        static partial void CheckDisableSetlocaleArgs();
-
         /// <summary>
         /// Prevents gtk_init(), gtk_init_check() and
         /// gtk_parse_args() from automatically
@@ -26,6 +24,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void gtk_disable_setlocale();
+        static partial void CheckDisableSetlocaleArgs();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.DisableSetlocale()']/*" />
         public static void DisableSetlocale()
@@ -33,8 +32,6 @@ namespace GISharp.Lib.Gtk
             CheckDisableSetlocaleArgs();
             gtk_disable_setlocale();
         }
-
-        static partial void CheckInitArgs();
 
         /// <summary>
         /// Call this function before using any other GTK functions in your GUI
@@ -62,6 +59,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void gtk_init();
+        static partial void CheckInitArgs();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.Init()']/*" />
         public static void Init()
@@ -69,8 +67,6 @@ namespace GISharp.Lib.Gtk
             CheckInitArgs();
             gtk_init();
         }
-
-        static partial void CheckTryInitArgs();
 
         /// <summary>
         /// This function does the same work as gtk_init() with only a single
@@ -90,6 +86,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean gtk_init_check();
+        static partial void CheckTryInitArgs();
 
         /// <include file="Initialize.xmldoc" path="declaration/member[@name='Initialize.TryInit()']/*" />
         public static System.Boolean TryInit()
@@ -99,8 +96,6 @@ namespace GISharp.Lib.Gtk
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
-
-        static partial void CheckGetIsInitializedArgs();
 
         /// <summary>
         /// Use this function to check if GTK has been initialized with gtk_init()
@@ -113,6 +108,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean gtk_is_initialized();
+        static partial void CheckGetIsInitializedArgs();
 
         private static System.Boolean GetIsInitialized()
         {

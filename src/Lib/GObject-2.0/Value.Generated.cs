@@ -93,8 +93,6 @@ namespace GISharp.Lib.GObject
         [GISharp.Runtime.SinceAttribute("2.26")]
         public GISharp.Lib.GLib.Variant? Variant { get => GetVariant(); set => SetVariant(value); }
 
-        static partial void CheckTypeCompatibleArgs(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType);
-
         /// <summary>
         /// Returns whether a #GValue of type @src_type can be copied into
         /// a #GValue of type @dest_type.
@@ -118,6 +116,7 @@ namespace GISharp.Lib.GObject
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.GType destType);
+        static partial void CheckTypeCompatibleArgs(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType);
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TypeCompatible(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)']/*" />
         public static System.Boolean TypeCompatible(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType)
@@ -129,8 +128,6 @@ namespace GISharp.Lib.GObject
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
-
-        static partial void CheckTypeTransformableArgs(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType);
 
         /// <summary>
         /// Check whether g_value_transform() is able to transform values
@@ -157,6 +154,7 @@ namespace GISharp.Lib.GObject
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.GType destType);
+        static partial void CheckTypeTransformableArgs(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType);
 
         /// <include file="Value.xmldoc" path="declaration/member[@name='Value.TypeTransformable(GISharp.Lib.GObject.GType,GISharp.Lib.GObject.GType)']/*" />
         public static System.Boolean TypeTransformable(GISharp.Lib.GObject.GType srcType, GISharp.Lib.GObject.GType destType)
@@ -169,7 +167,6 @@ namespace GISharp.Lib.GObject
             return ret;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

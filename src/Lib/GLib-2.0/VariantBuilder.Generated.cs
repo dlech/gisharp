@@ -28,8 +28,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.VariantType type);
-
         /// <summary>
         /// Allocates and initialises a new #GVariantBuilder.
         /// </summary>
@@ -56,6 +54,7 @@ namespace GISharp.Lib.GLib
         /* <type name="VariantType" type="const GVariantType*" managed-name="VariantType" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.VariantType.UnmanagedStruct* type);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.VariantType type);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.VariantBuilder.UnmanagedStruct* New(GISharp.Lib.GLib.VariantType type)
@@ -72,7 +71,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

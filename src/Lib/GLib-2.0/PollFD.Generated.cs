@@ -16,7 +16,6 @@ namespace GISharp.Lib.GLib
         /// <include file="PollFD.xmldoc" path="declaration/member[@name='PollFD.Revents']/*" />
         public readonly ushort Revents;
 #pragma warning restore CS0169, CS0649
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

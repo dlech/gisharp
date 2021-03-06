@@ -41,8 +41,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static partial void CheckNewArgs();
-
         /// <summary>
         /// Creates a new #GCancellable object.
         /// </summary>
@@ -61,6 +59,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.Gio.Cancellable.UnmanagedStruct* g_cancellable_new();
+        static partial void CheckNewArgs();
 
         static GISharp.Lib.Gio.Cancellable.UnmanagedStruct* New()
         {
@@ -99,8 +98,6 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static partial void CheckGetCurrentArgs();
-
         /// <summary>
         /// Gets the top cancellable from the stack.
         /// </summary>
@@ -112,6 +109,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Cancellable" type="GCancellable*" managed-name="Cancellable" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern GISharp.Lib.Gio.Cancellable.UnmanagedStruct* g_cancellable_get_current();
+        static partial void CheckGetCurrentArgs();
 
         private static GISharp.Lib.Gio.Cancellable? GetCurrent()
         {
@@ -121,7 +119,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

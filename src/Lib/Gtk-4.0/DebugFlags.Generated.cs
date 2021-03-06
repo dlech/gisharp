@@ -56,8 +56,6 @@ namespace GISharp.Lib.Gtk
         /// <include file="DebugFlags.xmldoc" path="declaration/member[@name='DebugFlagsExtensions.Current']/*" />
         public static GISharp.Lib.Gtk.DebugFlags Current { get => GetCurrent(); set => SetCurrent(value); }
 
-        static partial void CheckGetCurrentArgs();
-
         /// <summary>
         /// Returns the GTK debug flags that are currently active.
         /// </summary>
@@ -72,6 +70,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="DebugFlags" type="GtkDebugFlags" managed-name="DebugFlags" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.Gtk.DebugFlags gtk_get_debug_flags();
+        static partial void CheckGetCurrentArgs();
 
         private static GISharp.Lib.Gtk.DebugFlags GetCurrent()
         {
@@ -80,8 +79,6 @@ namespace GISharp.Lib.Gtk
             var ret = (GISharp.Lib.Gtk.DebugFlags)ret_;
             return ret;
         }
-
-        static partial void CheckSetCurrentArgs(GISharp.Lib.Gtk.DebugFlags flags);
 
         /// <summary>
         /// Sets the GTK debug flags.
@@ -96,6 +93,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="DebugFlags" type="GtkDebugFlags" managed-name="DebugFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gtk.DebugFlags flags);
+        static partial void CheckSetCurrentArgs(GISharp.Lib.Gtk.DebugFlags flags);
 
         private static void SetCurrent(GISharp.Lib.Gtk.DebugFlags flags)
         {
@@ -104,7 +102,6 @@ namespace GISharp.Lib.Gtk
             gtk_set_debug_flags(flags_);
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

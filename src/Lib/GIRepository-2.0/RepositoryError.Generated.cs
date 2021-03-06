@@ -25,11 +25,11 @@ namespace GISharp.Lib.GIRepository
         /// <include file="RepositoryError.xmldoc" path="declaration/member[@name='RepositoryErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
-        static partial void CheckGetQuarkArgs();
         [System.Runtime.InteropServices.DllImportAttribute("girepository-1.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Quark g_irepository_error_quark();
+        static partial void CheckGetQuarkArgs();
 
         private static GISharp.Lib.GLib.Quark GetQuark()
         {

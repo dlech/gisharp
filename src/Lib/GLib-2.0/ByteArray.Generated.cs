@@ -35,8 +35,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs();
-
         /// <summary>
         /// Creates a new #GByteArray with a reference count of 1.
         /// </summary>
@@ -49,6 +47,7 @@ namespace GISharp.Lib.GLib
 * </array> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.ByteArray.UnmanagedStruct* g_byte_array_new();
+        static partial void CheckNewArgs();
 
         static GISharp.Lib.GLib.ByteArray.UnmanagedStruct* New()
         {
@@ -61,8 +60,6 @@ namespace GISharp.Lib.GLib
         public ByteArray() : this((System.IntPtr)New(), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckNewTakeArgs(GISharp.Runtime.CArray<byte> data);
 
         /// <summary>
         /// Create byte array containing the data. The data will be owned by the array
@@ -92,6 +89,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint len);
+        static partial void CheckNewTakeArgs(GISharp.Runtime.CArray<byte> data);
 
         [GISharp.Runtime.SinceAttribute("2.32")]
         static GISharp.Lib.GLib.ByteArray.UnmanagedStruct* NewTake(GISharp.Runtime.CArray<byte> data)
@@ -109,8 +107,6 @@ namespace GISharp.Lib.GLib
         public ByteArray(GISharp.Runtime.CArray<byte> data) : this((System.IntPtr)NewTake(data), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckSizedNewArgs(uint reservedSize);
 
         /// <summary>
         /// Creates a new #GByteArray with @reserved_size bytes preallocated.
@@ -133,6 +129,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint reservedSize);
+        static partial void CheckSizedNewArgs(uint reservedSize);
 
         static GISharp.Lib.GLib.ByteArray.UnmanagedStruct* SizedNew(uint reservedSize)
         {
@@ -147,7 +144,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

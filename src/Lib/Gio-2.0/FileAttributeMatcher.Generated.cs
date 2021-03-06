@@ -28,8 +28,6 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 attributes);
-
         /// <summary>
         /// Creates a new file attribute matcher, which matches attributes
         /// against a given string. #GFileAttributeMatchers are reference
@@ -65,6 +63,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* attributes);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 attributes);
 
         static GISharp.Lib.Gio.FileAttributeMatcher.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 attributes)
         {
@@ -79,7 +78,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

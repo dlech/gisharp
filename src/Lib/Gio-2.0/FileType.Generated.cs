@@ -30,7 +30,6 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_type_get_type();
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

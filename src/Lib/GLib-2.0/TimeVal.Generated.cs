@@ -13,8 +13,6 @@ namespace GISharp.Lib.GLib
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TvUsec']/*" />
         public readonly GISharp.Runtime.CLong TvUsec;
 #pragma warning restore CS0169, CS0649
-        static partial void CheckTryFromIso8601Args(GISharp.Lib.GLib.UnownedUtf8 isoDate);
-
         /// <summary>
         /// Converts a string containing an ISO 8601 encoded date and time
         /// to a #GTimeVal and puts it into @time_.
@@ -57,6 +55,7 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeVal" type="GTimeVal*" managed-name="TimeVal" /> */
         /* direction:out caller-allocates:1 transfer-ownership:none */
         GISharp.Lib.GLib.TimeVal* time);
+        static partial void CheckTryFromIso8601Args(GISharp.Lib.GLib.UnownedUtf8 isoDate);
 
         /// <include file="TimeVal.xmldoc" path="declaration/member[@name='TimeVal.TryFromIso8601(GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.TimeVal)']/*" />
         [System.ObsoleteAttribute("#GTimeVal is not year-2038-safe. Use\n   g_date_time_new_from_iso8601() instead.")]

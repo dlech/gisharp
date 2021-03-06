@@ -41,8 +41,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
-
         /// <summary>
         /// Creates a new themed icon for @iconname.
         /// </summary>
@@ -59,6 +57,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
 
         static GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* New(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
@@ -67,8 +66,6 @@ namespace GISharp.Lib.Gio
             var ret_ = g_themed_icon_new(iconname_);
             return ret_;
         }
-
-        static partial void CheckNewFromNamesArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames);
 
         /// <summary>
         /// Creates a new themed icon for @iconnames.
@@ -95,6 +92,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gint" type="int" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         int len);
+        static partial void CheckNewFromNamesArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames);
 
         static GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* NewFromNames(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames)
         {
@@ -112,8 +110,6 @@ namespace GISharp.Lib.Gio
         public ThemedIcon(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> iconnames) : this((System.IntPtr)NewFromNames(iconnames), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckNewWithDefaultFallbacksArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
 
         /// <summary>
         /// Creates a new themed icon for @iconname, and all the names
@@ -146,6 +142,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* iconname);
+        static partial void CheckNewWithDefaultFallbacksArgs(GISharp.Lib.GLib.UnownedUtf8 iconname);
 
         static GISharp.Lib.Gio.ThemedIcon.UnmanagedStruct* NewWithDefaultFallbacks(GISharp.Lib.GLib.UnownedUtf8 iconname)
         {
@@ -155,7 +152,6 @@ namespace GISharp.Lib.Gio
             return ret_;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

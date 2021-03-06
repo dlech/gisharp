@@ -28,8 +28,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.UnownedUtf8 name, GISharp.Lib.GLib.UnownedUtf8 description, GISharp.Lib.GLib.UnownedUtf8 helpDescription, System.IntPtr userData, GISharp.Lib.GLib.DestroyNotify? destroy);
-
         /// <summary>
         /// Creates a new #GOptionGroup.
         /// </summary>
@@ -78,7 +76,6 @@ namespace GISharp.Lib.GLib
         /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 scope:async direction:in */
         delegate* unmanaged[Cdecl]<System.IntPtr, void> destroy);
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

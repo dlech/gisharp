@@ -11,8 +11,6 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_initable_get_type();
 
-        static partial void CheckNewArgs(GISharp.Lib.GObject.GType objectType, System.ReadOnlySpan<GISharp.Lib.GObject.Parameter> parameters, GISharp.Lib.Gio.Cancellable? cancellable = null);
-
         /// <summary>
         /// Helper function for constructing #GInitable object. This is
         /// similar to g_object_newv() but also initializes the object
@@ -61,7 +59,6 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

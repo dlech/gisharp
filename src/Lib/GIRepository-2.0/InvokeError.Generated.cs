@@ -23,8 +23,6 @@ namespace GISharp.Lib.GIRepository
         /// <include file="InvokeError.xmldoc" path="declaration/member[@name='InvokeErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
-        static partial void CheckGetQuarkArgs();
-
         /// <summary>
         /// TODO
         /// </summary>
@@ -35,6 +33,7 @@ namespace GISharp.Lib.GIRepository
         /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Quark g_invoke_error_quark();
+        static partial void CheckGetQuarkArgs();
 
         private static GISharp.Lib.GLib.Quark GetQuark()
         {

@@ -32,11 +32,11 @@ namespace GISharp.Lib.Gtk
         /// <include file="ConstraintVflParserError.xmldoc" path="declaration/member[@name='ConstraintVflParserErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
-        static partial void CheckGetQuarkArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GLib.Quark" type="GQuark" managed-name="GISharp.Lib.GLib.Quark" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Quark gtk_constraint_vfl_parser_error_quark();
+        static partial void CheckGetQuarkArgs();
 
         private static GISharp.Lib.GLib.Quark GetQuark()
         {
@@ -46,7 +46,6 @@ namespace GISharp.Lib.Gtk
             return ret;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

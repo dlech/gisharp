@@ -21,13 +21,15 @@ namespace GISharp.CodeGen.Syntax
         {
             IEnumerable<MemberDeclarationSyntax> getMembers()
             {
-                yield return function.GetCheckArgsMethodDeclaration();
-                if (function.IsCheckReturn) {
-                    yield return function.GetCheckReturnMethodDeclaration();
-                }
-
                 yield return function.GetExternMethodDeclaration();
+
                 if (!function.IsPInvokeOnly) {
+                    yield return function.GetCheckArgsMethodDeclaration();
+
+                    if (function.IsCheckReturn) {
+                        yield return function.GetCheckReturnMethodDeclaration();
+                    }
+
                     yield return function.GetStaticMethodDeclaration()
                         .WithBody(function.GetInvokeBlock(function.CIdentifier));
                 }

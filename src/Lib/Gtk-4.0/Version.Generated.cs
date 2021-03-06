@@ -36,8 +36,6 @@ namespace GISharp.Lib.Gtk
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.MinorVersion']/*" />
         private static uint MinorVersion { get => GetMinorVersion(); }
 
-        static partial void CheckCheckArgs(uint requiredMajor, uint requiredMinor, uint requiredMicro);
-
         /// <summary>
         /// Checks that the GTK library in use is compatible with the
         /// given version. Generally you would pass in the constants
@@ -91,6 +89,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint requiredMicro);
+        static partial void CheckCheckArgs(uint requiredMajor, uint requiredMinor, uint requiredMicro);
 
         /// <include file="Version.xmldoc" path="declaration/member[@name='Version.Check(uint,uint,uint)']/*" />
         public static GISharp.Lib.GLib.NullableUnownedUtf8 Check(uint requiredMajor, uint requiredMinor, uint requiredMicro)
@@ -103,8 +102,6 @@ namespace GISharp.Lib.Gtk
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
-
-        static partial void CheckGetRunTimeBinaryAgeArgs();
 
         /// <summary>
         /// Returns the binary age as passed to `libtool`
@@ -119,6 +116,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint gtk_get_binary_age();
+        static partial void CheckGetRunTimeBinaryAgeArgs();
 
         private static uint GetRunTimeBinaryAge()
         {
@@ -127,8 +125,6 @@ namespace GISharp.Lib.Gtk
             var ret = (uint)ret_;
             return ret;
         }
-
-        static partial void CheckGetRunTimeInterfaceAgeArgs();
 
         /// <summary>
         /// Returns the interface age as passed to `libtool`
@@ -143,6 +139,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint gtk_get_interface_age();
+        static partial void CheckGetRunTimeInterfaceAgeArgs();
 
         private static uint GetRunTimeInterfaceAge()
         {
@@ -151,8 +148,6 @@ namespace GISharp.Lib.Gtk
             var ret = (uint)ret_;
             return ret;
         }
-
-        static partial void CheckGetMajorVersionArgs();
 
         /// <summary>
         /// Returns the major version number of the GTK library.
@@ -171,6 +166,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint gtk_get_major_version();
+        static partial void CheckGetMajorVersionArgs();
 
         private static uint GetMajorVersion()
         {
@@ -179,8 +175,6 @@ namespace GISharp.Lib.Gtk
             var ret = (uint)ret_;
             return ret;
         }
-
-        static partial void CheckGetMicroVersionArgs();
 
         /// <summary>
         /// Returns the micro version number of the GTK library.
@@ -199,6 +193,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint gtk_get_micro_version();
+        static partial void CheckGetMicroVersionArgs();
 
         private static uint GetMicroVersion()
         {
@@ -207,8 +202,6 @@ namespace GISharp.Lib.Gtk
             var ret = (uint)ret_;
             return ret;
         }
-
-        static partial void CheckGetMinorVersionArgs();
 
         /// <summary>
         /// Returns the minor version number of the GTK library.
@@ -227,6 +220,7 @@ namespace GISharp.Lib.Gtk
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint gtk_get_minor_version();
+        static partial void CheckGetMinorVersionArgs();
 
         private static uint GetMinorVersion()
         {

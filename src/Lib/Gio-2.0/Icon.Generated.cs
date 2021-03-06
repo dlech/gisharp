@@ -10,8 +10,6 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_icon_get_type();
 
-        static partial void CheckDeserializeArgs(GISharp.Lib.GLib.Variant value);
-
         /// <summary>
         /// Deserializes a #GIcon previously serialized using g_icon_serialize().
         /// </summary>
@@ -29,6 +27,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Variant" type="GVariant*" managed-name="GISharp.Lib.GLib.Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
+        static partial void CheckDeserializeArgs(GISharp.Lib.GLib.Variant value);
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.Deserialize(GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.38")]
@@ -40,8 +39,6 @@ namespace GISharp.Lib.Gio
             var ret = (GISharp.Lib.Gio.IIcon)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
-
-        static partial void CheckNewForStringArgs(GISharp.Lib.GLib.UnownedUtf8 str);
 
         /// <summary>
         /// Generate a #GIcon instance from @str. This function can fail if
@@ -73,6 +70,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
+        static partial void CheckNewForStringArgs(GISharp.Lib.GLib.UnownedUtf8 str);
 
         /// <include file="Icon.xmldoc" path="declaration/member[@name='IIcon.NewForString(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.20")]
@@ -92,7 +90,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

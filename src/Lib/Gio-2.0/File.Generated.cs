@@ -10,8 +10,6 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_file_get_type();
 
-        static partial void CheckNewForCommandlineArgArgs(GISharp.Lib.GLib.Filename arg);
-
         /// <summary>
         /// Creates a #GFile with the given argument from the command line.
         /// The value of @arg can be either a URI, an absolute path or a
@@ -43,6 +41,7 @@ namespace GISharp.Lib.Gio
         /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* arg);
+        static partial void CheckNewForCommandlineArgArgs(GISharp.Lib.GLib.Filename arg);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForCommandlineArg(GISharp.Lib.GLib.Filename)']/*" />
         public static GISharp.Lib.Gio.IFile NewForCommandlineArg(GISharp.Lib.GLib.Filename arg)
@@ -53,8 +52,6 @@ namespace GISharp.Lib.Gio
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
-
-        static partial void CheckNewForCommandlineArgAndCwdArgs(GISharp.Lib.GLib.Filename arg, GISharp.Lib.GLib.Filename cwd);
 
         /// <summary>
         /// Creates a #GFile with the given argument from the command line.
@@ -90,6 +87,7 @@ namespace GISharp.Lib.Gio
         /* <type name="filename" type="const gchar*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* cwd);
+        static partial void CheckNewForCommandlineArgAndCwdArgs(GISharp.Lib.GLib.Filename arg, GISharp.Lib.GLib.Filename cwd);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForCommandlineArgAndCwd(GISharp.Lib.GLib.Filename,GISharp.Lib.GLib.Filename)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -102,8 +100,6 @@ namespace GISharp.Lib.Gio
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
-
-        static partial void CheckNewForPathArgs(GISharp.Lib.GLib.Filename path);
 
         /// <summary>
         /// Constructs a #GFile for a given path. This operation never
@@ -125,6 +121,7 @@ namespace GISharp.Lib.Gio
         /* <type name="filename" type="const char*" managed-name="GISharp.Lib.GLib.Filename" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* path);
+        static partial void CheckNewForPathArgs(GISharp.Lib.GLib.Filename path);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForPath(GISharp.Lib.GLib.Filename)']/*" />
         public static GISharp.Lib.Gio.IFile NewForPath(GISharp.Lib.GLib.Filename path)
@@ -135,8 +132,6 @@ namespace GISharp.Lib.Gio
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
-
-        static partial void CheckNewForUriArgs(GISharp.Lib.GLib.UnownedUtf8 uri);
 
         /// <summary>
         /// Constructs a #GFile for a given URI. This operation never
@@ -158,6 +153,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* uri);
+        static partial void CheckNewForUriArgs(GISharp.Lib.GLib.UnownedUtf8 uri);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewForUri(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static GISharp.Lib.Gio.IFile NewForUri(GISharp.Lib.GLib.UnownedUtf8 uri)
@@ -168,8 +164,6 @@ namespace GISharp.Lib.Gio
             var ret = (GISharp.Lib.Gio.IFile)GISharp.Lib.GObject.Object.GetInstance((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
-
-        static partial void CheckNewTmpArgs(GISharp.Lib.GLib.Filename? tmpl);
 
         /// <summary>
         /// Opens a file in the preferred directory for temporary files (as
@@ -212,6 +206,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
+        static partial void CheckNewTmpArgs(GISharp.Lib.GLib.Filename? tmpl);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.NewTmp(GISharp.Lib.GLib.Filename?,GISharp.Lib.Gio.FileIOStream)']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
@@ -233,8 +228,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        static partial void CheckParseNameArgs(GISharp.Lib.GLib.UnownedUtf8 parseName);
-
         /// <summary>
         /// Constructs a #GFile with the given @parse_name (i.e. something
         /// given by g_file_get_parse_name()). This operation never fails,
@@ -254,6 +247,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* parseName);
+        static partial void CheckParseNameArgs(GISharp.Lib.GLib.UnownedUtf8 parseName);
 
         /// <include file="File.xmldoc" path="declaration/member[@name='IFile.ParseName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static GISharp.Lib.Gio.IFile ParseName(GISharp.Lib.GLib.UnownedUtf8 parseName)
@@ -265,7 +259,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

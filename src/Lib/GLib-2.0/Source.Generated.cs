@@ -95,8 +95,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize);
-
         /// <summary>
         /// Creates a new #GSource structure. The size is specified to
         /// allow creating structures derived from #GSource that contain
@@ -128,6 +126,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint structSize);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize);
 
         static GISharp.Lib.GLib.Source.UnmanagedStruct* New(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize)
         {
@@ -142,8 +141,6 @@ namespace GISharp.Lib.GLib
         public Source(GISharp.Lib.GLib.SourceFuncs sourceFuncs, uint structSize) : this((System.IntPtr)New(sourceFuncs, structSize), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckRemoveArgs(uint tag);
 
         /// <summary>
         /// Removes the source with the given ID from the default main context. You must
@@ -180,6 +177,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint tag);
+        static partial void CheckRemoveArgs(uint tag);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.Remove(uint)']/*" />
         public static System.Boolean Remove(uint tag)
@@ -190,8 +188,6 @@ namespace GISharp.Lib.GLib
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
-
-        static partial void CheckRemoveByFuncsUserDataArgs(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData);
 
         /// <summary>
         /// Removes a source from the default main loop context given the
@@ -217,6 +213,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckRemoveByFuncsUserDataArgs(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.RemoveByFuncsUserData(GISharp.Lib.GLib.SourceFuncs,System.IntPtr)']/*" />
         public static System.Boolean RemoveByFuncsUserData(GISharp.Lib.GLib.SourceFuncs funcs, System.IntPtr userData)
@@ -228,8 +225,6 @@ namespace GISharp.Lib.GLib
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
-
-        static partial void CheckRemoveByUserDataArgs(System.IntPtr userData);
 
         /// <summary>
         /// Removes a source from the default main loop context given the user
@@ -249,6 +244,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckRemoveByUserDataArgs(System.IntPtr userData);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.RemoveByUserData(System.IntPtr)']/*" />
         public static System.Boolean RemoveByUserData(System.IntPtr userData)
@@ -259,8 +255,6 @@ namespace GISharp.Lib.GLib
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
-
-        static partial void CheckSetNameByIdArgs(uint tag, GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <summary>
         /// Sets the name of a source using its ID.
@@ -298,6 +292,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const char*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
+        static partial void CheckSetNameByIdArgs(uint tag, GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <include file="Source.xmldoc" path="declaration/member[@name='Source.SetNameById(uint,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -309,7 +304,6 @@ namespace GISharp.Lib.GLib
             g_source_set_name_by_id(tag_, name_);
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

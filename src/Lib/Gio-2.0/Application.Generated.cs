@@ -102,8 +102,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags);
-
         /// <summary>
         /// Creates a new #GApplication instance.
         /// </summary>
@@ -133,6 +131,7 @@ namespace GISharp.Lib.Gio
         /* <type name="ApplicationFlags" type="GApplicationFlags" managed-name="ApplicationFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.Gio.ApplicationFlags flags);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags);
 
         static GISharp.Lib.Gio.Application.UnmanagedStruct* New(GISharp.Lib.GLib.NullableUnownedUtf8 applicationId, GISharp.Lib.Gio.ApplicationFlags flags)
         {
@@ -355,8 +354,6 @@ namespace GISharp.Lib.Gio
         /// <inheritdoc />
         public event GISharp.Lib.Gio.IActionGroup.ActionStateChangedSignalHandler ActionStateChangedSignal { add => actionStateChangedSignalSignalManager.Add(this, value); remove => actionStateChangedSignalSignalManager.Remove(value); }
 
-        static partial void CheckGetDefaultArgs();
-
         /// <summary>
         /// Returns the default #GApplication instance for this process.
         /// </summary>
@@ -375,6 +372,7 @@ namespace GISharp.Lib.Gio
         /* <type name="Application" type="GApplication*" managed-name="Application" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.Gio.Application.UnmanagedStruct* g_application_get_default();
+        static partial void CheckGetDefaultArgs();
 
         [GISharp.Runtime.SinceAttribute("2.32")]
         private static GISharp.Lib.Gio.Application GetDefault()
@@ -384,8 +382,6 @@ namespace GISharp.Lib.Gio
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.Gio.Application>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
-
-        static partial void CheckIdIsValidArgs(GISharp.Lib.GLib.UnownedUtf8 applicationId);
 
         /// <summary>
         /// Checks if @application_id is a valid application identifier.
@@ -448,6 +444,7 @@ namespace GISharp.Lib.Gio
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* applicationId);
+        static partial void CheckIdIsValidArgs(GISharp.Lib.GLib.UnownedUtf8 applicationId);
 
         /// <include file="Application.xmldoc" path="declaration/member[@name='Application.IdIsValid(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static System.Boolean IdIsValid(GISharp.Lib.GLib.UnownedUtf8 applicationId)
@@ -459,7 +456,6 @@ namespace GISharp.Lib.Gio
             return ret;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

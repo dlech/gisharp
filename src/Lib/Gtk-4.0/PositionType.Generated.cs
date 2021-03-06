@@ -24,7 +24,6 @@ namespace GISharp.Lib.Gtk
     {
         private static readonly GISharp.Lib.GObject.GType _GType = gtk_position_type_get_type();
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gtk-4.1", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

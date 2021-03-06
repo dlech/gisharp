@@ -11,8 +11,6 @@ namespace GISharp.Lib.Gio
     {
         private static readonly GISharp.Lib.GObject.GType _GType = g_async_initable_get_type();
 
-        static partial void CheckNewAsyncArgs(GISharp.Lib.GObject.GType objectType, uint nParameters, GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
-
         /// <summary>
         /// Helper function for constructing #GAsyncInitable object. This is
         /// similar to g_object_newv() but also initializes the object asynchronously.
@@ -74,6 +72,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
+        static partial void CheckNewAsyncArgs(GISharp.Lib.GObject.GType objectType, uint nParameters, GISharp.Lib.GObject.Parameter parameters, int ioPriority, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         /// <include file="AsyncInitable.xmldoc" path="declaration/member[@name='IAsyncInitable.NewAsync(GISharp.Lib.GObject.GType,uint,GISharp.Lib.GObject.Parameter,int,GISharp.Lib.Gio.Cancellable?)']/*" />
         [System.ObsoleteAttribute("Use g_object_new_with_properties() and\ng_async_initable_init_async() instead. See #GParameter for more information.")]
@@ -93,8 +92,6 @@ namespace GISharp.Lib.Gio
             g_async_initable_newv_async(objectType_, nParameters_, parameters_, ioPriority_, cancellable_, callback_, userData_);
             return completionSource.Task;
         }
-
-        static partial void CheckNewFinishArgs(GISharp.Lib.Gio.IAsyncResult res);
 
         /// <summary>
         /// Finishes the async construction for the various g_async_initable_new
@@ -154,7 +151,6 @@ namespace GISharp.Lib.Gio
             }
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

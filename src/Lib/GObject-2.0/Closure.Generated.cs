@@ -68,8 +68,6 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        static partial void CheckNewObjectArgs(uint sizeofClosure, GISharp.Lib.GObject.Object @object);
-
         /// <summary>
         /// A variant of g_closure_new_simple() which stores @object in the
         /// @data field of the closure and calls g_object_watch_closure() on
@@ -97,6 +95,7 @@ namespace GISharp.Lib.GObject
         /* <type name="Object" type="GObject*" managed-name="Object" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* @object);
+        static partial void CheckNewObjectArgs(uint sizeofClosure, GISharp.Lib.GObject.Object @object);
 
         static GISharp.Lib.GObject.Closure.UnmanagedStruct* NewObject(uint sizeofClosure, GISharp.Lib.GObject.Object @object)
         {
@@ -111,8 +110,6 @@ namespace GISharp.Lib.GObject
         public Closure(uint sizeofClosure, GISharp.Lib.GObject.Object @object) : this((System.IntPtr)NewObject(sizeofClosure, @object), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckNewSimpleArgs(uint sizeofClosure, System.IntPtr data);
 
         /// <summary>
         /// Allocates a struct of the given size and initializes the initial
@@ -173,6 +170,7 @@ namespace GISharp.Lib.GObject
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr data);
+        static partial void CheckNewSimpleArgs(uint sizeofClosure, System.IntPtr data);
 
         static GISharp.Lib.GObject.Closure.UnmanagedStruct* NewSimple(uint sizeofClosure, System.IntPtr data)
         {
@@ -188,7 +186,6 @@ namespace GISharp.Lib.GObject
         {
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

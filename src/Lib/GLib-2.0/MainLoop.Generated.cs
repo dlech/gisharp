@@ -34,8 +34,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.MainContext? context = null, System.Boolean isRunning = false);
-
         /// <summary>
         /// Creates a new #GMainLoop structure.
         /// </summary>
@@ -60,6 +58,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean isRunning);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.MainContext? context = null, System.Boolean isRunning = false);
 
         static GISharp.Lib.GLib.MainLoop.UnmanagedStruct* New(GISharp.Lib.GLib.MainContext? context = null, System.Boolean isRunning = false)
         {
@@ -75,7 +74,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

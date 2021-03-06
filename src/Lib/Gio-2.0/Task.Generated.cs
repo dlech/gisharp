@@ -70,8 +70,6 @@ namespace GISharp.Lib.Gio
         {
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
-
         /// <summary>
         /// Creates a #GTask acting on @source_object, which will eventually be
         /// used to invoke @callback in the current
@@ -124,6 +122,7 @@ namespace GISharp.Lib.Gio
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr callbackData);
+        static partial void CheckNewArgs(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         static GISharp.Lib.Gio.Task.UnmanagedStruct* New(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null)
@@ -143,8 +142,6 @@ namespace GISharp.Lib.Gio
         public Task(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, GISharp.Lib.Gio.Cancellable? cancellable = null) : this((System.IntPtr)New(sourceObject, callback, cancellable), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckIsValidArgs(GISharp.Lib.Gio.IAsyncResult result, GISharp.Lib.GObject.Object? sourceObject);
 
         /// <summary>
         /// Checks that @result is a #GTask, and that @source_object is its
@@ -173,6 +170,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GObject.Object" type="gpointer" managed-name="GISharp.Lib.GObject.Object" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GObject.Object.UnmanagedStruct* sourceObject);
+        static partial void CheckIsValidArgs(GISharp.Lib.Gio.IAsyncResult result, GISharp.Lib.GObject.Object? sourceObject);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.IsValid(GISharp.Lib.Gio.IAsyncResult,GISharp.Lib.GObject.Object?)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -185,8 +183,6 @@ namespace GISharp.Lib.Gio
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
-
-        static partial void CheckReportErrorArgs(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, System.IntPtr sourceTag, GISharp.Lib.GLib.Error error);
 
         /// <summary>
         /// Creates a #GTask and then immediately calls g_task_return_error()
@@ -235,6 +231,7 @@ namespace GISharp.Lib.Gio
         /* <type name="GLib.Error" type="GError*" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         GISharp.Lib.GLib.Error.UnmanagedStruct* error);
+        static partial void CheckReportErrorArgs(GISharp.Lib.GObject.Object? sourceObject, GISharp.Lib.Gio.AsyncReadyCallback? callback, System.IntPtr sourceTag, GISharp.Lib.GLib.Error error);
 
         /// <include file="Task.xmldoc" path="declaration/member[@name='Task.ReportError(GISharp.Lib.GObject.Object?,GISharp.Lib.Gio.AsyncReadyCallback?,System.IntPtr,GISharp.Lib.GLib.Error)']/*" />
         [GISharp.Runtime.SinceAttribute("2.36")]
@@ -250,7 +247,6 @@ namespace GISharp.Lib.Gio
             g_task_report_error(sourceObject_, callback_, callbackData_, sourceTag_, error_);
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gio-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

@@ -29,8 +29,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.Variant? fromAsv);
-
         /// <summary>
         /// Allocates and initialises a new #GVariantDict.
         /// </summary>
@@ -59,6 +57,7 @@ namespace GISharp.Lib.GLib
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* fromAsv);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.Variant? fromAsv);
 
         [GISharp.Runtime.SinceAttribute("2.40")]
         static GISharp.Lib.GLib.VariantDict.UnmanagedStruct* New(GISharp.Lib.GLib.Variant? fromAsv)
@@ -75,7 +74,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

@@ -45,8 +45,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString);
-
         /// <summary>
         /// Creates a new option context.
         /// </summary>
@@ -86,6 +84,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* parameterString);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString);
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         static GISharp.Lib.GLib.OptionContext.UnmanagedStruct* New(GISharp.Lib.GLib.NullableUnownedUtf8 parameterString)

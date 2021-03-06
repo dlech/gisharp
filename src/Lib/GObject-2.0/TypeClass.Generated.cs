@@ -10,17 +10,17 @@ namespace GISharp.Lib.GObject
         /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.GType']/*" />
         public readonly GISharp.Lib.GObject.GType GType;
 #pragma warning restore CS0169, CS0649
-        static partial void CheckAdjustPrivateOffsetArgs(System.IntPtr gClass, int privateSizeOrOffset);
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="none" type="void" managed-name="System.Void" /> */
         /* transfer-ownership:none direction:in */
         private static extern void g_type_class_adjust_private_offset(
-/* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
-/* transfer-ownership:none nullable:1 allow-none:1 direction:in */
-System.IntPtr gClass,
-/* <type name="gint" type="gint*" managed-name="System.Int32" is-pointer="1" /> */
-/* transfer-ownership:none direction:in */
-int* privateSizeOrOffset);
+        /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
+        /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
+        System.IntPtr gClass,
+        /* <type name="gint" type="gint*" managed-name="System.Int32" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        int* privateSizeOrOffset);
+        static partial void CheckAdjustPrivateOffsetArgs(System.IntPtr gClass, int privateSizeOrOffset);
 
         /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.AdjustPrivateOffset(System.IntPtr,int)']/*" />
         public static void AdjustPrivateOffset(System.IntPtr gClass, int privateSizeOrOffset)
@@ -30,8 +30,6 @@ int* privateSizeOrOffset);
             var privateSizeOrOffset_ = &privateSizeOrOffset;
             g_type_class_adjust_private_offset(gClass_, privateSizeOrOffset_);
         }
-
-        static partial void CheckPeekArgs(GISharp.Lib.GObject.GType type);
 
         /// <summary>
         /// This function is essentially the same as g_type_class_ref(),
@@ -55,6 +53,7 @@ int* privateSizeOrOffset);
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.GType type);
+        static partial void CheckPeekArgs(GISharp.Lib.GObject.GType type);
 
         /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.Peek(GISharp.Lib.GObject.GType)']/*" />
         public static ref readonly GISharp.Lib.GObject.TypeClass Peek(GISharp.Lib.GObject.GType type)
@@ -65,8 +64,6 @@ int* privateSizeOrOffset);
             ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.TypeClass>(ret_);
             return ref ret;
         }
-
-        static partial void CheckPeekStaticArgs(GISharp.Lib.GObject.GType type);
 
         /// <summary>
         /// A more efficient version of g_type_class_peek() which works only for
@@ -88,6 +85,7 @@ int* privateSizeOrOffset);
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.GType type);
+        static partial void CheckPeekStaticArgs(GISharp.Lib.GObject.GType type);
 
         /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.PeekStatic(GISharp.Lib.GObject.GType)']/*" />
         [GISharp.Runtime.SinceAttribute("2.4")]
@@ -99,8 +97,6 @@ int* privateSizeOrOffset);
             ref readonly var ret = ref System.Runtime.CompilerServices.Unsafe.AsRef<GISharp.Lib.GObject.TypeClass>(ret_);
             return ref ret;
         }
-
-        static partial void CheckRefArgs(GISharp.Lib.GObject.GType type);
 
         /// <summary>
         /// Increments the reference count of the class structure belonging to
@@ -121,6 +117,7 @@ int* privateSizeOrOffset);
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GObject.GType type);
+        static partial void CheckRefArgs(GISharp.Lib.GObject.GType type);
 
         /// <include file="TypeClass.xmldoc" path="declaration/member[@name='TypeClass.Ref(GISharp.Lib.GObject.GType)']/*" />
         public static ref readonly GISharp.Lib.GObject.TypeClass Ref(GISharp.Lib.GObject.GType type)

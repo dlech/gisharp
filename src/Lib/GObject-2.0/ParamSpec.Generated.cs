@@ -77,8 +77,6 @@ namespace GISharp.Lib.GObject
         {
         }
 
-        static partial void CheckIsValidNameArgs(GISharp.Lib.GLib.UnownedUtf8 name);
-
         /// <summary>
         /// Validate a property name for a #GParamSpec. This can be useful for
         /// dynamically-generated properties which need to be validated at run-time
@@ -102,6 +100,7 @@ namespace GISharp.Lib.GObject
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* name);
+        static partial void CheckIsValidNameArgs(GISharp.Lib.GLib.UnownedUtf8 name);
 
         /// <include file="ParamSpec.xmldoc" path="declaration/member[@name='ParamSpec.IsValidName(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.66")]

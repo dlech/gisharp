@@ -29,11 +29,11 @@ namespace GISharp.Lib.GLib
         /// <include file="KeyFileError.xmldoc" path="declaration/member[@name='KeyFileErrorDomain.Quark']/*" />
         public static GISharp.Lib.GLib.Quark Quark { get => GetQuark(); }
 
-        static partial void CheckGetQuarkArgs();
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Quark g_key_file_error_quark();
+        static partial void CheckGetQuarkArgs();
 
         private static GISharp.Lib.GLib.Quark GetQuark()
         {

@@ -136,8 +136,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs();
-
         /// <summary>
         /// Creates a new empty #GKeyFile object. Use
         /// g_key_file_load_from_file(), g_key_file_load_from_data(),
@@ -152,6 +150,7 @@ namespace GISharp.Lib.GLib
         /* <type name="KeyFile" type="GKeyFile*" managed-name="KeyFile" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.KeyFile.UnmanagedStruct* g_key_file_new();
+        static partial void CheckNewArgs();
 
         [GISharp.Runtime.SinceAttribute("2.6")]
         static GISharp.Lib.GLib.KeyFile.UnmanagedStruct* New()
@@ -167,7 +166,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

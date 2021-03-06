@@ -30,8 +30,6 @@ namespace GISharp.Lib.GModule
         {
         }
 
-        static partial void CheckBuildPathArgs(GISharp.Lib.GLib.NullableUnownedUtf8 directory, GISharp.Lib.GLib.UnownedUtf8 moduleName);
-
         /// <summary>
         /// A portable way to build the filename of a module. The platform-specific
         /// prefix and suffix are added to the filename, if needed, and the result
@@ -70,6 +68,7 @@ namespace GISharp.Lib.GModule
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* moduleName);
+        static partial void CheckBuildPathArgs(GISharp.Lib.GLib.NullableUnownedUtf8 directory, GISharp.Lib.GLib.UnownedUtf8 moduleName);
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.BuildPath(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         public static GISharp.Lib.GLib.Utf8 BuildPath(GISharp.Lib.GLib.NullableUnownedUtf8 directory, GISharp.Lib.GLib.UnownedUtf8 moduleName)
@@ -82,8 +81,6 @@ namespace GISharp.Lib.GModule
             return ret;
         }
 
-        static partial void CheckGetErrorArgs();
-
         /// <summary>
         /// Gets a string describing the last module error.
         /// </summary>
@@ -94,6 +91,7 @@ namespace GISharp.Lib.GModule
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern byte* g_module_error();
+        static partial void CheckGetErrorArgs();
 
         private static GISharp.Lib.GLib.UnownedUtf8 GetError()
         {
@@ -102,8 +100,6 @@ namespace GISharp.Lib.GModule
             var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
             return ret;
         }
-
-        static partial void CheckOpenArgs(GISharp.Lib.GLib.NullableUnownedUtf8 fileName, GISharp.Lib.GModule.ModuleFlags flags = default);
 
         /// <summary>
         /// Opens a module. If the module has already been opened,
@@ -141,6 +137,7 @@ namespace GISharp.Lib.GModule
         /* <type name="ModuleFlags" type="GModuleFlags" managed-name="ModuleFlags" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GModule.ModuleFlags flags);
+        static partial void CheckOpenArgs(GISharp.Lib.GLib.NullableUnownedUtf8 fileName, GISharp.Lib.GModule.ModuleFlags flags = default);
 
         /// <include file="Module.xmldoc" path="declaration/member[@name='Module.Open(GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GModule.ModuleFlags)']/*" />
         public static GISharp.Lib.GModule.Module? Open(GISharp.Lib.GLib.NullableUnownedUtf8 fileName, GISharp.Lib.GModule.ModuleFlags flags = default)
@@ -153,8 +150,6 @@ namespace GISharp.Lib.GModule
             return ret;
         }
 
-        static partial void CheckGetSupportedArgs();
-
         /// <summary>
         /// Checks if modules are supported on the current platform.
         /// </summary>
@@ -165,6 +160,7 @@ namespace GISharp.Lib.GModule
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Runtime.Boolean g_module_supported();
+        static partial void CheckGetSupportedArgs();
 
         private static System.Boolean GetSupported()
         {

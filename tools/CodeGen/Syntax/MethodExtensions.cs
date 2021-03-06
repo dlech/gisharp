@@ -24,6 +24,7 @@ namespace GISharp.CodeGen.Syntax
                 yield return method.GetExternMethodDeclaration();
                 if (!method.IsPInvokeOnly) {
                     yield return method.GetCheckArgsMethodDeclaration();
+
                     if (method.IsCheckReturn) {
                         yield return method.GetCheckReturnMethodDeclaration();
                     }

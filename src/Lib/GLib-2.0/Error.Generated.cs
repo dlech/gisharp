@@ -38,8 +38,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewLiteralArgs(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message);
-
         /// <summary>
         /// Creates a new #GError; unlike g_error_new(), @message is
         /// not a printf()-style format string. Use this function if
@@ -71,6 +69,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* message);
+        static partial void CheckNewLiteralArgs(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message);
 
         static GISharp.Lib.GLib.Error.UnmanagedStruct* NewLiteral(GISharp.Lib.GLib.Quark domain, int code, GISharp.Lib.GLib.UnownedUtf8 message)
         {
@@ -87,7 +86,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

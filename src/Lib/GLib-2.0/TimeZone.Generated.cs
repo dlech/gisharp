@@ -41,8 +41,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs(GISharp.Lib.GLib.NullableUnownedUtf8 identifier);
-
         /// <summary>
         /// Creates a #GTimeZone corresponding to @identifier.
         /// </summary>
@@ -124,6 +122,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         byte* identifier);
+        static partial void CheckNewArgs(GISharp.Lib.GLib.NullableUnownedUtf8 identifier);
 
         [GISharp.Runtime.SinceAttribute("2.26")]
         static GISharp.Lib.GLib.TimeZone.UnmanagedStruct* New(GISharp.Lib.GLib.NullableUnownedUtf8 identifier)
@@ -139,8 +138,6 @@ namespace GISharp.Lib.GLib
         public TimeZone(GISharp.Lib.GLib.NullableUnownedUtf8 identifier) : this((System.IntPtr)New(identifier), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckNewOffsetArgs(int seconds);
 
         /// <summary>
         /// Creates a #GTimeZone corresponding to the given constant offset from UTC,
@@ -164,6 +161,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint32" type="gint32" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         int seconds);
+        static partial void CheckNewOffsetArgs(int seconds);
 
         [GISharp.Runtime.SinceAttribute("2.58")]
         static GISharp.Lib.GLib.TimeZone.UnmanagedStruct* NewOffset(int seconds)
@@ -179,8 +177,6 @@ namespace GISharp.Lib.GLib
         public TimeZone(int seconds) : this((System.IntPtr)NewOffset(seconds), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckGetLocalArgs();
 
         /// <summary>
         /// Creates a #GTimeZone corresponding to local time.  The local time
@@ -202,6 +198,7 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeZone" type="GTimeZone*" managed-name="TimeZone" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.TimeZone.UnmanagedStruct* g_time_zone_new_local();
+        static partial void CheckGetLocalArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
         private static GISharp.Lib.GLib.TimeZone GetLocal()
@@ -211,8 +208,6 @@ namespace GISharp.Lib.GLib
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.TimeZone>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
-
-        static partial void CheckGetUtcArgs();
 
         /// <summary>
         /// Creates a #GTimeZone corresponding to UTC.
@@ -232,6 +227,7 @@ namespace GISharp.Lib.GLib
         /* <type name="TimeZone" type="GTimeZone*" managed-name="TimeZone" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.TimeZone.UnmanagedStruct* g_time_zone_new_utc();
+        static partial void CheckGetUtcArgs();
 
         [GISharp.Runtime.SinceAttribute("2.26")]
         private static GISharp.Lib.GLib.TimeZone GetUtc()
@@ -242,7 +238,6 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */

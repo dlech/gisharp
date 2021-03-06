@@ -21,16 +21,19 @@ namespace GISharp.CodeGen.Syntax
         {
             IEnumerable<MemberDeclarationSyntax> getMembers()
             {
-                yield return constructor.GetCheckArgsMethodDeclaration();
-                if (constructor.IsCheckReturn) {
-                    yield return constructor.GetCheckReturnMethodDeclaration();
-                }
-
                 yield return constructor.GetExternMethodDeclaration();
+
                 if (!constructor.IsPInvokeOnly) {
+                    yield return constructor.GetCheckArgsMethodDeclaration();
+
+                    if (constructor.IsCheckReturn) {
+                        yield return constructor.GetCheckReturnMethodDeclaration();
+                    }
+
                     yield return constructor.GetStaticMethodDeclaration()
                         .WithModifiers(TokenList(Token(StaticKeyword))) // strip access modifiers
                         .WithBody(constructor.GetInvokeBlock(constructor.CIdentifier));
+
                     if (!constructor.HasCustomConstructor) {
                         yield return constructor.GetConstructorDeclaration();
                     }

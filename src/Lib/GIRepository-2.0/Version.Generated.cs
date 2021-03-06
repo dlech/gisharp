@@ -30,8 +30,6 @@ namespace GISharp.Lib.GIRepository
         [GISharp.Runtime.SinceAttribute("1.60")]
         private static uint RunTimeMinorVersion { get => GetRunTimeMinorVersion(); }
 
-        static partial void CheckGetRunTimeMajorVersionArgs();
-
         /// <summary>
         /// Returns the major version number of the girepository library.
         /// (e.g. in version 1.58.2 this is 1.)
@@ -44,6 +42,7 @@ namespace GISharp.Lib.GIRepository
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint gi_get_major_version();
+        static partial void CheckGetRunTimeMajorVersionArgs();
 
         [GISharp.Runtime.SinceAttribute("1.60")]
         private static uint GetRunTimeMajorVersion()
@@ -53,8 +52,6 @@ namespace GISharp.Lib.GIRepository
             var ret = (uint)ret_;
             return ret;
         }
-
-        static partial void CheckGetRunTimeMicroVersionArgs();
 
         /// <summary>
         /// Returns the micro version number of the girepository library.
@@ -68,6 +65,7 @@ namespace GISharp.Lib.GIRepository
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint gi_get_micro_version();
+        static partial void CheckGetRunTimeMicroVersionArgs();
 
         [GISharp.Runtime.SinceAttribute("1.60")]
         private static uint GetRunTimeMicroVersion()
@@ -77,8 +75,6 @@ namespace GISharp.Lib.GIRepository
             var ret = (uint)ret_;
             return ret;
         }
-
-        static partial void CheckGetRunTimeMinorVersionArgs();
 
         /// <summary>
         /// Returns the minor version number of the girepository library.
@@ -92,6 +88,7 @@ namespace GISharp.Lib.GIRepository
         /* <type name="guint" type="guint" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         private static extern uint gi_get_minor_version();
+        static partial void CheckGetRunTimeMinorVersionArgs();
 
         [GISharp.Runtime.SinceAttribute("1.60")]
         private static uint GetRunTimeMinorVersion()

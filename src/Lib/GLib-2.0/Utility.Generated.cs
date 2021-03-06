@@ -13,8 +13,6 @@ namespace GISharp.Lib.GLib
         /// <include file="Utility.xmldoc" path="declaration/member[@name='Utility.ProgramName']/*" />
         public static GISharp.Lib.GLib.NullableUnownedUtf8 ProgramName { get => GetProgramName(); set => SetProgramName(value.Value); }
 
-        static partial void CheckGetApplicationNameArgs();
-
         /// <summary>
         /// Gets a human-readable name for the application, as set by
         /// g_set_application_name(). This name should be localized if
@@ -33,6 +31,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_get_application_name();
+        static partial void CheckGetApplicationNameArgs();
 
         [GISharp.Runtime.SinceAttribute("2.2")]
         private static GISharp.Lib.GLib.NullableUnownedUtf8 GetApplicationName()
@@ -42,8 +41,6 @@ namespace GISharp.Lib.GLib
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
-
-        static partial void CheckSetApplicationNameArgs(GISharp.Lib.GLib.UnownedUtf8 applicationName);
 
         /// <summary>
         /// Sets a human-readable name for the application. This name should be
@@ -70,6 +67,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* applicationName);
+        static partial void CheckSetApplicationNameArgs(GISharp.Lib.GLib.UnownedUtf8 applicationName);
 
         [GISharp.Runtime.SinceAttribute("2.2")]
         private static void SetApplicationName(GISharp.Lib.GLib.UnownedUtf8 applicationName)
@@ -78,8 +76,6 @@ namespace GISharp.Lib.GLib
             var applicationName_ = (byte*)applicationName.UnsafeHandle;
             g_set_application_name(applicationName_);
         }
-
-        static partial void CheckGetProgramNameArgs();
 
         /// <summary>
         /// Gets the name of the program. This name should not be localized,
@@ -101,6 +97,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 direction:in */
         private static extern byte* g_get_prgname();
+        static partial void CheckGetProgramNameArgs();
 
         private static GISharp.Lib.GLib.NullableUnownedUtf8 GetProgramName()
         {
@@ -109,8 +106,6 @@ namespace GISharp.Lib.GLib
             var ret = new GISharp.Lib.GLib.NullableUnownedUtf8(ret_);
             return ret;
         }
-
-        static partial void CheckSetProgramNameArgs(GISharp.Lib.GLib.UnownedUtf8 prgname);
 
         /// <summary>
         /// Sets the name of the program. This name should not be localized,
@@ -135,6 +130,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* prgname);
+        static partial void CheckSetProgramNameArgs(GISharp.Lib.GLib.UnownedUtf8 prgname);
 
         private static void SetProgramName(GISharp.Lib.GLib.UnownedUtf8 prgname)
         {

@@ -129,8 +129,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArrayArgs(GISharp.Lib.GLib.VariantType? childType, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Variant> children);
-
         /// <summary>
         /// Creates a new #GVariant array from @children.
         /// </summary>
@@ -178,6 +176,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint nChildren);
+        static partial void CheckNewArrayArgs(GISharp.Lib.GLib.VariantType? childType, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Variant> children);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewArray(GISharp.Lib.GLib.VariantType? childType, GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Variant> children)
@@ -199,8 +198,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckNewBooleanArgs(System.Boolean value);
-
         /// <summary>
         /// Creates a new boolean #GVariant instance -- either %TRUE or %FALSE.
         /// </summary>
@@ -218,6 +215,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean value);
+        static partial void CheckNewBooleanArgs(System.Boolean value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewBoolean(System.Boolean value)
@@ -233,8 +231,6 @@ namespace GISharp.Lib.GLib
         public Variant(System.Boolean value) : this((System.IntPtr)NewBoolean(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewByteArgs(byte value);
 
         /// <summary>
         /// Creates a new byte #GVariant instance.
@@ -253,6 +249,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint8" type="guint8" managed-name="System.Byte" /> */
         /* transfer-ownership:none direction:in */
         byte value);
+        static partial void CheckNewByteArgs(byte value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewByte(byte value)
@@ -268,8 +265,6 @@ namespace GISharp.Lib.GLib
         public Variant(byte value) : this((System.IntPtr)NewByte(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewBytestringArgs(System.ReadOnlySpan<byte> @string);
 
         /// <summary>
         /// Creates an array-of-bytes #GVariant with the contents of @string.
@@ -297,6 +292,7 @@ namespace GISharp.Lib.GLib
 * </array> */
         /* transfer-ownership:none direction:in */
         byte* @string);
+        static partial void CheckNewBytestringArgs(System.ReadOnlySpan<byte> @string);
 
         [GISharp.Runtime.SinceAttribute("2.26")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewBytestring(System.ReadOnlySpan<byte> @string)
@@ -315,8 +311,6 @@ namespace GISharp.Lib.GLib
         public Variant(System.ReadOnlySpan<byte> @string) : this((System.IntPtr)NewBytestring(@string), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewBytestringArrayArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv);
 
         /// <summary>
         /// Constructs an array of bytestring #GVariant from the given array of
@@ -347,6 +341,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint length);
+        static partial void CheckNewBytestringArrayArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv);
 
         [GISharp.Runtime.SinceAttribute("2.26")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewBytestringArray(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv)
@@ -366,8 +361,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv) : this((System.IntPtr)NewBytestringArray(strv), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewDictEntryArgs(GISharp.Lib.GLib.Variant key, GISharp.Lib.GLib.Variant value);
 
         /// <summary>
         /// Creates a new dictionary entry #GVariant. @key and @value must be
@@ -397,6 +390,7 @@ namespace GISharp.Lib.GLib
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
+        static partial void CheckNewDictEntryArgs(GISharp.Lib.GLib.Variant key, GISharp.Lib.GLib.Variant value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewDictEntry(GISharp.Lib.GLib.Variant key, GISharp.Lib.GLib.Variant value)
@@ -413,8 +407,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Lib.GLib.Variant key, GISharp.Lib.GLib.Variant value) : this((System.IntPtr)NewDictEntry(key, value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewDoubleArgs(double value);
 
         /// <summary>
         /// Creates a new double #GVariant instance.
@@ -433,6 +425,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gdouble" type="gdouble" managed-name="System.Double" /> */
         /* transfer-ownership:none direction:in */
         double value);
+        static partial void CheckNewDoubleArgs(double value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewDouble(double value)
@@ -448,8 +441,6 @@ namespace GISharp.Lib.GLib
         public Variant(double value) : this((System.IntPtr)NewDouble(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewFixedArrayArgs(GISharp.Lib.GLib.VariantType elementType, System.IntPtr elements, int nElements, int elementSize);
 
         /// <summary>
         /// Constructs a new array #GVariant instance, where the elements are
@@ -499,6 +490,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint elementSize);
+        static partial void CheckNewFixedArrayArgs(GISharp.Lib.GLib.VariantType elementType, System.IntPtr elements, int nElements, int elementSize);
 
         [GISharp.Runtime.SinceAttribute("2.32")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewFixedArray(GISharp.Lib.GLib.VariantType elementType, System.IntPtr elements, int nElements, int elementSize)
@@ -517,8 +509,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Lib.GLib.VariantType elementType, System.IntPtr elements, int nElements, int elementSize) : this((System.IntPtr)NewFixedArray(elementType, elements, nElements, elementSize), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewFromBytesArgs(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, System.Boolean trusted);
 
         /// <summary>
         /// Constructs a new serialised-mode #GVariant instance.  This is the
@@ -558,6 +548,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gboolean" type="gboolean" managed-name="System.Boolean" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Runtime.Boolean trusted);
+        static partial void CheckNewFromBytesArgs(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, System.Boolean trusted);
 
         [GISharp.Runtime.SinceAttribute("2.36")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewFromBytes(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, System.Boolean trusted)
@@ -575,8 +566,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Lib.GLib.VariantType type, GISharp.Lib.GLib.Bytes bytes, System.Boolean trusted) : this((System.IntPtr)NewFromBytes(type, bytes, trusted), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewFromDataArgs(GISharp.Lib.GLib.VariantType type, System.ReadOnlySpan<byte> data, System.Boolean trusted, GISharp.Lib.GLib.DestroyNotify notify, System.IntPtr userData);
 
         /// <summary>
         /// Creates a new #GVariant instance from serialised data.
@@ -656,7 +645,6 @@ namespace GISharp.Lib.GLib
         /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         System.IntPtr userData);
-        static partial void CheckNewHandleArgs(int value);
 
         /// <summary>
         /// Creates a new handle #GVariant instance.
@@ -680,6 +668,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint32" type="gint32" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         int value);
+        static partial void CheckNewHandleArgs(int value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewHandle(int value)
@@ -695,8 +684,6 @@ namespace GISharp.Lib.GLib
         public Variant(int value) : this((System.IntPtr)NewHandle(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewInt16Args(short value);
 
         /// <summary>
         /// Creates a new int16 #GVariant instance.
@@ -715,6 +702,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint16" type="gint16" managed-name="System.Int16" /> */
         /* transfer-ownership:none direction:in */
         short value);
+        static partial void CheckNewInt16Args(short value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewInt16(short value)
@@ -730,8 +718,6 @@ namespace GISharp.Lib.GLib
         public Variant(short value) : this((System.IntPtr)NewInt16(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewInt32Args(int value);
 
         /// <summary>
         /// Creates a new int32 #GVariant instance.
@@ -750,6 +736,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint32" type="gint32" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         int value);
+        static partial void CheckNewInt32Args(int value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewInt32(int value)
@@ -765,8 +752,6 @@ namespace GISharp.Lib.GLib
         public Variant(int value) : this((System.IntPtr)NewInt32(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewInt64Args(long value);
 
         /// <summary>
         /// Creates a new int64 #GVariant instance.
@@ -785,6 +770,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gint64" type="gint64" managed-name="System.Int64" /> */
         /* transfer-ownership:none direction:in */
         long value);
+        static partial void CheckNewInt64Args(long value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewInt64(long value)
@@ -800,8 +786,6 @@ namespace GISharp.Lib.GLib
         public Variant(long value) : this((System.IntPtr)NewInt64(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewMaybeArgs(GISharp.Lib.GLib.VariantType? childType, GISharp.Lib.GLib.Variant? child);
 
         /// <summary>
         /// Depending on if @child is %NULL, either wraps @child inside of a
@@ -836,6 +820,7 @@ namespace GISharp.Lib.GLib
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* child);
+        static partial void CheckNewMaybeArgs(GISharp.Lib.GLib.VariantType? childType, GISharp.Lib.GLib.Variant? child);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewMaybe(GISharp.Lib.GLib.VariantType? childType, GISharp.Lib.GLib.Variant? child)
@@ -852,8 +837,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Lib.GLib.VariantType? childType, GISharp.Lib.GLib.Variant? child) : this((System.IntPtr)NewMaybe(childType, child), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewObjectPathArgs(GISharp.Lib.GLib.UnownedUtf8 objectPath);
 
         /// <summary>
         /// Creates a D-Bus object path #GVariant with the contents of @string.
@@ -874,6 +857,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* objectPath);
+        static partial void CheckNewObjectPathArgs(GISharp.Lib.GLib.UnownedUtf8 objectPath);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewObjectPath(GISharp.Lib.GLib.UnownedUtf8 objectPath)
@@ -889,8 +873,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Lib.GLib.UnownedUtf8 objectPath) : this((System.IntPtr)NewObjectPath(objectPath), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewObjvArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv);
 
         /// <summary>
         /// Constructs an array of object paths #GVariant from the given array of
@@ -924,6 +906,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint length);
+        static partial void CheckNewObjvArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv);
 
         [GISharp.Runtime.SinceAttribute("2.30")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewObjv(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv)
@@ -944,8 +927,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckNewSignatureArgs(GISharp.Lib.GLib.UnownedUtf8 signature);
-
         /// <summary>
         /// Creates a D-Bus type signature #GVariant with the contents of
         /// @string.  @string must be a valid D-Bus type signature.  Use
@@ -965,6 +946,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* signature);
+        static partial void CheckNewSignatureArgs(GISharp.Lib.GLib.UnownedUtf8 signature);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewSignature(GISharp.Lib.GLib.UnownedUtf8 signature)
@@ -980,8 +962,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Lib.GLib.UnownedUtf8 signature) : this((System.IntPtr)NewSignature(signature), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewStringArgs(GISharp.Lib.GLib.UnownedUtf8 @string);
 
         /// <summary>
         /// Creates a string #GVariant with the contents of @string.
@@ -1005,6 +985,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @string);
+        static partial void CheckNewStringArgs(GISharp.Lib.GLib.UnownedUtf8 @string);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewString(GISharp.Lib.GLib.UnownedUtf8 @string)
@@ -1020,8 +1001,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Lib.GLib.UnownedUtf8 @string) : this((System.IntPtr)NewString(@string), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewStrvArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv);
 
         /// <summary>
         /// Constructs an array of strings #GVariant from the given array of
@@ -1052,6 +1031,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gssize" type="gssize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nint length);
+        static partial void CheckNewStrvArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewStrv(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv)
@@ -1071,8 +1051,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Utf8> strv) : this((System.IntPtr)NewStrv(strv), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewTupleArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Variant> children);
 
         /// <summary>
         /// Creates a new tuple #GVariant out of the items in @children.  The
@@ -1107,6 +1085,7 @@ namespace GISharp.Lib.GLib
         /* <type name="gsize" type="gsize" managed-name="System.Int32" /> */
         /* transfer-ownership:none direction:in */
         nuint nChildren);
+        static partial void CheckNewTupleArgs(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Variant> children);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewTuple(GISharp.Runtime.UnownedCPtrArray<GISharp.Lib.GLib.Variant> children)
@@ -1127,8 +1106,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        static partial void CheckNewUint16Args(ushort value);
-
         /// <summary>
         /// Creates a new uint16 #GVariant instance.
         /// </summary>
@@ -1146,6 +1123,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint16" type="guint16" managed-name="System.UInt16" /> */
         /* transfer-ownership:none direction:in */
         ushort value);
+        static partial void CheckNewUint16Args(ushort value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewUint16(ushort value)
@@ -1161,8 +1139,6 @@ namespace GISharp.Lib.GLib
         public Variant(ushort value) : this((System.IntPtr)NewUint16(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewUint32Args(uint value);
 
         /// <summary>
         /// Creates a new uint32 #GVariant instance.
@@ -1181,6 +1157,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint32" type="guint32" managed-name="System.UInt32" /> */
         /* transfer-ownership:none direction:in */
         uint value);
+        static partial void CheckNewUint32Args(uint value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewUint32(uint value)
@@ -1196,8 +1173,6 @@ namespace GISharp.Lib.GLib
         public Variant(uint value) : this((System.IntPtr)NewUint32(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewUint64Args(ulong value);
 
         /// <summary>
         /// Creates a new uint64 #GVariant instance.
@@ -1216,6 +1191,7 @@ namespace GISharp.Lib.GLib
         /* <type name="guint64" type="guint64" managed-name="System.UInt64" /> */
         /* transfer-ownership:none direction:in */
         ulong value);
+        static partial void CheckNewUint64Args(ulong value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewUint64(ulong value)
@@ -1231,8 +1207,6 @@ namespace GISharp.Lib.GLib
         public Variant(ulong value) : this((System.IntPtr)NewUint64(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckNewVariantArgs(GISharp.Lib.GLib.Variant value);
 
         /// <summary>
         /// Boxes @value.  The result is a #GVariant instance representing a
@@ -1256,6 +1230,7 @@ namespace GISharp.Lib.GLib
         /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* value);
+        static partial void CheckNewVariantArgs(GISharp.Lib.GLib.Variant value);
 
         [GISharp.Runtime.SinceAttribute("2.24")]
         static GISharp.Lib.GLib.Variant.UnmanagedStruct* NewVariant(GISharp.Lib.GLib.Variant value)
@@ -1271,8 +1246,6 @@ namespace GISharp.Lib.GLib
         public Variant(GISharp.Lib.GLib.Variant value) : this((System.IntPtr)NewVariant(value), GISharp.Runtime.Transfer.None)
         {
         }
-
-        static partial void CheckCompareArgs(GISharp.Lib.GLib.Variant one, GISharp.Lib.GLib.Variant two);
 
         /// <summary>
         /// Compares @one and @two.
@@ -1318,6 +1291,7 @@ namespace GISharp.Lib.GLib
         /* <type name="Variant" type="gconstpointer" managed-name="Variant" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         GISharp.Lib.GLib.Variant.UnmanagedStruct* two);
+        static partial void CheckCompareArgs(GISharp.Lib.GLib.Variant one, GISharp.Lib.GLib.Variant two);
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Compare(GISharp.Lib.GLib.Variant,GISharp.Lib.GLib.Variant)']/*" />
         [GISharp.Runtime.SinceAttribute("2.26")]
@@ -1362,8 +1336,6 @@ namespace GISharp.Lib.GLib
             return Compare(one, two) >= 0;
         }
 
-        static partial void CheckIsObjectPathArgs(GISharp.Lib.GLib.UnownedUtf8 @string);
-
         /// <summary>
         /// Determines if a given string is a valid D-Bus object path.  You
         /// should ensure that a string is a valid D-Bus object path before
@@ -1389,6 +1361,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @string);
+        static partial void CheckIsObjectPathArgs(GISharp.Lib.GLib.UnownedUtf8 @string);
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.IsObjectPath(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
@@ -1400,8 +1373,6 @@ namespace GISharp.Lib.GLib
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
-
-        static partial void CheckIsSignatureArgs(GISharp.Lib.GLib.UnownedUtf8 @string);
 
         /// <summary>
         /// Determines if a given string is a valid D-Bus type signature.  You
@@ -1426,6 +1397,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* @string);
+        static partial void CheckIsSignatureArgs(GISharp.Lib.GLib.UnownedUtf8 @string);
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.IsSignature(GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.24")]
@@ -1437,8 +1409,6 @@ namespace GISharp.Lib.GLib
             var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_);
             return ret;
         }
-
-        static partial void CheckParseArgs(GISharp.Lib.GLib.VariantType? type, GISharp.Lib.GLib.UnownedUtf8 text, GISharp.Lib.GLib.NullableUnownedUtf8 limit, GISharp.Lib.GLib.NullableUnownedUtf8 endptr);
 
         /// <summary>
         /// Parses a #GVariant from a text representation.
@@ -1515,6 +1485,7 @@ namespace GISharp.Lib.GLib
         /* <type name="GLib.Error" type="GError**" managed-name="GISharp.Lib.GLib.Error" is-pointer="1" /> */
         /* direction:inout transfer-ownership:full */
         GISharp.Lib.GLib.Error.UnmanagedStruct** error);
+        static partial void CheckParseArgs(GISharp.Lib.GLib.VariantType? type, GISharp.Lib.GLib.UnownedUtf8 text, GISharp.Lib.GLib.NullableUnownedUtf8 limit, GISharp.Lib.GLib.NullableUnownedUtf8 endptr);
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.Parse(GISharp.Lib.GLib.VariantType?,GISharp.Lib.GLib.UnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8,GISharp.Lib.GLib.NullableUnownedUtf8)']/*" />
         public static GISharp.Lib.GLib.Variant Parse(GISharp.Lib.GLib.VariantType? type, GISharp.Lib.GLib.UnownedUtf8 text, GISharp.Lib.GLib.NullableUnownedUtf8 limit, GISharp.Lib.GLib.NullableUnownedUtf8 endptr)
@@ -1535,8 +1506,6 @@ namespace GISharp.Lib.GLib
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Variant>((System.IntPtr)ret_, GISharp.Runtime.Transfer.Full)!;
             return ret;
         }
-
-        static partial void CheckParseErrorPrintContextArgs(GISharp.Lib.GLib.Error error, GISharp.Lib.GLib.UnownedUtf8 sourceStr);
 
         /// <summary>
         /// Pretty-prints a message showing the context of a #GVariant parse
@@ -1590,6 +1559,7 @@ namespace GISharp.Lib.GLib
         /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         byte* sourceStr);
+        static partial void CheckParseErrorPrintContextArgs(GISharp.Lib.GLib.Error error, GISharp.Lib.GLib.UnownedUtf8 sourceStr);
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.ParseErrorPrintContext(GISharp.Lib.GLib.Error,GISharp.Lib.GLib.UnownedUtf8)']/*" />
         [GISharp.Runtime.SinceAttribute("2.40")]
@@ -1603,11 +1573,11 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        static partial void CheckParseErrorQuarkArgs();
         [System.Runtime.InteropServices.DllImportAttribute("glib-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Quark g_variant_parse_error_quark();
+        static partial void CheckParseErrorQuarkArgs();
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.ParseErrorQuark()']/*" />
         public static GISharp.Lib.GLib.Quark ParseErrorQuark()
@@ -1618,8 +1588,6 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        static partial void CheckParserGetErrorQuarkArgs();
-
         /// <summary>
         /// Same as g_variant_error_quark().
         /// </summary>
@@ -1628,6 +1596,7 @@ namespace GISharp.Lib.GLib
         /* <type name="Quark" type="GQuark" managed-name="Quark" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.Quark g_variant_parser_get_error_quark();
+        static partial void CheckParserGetErrorQuarkArgs();
 
         /// <include file="Variant.xmldoc" path="declaration/member[@name='Variant.ParserGetErrorQuark()']/*" />
         [System.ObsoleteAttribute("Use g_variant_parse_error_quark() instead.")]

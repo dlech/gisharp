@@ -36,8 +36,6 @@ namespace GISharp.Lib.GLib
             }
         }
 
-        static partial void CheckNewArgs();
-
         /// <summary>
         /// Creates a new #GMainContext structure.
         /// </summary>
@@ -48,6 +46,7 @@ namespace GISharp.Lib.GLib
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_new();
+        static partial void CheckNewArgs();
 
         static GISharp.Lib.GLib.MainContext.UnmanagedStruct* New()
         {
@@ -60,8 +59,6 @@ namespace GISharp.Lib.GLib
         public MainContext() : this((System.IntPtr)New(), GISharp.Runtime.Transfer.Full)
         {
         }
-
-        static partial void CheckDefaultArgs();
 
         /// <summary>
         /// Returns the global default main context. This is the main context
@@ -76,6 +73,7 @@ namespace GISharp.Lib.GLib
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_default();
+        static partial void CheckDefaultArgs();
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.Default()']/*" />
         public static GISharp.Lib.GLib.MainContext Default()
@@ -85,8 +83,6 @@ namespace GISharp.Lib.GLib
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
-
-        static partial void CheckGetThreadDefaultArgs();
 
         /// <summary>
         /// Gets the thread-default #GMainContext for this thread. Asynchronous
@@ -111,6 +107,7 @@ namespace GISharp.Lib.GLib
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
         /* transfer-ownership:none direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_get_thread_default();
+        static partial void CheckGetThreadDefaultArgs();
 
         [GISharp.Runtime.SinceAttribute("2.22")]
         private static GISharp.Lib.GLib.MainContext GetThreadDefault()
@@ -120,8 +117,6 @@ namespace GISharp.Lib.GLib
             var ret = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.MainContext>((System.IntPtr)ret_, GISharp.Runtime.Transfer.None)!;
             return ret;
         }
-
-        static partial void CheckRefThreadDefaultArgs();
 
         /// <summary>
         /// Gets the thread-default #GMainContext for this thread, as with
@@ -140,6 +135,7 @@ namespace GISharp.Lib.GLib
         /* <type name="MainContext" type="GMainContext*" managed-name="MainContext" is-pointer="1" /> */
         /* transfer-ownership:full direction:in */
         private static extern GISharp.Lib.GLib.MainContext.UnmanagedStruct* g_main_context_ref_thread_default();
+        static partial void CheckRefThreadDefaultArgs();
 
         /// <include file="MainContext.xmldoc" path="declaration/member[@name='MainContext.RefThreadDefault()']/*" />
         [GISharp.Runtime.SinceAttribute("2.32")]
@@ -151,7 +147,6 @@ namespace GISharp.Lib.GLib
             return ret;
         }
 
-        static partial void CheckGetGTypeArgs();
         [System.Runtime.InteropServices.DllImportAttribute("gobject-2.0", CallingConvention = System.Runtime.InteropServices.CallingConvention.Cdecl)]
         /* <type name="GType" type="GType" managed-name="GISharp.Lib.GObject.GType" /> */
         /* transfer-ownership:full direction:in */
