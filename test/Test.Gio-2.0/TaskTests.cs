@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 
 using System;
@@ -14,46 +14,41 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestNew()
         {
-            using (var task = new Task(null, null)) {
-                Assert.That(task.SourceObject, Is.Null);
-            }
+            using var task = new Task(null, null);
+            Assert.That(task.SourceObject, Is.Null);
         }
 
         [Test]
         public void TestPriority()
         {
-            using (var task = new Task(null, null)) {
-                task.Priority = Priority.Low;
-                Assert.That(task.Priority, Is.EqualTo(Priority.Low));
-            }
+            using var task = new Task(null, null);
+            task.Priority = Priority.Low;
+            Assert.That(task.Priority, Is.EqualTo(Priority.Low));
         }
 
         [Test]
         public void TestCheckCancellable()
         {
-            using (var task = new Task(null, null)) {
-                task.CheckCancellable = false;
-                Assert.That(task.CheckCancellable, Is.False);
-            }
+            using var task = new Task(null, null);
+            task.CheckCancellable = false;
+            Assert.That(task.CheckCancellable, Is.False);
         }
 
         [Test]
         public void TestReturnOnCancel()
         {
-            using (var task = new Task(null, null)) {
-                Assert.That(task.SetReturnOnCancel(true), Is.True);
-                Assert.That(task.ReturnOnCancel, Is.True);
-            }
+            using var task = new Task(null, null);
+            Assert.That(task.SetReturnOnCancel(true), Is.True);
+            Assert.That(task.ReturnOnCancel, Is.True);
         }
 
         [Test]
         public void TestSourceTag()
         {
-            using (var task = new Task(null, null)) {
-                var expected = new IntPtr(5);
-                task.SourceTag = expected;
-                Assert.That(task.SourceTag, Is.EqualTo(expected));
-            }
+            using var task = new Task(null, null);
+            var expected = new IntPtr(5);
+            task.SourceTag = expected;
+            Assert.That(task.SourceTag, Is.EqualTo(expected));
         }
 
         [Test]
@@ -65,10 +60,9 @@ namespace GISharp.Test.Gio
         [Test]
         public void TestCancellable()
         {
-            using (var c = new Cancellable())
-            using (var task = new Task(null, null, cancellable: c)) {
-                Assert.That(task.Cancellable, Is.SameAs(c));
-            }
+            using var c = new Cancellable();
+            using var task = new Task(null, null, cancellable: c);
+            Assert.That(task.Cancellable, Is.SameAs(c));
         }
     }
 }

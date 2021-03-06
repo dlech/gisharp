@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System.Threading.Tasks;
 using GISharp.Lib.GLib;
@@ -14,25 +14,25 @@ namespace GISharp.Test.GLib
         {
             var timeoutInvoked = false;
 
-            using (var context = new MainContext())
-            using (var mainLoop = new MainLoop(context))
-            using (var source = new TimeoutSource(0)) {
-                source.SetCallback(() => {
-                    mainLoop.Quit();
-                    timeoutInvoked = true;
-                    return Source.Remove_;
-                });
+            using var context = new MainContext();
+            using var mainLoop = new MainLoop(context);
+            using var source = new TimeoutSource(0);
 
-                source.Attach(context);
-                Task.Run(() => {
-                    context.PushThreadDefault();
-                    mainLoop.Run();
-                    context.PopThreadDefault();
-                }).Wait(100);
-                source.Destroy();
+            source.SetCallback(() => {
+                mainLoop.Quit();
+                timeoutInvoked = true;
+                return Source.Remove_;
+            });
 
-                Assert.That(timeoutInvoked, Is.True);
-            }
+            source.Attach(context);
+            Task.Run(() => {
+                context.PushThreadDefault();
+                mainLoop.Run();
+                context.PopThreadDefault();
+            }).Wait(100);
+            source.Destroy();
+
+            Assert.That(timeoutInvoked, Is.True);
         }
 
         [Test]
@@ -40,25 +40,25 @@ namespace GISharp.Test.GLib
         {
             var timeoutInvoked = false;
 
-            using (var context = new MainContext())
-            using (var mainLoop = new MainLoop(context))
-            using (var source = TimeoutSource.Seconds(0)) {
-                source.SetCallback(() => {
-                    mainLoop.Quit();
-                    timeoutInvoked = true;
-                    return Source.Remove_;
-                });
+            using var context = new MainContext();
+            using var mainLoop = new MainLoop(context);
+            using var source = TimeoutSource.Seconds(0);
 
-                source.Attach(context);
-                Task.Run(() => {
-                    context.PushThreadDefault();
-                    mainLoop.Run();
-                    context.PopThreadDefault();
-                }).Wait(2000);
-                source.Destroy();
+            source.SetCallback(() => {
+                mainLoop.Quit();
+                timeoutInvoked = true;
+                return Source.Remove_;
+            });
 
-                Assert.That(timeoutInvoked, Is.True);
-            }
+            source.Attach(context);
+            Task.Run(() => {
+                context.PushThreadDefault();
+                mainLoop.Run();
+                context.PopThreadDefault();
+            }).Wait(2000);
+            source.Destroy();
+
+            Assert.That(timeoutInvoked, Is.True);
         }
     }
 }

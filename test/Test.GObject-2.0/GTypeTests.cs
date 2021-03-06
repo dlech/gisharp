@@ -256,7 +256,7 @@ namespace GISharp.Test.GObject
             typeBuilder.SetCustomAttribute(new CustomAttributeBuilder(
                 gtypeStructAttribute.GetConstructors().Single(),
                 new object[] { typeof(ObjectClass) },
-                new FieldInfo[0], new object[0]));
+                System.Array.Empty<FieldInfo>(), System.Array.Empty<object>()));
 
             // define a private static readonly field named _GType
             var gtypeField = typeBuilder.DefineField("_GType", typeof(GType),

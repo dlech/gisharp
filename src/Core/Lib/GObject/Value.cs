@@ -77,9 +77,8 @@ namespace GISharp.Lib.GObject
         /// </summary>
         const int NocopyContents = 134217728;
 
-        static readonly Dictionary<Tuple<GType, GType>, GCHandle> transformFuncMap
-            = new Dictionary<Tuple<GType, GType>, GCHandle>();
-        static readonly object transformFuncMapLock = new object();
+        static readonly Dictionary<Tuple<GType, GType>, GCHandle> transformFuncMap = new();
+        static readonly object transformFuncMapLock = new();
 
         /// <summary>
         /// Gets the value.

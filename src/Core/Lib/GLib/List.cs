@@ -1254,7 +1254,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void InsertSorted(T data, Comparison<T> func)
         {
-            UnmanagedCompareFunc func_ = (a_, b_) => {
+            int func_(IntPtr a_, IntPtr b_)
+            {
                 try {
                     var a = GetInstance<T>(a_, Transfer.None);
                     var b = GetInstance<T>(b_, Transfer.None);
@@ -1265,7 +1266,7 @@ namespace GISharp.Lib.GLib
                     ex.LogUnhandledException();
                     return default;
                 }
-            };
+            }
             InsertSorted(data?.UnsafeHandle ?? IntPtr.Zero, func_);
         }
 
@@ -1345,7 +1346,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Sort(Comparison<T> compareFunc)
         {
-            UnmanagedCompareFunc compareFunc_ = (a_, b_) => {
+            int compareFunc_(IntPtr a_, IntPtr b_)
+            {
                 try {
                     var a = GetInstance<T>(a_, Transfer.None);
                     var b = GetInstance<T>(b_, Transfer.None);
@@ -1356,7 +1358,7 @@ namespace GISharp.Lib.GLib
                     ex.LogUnhandledException();
                     return default;
                 }
-            };
+            }
             Sort(compareFunc_);
         }
 
@@ -1541,7 +1543,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void InsertSorted(T data, Comparison<T> func)
         {
-            UnmanagedCompareFunc func_ = (a_, b_) => {
+            int func_(IntPtr a_, IntPtr b_)
+            {
                 try {
                     var a = GetInstance<T>(a_, Transfer.None);
                     var b = GetInstance<T>(b_, Transfer.None);
@@ -1552,7 +1555,7 @@ namespace GISharp.Lib.GLib
                     ex.LogUnhandledException();
                     return default;
                 }
-            };
+            }
             InsertSorted(data?.UnsafeHandle ?? IntPtr.Zero, func_);
         }
 
@@ -1632,7 +1635,8 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Sort(Comparison<T> compareFunc)
         {
-            UnmanagedCompareFunc compareFunc_ = (a_, b_) => {
+            int compareFunc_(IntPtr a_, IntPtr b_)
+            {
                 try {
                     var a = GetInstance<T>(a_, Transfer.None);
                     var b = GetInstance<T>(b_, Transfer.None);
@@ -1643,7 +1647,7 @@ namespace GISharp.Lib.GLib
                     ex.LogUnhandledException();
                     return default;
                 }
-            };
+            }
             Sort(compareFunc_);
         }
 

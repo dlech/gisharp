@@ -3,7 +3,6 @@
 
 using System;
 using GISharp.Lib.GLib;
-using GISharp.Runtime;
 
 namespace GISharp.Lib.GObject
 {
@@ -28,7 +27,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// The signal name.
         /// </summary>
-        public UnownedUtf8 SignalName => new UnownedUtf8(signalName, -1);
+        public UnownedUtf8 SignalName => new(signalName, -1);
 
         /// <summary>
         /// The interface/instance type that this signal can be emitted for.
@@ -54,6 +53,6 @@ namespace GISharp.Lib.GObject
         /// ReturnType callback (IntPtr data1, [ParamTypes paramNames,] IntPtr data2);
         /// </code>
         /// </remarks>
-        public ReadOnlySpan<GType> ParamTypes => new ReadOnlySpan<GType>((void*)paramTypes, (int)nParams);
+        public ReadOnlySpan<GType> ParamTypes => new((void*)paramTypes, (int)nParams);
     }
 }

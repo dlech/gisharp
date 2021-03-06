@@ -20,9 +20,9 @@ namespace GISharp.CodeGen.Syntax
         static string GetCallableName(string memberName, ParameterListSyntax parameterList)
         {
             var builder = new StringBuilder(memberName);
-            builder.Append("(");
-            builder.AppendJoin(",", parameterList.Parameters.Select(x => x.Type));
-            builder.Append(")");
+            builder.Append('(');
+            builder.AppendJoin(',', parameterList.Parameters.Select(x => x.Type));
+            builder.Append(')');
             return builder.ToString();
         }
 
@@ -40,8 +40,7 @@ namespace GISharp.CodeGen.Syntax
 
         public static string GetMemberDeclarationName(this SyntaxNode node)
         {
-            return node switch
-            {
+            return node switch {
                 ClassDeclarationSyntax @class => @class.Identifier.Text,
                 ConstructorDeclarationSyntax constructor => GetConstructorName(constructor),
                 DelegateDeclarationSyntax @delegate => @delegate.Identifier.Text,

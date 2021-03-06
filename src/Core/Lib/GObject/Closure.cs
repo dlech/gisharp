@@ -688,7 +688,7 @@ namespace GISharp.Lib.GObject
 #pragma warning restore CS0649
         }
 
-        static IntPtr managedClosureGCHandleOffset = Marshal.OffsetOf<ManagedClosure>(nameof(ManagedClosure.ManagedClosureGCHandle));
-        static IntPtr callbackGCHandleOffset = Marshal.OffsetOf<ManagedClosure>(nameof(ManagedClosure.CallbackGCHandle));
+        static readonly IntPtr managedClosureGCHandleOffset = Marshal.OffsetOf<ManagedClosure>(nameof(ManagedClosure.ManagedClosureGCHandle));
+        static readonly IntPtr callbackGCHandleOffset = Marshal.OffsetOf<ManagedClosure>(nameof(ManagedClosure.CallbackGCHandle));
     }
 }

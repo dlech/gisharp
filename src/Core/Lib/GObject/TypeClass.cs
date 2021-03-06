@@ -33,8 +33,7 @@ namespace GISharp.Lib.GObject
         /// A dictionary mapping virtual method delegate types to their offsets
         /// in Struct.
         /// </summary>
-        readonly static Dictionary<Type, VirtualMethodInfo> virtualMethods =
-            new Dictionary<Type, VirtualMethodInfo>();
+        readonly static Dictionary<Type, VirtualMethodInfo> virtualMethods = new();
 
         /// <summary>
         /// The unmanaged data structure for <see cref="TypeClass"/>.

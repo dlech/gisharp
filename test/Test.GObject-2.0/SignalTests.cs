@@ -1,6 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
-
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 using GISharp.Lib.GLib;
@@ -36,11 +35,8 @@ namespace GISharp.Test.GObject
             var id = Signal.TryLookup("notify", GType.Object);
             Assume.That(id, Is.Not.Zero);
 
-            uint signalId;
-            Quark detail;
-
             // try a real signal name
-            if (Signal.TryParseName("notify", GType.Object, out signalId, out detail)) {
+            if (Signal.TryParseName("notify", GType.Object, out uint signalId, out Quark detail)) {
                 Assert.That(signalId, Is.EqualTo(id));
                 Assert.That(detail, Is.EqualTo(Quark.Zero));
             }
@@ -75,14 +71,15 @@ namespace GISharp.Test.GObject
             var id = Signal.TryLookup("notify", GType.Object);
             Assume.That(id, Is.Not.EqualTo(0));
 
-            Object.NotifySignalHandler handler1 = (o, p) => {
+            void handler1(Object o, ParamSpec p)
+            {
                 handler1Count++;
                 if (stopEmission) {
                     obj.StopEmission(id);
                 }
-            };
+            }
 
-            Object.NotifySignalHandler handler2 = (o, p) => handler2Count++;
+            void handler2(Object o, ParamSpec p) => handler2Count++;
 
             obj.NotifySignal += handler1;
             obj.NotifySignal += handler2;
@@ -110,14 +107,16 @@ namespace GISharp.Test.GObject
             using var pspec = new ParamSpecBoolean("test-param", "test-param", "test-param",
                 false, ParamFlags.Readwrite | ParamFlags.StaticStrings);
             using var obj = new Object();
-            Object.NotifySignalHandler handler1 = (o, p) => {
+
+            void handler1(Object o, ParamSpec p)
+            {
                 handler1Count++;
                 if (stopEmission) {
                     obj.StopEmissionByName("notify::test-param");
                 }
-            };
+            }
 
-            Object.NotifySignalHandler handler2 = (o, p) => handler2Count++;
+            void handler2(Object o, ParamSpec p) => handler2Count++;
 
             obj.NotifySignal += handler1;
             obj.NotifySignal += handler2;

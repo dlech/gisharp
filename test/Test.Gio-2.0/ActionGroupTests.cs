@@ -219,14 +219,14 @@ namespace GISharp.Test.Gio
 
         VariantType? IActionGroup.DoGetActionParameterType(UnownedUtf8 actionName) => VariantType.Int32;
 
-        Variant? IActionGroup.DoGetActionState(UnownedUtf8 actionName) => new Variant(2);
+        Variant? IActionGroup.DoGetActionState(UnownedUtf8 actionName) => new(2);
 
-        Variant? IActionGroup.DoGetActionStateHint(UnownedUtf8 actionName) => new Variant(1);
+        Variant? IActionGroup.DoGetActionStateHint(UnownedUtf8 actionName) => new(1);
 
         VariantType? IActionGroup.DoGetActionStateType(UnownedUtf8 actionName) => VariantType.Boolean;
 
         bool IActionGroup.DoHasAction(UnownedUtf8 actionName) => false;
 
-        Strv IActionGroup.DoListActions() => new Strv("test-action-1");
+        Strv IActionGroup.DoListActions() => new("test-action-1");
     }
 }

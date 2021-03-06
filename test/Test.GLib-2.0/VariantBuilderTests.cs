@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using NUnit.Framework;
 
@@ -22,23 +22,21 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestAddValue()
         {
-            using (var vb = new VariantBuilder(VariantType.Variant))
-            using (var value = new Variant(0)) {
-                vb.Add(value);
-            }
+            using var vb = new VariantBuilder(VariantType.Variant);
+            using var value = new Variant(0);
+            vb.Add(value);
         }
 
         [Test]
         public void TestEnd()
         {
-            using (var vb = new VariantBuilder(VariantType.Variant))
-            using (var value = new Variant(0)) {
-                // it is an error to call End() with an improperly constructed variant
-                // so whe have to add a value first
-                vb.Add(value);
+            using var vb = new VariantBuilder(VariantType.Variant);
+            using var value = new Variant(0);
+            // it is an error to call End() with an improperly constructed variant
+            // so whe have to add a value first
+            vb.Add(value);
 
-                Assert.That(vb.End().Type, Is.EqualTo(VariantType.Variant));
-            }
+            Assert.That(vb.End().Type, Is.EqualTo(VariantType.Variant));
         }
     }
 }

@@ -20,7 +20,7 @@ namespace GISharp.Lib.GObject
     /// <seealso cref="Object"/>
     public static unsafe class Signal
     {
-        static Regex signalNameRegex = new("^[a-zA-Z](?:[a-zA-Z0-9_]*|[a-zA-Z0-9-]*)$",
+        static readonly Regex signalNameRegex = new("^[a-zA-Z](?:[a-zA-Z0-9_]*|[a-zA-Z0-9-]*)$",
             RegexOptions.CultureInvariant);
 
         ///<summary>
@@ -733,8 +733,7 @@ namespace GISharp.Lib.GObject
         /// </returns>
         public static ReadOnlyMemory<uint> ListIds(GType itype)
         {
-            uint nIds_;
-            var ret_ = g_signal_list_ids(itype, out nIds_);
+            var ret_ = g_signal_list_ids(itype, out uint nIds_);
             var ret = new CArrayMemoryManager<uint>(ret_, (int)nIds_, Transfer.Full);
             return ret.Memory;
         }

@@ -11,7 +11,7 @@ namespace GISharp.CodeGen.Gir
         public string Name { get; }
 
         public DocSection(XElement element, GirNode parent)
-            : base(element, parent ?? throw new ArgumentException(nameof(parent)))
+            : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
             if (element.Name != gi + "docsection") {
                 throw new ArgumentException("Requrires <docsection> element", nameof(element));

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2019-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
 using System;
 
@@ -24,37 +24,47 @@ namespace GISharp.Runtime
         /// <summary>
         /// Add
         /// </summary>
-        public static CLong operator +(CLong a, CLong b) => new CLong(a.value + b.value);
+        public static CLong operator +(CLong a, CLong b) => new(a.value + b.value);
 
         /// <summary>
         /// Subtract
         /// </summary>
-        public static CLong operator -(CLong a, CLong b) => new CLong(a.value - b.value);
+        public static CLong operator -(CLong a, CLong b) => new(a.value - b.value);
 
         /// <summary>
         /// Multiply
         /// </summary>
-        public static CLong operator *(CLong a, CLong b) => new CLong(a.value * b.value);
+        public static CLong operator *(CLong a, CLong b) => new(a.value * b.value);
 
         /// <summary>
         /// Divide
         /// </summary>
-        public static CLong operator /(CLong a, CLong b) => new CLong(a.value / b.value);
+        public static CLong operator /(CLong a, CLong b) => new(a.value / b.value);
 
         /// <summary>
         /// Modulo
         /// </summary>
-        public static CLong operator %(CLong a, CLong b) => new CLong(a.value % b.value);
+        public static CLong operator %(CLong a, CLong b) => new(a.value % b.value);
 
         /// <summary>
         /// Bitwise shift left
         /// </summary>
-        public static CLong operator <<(CLong a, int b) => new CLong(a.value << b);
+        public static CLong operator <<(CLong a, int b) => new(a.value << b);
 
         /// <summary>
         /// Bitwise shift right
         /// </summary>
-        public static CLong operator >>(CLong a, int b) => new CLong(a.value >> b);
+        public static CLong operator >>(CLong a, int b) => new(a.value >> b);
+
+        /// <summary>
+        /// Tests if equal
+        /// </summary>
+        public static bool operator ==(CLong a, CLong b) => a.value == b.value;
+
+        /// <summary>
+        /// Tests if not equal
+        /// </summary>
+        public static bool operator !=(CLong a, CLong b) => a.value != b.value;
 
         /// <summary>
         /// Test if less than
@@ -79,7 +89,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Convert from int
         /// </summary>
-        public static implicit operator CLong(int n) => new CLong(n);
+        public static implicit operator CLong(int n) => new(n);
 
         /// <summary>
         /// Convert to long

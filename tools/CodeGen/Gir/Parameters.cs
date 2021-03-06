@@ -28,10 +28,9 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public ErrorParameter ErrorParameter => _ErrorParameter.Value;
         readonly Lazy<ErrorParameter> _ErrorParameter;
+        readonly Lazy<List<GIArg>> _AllParameters;
 
-        Lazy<List<GIArg>> _AllParameters;
-
-        public Parameters(XElement element, GirNode parent): base(element, parent)
+        public Parameters(XElement element, GirNode parent) : base(element, parent)
         {
             if (element.Name != gi + "parameters") {
                 throw new ArgumentException("Requrires <parameters> element", nameof(element));

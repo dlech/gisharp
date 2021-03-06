@@ -1062,7 +1062,7 @@ namespace GISharp.Lib.GObject
             }
         }
 
-        static UnmanagedDestroyNotify freeDataDelegate = FreeData;
+        static readonly UnmanagedDestroyNotify freeDataDelegate = FreeData;
 
         static void FreeData(IntPtr dataPtr)
         {

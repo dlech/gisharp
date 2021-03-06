@@ -6,7 +6,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 
 namespace GISharp.Runtime
@@ -103,11 +102,11 @@ namespace GISharp.Runtime
                 }
                 var offset = IntPtr.Size * index;
                 var ptr = Marshal.ReadIntPtr(this_, offset);
-                return Opaque.GetInstance<T>(ptr, Transfer.None);
+                return GetInstance<T>(ptr, Transfer.None);
             }
         }
 
-        private ReadOnlySpan<IntPtr> Data => new ReadOnlySpan<IntPtr>((void*)UnsafeHandle, Length);
+        private ReadOnlySpan<IntPtr> Data => new((void*)UnsafeHandle, Length);
 
         /// <summary>
         /// Gets the number of elements in the array.
@@ -257,7 +256,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Gets an enumerator for this array.
         /// </summary>
-        public Enumerator GetEnumerator() => new Enumerator(this);
+        public Enumerator GetEnumerator() => new(this);
     }
 
     /// <summary>

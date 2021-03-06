@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2019-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
 using System.Linq;
 
@@ -74,60 +74,54 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestEqual()
         {
-            using (var a = VariantType.Int32)
-            using (var b = new VariantType("i")) {
-                Assert.That(a, Is.EqualTo(b));
-                Assert.That(a == b, Is.True);
-                Assert.That(a != b, Is.False);
-            }
+            using var a = VariantType.Int32;
+            using var b = new VariantType("i");
+            Assert.That(a, Is.EqualTo(b));
+            Assert.That(a == b, Is.True);
+            Assert.That(a != b, Is.False);
         }
 
         [Test]
         public void TestIsSubtypeOf()
         {
-            using (var array = VariantType.Array)
-            using (var stringArray = VariantType.StringArray) {
-                Assert.That(stringArray.IsSubtypeOf(array), Is.True);
-                Assert.That(array.IsSubtypeOf(stringArray), Is.False);
-            }
+            using var array = VariantType.Array;
+            using var stringArray = VariantType.StringArray;
+            Assert.That(stringArray.IsSubtypeOf(array), Is.True);
+            Assert.That(array.IsSubtypeOf(stringArray), Is.False);
         }
 
         [Test]
         public void TestNewMaybe()
         {
-            using (var element = VariantType.String)
-            using (var vt = VariantType.CreateMaybe(element)) {
-                Assert.That(vt.ToString(), Is.EqualTo("ms"));
-            }
+            using var element = VariantType.String;
+            using var vt = VariantType.CreateMaybe(element);
+            Assert.That(vt.ToString(), Is.EqualTo("ms"));
         }
 
         [Test]
         public void TestNewArray()
         {
-            using (var element = VariantType.String)
-            using (var vt = VariantType.CreateArray(element)) {
-                Assert.That(vt.ToString(), Is.EqualTo("as"));
-            }
+            using var element = VariantType.String;
+            using var vt = VariantType.CreateArray(element);
+            Assert.That(vt.ToString(), Is.EqualTo("as"));
         }
 
         [Test]
         public void TestNewTuple()
         {
-            using (var a = VariantType.String)
-            using (var b = VariantType.Variant)
-            using (var vt = VariantType.CreateTuple(a, b)) {
-                Assert.That(vt.ToString(), Is.EqualTo("(sv)"));
-            }
+            using var a = VariantType.String;
+            using var b = VariantType.Variant;
+            using var vt = VariantType.CreateTuple(a, b);
+            Assert.That(vt.ToString(), Is.EqualTo("(sv)"));
         }
 
         [Test]
         public void TestNewDictEntry()
         {
-            using (var key = VariantType.String)
-            using (var value = VariantType.Variant)
-            using (var vt = VariantType.CreateDictEntry(key, value)) {
-                Assert.That(vt.ToString(), Is.EqualTo("{sv}"));
-            }
+            using var key = VariantType.String;
+            using var value = VariantType.Variant;
+            using var vt = VariantType.CreateDictEntry(key, value);
+            Assert.That(vt.ToString(), Is.EqualTo("{sv}"));
         }
 
         [Test]

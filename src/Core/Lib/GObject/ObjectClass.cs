@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2016-2021 David Lechner <david@lechnology.com>
 
 using System;
 using System.ComponentModel;
@@ -388,18 +388,11 @@ namespace GISharp.Lib.GObject
 
                     var flags = default(SignalFlags);
 
-                    switch (signalAttr.When) {
-                    case EmissionStage.First:
-                        flags |= SignalFlags.RunFirst;
-                        break;
-                    case EmissionStage.Last:
-                    default:
-                        flags |= SignalFlags.RunLast;
-                        break;
-                    case EmissionStage.Cleanup:
-                        flags |= SignalFlags.RunCleanup;
-                        break;
-                    }
+                    flags |= signalAttr.When switch {
+                        EmissionStage.First => SignalFlags.RunFirst,
+                        EmissionStage.Cleanup => SignalFlags.RunCleanup,
+                        _ => SignalFlags.RunLast,
+                    };
 
                     if (signalAttr.IsNoRecurse) {
                         flags |= SignalFlags.NoRecurse;

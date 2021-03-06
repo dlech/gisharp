@@ -68,10 +68,9 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestPollFD()
         {
-            using (var s = new IdleSource()) {
-                s.AddPoll(testPollFD);
-                s.RemovePoll(testPollFD);
-            }
+            using var s = new IdleSource();
+            s.AddPoll(testPollFD);
+            s.RemovePoll(testPollFD);
         }
     }
 }

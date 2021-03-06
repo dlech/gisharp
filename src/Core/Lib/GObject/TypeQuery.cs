@@ -20,7 +20,7 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the name of the type
         /// </summary>
-        public UnownedUtf8 TypeName => new UnownedUtf8(typeName, -1);
+        public UnownedUtf8 TypeName => new(typeName, -1);
         IntPtr typeName;
 
         /// <summary>

@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2019-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
 using System;
 using GISharp.Lib.GLib;
@@ -10,7 +10,7 @@ namespace GISharp.Test.GLib
     public class TimeValTests : Tests
     {
         [Test]
-        [Obsolete]
+        [Obsolete("TryFromIso8601 is deprecated upstream")]
         public void TestFromIso6801()
         {
             Assert.That(TimeVal.TryFromIso8601("1970-01-01T00:00:00Z", out var tv), Is.True);
@@ -19,7 +19,7 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
-        [Obsolete]
+        [Obsolete("Add is deprecated upstream")]
         public void TestAdd()
         {
             var tv = default(TimeVal);
@@ -29,13 +29,12 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
-        [Obsolete]
+        [Obsolete("ToIso8601 is deprecated upstream")]
         public void TestToIso8601()
         {
             var tv = default(TimeVal);
-            using (var iso8601 = tv.ToIso8601()) {
-                Assert.That<string?>(iso8601!, Is.EqualTo("1970-01-01T00:00:00Z"));
-            }
+            using var iso8601 = tv.ToIso8601();
+            Assert.That<string?>(iso8601!, Is.EqualTo("1970-01-01T00:00:00Z"));
         }
     }
 }

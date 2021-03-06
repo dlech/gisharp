@@ -58,7 +58,7 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestInsertSorted()
         {
-            Comparison<OpaqueInt> compareFunc = (a, b) =>
+            static int compareFunc(OpaqueInt a, OpaqueInt b) =>
                 a.Value.CompareTo(b.Value);
             using var list = new WeakList<OpaqueInt>();
             Assume.That(list.Length, Is.EqualTo(0));

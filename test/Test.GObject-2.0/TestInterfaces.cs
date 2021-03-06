@@ -571,7 +571,7 @@ namespace GISharp.Test
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern GType g_task_get_type();
 
-        static GType _GType = g_task_get_type();
+        static readonly GType _GType = g_task_get_type();
 
         [DllImport("gio-2.0", CallingConvention = CallingConvention.Cdecl)]
         internal static extern IntPtr g_task_new(

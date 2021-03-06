@@ -16,7 +16,7 @@ namespace GISharp.CodeGen.Gir
         public string Text => Element.Value;
 
         public DocDeprecated(XElement element, GirNode parent)
-            : base(element, parent ?? throw new ArgumentException(nameof(parent)))
+            : base(element, parent ?? throw new ArgumentNullException(nameof(parent)))
         {
             if (element.Name != gi + "doc-deprecated") {
                 throw new ArgumentException("Requrires <doc-deprecated> element", nameof(element));

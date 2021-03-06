@@ -87,7 +87,7 @@ namespace GISharp.CodeGen.Syntax
         internal static BlockSyntax GetInvokeBlock(this GICallable callable, string invokeMethod, bool checkArgs = true)
         {
             var block = Block();
-            var fixedStatements = new System.Collections.Generic.List<FixedStatementSyntax>();
+            var fixedStatements = new List<FixedStatementSyntax>();
 
             // might need to do some extra arg checks first
 
@@ -376,7 +376,7 @@ namespace GISharp.CodeGen.Syntax
                 tryStatement = tryStatement.AddBlockStatements(ParseStatement(ifErrorStatement));
             }
 
-            var returnValues = new System.Collections.Generic.List<string>();
+            var returnValues = new List<string>();
 
             foreach (var arg in callable.ManagedParameters.RegularParameters.Where(x => x.Direction != "in")) {
                 var statements = arg.GetMarshalUnmanagedToManagedStatements();
@@ -454,7 +454,7 @@ namespace GISharp.CodeGen.Syntax
         static BlockSyntax GetCallbackTryBlock(this GICallable callable)
         {
             var block = Block();
-            var fixedStatements = new System.Collections.Generic.List<FixedStatementSyntax>();
+            var fixedStatements = new List<FixedStatementSyntax>();
 
             foreach (var arg in callable.ManagedParameters) {
                 foreach (var s in arg.GetMarshalUnmanagedToManagedStatements()) {

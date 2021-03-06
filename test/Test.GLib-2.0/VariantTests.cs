@@ -1,15 +1,15 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
-using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text;
 
+using NUnit.Framework;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
-using System.Runtime.InteropServices;
-using System.Reflection;
 
 namespace GISharp.Test.GLib
 {
@@ -87,15 +87,15 @@ namespace GISharp.Test.GLib
                 Assert.That(GetIsFloating(v), Is.False);
                 Assert.That(GetRefCount(v), Is.EqualTo(1));
             }
-            using (var v = new Variant(new DBusObjectPath[0])) {
+            using (var v = new Variant(System.Array.Empty<DBusObjectPath>())) {
                 Assert.That(GetIsFloating(v), Is.False);
                 Assert.That(GetRefCount(v), Is.EqualTo(1));
             }
-            using (var v = new Variant(new byte[0])) {
+            using (var v = new Variant(System.Array.Empty<byte>())) {
                 Assert.That(GetIsFloating(v), Is.False);
                 Assert.That(GetRefCount(v), Is.EqualTo(1));
             }
-            using (var v = new Variant(new byte[0][])) {
+            using (var v = new Variant(System.Array.Empty<byte[]>())) {
                 Assert.That(GetIsFloating(v), Is.False);
                 Assert.That(GetRefCount(v), Is.EqualTo(1));
             }
@@ -104,234 +104,217 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestEquals()
         {
-            using (var trueVariant1 = new Variant(true))
-            using (var trueVariant2 = new Variant(true))
-            using (var falseVariant = new Variant(false)) {
-                Assert.That(trueVariant1, Is.EqualTo(trueVariant2));
-                Assert.That(trueVariant1, Is.Not.EqualTo(falseVariant));
-                Assert.That(trueVariant1 == trueVariant2, Is.True);
-                Assert.That(trueVariant1 != trueVariant2, Is.False);
-                Assert.That(trueVariant1 == falseVariant, Is.False);
-                Assert.That(trueVariant1 != falseVariant, Is.True);
+            using var trueVariant1 = new Variant(true);
+            using var trueVariant2 = new Variant(true);
+            using var falseVariant = new Variant(false);
 
-                Assert.That(trueVariant1 == null, Is.False);
-                Assert.That(trueVariant1 != null, Is.True);
-                Assert.That(null == trueVariant1, Is.False);
-                Assert.That(null != trueVariant1, Is.True);
-            }
+            Assert.That(trueVariant1, Is.EqualTo(trueVariant2));
+            Assert.That(trueVariant1, Is.Not.EqualTo(falseVariant));
+            Assert.That(trueVariant1 == trueVariant2, Is.True);
+            Assert.That(trueVariant1 != trueVariant2, Is.False);
+            Assert.That(trueVariant1 == falseVariant, Is.False);
+            Assert.That(trueVariant1 != falseVariant, Is.True);
+
+            Assert.That(trueVariant1 == null, Is.False);
+            Assert.That(trueVariant1 != null, Is.True);
+            Assert.That(null == trueVariant1, Is.False);
+            Assert.That(null != trueVariant1, Is.True);
         }
 
         [Test]
         public void TestCompareTo()
         {
-            using (var one = new Variant(1))
-            using (var two = new Variant(2))
-            using (var otherOne = new Variant((short)1)) {
-                Assert.That(one, Is.Not.LessThan(one));
-                Assert.That(one, Is.LessThan(two));
-                Assert.That(one, Is.LessThanOrEqualTo(one));
-                Assert.That(one, Is.LessThanOrEqualTo(two));
-                Assert.That(one, Is.Not.GreaterThan(one));
-                Assert.That(one, Is.Not.GreaterThan(two));
-                Assert.That(one, Is.GreaterThanOrEqualTo(one));
-                Assert.That(one, Is.Not.GreaterThanOrEqualTo(two));
+            using var one = new Variant(1);
+            using var two = new Variant(2);
+            using var otherOne = new Variant((short)1);
 
-                Assert.That(one < two, Is.True);
-                Assert.That(one <= two, Is.True);
-                Assert.That(one > two, Is.False);
-                Assert.That(one >= two, Is.False);
+            Assert.That(one, Is.Not.LessThan(one));
+            Assert.That(one, Is.LessThan(two));
+            Assert.That(one, Is.LessThanOrEqualTo(one));
+            Assert.That(one, Is.LessThanOrEqualTo(two));
+            Assert.That(one, Is.Not.GreaterThan(one));
+            Assert.That(one, Is.Not.GreaterThan(two));
+            Assert.That(one, Is.GreaterThanOrEqualTo(one));
+            Assert.That(one, Is.Not.GreaterThanOrEqualTo(two));
 
-                // types must match
-                Assert.That(() => one.CompareTo(otherOne),
-                    Throws.InvalidOperationException);
-            }
+            Assert.That(one < two, Is.True);
+            Assert.That(one <= two, Is.True);
+            Assert.That(one > two, Is.False);
+            Assert.That(one >= two, Is.False);
+
+            // types must match
+            Assert.That(() => one.CompareTo(otherOne),
+                Throws.InvalidOperationException);
         }
 
         [Test]
         public void TestCastBoolean()
         {
             var expected = true;
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.Boolean));
-                var actual = (bool)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.Boolean));
+            var actual = (bool)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastByte()
         {
             var expected = byte.MaxValue;
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.Byte));
-                var actual = (byte)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.Byte));
+            var actual = (byte)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastInt16()
         {
             var expected = short.MaxValue;
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.Int16));
-                var actual = (short)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.Int16));
+            var actual = (short)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastUInt16()
         {
             var expected = ushort.MaxValue;
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.UInt16));
-                var actual = (ushort)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.UInt16));
+            var actual = (ushort)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastInt32()
         {
             var expected = int.MaxValue;
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.Int32));
-                var actual = (int)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.Int32));
+            var actual = (int)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastUInt32()
         {
             var expected = uint.MaxValue;
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.UInt32));
-                var actual = (uint)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.UInt32));
+            var actual = (uint)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastInt64()
         {
             var expected = long.MaxValue;
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.Int64));
-                var actual = (long)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.Int64));
+            var actual = (long)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastUInt64()
         {
             var expected = ulong.MaxValue;
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.UInt64));
-                var actual = (ulong)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.UInt64));
+            var actual = (ulong)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastHandle()
         {
             var expected = new DBusHandle(int.MaxValue);
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.DBusHandle));
-                var actual = (DBusHandle)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.DBusHandle));
+            var actual = (DBusHandle)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastDouble()
         {
             var expected = double.MaxValue;
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.Double));
-                var actual = (double)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.Double));
+            var actual = (double)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastString()
         {
             var expected = "string";
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.String));
-                var actual = (string)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.String));
+            var actual = (string)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastStringArray()
         {
             var expected = new[] { "string" };
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.StringArray));
-                var actual = (string[]?)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.StringArray));
+            var actual = (string[]?)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastObjectPath()
         {
             var expected = new DBusObjectPath("/");
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.DBusObjectPath));
-                var actual = (DBusObjectPath)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.DBusObjectPath));
+            var actual = (DBusObjectPath)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastObjectPathArray()
         {
             var expected = new[] { new DBusObjectPath("/") };
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.DBusObjectPathArray));
-                var actual = (DBusObjectPath[])variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.DBusObjectPathArray));
+            var actual = (DBusObjectPath[])variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastSignature()
         {
             var expected = new DBusSignature("i");
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.DBusSignature));
-                var actual = (DBusSignature)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.DBusSignature));
+            var actual = (DBusSignature)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastBytestring()
         {
             var expected = Encoding.ASCII.GetBytes("bytestring");
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.ByteString));
-                var actual = (byte[])variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.ByteString));
+            var actual = (byte[])variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastBytestringArray()
         {
             var expected = new[] { Encoding.ASCII.GetBytes("bytestring") };
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type, Is.EqualTo(VariantType.ByteStringArray));
-                var actual = (byte[][])variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type, Is.EqualTo(VariantType.ByteStringArray));
+            var actual = (byte[][])variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -348,24 +331,21 @@ namespace GISharp.Test.GLib
                 Assert.That(() => new Variant(VariantType.Boolean, badArray), Throws.Nothing);
             }
 
-            using (var expected = new PtrArray<Variant> { new Variant(false) })
-            using (var variant = new Variant(null, expected)) {
-                Assert.That(variant.Type.IsArray, Is.True);
-                using (var actual = (PtrArray<Variant>)variant) {
-                    Assert.That(actual, Is.EqualTo(expected));
-                }
-            }
+            using var expected = new PtrArray<Variant> { new Variant(false) };
+            using var variant = new Variant(null, expected);
+            Assert.That(variant.Type.IsArray, Is.True);
+            using var actual = (PtrArray<Variant>)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestCastTuple()
         {
-            using (var expected = new PtrArray<Variant> { new Variant(false), new Variant(0) })
-            using (var variant = (Variant)(UnownedCPtrArray<Variant>)expected) {
-                Assert.That(variant.Type.IsTuple, Is.True);
-                var actual = (PtrArray<Variant>)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var expected = new PtrArray<Variant> { new Variant(false), new Variant(0) };
+            using var variant = (Variant)(UnownedCPtrArray<Variant>)expected;
+            Assert.That(variant.Type.IsTuple, Is.True);
+            var actual = (PtrArray<Variant>)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
@@ -377,30 +357,29 @@ namespace GISharp.Test.GLib
 
             // make sure we get back what we put in
             var expected = new KeyValuePair<Variant, Variant>(new Variant("key"), new Variant("value"));
-            using (var variant = (Variant)expected) {
-                Assert.That(variant.Type.IsDictionaryEntry, Is.True);
-                var actual = (KeyValuePair<Variant, Variant>)variant;
-                Assert.That(actual, Is.EqualTo(expected));
-            }
+            using var variant = (Variant)expected;
+            Assert.That(variant.Type.IsDictionaryEntry, Is.True);
+            var actual = (KeyValuePair<Variant, Variant>)variant;
+            Assert.That(actual, Is.EqualTo(expected));
         }
 
         [Test]
         public void TestPtrArrayVariantRefCount()
         {
-            using (var array = new PtrArray<Variant>())
-            using (var item = new Variant(false)) {
-                // The only reference belongs to the managed proxy
-                Assume.That(GetRefCount(item), Is.EqualTo(1));
+            using var array = new PtrArray<Variant>();
+            using var item = new Variant(false);
 
-                // The PtrArray<Variant> takes a reference to the Variant when it is
-                /// added to the array
-                array.Add(item);
-                Assert.That(GetRefCount(item), Is.EqualTo(2));
+            // The only reference belongs to the managed proxy
+            Assume.That(GetRefCount(item), Is.EqualTo(1));
 
-                // And releases the reference when the Variant is removed
-                array.Remove(item);
-                Assert.That(GetRefCount(item), Is.EqualTo(1));
-            }
+            // The PtrArray<Variant> takes a reference to the Variant when it is
+            /// added to the array
+            array.Add(item);
+            Assert.That(GetRefCount(item), Is.EqualTo(2));
+
+            // And releases the reference when the Variant is removed
+            array.Remove(item);
+            Assert.That(GetRefCount(item), Is.EqualTo(1));
         }
 
         [Test]

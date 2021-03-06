@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2019-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2019-2021 David Lechner <david@lechnology.com>
 
 
 using System;
@@ -25,37 +25,47 @@ namespace GISharp.Runtime
         /// <summary>
         /// Add
         /// </summary>
-        public static CULong operator +(CULong a, CULong b) => new CULong(a.value + b.value);
+        public static CULong operator +(CULong a, CULong b) => new(a.value + b.value);
 
         /// <summary>
         /// Subtract
         /// </summary>
-        public static CULong operator -(CULong a, CULong b) => new CULong(a.value - b.value);
+        public static CULong operator -(CULong a, CULong b) => new(a.value - b.value);
 
         /// <summary>
         /// Multiply
         /// </summary>
-        public static CULong operator *(CULong a, CULong b) => new CULong(a.value * b.value);
+        public static CULong operator *(CULong a, CULong b) => new(a.value * b.value);
 
         /// <summary>
         /// Divide
         /// </summary>
-        public static CULong operator /(CULong a, CULong b) => new CULong(a.value / b.value);
+        public static CULong operator /(CULong a, CULong b) => new(a.value / b.value);
 
         /// <summary>
         /// Modulo
         /// </summary>
-        public static CULong operator %(CULong a, CULong b) => new CULong(a.value % b.value);
+        public static CULong operator %(CULong a, CULong b) => new(a.value % b.value);
 
         /// <summary>
         /// Bitwise shift left
         /// </summary>
-        public static CULong operator <<(CULong a, int b) => new CULong(a.value << b);
+        public static CULong operator <<(CULong a, int b) => new(a.value << b);
 
         /// <summary>
         /// Bitwise shift right
         /// </summary>
-        public static CULong operator >>(CULong a, int b) => new CULong(a.value >> b);
+        public static CULong operator >>(CULong a, int b) => new(a.value >> b);
+
+        /// <summary>
+        /// Tests if equal
+        /// </summary>
+        public static bool operator ==(CULong a, CULong b) => a.value == b.value;
+
+        /// <summary>
+        /// Tests if not equal
+        /// </summary>
+        public static bool operator !=(CULong a, CULong b) => a.value != b.value;
 
         /// <summary>
         /// Tests if less than
@@ -80,7 +90,7 @@ namespace GISharp.Runtime
         /// <summary>
         /// Converts from uint
         /// </summary>
-        public static implicit operator CULong(uint n) => new CULong(n);
+        public static implicit operator CULong(uint n) => new(n);
 
         /// <summary>
         /// Converts to ulong

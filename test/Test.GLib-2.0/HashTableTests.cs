@@ -229,25 +229,25 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestRemove()
         {
-            using (var hashTable = new HashTable<OpaqueInt?, OpaqueInt>()) {
-                // no match returns false
-                var ret = hashTable.Remove(new OpaqueInt(0));
-                Assert.That(ret, Is.False);
+            using var hashTable = new HashTable<OpaqueInt?, OpaqueInt>();
 
-                // match returns true
-                hashTable.Add(new OpaqueInt(0));
-                Assume.That(hashTable.Size, Is.EqualTo(1));
-                ret = hashTable.Remove(new OpaqueInt(0));
-                Assert.That(ret, Is.True);
+            // no match returns false
+            var ret = hashTable.Remove(new OpaqueInt(0));
+            Assert.That(ret, Is.False);
 
-                // null key works
-                ret = hashTable.Remove(null);
-                Assert.That(ret, Is.False);
+            // match returns true
+            hashTable.Add(new OpaqueInt(0));
+            Assume.That(hashTable.Size, Is.EqualTo(1));
+            ret = hashTable.Remove(new OpaqueInt(0));
+            Assert.That(ret, Is.True);
 
-                hashTable.Dispose();
-                Assert.That(() => hashTable.Remove(null),
-                             Throws.TypeOf<ObjectDisposedException>());
-            }
+            // null key works
+            ret = hashTable.Remove(null);
+            Assert.That(ret, Is.False);
+
+            hashTable.Dispose();
+            Assert.That(() => hashTable.Remove(null),
+                         Throws.TypeOf<ObjectDisposedException>());
         }
 #if false
         [Test]

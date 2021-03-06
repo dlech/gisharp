@@ -260,12 +260,12 @@ namespace GISharp.Lib.GObject
         /// <summary>
         /// the name of the value
         /// </summary>
-        public UnownedUtf8 Name => new UnownedUtf8(valueName, -1);
+        public UnownedUtf8 Name => new(valueName, -1);
 
         /// <summary>
         /// the nickname of the value
         /// </summary>
-        public UnownedUtf8 Nick => new UnownedUtf8(valueNick, -1);
+        public UnownedUtf8 Nick => new(valueNick, -1);
 
         /// <summary>
         /// Creates a new instance.

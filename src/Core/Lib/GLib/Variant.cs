@@ -3038,7 +3038,7 @@ namespace GISharp.Lib.GLib
             nuint length_;
             var ret_ = g_variant_get_bytestring_array(value_, &length_);
             if (ret_ is null) {
-                return new byte[0][];
+                return System.Array.Empty<byte[]>();
             }
             var array = new System.Collections.Generic.List<byte[]>();
             var offset = 0;

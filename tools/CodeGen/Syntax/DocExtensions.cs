@@ -128,7 +128,7 @@ namespace GISharp.CodeGen.Syntax
                         }
 
                         // if this is an array length parameter
-                        foreach (var (arrayArg, type) in callable.Parameters.Select(x => (x, x.Type as Gir.Array)).Where(x => x.Item2?.LengthIndex >= 0)) {
+                        foreach (var (arrayArg, type) in callable.Parameters.Select(x => (x, x.Type as Array)).Where(x => x.Item2?.LengthIndex >= 0)) {
                             if (callable.Parameters.RegularParameters.ElementAt(type.LengthIndex).GirName == p.Value[1..]) {
                                 builder.Replace(p.Value, $"the length of <paramref name=\"{arrayArg.ManagedName}\"/>");
                                 continue;

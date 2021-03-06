@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2018-2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2018-2021 David Lechner <david@lechnology.com>
 
 using System;
 
@@ -18,67 +18,59 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNewNow()
         {
-            using (var dt = DateTime.GetNow(TimeZone.Utc)) {
-                Assert.That(dt, Is.Not.Null);
-            }
+            using var dt = DateTime.GetNow(TimeZone.Utc);
+            Assert.That(dt, Is.Not.Null);
         }
 
         [Test]
         public void TestNewNowLocal()
         {
-            using (var dt = DateTime.NowLocal) {
-                Assert.That(dt, Is.Not.Null);
-            }
+            using var dt = DateTime.NowLocal;
+            Assert.That(dt, Is.Not.Null);
         }
 
         [Test]
         public void TestNewNowUtc()
         {
-            using (var dt = DateTime.NowUtc) {
-                Assert.That(dt, Is.Not.Null);
-            }
+            using var dt = DateTime.NowUtc;
+            Assert.That(dt, Is.Not.Null);
         }
 
         [Test]
         public void TestNewFromUnixLocal()
         {
-            using (var dt = DateTime.FromUnixLocal(0)) {
-                Assert.That(dt, Is.Not.Null);
-            }
+            using var dt = DateTime.FromUnixLocal(0);
+            Assert.That(dt, Is.Not.Null);
         }
 
         [Test]
         public void TestNewFromUnixUtc()
         {
-            using (var dt = DateTime.FromUnixUtc(0)) {
-                Assert.That(dt, Is.Not.Null);
-            }
+            using var dt = DateTime.FromUnixUtc(0);
+            Assert.That(dt, Is.Not.Null);
         }
 
         [Test]
-        [Obsolete]
+        [Obsolete("FromTimevalLocal is deprecated upstream")]
         public void TestNewFromTimeValLocal()
         {
-            using (var dt = DateTime.FromTimevalLocal(new TimeVal())) {
-                Assert.That(dt, Is.Not.Null);
-            }
+            using var dt = DateTime.FromTimevalLocal(new TimeVal());
+            Assert.That(dt, Is.Not.Null);
         }
 
         [Test]
-        [Obsolete]
+        [Obsolete("FromTimevalUtc is deprecated upstream")]
         public void TestNewFromTimeValUtc()
         {
-            using (var dt = DateTime.FromTimevalUtc(new TimeVal())) {
-                Assert.That(dt, Is.Not.Null);
-            }
+            using var dt = DateTime.FromTimevalUtc(new TimeVal());
+            Assert.That(dt, Is.Not.Null);
         }
 
         [Test]
         public void TestNewFromIso8601()
         {
-            using (var dt = DateTime.FromIso8601("2018-03-27T21:43:57Z", null)) {
-                Assert.That(dt, Is.Not.Null);
-            }
+            using var dt = DateTime.FromIso8601("2018-03-27T21:43:57Z", null);
+            Assert.That(dt, Is.Not.Null);
         }
 
         [Test]

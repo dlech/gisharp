@@ -810,7 +810,7 @@ namespace GISharp.Lib.GLib
             elementFreeFunc = (delegate* unmanaged[Cdecl]<IntPtr, void>)freeMethodInfo.MethodHandle.GetFunctionPointer();
         }
 
-        private ReadOnlySpan<IntPtr> Data => new ReadOnlySpan<IntPtr>(Data_, (int)Len);
+        private ReadOnlySpan<IntPtr> Data => new(Data_, (int)Len);
 
         /// <summary>
         /// Indicates if this <see cref="PtrArray{T}"/> owns the elements in the
@@ -984,13 +984,14 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Sort(Comparison<T> compareFunc)
         {
-            Comparison<IntPtr> compareFunc_ = (a, b) => {
+            int compareFunc_(IntPtr a, IntPtr b)
+            {
                 var x = GetInstance<T>(a, Transfer.None);
                 var y = GetInstance<T>(b, Transfer.None);
                 var compareFuncRet = compareFunc(x, y);
                 return compareFuncRet;
-            };
-            Sort(compareFunc_);
+            }
+            Sort((Comparison<IntPtr>)compareFunc_);
         }
 
         /// <summary>

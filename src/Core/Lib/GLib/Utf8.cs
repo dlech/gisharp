@@ -754,17 +754,17 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Convenience property for getting an empty string.
         /// </summary>
-        public static UnownedUtf8 Empty => new UnownedUtf8(EmptyUtf8, 0);
+        public static UnownedUtf8 Empty => new(EmptyUtf8, 0);
 
         /// <summary>
         /// Gets an enumerator for iterating the bytes of this string.
         /// </summary>
-        public ByteEnumerable Bytes => new ByteEnumerable(this);
+        public ByteEnumerable Bytes => new(this);
 
         /// <summary>
         /// Gets an enumerator for iterating the unicode characters of this string.
         /// </summary>
-        public UnicharEnumerable Characters => new UnicharEnumerable(this);
+        public UnicharEnumerable Characters => new(this);
 
         [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
         static extern byte* g_strdup(byte* str);
@@ -874,12 +874,12 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Gets an unowned reference to this string.
         /// </summary>
-        public UnownedUtf8 AsUnownedUtf8() => new UnownedUtf8(UnsafeHandle, length);
+        public UnownedUtf8 AsUnownedUtf8() => new(UnsafeHandle, length);
 
         /// <summary>
         /// Gets a nullable unowned reference to this string.
         /// </summary>
-        public NullableUnownedUtf8 AsNullableUnownedUtf8() => new NullableUnownedUtf8(UnsafeHandle, length);
+        public NullableUnownedUtf8 AsNullableUnownedUtf8() => new(UnsafeHandle, length);
 
         /// <summary>
         /// Gets the managed UTF-16 value of this string.

@@ -176,7 +176,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Function needed for use in <c>foreach</c> loops.
         /// </summary>
-        public Enumerator GetEnumerator() => new Enumerator(this);
+        public Enumerator GetEnumerator() => new(this);
 
         /// <summary>
         /// Returns a reference to unmanaged string array.

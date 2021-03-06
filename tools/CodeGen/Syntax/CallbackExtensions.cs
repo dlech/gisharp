@@ -86,7 +86,7 @@ namespace GISharp.CodeGen.Syntax
         static IEnumerable<StatementSyntax> GetVirtualMethodStatements(this Callback callback)
         {
             var tryStatement = TryStatement();
-            var fixedStatements = new System.Collections.Generic.List<FixedStatementSyntax>();
+            var fixedStatements = new List<FixedStatementSyntax>();
 
             foreach (var arg in callback.ManagedParameters.Where(x => x.Direction != "out" || x.IsCallerAllocates)) {
                 var marshalStatements = arg.GetMarshalUnmanagedToManagedStatements();
@@ -231,7 +231,7 @@ namespace GISharp.CodeGen.Syntax
         static BlockSyntax GetCallbackTryBlock(this Callback callback)
         {
             var block = Block();
-            var fixedStatements = new System.Collections.Generic.List<FixedStatementSyntax>();
+            var fixedStatements = new List<FixedStatementSyntax>();
 
             foreach (var arg in callback.ManagedParameters) {
                 foreach (var s in arg.GetMarshalUnmanagedToManagedStatements()) {
@@ -281,7 +281,7 @@ namespace GISharp.CodeGen.Syntax
         static BlockSyntax GetOldCallbackTryBlock(this Callback callback)
         {
             var block = Block();
-            var fixedStatements = new System.Collections.Generic.List<FixedStatementSyntax>();
+            var fixedStatements = new List<FixedStatementSyntax>();
 
             foreach (var arg in callback.ManagedParameters) {
                 foreach (var s in arg.GetMarshalUnmanagedToManagedStatements()) {

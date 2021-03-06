@@ -22,10 +22,9 @@ namespace GISharp.CodeGen.Gir
         /// </summary>
         public IEnumerable<Parameter> RegularParameters => _RegularParameters.Value;
         readonly Lazy<List<Parameter>> _RegularParameters;
+        readonly Lazy<List<GIArg>> _AllParameters;
 
-        Lazy<List<GIArg>> _AllParameters;
-
-        public ManagedParameters(XElement element, GirNode parent): base(element, parent)
+        public ManagedParameters(XElement element, GirNode parent) : base(element, parent)
         {
             if (element.Name != gs + "managed-parameters") {
                 throw new ArgumentException("Requrires <gs:managed-parameters> element", nameof(element));

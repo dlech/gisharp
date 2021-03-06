@@ -297,7 +297,7 @@ namespace GISharp.CodeGen
             }
             // strip the lib prefix
             if (dllName.StartsWith("lib")) {
-                dllName = dllName.Substring(3);
+                dllName = dllName[3..];
             }
 
             // add the gs namespace prefix
@@ -900,7 +900,7 @@ namespace GISharp.CodeGen
             // fix up the async method return value based on the finish method
 
             foreach (var element in document.Descendants().Where(x => x.Attribute(gs + "finish-for") is not null)) {
-                var returnValues = new System.Collections.Generic.List<XElement>();
+                var returnValues = new List<XElement>();
                 var finishReturnValueElement = element.Element(gi + "return-value");
                 if (!finishReturnValueElement.Attribute("skip").AsBool() &&
                     finishReturnValueElement.Attribute(gs + "managed-name").Value != typeof(void).ToString()) {
@@ -987,7 +987,7 @@ namespace GISharp.CodeGen
             foreach (var element in setters) {
                 var name = element.Attribute(gs + "managed-name").Value;
                 // drop the Set prefix
-                name = name.Substring(3);
+                name = name[3..];
                 var matchingGetter = element.Parent.Elements(element.Name)
                     .SingleOrDefault(e => e.Attribute(gs + "property-getter-for").AsString() == name);
                 if (matchingGetter is null) {
@@ -1078,7 +1078,7 @@ namespace GISharp.CodeGen
 
             // hide parameters that are handled internally
 
-            var indexesToRemove = new System.Collections.Generic.List<int>();
+            var indexesToRemove = new List<int>();
             var isMethod = parameters.Parent.Name == gi + "method";
             // Closure args are tricky. Most of the time, the "closure" attribute
             // is on the callback argument. But, sometimes the user data argument
@@ -1383,7 +1383,7 @@ namespace GISharp.CodeGen
                     str = str.ToLower();
                 }
                 str = ((str.Length > 0) ? str.Substring(0, 1).ToUpper() : "")
-                    + ((str.Length > 1) ? str.Substring(1) : "");
+                    + ((str.Length > 1) ? str[1..] : "");
             }
 
             return str;
@@ -1396,7 +1396,7 @@ namespace GISharp.CodeGen
             }
             str = str.ToPascalCase();
             str = ((str.Length > 0) ? str.Substring(0, 1).ToLower() : "")
-                + ((str.Length > 1) ? str.Substring(1) : "");
+                + ((str.Length > 1) ? str[1..] : "");
             if (ParseToken(str).IsReservedKeyword()) {
                 str = "@" + str;
             }

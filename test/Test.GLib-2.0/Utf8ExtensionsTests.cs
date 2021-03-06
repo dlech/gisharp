@@ -1,5 +1,5 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 2020 David Lechner <david@lechnology.com>
+// Copyright (c) 2020-2021 David Lechner <david@lechnology.com>
 
 using System;
 using GISharp.Lib.GLib;
@@ -12,10 +12,9 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCaseFold()
         {
-            using (var utf8 = new Utf8("Test")) {
-                using var actual = utf8.CaseFold();
-                Assert.That(actual, Is.EqualTo("test"));
-            }
+            using var utf8 = new Utf8("Test");
+            using var actual = utf8.CaseFold();
+            Assert.That(actual, Is.EqualTo("test"));
         }
 
         [Test]

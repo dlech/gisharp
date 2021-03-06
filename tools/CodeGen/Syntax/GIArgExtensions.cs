@@ -205,7 +205,7 @@ namespace GISharp.CodeGen.Syntax
 
             var @var = declareVariable ? "var " : (arg.Direction != "in" && !arg.IsCallerAllocates ? "*" : "");
 
-            var expressions = new System.Collections.Generic.List<ExpressionSyntax>();
+            var expressions = new List<ExpressionSyntax>();
             var type = arg.GetSpecializedManagedType();
             var unmanagedName = arg.ManagedName + "_";
             var unmanagedType = arg.Type.GetUnmanagedType();
@@ -331,7 +331,7 @@ namespace GISharp.CodeGen.Syntax
 
         public static StatementSyntax[] GetMarshalUnmanagedToManagedStatements(this GIArg arg, bool declareVariable = true)
         {
-            var expressions = new System.Collections.Generic.List<ExpressionSyntax>();
+            var expressions = new List<ExpressionSyntax>();
             var type = arg.GetSpecializedManagedType();
             var @var = declareVariable ? "var " : "";
             var ownership = arg.GetOwnershipTransfer();

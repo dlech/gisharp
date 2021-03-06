@@ -295,7 +295,7 @@ namespace GISharp.Test
 
     public sealed class DisposableList : IList<int>, IDisposable
     {
-        readonly List<int> list = new List<int>();
+        readonly List<int> list = new();
         bool isDisposed;
 
         public void Dispose()

@@ -1,9 +1,7 @@
 // SPDX-License-Identifier: MIT
-// Copyright (c) 20201 David Lechner <david@lechnology.com>
+// Copyright (c) 2021 David Lechner <david@lechnology.com>
 
-using System.Collections;
 using System.Collections.Concurrent;
-using System.Collections.Generic;
 using GISharp.Lib.GLib;
 using GISharp.Runtime;
 
@@ -11,7 +9,7 @@ namespace GISharp.Lib.GIRepository
 {
     partial class Repository
     {
-        private ConcurrentDictionary<string, IndexedCollection<BaseInfo>> infos = new();
+        private readonly ConcurrentDictionary<string, IndexedCollection<BaseInfo>> infos = new();
 
         /// <summary>
         /// This function returns a particular metadata entry in the
