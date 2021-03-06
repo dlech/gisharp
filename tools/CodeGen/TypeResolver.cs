@@ -83,7 +83,7 @@ namespace GISharp.CodeGen
                 var x when x is not null && x.EndsWith("Private") => "System.IntPtr",
                 var x when x is not null && x.Contains(".") => type.IsValueType() ?
                     $"GISharp.Lib.{type.GirName}{pointer}" :
-                    $"GISharp.Lib.{type.GirName}.UnmanagedStruct*",
+                    $"GISharp.Lib.{type.GirName}.UnmanagedStruct{pointer}",
                 var x when x is null && type is Gir.Array array =>
                     $"{array.TypeParameters.Single().GetUnmanagedType()}*",
                 _ => type switch {
