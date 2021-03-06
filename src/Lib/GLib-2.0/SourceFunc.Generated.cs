@@ -34,8 +34,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static GISharp.Lib.GLib.SourceFunc FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedSourceFunc>((System.IntPtr)callback_);
-            System.Boolean managedCallback() { var ret_ = unmanagedCallback(userData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
+            System.Boolean managedCallback() { var ret_ = callback_(userData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
 
             return managedCallback;
         }

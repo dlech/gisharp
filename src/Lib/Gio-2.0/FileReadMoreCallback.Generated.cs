@@ -37,9 +37,8 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public static GISharp.Lib.Gio.FileReadMoreCallback FromPointer(delegate* unmanaged[Cdecl]<byte*, long, System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedFileReadMoreCallback>((System.IntPtr)callback_);
             var callbackData_ = userData_;
-            System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, long fileSize) { var fileContents_ = (byte*)fileContents.UnsafeHandle; var fileSize_ = (long)fileSize; var ret_ = unmanagedCallback(fileContents_,fileSize_,callbackData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
+            System.Boolean managedCallback(GISharp.Lib.GLib.UnownedUtf8 fileContents, long fileSize) { var fileContents_ = (byte*)fileContents.UnsafeHandle; var fileSize_ = (long)fileSize; var ret_ = callback_(fileContents_,fileSize_,callbackData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
 
             return managedCallback;
         }

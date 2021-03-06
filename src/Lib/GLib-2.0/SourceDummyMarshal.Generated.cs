@@ -26,8 +26,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static GISharp.Lib.GLib.SourceDummyMarshal FromPointer(delegate* unmanaged[Cdecl]<void> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedSourceDummyMarshal>((System.IntPtr)callback_);
-            void managedCallback() { unmanagedCallback(); }
+            void managedCallback() { callback_(); }
 
             return managedCallback;
         }

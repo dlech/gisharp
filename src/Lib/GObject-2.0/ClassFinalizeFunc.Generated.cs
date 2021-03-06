@@ -37,8 +37,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GISharp.Lib.GObject.ClassFinalizeFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass*, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GObject.UnmanagedClassFinalizeFunc>((System.IntPtr)callback_);
-            void managedCallback(GISharp.Lib.GObject.TypeClass gClass, System.IntPtr classData) { var gClass_ = &gClass; var classData_ = (System.IntPtr)classData; unmanagedCallback(gClass_, classData_); }
+            void managedCallback(GISharp.Lib.GObject.TypeClass gClass, System.IntPtr classData) { var gClass_ = &gClass; var classData_ = (System.IntPtr)classData; callback_(gClass_, classData_); }
 
             return managedCallback;
         }

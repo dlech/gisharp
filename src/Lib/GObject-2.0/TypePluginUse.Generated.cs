@@ -29,8 +29,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GISharp.Lib.GObject.TypePluginUse FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, void> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GObject.UnmanagedTypePluginUse>((System.IntPtr)callback_);
-            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin) { var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle; unmanagedCallback(plugin_); }
+            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin) { var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle; callback_(plugin_); }
 
             return managedCallback;
         }

@@ -42,8 +42,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GISharp.Lib.GObject.InstanceInitFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInstance*, GISharp.Lib.GObject.TypeClass*, void> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GObject.UnmanagedInstanceInitFunc>((System.IntPtr)callback_);
-            void managedCallback(GISharp.Lib.GObject.TypeInstance instance, GISharp.Lib.GObject.TypeClass gClass) { var instance_ = &instance; var gClass_ = &gClass; unmanagedCallback(instance_, gClass_); }
+            void managedCallback(GISharp.Lib.GObject.TypeInstance instance, GISharp.Lib.GObject.TypeClass gClass) { var instance_ = &instance; var gClass_ = &gClass; callback_(instance_, gClass_); }
 
             return managedCallback;
         }

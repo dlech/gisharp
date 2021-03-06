@@ -34,8 +34,7 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public static GISharp.Lib.Gio.CancellableSourceFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.Gio.Cancellable.UnmanagedStruct*, System.IntPtr, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.Gio.UnmanagedCancellableSourceFunc>((System.IntPtr)callback_);
-            System.Boolean managedCallback(GISharp.Lib.Gio.Cancellable? cancellable) { var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero); var ret_ = unmanagedCallback(cancellable_,userData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
+            System.Boolean managedCallback(GISharp.Lib.Gio.Cancellable? cancellable) { var cancellable_ = (GISharp.Lib.Gio.Cancellable.UnmanagedStruct*)(cancellable?.UnsafeHandle ?? System.IntPtr.Zero); var ret_ = callback_(cancellable_,userData_); var ret = GISharp.Runtime.BooleanExtensions.IsTrue(ret_); return ret; }
 
             return managedCallback;
         }

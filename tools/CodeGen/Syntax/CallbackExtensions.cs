@@ -579,16 +579,6 @@ namespace GISharp.CodeGen.Syntax
 
         static IEnumerable<StatementSyntax> GetMarshalFromPointerMethodStatements(this Callback callback)
         {
-            var marshalToPointerExpression = ParseExpression(string.Format(
-                "{0}.{1}<{2}>((System.IntPtr)callback_)",
-                typeof(Marshal),
-                nameof(Marshal.GetDelegateForFunctionPointer),
-                callback.GetQualifiedName(true)
-            ));
-            yield return LocalDeclarationStatement(VariableDeclaration(IdentifierName("var"))
-                .AddVariables(VariableDeclarator("unmanagedCallback")
-                    .WithInitializer(EqualsValueClause(marshalToPointerExpression))));
-
             var userDataParam = callback.Parameters.SingleOrDefault(x => x.ClosureIndex >= 0);
             if (userDataParam is not null && userDataParam.ManagedName != "userData") {
                 yield return ExpressionStatement(ParseExpression($"var {userDataParam.ManagedName}_ = userData_"));
@@ -603,7 +593,7 @@ namespace GISharp.CodeGen.Syntax
             var returnType = callback.ReturnValue.GetManagedTypeName();
             yield return LocalFunctionStatement(returnType, "managedCallback")
                 .WithParameterList(paramList)
-                .WithBody(callback.GetInvokeBlock("unmanagedCallback", checkArgs: false));
+                .WithBody(callback.GetInvokeBlock("callback_", checkArgs: false));
 
             yield return ReturnStatement(ParseExpression("managedCallback"));
         }

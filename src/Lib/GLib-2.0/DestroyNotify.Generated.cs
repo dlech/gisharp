@@ -30,8 +30,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static GISharp.Lib.GLib.DestroyNotify FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, void> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedDestroyNotify>((System.IntPtr)callback_);
-            void managedCallback(System.IntPtr data) { var data_ = (System.IntPtr)data; unmanagedCallback(data_); }
+            void managedCallback(System.IntPtr data) { var data_ = (System.IntPtr)data; callback_(data_); }
 
             return managedCallback;
         }

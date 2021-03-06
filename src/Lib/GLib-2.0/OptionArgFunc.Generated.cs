@@ -38,9 +38,8 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static GISharp.Lib.GLib.OptionArgFunc FromPointer(delegate* unmanaged[Cdecl]<byte*, byte*, System.IntPtr, GISharp.Lib.GLib.Error.UnmanagedStruct**, GISharp.Runtime.Boolean> callback_, System.IntPtr userData_)
         {
-            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedOptionArgFunc>((System.IntPtr)callback_);
             var data_ = userData_;
-            void managedCallback(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value) { var optionName_ = (byte*)optionName.UnsafeHandle; var value_ = (byte*)value.UnsafeHandle; var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*); unmanagedCallback(optionName_, value_, data_, &error_); if (error_ is not null) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
+            void managedCallback(GISharp.Lib.GLib.UnownedUtf8 optionName, GISharp.Lib.GLib.UnownedUtf8 value) { var optionName_ = (byte*)optionName.UnsafeHandle; var value_ = (byte*)value.UnsafeHandle; var error_ = default(GISharp.Lib.GLib.Error.UnmanagedStruct*); callback_(optionName_, value_, data_, &error_); if (error_ is not null) { var error = GISharp.Runtime.Opaque.GetInstance<GISharp.Lib.GLib.Error>((System.IntPtr)error_, GISharp.Runtime.Transfer.Full); throw new GISharp.Runtime.GErrorException(error); } }
 
             return managedCallback;
         }
