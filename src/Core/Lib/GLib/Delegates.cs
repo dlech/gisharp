@@ -2,7 +2,6 @@
 // Copyright (c) 2015-2020 David Lechner <david@lechnology.com>
 
 using System;
-using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using GISharp.Runtime;
 
@@ -59,10 +58,11 @@ namespace GISharp.Lib.GLib
     /// a value to compare with
     /// </param>
     /// <returns>
-    /// negative value if @a &lt; @b; zero if @a = @b; positive
-    ///          value if @a &gt; @b
+    /// negative value if <paramref name="a"/> &lt; <paramref name="b"/>;
+    /// zero if <paramref name="a"/> = <paramref name="b"/>; positive
+    /// value if  <paramref name="a"/> &gt; <paramref name="b"/>
     /// </returns>
-    public delegate int CompareFunc<T>(T a, T b);
+    public delegate int CompareFunc<T>(T a, T b) where T : IOpaque;
 
     /// <summary>
     /// A function of this signature is used to copy data when doing a deep-copy.

@@ -256,13 +256,13 @@ namespace GISharp.Test.GLib
             Assume.That(array.UnsafeItemAt(1), Is.EqualTo(1));
             Assume.That(array.UnsafeItemAt(2), Is.EqualTo(2));
 
-            array.Sort((x, y) => x - y);
+            array.Sort((in int x, in int y) => x - y);
             Assert.That(array.UnsafeItemAt(0), Is.EqualTo(1));
             Assert.That(array.UnsafeItemAt(1), Is.EqualTo(2));
             Assert.That(array.UnsafeItemAt(2), Is.EqualTo(3));
 
             array.Dispose();
-            Assert.That(() => array.Sort((x, y) => x - y),
+            Assert.That(() => array.Sort((in int x, in int y) => x - y),
                          Throws.TypeOf<ObjectDisposedException>());
         }
 

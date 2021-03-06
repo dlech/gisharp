@@ -8,6 +8,7 @@ using System.Collections;
 using GISharp.Runtime;
 using GISharp.Lib.GObject;
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace GISharp.Lib.GLib
 {
@@ -209,6 +210,25 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
+        /// Specifies the type of a comparison function used to compare two
+        /// values. The function should return a negative integer if the first
+        /// value comes before the second, 0 if they are equal, or a positive
+        /// integer if the first value comes after the second.
+        /// </summary>
+        /// <param name="a">
+        /// a value
+        /// </param>
+        /// <param name="b">
+        /// a value to compare with
+        /// </param>
+        /// <returns>
+        /// negative value if <paramref name="a"/> &lt; <paramref name="b"/>;
+        /// zero if <paramref name="a"/> = <paramref name="b"/>; positive
+        /// value if  <paramref name="a"/> &gt; <paramref name="b"/>
+        /// </returns>
+        public delegate int CompareFunc<T>(in T a, in T b) where T : unmanaged;
+
+        /// <summary>
         /// Sorts a <see cref="Array{T}"/> using <paramref name="compareFunc"/>
         /// which should be a qsort()-style
         /// comparison function (returns less than zero for first arg is less
@@ -221,18 +241,18 @@ namespace GISharp.Lib.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        private protected void Sort<T>(Comparison<T> compareFunc) where T : unmanaged
+        private protected void Sort<T>(CompareFunc<T> compareFunc) where T : unmanaged
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            var unmanagedCompareFunc = new UnmanagedCompareFunc((a, b) => {
+            var unmanagedCompareFunc = new UnmanagedCompareFunc((a_, b_) => {
                 try {
-                    var x = Marshal.PtrToStructure<T>(a);
-                    var y = Marshal.PtrToStructure<T>(b);
-                    return compareFunc(x, y);
+                    ref var a = ref Unsafe.AsRef<T>((void*)a_);
+                    ref var b = ref Unsafe.AsRef<T>((void*)b_);
+                    return compareFunc(a, b);
                 }
                 catch (Exception ex) {
                     ex.LogUnhandledException();
-                    return 0;
+                    return default;
                 }
             });
             var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)
@@ -421,7 +441,7 @@ namespace GISharp.Lib.GLib
         /// <param name="compareFunc">
         /// comparison function
         /// </param>
-        public void Sort(Comparison<T> compareFunc) => Sort<T>(compareFunc);
+        public void Sort(CompareFunc<T> compareFunc) => Sort<T>(compareFunc);
 
         bool ICollection<T>.IsReadOnly => false;
 
