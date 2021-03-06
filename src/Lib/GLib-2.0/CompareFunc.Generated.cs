@@ -34,7 +34,14 @@ namespace GISharp.Lib.GLib
         /// </summary>
         public static GISharp.Lib.GLib.CompareFunc FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, System.IntPtr, int> callback_, System.IntPtr userData_)
         {
-            int managedCallback(System.IntPtr a, System.IntPtr b) { var a_ = (System.IntPtr)a; var b_ = (System.IntPtr)b; var ret_ = callback_(a_,b_); var ret = (int)ret_; return ret; }
+            int managedCallback(System.IntPtr a, System.IntPtr b)
+            {
+                var a_ = (System.IntPtr)a;
+                var b_ = (System.IntPtr)b;
+                var ret_ = callback_(a_,b_);
+                var ret = (int)ret_;
+                return ret;
+            }
 
             return managedCallback;
         }

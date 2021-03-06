@@ -593,7 +593,9 @@ namespace GISharp.CodeGen.Syntax
             var returnType = callback.ReturnValue.GetManagedTypeName();
             yield return LocalFunctionStatement(returnType, "managedCallback")
                 .WithParameterList(paramList)
-                .WithBody(callback.GetInvokeBlock("callback_", checkArgs: false));
+                .AddBodyStatements(callback.GetInvokeBlock("callback_", checkArgs: false)
+                    // HACK: roslyn doesn't put newlines in local function blocks for some reason
+                    .Statements.Select(x => x.WithTrailingTrivia(EndOfLine("\n"))).ToArray());
 
             yield return ReturnStatement(ParseExpression("managedCallback"));
         }

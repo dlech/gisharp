@@ -33,7 +33,13 @@ namespace GISharp.Lib.GLib
         public static GISharp.Lib.GLib.TranslateFunc FromPointer(delegate* unmanaged[Cdecl]<byte*, System.IntPtr, byte*> callback_, System.IntPtr userData_)
         {
             var data_ = userData_;
-            GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str) { var str_ = (byte*)str.UnsafeHandle; var ret_ = callback_(str_,data_); var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_); return ret; }
+            GISharp.Lib.GLib.UnownedUtf8 managedCallback(GISharp.Lib.GLib.UnownedUtf8 str)
+            {
+                var str_ = (byte*)str.UnsafeHandle;
+                var ret_ = callback_(str_,data_);
+                var ret = new GISharp.Lib.GLib.UnownedUtf8(ret_);
+                return ret;
+            }
 
             return managedCallback;
         }

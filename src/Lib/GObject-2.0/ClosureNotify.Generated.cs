@@ -32,7 +32,12 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GISharp.Lib.GObject.ClosureNotify FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(System.IntPtr data, GISharp.Lib.GObject.Closure closure) { var data_ = (System.IntPtr)data; var closure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)closure.UnsafeHandle; callback_(data_, closure_); }
+            void managedCallback(System.IntPtr data, GISharp.Lib.GObject.Closure closure)
+            {
+                var data_ = (System.IntPtr)data;
+                var closure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)closure.UnsafeHandle;
+                callback_(data_, closure_);
+            }
 
             return managedCallback;
         }

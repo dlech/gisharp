@@ -37,7 +37,12 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GISharp.Lib.GObject.InterfaceInitFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(GISharp.Lib.GObject.TypeInterface gIface, System.IntPtr ifaceData) { var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle; var ifaceData_ = (System.IntPtr)ifaceData; callback_(gIface_, ifaceData_); }
+            void managedCallback(GISharp.Lib.GObject.TypeInterface gIface, System.IntPtr ifaceData)
+            {
+                var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle;
+                var ifaceData_ = (System.IntPtr)ifaceData;
+                callback_(gIface_, ifaceData_);
+            }
 
             return managedCallback;
         }

@@ -35,7 +35,11 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public static GISharp.Lib.GObject.BaseInitFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass*, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(GISharp.Lib.GObject.TypeClass gClass) { var gClass_ = &gClass; callback_(gClass_); }
+            void managedCallback(GISharp.Lib.GObject.TypeClass gClass)
+            {
+                var gClass_ = &gClass;
+                callback_(gClass_);
+            }
 
             return managedCallback;
         }

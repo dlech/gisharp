@@ -36,7 +36,12 @@ namespace GISharp.Lib.Gio
         /// </summary>
         public static GISharp.Lib.Gio.FileProgressCallback FromPointer(delegate* unmanaged[Cdecl]<long, long, System.IntPtr, void> callback_, System.IntPtr userData_)
         {
-            void managedCallback(long currentNumBytes, long totalNumBytes) { var currentNumBytes_ = (long)currentNumBytes; var totalNumBytes_ = (long)totalNumBytes; callback_(currentNumBytes_, totalNumBytes_, userData_); }
+            void managedCallback(long currentNumBytes, long totalNumBytes)
+            {
+                var currentNumBytes_ = (long)currentNumBytes;
+                var totalNumBytes_ = (long)totalNumBytes;
+                callback_(currentNumBytes_, totalNumBytes_, userData_);
+            }
 
             return managedCallback;
         }
