@@ -49,6 +49,9 @@ namespace GISharp.CodeGen
                 new[] { "-f", "--force" },
                 "Replace the existing fixup file");
 
+            var debugOption = new Option<bool>(
+                "--debug", "Enable debug logging");
+
             var createFixupCommand = new Command(
                 createFixupCommandName,
                 "Create a new gir-fixup.yml file for a project"
@@ -57,7 +60,8 @@ namespace GISharp.CodeGen
                 girDirOption,
                 forceOption,
             };
-            createFixupCommand.Handler = CommandHandler.Create<string, DirectoryInfo, bool>(CreateFixup);
+            createFixupCommand.Handler =
+                CommandHandler.Create<InvocationContext, string, DirectoryInfo, bool, bool>(CreateFixup);
 
             var generateCommand = new Command(
                 generateCommandName,
@@ -66,7 +70,8 @@ namespace GISharp.CodeGen
                 projectOption,
                 girDirOption,
             };
-            generateCommand.Handler = CommandHandler.Create<string, DirectoryInfo>(Generate);
+            generateCommand.Handler =
+                CommandHandler.Create<InvocationContext, string, DirectoryInfo, bool>(Generate);
 
             var rootCommand = new RootCommand(
                 "GISharp code generator"
@@ -74,22 +79,29 @@ namespace GISharp.CodeGen
                 createFixupCommand,
                 generateCommand,
             };
+            rootCommand.AddOption(debugOption);
 
-            return rootCommand.Invoke(args);
+            var code = rootCommand.Invoke(args);
+            // flush logs
+            Globals.LoggerFactory.Dispose();
+            Console.Out.Flush();
+            Console.Error.Flush();
+            return code;
         }
 
-        private static void CreateFixup(string project, DirectoryInfo girDir, bool force)
+        private static void CreateFixup(InvocationContext context, string project, DirectoryInfo girDir, bool force, bool debug)
         {
-            Run(createFixupCommandName, project, girDir, force);
+            Run(createFixupCommandName, context, project, girDir, force, debug);
         }
 
-        private static void Generate(string project, DirectoryInfo girDir)
+        private static void Generate(InvocationContext context, string project, DirectoryInfo girDir, bool debug)
         {
-            Run(generateCommandName, project, girDir, default);
+            Run(generateCommandName, context, project, girDir, default, debug);
         }
 
-        private static void Run(string command, string project, DirectoryInfo girDir, bool force)
+        private static void Run(string command, InvocationContext context, string project, DirectoryInfo girDir, bool force, bool debug)
         {
+            Globals.EnableDebugLogging = debug;
             var logger = Globals.LoggerFactory.CreateLogger("Main");
 
             // load the project given by the --project option
@@ -111,6 +123,7 @@ namespace GISharp.CodeGen
             }
             catch (Exception ex) {
                 logger.LogError($"Failed to load project: {ex.Message}");
+                context.ExitCode = 1;
                 return;
             }
 
@@ -130,6 +143,7 @@ namespace GISharp.CodeGen
             }
             catch (Exception ex) {
                 logger.LogError($"Failed to load GIR XML: {ex.Message}");
+                context.ExitCode = 1;
                 return;
             }
 
@@ -148,11 +162,13 @@ namespace GISharp.CodeGen
             // for most commands, we need an existing fixup file
             if (command != createFixupCommandName && !fixupFileExists && !fixupDirExists) {
                 logger.LogError("gir-fixup.yml does not exist. Create it using create-fixup command.");
+                context.ExitCode = 1;
                 return;
             }
             // for the create-fixup command, we want to make sure we aren't overwriting an existing file
             else if (command == createFixupCommandName == !force && fixupFileExists) {
                 logger.LogError("gir-fixup.yml already exists in project. Use --force to overwrite.");
+                context.ExitCode = 1;
                 return;
             }
 
@@ -167,6 +183,7 @@ namespace GISharp.CodeGen
                 catch (Exception ex) {
                     var msg = $"Failed to create fixup file: {ex.Message}";
                     logger.LogError(msg);
+                    context.ExitCode = 1;
                 }
                 return;
             }
