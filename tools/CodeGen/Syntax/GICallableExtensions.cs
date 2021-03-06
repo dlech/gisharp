@@ -129,7 +129,7 @@ namespace GISharp.CodeGen.Syntax
                                         ))),
                                 Block()
                             ));
-                            block = block.AddStatements(statement.WithTrailingTrivia(EndOfLine("\n")));
+                            block = block.AddStatements(statement);
                         }
                         else {
                             // struct passed by value
