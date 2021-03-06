@@ -810,7 +810,7 @@ namespace GISharp.CodeGen
                     }
                 }
                 else if (element.Ancestors(glib + "signal").Any()) {
-                    // signal parameters don't have c:type for non-basic types some reason
+                    // signal parameters don't have c:type for non-basic types for some reason
                     pointerDepth++;
                 }
 
