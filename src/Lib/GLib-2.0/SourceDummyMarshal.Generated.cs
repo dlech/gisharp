@@ -12,4 +12,24 @@ namespace GISharp.Lib.GLib
     /* <type name="none" type="void" managed-name="System.Void" /> */
     /* transfer-ownership:none direction:in */
     public unsafe delegate void UnmanagedSourceDummyMarshal();
+
+    /// <include file="SourceDummyMarshal.xmldoc" path="declaration/member[@name='SourceDummyMarshal']/*" />
+    public delegate void SourceDummyMarshal();
+
+    /// <summary>
+    /// Class for marshalling <see cref="SourceDummyMarshal"/> methods.
+    /// </summary>
+    public static unsafe class SourceDummyMarshalMarshal
+    {
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="SourceDummyMarshal"/>.
+        /// </summary>
+        public static GISharp.Lib.GLib.SourceDummyMarshal FromPointer(delegate* unmanaged[Cdecl]<void> callback_, System.IntPtr userData_)
+        {
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedSourceDummyMarshal>((System.IntPtr)callback_);
+            void managedCallback() { unmanagedCallback(); }
+
+            return managedCallback;
+        }
+    }
 }

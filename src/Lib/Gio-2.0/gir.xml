@@ -34301,7 +34301,7 @@ context as the task’s callback, immediately after that callback is invoked.</d
     <record name="TaskClass" c:type="GTaskClass" disguised="1" glib:is-gtype-struct-for="Task" gs:managed-name="TaskClass">
       <source-position filename="gtask.h" line="37" />
     </record>
-    <callback name="TaskThreadFunc" c:type="GTaskThreadFunc" version="2.36" gs:dll-name="gio-2.0" gs:managed-name="TaskThreadFunc" gs:pinvoke-only="1">
+    <callback name="TaskThreadFunc" c:type="GTaskThreadFunc" version="2.36" gs:pinvoke-only="1" gs:dll-name="gio-2.0" gs:managed-name="TaskThreadFunc">
       <doc xml:space="preserve" filename="gio-2.0.c" line="3471">The prototype for a task function to be run in a thread via
 g_task_run_in_thread() or g_task_run_in_thread_sync().
 

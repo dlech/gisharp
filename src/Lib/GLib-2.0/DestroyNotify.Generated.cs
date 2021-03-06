@@ -16,4 +16,24 @@ namespace GISharp.Lib.GLib
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr data);
+
+    /// <include file="DestroyNotify.xmldoc" path="declaration/member[@name='DestroyNotify']/*" />
+    public delegate void DestroyNotify(System.IntPtr data);
+
+    /// <summary>
+    /// Class for marshalling <see cref="DestroyNotify"/> methods.
+    /// </summary>
+    public static unsafe class DestroyNotifyMarshal
+    {
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="DestroyNotify"/>.
+        /// </summary>
+        public static GISharp.Lib.GLib.DestroyNotify FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, void> callback_, System.IntPtr userData_)
+        {
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GLib.UnmanagedDestroyNotify>((System.IntPtr)callback_);
+            void managedCallback(System.IntPtr data) { var data_ = (System.IntPtr)data; unmanagedCallback(data_); }
+
+            return managedCallback;
+        }
+    }
 }

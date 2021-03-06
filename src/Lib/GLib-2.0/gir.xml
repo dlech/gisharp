@@ -987,7 +987,7 @@ integer if the first value comes after the second.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <callback name="CompareFunc" c:type="GCompareFunc" gs:dll-name="glib-2.0" gs:managed-name="CompareFunc" gs:pinvoke-only="1">
+    <callback name="CompareFunc" c:type="GCompareFunc" gs:dll-name="glib-2.0" gs:managed-name="CompareFunc">
       <doc xml:space="preserve" filename="glib-2.0.c" line="146">Specifies the type of a comparison function used to compare two
 values.  The function should return a negative integer if the first
 value comes before the second, 0 if they are equal, or a positive
@@ -3142,7 +3142,7 @@ them to the same time zone.</doc>
         <gs:managed-parameters />
       </function>
     </record>
-    <callback name="DestroyNotify" c:type="GDestroyNotify" gs:dll-name="glib-2.0" gs:managed-name="DestroyNotify" gs:pinvoke-only="1">
+    <callback name="DestroyNotify" c:type="GDestroyNotify" gs:dll-name="glib-2.0" gs:managed-name="DestroyNotify">
       <doc xml:space="preserve" filename="glib-2.0.c" line="343">Specifies the type of function which is called when a data element
 is destroyed. It is passed the pointer to the data element and
 should free any memory and resources allocated for it.</doc>
@@ -9180,7 +9180,7 @@ functions for managing callback objects.</doc>
         </type>
       </field>
     </record>
-    <callback name="SourceDummyMarshal" c:type="GSourceDummyMarshal" gs:dll-name="glib-2.0" gs:managed-name="SourceDummyMarshal" gs:pinvoke-only="1">
+    <callback name="SourceDummyMarshal" c:type="GSourceDummyMarshal" gs:dll-name="glib-2.0" gs:managed-name="SourceDummyMarshal">
       <doc xml:space="preserve" filename="gmain.h" line="256">This is just a placeholder for #GClosureMarshal,
 which cannot be used here for dependency reasons.</doc>
       <source-position filename="gmain.h" line="262" />

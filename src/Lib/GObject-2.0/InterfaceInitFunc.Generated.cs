@@ -23,4 +23,24 @@ namespace GISharp.Lib.GObject
     /* <type name="gpointer" type="gpointer" managed-name="System.IntPtr" is-pointer="1" /> */
     /* transfer-ownership:none nullable:1 allow-none:1 direction:in */
     System.IntPtr ifaceData);
+
+    /// <include file="InterfaceInitFunc.xmldoc" path="declaration/member[@name='InterfaceInitFunc']/*" />
+    public delegate void InterfaceInitFunc(GISharp.Lib.GObject.TypeInterface gIface, System.IntPtr ifaceData);
+
+    /// <summary>
+    /// Class for marshalling <see cref="InterfaceInitFunc"/> methods.
+    /// </summary>
+    public static unsafe class InterfaceInitFuncMarshal
+    {
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="InterfaceInitFunc"/>.
+        /// </summary>
+        public static GISharp.Lib.GObject.InterfaceInitFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*, System.IntPtr, void> callback_, System.IntPtr userData_)
+        {
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GObject.UnmanagedInterfaceInitFunc>((System.IntPtr)callback_);
+            void managedCallback(GISharp.Lib.GObject.TypeInterface gIface, System.IntPtr ifaceData) { var gIface_ = (GISharp.Lib.GObject.TypeInterface.UnmanagedStruct*)gIface.UnsafeHandle; var ifaceData_ = (System.IntPtr)ifaceData; unmanagedCallback(gIface_, ifaceData_); }
+
+            return managedCallback;
+        }
+    }
 }

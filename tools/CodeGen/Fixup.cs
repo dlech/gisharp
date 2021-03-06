@@ -854,29 +854,6 @@ namespace GISharp.CodeGen
                 element.SetAttributeValue(gs + "default", "null");
             }
 
-            // TODO: delete this fixup
-            // callbacks without user data cannot be handled by the code generator
-
-            foreach (var element in document.Descendants(gi + "callback")
-                .Where(x => x.Parent.Name == gi + "namespace")) {
-                var ok = false;
-
-                foreach (var (p, i) in element.Element(gi + "parameters").Elements(gi + "parameter")
-                    .Select((x, i) => (x, i))) {
-                    // the user data parameter for callbacks points to itself
-                    if (p.Attribute("closure").AsInt(-1) == i) {
-                        ok = true;
-                        break;
-                    }
-                }
-
-                if (ok) {
-                    continue;
-                }
-
-                element.SetAttributeValue(gs + "pinvoke-only", 1);
-            }
-
             // remove closure attribute from user data parameters in methods and functions
 
             foreach (var element in document.Descendants(gi + "parameter")

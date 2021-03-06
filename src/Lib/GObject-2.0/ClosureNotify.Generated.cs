@@ -18,4 +18,24 @@ namespace GISharp.Lib.GObject
     /* <type name="Closure" type="GClosure*" managed-name="Closure" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.Closure.UnmanagedStruct* closure);
+
+    /// <include file="ClosureNotify.xmldoc" path="declaration/member[@name='ClosureNotify']/*" />
+    public delegate void ClosureNotify(System.IntPtr data, GISharp.Lib.GObject.Closure closure);
+
+    /// <summary>
+    /// Class for marshalling <see cref="ClosureNotify"/> methods.
+    /// </summary>
+    public static unsafe class ClosureNotifyMarshal
+    {
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="ClosureNotify"/>.
+        /// </summary>
+        public static GISharp.Lib.GObject.ClosureNotify FromPointer(delegate* unmanaged[Cdecl]<System.IntPtr, GISharp.Lib.GObject.Closure.UnmanagedStruct*, void> callback_, System.IntPtr userData_)
+        {
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GObject.UnmanagedClosureNotify>((System.IntPtr)callback_);
+            void managedCallback(System.IntPtr data, GISharp.Lib.GObject.Closure closure) { var data_ = (System.IntPtr)data; var closure_ = (GISharp.Lib.GObject.Closure.UnmanagedStruct*)closure.UnsafeHandle; unmanagedCallback(data_, closure_); }
+
+            return managedCallback;
+        }
+    }
 }

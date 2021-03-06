@@ -23,4 +23,24 @@ namespace GISharp.Lib.GObject
     /* <type name="TypeValueTable" type="GTypeValueTable*" managed-name="TypeValueTable" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypeValueTable* valueTable);
+
+    /// <include file="TypePluginCompleteTypeInfo.xmldoc" path="declaration/member[@name='TypePluginCompleteTypeInfo']/*" />
+    public delegate void TypePluginCompleteTypeInfo(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable);
+
+    /// <summary>
+    /// Class for marshalling <see cref="TypePluginCompleteTypeInfo"/> methods.
+    /// </summary>
+    public static unsafe class TypePluginCompleteTypeInfoMarshal
+    {
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="TypePluginCompleteTypeInfo"/>.
+        /// </summary>
+        public static GISharp.Lib.GObject.TypePluginCompleteTypeInfo FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, GISharp.Lib.GObject.GType, GISharp.Lib.GObject.TypeInfo*, GISharp.Lib.GObject.TypeValueTable*, void> callback_, System.IntPtr userData_)
+        {
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GObject.UnmanagedTypePluginCompleteTypeInfo>((System.IntPtr)callback_);
+            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin, GISharp.Lib.GObject.GType gType, GISharp.Lib.GObject.TypeInfo info, GISharp.Lib.GObject.TypeValueTable valueTable) { var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle; var gType_ = (GISharp.Lib.GObject.GType)gType; var info_ = &info; var valueTable_ = &valueTable; unmanagedCallback(plugin_, gType_, info_, valueTable_); }
+
+            return managedCallback;
+        }
+    }
 }

@@ -589,8 +589,8 @@ namespace GISharp.CodeGen.Syntax
                 .AddVariables(VariableDeclarator("unmanagedCallback")
                     .WithInitializer(EqualsValueClause(marshalToPointerExpression))));
 
-            var userDataParam = callback.Parameters.Single(x => x.ClosureIndex >= 0);
-            if (userDataParam.ManagedName != "userData") {
+            var userDataParam = callback.Parameters.SingleOrDefault(x => x.ClosureIndex >= 0);
+            if (userDataParam is not null && userDataParam.ManagedName != "userData") {
                 yield return ExpressionStatement(ParseExpression($"var {userDataParam.ManagedName}_ = userData_"));
             }
 

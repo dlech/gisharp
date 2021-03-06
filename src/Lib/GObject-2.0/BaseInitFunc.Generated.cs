@@ -21,4 +21,24 @@ namespace GISharp.Lib.GObject
     /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypeClass* gClass);
+
+    /// <include file="BaseInitFunc.xmldoc" path="declaration/member[@name='BaseInitFunc']/*" />
+    public delegate void BaseInitFunc(GISharp.Lib.GObject.TypeClass gClass);
+
+    /// <summary>
+    /// Class for marshalling <see cref="BaseInitFunc"/> methods.
+    /// </summary>
+    public static unsafe class BaseInitFuncMarshal
+    {
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="BaseInitFunc"/>.
+        /// </summary>
+        public static GISharp.Lib.GObject.BaseInitFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass*, void> callback_, System.IntPtr userData_)
+        {
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GObject.UnmanagedBaseInitFunc>((System.IntPtr)callback_);
+            void managedCallback(GISharp.Lib.GObject.TypeClass gClass) { var gClass_ = &gClass; unmanagedCallback(gClass_); }
+
+            return managedCallback;
+        }
+    }
 }

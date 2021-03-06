@@ -1,3 +1,10 @@
 <declaration>
 
+<member name='SourceDummyMarshal'>
+<summary>
+This is just a placeholder for #GClosureMarshal,
+which cannot be used here for dependency reasons.
+</summary>
+</member>
+
 </declaration>

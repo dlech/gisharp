@@ -13,7 +13,7 @@ type.</doc>
       <source-position filename="gtype.h" line="384" />
       <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
     </alias>
-    <callback name="BaseFinalizeFunc" c:type="GBaseFinalizeFunc" gs:dll-name="gobject-2.0" gs:managed-name="BaseFinalizeFunc" gs:pinvoke-only="1">
+    <callback name="BaseFinalizeFunc" c:type="GBaseFinalizeFunc" gs:dll-name="gobject-2.0" gs:managed-name="BaseFinalizeFunc">
       <doc xml:space="preserve" filename="gtype.h" line="773">A callback function used by the type system to finalize those portions
 of a derived types class structure that were setup from the corresponding
 GBaseInitFunc() function. Class finalization basically works the inverse
@@ -36,7 +36,7 @@ See GClassInitFunc() for a discussion of the class initialization process.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <callback name="BaseInitFunc" c:type="GBaseInitFunc" gs:dll-name="gobject-2.0" gs:managed-name="BaseInitFunc" gs:pinvoke-only="1">
+    <callback name="BaseInitFunc" c:type="GBaseInitFunc" gs:dll-name="gobject-2.0" gs:managed-name="BaseInitFunc">
       <doc xml:space="preserve" filename="gtype.h" line="759">A callback function used by the type system to do base initialization
 of the class structures of derived types. It is called as part of the
 initialization process of all derived classes and should reallocate
@@ -384,7 +384,7 @@ This enumeration can be extended at later date.</doc>
         <gs:managed-parameters />
       </function>
     </bitfield>
-    <callback name="ClassFinalizeFunc" c:type="GClassFinalizeFunc" gs:dll-name="gobject-2.0" gs:managed-name="ClassFinalizeFunc" gs:pinvoke-only="1">
+    <callback name="ClassFinalizeFunc" c:type="GClassFinalizeFunc" gs:dll-name="gobject-2.0" gs:managed-name="ClassFinalizeFunc">
       <doc xml:space="preserve" filename="gtype.h" line="887">A callback function used by the type system to finalize a class.
 This function is rarely needed, as dynamically allocated class resources
 should be handled by GBaseInitFunc() and GBaseFinalizeFunc().
@@ -417,7 +417,7 @@ reference count drops to zero).</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <callback name="ClassInitFunc" c:type="GClassInitFunc" gs:dll-name="gobject-2.0" gs:managed-name="ClassInitFunc" gs:pinvoke-only="1">
+    <callback name="ClassInitFunc" c:type="GClassInitFunc" gs:dll-name="gobject-2.0" gs:managed-name="ClassInitFunc">
       <doc xml:space="preserve" filename="gtype.h" line="784">A callback function used by the type system to initialize the class
 of a specific type. This function should initialize all static class
 members.
@@ -947,7 +947,7 @@ closure, then the closure will be destroyed and freed.</doc>
         <gs:managed-parameters />
       </function>
     </record>
-    <callback name="ClosureNotify" c:type="GClosureNotify" gs:dll-name="gobject-2.0" gs:managed-name="ClosureNotify" gs:pinvoke-only="1">
+    <callback name="ClosureNotify" c:type="GClosureNotify" gs:dll-name="gobject-2.0" gs:managed-name="ClosureNotify">
       <doc xml:space="preserve" filename="gclosure.h" line="87">The type used for the various notification callbacks which can be registered
 on closures.</doc>
       <source-position filename="gclosure.h" line="95" />
@@ -984,7 +984,7 @@ on closures.</doc>
         <type name="ClosureNotify" c:type="GClosureNotify" gs:managed-name="ClosureNotify" />
       </field>
     </record>
-    <callback name="InstanceInitFunc" c:type="GInstanceInitFunc" gs:dll-name="gobject-2.0" gs:managed-name="InstanceInitFunc" gs:pinvoke-only="1">
+    <callback name="InstanceInitFunc" c:type="GInstanceInitFunc" gs:dll-name="gobject-2.0" gs:managed-name="InstanceInitFunc">
       <doc xml:space="preserve" filename="gtype.h" line="902">A callback function used by the type system to initialize a new
 instance of a type. This function initializes all instance members and
 allocates any resources required by it.
@@ -1023,7 +1023,7 @@ zeros before this function is called.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <callback name="InterfaceFinalizeFunc" c:type="GInterfaceFinalizeFunc" gs:dll-name="gobject-2.0" gs:managed-name="InterfaceFinalizeFunc" gs:pinvoke-only="1">
+    <callback name="InterfaceFinalizeFunc" c:type="GInterfaceFinalizeFunc" gs:dll-name="gobject-2.0" gs:managed-name="InterfaceFinalizeFunc">
       <doc xml:space="preserve" filename="gtype.h" line="936">A callback function used by the type system to finalize an interface.
 This function should destroy any internal data and release any resources
 allocated by the corresponding GInterfaceInitFunc() function.</doc>
@@ -1069,7 +1069,7 @@ used specifically for managing interface types.</doc>
         <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
       </field>
     </record>
-    <callback name="InterfaceInitFunc" c:type="GInterfaceInitFunc" gs:dll-name="gobject-2.0" gs:managed-name="InterfaceInitFunc" gs:pinvoke-only="1">
+    <callback name="InterfaceInitFunc" c:type="GInterfaceInitFunc" gs:dll-name="gobject-2.0" gs:managed-name="InterfaceInitFunc">
       <doc xml:space="preserve" filename="gtype.h" line="922">A callback function used by the type system to initialize a new
 interface.  This function should initialize all internal data and
 allocate any resources required by the interface.
@@ -4141,7 +4141,7 @@ the lifecycle of dynamically loaded types.</doc>
         <type name="TypePluginCompleteInterfaceInfo" c:type="GTypePluginCompleteInterfaceInfo" gs:managed-name="TypePluginCompleteInterfaceInfo" />
       </field>
     </record>
-    <callback name="TypePluginCompleteInterfaceInfo" c:type="GTypePluginCompleteInterfaceInfo" gs:dll-name="gobject-2.0" gs:managed-name="TypePluginCompleteInterfaceInfo" gs:pinvoke-only="1">
+    <callback name="TypePluginCompleteInterfaceInfo" c:type="GTypePluginCompleteInterfaceInfo" gs:dll-name="gobject-2.0" gs:managed-name="TypePluginCompleteInterfaceInfo">
       <doc xml:space="preserve" filename="gtypeplugin.h" line="67">The type of the @complete_interface_info function of #GTypePluginClass.</doc>
       <source-position filename="gtypeplugin.h" line="77" />
       <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -4186,7 +4186,7 @@ the lifecycle of dynamically loaded types.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <callback name="TypePluginCompleteTypeInfo" c:type="GTypePluginCompleteTypeInfo" gs:dll-name="gobject-2.0" gs:managed-name="TypePluginCompleteTypeInfo" gs:pinvoke-only="1">
+    <callback name="TypePluginCompleteTypeInfo" c:type="GTypePluginCompleteTypeInfo" gs:dll-name="gobject-2.0" gs:managed-name="TypePluginCompleteTypeInfo">
       <doc xml:space="preserve" filename="gtypeplugin.h" line="54">The type of the @complete_type_info function of #GTypePluginClass.</doc>
       <source-position filename="gtypeplugin.h" line="63" />
       <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -4229,7 +4229,7 @@ the lifecycle of dynamically loaded types.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <callback name="TypePluginUnuse" c:type="GTypePluginUnuse" gs:dll-name="gobject-2.0" gs:managed-name="TypePluginUnuse" gs:pinvoke-only="1">
+    <callback name="TypePluginUnuse" c:type="GTypePluginUnuse" gs:dll-name="gobject-2.0" gs:managed-name="TypePluginUnuse">
       <doc xml:space="preserve" filename="gtypeplugin.h" line="47">The type of the @unuse_plugin function of #GTypePluginClass.</doc>
       <source-position filename="gtypeplugin.h" line="53" />
       <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
@@ -4248,7 +4248,7 @@ the lifecycle of dynamically loaded types.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
-    <callback name="TypePluginUse" c:type="GTypePluginUse" gs:dll-name="gobject-2.0" gs:managed-name="TypePluginUse" gs:pinvoke-only="1">
+    <callback name="TypePluginUse" c:type="GTypePluginUse" gs:dll-name="gobject-2.0" gs:managed-name="TypePluginUse">
       <doc xml:space="preserve" filename="gtypeplugin.h" line="39">The type of the @use_plugin function of #GTypePluginClass, which gets called
 to increase the use count of @plugin.</doc>
       <source-position filename="gtypeplugin.h" line="46" />

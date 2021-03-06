@@ -1,0 +1,8 @@
+
+### TaskThreadFunc ###
+
+# requires special handling for task data
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:callback[@name='TaskThreadFunc']

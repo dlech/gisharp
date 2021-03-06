@@ -14,4 +14,24 @@ namespace GISharp.Lib.GObject
     /* <type name="TypePlugin" type="GTypePlugin*" managed-name="TypePlugin" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypePlugin.UnmanagedStruct* plugin);
+
+    /// <include file="TypePluginUnuse.xmldoc" path="declaration/member[@name='TypePluginUnuse']/*" />
+    public delegate void TypePluginUnuse(GISharp.Lib.GObject.ITypePlugin plugin);
+
+    /// <summary>
+    /// Class for marshalling <see cref="TypePluginUnuse"/> methods.
+    /// </summary>
+    public static unsafe class TypePluginUnuseMarshal
+    {
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="TypePluginUnuse"/>.
+        /// </summary>
+        public static GISharp.Lib.GObject.TypePluginUnuse FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*, void> callback_, System.IntPtr userData_)
+        {
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GObject.UnmanagedTypePluginUnuse>((System.IntPtr)callback_);
+            void managedCallback(GISharp.Lib.GObject.ITypePlugin plugin) { var plugin_ = (GISharp.Lib.GObject.TypePlugin.UnmanagedStruct*)plugin.UnsafeHandle; unmanagedCallback(plugin_); }
+
+            return managedCallback;
+        }
+    }
 }

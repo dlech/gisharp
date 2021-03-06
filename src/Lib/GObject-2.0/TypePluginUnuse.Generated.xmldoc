@@ -1,3 +1,9 @@
 <declaration>
 
+<member name='TypePluginUnuse'>
+<summary>
+The type of the <c>unusePlugin</c> function of <see cref="TypePluginClass"/>.
+</summary>
+</member>
+
 </declaration>

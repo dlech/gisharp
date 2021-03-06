@@ -1,3 +1,10 @@
 <declaration>
 
+<member name='ClosureNotify'>
+<summary>
+The type used for the various notification callbacks which can be registered
+on closures.
+</summary>
+</member>
+
 </declaration>

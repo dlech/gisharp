@@ -18,4 +18,24 @@ namespace GISharp.Lib.GObject
     /* <type name="TypeClass" type="gpointer" managed-name="TypeClass" is-pointer="1" /> */
     /* transfer-ownership:none direction:in */
     GISharp.Lib.GObject.TypeClass* gClass);
+
+    /// <include file="BaseFinalizeFunc.xmldoc" path="declaration/member[@name='BaseFinalizeFunc']/*" />
+    public delegate void BaseFinalizeFunc(GISharp.Lib.GObject.TypeClass gClass);
+
+    /// <summary>
+    /// Class for marshalling <see cref="BaseFinalizeFunc"/> methods.
+    /// </summary>
+    public static unsafe class BaseFinalizeFuncMarshal
+    {
+        /// <summary>
+        /// Marshals an unmanaged pointer to a <see cref="BaseFinalizeFunc"/>.
+        /// </summary>
+        public static GISharp.Lib.GObject.BaseFinalizeFunc FromPointer(delegate* unmanaged[Cdecl]<GISharp.Lib.GObject.TypeClass*, void> callback_, System.IntPtr userData_)
+        {
+            var unmanagedCallback = System.Runtime.InteropServices.Marshal.GetDelegateForFunctionPointer<GISharp.Lib.GObject.UnmanagedBaseFinalizeFunc>((System.IntPtr)callback_);
+            void managedCallback(GISharp.Lib.GObject.TypeClass gClass) { var gClass_ = &gClass; unmanagedCallback(gClass_); }
+
+            return managedCallback;
+        }
+    }
 }
