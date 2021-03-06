@@ -1,0 +1,23 @@
+<declaration>
+
+<member name='UnmanagedStruct.Data'>
+<summary>
+a pointer to the element data. The data may be moved as
+    elements are added to the <see cref="Array"/>.
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Len'>
+<summary>
+the number of elements in the <see cref="Array"/> not including the
+    possible terminating zero element.
+</summary>
+</member>
+
+<member name='Array'>
+<summary>
+Contains the public fields of a GArray.
+</summary>
+</member>
+
+</declaration>

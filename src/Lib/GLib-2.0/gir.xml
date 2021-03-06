@@ -48,6 +48,806 @@ g_auto().</doc>
         <type name="gint64" c:type="gint64" gs:managed-name="System.Int64" />
       </constant>
     </alias>
+    <record name="Array" c:type="GArray" glib:type-name="GArray" glib:get-type="g_array_get_type" c:symbol-prefix="array" gs:inheritance-modifiers="abstract" gs:managed-name="Array">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="68">Contains the public fields of a GArray.</doc>
+      <source-position filename="garray.h" line="45" />
+      <field name="data" writable="1" gs:managed-name="Data">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="70">a pointer to the element data. The data may be moved as
+    elements are added to the #GArray.</doc>
+        <type name="utf8" c:type="gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+      </field>
+      <field name="len" writable="1" gs:managed-name="Len">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="72">the number of elements in the #GArray not including the
+    possible terminating zero element.</doc>
+        <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+      </field>
+      <function name="append_vals" c:identifier="g_array_append_vals" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="AppendVals">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9055">Adds @len elements onto the end of the array.</doc>
+        <source-position filename="garray.h" line="93" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9063">the #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9057">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9058">a pointer to the elements to append to the end of the array</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9059">the number of elements to append</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9057">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9058">a pointer to the elements to append to the end of the array</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9059">the number of elements to append</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="binary_search" c:identifier="g_array_binary_search" version="2.62" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="TryBinarySearch">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9067">Checks whether @target exists in @array by performing a binary
+search based on the given comparison function @compare_func which
+get pointers to items as arguments. If the element is found, %TRUE
+is returned and the element’s index is returned in @out_match_index
+(if non-%NULL). Otherwise, %FALSE is returned and @out_match_index
+is undefined. If @target exists multiple times in @array, the index
+of the first instance is returned. This search is using a binary
+search, so the @array must absolutely be sorted to return a correct
+result (if not, the function may produce false-negative).
+
+This example defines a comparison function and search an element in a #GArray:
+|[&lt;!-- language="C" --&gt;
+static gint*
+cmpint (gconstpointer a, gconstpointer b)
+{
+  const gint *_a = a;
+  const gint *_b = b;
+
+  return *_a - *_b;
+}
+...
+gint i = 424242;
+guint matched_index;
+gboolean result = g_array_binary_search (garray, &amp;i, cmpint, &amp;matched_index);
+...
+]|</doc>
+        <source-position filename="garray.h" line="126" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9102">%TRUE if @target is one of the elements of @array, %FALSE otherwise.</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9069">a #GArray.</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="target" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="target" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9070">a pointer to the item to look up.</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9071">A #GCompareFunc used to locate @target.</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+          <parameter name="out_match_index" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="outMatchIndex">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9072">return location
+   for the index of the element, if found.</doc>
+            <type name="guint" c:type="guint*" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9069">a #GArray.</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="target" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="target" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9070">a pointer to the item to look up.</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9071">A #GCompareFunc used to locate @target.</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+          <parameter name="out_match_index" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="outMatchIndex">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9072">return location
+   for the index of the element, if found.</doc>
+            <type name="guint" c:type="guint*" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="copy" c:identifier="g_array_copy" version="2.62" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Copy">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9107">Create a shallow copy of a #GArray. If the array elements consist of
+pointers to data, the pointers are copied but the actual data is not.</doc>
+        <source-position filename="garray.h" line="82" />
+        <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9114">A copy of @array.</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9109">A #GArray.</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9109">A #GArray.</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="free" c:identifier="g_array_free" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Free">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9119">Frees the memory allocated for the #GArray. If @free_segment is
+%TRUE it frees the memory block holding the elements as well. Pass
+%FALSE if you want to free the #GArray wrapper but preserve the
+underlying array for use elsewhere. If the reference count of
+@array is greater than one, the #GArray wrapper is preserved but
+the size of  @array will be set to zero.
+
+If array contents point to dynamically-allocated memory, they should
+be freed separately if @free_seg is %TRUE and no @clear_func
+function has been set for @array.
+
+This function is not thread-safe. If using a #GArray from multiple
+threads, use only the atomic g_array_ref() and g_array_unref()
+functions.</doc>
+        <source-position filename="garray.h" line="84" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9139">the element data if @free_segment is %FALSE, otherwise
+    %NULL. The element data should be freed using g_free().</doc>
+          <type name="utf8" c:type="gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9121">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="free_segment" transfer-ownership="none" gs:managed-name="freeSegment" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9122">if %TRUE the actual element data is freed as well</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9121">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="free_segment" transfer-ownership="none" gs:managed-name="freeSegment" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9122">if %TRUE the actual element data is freed as well</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="get_element_size" c:identifier="g_array_get_element_size" version="2.22" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="GetElementSize">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9144">Gets the size of the elements in @array.</doc>
+        <source-position filename="garray.h" line="91" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9150">Size of each element, in bytes</doc>
+          <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9146">A #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9146">A #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="insert_vals" c:identifier="g_array_insert_vals" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="InsertVals">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9207">Inserts @len elements into a #GArray at the given index.
+
+If @index_ is greater than the array’s current length, the array is expanded.
+The elements between the old end of the array and the newly inserted elements
+will be initialised to zero if the array was configured to clear elements;
+otherwise their values will be undefined.
+
+If @index_ is less than the array’s current length, new entries will be
+inserted into the array, and the existing entries above @index_ will be moved
+upwards.
+
+@data may be %NULL if (and only if) @len is zero. If @len is zero, this
+function is a no-op.</doc>
+        <source-position filename="garray.h" line="101" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9228">the #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9209">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9210">the index to place the elements at</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9211">a pointer to the elements to insert</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9212">the number of elements to insert</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9209">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9210">the index to place the elements at</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9211">a pointer to the elements to insert</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9212">the number of elements to insert</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="new" c:identifier="g_array_new" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9232">Creates a new #GArray with a reference count of 1.</doc>
+        <source-position filename="garray.h" line="70" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9242">the new #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="zero_terminated" transfer-ownership="none" gs:managed-name="zeroTerminated" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9234">%TRUE if the array should have an extra element at
+    the end which is set to 0</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+          <parameter name="clear_" transfer-ownership="none" gs:managed-name="clear" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9236">%TRUE if #GArray elements should be automatically cleared
+    to 0 when they are allocated</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+          <parameter name="element_size" transfer-ownership="none" gs:managed-name="elementSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9238">the size of each element in bytes</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="zero_terminated" transfer-ownership="none" gs:managed-name="zeroTerminated" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9234">%TRUE if the array should have an extra element at
+    the end which is set to 0</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+          <parameter name="clear_" transfer-ownership="none" gs:managed-name="clear" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9236">%TRUE if #GArray elements should be automatically cleared
+    to 0 when they are allocated</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+          <parameter name="element_size" transfer-ownership="none" gs:managed-name="elementSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9238">the size of each element in bytes</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="prepend_vals" c:identifier="g_array_prepend_vals" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="PrependVals">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9266">Adds @len elements onto the start of the array.
+
+@data may be %NULL if (and only if) @len is zero. If @len is zero, this
+function is a no-op.
+
+This operation is slower than g_array_append_vals() since the
+existing elements in the array have to be moved to make space for
+the new elements.</doc>
+        <source-position filename="garray.h" line="97" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9281">the #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9268">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9269">a pointer to the elements to prepend to the start of the array</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9270">the number of elements to prepend, which may be zero</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9268">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9269">a pointer to the elements to prepend to the start of the array</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="len" transfer-ownership="none" gs:managed-name="len" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9270">the number of elements to prepend, which may be zero</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <method name="ref" c:identifier="g_array_ref" version="2.22" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Ref" gs:special-func="ref" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9285">Atomically increments the reference count of @array by one.
+This function is thread-safe and may be called from any thread.</doc>
+        <source-position filename="garray.h" line="87" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9292">The passed in #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9287">A #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <function name="remove_index" c:identifier="g_array_remove_index" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveIndex">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9297">Removes the element at the given index from a #GArray. The following
+elements are moved down one place.</doc>
+        <source-position filename="garray.h" line="109" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9305">the #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9299">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9300">the index of the element to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9299">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9300">the index of the element to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_index_fast" c:identifier="g_array_remove_index_fast" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveIndexFast">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9309">Removes the element at the given index from a #GArray. The last
+element in the array is used to fill in the space, so this function
+does not preserve the order of the #GArray. But it is faster than
+g_array_remove_index().</doc>
+        <source-position filename="garray.h" line="112" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9319">the #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9311">a @GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9312">the index of the element to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9311">a @GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9312">the index of the element to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_range" c:identifier="g_array_remove_range" version="2.4" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveRange">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9323">Removes the given number of elements starting at the given index
+from a #GArray.  The following elements are moved to close the gap.</doc>
+        <source-position filename="garray.h" line="115" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9332">the #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9325">a @GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9326">the index of the first element to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9327">the number of elements to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9325">a @GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9326">the index of the first element to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9327">the number of elements to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="set_clear_func" c:identifier="g_array_set_clear_func" version="2.32" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SetClearFunc">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9337">Sets a function to clear an element of @array.
+
+The @clear_func will be called when an element in the array
+data segment is removed and when the array is freed and data
+segment is deallocated as well. @clear_func will be passed a
+pointer to the element to clear, rather than the element itself.
+
+Note that in contrast with other uses of #GDestroyNotify
+functions, @clear_func is expected to clear the contents of
+the array element it is given, but not free the element itself.</doc>
+        <source-position filename="garray.h" line="131" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9339">A #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="clear_func" transfer-ownership="none" scope="async" gs:managed-name="clearFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9340">a function to clear an element of @array</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9339">A #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="clear_func" transfer-ownership="none" scope="async" gs:managed-name="clearFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9340">a function to clear an element of @array</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="set_size" c:identifier="g_array_set_size" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SetSize">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9357">Sets the size of the array, expanding it if necessary. If the array
+was created with @clear_ set to %TRUE, the new elements are set to 0.</doc>
+        <source-position filename="garray.h" line="106" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9365">the #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9359">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9360">the new size of the #GArray</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9359">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9360">the new size of the #GArray</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="sized_new" c:identifier="g_array_sized_new" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SizedNew">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9369">Creates a new #GArray with @reserved_size elements preallocated and
+a reference count of 1. This avoids frequent reallocation, if you
+are going to add many elements to the array. Note however that the
+size of the array is still 0.</doc>
+        <source-position filename="garray.h" line="77" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9383">the new #GArray</doc>
+          <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="zero_terminated" transfer-ownership="none" gs:managed-name="zeroTerminated" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9371">%TRUE if the array should have an extra element at
+    the end with all bits cleared</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+          <parameter name="clear_" transfer-ownership="none" gs:managed-name="clear" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9373">%TRUE if all bits in the array should be cleared to 0 on
+    allocation</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+          <parameter name="element_size" transfer-ownership="none" gs:managed-name="elementSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9375">size of each element in the array</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="reserved_size" transfer-ownership="none" gs:managed-name="reservedSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9376">number of elements preallocated</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="zero_terminated" transfer-ownership="none" gs:managed-name="zeroTerminated" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9371">%TRUE if the array should have an extra element at
+    the end with all bits cleared</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+          <parameter name="clear_" transfer-ownership="none" gs:managed-name="clear" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9373">%TRUE if all bits in the array should be cleared to 0 on
+    allocation</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+          <parameter name="element_size" transfer-ownership="none" gs:managed-name="elementSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9375">size of each element in the array</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="reserved_size" transfer-ownership="none" gs:managed-name="reservedSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9376">number of elements preallocated</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="sort" c:identifier="g_array_sort" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Sort">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9387">Sorts a #GArray using @compare_func which should be a qsort()-style
+comparison function (returns less than zero for first arg is less
+than second arg, zero for equal, greater zero if first arg is
+greater than second arg).
+
+This is guaranteed to be a stable sort since version 2.32.</doc>
+        <source-position filename="garray.h" line="119" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9389">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9390">comparison function</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9389">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9390">comparison function</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="sort_with_data" c:identifier="g_array_sort_with_data" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SortWithData">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9401">Like g_array_sort(), but the comparison function receives an extra
+user data argument.
+
+This is guaranteed to be a stable sort since version 2.32.
+
+There used to be a comment here about making the sort stable by
+using the addresses of the elements in the comparison function.
+This did not actually work, so any such code should be removed.</doc>
+        <source-position filename="garray.h" line="122" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9403">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" closure="2" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9404">comparison function</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9405">data to pass to @compare_func</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9403">a #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" closure="2" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9404">comparison function</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="steal" c:identifier="g_array_steal" version="2.64" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Steal">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9418">Frees the data in the array and resets the size to zero, while
+the underlying array is preserved for use elsewhere and returned
+to the caller.
+
+If the array was created with the @zero_terminate property
+set to %TRUE, the returned data is zero terminated too.
+
+If array elements contain dynamically-allocated memory,
+the array elements should also be freed by the caller.
+
+A short example of use:
+|[&lt;!-- language="C" --&gt;
+...
+gpointer data;
+gsize data_len;
+data = g_array_steal (some_array, &amp;data_len);
+...
+]|</doc>
+        <source-position filename="garray.h" line="74" />
+        <return-value transfer-ownership="full" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="9443">the element data, which should be
+    freed using g_free().</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9420">a #GArray.</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="len" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="len">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9421">pointer to retrieve the number of
+   elements of the original array</doc>
+            <type name="gsize" c:type="gsize*" gs:managed-name="System.Int32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9420">a #GArray.</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="len" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="len">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9421">pointer to retrieve the number of
+   elements of the original array</doc>
+            <type name="gsize" c:type="gsize*" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <method name="unref" c:identifier="g_array_unref" version="2.22" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Unref" gs:special-func="unref" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="9449">Atomically decrements the reference count of @array by one. If the
+reference count drops to 0, all memory allocated by the array is
+released. This function is thread-safe and may be called from any
+thread.</doc>
+        <source-position filename="garray.h" line="89" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="9451">A #GArray</doc>
+            <array name="GLib.Array" c:type="GArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.Array" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_array_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </record>
     <record name="ByteArray" c:type="GByteArray" glib:type-name="GByteArray" glib:get-type="g_byte_array_get_type" c:symbol-prefix="byte_array" gs:managed-name="ByteArray">
       <doc xml:space="preserve" filename="glib-2.0.c" line="88">Contains the public fields of a GByteArray.</doc>
       <source-position filename="garray.h" line="51" />
