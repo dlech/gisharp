@@ -136,7 +136,7 @@ namespace GISharp.Lib.GObject
                 const int paramSpecTypeCount = 23;
                 paramSpecTypes = new GType[paramSpecTypeCount];
                 for (int i = 0; i < paramSpecTypeCount; i++) {
-                    paramSpecTypes[i] = Marshal.PtrToStructure<GType>(ptr + i * Marshal.SizeOf<GType>());
+                    paramSpecTypes[i] = Marshal.PtrToStructure<GType>(ptr + i * sizeof(GType));
                 }
             }
             finally {

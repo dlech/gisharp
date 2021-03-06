@@ -1297,7 +1297,7 @@ namespace GISharp.Lib.GLib
                 var elementType_ = (VariantType.UnmanagedStruct*)elementType.UnsafeHandle;
                 var elements_ = (void*)gch.AddrOfPinnedObject();
                 var nElements = (nuint)elements.Length;
-                var elementSize = (nuint)GMarshal.SizeOf<T>();
+                var elementSize = (nuint)sizeof(T);
                 var ret = g_variant_new_fixed_array(elementType_, elements_, nElements, elementSize);
                 return new Variant((IntPtr)ret, Transfer.None);
             }
@@ -3349,7 +3349,7 @@ namespace GISharp.Lib.GLib
                 throw new InvalidOperationException();
             }
             nuint nElements_;
-            var elementSize_ = (nuint)GMarshal.SizeOf<T>();
+            var elementSize_ = (nuint)sizeof(T);
             var ret_ = g_variant_get_fixed_array(value_, &nElements_, elementSize_);
             var ret = new ReadOnlySpan<T>(ret_, (int)nElements_);
             return ret;

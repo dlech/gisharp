@@ -1228,7 +1228,7 @@ namespace GISharp.Lib.GObject
         {
             // making a copy of info in unmanged memory that will never be freed
             var infoPtr = GMarshal.Alloc(Marshal.SizeOf<InterfaceInfo>());
-            Marshal.StructureToPtr<InterfaceInfo>(info, infoPtr, false);
+            Marshal.StructureToPtr(info, infoPtr, false);
 
             // also make sure the delegates are never GCed.
             GCHandle.Alloc(info.InterfaceInit);

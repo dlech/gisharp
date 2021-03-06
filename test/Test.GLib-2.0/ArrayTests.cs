@@ -289,8 +289,8 @@ namespace GISharp.Test.GLib
         {
             // Checks that we are not use Marshal.SizeOf<T>() directly since
             // it can't handle enums.
-            Assume.That(typeof(GISharp.Runtime.Boolean).IsEnum);
-            using var a = new Array<GISharp.Runtime.Boolean>();
+            Assume.That(typeof(Runtime.Boolean).IsEnum);
+            using var a = new Array<Runtime.Boolean>();
         }
 
         [Test]
@@ -307,10 +307,10 @@ namespace GISharp.Test.GLib
         /// <summary>
         /// Gets the item at a given index without range checking.
         /// </summary>
-        public static T UnsafeItemAt<T>(this Array<T> array, int index) where T : unmanaged
+        public unsafe static T UnsafeItemAt<T>(this Array<T> array, int index) where T : unmanaged
         {
             var dataPtr = Marshal.ReadIntPtr(array.UnsafeHandle);
-            dataPtr += GMarshal.SizeOf<T>() * index;
+            dataPtr += sizeof(T) * index;
             var item = Marshal.PtrToStructure<T>(dataPtr);
             return item;
         }

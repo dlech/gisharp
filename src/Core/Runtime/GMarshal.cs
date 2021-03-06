@@ -84,17 +84,6 @@ namespace GISharp.Runtime
         }
 
         /// <summary>
-        /// Like <see cref="Marshal.SizeOf{T}()"/> but can handle enum types.
-        /// </summary>
-        public static int SizeOf<T>()
-        {
-            if (typeof(T).IsEnum) {
-                return Marshal.SizeOf(typeof(T).GetEnumUnderlyingType());
-            }
-            return Marshal.SizeOf<T>();
-        }
-
-        /// <summary>
         /// Marshals a C string pointer to a byte array.
         /// </summary>
         /// <returns>The string as a byte array.</returns>
@@ -310,7 +299,7 @@ namespace GISharp.Runtime
                 return null;
             }
             T[] array;
-            var elementSize = SizeOf<T>();
+            var elementSize = sizeof(T);
             if (length.HasValue) {
                 array = new T[length.Value];
                 var current = ptr;
@@ -350,7 +339,7 @@ namespace GISharp.Runtime
             if (array is null) {
                 return IntPtr.Zero;
             }
-            var elementSize = SizeOf<T>();
+            var elementSize = sizeof(T);
             var ptr = Alloc((array.Length + (nullTerminated ? 1 : 0)) * elementSize);
             var current = ptr;
             for (int i = 0; i < array.Length; i++) {
