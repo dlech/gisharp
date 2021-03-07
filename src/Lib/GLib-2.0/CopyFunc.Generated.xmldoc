@@ -1,0 +1,10 @@
+<declaration>
+
+<member name='CopyFunc'>
+<summary>
+A function of this signature is used to copy the node data
+when doing a deep-copy of a tree.
+</summary>
+</member>
+
+</declaration>

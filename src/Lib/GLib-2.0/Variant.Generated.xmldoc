@@ -682,7 +682,7 @@ Compares <paramref name="one"/> and <paramref name="two"/>.
 </summary>
 <remarks>
 The types of <paramref name="one"/> and <paramref name="two"/> are #gconstpointer only to allow use of
-this function with #GTree, #GPtrArray, etc.  They must each be a
+this function with #GTree, <see cref="PtrArray"/>, etc.  They must each be a
 <see cref="Variant"/>.
 
 Comparison is only defined for basic types (ie: booleans, numbers,

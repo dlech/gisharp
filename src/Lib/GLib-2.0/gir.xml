@@ -2088,6 +2088,35 @@ time of more than 5 seconds).</doc>
         </gs:managed-parameters>
       </method>
     </record>
+    <callback name="CopyFunc" c:type="GCopyFunc" version="2.4" gs:dll-name="glib-2.0" gs:managed-name="CopyFunc">
+      <doc xml:space="preserve" filename="gtypes.h" line="121">A function of this signature is used to copy the node data
+when doing a deep-copy of a tree.</doc>
+      <source-position filename="gtypes.h" line="133" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <doc xml:space="preserve" filename="gtypes.h" line="129">A pointer to the copy</doc>
+        <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+      </return-value>
+      <parameters>
+        <parameter name="src" transfer-ownership="none" gs:managed-name="src" direction="in">
+          <doc xml:space="preserve" filename="gtypes.h" line="123">A pointer to the data which should be copied</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+          <doc xml:space="preserve" filename="gtypes.h" line="124">Additional data</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="src" transfer-ownership="none" gs:managed-name="src" direction="in">
+          <doc xml:space="preserve" filename="gtypes.h" line="123">A pointer to the data which should be copied</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+          <doc xml:space="preserve" filename="gtypes.h" line="124">Additional data</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
     <record name="Data" c:type="GData" disguised="1" gs:managed-name="Data">
       <doc xml:space="preserve" filename="glib-2.0.c" line="232">The #GData struct is an opaque data structure to represent a
 [Keyed Data List][glib-Keyed-Data-Lists]. It should only be
@@ -4126,6 +4155,30 @@ a certain case, your code will still work.</doc>
         <gs:managed-parameters />
       </function>
     </record>
+    <callback name="Func" c:type="GFunc" gs:dll-name="glib-2.0" gs:managed-name="Func">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="542">Specifies the type of functions passed to g_list_foreach() and
+g_slist_foreach().</doc>
+      <source-position filename="gtypes.h" line="114" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <type name="none" c:type="void" gs:managed-name="System.Void" />
+      </return-value>
+      <parameters>
+        <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="544">the element's data</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="1" gs:managed-name="userData" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="545">user data passed to g_list_foreach() or g_slist_foreach()</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="544">the element's data</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
     <callback name="HFunc" c:type="GHFunc" gs:dll-name="glib-2.0" gs:managed-name="HFunc">
       <doc xml:space="preserve" filename="glib-2.0.c" line="552">Specifies the type of the function passed to g_hash_table_foreach().
 It is called with each key/value pair, together with the @user_data
@@ -9743,6 +9796,1146 @@ occurred.</doc>
         <type name="gushort" c:type="gushort" gs:managed-name="System.UInt16" />
       </field>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_pollfd_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </record>
+    <record name="PtrArray" c:type="GPtrArray" glib:type-name="GPtrArray" glib:get-type="g_ptr_array_get_type" c:symbol-prefix="ptr_array" gs:inheritance-modifiers="abstract" gs:managed-name="PtrArray">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="1488">Contains the public fields of a pointer array.</doc>
+      <source-position filename="garray.h" line="57" />
+      <field name="pdata" writable="1" gs:managed-name="Pdata">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1490">points to the array of pointers, which may be moved when the
+    array grows</doc>
+        <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+      </field>
+      <field name="len" writable="1" gs:managed-name="Len">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1492">number of pointers in the array</doc>
+        <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+      </field>
+      <function name="add" c:identifier="g_ptr_array_add" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Add">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25243">Adds a pointer to the end of the pointer array. The array will grow
+in size automatically if necessary.</doc>
+        <source-position filename="garray.h" line="191" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25245">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25246">the pointer to add</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25245">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25246">the pointer to add</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="copy" c:identifier="g_ptr_array_copy" version="2.62" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Copy">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25253">Makes a full (deep) copy of a #GPtrArray.
+
+@func, as a #GCopyFunc, takes two arguments, the data to be copied
+and a @user_data pointer. On common processor architectures, it's safe to
+pass %NULL as @user_data if the copy function takes only one argument. You
+may get compiler warnings from this though if compiling with GCC’s
+`-Wcast-function-type` warning.
+
+If @func is %NULL, then only the pointers (and not what they are
+pointing to) are copied to the new #GPtrArray.
+
+The copy of @array will have the same #GDestroyNotify for its elements as
+@array.</doc>
+        <source-position filename="garray.h" line="147" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25273">a deep copy of the initial #GPtrArray.</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25255">#GPtrArray to duplicate</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" nullable="1" allow-none="1" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25256">a copy function used to copy every element in the array</doc>
+            <type name="CopyFunc" c:type="GCopyFunc" gs:managed-name="CopyFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25257">user data passed to the copy function @func, or %NULL</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25255">#GPtrArray to duplicate</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" nullable="1" allow-none="1" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25256">a copy function used to copy every element in the array</doc>
+            <type name="CopyFunc" c:type="GCopyFunc" gs:managed-name="CopyFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="extend" c:identifier="g_ptr_array_extend" version="2.62" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Extend">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25278">Adds all pointers of @array to the end of the array @array_to_extend.
+The array will grow in size automatically if needed. @array_to_extend is
+modified in-place.
+
+@func, as a #GCopyFunc, takes two arguments, the data to be copied
+and a @user_data pointer. On common processor architectures, it's safe to
+pass %NULL as @user_data if the copy function takes only one argument. You
+may get compiler warnings from this though if compiling with GCC’s
+`-Wcast-function-type` warning.
+
+If @func is %NULL, then only the pointers (and not what they are
+pointing to) are copied to the new #GPtrArray.</doc>
+        <source-position filename="garray.h" line="194" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array_to_extend" transfer-ownership="none" gs:managed-name="arrayToExtend" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25280">a #GPtrArray.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25281">a #GPtrArray to add to the end of @array_to_extend.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" nullable="1" allow-none="1" closure="3" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25282">a copy function used to copy every element in the array</doc>
+            <type name="CopyFunc" c:type="GCopyFunc" gs:managed-name="CopyFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25283">user data passed to the copy function @func, or %NULL</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array_to_extend" transfer-ownership="none" gs:managed-name="arrayToExtend" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25280">a #GPtrArray.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25281">a #GPtrArray to add to the end of @array_to_extend.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" nullable="1" allow-none="1" closure="3" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25282">a copy function used to copy every element in the array</doc>
+            <type name="CopyFunc" c:type="GCopyFunc" gs:managed-name="CopyFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="extend_and_steal" c:identifier="g_ptr_array_extend_and_steal" version="2.62" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="ExtendAndSteal">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25302">Adds all the pointers in @array to the end of @array_to_extend, transferring
+ownership of each element from @array to @array_to_extend and modifying
+@array_to_extend in-place. @array is then freed.
+
+As with g_ptr_array_free(), @array will be destroyed if its reference count
+is 1. If its reference count is higher, it will be decremented and the
+length of @array set to zero.</doc>
+        <source-position filename="garray.h" line="199" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array_to_extend" transfer-ownership="none" gs:managed-name="arrayToExtend" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25304">a #GPtrArray.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="array" transfer-ownership="container" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25305">a #GPtrArray to add to the end of
+    @array_to_extend.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array_to_extend" transfer-ownership="none" gs:managed-name="arrayToExtend" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25304">a #GPtrArray.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="array" transfer-ownership="container" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25305">a #GPtrArray to add to the end of
+    @array_to_extend.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="find" c:identifier="g_ptr_array_find" version="2.54" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="TryFind">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25320">Checks whether @needle exists in @haystack. If the element is found, %TRUE is
+returned and the element’s index is returned in @index_ (if non-%NULL).
+Otherwise, %FALSE is returned and @index_ is undefined. If @needle exists
+multiple times in @haystack, the index of the first instance is returned.
+
+This does pointer comparisons only. If you want to use more complex equality
+checks, such as string comparisons, use g_ptr_array_find_with_equal_func().</doc>
+        <source-position filename="garray.h" line="217" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25335">%TRUE if @needle is one of the elements of @haystack</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="haystack" transfer-ownership="none" gs:managed-name="haystack" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25322">pointer array to be searched</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="needle" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="needle" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25323">pointer to look for</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="index_" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="index">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25324">return location for the index of
+   the element, if found</doc>
+            <type name="guint" c:type="guint*" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="haystack" transfer-ownership="none" gs:managed-name="haystack" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25322">pointer array to be searched</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="needle" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="needle" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25323">pointer to look for</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="index_" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="index">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25324">return location for the index of
+   the element, if found</doc>
+            <type name="guint" c:type="guint*" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="find_with_equal_func" c:identifier="g_ptr_array_find_with_equal_func" version="2.54" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="TryFindWithEqualFunc">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25340">Checks whether @needle exists in @haystack, using the given @equal_func.
+If the element is found, %TRUE is returned and the element’s index is
+returned in @index_ (if non-%NULL). Otherwise, %FALSE is returned and @index_
+is undefined. If @needle exists multiple times in @haystack, the index of
+the first instance is returned.
+
+@equal_func is called with the element from the array as its first parameter,
+and @needle as its second parameter. If @equal_func is %NULL, pointer
+equality is used.</doc>
+        <source-position filename="garray.h" line="221" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25360">%TRUE if @needle is one of the elements of @haystack</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="haystack" transfer-ownership="none" gs:managed-name="haystack" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25342">pointer array to be searched</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="needle" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="needle" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25343">pointer to look for</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="equal_func" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="equalFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25344">the function to call for each element, which should
+   return %TRUE when the desired element is found; or %NULL to use pointer
+   equality</doc>
+            <type name="EqualFunc" c:type="GEqualFunc" gs:managed-name="EqualFunc" />
+          </parameter>
+          <parameter name="index_" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="index">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25347">return location for the index of
+   the element, if found</doc>
+            <type name="guint" c:type="guint*" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="haystack" transfer-ownership="none" gs:managed-name="haystack" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25342">pointer array to be searched</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="needle" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="needle" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25343">pointer to look for</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="equal_func" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="equalFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25344">the function to call for each element, which should
+   return %TRUE when the desired element is found; or %NULL to use pointer
+   equality</doc>
+            <type name="EqualFunc" c:type="GEqualFunc" gs:managed-name="EqualFunc" />
+          </parameter>
+          <parameter name="index_" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="index">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25347">return location for the index of
+   the element, if found</doc>
+            <type name="guint" c:type="guint*" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="foreach" c:identifier="g_ptr_array_foreach" version="2.4" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Foreach">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25365">Calls a function for each element of a #GPtrArray. @func must not
+add elements to or remove elements from the array.</doc>
+        <source-position filename="garray.h" line="213" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25367">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25368">the function to call for each array element</doc>
+            <type name="Func" c:type="GFunc" gs:managed-name="Func" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25369">user data to pass to the function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25367">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25368">the function to call for each array element</doc>
+            <type name="Func" c:type="GFunc" gs:managed-name="Func" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="free" c:identifier="g_ptr_array_free" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Free">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25378">Frees the memory allocated for the #GPtrArray. If @free_seg is %TRUE
+it frees the memory block holding the elements as well. Pass %FALSE
+if you want to free the #GPtrArray wrapper but preserve the
+underlying array for use elsewhere. If the reference count of @array
+is greater than one, the #GPtrArray wrapper is preserved but the
+size of @array will be set to zero.
+
+If array contents point to dynamically-allocated memory, they should
+be freed separately if @free_seg is %TRUE and no #GDestroyNotify
+function has been set for @array.
+
+This function is not thread-safe. If using a #GPtrArray from multiple
+threads, use only the atomic g_ptr_array_ref() and g_ptr_array_unref()
+functions.</doc>
+        <source-position filename="garray.h" line="156" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25398">the pointer array if @free_seg is %FALSE, otherwise %NULL.
+    The pointer array should be freed using g_free().</doc>
+          <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25380">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="free_seg" transfer-ownership="none" gs:managed-name="freeSeg" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25381">if %TRUE the actual pointer array is freed as well</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25380">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="free_seg" transfer-ownership="none" gs:managed-name="freeSeg" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25381">if %TRUE the actual pointer array is freed as well</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="insert" c:identifier="g_ptr_array_insert" version="2.40" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Insert">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25417">Inserts an element into the pointer array at the given index. The
+array will grow in size automatically if necessary.</doc>
+        <source-position filename="garray.h" line="202" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25419">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25420">the index to place the new element at, or -1 to append</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25421">the pointer to add.</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25419">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25420">the index to place the new element at, or -1 to append</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25421">the pointer to add.</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="new" c:identifier="g_ptr_array_new" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25430">Creates a new #GPtrArray with a reference count of 1.</doc>
+        <source-position filename="garray.h" line="140" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25435">the new #GPtrArray</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+      <function name="new_full" c:identifier="g_ptr_array_new_full" version="2.30" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="NewFull">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25439">Creates a new #GPtrArray with @reserved_size pointers preallocated
+and a reference count of 1. This avoids frequent reallocation, if
+you are going to add many pointers to the array. Note however that
+the size of the array is still 0. It also set @element_free_func
+for freeing each element when the array is destroyed either via
+g_ptr_array_unref(), when g_ptr_array_free() is called with
+@free_segment set to %TRUE or when removing elements.</doc>
+        <source-position filename="garray.h" line="153" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25453">A new #GPtrArray</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="reserved_size" transfer-ownership="none" gs:managed-name="reservedSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25441">number of pointers preallocated</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="element_free_func" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="elementFreeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25442">A function to free elements with
+    destroy @array or %NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="reserved_size" transfer-ownership="none" gs:managed-name="reservedSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25441">number of pointers preallocated</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="element_free_func" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="elementFreeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25442">A function to free elements with
+    destroy @array or %NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="new_with_free_func" c:identifier="g_ptr_array_new_with_free_func" version="2.22" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="NewWithFreeFunc">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25458">Creates a new #GPtrArray with a reference count of 1 and use
+@element_free_func for freeing each element when the array is destroyed
+either via g_ptr_array_unref(), when g_ptr_array_free() is called with
+@free_segment set to %TRUE or when removing elements.</doc>
+        <source-position filename="garray.h" line="142" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25468">A new #GPtrArray</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="element_free_func" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="elementFreeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25460">A function to free elements with
+    destroy @array or %NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="element_free_func" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="elementFreeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25460">A function to free elements with
+    destroy @array or %NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <method name="ref" c:identifier="g_ptr_array_ref" version="2.22" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Ref" gs:special-func="ref" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25473">Atomically increments the reference count of @array by one.
+This function is thread-safe and may be called from any thread.</doc>
+        <source-position filename="garray.h" line="159" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25480">The passed in #GPtrArray</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25475">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <function name="remove" c:identifier="g_ptr_array_remove" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Remove">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25485">Removes the first occurrence of the given pointer from the pointer
+array. The following elements are moved down one place. If @array
+has a non-%NULL #GDestroyNotify function it is called for the
+removed element.
+
+It returns %TRUE if the pointer was removed, or %FALSE if the
+pointer was not found.</doc>
+        <source-position filename="garray.h" line="181" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25498">%TRUE if the pointer is removed, %FALSE if the pointer
+    is not found in the array</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25487">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25488">the pointer to remove</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25487">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25488">the pointer to remove</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_fast" c:identifier="g_ptr_array_remove_fast" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveFast">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25503">Removes the first occurrence of the given pointer from the pointer
+array. The last element in the array is used to fill in the space,
+so this function does not preserve the order of the array. But it
+is faster than g_ptr_array_remove(). If @array has a non-%NULL
+#GDestroyNotify function it is called for the removed element.
+
+It returns %TRUE if the pointer was removed, or %FALSE if the
+pointer was not found.</doc>
+        <source-position filename="garray.h" line="184" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25517">%TRUE if the pointer was found in the array</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25505">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25506">the pointer to remove</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25505">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25506">the pointer to remove</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_index" c:identifier="g_ptr_array_remove_index" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveIndex">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25521">Removes the pointer at the given index from the pointer array.
+The following elements are moved down one place. If @array has
+a non-%NULL #GDestroyNotify function it is called for the removed
+element. If so, the return value from this function will potentially point
+to freed memory (depending on the #GDestroyNotify implementation).</doc>
+        <source-position filename="garray.h" line="169" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25532">the pointer which was removed</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25523">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25524">the index of the pointer to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25523">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25524">the index of the pointer to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_index_fast" c:identifier="g_ptr_array_remove_index_fast" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveIndexFast">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25536">Removes the pointer at the given index from the pointer array.
+The last element in the array is used to fill in the space, so
+this function does not preserve the order of the array. But it
+is faster than g_ptr_array_remove_index(). If @array has a non-%NULL
+#GDestroyNotify function it is called for the removed element. If so, the
+return value from this function will potentially point to freed memory
+(depending on the #GDestroyNotify implementation).</doc>
+        <source-position filename="garray.h" line="172" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25549">the pointer which was removed</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25538">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25539">the index of the pointer to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25538">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25539">the index of the pointer to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_range" c:identifier="g_ptr_array_remove_range" version="2.4" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveRange">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25553">Removes the given number of pointers starting at the given index
+from a #GPtrArray. The following elements are moved to close the
+gap. If @array has a non-%NULL #GDestroyNotify function it is
+called for the removed elements.</doc>
+        <source-position filename="garray.h" line="187" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25564">the @array</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25555">a @GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25556">the index of the first pointer to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25557">the number of pointers to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25555">a @GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25556">the index of the first pointer to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25557">the number of pointers to remove</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="set_free_func" c:identifier="g_ptr_array_set_free_func" version="2.22" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SetFreeFunc">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25569">Sets a function for freeing each element when @array is destroyed
+either via g_ptr_array_unref(), when g_ptr_array_free() is called
+with @free_segment set to %TRUE or when removing elements.</doc>
+        <source-position filename="garray.h" line="163" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25571">A #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="element_free_func" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="elementFreeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25572">A function to free elements with
+    destroy @array or %NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25571">A #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="element_free_func" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="elementFreeFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25572">A function to free elements with
+    destroy @array or %NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="set_size" c:identifier="g_ptr_array_set_size" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SetSize">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25583">Sets the size of the array. When making the array larger,
+newly-added elements will be set to %NULL. When making it smaller,
+if @array has a non-%NULL #GDestroyNotify function then it will be
+called for the removed elements.</doc>
+        <source-position filename="garray.h" line="166" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25585">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25586">the new length of the pointer array</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25585">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="length" transfer-ownership="none" gs:managed-name="length" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25586">the new length of the pointer array</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="sized_new" c:identifier="g_ptr_array_sized_new" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SizedNew">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25595">Creates a new #GPtrArray with @reserved_size pointers preallocated
+and a reference count of 1. This avoids frequent reallocation, if
+you are going to add many pointers to the array. Note however that
+the size of the array is still 0.</doc>
+        <source-position filename="garray.h" line="151" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25604">the new #GPtrArray</doc>
+          <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="reserved_size" transfer-ownership="none" gs:managed-name="reservedSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25597">number of pointers preallocated</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="reserved_size" transfer-ownership="none" gs:managed-name="reservedSize" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25597">number of pointers preallocated</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="sort" c:identifier="g_ptr_array_sort" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Sort">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25608">Sorts the array, using @compare_func which should be a qsort()-style
+comparison function (returns less than zero for first arg is less
+than second arg, zero for equal, greater than zero if irst arg is
+greater than second arg).
+
+Note that the comparison function for g_ptr_array_sort() doesn't
+take the pointers from the array as arguments, it takes pointers to
+the pointers in the array. Here is a full example of usage:
+
+|[&lt;!-- language="C" --&gt;
+typedef struct
+{
+  gchar *name;
+  gint size;
+} FileListEntry;
+
+static gint
+sort_filelist (gconstpointer a, gconstpointer b)
+{
+  const FileListEntry *entry1 = *((FileListEntry **) a);
+  const FileListEntry *entry2 = *((FileListEntry **) b);
+
+  return g_ascii_strcasecmp (entry1-&gt;name, entry2-&gt;name);
+}
+
+…
+g_autoptr (GPtrArray) file_list = NULL;
+
+// initialize file_list array and load with many FileListEntry entries
+...
+// now sort it with
+g_ptr_array_sort (file_list, sort_filelist);
+]|
+
+This is guaranteed to be a stable sort since version 2.32.</doc>
+        <source-position filename="garray.h" line="206" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25610">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25611">comparison function</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25610">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25611">comparison function</doc>
+            <type name="CompareFunc" c:type="GCompareFunc" gs:managed-name="CompareFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="sort_with_data" c:identifier="g_ptr_array_sort_with_data" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SortWithData">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25651">Like g_ptr_array_sort(), but the comparison function has an extra
+user data argument.
+
+Note that the comparison function for g_ptr_array_sort_with_data()
+doesn't take the pointers from the array as arguments, it takes
+pointers to the pointers in the array. Here is a full example of use:
+
+|[&lt;!-- language="C" --&gt;
+typedef enum { SORT_NAME, SORT_SIZE } SortMode;
+
+typedef struct
+{
+  gchar *name;
+  gint size;
+} FileListEntry;
+
+static gint
+sort_filelist (gconstpointer a, gconstpointer b, gpointer user_data)
+{
+  gint order;
+  const SortMode sort_mode = GPOINTER_TO_INT (user_data);
+  const FileListEntry *entry1 = *((FileListEntry **) a);
+  const FileListEntry *entry2 = *((FileListEntry **) b);
+
+  switch (sort_mode)
+    {
+    case SORT_NAME:
+      order = g_ascii_strcasecmp (entry1-&gt;name, entry2-&gt;name);
+      break;
+    case SORT_SIZE:
+      order = entry1-&gt;size - entry2-&gt;size;
+      break;
+    default:
+      order = 0;
+      break;
+    }
+  return order;
+}
+
+...
+g_autoptr (GPtrArray) file_list = NULL;
+SortMode sort_mode;
+
+// initialize file_list array and load with many FileListEntry entries
+...
+// now sort it with
+sort_mode = SORT_NAME;
+g_ptr_array_sort_with_data (file_list,
+                            sort_filelist,
+                            GINT_TO_POINTER (sort_mode));
+]|
+
+This is guaranteed to be a stable sort since version 2.32.</doc>
+        <source-position filename="garray.h" line="209" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25653">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" closure="2" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25654">comparison function</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25655">data to pass to @compare_func</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25653">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="compare_func" transfer-ownership="none" closure="2" gs:managed-name="compareFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25654">comparison function</doc>
+            <type name="CompareDataFunc" c:type="GCompareDataFunc" gs:managed-name="CompareDataFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="steal" c:identifier="g_ptr_array_steal" version="2.64" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Steal">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25713">Frees the data in the array and resets the size to zero, while
+the underlying array is preserved for use elsewhere and returned
+to the caller.
+
+Even if set, the #GDestroyNotify function will never be called
+on the current contents of the array and the caller is
+responsible for freeing the array elements.
+
+An example of use:
+|[&lt;!-- language="C" --&gt;
+g_autoptr(GPtrArray) chunk_buffer = g_ptr_array_new_with_free_func (g_bytes_unref);
+
+// Some part of your application appends a number of chunks to the pointer array.
+g_ptr_array_add (chunk_buffer, g_bytes_new_static ("hello", 5));
+g_ptr_array_add (chunk_buffer, g_bytes_new_static ("world", 5));
+
+…
+
+// Periodically, the chunks need to be sent as an array-and-length to some
+// other part of the program.
+GBytes **chunks;
+gsize n_chunks;
+
+chunks = g_ptr_array_steal (chunk_buffer, &amp;n_chunks);
+for (gsize i = 0; i &lt; n_chunks; i++)
+  {
+    // Do something with each chunk here, and then free them, since
+    // g_ptr_array_steal() transfers ownership of all the elements and the
+    // array to the caller.
+    …
+
+    g_bytes_unref (chunks[i]);
+  }
+
+g_free (chunks);
+
+// After calling g_ptr_array_steal(), the pointer array can be reused for the
+// next set of chunks.
+g_assert (chunk_buffer-&gt;len == 0);
+]|</doc>
+        <source-position filename="garray.h" line="144" />
+        <return-value transfer-ownership="full" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25760">the element data, which should be
+    freed using g_free().</doc>
+          <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25715">a #GPtrArray.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="len" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="len">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25716">pointer to retrieve the number of
+   elements of the original array</doc>
+            <type name="gsize" c:type="gsize*" gs:managed-name="System.Int32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25715">a #GPtrArray.</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="len" direction="out" caller-allocates="1" transfer-ownership="none" optional="1" allow-none="1" gs:managed-name="len">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25716">pointer to retrieve the number of
+   elements of the original array</doc>
+            <type name="gsize" c:type="gsize*" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="steal_index" c:identifier="g_ptr_array_steal_index" version="2.58" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="StealIndex">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25766">Removes the pointer at the given index from the pointer array.
+The following elements are moved down one place. The #GDestroyNotify for
+@array is *not* called on the removed element; ownership is transferred to
+the caller of this function.</doc>
+        <source-position filename="garray.h" line="175" />
+        <return-value transfer-ownership="full" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25776">the pointer which was removed</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25768">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25769">the index of the pointer to steal</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25768">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25769">the index of the pointer to steal</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="steal_index_fast" c:identifier="g_ptr_array_steal_index_fast" version="2.58" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="StealIndexFast">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25781">Removes the pointer at the given index from the pointer array.
+The last element in the array is used to fill in the space, so
+this function does not preserve the order of the array. But it
+is faster than g_ptr_array_steal_index(). The #GDestroyNotify for @array is
+*not* called on the removed element; ownership is transferred to the caller
+of this function.</doc>
+        <source-position filename="garray.h" line="178" />
+        <return-value transfer-ownership="full" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="25793">the pointer which was removed</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25783">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25784">the index of the pointer to steal</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25783">a #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </parameter>
+          <parameter name="index_" transfer-ownership="none" gs:managed-name="index" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25784">the index of the pointer to steal</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <method name="unref" c:identifier="g_ptr_array_unref" version="2.22" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Unref" gs:special-func="unref" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="25798">Atomically decrements the reference count of @array by one. If the
+reference count drops to 0, the effect is the same as calling
+g_ptr_array_free() with @free_segment set to %TRUE. This function
+is thread-safe and may be called from any thread.</doc>
+        <source-position filename="garray.h" line="161" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="array" transfer-ownership="none" gs:managed-name="array" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="25800">A #GPtrArray</doc>
+            <array name="GLib.PtrArray" c:type="GPtrArray*" zero-terminated="1" gs:managed-name="GISharp.Lib.GLib.PtrArray" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </array>
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_ptr_array_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
         </return-value>

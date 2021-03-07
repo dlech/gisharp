@@ -1,0 +1,28 @@
+
+### PtrArray ###
+
+# make abstract
+- !set-attribute
+  name: gs:inheritance-modifiers
+  value: abstract
+  xpath: gi:repository/gi:namespace/gi:record[@name='PtrArray']
+
+# make introspectable
+- !set-attribute
+  name: introspectable
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:function
+
+# fix ref/unref methods
+- !change-element
+  new-name: gi:method
+  xpath: gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:function[contains(@name,'ref')]
+- !change-element
+  new-name: gi:instance-parameter
+  xpath: gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:method/gi:parameters/gi:parameter[position()=1]
+
+# nearly everything needs special handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gi:record[@name='PtrArray']/gi:function

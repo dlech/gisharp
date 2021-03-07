@@ -1,0 +1,10 @@
+<declaration>
+
+<member name='Func'>
+<summary>
+Specifies the type of functions passed to g_list_foreach() and
+g_slist_foreach().
+</summary>
+</member>
+
+</declaration>

@@ -2,93 +2,25 @@
 // Copyright (c) 2015-2021 David Lechner <david@lechnology.com>
 
 using System;
-using System.Runtime.InteropServices;
-using System.Collections.Generic;
 using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Linq;
+using System.Runtime.InteropServices;
 using GISharp.Runtime;
-using GISharp.Lib.GObject;
 
 using static System.Reflection.BindingFlags;
-using System.Linq;
-using System.ComponentModel;
 
 namespace GISharp.Lib.GLib
 {
-    /// <summary>
-    /// Contains the public fields of a pointer array.
-    /// </summary>
-    /// <seealso cref="PtrArray{T}"/>
-    [GType("GPtrArray", IsProxyForUnmanagedType = true)]
-    public abstract unsafe class PtrArray : Boxed
+    unsafe partial class PtrArray
     {
-        /// <summary>
-        /// The unmanaged data structure for <see cref="List"/>.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        public struct UnmanagedStruct
-        {
-#pragma warning disable CS0649
-            /// <summary>
-            /// points to the array of pointers, which may be moved when the array grows
-            /// </summary>
-            public void* Data;
-
-            /// <summary>
-            /// number of pointers in the array
-            /// </summary>
-            public uint Len;
-#pragma warning restore CS0649
-        }
-
-        private protected void* Data_ => ((UnmanagedStruct*)UnsafeHandle)->Data;
+        private protected void* Data_ => (void*)((UnmanagedStruct*)UnsafeHandle)->Pdata;
 
         /// <summary>
         /// number of pointers in the array
         /// </summary>
         private protected uint Len => ((UnmanagedStruct*)UnsafeHandle)->Len;
-
-        /// <summary>
-        /// For internal runtime use only.
-        /// </summary>
-        [EditorBrowsable(EditorBrowsableState.Never)]
-        private protected PtrArray(IntPtr handle, Transfer ownership) : base(handle)
-        {
-            if (ownership == Transfer.None) {
-                this.handle = (IntPtr)g_ptr_array_ref((UnmanagedStruct*)handle);
-            }
-        }
-
-        /// <inheritdoc/>
-        protected override void Dispose(bool disposing)
-        {
-            if (handle != IntPtr.Zero) {
-                g_ptr_array_unref((UnmanagedStruct*)handle);
-            }
-            base.Dispose(disposing);
-        }
-
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern UnmanagedStruct* g_ptr_array_ref(UnmanagedStruct* array);
-
-        /// <inheritdoc/>
-        public override IntPtr Take() => (IntPtr)g_ptr_array_ref((UnmanagedStruct*)UnsafeHandle);
-
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_unref(UnmanagedStruct* array);
-
-        [DllImport("gobject-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern GType g_ptr_array_get_type();
-
-        static readonly GType _GType = g_ptr_array_get_type();
-
-        /// <summary>
-        /// Creates a new #GPtrArray with a reference count of 1.
-        /// </summary>
-        /// <returns>
-        /// the new #GPtrArray
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern UnmanagedStruct* g_ptr_array_new();
 
         static UnmanagedStruct* New()
         {
@@ -103,22 +35,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        /// <summary>
-        /// Creates a new #GPtrArray with @reservedSize pointers preallocated
-        /// and a reference count of 1. This avoids frequent reallocation, if
-        /// you are going to add many pointers to the array. Note however that
-        /// the size of the array is still 0.
-        /// </summary>
-        /// <param name="reservedSize">
-        /// number of pointers preallocated
-        /// </param>
-        /// <returns>
-        /// the new #GPtrArray
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern UnmanagedStruct* g_ptr_array_sized_new(
-            uint reservedSize);
-
         static UnmanagedStruct* SizedNew(int reservedSize)
         {
             if (reservedSize < 0) {
@@ -132,31 +48,6 @@ namespace GISharp.Lib.GLib
         {
         }
 
-        /// <summary>
-        /// Creates a new #GPtrArray with @reservedSize pointers preallocated
-        /// and a reference count of 1. This avoids frequent reallocation, if
-        /// you are going to add many pointers to the array. Note however that
-        /// the size of the array is still 0. It also set @elementFreeFunc
-        /// for freeing each element when the array is destroyed either via
-        /// g_ptr_array_unref(), when g_ptr_array_free() is called with
-        /// @freeSegment set to %TRUE or when removing elements.
-        /// </summary>
-        /// <param name="reservedSize">
-        /// number of pointers preallocated
-        /// </param>
-        /// <param name="elementFreeFunc">
-        /// A function to free elements with
-        ///     destroy @array or %NULL
-        /// </param>
-        /// <returns>
-        /// A new #GPtrArray
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.30")]
-        static extern UnmanagedStruct* g_ptr_array_new_full(
-            uint reservedSize,
-            delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc);
-
         static UnmanagedStruct* NewFull(int reservedSize, delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc)
         {
             if (reservedSize < 0) {
@@ -165,6 +56,7 @@ namespace GISharp.Lib.GLib
             var ret = g_ptr_array_new_full((uint)reservedSize, elementFreeFunc);
             return ret;
         }
+
         // IMPORTANT: elementFreeFunc cannot be allowed to be GCed
         private protected PtrArray(int reservedSize, delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc)
             : this((IntPtr)NewFull(reservedSize, elementFreeFunc), Transfer.Full)
@@ -194,39 +86,6 @@ namespace GISharp.Lib.GLib
         //}
 
         /// <summary>
-        /// Creates a new #GPtrArray with a reference count of 1 and use
-        /// @elementFreeFunc for freeing each element when the array is destroyed
-        /// either via g_ptr_array_unref(), when g_ptr_array_free() is called with
-        /// @freeSegment set to %TRUE or when removing elements.
-        /// </summary>
-        /// <param name="elementFreeFunc">
-        /// A function to free elements with
-        ///     destroy @array or %NULL
-        /// </param>
-        /// <returns>
-        /// A new #GPtrArray
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.22")]
-        static extern UnmanagedStruct* g_ptr_array_new_with_free_func(
-            delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc);
-
-        /// <summary>
-        /// Adds a pointer to the end of the pointer array. The array will grow
-        /// in size automatically if necessary.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="data">
-        /// the pointer to add
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_add(
-            UnmanagedStruct* array,
-            IntPtr data);
-
-        /// <summary>
         /// Adds a pointer to the end of the pointer array. The array will grow
         /// in size automatically if necessary.
         /// </summary>
@@ -238,53 +97,6 @@ namespace GISharp.Lib.GLib
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             g_ptr_array_add(array_, data);
         }
-
-        /// <summary>
-        /// Calls a function for each element of a #GPtrArray.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="func">
-        /// the function to call for each array element
-        /// </param>
-        /// <param name="userData">
-        /// user data to pass to the function
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.4")]
-        static extern void g_ptr_array_foreach(
-            UnmanagedStruct* array,
-            IntPtr func,
-            IntPtr userData);
-
-        /// <summary>
-        /// Frees the memory allocated for the #GPtrArray. If @freeSeg is %TRUE
-        /// it frees the memory block holding the elements as well. Pass %FALSE
-        /// if you want to free the #GPtrArray wrapper but preserve the
-        /// underlying array for use elsewhere. If the reference count of @array
-        /// is greater than one, the #GPtrArray wrapper is preserved but the
-        /// size of @array will be set to zero.
-        /// </summary>
-        /// <remarks>
-        /// If array contents point to dynamically-allocated memory, they should
-        /// be freed separately if @freeSeg is %TRUE and no #GDestroyNotify
-        /// function has been set for @array.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="freeSeg">
-        /// if %TRUE the actual pointer array is freed as well
-        /// </param>
-        /// <returns>
-        /// the pointer array if @freeSeg is %FALSE, otherwise %NULL.
-        ///     The pointer array should be freed using g_free().
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_ptr_array_free(
-            UnmanagedStruct* array,
-            bool freeSeg);
 
         /// <summary>
         /// Takes ownership of the unmanaged array.
@@ -299,31 +111,11 @@ namespace GISharp.Lib.GLib
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             var length = (int)array_->Len;
-            var data = g_ptr_array_free(array_, false);
+            var data = g_ptr_array_free(array_, Runtime.Boolean.False);
             handle = IntPtr.Zero; // object becomes disposed
             GC.SuppressFinalize(this);
             return (data, length);
         }
-
-        /// <summary>
-        /// Inserts an element into the pointer array at the given index. The
-        /// array will grow in size automatically if necessary.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="index">
-        /// the index to place the new element at, or -1 to append
-        /// </param>
-        /// <param name="data">
-        /// the pointer to add.
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.40")]
-        static extern void g_ptr_array_insert(
-            UnmanagedStruct* array,
-            int index,
-            IntPtr data);
 
         /// <summary>
         /// Inserts an element into the pointer array at the given index. The
@@ -341,31 +133,6 @@ namespace GISharp.Lib.GLib
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             g_ptr_array_insert(array_, index, data);
         }
-
-        /// <summary>
-        /// Removes the first occurrence of the given pointer from the pointer
-        /// array. The following elements are moved down one place. If @array
-        /// has a non-%NULL #GDestroyNotify function it is called for the
-        /// removed element.
-        /// </summary>
-        /// <remarks>
-        /// It returns %TRUE if the pointer was removed, or %FALSE if the
-        /// pointer was not found.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="data">
-        /// the pointer to remove
-        /// </param>
-        /// <returns>
-        /// %TRUE if the pointer is removed, %FALSE if the pointer
-        ///     is not found in the array
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Runtime.Boolean g_ptr_array_remove(
-            UnmanagedStruct* array,
-            IntPtr data);
 
         /// <summary>
         /// Removes the first occurrence of the given pointer from the pointer
@@ -396,31 +163,6 @@ namespace GISharp.Lib.GLib
         /// Removes the first occurrence of the given pointer from the pointer
         /// array. The last element in the array is used to fill in the space,
         /// so this function does not preserve the order of the array. But it
-        /// is faster than g_ptr_array_remove(). If @array has a non-%NULL
-        /// #GDestroyNotify function it is called for the removed element.
-        /// </summary>
-        /// <remarks>
-        /// It returns %TRUE if the pointer was removed, or %FALSE if the
-        /// pointer was not found.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="data">
-        /// the pointer to remove
-        /// </param>
-        /// <returns>
-        /// %TRUE if the pointer was found in the array
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern Runtime.Boolean g_ptr_array_remove_fast(
-            UnmanagedStruct* array,
-            IntPtr data);
-
-        /// <summary>
-        /// Removes the first occurrence of the given pointer from the pointer
-        /// array. The last element in the array is used to fill in the space,
-        /// so this function does not preserve the order of the array. But it
         /// is faster than g_ptr_array_remove(). If this array has a non-<c>null</c>
         /// <see cref="DestroyNotify"/> function it is called for the removed element.
         /// </summary>
@@ -441,26 +183,6 @@ namespace GISharp.Lib.GLib
             var ret = ret_.IsTrue();
             return ret;
         }
-
-        /// <summary>
-        /// Removes the pointer at the given index from the pointer array.
-        /// The following elements are moved down one place. If @array has
-        /// a non-%NULL #GDestroyNotify function it is called for the removed
-        /// element.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="index">
-        /// the index of the pointer to remove
-        /// </param>
-        /// <returns>
-        /// the pointer which was removed
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_ptr_array_remove_index(
-            UnmanagedStruct* array,
-            uint index);
 
         /// <summary>
         /// Removes the pointer at the given index from the pointer array.
@@ -488,27 +210,6 @@ namespace GISharp.Lib.GLib
         /// Removes the pointer at the given index from the pointer array.
         /// The last element in the array is used to fill in the space, so
         /// this function does not preserve the order of the array. But it
-        /// is faster than g_ptr_array_remove_index(). If @array has a non-%NULL
-        /// #GDestroyNotify function it is called for the removed element.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="index">
-        /// the index of the pointer to remove
-        /// </param>
-        /// <returns>
-        /// the pointer which was removed
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern IntPtr g_ptr_array_remove_index_fast(
-            UnmanagedStruct* array,
-            uint index);
-
-        /// <summary>
-        /// Removes the pointer at the given index from the pointer array.
-        /// The last element in the array is used to fill in the space, so
-        /// this function does not preserve the order of the array. But it
         /// is faster than g_ptr_array_remove_index(). If this array has a non-<c>null</c>
         /// <see cref="DestroyNotify"/> function it is called for the removed element.
         /// </summary>
@@ -527,32 +228,6 @@ namespace GISharp.Lib.GLib
             var ret = g_ptr_array_remove_index_fast(array_, (uint)index);
             return ret;
         }
-
-        /// <summary>
-        /// Removes the given number of pointers starting at the given index
-        /// from a #GPtrArray. The following elements are moved to close the
-        /// gap. If @array has a non-%NULL #GDestroyNotify function it is
-        /// called for the removed elements.
-        /// </summary>
-        /// <param name="array">
-        /// a @GPtrArray
-        /// </param>
-        /// <param name="index">
-        /// the index of the first pointer to remove
-        /// </param>
-        /// <param name="length">
-        /// the number of pointers to remove
-        /// </param>
-        /// <returns>
-        /// the @array
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.4")]
-        static extern IntPtr g_ptr_array_remove_range(
-            UnmanagedStruct* array,
-            uint index,
-            uint length);
-
         /// <summary>
         /// Removes the given number of pointers starting at the given index
         /// from a <see cref="PtrArray{T}"/>. The following elements are moved to close the
@@ -582,24 +257,6 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Sets a function for freeing each element when @array is destroyed
-        /// either via g_ptr_array_unref(), when g_ptr_array_free() is called
-        /// with @freeSegment set to %TRUE or when removing elements.
-        /// </summary>
-        /// <param name="array">
-        /// A #GPtrArray
-        /// </param>
-        /// <param name="elementFreeFunc">
-        /// A function to free elements with
-        ///     destroy @array or %NULL
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.22")]
-        static extern void g_ptr_array_set_free_func(
-            UnmanagedStruct* array,
-            delegate* unmanaged[Cdecl]<IntPtr, void> elementFreeFunc);
-
-        /// <summary>
         /// Sets a function for freeing each element when this array is destroyed
         /// or when removing elements.
         /// </summary>
@@ -613,23 +270,6 @@ namespace GISharp.Lib.GLib
             var array_ = (UnmanagedStruct*)UnsafeHandle;
             g_ptr_array_set_free_func(array_, elementFreeFunc);
         }
-
-        /// <summary>
-        /// Sets the size of the array. When making the array larger,
-        /// newly-added elements will be set to %NULL. When making it smaller,
-        /// if @array has a non-%NULL #GDestroyNotify function then it will be
-        /// called for the removed elements.
-        /// </summary>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="length">
-        /// the new length of the pointer array
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_set_size(
-            UnmanagedStruct* array,
-            int length);
 
         /// <summary>
         /// Sets the size of the array. When making the array larger,
@@ -650,30 +290,6 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Sorts the array, using @compareFunc which should be a qsort()-style
-        /// comparison function (returns less than zero for first arg is less
-        /// than second arg, zero for equal, greater than zero if irst arg is
-        /// greater than second arg).
-        /// </summary>
-        /// <remarks>
-        /// Note that the comparison function for g_ptr_array_sort() doesn't
-        /// take the pointers from the array as arguments, it takes pointers to
-        /// the pointers in the array.
-        ///
-        /// This is guaranteed to be a stable sort since version 2.32.
-        /// </remarks>
-        /// <param name="array">
-        /// a #GPtrArray
-        /// </param>
-        /// <param name="compareFunc">
-        /// comparison function
-        /// </param>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        static extern void g_ptr_array_sort(
-            UnmanagedStruct* array,
-            UnmanagedCompareFunc compareFunc);
-
-        /// <summary>
         /// Sorts the array, using <paramref name="compareFunc"/> which should be a qsort()-style
         /// comparison function (returns less than zero for first arg is less
         /// than second arg, zero for equal, greater than zero if first arg is
@@ -688,20 +304,23 @@ namespace GISharp.Lib.GLib
         private protected void Sort(Comparison<IntPtr> compareFunc)
         {
             var array_ = (UnmanagedStruct*)UnsafeHandle;
-            UnmanagedCompareFunc compareFunc_ = (a, b) => {
-                var x = Marshal.ReadIntPtr(a);
-                var y = Marshal.ReadIntPtr(b);
-                var compareFuncRet = compareFunc(x, y);
-                return compareFuncRet;
-            };
-            g_ptr_array_sort(array_, compareFunc_);
-            GC.KeepAlive(compareFunc_);
-        }
 
-        private protected void Sort(UnmanagedCompareFunc compareFunc)
-        {
-            var array_ = (UnmanagedStruct*)UnsafeHandle;
-            g_ptr_array_sort(array_, compareFunc);
+            var unmanagedCompareFunc = new UnmanagedCompareFunc((a_, b_) => {
+                try {
+                    var a = Marshal.ReadIntPtr(a_);
+                    var b = Marshal.ReadIntPtr(b_);
+                    var ret = compareFunc(a, b);
+                    return ret;
+                }
+                catch (Exception ex) {
+                    ex.LogUnhandledException();
+                    return default;
+                }
+            });
+
+            var compareFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, int>)Marshal.GetFunctionPointerForDelegate(unmanagedCompareFunc);
+            g_ptr_array_sort(array_, compareFunc_);
+            GC.KeepAlive(unmanagedCompareFunc);
         }
 
         /// <summary>
@@ -729,35 +348,6 @@ namespace GISharp.Lib.GLib
             UnmanagedStruct* array,
             delegate* unmanaged[Cdecl]<IntPtr, IntPtr, IntPtr, void> compareFunc,
             IntPtr userData);
-
-        /// <summary>
-        /// Checks whether @needle exists in @haystack. If the element is found, %TRUE is
-        /// returned and the element’s index is returned in @index_ (if non-%NULL).
-        /// Otherwise, %FALSE is returned and @index_ is undefined. If @needle exists
-        /// multiple times in @haystack, the index of the first instance is returned.
-        /// </summary>
-        /// <remarks>
-        /// This does pointer comparisons only. If you want to use more complex equality
-        /// checks, such as string comparisons, use g_ptr_array_find_with_equal_func().
-        /// </remarks>
-        /// <param name="haystack">
-        /// pointer array to be searched
-        /// </param>
-        /// <param name="needle">
-        /// pointer to look for
-        /// </param>
-        /// <param name="index">
-        /// return location for the index of the element, if found
-        /// </param>
-        /// <returns>
-        /// %TRUE if @needle is one of the elements of @haystack
-        /// </returns>
-        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
-        [Since("2.54")]
-        static extern Runtime.Boolean g_ptr_array_find(
-            UnmanagedStruct* haystack,
-            IntPtr needle,
-            uint* index);
 
         /// <summary>
         /// Checks whether @needle exists in @haystack. If the element is found, %TRUE is
@@ -927,10 +517,7 @@ namespace GISharp.Lib.GLib
         /// <param name="index">
         /// the index of the pointer to remove
         /// </param>
-        public new void RemoveAt(int index)
-        {
-            base.RemoveAt(index);
-        }
+        public new void RemoveAt(int index) => base.RemoveAt(index);
 
         /// <summary>
         /// Removes the first occurrence of the given pointer from the pointer
@@ -965,10 +552,7 @@ namespace GISharp.Lib.GLib
         /// <param name="index">
         /// the index of the pointer to remove
         /// </param>
-        public new void RemoveAtFast(int index)
-        {
-            base.RemoveAtFast(index);
-        }
+        public new void RemoveAtFast(int index) => base.RemoveAtFast(index);
 
         /// <summary>
         /// Sorts the array, using <paramref name="compareFunc"/> which should be a qsort()-style
@@ -984,14 +568,14 @@ namespace GISharp.Lib.GLib
         /// </param>
         public void Sort(Comparison<T> compareFunc)
         {
-            int compareFunc_(IntPtr a, IntPtr b)
+            int compareFunc_(IntPtr a_, IntPtr b_)
             {
-                var x = GetInstance<T>(a, Transfer.None);
-                var y = GetInstance<T>(b, Transfer.None);
-                var compareFuncRet = compareFunc(x, y);
-                return compareFuncRet;
+                var a = GetInstance<T>(a_, Transfer.None);
+                var b = GetInstance<T>(b_, Transfer.None);
+                var ret = compareFunc(a, b);
+                return ret;
             }
-            Sort((Comparison<IntPtr>)compareFunc_);
+            Sort(compareFunc_);
         }
 
         /// <summary>
@@ -1043,10 +627,7 @@ namespace GISharp.Lib.GLib
         /// <summary>
         /// Removes all pointers from the array.
         /// </summary>
-        public void Clear()
-        {
-            SetSize(0);
-        }
+        public void Clear() => SetSize(0);
 
         /// <summary>
         /// Checks if the array contains <paramref name="data"/>.
@@ -1054,10 +635,7 @@ namespace GISharp.Lib.GLib
         /// <returns><c>true</c> if <paramref name="data"/> was found, otherwise
         /// <c>false</c>.</returns>
         /// <param name="data">The item to search for.</param>
-        public bool Contains(T data)
-        {
-            return IndexOf(data) >= 0;
-        }
+        public bool Contains(T data) => IndexOf(data) >= 0;
 
         /// <inheritdoc/>
         public void CopyTo(T[] array, int arrayIndex)
@@ -1127,23 +705,5 @@ namespace GISharp.Lib.GLib
             }
             return array;
         }
-    }
-
-    /// <summary>
-    /// Attribute applied to the unmanaged copy or ref method of an <see cref="Opaque"/>
-    /// class that instructs <see cref="PtrArray{T}"/> how to handle owned elements.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
-    sealed class PtrArrayCopyFuncAttribute : Attribute
-    {
-    }
-
-    /// <summary>
-    /// Attribute applied to the unmanaged free or unref method of an <see cref="Opaque"/>
-    /// class that instructs <see cref="PtrArray{T}"/> how to handle owned elements.
-    /// </summary>
-    [AttributeUsage(AttributeTargets.Method)]
-    sealed class PtrArrayFreeFuncAttribute : Attribute
-    {
     }
 }

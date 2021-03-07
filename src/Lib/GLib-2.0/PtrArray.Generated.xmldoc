@@ -1,0 +1,22 @@
+<declaration>
+
+<member name='UnmanagedStruct.Pdata'>
+<summary>
+points to the array of pointers, which may be moved when the
+    array grows
+</summary>
+</member>
+
+<member name='UnmanagedStruct.Len'>
+<summary>
+number of pointers in the array
+</summary>
+</member>
+
+<member name='PtrArray'>
+<summary>
+Contains the public fields of a pointer array.
+</summary>
+</member>
+
+</declaration>
