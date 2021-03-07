@@ -220,71 +220,6 @@ namespace GISharp.Runtime
             g_strfreev(ptr);
         }
 
-        struct GList
-        {
-#pragma warning disable CS0649
-            public IntPtr Data;
-            public IntPtr Next;
-            public IntPtr Prev;
-#pragma warning restore CS0649
-        }
-
-        [DllImport("glib-2.0")]
-        extern static void g_list_free(IntPtr list);
-
-        /// <summary>
-        /// Marshals a GList of strings to a managed string array.
-        /// </summary>
-        /// <returns>The string array.</returns>
-        /// <param name="ptr">Pointer to the GList</param>
-        /// <param name="freePtr">If set to <c>true</c>, frees the GList.</param>
-        public static string?[] GListToStringArray(IntPtr ptr, bool freePtr = false)
-        {
-            var ret = new System.Collections.Generic.List<string?>();
-            var itemPtr = ptr;
-            while (itemPtr != IntPtr.Zero) {
-                var item = Marshal.PtrToStructure<GList>(itemPtr);
-                ret.Add(Utf8PtrToString(item.Data));
-                itemPtr = item.Next;
-            }
-            if (freePtr) {
-                g_list_free(ptr);
-            }
-            return ret.ToArray();
-        }
-
-        struct GSList
-        {
-#pragma warning disable CS0649
-            public IntPtr Data;
-            public IntPtr Next;
-#pragma warning restore CS0649
-        }
-
-        [DllImport("glib-2.0")]
-        extern static void g_slist_free(IntPtr list);
-
-        /// <summary>
-        /// Marshals a GSList of strings to a managed string array.
-        /// </summary>
-        /// <returns>The string array.</returns>
-        /// <param name="ptr">Pointer to the GSList</param>
-        /// <param name="freePtr">If set to <c>true</c>, frees the GSList.</param>
-        public static string?[] GSListToStringArray(IntPtr ptr, bool freePtr = false)
-        {
-            var ret = new System.Collections.Generic.List<string?>();
-            var itemPtr = ptr;
-            while (itemPtr != IntPtr.Zero) {
-                var item = Marshal.PtrToStructure<GSList>(itemPtr);
-                ret.Add(Utf8PtrToString(item.Data));
-                itemPtr = item.Next;
-            }
-            if (freePtr) {
-                g_slist_free(ptr);
-            }
-            return ret.ToArray();
-        }
-
         /// <summary>
         /// Marshals a C-style array from unmanged memory to managed memory.
         /// </summary>
@@ -413,28 +348,6 @@ namespace GISharp.Runtime
         public static void ClearError(IntPtr err)
         {
             g_clear_error(err);
-        }
-
-        /// <summary>
-        /// Gets a delegate for an unmanaged virtual function
-        /// </summary>
-        /// <param name="ptr">
-        /// Pointer to an unmanaged data structure
-        /// </param>
-        /// <param name="fieldOffset">
-        /// The offset to the function pointer field in the unmanaged data structure
-        /// </param>
-        /// <returns>
-        /// A delagate or <c>null</c>
-        /// </returns>
-        public static T? GetVirtualMethodDelegate<T>(IntPtr ptr, int fieldOffset) where T : Delegate
-        {
-            var ret_ = Marshal.ReadIntPtr(ptr, fieldOffset);
-            if (ret_ == IntPtr.Zero) {
-                return default;
-            }
-            var ret = Marshal.GetDelegateForFunctionPointer<T>(ret_);
-            return ret;
         }
 
         /// <summary>
