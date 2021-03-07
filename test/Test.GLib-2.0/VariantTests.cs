@@ -422,7 +422,7 @@ namespace GISharp.Test.GLib
             using var expected = new PtrArray<Variant> { new Variant(false) };
             using var variant = new Variant(null, expected);
             Assert.That(variant.Type.IsArray, Is.True);
-            using var actual = (PtrArray<Variant>)variant;
+            using var actual = variant.ToPtrArray();
             Assert.That(actual, Is.EqualTo(expected));
         }
 

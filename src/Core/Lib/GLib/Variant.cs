@@ -524,17 +524,6 @@ namespace GISharp.Lib.GLib
         // TODO cast Maybe to nullable types
 
         /// <summary>
-        /// Coverts <see cref="Variant"/> to <see cref="PtrArray{T}"/>.
-        /// </summary>
-        public static explicit operator PtrArray<Variant>(Variant v)
-        {
-            if (!v.Type.IsContainer) {
-                throw new InvalidCastException();
-            }
-            return v.ChildValues.ToPtrArray<Variant>();
-        }
-
-        /// <summary>
         /// Coverts <see cref="ValueTuple"/> to <see cref="Variant"/>.
         /// </summary>
         public static explicit operator ValueTuple(Variant value)
