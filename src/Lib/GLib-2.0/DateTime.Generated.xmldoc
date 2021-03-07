@@ -907,7 +907,7 @@ a <see cref="DateTime"/>
 
 <member name='DateTime.GetHashCode()'>
 <summary>
-Hashes this instance into a #guint, suitable for use within #GHashTable.
+Hashes this instance into a #guint, suitable for use within <see cref="HashTable"/>.
 </summary>
 <returns>
 a #guint containing the hash

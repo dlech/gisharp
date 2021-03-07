@@ -1,0 +1,11 @@
+<declaration>
+
+<member name='EqualFunc'>
+<summary>
+Specifies the type of a function used to test two values for
+equality. The function should return <c>true</c> if both values are equal
+and <c>false</c> otherwise.
+</summary>
+</member>
+
+</declaration>

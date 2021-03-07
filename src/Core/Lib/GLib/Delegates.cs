@@ -77,22 +77,6 @@ namespace GISharp.Lib.GLib
     public delegate T CopyFunc<T>(T src) where T : Opaque;
 
     /// <summary>
-    /// Specifies the type of a function used to test two values for
-    /// equality. The function should return <c>true</c> if both values are equal
-    /// and <c>false</c> otherwise.
-    /// </summary>
-    /// <param name="a">
-    /// a value
-    /// </param>
-    /// <param name="b">
-    /// a value to compare with
-    /// </param>
-    /// <returns>
-    /// <c>true</c> if <paramref name="a"/> = <paramref name="b"/>; <c>false</c> otherwise
-    /// </returns>
-    public delegate bool EqualFunc<T>(T a, T b) where T : Opaque;
-
-    /// <summary>
     /// Specifies the type of functions passed to <see cref="List.Foreach"/> and
     /// <see cref="SList.Foreach"/>.
     /// </summary>
@@ -100,77 +84,6 @@ namespace GISharp.Lib.GLib
     /// the element's data
     /// </param>
     public delegate void Func<in T>(T data) where T : IOpaque?;
-
-    /// <summary>
-    /// Specifies the type of the hash function which is passed to
-    /// g_hash_table_new() when a <see cref="HashTable{K,V}"/> is created.
-    /// </summary>
-    /// <remarks>
-    /// The function is passed a key and should return a #guint hash value.
-    /// The functions g_direct_hash(), g_int_hash() and g_str_hash() provide
-    /// hash functions which can be used when the key is a #gpointer, #gint*,
-    /// and #gchar* respectively.
-    ///
-    /// g_direct_hash() is also the appropriate hash function for keys
-    /// of the form `GINT_TO_POINTER (n)` (or similar macros).
-    ///
-    /// &lt;!-- FIXME: Need more here. --&gt; A good hash functions should produce
-    /// hash values that are evenly distributed over a fairly large range.
-    /// The modulus is taken with the hash table size (a prime number) to
-    /// find the 'bucket' to place each key into. The function should also
-    /// be very fast, since it is called for each key lookup.
-    ///
-    /// Note that the hash functions provided by GLib have these qualities,
-    /// but are not particularly robust against manufactured keys that
-    /// cause hash collisions. Therefore, you should consider choosing
-    /// a more secure hash function when using a GHashTable with keys
-    /// that originate in untrusted data (such as HTTP requests).
-    /// Using g_str_hash() in that situation might make your application
-    /// vulnerable to
-    /// [Algorithmic Complexity Attacks](https://lwn.net/Articles/474912/).
-    ///
-    /// The key to choosing a good hash is unpredictability.  Even
-    /// cryptographic hashes are very easy to find collisions for when the
-    /// remainder is taken modulo a somewhat predictable prime number.  There
-    /// must be an element of randomness that an attacker is unable to guess.
-    /// </remarks>
-    /// <param name="key">
-    /// a key
-    /// </param>
-    /// <returns>
-    /// the hash value corresponding to the key
-    /// </returns>
-    public delegate uint HashFunc<T>(T key) where T : Opaque;
-
-    /// <summary>
-    /// Specifies the type of the function passed to <see cref="HashTable{K,V}.Foreach"/>.
-    /// It is called with each key/value pair.
-    /// </summary>
-    /// <param name="key">
-    /// a key
-    /// </param>
-    /// <param name="value">
-    /// the value corresponding to the key
-    /// </param>
-    public delegate void HFunc<TKey, TValue>(TKey key, TValue value);
-
-    /// <summary>
-    /// Specifies the type of the function passed to
-    /// <see cref="HashTable{K,V}.ForeachRemove"/>. It is called with each key/value
-    /// pair. It should return <c>true</c> if the
-    /// key/value pair should be removed from the <see cref="HashTable{K,V}"/>.
-    /// </summary>
-    /// <param name="key">
-    /// a key
-    /// </param>
-    /// <param name="value">
-    /// the value associated with the key
-    /// </param>
-    /// <returns>
-    /// <c>true</c> if the key/value pair should be removed from the
-    ///     <see cref="HashTable{K,V}"/>
-    /// </returns>
-    public delegate bool HRFunc<TKey, TValue>(TKey key, TValue value);
 
     /// <summary>
     /// Specifies the type of function passed to <see cref="MainContext.PollFunc"/>.

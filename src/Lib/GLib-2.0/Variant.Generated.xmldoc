@@ -1015,7 +1015,7 @@ Checks if this instance and <paramref name="two"/> have the same type and value.
 </summary>
 <remarks>
 The types of this instance and <paramref name="two"/> are #gconstpointer only to allow use of
-this function with #GHashTable.  They must each be a <see cref="Variant"/>.
+this function with <see cref="HashTable"/>.  They must each be a <see cref="Variant"/>.
 </remarks>
 <param name="two">
 a <see cref="Variant"/> instance
@@ -1102,7 +1102,7 @@ architectures or even different versions of GLib.  Do not use this
 function as a basis for building protocols or file formats.
 
 The type of this instance is #gconstpointer only to allow use of this
-function with #GHashTable.  this instance must be a <see cref="Variant"/>.
+function with <see cref="HashTable"/>.  this instance must be a <see cref="Variant"/>.
 </remarks>
 <returns>
 a hash value corresponding to this instance
@@ -1477,7 +1477,7 @@ string)  This means that on 32-bit systems, the cache entry for
 This means that in total, for our "a{sv}" example, 91 bytes of
 type information would be allocated.
 
-The type information cache, additionally, uses a #GHashTable to
+The type information cache, additionally, uses a <see cref="HashTable"/> to
 store and look up the cached items and stores a pointer to this
 hash table in static storage.  The hash table is freed when there
 are zero items in the type cache.

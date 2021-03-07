@@ -1,0 +1,13 @@
+<declaration>
+
+<member name='HRFunc'>
+<summary>
+Specifies the type of the function passed to
+<see cref="HashTable.ForeachRemove(GISharp.Lib.GLib.UnownedHashTable{System.IntPtr, System.IntPtr},GISharp.Lib.GLib.HRFunc)"/>. It is called with each key/value
+pair, together with the <paramref name="userData"/> parameter passed to
+<see cref="HashTable.ForeachRemove(GISharp.Lib.GLib.UnownedHashTable{System.IntPtr, System.IntPtr},GISharp.Lib.GLib.HRFunc)"/>. It should return <c>true</c> if the
+key/value pair should be removed from the <see cref="HashTable"/>.
+</summary>
+</member>
+
+</declaration>

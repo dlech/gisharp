@@ -271,7 +271,7 @@ be returned if they are not exactly equal.  If you want to check for
 subtypes, use <see cref="VariantType.IsSubtypeOf(GISharp.Lib.GLib.VariantType)"/>.
 
 The argument types of this instance and <paramref name="type2"/> are only #gconstpointer to
-allow use with #GHashTable without function pointer casting.  For
+allow use with <see cref="HashTable"/> without function pointer casting.  For
 both arguments, a valid <see cref="VariantType"/> must be provided.
 </remarks>
 <param name="type2">
@@ -315,7 +315,7 @@ Hashes this instance.
 </summary>
 <remarks>
 The argument type of this instance is only #gconstpointer to allow use with
-#GHashTable without function pointer casting.  A valid
+<see cref="HashTable"/> without function pointer casting.  A valid
 <see cref="VariantType"/> must be provided.
 </remarks>
 <returns>

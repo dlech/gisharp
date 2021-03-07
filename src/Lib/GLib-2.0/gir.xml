@@ -3963,6 +3963,36 @@ should free any memory and resources allocated for it.</doc>
         </parameter>
       </gs:managed-parameters>
     </callback>
+    <callback name="EqualFunc" c:type="GEqualFunc" gs:dll-name="glib-2.0" gs:managed-name="EqualFunc">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="386">Specifies the type of a function used to test two values for
+equality. The function should return %TRUE if both values are equal
+and %FALSE otherwise.</doc>
+      <source-position filename="gtypes.h" line="111" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="395">%TRUE if @a = @b; %FALSE otherwise</doc>
+        <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+      </return-value>
+      <parameters>
+        <parameter name="a" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="a" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="388">a value</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="b" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="b" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="389">a value to compare with</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="a" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="a" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="388">a value</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="b" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="b" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="389">a value to compare with</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
     <record name="Error" c:type="GError" glib:type-name="GError" glib:get-type="g_error_get_type" c:symbol-prefix="error" gs:managed-name="Error">
       <doc xml:space="preserve" filename="gerror.h" line="32">The `GError` structure contains information about
 an error that has occurred.</doc>
@@ -4089,6 +4119,1127 @@ a certain case, your code will still work.</doc>
         </gs:managed-parameters>
       </method>
       <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_error_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
+        </return-value>
+        <parameters />
+        <gs:managed-parameters />
+      </function>
+    </record>
+    <callback name="HFunc" c:type="GHFunc" gs:dll-name="glib-2.0" gs:managed-name="HFunc">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="552">Specifies the type of the function passed to g_hash_table_foreach().
+It is called with each key/value pair, together with the @user_data
+parameter which is passed to g_hash_table_foreach().</doc>
+      <source-position filename="gtypes.h" line="117" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <type name="none" c:type="void" gs:managed-name="System.Void" />
+      </return-value>
+      <parameters>
+        <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="554">a key</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="value" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="value" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="555">the value corresponding to the key</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="2" gs:managed-name="userData" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="556">user data passed to g_hash_table_foreach()</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="554">a key</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="value" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="value" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="555">the value corresponding to the key</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
+    <callback name="HRFunc" c:type="GHRFunc" gs:dll-name="glib-2.0" gs:managed-name="HRFunc">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="564">Specifies the type of the function passed to
+g_hash_table_foreach_remove(). It is called with each key/value
+pair, together with the @user_data parameter passed to
+g_hash_table_foreach_remove(). It should return %TRUE if the
+key/value pair should be removed from the #GHashTable.</doc>
+      <source-position filename="ghash.h" line="39" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="576">%TRUE if the key/value pair should be removed from the
+    #GHashTable</doc>
+        <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+      </return-value>
+      <parameters>
+        <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="566">a key</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="value" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="value" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="567">the value associated with the key</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="2" gs:managed-name="userData" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="568">user data passed to g_hash_table_remove()</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="566">a key</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+        <parameter name="value" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="value" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="567">the value associated with the key</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
+    <callback name="HashFunc" c:type="GHashFunc" gs:dll-name="glib-2.0" gs:managed-name="HashFunc">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="581">Specifies the type of the hash function which is passed to
+g_hash_table_new() when a #GHashTable is created.
+
+The function is passed a key and should return a #guint hash value.
+The functions g_direct_hash(), g_int_hash() and g_str_hash() provide
+hash functions which can be used when the key is a #gpointer, #gint*,
+and #gchar* respectively.
+
+g_direct_hash() is also the appropriate hash function for keys
+of the form `GINT_TO_POINTER (n)` (or similar macros).
+
+A good hash functions should produce
+hash values that are evenly distributed over a fairly large range.
+The modulus is taken with the hash table size (a prime number) to
+find the 'bucket' to place each key into. The function should also
+be very fast, since it is called for each key lookup.
+
+Note that the hash functions provided by GLib have these qualities,
+but are not particularly robust against manufactured keys that
+cause hash collisions. Therefore, you should consider choosing
+a more secure hash function when using a GHashTable with keys
+that originate in untrusted data (such as HTTP requests).
+Using g_str_hash() in that situation might make your application
+vulnerable to
+[Algorithmic Complexity Attacks](https://lwn.net/Articles/474912/).
+
+The key to choosing a good hash is unpredictability.  Even
+cryptographic hashes are very easy to find collisions for when the
+remainder is taken modulo a somewhat predictable prime number.  There
+must be an element of randomness that an attacker is unable to guess.</doc>
+      <source-position filename="gtypes.h" line="116" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="616">the hash value corresponding to the key</doc>
+        <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+      </return-value>
+      <parameters>
+        <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="583">a key</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="583">a key</doc>
+          <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
+    <record name="HashTable" c:type="GHashTable" glib:type-name="GHashTable" glib:get-type="g_hash_table_get_type" c:symbol-prefix="hash_table" gs:inheritance-modifiers="abstract" gs:managed-name="HashTable">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="620">The #GHashTable struct is an opaque data structure to represent a
+[Hash Table][glib-Hash-Tables]. It should only be accessed via the
+following functions.</doc>
+      <source-position filename="ghash.h" line="37" />
+      <function name="add" c:identifier="g_hash_table_add" version="2.32" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Add">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17765">This is a convenience function for using a #GHashTable as a set.  It
+is equivalent to calling g_hash_table_replace() with @key as both the
+key and the value.
+
+In particular, this means that if @key already exists in the hash table, then
+the old copy of @key in the hash table is freed and @key replaces it in the
+table.
+
+When a hash table only ever contains keys that have themselves as the
+corresponding value it is able to be stored more efficiently.  See
+the discussion in the section description.
+
+Starting from GLib 2.40, this function returns a boolean value to
+indicate whether the newly added value was already in the hash table
+or not.</doc>
+        <source-position filename="ghash.h" line="75" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17786">%TRUE if the key did not exist yet</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17767">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="full" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17768">a key to insert</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17767">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="full" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17768">a key to insert</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="contains" c:identifier="g_hash_table_contains" version="2.32" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Contains">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17791">Checks if @key is in @hash_table.</doc>
+        <source-position filename="ghash.h" line="96" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17798">%TRUE if @key is in @hash_table, %FALSE otherwise.</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17793">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17794">a key to check</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17793">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17794">a key to check</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="destroy" c:identifier="g_hash_table_destroy" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Destroy">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17803">Destroys all keys and values in the #GHashTable and decrements its
+reference count by 1. If keys and/or values are dynamically allocated,
+you should either free them first or create the #GHashTable with destroy
+notifiers using g_hash_table_new_full(). In the latter case the destroy
+functions you supplied will be called on all keys and values during the
+destruction phase.</doc>
+        <source-position filename="ghash.h" line="65" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17805">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17805">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="find" c:identifier="g_hash_table_find" version="2.4" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Find">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17816">Calls the given function for key/value pairs in the #GHashTable
+until @predicate returns %TRUE. The function is passed the key
+and value of each pair, and the given @user_data parameter. The
+hash table may not be modified while iterating over it (you can't
+add/remove items).
+
+Note, that hash tables are really only optimized for forward
+lookups, i.e. g_hash_table_lookup(). So code that frequently issues
+g_hash_table_find() or g_hash_table_foreach() (e.g. in the order of
+once per every entry in a hash table) should probably be reworked
+to use additional or different data structures for reverse lookups
+(keep in mind that an O(n) find/foreach operation issued for all n
+values in a hash table ends up needing O(n*n) operations).</doc>
+        <source-position filename="ghash.h" line="108" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17836">The value of the first key/value pair is returned,
+    for which @predicate evaluates to %TRUE. If no pair with the
+    requested property is found, %NULL is returned.</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17818">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="predicate" transfer-ownership="none" closure="2" gs:managed-name="predicate" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17819">function to test the key/value pairs for a certain property</doc>
+            <type name="HRFunc" c:type="GHRFunc" gs:managed-name="HRFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17820">user data to pass to the function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17818">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="predicate" transfer-ownership="none" closure="2" gs:managed-name="predicate" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17819">function to test the key/value pairs for a certain property</doc>
+            <type name="HRFunc" c:type="GHRFunc" gs:managed-name="HRFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="foreach" c:identifier="g_hash_table_foreach" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Foreach">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17843">Calls the given function for each of the key/value pairs in the
+#GHashTable.  The function is passed the key and value of each
+pair, and the given @user_data parameter.  The hash table may not
+be modified while iterating over it (you can't add/remove
+items). To remove all items matching a predicate, use
+g_hash_table_foreach_remove().
+
+The order in which g_hash_table_foreach() iterates over the keys/values in
+the hash table is not defined.
+
+See g_hash_table_find() for performance caveats for linear
+order searches in contrast to g_hash_table_lookup().</doc>
+        <source-position filename="ghash.h" line="104" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17845">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17846">the function to call for each key/value pair</doc>
+            <type name="HFunc" c:type="GHFunc" gs:managed-name="HFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17847">user data to pass to the function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17845">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17846">the function to call for each key/value pair</doc>
+            <type name="HFunc" c:type="GHFunc" gs:managed-name="HFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="foreach_remove" c:identifier="g_hash_table_foreach_remove" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="ForeachRemove">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17864">Calls the given function for each key/value pair in the
+#GHashTable. If the function returns %TRUE, then the key/value
+pair is removed from the #GHashTable. If you supplied key or
+value destroy functions when creating the #GHashTable, they are
+used to free the memory allocated for the removed keys and values.
+
+See #GHashTableIter for an alternative way to loop over the
+key/value pairs in the hash table.</doc>
+        <source-position filename="ghash.h" line="112" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17879">the number of key/value pairs removed</doc>
+          <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17866">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17867">the function to call for each key/value pair</doc>
+            <type name="HRFunc" c:type="GHRFunc" gs:managed-name="HRFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17868">user data to pass to the function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17866">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17867">the function to call for each key/value pair</doc>
+            <type name="HRFunc" c:type="GHRFunc" gs:managed-name="HRFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="foreach_steal" c:identifier="g_hash_table_foreach_steal" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="ForeachSteal">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17883">Calls the given function for each key/value pair in the
+#GHashTable. If the function returns %TRUE, then the key/value
+pair is removed from the #GHashTable, but no key or value
+destroy functions are called.
+
+See #GHashTableIter for an alternative way to loop over the
+key/value pairs in the hash table.</doc>
+        <source-position filename="ghash.h" line="116" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17897">the number of key/value pairs removed.</doc>
+          <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17885">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17886">the function to call for each key/value pair</doc>
+            <type name="HRFunc" c:type="GHRFunc" gs:managed-name="HRFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17887">user data to pass to the function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17885">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="func" transfer-ownership="none" closure="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17886">the function to call for each key/value pair</doc>
+            <type name="HRFunc" c:type="GHRFunc" gs:managed-name="HRFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="get_keys" c:identifier="g_hash_table_get_keys" version="2.14" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="GetKeys">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17910">Retrieves every key inside @hash_table. The returned data is valid
+until changes to the hash release those keys.
+
+This iterates over every entry in the hash table to build its return value.
+To iterate over the entries in a #GHashTable more efficiently, use a
+#GHashTableIter.</doc>
+        <source-position filename="ghash.h" line="122" />
+        <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17921">a #GList containing all the keys
+    inside the hash table. The content of the list is owned by the
+    hash table and should not be modified or freed. Use g_list_free()
+    when done using the list.</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17912">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17912">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="get_keys_as_array" c:identifier="g_hash_table_get_keys_as_array" version="2.40" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="GetKeysAsArray">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17929">Retrieves every key inside @hash_table, as an array.
+
+The returned array is %NULL-terminated but may contain %NULL as a
+key.  Use @length to determine the true length if it's possible that
+%NULL was used as the value for a key.
+
+Note: in the common case of a string-keyed #GHashTable, the return
+value of this function can be conveniently cast to (const gchar **).
+
+This iterates over every entry in the hash table to build its return value.
+To iterate over the entries in a #GHashTable more efficiently, use a
+#GHashTableIter.
+
+You should always free the return result with g_free().  In the
+above-mentioned case of a string-keyed hash table, it may be
+appropriate to use g_strfreev() if you call g_hash_table_steal_all()
+first to transfer ownership of the keys.</doc>
+        <source-position filename="ghash.h" line="126" />
+        <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17952">a
+  %NULL-terminated array containing each key from the table.</doc>
+          <array length="1" zero-terminated="0" c:type="gpointer*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </array>
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17931">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="length" direction="out" caller-allocates="0" transfer-ownership="full" gs:managed-name="length">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17932">the length of the returned array</doc>
+            <type name="guint" c:type="guint*" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17931">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="get_values" c:identifier="g_hash_table_get_values" version="2.14" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="GetValues">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17958">Retrieves every value inside @hash_table. The returned data
+is valid until @hash_table is modified.
+
+This iterates over every entry in the hash table to build its return value.
+To iterate over the entries in a #GHashTable more efficiently, use a
+#GHashTableIter.</doc>
+        <source-position filename="ghash.h" line="124" />
+        <return-value transfer-ownership="container" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17969">a #GList containing all the values
+    inside the hash table. The content of the list is owned by the
+    hash table and should not be modified or freed. Use g_list_free()
+    when done using the list.</doc>
+          <type name="GLib.List" c:type="GList*" gs:managed-name="GISharp.Lib.GLib.List" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17960">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17960">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="insert" c:identifier="g_hash_table_insert" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Insert">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="17977">Inserts a new key and value into a #GHashTable.
+
+If the key already exists in the #GHashTable its current
+value is replaced with the new value. If you supplied a
+@value_destroy_func when creating the #GHashTable, the old
+value is freed using that function. If you supplied a
+@key_destroy_func when creating the #GHashTable, the passed
+key is freed using that function.
+
+Starting from GLib 2.40, this function returns a boolean value to
+indicate whether the newly added value was already in the hash table
+or not.</doc>
+        <source-position filename="ghash.h" line="67" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="17996">%TRUE if the key did not exist yet</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17979">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17980">a key to insert</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="value" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="value" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17981">the value to associate with the key</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17979">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17980">a key to insert</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="value" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="value" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="17981">the value to associate with the key</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="lookup" c:identifier="g_hash_table_lookup" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Lookup">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18110">Looks up a key in a #GHashTable. Note that this function cannot
+distinguish between a key that is not present and one which is present
+and has the value %NULL. If you need this distinction, use
+g_hash_table_lookup_extended().</doc>
+        <source-position filename="ghash.h" line="93" />
+        <return-value transfer-ownership="none" nullable="1" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18120">the associated value, or %NULL if the key is not found</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18112">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18113">the key to look up</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18112">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18113">the key to look up</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="lookup_extended" c:identifier="g_hash_table_lookup_extended" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="TryLookupExtended">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18124">Looks up a key in the #GHashTable, returning the original key and the
+associated value and a #gboolean which is %TRUE if the key was found. This
+is useful if you need to free the memory allocated for the original key,
+for example before calling g_hash_table_remove().
+
+You can actually pass %NULL for @lookup_key to test
+whether the %NULL key exists, provided the hash and equal functions
+of @hash_table are %NULL-safe.</doc>
+        <source-position filename="ghash.h" line="99" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18141">%TRUE if the key was found in the #GHashTable</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18126">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="lookup_key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="lookupKey" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18127">the key to look up</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="orig_key" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="origKey">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18128">return location for the original key</doc>
+            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="value" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="value">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18129">return location for the value associated
+with the key</doc>
+            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18126">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="lookup_key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="lookupKey" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18127">the key to look up</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="orig_key" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="origKey">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18128">return location for the original key</doc>
+            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="value" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="value">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18129">return location for the value associated
+with the key</doc>
+            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="new" c:identifier="g_hash_table_new" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18145">Creates a new #GHashTable with a reference count of 1.
+
+Hash values returned by @hash_func are used to determine where keys
+are stored within the #GHashTable data structure. The g_direct_hash(),
+g_int_hash(), g_int64_hash(), g_double_hash() and g_str_hash()
+functions are provided for some common types of keys.
+If @hash_func is %NULL, g_direct_hash() is used.
+
+@key_equal_func is used when looking up keys in the #GHashTable.
+The g_direct_equal(), g_int_equal(), g_int64_equal(), g_double_equal()
+and g_str_equal() functions are provided for the most common types
+of keys. If @key_equal_func is %NULL, keys are compared directly in
+a similar fashion to g_direct_equal(), but without the overhead of
+a function call. @key_equal_func is called with the key from the hash table
+as its first parameter, and the user-provided key to check against as
+its second.</doc>
+        <source-position filename="ghash.h" line="57" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18167">a new #GHashTable</doc>
+          <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="hash_func" transfer-ownership="none" gs:managed-name="hashFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18147">a function to create a hash value from a key</doc>
+            <type name="HashFunc" c:type="GHashFunc" gs:managed-name="HashFunc" />
+          </parameter>
+          <parameter name="key_equal_func" transfer-ownership="none" gs:managed-name="keyEqualFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18148">a function to check two keys for equality</doc>
+            <type name="EqualFunc" c:type="GEqualFunc" gs:managed-name="EqualFunc" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_func" transfer-ownership="none" gs:managed-name="hashFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18147">a function to create a hash value from a key</doc>
+            <type name="HashFunc" c:type="GHashFunc" gs:managed-name="HashFunc" />
+          </parameter>
+          <parameter name="key_equal_func" transfer-ownership="none" gs:managed-name="keyEqualFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18148">a function to check two keys for equality</doc>
+            <type name="EqualFunc" c:type="GEqualFunc" gs:managed-name="EqualFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="new_full" c:identifier="g_hash_table_new_full" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="NewFull">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18171">Creates a new #GHashTable like g_hash_table_new() with a reference
+count of 1 and allows to specify functions to free the memory
+allocated for the key and value that get called when removing the
+entry from the #GHashTable.
+
+Since version 2.42 it is permissible for destroy notify functions to
+recursively remove further items from the hash table. This is only
+permissible if the application still holds a reference to the hash table.
+This means that you may need to ensure that the hash table is empty by
+calling g_hash_table_remove_all() before releasing the last reference using
+g_hash_table_unref().</doc>
+        <source-position filename="ghash.h" line="60" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18194">a new #GHashTable</doc>
+          <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <parameter name="hash_func" transfer-ownership="none" gs:managed-name="hashFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18173">a function to create a hash value from a key</doc>
+            <type name="HashFunc" c:type="GHashFunc" gs:managed-name="HashFunc" />
+          </parameter>
+          <parameter name="key_equal_func" transfer-ownership="none" scope="notified" destroy="3" gs:managed-name="keyEqualFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18174">a function to check two keys for equality</doc>
+            <type name="EqualFunc" c:type="GEqualFunc" gs:managed-name="EqualFunc" />
+          </parameter>
+          <parameter name="key_destroy_func" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="keyDestroyFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18175">a function to free the memory allocated for the key
+    used when removing the entry from the #GHashTable, or %NULL
+    if you don't want to supply such a function.</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+          <parameter name="value_destroy_func" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="valueDestroyFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18178">a function to free the memory allocated for the
+    value used when removing the entry from the #GHashTable, or %NULL
+    if you don't want to supply such a function.</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_func" transfer-ownership="none" gs:managed-name="hashFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18173">a function to create a hash value from a key</doc>
+            <type name="HashFunc" c:type="GHashFunc" gs:managed-name="HashFunc" />
+          </parameter>
+          <parameter name="key_equal_func" transfer-ownership="none" scope="notified" destroy="3" gs:managed-name="keyEqualFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18174">a function to check two keys for equality</doc>
+            <type name="EqualFunc" c:type="GEqualFunc" gs:managed-name="EqualFunc" />
+          </parameter>
+          <parameter name="key_destroy_func" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="keyDestroyFunc" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18175">a function to free the memory allocated for the key
+    used when removing the entry from the #GHashTable, or %NULL
+    if you don't want to supply such a function.</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <method name="ref" c:identifier="g_hash_table_ref" version="2.10" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Ref" gs:special-func="ref" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18198">Atomically increments the reference count of @hash_table by one.
+This function is MT-safe and may be called from any thread.</doc>
+        <source-position filename="ghash.h" line="147" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18205">the passed in #GHashTable</doc>
+          <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </type>
+        </return-value>
+        <parameters>
+          <instance-parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18200">a valid #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <function name="remove" c:identifier="g_hash_table_remove" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Remove">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18210">Removes a key and its associated value from a #GHashTable.
+
+If the #GHashTable was created using g_hash_table_new_full(), the
+key and value are freed using the supplied destroy functions, otherwise
+you have to make sure that any dynamically allocated values are freed
+yourself.</doc>
+        <source-position filename="ghash.h" line="78" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18222">%TRUE if the key was found and removed from the #GHashTable</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18212">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18213">the key to remove</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18212">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18213">the key to remove</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="remove_all" c:identifier="g_hash_table_remove_all" version="2.12" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="RemoveAll">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18226">Removes all keys and their associated values from a #GHashTable.
+
+If the #GHashTable was created using g_hash_table_new_full(),
+the keys and values are freed using the supplied destroy functions,
+otherwise you have to make sure that any dynamically allocated
+values are freed yourself.</doc>
+        <source-position filename="ghash.h" line="81" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18228">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18228">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="replace" c:identifier="g_hash_table_replace" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Replace">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18241">Inserts a new key and value into a #GHashTable similar to
+g_hash_table_insert(). The difference is that if the key
+already exists in the #GHashTable, it gets replaced by the
+new key. If you supplied a @value_destroy_func when creating
+the #GHashTable, the old value is freed using that function.
+If you supplied a @key_destroy_func when creating the
+#GHashTable, the old key is freed using that function.
+
+Starting from GLib 2.40, this function returns a boolean value to
+indicate whether the newly added value was already in the hash table
+or not.</doc>
+        <source-position filename="ghash.h" line="71" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18259">%TRUE if the key did not exist yet</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18243">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18244">a key to insert</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="value" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="value" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18245">the value to associate with the key</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18243">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18244">a key to insert</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="value" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="value" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18245">the value to associate with the key</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="size" c:identifier="g_hash_table_size" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Size">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18263">Returns the number of elements contained in the #GHashTable.</doc>
+        <source-position filename="ghash.h" line="120" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18269">the number of key/value pairs in the #GHashTable.</doc>
+          <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18265">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18265">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="steal" c:identifier="g_hash_table_steal" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Steal">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18273">Removes a key and its associated value from a #GHashTable without
+calling the key and value destroy functions.</doc>
+        <source-position filename="ghash.h" line="83" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18281">%TRUE if the key was found and removed from the #GHashTable</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18275">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18276">the key to remove</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18275">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="key" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18276">the key to remove</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="steal_all" c:identifier="g_hash_table_steal_all" version="2.12" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="StealAll">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18285">Removes all keys and their associated values from a #GHashTable
+without calling the key and value destroy functions.</doc>
+        <source-position filename="ghash.h" line="91" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18287">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18287">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="steal_extended" c:identifier="g_hash_table_steal_extended" version="2.58" introspectable="1" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="TryStealExtended">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18296">Looks up a key in the #GHashTable, stealing the original key and the
+associated value and returning %TRUE if the key was found. If the key was
+not found, %FALSE is returned.
+
+If found, the stolen key and value are removed from the hash table without
+calling the key and value destroy functions, and ownership is transferred to
+the caller of this method; as with g_hash_table_steal().
+
+You can pass %NULL for @lookup_key, provided the hash and equal functions
+of @hash_table are %NULL-safe.</doc>
+        <source-position filename="ghash.h" line="86" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="18316">%TRUE if the key was found in the #GHashTable</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18298">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="lookup_key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="lookupKey" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18299">the key to look up</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="stolen_key" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="stolenKey">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18300">return location for the
+   original key</doc>
+            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="stolen_value" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="stolenValue">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18302">return location
+   for the value associated with the key</doc>
+            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18298">a #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </parameter>
+          <parameter name="lookup_key" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="lookupKey" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18299">the key to look up</doc>
+            <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="stolen_key" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="stolenKey">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18300">return location for the
+   original key</doc>
+            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="stolen_value" direction="out" caller-allocates="0" transfer-ownership="full" nullable="1" optional="1" allow-none="1" gs:managed-name="stolenValue">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18302">return location
+   for the value associated with the key</doc>
+            <type name="gpointer" c:type="gpointer*" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <method name="unref" c:identifier="g_hash_table_unref" version="2.10" introspectable="1" gs:dll-name="glib-2.0" gs:managed-name="Unref" gs:special-func="unref" gs:pinvoke-only="1">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="18330">Atomically decrements the reference count of @hash_table by one.
+If the reference count drops to 0, all keys and values will be
+destroyed, and all memory allocated by the hash table is released.
+This function is MT-safe and may be called from any thread.</doc>
+        <source-position filename="ghash.h" line="149" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <instance-parameter name="hash_table" transfer-ownership="none" gs:managed-name="hashTable" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="18332">a valid #GHashTable</doc>
+            <type name="GLib.HashTable" c:type="GHashTable*" gs:managed-name="GISharp.Lib.GLib.HashTable" gs:is-pointer="1">
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+              <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+            </type>
+          </instance-parameter>
+        </parameters>
+        <gs:managed-parameters />
+      </method>
+      <function name="get_g_type" gs:pinvoke-only="1" c:identifier="g_hash_table_get_type" gs:access-modifiers="private" gs:dll-name="gobject-2.0" gs:managed-name="GetGType">
         <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
           <type name="GType" c:type="GType" gs:managed-name="GISharp.Lib.GObject.GType" />
         </return-value>

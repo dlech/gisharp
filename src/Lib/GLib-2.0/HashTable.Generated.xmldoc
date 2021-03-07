@@ -1,0 +1,11 @@
+<declaration>
+
+<member name='HashTable'>
+<summary>
+The <see cref="HashTable"/> struct is an opaque data structure to represent a
+[Hash Table][glib-Hash-Tables]. It should only be accessed via the
+following functions.
+</summary>
+</member>
+
+</declaration>

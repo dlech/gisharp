@@ -1,0 +1,13 @@
+<declaration>
+
+<member name='HRFunc'>
+<summary>
+Specifies the type of the function passed to
+<see cref="HashTable{TKey,TValue}.ForeachRemove"/>. It is called with each key/value
+pair passed to
+<see cref="HashTable{TKey,TValue}.ForeachRemove"/>. It should return <c>true</c> if the
+key/value pair should be removed from the <see cref="HashTable"/>.
+</summary>
+</member>
+
+</declaration>

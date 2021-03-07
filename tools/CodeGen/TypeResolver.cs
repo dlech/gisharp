@@ -202,7 +202,7 @@ namespace GISharp.CodeGen
                 return false;
             }
 
-            if (type.GirName == "GLib.Hash") {
+            if (type.GirName == "GLib.HashTable") {
                 return false;
             }
 

@@ -12,26 +12,6 @@
 - !set-attribute
   name: introspectable
   value: 0
-  xpath: gi:repository/gi:namespace/gi:callback[@name='EqualFunc']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:callback[@name='HFunc']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:callback[@name='HRFunc']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:callback[@name='HashFunc']
-- !set-attribute
-  name: introspectable
-  value: 0
-  xpath: gi:repository/gi:namespace/gi:record[@name='HashTable']
-- !set-attribute
-  name: introspectable
-  value: 0
   xpath: gi:repository/gi:namespace/gi:constant[starts-with(@name,'LOG_')]
 - !set-attribute
   name: introspectable

@@ -89,8 +89,8 @@ Compares the two <see cref="Bytes"/> values being pointed to and returns
 <c>true</c> if they are equal.
 </summary>
 <remarks>
-This function can be passed to g_hash_table_new() as the <c>keyEqualFunc</c>
-parameter, when using non-<c>null</c> <see cref="Bytes"/> pointers as keys in a #GHashTable.
+This function can be passed to <see cref="HashTable.New(GISharp.Lib.GLib.HashFunc,GISharp.Lib.GLib.EqualFunc)"/> as the <c>keyEqualFunc</c>
+parameter, when using non-<c>null</c> <see cref="Bytes"/> pointers as keys in a <see cref="HashTable"/>.
 </remarks>
 <param name="bytes2">
 a pointer to a <see cref="Bytes"/> to compare with this instance
@@ -105,8 +105,8 @@ a pointer to a <see cref="Bytes"/> to compare with this instance
 Creates an integer hash code for the byte data in the <see cref="Bytes"/>.
 </summary>
 <remarks>
-This function can be passed to g_hash_table_new() as the <c>keyHashFunc</c>
-parameter, when using non-<c>null</c> <see cref="Bytes"/> pointers as keys in a #GHashTable.
+This function can be passed to <see cref="HashTable.New(GISharp.Lib.GLib.HashFunc,GISharp.Lib.GLib.EqualFunc)"/> as the <c>keyHashFunc</c>
+parameter, when using non-<c>null</c> <see cref="Bytes"/> pointers as keys in a <see cref="HashTable"/>.
 </remarks>
 <returns>
 a hash value corresponding to the key.
@@ -190,8 +190,8 @@ different procedures for freeing the memory region.  Examples are
 memory from g_malloc(), from memory slices, from a #GMappedFile or
 memory from other allocators.
 
-<see cref="Bytes"/> work well as keys in #GHashTable. Use <see cref="Bytes.Equals(GISharp.Lib.GLib.Bytes)"/> and
-<see cref="Bytes.GetHashCode()"/> as parameters to g_hash_table_new() or g_hash_table_new_full().
+<see cref="Bytes"/> work well as keys in <see cref="HashTable"/>. Use <see cref="Bytes.Equals(GISharp.Lib.GLib.Bytes)"/> and
+<see cref="Bytes.GetHashCode()"/> as parameters to <see cref="HashTable.New(GISharp.Lib.GLib.HashFunc,GISharp.Lib.GLib.EqualFunc)"/> or <see cref="HashTable.NewFull(GISharp.Lib.GLib.HashFunc,GISharp.Lib.GLib.EqualFunc,GISharp.Lib.GLib.DestroyNotify)"/>.
 <see cref="Bytes"/> can also be used as keys in a #GTree by passing the <see cref="Bytes.Compare(GISharp.Lib.GLib.Bytes,GISharp.Lib.GLib.Bytes)"/>
 function to g_tree_new().
 
