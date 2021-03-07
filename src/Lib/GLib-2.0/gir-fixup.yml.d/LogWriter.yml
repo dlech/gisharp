@@ -1,0 +1,26 @@
+
+### LogWriter ###
+
+
+### Version ###
+
+# add a static class
+- !add-element
+  xml: <gs:static-class name='LogWriter' />
+  xpath: gi:repository/gi:namespace
+
+# Move functions to static-class
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'log_') and contains(@name,'_writer_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='LogWriter']
+- !change-attribute
+  name: name
+  regex: log_(?:writer_)?(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='LogWriter']/gi:function
+
+# Require special handling
+- !set-attribute
+  name: gs:pinvoke-only
+  value: 1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='LogWriter']/gi:function[gi:parameters/gi:parameter[@name='user_data']]

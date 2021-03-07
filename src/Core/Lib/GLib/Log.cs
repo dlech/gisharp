@@ -2,6 +2,7 @@
 // Copyright (c) 2016-2020 David Lechner <david@lechnology.com>
 
 using System;
+using System.Collections.Generic;
 using System.Diagnostics.CodeAnalysis;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
@@ -13,7 +14,7 @@ namespace GISharp.Lib.GLib
     /// <summary>
     /// These functions provide support for outputting messages.
     /// </summary>
-    public static class Log
+    public static unsafe class Log
     {
         /// <summary>
         /// The default log domain.
@@ -703,6 +704,208 @@ namespace GISharp.Lib.GLib
             var (logFunc_, destroy_, userData_) = LogFuncFactory.Create(logFunc, CallbackScope.Notified);
             var ret = g_log_set_handler_full(logDomain_, logLevels, logFunc_, userData_, destroy_);
             return ret;
+        }
+
+        /// <summary>
+        /// Log a message with structured data. The message will be passed through to the
+        /// log writer set by the application using g_log_set_writer_func(). If the
+        /// message is fatal (i.e. its log level is %G_LOG_LEVEL_ERROR), the program will
+        /// be aborted at the end of this function.
+        /// </summary>
+        /// <remarks>
+        /// See g_log_structured() for more documentation.
+        ///
+        /// This assumes that @log_level is already present in @fields (typically as the
+        /// `PRIORITY` field).
+        /// </remarks>
+        /// <param name="logLevel">
+        /// log level, either from #GLogLevelFlags, or a user-defined
+        ///    level
+        /// </param>
+        /// <param name="fields">
+        /// key–value pairs of structured data to add
+        ///    to the log message
+        /// </param>
+        /// <param name="nFields">
+        /// number of elements in the @fields array
+        /// </param>
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_log_structured_array(
+            /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+            /* transfer-ownership:none */
+            LogLevelFlags logLevel,
+            /* <array length="2" zero-terminated="0" type="GLogField*">
+                <type name="LogField" type="GLogField" managed-name="LogField" />
+                </array> */
+            /* transfer-ownership:none */
+            LogField* fields,
+            /* <type name="gsize" type="gsize" managed-name="Gsize" /> */
+            /* transfer-ownership:none */
+            nuint nFields);
+
+        /// <summary>
+        /// Log a message with structured data. The message will be passed through to the
+        /// log writer set by the application using <see cref="M:LogWriter.SetFunc"/>. If the
+        /// message is fatal (i.e. its log level is <see cref="LogLevelFlags.Error"/>), the program will
+        /// be aborted at the end of this function.
+        /// </summary>
+        /// <remarks>
+        /// See g_log_structured() for more documentation.
+        ///
+        /// This assumes that <paramref name="logLevel"/> is already present in
+        /// <paramref name="fields"/> (typically as the <c>PRIORITY</c> field).
+        /// </remarks>
+        /// <param name="logLevel">
+        /// log level, either from <see cref="LogLevelFlags"/>, or a user-defined
+        /// level
+        /// </param>
+        /// <param name="fields">
+        /// key–value pairs of structured data to add
+        /// to the log message
+        /// </param>
+        [Since("2.50")]
+        public static void Structured(LogLevelFlags logLevel, ReadOnlySpan<LogField> fields)
+        {
+            fixed (LogField* fields_ = fields) {
+                var nFields_ = (nuint)fields.Length;
+                g_log_structured_array(logLevel, fields_, nFields_);
+            }
+        }
+
+        /// <summary>
+        /// Log a message with structured data. The message will be passed through to the
+        /// log writer set by the application using <see cref="M:LogWriter.SetFunc"/>. If the
+        /// message is fatal (i.e. its log level is <see cref="LogLevelFlags.Error"/>), the program will
+        /// be aborted at the end of this function.
+        /// </summary>
+        /// <remarks>
+        /// See g_log_structured() for more documentation.
+        ///
+        /// This assumes that <paramref name="logLevel"/> is already present in
+        /// <paramref name="fields"/> (typically as the <c>PRIORITY</c> field).
+        /// </remarks>
+        /// <param name="logLevel">
+        /// log level, either from <see cref="LogLevelFlags"/>, or a user-defined
+        /// level
+        /// </param>
+        /// <param name="fields">
+        /// key–value pairs of structured data to add
+        /// to the log message
+        /// </param>
+        [Since("2.50")]
+        public static void Structured(LogLevelFlags logLevel, IDictionary<string, string> fields)
+        {
+            LogField* fields_ = stackalloc LogField[fields.Count];
+            var nFields_ = (nuint)fields.Count;
+            nuint i = 0;
+            foreach (var item in fields) {
+                fields_[i].Key = GMarshal.StringToUtf8Ptr(item.Key);
+                fields_[i].Value = GMarshal.StringToUtf8Ptr(item.Value);
+                fields_[i].Length = new IntPtr(-1);
+                i++;
+            }
+            g_log_structured_array(logLevel, fields_, nFields_);
+            for (i = 0; i < nFields_; i++) {
+                GMarshal.Free(fields_[i].Key);
+                GMarshal.Free(fields_[i].Value);
+            }
+        }
+
+        static void Structured(LogLevelFlags logLevel, string message, string codeFile, int codeLine, string codeFunc)
+        {
+            var fields = new Dictionary<string, string> {
+                { "MESSAGE", message },
+                { "CODE_FILE", codeFile },
+                { "CODE_LINE", codeLine.ToString () },
+                { "CODE_FUNC", codeFunc }
+            };
+
+            Structured(logLevel, fields);
+        }
+
+        /// <summary>
+        /// Log a message with structured data, accepting the data within a #GVariant. This
+        /// version is especially useful for use in other languages, via introspection.
+        /// </summary>
+        /// <remarks>
+        /// The only mandatory item in the @fields dictionary is the "MESSAGE" which must
+        /// contain the text shown to the user.
+        ///
+        /// The values in the @fields dictionary are likely to be of type String
+        /// (#G_VARIANT_TYPE_STRING). Array of bytes (#G_VARIANT_TYPE_BYTESTRING) is also
+        /// supported. In this case the message is handled as binary and will be forwarded
+        /// to the log writer as such. The size of the array should not be higher than
+        /// %G_MAXSSIZE. Otherwise it will be truncated to this size. For other types
+        /// g_variant_print() will be used to convert the value into a string.
+        ///
+        /// For more details on its usage and about the parameters, see g_log_structured().
+        /// </remarks>
+        /// <param name="logDomain">
+        /// log domain, usually %G_LOG_DOMAIN
+        /// </param>
+        /// <param name="logLevel">
+        /// log level, either from #GLogLevelFlags, or a user-defined
+        ///    level
+        /// </param>
+        /// <param name="fields">
+        /// a dictionary (#GVariant of the type %G_VARIANT_TYPE_VARDICT)
+        /// containing the key-value pairs of message data.
+        /// </param>
+        [Since("2.50")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="none" type="void" managed-name="None" /> */
+        /* transfer-ownership:none */
+        static extern void g_log_variant(
+            /* <type name="utf8" type="const gchar*" managed-name="Utf8" /> */
+            /* transfer-ownership:none nullable:1 allow-none:1 */
+            IntPtr logDomain,
+            /* <type name="LogLevelFlags" type="GLogLevelFlags" managed-name="LogLevelFlags" /> */
+            /* transfer-ownership:none */
+            LogLevelFlags logLevel,
+            /* <type name="Variant" type="GVariant*" managed-name="Variant" /> */
+            /* transfer-ownership:none */
+            IntPtr fields);
+
+        /// <summary>
+        /// Log a message with structured data, accepting the data within a #GVariant. This
+        /// version is especially useful for use in other languages, via introspection.
+        /// </summary>
+        /// <remarks>
+        /// The only mandatory item in the @fields dictionary is the "MESSAGE" which must
+        /// contain the text shown to the user.
+        ///
+        /// The values in the @fields dictionary are likely to be of type String
+        /// (<see cref="VariantType.String"/>). Array of bytes (<see cref="VariantType.ByteString"/>) is also
+        /// supported. In this case the message is handled as binary and will be forwarded
+        /// to the log writer as such. The size of the array should not be higher than
+        /// %G_MAXSSIZE. Otherwise it will be truncated to this size. For other types
+        /// <see cref="Variant.Print"/> will be used to convert the value into a string.
+        ///
+        /// For more details on its usage and about the parameters, see g_log_structured().
+        /// </remarks>
+        /// <param name="logDomain">
+        /// log domain, usually <see cref="DefaultDomain"/>
+        /// </param>
+        /// <param name="logLevel">
+        /// log level, either from <see cref="LogLevelFlags"/>, or a user-defined
+        /// level
+        /// </param>
+        /// <param name="fields">
+        /// a dictionary (<see cref="GLib.Variant"/> of the type <see cref="VariantType.VariantDictionary"/>)
+        /// containing the key-value pairs of message data.
+        /// </param>
+        [Since("2.50")]
+        public static void Variant(NullableUnownedUtf8 logDomain, LogLevelFlags logLevel, Variant fields)
+        {
+            var logDomain_ = logDomain.UnsafeHandle;
+            var fields_ = fields.UnsafeHandle;
+            if (fields.Type != VariantType.VariantDictionary) {
+                throw new ArgumentException("Requires VariantType.VarDict", nameof(fields));
+            }
+            g_log_variant(logDomain_, logLevel, fields_);
         }
     }
 }

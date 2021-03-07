@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='LogWriterOutput.Handled'>
+<summary>
+Log writer has handled the log entry.
+</summary>
+</member>
+
+<member name='LogWriterOutput.Unhandled'>
+<summary>
+Log writer could not handle the log entry.
+</summary>
+</member>
+
+<member name='LogWriterOutput'>
+<summary>
+Return values from <see cref="LogWriterFunc"/>s to indicate whether the given log entry
+was successfully handled by the writer, or whether there was an error in
+handling it (and hence a fallback writer should be used).
+</summary>
+<remarks>
+If a <see cref="LogWriterFunc"/> ignores a log entry, it should return
+<see cref="LogWriterOutput.Handled"/>.
+</remarks>
+</member>
+
+</declaration>

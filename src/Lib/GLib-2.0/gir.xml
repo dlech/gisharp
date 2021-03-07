@@ -7539,6 +7539,139 @@ entries representing links to documents.</doc>
     written back.</doc>
       </member>
     </bitfield>
+    <record name="LogField" c:type="GLogField" version="2.50" gs:managed-name="LogField">
+      <doc xml:space="preserve" filename="gmessages.h" line="140">Structure representing a single field in a structured log entry. See
+g_log_structured() for details.
+
+Log fields may contain arbitrary values, including binary with embedded nul
+bytes. If the field contains a string, the string must be UTF-8 encoded and
+have a trailing nul byte. Otherwise, @length must be set to a non-negative
+value.</doc>
+      <source-position filename="gmessages.h" line="162" />
+      <field name="key" writable="1" gs:managed-name="Key">
+        <doc xml:space="preserve" filename="gmessages.h" line="142">field name (UTF-8 string)</doc>
+        <type name="utf8" c:type="const gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+      </field>
+      <field name="value" writable="1" gs:managed-name="Value">
+        <doc xml:space="preserve" filename="gmessages.h" line="143">field value (arbitrary bytes)</doc>
+        <type name="gpointer" c:type="gconstpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+      </field>
+      <field name="length" writable="1" gs:managed-name="Length">
+        <doc xml:space="preserve" filename="gmessages.h" line="144">length of @value, in bytes, or -1 if it is nul-terminated</doc>
+        <type name="gssize" c:type="gssize" gs:managed-name="System.Int32" />
+      </field>
+    </record>
+    <bitfield name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags">
+      <doc xml:space="preserve" filename="glib-2.0.c" line="1242">Flags specifying the level of log messages.
+
+It is possible to change how GLib treats messages of the various
+levels using g_log_set_handler() and g_log_set_fatal_mask().</doc>
+      <source-position filename="gmessages.h" line="68" />
+      <member name="flag_recursion" value="1" c:identifier="G_LOG_FLAG_RECURSION" gs:managed-name="FlagRecursion">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1244">internal flag</doc>
+      </member>
+      <member name="flag_fatal" value="2" c:identifier="G_LOG_FLAG_FATAL" gs:managed-name="FlagFatal">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1245">internal flag</doc>
+      </member>
+      <member name="level_error" value="4" c:identifier="G_LOG_LEVEL_ERROR" gs:managed-name="LevelError">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1246">log level for errors, see g_error().
+    This level is also used for messages produced by g_assert().</doc>
+      </member>
+      <member name="level_critical" value="8" c:identifier="G_LOG_LEVEL_CRITICAL" gs:managed-name="LevelCritical">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1248">log level for critical warning messages, see
+    g_critical().
+    This level is also used for messages produced by g_return_if_fail()
+    and g_return_val_if_fail().</doc>
+      </member>
+      <member name="level_warning" value="16" c:identifier="G_LOG_LEVEL_WARNING" gs:managed-name="LevelWarning">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1252">log level for warnings, see g_warning()</doc>
+      </member>
+      <member name="level_message" value="32" c:identifier="G_LOG_LEVEL_MESSAGE" gs:managed-name="LevelMessage">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1253">log level for messages, see g_message()</doc>
+      </member>
+      <member name="level_info" value="64" c:identifier="G_LOG_LEVEL_INFO" gs:managed-name="LevelInfo">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1254">log level for informational messages, see g_info()</doc>
+      </member>
+      <member name="level_debug" value="128" c:identifier="G_LOG_LEVEL_DEBUG" gs:managed-name="LevelDebug">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1255">log level for debug messages, see g_debug()</doc>
+      </member>
+      <member name="level_mask" value="-4" c:identifier="G_LOG_LEVEL_MASK" gs:managed-name="LevelMask">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="1256">a mask including all log levels</doc>
+      </member>
+    </bitfield>
+    <callback name="LogWriterFunc" c:type="GLogWriterFunc" version="2.50" gs:dll-name="glib-2.0" gs:managed-name="LogWriterFunc">
+      <doc xml:space="preserve" filename="gmessages.h" line="164">Writer function for log entries. A log entry is a collection of one or more
+#GLogFields, using the standard [field names from journal
+specification](https://www.freedesktop.org/software/systemd/man/systemd.journal-fields.html).
+See g_log_structured() for more information.
+
+Writer functions must ignore fields which they do not recognise, unless they
+can write arbitrary binary output, as field values may be arbitrary binary.
+
+@log_level is guaranteed to be included in @fields as the `PRIORITY` field,
+but is provided separately for convenience of deciding whether or where to
+output the log entry.
+
+Writer functions should return %G_LOG_WRITER_HANDLED if they handled the log
+message successfully or if they deliberately ignored it. If there was an
+error handling the message (for example, if the writer function is meant to
+send messages to a remote logging server and there is a network error), it
+should return %G_LOG_WRITER_UNHANDLED. This allows writer functions to be
+chained and fall back to simpler handlers in case of failure.</doc>
+      <source-position filename="gmessages.h" line="194" />
+      <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+        <doc xml:space="preserve" filename="gmessages.h" line="190">%G_LOG_WRITER_HANDLED if the log entry was handled successfully;
+   %G_LOG_WRITER_UNHANDLED otherwise</doc>
+        <type name="LogWriterOutput" c:type="GLogWriterOutput" gs:managed-name="LogWriterOutput" />
+      </return-value>
+      <parameters>
+        <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+          <doc xml:space="preserve" filename="gmessages.h" line="166">log level of the message</doc>
+          <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+        </parameter>
+        <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+          <doc xml:space="preserve" filename="gmessages.h" line="167">fields forming the message</doc>
+          <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+            <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+          </array>
+        </parameter>
+        <parameter name="n_fields" transfer-ownership="none" gs:managed-name="nFields" direction="in">
+          <doc xml:space="preserve" filename="gmessages.h" line="168">number of @fields</doc>
+          <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+        </parameter>
+        <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" closure="3" gs:managed-name="userData" direction="in">
+          <doc xml:space="preserve" filename="gmessages.h" line="169">user data passed to g_log_set_writer_func()</doc>
+          <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+        </parameter>
+      </parameters>
+      <gs:managed-parameters>
+        <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+          <doc xml:space="preserve" filename="gmessages.h" line="166">log level of the message</doc>
+          <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+        </parameter>
+        <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+          <doc xml:space="preserve" filename="gmessages.h" line="167">fields forming the message</doc>
+          <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+            <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+          </array>
+        </parameter>
+      </gs:managed-parameters>
+    </callback>
+    <enumeration name="LogWriterOutput" version="2.50" c:type="GLogWriterOutput" gs:managed-name="LogWriterOutput">
+      <doc xml:space="preserve" filename="gmessages.h" line="120">Return values from #GLogWriterFuncs to indicate whether the given log entry
+was successfully handled by the writer, or whether there was an error in
+handling it (and hence a fallback writer should be used).
+
+If a #GLogWriterFunc ignores a log entry, it should return
+%G_LOG_WRITER_HANDLED.</doc>
+      <source-position filename="gmessages.h" line="138" />
+      <member name="handled" value="1" c:identifier="G_LOG_WRITER_HANDLED" gs:managed-name="Handled">
+        <doc xml:space="preserve" filename="gmessages.h" line="122">Log writer has handled the log entry.</doc>
+      </member>
+      <member name="unhandled" value="0" c:identifier="G_LOG_WRITER_UNHANDLED" gs:managed-name="Unhandled">
+        <doc xml:space="preserve" filename="gmessages.h" line="123">Log writer could not handle the log entry.</doc>
+      </member>
+    </enumeration>
     <record name="MainContext" c:type="GMainContext" glib:type-name="GMainContext" glib:get-type="g_main_context_get_type" c:symbol-prefix="main_context" gs:managed-name="MainContext">
       <doc xml:space="preserve" filename="gmain.h" line="42">The `GMainContext` struct is an opaque data
 type representing a set of sources to be handled in a main loop.</doc>
@@ -22757,6 +22890,330 @@ version @required_major.required_minor.@required_micro
           <parameter name="required_micro" transfer-ownership="none" gs:managed-name="requiredMicro" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="41153">the required micro version</doc>
             <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+    </gs:static-class>
+    <gs:static-class name="LogWriter" gs:managed-name="LogWriter">
+      <function name="set_writer_func" c:identifier="g_log_set_writer_func" version="2.50" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="SetWriterFunc">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21516">Set a writer function which will be called to format and write out each log
+message. Each program should set a writer function, or the default writer
+(g_log_writer_default()) will be used.
+
+Libraries **must not** call this function — only programs are allowed to
+install a writer function, as there must be a single, central point where
+log messages are formatted and outputted.
+
+There can only be one writer function. It is an error to set more than one.</doc>
+        <source-position filename="gmessages.h" line="214" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <type name="none" c:type="void" gs:managed-name="System.Void" />
+        </return-value>
+        <parameters>
+          <parameter name="func" transfer-ownership="none" nullable="1" allow-none="1" scope="notified" closure="1" destroy="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21518">log writer function, which must not be %NULL</doc>
+            <type name="LogWriterFunc" c:type="GLogWriterFunc" gs:managed-name="LogWriterFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21519">user data to pass to @func</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="user_data_free" transfer-ownership="none" scope="async" destroy="0" gs:managed-name="userDataFree" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21520">function to free @user_data once it’s
+   finished with, if non-%NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="func" transfer-ownership="none" nullable="1" allow-none="1" scope="notified" closure="1" destroy="2" gs:managed-name="func" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21518">log writer function, which must not be %NULL</doc>
+            <type name="LogWriterFunc" c:type="GLogWriterFunc" gs:managed-name="LogWriterFunc" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="default" c:identifier="g_log_writer_default" version="2.50" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Default">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21678">Format a structured log message and output it to the default log destination
+for the platform. On Linux, this is typically the systemd journal, falling
+back to `stdout` or `stderr` if running from the terminal or if output is
+being redirected to a file.
+
+Support for other platform-specific logging mechanisms may be added in
+future. Distributors of GLib may modify this function to impose their own
+(documented) platform-specific log writing policies.
+
+This is suitable for use as a #GLogWriterFunc, and is the default writer used
+if no other is set using g_log_set_writer_func().
+
+As with g_log_default_handler(), this function drops debug and informational
+messages unless their log domain (or `all`) is listed in the space-separated
+`G_MESSAGES_DEBUG` environment variable.</doc>
+        <source-position filename="gmessages.h" line="240" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21703">%G_LOG_WRITER_HANDLED on success, %G_LOG_WRITER_UNHANDLED otherwise</doc>
+          <type name="LogWriterOutput" c:type="GLogWriterOutput" gs:managed-name="LogWriterOutput" />
+        </return-value>
+        <parameters>
+          <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21680">log level, either from #GLogLevelFlags, or a user-defined
+   level</doc>
+            <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+          </parameter>
+          <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21682">key–value pairs of structured data forming
+   the log message</doc>
+            <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+            </array>
+          </parameter>
+          <parameter name="n_fields" transfer-ownership="none" gs:managed-name="nFields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21684">number of elements in the @fields array</doc>
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21685">user data passed to g_log_set_writer_func()</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21680">log level, either from #GLogLevelFlags, or a user-defined
+   level</doc>
+            <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+          </parameter>
+          <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21682">key–value pairs of structured data forming
+   the log message</doc>
+            <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+            </array>
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21685">user data passed to g_log_set_writer_func()</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="format_fields" c:identifier="g_log_writer_format_fields" version="2.50" gs:dll-name="glib-2.0" gs:managed-name="FormatFields">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21708">Format a structured log message as a string suitable for outputting to the
+terminal (or elsewhere). This will include the values of all fields it knows
+how to interpret, which includes `MESSAGE` and `GLIB_DOMAIN` (see the
+documentation for g_log_structured()). It does not include values from
+unknown fields.
+
+The returned string does **not** have a trailing new-line character. It is
+encoded in the character set of the current locale, which is not necessarily
+UTF-8.</doc>
+        <source-position filename="gmessages.h" line="224" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21728">string containing the formatted log message, in
+   the character set of the current locale</doc>
+          <type name="utf8" c:type="gchar*" gs:managed-name="GISharp.Lib.GLib.Utf8" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21710">log level, either from #GLogLevelFlags, or a user-defined
+   level</doc>
+            <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+          </parameter>
+          <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21712">key–value pairs of structured data forming
+   the log message</doc>
+            <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+            </array>
+          </parameter>
+          <parameter name="n_fields" transfer-ownership="none" gs:managed-name="nFields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21714">number of elements in the @fields array</doc>
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="use_color" transfer-ownership="none" gs:managed-name="useColor" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21715">%TRUE to use ANSI color escape sequences when formatting the
+   message, %FALSE to not</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21710">log level, either from #GLogLevelFlags, or a user-defined
+   level</doc>
+            <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+          </parameter>
+          <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21712">key–value pairs of structured data forming
+   the log message</doc>
+            <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+            </array>
+          </parameter>
+          <parameter name="use_color" transfer-ownership="none" gs:managed-name="useColor" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21715">%TRUE to use ANSI color escape sequences when formatting the
+   message, %FALSE to not</doc>
+            <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="is_journald" c:identifier="g_log_writer_is_journald" version="2.50" gs:dll-name="glib-2.0" gs:managed-name="IsJournald">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21734">Check whether the given @output_fd file descriptor is a connection to the
+systemd journal, or something else (like a log file or `stdout` or
+`stderr`).
+
+Invalid file descriptors are accepted and return %FALSE, which allows for
+the following construct without needing any additional error handling:
+|[&lt;!-- language="C" --&gt;
+  is_journald = g_log_writer_is_journald (fileno (stderr));
+]|</doc>
+        <source-position filename="gmessages.h" line="221" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21748">%TRUE if @output_fd points to the journal, %FALSE otherwise</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="output_fd" transfer-ownership="none" gs:managed-name="outputFd" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21736">output file descriptor to check</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="output_fd" transfer-ownership="none" gs:managed-name="outputFd" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21736">output file descriptor to check</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="journald" c:identifier="g_log_writer_journald" version="2.50" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="Journald">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21753">Format a structured log message and send it to the systemd journal as a set
+of key–value pairs. All fields are sent to the journal, but if a field has
+length zero (indicating program-specific data) then only its key will be
+sent.
+
+This is suitable for use as a #GLogWriterFunc.
+
+If GLib has been compiled without systemd support, this function is still
+defined, but will always return %G_LOG_WRITER_UNHANDLED.</doc>
+        <source-position filename="gmessages.h" line="230" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21772">%G_LOG_WRITER_HANDLED on success, %G_LOG_WRITER_UNHANDLED otherwise</doc>
+          <type name="LogWriterOutput" c:type="GLogWriterOutput" gs:managed-name="LogWriterOutput" />
+        </return-value>
+        <parameters>
+          <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21755">log level, either from #GLogLevelFlags, or a user-defined
+   level</doc>
+            <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+          </parameter>
+          <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21757">key–value pairs of structured data forming
+   the log message</doc>
+            <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+            </array>
+          </parameter>
+          <parameter name="n_fields" transfer-ownership="none" gs:managed-name="nFields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21759">number of elements in the @fields array</doc>
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21760">user data passed to g_log_set_writer_func()</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21755">log level, either from #GLogLevelFlags, or a user-defined
+   level</doc>
+            <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+          </parameter>
+          <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21757">key–value pairs of structured data forming
+   the log message</doc>
+            <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+            </array>
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21760">user data passed to g_log_set_writer_func()</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="standard_streams" c:identifier="g_log_writer_standard_streams" version="2.50" gs:pinvoke-only="1" gs:dll-name="glib-2.0" gs:managed-name="StandardStreams">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21777">Format a structured log message and print it to either `stdout` or `stderr`,
+depending on its log level. %G_LOG_LEVEL_INFO and %G_LOG_LEVEL_DEBUG messages
+are sent to `stdout`; all other log levels are sent to `stderr`. Only fields
+which are understood by this function are included in the formatted string
+which is printed.
+
+If the output stream supports ANSI color escape sequences, they will be used
+in the output.
+
+A trailing new-line character is added to the log message when it is printed.
+
+This is suitable for use as a #GLogWriterFunc.</doc>
+        <source-position filename="gmessages.h" line="235" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21799">%G_LOG_WRITER_HANDLED on success, %G_LOG_WRITER_UNHANDLED otherwise</doc>
+          <type name="LogWriterOutput" c:type="GLogWriterOutput" gs:managed-name="LogWriterOutput" />
+        </return-value>
+        <parameters>
+          <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21779">log level, either from #GLogLevelFlags, or a user-defined
+   level</doc>
+            <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+          </parameter>
+          <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21781">key–value pairs of structured data forming
+   the log message</doc>
+            <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+            </array>
+          </parameter>
+          <parameter name="n_fields" transfer-ownership="none" gs:managed-name="nFields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21783">number of elements in the @fields array</doc>
+            <type name="gsize" c:type="gsize" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21784">user data passed to g_log_set_writer_func()</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="log_level" transfer-ownership="none" gs:managed-name="logLevel" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21779">log level, either from #GLogLevelFlags, or a user-defined
+   level</doc>
+            <type name="LogLevelFlags" c:type="GLogLevelFlags" gs:managed-name="LogLevelFlags" />
+          </parameter>
+          <parameter name="fields" transfer-ownership="none" gs:managed-name="fields" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21781">key–value pairs of structured data forming
+   the log message</doc>
+            <array length="2" zero-terminated="0" c:type="const GLogField*" gs:managed-name="GISharp.Runtime.CArray" gs:is-pointer="1">
+              <type name="LogField" c:type="GLogField" gs:managed-name="LogField" />
+            </array>
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21784">user data passed to g_log_set_writer_func()</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="supports_color" c:identifier="g_log_writer_supports_color" version="2.50" gs:dll-name="glib-2.0" gs:managed-name="SupportsColor">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="21804">Check whether the given @output_fd file descriptor supports ANSI color
+escape sequences. If so, they can safely be used when formatting log
+messages.</doc>
+        <source-position filename="gmessages.h" line="219" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="21812">%TRUE if ANSI color escapes are supported, %FALSE otherwise</doc>
+          <type name="gboolean" c:type="gboolean" gs:managed-name="System.Boolean" />
+        </return-value>
+        <parameters>
+          <parameter name="output_fd" transfer-ownership="none" gs:managed-name="outputFd" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21806">output file descriptor to check</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="output_fd" transfer-ownership="none" gs:managed-name="outputFd" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="21806">output file descriptor to check</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
           </parameter>
         </gs:managed-parameters>
       </function>

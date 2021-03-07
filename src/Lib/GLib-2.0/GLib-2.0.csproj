@@ -11,6 +11,8 @@
     <Compile Remove="DestroyNotify.Generated.cs" />
     <Compile Remove="Error.Generated.cs" />
     <Compile Remove="IOCondition.Generated.cs" />
+    <Compile Remove="LogField.Generated.cs" />
+    <Compile Remove="LogLevelFlags.Generated.cs" />
     <Compile Remove="MainContext.Generated.cs" />
     <Compile Remove="Mutex.Generated.cs" />
     <Compile Remove="PollFD.Generated.cs" />

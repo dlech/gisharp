@@ -33,5 +33,21 @@ namespace GISharp.Lib.GLib
         /// length of <see cref="Value"/>, in bytes, or -1 if it is nul-terminated
         /// </summary>
         public IntPtr Length;
+
+        /// <summary>
+        /// Initializes the struct.
+        /// </summary>
+        /// <param name="key">
+        /// The key.
+        /// </param>
+        /// <param name="value">
+        /// The value.
+        /// </param>
+        public LogField(UnownedUtf8 key, UnownedUtf8 value)
+        {
+            Key = key.UnsafeHandle;
+            Value = value.UnsafeHandle;
+            Length = (IntPtr)(-1);
+        }
     }
 }

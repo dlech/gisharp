@@ -1,0 +1,72 @@
+<declaration>
+
+<member name='LogWriter.FormatFields(GISharp.Lib.GLib.LogLevelFlags,System.ReadOnlySpan&lt;GISharp.Lib.GLib.LogField&gt;,System.Boolean)'>
+<summary>
+Format a structured log message as a string suitable for outputting to the
+terminal (or elsewhere). This will include the values of all fields it knows
+how to interpret, which includes `MESSAGE` and `GLIB_DOMAIN` (see the
+documentation for g_log_structured()). It does not include values from
+unknown fields.
+</summary>
+<remarks>
+The returned string does **not** have a trailing new-line character. It is
+encoded in the character set of the current locale, which is not necessarily
+UTF-8.
+</remarks>
+<param name="logLevel">
+log level, either from <see cref="LogLevelFlags"/>, or a user-defined
+   level
+</param>
+<param name="fields">
+key–value pairs of structured data forming
+   the log message
+</param>
+<param name="useColor">
+<c>true</c> to use ANSI color escape sequences when formatting the
+   message, <c>false</c> to not
+</param>
+<returns>
+string containing the formatted log message, in
+   the character set of the current locale
+</returns>
+</member>
+
+<member name='LogWriter.IsJournald(int)'>
+<summary>
+Check whether the given <paramref name="outputFd"/> file descriptor is a connection to the
+systemd journal, or something else (like a log file or `stdout` or
+`stderr`).
+</summary>
+<remarks>
+Invalid file descriptors are accepted and return <c>false</c>, which allows for
+the following construct without needing any additional error handling:
+|[&lt;!-- language="C" --&gt;
+  is_journald = g_log_writer_is_journald (fileno (stderr));
+]|
+</remarks>
+<param name="outputFd">
+output file descriptor to check
+</param>
+<returns>
+<c>true</c> if <paramref name="outputFd"/> points to the journal, <c>false</c> otherwise
+</returns>
+</member>
+
+<member name='LogWriter.SupportsColor(int)'>
+<summary>
+Check whether the given <paramref name="outputFd"/> file descriptor supports ANSI color
+escape sequences. If so, they can safely be used when formatting log
+messages.
+</summary>
+<param name="outputFd">
+output file descriptor to check
+</param>
+<returns>
+<c>true</c> if ANSI color escapes are supported, <c>false</c> otherwise
+</returns>
+</member>
+
+<member name='LogWriter'>
+</member>
+
+</declaration>
