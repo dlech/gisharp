@@ -676,24 +676,6 @@ namespace GISharp.Lib.GLib
         /// if any element of <paramref name="items"/> is <c>null</c>
         /// </exception>
         [Since("2.24")]
-        public static VariantType CreateTuple(UnownedCPtrArray<VariantType> items)
-        {
-            return NewTuple(items.Data);
-        }
-
-        /// <summary>
-        /// Constructs a new tuple type, from <paramref name="items"/>.
-        /// </summary>
-        /// <param name="items">
-        /// an array of <see cref="VariantType"/>s, one for each item
-        /// </param>
-        /// <returns>
-        /// a new tuple <see cref="VariantType"/>
-        /// </returns>
-        /// <exception cref="ArgumentException">
-        /// if any element of <paramref name="items"/> is <c>null</c>
-        /// </exception>
-        [Since("2.24")]
         public static VariantType CreateTuple(params VariantType[] items)
         {
             ReadOnlySpan<IntPtr> array = items.Select(x => x.UnsafeHandle).ToArray();

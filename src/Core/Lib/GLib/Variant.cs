@@ -3,6 +3,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices;
 using System.Collections;
 
@@ -534,9 +535,20 @@ namespace GISharp.Lib.GLib
         }
 
         /// <summary>
-        /// Coverts <see cref="UnownedCPtrArray{T}"/> to <see cref="Variant"/>.
+        /// Coverts <see cref="ValueTuple"/> to <see cref="Variant"/>.
         /// </summary>
-        public static explicit operator Variant(UnownedCPtrArray<Variant> value)
+        public static explicit operator ValueTuple(Variant value)
+        {
+            if (!value.IsOfType(VariantType.Unit)) {
+                throw new InvalidCastException();
+            }
+            return default;
+        }
+
+        /// <summary>
+        /// Coverts <see cref="ValueTuple"/> to <see cref="Variant"/>.
+        /// </summary>
+        public static explicit operator Variant(ValueTuple value)
         {
             return new Variant(value);
         }
@@ -1404,7 +1416,7 @@ namespace GISharp.Lib.GLib
             int value);
 
         [Since("2.24")]
-        static UnmanagedStruct* NewDBusHandle(DBusHandle value) // new_handle
+        static UnmanagedStruct* NewHandle(DBusHandle value) // new_handle
         {
             var ret = g_variant_new_handle(value);
             return ret;
@@ -1419,7 +1431,7 @@ namespace GISharp.Lib.GLib
         /// with D-Bus, you probably don't need them.
         /// </remarks>
         [Since("2.24")]
-        public Variant(DBusHandle value) : this((IntPtr)NewDBusHandle(value), Transfer.None)
+        public Variant(DBusHandle value) : this((IntPtr)NewHandle(value), Transfer.None)
         {
         }
 
@@ -1670,7 +1682,7 @@ namespace GISharp.Lib.GLib
             byte* objectPath);
 
         [Since("2.24")]
-        static UnmanagedStruct* NewDBusObjectPath(DBusObjectPath objectPath)
+        static UnmanagedStruct* NewObjectPath(DBusObjectPath objectPath)
         {
             var objectPath_ = (byte*)GMarshal.StringToUtf8Ptr(objectPath);
             try {
@@ -1687,7 +1699,7 @@ namespace GISharp.Lib.GLib
         /// of <paramref name="objectPath"/>.
         /// </summary>
         [Since("2.24")]
-        public Variant(DBusObjectPath objectPath) : this((IntPtr)NewDBusObjectPath(objectPath), Transfer.None)
+        public Variant(DBusObjectPath objectPath) : this((IntPtr)NewObjectPath(objectPath), Transfer.None)
         {
         }
 
@@ -1725,7 +1737,7 @@ namespace GISharp.Lib.GLib
             nint length);
 
         [Since("2.30")]
-        static UnmanagedStruct* NewDBusObjectPathArray(DBusObjectPath[] paths)
+        static UnmanagedStruct* NewObjv(DBusObjectPath[] paths)
         {
             var strv = new string[paths.Length];
             for (int i = 0; i < paths.Length; i++) {
@@ -1745,7 +1757,7 @@ namespace GISharp.Lib.GLib
         /// Constructs an array of object paths <see cref="Variant"/> from the given array of paths.
         /// </summary>
         [Since("2.30")]
-        public Variant(DBusObjectPath[] paths) : this((IntPtr)NewDBusObjectPathArray(paths), Transfer.None)
+        public Variant(DBusObjectPath[] paths) : this((IntPtr)NewObjv(paths), Transfer.None)
         {
         }
 
@@ -1770,7 +1782,7 @@ namespace GISharp.Lib.GLib
             byte* signature);
 
         [Since("2.24")]
-        static UnmanagedStruct* NewDBusSignature(DBusSignature signature)
+        static UnmanagedStruct* NewSignature(DBusSignature signature)
         {
             var signature_ = (byte*)GMarshal.StringToUtf8Ptr(signature);
             try {
@@ -1787,7 +1799,54 @@ namespace GISharp.Lib.GLib
         /// contents of <paramref name="signature"/>.
         /// </summary>
         [Since("2.24")]
-        public Variant(DBusSignature signature) : this((IntPtr)NewDBusSignature(signature), Transfer.None)
+        public Variant(DBusSignature signature) : this((IntPtr)NewSignature(signature), Transfer.None)
+        {
+        }
+
+        /// <summary>
+        /// Creates a string #GVariant with the contents of @string.
+        /// </summary>
+        /// <remarks>
+        /// @string must be valid UTF-8, and must not be %NULL. To encode
+        /// potentially-%NULL strings, use g_variant_new() with `ms` as the
+        /// [format string][gvariant-format-strings-maybe-types].
+        /// </remarks>
+        /// <param name="string">
+        /// a normal UTF-8 nul-terminated string
+        /// </param>
+        /// <returns>
+        /// a floating reference to a new string #GVariant instance
+        /// </returns>
+        [Since("2.24")]
+        [DllImport("glib-2.0", CallingConvention = CallingConvention.Cdecl)]
+        /* <type name="Variant" type="GVariant*" managed-name="Variant" is-pointer="1" /> */
+        /* transfer-ownership:none direction:in */
+        private static extern UnmanagedStruct* g_variant_new_string(
+            /* <type name="utf8" type="const gchar*" managed-name="GISharp.Lib.GLib.Utf8" is-pointer="1" /> */
+            /* transfer-ownership:none direction:in */
+            byte* @string);
+
+        [Since("2.24")]
+        static UnmanagedStruct* NewString(UnownedUtf8 @string)
+        {
+            var @string_ = (byte*)@string.UnsafeHandle;
+            var ret_ = g_variant_new_string(@string_);
+            return ret_;
+        }
+
+        /// <summary>
+        /// Creates a string <see cref="Variant"/> with the contents of <paramref name="string"/>.
+        /// </summary>
+        /// <remarks>
+        /// <paramref name="string"/> must be valid UTF-8, and must not be <c>null</c>. To encode
+        /// potentially-<c>null</c> strings, create a <see cref="Variant"/> with `ms` as the
+        /// format string.
+        /// </remarks>
+        /// <param name="string">
+        /// a normal UTF-8 nul-terminated string
+        /// </param>
+        [Since("2.24")]
+        public Variant(UnownedUtf8 @string) : this((IntPtr)NewString(@string), Transfer.None)
         {
         }
 
@@ -1990,19 +2049,23 @@ namespace GISharp.Lib.GLib
         /// a floating reference to a new #GVariant tuple
         /// </returns>
         [Since("2.24")]
-        static UnmanagedStruct* NewTuple(UnownedCPtrArray<Variant> children)
+        static UnmanagedStruct* NewTuple(ITuple children)
         {
-            foreach (var x in children.Data) {
-                if (x == IntPtr.Zero) {
+            var children_ = stackalloc UnmanagedStruct*[children.Length];
+            var nChildren_ = (nuint)children.Length;
+
+            for (var i = 0; i < children.Length; i++) {
+                var child = (Variant?)children[i];
+
+                if (child is null) {
                     throw new ArgumentException("Tuple cannot have null elements", nameof(children));
                 }
+
+                children_[i] = (UnmanagedStruct*)child.UnsafeHandle;
             }
-            fixed (IntPtr* childrenData_ = children.Data) {
-                var children_ = (UnmanagedStruct**)childrenData_;
-                var nChildren_ = (nuint)children.Data.Length;
-                var ret = g_variant_new_tuple(children_, nChildren_);
-                return ret;
-            }
+
+            var ret = g_variant_new_tuple(children_, nChildren_);
+            return ret;
         }
 
         /// <summary>
@@ -2020,7 +2083,7 @@ namespace GISharp.Lib.GLib
         /// the items to make the tuple out of
         /// </param>
         [Since("2.24")]
-        public Variant(UnownedCPtrArray<Variant> children) : this((IntPtr)NewTuple(children), Transfer.None)
+        public Variant(ITuple children) : this((IntPtr)NewTuple(children), Transfer.None)
         {
         }
 
@@ -4573,5 +4636,96 @@ namespace GISharp.Lib.GLib
         private IEnumerator<Variant> GetEnumerator() => new VariantIter(this);
         IEnumerator<Variant> IEnumerable<Variant>.GetEnumerator() => GetEnumerator();
         IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+
+        /// <summary>
+        /// Deconstruct as tuple.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out Variant v1, out Variant v2)
+        {
+            v1 = ChildValues[0];
+            v2 = ChildValues[1];
+        }
+
+        /// <summary>
+        /// Deconstruct as tuple.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3)
+        {
+            v1 = ChildValues[0];
+            v2 = ChildValues[1];
+            v3 = ChildValues[2];
+        }
+
+        /// <summary>
+        /// Deconstruct as tuple.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3, out Variant v4)
+        {
+            v1 = ChildValues[0];
+            v2 = ChildValues[1];
+            v3 = ChildValues[2];
+            v4 = ChildValues[3];
+        }
+
+        /// <summary>
+        /// Deconstruct as tuple.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3, out Variant v4, out Variant v5)
+        {
+            v1 = ChildValues[0];
+            v2 = ChildValues[1];
+            v3 = ChildValues[2];
+            v4 = ChildValues[3];
+            v5 = ChildValues[4];
+        }
+
+        /// <summary>
+        /// Deconstruct as tuple.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3, out Variant v4, out Variant v5, out Variant v6)
+        {
+            v1 = ChildValues[0];
+            v2 = ChildValues[1];
+            v3 = ChildValues[2];
+            v4 = ChildValues[3];
+            v5 = ChildValues[4];
+            v6 = ChildValues[5];
+        }
+
+        /// <summary>
+        /// Deconstruct as tuple.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3, out Variant v4, out Variant v5, out Variant v6, out Variant v7)
+        {
+            v1 = ChildValues[0];
+            v2 = ChildValues[1];
+            v3 = ChildValues[2];
+            v4 = ChildValues[3];
+            v5 = ChildValues[4];
+            v6 = ChildValues[5];
+            v7 = ChildValues[6];
+        }
+
+        /// <summary>
+        /// Deconstruct as tuple.
+        /// </summary>
+        [EditorBrowsable(EditorBrowsableState.Never)]
+        public void Deconstruct(out Variant v1, out Variant v2, out Variant v3, out Variant v4, out Variant v5, out Variant v6, out Variant v7, out Variant v8)
+        {
+            v1 = ChildValues[0];
+            v2 = ChildValues[1];
+            v3 = ChildValues[2];
+            v4 = ChildValues[3];
+            v5 = ChildValues[4];
+            v6 = ChildValues[5];
+            v7 = ChildValues[6];
+            v8 = ChildValues[7];
+        }
     }
 }

@@ -20,85 +20,173 @@ namespace GISharp.Test.GLib
         }
 
         [Test]
-        public void TestCtor()
+        public void TestNewBoolean()
         {
             // make sure we got the floating reference thing right
-            using (var v = new Variant(false)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((byte)0)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((short)0)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((ushort)0)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((int)0)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((uint)0)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((long)0)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((ulong)0)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant(new DBusHandle())) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((double)0)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((Utf8)"")) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant("")) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant(new DBusObjectPath("/"))) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant(new DBusSignature("i"))) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant((Variant)0)) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant(new Strv(""))) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant(System.Array.Empty<DBusObjectPath>())) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant(System.Array.Empty<byte>())) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
-            using (var v = new Variant(System.Array.Empty<byte[]>())) {
-                Assert.That(GetIsFloating(v), Is.False);
-                Assert.That(GetRefCount(v), Is.EqualTo(1));
-            }
+            using var v = new Variant(false);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewByte()
+        {
+            using var v = new Variant((byte)0);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewInt16()
+        {
+            using var v = new Variant((short)0);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestUInt16()
+        {
+            using var v = new Variant((ushort)0);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewInt32()
+        {
+            using var v = new Variant(0);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestUInt32()
+        {
+            using var v = new Variant((uint)0);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestInt64()
+        {
+            using var v = new Variant((long)0);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewUint64()
+        {
+            using var v = new Variant((ulong)0);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewHandle()
+        {
+            using var v = new Variant(new DBusHandle());
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewDouble()
+        {
+            using var v = new Variant((double)0);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewString()
+        {
+            using var utf8 = (Utf8)"";
+            using var v = new Variant(utf8.AsUnownedUtf8());
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewTakeString()
+        {
+            using var v = new Variant("");
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewObjectPath()
+        {
+            using var v = new Variant(new DBusObjectPath("/"));
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewSignature()
+        {
+            using var v = new Variant(new DBusSignature("i"));
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewVariant()
+        {
+            using var child = new Variant(0);
+            using var v = new Variant(child);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewStrv()
+        {
+            using var strv = new Strv("");
+            using var v = new Variant(strv);
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewObjv()
+        {
+            using var v = new Variant(System.Array.Empty<DBusObjectPath>());
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewBytestring()
+        {
+            using var v = new Variant(System.Array.Empty<byte>());
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewBytestringArray()
+        {
+            using var v = new Variant(System.Array.Empty<byte[]>());
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+        }
+
+        [Test]
+        public void TestNewTuple()
+        {
+            using var v = new Variant(default(ValueTuple));
+            Assert.That(GetIsFloating(v), Is.False);
+            Assert.That(GetRefCount(v), Is.EqualTo(1));
+
+            using var item1 = new Variant(0);
+            using var item2 = new Variant(1);
+            using var v2 = new Variant((item1, item2));
+            Assert.That(GetIsFloating(v2), Is.False);
+            Assert.That(GetRefCount(v2), Is.EqualTo(1));
         }
 
         [Test]
@@ -341,10 +429,10 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestCastTuple()
         {
-            using var expected = new PtrArray<Variant> { new Variant(false), new Variant(0) };
-            using var variant = (Variant)(UnownedCPtrArray<Variant>)expected;
+            var expected = default(ValueTuple);
+            using var variant = (Variant)expected;
             Assert.That(variant.Type.IsTuple, Is.True);
-            var actual = (PtrArray<Variant>)variant;
+            var actual = (ValueTuple)variant;
             Assert.That(actual, Is.EqualTo(expected));
         }
 
@@ -390,6 +478,132 @@ namespace GISharp.Test.GLib
             v.Store(data);
             Assert.That(data.ToArray(), Is.EqualTo(new byte[] { 116, 101, 115, 116, 0 }));
             Assert.That(() => v.Store(Span<byte>.Empty), Throws.ArgumentException);
+        }
+
+        [Test]
+        public void TestDeconstruct2()
+        {
+            using var item1 = new Variant(0);
+            using var item2 = new Variant(1);
+            using var v = new Variant((item1, item2));
+
+            var (actual1, actual2) = v;
+            Assert.That(actual1, Is.EqualTo(item1));
+            Assert.That(actual2, Is.EqualTo(item2));
+        }
+
+        [Test]
+        public void TestDeconstruct3()
+        {
+            using var item1 = new Variant(0);
+            using var item2 = new Variant(1);
+            using var item3 = new Variant(3);
+            using var v = new Variant((item1, item2, item3));
+
+            var (actual1, actual2, actual3) = v;
+            Assert.That(actual1, Is.EqualTo(item1));
+            Assert.That(actual2, Is.EqualTo(item2));
+            Assert.That(actual3, Is.EqualTo(item3));
+        }
+
+        [Test]
+        public void TestDeconstruct4()
+        {
+            using var item1 = new Variant(0);
+            using var item2 = new Variant(1);
+            using var item3 = new Variant(3);
+            using var item4 = new Variant(4);
+            using var v = new Variant((item1, item2, item3, item4));
+
+            var (actual1, actual2, actual3, actual4) = v;
+            Assert.That(actual1, Is.EqualTo(item1));
+            Assert.That(actual2, Is.EqualTo(item2));
+            Assert.That(actual3, Is.EqualTo(item3));
+            Assert.That(actual4, Is.EqualTo(item4));
+        }
+
+        [Test]
+        public void TestDeconstruct5()
+        {
+            using var item1 = new Variant(0);
+            using var item2 = new Variant(1);
+            using var item3 = new Variant(3);
+            using var item4 = new Variant(4);
+            using var item5 = new Variant(5);
+            using var v = new Variant((item1, item2, item3, item4, item5));
+
+            var (actual1, actual2, actual3, actual4, actual5) = v;
+            Assert.That(actual1, Is.EqualTo(item1));
+            Assert.That(actual2, Is.EqualTo(item2));
+            Assert.That(actual3, Is.EqualTo(item3));
+            Assert.That(actual4, Is.EqualTo(item4));
+            Assert.That(actual5, Is.EqualTo(item5));
+        }
+
+        [Test]
+        public void TestDeconstruct6()
+        {
+            using var item1 = new Variant(0);
+            using var item2 = new Variant(1);
+            using var item3 = new Variant(3);
+            using var item4 = new Variant(4);
+            using var item5 = new Variant(5);
+            using var item6 = new Variant(6);
+            using var v = new Variant((item1, item2, item3, item4, item5, item6));
+
+            var (actual1, actual2, actual3, actual4, actual5, actual6) = v;
+            Assert.That(actual1, Is.EqualTo(item1));
+            Assert.That(actual2, Is.EqualTo(item2));
+            Assert.That(actual3, Is.EqualTo(item3));
+            Assert.That(actual4, Is.EqualTo(item4));
+            Assert.That(actual5, Is.EqualTo(item5));
+            Assert.That(actual6, Is.EqualTo(item6));
+        }
+
+        [Test]
+        public void TestDeconstruct7()
+        {
+            using var item1 = new Variant(0);
+            using var item2 = new Variant(1);
+            using var item3 = new Variant(3);
+            using var item4 = new Variant(4);
+            using var item5 = new Variant(5);
+            using var item6 = new Variant(6);
+            using var item7 = new Variant(7);
+            using var v = new Variant((item1, item2, item3, item4, item5, item6, item7));
+
+            var (actual1, actual2, actual3, actual4, actual5, actual6, actual7) = v;
+            Assert.That(actual1, Is.EqualTo(item1));
+            Assert.That(actual2, Is.EqualTo(item2));
+            Assert.That(actual3, Is.EqualTo(item3));
+            Assert.That(actual4, Is.EqualTo(item4));
+            Assert.That(actual5, Is.EqualTo(item5));
+            Assert.That(actual6, Is.EqualTo(item6));
+            Assert.That(actual7, Is.EqualTo(item7));
+        }
+
+        [Test]
+        public void TestDeconstruct8()
+        {
+            using var item1 = new Variant(0);
+            using var item2 = new Variant(1);
+            using var item3 = new Variant(3);
+            using var item4 = new Variant(4);
+            using var item5 = new Variant(5);
+            using var item6 = new Variant(6);
+            using var item7 = new Variant(7);
+            using var item8 = new Variant(8);
+            using var v = new Variant((item1, item2, item3, item4, item5, item6, item7, item8));
+
+            var (actual1, actual2, actual3, actual4, actual5, actual6, actual7, actual8) = v;
+            Assert.That(actual1, Is.EqualTo(item1));
+            Assert.That(actual2, Is.EqualTo(item2));
+            Assert.That(actual3, Is.EqualTo(item3));
+            Assert.That(actual4, Is.EqualTo(item4));
+            Assert.That(actual5, Is.EqualTo(item5));
+            Assert.That(actual6, Is.EqualTo(item6));
+            Assert.That(actual7, Is.EqualTo(item7));
+            Assert.That(actual8, Is.EqualTo(item8));
         }
 
         static Variant getItemAt(PtrArray<Variant> array, int index)
