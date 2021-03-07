@@ -20,16 +20,10 @@ namespace GISharp.Lib.GLib
         }
 
         static readonly Lazy<System.Version> _RunTime = new(() => {
-            var lib = NativeLibrary.Load(Platform.LibraryName("glib-2.0"));
-            try {
-                var major = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_major_version"));
-                var minor = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_minor_version"));
-                var micro = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_micro_version"));
-                return new System.Version(major, minor, micro, 0);
-            }
-            finally {
-                NativeLibrary.Free(lib);
-            }
+            var major = Marshal.ReadInt32(CLibrary.GetSymbol("glib-2.0", "glib_major_version"));
+            var minor = Marshal.ReadInt32(CLibrary.GetSymbol("glib-2.0", "glib_minor_version"));
+            var micro = Marshal.ReadInt32(CLibrary.GetSymbol("glib-2.0", "glib_micro_version"));
+            return new System.Version(major, minor, micro, 0);
         });
 
         /// <summary>
@@ -39,13 +33,7 @@ namespace GISharp.Lib.GLib
         public static System.Version RunTime => _RunTime.Value;
 
         static readonly Lazy<int> _BinaryAge = new(() => {
-            var lib = NativeLibrary.Load(Platform.LibraryName("glib-2.0"));
-            try {
-                return Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_binary_age"));
-            }
-            finally {
-                NativeLibrary.Free(lib);
-            }
+            return Marshal.ReadInt32(CLibrary.GetSymbol("glib-2.0", "glib_binary_age"));
         });
 
         /// <summary>
@@ -63,13 +51,7 @@ namespace GISharp.Lib.GLib
         }
 
         static readonly Lazy<int> _InterfaceAge = new(() => {
-            var lib = NativeLibrary.Load(Platform.LibraryName("glib-2.0"));
-            try {
-                return Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_interface_age"));
-            }
-            finally {
-                NativeLibrary.Free(lib);
-            }
+            return Marshal.ReadInt32(CLibrary.GetSymbol("glib-2.0", "glib_interface_age"));
         });
 
         /// <summary>

@@ -130,17 +130,11 @@ namespace GISharp.Lib.GObject
         {
             // Have to do some marshalling to get ParamSpec GTypes used by child
             // classes. These types don't have the usual *_get_type() functions.
-            var lib = NativeLibrary.Load(Platform.LibraryName("gobject-2.0"));
-            try {
-                var ptr = Marshal.ReadIntPtr(NativeLibrary.GetExport(lib, "g_param_spec_types"));
-                const int paramSpecTypeCount = 23;
-                paramSpecTypes = new GType[paramSpecTypeCount];
-                for (int i = 0; i < paramSpecTypeCount; i++) {
-                    paramSpecTypes[i] = Marshal.PtrToStructure<GType>(ptr + i * sizeof(GType));
-                }
-            }
-            finally {
-                NativeLibrary.Free(lib);
+            var ptr = Marshal.ReadIntPtr(CLibrary.GetSymbol("gobject-2.0", "g_param_spec_types"));
+            const int paramSpecTypeCount = 23;
+            paramSpecTypes = new GType[paramSpecTypeCount];
+            for (int i = 0; i < paramSpecTypeCount; i++) {
+                paramSpecTypes[i] = Marshal.PtrToStructure<GType>(ptr + i * sizeof(GType));
             }
         }
 

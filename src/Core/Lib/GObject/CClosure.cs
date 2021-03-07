@@ -65,7 +65,7 @@ namespace GISharp.Lib.GObject
         /// </summary>
         public CClosure(Delegate callbackFunc) : this((IntPtr)New(callbackFunc), Transfer.None)
         {
-            var marshalGeneric = (delegate* unmanaged[Cdecl]<Closure.UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void>)NativeLibrary.GetExport(NativeLibrary.Load(Platform.LibraryName("gobject-2.0")), "g_cclosure_marshal_generic");
+            var marshalGeneric = (delegate* unmanaged[Cdecl]<Closure.UnmanagedStruct*, Value*, uint, Value*, IntPtr, IntPtr, void>)CLibrary.GetSymbol("gobject-2.0", "g_cclosure_marshal_generic");
             g_closure_set_marshal(handle, marshalGeneric);
         }
 

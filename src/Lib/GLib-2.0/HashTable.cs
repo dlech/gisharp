@@ -14,8 +14,8 @@ namespace GISharp.Lib.GLib
         private protected static UnmanagedStruct* New()
         {
             // TODO: hash and equal functions need to be retrieved from TKey and TValue
-            var hashFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, uint>)NativeLibrary.GetExport(NativeLibrary.Load(Platform.LibraryName("glib-2.0")), "g_direct_hash");
-            var keyEqualFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Runtime.Boolean>)NativeLibrary.GetExport(NativeLibrary.Load(Platform.LibraryName("glib-2.0")), "g_direct_equal");
+            var hashFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, uint>)CLibrary.GetSymbol("glib-2.0", "g_direct_hash");
+            var keyEqualFunc_ = (delegate* unmanaged[Cdecl]<IntPtr, IntPtr, Runtime.Boolean>)CLibrary.GetSymbol("glib-2.0", "g_direct_equal");
             var ret = g_hash_table_new(hashFunc_, keyEqualFunc_);
             return ret;
         }

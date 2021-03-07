@@ -12,16 +12,10 @@ namespace GISharp.Test.GLib
 
         static Helpers()
         {
-            var lib = NativeLibrary.Load(Platform.LibraryName("glib-2.0"));
-            try {
-                var major = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_major_version"));
-                var minor = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_minor_version"));
-                var micro = Marshal.ReadInt32(NativeLibrary.GetExport(lib, "glib_micro_version"));
-                GLibVersion = $"{major}.{minor}.{micro}";
-            }
-            finally {
-                NativeLibrary.Free(lib);
-            }
+            var major = Marshal.ReadInt32(CLibrary.GetSymbol("glib-2.0", "glib_major_version"));
+            var minor = Marshal.ReadInt32(CLibrary.GetSymbol("glib-2.0", "glib_minor_version"));
+            var micro = Marshal.ReadInt32(CLibrary.GetSymbol("glib-2.0", "glib_micro_version"));
+            GLibVersion = $"{major}.{minor}.{micro}";
         }
     }
 }
