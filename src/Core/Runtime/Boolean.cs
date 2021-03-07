@@ -8,7 +8,7 @@ namespace GISharp.Runtime
     /// Managed wrapper for <c>gboolean</c> type.
     /// </summary>
     /// <remarks>
-    /// The builtin <see cref="bool"/> .NET type is not blittable and therefor
+    /// The builtin <see cref="bool"/> .NET type is not blittable and therefore
     /// not usable with unmanaged functions directly. This is particularly
     /// a problem with unmanaged function pointer (<c>delegate* unmanaged[Cdecl] &lt;&gt;</c>)
     /// return values and also in unmanged structs and arrays where the size of boolean
