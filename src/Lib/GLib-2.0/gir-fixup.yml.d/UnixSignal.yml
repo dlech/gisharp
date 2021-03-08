@@ -1,0 +1,28 @@
+
+### UnixSignal ###
+
+# add a static class
+- !add-element
+  xml: <gs:static-class name='UnixSignal' />
+  xpath: gi:repository/gi:namespace
+
+# Move functions to static-class
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'unix_signal_') and not(starts-with(@name,'unix_signal_source_'))]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']
+- !change-attribute
+  name: name
+  regex:  unix_signal_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']/gi:function
+- !change-attribute
+  name: shadows
+  regex:  unix_signal_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']/gi:function[@shadows!=""]
+
+# set default
+- !set-attribute
+  name: gs:default
+  value: GISharp.Lib.GLib.Priority.Default
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='UnixSignal']/gi:function/gi:parameters/gi:parameter[@name='priority']

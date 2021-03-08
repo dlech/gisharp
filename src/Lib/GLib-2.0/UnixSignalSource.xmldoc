@@ -1,0 +1,46 @@
+<declaration>
+
+<member name='UnixSignalSource.New(int)'>
+<summary>
+Create a <see cref="Source"/> that will be dispatched upon delivery of the UNIX
+signal <paramref name="signum"/>.  In GLib versions before 2.36, only <c>SIGHUP<c/>, <c>SIGINT<c/>,
+<c>SIGTERM<c> can be monitored.  In GLib 2.36, <c>SIGUSR1</c> and <c>SIGUSR2</c>
+were added. In GLib 2.54, <c>SIGWINCH</c> was added.
+</summary>
+<remarks>
+<p>
+Note that unlike the UNIX default, all sources which have created a
+watch will be dispatched, regardless of which underlying thread
+invoked <see cref="UnixSignalSource.New(int)"/>.
+</p>
+<p>
+For example, an effective use of this function is to handle <c>SIGTERM</c>
+cleanly; flushing any outstanding files, and then calling
+<see cref="MainLoop.Quit"/>.  It is not safe to do any of this a regular
+UNIX signal handler; your handler may be invoked while malloc() or
+another library function is running, causing reentrancy if you
+attempt to use it from the handler.  None of the GLib/GObject API
+is safe against this kind of reentrancy.
+</p>
+<p>
+The interaction of this source when combined with native UNIX
+functions like sigprocmask() is not defined.
+</p>
+<p>
+The source will not initially be associated with any <see cref="MainContext"/>
+and must be added to one with <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/> before it will be
+executed.
+</p>
+</remarks>
+<param name="signum">
+A signal number
+</param>
+<returns>
+A newly created <see cref="Source"/>
+</returns>
+</member>
+
+<member name='UnixSignalSource'>
+</member>
+
+</declaration>

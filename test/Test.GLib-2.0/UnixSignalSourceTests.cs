@@ -14,13 +14,13 @@ namespace GISharp.Test.GLib
         [Test]
         public void TestNew()
         {
-            Assert.That(() => new UnixSignalSource(0), Throws.ArgumentException);
+            Assert.That(() => UnixSignalSource.New(0), Throws.ArgumentException);
 
             var callbackInvoked = false;
 
             using var context = new MainContext();
             using var mainLoop = new MainLoop(context);
-            using var source = new UnixSignalSource((int)Signum.SIGINT);
+            using var source = UnixSignalSource.New((int)Signum.SIGINT);
             source.SetCallback(() => {
                 mainLoop.Quit();
                 callbackInvoked = true;

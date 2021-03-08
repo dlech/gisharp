@@ -23307,6 +23307,56 @@ use a custom main context.</doc>
         </gs:managed-parameters>
       </function>
     </gs:static-class>
+    <gs:static-class name="UnixSignal" gs:managed-name="UnixSignal">
+      <function name="add_full" c:identifier="g_unix_signal_add_full" shadows="add" version="2.30" gs:dll-name="glib-2.0" gs:managed-name="Add">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="35823">A convenience function for g_unix_signal_source_new(), which
+attaches to the default #GMainContext.  You can remove the watch
+using g_source_remove().</doc>
+        <source-position filename="glib-unix.h" line="73" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="35836">An ID (greater than 0) for the event source</doc>
+          <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+        </return-value>
+        <parameters>
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35825">the priority of the signal source. Typically this will be in
+           the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="signum" transfer-ownership="none" gs:managed-name="signum" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35827">Signal number</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="handler" transfer-ownership="none" scope="notified" closure="3" destroy="4" gs:managed-name="handler" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35828">Callback</doc>
+            <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
+          </parameter>
+          <parameter name="user_data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="userData" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35829">Data for @handler</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="notify" transfer-ownership="none" scope="async" gs:managed-name="notify" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35830">#GDestroyNotify for @handler</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="signum" transfer-ownership="none" gs:managed-name="signum" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35827">Signal number</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="handler" transfer-ownership="none" scope="notified" closure="3" destroy="4" gs:managed-name="handler" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35828">Callback</doc>
+            <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
+          </parameter>
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35825">the priority of the signal source. Typically this will be in
+           the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+    </gs:static-class>
     <gs:static-class name="TimeoutSource" gs:managed-name="TimeoutSource">
       <function name="new" c:identifier="g_timeout_source_new" gs:dll-name="glib-2.0" gs:managed-name="New">
         <doc xml:space="preserve" filename="glib-2.0.c" line="34490">Creates a new timeout source.
@@ -23362,6 +23412,50 @@ See g_get_monotonic_time().</doc>
           <parameter name="interval" transfer-ownership="none" gs:managed-name="interval" direction="in">
             <doc xml:space="preserve" filename="glib-2.0.c" line="34509">the timeout interval in seconds</doc>
             <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+    </gs:static-class>
+    <gs:static-class name="UnixSignalSource" gs:managed-name="UnixSignalSource">
+      <function name="new" c:identifier="g_unix_signal_source_new" version="2.30" gs:dll-name="glib-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="35841">Create a #GSource that will be dispatched upon delivery of the UNIX
+signal @signum.  In GLib versions before 2.36, only `SIGHUP`, `SIGINT`,
+`SIGTERM` can be monitored.  In GLib 2.36, `SIGUSR1` and `SIGUSR2`
+were added. In GLib 2.54, `SIGWINCH` was added.
+
+Note that unlike the UNIX default, all sources which have created a
+watch will be dispatched, regardless of which underlying thread
+invoked g_unix_signal_source_new().
+
+For example, an effective use of this function is to handle `SIGTERM`
+cleanly; flushing any outstanding files, and then calling
+g_main_loop_quit ().  It is not safe to do any of this a regular
+UNIX signal handler; your handler may be invoked while malloc() or
+another library function is running, causing reentrancy if you
+attempt to use it from the handler.  None of the GLib/GObject API
+is safe against this kind of reentrancy.
+
+The interaction of this source when combined with native UNIX
+functions like sigprocmask() is not defined.
+
+The source will not initially be associated with any #GMainContext
+and must be added to one with g_source_attach() before it will be
+executed.</doc>
+        <source-position filename="glib-unix.h" line="70" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="35869">A newly created #GSource</doc>
+          <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="signum" transfer-ownership="none" gs:managed-name="signum" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35843">A signal number</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="signum" transfer-ownership="none" gs:managed-name="signum" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="35843">A signal number</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
           </parameter>
         </gs:managed-parameters>
       </function>

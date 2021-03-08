@@ -22,7 +22,7 @@ namespace GISharp.Test.GLib
                 var callbackInvoked = false;
 
                 using (var mainLoop = new MainLoop()) {
-                    var (id, _) = UnixSignal.Add((int)Signum.SIGINT, () => {
+                    var id = UnixSignal.Add((int)Signum.SIGINT, () => {
                         mainLoop.Quit();
                         callbackInvoked = true;
                         return Source.Remove_;

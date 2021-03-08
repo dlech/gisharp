@@ -1,0 +1,27 @@
+<declaration>
+
+<member name='UnixSignal.Add(int,GISharp.Lib.GLib.SourceFunc,int)'>
+<summary>
+A convenience function for <see cref="UnixSignalSource.New(int)"/>, which
+attaches to the default <see cref="MainContext"/>.  You can remove the watch
+using <see cref="Source.Remove(uint)"/>.
+</summary>
+<param name="signum">
+Signal number
+</param>
+<param name="handler">
+Callback
+</param>
+<param name="priority">
+the priority of the signal source. Typically this will be in
+           the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.
+</param>
+<returns>
+An ID (greater than 0) for the event source
+</returns>
+</member>
+
+<member name='UnixSignal'>
+</member>
+
+</declaration>
