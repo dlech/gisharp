@@ -176,7 +176,7 @@ namespace GISharp.CodeGen
             if (record.CType == "GTypeInterface") {
                 return false;
             }
-            if (record.GTypeName is not null || record.IsDisguised || record.IsSource) {
+            if (record.GTypeName is not null || record.IsDisguised) {
                 return false;
             }
             if (record.IsGTypeStructFor is not null) {

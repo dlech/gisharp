@@ -22,11 +22,6 @@ namespace GISharp.CodeGen.Gir
         public string IsGTypeStructFor { get; }
 
         /// <summary>
-        /// Indicates that this record is a GLib.Source
-        /// </summary>
-        public bool IsSource { get; }
-
-        /// <summary>
         /// Gets the type that this record is a gytpe struct for, if any
         /// </summary>
         public GIRegisteredType IsGTypeStructForType => _IsGTypeStructForType.Value;
@@ -46,7 +41,6 @@ namespace GISharp.CodeGen.Gir
             }
             IsDisguised = Element.Attribute("disguised").AsBool();
             IsGTypeStructFor = element.Attribute(glib + "is-gtype-struct-for").AsString();
-            IsSource = element.Attribute(gs + "source").AsBool();
             _IsGTypeStructForType = new(LazyGetIsGTypeStructForType, false);
             _BaseType = new(LazyGetBaseType, false);
         }
@@ -67,9 +61,6 @@ namespace GISharp.CodeGen.Gir
                     return $"GISharp.Lib.{parent.Namespace.Name}.{parent.GTypeStruct}";
                 }
                 throw new NotSupportedException("Don't know how to get the parent for this GType struct");
-            }
-            if (IsSource) {
-                return "GISharp.Lib.GLib.Source";
             }
             if (GTypeName is not null) {
                 return "GISharp.Lib.GObject.Boxed";
