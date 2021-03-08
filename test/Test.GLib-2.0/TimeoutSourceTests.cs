@@ -16,7 +16,7 @@ namespace GISharp.Test.GLib
 
             using var context = new MainContext();
             using var mainLoop = new MainLoop(context);
-            using var source = new TimeoutSource(0);
+            using var source = TimeoutSource.New(0);
 
             source.SetCallback(() => {
                 mainLoop.Quit();
@@ -42,7 +42,7 @@ namespace GISharp.Test.GLib
 
             using var context = new MainContext();
             using var mainLoop = new MainLoop(context);
-            using var source = TimeoutSource.Seconds(0);
+            using var source = TimeoutSource.NewSeconds(0);
 
             source.SetCallback(() => {
                 mainLoop.Quit();

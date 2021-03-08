@@ -13,7 +13,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// In GLib this priority is used when adding timeout functions
-        /// with <see cref="Timeout.Add"/>. In GDK this priority is used for events
+        /// with <see cref="M:Timeout.Add"/>. In GDK this priority is used for events
         /// from the X server.
         /// </remarks>
         public const int Default = 0;

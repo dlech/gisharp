@@ -1,0 +1,15 @@
+
+# add static class
+- !add-element
+  xml: <gs:static-class name='TimeoutSource'/>
+  xpath: gi:repository/gi:namespace
+
+# Move functions to static class
+- !move-element
+  xpath: gi:repository/gi:namespace/gi:function[starts-with(@name,'timeout_source_')]
+  new-parent-xpath: gi:repository/gi:namespace/gs:static-class[@name='TimeoutSource']
+- !change-attribute
+  name: name
+  regex:  timeout_source_(.*)
+  replace: $1
+  xpath: gi:repository/gi:namespace/gs:static-class[@name='TimeoutSource']/gi:function

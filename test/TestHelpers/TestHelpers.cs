@@ -69,7 +69,7 @@ namespace GISharp
         {
             using var context = new MainContext();
             using var loop = new MainLoop(context);
-            using var ts = new TimeoutSource(timeout);
+            using var ts = TimeoutSource.New(timeout);
             context.PushThreadDefault();
             try {
                 var task = test();

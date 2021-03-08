@@ -141,14 +141,5 @@ namespace GISharp.Lib.GLib
         public UnixSignalSource(IntPtr handle, Transfer ownership) : base(handle, ownership)
         {
         }
-
-        /// <summary>
-        /// Sets the callback function for a source. The callback for a source is
-        /// called from the source's dispatch function.
-        /// </summary>
-        public void SetCallback(SourceFunc func)
-        {
-            SetCallback(func, SourceFuncMarshal.ToUnmanagedFunctionPointer);
-        }
     }
 }

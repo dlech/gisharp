@@ -349,7 +349,7 @@ namespace GISharp.Lib.GLib
         /// <remarks>
         /// The id of a <see cref="Source"/> is given by <see cref="Id"/>, or will be
         /// returned by the functions <see cref="Attach"/>, <see cref="M:Idle.Add"/>,
-        /// <see cref="Timeout.Add"/>, <see cref="M:ChildWatch.Add"/>
+        /// <see cref="M:Timeout.Add"/>, <see cref="M:ChildWatch.Add"/>
         /// and <see cref="M:Gio.AddWatch"/>.
         ///
         /// You must use <see cref="Destroy"/> for sources
@@ -433,7 +433,7 @@ namespace GISharp.Lib.GLib
         /// </summary>
         /// <remarks>
         /// This is a convenience utility to set source names from the return
-        /// value of <see cref="M:Idle.Add"/>, <see cref="Timeout.Add"/>, etc.
+        /// value of <see cref="M:Idle.Add"/>, <see cref="M:Timeout.Add"/>, etc.
         ///
         /// It is a programmer error to attempt to set the name of a non-existent
         /// source.
@@ -1326,13 +1326,13 @@ namespace GISharp.Lib.GLib
             UnmanagedStruct* source,
             /* <type name="SourceFunc" type="GSourceFunc" managed-name="SourceFunc" /> */
             /* transfer-ownership:none scope:notified closure:1 destroy:2 */
-            IntPtr func,
+            delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean> func,
             /* <type name="gpointer" type="gpointer" managed-name="Gpointer" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 */
             IntPtr data,
             /* <type name="DestroyNotify" type="GDestroyNotify" managed-name="DestroyNotify" /> */
             /* transfer-ownership:none nullable:1 allow-none:1 scope:async */
-            IntPtr notify);
+            delegate* unmanaged[Cdecl]<IntPtr, void> notify);
 
         /// <summary>
         /// Sets the callback function for a source. The callback for a source is
@@ -1343,22 +1343,18 @@ namespace GISharp.Lib.GLib
         /// should not count on @func being called with @data as its first
         /// parameter.
         ///
-        /// See [memory management of sources][mainloop-memory-management] for details
-        /// on how to handle memory management of @data.
-        ///
         /// Typically, you won't use this function. Instead use functions specific
         /// to the type of source you are using.
         /// </remarks>
         /// <param name="func">
         /// the managed callback
         /// </param>
-        /// <param name="marshalToPointer">
-        /// the unmanaged callback marshal to pointer method
-        /// </param>
-        protected void SetCallback<T>(T func, Func<T, CallbackScope, (IntPtr, IntPtr, IntPtr)> marshalToPointer) where T : Delegate
+        public void SetCallback(SourceFunc func)
         {
             var source_ = (UnmanagedStruct*)UnsafeHandle;
-            var (func_, notify_, data_) = marshalToPointer(func, CallbackScope.Notified);
+            var func_ = (delegate* unmanaged[Cdecl]<IntPtr, Runtime.Boolean>)&SourceFuncMarshal.Callback;
+            var data_ = (IntPtr)GCHandle.Alloc((func, CallbackScope.Notified));
+            var notify_ = (delegate* unmanaged[Cdecl]<IntPtr, void>)&GMarshal.DestroyGCHandle;
             g_source_set_callback(source_, func_, data_, notify_);
         }
 

@@ -23298,6 +23298,221 @@ use a custom main context.</doc>
         </gs:managed-parameters>
       </function>
     </gs:static-class>
+    <gs:static-class name="TimeoutSource" gs:managed-name="TimeoutSource">
+      <function name="new" c:identifier="g_timeout_source_new" gs:dll-name="glib-2.0" gs:managed-name="New">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="34490">Creates a new timeout source.
+
+The source will not initially be associated with any #GMainContext
+and must be added to one with g_source_attach() before it will be
+executed.
+
+The interval given is in terms of monotonic time, not wall clock
+time.  See g_get_monotonic_time().</doc>
+        <source-position filename="gmain.h" line="673" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="34503">the newly-created timeout source</doc>
+          <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="interval" transfer-ownership="none" gs:managed-name="interval" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34492">the timeout interval in milliseconds.</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="interval" transfer-ownership="none" gs:managed-name="interval" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34492">the timeout interval in milliseconds.</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="new_seconds" c:identifier="g_timeout_source_new_seconds" version="2.14" gs:dll-name="glib-2.0" gs:managed-name="NewSeconds">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="34507">Creates a new timeout source.
+
+The source will not initially be associated with any #GMainContext
+and must be added to one with g_source_attach() before it will be
+executed.
+
+The scheduling granularity/accuracy of this timeout source will be
+in seconds.
+
+The interval given is in terms of monotonic time, not wall clock time.
+See g_get_monotonic_time().</doc>
+        <source-position filename="gmain.h" line="675" />
+        <return-value transfer-ownership="full" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="34523">the newly-created timeout source</doc>
+          <type name="Source" c:type="GSource*" gs:managed-name="Source" gs:is-pointer="1" />
+        </return-value>
+        <parameters>
+          <parameter name="interval" transfer-ownership="none" gs:managed-name="interval" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34509">the timeout interval in seconds</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="interval" transfer-ownership="none" gs:managed-name="interval" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34509">the timeout interval in seconds</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+    </gs:static-class>
+    <gs:static-class name="Timeout" gs:managed-name="Timeout">
+      <function name="add_full" c:identifier="g_timeout_add_full" shadows="add" gs:dll-name="glib-2.0" gs:managed-name="Add">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="34365">Sets a function to be called at regular intervals, with the given
+priority.  The function is called repeatedly until it returns
+%FALSE, at which point the timeout is automatically destroyed and
+the function will not be called again.  The @notify function is
+called when the timeout is destroyed.  The first call to the
+function will be at the end of the first @interval.
+
+Note that timeout functions may be delayed, due to the processing of other
+event sources. Thus they should not be relied on for precise timing.
+After each call to the timeout function, the time of the next
+timeout is recalculated based on the current time and the given interval
+(it does not try to 'catch up' time lost in delays).
+
+See [memory management of sources][mainloop-memory-management] for details
+on how to handle the return value and memory management of @data.
+
+This internally creates a main loop source using g_timeout_source_new()
+and attaches it to the global #GMainContext using g_source_attach(), so
+the callback will be invoked in whichever thread is running that main
+context. You can do these steps manually if you need greater control or to
+use a custom main context.
+
+The interval given is in terms of monotonic time, not wall clock time.
+See g_get_monotonic_time().</doc>
+        <source-position filename="gmain.h" line="733" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="34400">the ID (greater than 0) of the event source.</doc>
+          <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+        </return-value>
+        <parameters>
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34367">the priority of the timeout source. Typically this will be in
+           the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="interval" transfer-ownership="none" gs:managed-name="interval" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34369">the time between calls to the function, in milliseconds
+            (1/1000ths of a second)</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="function" transfer-ownership="none" scope="notified" closure="3" destroy="4" gs:managed-name="function" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34371">function to call</doc>
+            <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34372">data to pass to @function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="notify" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="notify" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34373">function to call when the timeout is removed, or %NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="interval" transfer-ownership="none" gs:managed-name="interval" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34369">the time between calls to the function, in milliseconds
+            (1/1000ths of a second)</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="function" transfer-ownership="none" scope="notified" closure="3" destroy="4" gs:managed-name="function" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34371">function to call</doc>
+            <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
+          </parameter>
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34367">the priority of the timeout source. Typically this will be in
+           the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+      <function name="add_seconds_full" c:identifier="g_timeout_add_seconds_full" shadows="add_seconds" version="2.14" gs:dll-name="glib-2.0" gs:managed-name="AddSeconds">
+        <doc xml:space="preserve" filename="glib-2.0.c" line="34437">Sets a function to be called at regular intervals, with @priority.
+The function is called repeatedly until it returns %FALSE, at which
+point the timeout is automatically destroyed and the function will
+not be called again.
+
+Unlike g_timeout_add(), this function operates at whole second granularity.
+The initial starting point of the timer is determined by the implementation
+and the implementation is expected to group multiple timers together so that
+they fire all at the same time.
+To allow this grouping, the @interval to the first timer is rounded
+and can deviate up to one second from the specified interval.
+Subsequent timer iterations will generally run at the specified interval.
+
+Note that timeout functions may be delayed, due to the processing of other
+event sources. Thus they should not be relied on for precise timing.
+After each call to the timeout function, the time of the next
+timeout is recalculated based on the current time and the given @interval
+
+See [memory management of sources][mainloop-memory-management] for details
+on how to handle the return value and memory management of @data.
+
+If you want timing more precise than whole seconds, use g_timeout_add()
+instead.
+
+The grouping of timers to fire at the same time results in a more power
+and CPU efficient behavior so if your timer is in multiples of seconds
+and you don't require the first timer exactly one second from now, the
+use of g_timeout_add_seconds() is preferred over g_timeout_add().
+
+This internally creates a main loop source using
+g_timeout_source_new_seconds() and attaches it to the main loop context
+using g_source_attach(). You can do these steps manually if you need
+greater control.
+
+It is safe to call this function from any thread.
+
+The interval given is in terms of monotonic time, not wall clock
+time.  See g_get_monotonic_time().</doc>
+        <source-position filename="gmain.h" line="743" />
+        <return-value transfer-ownership="none" gs:managed-name="ret" direction="in">
+          <doc xml:space="preserve" filename="glib-2.0.c" line="34485">the ID (greater than 0) of the event source.</doc>
+          <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+        </return-value>
+        <parameters>
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34439">the priority of the timeout source. Typically this will be in
+           the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+          <parameter name="interval" transfer-ownership="none" gs:managed-name="interval" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34441">the time between calls to the function, in seconds</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="function" transfer-ownership="none" scope="notified" closure="3" destroy="4" gs:managed-name="function" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34442">function to call</doc>
+            <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
+          </parameter>
+          <parameter name="data" transfer-ownership="none" nullable="1" allow-none="1" gs:managed-name="data" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34443">data to pass to @function</doc>
+            <type name="gpointer" c:type="gpointer" gs:managed-name="System.IntPtr" gs:is-pointer="1" />
+          </parameter>
+          <parameter name="notify" transfer-ownership="none" nullable="1" allow-none="1" scope="async" gs:managed-name="notify" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34444">function to call when the timeout is removed, or %NULL</doc>
+            <type name="DestroyNotify" c:type="GDestroyNotify" gs:managed-name="DestroyNotify" />
+          </parameter>
+        </parameters>
+        <gs:managed-parameters>
+          <parameter name="interval" transfer-ownership="none" gs:managed-name="interval" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34441">the time between calls to the function, in seconds</doc>
+            <type name="guint" c:type="guint" gs:managed-name="System.UInt32" />
+          </parameter>
+          <parameter name="function" transfer-ownership="none" scope="notified" closure="3" destroy="4" gs:managed-name="function" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34442">function to call</doc>
+            <type name="SourceFunc" c:type="GSourceFunc" gs:managed-name="SourceFunc" />
+          </parameter>
+          <parameter name="priority" transfer-ownership="none" gs:default="GISharp.Lib.GLib.Priority.Default" gs:managed-name="priority" direction="in">
+            <doc xml:space="preserve" filename="glib-2.0.c" line="34439">the priority of the timeout source. Typically this will be in
+           the range between #G_PRIORITY_DEFAULT and #G_PRIORITY_HIGH.</doc>
+            <type name="gint" c:type="gint" gs:managed-name="System.Int32" />
+          </parameter>
+        </gs:managed-parameters>
+      </function>
+    </gs:static-class>
     <gs:static-class name="Utility" gs:managed-name="Utility">
       <gs:managed-property name="get_application_name" version="2.2" gs:dll-name="glib-2.0" gs:managed-name="ApplicationName">
         <doc xml:space="preserve" filename="glib-2.0.c" line="17137">Gets a human-readable name for the application, as set by

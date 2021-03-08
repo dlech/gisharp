@@ -18,7 +18,7 @@ namespace GISharp.Test.GLib
                 var timeoutInvoked = false;
                 using var mainLoop = new MainLoop();
 
-                var (id, _) = Timeout.Add(0, () => {
+                var id = Timeout.Add(0, () => {
                     mainLoop.Quit();
                     timeoutInvoked = true;
                     return Source.Remove_;
@@ -45,7 +45,7 @@ namespace GISharp.Test.GLib
                 var timeoutInvoked = false;
                 using var mainLoop = new MainLoop();
 
-                var (id, _) = Timeout.AddSeconds(0, () => {
+                var id = Timeout.AddSeconds(0, () => {
                     mainLoop.Quit();
                     timeoutInvoked = true;
                     return Source.Remove_;

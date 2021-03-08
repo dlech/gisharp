@@ -213,7 +213,7 @@ use <see cref="Source.Destroy()"/> for sources added to a non-default main conte
 <remarks>
 The ID of a <see cref="Source"/> is given by <see cref="Source.GetId()"/>, or will be
 returned by the functions <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/>, g_idle_add(),
-<see cref="Idle.Add(GISharp.Lib.GLib.SourceFunc,int)"/>, g_timeout_add(), g_timeout_add_full(),
+<see cref="Idle.Add(GISharp.Lib.GLib.SourceFunc,int)"/>, g_timeout_add(), <see cref="Timeout.Add(uint,GISharp.Lib.GLib.SourceFunc,int)"/>,
 g_child_watch_add(), g_child_watch_add_full(), g_io_add_watch(), and
 g_io_add_watch_full().
 

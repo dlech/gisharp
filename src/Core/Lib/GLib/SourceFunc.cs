@@ -9,7 +9,7 @@ using GISharp.Runtime;
 namespace GISharp.Lib.GLib
 {
     /// <summary>
-    /// Specifies the type of function passed to <see cref="Timeout.Add"/>,
+    /// Specifies the type of function passed to <see cref="M:Timeout.Add"/>,
     /// and <see cref="M:Idle.Add"/>.
     /// </summary>
     public delegate bool SourceFunc();

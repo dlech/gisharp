@@ -1,0 +1,55 @@
+<declaration>
+
+<member name='TimeoutSource.New(uint)'>
+<summary>
+Creates a new timeout source.
+</summary>
+<remarks>
+<p>
+The source will not initially be associated with any <see cref="MainContext"/>
+and must be added to one with <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/> before it will be
+executed.
+</p>
+<p>
+The interval given is in terms of monotonic time, not wall clock
+time.
+</p>
+</remarks>
+<param name="interval">
+the timeout interval in milliseconds.
+</param>
+<returns>
+the newly-created timeout source
+</returns>
+</member>
+
+<member name='TimeoutSource.NewSeconds(uint)'>
+<summary>
+Creates a new timeout source.
+</summary>
+<remarks>
+<p>
+The source will not initially be associated with any <see cref="MainContext"/>
+and must be added to one with <see cref="Source.Attach(GISharp.Lib.GLib.MainContext)"/> before it will be
+executed.
+</p>
+<p>
+The scheduling granularity/accuracy of this timeout source will be
+in seconds.
+</p>
+<p>
+The interval given is in terms of monotonic time, not wall clock time.
+</p>
+</remarks>
+<param name="interval">
+the timeout interval in seconds
+</param>
+<returns>
+the newly-created timeout source
+</returns>
+</member>
+
+<member name='TimeoutSource'>
+</member>
+
+</declaration>
